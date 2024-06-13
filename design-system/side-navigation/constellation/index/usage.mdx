@@ -4,26 +4,42 @@ order: 2
 
 ## Usage
 
-The side navigation helps people move around within a subsection of a product. For example, navigating through the topics in a Confluence space, or to specific tasks within their Jira project.
+The side navigation helps people move around within a subsection of a product. For example,
+navigating through the topics in a Confluence space, or to specific tasks within their Jira project.
 
-Use the side navigation with the [page layout component](/components/page-layout/examples) to compose your navigation experience. This ensures that you get access to useful accessibility and customization features by default.
+Use the side navigation with the [page layout component](/components/page-layout/examples) to
+compose your navigation experience. This ensures that you get access to useful accessibility and
+customization features by default.
 
 ## Accessibility
 
-- Keep nested navigation levels to a minimum. If you need to use a nested navigation, always provide a "go back" button to help people get out of the menu.
-- Provide a unique `label` for every different navigation in the page layout. Make sure that the navigation label is meaningful and not direction-based. For example, "Current project" not "Left navigation". If it's the same navigation repeated in another place on the page layout, use the same `label`.
-- Don't include the word "navigation" in your `label`. The `<nav>` semantics mean assistive technology will already tell people that they are using a navigation.
+- Keep nested navigation levels to a minimum. If you need to use a nested navigation, always provide
+  a "go back" button to help people get out of the menu.
+- Provide a unique `label` for every different navigation in the page layout. Make sure that the
+  navigation label is meaningful and not direction-based. For example, "Current project" not "Left
+  navigation". If it's the same navigation repeated in another place on the page layout, use the
+  same `label`.
+- Don't include the word "navigation" in your `label`. The `<nav>` semantics mean assistive
+  technology will already tell people that they are using a navigation.
 
 ## Best practices
 
 ### Loading states
 
-Sometimes you'll need to load some of the side navigation content asynchronously. There are a few things to keep in mind:
+Sometimes you'll need to load some of the side navigation content asynchronously. There are a few
+things to keep in mind:
 
-- Only use skeletons when you're certain of what the loaded state will look like. Most items that appear in side navigation are probably fine to use with skeletons, for example, `@atlaskit/tree`.
-- When transitioning from loading skeleton to loaded items, try to ensure the jump doesn't look janky - use the equivalent skeleton item that is appropriate and be careful of things changing size by a few pixels. We should be striving for UI that feels **stable**, which means it doesn't jump around when content loads.
-- Ensure loading does not take too long - try to anticipate if people will look at your menu via hover events and pre-load the data as soon as possible.
-- When the content is loading in, make sure it all loads in at the same time - our minds aren't fast enough to distinguish each item loading individually, for example, and it appears slower to most people.
+- Only use skeletons when you're certain of what the loaded state will look like. Most items that
+  appear in side navigation are probably fine to use with skeletons, for example, `@atlaskit/tree`.
+- When transitioning from loading skeleton to loaded items, try to ensure the jump doesn't look
+  janky - use the equivalent skeleton item that is appropriate and be careful of things changing
+  size by a few pixels. We should be striving for UI that feels **stable**, which means it doesn't
+  jump around when content loads.
+- Ensure loading does not take too long - try to anticipate if people will look at your menu via
+  hover events and pre-load the data as soon as possible.
+- When the content is loading in, make sure it all loads in at the same time - our minds aren't fast
+  enough to distinguish each item loading individually, for example, and it appears slower to most
+  people.
 
 ## Related
 

@@ -61,6 +61,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 
 		return (
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={optionsWrapperStyles}>
 					<Select
 						options={imageIds}
@@ -84,6 +85,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 						onChange={this.onHeightChange}
 					/>
 				</div>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={mediaImageWrapperStyles}>
 					<MediaImage
 						identifier={imageId.value}

@@ -121,7 +121,7 @@
     "@atlaskit/mention": "23.2.0",
     "@atlaskit/profilecard": "^19.14.0",
     "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.49.0",
+    "@atlaskit/tokens": "^1.50.0",
     "@atlaskit/user-picker": "10.21.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",

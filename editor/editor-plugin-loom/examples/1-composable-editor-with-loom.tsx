@@ -7,6 +7,7 @@ import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { loomPlugin } from '@atlaskit/editor-plugins/loom';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
+import { widthPlugin } from '@atlaskit/editor-plugins/width';
 
 import { getLoomProvider } from './utils/provider/loom-provider';
 
@@ -17,6 +18,7 @@ function Editor() {
 			.add(typeAheadPlugin)
 			.add(quickInsertPlugin)
 			.add(hyperlinkPlugin)
+			.add(widthPlugin)
 			.add([
 				loomPlugin,
 				getLoomProvider({

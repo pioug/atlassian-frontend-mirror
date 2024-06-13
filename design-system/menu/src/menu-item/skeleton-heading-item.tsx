@@ -15,6 +15,7 @@ import type { SkeletonHeadingItemProps } from '../types';
 const skeletonStyles = css({
 	paddingBlock: token('space.0', '0px'),
 	paddingInline: token('space.200', '16px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::after': {
 		display: 'block',
 		width: '30%',
@@ -26,12 +27,14 @@ const skeletonStyles = css({
 });
 
 const defaultWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::after': {
 		width: '30%',
 	},
 });
 
 const customWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::after': {
 		width: 'var(--width)',
 	},
@@ -62,7 +65,8 @@ const SkeletonHeadingItem = ({
 		'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
 	)
 		? undefined
-		: css(cssFn(undefined));
+		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			css(cssFn(undefined));
 
 	return (
 		<SkeletonShimmer isShimmering={isShimmering}>
@@ -74,6 +78,7 @@ const SkeletonHeadingItem = ({
 					style={
 						{
 							'--width': width,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						} as CSSProperties
 					}
 					css={[

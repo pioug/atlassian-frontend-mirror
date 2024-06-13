@@ -9,47 +9,42 @@ import PortalStackingContextExample from '../../examples/constellation/portal-st
 import PortalEventExamples from '../../examples/constellation/portal-event';
 import PortalComplexLayeringExample from '../../examples/constellation/portal-complex-layering';
 
-<SectionMessage>
-  Open the examples below in Codesandbox for a full-page experience.
-</SectionMessage>
+<SectionMessage>Open the examples below in Codesandbox for a full-page experience.</SectionMessage>
 
 ## Default
 
-The default example of a portal. See [React portals documentation](https://reactjs.org/docs/portals.html) for details.
+The default example of a portal. See
+[React portals documentation](https://reactjs.org/docs/portals.html) for details.
 
-Portals render parts of a React component tree into a different part of the DOM.
-This is useful for UI components that need to appear over the top of other components, such as [modal dialog](/components/modal-dialog/examples), [flag](/components/flag/examples) and [tooltip](/components/tooltip/examples).
+Portals render parts of a React component tree into a different part of the DOM. This is useful for
+UI components that need to appear over the top of other components, such as
+[modal dialog](/components/modal-dialog/examples), [flag](/components/flag/examples) and
+[tooltip](/components/tooltip/examples).
 
-<Example
-  Component={PortalDefaultExample}
-  appearance="source-only"
-  packageName="@atlaskit/portal"
-/>
+<Example Component={PortalDefaultExample} appearance="source-only" packageName="@atlaskit/portal" />
 
 ## Stacking context
 
-Each portal component creates a new [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context).
+Each portal component creates a new
+[stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context).
 Elements rendered with z-indexes inside the portal are scoped to that context.
 
 <Example
-  Component={PortalStackingContextExample}
-  appearance="source-only"
-  packageName="@atlaskit/portal"
+	Component={PortalStackingContextExample}
+	appearance="source-only"
+	packageName="@atlaskit/portal"
 />
 
 ## Portal events
 
-Mount and unmount events fire when portal elements are added or removed.
-These events contain the type of element and its z-index.
+Mount and unmount events fire when portal elements are added or removed. These events contain the
+type of element and its z-index.
 
-This package exports `PORTAL_MOUNT_EVENT` and `PORTAL_UNMOUNT_EVENT` constants, as well as the type of the event itself, `PortalEvent`.
-Due to custom events not being supported in IE11, we create a native event and add a detail object manually to the event.
+This package exports `PORTAL_MOUNT_EVENT` and `PORTAL_UNMOUNT_EVENT` constants, as well as the type
+of the event itself, `PortalEvent`. Due to custom events not being supported in IE11, we create a
+native event and add a detail object manually to the event.
 
-<Example
-  Component={PortalEventExamples}
-  appearance="source-only"
-  packageName="@atlaskit/portal"
-/>
+<Example Component={PortalEventExamples} appearance="source-only" packageName="@atlaskit/portal" />
 
 ```
 Example `PortalEvent`:
@@ -66,10 +61,11 @@ Example `PortalEvent`:
 
 ## Complex layering
 
-This example shows off all components that rely on portalling and layering to appear in the expected order.
+This example shows off all components that rely on portalling and layering to appear in the expected
+order.
 
 <Example
-  Component={PortalComplexLayeringExample}
-  appearance="source-only"
-  packageName="@atlaskit/portal"
+	Component={PortalComplexLayeringExample}
+	appearance="source-only"
+	packageName="@atlaskit/portal"
 />

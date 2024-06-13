@@ -1,5 +1,14 @@
 # @atlaskit/eslint-utils
 
+## 1.6.1
+
+### Patch Changes
+
+- [#110975](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110975)
+  [`47a912f14bb6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47a912f14bb6f) -
+  Fixed a bug in `walkStyleProperties` that could result in `styled(BaseComponent)({})` styles to
+  not be linted.
+
 ## 1.6.0
 
 ### Minor Changes

@@ -23,6 +23,7 @@ export const SearchResultsContainer = forwardRef<HTMLDivElement, SearchResultsCo
 			? minHeight
 			: 'auto';
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		return <MinHeightContainer ref={ref} minHeight={ffMinHeight} css={flexColumn} {...props} />;
 	},
 );

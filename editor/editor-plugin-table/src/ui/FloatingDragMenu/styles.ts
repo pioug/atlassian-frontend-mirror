@@ -5,7 +5,12 @@ import { N60A, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../../types';
-import { dragMenuDropdownWidth } from '../consts';
+import {
+	dragMenuDropdownWidth,
+	TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT,
+	TABLE_DRAG_MENU_PADDING_TOP,
+	TABLE_DRAG_MENU_SORT_GROUP_HEIGHT,
+} from '../consts';
 
 export const cellColourPreviewStyles = (selectedColor: string) =>
 	css({
@@ -21,15 +26,21 @@ export const elementBeforeIconStyles = css({
 	display: 'flex',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
-export const dragMenuBackgroundColorStyles = css`
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+export const dragMenuBackgroundColorStyles = (
+	tableSortColumnDiscoverability: boolean = false,
+) => css`
 	.${ClassName.DRAG_SUBMENU} {
 		border-radius: ${token('border.radius', '3px')};
 		background: ${token('elevation.surface.overlay', 'white')};
 		box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
 		display: block;
 		position: absolute;
-		top: 0;
+		top: ${tableSortColumnDiscoverability
+			? TABLE_DRAG_MENU_PADDING_TOP +
+				TABLE_DRAG_MENU_SORT_GROUP_HEIGHT +
+				TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT
+			: 0}px; // move the submenu down when 'sort increasing/decreasing' appear before background color picker
 		left: ${dragMenuDropdownWidth}px;
 		padding: ${token('space.100', '8px')};
 

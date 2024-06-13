@@ -19,6 +19,7 @@ import type { CodeProps } from './types';
  */
 const Code = memo(
 	forwardRef<HTMLElement, CodeProps>(function Code({ testId, ...props }, ref) {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		const styles = css(getCodeStyles());
 		const {
 			children,

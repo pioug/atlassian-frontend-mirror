@@ -12,9 +12,11 @@ const filmStripViewStyles = css({
 	position: 'relative',
 	padding: `${token('space.025', '3px')} 0`,
 	borderRadius: '3px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:hover .arrow': {
 		opacity: 1,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.ellipsed-text': {
 		whiteSpace: 'initial',
 	},
@@ -39,6 +41,7 @@ const filmStripListItemStyles = css({
 	listStyleType: 'none',
 	margin: 0,
 	padding: `0 ${token('space.050', '4px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':first-child': {
 		paddingLeft: 0,
 	},
@@ -71,21 +74,26 @@ const arrowWrapperStyles = css({
 		color: token('color.text.selected', B400),
 		backgroundColor: token('color.background.selected', B50),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
 		height: '30px',
 		width: '20px',
 	},
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const arrowLeftWrapperStyles = css(arrowWrapperStyles, {
 	left: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
 		paddingRight: token('space.025', '2px'),
 	},
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const arrowRightWrapperStyles = css(arrowWrapperStyles, {
 	right: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
 		paddingLeft: token('space.025', '2px'),
 	},
@@ -100,10 +108,12 @@ const shadowStyles = css({
 	backgroundColor: token('color.border', 'rgba(0, 0, 0, 0.2)'),
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const shadowLeftStyles = css(shadowStyles, {
 	left: 0,
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const shadowRightStyles = css(shadowStyles, {
 	right: 0,
 });

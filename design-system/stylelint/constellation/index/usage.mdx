@@ -2,15 +2,25 @@
 order: 0
 ---
 
-Design tokens are supported by linting rules, which warn you if a token is deprecated, missing, or has no fallback style. Design token lint rules are provided by the Design System <a href="/components/eslint-plugin-design-system/usage">ESLint</a> and Stylelint plugins.
+import Link from '@atlaskit/link';
 
-If you are an Atlassian employee, you must configure the lint rule in your repository and keep it up-to-date. If you are a partner developer, we strongly recommend you to use it as well.
+Design tokens are supported by linting rules, which warn you if a token is deprecated, missing, or
+has no fallback style. Design token lint rules are provided by the Design System
 
-Follow the <a href="/get-started/develop/using-tokens-in-code#eslint-plugin">Get started</a> guide to get started with Design Tokens, and set up the ESLint plugin.
+<Link href="/components/eslint-plugin-design-system/usage">ESLint</Link> and Stylelint plugins.
+
+If you are an Atlassian employee, you must configure the lint rule in your repository and keep it
+up-to-date. If you are a partner developer, we strongly recommend you to use it as well.
+
+Follow the <Link href="/get-started/develop/using-tokens-in-code#eslint-plugin">Get started</Link>
+guide to get started with Design Tokens, and set up the ESLint plugin.
 
 ## ensure-design-token-usage
 
-Ensures that the codebase uses the global `token` function for color and spacing values, rather than hard-coded values. This ruleset is great for codebases that are starting to adopt tokens and those that have already adopted tokens. This ruleset also prevents new contributors from accidentally adding hard-coded color or spacing values.
+Ensures that the codebase uses the global `token` function for color and spacing values, rather than
+hard-coded values. This ruleset is great for codebases that are starting to adopt tokens and those
+that have already adopted tokens. This ruleset also prevents new contributors from accidentally
+adding hard-coded color or spacing values.
 
 ### Do
 
@@ -30,7 +40,8 @@ padding: var(--ds-space-100) var(--ds-space-200);
 
 ### Don't
 
-Don't use hard-coded CSS colors, hexadecimal spacing values, or any values that aren’t current tokens.
+Don't use hard-coded CSS colors, hexadecimal spacing values, or any values that aren’t current
+tokens.
 
 ```css
 color: red;

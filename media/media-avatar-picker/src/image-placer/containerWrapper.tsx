@@ -4,6 +4,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { checkeredBg } from './styles';
 
 const containerWrapperStyles = xcss({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	background: `url('${checkeredBg}')`,
 	position: `relative`,
 	cursor: `move`,
@@ -25,7 +26,9 @@ export const ContainerWrapper = ({
 	...props
 }: ContainerWrapperProps) => {
 	const containerWrapperDimensions = xcss({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width !== undefined ? width! + margin * 2 : 0}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${height !== undefined ? height! + margin * 2 : 0}px`,
 	});
 

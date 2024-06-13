@@ -110,4 +110,18 @@ ${code`
   <div style={{border-color: cssValue}} />
 `}
 
+### \`hexToEditorTextBackgroundPaletteColor\`
+
+This takes an adf hex color and returns a matching text background palette color.
+
+By providing a design token, this enables ADF content to be rendered in new themes such as dark mode.
+
+#### Example usage
+
+${code`
+  const cssValue = hexToEditorTextBackgroundPaletteColor('#D3F1A7');
+  //     ^? const cssValue: string
+  <div style={{backgroundColor: cssValue}} />
+`}
+
 `;

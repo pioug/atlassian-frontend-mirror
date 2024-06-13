@@ -20,48 +20,54 @@ import LinkIconButtonSelected from '../../examples/constellation/new-button/link
 
 ## Default
 
-For buttons that are links for navigation rather than on-page actions. Link icon buttons render an `<a>` tag instead of a `<button>`. They accept anchor tag HTML attributes, including `href`.
+For buttons that are links for navigation rather than on-page actions. Link icon buttons render an
+`<a>` tag instead of a `<button>`. They accept anchor tag HTML attributes, including `href`.
 
 <Example Component={LinkIconButton} packageName="@atlaskit/button" />
 
 ## Routing
 
-When available, link icon button will consume the router link component configured in the **app provider**. This allows router links to be configured once across an entire application. (This replaces [the component prop](/components/button/button-legacy/examples#routing)).
+When available, link icon button will consume the router link component configured in the **app
+provider**. This allows router links to be configured once across an entire application. (This
+replaces [the component prop](/components/button/button-legacy/examples#routing)).
 
-These links won't use the configured router link component when passed to `href`, and instead render a standard `<a>` tag:
+These links won't use the configured router link component when passed to `href`, and instead render
+a standard `<a>` tag:
 
 - External links
 - Non-HTTP-based links (`mailto:`, `tel:`, `sms:`)
 - Anchor / hash links (`#`)
 
-If your application doesn't have an existing app provider or `routerLinkComponent` configuration, see how to set this up in [the app provider documentation](/components/app-provider/examples#router-links).
+If your application doesn't have an existing app provider or `routerLinkComponent` configuration,
+see how to set this up in
+[the app provider documentation](/components/app-provider/examples#router-links).
 
 ## Tooltips
 
 <SectionMessage appearance="information">
-  Tooltips are currently disabled by default. They will be enabled by default in
-  a later release. Prefer using built-in tooltips over wrapping the link icon
-  button manually.
+	Tooltips are currently disabled by default. They will be enabled by default in a later release.
+	Prefer using built-in tooltips over wrapping the link icon button manually.
 </SectionMessage>
 
-Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the tooltip content.
+Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the
+tooltip content.
 
 <Example Component={LinkIconButtonTooltip} packageName="@atlaskit/button" />
 
 ### Overriding tooltip props
 
-Use the `tooltip` prop to override the default tooltip props. It accepts all [tooptip props](/components/tooltip/code), excluding `children`.
+Use the `tooltip` prop to override the default tooltip props. It accepts all
+[tooptip props](/components/tooltip/code), excluding `children`.
 
-<Example
-  Component={LinkIconButtonTooltipOptions}
-  packageName="@atlaskit/button"
-/>
+<Example Component={LinkIconButtonTooltipOptions} packageName="@atlaskit/button" />
 
 ## Appearance
 
 ### Primary
 
-A primary button calls attention to the most important action on a page or in an area. Primary icon buttons aren't common because critical actions should typically use [a button with a label for clarity](/components/button).
+A primary button calls attention to the most important action on a page or in an area. Primary icon
+buttons aren't common because critical actions should typically use
+[a button with a label for clarity](/components/button).
 
 <Example Component={LinkIconButtonPrimary} packageName="@atlaskit/button" />
 
@@ -73,7 +79,8 @@ Use a `subtle` icon button for secondary actions.
 
 ## Spacing
 
-Icon button spacing depends on the surrounding UI. Default spacing is used for most use cases and `compact` for tables or smaller spaces.
+Icon button spacing depends on the surrounding UI. Default spacing is used for most use cases and
+`compact` for tables or smaller spaces.
 
 <Example Component={LinkIconButtonSpacing} packageName="@atlaskit/button" />
 
@@ -81,7 +88,8 @@ Icon button spacing depends on the surrounding UI. Default spacing is used for m
 
 ### Circle
 
-Only use circle icon buttons in the top navigation or other areas that already have circular buttons.
+Only use circle icon buttons in the top navigation or other areas that already have circular
+buttons.
 
 <Example Component={LinkIconButtonCircle} packageName="@atlaskit/button" />
 
@@ -89,26 +97,25 @@ Only use circle icon buttons in the top navigation or other areas that already h
 
 Use the `icon` render prop to override the default icon props.
 
-<Example
-  Component={LinkIconButtonIconOverrides}
-  packageName="@atlaskit/button"
-/>
+<Example Component={LinkIconButtonIconOverrides} packageName="@atlaskit/button" />
 
 ## Advanced href usage with TypeScript
 
-Link button accepts a generic type containing the configured router link's props. This is only required for advanced usage to allow an object to be passed to `href`.
+Link button accepts a generic type containing the configured router link's props. This is only
+required for advanced usage to allow an object to be passed to `href`.
 
 <Example
-  Component={LinkIconButtonWithRouting}
-  packageName="@atlaskit/button"
-  appearance="source-only"
+	Component={LinkIconButtonWithRouting}
+	packageName="@atlaskit/button"
+	appearance="source-only"
 />
 
 ## States
 
 ### Disabled
 
-The `disabled` HTML attribute does not exist for anchor `<a>` tags, so link buttons are disabled using this accessible technique:
+The `disabled` HTML attribute does not exist for anchor `<a>` tags, so link buttons are disabled
+using this accessible technique:
 
 - Adds `aria-disabled="true"`
 - Adds `role="link"`

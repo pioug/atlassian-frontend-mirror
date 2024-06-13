@@ -202,6 +202,7 @@ describe('Highlight', () => {
 				{...props}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="testClassName"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				css={css(style)}
 				text={javaCodeLine}
 			/>

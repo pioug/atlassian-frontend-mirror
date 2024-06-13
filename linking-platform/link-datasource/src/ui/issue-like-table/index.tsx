@@ -49,6 +49,7 @@ const tableHeadStyles = css({
 	background: token('utility.elevation.surface.current', '#FFF'),
 	position: 'sticky',
 	top: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: stickyTableHeadersIndex,
 });
 
@@ -61,6 +62,7 @@ const truncateTextStyles = css({
 const columnPickerWidth = 80;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ColumnPickerHeader = styled.th({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginHeaderPrefix('&:last-of-type')}`]: {
 		boxSizing: 'border-box',
 		border: 0,
@@ -90,8 +92,10 @@ const truncateStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TableCell = styled.td({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginBodyPrefix()}`]: {
 		/* First section here is to override things editor table plugin css defines */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		font: fieldTextFontSize,
 		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 		border: 0,
@@ -102,15 +106,18 @@ const TableCell = styled.td({
 		borderBottom: `0.5px solid ${token('color.border', N40)}`,
 		overflow: 'hidden',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginBodyPrefix('&:first-child')}`]: {
 		paddingLeft: token('space.100', '8px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginBodyPrefix('&:last-child')}`]: {
 		borderRight: 0,
 		paddingRight: token('space.100', '8px'),
 	},
 	// Inline smart links are pretty opinionated about word-wrapping.
 	// We want it to be controlled by user, so we make it overflow and truncate by default.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	["& [data-testid='inline-card-icon-and-title'], " +
 	"& [data-testid='button-connect-account'] > span"]: {
 		whiteSpace: 'unset',
@@ -263,10 +270,15 @@ const scrollableContainerStyles = css({
 	overflow: 'auto',
 	boxSizing: 'border-box',
 	backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundPosition: scrollableContainerShadowsCssComponents.backgroundPosition,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundAttachment: scrollableContainerShadowsCssComponents.backgroundAttachment,
 });
 
@@ -287,6 +299,7 @@ const noDefaultBorderStyles = css({
 });
 
 const headerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
 	fontWeight: token('font.weight.medium', '500'),
 });
@@ -790,7 +803,7 @@ export const IssueLikeDataTableView = ({
 									<TableHeading
 										key={key}
 										data-testid={`${key}-column-heading`}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										style={getWidthCss({ shouldUseWidth, width })}
 									>
 										{heading}

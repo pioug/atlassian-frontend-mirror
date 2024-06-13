@@ -16,12 +16,13 @@ const skeletonCreateButtonStyles = css({
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium'),
 	pointerEvents: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus, :active, :hover': {
 		appearance: 'none',
 		border: 0,
 		outline: 0,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		marginInlineStart: token('space.150', '12px'),
 	},

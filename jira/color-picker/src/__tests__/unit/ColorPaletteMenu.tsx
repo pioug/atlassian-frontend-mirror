@@ -3,10 +3,17 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ColorPaletteMenuWithoutAnalytics as ColorPaletteMenu } from '../..';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { type MessageDescriptor } from 'react-intl-next';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<typeof getBooleanFF>;
 
+jest.mock('react-intl-next', () => ({
+	...jest.requireActual('react-intl-next'),
+	useIntl: () => ({
+		formatMessage: jest.fn((args: MessageDescriptor) => args.defaultMessage),
+	}),
+}));
 describe('ColorPaletteMenu', () => {
 	const mockFn = jest.fn();
 
@@ -24,8 +31,8 @@ describe('ColorPaletteMenu', () => {
 		jest.resetAllMocks();
 	});
 
-	test('should render ColorPaletteMenu with ColorCard', () => {
-		const { getByRole, getAllByRole } = renderUI();
+	test('should render ColorPaletteMenu with ColorCard', async () => {
+		const { getByRole, getAllByRole, findByText } = renderUI();
 
 		const colorPaletteMenu = getByRole('radiogroup');
 		expect(colorPaletteMenu).toBeInTheDocument();
@@ -33,7 +40,9 @@ describe('ColorPaletteMenu', () => {
 
 		const colorCard = getAllByRole('radio');
 		expect(colorCard).toHaveLength(2);
-		expect(colorCard[0]).toHaveAttribute('aria-label', 'Blue');
+		colorCard[0].focus();
+		const ariaLabelText = await findByText('Blue');
+		expect(ariaLabelText).toBeInTheDocument();
 		expect(colorCard[0]).toHaveAttribute('aria-checked', 'true');
 	});
 
@@ -75,11 +84,10 @@ describe('ColorPaletteMenu', () => {
 
 			const colorCard = getAllByRole('radio');
 			expect(colorCard).toHaveLength(2);
+			colorCard[0].focus();
+			const ariaLabelText = await findByText('Blue');
+			expect(ariaLabelText).toBeInTheDocument();
 			expect(colorCard[0]).toHaveAttribute('aria-checked', 'true');
-
-			await userEvent.click(colorCard[0]);
-			const blueOption = await findByText('Blue');
-			expect(blueOption).toBeInTheDocument();
 		});
 
 		test('should call onChange prop onClick and onKeydown', async () => {

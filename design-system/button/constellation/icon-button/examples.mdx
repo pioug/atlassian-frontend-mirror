@@ -1,6 +1,7 @@
 ---
 title: Icon button
-description: An icon-only button lets people take a common and recognizable action where space is limited.
+description:
+  An icon-only button lets people take a common and recognizable action where space is limited.
 order: 0
 ---
 
@@ -21,25 +22,27 @@ import IconButtonLoading from '../../examples/constellation/new-button/icon-butt
 
 ## Default
 
-The default icon button, used for most cases. They aren't impactful enough to represent a primary action.
+The default icon button, used for most cases. They aren't impactful enough to represent a primary
+action.
 
 <Example Component={IconButtonDefault} packageName="@atlaskit/button" />
 
 ## Tooltips
 
 <SectionMessage appearance="information">
-  Tooltips are currently disabled by default. They will be enabled by default in
-  a later release. Prefer using built-in tooltips over wrapping the icon button
-  manually.
+	Tooltips are currently disabled by default. They will be enabled by default in a later release.
+	Prefer using built-in tooltips over wrapping the icon button manually.
 </SectionMessage>
 
-Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the tooltip content.
+Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the
+tooltip content.
 
 <Example Component={IconButtonTooltip} packageName="@atlaskit/button" />
 
 ### Overriding tooltip props
 
-Use the `tooltip` prop to override the default tooltip props. It accepts all [tooptip props](/components/tooltip/code), excluding `children`.
+Use the `tooltip` prop to override the default tooltip props. It accepts all
+[tooptip props](/components/tooltip/code), excluding `children`.
 
 <Example Component={IconButtonTooltipOptions} packageName="@atlaskit/button" />
 
@@ -47,7 +50,9 @@ Use the `tooltip` prop to override the default tooltip props. It accepts all [to
 
 ### Primary
 
-A primary button calls attention to the most important action on a page or in an area. Primary icon buttons aren't common because critical actions should typically use [a button with a label for clarity](/components/button/button-new).
+A primary button calls attention to the most important action on a page or in an area. Primary icon
+buttons aren't common because critical actions should typically use
+[a button with a label for clarity](/components/button/button-new).
 
 <Example Component={IconButtonPrimary} packageName="@atlaskit/button" />
 
@@ -59,7 +64,8 @@ Use a `subtle` icon button for secondary actions.
 
 ## Spacing
 
-Icon button spacing depends on the surrounding UI. Default spacing is used for most use cases and `compact` for tables or smaller spaces.
+Icon button spacing depends on the surrounding UI. Default spacing is used for most use cases and
+`compact` for tables or smaller spaces.
 
 <Example Component={IconButtonSpacing} packageName="@atlaskit/button" />
 
@@ -67,7 +73,8 @@ Icon button spacing depends on the surrounding UI. Default spacing is used for m
 
 ### Circle
 
-Only use circle icon buttons in the top navigation or other areas that already have circular buttons.
+Only use circle icon buttons in the top navigation or other areas that already have circular
+buttons.
 
 <Example Component={IconButtonCircle} packageName="@atlaskit/button" />
 
@@ -81,9 +88,11 @@ Use the `icon` render prop to override the default icon props.
 
 ### Disabled
 
-Set `isDisabled` to disable an icon button that shouldn't be actionable. The icon button will appear faded and won't respond to user interaction.
+Set `isDisabled` to disable an icon button that shouldn't be actionable. The icon button will appear
+faded and won't respond to user interaction.
 
-Avoid disabling buttons because this can cause accessibility problems, and [never put a tooltip on a disabled button](/components/button-new/usage#do-not-put-tooltips-on-disabled-buttons).
+Avoid disabling buttons because this can cause accessibility problems, and
+[never put a tooltip on a disabled button](/components/button-new/usage#do-not-put-tooltips-on-disabled-buttons).
 
 <Example Component={IconButtonDisabled} packageName="@atlaskit/button" />
 
@@ -95,6 +104,7 @@ Set `isSelected` to indicate the button is selected.
 
 ### Loading
 
-When a button is still loading and not actionable, a loading spinner can be displayed in place of the icon. This also disables the button and blocks user interaction.
+When a button is still loading and not actionable, a loading spinner can be displayed in place of
+the icon. This also disables the button and blocks user interaction.
 
 <Example Component={IconButtonLoading} packageName="@atlaskit/button" />

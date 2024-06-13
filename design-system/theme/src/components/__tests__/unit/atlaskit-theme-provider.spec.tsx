@@ -83,7 +83,9 @@ describe('<AtlaskitThemeProvider />', () => {
 		const rerender = render(
 			<>
 				<head>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 					<style id="start" />
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 					<style id="end" />
 				</head>
 				<body>
@@ -102,7 +104,9 @@ describe('<AtlaskitThemeProvider />', () => {
 		const rerender = render(
 			<>
 				<head>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 					<style id="start" />
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 					<style id="end" />
 				</head>
 				<body>
@@ -123,7 +127,9 @@ describe('<AtlaskitThemeProvider />', () => {
 		const rerender = render(
 			<>
 				<head>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 					<style data-emotion="css" />
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 					<style data-styled-components="css" />
 				</head>
 				<body>

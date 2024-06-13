@@ -3,7 +3,9 @@ import { token } from '@atlaskit/tokens';
 import { N800 } from '@atlaskit/theme/colors';
 import { getTruncateStyles } from '../../../../utils';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const dropdownItemGroupStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
 		width: '220px',
 		'&:hover': {
@@ -23,9 +25,11 @@ const sharedBlockStyles = css({
 	alignItems: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const contentStyles = css(sharedBlockStyles, {
 	marginTop: token('space.025', '2px'),
 	alignItems: 'flex-start',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span, > div': {
 		fontSize: '0.875rem',
 		lineHeight: '1.25rem',
@@ -33,6 +37,7 @@ export const contentStyles = css(sharedBlockStyles, {
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const linkStyles = css(sharedBlockStyles, {
 	cursor: 'pointer',
 	fontSize: '0.875rem',
@@ -47,5 +52,6 @@ export const textStyles = (maxLines: number) =>
 			lineHeight: '1rem',
 			whiteSpace: 'normal',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getTruncateStyles(maxLines),
 	);

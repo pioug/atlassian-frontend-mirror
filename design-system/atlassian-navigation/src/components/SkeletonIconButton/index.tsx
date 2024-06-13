@@ -9,24 +9,28 @@ import { type SkeletonIconButtonProps } from './types';
 
 const skeletonIconButtonStyles = css({
 	margin: 0,
+	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 	marginRight: token('space.050', '4px'),
 	padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 	border: 0,
 	borderRadius: token('border.radius.circle', '100%'),
 	pointerEvents: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus, :active, :hover': {
 		appearance: 'none',
 		border: 0,
 		outline: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:only-of-type': {
+		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 		marginRight: 0,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
 		lineHeight: 'normal',
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > img': {
 		width: 24,
 		height: 24,

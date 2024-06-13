@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { xcss } from '../src';
-import UNSAFE_ANCHOR from '../src/components/anchor';
+import Anchor from '../src/components/anchor';
 
 const anchorStyles = xcss({
 	borderRadius: 'border.radius.100',
@@ -15,7 +15,7 @@ const anchorStyles = xcss({
 
 export default function Default() {
 	return (
-		<UNSAFE_ANCHOR
+		<Anchor
 			testId="anchor-styled"
 			href="/home"
 			backgroundColor="color.background.brand.bold"
@@ -23,6 +23,6 @@ export default function Default() {
 			xcss={anchorStyles}
 		>
 			I am an anchor
-		</UNSAFE_ANCHOR>
+		</Anchor>
 	);
 }

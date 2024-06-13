@@ -25,9 +25,10 @@ export const ActionList = ({ items }: ActionListProps) => {
 
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={mq({
 				display: 'flex',
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				marginTop: [gs(2), 0],
 			})}
 		>
@@ -37,7 +38,7 @@ export const ActionList = ({ items }: ActionListProps) => {
 				))}
 			</ButtonGroup>
 			{actionsToList.length ? (
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={{ marginLeft: gs(0.5) }}>
 					<DropdownMenu
 						trigger={({ triggerRef, ...props }) => (

@@ -6,6 +6,7 @@ import { Provider, Card, Client } from '../src';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InheritDimensionWrapper = styled.div({
 	height: '300px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.loader-wrapper': {
 		height: '100%',
 	},

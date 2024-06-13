@@ -6,18 +6,19 @@ import styled from '@emotion/styled';
 
 const overlayZindex = layers.modal() + 10;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Blanket = styled.div({
 	position: 'fixed',
 	top: 0,
 	left: 0,
 	bottom: 0,
 	right: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: overlayZindex,
 });
 Blanket.displayName = 'Blanket';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SpinnerWrapper = styled.div({
 	position: 'absolute',
 	top: '50%',

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "DEPRECATED. Use @atlaskit/primitives. An experimental package for exploration and validation of spacing / typography foundations.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -26,7 +26,7 @@
     "prepare": "yarn ak-postbuild"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.49.0",
+    "@atlaskit/tokens": "^1.50.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

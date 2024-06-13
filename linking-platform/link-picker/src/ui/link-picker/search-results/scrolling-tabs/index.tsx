@@ -133,9 +133,10 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 	};
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={containerStyles} ref={ref} data-testid="scrolling-tabs">
 			{conditionalButtons.back && (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div className="back" css={backButtonStyles}>
 					<Button
 						data-test-id="back"
@@ -145,8 +146,10 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 					></Button>
 				</div>
 			)}
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={scrollingContainerStyles}>{props.children}</div>
 			{conditionalButtons.forward && (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={nextButtonStyles}>
 					<Button
 						data-test-id="forward"

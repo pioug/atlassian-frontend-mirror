@@ -17,6 +17,7 @@ const onClick = () => console.log('onClick');
 export default () => (
 	<MainWrapper>
 		<div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video large [disableOverlay=true] width=500 height=300</h1>
 				<Card
@@ -29,6 +30,7 @@ export default () => (
 				/>
 			</div>
 
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>
 					video large [disableOverlay=true] width=500 height=300 (but with constraining box of 250px
@@ -46,6 +48,7 @@ export default () => (
 					/>
 				</div>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>Image file [disableOverlay=true]</h1>
 				<Card
@@ -55,6 +58,7 @@ export default () => (
 					onClick={onClick}
 				/>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>Image file [disableOverlay=true] [useInlinePlayer=true]</h1>
 				<Card
@@ -65,6 +69,7 @@ export default () => (
 					useInlinePlayer={true}
 				/>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video [disableOverlay=true] no dimensions</h1>
 				<Card
@@ -75,6 +80,7 @@ export default () => (
 					useInlinePlayer={true}
 				/>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video [disableOverlay=true] width=100% height=300</h1>
 				<Card
@@ -86,6 +92,7 @@ export default () => (
 					useInlinePlayer={true}
 				/>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video horizontal [disableOverlay=true] width=500 height=300</h1>
 				<Card
@@ -97,6 +104,7 @@ export default () => (
 					useInlinePlayer={true}
 				/>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video horizontal width=200 height=500</h1>
 				<Card
@@ -107,6 +115,7 @@ export default () => (
 					useInlinePlayer={true}
 				/>
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video horizontal no dimensions</h1>
 				<Card

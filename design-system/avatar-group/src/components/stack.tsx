@@ -13,17 +13,18 @@ const gutter = BORDER_WIDTH * 2 + gridSize() / 2;
 const listStyles = css({
 	display: 'flex',
 	margin: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	marginRight: gutter,
 	padding: token('space.0', '0px'),
 	lineHeight: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	listStyleType: 'none !important',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	marginInlineEnd: gutter,
 });
 
 const listItemStyles = css({
 	margin: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	marginRight: -gutter,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	marginInlineEnd: -gutter,
 });
 
 const Stack: FC<{

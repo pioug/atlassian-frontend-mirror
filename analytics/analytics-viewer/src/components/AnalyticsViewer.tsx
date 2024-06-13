@@ -13,9 +13,11 @@ type Props = {
 const AnalyticsViewerWrapper = styled.ul({
 	listStyle: 'none',
 	padding: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'& li:nth-child(even)': {
 		backgroundColor: '#fff',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'& li:nth-child(odd)': {
 		backgroundColor: '#eee',
 	},

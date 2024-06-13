@@ -18,6 +18,7 @@ import { userTypeMessages } from './messages';
 const userWrapperStyles = xcss({
 	display: 'flex',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: `${fieldTextFontSize}px`,
 });
 
@@ -31,7 +32,9 @@ const widthObserverWrapperStyles = xcss({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const AvatarGroupWrapperStyles = styled.div({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	ul: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		paddingLeft: '0px !important',
 	},
 });

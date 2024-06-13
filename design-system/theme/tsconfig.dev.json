@@ -54,6 +54,9 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../lozenge/tsconfig.app.json"
 		},
 		{

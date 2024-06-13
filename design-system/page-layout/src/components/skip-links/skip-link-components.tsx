@@ -21,7 +21,7 @@ import { type SkipLinkData, useSkipLinks } from '../../controllers';
 
 import { type SkipLinkWrapperProps } from './types';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const skipLinkStyles = css({

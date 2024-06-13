@@ -12,6 +12,7 @@ import {
 	useState,
 } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
@@ -54,10 +55,11 @@ const showResizeButtonStyles = css({
 
 // @ts-expect-error adding `!important` to style rules is currently a type error
 const globalResizingStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'*': {
 		// Setting the cursor to be `ew-resize` on all elements so that even if the user
 		// pointer slips off the resize handle, the cursor will still be the resize cursor
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		cursor: 'ew-resize !important',
 
 		// Blocking selection while resizing
@@ -66,12 +68,14 @@ const globalResizingStyles = css({
 		// - Safari + Firefox → all good
 		// - Chrome → This will undo the current selection while resizing (not ideal)
 		//   - The current selection will resume after resizing
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		userSelect: 'none !important',
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	iframe: {
 		// Disabling pointer events on iframes when resizing
 		// as iframes will swallower user events when the user is over them
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		pointerEvents: 'none !important',
 	},
 	// Note: We _could_ also disable `pointer-events` on all elements during resizing.

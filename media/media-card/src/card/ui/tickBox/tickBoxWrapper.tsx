@@ -15,6 +15,7 @@ const getSelectedStyles = (selected?: boolean) =>
 
 const wrapperStyles = (selected?: boolean) =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition && transition(),
 		{
 			fontSize: '14px',
@@ -25,13 +26,16 @@ const wrapperStyles = (selected?: boolean) =>
 			left: token('space.075', '7px'),
 			borderRadius: '20px',
 			color: 'transparent',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			span: {
 				display: 'block',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				svg: {
 					height: '14px',
 				},
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getSelectedStyles(selected),
 	);
 
@@ -41,6 +45,7 @@ export const TickBoxWrapper = (props: TickBoxProps) => {
 	return (
 		<div
 			id="tickBoxWrapper"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={wrapperStyles(props.selected)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={tickBoxClassName}

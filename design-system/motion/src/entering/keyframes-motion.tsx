@@ -127,6 +127,7 @@ const EnteringMotion = ({
 									}ms`,
 									animationFillMode: isExiting ? 'forwards' : 'backwards',
 									animationName: `${keyframes(
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 										isExiting ? exitingAnimation || enteringAnimation : enteringAnimation,
 									)}`,
 									animationPlayState: paused ? 'paused' : 'running',

@@ -34,7 +34,7 @@ export default () => (
 			<Skeleton appearance="square" size="xsmall" />
 		</Block>
 		<Block heading="Coloured via inheritance" testId="example-block">
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div style={{ color: colors.P500 }}>
 				<Skeleton size="xxlarge" />
 				<Gap />

@@ -17,7 +17,7 @@ const badgeStyles = css({
 	minWidth: 'fit-content',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const iconStyles = css`
 	color: ${token('color.icon.subtle', '#626F86')};
 	line-height: 0;
@@ -108,6 +108,7 @@ const Badge = ({
 
 	return (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[badgeStyles, overrideCss]}
 			data-fit-to-content
 			data-smart-element={name}

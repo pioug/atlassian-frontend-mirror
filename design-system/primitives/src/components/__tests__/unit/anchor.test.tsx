@@ -6,7 +6,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 
 import { xcss } from '../../../xcss/xcss';
-import UNSAFE_ANCHOR from '../../anchor';
+import Anchor from '../../anchor';
 
 const testId = 'test-anchor';
 const styles = xcss({
@@ -145,9 +145,9 @@ const testCases: Array<{
 describe('Anchor', () => {
 	it('should render with a given test id', () => {
 		render(
-			<UNSAFE_ANCHOR href="/home" testId={testId}>
+			<Anchor href="/home" testId={testId}>
 				Anchor with testid
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 
 		expect(screen.getByTestId(testId)).toBeInTheDocument();
@@ -155,16 +155,16 @@ describe('Anchor', () => {
 
 	it('should render an <a>', () => {
 		render(
-			<UNSAFE_ANCHOR href="/home" testId={testId}>
+			<Anchor href="/home" testId={testId}>
 				Anchor
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 		expect(screen.getByTestId(testId).nodeName).toEqual('A');
 	});
 
 	it('should only render an <a> regardless of Box `as` prop override', () => {
 		render(
-			<UNSAFE_ANCHOR
+			<Anchor
 				href="/home"
 				// The `as` prop isn't allowed by types, but we should
 				// confirm the primitive can't be intentionally misused by
@@ -174,16 +174,16 @@ describe('Anchor', () => {
 				testId={testId}
 			>
 				Anchor
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 		expect(screen.getByTestId(testId).nodeName).toEqual('A');
 	});
 
 	it('should render plain text as children', () => {
 		render(
-			<UNSAFE_ANCHOR href="/home" testId={testId}>
+			<Anchor href="/home" testId={testId}>
 				Anchor text
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 		const element = screen.getByText('Anchor text');
 		expect(element).toBeInTheDocument();
@@ -191,9 +191,9 @@ describe('Anchor', () => {
 
 	it('should render children', () => {
 		render(
-			<UNSAFE_ANCHOR href="/home" testId={testId}>
+			<Anchor href="/home" testId={testId}>
 				<span data-testid="test-anchor-child">Anchor children</span>
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 		const parent = screen.getByTestId(testId);
 		expect(parent).toBeInTheDocument();
@@ -203,13 +203,13 @@ describe('Anchor', () => {
 
 	it('should apply aria attributes', () => {
 		render(
-			<UNSAFE_ANCHOR
+			<Anchor
 				href="https://atlassian.design/"
 				testId={testId}
 				aria-label="Read the Atlassian Design System documentation"
 			>
 				Mute sound
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 		expect(screen.getByTestId(testId)).toHaveAttribute(
 			'aria-label',
@@ -221,9 +221,9 @@ describe('Anchor', () => {
 		const mockOnClick = jest.fn();
 
 		render(
-			<UNSAFE_ANCHOR href="/home" testId={testId} onClick={mockOnClick}>
+			<Anchor href="/home" testId={testId} onClick={mockOnClick}>
 				Click me
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 
 		fireEvent.click(screen.getByTestId(testId));
@@ -233,9 +233,9 @@ describe('Anchor', () => {
 
 	it('should apply styles with `xcss`', () => {
 		render(
-			<UNSAFE_ANCHOR href="/home" testId={testId} xcss={anchorStyles}>
+			<Anchor href="/home" testId={testId} xcss={anchorStyles}>
 				Anchor with xcss styles
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 
 		const styles = getComputedStyle(screen.getByTestId(testId));
@@ -244,7 +244,7 @@ describe('Anchor', () => {
 
 	test('`xcss` should result in expected css', () => {
 		render(
-			<UNSAFE_ANCHOR
+			<Anchor
 				href="/required"
 				testId={testId}
 				backgroundColor="elevation.surface"
@@ -258,7 +258,7 @@ describe('Anchor', () => {
 				xcss={styles}
 			>
 				child
-			</UNSAFE_ANCHOR>,
+			</Anchor>,
 		);
 		const element = screen.getByTestId(testId);
 		expect(element).toBeInTheDocument();
@@ -282,9 +282,9 @@ describe('Anchor', () => {
 			testCases.forEach(({ id, type, value, shouldRouterLinkComponentBeUsed }) => {
 				it(type, () => {
 					render(
-						<UNSAFE_ANCHOR href={value} testId={id}>
+						<Anchor href={value} testId={id}>
 							Hello world
-						</UNSAFE_ANCHOR>,
+						</Anchor>,
 					);
 
 					expect(screen.getByTestId(id)).toHaveAttribute(
@@ -299,9 +299,9 @@ describe('Anchor', () => {
 				it(type, () => {
 					render(
 						<AppProvider>
-							<UNSAFE_ANCHOR href={value} testId={id}>
+							<Anchor href={value} testId={id}>
 								Hello world
-							</UNSAFE_ANCHOR>
+							</Anchor>
 						</AppProvider>,
 					);
 
@@ -317,9 +317,9 @@ describe('Anchor', () => {
 				it(type, () => {
 					render(
 						<AppProvider routerLinkComponent={MyRouterLinkComponent}>
-							<UNSAFE_ANCHOR href={value} testId={id}>
+							<Anchor href={value} testId={id}>
 								Hello world
-							</UNSAFE_ANCHOR>
+							</Anchor>
 						</AppProvider>,
 					);
 
@@ -337,7 +337,7 @@ describe('Anchor', () => {
 			expect(() =>
 				render(
 					<AppProvider>
-						<UNSAFE_ANCHOR<MyRouterLinkConfig>
+						<Anchor<MyRouterLinkConfig>
 							href={{
 								to: 'foo',
 								customProp: 'bar',
@@ -345,7 +345,7 @@ describe('Anchor', () => {
 							testId={testId}
 						>
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</AppProvider>,
 				),
 			).toThrow(
@@ -358,7 +358,7 @@ describe('Anchor', () => {
 			expect(() =>
 				render(
 					<AppProvider>
-						<UNSAFE_ANCHOR<MyRouterLinkConfig>
+						<Anchor<MyRouterLinkConfig>
 							href={{
 								to: 'foo',
 								customProp: 'bar',
@@ -366,7 +366,7 @@ describe('Anchor', () => {
 							testId={testId}
 						>
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</AppProvider>,
 				),
 			).toThrow(
@@ -378,7 +378,7 @@ describe('Anchor', () => {
 		it('are interpreted when anchors are used inside an AppProvider, with a routerLinkComponent defined', () => {
 			render(
 				<AppProvider routerLinkComponent={MyRouterLinkComponent}>
-					<UNSAFE_ANCHOR<MyRouterLinkConfig>
+					<Anchor<MyRouterLinkConfig>
 						href={{
 							to: 'foo',
 							customProp: 'bar',
@@ -386,7 +386,7 @@ describe('Anchor', () => {
 						testId={testId}
 					>
 						Hello world
-					</UNSAFE_ANCHOR>
+					</Anchor>
 				</AppProvider>,
 			);
 
@@ -406,7 +406,7 @@ describe('Anchor', () => {
 				return (
 					<AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
 						<AnalyticsListener onEvent={onPublicEvent}>
-							<UNSAFE_ANCHOR
+							<Anchor
 								href="https://atlassian.com"
 								testId={testId}
 								onClick={(event, analyticsEvent) => {
@@ -414,7 +414,7 @@ describe('Anchor', () => {
 								}}
 							>
 								Anchor
-							</UNSAFE_ANCHOR>
+							</Anchor>
 						</AnalyticsListener>
 					</AnalyticsListener>
 				);
@@ -465,7 +465,7 @@ describe('Anchor', () => {
 			}) {
 				return (
 					<AnalyticsListener onEvent={onEvent} channel={channel}>
-						<UNSAFE_ANCHOR
+						<Anchor
 							href="https://atlassian.com"
 							testId={testId}
 							analyticsContext={analyticsContext}
@@ -474,7 +474,7 @@ describe('Anchor', () => {
 							}}
 						>
 							Anchor
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</AnalyticsListener>
 				);
 			}
@@ -522,7 +522,7 @@ describe('Anchor', () => {
 			}) {
 				return (
 					<AnalyticsListener onEvent={onEvent} channel={channel}>
-						<UNSAFE_ANCHOR
+						<Anchor
 							href="https://atlassian.com"
 							testId={testId}
 							analyticsContext={analyticsContext}
@@ -532,7 +532,7 @@ describe('Anchor', () => {
 							componentName="CustomComponent"
 						>
 							Anchor
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</AnalyticsListener>
 				);
 			}
@@ -570,9 +570,9 @@ describe('Anchor', () => {
 			const error = jest.spyOn(console, 'error');
 			const onClick = jest.fn();
 			render(
-				<UNSAFE_ANCHOR href="https://atlassian.com" testId={testId} onClick={onClick}>
+				<Anchor href="https://atlassian.com" testId={testId} onClick={onClick}>
 					Anchor
-				</UNSAFE_ANCHOR>,
+				</Anchor>,
 			);
 
 			const button = screen.getByTestId(testId);

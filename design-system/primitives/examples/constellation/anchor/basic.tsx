@@ -2,7 +2,7 @@ import React from 'react';
 
 import Image from '@atlaskit/image';
 import Lozenge from '@atlaskit/lozenge';
-import { UNSAFE_ANCHOR as Anchor, Box, xcss } from '@atlaskit/primitives';
+import { Anchor, Box, xcss } from '@atlaskit/primitives';
 
 import ButtonIcon from '../../images/button.png';
 

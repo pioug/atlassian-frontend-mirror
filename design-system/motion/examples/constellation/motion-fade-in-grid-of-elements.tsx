@@ -85,6 +85,7 @@ const logos = [
 
 const buttonContainerStyles = css({
 	textAlign: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		margin: token('space.025', '2px'),
 	},
@@ -93,10 +94,12 @@ const buttonContainerStyles = css({
 const listStyles = css({
 	display: 'flex',
 	maxWidth: '474px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	margin: `${token('space.200', '16px')} !important`,
 	padding: token('space.0', '0px'),
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
 		margin: token('space.0', '0px'),
 	},

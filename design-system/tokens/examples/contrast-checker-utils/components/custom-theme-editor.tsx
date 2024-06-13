@@ -142,6 +142,7 @@ const TokenSelect = ({
 				placeholder="Choose a token"
 				inputId={`token-select-${selectedToken}`}
 				spacing={'compact'}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 				css={{ flexBasis: 300, flexShrink: 0 }}
 			/>
 			<Stack space="space.025" grow="fill">
@@ -159,17 +160,23 @@ const TokenSelect = ({
 					placeholder="Choose a value"
 					inputId={`token-select-${selectedToken}`}
 					spacing={'compact'}
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 					css={{ flexBasis: '100%', flexShrink: 0 }}
 				/>
 				{currentBaseTokenValue.value === 'custom' && (
 					<Inline space="space.025" grow="hug">
 						<input
 							css={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								border: `2px solid ${token('color.border')}`,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								backgroundColor: token('color.background.input', 'white'),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								borderRadius: token('border.radius.100', '3px'),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								height: token('space.400', '32px'),
 								'&:hover': {
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									backgroundColor: token('color.background.input.hovered', 'N20'),
 								},
 							}}

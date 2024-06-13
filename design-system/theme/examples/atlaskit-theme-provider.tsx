@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Button from '@atlaskit/button/new';
+import Link from '@atlaskit/link';
 import { token } from '@atlaskit/tokens';
 
 import { AtlaskitThemeProvider, type ThemeModes, typography } from '../src';
@@ -13,7 +14,7 @@ import DeprecatedThemeProvider from '../src/deprecated-provider-please-do-not-us
 
 const LIGHT = 'light';
 const DARK = 'dark';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Heading = styled.div<{ mixin: any }>((props) => props.mixin);
 
 const containerStyles = css({
@@ -39,7 +40,7 @@ const Example = () => {
 						<Heading mixin={typography.h400}>H400</Heading>
 						<Heading mixin={typography.h300}>H300</Heading>
 						<p>
-							<a href="#example">Standard anchor</a>
+							<Link href="#example">Standard anchor</Link>
 						</p>
 						<p>This is text in a paragraph tag.</p>
 					</DeprecatedThemeProvider>
@@ -52,7 +53,7 @@ const Example = () => {
 						<h5>H400</h5>
 						<h6>H300</h6>
 						<p>
-							<a href="#example">Standard anchor</a>
+							<Link href="#example">Standard anchor</Link>
 						</p>
 						<p>This is text in a paragraph tag.</p>
 					</div>

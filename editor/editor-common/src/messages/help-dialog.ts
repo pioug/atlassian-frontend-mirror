@@ -89,4 +89,9 @@ export const helpDialogMessages = defineMessages({
 		defaultMessage: 'Quick insert',
 		description: 'Name of a feature, which let you insert items quickly.',
 	},
+	highlightColor: {
+		id: 'fabric.editor.highlightColor',
+		defaultMessage: 'Toggle highlight color palette',
+		description: 'Keyboard shortcut to toggle highlight color palette.',
+	},
 });

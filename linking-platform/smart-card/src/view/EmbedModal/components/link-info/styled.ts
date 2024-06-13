@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const containerStyles = css({
 	alignItems: 'center',
 	display: 'flex',
@@ -19,7 +20,9 @@ const iconSize = '24px';
 // EDM-7328: CSS Specificity
 // An embed modal icon css for img, span, svg has specificity weight of 0-1-1.
 // Specify flex ui icon selector to increase specificity weight to 0-2-1.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const iconCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&, [data-smart-element-icon] img, [data-smart-element-icon] span, [data-smart-element-icon] svg, img, span, svg':
 		{
 			height: iconSize,
@@ -32,8 +35,10 @@ export const iconCss = css({
 });
 
 const height = '20px';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const titleCss = css({
 	flex: '1 1 auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h3: {
 		flex: '1 1 auto',
 		fontSize: '16px',
@@ -52,17 +57,20 @@ export const titleCss = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const actionCss = css({
 	display: 'flex',
 	flex: '0 0 auto',
 	gap: token('space.050', '4px'),
 	lineHeight: height,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {
 		lineHeight: height,
 	},
 	'@media only screen and (max-width: 980px)': {
 		// Hide resize button if the screen is smaller than the min width
 		// or too small to have enough impact to matter.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.smart-link-resize-button': {
 			display: 'none',
 		},

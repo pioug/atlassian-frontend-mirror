@@ -21,6 +21,7 @@ const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {
 		marginBottom: token('space.300', '24px'),
 		boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
 		width: 'calc(85% - 48px)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: `${borderRadius()}px`,
 		backgroundColor: token('elevation.surface.raised', 'white'),
 		cursor: 'pointer',
@@ -105,6 +106,7 @@ export const ProviderCard = ({
 	);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={getWrapperStyles({ disabled })}>
 			<div css={headerStyles}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}

@@ -19,6 +19,7 @@ const styles = css({
 	listStyle: 'none',
 	marginTop: token('space.0', '0px'),
 	paddingLeft: token('space.0', '0px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> li': {
 		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 	},

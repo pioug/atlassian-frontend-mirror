@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 17.17.3
+
+### Patch Changes
+
+- [#110867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110867)
+  [`dc7e72da70ef7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc7e72da70ef7) -
+  Migrating instances of `UNSAFE_ANCHOR` primitive imports to the new safe import `Anchor`, in
+  preparation of Anchor open beta and removal of the unsafe export from `@atlaskit/primitives`
+
 ## 17.17.2
 
 ### Patch Changes

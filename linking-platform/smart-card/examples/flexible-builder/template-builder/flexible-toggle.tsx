@@ -14,6 +14,7 @@ const containerStyles = css({
 	borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
 	gap: '0.3rem',
 	paddingBottom: '0.5rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h5: {
 		marginTop: 'inherit',
 	},

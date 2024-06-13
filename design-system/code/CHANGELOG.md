@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 15.2.1
+
+### Patch Changes
+
+- [#109278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109278)
+  [`61432c68027c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61432c68027c1) -
+  [ux] CodeBlock now renders tab size as 4 characters wide.
+
 ## 15.2.0
 
 ### Minor Changes

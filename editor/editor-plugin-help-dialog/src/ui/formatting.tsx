@@ -29,6 +29,7 @@ import {
 	toggleHeading4,
 	toggleHeading5,
 	toggleHeading6,
+	toggleHighlightPalette,
 	toggleItalic,
 	toggleOrderedList,
 	toggleStrikethrough,
@@ -588,6 +589,11 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 				},
 			]
 		: []),
+	{
+		name: formatMessage(messages.highlightColor),
+		type: 'highlight',
+		keymap: () => toggleHighlightPalette,
+	},
 ];
 
 const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [

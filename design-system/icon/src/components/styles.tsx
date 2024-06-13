@@ -15,12 +15,17 @@ export const commonSVGStyles = {
 	},
 } as CSSObject;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const smallStyles = css(dimensions.small);
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const mediumStyles = css(dimensions.medium);
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const largeStyles = css(dimensions.large);
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const xlargeStyles = css(dimensions.xlarge);
 
 // pre-built css style-size map
+// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sizeStyleMap = {
 	small: smallStyles,
 	medium: mediumStyles,

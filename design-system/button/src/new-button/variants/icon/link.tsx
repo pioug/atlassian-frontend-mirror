@@ -1,6 +1,6 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
-import UNSAFE_ANCHOR from '@atlaskit/primitives/anchor';
+import Anchor from '@atlaskit/primitives/anchor';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type CommonLinkVariantProps } from '../types';
@@ -91,7 +91,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
 			>
 				{(triggerProps) => (
-					<UNSAFE_ANCHOR
+					<Anchor
 						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 						{...rest}
 						testId={testId}
@@ -153,14 +153,14 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 						aria-disabled={baseProps.isDisabled === true ? true : undefined}
 					>
 						{baseProps.children}
-					</UNSAFE_ANCHOR>
+					</Anchor>
 				)}
 			</Tooltip>
 		);
 	}
 
 	return (
-		<UNSAFE_ANCHOR
+		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 			ref={baseProps.ref}
@@ -189,7 +189,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 			interactionName={interactionName}
 		>
 			{baseProps.children}
-		</UNSAFE_ANCHOR>
+		</Anchor>
 	);
 };
 

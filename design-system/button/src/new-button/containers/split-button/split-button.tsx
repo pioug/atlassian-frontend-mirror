@@ -33,10 +33,12 @@ const baseDividerStyles = css({
 });
 
 const defaultDividerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: heights.default,
 });
 
 const compactDividerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: heights.compact,
 });
 
@@ -100,7 +102,7 @@ const splitButtonStyles = css({
 });
 
 const primaryButtonStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button,a': {
 		borderEndEndRadius: 0,
 		borderStartEndRadius: 0,
@@ -108,7 +110,7 @@ const primaryButtonStyles = css({
 });
 
 const secondaryButtonStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'button,a': {
 		borderEndStartRadius: 0,
 		borderStartStartRadius: 0,

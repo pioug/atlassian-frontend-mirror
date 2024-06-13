@@ -13,9 +13,11 @@ import { Title } from '../../elements';
 const getActionStyles = (showOnHover?: boolean, isOpen?: boolean): SerializedStyles | undefined => {
 	if (showOnHover && !isOpen) {
 		return css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'.actions-button-group': {
 				opacity: 0,
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'&:hover .actions-button-group, .actions-button-group:focus-within': {
 				opacity: 1,
 			},
@@ -93,6 +95,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
 		/>
 	);
 	const actionStyles = getActionStyles(showActionOnHover, actionDropdownOpen);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	const combinedCss = css(actionStyles, overrideCss);
 
 	const overrideText = !!text ? { text } : {};

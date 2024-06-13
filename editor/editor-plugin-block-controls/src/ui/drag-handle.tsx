@@ -116,6 +116,10 @@ export const DragHandle = ({
 
 		return draggable({
 			element,
+			getInitialData: () => ({
+				type: 'element',
+				start,
+			}),
 			onGenerateDragPreview: ({ nativeSetDragImage }) => {
 				setCustomNativeDragPreview({
 					render: ({ container }) => {
@@ -125,7 +129,7 @@ export const DragHandle = ({
 						if (!dom) {
 							return;
 						}
-						return dragPreview(container, dom);
+						return dragPreview(container, dom, nodeType);
 					},
 					nativeSetDragImage,
 				});

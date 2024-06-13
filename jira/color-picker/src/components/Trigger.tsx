@@ -100,9 +100,11 @@ const defaultColorContainerSize = css({
 });
 
 const colorCardButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		borderColor: token('color.background.neutral.subtle', N0),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':not(:focus):hover, :focus': {
 		borderColor: token('color.border.focused', B100),
 		outline: 'none',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '../../../old-button/button';
 import { hasStyleRule } from '../_util/style-rules';
@@ -11,12 +11,12 @@ types.forEach((tag: React.ElementType) => {
 	describe(`disabled [type: <${tag}>]`, () => {
 		// Validating behaviour
 		it('should render the expected tag', () => {
-			const { getByTestId } = render(
+			render(
 				<Button testId="button" component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			expect(button.tagName.toLowerCase()).toBe(tag);
 		});
@@ -26,12 +26,12 @@ types.forEach((tag: React.ElementType) => {
 		// But using pointer-events:none in children we are normalising the button behaviour
 		it(`should ignore pointer-events on all children when disabled`, () => {
 			const buttonOnClick = jest.fn();
-			const { getByTestId } = render(
+			render(
 				<Button testId="button" isDisabled onClick={buttonOnClick} component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			// Not blocking pointer events on button
 			expect(hasStyleRule(`.${button.className}`, { pointerEvents: 'none' })).toBe(false);
@@ -41,23 +41,23 @@ types.forEach((tag: React.ElementType) => {
 		});
 
 		it('should prevent focus when disabled', () => {
-			const { getByTestId } = render(
+			render(
 				<Button testId="button" isDisabled component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			expect(button.tabIndex).toBe(-1);
 		});
 
 		it('should loose focus when disabled', () => {
-			const { getByTestId, rerender } = render(
+			const { rerender } = render(
 				<Button testId="button" component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			button.focus();
 			expect(button).toHaveFocus();
@@ -117,14 +117,14 @@ types.forEach((tag: React.ElementType) => {
 				const buttonHandler = { [binding.reactEventName]: jest.fn() };
 
 				// initially not disabled to validate binding
-				const { getByTestId, rerender } = render(
+				const { rerender } = render(
 					<div {...parentHandler}>
 						<Button testId="button" component={tag} {...buttonHandler}>
 							Hello
 						</Button>
 					</div>,
 				);
-				const button: HTMLElement = getByTestId('button');
+				const button: HTMLElement = screen.getByTestId('button');
 				expect(button).toBeEnabled();
 
 				const firstEventAllowed: boolean = fireEvent(
@@ -177,12 +177,12 @@ types.forEach((tag: React.ElementType) => {
 });
 
 it('should remove a href attribute when disabled', () => {
-	const { getByTestId, rerender } = render(
+	const { rerender } = render(
 		<Button testId="button" href="http://foo.com">
 			Hello
 		</Button>,
 	);
-	const button: HTMLElement = getByTestId('button');
+	const button: HTMLElement = screen.getByTestId('button');
 
 	expect(button).toHaveAttribute('href');
 

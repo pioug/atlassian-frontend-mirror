@@ -34,9 +34,11 @@ const removeButtonStyles = xcss({
 	backgroundColor: 'color.background.neutral.subtle',
 	border: 'none',
 	// Once legacy theming is dropped, this can be changed to 'border.radius'
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `var(${cssVar.borderRadius})`,
 	// Once legacy theming is dropped, this can be changed to 'inherit'
 	// @ts-expect-error
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: `var(${cssVar.color.removeButton.default})`,
 	cursor: 'pointer',
 	pointerEvents: 'auto',
@@ -48,6 +50,7 @@ const removeButtonStyles = xcss({
 	':hover': {
 		// Once legacy theming is dropped, this can be changed to 'cssVar.color.text.default'
 		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: `var(${cssVar.color.removeButton.hover})`,
 	},
 });

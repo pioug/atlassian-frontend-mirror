@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, within } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import cases from 'jest-in-case';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -19,7 +19,7 @@ describe('Calendar analytics', () => {
 		const onAnalyticsEvent = jest.fn();
 		const selectedDay = 15;
 
-		const renderResult = render(
+		render(
 			<AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
 				<Calendar
 					testId={testId}
@@ -56,7 +56,6 @@ describe('Calendar analytics', () => {
 		};
 
 		return {
-			renderResult,
 			onChange,
 			onSelect,
 			onAnalyticsEvent,
@@ -68,9 +67,9 @@ describe('Calendar analytics', () => {
 
 	describe('send change event to atlaskit/analytics', () => {
 		it('when switched to previous month', () => {
-			const { renderResult, onChange, onAnalyticsEvent, changeEventResult } = setup();
+			const { onChange, onAnalyticsEvent, changeEventResult } = setup();
 
-			const previousMonthButton = renderResult.getByTestId('calendar--previous-month');
+			const previousMonthButton = screen.getByTestId('calendar--previous-month');
 
 			fireEvent.click(previousMonthButton);
 
@@ -86,9 +85,9 @@ describe('Calendar analytics', () => {
 		});
 
 		it('when switched to next month', () => {
-			const { renderResult, onChange, onAnalyticsEvent, changeEventResult } = setup();
+			const { onChange, onAnalyticsEvent, changeEventResult } = setup();
 
-			const nextMonthButton = renderResult.getByTestId('calendar--next-month');
+			const nextMonthButton = screen.getByTestId('calendar--next-month');
 
 			fireEvent.click(nextMonthButton);
 
@@ -106,9 +105,9 @@ describe('Calendar analytics', () => {
 		cases(
 			'when navigated using following keys',
 			({ key, code }: { key: string; code: string }) => {
-				const { renderResult, onChange, onAnalyticsEvent, changeEventResult } = setup();
+				const { onChange, onAnalyticsEvent, changeEventResult } = setup();
 
-				const calendarGrid = renderResult.getByTestId(testIdMonth);
+				const calendarGrid = screen.getByTestId(testIdMonth);
 				fireEvent.keyDown(calendarGrid as HTMLDivElement, {
 					key,
 					code,
@@ -151,16 +150,10 @@ describe('Calendar analytics', () => {
 
 	describe('send select event to atlaskit/analytics', () => {
 		it('when day is clicked', () => {
-			const { renderResult, onSelect, onAnalyticsEvent, selectEventResult, selectedDay } = setup();
+			const { onSelect, onAnalyticsEvent, selectEventResult, selectedDay } = setup();
 
 			const stringifiedSelectedDay = selectedDay.toString();
-
-			const selectedDayElement = renderResult.getAllByRole(
-				(content, element) =>
-					content === 'gridcell' && element!.textContent === stringifiedSelectedDay,
-			)[0];
-			const selectedDayElementInnerElement =
-				within(selectedDayElement).getByText(stringifiedSelectedDay);
+			const selectedDayElementInnerElement = screen.getByText(stringifiedSelectedDay);
 
 			fireEvent.click(selectedDayElementInnerElement);
 
@@ -178,9 +171,9 @@ describe('Calendar analytics', () => {
 		cases(
 			'when day is selected using following keys',
 			({ key, code }: { key: string; code: string }) => {
-				const { renderResult, onSelect, onAnalyticsEvent, selectEventResult } = setup();
+				const { onSelect, onAnalyticsEvent, selectEventResult } = setup();
 
-				const calendarGrid = renderResult.getByTestId(testIdMonth);
+				const calendarGrid = screen.getByTestId(testIdMonth);
 				fireEvent.keyDown(calendarGrid as HTMLDivElement, {
 					key,
 					code,
@@ -216,9 +209,9 @@ describe('Calendar analytics', () => {
 
 		it('should allow the addition of additional context', () => {
 			const analyticsContext = { key: 'value' };
-			const { renderResult, onChange, changeEventResult } = setup(analyticsContext);
+			const { onChange, changeEventResult } = setup(analyticsContext);
 
-			const nextMonthButton = renderResult.getByTestId('calendar--next-month');
+			const nextMonthButton = screen.getByTestId('calendar--next-month');
 
 			fireEvent.click(nextMonthButton);
 

@@ -10,7 +10,7 @@ import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { highlightColorPalette, REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { HighlightPluginAction, highlightPluginKey } from '../pm-plugin';
+import { HighlightPluginAction, highlightPluginKey } from '../pm-plugins/main';
 import { getActiveColor } from '../utils/color';
 
 export const changeColor =
@@ -42,7 +42,7 @@ export const changeColor =
 	};
 
 const createAnalyticsEvent = (color: string, tr: Transaction): AnalyticsEventPayload => {
-	const previousColor = getActiveColor(tr);
+	const previousColor = getActiveColor(tr) ?? REMOVE_HIGHLIGHT_COLOR;
 	// get color names from palette
 	const newColorFromPalette = highlightColorPalette.find(({ value }) => value === color);
 	const previousColorFromPalette = highlightColorPalette.find(

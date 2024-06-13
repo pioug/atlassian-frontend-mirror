@@ -21,7 +21,8 @@ import ButtonLoading from '../../examples/constellation/new-button/button/button
 
 ## Default
 
-Use default buttons for most actions that aren't the main call to action for a page or area. Default buttons are less prominent than primary buttons.
+Use default buttons for most actions that aren't the main call to action for a page or area. Default
+buttons are less prominent than primary buttons.
 
 <Example Component={ButtonDefault} packageName="@atlaskit/button" />
 
@@ -29,8 +30,9 @@ Use default buttons for most actions that aren't the main call to action for a p
 
 ### Primary
 
-Use a primary button to call attention to a [form](/patterns/forms) submission or to highlight the most important call to action on a page.
-Primary buttons should only appear once per area, but not every screen needs a primary button.
+Use a primary button to call attention to a [form](/patterns/forms) submission or to highlight the
+most important call to action on a page. Primary buttons should only appear once per area, but not
+every screen needs a primary button.
 
 <Example Component={ButtonPrimary} packageName="@atlaskit/button" />
 
@@ -44,13 +46,15 @@ Use a subtle button with a primary button for secondary actions, such as “Canc
 
 Warning buttons confirm actions that may cause a significant change or a loss of data.
 
-Warnings alert people of a problem that might happen if they proceed. These appearances are often used in confirmation modals.
+Warnings alert people of a problem that might happen if they proceed. These appearances are often
+used in confirmation modals.
 
 <Example Component={ButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
-A danger button appears as a final confirmation for a destructive and irreversible action, such as deleting.
+A danger button appears as a final confirmation for a destructive and irreversible action, such as
+deleting.
 
 <Example Component={ButtonDanger} packageName="@atlaskit/button" />
 
@@ -58,10 +62,12 @@ A danger button appears as a final confirmation for a destructive and irreversib
 
 ### Disabled
 
-Set `isDisabled` to disable a button that shouldn't be actionable. The button will appear faded and won't respond to user interaction.
+Set `isDisabled` to disable a button that shouldn't be actionable. The button will appear faded and
+won't respond to user interaction.
 
-Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so wherever possible, avoid using `isDisabled`.
-Instead, use [validation](/components/button/usage) or other techniques to show users how to proceed.
+Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so
+wherever possible, avoid using `isDisabled`. Instead, use [validation](/components/button/usage) or
+other techniques to show users how to proceed.
 
 <Example Component={ButtonDisabled} packageName="@atlaskit/button" />
 
@@ -73,25 +79,30 @@ Set `isSelected` to indicate the button is selected.
 
 ### Loading
 
-When a button is still loading and not actionable, a loading spinner can be displayed in place of the button label. This also disables the button and blocks user interaction.
+When a button is still loading and not actionable, a loading spinner can be displayed in place of
+the button label. This also disables the button and blocks user interaction.
 
 <Example Component={ButtonLoading} packageName="@atlaskit/button" />
 
 ## Spacing
 
-Button spacing depends on the surrounding UI. Default spacing is used for most use cases, `compact` for tables, and `none` for breadcrumbs.
+Button spacing depends on the surrounding UI. Default spacing is used for most use cases, `compact`
+for tables, and `none` for breadcrumbs.
 
 <Example Component={ButtonSpacing} packageName="@atlaskit/button" />
 
 ## Full width
 
-Buttons can expand to full width to fill the parent container. This is sometimes done in login forms. Follow the [alignment guidance](/components/button/usage#alignment-and-positioning) for more options.
+Buttons can expand to full width to fill the parent container. This is sometimes done in login
+forms. Follow the [alignment guidance](/components/button/usage#alignment-and-positioning) for more
+options.
 
 <Example Component={ButtonFullWidth} packageName="@atlaskit/button" />
 
 ## Button with icon
 
-Buttons may include an icon before or after the text label. For an icon-only button, see [icon button](/components/button/icon-button).
+Buttons may include an icon before or after the text label. For an icon-only button, see
+[icon button](/components/button/icon-button).
 
 ### Icon before
 
@@ -113,9 +124,11 @@ Use the `iconBefore` or `iconAfter` render prop to override the default icon pro
 
 ## Truncation
 
-Avoid truncation whenever possible. Make sure there's always a way to access the full content for all users.
+Avoid truncation whenever possible. Make sure there's always a way to access the full content for
+all users.
 
-Text will truncate when buttons are in a narrow container to prevent wrapping onto a new line and breaking layouts. An ellipsis will be added to the end to indicate that the text has been truncated.
+Text will truncate when buttons are in a narrow container to prevent wrapping onto a new line and
+breaking layouts. An ellipsis will be added to the end to indicate that the text has been truncated.
 
 The truncation is implemented with styles, so screen readers will still read the full text.
 
@@ -126,12 +139,10 @@ For more information see [truncation](/content/language-and-grammar#truncation).
 ## Custom buttons
 
 <SectionMessage title="Coming soon" appearance="information">
-  <p>
-    The legacy{' '}
-    <a href="/components/button/button-legacy/examples#custom-theme-button">
-      CustomThemeButton
-    </a>{' '}
-    will soon be deprecated. We're working on a replacement for this with safe
-    style overrides using <a href="/components/primitives/xcss/usage">XCSS</a>.
-  </p>
+	<p>
+		The legacy{' '}
+		<a href="/components/button/button-legacy/examples#custom-theme-button">CustomThemeButton</a>{' '}
+		will soon be deprecated. We're working on a replacement for this with safe style overrides using{' '}
+		<a href="/components/primitives/xcss/usage">XCSS</a>.
+	</p>
 </SectionMessage>

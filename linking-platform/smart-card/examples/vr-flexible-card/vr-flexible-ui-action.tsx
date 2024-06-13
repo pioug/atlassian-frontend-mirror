@@ -152,6 +152,7 @@ export default () => (
 					content="Bold"
 					onClick={onClick}
 					overrideCss={css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						span: {
 							fontWeight: 'bold',
 						},
@@ -162,6 +163,7 @@ export default () => (
 					content="Italic"
 					onClick={onClick}
 					overrideCss={css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						span: {
 							fontStyle: 'italic',
 						},
@@ -172,10 +174,14 @@ export default () => (
 					content="Color"
 					onClick={onClick}
 					overrideCss={css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						button: {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							backgroundColor: exampleTokens.iconBackgroundColor,
 						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						span: {
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 							color: exampleTokens.iconColor,
 						},
 					})}

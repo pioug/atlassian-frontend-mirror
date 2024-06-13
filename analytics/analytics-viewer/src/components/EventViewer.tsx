@@ -13,9 +13,11 @@ const EventViewerWrapper = styled.li({
 	fontSize: '12px',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	padding: '3px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'& span:first-child': {
 		marginLeft: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'& span:last-child': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 		marginLeft: '5px',

@@ -53,6 +53,7 @@ const modeSwitcherLabelStyles = css({
 
 	padding: `${token('space.050', '4px')}`,
 	borderRadius: token('space.050', '4px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		cursor: 'pointer',
 		backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
@@ -66,6 +67,7 @@ const modeSwitcherLabelSelectedStyles = css({
 		'elevation.shadow.overflow',
 		'0px 0px 1px rgba(9, 30, 66, 0.12), 0px 0px 8px rgba(9, 30, 66, 0.16)',
 	),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		cursor: 'pointer',
 		backgroundColor: token('color.background.input.pressed', N0),
@@ -77,6 +79,7 @@ const modeSwitcherLabelDisabledStyles = css({
 });
 
 const modeSwitcherDisabledStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		cursor: 'not-allowed',
 		background: 'transparent',

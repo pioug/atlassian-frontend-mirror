@@ -6,13 +6,14 @@ interface DropzoneContainerProps {
 	isActive: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const popupContainerStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	overflow: 'scroll',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const popupHeaderStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- needs to be converted to tokens
 	borderBottom: '1px solid #ccc',
@@ -20,18 +21,19 @@ export const popupHeaderStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	padding: '30px 0',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginRight: '15px',
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const previewImageWrapperStyles = css({
 	position: 'relative',
 	marginRight: '15px',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const infoWrapperStyles = css({
 	position: 'absolute',
 	width: '160px',
@@ -50,18 +52,22 @@ export const dropzoneContainerStyles = ({ isActive }: DropzoneContainerProps) =>
 			minHeight: '500px',
 			border: '1px dashed transparent',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		isActive ? `border-color: gray;` : '',
 	);
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const dropzoneRootStyles = css({
 	display: 'flex',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const dropzoneContentWrapperStyles = css({
 	display: 'flex',
 	minHeight: '200px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const previewsWrapperStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -70,16 +76,19 @@ export const previewsWrapperStyles = css({
 	marginBottom: token('space.250', '20px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const previewsTitleStyles = css({
 	width: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const uploadPreviewsFlexRowStyles = css({
 	display: 'flex',
 	flexDirection: 'row',
 	flexWrap: 'wrap',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const dropzoneItemsInfoStyles = css({
 	flex: 1,
 	minWidth: '600px',
@@ -99,10 +108,11 @@ ClipboardContainerProps) =>
 	css({
 		padding: '10px',
 		minHeight: '400px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		border: isWindowFocused ? `1px dashed gray` : `1px dashed transparent`,
 	});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const infoContainerStyles = css({
 	position: 'absolute',
 	top: 0,
@@ -112,6 +122,7 @@ export const infoContainerStyles = css({
 	border: '5px dashed #81ebff',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- needs to be converted to tokens
 	boxShadow: '10px 10px 15px rgba(0, 0, 0, 0.3)',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.info': {
 		position: 'absolute',
 		left: 0,
@@ -123,6 +134,7 @@ export const infoContainerStyles = css({
 		color: 'white',
 		whiteSpace: 'nowrap',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.close_button': {
 		position: 'absolute',
 		top: 0,

@@ -42,6 +42,7 @@ const listItemActive = css({
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', N20),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	listItemBoxShadow,
 });
 
@@ -49,23 +50,30 @@ const listItemSelected = css(
 	{
 		backgroundColor: token('color.background.selected', B50),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	listItemBoxShadow,
 );
 
 export const composeListItemStyles = (selected = false) => {
 	return css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		listItemBaseStyles,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		!selected && listItemActive,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		selected && listItemSelected,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		listItemFocusStyles,
 	);
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const itemNameStyles = css({
 	overflow: 'hidden',
 	alignContent: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const listItemNameStyles = css({
 	color: token('color.text', N800),
 	overflow: 'hidden',
@@ -74,30 +82,35 @@ export const listItemNameStyles = css({
 	lineHeight: '20px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const listItemContextStyles = css({
 	color: token('color.text', N300),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(fontSizeSmall()),
 	lineHeight: `${fontSize()}px`,
 	display: 'flex',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const listItemContainerStyles = css({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const listItemContainerInnerStyles = css({
 	color: token('color.text.subtlest', N200),
 	whiteSpace: 'nowrap',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const itemIconStyles = css({
 	minWidth: token('space.200', '16px'),
 	marginTop: token('space.050', '4px'),
 	marginRight: token('space.150', '12px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const imgStyles = css({
 	maxWidth: token('space.200', '16px'),
 });

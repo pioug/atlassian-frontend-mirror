@@ -13,7 +13,7 @@ const baseStyles = css({
 	inset: 0,
 	borderRadius: 'inherit',
 	cursor: 'pointer',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'~ *': {
 		position: 'relative',
 		pointerEvents: 'none',

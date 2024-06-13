@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 export default () => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				margin: `${token('space.600', '48px')} auto`,
 				width: '50%',

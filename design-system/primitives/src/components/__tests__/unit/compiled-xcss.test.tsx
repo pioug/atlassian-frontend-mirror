@@ -4,16 +4,7 @@ import { render, screen } from '@testing-library/react';
 
 import { cssMap } from '@atlaskit/css';
 
-import {
-	UNSAFE_ANCHOR as Anchor,
-	Bleed,
-	Box,
-	Flex,
-	Grid,
-	Inline,
-	Pressable,
-	Stack,
-} from '../../../index';
+import { Anchor, Bleed, Box, Flex, Grid, Inline, Pressable, Stack } from '../../../index';
 
 const styles = cssMap({
 	color: { color: 'var(--ds-text)' },

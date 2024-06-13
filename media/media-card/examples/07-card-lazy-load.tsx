@@ -8,6 +8,7 @@ import { MainWrapper } from '../example-helpers';
 const dimensions = { width: 500, height: 400 };
 
 const cardWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${dimensions.width}px`,
 	margin: 'auto',
 });

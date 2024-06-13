@@ -47,6 +47,7 @@ const baseCardStyles = css({
 	cursor: 'pointer',
 	userSelect: 'none',
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		zIndex: 1,
 		borderBlockEndColor: 'transparent',

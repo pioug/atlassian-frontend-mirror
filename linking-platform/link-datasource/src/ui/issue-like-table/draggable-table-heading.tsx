@@ -52,6 +52,7 @@ const DropdownParent = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& button': {
 		textAlign: 'left' /* By default button center in the middle without props to control it */,
 		height: 'auto' /* By default button is not happy with tall (up to lines in our case) content */,
@@ -84,6 +85,7 @@ const resizerStyles = css({
 	right: 'calc(-1 * calc(var(--local-hitbox-width) / 2))',
 	top: 0,
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::before': {
 		opacity: 0,
 		'--local-line-width': token('border.width', '2px'),
@@ -96,6 +98,7 @@ const resizerStyles = css({
 		transition: 'opacity 0.2s ease',
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover::before': {
 		opacity: 1,
 	},
@@ -106,6 +109,7 @@ const resizingStyles = css({
 	// while resizing. The browser controls the cursor while dragging, but the browser
 	// can sometimes bug out.
 	cursor: 'unset',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::before': {
 		opacity: 1,
 	},
@@ -358,7 +362,7 @@ export const DraggableTableHeading = ({
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				cursor: 'grab',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				...getWidthCss({ shouldUseWidth: resizeIsEnabled, width }),
 			}}
 		>

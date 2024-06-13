@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { type CSSProperties, useMemo } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 import { useUID } from 'react-uid';
 
@@ -24,7 +25,7 @@ import Positioner from './positioner';
 
 // reset pointer-events on iframe inside modal
 const resetPointerEventsOnIframeStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'iframe:is([aria-modal] iframe)': {
 		pointerEvents: 'auto',
 	},
@@ -45,6 +46,7 @@ const dialogStyles = css({
 	flexDirection: 'column',
 
 	backgroundColor: token('elevation.surface.overlay', N0),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: textColor,
 	[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
 	pointerEvents: 'auto',
@@ -52,6 +54,7 @@ const dialogStyles = css({
 	[media.above.xs]: {
 		width: 'var(--modal-dialog-width)',
 		maxWidth: 'inherit',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: borderRadius,
 		boxShadow: token(
 			'elevation.shadow.overlay',
@@ -65,7 +68,7 @@ const dialogStyles = css({
 	 * This is to support scrolling if the modal's children are wrapped in
 	 * a form.
 	 */
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'& > form:only-child': {
 		display: 'inherit',
 		maxHeight: 'inherit',
@@ -155,8 +158,11 @@ const ModalDialog = (
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 									style={
 										{
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 											'--modal-dialog-width': dialogWidth(width),
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 											'--modal-dialog-height': dialogHeight(height),
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										} as CSSProperties
 									}
 									css={[

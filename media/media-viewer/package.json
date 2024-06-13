@@ -1,124 +1,124 @@
 {
-	"name": "@atlaskit/media-viewer",
-	"version": "48.6.2",
-	"description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
-	},
-	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
-	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		"./classnames": "./src/classnames.ts",
-		".": "./src/index.ts"
-	},
-	"exports": {
-		"./classnames": "./src/classnames.ts",
-		".": "./src/index.ts"
-	},
-	"atlassian": {
-		"team": "Media Experience",
-		"inPublicMirror": true,
-		"releaseModel": "continuous",
-		"website": {
-			"name": "Media Viewer"
-		}
-	},
-	"dependencies": {
-		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/code": "^15.2.0",
-		"@atlaskit/form": "^10.3.0",
-		"@atlaskit/icon": "^22.3.0",
-		"@atlaskit/icon-file-type": "^6.4.0",
-		"@atlaskit/media-client": "^27.2.0",
-		"@atlaskit/media-client-react": "^2.0.0",
-		"@atlaskit/media-common": "^11.2.0",
-		"@atlaskit/media-svg": "^0.1.3",
-		"@atlaskit/media-ui": "^25.10.0",
-		"@atlaskit/platform-feature-flags": "^0.2.4",
-		"@atlaskit/primitives": "^7.0.0",
-		"@atlaskit/side-navigation": "^3.2.0",
-		"@atlaskit/spinner": "^16.1.0",
-		"@atlaskit/textfield": "^6.3.0",
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/tokens": "^1.49.0",
-		"@atlaskit/ufo": "^0.2.0",
-		"@babel/runtime": "^7.0.0",
-		"@kenjiuno/msgreader": "^1.2.6",
-		"deep-equal": "^1.0.1",
-		"fflate": "^0.8.1",
-		"mime": "^2.4.6",
-		"pdfjs-dist": "2.16.105",
-		"perf-marks": "^1.5.0",
-		"react-focus-lock": "^2.9.5",
-		"react-loadable": "^5.1.0",
-		"react-scrolllock": "^5.0.1",
-		"unzipit": "^1.3.0",
-		"use-callback-ref": "^1.2.3"
-	},
-	"peerDependencies": {
-		"@emotion/react": "^11.7.1",
-		"react": "^16.8.0",
-		"react-intl-next": "npm:react-intl@^5.18.1"
-	},
-	"devDependencies": {
-		"@af/integration-testing": "*",
-		"@af/visual-regression": "*",
-		"@atlaskit/media-core": "^34.2.0",
-		"@atlaskit/media-integration-test-helpers": "^3.0.0",
-		"@atlaskit/media-state": "^1.1.0",
-		"@atlaskit/media-test-data": "^2.3.0",
-		"@atlaskit/media-test-helpers": "^33.0.0",
-		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "13.1.0",
-		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/ufo": "^0.2.0",
-		"@testing-library/dom": "^8.17.1",
-		"@testing-library/react": "^12.1.5",
-		"@testing-library/user-event": "^14.4.3",
-		"@types/deep-equal": "^1.0.1",
-		"@types/enzyme": "3.1.15",
-		"@types/mime": "^2.0.1",
-		"@types/react-loadable": "^5.4.1",
-		"enzyme": "^3.10.0",
-		"exenv": "^1.2.2",
-		"jsverify": "^0.8.3",
-		"react-dom": "^16.8.0",
-		"react-intl-next": "npm:react-intl@^5.18.1",
-		"rxjs": "^5.5.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
-	},
-	"platform-feature-flags": {
-		"platform.media-experience.media-viewer-v2_hgsii": {
-			"type": "boolean"
-		},
-		"platform.media-svg-rendering": {
-			"type": "boolean"
-		}
-	},
-	"techstack": {
-		"@repo/internal": {
-			"design-tokens": [
-				"color",
-				"spacing"
-			]
-		}
-	}
+  "name": "@atlaskit/media-viewer",
+  "version": "48.6.2",
+  "description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./classnames": "./src/classnames.ts",
+    ".": "./src/index.ts"
+  },
+  "exports": {
+    "./classnames": "./src/classnames.ts",
+    ".": "./src/index.ts"
+  },
+  "atlassian": {
+    "team": "Media Experience",
+    "inPublicMirror": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Media Viewer"
+    }
+  },
+  "dependencies": {
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/button": "^17.17.0",
+    "@atlaskit/code": "^15.2.0",
+    "@atlaskit/form": "^10.3.0",
+    "@atlaskit/icon": "^22.3.0",
+    "@atlaskit/icon-file-type": "^6.4.0",
+    "@atlaskit/media-client": "^27.2.0",
+    "@atlaskit/media-client-react": "^2.0.0",
+    "@atlaskit/media-common": "^11.2.0",
+    "@atlaskit/media-svg": "^0.1.3",
+    "@atlaskit/media-ui": "^25.10.0",
+    "@atlaskit/platform-feature-flags": "^0.2.4",
+    "@atlaskit/primitives": "^7.0.0",
+    "@atlaskit/side-navigation": "^3.2.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/textfield": "^6.3.0",
+    "@atlaskit/theme": "^12.9.0",
+    "@atlaskit/tokens": "^1.50.0",
+    "@atlaskit/ufo": "^0.2.0",
+    "@babel/runtime": "^7.0.0",
+    "@kenjiuno/msgreader": "^1.2.6",
+    "deep-equal": "^1.0.1",
+    "fflate": "^0.8.1",
+    "mime": "^2.4.6",
+    "pdfjs-dist": "2.16.105",
+    "perf-marks": "^1.5.0",
+    "react-focus-lock": "^2.9.5",
+    "react-loadable": "^5.1.0",
+    "react-scrolllock": "^5.0.1",
+    "unzipit": "^1.3.0",
+    "use-callback-ref": "^1.2.3"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.7.1",
+    "react": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
+  },
+  "devDependencies": {
+    "@af/integration-testing": "*",
+    "@af/visual-regression": "*",
+    "@atlaskit/media-core": "^34.2.0",
+    "@atlaskit/media-integration-test-helpers": "^3.0.0",
+    "@atlaskit/media-state": "^1.1.0",
+    "@atlaskit/media-test-data": "^2.3.0",
+    "@atlaskit/media-test-helpers": "^33.0.0",
+    "@atlaskit/ssr": "*",
+    "@atlaskit/toggle": "13.1.0",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/feature-flags-test-utils": "*",
+    "@atlassian/ufo": "^0.2.0",
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/deep-equal": "^1.0.1",
+    "@types/enzyme": "3.1.15",
+    "@types/mime": "^2.0.1",
+    "@types/react-loadable": "^5.4.1",
+    "enzyme": "^3.10.0",
+    "exenv": "^1.2.2",
+    "jsverify": "^0.8.3",
+    "react-dom": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1",
+    "rxjs": "^5.5.0",
+    "typescript": "~5.4.2",
+    "wait-for-expect": "^1.2.0"
+  },
+  "platform-feature-flags": {
+    "platform.media-experience.media-viewer-v2_hgsii": {
+      "type": "boolean"
+    },
+    "platform.media-svg-rendering": {
+      "type": "boolean"
+    }
+  },
+  "techstack": {
+    "@repo/internal": {
+      "design-tokens": [
+        "color",
+        "spacing"
+      ]
+    }
+  }
 }

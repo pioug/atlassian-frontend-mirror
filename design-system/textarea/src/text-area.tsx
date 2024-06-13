@@ -111,7 +111,7 @@ const InnerTextArea = forwardRef((props: TextAreaProps, ref) => {
 		[minimumRows, resize, appearance, isMonospaced, maxHeight],
 	);
 
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	const textAreaStyles = css([baseStyles, dynamicStyles(appearance)]);
 
 	return (

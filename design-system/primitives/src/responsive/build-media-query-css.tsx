@@ -40,6 +40,7 @@ export const UNSAFE_buildAboveMediaQueryCSS = (
 		(acc, breakpoint) => ({
 			...acc,
 			[breakpoint]: css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				[media.above[breakpoint]]: typeof input === 'function' ? input(breakpoint) : input,
 			}),
 		}),
@@ -86,7 +87,7 @@ export const UNSAFE_buildBelowMediaQueryCSS = (
 		return {
 			...acc,
 			[breakpoint]: css({
-				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+				// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				[UNSAFE_media.below[breakpoint]]: typeof input === 'function' ? input(breakpoint) : input,
 			}),
 		};

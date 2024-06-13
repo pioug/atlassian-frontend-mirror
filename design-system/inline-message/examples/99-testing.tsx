@@ -1,20 +1,22 @@
 import React from 'react';
 
+import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
+import { Stack, Text } from '@atlaskit/primitives';
 
 import InlineMessage from '../src';
 
-const MessageContent = (
-	<div>
-		<h4>It is so great to use data-testid</h4>
-		<span>
+const messageContent = (
+	<Stack space="space.100">
+		<Heading size="small">It is so great to use data-testid</Heading>
+		<Text>
 			Visit{' '}
 			<Link href="https://hello.atlassian.net/wiki/spaces/AF/pages/2634728893/Testing+in+Atlassian+Frontend">
-				<u>our testing website</u>
+				our testing website
 			</Link>{' '}
 			for more information
-		</span>
-	</div>
+		</Text>
+	</Stack>
 );
 
 export default () => {
@@ -25,7 +27,7 @@ export default () => {
 			secondaryText="Use data-testid for reliable testing"
 			testId="the-inline-message"
 		>
-			{MessageContent}
+			{messageContent}
 		</InlineMessage>
 	);
 };

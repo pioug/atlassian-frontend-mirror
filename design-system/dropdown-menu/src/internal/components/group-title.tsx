@@ -11,8 +11,10 @@ const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
 	color: token('color.text.subtle', N300),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: itemHeadingFontSize,
 	fontWeight: token('font.weight.bold', '700'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
 	paddingBlock: token('space.0', '0px'),
 	paddingInline: token('space.200', '16px'),

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-loom
 
+## 2.2.10
+
+### Patch Changes
+
+- [#109923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109923)
+  [`ed20be4a6f5d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed20be4a6f5d5) -
+  ED-23511 fix loom and it button responsive
+- Updated dependencies
+
 ## 2.2.9
 
 ### Patch Changes

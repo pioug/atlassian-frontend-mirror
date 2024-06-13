@@ -44,6 +44,7 @@ export const DropdownIndicator = <Option extends unknown, IsMulti extends boolea
 export const LoadingIndicator = <Option extends unknown, IsMulti extends boolean = false>(
 	props: LoadingIndicatorProps<Option, IsMulti>,
 ) => {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	const loadingStyles = css(props.getStyles('loadingIndicator', props));
 	return (
 		// This *must* be constructed this way because this is being consumed by

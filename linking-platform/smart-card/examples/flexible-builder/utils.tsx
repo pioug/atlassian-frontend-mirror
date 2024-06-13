@@ -79,7 +79,9 @@ export const setExampleToLocalStorage = (template: FlexibleTemplate) => {
 	);
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const excludeStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'label, label > span, div': {
 		color: token('color.text.disabled', '#091E424F'),
 	},

@@ -11,11 +11,14 @@ import { LinkIcon } from '../../src/view/FlexibleCard/components/elements';
 import { smallImage } from '@atlaskit/media-test-helpers';
 
 const boxStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: exampleTokens.iconColor,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: exampleTokens.iconBackgroundColor,
 	borderRadius: '5px',
 });
 const overrideCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: exampleTokens.overrideColor,
 	borderRadius: '15px',
 });

@@ -132,6 +132,7 @@ class Example extends React.Component<{}, ExampleState> {
 						{this.createSlider(CONTAINER_WIDTH_LABEL, containerWidth)}
 						{this.createSlider(CONTAINER_HEIGHT_LABEL, containerHeight)}
 						{this.createSlider(MARGIN_LABEL, margin, 0, 100, 5)}
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<label css={labelStyles}>
 							<span>Circular:</span>
 							<input
@@ -140,6 +141,7 @@ class Example extends React.Component<{}, ExampleState> {
 								onChange={this.onCircularChanged}
 							/>
 						</label>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<label css={labelStyles}>
 							<span>Render Circular Mask:</span>
 							<input
@@ -148,6 +150,7 @@ class Example extends React.Component<{}, ExampleState> {
 								onChange={this.onRenderCircularMaskChanged}
 							/>
 						</label>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<label css={labelStyles}>
 							<span>Use Constraints:</span>
 							<input
@@ -203,8 +206,10 @@ class Example extends React.Component<{}, ExampleState> {
 				<Grid>
 					<GridColumn>
 						{exportedDataURI ? (
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<div css={exportedImageWrapperStyles}>
 								<img
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									css={exportedImageStyles}
 									src={exportedDataURI}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -232,6 +237,7 @@ class Example extends React.Component<{}, ExampleState> {
 		const displayTitle = title.replace(/_/g, ' ');
 		const stepListId = `stepList_${displayTitle}`;
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<label css={labelStyles}>
 				<span>{displayTitle}:</span>
 				<input

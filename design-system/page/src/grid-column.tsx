@@ -47,11 +47,13 @@ const getVariant = ({ medium, columns }: { medium: number; columns: number }): C
  * 99.9999% is used. Using 100% here causes columns to wrap prematurely.
  */
 const availableWidth = '99.9999%';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const singleColumnWidth = `(${availableWidth} / var(${varColumnsNum}))`;
 
 const gridColumnStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minWidth: `calc(${singleColumnWidth} - var(${varGridSpacing}))`,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	margin: `0 calc(var(${varGridSpacing}) / 2)`,
 	flexGrow: 1,
 	flexShrink: 0,
@@ -60,14 +62,17 @@ const gridColumnStyles = css({
 
 const gridColumnWidthStyles = {
 	[ColumnVariant.Auto]: css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxWidth: `calc(100% - var(${varGridSpacing}))`,
 		flexBasis: `auto`,
 	}),
 	[ColumnVariant.Bounded]: css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxWidth: `calc(${singleColumnWidth} *  var(${varColumnSpan}) - var(${varGridSpacing}))`,
 		flexBasis: `100%`,
 	}),
 	[ColumnVariant.FullWidth]: css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxWidth: `calc(100% - var(${varGridSpacing}))`,
 		flexBasis: `100%`,
 	}),
@@ -114,6 +119,7 @@ const GridColumn = ({ medium = defaultMedium, children, testId }: GridColumnProp
 						 * The 'auto' value here isn't actually consumed anywhere and is
 						 * just to better reflect what is happening when inspecting CSS.
 						 */
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						[varColumnSpan]: variant === ColumnVariant.Auto ? 'auto' : colSpan,
 					} as React.CSSProperties
 				}

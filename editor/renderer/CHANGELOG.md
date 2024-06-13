@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.32.3
+
+### Patch Changes
+
+- [#109969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109969)
+  [`52590a0b562ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52590a0b562ef) -
+  ED-23690 Adds an attribute to annotation analytic events with the name of nodes inside the
+  annotation range
+- Updated dependencies
+
 ## 109.32.2
 
 ### Patch Changes

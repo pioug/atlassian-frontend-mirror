@@ -22,6 +22,7 @@ const sharedStyles = {
 export const ThumbnailDefault = ({ src, testId }: ImageProps) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={mq({
 				...sharedStyles,
 				backgroundSize: 'cover',
@@ -43,6 +44,7 @@ const thumbnailImgStyles = css({
 export const ThumbnailWithBackground = ({ src, color, testId }: ImageProps) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={mq({
 				...sharedStyles,
 				backgroundColor: color,

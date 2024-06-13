@@ -1,98 +1,98 @@
 {
-	"name": "@atlaskit/css-reset",
-	"version": "6.9.1",
-	"description": "A base stylesheet for the Atlassian Design System.",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
-	},
-	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"main": "dist/bundle.css",
-	"module": "dist/bundle.css",
-	"module:es2019": "dist/bundle.css",
-	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.tsx",
-	"atlassian": {
-		"team": "Design System Team",
-		"productPushConsumption": [
-			"jira"
-		],
-		"releaseModel": "continuous",
-		"runReact18": true,
-		"website": {
-			"name": "CSS reset",
-			"category": "Libraries"
-		}
-	},
-	"scripts": {
-		"ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && ABS_PATH=$(pwd) && ln -sf $ABS_PATH/dist/bundle.css dist/cjs/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/esm/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/es2019/bundle.css",
-		"build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx"
-	},
-	"dependencies": {
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/tokens": "^1.49.0",
-		"@babel/runtime": "^7.0.0"
-	},
-	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-	},
-	"devDependencies": {
-		"@atlaskit/visual-regression": "*",
-		"mkdirp": "^0.5.1",
-		"ts-node": "^10.9.1",
-		"tsconfig-paths": "^4.2.0",
-		"typescript": "~5.4.2"
-	},
-	"keywords": [
-		"atlaskit",
-		"css",
-		"ui"
-	],
-	"techstack": {
-		"@atlassian/frontend": {
-			"import-structure": "atlassian-conventions"
-		},
-		"@repo/internal": {
-			"design-system": "v1",
-			"ui-components": "lite-mode",
-			"design-tokens": [
-				"color",
-				"spacing"
-			],
-			"deprecation": "no-deprecated-imports",
-			"styling": [
-				"emotion"
-			]
-		}
-	},
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
-	"af:exports": {
-		".": "./src/index.tsx",
-		"./styles": "./src/index.tsx",
-		"./base": "./src/base.tsx",
-		"./browser-fixes": "./src/browser-fixes.tsx",
-		"./bundle.css": "./src/bundle.css",
-		"./reset": "./src/reset.tsx",
-		"./tables": "./src/tables.tsx",
-		"./utils": "./src/utils.tsx"
-	},
-	"exports": {
-		".": "./src/index.tsx",
-		"./styles": "./src/index.tsx",
-		"./base": "./src/base.tsx",
-		"./browser-fixes": "./src/browser-fixes.tsx",
-		"./bundle.css": "./src/bundle.css",
-		"./reset": "./src/reset.tsx",
-		"./tables": "./src/tables.tsx",
-		"./utils": "./src/utils.tsx"
-	},
-	"homepage": "https://atlassian.design/components/css-reset"
+  "name": "@atlaskit/css-reset",
+  "version": "6.9.1",
+  "description": "A base stylesheet for the Atlassian Design System.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/bundle.css",
+  "module": "dist/bundle.css",
+  "module:es2019": "dist/bundle.css",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.tsx",
+  "atlassian": {
+    "team": "Design System Team",
+    "productPushConsumption": [
+      "jira"
+    ],
+    "releaseModel": "continuous",
+    "runReact18": true,
+    "website": {
+      "name": "CSS reset",
+      "category": "Libraries"
+    }
+  },
+  "scripts": {
+    "ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && ABS_PATH=$(pwd) && ln -sf $ABS_PATH/dist/bundle.css dist/cjs/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/esm/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/es2019/bundle.css",
+    "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx"
+  },
+  "dependencies": {
+    "@atlaskit/theme": "^12.9.0",
+    "@atlaskit/tokens": "^1.50.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+  },
+  "devDependencies": {
+    "@atlaskit/visual-regression": "*",
+    "mkdirp": "^0.5.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "~5.4.2"
+  },
+  "keywords": [
+    "atlaskit",
+    "css",
+    "ui"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "ui-components": "lite-mode",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion"
+      ]
+    }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./styles": "./src/index.tsx",
+    "./base": "./src/base.tsx",
+    "./browser-fixes": "./src/browser-fixes.tsx",
+    "./bundle.css": "./src/bundle.css",
+    "./reset": "./src/reset.tsx",
+    "./tables": "./src/tables.tsx",
+    "./utils": "./src/utils.tsx"
+  },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./styles": "./src/index.tsx",
+    "./base": "./src/base.tsx",
+    "./browser-fixes": "./src/browser-fixes.tsx",
+    "./bundle.css": "./src/bundle.css",
+    "./reset": "./src/reset.tsx",
+    "./tables": "./src/tables.tsx",
+    "./utils": "./src/utils.tsx"
+  },
+  "homepage": "https://atlassian.design/components/css-reset"
 }

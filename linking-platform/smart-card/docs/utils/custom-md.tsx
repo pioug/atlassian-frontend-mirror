@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { toAbsolutePath } from './index';
 
 const styles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'code:not([class])': {
 		borderRadius: '3px',
 		display: 'inline-block',

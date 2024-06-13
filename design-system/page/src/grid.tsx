@@ -16,7 +16,7 @@ import type { GridProps } from './types';
 const gridStyles = css({
 	display: 'flex',
 	margin: '0 auto',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	padding: `0 calc(var(${varGridSpacing}) / 2)`,
 	position: 'relative',
 	alignItems: 'flex-start',
@@ -25,6 +25,7 @@ const gridStyles = css({
 
 const gridLayoutStyles = {
 	fixed: css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxWidth: `calc(var(${varColumnsNum}) * ${defaultGridColumnWidth}px)`,
 	}),
 	fluid: css({
@@ -33,7 +34,7 @@ const gridLayoutStyles = {
 };
 
 const nestedGridStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	margin: `0 calc(-1 * var(${varGridSpacing}))`,
 });
 
@@ -56,7 +57,9 @@ export const Grid = ({ layout = defaultLayout, testId, children }: GridProps) =>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[varColumnsNum]: columns,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[varGridSpacing]: `${spacingMapping[spacing]}px`,
 				} as React.CSSProperties
 			}

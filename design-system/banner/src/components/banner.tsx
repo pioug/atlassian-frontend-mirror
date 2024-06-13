@@ -117,6 +117,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
 						style={
 							{
 								[CSS_VAR_TEXT_COLOR]: tokenTextColors[appearanceType],
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							} as CSSProperties
 						}
 						css={textStyles}

@@ -38,6 +38,7 @@ const grabAreaStyles = css({
 	backgroundColor: 'transparent',
 	border: 0,
 	cursor: 'ew-resize',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-moz-focus-inner': {
 		border: 0,
 	},
@@ -102,6 +103,7 @@ const GrabArea = ({
 		css={[
 			grabAreaStyles,
 			isLeftSidebarCollapsed && grabAreaCollapsedStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			getBooleanFF('platform.design-system-team.page-layout-resize-button-fix_u0qxv') &&
 				isLeftSidebarCollapsed &&
 				grabAreaReducedHeightStyles,

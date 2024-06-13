@@ -22,6 +22,7 @@ const removeImageButtonStyles = css({
 	border: 'none',
 	cursor: 'pointer',
 	padding: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
 		position: 'absolute',
 		top: token('space.050', '4px'),
@@ -51,9 +52,13 @@ const maskShadow = {
 
 const maskStyles = xcss({
 	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	top: `${CONTAINER_PADDING}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	bottom: `${CONTAINER_PADDING}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	left: `${CONTAINER_PADDING}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	right: `${CONTAINER_PADDING}px`,
 	opacity: 'opacity.disabled',
 });
@@ -142,17 +147,24 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 			intl: { formatMessage },
 		} = this.props;
 		const containerDimensions = xcss({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width: `${containerSize}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: `${containerSize}px`,
 		});
 		const width = imageWidth ? `${imageWidth}px` : 'auto';
 		const height = imageHeight ? `${imageHeight}px` : 'auto';
 
 		const imageContainerDynamicStyles = xcss({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			display: width === 'auto' ? 'none' : 'block',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			top: `${top}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			left: `${left}px`,
 		});
 

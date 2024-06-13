@@ -1,6 +1,7 @@
 ---
 title: Split button
-description: A split button lets people perform an action or choose from a small group of similar actions.
+description:
+  A split button lets people perform an action or choose from a small group of similar actions.
 order: 2
 ---
 
@@ -21,140 +22,162 @@ Split buttons have one clear default action alongside a group of similar actions
 
 The parts of a split button:
 
-1. **Main action button:** The default action that most users will take. Make sure button labels follow the [button content guidelines](/components/button/split-button/usage#content-guidelines). This button can optionally include an icon.
-1. **Dropdown menu icon button:** A dropdown button attached to the main action button, separated by a visual divider. This opens a menu of related actions. Requires an accessible name for assistive technologies.
+1. **Main action button:** The default action that most users will take. Make sure button labels
+   follow the [button content guidelines](/components/button/split-button/usage#content-guidelines).
+   This button can optionally include an icon.
+1. **Dropdown menu icon button:** A dropdown button attached to the main action button, separated by
+   a visual divider. This opens a menu of related actions. Requires an accessible name for assistive
+   technologies.
 1. **Secondary actions menu:** A menu of actions that are parallel or similar to the main action.
 
 ### Use split buttons for directly related actions with one clear default
 
-The small menu is easy to miss and requires more focus, so expect people to use the main action button in most cases.
+The small menu is easy to miss and requires more focus, so expect people to use the main action
+button in most cases.
 
-When there isn’t a clear default action, present all options equally using a [basic dropdown menu](/components/dropdown-menu/examples) or [button group](/components/button-group/examples).
+When there isn’t a clear default action, present all options equally using a
+[basic dropdown menu](/components/dropdown-menu/examples) or
+[button group](/components/button-group/examples).
 
 <DoDont
-  type="do"
-  image={{
-    url: relatedDo,
-    alt: 'An Update button next to a menu of related actions like Save as draft and Save without notifying watchers.',
-  }}
+	type="do"
+	image={{
+		url: relatedDo,
+		alt: 'An Update button next to a menu of related actions like Save as draft and Save without notifying watchers.',
+	}}
 >
-  Group related actions under the split button dropdown.
+	Group related actions under the split button dropdown.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: relatedDont,
-    alt: 'An Update button next to a menu of related actions with Save as draft, Save without notifying watchers, and Delete, which is not related to updates.',
-  }}
+	type="dont"
+	image={{
+		url: relatedDont,
+		alt: 'An Update button next to a menu of related actions with Save as draft, Save without notifying watchers, and Delete, which is not related to updates.',
+	}}
 >
-  Don't use a split button to group actions that aren't directly related or
-  similar.
+	Don't use a split button to group actions that aren't directly related or similar.
 </DoDont>
 
 ## Accessibility
 
 ### Provide an accessible name for the dropdown icon button
 
-Provide an accessible name (using the label prop) to describe the actions behind the dropdown icon button. The text should say something like "More 'main action' actions."
+Provide an accessible name (using the label prop) to describe the actions behind the dropdown icon
+button. The text should say something like "More 'main action' actions."
 
 ### Avoid disabling buttons
 
-Avoid disabling buttons and follow all [general button accessibility guidance](/components/button/usage#accessibility).
+Avoid disabling buttons and follow all
+[general button accessibility guidance](/components/button/usage#accessibility).
 
 <DoDont
-  type="do"
-  width="full"
-  image={{
-    url: labelDo,
-    alt: "A dropdown icon button with the label 'More save actions', allowing assistive technology to announce the name.",
-  }}
+	type="do"
+	width="full"
+	image={{
+		url: labelDo,
+		alt: "A dropdown icon button with the label 'More save actions', allowing assistive technology to announce the name.",
+	}}
 >
-  Give icon buttons an accessible name with the label prop.
+	Give icon buttons an accessible name with the label prop.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: disabledDont,
-    alt: 'A tooltip on a disabled button. This is inaccessible because they can’t be triggered on focus.',
-  }}
+	type="dont"
+	image={{
+		url: disabledDont,
+		alt: 'A tooltip on a disabled button. This is inaccessible because they can’t be triggered on focus.',
+	}}
 >
-  Don't use a tooltip on a disabled button.
+	Don't use a tooltip on a disabled button.
 </DoDont>
 
 ## Best practices
 
 ### Aim for fewer dropdown items
 
-Try to keep the number of dropdown menus items to a minimum (fewer than six) to aid focus and comprehension.
+Try to keep the number of dropdown menus items to a minimum (fewer than six) to aid focus and
+comprehension.
 
-Remember that some users may miss the secondary action entirely, so ensure users aren’t required to interact with the secondary action to proceed. In other words, make sure the main action button allows people to proceed in most cases.
+Remember that some users may miss the secondary action entirely, so ensure users aren’t required to
+interact with the secondary action to proceed. In other words, make sure the main action button
+allows people to proceed in most cases.
 
 <DoDont
-  type="do"
-  image={{
-    url: lengthDo,
-    alt: 'A dropdown menu with three options.',
-  }}
+	type="do"
+	image={{
+		url: lengthDo,
+		alt: 'A dropdown menu with three options.',
+	}}
 >
-  Keep the number of dropdown menu items to a minimum.
+	Keep the number of dropdown menu items to a minimum.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: lengthDont,
-    alt: 'A dropdown menu with eight options.',
-  }}
+	type="dont"
+	image={{
+		url: lengthDont,
+		alt: 'A dropdown menu with eight options.',
+	}}
 >
-  Don't use more than six menu items in a dropdown menu.
+	Don't use more than six menu items in a dropdown menu.
 </DoDont>
 
 ### Secondary actions should open a dropdown menu
 
 In general, the secondary action button opens a dropdown menu.
 
-When the secondary action doesn’t open a dropdown menu, don’t use a dropdown icon like the chevron down. Make sure any icon button provides a clear and consistent signifier that relates to the purpose of that action.
+When the secondary action doesn’t open a dropdown menu, don’t use a dropdown icon like the chevron
+down. Make sure any icon button provides a clear and consistent signifier that relates to the
+purpose of that action.
 
-If you are customizing the secondary action menu (not a dropdown), strongly consider whether these actions are directly related, with one being a clear default. In most cases, a separate button may be more appropriate than a split button with a custom icon.
+If you are customizing the secondary action menu (not a dropdown), strongly consider whether these
+actions are directly related, with one being a clear default. In most cases, a separate button may
+be more appropriate than a split button with a custom icon.
 
 ## Content guidelines
 
 ### Use sentence case for labels
 
-Use sentence case (only capitalize the first letter) for all button actions and menu items, unless there’s a proper noun in the label.
+Use sentence case (only capitalize the first letter) for all button actions and menu items, unless
+there’s a proper noun in the label.
 
 ### Don't repeat the default action in the dropdown
 
-Don’t include the default action as one of the dropdown menu items. This helps keep the number of items to a minimum.
+Don’t include the default action as one of the dropdown menu items. This helps keep the number of
+items to a minimum.
 
 <DoDont
-  type="do"
-  image={{
-    url: repeatDo,
-    alt: 'A link issue button with a menu of related link options, such as Link page and Link URL.',
-  }}
+	type="do"
+	image={{
+		url: repeatDo,
+		alt: 'A link issue button with a menu of related link options, such as Link page and Link URL.',
+	}}
 >
-  Use clear and concise labels for the main and secondary actions.
+	Use clear and concise labels for the main and secondary actions.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: repeatDont,
-    alt: 'A link issue button with a menu of related link options. The link issue option is repeated in the menu and the button.',
-  }}
+	type="dont"
+	image={{
+		url: repeatDont,
+		alt: 'A link issue button with a menu of related link options. The link issue option is repeated in the menu and the button.',
+	}}
 >
-  Don't repeat the main action as one of the dropdown items.
+	Don't repeat the main action as one of the dropdown items.
 </DoDont>
 
 ## Mobile guidelines
 
-Avoid using split buttons in mobile experiences. The menu button touch target is small and easy to miss accidentally.
+Avoid using split buttons in mobile experiences. The menu button touch target is small and easy to
+miss accidentally.
 
 ## Related
 
-- To group actions that are dissimilar or of equal importance, use a [button group](/components/button-group/examples) or a [basic dropdown menu](/components/dropdown-menu/examples) to present options more equally.
-- To present more actions in views with limited space, use an [icon button as a more actions (…) menu](/components/button/icon-button/examples).
-- In navigation, use a [basic navigation dropdown](/components/atlassian-navigation/examples) to simplify.
+- To group actions that are dissimilar or of equal importance, use a
+  [button group](/components/button-group/examples) or a
+  [basic dropdown menu](/components/dropdown-menu/examples) to present options more equally.
+- To present more actions in views with limited space, use an
+  [icon button as a more actions (…) menu](/components/button/icon-button/examples).
+- In navigation, use a [basic navigation dropdown](/components/atlassian-navigation/examples) to
+  simplify.

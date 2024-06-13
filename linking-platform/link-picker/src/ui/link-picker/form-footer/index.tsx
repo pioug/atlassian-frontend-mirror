@@ -120,6 +120,7 @@ export const FormFooter = memo(
 		);
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<footer css={formFooterStyles} {...restProps}>
 				{isSubmitting && (
 					<VisuallyHidden
@@ -131,6 +132,7 @@ export const FormFooter = memo(
 					</VisuallyHidden>
 				)}
 				{action && (
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={formFooterActionStyles}>
 						{createFeatureDiscovery ? (
 							<FeatureDiscovery testId={testIds.actionButtonDiscovery}>

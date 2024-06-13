@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { typography } from '../src';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Heading = styled.div<{ mixin: any }>((props) => props.mixin());
 
 export default () => {

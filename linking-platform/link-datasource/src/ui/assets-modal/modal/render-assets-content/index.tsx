@@ -29,7 +29,7 @@ export interface RenderAssetsContentProps {
 	visibleColumnKeys?: string[];
 	datasourceId: string;
 	aql?: string;
-	schemaId?: String;
+	schemaId?: string;
 	onNextPage: () => void;
 	hasNextPage: boolean;
 	loadDatasourceDetails: () => void;
@@ -56,9 +56,13 @@ const tableBordersStyles = css({
 	borderTopLeftRadius: token('border.radius.200', '8px'),
 	borderTopRightRadius: token('border.radius.200', '8px'),
 	borderBottom: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundImage: scrollableContainerShadowsCssComponents.backgroundImage,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundRepeat: scrollableContainerShadowsCssComponents.backgroundRepeat,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundSize: scrollableContainerShadowsCssComponents.backgroundSize,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundAttachment: scrollableContainerShadowsCssComponents.backgroundAttachment,
 });
 

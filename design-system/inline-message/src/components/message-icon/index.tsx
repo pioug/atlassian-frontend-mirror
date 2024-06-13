@@ -55,7 +55,7 @@ const SelectedIcon: FC<MessageIconProps> = ({ appearance, isOpen, label }) => {
 	return (
 		<span
 			data-ds--inline-message--icon
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			style={{ '--icon-color': iconColor(appearance) } as CSSProperties}
 			css={[iconWrapperStyles, isOpen && iconColorStyles]}
 		>

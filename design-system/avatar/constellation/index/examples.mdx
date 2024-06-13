@@ -23,9 +23,12 @@ import AvatarLocked from '../../examples/constellation/avatar-status-locked';
 
 ## Default
 
-When the image source is unavailable (for example, when there's a problem displaying the image due to an error), or the source is unspecified, the avatar component will display a default image.
+When the image source is unavailable (for example, when there's a problem displaying the image due
+to an error), or the source is unspecified, the avatar component will display a default image.
 
-When an avatar is not given any useful context via the `name`, `presence`, or `status` attributes like in this example, it will be hidden for assistive technologies as it does not convey any meaningful information.
+When an avatar is not given any useful context via the `name`, `presence`, or `status` attributes
+like in this example, it will be hidden for assistive technologies as it does not convey any
+meaningful information.
 
 <Example Component={AvatarDefault} packageName="@atlaskit/avatar" />
 
@@ -47,16 +50,19 @@ Use `square` avatars to represent an entity, such as a project, repository or sp
 
 ### Disabled
 
-Set `isDisabled` to disable an avatar that isn't usable. This sets the avatar image to 40% opacity using the `opacity.disabled` token.
+Set `isDisabled` to disable an avatar that isn't usable. This sets the avatar image to 40% opacity
+using the `opacity.disabled` token.
 
-Avoid using disabled UI. This can cause accessibility problems, because disabled UI doesn't give enough information to the user about what went wrong and how to proceed, and will not appear in the tab order.
+Avoid using disabled UI. This can cause accessibility problems, because disabled UI doesn't give
+enough information to the user about what went wrong and how to proceed, and will not appear in the
+tab order.
 
 <Example Component={AvatarDisabled} packageName="@atlaskit/avatar" />
 
 ## Status
 
-Indicates contextual information by showing a small icon on the avatar.
-Takes precedence over presence.
+Indicates contextual information by showing a small icon on the avatar. Takes precedence over
+presence.
 
 ### Approved
 
@@ -94,44 +100,52 @@ Indicates a user's online status by showing a small icon on the avatar.
 
 ### xxlarge
 
-Use `xxlarge` circle avatars in places where larger avatars are needed. For example, the Atlassian People Directory. This size isn't used for square avatars.
+Use `xxlarge` circle avatars in places where larger avatars are needed. For example, the Atlassian
+People Directory. This size isn't used for square avatars.
 
 <Example Component={AvatarXXLarge} packageName="@atlaskit/avatar" />
 
 ### xlarge
 
-Use `xlarge` circle avatars where they’re needed to display prominently on a page. This size isn't used for square avatars.
+Use `xlarge` circle avatars where they’re needed to display prominently on a page. This size isn't
+used for square avatars.
 
 <Example Component={AvatarXLarge} packageName="@atlaskit/avatar" />
 
 ### large
 
-Use `large` circle avatars to represent people for main page titles, like a user's account settings. Use `large` square avatars to represent main entity titles like Jira projects or Confluence spaces.
+Use `large` circle avatars to represent people for main page titles, like a user's account settings.
+Use `large` square avatars to represent main entity titles like Jira projects or Confluence spaces.
 
 <Example Component={AvatarLarge} packageName="@atlaskit/avatar" />
 
 ### medium
 
-Use `medium` circle avatars in activity streams or comments. Use `medium` square avatars in table views for project listings.
+Use `medium` circle avatars in activity streams or comments. Use `medium` square avatars in table
+views for project listings.
 
 <Example Component={AvatarMedium} packageName="@atlaskit/avatar" />
 
 ### small
 
-Use `small` circle avatars in small areas like 40px text fields, and square avatars for use in things like [dropdown menus](/components/dropdown-menu).
+Use `small` circle avatars in small areas like 40px text fields, and square avatars for use in
+things like [dropdown menus](/components/dropdown-menu).
 
 <Example Component={AvatarSmall} packageName="@atlaskit/avatar" />
 
 ### xsmall
 
-Use `xsmall` circle and square avatars for onscreen metadata such as in Jira issues or dropdown menus.
+Use `xsmall` circle and square avatars for onscreen metadata such as in Jira issues or dropdown
+menus.
 
 <Example Component={AvatarXSmall} packageName="@atlaskit/avatar" />
 
 ## Displaying a tooltip
 
-You can display a tooltip with an avatar on focus or hover. The tooltip `content` should be set to the same value as the avatar `label`.
+You can display a tooltip with an avatar on focus or hover. The tooltip `content` should be set to
+the same value as the avatar `label`.
 
-Don't use a tooltip with an avatar unless it is interactive. For more information, see the [avatar component accessibilty guidelines](usage#accessibility).
+Don't use a tooltip with an avatar unless it is interactive. For more information, see the
+[avatar component accessibilty guidelines](usage#accessibility).
 
 <Example Component={AvatarTooltip} packageName="@atlaskit/avatar" />

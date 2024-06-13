@@ -14,6 +14,7 @@ const style = `
 export const errorIcon = (
 	<svg viewBox="0 0 163.28 218">
 		<defs>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 			<style>{style}</style>
 			<linearGradient
 				id="linear-gradient"

@@ -21,6 +21,7 @@ const archiveSideBarStyles = css({
 	position: 'absolute',
 	left: 0,
 	top: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${ArchiveSideBarWidth}px`,
 	bottom: 0,
 	boxSizing: 'border-box',
@@ -82,7 +83,7 @@ const archiveLayoutStyles = css({
 const archiveViewerWrapperStyles = css({
 	position: 'absolute',
 	top: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	left: `${ArchiveSideBarWidth}px`,
 	right: 0,
 	bottom: 0,

@@ -458,6 +458,7 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 		const imgSrc = typeof src === 'string' ? src : undefined;
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={imagePlacerWrapperStyles({ backgroundColor })}>
 				<ImagePlacerContainer
 					width={containerWidth}

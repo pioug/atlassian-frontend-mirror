@@ -33,12 +33,14 @@ const listStyles = css({
 	marginTop: 0,
 	maxWidth: '300px',
 	paddingLeft: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	li: {
 		padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
 			'space.050',
 			'4px',
 		)} ${token('space.100', '8px')}`,
 		'&:hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: exampleTokens.backgroundColor,
 			borderRadius: token('border.radius', '4px'),
 		},
@@ -49,6 +51,7 @@ const previewStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
 	gap: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		maxWidth: '350px',
 		minWidth: '350px',

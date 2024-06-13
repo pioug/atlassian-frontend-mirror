@@ -51,6 +51,7 @@ const openBackdropStyles = css({
 
 const hiddenBackdropStyles = css({
 	opacity: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `opacity ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 });
 

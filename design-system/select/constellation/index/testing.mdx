@@ -1,20 +1,24 @@
 import SelectSingle from '../../examples/constellation/select-single';
 
-Being able to programmatically test the behavior of your components is important.
-Select enables this through two props `className` and `classNamePrefix`.
+Being able to programmatically test the behavior of your components is important. Select enables
+this through two props `className` and `classNamePrefix`.
 
-Typically when these two props are not defined, the dom-elements in select use emotions generated classnames.
-However with `className` and `classNamePrefix`, select generates semantic classnames for you to reliably search for specific dom elements in the tree.
+Typically when these two props are not defined, the dom-elements in select use emotions generated
+classnames. However with `className` and `classNamePrefix`, select generates semantic classnames for
+you to reliably search for specific dom elements in the tree.
 
-The value specified in the `className` prop is reflected down to the selects container.
-While the value of the `classNamePrefix` prop is reflected down to every single dom element in the tree as a prefix.
+The value specified in the `className` prop is reflected down to the selects container. While the
+value of the `classNamePrefix` prop is reflected down to every single dom element in the tree as a
+prefix.
 
 You can see this by inspecting the following example.
 
 <Example packageName="@atlaskit/select" Component={SelectSingle} />
 
-Note here that the `className` of the container element has both the generated css as well as `single-select` the value of the `className` prop.
-Every other element in the tree also includes the generated emotion `classname` as well as a semantic classname preceded by `react-select` the value passed into the `classNamePrefix`.
+Note here that the `className` of the container element has both the generated css as well as
+`single-select` the value of the `className` prop. Every other element in the tree also includes the
+generated emotion `classname` as well as a semantic classname preceded by `react-select` the value
+passed into the `classNamePrefix`.
 
 As such in our tests, we can now reliably assert the state of specific dom elements, like so:
 
@@ -45,4 +49,5 @@ Once you provide a `classNamePrefix`, these are the selectors that will be expos
 - [classNamePrefix]\_\_menu-list
 - [classNamePrefix]\_\_option
 
-Providing a value for the `className` prop will reflect that value to the class name of the `select` container.
+Providing a value for the `className` prop will reflect that value to the class name of the `select`
+container.

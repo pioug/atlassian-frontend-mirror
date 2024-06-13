@@ -16,7 +16,9 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ testId, width, height
 	});
 
 	const styles = css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width}rem`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${height}rem`,
 		borderRadius: '2px',
 		userSelect: 'none',

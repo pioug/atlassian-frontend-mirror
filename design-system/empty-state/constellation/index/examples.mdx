@@ -24,23 +24,20 @@ The only required part of an empty state is the header.
 
 ## Custom heading level
 
-The heading level rendered by default is heading level 4. To make sure that the empty state is accessible, headings must follow a logical order. If the empty state does not follow an `h3` or `h4` in the reading order, then you will need to modify the heading order to the next logical heading level.
+The heading level rendered by default is heading level 4. To make sure that the empty state is
+accessible, headings must follow a logical order. If the empty state does not follow an `h3` or `h4`
+in the reading order, then you will need to modify the heading order to the next logical heading
+level.
 
 Use the `headingLevel` prop to set the heading level of the header element.
 
-<Example
-  Component={EmptyStateWithHeadingLevel}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateWithHeadingLevel} packageName="@atlaskit/empty-state" />
 
 ## Description
 
 Descriptions should add useful and relevant additional information.
 
-<Example
-  Component={EmptyStateDescription}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateDescription} packageName="@atlaskit/empty-state" />
 
 ## Actions
 
@@ -48,32 +45,25 @@ Descriptions should add useful and relevant additional information.
 
 Use a primary action button to recommend the best next step that people can take.
 
-<Example
-  Component={EmptyStatePrimaryAction}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStatePrimaryAction} packageName="@atlaskit/empty-state" />
 
 ### Secondary
 
 Use a secondary action button to recommend an alternate step that people could take.
 
-<Example
-  Component={EmptyStateSecondaryAction}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateSecondaryAction} packageName="@atlaskit/empty-state" />
 
 ### Tertiary
 
-Use tertiary action buttons to link to external resources or documentation to further explain how to resolve the empty state.
+Use tertiary action buttons to link to external resources or documentation to further explain how to
+resolve the empty state.
 
-<Example
-  Component={EmptyStateTertiaryAction}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateTertiaryAction} packageName="@atlaskit/empty-state" />
 
 ## Loading state
 
-Use the `isLoading` prop to indicate a loading state. This will show a spinner next to the action buttons when true.
+Use the `isLoading` prop to indicate a loading state. This will show a spinner next to the action
+buttons when true.
 
 <Example Component={EmptyStateLoading} packageName="@atlaskit/empty-state" />
 
@@ -81,44 +71,42 @@ Use the `isLoading` prop to indicate a loading state. This will show a spinner n
 
 ### Image URL
 
-You can display an image by supplying the `imageUrl` prop. This url will be passed directly into the `src` attribute of an `img` component.
+You can display an image by supplying the `imageUrl` prop. This url will be passed directly into the
+`src` attribute of an `img` component.
 
 <Example Component={EmptyStateImageUrl} packageName="@atlaskit/empty-state" />
 
 ### Render image
 
-An alternate approach to displaying an image is to use the `renderImage` prop. This render prop approach will only be used if there is no `imageUrl` prop supplied.
+An alternate approach to displaying an image is to use the `renderImage` prop. This render prop
+approach will only be used if there is no `imageUrl` prop supplied.
 
-<Example
-  Component={EmptyStateRenderImage}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateRenderImage} packageName="@atlaskit/empty-state" />
 
 ### Image dimensions
 
-Setting the `imageWidth` and `imageHeight` props can be useful to prevent your layout from reflowing when images load in.
+Setting the `imageWidth` and `imageHeight` props can be useful to prevent your layout from reflowing
+when images load in.
 
-If you have used the `imageUrl` approach, the `imageWidth` and `imageHeight` props set the `width` and `height` attributes on the underlying `img` element. If you have used the `renderImage` prop, they will be passed in as props to the render function.
+If you have used the `imageUrl` approach, the `imageWidth` and `imageHeight` props set the `width`
+and `height` attributes on the underlying `img` element. If you have used the `renderImage` prop,
+they will be passed in as props to the render function.
 
-If you are resizing a spot illustration to try and squeeze it into a layout, it's a good time to ask whether you should include the image at all.
+If you are resizing a spot illustration to try and squeeze it into a layout, it's a good time to ask
+whether you should include the image at all.
 
-<Example
-  Component={EmptyStateImageDimensions}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateImageDimensions} packageName="@atlaskit/empty-state" />
 
 ### Maximum image dimensions
 
 Applying `maxImageHeight` and `maxImageWidth` works in the same way.
 
-<Example
-  Component={EmptyStateImageMaxDimensions}
-  packageName="@atlaskit/empty-state"
-/>
+<Example Component={EmptyStateImageMaxDimensions} packageName="@atlaskit/empty-state" />
 
 ## Width
 
-The horizontal space that an empty state takes up can be controlled with the `width` prop. It can be set to either `narrow` or `wide`.
+The horizontal space that an empty state takes up can be controlled with the `width` prop. It can be
+set to either `narrow` or `wide`.
 
 ### Narrow
 

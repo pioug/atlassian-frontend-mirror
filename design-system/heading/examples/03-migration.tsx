@@ -7,6 +7,7 @@ import Heading from '../src';
 export default () => {
 	return (
 		<Fragment>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 			<style>{`:root { --ds-font-family-heading: sans-serif; }`}</style>
 			<Grid templateColumns="1fr 1fr" gap="space.100" alignItems="baseline">
 				<Heading level="h900">h900</Heading>

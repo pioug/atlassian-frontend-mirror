@@ -167,6 +167,7 @@ const SvgViewerBase = ({ identifier, onLoad, onClose, onBlanketClicked }: SvgVie
 				testId={'media-viewer-svg'}
 				identifier={identifier}
 				dimensions={imgDimensions}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={imgStyles}
 				onLoad={onImgLoad}
 				onMouseDown={startDragging}

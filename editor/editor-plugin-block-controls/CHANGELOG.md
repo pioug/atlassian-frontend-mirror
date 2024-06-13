@@ -1,5 +1,63 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.18
+
+### Patch Changes
+
+- [#110975](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110975)
+  [`1b910ab971427`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b910ab971427) -
+  [ux] Generate generic drag preview for extension nodes
+- [#110819](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110819)
+  [`c81b4e2254428`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c81b4e2254428) -
+  Fix cursor and handle position when changing node type
+
+## 1.4.17
+
+### Patch Changes
+
+- [#110808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110808)
+  [`3ae32439b454c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ae32439b454c) -
+  ED-23725 Fix issue where drag and drop breaks after node type changes and when text selection is
+  not allowed if user moves mouse to node before page finishes loading
+
+## 1.4.16
+
+### Patch Changes
+
+- [#108805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108805)
+  [`3695cb26b9899`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3695cb26b9899) -
+  Add analytic events for drag events
+- Updated dependencies
+
+## 1.4.15
+
+### Patch Changes
+
+- [#110434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110434)
+  [`fca2ac7c4fb70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fca2ac7c4fb70) -
+  [ux] Show generic drag preview when dragging an embed node
+- Updated dependencies
+
+## 1.4.14
+
+### Patch Changes
+
+- [#109040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109040)
+  [`5c5824e70db23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c5824e70db23) -
+  ED-23629 Improve performance of mousemoveWrapper hiding on hover
+
+## 1.4.13
+
+### Patch Changes
+
+- [#108531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108531)
+  [`bc1dab1f64bd8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc1dab1f64bd8) -
+  [ux] Don't render decorations when Editor is disabled or in 'view' mode
+- [#110258](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110258)
+  [`e12a40c7d31ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e12a40c7d31ee) -
+  set selection on drag handle mouse down to ensure drag and drop does not use native behaviour
+- Updated dependencies
+
 ## 1.4.12
 
 ### Patch Changes

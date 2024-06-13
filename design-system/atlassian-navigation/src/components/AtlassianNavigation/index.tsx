@@ -16,6 +16,7 @@ import { type AtlassianNavigationProps } from './types';
 const containerStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: HORIZONTAL_GLOBAL_NAV_HEIGHT,
 	position: 'relative',
 	alignItems: 'center',
@@ -32,7 +33,7 @@ const leftStyles = css({
 	height: 'inherit',
 	alignItems: 'center',
 	flexGrow: 1,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		flexShrink: 0,
 	},
@@ -42,7 +43,7 @@ const rightStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	flexShrink: 0,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		flexShrink: 0,
 		marginInlineEnd: token('space.050', '4px'),

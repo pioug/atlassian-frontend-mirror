@@ -17,94 +17,112 @@ import buttonLabelDont from './images/button-label-dont.png';
 
 ## Usage
 
-Buttons are triggers for events or actions. They’re a common part of larger experiences such as [forms](/patterns/forms) or [modal dialogs](/components/modal-dialog).
+Buttons are triggers for events or actions. They’re a common part of larger experiences such as
+[forms](/patterns/forms) or [modal dialogs](/components/modal-dialog).
 
 ![Button diagram. A caption follows this image.](images/button-anatomy.png)
 
 Buttons typically have a label and can include an icon before or after the label.
 
-1. **Label:** Text describing the button action. Use action verbs or phrases to tell the user what will happen next, and follow the [button label content guidelines](/components/button/usage#content-guidelines).
+1. **Label:** Text describing the button action. Use action verbs or phrases to tell the user what
+   will happen next, and follow the
+   [button label content guidelines](/components/button/usage#content-guidelines).
 1. **Button:** The selectable area of the button.
-1. **Icon (optional):** Most buttons don’t need an icon. Use an icon to add additional affordance where the icon has a clear and well-established meaning.
+1. **Icon (optional):** Most buttons don’t need an icon. Use an icon to add additional affordance
+   where the icon has a clear and well-established meaning.
 
 ### Use one primary call to action
 
 Only include one primary button or call to action (CTA) in a page or area of UI.
 
-Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs in one area can be confusing or visually overwhelming because they compete for attention.
+Primary buttons indicate the most important action in a group or area. Having multiple primary CTAs
+in one area can be confusing or visually overwhelming because they compete for attention.
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonPrimaryDo,
-    alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
-  }}
+	type="do"
+	image={{
+		url: buttonPrimaryDo,
+		alt: 'Two buttons in a group. One says cancel and is grey, the other says primary and is blue, making it the more promenint call to action.',
+	}}
 >
-  Use one primary call to action to help people proceed.
+	Use one primary call to action to help people proceed.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonPrimaryDont,
-    alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
-  }}
+	type="dont"
+	image={{
+		url: buttonPrimaryDont,
+		alt: 'Two buttons in a group. One says cancel and the other says primary. Both are primary blue, causing them to compete for attention.',
+	}}
 >
-  Don’t use many calls to action in one page or container.
+	Don’t use many calls to action in one page or container.
 </DoDont>
 
 ### Consider button sizes in context
 
-Make sure the button is large enough to interact with but not visually overwhelming. There is a [compact button](/components/button/examples#spacing) for tight spaces.
+Make sure the button is large enough to interact with but not visually overwhelming. There is a
+[compact button](/components/button/examples#spacing) for tight spaces.
 
 ### Use buttons for actions and links for navigation
 
-Buttons are for actions that affect something on the current page, such as submitting a form, playing media, or closing a modal.
+Buttons are for actions that affect something on the current page, such as submitting a form,
+playing media, or closing a modal.
 
 Links navigate to a new page or anchor location, changing the URL.
 
-In general, don’t use a `<button>` in place of a link (`<a>`) or a link in place of a button. HTML buttons and links are treated differently by assistive technologies such as screen readers, so using the wrong one can make experiences harder to use for some people.
+In general, don’t use a `<button>` in place of a link (`<a>`) or a link in place of a button. HTML
+buttons and links are treated differently by assistive technologies such as screen readers, so using
+the wrong one can make experiences harder to use for some people.
 
 ## Accessibility
 
 ### Avoid disabling buttons
 
-Avoid disabling buttons, especially in forms. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
+Avoid disabling buttons, especially in forms. Instead, keep the button pressable, and use validation
+and errors to explain what needs to be done to proceed.
 
-Disabled buttons don’t explain why the button isn’t usable. They also aren’t reachable in the tab order and don’t receive hover, focus, or click events, making them entirely inaccessible to some people.
+Disabled buttons don’t explain why the button isn’t usable. They also aren’t reachable in the tab
+order and don’t receive hover, focus, or click events, making them entirely inaccessible to some
+people.
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonDisableDo,
-    alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
-  }}
+	type="do"
+	image={{
+		url: buttonDisableDo,
+		alt: 'A form that is incomplete. The button remains visible and pressable, and validation text explains what must be done to proceed.',
+	}}
 >
-  Use validation or other clear on-screen directions to help people proceed.
+	Use validation or other clear on-screen directions to help people proceed.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonDisableDont,
-    alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
-  }}
+	type="dont"
+	image={{
+		url: buttonDisableDont,
+		alt: 'A form that is incomplete. The button is disabled and light grey in color, which is difficult to see. There is no explanation of what to do to proceed.',
+	}}
 >
-  Don’t disable form submission buttons, as this doesn't give people clear a
-  direction for how to proceed.
+	Don’t disable form submission buttons, as this doesn't give people clear a direction for how to
+	proceed.
 </DoDont>
 
 ### Never put tooltips on disabled buttons
 
-Tooltips can't be reached on all devices or by some assitive technologies, and they should never appear on elements that aren't interactable.
+Tooltips can't be reached on all devices or by some assitive technologies, and they should never
+appear on elements that aren't interactable.
 
 <!-- Don’t attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations. -->
 
 Things to consider before using a tooltip:
 
-- Is this information **essential** to the user experience? If so, never hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible at all on mobile devices. If it isn’t essential information, consider if you need to show it at all.
-- Is this information **actionable**? Being shown things that you can’t use without any next steps can be frustrating or confusing. Consider only showing UI that a user can interact with.
-- If the information is still necessary or helpful, consider using helper text or other more accessible text that has the same content instead of a tooltip. This gives you more options to provide a link to a next step or another relevant action.
+- Is this information **essential** to the user experience? If so, never hide it behind a tooltip.
+  Tooltips aren’t easy to discover and aren’t accessible at all on mobile devices. If it isn’t
+  essential information, consider if you need to show it at all.
+- Is this information **actionable**? Being shown things that you can’t use without any next steps
+  can be frustrating or confusing. Consider only showing UI that a user can interact with.
+- If the information is still necessary or helpful, consider using helper text or other more
+  accessible text that has the same content instead of a tooltip. This gives you more options to
+  provide a link to a next step or another relevant action.
 
 <!-- We know that disabled buttons with tooltips are sometimes used for feature discovery. We're working on guidance for this case. -->
 
@@ -116,105 +134,110 @@ Things to consider before using a tooltip:
 
 ### Use sentence case capitalization
 
-Only capitalize the first letter of the button and any proper nouns. Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).
+Only capitalize the first letter of the button and any proper nouns. Most feature names aren’t
+capitalized or considered proper nouns when following
+[our capitalization guidance](/content/language-and-grammar#capitalization).
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonCapitalizationDo,
-    alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
-  }}
+	type="do"
+	image={{
+		url: buttonCapitalizationDo,
+		alt: 'Button that says Complete sprint. Only the first letter is capitalized.',
+	}}
 >
-  Use sentence-case capitalization.
+	Use sentence-case capitalization.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonCapitalizationDont,
-    alt: 'Buttons that say Complete sprint text in title case and all caps.',
-  }}
+	type="dont"
+	image={{
+		url: buttonCapitalizationDont,
+		alt: 'Buttons that say Complete sprint text in title case and all caps.',
+	}}
 >
-  Use title case capitalization or all caps.
+	Use title case capitalization or all caps.
 </DoDont>
 
 ### Keep button labels short
 
-Keep labels short and free of punctuation. Drop unnecessary articles, such as ‘a’ or ‘the’, for a more concise label.
+Keep labels short and free of punctuation. Drop unnecessary articles, such as ‘a’ or ‘the’, for a
+more concise label.
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonConciseDo,
-    alt: 'Button that says Reset Password.',
-  }}
+	type="do"
+	image={{
+		url: buttonConciseDo,
+		alt: 'Button that says Reset Password.',
+	}}
 >
-  Use concise, easy to scan button labels to describe the action.
+	Use concise, easy to scan button labels to describe the action.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonConciseDont,
-    alt: 'Button that says Send a password reset email.',
-  }}
+	type="dont"
+	image={{
+		url: buttonConciseDont,
+		alt: 'Button that says Send a password reset email.',
+	}}
 >
-  Use long, redundant button labels.
+	Use long, redundant button labels.
 </DoDont>
 
 ### Use specific labels wherever possible
 
-Start with the verb and specify what is being acted on. Use dynamic text to make the button very specific if possible.
+Start with the verb and specify what is being acted on. Use dynamic text to make the button very
+specific if possible.
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonActionDo,
-    alt: 'Text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
-  }}
+	type="do"
+	image={{
+		url: buttonActionDo,
+		alt: 'Text that asks delete unpublished page? Followed by a delete CTA button and a cancel button',
+	}}
 >
-  Use active verbs or phrases that clearly indicate action.
+	Use active verbs or phrases that clearly indicate action.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonActionDont,
-    alt: 'Text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
-  }}
+	type="dont"
+	image={{
+		url: buttonActionDont,
+		alt: 'Text that asks delete unpublished page? Followed by a Yes CTA button and a No button',
+	}}
 >
-  Use vague and generic labels that make the user read the dialog before taking
-  action.
+	Use vague and generic labels that make the user read the dialog before taking action.
 </DoDont>
 
 ### Make labels consistent with other UI in view
 
-For example, if a button is part of a larger modal, use the same language in the button as in headings and other related text.
+For example, if a button is part of a larger modal, use the same language in the button as in
+headings and other related text.
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonLabelDo,
-    alt: 'Confirmation modal asking do you want to discard? Button label also says Discard',
-  }}
+	type="do"
+	image={{
+		url: buttonLabelDo,
+		alt: 'Confirmation modal asking do you want to discard? Button label also says Discard',
+	}}
 >
-  Use consistent language for the button and other text descibing the same
-  action.
+	Use consistent language for the button and other text descibing the same action.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonLabelDont,
-    alt: 'Confirmation modal asking do you want to discard? Button label says Delete',
-  }}
+	type="dont"
+	image={{
+		url: buttonLabelDont,
+		alt: 'Confirmation modal asking do you want to discard? Button label says Delete',
+	}}
 >
-  Use different words to refer to the same action.
+	Use different words to refer to the same action.
 </DoDont>
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 

@@ -21,7 +21,8 @@ import LegacyButtonWithIconOnly from '../../examples/constellation/legacy-button
 
 ## Default
 
-The default form of a button, used for most cases. They are not impactful enough to represent the primary action in a container.
+The default form of a button, used for most cases. They are not impactful enough to represent the
+primary action in a container.
 
 <Example Component={LegacyButtonDefault} packageName="@atlaskit/button" />
 
@@ -33,8 +34,10 @@ The default form of a button, used for most cases. They are not impactful enough
 
 ### Primary
 
-Use a `primary` button to call attention to an action on a [form](/patterns/forms) or to highlight the strongest call to action on a page.
-Primary buttons should only appear once per container (not including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen requires a primary button.
+Use a `primary` button to call attention to an action on a [form](/patterns/forms) or to highlight
+the strongest call to action on a page. Primary buttons should only appear once per container (not
+including the application header or in a [modal dialog](/components/modal-dialog)). Not every screen
+requires a primary button.
 
 <Example Component={LegacyButtonPrimary} packageName="@atlaskit/button" />
 
@@ -46,27 +49,34 @@ Use a `subtle` button with a `primary` button for secondary actions, such as “
 
 ### Link
 
-Use a `link` button to navigate to another page. These should open in the same window unless information may be lost (for example, when someone is filling out a form), or when the destination is an external site (for example, a knowledge base article).
+Use a `link` button to navigate to another page. These should open in the same window unless
+information may be lost (for example, when someone is filling out a form), or when the destination
+is an external site (for example, a knowledge base article).
 
 <Example Component={LegacyButtonLink} packageName="@atlaskit/button" />
 
 ### Subtle link
 
-Similar to a `subtle` button, but behaves like a `link` button. Use subtle link buttons with caution. Because there isn't any color or other visual affordance built in, this style relies on the context around it to show that it can be interacted with.
+Similar to a `subtle` button, but behaves like a `link` button. Use subtle link buttons with
+caution. Because there isn't any color or other visual affordance built in, this style relies on the
+context around it to show that it can be interacted with.
 
-This can make subtle link buttons less accessible than other link buttons. Make sure designs have clear visual affordances for interactive areas and elements.
+This can make subtle link buttons less accessible than other link buttons. Make sure designs have
+clear visual affordances for interactive areas and elements.
 
 <Example Component={LegacyButtonSubtleLink} packageName="@atlaskit/button" />
 
 ### Warning
 
-A `warning` button appears before we request the user to take action, usually in anticipation of a significant change. These are found mostly in confirmation modals.
+A `warning` button appears before we request the user to take action, usually in anticipation of a
+significant change. These are found mostly in confirmation modals.
 
 <Example Component={LegacyButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
-The `danger` button appears as a final confirmation for a destructive action such as deleting. These are found mostly in confirmation modals.
+The `danger` button appears as a final confirmation for a destructive action such as deleting. These
+are found mostly in confirmation modals.
 
 <Example Component={LegacyButtonDanger} packageName="@atlaskit/button" />
 
@@ -74,9 +84,12 @@ The `danger` button appears as a final confirmation for a destructive action suc
 
 ### Disabled
 
-Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can cause accessibility issues as disabled elements are not in the tab order so wherever possible we recommend avoid using `isDisabled`, especially for form submissions.
+Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can cause accessibility
+issues as disabled elements are not in the tab order so wherever possible we recommend avoid using
+`isDisabled`, especially for form submissions.
 
-You should never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button/button-legacy/usage#do-not-put-tooltips-on-disabled-buttons).
+You should never put a tooltip on a disabled button. For more information see our
+[usage guidelines](/components/button/button-legacy/usage#do-not-put-tooltips-on-disabled-buttons).
 
 <Example Component={LegacyButtonDisabled} packageName="@atlaskit/button" />
 
@@ -88,13 +101,15 @@ Set `isSelected` to indicate the button is selected.
 
 ### Loading
 
-Set `isLoading` to indicate the button is loading. The button text is hidden and a spinner is shown in its place, while maintaining the width that it would have if the text were visible.
+Set `isLoading` to indicate the button is loading. The button text is hidden and a spinner is shown
+in its place, while maintaining the width that it would have if the text were visible.
 
 <Example Component={LegacyButtonLoading} packageName="@atlaskit/button" />
 
 ## Spacing
 
-Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and none for breadcrumbs.
+Buttons can have various spacing. Default spacing is used for most use cases, compact for tables and
+none for breadcrumbs.
 
 <Example Component={LegacyButtonPadding} packageName="@atlaskit/button" />
 
@@ -112,10 +127,7 @@ Buttons may include an icon before or after the text. Omit the text to use an ic
 
 Display an icon before the text.
 
-<Example
-  Component={LegacyButtonWithIconBefore}
-  packageName="@atlaskit/button"
-/>
+<Example Component={LegacyButtonWithIconBefore} packageName="@atlaskit/button" />
 
 ### Icon after
 
@@ -131,8 +143,8 @@ Display an icon-only button.
 
 ## Routing
 
-Button's `component` prop allows a custom React component or HTML element to render
-in place of a `<button>` or `<a>` element.
+Button's `component` prop allows a custom React component or HTML element to render in place of a
+`<button>` or `<a>` element.
 
 This is useful for using Button with the `<Link>` component from popular routing libraries.
 
@@ -146,7 +158,9 @@ import Button from '@atlaskit/button';
 
 ## Custom theme button
 
-Avoid using this component. It is intended for deprecation when our alternative, bounded and performant solution is ready. It exists for those already using custom theming, which is hard to use and has performance issues.
+Avoid using this component. It is intended for deprecation when our alternative, bounded and
+performant solution is ready. It exists for those already using custom theming, which is hard to use
+and has performance issues.
 
 Latest versions of button use design tokens. These have theming and dark mode support built in.
 

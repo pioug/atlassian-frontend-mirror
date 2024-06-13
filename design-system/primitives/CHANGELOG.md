@@ -1,5 +1,52 @@
 # @atlaskit/primitives
 
+## 7.0.3
+
+### Patch Changes
+
+- [#110975](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110975)
+  [`c462a22b33940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c462a22b33940) -
+  Removed type hinting for size values in the following properties in XCSS:
+
+  - blockSize
+  - height
+  - inlineSize
+  - maxBlockSize
+  - maxHeight
+  - maxInlineSize
+  - maxWidth
+  - minBlockSize
+  - minHeight
+  - minInlineSize
+  - minWidth
+  - width
+
+  These properties optionally accept size values like `width: 'size.100'`. However `size` will be
+  deprecated in the future. Therefore, the type hinting that displayed `size.XXX` has been removed
+  to discourage its usage until it is officially deprecated.
+
+  No changes in functionality have been introduced. The syntax `width: 'size.100'` remains valid for
+  now, so existing code will not be broken. However, consumers are encouraged to use hard-coded
+  values, like `width: '8px'`, instead.
+
+## 7.0.2
+
+### Patch Changes
+
+- [#110867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110867)
+  [`dc7e72da70ef7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc7e72da70ef7) -
+  Migrating instances of `UNSAFE_ANCHOR` primitive imports to the new safe import `Anchor`, in
+  preparation of Anchor open beta and removal of the unsafe export from `@atlaskit/primitives`
+
+## 7.0.1
+
+### Patch Changes
+
+- [#110191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110191)
+  [`c3dc02298f8aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3dc02298f8aa) -
+  [ux] Change heading xsmall lineheight from 16 to 20 for minor third theme.
+- Updated dependencies
+
 ## 7.0.0
 
 ### Major Changes

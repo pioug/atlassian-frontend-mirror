@@ -30,8 +30,9 @@ const iconStyles = css({
 	display: 'inline-block',
 	flexShrink: 0,
 	lineHeight: 1,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> svg': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		...commonSVGStyles,
 		maxWidth: '100%',
 		maxHeight: '100%',
@@ -45,7 +46,7 @@ const iconStyles = css({
  */
 const baseHcmStyles = css({
 	'@media screen and (forced-colors: active)': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> svg': {
 			filter: 'grayscale(1)',
 			'--icon-primary-color': 'CanvasText', // foreground
@@ -55,7 +56,7 @@ const baseHcmStyles = css({
 });
 const primaryEqualsSecondaryHcmStyles = css({
 	'@media screen and (forced-colors: active)': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> svg': {
 			// if the primaryColor is the same as the secondaryColor we
 			// set the --icon-primary-color to Canvas
@@ -66,7 +67,7 @@ const primaryEqualsSecondaryHcmStyles = css({
 });
 const secondaryTransparentHcmStyles = css({
 	'@media screen and (forced-colors: active)': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> svg': {
 			'--icon-secondary-color': 'transparent', // background
 		},
@@ -113,7 +114,9 @@ export const Icon = memo(function Icon(props: IconProps) {
 			style={
 				{
 					'--icon-primary-color': primaryColor,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					'--icon-secondary-color': secondaryColor || getBackground(),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}
 			{...glyphProps}
@@ -126,10 +129,13 @@ export const Icon = memo(function Icon(props: IconProps) {
 				// We could then simplify how common styles are dealt with simply by encapsulating them
 				// at their appropriate level and/or having a singular approach to css variables in the package
 				dimensions &&
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						width: dimensions.width,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						height: dimensions.height,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						'> svg': dimensions,
 					}),
 			]}

@@ -31,18 +31,21 @@ type LeftSidebarOuterProps = {
 	onClick?: MouseEventHandler;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const mobileStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[UNSAFE_media.below.sm]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
 		cursor: 'pointer',
 		opacity: 1,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 		'&::after': {
 			display: 'inline-block',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
 			content: "''",
 		},
@@ -50,18 +53,21 @@ const mobileStyles = css({
 });
 
 const mobileFlyoutStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[UNSAFE_media.below.sm]: {
 		cursor: 'revert',
 	},
 });
 
 const outerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: LEFT_SIDEBAR_WIDTH,
 	position: 'relative',
 	zIndex: 1,
 	marginInlineStart: token('space.0', '0px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		'--ds--resize-button--opacity': 1,
 	},
@@ -79,18 +85,22 @@ const draggingStyles = css({
  * so the pseudo element forces it to take up the necessary width.
  */
 const fixedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::after': {
 		display: 'inline-block',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${LEFT_SIDEBAR_WIDTH}`,
 		content: "''",
 	},
 });
 
 const flyoutStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: LEFT_SIDEBAR_FLYOUT_WIDTH,
 });
 
 const flyoutFixedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: COLLAPSED_LEFT_SIDEBAR_WIDTH,
 });
 

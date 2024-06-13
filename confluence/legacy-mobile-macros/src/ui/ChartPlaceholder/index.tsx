@@ -22,7 +22,7 @@ const ChartPlaceholderCard = styled.div({
 	wordBreak: 'break-word',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/design-system/no-styled-tagged-template-expression -- Ignored via go/DSP-18766
 const IconWrapper = styled.div`
 	padding-right: ${token('space.100', '8px')};
 `;

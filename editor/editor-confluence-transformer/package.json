@@ -1,88 +1,88 @@
 {
-  "name": "@atlaskit/editor-confluence-transformer",
-  "version": "8.7.3",
-  "description": "Editor Confluence Transformer",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./collapse-whitespace": "./src/collapse-whitespace.ts",
-    "./content-wrapper": "./src/content-wrapper.ts",
-    "./encode": "./src/encode.ts",
-    "./encode-cxhtml": "./src/encode-cxhtml.ts",
-    "./languageMap": "./src/languageMap.ts",
-    "./parse": "./src/parse.ts",
-    "./parse-cxhtml": "./src/parse-cxhtml.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./collapse-whitespace": "./src/collapse-whitespace.ts",
-    "./content-wrapper": "./src/content-wrapper.ts",
-    "./encode": "./src/encode.ts",
-    "./encode-cxhtml": "./src/encode-cxhtml.ts",
-    "./languageMap": "./src/languageMap.ts",
-    "./parse": "./src/parse.ts",
-    "./parse-cxhtml": "./src/parse-cxhtml.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
-  "atlassian": {
-    "team": "Editor: ADF",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Editor Confluence Transformer"
-    },
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.12.0",
-    "@babel/runtime": "^7.0.0",
-    "collapse-whitespace": "^1.1.6"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-plugins": "^3.0.0",
-    "@atlassian/feature-flags-test-utils": "^0.2.0",
-    "@emotion/react": "^11.7.1",
-    "pretty-data": "^0.40.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  }
+	"name": "@atlaskit/editor-confluence-transformer",
+	"version": "8.7.3",
+	"description": "Editor Confluence Transformer",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./collapse-whitespace": "./src/collapse-whitespace.ts",
+		"./content-wrapper": "./src/content-wrapper.ts",
+		"./encode": "./src/encode.ts",
+		"./encode-cxhtml": "./src/encode-cxhtml.ts",
+		"./languageMap": "./src/languageMap.ts",
+		"./parse": "./src/parse.ts",
+		"./parse-cxhtml": "./src/parse-cxhtml.ts",
+		"./types": "./src/types.ts",
+		"./utils": "./src/utils.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./collapse-whitespace": "./src/collapse-whitespace.ts",
+		"./content-wrapper": "./src/content-wrapper.ts",
+		"./encode": "./src/encode.ts",
+		"./encode-cxhtml": "./src/encode-cxhtml.ts",
+		"./languageMap": "./src/languageMap.ts",
+		"./parse": "./src/parse.ts",
+		"./parse-cxhtml": "./src/parse-cxhtml.ts",
+		"./types": "./src/types.ts",
+		"./utils": "./src/utils.ts"
+	},
+	"atlassian": {
+		"team": "Editor: ADF",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Editor Confluence Transformer"
+		},
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@babel/runtime": "^7.0.0",
+		"collapse-whitespace": "^1.1.6"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-plugins": "^3.1.0",
+		"@atlassian/feature-flags-test-utils": "^0.2.0",
+		"@emotion/react": "^11.7.1",
+		"pretty-data": "^0.40.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	}
 }

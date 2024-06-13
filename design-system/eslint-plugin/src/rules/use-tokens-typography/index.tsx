@@ -24,7 +24,7 @@ const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
 const rule = createLintRule({
 	meta: {
 		name: 'use-tokens-typography',
-		type: 'problem',
+		type: 'suggestion',
 		fixable: 'code',
 		hasSuggestions: true,
 		docs: {

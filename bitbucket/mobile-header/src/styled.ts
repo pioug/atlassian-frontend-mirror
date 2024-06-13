@@ -30,32 +30,38 @@ const xPositioning = ({ side, isOpen }: { side: string; isOpen: boolean }) =>
 				transform: translateX(${isOpen ? '0' : '-100vw'});
 			`;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MobileNavSlider = styled.div<{
 	topOffset: number | undefined;
 	isOpen: boolean;
 	side: string;
 }>(
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) => ({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `calc(100vh - ${props.topOffset}px)`,
 		position: 'fixed',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		top: `${props.topOffset}px`,
 		transition: 'transform 0.2s ease-out',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: layers.slider,
 	}),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	xPositioning,
 );
 
 // make space so content below doesn't slip beneath the header
 // since the content is `position: fixed`
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MobilePageHeader = styled.header({
 	height: `${mobileHeaderHeight}px`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MobilePageHeaderContent = styled.div<{
 	topOffset: number | undefined;
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({
 	alignItems: 'center',
 	backgroundColor: token('color.background.neutral', N20),
@@ -64,8 +70,10 @@ export const MobilePageHeaderContent = styled.div<{
 	height: `${mobileHeaderHeight}px`,
 	padding: token('space.100', '8px'),
 	position: 'fixed',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	top: `${props.topOffset}px`,
 	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: layers.header,
 }));
 
@@ -89,7 +97,7 @@ const opacityOut = keyframes({
 
 // @atlaskit/blanket has a z-index *higher* than @atlaskit/navigation,
 // so we can't display the AK blanket underneath the navigation.
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const FakeBlanket = styled.div<{
 	isOpen: boolean;
 }>`
@@ -104,14 +112,16 @@ export const FakeBlanket = styled.div<{
 `;
 
 // use proper h1 and header styles but for mobile we don't want a top margin
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const PageHeading = styled.h1(
 	{
 		flexGrow: 1,
 		marginLeft: token('space.100', '8px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	h500,
 	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&&': {
 			marginTop: 0,
 		},

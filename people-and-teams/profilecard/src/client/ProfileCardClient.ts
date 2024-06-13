@@ -1,4 +1,6 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { isFedRamp } from '@atlaskit/atlassian-context';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ClientOverrides,
@@ -62,6 +64,12 @@ class ProfileCardClient {
 }
 
 function maybeCreateTeamCentralClient(config: ProfileClientOptions, clients?: ClientOverrides) {
+	if (getBooleanFF('platform.profilecard-disable-team-central-client-in-fedramp_ilnm7')) {
+		if (isFedRamp()) {
+			return undefined;
+		}
+	}
+
 	if (clients?.teamCentralClient) {
 		return clients.teamCentralClient;
 	}

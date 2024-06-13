@@ -10,6 +10,7 @@ const blockSelectStyles = css({
 	alignItems: 'center',
 	gap: '0.5rem',
 	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.block-select': {
 		flex: '1 1 auto',
 	},

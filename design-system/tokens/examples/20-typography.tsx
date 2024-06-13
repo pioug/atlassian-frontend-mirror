@@ -23,11 +23,13 @@ export default () => {
 	return (
 		<Stack space="space.100" testId="typography">
 			{fonts.map((f) => (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<span key={f} style={{ font: token(f) }}>
 					{f}
 				</span>
 			))}
 			{body.map((f) => (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<span key={f} style={{ font: token(f) }}>
 					{f}
 				</span>

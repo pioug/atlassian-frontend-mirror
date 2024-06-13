@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.50.0
+
+### Minor Changes
+
+- [#110191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110191)
+  [`c3dc02298f8aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3dc02298f8aa) -
+  [ux] Change heading xsmall lineheight from 16 to 20 for minor third theme.
+
 ## 1.49.1
 
 ### Patch Changes

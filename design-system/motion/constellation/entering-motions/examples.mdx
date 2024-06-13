@@ -15,32 +15,33 @@ import MotionFadeInGridOfElements from '../../examples/constellation/motion-fade
 import MotionFadeBetweenElements from '../../examples/constellation/motion-fade-between-elements';
 import MotionFadeOutListOfElements from '../../examples/constellation/motion-fade-out-list-of-elements';
 
-Motion comes with entering motions out of the box.
-Most motions have a **pairing exiting motion**, while some only have an exiting motion and no entering.
+Motion comes with entering motions out of the box. Most motions have a **pairing exiting motion**,
+while some only have an exiting motion and no entering.
 
-For consistency, don't try to mix and match.
-If an element **enters with one motion** it should **leave with the same motion**.
+For consistency, don't try to mix and match. If an element **enters with one motion** it should
+**leave with the same motion**.
 
 ## Fading in
 
 `<FadeIn />` is useful for fading in one or more elements.
 
 <Example
-  highlight="5,19-21"
-  packageName="@atlaskit/motion"
-  Component={MotionFadeOutSingleElement}
-  title="Single element"
+	highlight="5,19-21"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeOutSingleElement}
+	title="Single element"
 />
 
 ## Sliding in
 
-`<SlideIn />` slide an element into position, generally used for things that appear from outside of the viewport into view.
+`<SlideIn />` slide an element into position, generally used for things that appear from outside of
+the viewport into view.
 
 <Example
-  highlight="7,37-52"
-  packageName="@atlaskit/motion"
-  Component={MotionSlideIn}
-  title="Slide in element"
+	highlight="7,37-52"
+	packageName="@atlaskit/motion"
+	Component={MotionSlideIn}
+	title="Slide in element"
 />
 
 ## Zooming in
@@ -48,26 +49,26 @@ If an element **enters with one motion** it should **leave with the same motion*
 `<ZoomIn />` will over zoom an element into position.
 
 <Example
-  highlight="6,20-36"
-  packageName="@atlaskit/motion"
-  Component={MotionZoomIn}
-  title="Zoom in elements"
+	highlight="6,20-36"
+	packageName="@atlaskit/motion"
+	Component={MotionZoomIn}
+	title="Zoom in elements"
 />
 
 ## Shrinking out
 
 <SectionMessage appearance="warning">
-  This motion only has an exiting motion. StaggeredEntrance will have no effect.
+	This motion only has an exiting motion. StaggeredEntrance will have no effect.
 </SectionMessage>
 
-`<ShrinkOut />` will shrink an element down to nothing when exiting.
-Works best with flex children as collapsing margins can come with undesired behavior.
+`<ShrinkOut />` will shrink an element down to nothing when exiting. Works best with flex children
+as collapsing margins can come with undesired behavior.
 
 <Example
-  highlight="6,29-57"
-  packageName="@atlaskit/motion"
-  Component={MotionShrinkOut}
-  title="Shrink out elements"
+	highlight="6,29-57"
+	packageName="@atlaskit/motion"
+	Component={MotionShrinkOut}
+	title="Shrink out elements"
 />
 
 ## Staggered entrance
@@ -75,33 +76,34 @@ Works best with flex children as collapsing margins can come with undesired beha
 `<StaggeredEntrance />` is useful for staggering an entering motion over many elements.
 
 <Example
-  highlight="11,35-38,40,63-66"
-  packageName="@atlaskit/motion"
-  Component={MotionFadeInListOfElements}
-  title="List of elements"
+	highlight="11,35-38,40,63-66"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeInListOfElements}
+	title="List of elements"
 />
 
 <Example
-  highlight="16,68,87,72,85"
-  packageName="@atlaskit/motion"
-  Component={MotionFadeInGridOfElements}
-  title="Staggered entrance with fade in"
+	highlight="16,68,87,72,85"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeInGridOfElements}
+	title="Staggered entrance with fade in"
 />
 
 ## Exiting persistence
 
-`<ExitingPersistence />`is useful for enabling elements to persist and animate away when they are removed from the DOM.
+`<ExitingPersistence />`is useful for enabling elements to persist and animate away when they are
+removed from the DOM.
 
 <Example
-  highlight="7,79-81,34-45,21-22"
-  packageName="@atlaskit/motion"
-  Component={MotionFadeBetweenElements}
-  title="Single element"
+	highlight="7,79-81,34-45,21-22"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeBetweenElements}
+	title="Single element"
 />
 
 <Example
-  highlight="13,50-54,89-92"
-  packageName="@atlaskit/motion"
-  Component={MotionFadeOutListOfElements}
-  title="List of elements"
+	highlight="13,50-54,89-92"
+	packageName="@atlaskit/motion"
+	Component={MotionFadeOutListOfElements}
+	title="List of elements"
 />

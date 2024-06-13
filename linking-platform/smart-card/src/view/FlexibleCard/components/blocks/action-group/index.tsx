@@ -27,8 +27,10 @@ import type { ActionItem } from '../types';
 const styles = css({
 	display: 'inline-flex',
 	lineHeight: '1rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		alignItems: 'center',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'button:focus-visible': {
 			outlineOffset: token('space.negative.025', '-2px'),
 		},

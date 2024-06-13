@@ -91,26 +91,30 @@ export const getBaseStyles = (
 		{
 			alignItems: 'center',
 			display: 'flex',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			gap: `${getGapSize(size)}rem`,
 			lineHeight: '1rem',
 			minWidth: 0,
 			overflow: 'hidden',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getDirectionStyles(direction),
 		{
 			'&:empty': {
 				display: 'none',
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'& > *': {
 				minWidth: 0,
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'& > [data-fit-to-content]': {
 				minWidth: 'fit-content',
 			},
 		},
 	);
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const highlightRemoveStyles = css`
 	outline: none !important;
 	outline-color: inherit;

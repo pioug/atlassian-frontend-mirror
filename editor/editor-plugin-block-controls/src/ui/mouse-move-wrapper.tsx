@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -35,37 +35,50 @@ export const MouseMoveWrapper = ({
 	nodeType: string;
 	getPos: () => number | undefined;
 }) => {
+	const nodePos = useMemo(() => getPos(), [getPos]);
 	const { blockControlsState } = useSharedPluginState(api, ['blockControls']);
-
-	const activeNode = blockControlsState?.activeNode;
-	const isDragging = blockControlsState?.isDragging;
-	const [hideWrapper, setHideWrapper] = useState(false);
+	const [isDragging, setIsDragging] = useState(false);
+	const [hideWrapper, setHideWrapper] = useState(blockControlsState?.activeNode?.pos === nodePos);
 	const [pos, setPos] = useState<{ top: string; height: string }>();
 
 	const onMouseEnter = useCallback(() => {
-		const pos = getPos();
-		if (pos === undefined) {
+		if (!isDragging) {
+			setHideWrapper(true);
+		}
+
+		if (nodePos === undefined) {
 			return;
 		}
 
-		if (api && api.blockControls && activeNode?.pos !== pos && !isDragging) {
+		if (api && api.blockControls && !isDragging) {
 			api?.core?.actions.execute(
-				api.blockControls.commands.showDragHandleAt(pos, anchorName, nodeType),
+				api.blockControls.commands.showDragHandleAt(nodePos, anchorName, nodeType),
 			);
 		}
-	}, [getPos, api, anchorName, isDragging, activeNode?.pos, nodeType]);
+	}, [setHideWrapper, isDragging, api, nodePos, anchorName, nodeType]);
 
-	useLayoutEffect(() => {
-		if (!activeNode) {
-			return;
-		}
-		const pos = getPos();
-		if (activeNode.pos !== pos && !isDragging) {
-			setHideWrapper(false);
-			return;
-		}
-		setHideWrapper(true);
-	}, [activeNode, isDragging, getPos]);
+	useEffect(() => {
+		const unbind = api?.blockControls?.sharedState.onChange(({ nextSharedState }) => {
+			setIsDragging(Boolean(nextSharedState?.isDragging));
+
+			if (!nextSharedState?.activeNode) {
+				return;
+			}
+
+			if (nextSharedState?.activeNode?.pos !== nodePos && !nextSharedState?.isDragging) {
+				setHideWrapper(false);
+				return;
+			}
+
+			if (nextSharedState?.isDragging) {
+				setHideWrapper(true);
+				return;
+			}
+		});
+		return () => {
+			unbind?.();
+		};
+	}, [nodePos, api]);
 
 	useLayoutEffect(() => {
 		const supportsAnchor =

@@ -1,61 +1,61 @@
 {
-  "name": "@atlaskit/embedded-document",
-  "version": "0.9.46",
-  "description": "DEPRECATED Embedded Document component",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "atlassian": {
-    "team": "Editor: Collaboration",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "embedded-document",
-      "deprecated": "This package is no longer being used and will not be actively maintained"
-    },
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-core": "^193.25.0",
-    "@atlaskit/editor-shared-styles": "^2.12.0",
-    "@atlaskit/renderer": "^109.32.0",
-    "@atlaskit/tokens": "1.49.1",
-    "@atlaskit/util-service-support": "^6.2.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "fetch-mock": "^8.0.0",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2"
-  }
+	"name": "@atlaskit/embedded-document",
+	"version": "0.9.47",
+	"description": "DEPRECATED Embedded Document component",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"atlassian": {
+		"team": "Editor: Collaboration",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "embedded-document",
+			"deprecated": "This package is no longer being used and will not be actively maintained"
+		},
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-core": "^193.26.0",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/renderer": "^109.32.0",
+		"@atlaskit/tokens": "1.50.0",
+		"@atlaskit/util-service-support": "^6.2.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"styled-components": "^3.2.6"
+	},
+	"devDependencies": {
+		"enzyme": "^3.10.0",
+		"fetch-mock": "^8.0.0",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2"
+	}
 }

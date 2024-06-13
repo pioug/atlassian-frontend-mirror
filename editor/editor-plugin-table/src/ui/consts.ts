@@ -94,6 +94,10 @@ export const STICKY_HEADER_TOGGLE_TOLERANCE_MS = 5;
 // BUT it cannot be snapped to during resize due to padding being applied to the resizer wrapper. This accommodates that difference.
 export const TABLE_GUIDELINE_VISIBLE_ADJUSTMENT = -68;
 
+export const TABLE_DRAG_MENU_SORT_GROUP_HEIGHT = 92;
+export const TABLE_DRAG_MENU_PADDING_TOP = 4;
+export const TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT = 6;
+
 export const dragMenuDropdownWidth = 250;
 export const dragTableInsertColumnButtonSize = 16;
 export const dropTargetExtendedWidth = 150;

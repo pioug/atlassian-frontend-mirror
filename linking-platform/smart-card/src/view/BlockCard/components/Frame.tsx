@@ -45,6 +45,7 @@ export const ExpandedFrame = ({
 }: FrameProps) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={mq({
 				...sharedFrameStyles,
 				'&:hover': isHoverable
@@ -54,7 +55,9 @@ export const ExpandedFrame = ({
 							cursor: 'pointer',
 						}
 					: undefined,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				minHeight: isFluidHeight ? 0 : [gs(21), gs(15)],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				borderRadius: isSelected ? br() : br(0.5),
 				border: `2px solid ${isSelected ? token('color.border.selected', B200) : 'transparent'}`,
 				justifyContent: 'space-between',
@@ -81,6 +84,7 @@ export const CompactFrame = ({
 }: FrameProps) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={mq({
 				...sharedFrameStyles,
 				'&:hover': isHoverable
@@ -88,14 +92,16 @@ export const CompactFrame = ({
 							backgroundColor: token('color.background.neutral.hovered', N30A),
 						}
 					: undefined,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				borderRadius: isSelected ? br() : br(0.5),
 				border: isSelected ? `2px solid ${token('color.border.selected', B200)}` : '',
 				justifyContent: 'center',
 				alignItems: 'center',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				height: inheritDimensions ? '100%' : gs(5),
 				backgroundColor: token('color.background.neutral', N20A),
 				width: ['calc(100% - 16px)', '100%'],
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				padding: [`0px ${gs(1)}`, '0'],
 			})}
 			data-testid={testId}

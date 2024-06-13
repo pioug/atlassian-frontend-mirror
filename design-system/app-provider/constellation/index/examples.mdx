@@ -11,26 +11,29 @@ import routerLinkComponentExample from '../../examples/constellation/2-router-li
 AppProvider sets up theming for an app, enabling [design tokens](/tokens/design-tokens) to be used.
 
 <Example
-  Component={defaultExample.example}
-  source={defaultExample.code}
-  packageName="@atlaskit/app-provider"
+	Component={defaultExample.example}
+	source={defaultExample.code}
+	packageName="@atlaskit/app-provider"
 />
 
 ## Color mode and theme switching
 
-The `useColorMode` hook can be used to get the active color mode. When the color mode is set to `auto`, the active color mode will be determined by the user's system preference.
+The `useColorMode` hook can be used to get the active color mode. When the color mode is set to
+`auto`, the active color mode will be determined by the user's system preference.
 
-The `useTheme` hook can be used to get the active themes. The `useSetTheme` hook can be used to change themes.
+The `useTheme` hook can be used to get the active themes. The `useSetTheme` hook can be used to
+change themes.
 
 <Example
-  Component={themeSwitcherExample.example}
-  source={themeSwitcherExample.code}
-  packageName="@atlaskit/app-provider"
+	Component={themeSwitcherExample.example}
+	source={themeSwitcherExample.code}
+	packageName="@atlaskit/app-provider"
 />
 
 ## Router links
 
-The `routerLinkComponent` prop provides support for configuring router links within Design System components.
+The `routerLinkComponent` prop provides support for configuring router links within Design System
+components.
 
 Support for this is limited as Design System components are being updated, starting with:
 
@@ -39,11 +42,13 @@ Support for this is limited as Design System components are being updated, start
 - [Link](/components/link/examples).
 - [Anchor primitive](/components/primitives/anchor/examples).
 
-This example shows how links can be configured to utilize the router link component supplied by [React Resource Router](https://github.com/atlassian-labs/react-resource-router), however any routing library can be used.
+This example shows how links can be configured to utilize the router link component supplied by
+[React Resource Router](https://github.com/atlassian-labs/react-resource-router), however any
+routing library can be used.
 
 <Example
-  Component={routerLinkComponentExample.example}
-  source={routerLinkComponentExample.code}
-  appearance="source-only"
-  packageName="@atlaskit/app-provider"
+	Component={routerLinkComponentExample.example}
+	source={routerLinkComponentExample.code}
+	appearance="source-only"
+	packageName="@atlaskit/app-provider"
 />

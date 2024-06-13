@@ -4,6 +4,7 @@ import { css, jsx } from '@emotion/react';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
 const panelStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		width: '100%',
 	},

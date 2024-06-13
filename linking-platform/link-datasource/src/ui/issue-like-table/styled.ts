@@ -8,7 +8,7 @@ export const ScrollableContainerHeight = 590;
 
 export const fieldTextFontSize = token('font.body', fontFallback.body.medium);
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Table = styled.table({
 	width: '100%',
 });
@@ -33,8 +33,9 @@ export const withTablePluginPrefix = (
 export const withTablePluginHeaderPrefix = withTablePluginPrefix.bind(null, 'thead');
 export const withTablePluginBodyPrefix = withTablePluginPrefix.bind(null, 'tbody');
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TableHeading = styled.th({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`${withTablePluginHeaderPrefix()}`]: {
 		border: 0,
 		position: 'relative',
@@ -55,15 +56,19 @@ export const TableHeading = styled.th({
 		verticalAlign: 'bottom',
 		backgroundColor: token('utility.elevation.surface.current', '#FFF'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`${withTablePluginPrefix('', 'thead.has-column-picker &:nth-last-of-type(2)')}`]: {
 		borderRight: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`${withTablePluginHeaderPrefix('&:first-child')}`]: {
 		paddingLeft: token('space.050', '4px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`${withTablePluginHeaderPrefix('&:last-child')}`]: {
 		borderRight: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"& [data-testid='datasource-header-content--container']": {
 		width: '100%',
 		/* With Button now being a parent for this component it adds its lineHeight value and spoils

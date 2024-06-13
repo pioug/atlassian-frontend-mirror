@@ -6,8 +6,8 @@ order: 0
 
 ## Duration
 
-There are three durations available, each size increases in duration.
-Use a larger duration for an element that moves a large distance, or is a large element.
+There are three durations available, each size increases in duration. Use a larger duration for an
+element that moves a large distance, or is a large element.
 
 ```
 import {
@@ -18,50 +18,51 @@ import {
 } from '@atlaskit/motion';
 ```
 
-All durations are multiples of `durationStep`. Do the current durations not fit your purpose?
-No worries! Make sure to create a custom one from `durationStep`.
+All durations are multiples of `durationStep`. Do the current durations not fit your purpose? No
+worries! Make sure to create a custom one from `durationStep`.
 
 ### Duration decision matrix
 
 Use this table if you're unsure what duration you should use.
 
 <table>
-  <thead>
-    <tr>
-      <td></td>
-      <th>Small element</th>
-      <th>Large element</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">
-        <strong>Short distance</strong>
-      </th>
-      <td>
-        <code>smallDurationMs</code>
-      </td>
-      <td>
-        <code>mediumDurationMs</code>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">
-        <strong>Long distance</strong>
-      </th>
-      <td>
-        <code>mediumDurationMs</code>
-      </td>
-      <td>
-        <code>largeDurationMs</code>
-      </td>
-    </tr>
-  </tbody>
+	<thead>
+		<tr>
+			<td></td>
+			<th>Small element</th>
+			<th>Large element</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th scope="row">
+				<strong>Short distance</strong>
+			</th>
+			<td>
+				<code>smallDurationMs</code>
+			</td>
+			<td>
+				<code>mediumDurationMs</code>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<strong>Long distance</strong>
+			</th>
+			<td>
+				<code>mediumDurationMs</code>
+			</td>
+			<td>
+				<code>largeDurationMs</code>
+			</td>
+		</tr>
+	</tbody>
 </table>
 
 ## Curves
 
-There are three curves available, each used for a particular user interaction, or how the element appears.
+There are three curves available, each used for a particular user interaction, or how the element
+appears.
 
 ```
 import { easeInOut, easeIn, easeOut } from '@atlaskit/motion';
@@ -72,49 +73,45 @@ import { easeInOut, easeIn, easeOut } from '@atlaskit/motion';
 Use this table if you're unsure what curve you should use.
 
 <table>
-  <thead>
-    <tr style="vertical-align: top;">
-      <td></td>
-      <th>
-        <code>easeInOut</code>
-      </th>
-      <th>
-        <code>easeOut</code>
-      </th>
-      <th>
-        <code>easeIn</code>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="vertical-align: top;">
-      <th scope="row">
-        <i>When to use</i>
-      </th>
-      <td>When an element has been interacted with indirectly.</td>
-      <td>
-        When an element has been interacted with directly. <br />
-        When an element appears from off screen.
-      </td>
-      <td>
-        Use rarely. Only used if an element is moving indirectly entirely off
-        the screen.
-      </td>
-    </tr>
-    <tr style="vertical-align: top;">
-      <th scope="row">
-        <i>Example use case</i>
-      </th>
-      <td>A user clicks a button, and a separate element moves.</td>
-      <td>
-        A user clicks an element, and that same element moves. <br />A drawer
-        appears from off screen.
-      </td>
-      <td>
-        A user clicks a button which spins and waits. After the operation is
-        finished the button enters a confirmed state and the modal slides
-        entirely off the screen.
-      </td>
-    </tr>
-  </tbody>
+	<thead>
+		<tr style="vertical-align: top;">
+			<td></td>
+			<th>
+				<code>easeInOut</code>
+			</th>
+			<th>
+				<code>easeOut</code>
+			</th>
+			<th>
+				<code>easeIn</code>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr style="vertical-align: top;">
+			<th scope="row">
+				<i>When to use</i>
+			</th>
+			<td>When an element has been interacted with indirectly.</td>
+			<td>
+				When an element has been interacted with directly. <br />
+				When an element appears from off screen.
+			</td>
+			<td>Use rarely. Only used if an element is moving indirectly entirely off the screen.</td>
+		</tr>
+		<tr style="vertical-align: top;">
+			<th scope="row">
+				<i>Example use case</i>
+			</th>
+			<td>A user clicks a button, and a separate element moves.</td>
+			<td>
+				A user clicks an element, and that same element moves. <br />A drawer appears from off
+				screen.
+			</td>
+			<td>
+				A user clicks a button which spins and waits. After the operation is finished the button
+				enters a confirmed state and the modal slides entirely off the screen.
+			</td>
+		</tr>
+	</tbody>
 </table>

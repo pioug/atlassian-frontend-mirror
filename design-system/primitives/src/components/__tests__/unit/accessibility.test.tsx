@@ -5,21 +5,21 @@ import { render, screen } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 
 import { Box, Flex, Grid, Inline, Stack, Text } from '../../../index';
-import UNSAFE_ANCHOR from '../../anchor';
+import Anchor from '../../anchor';
 import Pressable from '../../pressable';
 
 describe('Primitives', () => {
 	describe('Anchor', () => {
 		it('should pass an aXe audit', async () => {
-			const { container } = render(<UNSAFE_ANCHOR href="/home">Anchor</UNSAFE_ANCHOR>);
+			const { container } = render(<Anchor href="/home">Anchor</Anchor>);
 			await axe(container);
 		});
 		describe('"(opens new window)" announcements', () => {
 			it('should be added to the accessible name if `target="_blank"`', () => {
 				render(
-					<UNSAFE_ANCHOR href="https://www.atlassian.com" testId="anchor" target="_blank">
+					<Anchor href="https://www.atlassian.com" testId="anchor" target="_blank">
 						Atlassian website
-					</UNSAFE_ANCHOR>,
+					</Anchor>,
 				);
 
 				const anchor = screen.getByTestId('anchor');
@@ -27,9 +27,9 @@ describe('Primitives', () => {
 			});
 			it('should not be added to the accessible name if `target` is not "_blank"', () => {
 				render(
-					<UNSAFE_ANCHOR href="https://www.atlassian.com" testId="anchor" target="_self">
+					<Anchor href="https://www.atlassian.com" testId="anchor" target="_self">
 						Atlassian website
-					</UNSAFE_ANCHOR>,
+					</Anchor>,
 				);
 
 				const anchor = screen.getByTestId('anchor');

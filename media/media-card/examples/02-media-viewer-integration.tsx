@@ -33,7 +33,9 @@ class Example extends Component<{}, {}> {
 
 		return (
 			<MainWrapper>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={mediaViewerExampleWrapperStyles}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={mediaViewerExampleColumnStyles}>
 						<h3>shouldOpenMediaViewer + mediaViewerItems</h3>
 						<Card
@@ -55,6 +57,7 @@ class Example extends Component<{}, {}> {
 							mediaViewerItems={mediaViewerItems}
 						/>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={mediaViewerExampleColumnStyles}>
 						<h3>shouldOpenMediaViewer + list without card identifier</h3>
 						<Card
@@ -64,6 +67,7 @@ class Example extends Component<{}, {}> {
 							mediaViewerItems={[gifFileId]}
 						/>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={mediaViewerExampleColumnStyles}>
 						<h3>useInlinePlayer=true</h3>
 						<Card
@@ -74,6 +78,7 @@ class Example extends Component<{}, {}> {
 							useInlinePlayer={true}
 						/>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={mediaViewerExampleColumnStyles}>
 						<h3>mediaViewerItems=undefined</h3>
 						<Card

@@ -9,13 +9,13 @@ export function walkStyleProperties(
 	importSources: string[],
 	callback: (property: ESTree.Property) => void,
 ) {
-	if (!hasStyleObjectArguments(callExpression, referencesInScope, importSources)) {
+	if (!hasStyleObjectArguments(callExpression.callee, referencesInScope, importSources)) {
 		return;
 	}
 
 	if (
-		isKeyframes(callExpression, referencesInScope, importSources) ||
-		isCssMap(callExpression, referencesInScope, importSources)
+		isKeyframes(callExpression.callee, referencesInScope, importSources) ||
+		isCssMap(callExpression.callee, referencesInScope, importSources)
 	) {
 		_walkStyleProperties(callExpression, callback, true);
 		return;

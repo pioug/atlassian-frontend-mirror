@@ -225,6 +225,7 @@ export const getCodeBlockStyles =
 		'code[class*="language-"], pre[class*="language-"], code': {
 			all: 'unset',
 			padding: showLineNumbers ? `${SPACING}px 0` : SPACING,
+			tabSize: 4,
 		},
 		display: 'flex',
 		lineHeight: CODE_LINE_HEIGHT,

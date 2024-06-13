@@ -15,15 +15,19 @@ export const ControlLabel = ({
 	children: ReactNode;
 	htmlFor?: string | undefined;
 }) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	<label css={controlLabelStyles} htmlFor={htmlFor}>
 		{children}
 	</label>
 );
 
 export const EditableBox = ({ grow, children }: { grow?: number; children: ReactNode }) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	<div css={editableBoxStyles({ grow })}>{children}</div>
 );
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 export const Separator = () => <hr css={separatorStyles} />;
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 export const PureComponentBox = () => <div css={pureComponentBoxStyles} />;

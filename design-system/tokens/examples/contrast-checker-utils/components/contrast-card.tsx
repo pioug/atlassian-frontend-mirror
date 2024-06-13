@@ -60,12 +60,14 @@ export default function ContrastCard({
 							<div
 								css={{
 									backgroundColor: middleLayerValue || 'transparent',
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									padding: token('space.150', '0.75rem'),
 								}}
 							>
 								<div
 									css={{
 										backgroundColor: foregroundValue,
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										padding: token('space.150', '0.75rem'),
 									}}
 								/>
@@ -78,11 +80,13 @@ export default function ContrastCard({
 							<code>{backgroundName}</code>
 							<dl
 								css={{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									paddingBlock: middleLayerName ? token('space.100', '8px') : 0,
 									paddingInline: 0,
 									margin: 0,
 									display: 'flex',
 									flexFlow: 'row',
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									gap: token('space.200', '16px'),
 								}}
 							>

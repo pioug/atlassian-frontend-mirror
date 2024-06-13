@@ -87,6 +87,7 @@ const primitiveStyles = css({
 	outline: 0,
 	textDecoration: 'none',
 	userSelect: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-moz-focus-inner': {
 		border: 0,
 	},
@@ -136,6 +137,7 @@ const unselectedStyles = css({
 
 const disabledStyles = css({
 	cursor: 'not-allowed',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&, :hover, :active': {
 		backgroundColor: token('color.background.neutral.subtle', 'transparent'),
 		color: token('color.text.disabled', N200),
@@ -305,6 +307,7 @@ const MenuItemPrimitive = ({
 													data-item-description
 													css={[
 														descriptionStyles,
+														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 														getBooleanFF(
 															'platform.design-system-team.menu-tokenised-typography-styles',
 														)

@@ -25,10 +25,12 @@ const containerStyles = xcss({
 const readViewContainerStyles = xcss({
 	display: 'flex',
 	maxWidth: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${(gridSize * 2.5) / fontSize}em`,
 	paddingBlock: 'space.100',
 	paddingInline: 'space.075',
 	fontSize: `${fontSize}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: `${(gridSize * 2.5) / fontSize}`,
 	wordBreak: 'break-word',
 });

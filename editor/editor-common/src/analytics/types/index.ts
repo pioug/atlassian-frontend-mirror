@@ -156,3 +156,5 @@ export type {
 	UpdatedSourceAEP,
 	UpdatedTargetAEP,
 } from './referentiality-events';
+
+export type { ElementEventPayload } from './element-events';

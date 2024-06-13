@@ -23,6 +23,7 @@ const selectionStyles = css({
 	alignItems: 'center',
 	gap: '0.5rem',
 	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.action-select': {
 		flex: '1 1 auto',
 	},

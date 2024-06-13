@@ -15,10 +15,11 @@ interface BeforeProps {
 const beforeElementStyles = css({
 	display: 'flex',
 	position: 'absolute',
-	top: token('space.0', '0px'),
 	alignItems: 'center',
 	justifyContent: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `var(${cssVar.borderRadius})`,
+	insetBlockStart: token('space.0', '0px'),
 });
 
 const Before = ({ elemBefore }: BeforeProps) =>

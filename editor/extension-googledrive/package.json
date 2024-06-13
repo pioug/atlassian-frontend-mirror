@@ -1,58 +1,58 @@
 {
-  "name": "@atlaskit/editor-extension-googledrive",
-  "version": "0.3.3",
-  "description": "An Atlassian editor extension to add a native Google Drive picker",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "url": "https://bitbucket.org/atlassian/atlassian-frontend.git"
-  },
-  "author": "Atlassian",
-  "license": "Apache-2.0",
-  "atlaskit:src": "src/index.ts",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "main": "dist/cjs/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlassian": {
-    "team": "trello-ecosystem",
-    "inPublicMirror": true,
-    "releaseModel": "continuous"
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@babel/runtime": "^7.0.0",
-    "@types/gapi": "0.0.44"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  }
+	"name": "@atlaskit/editor-extension-googledrive",
+	"version": "0.3.3",
+	"description": "An Atlassian editor extension to add a native Google Drive picker",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": {
+		"url": "https://bitbucket.org/atlassian/atlassian-frontend.git"
+	},
+	"author": "Atlassian",
+	"license": "Apache-2.0",
+	"atlaskit:src": "src/index.ts",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"main": "dist/cjs/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlassian": {
+		"team": "trello-ecosystem",
+		"inPublicMirror": true,
+		"releaseModel": "continuous"
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@babel/runtime": "^7.0.0",
+		"@types/gapi": "0.0.44"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	}
 }

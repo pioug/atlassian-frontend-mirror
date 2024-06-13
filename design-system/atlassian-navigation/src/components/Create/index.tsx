@@ -18,21 +18,23 @@ import { type CreateProps } from './types';
 const wrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-hide-on-smallscreens]': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			display: 'none !important',
 		},
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-hide-on-largescreens]': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			display: 'none !important',
 		},
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		marginInlineStart: token('space.150', '12px'),
 	},

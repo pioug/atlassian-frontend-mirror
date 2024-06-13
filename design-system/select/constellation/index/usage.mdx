@@ -7,8 +7,8 @@ import SelectA11yDont from './images/select-a11y-dont.png';
 
 ## Usage
 
-Use select to let people choose one or more items from a list of menu items.
-It’s usually found in [forms](/patterns/forms) or [inline edit](/patterns/inline-edit).
+Use select to let people choose one or more items from a list of menu items. It’s usually found in
+[forms](/patterns/forms) or [inline edit](/patterns/inline-edit).
 
 ## Anatomy
 
@@ -16,82 +16,107 @@ It’s usually found in [forms](/patterns/forms) or [inline edit](/patterns/inli
 
 ![The single-select component is made of four parts. the field label is positioned above the input area, and the menu options open in a dropdown menu below the input area. Placeholder text is optional in the text input area.](images/single-select.png)
 
-1. **Field label:** Use the field label to indicate what information the field requires. The label is usually left-aligned above the input area.
-2. **Text input field:** The field people click in to receive the options they can choose from. Once selected, the option will be shown in the text input.
-3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories under headings.
-4. **Placeholder text (optional):** Includes information that supports the field label and other contextual cues, for example, _“Start typing to see names”_. It should not be necessary to understand how to use the component.
+1. **Field label:** Use the field label to indicate what information the field requires. The label
+   is usually left-aligned above the input area.
+2. **Text input field:** The field people click in to receive the options they can choose from. Once
+   selected, the option will be shown in the text input.
+3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories
+   under headings.
+4. **Placeholder text (optional):** Includes information that supports the field label and other
+   contextual cues, for example, _“Start typing to see names”_. It should not be necessary to
+   understand how to use the component.
 
 ### Multi select
 
 ![The multi-select component is made of five parts. the field label is positioned above the input area, and the menu options open in a dropdown menu below the input area. Selected options appear inside the text input area. When options are selected, a clear button appears to the right of the input area.](images/multi-select.png)
 
-1. **Field label:** Field labels should indicate what sort of information the field requires and are usually left-aligned directly above the input area.
-2. **Text input field:** The field people click in to receive the options they can choose from. Once selected, each option is shown in the text input.
-3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories under headings.
-4. **Selected item:** Displays what options have been selected. Users can remove selections by clicking the **x**.
-5. **Clear all:** The **x** clears everything in the text input field. It only appears when at least one option has been selected.
+1. **Field label:** Field labels should indicate what sort of information the field requires and are
+   usually left-aligned directly above the input area.
+2. **Text input field:** The field people click in to receive the options they can choose from. Once
+   selected, each option is shown in the text input.
+3. **Menu:** Contains the list of all selectable items. These can be grouped into sub-categories
+   under headings.
+4. **Selected item:** Displays what options have been selected. Users can remove selections by
+   clicking the **x**.
+5. **Clear all:** The **x** clears everything in the text input field. It only appears when at least
+   one option has been selected.
 
 ## Accessibility
 
 ### Use labels instead of placeholders
 
-Don’t use placeholder text to clarify field inputs – use the field label and helper text. Use a field label to indicate what information goes in the text input. Ensure the label is positioned outside the field so it remains visible at all times.
+Don’t use placeholder text to clarify field inputs – use the field label and helper text. Use a
+field label to indicate what information goes in the text input. Ensure the label is positioned
+outside the field so it remains visible at all times.
 
-Helper text can explain more about what to enter in the text input field. If the text is necessary to understand the field, put it above the text input (below the field label).
+Helper text can explain more about what to enter in the text input field. If the text is necessary
+to understand the field, put it above the text input (below the field label).
 
 <DoDont
-  type="do"
-  image={{
-    url: SelectA11yDo,
-    alt: 'Select with the field label "Jira issues" and helper text "Select all Jira issues associated with your ticket"',
-  }}
+	type="do"
+	image={{
+		url: SelectA11yDo,
+		alt: 'Select with the field label "Jira issues" and helper text "Select all Jira issues associated with your ticket"',
+	}}
 >
-  Use a field label and helper text to ensure all users can understand what’s
-  required.
+	Use a field label and helper text to ensure all users can understand what’s required.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: SelectA11yDont,
-    alt: 'Select where there is no field label or helper text. The placeholder text is "Search Jira issues"',
-  }}
+	type="dont"
+	image={{
+		url: SelectA11yDont,
+		alt: 'Select where there is no field label or helper text. The placeholder text is "Search Jira issues"',
+	}}
 >
-  Use placeholder text instead of a field label. When information is entered the
-  context of the field input disappears.
+	Use placeholder text instead of a field label. When information is entered the context of the
+	field input disappears.
 </DoDont>
 
 ### Removed clear control
 
-To avoid introducing multiple tab stops per text field, and reduce keystrokes for assistive technology users, the clear control has been intentionally removed from the tab order. Keyboard users can clear content using the delete key.
+To avoid introducing multiple tab stops per text field, and reduce keystrokes for assistive
+technology users, the clear control has been intentionally removed from the tab order. Keyboard
+users can clear content using the delete key.
 
 ### Group select options sparingly
 
-If some select options are grouped and some are single options, the group names will be ignored. Only create groupings if all items can be grouped, don't create groups of one as this can be very noisy.
+If some select options are grouped and some are single options, the group names will be ignored.
+Only create groupings if all items can be grouped, don't create groups of one as this can be very
+noisy.
 
-Only use groups when the categories are well-known to most people, or give clarity to multiple items that would otherwise have the same name. For example, "Portland, Maine" and "Portland, Oregon".
+Only use groups when the categories are well-known to most people, or give clarity to multiple items
+that would otherwise have the same name. For example, "Portland, Maine" and "Portland, Oregon".
 
 ## Best practices
 
-- Order your list of options in a way that will make the most sense. This could be by the most commonly selected option or numerically.
+- Order your list of options in a way that will make the most sense. This could be by the most
+  commonly selected option or numerically.
 - Avoid putting things in alphabetical order because it isn’t localization-friendly.
 - Don’t overwhelm people with too many options.
 
 ## Content guidelines
 
-- Use concise, descriptive field labels so that people clearly know the purpose of the selection. For example, use a **Save to** label for a list containing options such as _Cloud_ and _Local drive_.
+- Use concise, descriptive field labels so that people clearly know the purpose of the selection.
+  For example, use a **Save to** label for a list containing options such as _Cloud_ and _Local
+  drive_.
 - Keep options to a single line of text.
 - Use commonly known terms for your options and make sure they’re clear and direct.
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
-Consult AUI for implementation details on [AUI single select](https://docs.atlassian.com/aui/latest/docs/single-select.html) or [AUI multi select](https://docs.atlassian.com/aui/latest/docs/auiselect2.html).
+Consult AUI for implementation details on
+[AUI single select](https://docs.atlassian.com/aui/latest/docs/single-select.html) or
+[AUI multi select](https://docs.atlassian.com/aui/latest/docs/auiselect2.html).
 
 ## Related
 
 - Use a [dropdown menu](/components/dropdown-menu) to display a list of immediate actions to a user.
 - Use [toggles](/components/toggle) to turn an option on or off instantly.
-- Use [checkboxes](/components/checkbox) for options that require a button press to apply the setting.
+- Use [checkboxes](/components/checkbox) for options that require a button press to apply the
+  setting.
 - Use [radio buttons](/components/radio) to choose a single option from a set of options.

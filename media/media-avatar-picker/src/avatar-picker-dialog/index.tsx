@@ -51,6 +51,7 @@ export type AvatarPickerDialogWithIntlProps = AvatarPickerDialogProps &
 const HeaderContent = ({ title }: { title?: string }) => {
 	const modal = useModal();
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<h1 css={modalHeaderStyles} data-test-id="modal-header" id={modal.titleId}>
 			{title || <FormattedMessage {...messages.upload_an_avatar} />}
 		</h1>
@@ -230,8 +231,10 @@ export class AvatarPickerDialog extends PureComponent<
 
 				{this.state.isSubmitted && <SubmitErrorDialog />}
 
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<form onSubmit={this.onSave} css={formStyles}>
 					<ModalBody>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
 					</ModalBody>
 					{this.footerContent()}

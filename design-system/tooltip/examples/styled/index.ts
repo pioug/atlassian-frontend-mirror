@@ -21,8 +21,9 @@ interface StyledProps {
 	color: Color | string;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const Target = styled.button<StyledProps>((props) => ({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: color[props.color] || token('color.background.brand.bold'),
 	borderRadius: '3px',
 	border: 0,
@@ -37,8 +38,9 @@ export const Target = styled.button<StyledProps>((props) => ({
 	userSelect: 'none',
 }));
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const BigTarget = styled.button<StyledProps>((props) => ({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: color[props.color] || token('color.background.brand.bold'),
 	borderRadius: '3px',
 	border: 0,

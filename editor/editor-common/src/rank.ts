@@ -40,6 +40,7 @@ export const rankEditorPlugins = {
 		'indentationKeymap',
 		'textColor',
 		'highlight',
+		'highlightKeymap',
 		'alignmentPlugin',
 		'listInputRule',
 		'listKeymap',

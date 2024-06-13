@@ -317,6 +317,19 @@ typescriptEslintTester.run(
         `,
 				errors: [{ messageId: 'no-nested-selectors' }],
 			},
+			{
+				name: 'Nested selector inside styled(BaseComponent)()',
+				code: `
+					import { styled } from '@compiled/react';
+					import { BaseComponent } from './base-component';
+          styled(BaseComponent)({
+            '> span': {
+              color: 'orange'
+            }
+          });
+				`,
+				errors: [{ messageId: 'no-nested-selectors' }],
+			},
 		],
 	},
 );

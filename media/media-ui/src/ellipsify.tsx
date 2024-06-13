@@ -5,8 +5,9 @@ export interface WrapperProps {
 	inline?: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Wrapper = styled.div<WrapperProps>(({ inline }) => ({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	display: inline ? 'inline' : undefined,
 }));
 

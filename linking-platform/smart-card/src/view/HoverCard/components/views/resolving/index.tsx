@@ -25,7 +25,9 @@ const HoverCardLoadingView: React.FC<HoverCardLoadingViewProps> = ({ titleBlockP
 	);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={loadingViewContainer} data-testid={testId}>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={skeletonContainer}>
 				<CustomBlock
 					{...titleBlockProps}
@@ -33,6 +35,7 @@ const HoverCardLoadingView: React.FC<HoverCardLoadingViewProps> = ({ titleBlockP
 					testId={`${testId}-title-block`}
 				>
 					<Icon render={() => <LoadingSkeleton />} size={size} />
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<span css={getTitleStyles(lineHeightRem)} data-testid={`${testId}-title`}>
 						<LoadingSkeleton height={lineHeightRem} />
 					</span>

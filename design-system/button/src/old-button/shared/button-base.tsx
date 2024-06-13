@@ -170,6 +170,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBas
 
 	// we are 'disabling' input with a button when there is an overlay
 	const hasOverlay: boolean = Boolean(overlay);
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	const fadeStyles: SerializedStyles = css(getFadingCss({ hasOverlay }));
 
 	const isInteractive: boolean = !isDisabled && !hasOverlay;
@@ -220,6 +221,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBas
 					<span
 						css={[
 							fadeStyles,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							getIconStyle({ spacing }),
 							getSpacingFix(children, iconBeforeSpacingFixStyle),
 						]}
@@ -232,6 +234,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBas
 					<span
 						css={[
 							fadeStyles,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							getIconStyle({ spacing }),
 							getSpacingFix(children, iconAfterSpacingFixStyle),
 						]}
@@ -239,6 +242,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBas
 						{iconAfter}
 					</span>
 				) : null}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				{overlay ? <span css={[overlayCss, spinnerHackCss]}>{overlay}</span> : null}
 			</Component>
 		</FocusRing>

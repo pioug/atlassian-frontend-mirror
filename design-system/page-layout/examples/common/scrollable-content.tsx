@@ -21,6 +21,7 @@ const itemStyles = css({
 });
 
 const highlightStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(4n)': {
 		padding: token('space.050', '4px'),
 		position: 'sticky',

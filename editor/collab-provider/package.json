@@ -1,87 +1,87 @@
 {
-  "name": "@atlaskit/collab-provider",
-  "version": "9.29.3",
-  "description": "A provider for collaborative editing.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Collaboration",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ]
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./socket-io-provider": "./src/socket-io-provider.ts",
-    "./types": "./src/types.ts",
-    "./version-wrapper": "./src/version-wrapper.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./socket-io-provider": "./src/socket-io-provider.ts",
-    "./types": "./src/types.ts",
-    "./version-wrapper": "./src/version-wrapper.ts"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/prosemirror-collab": "^0.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/util-service-support": "^6.2.0",
-    "@babel/runtime": "^7.0.0",
-    "eventemitter2": "^4.1.0",
-    "lodash": "^4.17.21",
-    "socket.io-client": "^4.7.1"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "tree-shaking": []
-    },
-    "@repo/internal": {
-      "deprecation": "no-deprecated-imports",
-      "design-tokens": [
-        "color"
-      ],
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "devDependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlassian/feature-flags-test-utils": "^0.2.0",
-    "typescript": "~5.4.2"
-  },
-  "platform-feature-flags": {
-    "platform.editor.live-pages-expand-divergence": {
-      "type": "boolean"
-    },
-    "platform.editor.ncs.log-error-stacks": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/collab-provider",
+	"version": "9.29.3",
+	"description": "A provider for collaborative editing.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Collaboration",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		]
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./socket-io-provider": "./src/socket-io-provider.ts",
+		"./types": "./src/types.ts",
+		"./version-wrapper": "./src/version-wrapper.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./socket-io-provider": "./src/socket-io-provider.ts",
+		"./types": "./src/types.ts",
+		"./version-wrapper": "./src/version-wrapper.ts"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-gas-types": "^5.1.0",
+		"@atlaskit/analytics-listeners": "^8.9.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/prosemirror-collab": "^0.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@atlaskit/util-service-support": "^6.2.0",
+		"@babel/runtime": "^7.0.0",
+		"eventemitter2": "^4.1.0",
+		"lodash": "^4.17.21",
+		"socket.io-client": "^4.7.1"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"tree-shaking": []
+		},
+		"@repo/internal": {
+			"deprecation": "no-deprecated-imports",
+			"design-tokens": [
+				"color"
+			],
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"devDependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlassian/feature-flags-test-utils": "^0.2.0",
+		"typescript": "~5.4.2"
+	},
+	"platform-feature-flags": {
+		"platform.editor.live-pages-expand-divergence": {
+			"type": "boolean"
+		},
+		"platform.editor.ncs.log-error-stacks": {
+			"type": "boolean"
+		}
+	}
 }

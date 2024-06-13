@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Button from '../../../old-button/button';
 
@@ -16,12 +16,12 @@ it('should render a custom component if provided', () => {
 		);
 	});
 
-	const { getByTestId } = render(
+	render(
 		<Button testId="button" component={Custom}>
 			Hello
 		</Button>,
 	);
-	const button = getByTestId('button');
+	const button = screen.getByTestId('button');
 
 	expect(button.tagName.toLowerCase()).toBe('div');
 	expect(button.innerText).toBe('Hello World');
@@ -42,13 +42,13 @@ it('should support having a custom component with extra strange props', () => {
 		);
 	});
 
-	const { getByTestId } = render(
+	render(
 		// @ts-ignore: incorrect typing at this stage
 		<Button testId="button" to="http://google.com" component={Link}>
 			Hello
 		</Button>,
 	);
-	const button = getByTestId('button');
+	const button = screen.getByTestId('button');
 
 	expect(button.tagName.toLowerCase()).toBe('span');
 	expect(button).toHaveAttribute('data-href', 'http://google.com');

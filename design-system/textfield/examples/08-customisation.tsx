@@ -10,7 +10,7 @@ const overrideStyles = css({
 	padding: token('space.075', '6px'),
 
 	border: '2px solid orange',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--input]': {
 		border: '2px solid green',
 		fontSize: 20,

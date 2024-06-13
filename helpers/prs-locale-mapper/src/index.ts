@@ -5,8 +5,11 @@
 export const mapLocaleToPrsLocale = (locale: string): string => {
 	const standardizedLocale = locale.replace('_', '-');
 	switch (standardizedLocale) {
-		case 'en-US':
 		case 'en-GB':
+		case 'en-US':
+		case 'en-XA':
+		case 'en-XB':
+		case 'en-ZZ':
 		case 'pt-BR':
 		case 'zh-CN':
 		case 'zh-TW':

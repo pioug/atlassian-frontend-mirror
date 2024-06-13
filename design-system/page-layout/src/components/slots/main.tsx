@@ -19,13 +19,14 @@ import { SidebarResizeContext, useSkipLink } from '../../controllers';
 
 import SlotFocusRing from './internal/slot-focus-ring';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const mainStyles = css({
 	minWidth: 0,
 	flexGrow: 1,
 	marginInlineStart: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `margin-left ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 });
 
@@ -41,7 +42,7 @@ const draggingStyles = css({
  * while main remains in place.
  */
 const flyoutStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginInlineStart: `calc(-1 * var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
 });
 

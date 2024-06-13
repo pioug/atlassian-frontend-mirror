@@ -18,10 +18,13 @@ const ExampleSizeBox = ({
 	const absToken = scaleToken.replace('.negative', '') as keyof typeof defaultTokenValues;
 
 	const boxStyles = xcss({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: token(absToken, fallback),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: token(absToken, fallback),
 		backgroundColor: 'color.background.brand.bold',
 		position: 'relative',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		insetBlockStart: scaleToken.includes('negative') ? token(absToken, fallback) : '0',
 	});
 

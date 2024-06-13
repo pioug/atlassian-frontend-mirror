@@ -144,6 +144,7 @@ const nodeTypes: Record<string, NodeMapping> = {
 	},
 	emojiQuery: { name: 'emojiQuery' },
 	textColor: { name: 'textColor', attrs: ['color'] },
+	backgroundColor: { name: 'backgroundColor', attrs: ['color'] },
 	confluenceInlineComment: {
 		name: 'confluenceInlineComment',
 		attrs: ['reference'],

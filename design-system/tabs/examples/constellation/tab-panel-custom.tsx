@@ -20,7 +20,7 @@ const customPanelStyles = css({
 	font: token('font.heading.xxlarge'),
 	marginBlockEnd: token('space.100', '8px'),
 	marginBlockStart: token('space.200', '16px'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		padding: token('space.400', '32px'),
 	},

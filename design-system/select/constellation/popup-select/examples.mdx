@@ -13,7 +13,8 @@ import SelectPopupWithoutPortalExample from '../../examples/constellation/select
 
 ## Default
 
-Use popup select to let people filter through a list of actions where limited space is a concern for the trigger.
+Use popup select to let people filter through a list of actions where limited space is a concern for
+the trigger.
 
 <Example Component={SelectPopup} packageName="@atlaskit/select" />
 
@@ -37,16 +38,16 @@ Use `placement` to position the popup relative to the trigger.
 
 ## Layering
 
-Currently there is no foundational platform solution that enables layered components to be composed together without extra effort.
-Use the `offset` and `preventOverflow` props from [popper](https://atlaskit.atlassian.com/packages/design-system/popper) to keep them in view as a stop-gap.
+Currently there is no foundational platform solution that enables layered components to be composed
+together without extra effort. Use the `offset` and `preventOverflow` props from
+[popper](https://atlaskit.atlassian.com/packages/design-system/popper) to keep them in view as a
+stop-gap.
 
 <Example Component={SelectPopupModalExample} packageName="@atlaskit/select" />
 
 ## Content without portal
 
-By default, the PopupSelect content is rendered inside `React.Portal`. Use `popperProps={{ strategy: 'fixed' }}` prop to render the content directly after the trigger element.
+By default, the PopupSelect content is rendered inside `React.Portal`. Use
+`popperProps={{ strategy: 'fixed' }}` prop to render the content directly after the trigger element.
 
-<Example
-  Component={SelectPopupWithoutPortalExample}
-  packageName="@atlaskit/select"
-/>
+<Example Component={SelectPopupWithoutPortalExample} packageName="@atlaskit/select" />

@@ -21,6 +21,7 @@ const modalBodyStyles = css({
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
 const modalHeadingStyles = css([
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(h600({ theme: { mode: 'light' } })),
 	{
 		marginBottom: token('space.100', '8px'),

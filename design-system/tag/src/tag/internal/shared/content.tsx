@@ -21,26 +21,32 @@ interface ContentProps extends SimpleTagProps {
 }
 
 const baseStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: maxTextWidth,
 	font: token('font.body'),
 	overflow: 'hidden',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingInlineEnd: defaultTextPadding,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingInlineStart: defaultTextPadding,
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 });
 
 const linkStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: `var(${cssVar.color.text.link})`,
 	pointerEvents: 'auto',
 	textDecoration: 'none',
 
 	'&:hover': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: `var(${cssVar.color.text.hover})`,
 		textDecoration: 'underline',
 	},
 
 	'&:active': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: `var(${cssVar.color.text.active})`,
 		textDecoration: 'underline',
 	},
@@ -51,13 +57,14 @@ const linkStyles = css({
 });
 
 const hasAfterStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingInlineEnd: textPaddingRight,
 });
 
 const hasBeforeStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginInlineStart: textMarginLeft,
 });
 

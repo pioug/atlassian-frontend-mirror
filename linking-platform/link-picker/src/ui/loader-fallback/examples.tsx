@@ -26,9 +26,11 @@ const plugins = [
 const borderStyle = css({
 	display: 'inline-flex',
 	alignItems: 'flex-start',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
 		border: '1px solid red',
 		marginRight: '5px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${LINK_PICKER_WIDTH_IN_PX}px`,
 	},
 });
@@ -36,6 +38,7 @@ const borderStyle = css({
 export const BorderWrapper = ({ children }: { children: React.ReactNode }) => (
 	<div
 		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			['--link-picker-width' as string]: `${LINK_PICKER_WIDTH_IN_PX}px`,
 		}}
 		css={borderStyle}

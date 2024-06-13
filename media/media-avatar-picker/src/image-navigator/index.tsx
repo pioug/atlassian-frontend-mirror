@@ -323,7 +323,9 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 					<Spinner size="medium" />
 				) : (
 					<React.Fragment>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<img id="drag-zone-image" css={dragZoneImageStyles} src={dropZoneImageSrc} alt="" />
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div id="drag-zone-text" css={dragZoneTextStyles({ isFullSize: !!errorMessage })}>
 							<Ellipsify text={dragZoneText} lines={3} />
 						</div>
@@ -337,10 +339,12 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		const { errorMessage, isLoading } = this.props;
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div id="image-uploader" css={imageUploaderStyles}>
 				{this.renderDragZone()}
 				{isLoading ? null : (
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<p id="padded-break" css={paddedBreakStyles}>
 							<FormattedMessage {...(errorMessage ? messages.try_again : messages.or)} />
 						</p>
@@ -351,6 +355,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 						>
 							<FormattedMessage {...messages.upload_photo} />
 							<input
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								css={fileInputStyles}
 								type="file"
 								id="image-input"
@@ -378,6 +383,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 
 		return (
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={imageBgStyles} />
 				<ImageCropper
 					imageSource={dataURI}
@@ -393,9 +399,11 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 					onRemoveImage={onRemoveImage}
 					onImageError={onImageError}
 				/>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={sliderContainerStyles}>
 					<Slider value={scale} onChange={this.onScaleChange} />
 				</div>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				{isDragging ? <div css={selectionBlockerStyles} /> : null}
 			</div>
 		);
@@ -415,6 +423,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 		const content =
 			dataURI && !isLoading ? this.renderImageCropper(dataURI) : this.renderImageUploader();
 
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		return <div css={containerStyles}>{content}</div>;
 	}
 }

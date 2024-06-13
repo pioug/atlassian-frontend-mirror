@@ -3,6 +3,7 @@ import type {
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
@@ -30,6 +31,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<WidthPlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
+			OptionalPlugin<AnalyticsPlugin>,
 		];
 		sharedState:
 			| {

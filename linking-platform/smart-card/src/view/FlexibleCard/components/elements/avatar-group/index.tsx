@@ -16,6 +16,7 @@ const MAX_COUNT = 4;
 const getStyles = (size: SmartLinkSize) => {
 	const styles = css({
 		display: 'inline-flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		ul: {
 			marginRight: token('space.100', '0.5rem'),
 			marginTop: 0,
@@ -112,6 +113,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
 
 	return (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[getStyles(size), overrideCss]}
 			data-fit-to-content
 			data-smart-element={name}

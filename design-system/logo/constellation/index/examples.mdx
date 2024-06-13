@@ -40,56 +40,50 @@ import SectionMessage from '@atlaskit/section-message';
 
 ### Icon
 
-An icon is an image or symbol that represents a brand or product. It generally does not contain the name of the brand or product.
+An icon is an image or symbol that represents a brand or product. It generally does not contain the
+name of the brand or product.
 
 <Example Component={LogoIcon} packageName="@atlaskit/logo" />
 
 ### Lockup
 
-A lockup is the combination of wordmark (the brand or product name) and its icon, generally referred altogether as a logo.
+A lockup is the combination of wordmark (the brand or product name) and its icon, generally referred
+altogether as a logo.
 
 <Example Component={LogoBrand} packageName="@atlaskit/logo" />
 
 ## Appearance
 
-By default, the lockup and icon inherit their colors from the parent element, however, this can lead to incorrect color combinations.
-Moving forward, all usages of `@atlaskit/logo` should use the `appearance` prop to choose between three brand-approved appearances: brand, neutral, and inverse.
+By default, the lockup and icon inherit their colors from the parent element, however, this can lead
+to incorrect color combinations. Moving forward, all usages of `@atlaskit/logo` should use the
+`appearance` prop to choose between three brand-approved appearances: brand, neutral, and inverse.
 
 ### Brand
 
-Brand product logos are used in situations that demand a bold brand presence against a neutral background.
+Brand product logos are used in situations that demand a bold brand presence against a neutral
+background.
 
-<Example
-  Component={LogoBrand}
-  packageName="@atlaskit/logo"
-  backgroundColor="white"
-/>
+<Example Component={LogoBrand} packageName="@atlaskit/logo" backgroundColor="white" />
 
 ### Neutral
 
-Neutral product logos can be used when the hierarchy calls for the logo to recede, but should always be evaluated for adequate contrast.
+Neutral product logos can be used when the hierarchy calls for the logo to recede, but should always
+be evaluated for adequate contrast.
 
-<Example
-  Component={LogoNeutral}
-  packageName="@atlaskit/logo"
-  backgroundColor="neutral"
-/>
+<Example Component={LogoNeutral} packageName="@atlaskit/logo" backgroundColor="neutral" />
 
 ### Inverse
 
 Inverse product logos should be used to contrast against bold backgrounds.
 
-<Example
-  Component={LogoInverse}
-  packageName="@atlaskit/logo"
-  backgroundColor="blue"
-/>
+<Example Component={LogoInverse} packageName="@atlaskit/logo" backgroundColor="blue" />
 
 ## Size
 
 ### Small
 
-Use the `small` logo in areas with minimal space or that contain many logos in close proximity. For example, the icon component, the marketing footer, or the emoji picker.
+Use the `small` logo in areas with minimal space or that contain many logos in close proximity. For
+example, the icon component, the marketing footer, or the emoji picker.
 
 <Example Component={LogoSmall} packageName="@atlaskit/logo" />
 
@@ -101,7 +95,8 @@ The `medium` size (32px) is the default size.
 
 ### Large
 
-The `large` size (56px) is rarely used. It may be used for a hero piece. For example, Statuspage's login.
+The `large` size (56px) is rarely used. It may be used for a hero piece. For example, Statuspage's
+login.
 
 <Example Component={LogoLarge} packageName="@atlaskit/logo" />
 

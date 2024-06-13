@@ -16,6 +16,7 @@ describe('getTokenValue', () => {
 		render(
 			<>
 				<head>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles --  -- Ignored via go/DSP-18766 */}
 					<style>
 						{`
             html {

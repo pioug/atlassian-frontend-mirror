@@ -36,6 +36,7 @@ const vrFileIdentifier: FileIdentifier = {
 export default () => (
 	<MainWrapper developmentOnly>
 		<div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={inlineCardVideoWrapperItemStyles}>
 				<h1>video large [disableOverlay=true] width=500 height=300</h1>
 				<Card

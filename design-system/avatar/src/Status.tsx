@@ -120,9 +120,11 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				position: 'absolute',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				height: `${ICON_SIZES[size]}px`,
 				right: `${position}px`,
 				top: `${position}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				width: `${ICON_SIZES[size]}px`,
 			}}
 		>

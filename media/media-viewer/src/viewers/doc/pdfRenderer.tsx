@@ -11,6 +11,7 @@ import {
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { cmap } from './cmaps';
 import type { PDFDocumentProxy } from 'pdfjs-dist/legacy/build/pdf';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import { css, Global } from '@emotion/react';
 import { ZoomControls } from '../../zoomControls';
 import { PDFWrapper } from '../../styleWrappers';
@@ -34,17 +35,21 @@ export const pdfViewerClassName = 'pdfViewer';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 const globalStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[`.${pdfViewerClassName}`]: {
 		marginTop: token('space.800', '64px'),
 		marginBottom: token('space.800', '64px'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.page': {
 			margin: `1px auto ${token('space.negative.100', '-8px')} auto`,
 			border: '9px solid transparent',
 			position: 'relative',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.canvasWrapper': {
 			overflow: 'hidden',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.textLayer': {
 			position: 'absolute',
 			left: 0,
@@ -55,6 +60,7 @@ const globalStyles = css({
 			opacity: 0.2,
 			lineHeight: 1,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.textLayer span, .textLayer br': {
 			color: 'transparent',
 			position: 'absolute',
@@ -62,16 +68,20 @@ const globalStyles = css({
 			cursor: 'text',
 			transformOrigin: '0% 0%',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'.textLayer ::-moz-selection': {
 			background: 'rgba(0, 0, 255, 1)',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.textLayer ::selection': {
 			background: 'rgba(0, 0, 255, 1)',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.annotationLayer section': {
 			position: 'absolute',
 			textAlign: 'initial',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.annotationLayer .linkAnnotation > a, .annotationLayer .buttonWidgetAnnotation.pushButton > a':
 			{
 				position: 'absolute',
@@ -81,6 +91,7 @@ const globalStyles = css({
 				width: '100%',
 				height: '100%',
 			},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.annotationLayer .linkAnnotation > a:hover, .annotationLayer .buttonWidgetAnnotation.pushButton > a:hover':
 			{
 				opacity: 0.2,

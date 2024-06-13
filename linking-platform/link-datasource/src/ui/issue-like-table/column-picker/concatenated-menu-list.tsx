@@ -12,6 +12,7 @@ export const SELECT_ITEMS_MAXIMUM_THRESHOLD = 200;
 
 const messageStyles = css({
 	color: token('color.text.subtle', '#44546F'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.body.small', fontFallback.body.small),
 	fontWeight: token('font.weight.regular', '400'),
 });

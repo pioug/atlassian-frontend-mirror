@@ -20,6 +20,7 @@ const styles = css({
 	alignItems: 'stretch',
 	justifyContent: 'center',
 	gap: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> li': {
 		margin: 0,
 		width: '190px',

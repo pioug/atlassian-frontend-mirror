@@ -57,6 +57,9 @@
 			"path": "../inline-edit/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../page/tsconfig.app.json"
 		},
 		{

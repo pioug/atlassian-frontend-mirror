@@ -10,16 +10,16 @@ import ShowFlagArgs from '!!extract-react-types-loader!../../extract-react-types
 
 ## Default
 
-To show flags without managing a `FlagGroup`, wrap your application in a `FlagsProvider`,
-which provides context to its children.
+To show flags without managing a `FlagGroup`, wrap your application in a `FlagsProvider`, which
+provides context to its children.
 
 <Example Component={FlagsProviderExample} packageName="@atlaskit/flag" />
 
 ### Using showFlags
 
-Any components within your application can now access the function `showFlags` from
-the context by calling `useFlags`. Call `showFlags` with an object of type `CreateFlagArgs`
-and a `Flag` will be displayed. `CreateFlagArgs` is defined as follows:
+Any components within your application can now access the function `showFlags` from the context by
+calling `useFlags`. Call `showFlags` with an object of type `CreateFlagArgs` and a `Flag` will be
+displayed. `CreateFlagArgs` is defined as follows:
 
 <!-- We are using PropsTable to display CreateFlagArgs which is a type -->
 

@@ -26,7 +26,8 @@ Group similar menu items together into sections.
 ![Anatomy section](images/anatomy-section.png)
 
 1. **Section.** Menus are made up of a section or multiple sections.
-2. **Separator.** Graphic device to separate a section of similar menu items. If there is more than one section, a separator is not needed in the first section.
+2. **Separator.** Graphic device to separate a section of similar menu items. If there is more than
+   one section, a separator is not needed in the first section.
 3. **Section header.** Contains a heading to name a section of a group of similar menu items.
 4. **Menu items.** Menu items can include an optional description and/or icons before and after.
 
@@ -63,88 +64,99 @@ Use menus with Button items when asking users to perform an action, e.g. Copy.
 
 A menu item is wrapped in an anchor tag.
 
-A link is an “interactive reference to an internal or external resource that, when activated, causes the user agent to navigate to that resource”.
+A link is an “interactive reference to an internal or external resource that, when activated, causes
+the user agent to navigate to that resource”.
 
 Use menus with Link items if sending users to another page, e.g. Team Spaces.
 
 ## Best practices
 
 <DoDont
-  type="do"
-  image={{
-    url: buttonItemDo,
-    alt: 'A menu with 2 button menu items.',
-  }}
+	type="do"
+	image={{
+		url: buttonItemDo,
+		alt: 'A menu with 2 button menu items.',
+	}}
 >
-  Use button menu items when users need an action performed, e.g. Copy.
+	Use button menu items when users need an action performed, e.g. Copy.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: buttonItemDont,
-    alt: 'A menu with 2 button menu items.',
-  }}
+	type="dont"
+	image={{
+		url: buttonItemDont,
+		alt: 'A menu with 2 button menu items.',
+	}}
 >
-  Don’t use buttons if navigating users to a specific place.
+	Don’t use buttons if navigating users to a specific place.
 </DoDont>
 
 <DoDont
-  type="do"
-  image={{
-    url: linkItemDo,
-    alt: 'A menu with 2 link menu items.',
-  }}
+	type="do"
+	image={{
+		url: linkItemDo,
+		alt: 'A menu with 2 link menu items.',
+	}}
 >
-  Use link menu items to navigate users to a resource.
+	Use link menu items to navigate users to a resource.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: linkItemDont,
-    alt: 'A menu with 2 link menu items.',
-  }}
+	type="dont"
+	image={{
+		url: linkItemDont,
+		alt: 'A menu with 2 link menu items.',
+	}}
 >
-  Don’t use link menu items for actions required by users.
+	Don’t use link menu items for actions required by users.
 </DoDont>
 
 <DoDont
-  type="do"
-  image={{
-    url: linkItemIconDo,
-    alt: 'A menu with 3 button menu items.',
-  }}
+	type="do"
+	image={{
+		url: linkItemIconDo,
+		alt: 'A menu with 3 button menu items.',
+	}}
 >
-  Use icons to support and indicate if menu items are taking users to a new
-  resource.
+	Use icons to support and indicate if menu items are taking users to a new resource.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: linkItemIconDont,
-    alt: 'A menu with 2 button menu items.',
-  }}
+	type="dont"
+	image={{
+		url: linkItemIconDont,
+		alt: 'A menu with 2 button menu items.',
+	}}
 >
-  Don’t use link menu items as button menu items. Use an icon to indicate if a
-  button menu item is taking users to a new place.
+	Don’t use link menu items as button menu items. Use an icon to indicate if a button menu item is
+	taking users to a new place.
 </DoDont>
 
 ## Content guidelines
 
-- **Use concise labels.** (max. 24 characters) Avoid unnecessary verbs, jargon, or brand names. Navigation doesn’t benefit from conversational language, and putting the most important word at the start of the label helps people navigate quickly.
-- **Prioritise menu items.** Organise your menu items based on priority, and put the most used items at the start of the menu.
-- **Test your label names.** Make sure that your menu helps people complete their tasks. Contact the Research Hub for further guidance on testing.
-- **Be mindful of menu length.** Putting more items in a menu doesn’t necessarily translate to more exposure or usage.
+- **Use concise labels.** (max. 24 characters) Avoid unnecessary verbs, jargon, or brand names.
+  Navigation doesn’t benefit from conversational language, and putting the most important word at
+  the start of the label helps people navigate quickly.
+- **Prioritise menu items.** Organise your menu items based on priority, and put the most used items
+  at the start of the menu.
+- **Test your label names.** Make sure that your menu helps people complete their tasks. Contact the
+  Research Hub for further guidance on testing.
+- **Be mindful of menu length.** Putting more items in a menu doesn’t necessarily translate to more
+  exposure or usage.
 
 ## Accessibility
 
-- Compose your menu with the correct semantic elements using sections, heading items, button items, and link items.
-- **Use sections.** Always compose your menu using sections, even if there’s only one section. Sections support better navigation for assistive technology.
-- **Use correct heading levels.** Using headingLevel prop to change the level of the heading. The default heading level is h2. Make sure that headings are in the correct order relative to the pages the menu is on, and don’t skip levels.
-- **Don’t disable menu items.** Leave the menu item enabled, and use visual affordance and error messaging to let people know why the menu item is unavailable.
-- **Be consistent.** If your menu appears in more than one place, make sure that the order and availability of menu items is consistent throughout your product.
+- Compose your menu with the correct semantic elements using sections, heading items, button items,
+  and link items.
+- **Use sections.** Always compose your menu using sections, even if there’s only one section.
+  Sections support better navigation for assistive technology.
+- **Use correct heading levels.** Using headingLevel prop to change the level of the heading. The
+  default heading level is h2. Make sure that headings are in the correct order relative to the
+  pages the menu is on, and don’t skip levels.
+- **Don’t disable menu items.** Leave the menu item enabled, and use visual affordance and error
+  messaging to let people know why the menu item is unavailable.
+- **Be consistent.** If your menu appears in more than one place, make sure that the order and
+  availability of menu items is consistent throughout your product.
 - **Avoid icons.** If icons must be included, make sure any meaningful imagery has alternative text.
 
 ## Related

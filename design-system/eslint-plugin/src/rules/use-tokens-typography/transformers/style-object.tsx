@@ -257,7 +257,12 @@ export const StyleObject = {
 				data: {
 					payload: `fontSize:${fontSizeRaw}`,
 				},
-				fix: StyleObject._fix(fixerRefs, context),
+				suggest: [
+					{
+						desc: `Convert to font token`,
+						fix: StyleObject._fix(fixerRefs, context),
+					},
+				],
 			});
 		} else if (!matchingTokens.length) {
 			context.report({

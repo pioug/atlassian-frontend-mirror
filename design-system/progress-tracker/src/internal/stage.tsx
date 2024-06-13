@@ -35,16 +35,18 @@ const listItemStyles = css({
 });
 
 const titleStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	marginTop: LABEL_TOP_SPACING,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	lineHeight: '16px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	marginBlockStart: LABEL_TOP_SPACING,
 	textAlign: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.fade-appear': {
 		opacity: 0.01,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.fade-appear.fade-appear-active': {
 		opacity: 1,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition: `opacity var(${varTransitionSpeed}) cubic-bezier(0.2, 0, 0, 1)`,
 	},
 });
@@ -146,7 +148,9 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 							<span
 								css={textStyles}
 								style={{
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									color: getTextColor(item.status),
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									fontWeight: getFontWeight(item.status),
 								}}
 								data-testid={testId && `${testId}-title`}

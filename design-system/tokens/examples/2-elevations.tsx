@@ -89,6 +89,7 @@ const boxStyles = css({
 	minHeight: '100px',
 	padding: '1em',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('border.radius.100', '3px'),
 	marginBlockStart: '1em',
 	textAlign: 'left',
@@ -102,18 +103,30 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 		<ComponentType
 			css={[
 				boxStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css({
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					backgroundColor: style.surface,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					border: style.border ? `1px solid ${style.border}` : 'none',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					boxShadow: style.shadow,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					color: token('color.text'),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					cursor: isInteractive ? 'pointer' : 'default',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 					':hover': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						backgroundColor: style.surfaceHovered || style.surface,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						boxShadow: style.shadowHovered || style.shadow,
 					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 					':active': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						backgroundColor: style.surfacePressed || style.surface,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						boxShadow: style.shadowPressed || style.shadow,
 					},
 				}),

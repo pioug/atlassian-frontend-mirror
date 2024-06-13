@@ -4,7 +4,11 @@ import fetchMock from 'fetch-mock/cjs/client';
 // @ts-ignore
 import * as sinon from 'sinon';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import ProfileClient from '../../client/ProfileCardClient';
+import TeamCentralCardClient from '../../client/TeamCentralCardClient';
 import { modifyResponse } from '../../client/UserProfileCardClient';
 import { type ApiClientResponse } from '../../types';
 
@@ -12,8 +16,17 @@ const clientUrl = 'https://foo/';
 const clientCacheSize = 10;
 const clientCacheMaxAge = 500;
 
+jest.mock('@atlaskit/atlassian-context', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context'),
+	isFedRamp: jest.fn(),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags');
+
 describe('Profilecard', () => {
 	describe('UserProfileCardClient', () => {
+		const mockIsFedRamp = isFedRamp as jest.Mock;
+
 		it('config.url is available when set on instantiation', () => {
 			const client = new ProfileClient({
 				url: clientUrl,
@@ -45,6 +58,33 @@ describe('Profilecard', () => {
 			}).userClient;
 
 			expect(client.config.cacheMaxAge).toEqual(30 * 24 * 60 * 60 * 1000);
+		});
+
+		it('should not have tcClinet initialised if isFedRamp is true', async () => {
+			(getBooleanFF as jest.Mock).mockReturnValue(true);
+			mockIsFedRamp.mockReturnValue(true);
+
+			const client = new ProfileClient({
+				url: clientUrl,
+				teamCentralUrl: clientUrl,
+			});
+
+			expect(client.tcClient).toEqual(undefined);
+
+			const shouldShowGiveKudos = await client.shouldShowGiveKudos();
+			expect(shouldShowGiveKudos).toBeFalsy();
+		});
+
+		it('should have tcClinet initialised if isFedRamp is false', () => {
+			(getBooleanFF as jest.Mock).mockReturnValue(true);
+			mockIsFedRamp.mockReturnValue(false);
+
+			const client = new ProfileClient({
+				url: clientUrl,
+				teamCentralUrl: clientUrl,
+			});
+
+			expect(client.tcClient).toBeInstanceOf(TeamCentralCardClient);
 		});
 
 		describe('LRU Cache', () => {

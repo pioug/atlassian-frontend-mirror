@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '../../../old-button/button';
 
@@ -9,12 +9,12 @@ const types: React.ElementType[] = ['button', 'a', 'span'];
 types.forEach((tag: React.ElementType) => {
 	describe(`has overlay [type: <${tag}>]`, () => {
 		it('should set data-has-overlay to true if there is an overlay', () => {
-			const { getByTestId, rerender } = render(
+			const { rerender } = render(
 				<Button testId="button" component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			expect(button.tagName.toLowerCase()).toBe(tag);
 			expect(button).not.toHaveAttribute('data-has-overlay');
@@ -29,23 +29,23 @@ types.forEach((tag: React.ElementType) => {
 		});
 
 		it('should allow focus', () => {
-			const { getByTestId } = render(
+			render(
 				<Button testId="button" overlay="foo" component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			expect(button.tabIndex).toBe(0);
 		});
 
 		it('should not loose focus when overlay added', () => {
-			const { getByTestId, rerender } = render(
+			const { rerender } = render(
 				<Button testId="button" component={tag}>
 					Hello
 				</Button>,
 			);
-			const button: HTMLElement = getByTestId('button');
+			const button: HTMLElement = screen.getByTestId('button');
 
 			button.focus();
 			expect(button).toHaveFocus();
@@ -105,14 +105,14 @@ types.forEach((tag: React.ElementType) => {
 				const buttonHandler = { [binding.reactEventName]: jest.fn() };
 
 				// initially not disabled to validate binding
-				const { getByTestId, rerender } = render(
+				const { rerender } = render(
 					<div {...parentHandler}>
 						<Button testId="button" component={tag} {...buttonHandler}>
 							Hello
 						</Button>
 					</div>,
 				);
-				const button: HTMLElement = getByTestId('button');
+				const button: HTMLElement = screen.getByTestId('button');
 				expect(button).not.toHaveAttribute('data-has-overlay');
 
 				const firstEventAllowed: boolean = fireEvent(
@@ -158,12 +158,12 @@ types.forEach((tag: React.ElementType) => {
 });
 
 it('should remove a href attribute there is an overlay', () => {
-	const { getByTestId, rerender } = render(
+	const { rerender } = render(
 		<Button testId="button" href="http://foo.com">
 			Hello
 		</Button>,
 	);
-	const button: HTMLElement = getByTestId('button');
+	const button: HTMLElement = screen.getByTestId('button');
 
 	expect(button).toHaveAttribute('href');
 	expect(button.tagName.toLowerCase()).toBe('a');

@@ -974,7 +974,7 @@ type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {
 	backgroundColor?: BackgroundColor;
-	blockSize?: AutoComplete<Dimension>;
+	blockSize?: Dimension | string;
 	borderBlockColor?: AutoComplete<BorderColor>;
 	borderBlockEndColor?: AutoComplete<BorderColor>;
 	borderBlockEndWidth?: BorderWidth | string;
@@ -1011,8 +1011,8 @@ export type TokenisedProps = {
 	color?: TextColor;
 	columnGap?: Space;
 	gap?: Space;
-	height?: AutoComplete<Dimension>;
-	inlineSize?: AutoComplete<Dimension>;
+	height?: Dimension | string;
+	inlineSize?: Dimension | string;
 	inset?: AutoComplete<AllSpace>;
 	insetBlock?: AutoComplete<AllSpace>;
 	insetBlockEnd?: AutoComplete<AllSpace>;
@@ -1032,14 +1032,14 @@ export type TokenisedProps = {
 	marginLeft?: AutoComplete<MarginSpace>;
 	marginRight?: AutoComplete<MarginSpace>;
 	marginTop?: AutoComplete<MarginSpace>;
-	maxBlockSize?: AutoComplete<Dimension>;
-	maxHeight?: AutoComplete<Dimension>;
-	maxInlineSize?: AutoComplete<Dimension>;
-	maxWidth?: AutoComplete<Dimension>;
-	minBlockSize?: AutoComplete<Dimension>;
-	minHeight?: AutoComplete<Dimension>;
-	minInlineSize?: AutoComplete<Dimension>;
-	minWidth?: AutoComplete<Dimension>;
+	maxBlockSize?: Dimension | string;
+	maxHeight?: Dimension | string;
+	maxInlineSize?: Dimension | string;
+	maxWidth?: Dimension | string;
+	minBlockSize?: Dimension | string;
+	minHeight?: Dimension | string;
+	minInlineSize?: Dimension | string;
+	minWidth?: Dimension | string;
 	opacity?: AutoComplete<Opacity> | number;
 	outlineColor?: BorderColor;
 	outlineOffset?: Space;
@@ -1058,7 +1058,7 @@ export type TokenisedProps = {
 	right?: AutoComplete<AllSpace>;
 	rowGap?: Space;
 	top?: AutoComplete<AllSpace>;
-	width?: AutoComplete<Dimension>;
+	width?: Dimension | string;
 	zIndex?: Layer;
 };
 
@@ -1105,6 +1105,7 @@ const getSerializedStylesMap = (
 ): SerializedStylesMap => {
 	return Object.keys(tokenMap).reduce((emotionSpacingMap, token) => {
 		emotionSpacingMap[token as PropsToken] = css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			[cssProperty]: tokenMap[token as PropsToken],
 		});
 

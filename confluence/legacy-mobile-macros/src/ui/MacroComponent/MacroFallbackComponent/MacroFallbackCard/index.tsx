@@ -41,6 +41,7 @@ const Error = styled.span({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ErrorMessage = styled.span({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtlest', colors.N90),
 	paddingLeft: token('space.050', '4px'),
 	marginTop: token('space.negative.050', '-4px'),
@@ -58,6 +59,7 @@ const SecondaryAction = styled.span({
 const Icon = styled.span({
 	alignItems: 'center',
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> img': {
 		paddingLeft: token('space.050', '4px'),
 		paddingRight: token('space.050', '4px'),

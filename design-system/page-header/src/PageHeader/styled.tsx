@@ -52,6 +52,7 @@ const titleContainerStyles = css({
 	minWidth: 0,
 	maxWidth: '100%',
 	flex: '1 0 auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	flexShrink: undefined,
 	marginBlockEnd: token('space.100', '8px'),
 });
@@ -63,7 +64,7 @@ const actionStyles = css({
 	marginInlineStart: 'auto',
 	paddingInlineStart: token('space.400', '32px'),
 	whiteSpace: 'nowrap',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'>': {
 		textAlign: 'right',
 	},
@@ -88,7 +89,7 @@ export const OuterWrapper = ({ children }: { children: ReactNode }) => {
 	return <div css={outerStyles}>{children}</div>;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const h700Styles = css(h700());
 
 interface StyledTitleWrapperProps {
@@ -108,6 +109,7 @@ export const StyledTitleWrapper = React.forwardRef<HTMLHeadingElement, StyledTit
 		return (
 			<h1
 				css={[
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					...(getBooleanFF(
 						'platform.design-system-team.page-header-tokenised-typography-styles_lj1ix',
 					)

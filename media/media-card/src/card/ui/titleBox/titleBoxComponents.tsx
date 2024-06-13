@@ -21,6 +21,7 @@ export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
 		<div
 			id="titleBoxWrapper"
 			data-testid="media-title-box"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={titleBoxWrapperStyles({
 				breakpoint: breakpoint,
 				titleBoxBgColor: titleBoxBgColor,
@@ -34,6 +35,7 @@ export const TitleBoxWrapper = (props: TitleBoxWrapperProps) => {
 export const TitleBoxHeader = (props: TitleBoxHeaderProps) => {
 	const { hasIconOverlap } = props;
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div id="titleBoxHeader" css={titleBoxHeaderStyles({ hasIconOverlap })}>
 			{props.children}
 		</div>
@@ -43,6 +45,7 @@ export const TitleBoxHeader = (props: TitleBoxHeaderProps) => {
 export const TitleBoxFooter = (props: TitleBoxFooterProps) => {
 	const { hasIconOverlap } = props;
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div id="titleBoxFooter" css={titleBoxFooterStyles({ hasIconOverlap })}>
 			{props.children}
 		</div>
@@ -51,6 +54,7 @@ export const TitleBoxFooter = (props: TitleBoxFooterProps) => {
 
 export const TitleBoxIcon = (props: any) => {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div id="titleBoxIcon" css={titleBoxIconStyles}>
 			{props.children}
 		</div>
@@ -58,5 +62,6 @@ export const TitleBoxIcon = (props: any) => {
 };
 
 export const ErrorMessageWrapper = (props: any) => {
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	return <div css={errorMessageWrapperStyles}>{props.children}</div>;
 };

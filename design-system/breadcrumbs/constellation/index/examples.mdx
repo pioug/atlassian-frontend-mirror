@@ -22,13 +22,17 @@ The default form of breadcrumbs.
 
 ## Long breadcrumbs
 
-When a breadcrumb contains more than eight items, the breadcrumb auto-collapses and uses ellipses to indicate more information. The first and last items are shown by default. Users expand the breadcrumb by selecting the ellipsis.
+When a breadcrumb contains more than eight items, the breadcrumb auto-collapses and uses ellipses to
+indicate more information. The first and last items are shown by default. Users expand the
+breadcrumb by selecting the ellipsis.
 
 <Example Component={BreadcrumbsLong} packageName="@atlaskit/breadcrumbs" />
 
 ## Max items
 
-You can customise the maximum number of breadcrumbs using the `maxItems` prop. When there are more than the maximum number of nested links, the breadcrumb auto-collapses with an ellipses in between the items. Select the ellipses to reveal the hidden items.
+You can customise the maximum number of breadcrumbs using the `maxItems` prop. When there are more
+than the maximum number of nested links, the breadcrumb auto-collapses with an ellipses in between
+the items. Select the ellipses to reveal the hidden items.
 
 <Example Component={BreadcrumbsMaxItems} packageName="@atlaskit/breadcrumbs" />
 
@@ -40,24 +44,20 @@ When expanded, breadcrumbs that exceed the page width will overflow to the next 
 
 ## Items before or after collapse
 
-The number of items shown before or after auto-collapse can be customized. This is useful when people need more information on the breadcrumb hierarchy to be aware of their location within the product.
+The number of items shown before or after auto-collapse can be customized. This is useful when
+people need more information on the breadcrumb hierarchy to be aware of their location within the
+product.
 
 To reduce screen clutter, it's recommended to only display the first and last items when collapsing.
 
-<Example
-  Component={BreadcrumbsBeforeAfterCollapseExample}
-  packageName="@atlaskit/breadcrumbs"
-/>
+<Example Component={BreadcrumbsBeforeAfterCollapseExample} packageName="@atlaskit/breadcrumbs" />
 
 ## Controlled
 
-Set `isExpanded` to `true` to expand the breadcrumbs.
-Use the `onExpand` prop to expand the breadcrumbs, when a user interacts with the ellipsis button.
+Set `isExpanded` to `true` to expand the breadcrumbs. Use the `onExpand` prop to expand the
+breadcrumbs, when a user interacts with the ellipsis button.
 
-<Example
-  Component={BreadcrumbsControlled}
-  packageName="@atlaskit/breadcrumbs"
-/>
+<Example Component={BreadcrumbsControlled} packageName="@atlaskit/breadcrumbs" />
 
 ## Breadcrumbs with icon
 
@@ -65,26 +65,18 @@ Use the `onExpand` prop to expand the breadcrumbs, when a user interacts with th
 
 Use `iconBefore` to display an icon before the breadcrumb.
 
-<Example
-  Component={BreadcrumbsItemIconBefore}
-  packageName="@atlaskit/breadcrumbs"
-/>
+<Example Component={BreadcrumbsItemIconBefore} packageName="@atlaskit/breadcrumbs" />
 
 ### Icon after
 
 Use `iconAfter` to display an icon after the breadcrumb.
 
-<Example
-  Component={BreadcrumbsItemIconAfter}
-  packageName="@atlaskit/breadcrumbs"
-/>
+<Example Component={BreadcrumbsItemIconAfter} packageName="@atlaskit/breadcrumbs" />
 
 ## Truncation width
 
-When a `truncationWidth` is specified, long item names will truncate and a [tooltip](/components/tooltip) containing the full item name will appear on hover.
-If unspecified, truncation only happens when an item cannot fit alone on a line.
+When a `truncationWidth` is specified, long item names will truncate and a
+[tooltip](/components/tooltip) containing the full item name will appear on hover. If unspecified,
+truncation only happens when an item cannot fit alone on a line.
 
-<Example
-  Component={BreadcrumbsItemTruncation}
-  packageName="@atlaskit/breadcrumbs"
-/>
+<Example Component={BreadcrumbsItemTruncation} packageName="@atlaskit/breadcrumbs" />

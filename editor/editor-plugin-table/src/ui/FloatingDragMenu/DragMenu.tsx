@@ -95,6 +95,7 @@ type DragMenuProps = {
 	tableDuplicateCellColouring?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 	isTableFixedColumnWidthsOptionEnabled?: boolean;
+	tableSortColumnDiscoverability?: boolean;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -162,26 +163,35 @@ const MapDragMenuOptionIdToMessage: Record<DragMenuOptionIdType, MessageType> = 
 	},
 };
 
-const groupedDragMenuConfig: DragMenuOptionIdType[][] = [
-	[
-		'add_row_above',
-		'add_row_below',
-		'add_column_left',
-		'add_column_right',
-		'distribute_columns',
-		'clear_cells',
-		'delete_row',
-		'delete_column',
-	],
-	['move_column_left', 'move_column_right', 'move_row_up', 'move_row_down'],
-	['sort_column_asc', 'sort_column_desc'],
-];
+const getGroupedDragMenuConfig = (tableSortColumnDiscoverability: boolean) => {
+	let groupedDragMenuConfig: DragMenuOptionIdType[][] = [
+		[
+			'add_row_above',
+			'add_row_below',
+			'add_column_left',
+			'add_column_right',
+			'distribute_columns',
+			'clear_cells',
+			'delete_row',
+			'delete_column',
+		],
+		['move_column_left', 'move_column_right', 'move_row_up', 'move_row_down'],
+	];
+	const sortColumnItems: DragMenuOptionIdType[] = ['sort_column_asc', 'sort_column_desc'];
+	tableSortColumnDiscoverability
+		? groupedDragMenuConfig.unshift(sortColumnItems)
+		: groupedDragMenuConfig.push(sortColumnItems);
+
+	return groupedDragMenuConfig;
+};
 
 const convertToDropdownItems = (
 	dragMenuConfig: DragMenuConfig[],
 	formatMessage: IntlShape['formatMessage'],
+	tableSortColumnDiscoverability: boolean = false,
 	selectionRect?: Rect,
 ) => {
+	const groupedDragMenuConfig = getGroupedDragMenuConfig(tableSortColumnDiscoverability);
 	let menuItemsArr: MenuItem[][] = [...Array(groupedDragMenuConfig.length)].map(() => []);
 	let menuCallback: { [key: string]: Command } = {};
 	dragMenuConfig.forEach((item) => {
@@ -267,6 +277,7 @@ export const DragMenu = React.memo(
 		tableDuplicateCellColouring,
 		shouldUseIncreasedScalingPercent,
 		isTableFixedColumnWidthsOptionEnabled,
+		tableSortColumnDiscoverability,
 	}: DragMenuProps & WrappedComponentProps) => {
 		const { state, dispatch } = editorView;
 		const { selection } = state;
@@ -309,11 +320,13 @@ export const DragMenu = React.memo(
 			tableDuplicateCellColouring,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
+			tableSortColumnDiscoverability,
 		);
 
 		const { menuItems, menuCallback } = convertToDropdownItems(
 			dragMenuConfig,
 			formatMessage,
+			tableSortColumnDiscoverability,
 			selectionRect,
 		);
 
@@ -373,7 +386,7 @@ export const DragMenu = React.memo(
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={DropdownMenuSharedCssClassName.SUBMENU}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={dragMenuBackgroundColorStyles}
+						css={dragMenuBackgroundColorStyles(tableSortColumnDiscoverability)}
 					>
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -600,7 +613,9 @@ export const DragMenu = React.memo(
 		}
 
 		if (allowBackgroundColor) {
-			menuItems[0].items.unshift(createBackgroundColorMenuItem());
+			tableSortColumnDiscoverability
+				? menuItems[1].items.unshift(createBackgroundColorMenuItem())
+				: menuItems[0].items.unshift(createBackgroundColorMenuItem());
 		}
 
 		// If first row, add toggle for Header row, default is true

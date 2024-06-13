@@ -33,6 +33,7 @@ export const CollaboratorList = ({
 	}
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={mq({ display: ['none', 'inherit'] })}>
 			<AvatarGroup
 				maxCount={4}

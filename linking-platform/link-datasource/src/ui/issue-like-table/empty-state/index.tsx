@@ -46,9 +46,11 @@ const cellStyles = css({
 	padding,
 	borderRight: `0.5px solid ${token('color.border', N40)}`,
 	borderBottom: `0.5px solid ${token('color.border', N40)}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-child': {
 		paddingLeft: `${token('space.100', '8px')}`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:last-child': {
 		borderRight: 0,
 		paddingRight: `${token('space.100', '8px')}`,
@@ -129,7 +131,7 @@ export default ({ isCompact, testId }: Props) => {
 			style={{
 				// the IssueLikeDataTableView wraps the table in a container with the styling below while modal doesn't
 				// this maxHeight comes from scrollableContainerHeight
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				maxHeight: ScrollableContainerHeight,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				padding: token('space.0', '0px'),

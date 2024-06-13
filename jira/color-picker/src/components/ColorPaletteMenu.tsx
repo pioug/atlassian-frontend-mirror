@@ -69,14 +69,17 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 		<div
 			aria-label={fullLabel}
 			role="radiogroup"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[colorPaletteMenuStyles, mode === Mode.Standard && colorPaletteMenuStandardStyles]}
 			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				width: `${getWidth(cols, mode)}px`,
 			}}
 		>
 			<div
 				css={[
 					colorPaletteContainerStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					mode === Mode.Compact && colorPaletteContainerCompactStyles,
 				]}
 			>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type UserEvent } from '@testing-library/user-event/dist/types/setup/setup';
 
@@ -55,14 +55,14 @@ export default function testEventBlocking(
 			const buttonHandler = { [eventName]: jest.fn() };
 
 			// Step 1: Initially no prop changes to validate event binding works
-			const { getByTestId, rerender } = render(
+			const { rerender } = render(
 				<div {...parentHandler}>
 					<Component testId="button" {...buttonHandler}>
 						Hello
 					</Component>
 				</div>,
 			);
-			const button = getByTestId('button');
+			const button = screen.getByTestId('button');
 
 			await fireButtonEvents(button, user);
 

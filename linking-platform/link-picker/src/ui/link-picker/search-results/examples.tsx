@@ -27,6 +27,7 @@ const createExample = (props: Partial<SearchResultsProps> = {}): React.Component
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					border: '1px solid red',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					width: `${LINK_PICKER_WIDTH_IN_PX}px`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					['--link-picker-padding-left' as string]: '16px',

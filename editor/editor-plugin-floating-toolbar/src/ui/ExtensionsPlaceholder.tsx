@@ -75,13 +75,30 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 		item.action(targetNodeAdf, extensionApi!);
 	};
 
+	const getAriaLabel = () => {
+		if (item.ariaLabel) {
+			return item.ariaLabel;
+		}
+
+		if (typeof item.tooltip === 'string') {
+			return item.tooltip;
+		}
+
+		if (item.label) {
+			return item.label;
+		}
+
+		return '';
+	};
+
 	return (
 		<Button
 			title={item.label}
-			ariaLabel={item.tooltip}
+			ariaLabel={getAriaLabel()}
 			icon={ButtonIcon ? <ButtonIcon label={item.label || ''} /> : undefined}
 			onClick={onClick}
 			tooltipContent={item.tooltip}
+			tooltipStyle={item.tooltipStyle}
 			disabled={item.disabled}
 		>
 			{item.label}

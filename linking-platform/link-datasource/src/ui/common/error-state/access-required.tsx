@@ -17,6 +17,7 @@ import { loadingErrorMessages } from './messages';
 
 const urlStyles = css({
 	color: token('color.text.subtlest', N400),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.body', fontFallback.body.medium),
 });
 

@@ -35,6 +35,7 @@ export function hasStyleRule(selector: string, expected: CSSObject): boolean {
 		return false;
 	}
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	const serializedStyles: SerializedStyles = css(expected);
 	const targets: string[] = getCssRules(serializedStyles.styles);
 

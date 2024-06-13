@@ -56,12 +56,12 @@ const colorGroups = Object.entries(colors).reduce(
 const colorPillStyles = css({
 	display: 'inline-block',
 	width: 'calc(33% - 20px)',
-	marginRight: token('space.050', '4px'),
-	marginBottom: token('space.050', '4px'),
 	padding: token('space.100', '8px'),
 	borderRadius: token('border.radius', '3px'),
 	fontSize: '12px',
 	fontWeight: 600,
+	marginBlockEnd: token('space.050', '4px'),
+	marginInlineEnd: token('space.050', '4px'),
 });
 
 export const ColorPill = ({
@@ -75,6 +75,7 @@ export const ColorPill = ({
 }) => (
 	<span
 		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: secondary,
 			backgroundColor: primary,
 		}}
@@ -92,12 +93,12 @@ const separateWords = (str: string) => {
 };
 
 const headingStyles = css({
-	marginTop: token('space.200', '16px'),
-	marginBottom: token('space.050', '4px'),
+	marginBlockEnd: token('space.050', '4px'),
+	marginBlockStart: token('space.200', '16px'),
 });
 
 const firstHeadingStyles = css({
-	marginTop: 0,
+	marginBlockStart: 0,
 });
 
 type HeadingProps = {

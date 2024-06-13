@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
@@ -23,20 +23,20 @@ describe('press-tracing', () => {
 	});
 
 	it('should call click handler when context is not present', () => {
-		const { getByTestId } = render(
+		render(
 			<Button onClick={mockOnClick} testId="iamTheDataTestId">
 				Button
 			</Button>,
 		);
 
-		fireEvent.click(getByTestId('iamTheDataTestId'));
+		fireEvent.click(screen.getByTestId('iamTheDataTestId'));
 
 		expect(mockTraceInteraction).not.toHaveBeenCalled();
 		expect(mockOnClick).toHaveBeenCalled();
 	});
 
 	it('should call click handler even when interactionName is not present', () => {
-		const { getByTestId } = render(
+		render(
 			<InteractionContext.Provider value={context}>
 				<Button onClick={mockOnClick} testId="iamTheDataTestId">
 					Button
@@ -44,24 +44,24 @@ describe('press-tracing', () => {
 			</InteractionContext.Provider>,
 		);
 
-		fireEvent.click(getByTestId('iamTheDataTestId'));
+		fireEvent.click(screen.getByTestId('iamTheDataTestId'));
 
 		expect(mockTraceInteraction).toHaveBeenCalled();
 		expect(mockOnClick).toHaveBeenCalled();
 	});
 
 	it('should not explode when no click handler exists', () => {
-		const { getByTestId } = render(<Button testId="iamTheDataTestId">Button</Button>);
+		render(<Button testId="iamTheDataTestId">Button</Button>);
 
 		expect(() => {
-			fireEvent.click(getByTestId('iamTheDataTestId'));
+			fireEvent.click(screen.getByTestId('iamTheDataTestId'));
 		}).not.toThrow();
 		expect(mockOnClick).not.toHaveBeenCalled();
 	});
 
 	it('should trace button press with interactionName', () => {
 		const interactionName = 'ufo.event';
-		const { getByTestId } = render(
+		render(
 			<InteractionContext.Provider value={context}>
 				<Button onClick={mockOnClick} testId="iamTheDataTestId" interactionName={interactionName}>
 					Button
@@ -69,7 +69,7 @@ describe('press-tracing', () => {
 			</InteractionContext.Provider>,
 		);
 
-		fireEvent.click(getByTestId('iamTheDataTestId'));
+		fireEvent.click(screen.getByTestId('iamTheDataTestId'));
 
 		expect(mockTraceInteraction).toHaveBeenCalled();
 		expect(mockTraceInteraction).toHaveBeenCalledWith(interactionName, expect.any(Number));

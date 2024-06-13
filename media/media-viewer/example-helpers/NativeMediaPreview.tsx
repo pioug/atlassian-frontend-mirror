@@ -54,6 +54,7 @@ export const NativeMediaPreview = ({
 
 	if (isPreviewUnavailable) {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<button data-testid="media-native-preview" css={nativePreviewButtonStyles} onClick={onClick}>
 				Preview Unavailable
 			</button>
@@ -62,6 +63,7 @@ export const NativeMediaPreview = ({
 
 	if (url) {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<button data-testid="media-native-preview" css={nativePreviewButtonStyles} onClick={onClick}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<img style={{ maxWidth: '100%' }} src={url} />

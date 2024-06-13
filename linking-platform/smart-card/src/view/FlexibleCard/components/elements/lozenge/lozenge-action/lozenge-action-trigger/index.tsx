@@ -23,6 +23,7 @@ const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
 	const lozenge = useMemo(
 		() => (
 			<Lozenge appearance={appearance} isBold={isBold}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>
 					<ChevronDownIcon label="options" size="medium" />
@@ -35,6 +36,7 @@ const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
 		<button
 			type="button"
 			{...props}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={triggerButtonStyles}
 			data-action-open={isOpen}
 			data-testid={`${testId}--trigger`}

@@ -68,12 +68,12 @@ const rootStyles = css({
 		outline: '1px solid',
 	},
 	'&:hover': {
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'[data-ds--inline-message--icon]': {
 			// Legacy style
 			color: 'var(--icon-accent-color)',
 		},
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'[data-ds--inline-message--button]': {
 			textDecoration: 'underline',
 		},
@@ -146,6 +146,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 			style={
 				{
 					'--icon-accent-color': iconColor(appearance),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}
 			data-testid={testId}

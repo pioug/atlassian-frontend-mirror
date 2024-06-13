@@ -65,6 +65,7 @@ const randRemove = <T extends Array<TItem>, TItem>(arr: T) => {
 
 const retryContainerStyles = css({
 	textAlign: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginInlineEnd: token('space.050', '4px'),
 	},
@@ -73,8 +74,10 @@ const retryContainerStyles = css({
 const listStyles = css({
 	maxWidth: '474px',
 	height: '328px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	margin: `${token('space.200', '16px')} !important`,
 	padding: token('space.0', '0px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
 		margin: token('space.0', '0px'),
 	},

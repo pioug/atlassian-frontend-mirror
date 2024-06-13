@@ -26,8 +26,10 @@ const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
 const readViewContainerStyles = xcss({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${gridSize * textAreaLineHeightFactor * minRows}px`,
 	padding: 'space.075',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: `${(gridSize * textAreaLineHeightFactor) / fontSize}`,
 	wordBreak: 'break-word',
 });

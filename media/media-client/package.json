@@ -65,7 +65,7 @@
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-state": "^1.1.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.49.0",
+    "@atlaskit/tokens": "^1.50.0",
     "@atlassian/feature-flags-test-utils": "0.2.1",
     "@emotion/react": "^11.7.1",
     "@types/deep-equal": "^1.0.1",

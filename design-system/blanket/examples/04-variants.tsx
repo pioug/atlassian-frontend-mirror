@@ -14,9 +14,11 @@ import { token } from '@atlaskit/tokens';
 const labelStyles = css({
 	display: 'inline-block',
 	color: token('color.text.subtlest'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: `${headingSizes.h200.size / fontSize()}em`,
 	fontStyle: 'inherit',
 	fontWeight: token('font.weight.semibold', '600'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: headingSizes.h200.lineHeight / headingSizes.h200.size,
 	marginBlockEnd: token('space.050', '4px'),
 	marginBlockStart: token('space.0', '0px'),

@@ -14,11 +14,15 @@ Time picker is commonly used in [forms](/patterns/forms).
 
 ![The label is left-aligned above the time input field. The time dropdown is a dropdown menu that opens below the time field.](/images/time-picker-anatomy.png)
 
-1. ** Label: ** Labels should indicate what information the field requires. The label is left-aligned above the input area.
+1. ** Label: ** Labels should indicate what information the field requires. The label is
+   left-aligned above the input area.
 
-2. ** Time input field: ** Selecting this field opens the select menu showing available times on the selected date. Once a time is selected, the option will be shown in the text input. This example shows time formatted in AM/PM but this can be customized using the `timeFormat` prop.
+2. ** Time input field: ** Selecting this field opens the select menu showing available times on the
+   selected date. Once a time is selected, the option will be shown in the text input. This example
+   shows time formatted in AM/PM but this can be customized using the `timeFormat` prop.
 
-3. ** Time dropdown: ** Contains the list of all selectable times. This example shows time increments of 30 minutes but can be customized using the `times` prop.
+3. ** Time dropdown: ** Contains the list of all selectable times. This example shows time
+   increments of 30 minutes but can be customized using the `times` prop.
 
 ## Content guidelines
 
@@ -27,9 +31,13 @@ Time picker is commonly used in [forms](/patterns/forms).
 
 ## Accessibility
 
-- If using a field with a label other than "Time", use `timePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
-- Allow multiple modes of data entry. Some users prefer entering date and time information by typing instead of selection, especially keyboard users.
-- If some dates are disabled, provide accurate validation and error messaging for keyboard users, like: `Please enter a future time`
+- If using a field with a label other than "Time", use `timePickerSelectProps` to pass the
+  `aria-label` prop. Assistive technologies will announce these along with the label from the field
+  component when activated.
+- Allow multiple modes of data entry. Some users prefer entering date and time information by typing
+  instead of selection, especially keyboard users.
+- If some dates are disabled, provide accurate validation and error messaging for keyboard users,
+  like: `Please enter a future time`
 
 ## Related
 

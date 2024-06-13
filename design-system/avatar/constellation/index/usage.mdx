@@ -4,14 +4,19 @@ order: 2
 
 ## Usage
 
-An avatar represents a user or entity (such as a project, a repository, or a space), in a product. They're often combined with status or presence indicators to give more context. Users generally upload their own image. If they haven't uploaded an image, the avatar will use a default image.
+An avatar represents a user or entity (such as a project, a repository, or a space), in a product.
+They're often combined with status or presence indicators to give more context. Users generally
+upload their own image. If they haven't uploaded an image, the avatar will use a default image.
 
 Check you’re using the right avatar shape, size, and features for your use case:
 
 - Use circular avatars to identify users.
-- Use square avatars to identify large product entities like projects, spaces, groups, rooms, or repositories.
-- Add a presence indicator to show a user's online availability. For example: available, away, focused, or busy.
-- Add a status icon to show additional contextual information about the user. For example: an approved checkmark, to signal when a user has approved a piece of work.
+- Use square avatars to identify large product entities like projects, spaces, groups, rooms, or
+  repositories.
+- Add a presence indicator to show a user's online availability. For example: available, away,
+  focused, or busy.
+- Add a status icon to show additional contextual information about the user. For example: an
+  approved checkmark, to signal when a user has approved a piece of work.
 - For more on sizing, see the [avatar sizing examples](/components/avatar/examples#size).
 
 ## Anatomy
@@ -21,13 +26,16 @@ Check you’re using the right avatar shape, size, and features for your use cas
 The avatar component is made of three parts: Body, status, and presence.
 
 1. **Body:** The image representing the user or entity. This can be round or square.
-2. **Status:** An icon that displays the avatar’s status. This is positioned at the top right of the avatar component.
-3. **Presence:** Indicates if a user is available, away, focused, or busy. This is positioned at the bottom left of the avatar component.
+2. **Status:** An icon that displays the avatar’s status. This is positioned at the top right of the
+   avatar component.
+3. **Presence:** Indicates if a user is available, away, focused, or busy. This is positioned at the
+   bottom left of the avatar component.
 
 ## Accessibility
 
 - Use the `name` prop to include alternative text for screen readers.
-- Don't use a [tooltip with an avatar](examples#displaying-a-tooltip) when it's non-interactive or disabled. The tooltip won't work for keyboard users and screen readers.
+- Don't use a [tooltip with an avatar](examples#displaying-a-tooltip) when it's non-interactive or
+  disabled. The tooltip won't work for keyboard users and screen readers.
 
 ## Mobile guidelines
 
@@ -35,5 +43,6 @@ Tap on the avatar to reveal its details.
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/).
-For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).

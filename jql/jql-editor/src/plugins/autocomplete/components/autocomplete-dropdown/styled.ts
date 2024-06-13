@@ -5,7 +5,7 @@ import { N200, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AutocompleteContainer = styled.div<{ isOpen: boolean }>(
 	{
 		position: 'absolute',
@@ -23,23 +23,24 @@ export const AutocompleteContainer = styled.div<{ isOpen: boolean }>(
 		marginLeft: token('space.negative.100', '-8px'),
 		marginTop: token('space.200', '16px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	({ isOpen }) => (isOpen ? css({ visibility: 'visible' }) : css({ visibility: 'hidden' })),
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AutocompleteOptionsContainer = styled.div({
 	maxHeight: '288px',
 	overflow: 'auto',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const OptionList = styled.ul({
 	listStyle: 'none',
 	margin: `${token('space.0', '0')}`,
 	padding: `${token('space.0', '0')}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AutocompleteLoadingFooter = styled.div<{ hasOptions: boolean }>(
 	{
 		display: 'flex',
@@ -49,6 +50,7 @@ export const AutocompleteLoadingFooter = styled.div<{ hasOptions: boolean }>(
 		padding: token('space.150', '12px'),
 		textAlign: 'center',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ hasOptions }) =>
 		hasOptions && {
 			borderTop: `solid 1px ${token('color.border', N40)}`,

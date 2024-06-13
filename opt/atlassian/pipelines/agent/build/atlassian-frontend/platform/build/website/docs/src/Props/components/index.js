@@ -6,13 +6,13 @@ import { default as Description } from './Description';
 import { default as Type, StringType, TypeMeta } from './Type';
 
 const components = {
-  Indent,
-  Outline,
-  Required,
-  Type,
-  StringType,
-  TypeMeta,
-  Description,
+	Indent,
+	Outline,
+	Required,
+	Type,
+	StringType,
+	TypeMeta,
+	Description,
 };
 
 export default components;

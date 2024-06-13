@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 193.26.0
+
+### Minor Changes
+
+- [#110262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110262)
+  [`5a9ede4b76193`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a9ede4b76193) -
+  Added paragraph and heading NodeSpecs flag back
+
+### Patch Changes
+
+- [#109540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109540)
+  [`2267be0c78aea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2267be0c78aea) -
+  [ux] Fix hover and remove interactions with new macro UX updates and update vr test snapshots
+- Updated dependencies
+
 ## 193.25.4
 
 ### Patch Changes

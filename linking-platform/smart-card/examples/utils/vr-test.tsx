@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { type PropsWithChildren } from 'react';
 import { IntlProvider } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
 import Page from '@atlaskit/page';
@@ -21,8 +22,10 @@ const getTestWrapperStyles = (height?: number) =>
 	css(
 		{
 			padding: token('space.400', '32px'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: exampleTokens.backgroundColor,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height ? `height: ${height}px` : '',
 	);
 
@@ -35,13 +38,19 @@ export type VRTestWrapperOptions = {
 // Mocking Date.now for tests to be consistent
 Date.now = () => new Date('2022-01-25T16:44:00.000+1000').getTime();
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const global = (
 	<Global
 		styles={css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'*': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				animationTimingFunction: 'step-end !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				animationDuration: '0s !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				transitionTimingFunction: 'step-end !important',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				transitionDuration: '0s !important',
 			},
 		})}
@@ -55,6 +64,7 @@ export const global = (
 export const VRTestWrapper = ({ title, children, height }: VRTestWrapperOptions) => (
 	<IntlProvider locale={'en'}>
 		<Page>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={getTestWrapperStyles(height)}>
 				{global}
 				<SectionMessage title="Visual regression test">
@@ -62,6 +72,7 @@ export const VRTestWrapper = ({ title, children, height }: VRTestWrapperOptions)
 				</SectionMessage>
 
 				<h6
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={css({
 						marginTop: token('space.300', '24px'),
 						marginBottom: token('space.100', '8px'),

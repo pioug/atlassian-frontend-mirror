@@ -2,6 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import InlineCodeBasic from '../../../examples/01-inline-code-basic';
 import CodeBlockBasic from '../../../examples/10-code-block-basic';
+import CodeBlockBasicWithTabs from '../../../examples/11-code-block-basic-with-tabs';
 import CodeBlockSsr from '../../../examples/12-code-block-ssr';
 import CodeBlockHighlightingLongLines from '../../../examples/14-code-block-highlighting-long-lines';
 import CodeBlockEmpty from '../../../examples/21-code-block-empty';
@@ -63,6 +64,7 @@ snapshot(CodeBlockBasic, {
 // Flaky Test https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2942609/steps/%7Bac78f1de-835e-489a-b103-ecfa94d2d44e%7D
 snapshot.skip(CodeBlockSsr);
 
+snapshot(CodeBlockBasicWithTabs);
 snapshot(Applescript);
 snapshot(Clojure);
 snapshot(Delphi);

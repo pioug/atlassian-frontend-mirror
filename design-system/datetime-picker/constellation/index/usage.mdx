@@ -4,7 +4,8 @@ order: 2
 
 ## Usage
 
-Date time pickers help users navigate past, present, and future dates as well as specific times. Users may select a particular date and time via their respective fields.
+Date time pickers help users navigate past, present, and future dates as well as specific times.
+Users may select a particular date and time via their respective fields.
 
 Date time picker is commonly used in [forms](/patterns/forms).
 
@@ -14,21 +15,36 @@ Date time picker is commonly used in [forms](/patterns/forms).
 ![The calendar is a dropdown menu that opens below the date field.](/images/date-time-picker-open-date-anatomy.png)
 ![The time dropdown is a dropdown menu that opens below the time field.](/images/date-time-picker-open-time-anatomy.png)
 
-1. ** Label: ** Labels should indicate what information the field requires. The label is left-aligned above the input area.
+1. ** Label: ** Labels should indicate what information the field requires. The label is
+   left-aligned above the input area.
 
-2. ** Date input field: ** Selecting this field opens the calendar component. Users can also input dates into the field. Once a date is selected, the option will be shown in the text input. This example shows date formatted in ‘dd/mm/yyyy’ but this can be customized using the `dateFormat` prop.
+2. ** Date input field: ** Selecting this field opens the calendar component. Users can also input
+   dates into the field. Once a date is selected, the option will be shown in the text input. This
+   example shows date formatted in ‘dd/mm/yyyy’ but this can be customized using the `dateFormat`
+   prop.
 
-3. ** Time input field: ** Selecting this field opens the select menu showing available times on the selected date. Once a time is selected, the option will be shown in the text input. This example shows time formatted in AM/PM but this can be customized using the `timeFormat` prop.
+3. ** Time input field: ** Selecting this field opens the select menu showing available times on the
+   selected date. Once a time is selected, the option will be shown in the text input. This example
+   shows time formatted in AM/PM but this can be customized using the `timeFormat` prop.
 
-4. ** Calendar: ** A menu that contains the list of all dates. Selecting the previous or next arrows moves the calendar through months. The selected date area is highlighted by a different color fill.
+4. ** Calendar: ** A menu that contains the list of all dates. Selecting the previous or next arrows
+   moves the calendar through months. The selected date area is highlighted by a different color
+   fill.
 
-5. ** Time dropdown: ** A menu that contains the list of all selectable times relating to the selected date. This example shows time increments of 30 minutes but can be customized using the times prop.
+5. ** Time dropdown: ** A menu that contains the list of all selectable times relating to the
+   selected date. This example shows time increments of 30 minutes but can be customized using the
+   times prop.
 
 ## Accessibility
 
-- If using fields with labels other than "Date" and "Time" for the date picker and time picker respectively, use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
-- Allow multiple modes of data entry. Some users prefer entering date and time information by typing instead of selection, especially keyboard users.
-- If some dates are `disabled`, provide accurate validation and error messaging for keyboard users, for example: `Please enter a future date and time`
+- If using fields with labels other than "Date" and "Time" for the date picker and time picker
+  respectively, use `datePickerSelectProps` and `timePickerSelectProps` to pass the `aria-label`
+  prop. Assistive technologies will announce these along with the label from the field component
+  when activated.
+- Allow multiple modes of data entry. Some users prefer entering date and time information by typing
+  instead of selection, especially keyboard users.
+- If some dates are `disabled`, provide accurate validation and error messaging for keyboard users,
+  for example: `Please enter a future date and time`
 
 ## Content guidelines
 
@@ -37,4 +53,5 @@ Date time picker is commonly used in [forms](/patterns/forms).
 
 ## Related
 
-- If you need to specify date or time only, see [date picker](/components/date-picker) or [time picker](/components/time-picker).
+- If you need to specify date or time only, see [date picker](/components/date-picker) or
+  [time picker](/components/time-picker).

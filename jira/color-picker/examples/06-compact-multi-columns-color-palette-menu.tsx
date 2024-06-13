@@ -33,7 +33,7 @@ const Story = () => <ColorPaletteMenuExample />;
 
 Story.decorators = [
 	withPlatformFeatureFlags({
-		'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i': true,
+		'platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s': true,
 	}),
 ];
 

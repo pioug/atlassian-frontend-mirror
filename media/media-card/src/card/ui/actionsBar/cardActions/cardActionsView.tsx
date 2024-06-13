@@ -37,6 +37,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
 
 		return (
 			<PreventClickThrough>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
 					{primaryAction ? this.renderActionIconButton(primaryAction, true) : null}
 					{this.renderOtherActionButtons(otherActions)}

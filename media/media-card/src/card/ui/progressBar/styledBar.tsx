@@ -11,6 +11,7 @@ export const StyledBar = (props: StyledBarProps) => {
 			id="styledBar"
 			role="progressbar"
 			aria-valuenow={progress}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={styledBarStyles({
 				progress,
 				breakpoint,

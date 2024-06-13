@@ -83,6 +83,7 @@ export const SearchResults = ({
 	return (
 		<SearchResultsContainer hasTabs={!!tabs.length || isLoadingPlugins} {...fixListHeightProps}>
 			{isLoadingPlugins && !!queryState && (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={spinnerContainerStyles}>
 					<Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
 				</div>
@@ -90,6 +91,7 @@ export const SearchResults = ({
 			{!isLoadingPlugins && isActivePlugin && !!queryState && (
 				<Fragment>
 					{tabs.length > 0 && (
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						<div css={tabsWrapperStyles}>
 							<Tabs
 								id={testIds.tabList}

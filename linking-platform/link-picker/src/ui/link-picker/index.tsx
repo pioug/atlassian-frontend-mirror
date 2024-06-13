@@ -491,6 +491,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			return (
 				<form
 					data-testid={testIds.linkPicker}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={rootContainerStyles}
 					// Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
 					onSubmitCapture={handleSubmit}
@@ -593,6 +594,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 						isEditing={isEditing}
 						onCancel={onCancel}
 						action={pluginAction}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={!queryState || !plugins?.length ? formFooterMargin : undefined}
 						/* Show the feature discovery pulse when we're on the Jira tab, we haven't started typing a url and
             the feature flag is enabled */

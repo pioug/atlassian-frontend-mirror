@@ -15,8 +15,10 @@ export const NameCell: FC<NameCellProps> = (props) => {
 	const { mediaType, text, ...rest } = props;
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={nameCellWrapperStyles}>
 			{mediaType && <MediaTypeIcon type={mediaType} />}
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={truncateWrapperStyles}>
 				<Tooltip content={text}>
 					<Truncate text={text} {...rest} />

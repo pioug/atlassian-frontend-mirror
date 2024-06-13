@@ -1,6 +1,8 @@
 ---
 title: Avatar item
-description: An avatar item is a wrapper that goes around an avatar when it's displayed alongside text, such as a name or status.
+description:
+  An avatar item is a wrapper that goes around an avatar when it's displayed alongside text, such as
+  a name or status.
 order: 0
 ---
 
@@ -23,7 +25,8 @@ Use a `backgroundColor` to change the background color of the avatar.
 
 Use `isDisabled` to put the avatar into a disabled state. This will make the avatar non-interactive.
 
-Avoid using disabled UI. This can cause accessibility problems, because disabled UI does not give enough information to people about what went wrong and how to proceed.
+Avoid using disabled UI. This can cause accessibility problems, because disabled UI does not give
+enough information to people about what went wrong and how to proceed.
 
 <Example Component={AvatarItemIsDisabled} packageName="@atlaskit/avatar" />
 
@@ -49,9 +52,8 @@ Use `secondaryText` to style the avatar text as secondary text.
 
 ## Truncation
 
-If overflowing text exceeds the width of its container, it is truncated by default. Use `isTruncationDisabled` to disable this. To be accessible, avoid truncating useful text wherever possible.
+If overflowing text exceeds the width of its container, it is truncated by default. Use
+`isTruncationDisabled` to disable this. To be accessible, avoid truncating useful text wherever
+possible.
 
-<Example
-  Component={AvatarItemIsTruncationDisabled}
-  packageName="@atlaskit/avatar"
-/>
+<Example Component={AvatarItemIsTruncationDisabled} packageName="@atlaskit/avatar" />

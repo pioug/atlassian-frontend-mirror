@@ -124,7 +124,7 @@ export default defineMessages({
 	// Colors only used in highlight palette
 	'no-color': {
 		id: 'fabric.theme.no-color',
-		defaultMessage: 'Remove highlight',
+		defaultMessage: 'No highlight',
 		description:
 			'Tooltip for the no color option in the highlight color palette in the main editor toolbar',
 	},

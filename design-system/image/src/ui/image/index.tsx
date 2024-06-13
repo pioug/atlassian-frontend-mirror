@@ -27,7 +27,7 @@ const baseImageStyles = css({
 
 const themedImageStyles = css({
 	content: `var(--img-source)`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'html[data-color-mode=dark] &': {
 		content: `var(--img-source-dark)`,
 	},

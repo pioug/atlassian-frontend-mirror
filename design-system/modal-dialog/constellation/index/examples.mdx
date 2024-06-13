@@ -24,108 +24,107 @@ The default form of a modal dialog.
 
 ## Appearance
 
-You can give the modal `warning` or `danger` styling to indicate the severity of the action or message.
-The appearance needs to be set on both the modal title and the primary button.
+You can give the modal `warning` or `danger` styling to indicate the severity of the action or
+message. The appearance needs to be set on both the modal title and the primary button.
 
 ### Warning
 
-Use a warning modal to help inform people of a significant change. If the warning comes before an action, clearly communicate what will happen if they proceed, and provide an alternative or opt-out where possible.
+Use a warning modal to help inform people of a significant change. If the warning comes before an
+action, clearly communicate what will happen if they proceed, and provide an alternative or opt-out
+where possible.
 
 <a href="/content/writing-guidelines/writing-a-warning-message/">
-  Writing guidelines for warning messages
+	Writing guidelines for warning messages
 </a>
 
 <Example Component={ModalWarning} packageName="@atlaskit/modal-dialog" />
 
 ### Danger
 
-Use danger modals to alert people when something potentially destructive or irreversible will happen if they continue. Explain the problem and provide a next step or an alternative.
+Use danger modals to alert people when something potentially destructive or irreversible will happen
+if they continue. Explain the problem and provide a next step or an alternative.
 
 <Example Component={ModalDanger} packageName="@atlaskit/modal-dialog" />
 
 ## Width
 
-There are multiple ways to specify the width of a modal. We recommend using named size options to specify modal width.
+There are multiple ways to specify the width of a modal. We recommend using named size options to
+specify modal width.
 
 - The named size options are `small`, `medium`, `large`, or `x-large`
 - If you provide a number instead, the width is set to that number in pixels.
-- If you provide a string including pixels or a percentage, the width will be directly applied as a style.
+- If you provide a string including pixels or a percentage, the width will be directly applied as a
+  style.
 
 <Example Component={ModalWidth} packageName="@atlaskit/modal-dialog" />
 
 ## Focus management
 
-Focus moves to the first interactive element inside the modal dialog when rendered.
-Pass the `autoFocus` prop an element `ref` to focus on a specific element.
+Focus moves to the first interactive element inside the modal dialog when rendered. Pass the
+`autoFocus` prop an element `ref` to focus on a specific element.
 
-<Example
-  Component={FocusSpecificElement}
-  packageName="@atlaskit/modal-dialog"
-/>
+<Example Component={FocusSpecificElement} packageName="@atlaskit/modal-dialog" />
 
 ## Scrolling behavior
 
-While you can set the width of the modal, the content determines the height of the modal.
-Once it reaches a certain threshold,
-the body content will scroll while the header and footer remain fixed until the user reaches the bottom of the modal dialog.
+While you can set the width of the modal, the content determines the height of the modal. Once it
+reaches a certain threshold, the body content will scroll while the header and footer remain fixed
+until the user reaches the bottom of the modal dialog.
 
-You can configure the scroll behavior of modals so that scrolling happens inside the modal body or outside the modal,
-within the viewport.
+You can configure the scroll behavior of modals so that scrolling happens inside the modal body or
+outside the modal, within the viewport.
 
-In either case,
-modals prevent the window from being scrolled both natively and programatically.
-This will prevent browser issues such as `scrollIntoView` scrolling the window instead of only the closest scroll parent.
+In either case, modals prevent the window from being scrolled both natively and programatically.
+This will prevent browser issues such as `scrollIntoView` scrolling the window instead of only the
+closest scroll parent.
 
 <Example Component={ModalScroll} packageName="@atlaskit/modal-dialog" />
 
 ## Form
 
-These internal components can be wrapped in a `form` element to support
-having buttons of type `submit` in the footer.
+These internal components can be wrapped in a `form` element to support having buttons of type
+`submit` in the footer.
 
 <Example Component={ModalWrapper} packageName="@atlaskit/modal-dialog" />
 
 ## Custom modal
 
-If you wish to customise a modal dialog, it accepts any valid React element
-as children. In this example, we recreate an onboarding modal without
-modal header, title, body, or footer.
+If you wish to customise a modal dialog, it accepts any valid React element as children. In this
+example, we recreate an onboarding modal without modal header, title, body, or footer.
 
 <Example Component={ModalCustom} packageName="@atlaskit/modal-dialog" />
 
 ## Modal header
 
-Modal header accepts any valid React element as children, so you can
-use modal title in conjunction with other elements like an exit button
-in the top right.
+Modal header accepts any valid React element as children, so you can use modal title in conjunction
+with other elements like an exit button in the top right.
 
 <Example Component={ModalHeader} packageName="@atlaskit/modal-dialog" />
 
 ### Custom modal header
 
-For very custom use cases, you can achieve the same thing without the modal
-header or title. To make sure the modal is accessible, call `useModal`
-and set `titleId` as the `id` on the heading.
+For very custom use cases, you can achieve the same thing without the modal header or title. To make
+sure the modal is accessible, call `useModal` and set `titleId` as the `id` on the heading.
 
 <Example Component={ModalCustomHeader} packageName="@atlaskit/modal-dialog" />
 
 ## Modal footer
 
-The modal footer accepts any valid React element as children. For example,
-you can add an [avatar](/components/avatar/) in the footer.
+The modal footer accepts any valid React element as children. For example, you can add an
+[avatar](/components/avatar/) in the footer.
 
 <Example Component={ModalFooter} packageName="@atlaskit/modal-dialog" />
 
 ### Custom modal footer
 
-For very custom use cases, you can achieve the same thing without the modal
-footer.
+For very custom use cases, you can achieve the same thing without the modal footer.
 
 <Example Component={ModalCustomFooter} packageName="@atlaskit/modal-dialog" />
 
 ## Surface detection
 
-The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the surface color of the modal.
-You can use the `utility.elevation.surface.current` design token to style children with the current surface color.
+The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the
+surface color of the modal. You can use the `utility.elevation.surface.current` design token to
+style children with the current surface color.
 
 <Example Component={ModalCurrentSurface} packageName="@atlaskit/modal-dialog" />

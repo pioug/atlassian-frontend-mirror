@@ -18,8 +18,9 @@ export const blockCardContentClassName = 'block-card-content';
 
 export const Content = ({ children, isCompact = false }: ContentProps) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css={mq({
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			padding: isCompact ? gs(1) : gs(2),
 			display: 'flex',
 			flexDirection: 'column',

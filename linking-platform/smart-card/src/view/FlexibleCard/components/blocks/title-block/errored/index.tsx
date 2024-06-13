@@ -13,6 +13,7 @@ import ElementGroup from '../../element-group';
 
 const actionStyles: SerializedStyles = css({
 	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		color: token('color.text.subtle', '#8993A4'),
 		textDecoration: 'underline',
@@ -26,11 +27,15 @@ const getMessageStyles = (size: SmartLinkSize, hasAction: boolean): SerializedSt
 			flex: '1 1 auto',
 			justifyContent: 'flex-end',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		hasAction ? actionStyles : '',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		sizeStyles,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getTruncateStyles(1, getLinkLineHeight(size)),
 		{
 			color: token('color.text.disabled', '#6B778C'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			':focus': {
 				outline: `${token('color.border.focused', '#388BFF')} solid 2px`,
 			},
@@ -67,6 +72,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
 					<span
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={hasAction ? 'has-action' : ''}
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css={getMessageStyles(size, hasAction)}
 						onClick={onClick}
 						data-testid={`${testId}-errored-view-message`}

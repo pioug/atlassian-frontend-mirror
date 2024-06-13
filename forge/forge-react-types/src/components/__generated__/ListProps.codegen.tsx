@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ListProps
  *
- * @codegen <<SignedSource::95a5f9de59247d99ecfbe8e0e144a518>>
+ * @codegen <<SignedSource::43df67cec0358c211c0d875be92482a1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/list/list.tsx <<SignedSource::ac22e2311798c7a94f0a233470f4366e>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/list/list.tsx <<SignedSource::a1a578841ec142d0d84fe0bbcc6f08d8>>
  */
 import React from 'react';
 

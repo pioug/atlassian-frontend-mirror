@@ -5,7 +5,9 @@ import { token } from '@atlaskit/tokens';
 import { gs } from '../../common/utils';
 
 const styles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: gs(2.5),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: gs(2),
 	display: 'flex',
 	alignItems: 'center',

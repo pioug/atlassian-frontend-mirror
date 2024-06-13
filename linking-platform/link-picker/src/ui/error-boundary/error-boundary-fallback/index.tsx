@@ -41,6 +41,7 @@ export const ErrorBoundaryFallback = () => {
 	if (getBooleanFF('platform.linking-platform.link-picker.fixed-height-search-results')) {
 		return (
 			<MinHeightContainer
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={errorBoundaryFallbackStyles}
 				minHeight={LINK_PICKER_MIN_HEIGHT_IN_PX_FALLBACK}
 				data-testid="link-picker-root-error-boundary-ui"
@@ -54,6 +55,7 @@ export const ErrorBoundaryFallback = () => {
 		);
 	}
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={rootContainerStyles} data-testid="link-picker-root-error-boundary-ui">
 			<EmptyStateComponent
 				header={header}

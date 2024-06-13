@@ -9,7 +9,14 @@ export type ToolbarButton = ExtensionModuleToolbarButtonLabelOrIcon & {
 	key: string;
 	action: ToolbarButtonAction;
 	label: string;
-	tooltip?: string;
+	ariaLabel?: string;
+	tooltip?: React.ReactNode | string;
+	/**
+	 * Tooltip Style
+	 * This uses the Custom component feature of the Tooltip component.
+	 * How to use: https://atlassian.design/components/tooltip/examples#custom-component
+	 */
+	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	icon?: () => ExtensionIconModule;
 	display?: 'icon' | 'label' | 'icon-and-label';
 	disabled?: boolean;
@@ -52,7 +59,14 @@ export type StandardNodeContext = {
 export type ExtensionToolbarButton = {
 	key: string;
 	label?: string;
-	tooltip?: string;
+	ariaLabel?: string;
+	tooltip?: React.ReactNode | string;
+	/**
+	 * Tooltip Style
+	 * This uses the Custom component feature of the Tooltip component.
+	 * How to use: https://atlassian.design/components/tooltip/examples#custom-component
+	 */
+	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	icon?: () => ExtensionIconModule;
 	action: ToolbarButtonAction;
 	disabled?: boolean;

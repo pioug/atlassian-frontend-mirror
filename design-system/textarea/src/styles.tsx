@@ -106,28 +106,41 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
 	appearance &&
 	css({
 		'&:focus': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: backgroundColorFocus[appearance],
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: borderColorFocus[appearance],
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${borderColorFocus[appearance]}`,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:not(:focus)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: backgroundColor[appearance],
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: borderColor[appearance],
 		},
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-invalid]:focus': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: invalidRules.backgroundColorFocus,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: invalidRules.borderColorFocus,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${invalidRules.borderColorFocus}`,
 		},
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&[data-invalid]:not(:focus)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: invalidRules.backgroundColor,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: invalidRules.borderColor,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${invalidRules.borderColor}`,
 		},
 		// Disabled background and border styles should not be applied to components that
 		// have either no background or transparent background to begin with
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(appearance === 'standard'
 			? {
 					'&:disabled:focus': {
@@ -144,9 +157,11 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
 
 const placeholderStyles = css({
 	'&::placeholder': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: componentTokens.placeholderTextColor,
 	},
 	'&:disabled::placeholder': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: disabledRules.textColor,
 	},
 });
@@ -154,16 +169,23 @@ const placeholderStyles = css({
 const hoverBackgroundAndBorderStyles = (appearance: TextAreaProps['appearance']) =>
 	appearance &&
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:hover:not(:read-only):not(:focus)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: backgroundColorHover[appearance],
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderColor: borderColorHover[appearance],
 			'&:disabled': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: disabledRules.backgroundColorHover,
 			},
-			// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+			// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'&[data-invalid]': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: invalidRules.backgroundColorHover,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderColor: invalidRules.borderColor,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${invalidRules.borderColor}`,
 			},
 		},
@@ -171,6 +193,7 @@ const hoverBackgroundAndBorderStyles = (appearance: TextAreaProps['appearance'])
 
 const resizeStyle = (resize: string | undefined) => {
 	if (resize === 'horizontal' || resize === 'vertical') {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		return css({ resize });
 	}
 	if (resize === 'auto') {
@@ -181,11 +204,13 @@ const resizeStyle = (resize: string | undefined) => {
 
 const borderStyle = (appearance: string | undefined) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderStyle: appearance === 'none' ? 'none' : 'solid',
 	});
 
 const fontFamilyStyle = (isMonospaced: boolean | undefined) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontFamily: isMonospaced ? codeFontFamily : fontFamily,
 	});
 
@@ -194,17 +219,22 @@ const borderPaddingAndHeightStyles = (minimumRows = 1, appearance: string | unde
 	const horizontalPaddingWithoutBorderWidth = horizontalPadding - borderWidth;
 	const borderHeight = borderWidth;
 	return css({
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-compact]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: `${compactVerticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			lineHeight: lineHeightCompact / fontSize,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:not([data-compact])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			minHeight: borderBoxMinHeight(minimumRows, borderHeight),
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: `${verticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			lineHeight: lineHeightBase / fontSize,
 		},
 	});
@@ -230,8 +260,10 @@ const staticStyles = css({
 	wordWrap: 'break-word',
 	'&:disabled': {
 		cursor: 'not-allowed',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...overrideSafariDisabledStyles,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-ms-clear': {
 		display: 'none',
 	},
@@ -249,23 +281,34 @@ export const getBaseStyles = ({
 }: StyleProps) =>
 	// eslint-disable-next-line @repo/internal/styles/no-exported-styles
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		staticStyles,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderPaddingAndHeightStyles(minimumRows, appearance),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		resizeStyle(resize),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderStyle(appearance),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontFamilyStyle(isMonospaced),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		{ maxHeight },
 	);
 
 export const dynamicStyles = (appearance: TextAreaProps['appearance']) =>
 	// eslint-disable-next-line @repo/internal/styles/no-exported-styles
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		bgAndBorderColorStyles(appearance),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		hoverBackgroundAndBorderStyles(appearance),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		placeholderStyles,
 		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			color: componentTokens.textColor,
 			'&:disabled': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				color: disabledRules.textColor,
 			},
 		},

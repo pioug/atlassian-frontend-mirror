@@ -66,10 +66,10 @@ export const GridContainer: FC<GridContainerProps> = ({
 			data-testid={testId}
 			css={[
 				containerBaseStyles,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				gapMediaQueries,
 				maxWidth && gridMaxWidthMap[maxWidth],
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				hasInlinePadding && inlinePaddingMediaQueries,
 			]}
 		>

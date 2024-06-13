@@ -43,60 +43,84 @@ export const getStyles = (size: Size): SerializedStyles => {
 		padding: borderWidth,
 		margin: borderWidth,
 		backgroundClip: 'content-box',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: colors.backgroundColorUnchecked,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius: `${getHeight({ size })}px`,
 		border: `${borderWidth}px solid transparent`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${getHeight({ size })}px`,
 		position: 'relative',
 		transition: `${transition}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${getWidth({ size })}px`,
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-checked]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorChecked,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			color: colors.iconColorChecked,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&[data-disabled]:not([data-checked])': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorUncheckedDisabled,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-disabled][data-checked],&[data-disabled][data-checked]:hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorCheckedDisabled,
 		},
 
 		'&:focus-within': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			border: `${borderWidth}px solid ${colors.borderColorFocus}`,
 		},
 
 		'&:hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorUncheckedHover,
 			cursor: 'pointer',
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&[data-disabled]:hover,&[data-disabled][data-checked]:hover,&[data-disabled]:not([data-checked]):hover':
 			{
 				cursor: 'not-allowed',
 			},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-checked]:hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorCheckedHover,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:not([data-checked]):hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorUncheckedHover,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&[data-disabled]:not([data-checked]):hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.backgroundColorCheckedDisabled,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: colors.iconColorUnchecked,
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-disabled], &[data-disabled][data-checked], &[data-disabled][data-checked]:hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			color: colors.iconColorDisabled,
 		},
 
 		// the input element underneath
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'input[type="checkbox"]': {
 			opacity: 0,
 			margin: 0,
@@ -104,12 +128,15 @@ export const getStyles = (size: Size): SerializedStyles => {
 			border: 'none',
 
 			'&:focus': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				outline: 'none !important',
 			},
 		},
 
 		// slider
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.handleBackgroundColor,
 			borderRadius: token('border.radius.circle', '50%'),
 			content: '""',
@@ -117,42 +144,56 @@ export const getStyles = (size: Size): SerializedStyles => {
 			transform: 'initial',
 			transition: transition,
 
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			insetBlockEnd: `${2 * paddingUnitless}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: `${getHeight({ size }) - paddingUnitless * 2}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width: `${getHeight({ size }) - paddingUnitless * 2}px`,
 
 			// initially we set left as left-most position
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			insetInlineStart: `${2 * paddingUnitless}px`,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-checked]::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.handleBackgroundColorChecked,
 
 			// when  it's checked, slide the pseudo-element to right-most postion
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transform: `translateX(${getHeight({ size })}px)`,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'&[data-disabled]::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: colors.handleBackgroundColorDisabled,
 			zIndex: 1,
 		},
 
 		// icons - check and cross
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
 			position: 'absolute',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			insetBlockStart: `${paddingUnitless}px`,
 		},
 
 		// This is the first of the two on/off symbols. The first of type is a
 		// hidden text `span` for labeling
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> span:nth-last-of-type(2)': {
 			insetInlineStart: `3px`,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'> span:last-of-type': {
 			insetInlineEnd: `3px`,
 		},
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...(size === 'large' && {
 			'> span': {
 				position: 'absolute',
@@ -162,6 +203,7 @@ export const getStyles = (size: Size): SerializedStyles => {
 		}),
 
 		'@media screen and (forced-colors: active)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'::before': {
 				filter: 'grayscale(100%) invert(1)',
 			},

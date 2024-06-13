@@ -129,7 +129,9 @@ export const exampleTokens = {
 	overrideColor: token('color.background.accent.blue.subtle', '#579DFF'),
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const blockOverrideCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: exampleTokens.overrideColor,
 	padding: token('space.200', '1rem'),
 });

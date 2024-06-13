@@ -13,7 +13,7 @@ type VolumeWrapperProps = {
 	showSlider: boolean;
 };
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const VolumeWrapper = styled.div<VolumeWrapperProps>(
 	{
 		display: 'flex',
@@ -24,12 +24,14 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>(
 		bottom: token('space.0', '0px'),
 		left: token('space.500', '40px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) =>
 		props.showSlider
 			? `
     &:hover,
     &:active
     ${
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
 				? ', &:focus-within'
 				: ''
@@ -42,7 +44,7 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>(
 			: '',
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CurrentTime = styled.div({
 	color: '#c7d1db',
 	userSelect: 'none',
@@ -54,7 +56,7 @@ interface WithAsActiveProps {
 	showAsActive: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TimeLine = styled.div({
 	width: '100%',
 	height: '2px',
@@ -65,7 +67,7 @@ export const TimeLine = styled.div({
 	position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CurrentTimeLine = styled.div({
 	backgroundColor: '#05c',
 	borderRadius: 'inherit',
@@ -75,7 +77,7 @@ export const CurrentTimeLine = styled.div({
 	maxWidth: '100%',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Thumb = styled.div({
 	pointerEvents: 'none',
 	width: '14px',
@@ -89,12 +91,13 @@ export const Thumb = styled.div({
 	transform: 'translate(7px, -50%) scale(0)',
 	transition: 'all 0.1s',
 	transitionDelay: '1s',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:hover .current-time-tooltip': {
 		opacity: 1,
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CurrentTimeLineThumb = styled.div({
 	position: 'absolute',
 	display: 'block',
@@ -115,16 +118,18 @@ export const CurrentTimeLineThumb = styled.div({
 		opacity: '1',
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:hover .current-time-tooltip': {
 		opacity: 1,
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:focus .current-time-tooltip': {
 		opacity: 1,
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const BufferedTime = styled.div({
 	backgroundColor: '#8696a7',
 	height: 'inherit',
@@ -132,20 +137,20 @@ export const BufferedTime = styled.div({
 	width: 0,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LeftControls = styled.div({
 	display: 'flex',
 	marginLeft: token('space.150', '12px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const RightControls = styled.div({
 	display: 'flex',
 	alignItems: 'center',
 	marginRight: token('space.150', '12px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ControlsWrapper = styled.div({
 	bottom: 0,
 	left: 0,
@@ -154,13 +159,15 @@ export const ControlsWrapper = styled.div({
 	background: 'linear-gradient(to top, #101214, rgba(14, 22, 36, 0))',
 	position: 'absolute',
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`:focus-within.${hideControlsClassName}`]: {
 		opacity: '1',
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const VolumeToggleWrapper = styled.div(
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ isMuted }: MutedIndicatorProps) => `
   position: relative;
   margin-right: 13px;
@@ -170,13 +177,13 @@ export const VolumeToggleWrapper = styled.div(
   }`,
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const VolumeTimeRangeWrapper = styled.div({
 	width: '100%',
 	marginRight: token('space.250', '20px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const MutedIndicator = styled.div(
 	{
 		width: '29px',
@@ -190,6 +197,7 @@ export const MutedIndicator = styled.div(
 		opacity: 0,
 		pointerEvents: 'none',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props: MutedIndicatorProps) =>
 		props.isMuted
 			? `
@@ -202,8 +210,9 @@ export interface CurrentTimeTooltipProps {
 	isDragging: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CurrentTimeTooltip = styled.div(
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ isDragging }: CurrentTimeTooltipProps) => `
   position: absolute;
   user-select: none;
@@ -221,8 +230,9 @@ export const CurrentTimeTooltip = styled.div(
 `,
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TimeRangeWrapper = styled.div(
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ showAsActive }: WithAsActiveProps) => `
   display: flex;
   align-items: center;
@@ -250,6 +260,7 @@ export const TimeRangeWrapper = styled.div(
   }
 
   ${
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
 			? `
     // a11y override default theme colors from '@atlaskit/range' to have better contrast with panel color

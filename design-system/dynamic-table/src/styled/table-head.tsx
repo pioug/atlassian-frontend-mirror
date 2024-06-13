@@ -60,6 +60,7 @@ const headCellBaseStyles = css({
 	boxSizing: 'border-box',
 	position: 'relative',
 	border: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
 	color: token('color.text.subtlest', `var(${CSS_VAR_TEXT_COLOR})`),
 	textAlign: 'left',
@@ -86,6 +87,7 @@ const onClickStyles = css({
 });
 
 const baseStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button': {
 		padding: token('space.0', '0'),
 		position: 'relative',
@@ -106,23 +108,29 @@ const baseStyles = css({
 			insetInlineEnd: token('space.negative.100', '-8px'),
 		},
 		'&::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderBlockEnd: `3px solid ${arrow.defaultColor}`,
 			insetBlockEnd: token('space.100', '8px'),
 		},
 		'&::after': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderBlockStart: `3px solid ${arrow.defaultColor}`,
 			insetBlockEnd: 0,
 		},
 	},
 	'@media (forced-colors: active)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > button': {
 			'&::before, &::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				border: `3px solid ${MSThemeColors.Background}`,
 			},
 			'&::before': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderBlockEnd: `3px solid ${MSThemeColors.Text}`,
 			},
 			'&::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderBlockStart: `3px solid ${MSThemeColors.Text}`,
 			},
 		},
@@ -130,14 +138,18 @@ const baseStyles = css({
 });
 
 const ascendingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button': {
 		'&::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderBlockEnd: `3px solid ${arrow.selectedColor}`,
 		},
 	},
 	'@media (forced-colors: active)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > button': {
 			'&::before': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderBlockEnd: `3px solid ${MSThemeColors.SelectedBackground}`,
 			},
 		},
@@ -145,14 +157,18 @@ const ascendingStyles = css({
 });
 
 const descendingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > button': {
 		'&::after': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderBlockStart: `3px solid ${arrow.selectedColor}`,
 		},
 	},
 	'@media (forced-colors: active)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > button': {
 			'&::after': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderBlockStart: `3px solid ${MSThemeColors.SelectedBackground}`,
 			},
 		},
@@ -201,14 +217,19 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={mergedStyles}
 				css={[
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					cellStyles,
 					headCellBaseStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					getBooleanFF('platform.design-system-team.dynamic-table-typography_7zio6')
 						? headCellNewStyles
 						: headCellOldStyles,
 					onClick && onClickStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					truncationWidthStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					isFixedSize && shouldTruncate && fixedSizeTruncateStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					isFixedSize && overflowTruncateStyles,
 					isSortable && baseStyles,
 					isASC && ascendingStyles,

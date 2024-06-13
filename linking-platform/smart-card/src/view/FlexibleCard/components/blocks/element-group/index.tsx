@@ -36,9 +36,12 @@ const getGapStyles = (size: SmartLinkSize, align: SmartLinkAlignment): Serialize
 	const gap = getGapSize(size);
 	if (align === SmartLinkAlignment.Right) {
 		return css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'> span': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				marginLeft: `${gap}rem`,
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'> span:first-child': {
 				marginLeft: 'initial',
 			},
@@ -46,8 +49,11 @@ const getGapStyles = (size: SmartLinkSize, align: SmartLinkAlignment): Serialize
 	}
 
 	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			marginRight: `${gap}rem`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-child': {
 				marginRight: 'initial',
 			},
@@ -85,13 +91,18 @@ export const getElementGroupStyles = (
 	position: SmartLinkPosition,
 ): SerializedStyles =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getBaseStyles(direction, size),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getAlignmentStyles(align),
 		{
 			minWidth: '10%',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		width === SmartLinkWidth.Flexible ? `flex: 1 3;` : '',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		direction === SmartLinkDirection.Horizontal ? getHorizontalDirectionStyles(size, align) : '',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		position === SmartLinkPosition.Top ? 'align-self: flex-start;' : '',
 	);
 
@@ -113,6 +124,7 @@ const ElementGroup = ({
 	position = SmartLinkPosition.Center,
 }: ElementGroupProps) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={[getElementGroupStyles(direction, size, align, width, position), overrideCss]}
 		data-smart-element-group
 		data-testid={testId}

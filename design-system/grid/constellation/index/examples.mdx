@@ -16,13 +16,15 @@ import ItemStartAuto from '../../examples/constellation/item-start-auto';
 
 ## Basic
 
-Grids are composed of a container `Grid` and child `GridItem`s. These two elements work together to form the grid.
+Grids are composed of a container `Grid` and child `GridItem`s. These two elements work together to
+form the grid.
 
 <Example Component={Grid} packageName="@atlaskit/grid" />
 
 ## Grid maxWidth
 
-You can restrict the maxWidth of the Grid to pre-defined sizes. By default, the Grid takes up full space available.
+You can restrict the maxWidth of the Grid to pre-defined sizes. By default, the Grid takes up full
+space available.
 
 ### narrow
 
@@ -38,7 +40,8 @@ The Grid's maximum width is `1128px`. On smaller screens it will take up all ava
 
 ## Grid inline padding
 
-By default, the Grid has an inline padding around the outside of the Grid columns. This can be disabled with `hasInlinePadding={false}`
+By default, the Grid has an inline padding around the outside of the Grid columns. This can be
+disabled with `hasInlinePadding={false}`
 
 <Example Component={GridInlinePadding} packageName="@atlaskit/grid" />
 
@@ -48,7 +51,8 @@ Define how many columns an item will span. This is a 1-indexed range 1-12.
 
 By default, span is `12` and will span the entire row.
 
-We enable a shorthand here, using `span={6}` is the same as `span={{ xxs: 6 }}`. The shorthand will override the default full-width functionality across all breakpoints.
+We enable a shorthand here, using `span={6}` is the same as `span={{ xxs: 6 }}`. The shorthand will
+override the default full-width functionality across all breakpoints.
 
 See [usage](./usage) to understand our how responsive object syntax works.
 
@@ -56,9 +60,11 @@ See [usage](./usage) to understand our how responsive object syntax works.
 
 ### Hide an item entirely
 
-In the case that you do not want a GridItem rendered at all, use `span="none"` or `span={{ xxs: 'none', md: 6 }}` (etc).
+In the case that you do not want a GridItem rendered at all, use `span="none"` or
+`span={{ xxs: 'none', md: 6 }}` (etc).
 
-This is useful because if you wanted to hide the inner contents of the GridItem, the GridItem would still take up the space it's alloted.
+This is useful because if you wanted to hide the inner contents of the GridItem, the GridItem would
+still take up the space it's alloted.
 
 <Example Component={ItemHidden} packageName="@atlaskit/grid" />
 
@@ -66,9 +72,11 @@ This is useful because if you wanted to hide the inner contents of the GridItem,
 
 Define the column at which your item will start. This is a 1-indexed range 1-12.
 
-By default, start is `'auto'` and will fill the next available column in the row, as space is available.
+By default, start is `'auto'` and will fill the next available column in the row, as space is
+available.
 
-We enable a shorthand here, using `start={1}` is the same as `start={{ xxs: 1 }}`. The shorthand will override the default `'auto'` functionality across all breakpoints.
+We enable a shorthand here, using `start={1}` is the same as `start={{ xxs: 1 }}`. The shorthand
+will override the default `'auto'` functionality across all breakpoints.
 
 See [usage](./usage) to understand our how responsive object syntax works.
 
@@ -78,7 +86,8 @@ See [usage](./usage) to understand our how responsive object syntax works.
 
 `'auto'` is the default which will fill the next available column in the row, as space is available.
 
-This may be required though to reset the functionality back to default when using the responsive object syntax due to the cascading nature.
+This may be required though to reset the functionality back to default when using the responsive
+object syntax due to the cascading nature.
 
 <Example Component={ItemStartAuto} packageName="@atlaskit/grid" />
 
@@ -92,22 +101,28 @@ If there's room to fill a column, using `start` will stay on the same row, where
 
 With `start`, you can force a GridItem to a new row by setting `start={1}`.
 
-This is because whenever a column is unavailable on the same row subsequently from the previous item, it will always start on the next row at that column instead.
+This is because whenever a column is unavailable on the same row subsequently from the previous
+item, it will always start on the next row at that column instead.
 
 <Example Component={ItemStartNewLine} packageName="@atlaskit/grid" />
 
 ## Nested grids
 
-We do not support nested Grids at this stage; doing so will throw an error. Further guidance may be provided in the future.
+We do not support nested Grids at this stage; doing so will throw an error. Further guidance may be
+provided in the future.
 
 ## Grid container
 
 `GridContainer` allows the stacking of independent grids on top of each other.
 
-Functionaly, it is a grid that has a single fluid column with the same responsive gutter as `Grid`. This allows the stacking of multiple independent grids whilst keeping the vertical rhythm enforced by Grid's responsive gap values.
+Functionaly, it is a grid that has a single fluid column with the same responsive gutter as `Grid`.
+This allows the stacking of multiple independent grids whilst keeping the vertical rhythm enforced
+by Grid's responsive gap values.
 
-When within `GridContainer` all `Grid` instances are configured to fill their `GridContainer's` width, whilst also disabling inline padding.
+When within `GridContainer` all `Grid` instances are configured to fill their `GridContainer's`
+width, whilst also disabling inline padding.
 
-In that case, the `hasInlinePadding` and `maxWidth` props should be set in the `GridContainer` instead, ignoring them in `Grid`.
+In that case, the `hasInlinePadding` and `maxWidth` props should be set in the `GridContainer`
+instead, ignoring them in `Grid`.
 
 <Example Component={GridContainer} packageName="@atlaskit/grid" />

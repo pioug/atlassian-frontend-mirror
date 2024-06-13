@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const rootContainerStyles = css`
 	width: ${getBooleanFF('platform.linking-platform.link-picker.fixed-height-search-results')
 		? undefined
@@ -17,6 +17,7 @@ export const rootContainerStyles = css`
 	display: block !important;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const formFooterMargin = css({
 	marginTop: token('space.200', '16px'),
 });

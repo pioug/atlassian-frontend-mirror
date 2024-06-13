@@ -1,75 +1,75 @@
 {
-	"name": "@atlaskit/link-provider",
-	"version": "1.11.0",
-	"description": "Contains provider with react context for anything link related and the link http client",
-	"author": "Atlassian Pty Ltd",
-	"license": "Apache-2.0",
-	"publishConfig": {
-		"registry": "https://registry.npmjs.org/"
-	},
-	"atlassian": {
-		"team": "Linking Platform - Link Provider",
-		"singleton": true,
-		"inPublicMirror": false,
-		"releaseModel": "continuous",
-		"productPushConsumption": [
-			"jira"
-		],
-		"website": {
-			"name": "SmartCardProvider"
-		}
-	},
-	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
-	"typesVersions": {
-		">=4.5 <4.9": {
-			"*": [
-				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/index.d.ts"
-			]
-		}
-	},
-	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
-	"af:exports": {
-		".": "./src/index.ts"
-	},
-	"exports": {
-		".": "./src/index.ts"
-	},
-	"dependencies": {
-		"@atlaskit/link-extractors": "^1.5.0",
-		"@atlaskit/linking-common": "^5.7.0",
-		"@atlaskit/platform-feature-flags": "0.2.5",
-		"@babel/runtime": "^7.0.0",
-		"async-retry": "^1.2.3",
-		"dataloader": "^2.0.0",
-		"json-ld-types": "^4.1.0",
-		"lru_map": "^0.4.1",
-		"p-throttle": "^4.1.1",
-		"redux": "^3.7.2",
-		"setimmediate": "^1.0.5"
-	},
-	"peerDependencies": {
-		"react": "^16.8.0"
-	},
-	"devDependencies": {
-		"@atlaskit/media-test-helpers": "^33.0.0",
-		"@atlassian/feature-flags-test-utils": "0.2.1",
-		"@testing-library/react": "^12.1.5",
-		"@testing-library/react-hooks": "^8.0.1",
-		"@types/async-retry": "^1.4.1",
-		"@types/redux": "^3.6.0",
-		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
-	},
-	"platform-feature-flags": {
-		"platform.linking-platform.datasource.add-timezone-header": {
-			"type": "boolean"
-		}
-	}
+  "name": "@atlaskit/link-provider",
+  "version": "1.11.0",
+  "description": "Contains provider with react context for anything link related and the link http client",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Linking Platform - Link Provider",
+    "singleton": true,
+    "inPublicMirror": false,
+    "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
+    "website": {
+      "name": "SmartCardProvider"
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/link-extractors": "^1.5.0",
+    "@atlaskit/linking-common": "^5.7.0",
+    "@atlaskit/platform-feature-flags": "0.2.5",
+    "@babel/runtime": "^7.0.0",
+    "async-retry": "^1.2.3",
+    "dataloader": "^2.0.0",
+    "json-ld-types": "^4.1.0",
+    "lru_map": "^0.4.1",
+    "p-throttle": "^4.1.1",
+    "redux": "^3.7.2",
+    "setimmediate": "^1.0.5"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlaskit/media-test-helpers": "^33.0.0",
+    "@atlassian/feature-flags-test-utils": "0.2.1",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/async-retry": "^1.4.1",
+    "@types/redux": "^3.6.0",
+    "react-dom": "^16.8.0",
+    "typescript": "~5.4.2",
+    "wait-for-expect": "^1.2.0"
+  },
+  "platform-feature-flags": {
+    "platform.linking-platform.datasource.add-timezone-header": {
+      "type": "boolean"
+    }
+  }
 }

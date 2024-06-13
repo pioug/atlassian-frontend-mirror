@@ -32,9 +32,11 @@ const productHomeButtonStyles = css({
 	borderRadius: token('border.radius', '3px'),
 	color: 'inherit',
 	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-moz-focus-inner': {
 		border: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-of-type': {
 		marginInlineStart: 0,
 	},
@@ -54,15 +56,15 @@ const productHomeButtonStyles = css({
 		boxShadow: `var(${VAR_PRODUCT_HOME_BOX_SHADOW_HOVER})`,
 		color: `var(${VAR_PRODUCT_HOME_COLOR_HOVER})`,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'div&': {
 		pointerEvents: 'none',
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		margin: `0 ${token('space.100', '8px')}`,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
 		margin: `0 ${token('space.200', '16px')}`,
 	},
@@ -75,11 +77,11 @@ const productLogoStyles = css({
 	height: 24,
 	maxHeight: 28,
 	opacity: 0.15,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		maxHeight: 24,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		display: 'none',
 	},
@@ -91,11 +93,11 @@ const productIconStyles = css({
 	height: 28,
 	borderRadius: token('border.radius.circle', '50%'),
 	opacity: 0.15,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		maxHeight: 24,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
 		display: 'none',
 	},
@@ -109,6 +111,7 @@ const siteTitleStyles = css({
 	marginInlineEnd: token('space.050', '4px'),
 	marginInlineStart: token('space.050', '4px'),
 	paddingInlineEnd: token('space.200', '16px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:after': {
 		width: '100%',
 		height: 14,

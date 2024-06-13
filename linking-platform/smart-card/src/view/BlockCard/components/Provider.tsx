@@ -12,19 +12,22 @@ export interface ProviderProps {
 const wrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: gs(1.5),
 	whiteSpace: 'normal',
 });
 
 const imgStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: gs(1.5),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: gs(1.5),
 });
 
 const textStyles = css({
 	color: token('color.text.subtlest', N300),
 	margin: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginLeft: gs(0.5),
 	// EDM-713: fixes copy-paste from renderer to editor for Firefox
 	// due to HTML its unwrapping behaviour on paste.

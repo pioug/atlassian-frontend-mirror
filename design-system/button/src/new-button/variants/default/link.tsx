@@ -1,6 +1,6 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
-import UNSAFE_ANCHOR from '@atlaskit/primitives/anchor';
+import Anchor from '@atlaskit/primitives/anchor';
 
 import { type AdditionalDefaultLinkVariantProps, type CommonLinkVariantProps } from '../types';
 
@@ -74,7 +74,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 	});
 
 	return (
-		<UNSAFE_ANCHOR
+		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 			ref={baseProps.ref}
@@ -103,7 +103,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			componentName="LinkButton"
 		>
 			{baseProps.children}
-		</UNSAFE_ANCHOR>
+		</Anchor>
 	);
 };
 

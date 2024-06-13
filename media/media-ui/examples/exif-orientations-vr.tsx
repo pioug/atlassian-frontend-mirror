@@ -34,9 +34,11 @@ const ItemWrapper = styled.div({
 	justifyContent: 'center',
 	margin: token('space.100', '8px'),
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	label: {
 		zIndex: '1',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
 		imageRendering: 'pixelated',
 		border: token('space.025', '2px'),

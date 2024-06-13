@@ -12,6 +12,7 @@ const growAndShrink = keyframes({
 		background: 'skyblue',
 	},
 	'50%': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${endSize}px`,
 		background: '#00ff0d2b',
 	},

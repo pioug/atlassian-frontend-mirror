@@ -102,6 +102,7 @@ const ActionBlock = ({
 					onError={onError}
 					onLoadingChange={onLoadingChange}
 					size={size}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					xcss={xcss({ paddingInline: padding })}
 					hideTooltip={isLoading}
 				/>

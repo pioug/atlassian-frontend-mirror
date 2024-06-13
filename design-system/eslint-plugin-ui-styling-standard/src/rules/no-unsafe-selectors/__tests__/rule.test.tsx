@@ -128,6 +128,25 @@ tester.run('no-unsafe-selectors', rule, {
 			],
 		},
 		{
+			name: 'styled API extending base component',
+			code: `
+				import { styled } from '@compiled/react';
+				import { BaseComponent } from './base-component';
+
+        styled(BaseComponent)({
+          '@keyframes fadeIn': {},
+        });
+			`,
+			errors: [
+				{
+					messageId: 'no-keyframes-at-rules',
+					line: 6,
+					column: 11,
+					endColumn: 30,
+				},
+			],
+		},
+		{
 			name: 'keyframes API invalid usage',
 			code: outdent`
         import { keyframes } from '@emotion/react';

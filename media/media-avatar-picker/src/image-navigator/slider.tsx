@@ -22,6 +22,7 @@ export class Slider extends Component<SliderProps, {}> {
 	render() {
 		const { value, onChange } = this.props;
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={sliderWrapperStyles}>
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

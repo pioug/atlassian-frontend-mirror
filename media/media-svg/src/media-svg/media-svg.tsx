@@ -119,6 +119,7 @@ export default function MediaSvg({
 			alt={alt}
 			onLoad={onLoad}
 			onMouseDown={onMouseDown}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
 		/>
 	) : (

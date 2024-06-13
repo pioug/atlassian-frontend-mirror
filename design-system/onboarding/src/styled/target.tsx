@@ -35,6 +35,7 @@ const pulseKeyframes = keyframes({
 	},
 });
 // This is needed for unit tests
+// eslint-disable-next-line @atlaskit/design-system/no-exported-keyframes, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pulseKeyframesName = pulseKeyframes.name;
 const animationStyles = css({
 	animation: `${pulseKeyframes} 3000ms ${easing} infinite`,
@@ -72,7 +73,7 @@ export const TargetInner = ({ children, pulse, ...props }: TargetProps) => (
 	<Base
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		{...props}
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css={[pulse && animationStyles, reduceMotionAsPerUserPreference]}
 	>
 		{children}
@@ -126,7 +127,7 @@ export const Pulse = ({ children, pulse = true, testId, ...props }: TargetProps)
 		{...props}
 		css={[
 			pulse && animationStyles,
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			reduceMotionAsPerUserPreference,
 		]}
 		testId={testId}

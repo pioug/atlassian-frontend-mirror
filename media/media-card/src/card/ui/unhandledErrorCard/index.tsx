@@ -45,7 +45,9 @@ const getConvertedDimension = (dimensions: CardDimensions): ConvertedDimensions 
 const wrapperStyles = (dimensions: CardDimensions = defaultImageCardDimensions) => {
 	try {
 		return css(
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			center,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			borderRadius,
 			{
 				background: token('color.background.neutral', N20),
@@ -53,13 +55,16 @@ const wrapperStyles = (dimensions: CardDimensions = defaultImageCardDimensions) 
 				maxHeight: '100%',
 				maxWidth: '100%',
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			getConvertedDimension(dimensions),
 			{
 				display: 'flex',
 				flexDirection: 'column',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				p: {
 					fontSize: `${fontSize()}px`,
 					textAlign: 'center',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					display: shouldShowText(getConvertedDimension(dimensions)) ? 'block' : 'none',
 				},
 			},
@@ -72,6 +77,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 	render() {
 		const { dimensions, onClick } = this.props;
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<div css={wrapperStyles(dimensions)} onClick={onClick}>
 				<WarningIcon label="Error" primaryColor={token('color.icon.warning', Y500)} size="medium" />
 				<p>We couldn't load this content</p>

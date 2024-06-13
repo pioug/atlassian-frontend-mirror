@@ -1,5 +1,50 @@
 # @atlaskit/editor-plugins
 
+## 3.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [#109812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109812)
+  [`b066a2c5e63b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b066a2c5e63b2) -
+  ED-23599: Move sort column to top of drag menu when FF is on
+- Updated dependencies
+
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#110262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110262)
+  [`5a9ede4b76193`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a9ede4b76193) -
+  Added paragraph and heading NodeSpecs flag back
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.6
 
 ### Patch Changes

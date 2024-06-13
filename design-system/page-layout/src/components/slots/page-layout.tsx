@@ -25,14 +25,20 @@ import { SkipLinkWrapper } from '../skip-links';
 const pageLayoutSelector = { [PAGE_LAYOUT_CONTAINER_SELECTOR]: true };
 
 const gridTemplateAreasMobile = `
+${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */ ''}
   "${LEFT_PANEL} ${BANNER}"
+  ${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */ ''}
   "${LEFT_PANEL} ${TOP_NAVIGATION}"
+  ${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */ ''}
   "${LEFT_PANEL} ${CONTENT}"
  `;
 
 const gridTemplateAreas = `
+${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */ ''}
   "${LEFT_PANEL} ${BANNER} ${RIGHT_PANEL}"
+  ${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */ ''}
   "${LEFT_PANEL} ${TOP_NAVIGATION} ${RIGHT_PANEL}"
+${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766 */ ''}
   "${LEFT_PANEL} ${CONTENT} ${RIGHT_PANEL}"
  `;
 
@@ -40,15 +46,18 @@ const gridStyles = css({
 	display: 'grid',
 	height: '100%',
 	gridTemplateAreas,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr) ${RIGHT_PANEL_WIDTH}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	gridTemplateRows: `${BANNER_HEIGHT} ${TOP_NAVIGATION_HEIGHT} auto`,
 	outline: 'none',
 });
 
 const gridStylesMobileStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[UNSAFE_media.below.sm]: {
 		gridTemplateAreas: gridTemplateAreasMobile,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,
 	},
 });

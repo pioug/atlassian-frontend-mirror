@@ -185,6 +185,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 		return (
 			<div>
 				<ControlLabel>Offset: </ControlLabel>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={flexStyles}>
 					<EditableBox>
 						<Button onClick={this.handleGoToStart} isSelected={offset === minOffset}>
@@ -245,6 +246,7 @@ export class ViewStory extends React.Component<ViewStoryProps, ViewStoryState> {
 
 	render() {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={storyWrapperStyles}>
 				<h1>Make your own 🍽</h1>
 				<Separator />

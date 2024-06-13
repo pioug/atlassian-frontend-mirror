@@ -50,6 +50,7 @@ const FeatureDiscovery: FC<FeatureDiscoveryProps> = ({ children, testId }) => {
 	}
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={pulseStyles} data-testid={`${testId}-discovery`}>
 			{children}
 		</span>

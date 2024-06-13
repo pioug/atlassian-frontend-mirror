@@ -22,25 +22,22 @@ import DropdownMenuLabel from '../../examples/constellation/dropdown-menu-label'
 
 ### Default
 
-Use `default` for the default dropdown menu appearance. The default menu will scroll after its height exceeds the pre-defined amount.
+Use `default` for the default dropdown menu appearance. The default menu will scroll after its
+height exceeds the pre-defined amount.
 
-<Example
-  Component={DropdownMenuDefault}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuDefault} packageName="@atlaskit/dropdown-menu" />
 
 ### Density
 
-Configure the density of the dropdown with the `spacing` prop. By default the spacing is `cozy`, but you can also apply `compact` depending on your use case.
+Configure the density of the dropdown with the `spacing` prop. By default the spacing is `cozy`, but
+you can also apply `compact` depending on your use case.
 
-<Example
-  Component={DropdownMenuDensity}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuDensity} packageName="@atlaskit/dropdown-menu" />
 
 ### Tall
 
-Use `tall` to control the height of the menu. The tall menu will not scroll until the height exceeds the height of the viewport.
+Use `tall` to control the height of the menu. The tall menu will not scroll until the height exceeds
+the height of the viewport.
 
 <Example Component={DropdownMenuTall} packageName="@atlaskit/dropdown-menu" />
 
@@ -52,39 +49,28 @@ There are three recommended ways to customize a trigger.
 
 Set `trigger` to a custom react component which accepts the provided props.
 
-<Example
-  Component={DropdownMenuCustomTriggerButton}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuCustomTriggerButton} packageName="@atlaskit/dropdown-menu" />
 
 Use the `trigger` prop and pass in an html element.
 
-<Example
-  Component={DropdownMenuCustomTrigger}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuCustomTrigger} packageName="@atlaskit/dropdown-menu" />
 
 Use the `trigger` prop and pass in a string.
 
-<Example
-  Component={DropdownMenuDefault}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuDefault} packageName="@atlaskit/dropdown-menu" />
 
 ## Open by default
 
 Use `defaultOpen` to make the menu open by default.
 
-<Example
-  Component={DropdownMenuDefaultOpen}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuDefaultOpen} packageName="@atlaskit/dropdown-menu" />
 
 ## Nested dropdown menu
 
 You can nest dropdown menus inside other dropdown menus.
 
-However, be mindful that nested menus quickly become confusing, inaccessible, and difficult to navigate. We recommend limiting nesting to two layers only.
+However, be mindful that nested menus quickly become confusing, inaccessible, and difficult to
+navigate. We recommend limiting nesting to two layers only.
 
 <Example Component={DropdownMenuNested} packageName="@atlaskit/dropdown-menu" />
 
@@ -94,10 +80,7 @@ However, be mindful that nested menus quickly become confusing, inaccessible, an
 
 If `isLoading` is true, a spinner is rendered instead of the dropdown items.
 
-<Example
-  Component={DropdownMenuLoading}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuLoading} packageName="@atlaskit/dropdown-menu" />
 
 ### Open
 
@@ -111,48 +94,43 @@ Use `isOpen` to control the open state of the dropdown menu.
 
 By default, the dropdown menu will be placed next to your trigger.
 
-<Example
-  Component={DropdownMenuPlacementDefault}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuPlacementDefault} packageName="@atlaskit/dropdown-menu" />
 
 ### Placement
 
 Use `placement` to set the menu placement to the bottom end, for example.
 
-<Example
-  Component={DropdownMenuPlacement}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuPlacement} packageName="@atlaskit/dropdown-menu" />
 
 ### Should flip
 
-If it doesn't fit in the viewport, use `shouldFlip` to place to the dropdown menu on the opposite side of its trigger.
+If it doesn't fit in the viewport, use `shouldFlip` to place to the dropdown menu on the opposite
+side of its trigger.
 
-<Example
-  Component={DropdownMenuShouldFlip}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuShouldFlip} packageName="@atlaskit/dropdown-menu" />
 
 ### Z-index
 
-Use `zIndex` to resolve clashes with other layered components with competing z-index values, such as popup.
+Use `zIndex` to resolve clashes with other layered components with competing z-index values, such as
+popup.
 
 <Example Component={DropdownMenuZIndex} packageName="@atlaskit/dropdown-menu" />
 
 ## Content without portal
 
-By default, the dropdown menu content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the content directly after the trigger element.
+By default, the dropdown menu content is rendered inside `React.Portal`. Use `shouldRenderToParent`
+prop to render the content directly after the trigger element.
 
-<Example
-  Component={DropdownMenuWithoutPortal}
-  packageName="@atlaskit/dropdown-menu"
-/>
+<Example Component={DropdownMenuWithoutPortal} packageName="@atlaskit/dropdown-menu" />
 
 ## Accessible labels
 
-Sometimes multiple instances of a dropdown menu with the same visible label are required. In order to provide more context to assistive technologies, you can specify a unique `aria-label` for each unique menu.
+Sometimes multiple instances of a dropdown menu with the same visible label are required. In order
+to provide more context to assistive technologies, you can specify a unique `aria-label` for each
+unique menu.
 
-When providing the `aria-label` along with a visible label, make sure that the first few words of the `aria-label` match the visible label. This is to support Voice Input users that use the visible label to interact with controls.
+When providing the `aria-label` along with a visible label, make sure that the first few words of
+the `aria-label` match the visible label. This is to support Voice Input users that use the visible
+label to interact with controls.
 
 <Example Component={DropdownMenuLabel} packageName="@atlaskit/dropdown-menu" />

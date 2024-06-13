@@ -1,410 +1,410 @@
 {
-  "name": "@atlaskit/editor-core",
-  "version": "193.25.4",
-  "description": "A package contains Atlassian editor core functionality",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor",
-    "singleton": true,
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Editor Core"
-    },
-    "integrationTests": {
-      "additionalBrowsers": [
-        "desktop-firefox",
-        "desktop-webkit"
-      ]
-    },
-    "runReact18": true
-  },
-  "dependencies": {
-    "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-plugins": "^3.0.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.12.0",
-    "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/media-card": "^77.12.0",
-    "@atlaskit/mention": "^23.2.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/task-decision": "^17.10.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/width-detector": "^4.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@types/react-loadable": "^5.4.1",
-    "@types/rison": "^0.0.6",
-    "classnames": "^2.2.5",
-    "lodash": "^4.17.21",
-    "memoize-one": "^6.0.0",
-    "prop-types": "^15.5.10",
-    "react-loadable": "^5.1.0",
-    "react-transition-group": "^4.4.1",
-    "uuid": "^3.1.0"
-  },
-  "peerDependencies": {
-    "@atlaskit/link-provider": "^1.11.0",
-    "@atlaskit/media-core": "^34.2.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/editor-examples-helpers": "0.0.2",
-    "@af/editor-libra": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/analytics-listeners": "^8.9.1",
-    "@atlaskit/collab-provider": "9.29.3",
-    "@atlaskit/editor-plugin-annotation": "1.10.0",
-    "@atlaskit/editor-plugin-card": "^2.0.0",
-    "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
-    "@atlaskit/editor-plugin-list": "^3.3.0",
-    "@atlaskit/editor-plugin-paste": "^1.2.0",
-    "@atlaskit/editor-test-helpers": "*",
-    "@atlaskit/link-provider": "^1.11.0",
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/media-core": "^34.2.0",
-    "@atlaskit/media-integration-test-helpers": "^3.0.0",
-    "@atlaskit/media-test-helpers": "^33.0.27",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/renderer": "^109.32.0",
-    "@atlaskit/smart-card": "^27.5.0",
-    "@atlaskit/synchrony-test-helpers": "^2.4.0",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/util-data-test": "^17.9.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlassian/adf-schema-json": "^1.14.0",
-    "@atlassian/link-picker-plugins": "^24.4.0",
-    "@atlassian/search-provider": "2.4.79",
-    "@atlassian/ufo": "^0.2.0",
-    "@emotion/jest": "^11.8.0",
-    "@storybook/addon-knobs": "^5.3.18",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/diff": "^5.0.2",
-    "@types/is-number": "^7.0.0",
-    "diff": "^4.0.1",
-    "enzyme": "^3.10.0",
-    "jscodeshift": "^0.13.0",
-    "mockdate": "^3.0.5",
-    "raf-stub": "^2.0.1",
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "~5.4.2",
-    "url-search-params": "^0.10.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-level"
-      ]
-    },
-    "@repo/internal": {
-      "deprecation": "no-deprecated-imports",
-      "design-tokens": [
-        "color"
-      ],
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.linking-platform.enable-datasource-edit-dropdown-toolbar": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.linking-platform.prevent-suspicious-linkification": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.linking-platform.smart-links-in-live-pages": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.live-pages-expand-divergence": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.a11y-table-resizing_uapcv": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.resizer.prevent-contenteditable": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.linking-platform.datasource-assets_objects_remove_beta": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.linking-platform.datasource-assets_objects": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table-sticky-scrollbar": {
-      "type": "boolean"
-    },
-    "platform.editor.table.insert-last-column-btn-stays-in-place": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.drag-move-options-logic-update_fp7xw": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.media-experience.cardv2_7zann": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.media-experience.card-views-refactor_b91lr": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.enable-selection-toolbar_ucdwd": {
-      "type": "boolean"
-    },
-    "platform.editor.multi-bodied-extension_0rygg": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.allow-action-in-list": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.allow-list-in-blockquote": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource-word_wrap": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.media.fix-copy-paste-excel_62g4s": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.media.preview-in-full-page": {
-      "type": "boolean"
-    },
-    "platform.editor.media.alluploadsfinished-dispatch-update_ivtow": {
-      "type": "boolean"
-    },
-    "platform.editor.inline_extension.extended_lcqdn": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.allow-inline-comments-for-inline-nodes": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.text-alignment-keyboard-shortcuts": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.cmd-a-select-table": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.table.use-shared-state-hook": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.a11y-column-resizing_emcvz": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.paste-markdown-table-in-a-table": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.transform-slice-for-nested-expand": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.copy-paste-in-bodied-extension": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.media.extended-resize-experience": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.single-player-expand": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "__live-view-toggle": {
-      "type": "boolean"
-    },
-    "platform.editor.extractlistfromparagraphv2": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.card.inject-settings-button": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.colum-resizing-improvements": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.use-increased-scaling-percent": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table-width-diff-in-renderer_x5s3z": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.preserve-whitespace-clipboard-text-serialization": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.explicit-html-element-check": {
-      "type": "boolean"
-    },
-    "platform.editor.table.live-pages-sorting_4malx": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.codeblock-preserve-newlines_54r3m": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.live-view.no-editor-selection-in-view-mode": {
-      "type": "boolean"
-    },
-    "platform.editor.scale-table-when-number-column-in-table-resized_y4qh2": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.react-18-portal": {
-      "type": "boolean"
-    },
-    "platform.editor.table.allow-table-alignment": {
-      "type": "boolean"
-    },
-    "platform.confluence.frontend.narrow-full-page-editor-toolbar": {
-      "type": "boolean"
-    },
-    "platform.editor.primary-toolbar-ordering": {
-      "type": "boolean"
-    },
-    "platform.editor.mentions-in-editor-popup-on-click": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.editor-num-col-style-changes": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.core.increase-full-page-guttering": {
-      "type": "boolean"
-    },
-    "platform.editor.transparent-diagonal-decorator": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    }
-  },
-  "stricter": {
-    "no-unused-dependencies": {
-      "checkDevDependencies": true
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./composable-editor": "./src/composable-editor.ts",
-    "./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
-    "./editor-context": "./src/editor-context.ts",
-    "./editor": "./src/editor.tsx",
-    "./element-browser": "./src/element-browser.ts",
-    "./i18n-languages": "./src/i18n/languages.ts",
-    "./labs-next": "./src/labs-next.ts",
-    "./messages": "./src/messages.ts",
-    "./preset-default": "./src/preset-default.ts",
-    "./preset-universal": "./src/preset-universal.ts",
-    "./test-utils": "./src/test-utils.ts",
-    "./use-preset": "./src/use-preset.ts",
-    "./use-preset-context": "./src/presets/context.tsx",
-    "./preset-builder": "./src/preset-builder.ts",
-    "./version-wrapper": "./src/version-wrapper.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./composable-editor": "./src/composable-editor.ts",
-    "./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
-    "./editor-context": "./src/editor-context.ts",
-    "./editor": "./src/editor.tsx",
-    "./element-browser": "./src/element-browser.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./i18n-languages": "./src/i18n/languages.ts",
-    "./labs-next": "./src/labs-next.ts",
-    "./messages": "./src/messages.ts",
-    "./preset-default": "./src/preset-default.ts",
-    "./preset-universal": "./src/preset-universal.ts",
-    "./test-utils": "./src/test-utils.ts",
-    "./use-preset": "./src/use-preset.ts",
-    "./use-preset-context": "./src/presets/context.tsx",
-    "./preset-builder": "./src/preset-builder.ts",
-    "./version-wrapper": "./src/version-wrapper.ts",
-    "./package.json": "./package.json"
-  }
+	"name": "@atlaskit/editor-core",
+	"version": "193.26.0",
+	"description": "A package contains Atlassian editor core functionality",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor",
+		"singleton": true,
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Editor Core"
+		},
+		"integrationTests": {
+			"additionalBrowsers": [
+				"desktop-firefox",
+				"desktop-webkit"
+			]
+		},
+		"runReact18": true
+	},
+	"dependencies": {
+		"@atlaskit/activity-provider": "^2.4.0",
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/analytics-namespaced-context": "^6.9.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-plugins": "^3.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/emoji": "^67.6.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/media-card": "^77.12.0",
+		"@atlaskit/mention": "^23.2.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/task-decision": "^17.10.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@atlaskit/width-detector": "^4.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@types/react-loadable": "^5.4.1",
+		"@types/rison": "^0.0.6",
+		"classnames": "^2.2.5",
+		"lodash": "^4.17.21",
+		"memoize-one": "^6.0.0",
+		"prop-types": "^15.5.10",
+		"react-loadable": "^5.1.0",
+		"react-transition-group": "^4.4.1",
+		"uuid": "^3.1.0"
+	},
+	"peerDependencies": {
+		"@atlaskit/link-provider": "^1.11.0",
+		"@atlaskit/media-core": "^34.2.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/editor-examples-helpers": "0.0.2",
+		"@af/editor-libra": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/analytics-listeners": "^8.9.1",
+		"@atlaskit/collab-provider": "9.29.3",
+		"@atlaskit/editor-plugin-annotation": "1.10.1",
+		"@atlaskit/editor-plugin-card": "^2.0.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+		"@atlaskit/editor-plugin-list": "^3.3.0",
+		"@atlaskit/editor-plugin-paste": "^1.2.0",
+		"@atlaskit/editor-test-helpers": "*",
+		"@atlaskit/link-provider": "^1.11.0",
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-integration-test-helpers": "^3.0.0",
+		"@atlaskit/media-test-helpers": "^33.0.27",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/primitives": "^7.0.0",
+		"@atlaskit/renderer": "^109.32.0",
+		"@atlaskit/smart-card": "^27.5.0",
+		"@atlaskit/synchrony-test-helpers": "^2.4.0",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/visual-regression": "*",
+		"@atlassian/adf-schema-json": "^1.14.0",
+		"@atlassian/link-picker-plugins": "^24.4.0",
+		"@atlassian/search-provider": "2.4.80",
+		"@atlassian/ufo": "^0.2.0",
+		"@emotion/jest": "^11.8.0",
+		"@storybook/addon-knobs": "^5.3.18",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/diff": "^5.0.2",
+		"@types/is-number": "^7.0.0",
+		"diff": "^4.0.1",
+		"enzyme": "^3.10.0",
+		"jscodeshift": "^0.13.0",
+		"mockdate": "^3.0.5",
+		"raf-stub": "^2.0.1",
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"typescript": "~5.4.2",
+		"url-search-params": "^0.10.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-level"
+			]
+		},
+		"@repo/internal": {
+			"deprecation": "no-deprecated-imports",
+			"design-tokens": [
+				"color"
+			],
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.linking-platform.enable-datasource-edit-dropdown-toolbar": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.linking-platform.prevent-suspicious-linkification": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.linking-platform.smart-links-in-live-pages": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.live-pages-expand-divergence": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.a11y-table-resizing_uapcv": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.resizer.prevent-contenteditable": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.linking-platform.datasource-assets_objects_remove_beta": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.linking-platform.datasource-assets_objects": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table-sticky-scrollbar": {
+			"type": "boolean"
+		},
+		"platform.editor.table.insert-last-column-btn-stays-in-place": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table.drag-move-options-logic-update_fp7xw": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.media-experience.cardv2_7zann": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.media-experience.card-views-refactor_b91lr": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.enable-selection-toolbar_ucdwd": {
+			"type": "boolean"
+		},
+		"platform.editor.multi-bodied-extension_0rygg": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.allow-action-in-list": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.allow-list-in-blockquote": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource-word_wrap": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.media.fix-copy-paste-excel_62g4s": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.media.preview-in-full-page": {
+			"type": "boolean"
+		},
+		"platform.editor.media.alluploadsfinished-dispatch-update_ivtow": {
+			"type": "boolean"
+		},
+		"platform.editor.inline_extension.extended_lcqdn": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.allow-inline-comments-for-inline-nodes": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.text-alignment-keyboard-shortcuts": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table.cmd-a-select-table": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform.editor.table.use-shared-state-hook": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform.editor.a11y-column-resizing_emcvz": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.paste-markdown-table-in-a-table": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.transform-slice-for-nested-expand": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table.copy-paste-in-bodied-extension": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.media.extended-resize-experience": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.single-player-expand": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"__live-view-toggle": {
+			"type": "boolean"
+		},
+		"platform.editor.extractlistfromparagraphv2": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.card.inject-settings-button": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table.colum-resizing-improvements": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table.use-increased-scaling-percent": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table-width-diff-in-renderer_x5s3z": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.preserve-whitespace-clipboard-text-serialization": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.explicit-html-element-check": {
+			"type": "boolean"
+		},
+		"platform.editor.table.live-pages-sorting_4malx": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.codeblock-preserve-newlines_54r3m": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform.editor.live-view.no-editor-selection-in-view-mode": {
+			"type": "boolean"
+		},
+		"platform.editor.scale-table-when-number-column-in-table-resized_y4qh2": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.react-18-portal": {
+			"type": "boolean"
+		},
+		"platform.editor.table.allow-table-alignment": {
+			"type": "boolean"
+		},
+		"platform.confluence.frontend.narrow-full-page-editor-toolbar": {
+			"type": "boolean"
+		},
+		"platform.editor.primary-toolbar-ordering": {
+			"type": "boolean"
+		},
+		"platform.editor.mentions-in-editor-popup-on-click": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.table.editor-num-col-style-changes": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.core.increase-full-page-guttering": {
+			"type": "boolean"
+		},
+		"platform.editor.transparent-diagonal-decorator": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		}
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./composable-editor": "./src/composable-editor.ts",
+		"./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
+		"./editor-context": "./src/editor-context.ts",
+		"./editor": "./src/editor.tsx",
+		"./element-browser": "./src/element-browser.ts",
+		"./i18n-languages": "./src/i18n/languages.ts",
+		"./labs-next": "./src/labs-next.ts",
+		"./messages": "./src/messages.ts",
+		"./preset-default": "./src/preset-default.ts",
+		"./preset-universal": "./src/preset-universal.ts",
+		"./test-utils": "./src/test-utils.ts",
+		"./use-preset": "./src/use-preset.ts",
+		"./use-preset-context": "./src/presets/context.tsx",
+		"./preset-builder": "./src/preset-builder.ts",
+		"./version-wrapper": "./src/version-wrapper.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./composable-editor": "./src/composable-editor.ts",
+		"./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
+		"./editor-context": "./src/editor-context.ts",
+		"./editor": "./src/editor.tsx",
+		"./element-browser": "./src/element-browser.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./i18n-languages": "./src/i18n/languages.ts",
+		"./labs-next": "./src/labs-next.ts",
+		"./messages": "./src/messages.ts",
+		"./preset-default": "./src/preset-default.ts",
+		"./preset-universal": "./src/preset-universal.ts",
+		"./test-utils": "./src/test-utils.ts",
+		"./use-preset": "./src/use-preset.ts",
+		"./use-preset-context": "./src/presets/context.tsx",
+		"./preset-builder": "./src/preset-builder.ts",
+		"./version-wrapper": "./src/version-wrapper.ts",
+		"./package.json": "./package.json"
+	}
 }

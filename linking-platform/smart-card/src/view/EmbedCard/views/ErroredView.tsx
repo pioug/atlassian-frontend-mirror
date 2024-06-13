@@ -21,9 +21,9 @@ export interface ErroredViewProps {
 
 const messageStyles = css({
 	fontSize: `${fontSize()}px`,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginLeft: gs(0.5),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginRight: gs(0.5),
 	display: '-webkit-box',
 	overflow: 'hidden',
@@ -31,6 +31,7 @@ const messageStyles = css({
 	WebkitLineClamp: 1,
 	WebkitBoxOrient: 'vertical',
 	// Fallback options.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxHeight: gs(3),
 });
 

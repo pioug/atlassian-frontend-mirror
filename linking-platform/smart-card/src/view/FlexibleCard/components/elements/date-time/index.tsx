@@ -15,6 +15,7 @@ const styles = css(
 		fontSize: '0.75rem',
 		lineHeight: '1rem',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	getTruncateStyles(1),
 );
 
@@ -75,6 +76,7 @@ const DateTime: React.FC<DateTimeProps> = ({
 
 	return (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[styles, overrideCss]}
 			data-separator
 			data-smart-element={name}

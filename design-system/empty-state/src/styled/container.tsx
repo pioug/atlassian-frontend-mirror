@@ -24,10 +24,12 @@ const containerStyles = css({
 
 /* Use max-width so the component can shrink on smaller viewports. */
 const wideContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${columnWidth * 6 + gutter * 5}px`,
 });
 
 const narrowContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${columnWidth * 4 + gutter * 3}px`,
 });
 

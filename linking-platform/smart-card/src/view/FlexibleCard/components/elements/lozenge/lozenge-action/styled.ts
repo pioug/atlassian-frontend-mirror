@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const triggerButtonStyles = css({
 	all: 'unset',
 	backgroundColor: 'transparent',
@@ -16,6 +17,7 @@ export const triggerButtonStyles = css({
 	textTransform: 'unset',
 	border: '2px solid transparent',
 	margin: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"&:focus-visible, &:focus-within, &[aria-expanded='true']": {
 		outline: 'none',
 		boxShadow: `0 0 0 2px ${token('color.border.focused', '#388BFF')}`,
@@ -23,10 +25,11 @@ export const triggerButtonStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const triggerLozengeStyles = css({
 	alignItems: 'center',
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"span[role='img']": {
 		margin: `${token('space.negative.050', '-4px')} ${token(
 			'space.negative.100',
@@ -35,9 +38,11 @@ export const triggerLozengeStyles = css({
 	},
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const dropdownItemGroupStyles = css({
 	maxHeight: '300px',
 	overflowY: 'auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
 		padding: `${token('space.075', '6px')} ${token('space.150', '12px')}`,
 		minHeight: '28px',

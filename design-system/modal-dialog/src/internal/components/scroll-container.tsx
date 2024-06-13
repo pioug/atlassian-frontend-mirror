@@ -31,10 +31,12 @@ const baseStyles = css({
 });
 
 const topKeylineStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderBlockStart: `${keylineHeight}px solid ${keylineColor}`,
 });
 
 const bottomKeylineStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderBlockEnd: `${keylineHeight}px solid ${keylineColor}`,
 });
 

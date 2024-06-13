@@ -4,7 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 const inputRightPadding = token('space.200', '16px');
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchBox = styled.div({
 	position: 'sticky',
 	top: 0,
@@ -15,7 +15,7 @@ export const SearchBox = styled.div({
 	zIndex: 10 /* required to keep the search box on top of icons in results when sticky */,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchFieldBaseOuter = styled.div({
 	display: 'flex',
 	flex: 1,
@@ -24,7 +24,7 @@ export const SearchFieldBaseOuter = styled.div({
 	borderBottom: `2px solid ${B200}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchFieldBaseInner = styled.div({
 	position: 'relative',
 	alignItems: 'center',
@@ -33,7 +33,7 @@ export const SearchFieldBaseInner = styled.div({
 	flexGrow: 1,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchInner = styled.div({
 	paddingRight: token('space.300', '24px'),
 });
@@ -61,11 +61,12 @@ export const getPlaceholderStyle = (style: any) => css`
 	}
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const getPlaceholderColor = css({
 	color: token('color.text.subtlest', N200),
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchInput = styled.input`
 	background-color: transparent;
 	border: 0;
@@ -78,7 +79,7 @@ export const SearchInput = styled.input`
 	${getPlaceholderStyle(getPlaceholderColor)};
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchInputTypeAhead = styled(SearchInput)({
 	color: N50,
 	position: 'absolute',
@@ -86,7 +87,7 @@ export const SearchInputTypeAhead = styled(SearchInput)({
 	zIndex: -1,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SearchInputControlsContainer = styled.span({
 	paddingLeft: token('space.300', '24px'),
 });

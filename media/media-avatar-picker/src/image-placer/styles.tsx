@@ -24,10 +24,12 @@ export interface TransformProps {
 
 export const imagePlacerWrapperStyles = (props: ColorProps) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: props.backgroundColor,
 		display: 'inline-block',
 	});
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const imagePlacerErrorWrapperStyles = css({
 	backgroundColor: token('color.background.danger.bold', R500),
 	color: token('color.text.inverse', 'white'),
@@ -44,10 +46,15 @@ export type ImageWrapperProps = ImgHTMLAttributes<{}> & TransformProps & BoundsP
 
 export const imageWrapperStyles = ({ x, y, width, height, transform }: ImageWrapperProps) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		left: `${x}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		top: `${y}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${height}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transform: transform,
 		position: 'absolute',
 		transition: `margin-left ${EASING}s ease-out, margin-top ${EASING}s ease-out, left ${EASING}s ease-out, top ${EASING}s ease-out, width ${EASING}s ease-out, height ${EASING}s ease-out`,
@@ -68,8 +75,11 @@ export const marginWrapperSquareStyles = ({ width, height, size }: MarginWrapper
 		top: 0,
 		borderStyle: 'solid',
 		borderColor: token('elevation.surface.overlay', 'rgba(255, 255, 255)'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderWidth: `${size}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${height}px`,
 		opacity: token('opacity.disabled', '0.3'),
 	});
@@ -80,15 +90,22 @@ export const marginWrapperCircleStyles = ({ width, height, size }: MarginWrapper
 		overflow: 'hidden',
 		left: '0px',
 		top: '0px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `${width + size * 2}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${height + size * 2}px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:after': {
 			content: "''",
 			position: 'absolute',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			left: `${size}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			top: `${size}px`,
 			borderRadius: '100%',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width: `${width}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			height: `${height}px`,
 			boxShadow: `0px 0px 0px ${Math.max(width, height)}px ${token(
 				'elevation.surface.overlay',

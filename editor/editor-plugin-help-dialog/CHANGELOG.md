@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.2.6
+
+### Patch Changes
+
+- [#107302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107302)
+  [`c08367b1ada17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c08367b1ada17) -
+  [ux] [ED-23162] Added keyboard shortcut to toggle highlight palette
+- Updated dependencies
+
 ## 1.2.5
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React from 'react';
 import { md, Example, Props, code } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
 export default md`
@@ -12,7 +13,7 @@ export default md`
 			<p>
 				The default export WidthDetector will be deprecated in the next major release of
 				width-detector. Follow our upgrade guide and
-				<a href="width-detector/example/on-resize-width-observer"> examples </a>
+				<Link href="width-detector/example/on-resize-width-observer"> examples </Link>
 				to migrate to WidthObserver.
 			</p>
 		</SectionMessage>

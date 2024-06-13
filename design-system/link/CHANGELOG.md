@@ -1,5 +1,14 @@
 # @atlaskit/link
 
+## 0.4.1
+
+### Patch Changes
+
+- [#110867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110867)
+  [`dc7e72da70ef7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc7e72da70ef7) -
+  Migrating instances of `UNSAFE_ANCHOR` primitive imports to the new safe import `Anchor`, in
+  preparation of Anchor open beta and removal of the unsafe export from `@atlaskit/primitives`
+
 ## 0.4.0
 
 ### Minor Changes

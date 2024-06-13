@@ -4,10 +4,10 @@ props:
   packageName: '@atlaskit/textfield'
   includeInternal: true
   exports:
-  - default
-
+    - default
 ---
 
+import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
 ## Props
@@ -19,28 +19,26 @@ import SectionMessage from '@atlaskit/section-message';
 ### HTML Input props
 
 <SectionMessage>
-  <p>
-    <Snippet>@atlaskit/textfield</Snippet> extends {' '}
-    <a
-      rel="noopener noreferrer"
-      href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
-      target="_blank"
-    >
-      <Snippet>HTML Input</Snippet>
-    </a>
-    {' '} and supports the props that a native
-    <a
-      rel="noopener noreferrer"
-      href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
-      target="_blank"
-    >
-      <Snippet>input</Snippet>
-    </a>
-    {' '}  element supports.
-    The prop <Snippet>disabled</Snippet> is not supported, please use <a href="#isDisabled">
-        <Snippet>isDisabled</Snippet>
-    </a>{' '} instead.
-  </p>
+	<p>
+		<Snippet>@atlaskit/textfield</Snippet> extends{' '}
+		<Link
+			rel="noopener noreferrer"
+			href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
+			target="_blank"
+		>
+			<Snippet>HTML Input</Snippet>
+		</Link>{' '}
+		and supports the props that a native
+		<Link
+			rel="noopener noreferrer"
+			href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
+			target="_blank"
+		>
+			<Snippet>input</Snippet>
+		</Link> element supports. The prop <Snippet>disabled</Snippet> is not supported, please use <Link href="#isDisabled">
+			<Snippet>isDisabled</Snippet>
+		</Link> instead.
+	</p>
 </SectionMessage>
 
 #### Useful HTML `input` props

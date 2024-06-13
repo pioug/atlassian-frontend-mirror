@@ -50,6 +50,7 @@ const ExampleToolbarItem = styled.div({
 		cursor: 'pointer',
 		backgroundColor: '#eee',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:last-child': {
 		borderRight: 'none',
 	},

@@ -6,7 +6,7 @@ import Heading from '@atlaskit/heading';
 import Info from '@atlaskit/icon/glyph/info';
 import Image from '@atlaskit/image';
 import InteractionContext from '@atlaskit/interaction-context';
-import { UNSAFE_ANCHOR as Anchor, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Anchor, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import ButtonIcon from '../../images/button.png';

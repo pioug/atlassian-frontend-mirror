@@ -16,7 +16,7 @@ type ResizableChildrenWrapperProps = {
 	testId?: string;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 /**
@@ -28,6 +28,7 @@ const prefersReducedMotionStyles = css(prefersReducedMotion());
 const hideLeftSidebarContentsStyles = css({
 	opacity: 0,
 	transition: `opacity 0ms linear, visibility 0ms linear`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transitionDelay: `${TRANSITION_DURATION - 100}ms`,
 	visibility: 'hidden',
 });

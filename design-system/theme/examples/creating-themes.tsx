@@ -21,6 +21,7 @@ const DisplayThemeColors = () => (
 				<div
 					style={{
 						backgroundColor: textColor,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						color: `${color(textColor).negate()}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						display: 'inline-block',
@@ -37,6 +38,7 @@ const DisplayThemeColors = () => (
 				<div
 					style={{
 						backgroundColor: backgroundColor,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						color: `${color(backgroundColor).negate()}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						display: 'inline-block',

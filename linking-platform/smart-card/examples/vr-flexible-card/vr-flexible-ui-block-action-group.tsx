@@ -13,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 // Override the padding that came with new vr wrapper
 const containerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'div.vr-test-wrapper': {
 		padding: `${token('space.050', '4px')} 0 0 0`,
 	},

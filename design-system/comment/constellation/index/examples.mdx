@@ -19,8 +19,8 @@ The simplest form of a comment contains an avatar and text.
 
 ## Full
 
-Many features are available to customize the display of the comment.
-The package exports a wrapper component, as well as smaller components which can be passed through to display a richer comment.
+Many features are available to customize the display of the comment. The package exports a wrapper
+component, as well as smaller components which can be passed through to display a richer comment.
 
 <Example Component={CommentFull} packageName="@atlaskit/comment" />
 
@@ -32,9 +32,11 @@ Comments can be nested inside of each other by passing comments as `children`.
 
 ## Saving
 
-An "optimistic saving" mode can be enabled using `isSaving`, which hides actions and lets people know the comment is saving, by showing text from the `savingText` prop.
+An "optimistic saving" mode can be enabled using `isSaving`, which hides actions and lets people
+know the comment is saving, by showing text from the `savingText` prop.
 
-Using the optimistic UI technique means that people receive a fast, responsive experience even on limited connections.
+Using the optimistic UI technique means that people receive a fast, responsive experience even on
+limited connections.
 
 <Example Component={CommentSaving} packageName="@atlaskit/comment" />
 
@@ -58,9 +60,8 @@ Highlight a comment using the `highlighted` prop.
 
 ## Custom heading level
 
-Change the heading level using the `headingLevel` prop. The default heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels. For example, an `h3` should follow an `h2` or lower, never an `h1`.
+Change the heading level using the `headingLevel` prop. The default heading has an `h3` tag. Make
+sure that headings are in the correct order and don’t skip levels. For example, an `h3` should
+follow an `h2` or lower, never an `h1`.
 
-<Example
-  Component={CommentCustomHeadingLevelExample}
-  packageName="@atlaskit/comment"
-/>
+<Example Component={CommentCustomHeadingLevelExample} packageName="@atlaskit/comment" />

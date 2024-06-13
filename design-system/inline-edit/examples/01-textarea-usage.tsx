@@ -14,7 +14,9 @@ const textAreaLineHeightFactor = 2.5;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReadViewContainer = styled.div({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: (gridSize() * textAreaLineHeightFactor) / fontSize(),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${gridSize() * textAreaLineHeightFactor * minRows}px`,
 	padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
 	wordBreak: 'break-word',

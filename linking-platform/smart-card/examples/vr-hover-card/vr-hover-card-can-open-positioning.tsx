@@ -18,6 +18,7 @@ class CustomClient extends Client {
 const styles = css({
 	display: 'flex',
 	gap: '1rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		flexGrow: 1,
 		padding: '1rem',

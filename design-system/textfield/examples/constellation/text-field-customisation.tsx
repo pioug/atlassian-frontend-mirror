@@ -8,7 +8,7 @@ import Textfield from '../../src';
 const bigFontStyles = css({
 	// container style
 	padding: token('space.075', '6px'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--input]': {
 		// input style
 		fontSize: 20,

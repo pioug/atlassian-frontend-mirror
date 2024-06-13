@@ -9,6 +9,7 @@ const formLoaderStyles = css({
 	display: `flex`,
 	alignItems: `center`,
 	justifyContent: `center`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${CREATE_FORM_MIN_HEIGHT_IN_PX}px`,
 });
 

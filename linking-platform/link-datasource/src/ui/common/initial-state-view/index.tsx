@@ -28,6 +28,7 @@ const betaTagStyles = css({
 
 const searchTitleStyles = css({
 	color: token('color.text.subtlest', N300),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.heading.medium', fontFallback.heading.medium),
 	paddingTop: token('space.200', '16px'),
 	paddingBottom: token('space.100', '8px'),

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.6.0
+
+### Minor Changes
+
+- [#108718](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108718)
+  [`1aad4f15416c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1aad4f15416c2) -
+  [EDF-737] Add content warning to the floating toolbar of the ai panels, extended extensions
+  floating toolbar API to allow custom JSX
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.0
+
+### Minor Changes
+
+- [#108458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108458)
+  [`66522b500303c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66522b500303c) -
+  [ED-23469] Add featureFlag plugin as optional plugin dependency and switch to read
+  platform_editor_element_drag_and_drop gate value
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.8
 
 ### Patch Changes

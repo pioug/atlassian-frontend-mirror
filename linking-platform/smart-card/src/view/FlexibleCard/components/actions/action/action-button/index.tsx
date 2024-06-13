@@ -12,8 +12,10 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 		case SmartLinkSize.Large:
 			return iconOnly
 				? css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						'button, button:hover, button:focus, button:active': {
 							padding: 0,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 							'> span': {
 								margin: 0,
 							},
@@ -25,6 +27,7 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 				fontSize: '0.75rem',
 				fontWeight: 500,
 				lineHeight: '1rem',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				'button, button:hover, button:focus, button:active': [
 					{
 						lineHeight: '1rem',
@@ -73,6 +76,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[getButtonStyle(size, iconOnly), overrideCss]}
 			data-testid={`${testId}-button-wrapper`}
 		>

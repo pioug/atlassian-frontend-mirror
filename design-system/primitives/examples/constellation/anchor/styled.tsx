@@ -5,15 +5,7 @@ import { type IconProps } from '@atlaskit/icon';
 import Blog24Icon from '@atlaskit/icon-object/glyph/blog/24';
 import Improvement24Icon from '@atlaskit/icon-object/glyph/improvement/24';
 import Page24Icon from '@atlaskit/icon-object/glyph/page/24';
-import {
-	UNSAFE_ANCHOR as Anchor,
-	Box,
-	Grid,
-	Inline,
-	Stack,
-	Text,
-	xcss,
-} from '@atlaskit/primitives';
+import { Anchor, Box, Grid, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import { media } from '@atlaskit/primitives/responsive';
 
 const anchorStyles = xcss({

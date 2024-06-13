@@ -16,16 +16,15 @@ import DatePickerFormatting from '../../examples/constellation/date-picker-forma
 
 ## Default
 
-By default, selecting the date field opens the calendar view. The current date text is bold, underlined, and highlighted blue.
+By default, selecting the date field opens the calendar view. The current date text is bold,
+underlined, and highlighted blue.
 
-<Example
-  Component={DatePickerDefault}
-  packageName="@atlaskit/datetime-picker"
-/>
+<Example Component={DatePickerDefault} packageName="@atlaskit/datetime-picker" />
 
 ## Form
 
-When using the date picker with the form component, include a field label and helper text. For more information, see the [form component](/components/form/examples).
+When using the date picker with the form component, include a field label and helper text. For more
+information, see the [form component](/components/form/examples).
 
 <Example Component={DatePickerForm} packageName="@atlaskit/datetime-picker" />
 
@@ -35,47 +34,41 @@ This is how date picker behaves within [forms](/components/form/examples).
 
 Validation displays an error message related to the restrictions of the date picker.
 
-When a user selects the date picker area, the focus color changes to blue. When validating date pickers in real-time, message icons switch based on the message type.
+When a user selects the date picker area, the focus color changes to blue. When validating date
+pickers in real-time, message icons switch based on the message type.
 
-For example, helper text becomes an error message when the input content doesn't meet the criteria. Error and warning messages disappear when the criteria is met.
+For example, helper text becomes an error message when the input content doesn't meet the criteria.
+Error and warning messages disappear when the criteria is met.
 
-Keep helper text as short as possible. For complex information, provide a link to more information in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
+Keep helper text as short as possible. For complex information, provide a link to more information
+in a new browser tab. Use the [messaging guidelines](/content/messaging-guidelines) for more help.
 
-<Example
-  Component={DatePickerValidation}
-  packageName="@atlaskit/datetime-picker"
-/>
+<Example Component={DatePickerValidation} packageName="@atlaskit/datetime-picker" />
 
 ## Disabled dates
 
-If a certain date is not a valid selection, you may disable it in the calendar shown to users. This does not restrict the dates that a user may type, so validation is necessary.
+If a certain date is not a valid selection, you may disable it in the calendar shown to users. This
+does not restrict the dates that a user may type, so validation is necessary.
 
 ### Specific dates
 
 Use `disabled` to restrict selection of individual dates.
 
-<Example
-  Component={DatePickerDisable}
-  packageName="@atlaskit/datetime-picker"
-/>{' '}
+<Example Component={DatePickerDisable} packageName="@atlaskit/datetime-picker" />{' '}
 
 ### Date ranges
 
-Use `minDate` to set a minimum valid date and `maxDate` to set a maximum valid date. These can be used to define a valid date range.
+Use `minDate` to set a minimum valid date and `maxDate` to set a maximum valid date. These can be
+used to define a valid date range.
 
-<Example
-  Component={DatePickerDisableRange}
-  packageName="@atlaskit/datetime-picker"
-/>
+<Example Component={DatePickerDisableRange} packageName="@atlaskit/datetime-picker" />
 
 ### Complex behavior
 
-Use `disabledDateFilter` for more complicated date options, like enabling only specific days of the week to be selectable.
+Use `disabledDateFilter` for more complicated date options, like enabling only specific days of the
+week to be selectable.
 
-<Example
-  Component={DatePickerDisableComplex}
-  packageName="@atlaskit/datetime-picker"
-/>
+<Example Component={DatePickerDisableComplex} packageName="@atlaskit/datetime-picker" />
 
 ## Internationalization
 
@@ -92,20 +85,17 @@ Use `locale` to tailor UI copy to local audiences.
 
 ### Week start day
 
-Use `weekStartDay` to adjust which day of the week is shown first in the calendar. A value of `0` corresponds to Sunday (default), `1` to Monday, and so on.
+Use `weekStartDay` to adjust which day of the week is shown first in the calendar. A value of `0`
+corresponds to Sunday (default), `1` to Monday, and so on.
 
-<Example
-  Component={DatePickerWeekStartDay}
-  packageName="@atlaskit/datetime-picker"
-/>
+<Example Component={DatePickerWeekStartDay} packageName="@atlaskit/datetime-picker" />
 
 ## Date formats
 
-You can customize the date format using the `dateFormat` prop. Formats are given as strings and use the syntax specified at [Modern JavaScript date utility library](https://date-fns.org/).
+You can customize the date format using the `dateFormat` prop. Formats are given as strings and use
+the syntax specified at [Modern JavaScript date utility library](https://date-fns.org/).
 
-Where possible use locale for date formatting, instead of a custom format. Date formats should be informed by the user’s locale and the use case.
+Where possible use locale for date formatting, instead of a custom format. Date formats should be
+informed by the user’s locale and the use case.
 
-<Example
-  Component={DatePickerFormatting}
-  packageName="@atlaskit/datetime-picker"
-/>
+<Example Component={DatePickerFormatting} packageName="@atlaskit/datetime-picker" />

@@ -27,6 +27,7 @@ const styles = css({
 		position: 'relative',
 		overflow: 'hidden',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> img, > span': {
 		minHeight: '100%',
 		minWidth: '100%',
@@ -65,6 +66,7 @@ const Media: React.FC<MediaProps> = ({
 	}
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[styles, overrideCss]}
 			data-smart-element={name}
 			data-smart-element-media={type}

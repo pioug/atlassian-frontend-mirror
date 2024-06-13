@@ -46,6 +46,7 @@ export const AvatarList = ({
 				 * The alt is intentionally empty to avoid double announement of screen reader
 				 * see: https://www.loom.com/share/1c19ca856478460b9ab1b75cc599b122
 				 */}
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<img css={smallAvatarImageStyles} src={avatar.dataURI} alt="" />
 			</label>
 		);
@@ -55,6 +56,7 @@ export const AvatarList = ({
 		<div
 			role="radiogroup"
 			aria-label={selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={avatarListWrapperStyles}
 		>
 			{cards}

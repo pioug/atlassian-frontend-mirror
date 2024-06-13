@@ -30,7 +30,9 @@ export interface SkeletonProps {
 
 const skeletonStyles = css({
 	display: 'inline-block',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: `var(${CSS_VAR_AVATAR_BGCOLOR})`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	border: `${BORDER_WIDTH}px solid transparent`,
 });
 
@@ -39,7 +41,9 @@ const sizeStyles = Object.entries(AVATAR_SIZES).reduce(
 		return {
 			...styles,
 			[key]: css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				width: `${size}px`,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				height: `${size}px`,
 			}),
 		};
@@ -53,7 +57,7 @@ const radiusStyles = Object.entries(AVATAR_RADIUS).reduce(
 		return {
 			...styles,
 			[key]: css({
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				borderRadius: `${size}px`,
 			}),
 		};
@@ -90,7 +94,9 @@ const Skeleton: FC<SkeletonProps> = ({ size, appearance, color, weight }: Skelet
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		style={
 			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				[CSS_VAR_AVATAR_BGCOLOR]: color ?? 'currentColor',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			} as CSSProperties
 		}
 	/>

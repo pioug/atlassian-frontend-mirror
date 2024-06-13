@@ -1,96 +1,96 @@
 {
-  "name": "@atlaskit/editor-plugin-caption",
-  "version": "1.3.3",
-  "description": "Caption plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Editor: Media Experience Porygon",
-    "singleton": true,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-plugin-analytics": "^1.2.0",
-    "@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "devDependencies": {
-    "@atlaskit/editor-plugin-copy-button": "^1.1.0",
-    "@atlaskit/editor-plugin-decorations": "^1.1.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^1.4.0",
-    "@atlaskit/editor-plugin-focus": "^1.2.0",
-    "@atlaskit/editor-plugin-grid": "^1.1.0",
-    "@atlaskit/editor-plugin-guideline": "^1.1.0",
-    "@atlaskit/editor-plugin-selection": "^1.2.0",
-    "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlaskit/renderer": "^109.32.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-plugin-caption",
+	"version": "1.3.3",
+	"description": "Caption plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Media Experience Porygon",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-plugin-analytics": "^1.2.0",
+		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-plugin-copy-button": "^1.1.0",
+		"@atlaskit/editor-plugin-decorations": "^1.1.0",
+		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
+		"@atlaskit/editor-plugin-floating-toolbar": "^1.6.0",
+		"@atlaskit/editor-plugin-focus": "^1.2.0",
+		"@atlaskit/editor-plugin-grid": "^1.1.0",
+		"@atlaskit/editor-plugin-guideline": "^1.1.0",
+		"@atlaskit/editor-plugin-selection": "^1.2.0",
+		"@atlaskit/editor-plugin-width": "^1.1.0",
+		"@atlaskit/renderer": "^109.32.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
+			"type": "boolean"
+		}
+	}
 }

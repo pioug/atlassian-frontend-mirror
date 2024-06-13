@@ -1,57 +1,57 @@
 {
-  "name": "@atlaskit/prosemirror-input-rules",
-  "version": "3.1.1",
-  "description": "A package that contains helpers to create autoformatting rules for ProseMirror",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Lego",
-    "singleton": true,
-    "releaseModel": "continuous"
-  },
-  "dependencies": {
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@babel/runtime": "^7.0.0"
-  },
-  "devDependencies": {
-    "@atlaskit/editor-common": "^82.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "circular-dependencies": [
-        "file-level"
-      ],
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  }
+	"name": "@atlaskit/prosemirror-input-rules",
+	"version": "3.1.1",
+	"description": "A package that contains helpers to create autoformatting rules for ProseMirror",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Lego",
+		"singleton": true,
+		"releaseModel": "continuous"
+	},
+	"dependencies": {
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@babel/runtime": "^7.0.0"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-common": "^82.5.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"circular-dependencies": [
+				"file-level"
+			],
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

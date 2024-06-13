@@ -32,9 +32,11 @@ const checkboxesContainerStyles = css({
 const styledTableStyles = css({
 	margin: `${token('space.400', '32px')} auto ${token('space.0', '0px')} auto`,
 	maxWidth: '1100px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'thead *': {
 		textAlign: 'center',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'td, th': {
 		padding: token('space.0', '0px'),
 	},
@@ -46,7 +48,9 @@ const styledContainerStyles = css({
 
 // @ts-expect-error adding `!important` to style rules is currently a type error
 const selectWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'*': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		textAlign: 'left !important',
 	},
 	fontWeight: 'normal',

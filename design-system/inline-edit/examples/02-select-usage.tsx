@@ -15,7 +15,9 @@ import InlineEdit from '../src';
 const ReadViewContainer = styled.div({
 	display: 'flex',
 	fontSize: `${fontSize()}px`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${(gridSize() * 2.5) / fontSize()}em`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: (gridSize() * 2.5) / fontSize(),
 	maxWidth: '100%',
 	padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,

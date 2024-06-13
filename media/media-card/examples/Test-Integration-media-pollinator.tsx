@@ -87,6 +87,7 @@ const Example = () => {
 
 	return (
 		<React.Fragment>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={cardFlowHeaderStyles}>
 				<Button appearance="primary" onClick={onOpen}>
 					Open

@@ -209,6 +209,7 @@ class Example extends Component<{}, ExampleState> {
 
 		return (
 			<div>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={filmstripWrapperStyles}>
 					<Filmstrip
 						mediaClientConfig={mediaClient && mediaClient.config}

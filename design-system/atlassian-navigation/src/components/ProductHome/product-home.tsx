@@ -35,9 +35,11 @@ const productHomeButtonStyles = css({
 	borderRadius: token('border.radius', '3px'),
 	color: 'inherit',
 	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-moz-focus-inner': {
 		border: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-of-type': {
 		marginInlineStart: 0,
 	},
@@ -60,15 +62,15 @@ const productHomeButtonStyles = css({
 		)}`,
 	},
 
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'div&': {
 		pointerEvents: 'none',
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		margin: `0 ${token('space.100', '8px')}`,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
 		margin: `0 ${token('space.200', '16px')}`,
 	},
@@ -79,15 +81,15 @@ const productLogoStyles = css({
 	// productHome is aligned correctly
 	display: 'flex',
 	maxWidth: `var(${VAR_LOGO_MAX_WIDTH})`,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		maxHeight: 24,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span > svg': {
 		maxWidth: `var(${VAR_LOGO_MAX_WIDTH})`,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		display: 'none',
 	},
@@ -101,11 +103,11 @@ const productIconStyles = css({
 	// Ensure anything passed into
 	// productHome is aligned correctly
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		maxHeight: 24,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
 		display: 'none',
 	},
@@ -125,7 +127,7 @@ const featureFlaggedSiteTitleStyles = css({
 	// PrimaryItemsContainer not needing to worry about its paddingInlineStart.
 	// This makes it cleaner for the title styles to appear and disappear with mq's
 	marginInlineEnd: token('space.100', '8px'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		display: 'none',
 	},
@@ -214,6 +216,7 @@ const ProductHome = ({
 					}
 					css={[
 						siteTitleStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						getBooleanFF('platform.design-system-team.navigation-v2-no-jank_5yhbd') &&
 							featureFlaggedSiteTitleStyles,
 					]}

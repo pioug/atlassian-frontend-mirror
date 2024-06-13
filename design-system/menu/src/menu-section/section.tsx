@@ -36,22 +36,31 @@ const VAR_SEPARATOR_COLOR = '--ds-menu-seperator-color';
 const sectionStyles = css({
 	'&::before, &::after': {
 		display: 'block',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: sectionPaddingTopBottom,
 		content: '""',
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-ds--menu--heading-item]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		marginBlockEnd: itemHeadingBottomMargin,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		marginBlockStart: itemHeadingTopMargin,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-of-type': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			marginBlockStart: itemHeadingTopMargin - sectionPaddingTopBottom,
 		},
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& [data-ds--menu--skeleton-heading-item]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		marginBlockEnd: skeletonHeadingBottomMargin,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		marginBlockStart: skeletonHeadingTopMargin,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:first-of-type': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			marginBlockStart: skeletonHeadingTopMargin - sectionPaddingTopBottom,
 		},
 	},
@@ -82,7 +91,7 @@ const thinSeparatorStyles = css({
 
 const noSeparatorStyles = css({
 	// this is to ensure that adjacent sections without separators don't get additional margins.
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'[data-section] + &': {
 		marginBlockStart: -6,
 	},
@@ -187,7 +196,8 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 					sectionStyles,
 					isScrollable ? scrollableStyles : unscrollableStyles,
 					hasSeparator
-						? getBooleanFF('platform.design-system-team.section-1px-seperator-borders')
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							getBooleanFF('platform.design-system-team.section-1px-seperator-borders')
 							? thinSeparatorStyles
 							: thickSeparatorStyles
 						: noSeparatorStyles,

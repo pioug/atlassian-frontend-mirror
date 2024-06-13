@@ -1,84 +1,84 @@
 {
-  "name": "@atlaskit/editor-plugin-submit-editor",
-  "version": "1.1.5",
-  "description": "Submit editor plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Editor: Lego",
-    "singleton": true,
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-plugin-media": "^1.20.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  }
+	"name": "@atlaskit/editor-plugin-submit-editor",
+	"version": "1.1.5",
+	"description": "Submit editor plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"singleton": true,
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-plugin-media": "^1.20.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
 }

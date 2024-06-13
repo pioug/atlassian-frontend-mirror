@@ -81,6 +81,7 @@ export default function Accordion({
 						>
 							<Flex
 								xcss={xcss({
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 									transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
 									transition: 'transform 0.2s ease-out',
 									alignItems: 'center',

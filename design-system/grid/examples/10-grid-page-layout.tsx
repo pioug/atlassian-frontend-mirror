@@ -24,22 +24,27 @@ import GridCards from './01-grid-cards';
 const dynamicSizedVerticalPaddingStyles = xcss({
 	[media.above.sm]: {
 		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.sm.gridMargin,
 	},
 	[media.above.md]: {
 		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.md.gridMargin,
 	},
 	[media.above.lg]: {
 		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.lg.gridMargin,
 	},
 	[media.above.xs]: {
 		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.xs.gridMargin,
 	},
 	[media.above.xl]: {
 		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.xl.gridMargin,
 	},
 });

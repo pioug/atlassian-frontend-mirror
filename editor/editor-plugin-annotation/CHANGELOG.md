@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.10.1
+
+### Patch Changes
+
+- [#109969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109969)
+  [`52590a0b562ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52590a0b562ef) -
+  ED-23690 Adds an attribute to annotation analytic events with the name of nodes inside the
+  annotation range
+- [#109932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109932)
+  [`a973fd903870a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a973fd903870a) -
+  ED-23649 fixes a variety of issues such as inline nodes not being fully interactive, and missing
+  selection visuals when inside an annotation.
+- Updated dependencies
+
 ## 1.10.0
 
 ### Minor Changes

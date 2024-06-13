@@ -26,6 +26,7 @@ const largeStyles = xcss({
 
 const cardWrapperStyles = ({ small, displayInline }: CardViewWrapperProps) =>
 	xcss({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		display: displayInlineStyles(displayInline),
 		marginBlock: 'space.200',
 		marginInline: 'space.250',

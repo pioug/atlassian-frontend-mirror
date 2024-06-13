@@ -157,14 +157,14 @@ function visible({ frameStyle }: WrapperProps) {
 	return frameStyle === 'show' ? visibleStyles : '';
 }
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LinkWrapper = styled.div`
 	${(props: WrapperProps) => wrapperStyles(props)} &:hover {
 		text-decoration: none;
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const Wrapper = styled.div<WrapperProps>((props) => wrapperStyles(props), {
 	// We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
 	// to be thoroughly checked with a designer so that we do not miss an unintended visual change
@@ -177,7 +177,7 @@ export interface HeaderProps {
 }
 
 export const embedHeaderHeight = 32;
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Header = styled.div(
 	{
 		height: `${embedHeaderHeight}px`,
@@ -186,10 +186,12 @@ export const Header = styled.div(
 		width: '100%',
 		display: 'flex',
 		alignItems: 'center',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.icon', colors.N300),
 		opacity: 0,
 		transition: '300ms opacity cubic-bezier(0.15, 1, 0.3, 1)',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ frameStyle }: HeaderProps) =>
 		frameStyle === 'show'
 			? `
@@ -203,13 +205,17 @@ export interface PlaceholderProps {
 	isPlaceholder: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const IconWrapper = styled.div(
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	csssize(16),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ isPlaceholder }: PlaceholderProps) => {
 		if (isPlaceholder) {
 			return `
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
       background-color: ${token('color.skeleton', colors.N30)};
     `;
 		} else {
@@ -221,14 +227,16 @@ export const IconWrapper = styled.div(
 	},
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TextWrapper = styled.div(
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ isPlaceholder }: PlaceholderProps) => {
 		if (isPlaceholder) {
 			return `
         ${borderRadius}
         width: 125px;
         height: 12px;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
         background-color: ${token('color.skeleton', colors.N30)};
       `;
 		} else {
@@ -236,14 +244,16 @@ export const TextWrapper = styled.div(
 		}
 	},
 	{
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.subtlest', colors.N300),
 		fontSize: '12px',
 		lineHeight: '16px',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	ellipsis('none'),
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TooltipWrapper = styled.div({
 	overflow: 'hidden',
 });
@@ -258,7 +268,7 @@ export interface ContentProps {
 // NB: `overflow` is kept as `hidden` since
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Content = styled.div`
 	${contentBorderRadius};
 	border: 1px solid ${token('color.border', N40)};
@@ -307,14 +317,14 @@ export interface ImageProps {
 	size: number;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const Image = styled.img(({ size }: ImageProps) => csssize(size), borderRadius, {
 	overflow: 'hidden',
 });
 
 export const maxAvatarCount = 6;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ContentWrapper = styled.div({
 	display: 'flex',
 	flexDirection: 'row',
@@ -325,8 +335,9 @@ export const ContentWrapper = styled.div({
 	)} ${token('space.150', '12px')}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Title = styled.div({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N900),
 	fontSize: '16px',
 	fontWeight: 500,
@@ -335,21 +346,24 @@ export const Title = styled.div({
 	overflow: 'hidden',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Byline = styled.div(
 	{
 		marginTop: token('space.050', '4px'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.subtlest', colors.N300),
 		fontSize: '12px',
 		fontWeight: 'normal',
 		lineHeight: 16 / 12,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	ellipsis('100%'),
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Description = styled.div({
 	marginTop: `calc(${token('space.100', '8px')} - 1px)`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
 	fontSize: '12px',
 	fontWeight: 'normal',
@@ -358,7 +372,7 @@ export const Description = styled.div({
 	overflow: 'hidden',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResolvedViewIconWrapper = styled.div({
 	marginTop: token('space.050', '4px'),
 });
@@ -367,36 +381,40 @@ export interface ThumbnailProps {
 	src: string;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const Thumbnail = styled.div<ThumbnailProps>(borderRadius, csssize(48), (props) => ({
 	float: 'right',
 	margin: `${token('space.050', '4px')} 0 ${token(
 		'space.150',
 		'12px',
 	)} ${token('space.150', '12px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.skeleton', colors.N30),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundImage: `url(${props.src})`,
 	backgroundSize: 'cover',
 }));
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const UsersWrapper = styled.div({
 	marginTop: token('space.100', '8px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ActionsWrapper = styled.div({
 	marginTop: token('space.100', '8px'),
 	textAlign: 'right',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginTop: token('space.050', '4px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> * + *': {
 		marginLeft: token('space.050', '4px'),
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AlertWrapper = styled.div({
 	position: 'absolute',
 	top: 0,

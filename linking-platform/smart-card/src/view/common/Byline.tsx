@@ -14,12 +14,15 @@ export interface BylineProps {
 
 export const Byline = ({ text, children, testId, className }: BylineProps) => (
 	<span
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css={mq({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			fontSize: gs(1.5),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			lineHeight: gs(2.5),
 			color: `${token('color.text.subtlest', N300)}`,
 			fontWeight: 'normal',
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			marginTop: gs(0.5),
 			// Spec: only allow two lines MAX to be shown.
 			display: '-webkit-box',
@@ -29,6 +32,7 @@ export const Byline = ({ text, children, testId, className }: BylineProps) => (
 			WebkitBoxOrient: 'vertical',
 			wordBreak: 'break-word',
 			// Fallback options.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			maxHeight: gs(5),
 			whiteSpace: 'pre-line',
 			// EDM-713: fixes copy-paste from renderer to editor for Firefox

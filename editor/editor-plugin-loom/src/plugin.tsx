@@ -11,6 +11,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { LoomIcon } from '@atlaskit/logo';
 
 import { recordVideo, recordVideoFailed } from './commands';
@@ -26,6 +27,7 @@ export type LoomPlugin = NextEditorPlugin<
 		dependencies: [
 			// Optional, because works fine without analytics
 			OptionalPlugin<AnalyticsPlugin>,
+			WidthPlugin,
 			HyperlinkPlugin,
 		];
 		sharedState: LoomPluginState | undefined;

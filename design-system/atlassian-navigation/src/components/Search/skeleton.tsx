@@ -10,11 +10,14 @@ import { useTheme } from '../../theme';
 import { IconButtonSkeleton } from '../IconButton/skeleton';
 
 const searchInputContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 	marginRight: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
 	marginLeft: token('space.250', '20px'),
 	position: 'relative',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		display: 'none !important',
 	},
 });
@@ -29,8 +32,9 @@ const searchInputSkeletonStyles = css({
 });
 
 const searchIconStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		display: 'none !important',
 	},
 });

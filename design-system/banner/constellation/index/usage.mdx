@@ -4,41 +4,53 @@ order: 2
 
 ## Usage
 
-Use banners sparingly at the top of the screen to display critical messaging about the loss of data, functionality, or important site-wide information that affects the user's ability to use the product.
+Use banners sparingly at the top of the screen to display critical messaging about the loss of data,
+functionality, or important site-wide information that affects the user's ability to use the
+product.
 
-Banners should appear one at a time, are not dismissible, and only disappear when no longer required. Banners animate into a screen by pushing the entire content below down.
+Banners should appear one at a time, are not dismissible, and only disappear when no longer
+required. Banners animate into a screen by pushing the entire content below down.
 
 ## Anatomy
 
 ![The example banner has a warning icon, and says "More information? See the recovery process documentation".](./images/banner-anatomy.jpg)
 
 1. **Icon**: Only use the error and warning icons.
-2. **Message**: A short description of the severity of the issue, products affected, and any actions to remedy the situation.
-3. **Actions (optional)**: A link to a call to action or next steps. Any links to documentation should open in a new tab.
+2. **Message**: A short description of the severity of the issue, products affected, and any actions
+   to remedy the situation.
+3. **Actions (optional)**: A link to a call to action or next steps. Any links to documentation
+   should open in a new tab.
 
 ## Accessibility
 
 ### Indicate severity
 
-Don't rely on color alone to indicate severity. Provide an accessible `label` for the warning and error icons.
+Don't rely on color alone to indicate severity. Provide an accessible `label` for the warning and
+error icons.
 
 ### Avoid truncation
 
-The banner will truncate if the content spans beyond the width of the screen. To avoid truncation, keep banner content concise.
+The banner will truncate if the content spans beyond the width of the screen. To avoid truncation,
+keep banner content concise.
 
 <!-- For longer content that wraps, compose your banner with [design token primitives](/foundations/spacing/primitives/) instead. -->
 <!-- Line should be added along with custom example, see ticket DSP-18650 -->
 
 ### Alert role
 
-The banner currently uses the `alert` role. This is a live region that sends out a time-sensitive alert to assistive technology and doesn't take focus. This makes the banner very noisy for people who use assistive technology, so only use banners if the message is very important.
+The banner currently uses the `alert` role. This is a live region that sends out a time-sensitive
+alert to assistive technology and doesn't take focus. This makes the banner very noisy for people
+who use assistive technology, so only use banners if the message is very important.
 
-For banners that need to take focus, and non-alert banners, compose your banner with [design token primitives](/foundations/spacing/primitives/) instead.
+For banners that need to take focus, and non-alert banners, compose your banner with
+[design token primitives](/foundations/spacing/primitives/) instead.
 
 ## Best practices
 
-- Use banners sparingly, particularly warning and error banners, as they are persistent and disrupt the user’s workflow.
-- Always be clear, concise and, where possible, give follow up actions to help people resolve the issue.
+- Use banners sparingly, particularly warning and error banners, as they are persistent and disrupt
+  the user’s workflow.
+- Always be clear, concise and, where possible, give follow up actions to help people resolve the
+  issue.
 
 ## Content guidelines
 
@@ -47,9 +59,13 @@ For banners that need to take focus, and non-alert banners, compose your banner 
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 
-- For confirmations, alerts, and acknowledgments that require minimal user interaction use a [flag message](/components/flag).
-- To alert users that important information is available or an action is required use an [inline message](/components/inline-message).
+- For confirmations, alerts, and acknowledgments that require minimal user interaction use a
+  [flag message](/components/flag).
+- To alert users that important information is available or an action is required use an
+  [inline message](/components/inline-message).

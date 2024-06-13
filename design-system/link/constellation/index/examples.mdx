@@ -18,9 +18,16 @@ The default form of a link.
 
 ## No underline
 
-The default link underline can be removed using `isUnderlined`, however it will still display on hover. Only remove underlines if the context surrounding the link makes it clear that it is interactive, such as in navigation.
+The default link underline can be removed using `isUnderlined`, however it will still display on
+hover. Only remove underlines if the context surrounding the link makes it clear that it is
+interactive, such as in navigation.
 
-Underlines help differentiate links from regular text and addresses a WCAG-A recommendation. Using color alone isn't accessible, especially if links are surrounded by other text. For more information about accessibility see ['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) and ['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
+Underlines help differentiate links from regular text and addresses a WCAG-A recommendation. Using
+color alone isn't accessible, especially if links are surrounded by other text. For more information
+about accessibility see
+['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+and
+['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
 
 <Example Component={Underlined} packageName="@atlaskit/link" />
 
@@ -32,9 +39,12 @@ Links that have been visited will display in a different color.
 
 ## Links that open in a new window or tab
 
-It's important to indicate when links open in new windows or tabs. An icon will display next to the link, as well as visually hidden text "(opens new window)" for screen reader users.
+It's important to indicate when links open in new windows or tabs. An icon will display next to the
+link, as well as visually hidden text "(opens new window)" for screen reader users.
 
-Opening links in a new window can be disorienting for people, so only do it when necessary. For more information see ['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
+Opening links in a new window can be disorienting for people, so only do it when necessary. For more
+information see
+['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
 
 <Example Component={NewWindow} packageName="@atlaskit/link" />
 
@@ -58,8 +68,10 @@ Link passes through all valid HTML attributes to the underlying `<a>` element.
 
 ## Router links
 
-Link supports automatic configuration of router link components through the AppProvider. Here's an [example of the router link configuration for the anchor primitive](/components/primitives/anchor/examples#router-links).
+Link supports automatic configuration of router link components through the AppProvider. Here's an
+[example of the router link configuration for the anchor primitive](/components/primitives/anchor/examples#router-links).
 
 ## Event tracking
 
-Link has utilities to make tracking events easier. Here's [an example of tracking events with the anchor primitive](/components/primitives/anchor/examples#event-tracking).
+Link has utilities to make tracking events easier. Here's
+[an example of tracking events with the anchor primitive](/components/primitives/anchor/examples#event-tracking).

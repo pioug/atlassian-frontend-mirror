@@ -12,8 +12,9 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 
 import { changeColor } from './commands';
-import type { HighlightPluginState } from './pm-plugin';
-import { createPlugin, highlightPluginKey } from './pm-plugin';
+import { keymapPlugin } from './pm-plugins/keymap';
+import type { HighlightPluginState } from './pm-plugins/main';
+import { createPlugin, highlightPluginKey } from './pm-plugins/main';
 import { ToolbarHighlightColorWithIntl as ToolbarHighlightColor } from './ui/ToolbarHighlightColor';
 
 export type HighlightPlugin = NextEditorPlugin<
@@ -46,6 +47,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		disabled,
 		isToolbarReducedSpacing,
 		dispatchAnalyticsEvent,
+		editorView,
 	}) => (
 		<ToolbarHighlightColor
 			popupsMountPoint={popupsMountPoint}
@@ -55,6 +57,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 			isToolbarReducedSpacing={isToolbarReducedSpacing}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			pluginInjectionApi={api}
+			editorView={editorView}
 		/>
 	);
 
@@ -69,6 +72,10 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 			{
 				name: 'highlight',
 				plugin: () => createPlugin({ api }),
+			},
+			{
+				name: 'highlightKeymap',
+				plugin: () => keymapPlugin({ api }),
 			},
 		],
 

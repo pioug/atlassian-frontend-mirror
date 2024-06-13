@@ -47,6 +47,7 @@ export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
 	<label
 		css={[
 			fieldsetLabelStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			getBooleanFF('platform.design-system-team.form-label-typography-updates')
 				? newFieldsetLabelStyles
 				: oldFieldsetLabelStyles,
@@ -69,6 +70,7 @@ export const Legend: FC<LegendProps> = ({ children }) => {
 		<legend
 			css={[
 				fieldsetLabelStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				getBooleanFF('platform.design-system-team.form-label-typography-updates')
 					? newFieldsetLabelStyles
 					: oldFieldsetLabelStyles,

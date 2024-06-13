@@ -42,7 +42,7 @@ const Wrapper = ({
 
 const sidebarWrapperStyles = css({
 	height: '100%',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	nav: {
 		minWidth: 20,
 		overflowX: 'hidden',

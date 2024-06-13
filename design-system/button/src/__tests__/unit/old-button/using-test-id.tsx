@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Button from '../../../old-button/button';
 
 it('should support test id', async () => {
-	const { getByTestId } = render(<Button testId="iamTheDataTestId">Button</Button>);
+	render(<Button testId="iamTheDataTestId">Button</Button>);
 
-	expect(getByTestId('iamTheDataTestId')).toBeTruthy();
+	expect(screen.getByTestId('iamTheDataTestId')).toBeInTheDocument();
 });

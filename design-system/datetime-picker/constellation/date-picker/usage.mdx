@@ -14,11 +14,16 @@ Date picker is commonly used in [forms](/patterns/forms).
 
 ![The label is left-aligned above the date input field. The calendar is a dropdown menu that opens below the date field.](/images/date-picker-anatomy.png)
 
-1. ** Label: ** Labels should indicate what information the field requires. The label is left-aligned above the input area.
+1. ** Label: ** Labels should indicate what information the field requires. The label is
+   left-aligned above the input area.
 
-2. ** Date input field: ** Selecting this field opens the calendar component. Users can also input dates into the field. Once a date is selected, the option will be shown in the text input. This example shows date formatted in ‘dd/mm/yyyy’ but this can be customized using the `dateFormat` prop.
+2. ** Date input field: ** Selecting this field opens the calendar component. Users can also input
+   dates into the field. Once a date is selected, the option will be shown in the text input. This
+   example shows date formatted in ‘dd/mm/yyyy’ but this can be customized using the `dateFormat`
+   prop.
 
-3. ** Calendar: ** Contains the list of all dates. Selecting the previous or next arrows moves the calendar through months. The selected date area is highlighted by a different color fill.
+3. ** Calendar: ** Contains the list of all dates. Selecting the previous or next arrows moves the
+   calendar through months. The selected date area is highlighted by a different color fill.
 
 ## Content guidelines
 
@@ -27,9 +32,13 @@ Date picker is commonly used in [forms](/patterns/forms).
 
 ## Accessibility
 
-- If using a field with a label other than "Date", use `datePickerSelectProps` to pass the `aria-label` prop. Assistive technologies will announce these along with the label from the field component when activated.
-- Allow multiple modes of data entry. Some users prefer entering date and time information by typing instead of selection, especially keyboard users.
-- If some dates are `disabled`, provide accurate validation and error messaging for keyboard users, like: `Please enter a future date`.
+- If using a field with a label other than "Date", use `datePickerSelectProps` to pass the
+  `aria-label` prop. Assistive technologies will announce these along with the label from the field
+  component when activated.
+- Allow multiple modes of data entry. Some users prefer entering date and time information by typing
+  instead of selection, especially keyboard users.
+- If some dates are `disabled`, provide accurate validation and error messaging for keyboard users,
+  like: `Please enter a future date`.
 
 ## Related
 

@@ -20,69 +20,72 @@ import SpotlightConditionalTargets from '../../examples/constellation/spotlight-
 
 ## Default
 
-To implement a spotlight, you should first wrap your screen or app in a `SpotlightManager`. Where you want to place a spotlight, import `Spotlight`, `SpotlightTarget` and `SpotlightTransition`.
+To implement a spotlight, you should first wrap your screen or app in a `SpotlightManager`. Where
+you want to place a spotlight, import `Spotlight`, `SpotlightTarget` and `SpotlightTransition`.
 
-`SpotlightTransition` will handle the animation of spotlights as they render in. It should wrap any `Spotlight` components. `SpotlightTarget` should wrap your spotlight target.
+`SpotlightTransition` will handle the animation of spotlights as they render in. It should wrap any
+`Spotlight` components. `SpotlightTarget` should wrap your spotlight target.
 
 <Example Component={SpotlightSingle} packageName="@atlaskit/onboarding" />
 
 ## Tours
 
-You can connect spotlights in multi-step onboarding tours. Only one spotlight should be shown at a time.
+You can connect spotlights in multi-step onboarding tours. Only one spotlight should be shown at a
+time.
 
 <Example Component={SpotlightTour} packageName="@atlaskit/onboarding" />
 
 ## Blanket tint
 
-If you prefer the spotlight to appear without the tinted blanket background, set the `blanketIsTinted` prop to `false` on the `SpotlightManager` component.
+If you prefer the spotlight to appear without the tinted blanket background, set the
+`blanketIsTinted` prop to `false` on the `SpotlightManager` component.
 
-<Example
-  Component={SpotlightBlanketIsTinted}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightBlanketIsTinted} packageName="@atlaskit/onboarding" />
 
 ## Actions
 
 ### Appearance
 
-You can change the default action button appearance to `subtle` or `subtle-link` with the `appearance` property on the action object. Spotlights should have only one default action that leads people through the onboarding process or prompts an action, with other actions such as "Skip" using the subtle appearance.
+You can change the default action button appearance to `subtle` or `subtle-link` with the
+`appearance` property on the action object. Spotlights should have only one default action that
+leads people through the onboarding process or prompts an action, with other actions such as "Skip"
+using the subtle appearance.
 
-<Example
-  Component={SpotlightActionsAppearance}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightActionsAppearance} packageName="@atlaskit/onboarding" />
 
 ### Actions before element
 
-To add a left-aligned element before the action buttons, use the `actionsBeforeElement` prop. One use case for this is adding a step number to an onboarding tour with 3 or more steps.
+To add a left-aligned element before the action buttons, use the `actionsBeforeElement` prop. One
+use case for this is adding a step number to an onboarding tour with 3 or more steps.
 
-<Example
-  Component={SpotlightActionsBefore}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightActionsBefore} packageName="@atlaskit/onboarding" />
 
 ## Heading
 
-To add a heading to a spotlight, use the `heading` prop. For content guidance, see the [usage tab](/components/onboarding/usage).
+To add a heading to a spotlight, use the `heading` prop. For content guidance, see the
+[usage tab](/components/onboarding/usage).
 
 ### Heading after element
 
-The `headingAfterElement` prop allows you to place an element to the right of the heading. This is sometimes used to implement a close icon button in a spotlight.
+The `headingAfterElement` prop allows you to place an element to the right of the heading. This is
+sometimes used to implement a close icon button in a spotlight.
 
-<Example
-  Component={SpotlightHeadingAfterElement}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightHeadingAfterElement} packageName="@atlaskit/onboarding" />
 
 ## Image
 
-You can add an image to a spotlight with the `image` prop. Most Atlassian illustrations are designed to work with neutral backgrounds, so you may need brand design support to implement an ideal spotlight image.
+You can add an image to a spotlight with the `image` prop. Most Atlassian illustrations are designed
+to work with neutral backgrounds, so you may need brand design support to implement an ideal
+spotlight image.
 
 <Example Component={SpotlightImage} packageName="@atlaskit/onboarding" />
 
 ## Pulse
 
-When spotlights are active, a pulsing outline helps draw attention to the target. It's possible for you to use this spotlight pulse in custom ways. For example, you can apply the pulse on the target element _before_ the spotlight is active, and trigger the spotlight the first time a person interacts with it.
+When spotlights are active, a pulsing outline helps draw attention to the target. It's possible for
+you to use this spotlight pulse in custom ways. For example, you can apply the pulse on the target
+element _before_ the spotlight is active, and trigger the spotlight the first time a person
+interacts with it.
 
 <Example Component={SpotlightPulse} packageName="@atlaskit/onboarding" />
 
@@ -94,48 +97,43 @@ You can turn off the pulsing animation by setting the `pulse` prop to `false`.
 
 ## Dialog placement
 
-By default, a spotlight dialog will be positioned to the "bottom left" relative to the target. You can change this by setting your desired position in the `dialogPlacement` prop.
+By default, a spotlight dialog will be positioned to the "bottom left" relative to the target. You
+can change this by setting your desired position in the `dialogPlacement` prop.
 
-<Example
-  Component={SpotlightDialogPlacement}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightDialogPlacement} packageName="@atlaskit/onboarding" />
 
 ## Dialog width
 
-You can set a dialog width for a spotlight dialog with the `dialogWidth` prop. The minimum supported width is `160px`, and the maximum is `600px`.
+You can set a dialog width for a spotlight dialog with the `dialogWidth` prop. The minimum supported
+width is `160px`, and the maximum is `600px`.
 
 <Example Component={SpotlightDialogWidth} packageName="@atlaskit/onboarding" />
 
 ## Target border radius
 
-The border radius of the spotlight target needs to be explicitly set. In the next example, the first spotlight applies the default behavior, the second spotlight sets `targetRadius` to `3` to match a target button, and the final spotlight has `targetRadius` to `24` to match a round target.
+The border radius of the spotlight target needs to be explicitly set. In the next example, the first
+spotlight applies the default behavior, the second spotlight sets `targetRadius` to `3` to match a
+target button, and the final spotlight has `targetRadius` to `24` to match a round target.
 
 <Example Component={SpotlightTargetRadius} packageName="@atlaskit/onboarding" />
 
 ## Target background color
 
-Sometimes the blanket can affect the background color of the target element. For example, subtle buttons are semi-transparent, which causes them to look darker when the blanket is applied. In cases like this, you can pass a color value to `targetBgColor` to make your target stand out properly.
+Sometimes the blanket can affect the background color of the target element. For example, subtle
+buttons are semi-transparent, which causes them to look darker when the blanket is applied. In cases
+like this, you can pass a color value to `targetBgColor` to make your target stand out properly.
 
-<Example
-  Component={SpotlightTargetBackground}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightTargetBackground} packageName="@atlaskit/onboarding" />
 
 ## Target replacement
 
 You can replace the original target with another component using the `targetReplacement` prop.
 
-<Example
-  Component={SpotlightTargetReplacement}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightTargetReplacement} packageName="@atlaskit/onboarding" />
 
 ## Conditional spotlight targets
 
-You can use the `useSpotlight` hook to check if a spotlight target is rendered or not. This allows you to conditionally add steps into a spotlight tour.
+You can use the `useSpotlight` hook to check if a spotlight target is rendered or not. This allows
+you to conditionally add steps into a spotlight tour.
 
-<Example
-  Component={SpotlightConditionalTargets}
-  packageName="@atlaskit/onboarding"
-/>
+<Example Component={SpotlightConditionalTargets} packageName="@atlaskit/onboarding" />

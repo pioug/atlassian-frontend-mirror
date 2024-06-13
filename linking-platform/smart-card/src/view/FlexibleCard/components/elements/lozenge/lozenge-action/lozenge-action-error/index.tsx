@@ -50,6 +50,7 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
 	const content = useMemo(() => {
 		return (
 			<Fragment>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={contentStyles}>
 					<ErrorIcon
 						testId={`${testId}-icon`}
@@ -58,11 +59,13 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
 						secondaryColor={token('color.background.danger', R50)}
 						label={'error'}
 					/>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<span css={textStyles(maxLineNumber)} data-testid={`${testId}-error-message`}>
 						{typeof errorMessage === 'string' ? errorMessage : getFormattedMessage(errorMessage)}
 					</span>
 				</div>
 				{isPreviewAvailable ? (
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={linkStyles}>
 						<a target="_blank" data-testid={`${testId}-open-embed`} onClick={handlePreviewOpen}>
 							<FormattedMessage {...messages.open_issue_in_jira} />
@@ -74,6 +77,7 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
 	}, [errorMessage, handlePreviewOpen, isPreviewAvailable, maxLineNumber, testId]);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={dropdownItemGroupStyles} data-testid={`${testId}-error-item-group`}>
 			<DropdownItemGroup>
 				<DropdownItem testId={`${testId}-error`}>{content}</DropdownItem>

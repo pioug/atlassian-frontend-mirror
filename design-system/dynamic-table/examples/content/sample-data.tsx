@@ -6,6 +6,7 @@ import kebabCase from 'lodash/kebabCase';
 
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import Link from '@atlaskit/link';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { lorem } from './lorem';
@@ -95,7 +96,7 @@ export const rows = presidents.map((president: President, index: number) => ({
 					<AvatarWrapper>
 						<Avatar name={president.name} size="medium" />
 					</AvatarWrapper>
-					<a href="https://atlassian.design">{president.name}</a>
+					<Link href="https://atlassian.design">{president.name}</Link>
 				</NameWrapper>
 			),
 		},

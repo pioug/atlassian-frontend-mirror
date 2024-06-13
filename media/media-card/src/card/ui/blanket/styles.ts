@@ -9,6 +9,7 @@ export const fixedBlanketStyles = `background-color: ${token('color.blanket', N9
 
 export const blanketStyles = (isFixed?: boolean) =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition(),
 		{
 			position: 'absolute',
@@ -19,6 +20,7 @@ export const blanketStyles = (isFixed?: boolean) =>
 			left: 0,
 			top: 0,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		isFixed ? fixedBlanketStyles : '',
 	);
 

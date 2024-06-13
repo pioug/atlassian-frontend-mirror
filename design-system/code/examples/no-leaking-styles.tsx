@@ -3,6 +3,7 @@ import React from 'react';
 import { CodeBlock } from '../src';
 
 // brings in prism styles
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import '!style-loader!css-loader!prismjs/themes/prism-tomorrow.css';
 
 const exampleCodeBlock = `/** @jsx jsx */

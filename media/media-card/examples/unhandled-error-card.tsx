@@ -21,6 +21,7 @@ const Example = () => {
 	return (
 		<MainWrapper>
 			<h1>Unhandled error card with different dimension</h1>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={unhandledErrorCardWrapperStyles}>
 				<div>
 					<label>

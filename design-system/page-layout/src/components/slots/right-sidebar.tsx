@@ -25,21 +25,19 @@ import SlotDimensions from './slot-dimensions';
  * out of its flex container and Main would stretch to occupy all the space.
  */
 const fixedInnerStyles = css({
-	/**
-	 * This width on the inner wrapper is required when it is using fixed
-	 * positioning. Otherwise its width is slightly off.
-	 */
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: RIGHT_SIDEBAR_WIDTH,
 	position: 'fixed',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	right: `calc(${RIGHT_PANEL_WIDTH})`,
-	bottom: 0,
+	insetBlockEnd: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	insetBlockStart: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	insetInlineEnd: `calc(${RIGHT_PANEL_WIDTH})`,
 });
 
 const staticInnerStyles = css({ height: '100%' });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const outerStyles = css({ width: RIGHT_SIDEBAR_WIDTH });
 
 /**
@@ -50,6 +48,7 @@ const outerStyles = css({ width: RIGHT_SIDEBAR_WIDTH });
 const fixedOuterStyles = css({
 	'&::after': {
 		display: 'inline-block',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: RIGHT_SIDEBAR_WIDTH,
 		content: "''",
 	},

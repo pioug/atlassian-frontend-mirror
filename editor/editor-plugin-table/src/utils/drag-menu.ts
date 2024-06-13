@@ -162,7 +162,9 @@ export const getDragMenuConfig = (
 	tableDuplicateCellColouring = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
+	tableSortColumnDiscoverability = false,
 ): DragMenuConfig[] => {
+	const { selection } = editorView.state;
 	const addOptions =
 		direction === 'row'
 			? [
@@ -193,8 +195,6 @@ export const getDragMenuConfig = (
 						keymap: addColumnAfter,
 					},
 				];
-
-	const { selection } = editorView.state;
 	const moveOptions =
 		direction === 'row'
 			? [
@@ -254,7 +254,25 @@ export const getDragMenuConfig = (
 					},
 				]
 			: [];
-	return [
+
+	const sortConfigs = [
+		...sortOptions.map(({ label, order, icon }) => ({
+			id: `sort_column_${order}`,
+			title: `Sort ${label}`,
+			disabled: hasMergedCellsInTable,
+			icon,
+			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+				sortColumnWithAnalytics(editorAnalyticsAPI)(
+					INPUT_METHOD.TABLE_CONTEXT_MENU,
+					index ?? 0,
+					order,
+				)(state, dispatch);
+				return true;
+			},
+		})),
+	];
+
+	const restConfigs = [
 		...addOptions.map(({ label, offset, icon, keymap }) => ({
 			id: `add_${direction}_${label}`,
 			title: `Add ${direction} ${label}`,
@@ -373,20 +391,12 @@ export const getDragMenuConfig = (
 			},
 			keymap: keymap && tooltip(keymap),
 		})),
+	];
 
-		...sortOptions.map(({ label, order, icon }) => ({
-			id: `sort_column_${order}`,
-			title: `Sort ${label}`,
-			disabled: hasMergedCellsInTable,
-			icon,
-			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
-				sortColumnWithAnalytics(editorAnalyticsAPI)(
-					INPUT_METHOD.TABLE_CONTEXT_MENU,
-					index ?? 0,
-					order,
-				)(state, dispatch);
-				return true;
-			},
-		})),
-	].filter(Boolean) as DragMenuConfig[];
+	let allConfigs = [...restConfigs];
+	tableSortColumnDiscoverability
+		? allConfigs.unshift(...sortConfigs)
+		: allConfigs.push(...sortConfigs);
+
+	return allConfigs.filter(Boolean) as DragMenuConfig[];
 };

@@ -401,6 +401,7 @@ const boxStyles = css({
 	margin: '0.5em',
 	padding: '1em',
 	border: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('border.radius.100'),
 	fontSize: 'inherit',
 	textAlign: 'left',
@@ -413,8 +414,11 @@ const Box = ({ background, text }: { background: string; text: string }) => (
 	<div
 		css={[
 			boxStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: background,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				color: text,
 			}),
 		]}

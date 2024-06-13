@@ -16,14 +16,17 @@ const baseFocusOutsideStyles = css({
 
 const baseInsetStyles = css({
 	outlineColor: token('color.border.focused', '#2684FF'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	outlineOffset: -BORDER_WIDTH,
 	outlineStyle: 'solid',
 	outlineWidth: token('border.width.outline', '2px'),
 });
 
 const focusRingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	'&:focus-visible': baseFocusOutsideStyles,
 	'@supports not selector(*:focus-visible)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		'&:focus': baseFocusOutsideStyles,
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
@@ -34,8 +37,10 @@ const focusRingStyles = css({
 });
 
 const insetFocusRingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	'&:focus-visible': baseInsetStyles,
 	'@supports not selector(*:focus-visible)': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		'&:focus': baseInsetStyles,
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {

@@ -49,7 +49,7 @@ const formHeaderWrapperStyles = css({
 	fontFamily: `${fontFamily}`,
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const lightH700Styles = css(h700({ theme: { mode: 'light' } }));
 
 const FormHeaderContent = ({ children }: { children: ReactNode }) => {

@@ -23,6 +23,7 @@ export const blockCardContentHeaderNameClassName = 'block-card-content-header-na
 const baseStyles = css({
 	fontSize: `${fontSize()}px`,
 	fontWeight: 500,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: gs(2.5),
 	// Spec: show max two lines.
 	display: '-webkit-box',
@@ -32,6 +33,7 @@ const baseStyles = css({
 	WebkitLineClamp: 2,
 	WebkitBoxOrient: 'vertical',
 	// Fallback options.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxHeight: gs(6),
 });
 
@@ -40,7 +42,9 @@ export const Name = ({ name, isLeftPadded = true, testId, textColor }: NameProps
 		<span
 			css={[
 				baseStyles,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					marginLeft: isLeftPadded ? gs(1) : '0',
 					color: textColor ? textColor : 'inherit',
 				},

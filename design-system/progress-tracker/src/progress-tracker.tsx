@@ -23,9 +23,10 @@ const containerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	margin: '0 auto',
 	padding: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	gap: `var(${varSpacing})`,
 	listStyleType: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		marginBlockStart: token('space.500', '40px'),
 	},

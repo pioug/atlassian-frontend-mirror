@@ -76,7 +76,7 @@ function FunctionalComponentColor(props: Props) {
 					}}
 					autoFocus={autoFocus}
 				>
-					{isSelected && <EditorDoneIcon primaryColor={checkMarkColor} label="" />}
+					{!decorator && isSelected && <EditorDoneIcon primaryColor={checkMarkColor} label="" />}
 					{decorator}
 				</button>
 			</span>
@@ -146,8 +146,11 @@ class ClassComponentColor extends PureComponent<Props> {
 	};
 }
 
-const Color = getBooleanFF('platform.editor.transparent-diagonal-decorator')
-	? FunctionalComponentColor
-	: ClassComponentColor;
+const Color = (props: Props) => {
+	if (getBooleanFF('platform.editor.transparent-diagonal-decorator')) {
+		return <FunctionalComponentColor {...props} />;
+	}
+	return <ClassComponentColor {...props} />;
+};
 
 export default Color;

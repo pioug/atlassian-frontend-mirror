@@ -65,6 +65,7 @@ const getPadding = (size?: SmartLinkSize): string => {
 };
 
 const clickableContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'a, button, .has-action': {
 		position: 'relative',
 		zIndex: 1,
@@ -82,13 +83,19 @@ const getContainerPaddingStyles = (
 
 	return css(
 		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			'--container-padding': padding,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			'--container-gap-left': previewOnLeft ? gap : padding,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			'--container-gap-right': previewOnRight ? gap : padding,
 			'--preview-block-width': '30%',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: padding,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		previewOnLeft ? `padding-left: calc(var(--preview-block-width) + ${gap});` : '',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		previewOnRight ? `padding-right: calc(var(--preview-block-width) + ${gap});` : '',
 	);
 };
@@ -233,6 +240,7 @@ const Container = ({
 
 	const container = (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={getContainerStyles(
 				size,
 				hideBackground,

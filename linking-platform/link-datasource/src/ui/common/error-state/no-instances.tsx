@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { NoInstancesSvg } from './no-instances-svg';
 
 const titleStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.heading.small', fontFallback.heading.small),
 	marginTop: token('space.200', '16px'),
 });

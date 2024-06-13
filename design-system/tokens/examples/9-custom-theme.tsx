@@ -11,6 +11,7 @@ import Checkbox from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import InlineMessage from '@atlaskit/inline-message';
+import Link from '@atlaskit/link';
 import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { Radio } from '@atlaskit/radio';
@@ -46,10 +47,12 @@ const colorContainerStyles = css({
 		borderRadius: '3px 3px 0 0',
 		marginBlockStart: '-8px',
 		paddingBlockStart: '8px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		span: {
 			insetBlockEnd: 8,
 			opacity: 1,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		p: {
 			opacity: 0,
 		},
@@ -155,7 +158,7 @@ export default () => {
 						contrastBase={previousContrast.toPrecision(4)}
 						contrastCustom={contrast.toPrecision(4)}
 						baseThemeType={colorMode}
-						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						style={{ marginBottom: token('space.050', '4px') }}
 					/>
 				);
@@ -172,6 +175,7 @@ export default () => {
 				style={{
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					backgroundColor: color,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					color: getContrastRatio('#ffffff', color) >= 4.5 ? 'white' : 'black',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					borderRadius: '24px',
@@ -244,9 +248,9 @@ export default () => {
 									&gt; Open Console), or use the shortcut ⌥⌘I.
 								</p>
 								<p>
-									<a href="https://www.figma.com/plugin-docs/debugging/">
+									<Link href="https://www.figma.com/plugin-docs/debugging/">
 										Learn more in the Figma docs
-									</a>
+									</Link>
 								</p>
 							</InlineMessage>
 						</Inline>
@@ -260,6 +264,7 @@ export default () => {
 								css={colorContainerStyles}
 								style={{
 									background: colorString,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									color: getContrastRatio('#ffffff', colorString) >= 4.5 ? 'white' : 'black',
 								}}
 							>
@@ -310,6 +315,7 @@ export default () => {
 								paddingInline="space.100"
 								paddingBlock="space.050"
 								xcss={xcss({
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 									border: `1px solid ${token('color.border')}`,
 									width: 'fit-content',
 									borderRadius: 'border.radius.circle',
@@ -358,7 +364,7 @@ export default () => {
 					<Inline space="space.100">
 						<Stack space="space.100">
 							{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-							<a href="#">Test link</a>
+							<Link href="atlassian.design">Test link</Link>
 							<ButtonGroup label="Button examples">
 								<Button appearance="primary">Primary button</Button>
 								<Button isSelected={true}>Selected button</Button>

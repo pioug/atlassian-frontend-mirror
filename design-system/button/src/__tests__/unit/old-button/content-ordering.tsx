@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Button from '../../../old-button/button';
 
 it('should render content in order: iconBefore, children, iconAfter', () => {
-	const { getByTestId } = render(
+	render(
 		<Button testId="button" iconBefore="before" iconAfter="after">
 			children
 		</Button>,
 	);
-	const button: HTMLElement = getByTestId('button');
+	const button: HTMLElement = screen.getByTestId('button');
 
 	expect(button.innerText).toBe('beforechildrenafter');
 });

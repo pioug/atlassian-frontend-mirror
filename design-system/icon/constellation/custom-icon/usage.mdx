@@ -6,7 +6,9 @@ order: 2
 
 ## Usage
 
-Custom icons should only be used in cases where no other hosted icon meets your required action. To search through all the icons we have in our system, have a look at our [icon explorer](/components/icon/icon-explorer).
+Custom icons should only be used in cases where no other hosted icon meets your required action. To
+search through all the icons we have in our system, have a look at our
+[icon explorer](/components/icon/icon-explorer).
 
 ## Best practices
 
@@ -16,7 +18,8 @@ Your custom icon needs to adhere to the following constraints.
 
 - The root svg should be on a `0 0 24 24` view box
 - The first child element should set `fill` to `currentColor` to inherit the `primaryColor` prop
-- For icons with secondary colors set `fill` to `inherit` on the appropriate elements to inherit the `secondaryColor` prop
+- For icons with secondary colors set `fill` to `inherit` on the appropriate elements to inherit the
+  `secondaryColor` prop
 - Icons should be designed on a 20px grid and exported with padding on a 24px canvas.
 - Build from foundational shapes: square, circle, or rectangles (horizontal or vertical).
 
@@ -24,27 +27,34 @@ Your custom icon needs to adhere to the following constraints.
 
 #### Stroke caps
 
-Using a round cap at the end a stroke adds a sense of openness and optimism to the icon. For this reason, use round caps unless you are trying to indicate icon depth, in that case, use a slice to create a butt cap.
+Using a round cap at the end a stroke adds a sense of openness and optimism to the icon. For this
+reason, use round caps unless you are trying to indicate icon depth, in that case, use a slice to
+create a butt cap.
 
 ![Stroke caps](images/custom-icon-style.jpg)
 
 #### Angles
 
-When creating shapes like arrows or when you need more real estate, use angles that are 45 ̊ or 90 ̊. When more subtlety is required, use 30 ̊ or 60 ̊ angles.
+When creating shapes like arrows or when you need more real estate, use angles that are 45 ̊ or 90 ̊.
+When more subtlety is required, use 30 ̊ or 60 ̊ angles.
 
 ![Angles](images/custom-icon-angles.jpeg)
 
 #### Icon depth (butt cap)
 
-A butt cap is used to create depth between two objects in an icon and should never be rounded or touch other elements in the icon. Keep 1px space between the butt and other elements.
+A butt cap is used to create depth between two objects in an icon and should never be rounded or
+touch other elements in the icon. Keep 1px space between the butt and other elements.
 
-Adding icon depth implies multiple or grouped items. Use icon depth to imply multiple or grouped items.
+Adding icon depth implies multiple or grouped items. Use icon depth to imply multiple or grouped
+items.
 
 ![Butt cap](images/custom-icon-depth.jpeg)
 
 #### Radius
 
-The radius is a key characteristic of Atlassian icons and adds consistency and personality. All square and rectangle shapes should use a 2px border radius depending on the size of the shape and minor radius' are 1px.
+The radius is a key characteristic of Atlassian icons and adds consistency and personality. All
+square and rectangle shapes should use a 2px border radius depending on the size of the shape and
+minor radius' are 1px.
 
 ![Radius](images/custom-icon-radius1.jpeg)
 
@@ -65,5 +75,7 @@ See [icon guidelines](/components/icon/usage) for more general icon accessibilit
 ## Related
 
 - See [icon guidelines](/components/icon/usage) for more general icon guidance.
-- We also have object icons which are grouped and color-coded by use case, and are derived from this iconography foundation. See [object icon guidelines](/components/icon-object/usage)).
-- If you’re looking to show other messages, see [inline message guidelines](/components/inline-message/usage).
+- We also have object icons which are grouped and color-coded by use case, and are derived from this
+  iconography foundation. See [object icon guidelines](/components/icon-object/usage)).
+- If you’re looking to show other messages, see
+  [inline message guidelines](/components/inline-message/usage).

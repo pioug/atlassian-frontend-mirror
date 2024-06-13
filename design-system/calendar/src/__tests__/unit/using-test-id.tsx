@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import cases from 'jest-in-case';
 
 import Calendar from '../../index';
@@ -32,13 +32,13 @@ describe('Calendar should be found by data-testid', () => {
 	cases(
 		'should be accessible via data-testid',
 		({ selector }: { selector: string }) => {
-			const { queryAllByTestId, rerender, unmount } = render(
+			const { rerender, unmount } = render(
 				<Calendar defaultSelected={[iso]} month={month} year={year} testId={testId} />,
 			);
-			expect(queryAllByTestId(selector).length).toBeGreaterThan(0);
+			expect(screen.queryAllByTestId(selector).length).toBeGreaterThan(0);
 
 			rerender(<Calendar defaultSelected={[iso]} month={month} year={year} />);
-			expect(queryAllByTestId(selector).length).toBe(0);
+			expect(screen.queryAllByTestId(selector).length).toBe(0);
 
 			unmount();
 		},

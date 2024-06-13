@@ -4,7 +4,8 @@ order: 2
 
 ## Usage
 
-Links help users navigate to another page or sections of a page. They can also download files or provide contact information such as phone numbers or email addresses.
+Links help users navigate to another page or sections of a page. They can also download files or
+provide contact information such as phone numbers or email addresses.
 
 <!-- TODO: Add anatomy image once designed -->
 
@@ -12,26 +13,34 @@ Links help users navigate to another page or sections of a page. They can also d
 
 ### Underline links unless other context already indicates it is a link
 
-Link has an underline by default but it can be disabled in some circumstances. Underlines help differentiate links from regular text and addresses a WCAG-A recommendation. Using color alone isn't accessible, especially if links are surrounded by other text.
+Link has an underline by default but it can be disabled in some circumstances. Underlines help
+differentiate links from regular text and addresses a WCAG-A recommendation. Using color alone isn't
+accessible, especially if links are surrounded by other text.
 
-Only remove underlines if the context surrounding the link makes it clear that it is interactive, such as in navigation.
+Only remove underlines if the context surrounding the link makes it clear that it is interactive,
+such as in navigation.
 
-Also, don't underline text that isn't a link. This makes the text look clickable because it looks a link.
+Also, don't underline text that isn't a link. This makes the text look clickable because it looks a
+link.
 
-For more information see ['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) and ['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
+For more information see
+['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
+and
+['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
 
 <!-- TODO: Add do/dont images once designed (if necessary?) -->
 
 <DoDont type="do">
-  Use underlined links in body copy. Only omit an underline if the context makes
-  it clear the link is selectable.
+	Use underlined links in body copy. Only omit an underline if the context makes it clear the link
+	is selectable.
 </DoDont>
 
 <DoDont type="dont">Use underlined links in navigation.</DoDont>
 
 ### Use descriptive link text that clarifies the purpose of the link
 
-Don't link vague words or phrases like “here” or “learn more.” Make sure the linked text clearly describes the purpose of the link.
+Don't link vague words or phrases like “here” or “learn more.” Make sure the linked text clearly
+describes the purpose of the link.
 
 <!-- TODO: Add some Do/Don't images as examples -->
 
@@ -48,7 +57,8 @@ It might make sense for a link to open in a new window if:
 - There's a risk of someone losing their current place or task
 - The link takes the person out of the current product or to an external website
 
-For more information see ['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
+For more information see
+['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
 
 ### Keep links large enough to interact with
 
@@ -58,35 +68,46 @@ Make link text size at least 12px. Smaller text is harder to read and interact w
 
 ### Don't confuse links and buttons
 
-Links are for navigation and URL changes, while buttons are for on-page actions such as form submissions or opening modals. These elements are treated differently by assistive technologies, so avoid using one in place of the other.
+Links are for navigation and URL changes, while buttons are for on-page actions such as form
+submissions or opening modals. These elements are treated differently by assistive technologies, so
+avoid using one in place of the other.
 
-More details on [when to use links and buttons](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
+More details on
+[when to use links and buttons](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
 
 ## Content guidelines
 
 ### Use clear and unique link text
 
-Try not to repeat the same link text over and over on a page. Make sure link text is clear about where the link will go.
+Try not to repeat the same link text over and over on a page. Make sure link text is clear about
+where the link will go.
 
 ### Specify download links, including file type and size
 
-Always specify if a link triggers a download, and make the linked text clear about what exactly will be downloaded. Include file type and size as well.
+Always specify if a link triggers a download, and make the linked text clear about what exactly will
+be downloaded. Include file type and size as well.
 
 ### Don't include unnecessary links
 
 Using too many links can overwhelm other, more important information on a page.
 
-Links take people to a new page or location. Be mindful of whether or not the linked resource is helpful or distracting to the current task.
+Links take people to a new page or location. Be mindful of whether or not the linked resource is
+helpful or distracting to the current task.
 
 ### Links in sentences or body copy
 
-Only link the words that are necessary to clarify where the link goes. Don't link the entire sentence. (Linking smaller phrases can be better for internationalization when sentence structures change across languages.)
+Only link the words that are necessary to clarify where the link goes. Don't link the entire
+sentence. (Linking smaller phrases can be better for internationalization when sentence structures
+change across languages.)
 
-Only include the verb in the linked text if it better describes the purpose the link or differentiates it from other links and actions on the page.
+Only include the verb in the linked text if it better describes the purpose the link or
+differentiates it from other links and actions on the page.
 
 For example:
 
-> Update [Jira settings](/components/button/usage#use-buttons-for-actions-and-links-for-navigation) to turn off notifications. To upgrade, [sign up for Jira](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
+> Update [Jira settings](/components/button/usage#use-buttons-for-actions-and-links-for-navigation)
+> to turn off notifications. To upgrade,
+> [sign up for Jira](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
 
 If only Jira was linked, it wouldn't be clear that this was a sign up page.
 
@@ -94,10 +115,13 @@ If only Jira was linked, it wouldn't be clear that this was a sign up page.
 
 For standalone links, link the whole phrase. Don't add punctuation.
 
-These type of links typically follow general button or other label content rules (sentence case capitalization, no punctuation, etc.)
+These type of links typically follow general button or other label content rules (sentence case
+capitalization, no punctuation, etc.)
 
 ## Related
 
 - For editable experiences, use smart links
-- For navigational items, use [Atlassian navigation buttons](/components/atlassian-navigation/examples#button) and [menu link items](/components/menu/link-item/examples).
+- For navigational items, use
+  [Atlassian navigation buttons](/components/atlassian-navigation/examples#button) and
+  [menu link items](/components/menu/link-item/examples).
 - This component is built using the [anchor primitive](/components/primitives/anchor/examples).

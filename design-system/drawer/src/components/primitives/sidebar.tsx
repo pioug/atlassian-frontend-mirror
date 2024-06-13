@@ -25,7 +25,7 @@ const defaultStyle: CSSObject = {
 const sidebarCSS = (): CSSObject => defaultStyle;
 
 const Sidebar: FC<SidebarProps> = ({ cssFn, ...props }) => {
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	return <div css={css(cssFn(defaultStyle))} {...props} />;
 };
 

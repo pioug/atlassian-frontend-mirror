@@ -17,12 +17,13 @@ const ChildrenWrapper = styled.div({
 	alignItems: 'baseline',
 	color: token('color.text'),
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginRight: token('space.100', '8px'),
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Note = styled.p<{ size?: SizeType }>`
 	color: ${N100};
 	font-size: ${(props) => (props.size === 'large' ? '1.15em' : '0.9rem')};
@@ -30,7 +31,7 @@ export const Note = styled.p<{ size?: SizeType }>`
 	margin-bottom: ${token('space.200', '16px')};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Code = styled.code({
 	backgroundColor: R50,
 	borderRadius: '0.2em',
@@ -40,17 +41,17 @@ export const Code = styled.code({
 	padding: '0.1em 0.4em',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Gap = styled.span({
 	marginRight: token('space.100', '8px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Dot = styled(Gap)({
 	height: token('space.300', '24px'),
 	width: token('space.300', '24px'),
 });
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Heading = styled.div({
 	color: token('color.text.subtlest'),
 	display: 'flex',

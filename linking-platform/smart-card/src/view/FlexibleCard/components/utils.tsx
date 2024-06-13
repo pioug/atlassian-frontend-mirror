@@ -37,11 +37,17 @@ export const getFormattedMessageAsString = (
 
 const getIconDimensionStyles = (value: string): SerializedStyles =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: value,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		minHeight: value,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxHeight: value,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: value,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		minWidth: value,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		maxWidth: value,
 	});
 
@@ -102,6 +108,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 				fontSize: '1.25rem',
 				fontWeight: 400,
 				letterSpacing: '-0.008em',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Large:
@@ -110,6 +117,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 				fontSize: '0.875rem',
 				fontWeight: 400,
 				letterSpacing: '-0.003em',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Small:
@@ -118,6 +126,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 				fontSize: '0.75rem',
 				fontWeight: 400,
 				letterSpacing: '0em',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 	}
@@ -194,10 +203,13 @@ export const getTruncateStyles = (
 		display: '-webkit-box',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		wordBreak: wordBreak,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		WebkitLineClamp: maxLines,
 		WebkitBoxOrient: 'vertical',
 		'@supports not (-webkit-line-clamp: 1)': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			maxHeight: `calc(${maxLines} * ${lineHeight})`,
 		},
 	});

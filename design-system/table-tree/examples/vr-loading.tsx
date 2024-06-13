@@ -10,7 +10,7 @@ import TableTree, { Header, Headers, Rows } from '../src';
  * freeze the spinner, avoiding potential for VR test flakiness.
  */
 const animationStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'svg, span': {
 		animationDuration: '0s',
 		animationTimingFunction: 'step-end',

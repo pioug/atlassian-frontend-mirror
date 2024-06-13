@@ -17,15 +17,17 @@ import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
 
 const baseStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	gridArea: RIGHT_PANEL,
 });
 
 const fixedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: RIGHT_PANEL_WIDTH,
 	position: 'fixed',
-	top: 0,
-	right: 0,
-	bottom: 0,
+	insetBlockEnd: 0,
+	insetBlockStart: 0,
+	insetInlineEnd: 0,
 });
 
 /**

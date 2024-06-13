@@ -83,16 +83,20 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
 	}, [onResizeButtonClick, size, testId]);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={containerStyles}>
 			{icon && (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={iconCss} data-testid={`${testId}-icon`}>
 					<Icon {...icon} />
 				</div>
 			)}
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={titleCss}>
 				<h3 data-testid={`${testId}-title`}>{title}</h3>
 				<span tabIndex={0} />
 			</div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={actionCss}>
 				{downloadButton}
 				{urlButton}

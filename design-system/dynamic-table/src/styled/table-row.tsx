@@ -20,6 +20,7 @@ const rowStyles = css({
 	'&:focus-visible': {
 		outline: `2px solid ${token(
 			'color.border.focused',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			`var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
 		)}`,
 		outlineOffset: `-2px`,
@@ -30,6 +31,7 @@ const rowBackgroundStyles = css({
 	'&:hover': {
 		backgroundColor: token(
 			'color.background.neutral.subtle.hovered',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			`var(${cssVars.CSS_VAR_HOVER_BACKGROUND})`,
 		),
 	},
@@ -37,11 +39,13 @@ const rowBackgroundStyles = css({
 const rowHighlightedBackgroundStyles = css({
 	backgroundColor: token(
 		'color.background.selected',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		`var(${cssVars.CSS_VAR_HIGHLIGHTED_BACKGROUND})`,
 	),
 	'&:hover': {
 		backgroundColor: token(
 			'color.background.selected.hovered',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			`var(${cssVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND})`,
 		),
 	},

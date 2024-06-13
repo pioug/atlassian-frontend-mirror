@@ -29,6 +29,7 @@ const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
 	return (
 		<Block {...blockProps} testId={`${testId}-resolving-view`}>
 			{!hideIcon && (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={iconStyles} data-testid={`${testId}-icon`}>
 					<LoadingSkeleton testId={`${testId}-icon-loading`} />
 				</span>

@@ -1,5 +1,22 @@
 # @atlaskit/color-picker
 
+## 3.2.16
+
+### Patch Changes
+
+- [#107395](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107395)
+  [`9a4ffd1c2458e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a4ffd1c2458e) -
+  added different label for radio item
+
+## 3.2.15
+
+### Patch Changes
+
+- [#107548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107548)
+  [`86e1626ec32ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86e1626ec32ff) -
+  Clean up ff platform.color-picker-radio-button-functionality_6hkcy
+- Updated dependencies
+
 ## 3.2.14
 
 ### Patch Changes

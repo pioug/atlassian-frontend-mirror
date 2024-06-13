@@ -22,7 +22,8 @@ This is the simplest form of a popup. The popup opens from a trigger element.
 
 ## Placement
 
-Use the `placement` prop to set a preferred position (`auto`, `top`, `right`, `left`, or `bottom`). The popup will move automatically if it's near the edge of the screen.
+Use the `placement` prop to set a preferred position (`auto`, `top`, `right`, `left`, or `bottom`).
+The popup will move automatically if it's near the edge of the screen.
 
 Using the `auto` placement will place the popup on the side with the most space available.
 
@@ -36,9 +37,12 @@ You can use popups multiple times on the same page.
 
 ## Nested
 
-Nesting popups inside other popups works out of the box. However, be mindful that nested popups quickly become confusing, inaccessible, and difficult to navigate. If you’re nesting a lot of content, it’s time to move your experience to a new page instead.
+Nesting popups inside other popups works out of the box. However, be mindful that nested popups
+quickly become confusing, inaccessible, and difficult to navigate. If you’re nesting a lot of
+content, it’s time to move your experience to a new page instead.
 
-This example has additional code to prevent the parent popup closing when interacting with the child popup.
+This example has additional code to prevent the parent popup closing when interacting with the child
+popup.
 
 <Example Component={PopupNestedExample} packageName="@atlaskit/popup" />
 
@@ -46,7 +50,8 @@ This example has additional code to prevent the parent popup closing when intera
 
 When changing the content inside the popup, call the `update()` function to reposition the popup.
 
-Make sure to call this in the same callback or update step to ensure everything happens in the same animation frame.
+Make sure to call this in the same callback or update step to ensure everything happens in the same
+animation frame.
 
 <Example Component={PopupContentUpdateExample} packageName="@atlaskit/popup" />
 
@@ -54,7 +59,9 @@ Make sure to call this in the same callback or update step to ensure everything 
 
 You can customize the popup using a component override with the `popupComponent` prop.
 
-Make sure to [forward the ref to the underlying DOM node](https://reactjs.org/docs/forwarding-refs.html), or the positioning of the popup won't work correctly.
+Make sure to
+[forward the ref to the underlying DOM node](https://reactjs.org/docs/forwarding-refs.html), or the
+positioning of the popup won't work correctly.
 
 <Example Component={PopupCustomExample} packageName="@atlaskit/popup" />
 
@@ -62,42 +69,38 @@ Make sure to [forward the ref to the underlying DOM node](https://reactjs.org/do
 
 ### Set focus
 
-You can focus a specific element when opening the popup. The `content` render props provide a ref `setInitialFocusRef` to be set on the desired element. Only set focus to an element at the start of the popup, otherwise people who use assistive technology may miss the content.
+You can focus a specific element when opening the popup. The `content` render props provide a ref
+`setInitialFocusRef` to be set on the desired element. Only set focus to an element at the start of
+the popup, otherwise people who use assistive technology may miss the content.
 
 <Example Component={PopupFocusExample} packageName="@atlaskit/popup" />
 
 ### Disable autofocus
 
-If an element is focused, setting the `autofocus` prop to `false` will ensure it keeps focus when the popup is opened.
+If an element is focused, setting the `autofocus` prop to `false` will ensure it keeps focus when
+the popup is opened.
 
-<Example
-  Component={PopupDisableAutofocusExample}
-  packageName="@atlaskit/popup"
-/>
+<Example Component={PopupDisableAutofocusExample} packageName="@atlaskit/popup" />
 
 ## Surface detection
 
-The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the surface color of the popup.
-You can use the `utility.elevation.surface.current` design token to style children with the current surface color.
+The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the
+surface color of the popup. You can use the `utility.elevation.surface.current` design token to
+style children with the current surface color.
 
-<Example
-  Component={PopupSurfaceDetectionExample}
-  packageName="@atlaskit/popup"
-/>
+<Example Component={PopupSurfaceDetectionExample} packageName="@atlaskit/popup" />
 
 ## Content wrapping
 
-By default, the popup content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the content directly after the trigger element.
+By default, the popup content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to
+render the content directly after the trigger element.
 
-<Example
-  Component={PopupContentWithoutPortalExample}
-  packageName="@atlaskit/popup"
-/>
+<Example Component={PopupContentWithoutPortalExample} packageName="@atlaskit/popup" />
 
 ## Role
 
-Use the `role` prop to set a role for the popup content.
-We do not forbid passing any of the aria roles, but we strongly recommend using only `menu` or `dialog`.
-When the `role="dialog"` property is passed, one of the following properties must also be added: `label` or `titleId`.
+Use the `role` prop to set a role for the popup content. We do not forbid passing any of the aria
+roles, but we strongly recommend using only `menu` or `dialog`. When the `role="dialog"` property is
+passed, one of the following properties must also be added: `label` or `titleId`.
 
 <Example Component={PopupWithRoleExample} packageName="@atlaskit/popup" />

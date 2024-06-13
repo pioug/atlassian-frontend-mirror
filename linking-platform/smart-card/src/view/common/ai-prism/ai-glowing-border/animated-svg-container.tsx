@@ -10,6 +10,7 @@ let namespaceUUID = 0;
 
 const svgStyles = css({
 	position: 'absolute',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: OUTER_BORDER_RADIUS,
 });
 
@@ -73,6 +74,7 @@ const AnimatedSvgContainer: React.FC<AnimatedSvgContainerProps> = ({
 
 	return (
 		<svg
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[svgStyles, isGlowing ? blurredStyles : notBlurredStyles, additionalCss]}
 			ref={svgRef}
 			viewBox="0 0 24 24"

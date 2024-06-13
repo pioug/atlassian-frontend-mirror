@@ -10,6 +10,7 @@ interface VRTestCaseOpts {
 	children: () => JSX.Element;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const embedWrapperStyles = css({
 	width: '640px',
 	margin: `${token('space.150', '12px')} auto`,

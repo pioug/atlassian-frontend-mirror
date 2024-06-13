@@ -39,6 +39,7 @@ const IconWrapper: FC<IconWrapperProps> = ({
 		css={iconWrapperStyles}
 		role="presentation"
 		style={{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			border: `${BORDER_WIDTH}px solid ${bgColor}`,
 			backgroundColor: bgColor,
 		}}

@@ -1,94 +1,94 @@
 {
-  "name": "@atlaskit/editor-plugin-selection",
-  "version": "1.2.6",
-  "description": "Selection plugin for @atlaskit/editor-core",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Lego",
-    "releaseModel": "continuous",
-    "singleton": true,
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.12.0",
-    "@atlaskit/editor-tables": "^2.7.0",
-    "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts"
-  },
-  "stricter": {
-    "no-unused-dependencies": {
-      "checkDevDependencies": true
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.change-navigation-for-atom-nodes": {
-      "type": "boolean"
-    },
-    "platform.editor.single-player-expand": {
-      "type": "boolean"
-    },
-    "platform.editor.explicit-html-element-check": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-plugin-selection",
+	"version": "1.2.6",
+	"description": "Selection plugin for @atlaskit/editor-core",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Lego",
+		"releaseModel": "continuous",
+		"singleton": true,
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/editor-tables": "^2.7.0",
+		"@atlaskit/platform-feature-flags": "^0.2.4",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./types": "./src/types.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./types": "./src/types.ts"
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.change-navigation-for-atom-nodes": {
+			"type": "boolean"
+		},
+		"platform.editor.single-player-expand": {
+			"type": "boolean"
+		},
+		"platform.editor.explicit-html-element-check": {
+			"type": "boolean"
+		}
+	}
 }

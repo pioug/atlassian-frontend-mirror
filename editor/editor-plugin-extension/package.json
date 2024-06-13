@@ -1,121 +1,121 @@
 {
-  "name": "@atlaskit/editor-plugin-extension",
-  "version": "1.5.4",
-  "description": "editor-plugin-extension plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Editor: Scarlet",
-    "singleton": true,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/avatar": "^21.9.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/datetime-picker": "^13.5.0",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@atlaskit/editor-plugin-analytics": "^1.2.0",
-    "@atlaskit/editor-plugin-context-identifier": "^1.1.0",
-    "@atlaskit/editor-plugin-context-panel": "^1.1.0",
-    "@atlaskit/editor-plugin-decorations": "^1.1.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-    "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.12.0",
-    "@atlaskit/editor-tables": "^2.7.0",
-    "@atlaskit/empty-state": "^7.8.0",
-    "@atlaskit/form": "^10.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/radio": "^6.3.0",
-    "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/smart-user-picker": "^6.9.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/tabs": "^16.1.0",
-    "@atlaskit/textarea": "^5.4.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "is-number": "^7.0.0",
-    "lodash": "^4.17.21",
-    "memoize-one": "^6.0.0",
-    "react-loadable": "^5.1.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.23.0",
-    "react-select": "^5.4.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ]
-    }
-  },
-  "stricter": {
-    "no-unused-dependencies": {
-      "checkDevDependencies": true
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.multi-bodied-extension_0rygg": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-plugin-extension",
+	"version": "1.5.4",
+	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Scarlet",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/datetime-picker": "^13.5.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-plugin-analytics": "^1.2.0",
+		"@atlaskit/editor-plugin-context-identifier": "^1.1.0",
+		"@atlaskit/editor-plugin-context-panel": "^1.1.0",
+		"@atlaskit/editor-plugin-decorations": "^1.1.0",
+		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
+		"@atlaskit/editor-plugin-width": "^1.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/editor-tables": "^2.7.0",
+		"@atlaskit/empty-state": "^7.8.0",
+		"@atlaskit/form": "^10.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/primitives": "^7.0.0",
+		"@atlaskit/radio": "^6.3.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/smart-user-picker": "^6.9.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/tabs": "^16.1.0",
+		"@atlaskit/textarea": "^5.4.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"is-number": "^7.0.0",
+		"lodash": "^4.17.21",
+		"memoize-one": "^6.0.0",
+		"react-loadable": "^5.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-test-helpers": "^18.23.0",
+		"react-select": "^5.4.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			]
+		}
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.multi-bodied-extension_0rygg": {
+			"type": "boolean"
+		}
+	}
 }

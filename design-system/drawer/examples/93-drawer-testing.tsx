@@ -13,6 +13,7 @@ const DrawerExample = () => {
 
 	return (
 		<>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 			<style>{`body {background: lightgrey}`}</style>
 			<Button onClick={showDrawer} testId="show-button">
 				Show drawer

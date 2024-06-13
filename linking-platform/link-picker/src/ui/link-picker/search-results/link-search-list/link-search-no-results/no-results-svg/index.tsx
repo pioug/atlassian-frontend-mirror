@@ -9,6 +9,7 @@ export const NoResultsSVG = () => {
 
 	return (
 		<svg
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={noResultsSVGStyles}
 			height="120"
 			viewBox="0 0 208 191"

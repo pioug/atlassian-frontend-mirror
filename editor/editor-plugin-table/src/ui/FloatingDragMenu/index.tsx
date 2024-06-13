@@ -70,8 +70,11 @@ const FloatingDragMenu = ({
 		return null;
 	}
 
-	const { tableDuplicateCellColouring = false, tableWithFixedColumnWidthsOption = false } =
-		getEditorFeatureFlags ? getEditorFeatureFlags() : {};
+	const {
+		tableDuplicateCellColouring = false,
+		tableWithFixedColumnWidthsOption = false,
+		tableSortColumnDiscoverability = false,
+	} = getEditorFeatureFlags ? getEditorFeatureFlags() : {};
 
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled &&
@@ -116,6 +119,7 @@ const FloatingDragMenu = ({
 				tableDuplicateCellColouring={tableDuplicateCellColouring}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 				isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
+				tableSortColumnDiscoverability={tableSortColumnDiscoverability}
 			/>
 		</Popup>
 	);

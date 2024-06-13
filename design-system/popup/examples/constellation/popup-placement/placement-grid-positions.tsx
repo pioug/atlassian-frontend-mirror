@@ -2,6 +2,7 @@
 import { type Placement } from '@atlaskit/popper';
 import { xcss, type XCSS } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const placementGridPositions: {
 	[placement in Placement]: XCSS;
 } = {

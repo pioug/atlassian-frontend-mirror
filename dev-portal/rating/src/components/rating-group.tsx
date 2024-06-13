@@ -91,26 +91,33 @@ Use "defaultValue" or "value" happy days :-).
 	return (
 		<div
 			data-testid={testId && `${testId}--root`}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				display: 'inline-flex',
 				fontSize: 0,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'[data-rating-icon-checked]': {
 					display: 'inline-block',
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'[data-rating-icon]': {
 					display: 'none',
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				"label:hover ~ label [data-rating-icon-checked][data-rating-icon-checked], [data-testid='input-container-checked'] ~ label [data-rating-icon-checked]":
 					{
 						display: 'none',
 					},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				"label:hover ~ label [data-rating-icon][data-rating-icon], [data-testid='input-container-checked'] ~ label [data-rating-icon]":
 					{
 						display: 'inline-block',
 					},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'&:hover [data-rating-icon-checked][data-rating-icon-checked]': {
 					display: 'inline-block',
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'&:hover [data-rating-icon][data-rating-icon]': {
 					display: 'none',
 				},

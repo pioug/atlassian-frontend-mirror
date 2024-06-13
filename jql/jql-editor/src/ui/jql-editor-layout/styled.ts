@@ -50,7 +50,7 @@ const fadeOut = keyframes({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-keyframes -- Ignored via go/DSP-18766
 export const EditorMain = styled.div`
 	/* CSS reset */
 	font-family: ${fontFamily()};
@@ -89,7 +89,7 @@ export const EditorMain = styled.div`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorFooter = styled.div({
 	display: 'flex',
 	justifyContent: 'space-between',
@@ -106,7 +106,7 @@ type EditorViewContainerProps = {
 	editorViewHasFocus?: boolean;
 	editorViewIsInvalid?: boolean;
 };
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorViewContainer = styled.div<EditorViewContainerProps>(
 	{
 		backgroundColor: token('color.background.input', N10),
@@ -121,8 +121,10 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
 		overflow: 'auto',
 		transition: 'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) =>
 		props.editorViewIsInvalid &&
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css({
 			borderColor: token('color.border.danger', R400),
 			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
@@ -130,9 +132,11 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
 				R400,
 			)}`,
 		}),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) =>
 		props.editorViewHasFocus
-			? css({
+			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css({
 					backgroundColor: token('elevation.surface', N0),
 					borderColor: token('color.border.focused', B200),
 					boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
@@ -140,21 +144,22 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
 						B200,
 					)}`,
 				})
-			: css({
-					':hover': {
+			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				css({
+					'&:hover': {
 						backgroundColor: token('color.background.input.hovered', N30),
 					},
 				}),
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ReadOnlyEditorViewContainer = styled(EditorViewContainer)({
 	backgroundColor: token('color.background.disabled', N30),
 	color: token('color.text.disabled', N100),
 	pointerEvents: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 	{
 		backgroundColor: token('color.background.neutral', N30),
@@ -163,8 +168,10 @@ export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 		position: 'sticky',
 		top: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) =>
 		!props.lineNumbersVisible &&
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css({
 			display: 'none',
 		}),
@@ -173,7 +180,7 @@ export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 /**
  * The main div which the Prosemirror editor will be rendered into.
  */
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorView = styled.div<{
 	defaultMaxRows: number;
 	expandedRows: number;
@@ -267,7 +274,7 @@ export const EditorView = styled.div<{
 `;
 
 // FIXME: convert-props-syntax rule doesn't catch this
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ReadOnlyEditorView = styled(EditorView)`
 	/* We need to replicate padding from the inner prosemirror element in our read only state. That means we also need
   recompute max height excluding the child padding. */
@@ -281,16 +288,18 @@ export const ReadOnlyEditorView = styled(EditorView)`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorControls = styled.div<{
 	isSearch: boolean;
 	isCompact: boolean;
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 }>((props) => ({
 	alignItems: 'center',
 	display: 'flex',
 	flexShrink: 0,
 	marginLeft: 'auto',
 	marginRight: `${
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		props.isSearch
 			? getEditorInputVerticalPadding(props.isCompact) - 1 // the search button needs the same vertical & horizontal spacing
 			: editorInputHorizontalPadding - 3
@@ -298,5 +307,6 @@ export const EditorControls = styled.div<{
 	lineHeight: 'normal',
 	position: 'sticky',
 	top: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${rowHeight + 2 * getEditorInputVerticalPadding(props.isCompact)}px`,
 }));

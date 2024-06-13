@@ -1,11 +1,13 @@
-import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
+import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, INPUT_METHOD } from './enums';
 import type { TrackAEP } from './utils';
 
 export type HighlightToolbarToggleAEP = TrackAEP<
 	ACTION.OPENED | ACTION.CLOSED,
 	ACTION_SUBJECT.TOOLBAR,
 	ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
-	undefined,
+	{
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
+	},
 	undefined
 >;
 

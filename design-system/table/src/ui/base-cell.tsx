@@ -50,9 +50,11 @@ type InternalBaseCellProps = BaseCellProps & { sortDirection?: SortDirection };
 const baseResetStyles = xcss({
 	display: 'table-cell',
 	verticalAlign: 'middle',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':first-of-type': {
 		paddingInlineStart: 'space.100',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':last-of-type': {
 		paddingInlineEnd: 'space.100',
 	},

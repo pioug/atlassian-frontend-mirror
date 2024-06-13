@@ -1,127 +1,131 @@
 {
-  "name": "@atlaskit/profilecard",
-  "version": "19.14.0",
-  "description": "A React component to display a card with user information.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "People and Teams Collective",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Profilecard"
-    }
-  },
-  "af:exports": {
-    "./client": "./src/client/index.ts",
-    "./messages": "./src/messages.ts",
-    "./i18n": "./src/i18n/index.ts",
-    "./team": "./src/components/Team/index.ts",
-    "./types": "./src/types.ts",
-    "./user": "./src/components/User/index.ts",
-    "./mocks": "./src/mocks/index.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./client": "./src/client/index.ts",
-    "./messages": "./src/messages.ts",
-    "./i18n": "./src/i18n/index.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./team": "./src/components/Team/index.ts",
-    "./types": "./src/types.ts",
-    "./user": "./src/components/User/index.ts",
-    "./mocks": "./src/mocks/index.ts",
-    ".": "./src/index.ts"
-  },
-  "scripts": {
-    "lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
-    "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
-    "test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",
-    "test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
-    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/avatar": "^21.9.0",
-    "@atlaskit/avatar-group": "^9.6.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/dropdown-menu": "^12.11.0",
-    "@atlaskit/empty-state": "^7.8.0",
-    "@atlaskit/focus-ring": "^1.4.0",
-    "@atlaskit/give-kudos": "^2.1.1",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/lozenge": "^11.7.0",
-    "@atlaskit/menu": "^2.4.0",
-    "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@atlaskit/popup": "^1.17.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "date-fns": "^2.17.0",
-    "lodash": "^4.17.21",
-    "lru_map": "^0.4.1",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlassian/ptc-test-utils": "^0.8.0",
-    "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
-    "es6-promise": "^4.0.5",
-    "fetch-mock": "^8.0.0",
-    "loader-utils": "^1.1.0",
-    "react-router-dom": "^4.2.2",
-    "sinon": "^2.2.0",
-    "typescript": "~5.4.2",
-    "uid": "^0.0.2"
-  },
-  "keywords": [
-    "ui",
-    "profilecard"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.profile-card-trigger-next": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/profilecard",
+	"version": "19.14.1",
+	"description": "A React component to display a card with user information.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "People and Teams Collective",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Profilecard"
+		}
+	},
+	"af:exports": {
+		"./client": "./src/client/index.ts",
+		"./messages": "./src/messages.ts",
+		"./i18n": "./src/i18n/index.ts",
+		"./team": "./src/components/Team/index.ts",
+		"./types": "./src/types.ts",
+		"./user": "./src/components/User/index.ts",
+		"./mocks": "./src/mocks/index.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./client": "./src/client/index.ts",
+		"./messages": "./src/messages.ts",
+		"./i18n": "./src/i18n/index.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./team": "./src/components/Team/index.ts",
+		"./types": "./src/types.ts",
+		"./user": "./src/components/User/index.ts",
+		"./mocks": "./src/mocks/index.ts",
+		".": "./src/index.ts"
+	},
+	"scripts": {
+		"lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
+		"test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
+		"test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",
+		"test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
+		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/atlassian-context": "^0.0.0",
+		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/avatar-group": "^9.6.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/dropdown-menu": "^12.11.0",
+		"@atlaskit/empty-state": "^7.8.0",
+		"@atlaskit/focus-ring": "^1.4.0",
+		"@atlaskit/give-kudos": "^2.1.1",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/lozenge": "^11.7.0",
+		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/platform-feature-flags": "^0.2.4",
+		"@atlaskit/popup": "^1.17.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"date-fns": "^2.17.0",
+		"lodash": "^4.17.21",
+		"lru_map": "^0.4.1",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlassian/ptc-test-utils": "^0.8.0",
+		"@testing-library/react": "^12.1.5",
+		"enzyme": "^3.10.0",
+		"es6-promise": "^4.0.5",
+		"fetch-mock": "^8.0.0",
+		"loader-utils": "^1.1.0",
+		"react-router-dom": "^4.2.2",
+		"sinon": "^2.2.0",
+		"typescript": "~5.4.2",
+		"uid": "^0.0.2"
+	},
+	"keywords": [
+		"ui",
+		"profilecard"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.profile-card-trigger-next": {
+			"type": "boolean"
+		},
+		"platform.profilecard-disable-team-central-client-in-fedramp_ilnm7": {
+			"type": "boolean"
+		}
+	}
 }

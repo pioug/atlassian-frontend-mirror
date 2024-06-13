@@ -64,6 +64,7 @@ export default () => {
 				<div
 					data-testid="menu"
 					{...useResizingHeight()}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={css({
 						width: '100%',
 						maxWidth: '500px',
@@ -81,6 +82,7 @@ export default () => {
 							type="text"
 							readOnly
 							value={searchTerm[`s${num}`]}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							css={css({
 								display: 'block',
 								boxSizing: 'border-box',
@@ -94,6 +96,7 @@ export default () => {
 								color: '#172b4d',
 								fontSize: token('font.size.400', '24px'),
 								marginBlockEnd: token('space.100', '8px'),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 								':hover': {
 									backgroundColor: token('color.background.neutral.subtle.hovered'),
 								},
@@ -107,11 +110,13 @@ export default () => {
 								<FadeIn key={index}>
 									{(motion) => (
 										<div
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 											css={css({
 												display: 'flex',
 												padding: token('space.200', '16px'),
 												fontSize: token('font.size.200', '16px'),
 												fontWeight: token('font.weight.medium', '500'),
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 												':hover': {
 													backgroundColor: token('color.background.neutral.subtle.hovered'),
 												},

@@ -29,6 +29,7 @@ export interface Props {
 	children?: React.ReactNode;
 	className?: string;
 	tooltipContent?: React.ReactNode;
+	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	testId?: string;
 	hideTooltipOnClick?: boolean;
 	tabIndex?: number | null | undefined;
@@ -54,6 +55,7 @@ export default ({
 	children,
 	className,
 	tooltipContent,
+	tooltipStyle,
 	testId,
 	hideTooltipOnClick = true,
 	ariaHasPopup,
@@ -79,6 +81,7 @@ export default ({
 		<Tooltip
 			// Only fallback to title for tooltip if title is not shown
 			content={tooltipContent || (iconOnly ? title : undefined)}
+			component={tooltipStyle}
 			hideTooltipOnClick={hideTooltipOnClick}
 			position="top"
 		>

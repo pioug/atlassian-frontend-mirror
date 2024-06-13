@@ -4,35 +4,51 @@ order: 2
 
 ## Usage
 
-Use text fields in [forms](/patterns/forms) to help people enter, select, and search for text. Text fields are normally found within a form but can also be part of a modal, search, or card.
+Use text fields in [forms](/patterns/forms) to help people enter, select, and search for text. Text
+fields are normally found within a form but can also be part of a modal, search, or card.
 
-Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text searches.
+Common text input types include: usernames, descriptions, URLs, emails, addresses, and plain text
+searches.
 
 ## Anatomy
 
 ![The text field component is made up of four parts, a label that is left-aligned above the field input area, placeholder text which is inside the input area, and helper text which is below the input area.](images/text-field-anatomy.png)
 
-1. **Label:** Must indicate what sort of information the field requires and is left-aligned directly above the input area.
-2. **Placeholder text (optional):** Avoid placeholders when possible. Never use placeholder text to communicate critical information — this is not accessible. Instead, use field labels or helper text to describe the purpose of the field and how to use it. Placeholders can be used for search fields or some short example entries.
+1. **Label:** Must indicate what sort of information the field requires and is left-aligned directly
+   above the input area.
+2. **Placeholder text (optional):** Avoid placeholders when possible. Never use placeholder text to
+   communicate critical information — this is not accessible. Instead, use field labels or helper
+   text to describe the purpose of the field and how to use it. Placeholders can be used for search
+   fields or some short example entries.
 3. **Input area:** This is where people enter text.
-4. **Helper text (optional):** Use this to provide a hint about specific formats the text field will accept (for example, `Passwords must contain at least 8 characters`)
+4. **Helper text (optional):** Use this to provide a hint about specific formats the text field will
+   accept (for example, `Passwords must contain at least 8 characters`)
 
 ## Content guidelines
 
-- Use the helper text area for any examples or formatting hints, so that it's visible after the user enters text in the input area. Only use this where clarification is required, and try not to overuse it.
+- Use the helper text area for any examples or formatting hints, so that it's visible after the user
+  enters text in the input area. Only use this where clarification is required, and try not to
+  overuse it.
 - Keep field label text short and concise.
 
 ## Accessibility
 
-Make sure all fields have a visible label. If you're not using the provided [field label](/components/form/examples#field) component, make sure the label is associated properly to the field for accessibility.
+Make sure all fields have a visible label. If you're not using the provided
+[field label](/components/form/examples#field) component, make sure the label is associated properly
+to the field for accessibility.
 
-Avoid using placeholder text whenever possible. Make sure any critical information is communicated either in the field label or using helper text below the field. Search fields or brief examples are the only exceptions where placeholder text is OK.
+Avoid using placeholder text whenever possible. Make sure any critical information is communicated
+either in the field label or using helper text below the field. Search fields or brief examples are
+the only exceptions where placeholder text is OK.
 
-To announce errors in helper text area during custom validation (reference to [Custom validation example](https://atlassian.design/components/textfield/examples#custom-validation)):
+To announce errors in helper text area during custom validation (reference to
+[Custom validation example](https://atlassian.design/components/textfield/examples#custom-validation)):
 
 - Validate field onBlur.
-- Make sure your error container would have `aria-live` attribute value being explicitly set to `polite` by default.
-- Add `aria-relevant="all" aria-atomic="false"` to error container when field lose focus and remove those when field is focused again.
+- Make sure your error container would have `aria-live` attribute value being explicitly set to
+  `polite` by default.
+- Add `aria-relevant="all" aria-atomic="false"` to error container when field lose focus and remove
+  those when field is focused again.
 - Dynamically manipulate error's text content to trigger live region content changes.
 
 When you use the above techniques, the announcement behavior is:
@@ -42,7 +58,9 @@ When you use the above techniques, the announcement behavior is:
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 

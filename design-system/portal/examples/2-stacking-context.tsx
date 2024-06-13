@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Link from '@atlaskit/link';
 import { token } from '@atlaskit/tokens';
 
 import Portal from '../src';
@@ -8,9 +9,9 @@ const StackingContextExample = () => (
 	<div>
 		<p>
 			Each Portal component creates a new{' '}
-			<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context">
+			<Link href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context">
 				Stacking Context
-			</a>
+			</Link>
 			. Elements rendered with z-indexes inside the Portal are scoped to that context.
 		</p>
 		<Portal zIndex={200}>

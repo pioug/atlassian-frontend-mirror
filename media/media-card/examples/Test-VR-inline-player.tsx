@@ -17,7 +17,9 @@ const dimensions = { width: '100%', height: '100%' };
 
 const inlinePlayerWrapperStyles = ({ width, height }: WrapperDimensions) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: width,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: height,
 		margin: `${token('space.250', '20px')} ${token('space.250', '20px')}`,
 	});
@@ -46,6 +48,7 @@ export default () => {
 	return (
 		<MainWrapper disableFeatureFlagWrapper={true} developmentOnly>
 			<IntlProvider locale={'en'}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={inlinePlayerWrapperStyles({ ...wrapperDimensions })}>
 					<InlinePlayer
 						identifier={videoSquareFileId}

@@ -43,6 +43,7 @@ const DefaultRootComponent = ({
 };
 
 const FixedWidthContainer = (props: React.HTMLAttributes<HTMLDivElement>) => {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	return <div css={fixedWidthContainerStyles} {...props} />;
 };
 
@@ -74,7 +75,8 @@ const ComposedLinkPicker = memo((props: LinkPickerProps) => {
 						style={{
 							['--link-picker-width' as string]: props.disableWidth
 								? '100%'
-								: `${LINK_PICKER_WIDTH_IN_PX}px`,
+								: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									`${LINK_PICKER_WIDTH_IN_PX}px`,
 							['--link-picker-padding-left' as string]:
 								props.paddingLeft ?? token('space.200', '16px'),
 							['--link-picker-padding-right' as string]:

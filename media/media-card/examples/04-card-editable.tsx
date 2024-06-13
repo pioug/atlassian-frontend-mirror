@@ -104,8 +104,10 @@ class EditableCard extends Component<{}, EditableCardState> {
 		return (
 			<MainWrapper>
 				<div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={editableCardOptionsStyles}>
 						Card dimensions <hr />
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={cardDimensionsWrapperStyles}>
 							<div>
 								Card Width ({formattedWidth}) | Use percentage:
@@ -157,7 +159,7 @@ class EditableCard extends Component<{}, EditableCardState> {
 						use dimensions
 						<Toggle defaultChecked={useDimensions} onChange={this.onUseDimensionsChange} />
 					</div>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={editableCardContentStyles} style={parentStyle}>
 						<Card
 							mediaClientConfig={mediaClientConfig}

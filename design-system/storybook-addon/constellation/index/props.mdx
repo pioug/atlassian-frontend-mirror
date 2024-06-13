@@ -1,4 +1,5 @@
-After installing the package, register the addon with your Storybook configuration in the `.storybook/main.js` file.
+After installing the package, register the addon with your Storybook configuration in the
+`.storybook/main.js` file.
 
 ```diff
 module.exports = {
@@ -10,7 +11,8 @@ module.exports = {
 
 ## Storybook v6 and below
 
-Add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which has the ability to modify the DOM of your stories.
+Add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which has
+the ability to modify the DOM of your stories.
 
 ```diff
 + import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
@@ -25,9 +27,12 @@ const { addDecorator } = require('@storybook/react');
 For Storybook version 7, the following changes are necessary:
 
 1. Initialising the `globalTypes.adsTheme` property in the global context
-2. Disable the [built in `backgrounds` add on](https://storybook.js.org/docs/essentials/backgrounds#disable-backgrounds), as it conflicts with the ADS theming
+2. Disable the
+   [built in `backgrounds` add on](https://storybook.js.org/docs/essentials/backgrounds#disable-backgrounds),
+   as it conflicts with the ADS theming
 
-Both of these can be done in [the `preview` file](https://storybook.js.org/docs/configure#configure-story-rendering):
+Both of these can be done in
+[the `preview` file](https://storybook.js.org/docs/configure#configure-story-rendering):
 
 ```diff
 + import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';

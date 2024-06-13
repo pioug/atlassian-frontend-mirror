@@ -2,7 +2,7 @@ import React, { forwardRef, type Ref } from 'react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 
-import UNSAFE_ANCHOR from '../src/components/anchor';
+import Anchor from '../src/components/anchor';
 import Box from '../src/components/box';
 
 type MyRouterLinkConfig = {
@@ -98,9 +98,9 @@ const Table = ({
 					<td>Internal link</td>
 					<td>{hasRouterLinkSet ? 'Yes ✅' : 'No ❌'}</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-internal-link`} href="/home">
+						<Anchor testId={`${id}-internal-link`} href="/home">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr>
@@ -110,9 +110,9 @@ const Table = ({
 					<td>External link (http)</td>
 					<td>No ❌</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-external-link-http`} href="http://atlassian.com">
+						<Anchor testId={`${id}-external-link-http`} href="http://atlassian.com">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr>
@@ -122,9 +122,9 @@ const Table = ({
 					<td>External link (https)</td>
 					<td>No ❌</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-external-link-https`} href="https://atlassian.com">
+						<Anchor testId={`${id}-external-link-https`} href="https://atlassian.com">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr>
@@ -134,9 +134,9 @@ const Table = ({
 					<td>Email</td>
 					<td>No ❌</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-mailto-link`} href="mailto:test@example.com">
+						<Anchor testId={`${id}-mailto-link`} href="mailto:test@example.com">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr>
@@ -146,9 +146,9 @@ const Table = ({
 					<td>Telephone</td>
 					<td>No ❌</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-tel-link`} href="tel:0400-000-000">
+						<Anchor testId={`${id}-tel-link`} href="tel:0400-000-000">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr>
@@ -158,9 +158,9 @@ const Table = ({
 					<td>SMS</td>
 					<td>No ❌</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-sms`} href="sms:0400-000-000?&body=foo">
+						<Anchor testId={`${id}-sms`} href="sms:0400-000-000?&body=foo">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr id={`hash-${id}`}>
@@ -170,9 +170,9 @@ const Table = ({
 					<td>Hash link (on current page)</td>
 					<td>No ❌</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-hash-link-current-page`} href={`#hash-${id}`}>
+						<Anchor testId={`${id}-hash-link-current-page`} href={`#hash-${id}`}>
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 				<tr>
@@ -182,9 +182,9 @@ const Table = ({
 					<td>Hash link (on internal page)</td>
 					<td>{hasRouterLinkSet ? 'Yes ✅' : 'No ❌'}</td>
 					<td>
-						<UNSAFE_ANCHOR testId={`${id}-hash-link-internal`} href="/home#hash">
+						<Anchor testId={`${id}-hash-link-internal`} href="/home#hash">
 							Hello world
-						</UNSAFE_ANCHOR>
+						</Anchor>
 					</td>
 				</tr>
 			</tbody>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-utils",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Shared utilities for ESLint rules",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

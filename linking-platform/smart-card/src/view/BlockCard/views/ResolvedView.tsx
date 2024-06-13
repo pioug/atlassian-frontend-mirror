@@ -138,6 +138,7 @@ export const ResolvedView = ({
 							{lozenge && (
 								<LozengeBlockWrapper
 									css={{
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										height: gs(2.5),
 										display: 'flex',
 										alignItems: 'center',

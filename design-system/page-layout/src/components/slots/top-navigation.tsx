@@ -20,19 +20,21 @@ import SlotFocusRing from './internal/slot-focus-ring';
 import SlotDimensions from './slot-dimensions';
 
 const topNavigationStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: TOP_NAVIGATION_HEIGHT,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	gridArea: TOP_NAVIGATION,
 });
 
 const fixedStyles = css({
 	position: 'fixed',
 	zIndex: 2,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	top: BANNER_HEIGHT,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	right: RIGHT_PANEL_WIDTH,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	left: LEFT_PANEL_WIDTH,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	insetBlockStart: BANNER_HEIGHT,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	insetInlineEnd: RIGHT_PANEL_WIDTH,
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	insetInlineStart: LEFT_PANEL_WIDTH,
 });
 
 /**

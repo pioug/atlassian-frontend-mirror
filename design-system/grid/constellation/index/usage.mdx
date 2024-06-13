@@ -20,8 +20,14 @@ These breakpoints also modify the gutter between columns and the `Grid`'s outer 
 
 The `GridItem`'s `span` and `start` props use objects to define the responsiveness.
 
-- The defined configuration will cascade upwards from `xxs` through `xs`, `sm`, `md`, `lg` to `xl`. So if you define `<GridItem span={{ xxs: 4 }}>`, this is equal to `<GridItem span={{ xxs: 4, xs: 4, sm: 4, md: 4, lg: 4, xl: 4 }}>`.
-- When a higher breakpoint is set, it will override, eg. `<GridItem span={{ xxs: 6, md: 4 }}>` is equal to `<GridItem span={{ xxs: 6, xs: 6, sm:6, md: 4, lg: 4, xl: 4 }}>`.
-- You can happily skip breakpoints if you're comfortable using the default values for lower breakpoints, eg. `<GridItem span={{ md: 6 }}>` will use the default of 12 (full-width) value until `md`, then span 6 columns.
+- The defined configuration will cascade upwards from `xxs` through `xs`, `sm`, `md`, `lg` to `xl`.
+  So if you define `<GridItem span={{ xxs: 4 }}>`, this is equal to
+  `<GridItem span={{ xxs: 4, xs: 4, sm: 4, md: 4, lg: 4, xl: 4 }}>`.
+- When a higher breakpoint is set, it will override, eg. `<GridItem span={{ xxs: 6, md: 4 }}>` is
+  equal to `<GridItem span={{ xxs: 6, xs: 6, sm:6, md: 4, lg: 4, xl: 4 }}>`.
+- You can happily skip breakpoints if you're comfortable using the default values for lower
+  breakpoints, eg. `<GridItem span={{ md: 6 }}>` will use the default of 12 (full-width) value until
+  `md`, then span 6 columns.
 
-**There is a shorthand for these objects**, eg. `<GridItem span={4}>` is the same as `<GridItem span={{ xxs: 4 }}>`—affecting all breakpoints.
+**There is a shorthand for these objects**, eg. `<GridItem span={4}>` is the same as
+`<GridItem span={{ xxs: 4 }}>`—affecting all breakpoints.

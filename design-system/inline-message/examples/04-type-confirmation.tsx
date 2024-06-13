@@ -1,29 +1,31 @@
 import React from 'react';
 
+import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
+import { Stack, Text } from '@atlaskit/primitives';
 
 import InlineMessage from '../src';
 
-const MessageContent = (
-	<div>
-		<h4>Authenticate heading</h4>
-		<span>
+const messageContent = (
+	<Stack space="space.100">
+		<Heading size="small">Authenticate heading</Heading>
+		<Text>
 			<Link href="http://www.atlassian.com">Authenticate</Link> to see more information
-		</span>
-	</div>
+		</Text>
+	</Stack>
 );
 
 export default () => (
-	<div>
+	<Stack space="space.200">
 		<InlineMessage
 			appearance="confirmation"
 			title="JIRA Service Desk"
 			secondaryText="Authenticate to see more information"
 		>
-			{MessageContent}
+			{messageContent}
 		</InlineMessage>
 		<InlineMessage appearance="confirmation" secondaryText="Authenticate to see more information">
-			{MessageContent}
+			{messageContent}
 		</InlineMessage>
-	</div>
+	</Stack>
 );

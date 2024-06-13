@@ -22,15 +22,20 @@ interface StageBarProps {
 }
 
 const progressBarStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: PROGRESS_BAR_HEIGHT,
 	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	left: '50%',
 	backgroundColor: token('color.background.brand.bold', B300),
-	borderBottomRightRadius: PROGRESS_BAR_HEIGHT,
-	borderTopRightRadius: PROGRESS_BAR_HEIGHT,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderEndEndRadius: PROGRESS_BAR_HEIGHT,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderStartEndRadius: PROGRESS_BAR_HEIGHT,
+	insetInlineStart: '50%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transform: `translate(0, calc(-1 * ${LABEL_TOP_SPACING}))`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width var(${varTransitionSpeed}) var(${varTransitionEasing})`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transitionDelay: `var(${varTransitionDelay})`,
 });
 
@@ -46,6 +51,7 @@ const ProgressBar = ({ percentageComplete, testId }: StageBarProps) => (
 		style={{
 			width: `calc(${percentageComplete}% + ${
 				percentageComplete / 100
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			} * calc(var(${varSpacing}, ${spacing.cosy}) + ${HALF_GRID_SIZE}))`,
 		}}
 		css={progressBarStyles}

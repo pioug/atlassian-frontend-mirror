@@ -37,7 +37,7 @@ const Content = ({ cssFn, scrollContentLabel = 'Scrollable content', ...props }:
 	 */
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			css={css(cssFn(defaultStyles))}
 			ref={scrollableRef}
 			// tabindex is allowed here so that keyboard users can scroll content

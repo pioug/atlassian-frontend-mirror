@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.7.5
+
+### Patch Changes
+
+- [#107302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107302)
+  [`b1279657d678b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1279657d678b) -
+  [ux] [ED-23162] Add keyboard shortcut to toggle highlight color palette
+- [#107453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107453)
+  [`30d2c10cc823d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30d2c10cc823d) -
+  [ED-23515] Remove selected state for "Remove highlight" option, added multiple color nuance to
+  change color analytics
+- Updated dependencies
+
+## 1.7.4
+
+### Patch Changes
+
+- [#107856](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107856)
+  [`7ba2db81f78ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ba2db81f78ac) -
+  [ux] [ED-23348] Make transparent option in highlight color palette more obvious with a diagonal
+  line.
+- Updated dependencies
+
 ## 1.7.3
 
 ### Patch Changes

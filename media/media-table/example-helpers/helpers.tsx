@@ -29,6 +29,7 @@ export const RenderMediaTableWithFieldRange = (MediaTableNode: React.ReactNode) 
 	const [width, setWidth] = useState(1000);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={exampleWrapperStyles}>
 			<IntlProvider locale="en">
 				<div>

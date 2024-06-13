@@ -19,11 +19,14 @@ const itemWrapperStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
 	maxWidth: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `${height}em`,
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
 	flexDirection: 'row',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: `${height}em`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:not(:last-child)::after': {
 		width: token('space.100', '8px'),
 		padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,

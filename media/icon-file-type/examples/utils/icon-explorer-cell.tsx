@@ -10,6 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&, &:hover, &:active, &:focus': {
 		display: 'block',
 		padding: '10px',

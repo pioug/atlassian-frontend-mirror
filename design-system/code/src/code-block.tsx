@@ -38,6 +38,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	const styles = useMemo(
 		() =>
 			css(
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				getStyles(highlightedStartText, highlightedEndText, showLineNumbers, shouldWrapLongLines),
 			),
 		[highlightedStartText, highlightedEndText, showLineNumbers, shouldWrapLongLines, getStyles],

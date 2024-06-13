@@ -77,7 +77,7 @@ const focusRingStyles = xcss({
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
 const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
 
-const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
+const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 	{
 		href,
 		children,
@@ -192,10 +192,10 @@ const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
  * - [Code](https://atlassian.design/components/primitives/anchor/code)
  * - [Usage](https://atlassian.design/components/primitives/anchor/usage)
  */
-const UNSAFE_ANCHOR = forwardRef(Anchor) as <RouterLinkConfig extends Record<string, any> = never>(
+const Anchor = forwardRef(AnchorNoRef) as <RouterLinkConfig extends Record<string, any> = never>(
 	props: AnchorProps<RouterLinkConfig> & {
 		ref?: Ref<HTMLAnchorElement>;
 	},
-) => ReturnType<typeof Anchor>;
+) => ReturnType<typeof AnchorNoRef>;
 
-export default UNSAFE_ANCHOR;
+export default Anchor;

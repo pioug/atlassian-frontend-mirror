@@ -25,6 +25,7 @@ const editViewStyles = css({
 	cursor: 'inherit',
 	font: token('font.heading.large'),
 	outline: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		border: `2px solid ${token('color.border.focused')}`,
 	},

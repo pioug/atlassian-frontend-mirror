@@ -42,17 +42,20 @@ const ListItemIcon = (props: { item: LinkSearchListItemData; intl: IntlShape }) 
 		const Glyph = icon;
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={itemIconStyles}>
 				<Glyph alt={alt} data-testid={testIds.searchResultIcon} />
 			</span>
 		);
 	}
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={itemIconStyles}>
 			<img
 				data-testid={testIds.searchResultIcon}
 				src={isSVG(icon) ? base64SVG(icon) : icon}
 				alt={alt}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={imgStyles}
 			/>
 		</span>
@@ -80,6 +83,7 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 
 		return (
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={composeListItemStyles(selected)}
 				role={role}
 				id={id}
@@ -92,21 +96,27 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 				ref={ref}
 			>
 				<ListItemIcon item={item} intl={intl} />
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={itemNameStyles}>
 					<div
 						data-testid={`${testIds.searchResultItem}-title`}
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={listItemNameStyles}
 						title={item.name}
 					>
 						{item.name}
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div data-testid={`${testIds.searchResultItem}-subtitle`} css={listItemContextStyles}>
 						{container && (
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<div css={listItemContainerStyles}>
+								{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 								<span css={listItemContainerInnerStyles}>{container}</span>
 							</div>
 						)}
 						{date && (
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<div css={listItemContainerInnerStyles}>
 								{container && <Fragment>&nbsp; •&nbsp; </Fragment>}
 								<Fragment>{date}</Fragment>

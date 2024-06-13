@@ -26,9 +26,11 @@ const gridSize = getGridSize();
 const readViewContainerStyles = xcss({
 	display: 'flex',
 	maxWidth: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: `${(gridSize * 2.5) / fontSize}em`,
 	paddingBlock: 'space.100',
 	paddingInline: 'space.075',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: (gridSize * 2.5) / fontSize,
 	wordBreak: 'break-word',
 });
@@ -37,7 +39,7 @@ const textFieldStyles = css({
 	fontSize: 'inherit',
 	fontWeight: 'inherit',
 	lineHeight: 'inherit',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > [data-ds--text-field--input]': {
 		fontSize: 'inherit',
 		fontWeight: 'inherit',

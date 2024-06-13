@@ -27,32 +27,42 @@ type FlagActionsProps = {
 };
 
 const buttonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&, a&&': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		padding: `0 ${token('space.100', '8px')} !important`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		background: `var(${VAR_BG_COLOR})`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		color: `var(${VAR_COLOR}) !important`,
 		fontWeight: token('font.weight.medium', '500'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:hover, &&:active, a&&:hover, a&&:active': {
 		textDecoration: 'underline',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:hover': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: `var(${VAR_BG_COLOR_HOVER})`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&:active': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: `var(${VAR_BG_COLOR_ACTIVE})`,
 	},
 });
 
 const appearanceNormalButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&, a&&': {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		padding: '0 !important',
 	},
 });
 
 const appearanceNormalActionsContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&, a&&': {
 		transform: 'translateX(-2px)',
 	},
@@ -88,12 +98,18 @@ const FlagActions: FC<FlagActionsProps> = (props) => {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={
 							{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								[VAR_COLOR]: actionTextColor[appearance],
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								[VAR_BG_COLOR]: actionBackgroundColor[appearance].default,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								[VAR_BG_COLOR_HOVER]: actionBackgroundColor[appearance].pressed,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								[VAR_BG_COLOR_ACTIVE]: actionBackgroundColor[appearance].active,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							} as CSSProperties
 						}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={[buttonStyles, appearance === DEFAULT_APPEARANCE && appearanceNormalButtonStyles]}
 					>
 						{action.content}

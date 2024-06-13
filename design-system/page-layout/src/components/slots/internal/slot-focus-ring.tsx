@@ -12,9 +12,10 @@ type SlotFocusRingProps = {
 };
 
 const focusStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		outline: 'none',
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> div': {
 			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
 			outline: 'none',
@@ -27,9 +28,10 @@ const focusStyles = css({
  * so the nested selector needs to target an extra level deeper.
  */
 const sidebarFocusStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		outline: 'none',
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> div > div': {
 			boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
 			outline: 'none',

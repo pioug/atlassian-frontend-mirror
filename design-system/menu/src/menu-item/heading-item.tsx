@@ -23,8 +23,10 @@ const headingStyles = css({
 });
 
 const baseHeadingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: itemHeadingFontSize,
 	fontWeight: token('font.weight.bold'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
 });
 
@@ -65,12 +67,14 @@ const HeadingItem = memo(
 			'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
 		)
 			? undefined
-			: css(cssFn(undefined));
+			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				css(cssFn(undefined));
 
 		return (
 			<div
 				css={[
 					headingStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles')
 						? tokenizedHeadingStyles
 						: baseHeadingStyles,

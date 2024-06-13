@@ -38,14 +38,18 @@ const Shim = styled.div<StyledProps>(
 		display: 'flex',
 		justifyContent: 'space-between',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(p) =>
 		p.scroll === 'horizontal' &&
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css({
 			width: '200%',
 			flexDirection: 'row',
 		}),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(p) =>
 		p.scroll === 'vertical' &&
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		css({
 			height: '200%',
 			flexDirection: 'column',

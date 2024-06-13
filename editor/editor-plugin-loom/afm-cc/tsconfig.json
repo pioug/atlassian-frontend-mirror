@@ -28,6 +28,9 @@
             "path": "../../editor-plugin-hyperlink/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/logo/afm-cc/tsconfig.json"
         },
         {

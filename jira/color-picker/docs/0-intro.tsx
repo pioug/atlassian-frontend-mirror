@@ -17,6 +17,7 @@ const marginTopStyles = xcss({
 	marginBottom: 'space.100',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export default md`
 ${(
 	<>

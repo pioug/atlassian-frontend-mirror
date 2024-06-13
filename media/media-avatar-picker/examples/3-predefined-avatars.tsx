@@ -16,12 +16,14 @@ export default () => (
 		<div>
 			<div>
 				<h1>Avatar List</h1>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
 					<AvatarList avatars={avatars} />
 				</div>
 			</div>
 			<div>
 				<h1>Predefined Avatars (none preselected)</h1>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
 					<PredefinedAvatarList
 						avatars={avatars}
@@ -33,6 +35,7 @@ export default () => (
 			</div>
 			<div>
 				<h1>Predefined Avatars (preselected)</h1>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
 					<PredefinedAvatarList
 						avatars={avatars}
@@ -45,6 +48,7 @@ export default () => (
 			</div>
 			<div>
 				<h1>Predefined Avatar View</h1>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={wrapperStyles}>
 					<PredefinedAvatarView
 						avatars={generateAvatars(25)}

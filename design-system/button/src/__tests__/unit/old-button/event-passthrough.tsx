@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -60,14 +60,14 @@ bindings.forEach((binding: Binding) => {
 		const buttonHandler = { [binding.reactEventName]: jest.fn() };
 
 		// initially not disabled to validate binding
-		const { getByTestId } = render(
+		render(
 			<AnalyticsListener onEvent={noop}>
 				<Button testId="button" href="http://google.com" {...buttonHandler}>
 					Hello
 				</Button>
 			</AnalyticsListener>,
 		);
-		const button: HTMLElement = getByTestId('button');
+		const button: HTMLElement = screen.getByTestId('button');
 
 		const firstEvent: Event = new Event(binding.eventName, {
 			bubbles: true,

@@ -136,6 +136,7 @@ export default () => {
 			<h1>Headings</h1>
 			<Stack space="space.100">
 				{headings.map((heading) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={heading.name} style={{ font: heading.token }}>
 						{heading.name}
 					</span>
@@ -146,6 +147,7 @@ export default () => {
 			<h1>Font size</h1>
 			<Stack space="space.100">
 				{fontSizes.map((fontSize) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={fontSize.name} style={{ fontSize: fontSize.token }}>
 						{fontSize.name}
 					</span>
@@ -156,6 +158,7 @@ export default () => {
 			<h1>Font weight</h1>
 			<Stack space="space.100">
 				{fontWeights.map((fontWeight) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={fontWeight.name} style={{ fontWeight: fontWeight.token }}>
 						{fontWeight.name}
 					</span>
@@ -166,6 +169,7 @@ export default () => {
 			<h1>Font family</h1>
 			<Stack space="space.100">
 				{fontFamilies.map((fontFamily) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={fontFamily.name} style={{ fontFamily: fontFamily.token }}>
 						{fontFamily.name}
 					</span>
@@ -176,6 +180,7 @@ export default () => {
 			<h1>Line height</h1>
 			<Stack space="space.100">
 				{lineHeights.map((lineHeight) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={lineHeight.name} style={{ lineHeight: lineHeight.token }}>
 						{lineHeight.name}
 					</span>

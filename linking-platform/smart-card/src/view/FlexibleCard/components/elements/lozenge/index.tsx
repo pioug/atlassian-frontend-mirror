@@ -52,6 +52,7 @@ const Lozenge: React.FC<LozengeProps> = ({
 
 	return (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[styles, overrideCss]}
 			data-fit-to-content
 			data-smart-element={name}

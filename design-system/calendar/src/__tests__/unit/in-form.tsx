@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import Calendar from '../../index';
 
@@ -23,12 +23,15 @@ describe('Calendar should not submit form', () => {
 			</form>,
 		);
 
-		const weekContainer = screen.getAllByTestId(testIdWeek);
+		const weekContainers = screen.getAllByTestId(testIdWeek);
 
 		expect(() => screen.getByTestId(testIdSelectedDay)).toThrow();
 
 		// WeekDayGrid > role="gridcell" > button
-		fireEvent.click(weekContainer[0].children[0].children[0]);
+		const weekContainer = weekContainers[0];
+		const gridcell = within(weekContainer).getAllByRole('gridcell')[0];
+		const dayButton = within(gridcell).getAllByRole('button')[0];
+		fireEvent.click(dayButton);
 
 		expect(onSubmit).toHaveBeenCalledTimes(0);
 
@@ -48,7 +51,7 @@ describe('Calendar should not submit form', () => {
 		expect(() => screen.getByTestId(testIdSelectedDay)).toThrow();
 
 		// this is 'a day'
-		fireEvent.keyDown(monthContainer.children[0], {
+		fireEvent.keyDown(within(monthContainer).getAllByRole('button')[0], {
 			key: 'Enter',
 			code: 13,
 		});

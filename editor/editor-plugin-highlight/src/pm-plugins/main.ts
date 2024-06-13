@@ -3,19 +3,21 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { HighlightPlugin } from './plugin';
-import { getActiveColor } from './utils/color';
-import { getDisabledState } from './utils/disabled';
+import type { HighlightPlugin } from '../plugin';
+import { getActiveColor } from '../utils/color';
+import { getDisabledState } from '../utils/disabled';
 
 export const highlightPluginKey = new PluginKey<HighlightPluginState>('highlight');
 
 export type HighlightPluginState = {
 	activeColor: string | null; // Hex value color, lowercase
 	disabled: boolean;
+	isPaletteOpen: boolean;
 };
 
 export enum HighlightPluginAction {
 	CHANGE_COLOR,
+	TOGGLE_PALETTE,
 }
 
 export const createPlugin = ({
@@ -29,6 +31,7 @@ export const createPlugin = ({
 			init: (_: unknown, editorState: EditorState): HighlightPluginState => ({
 				activeColor: null,
 				disabled: getDisabledState(editorState),
+				isPaletteOpen: false,
 			}),
 			apply: (
 				tr: ReadonlyTransaction,
@@ -45,6 +48,14 @@ export const createPlugin = ({
 						return {
 							...pluginState,
 							activeColor: color,
+						};
+
+					case HighlightPluginAction.TOGGLE_PALETTE:
+						const { isPaletteOpen } = tr.getMeta(highlightPluginKey);
+
+						return {
+							...pluginState,
+							isPaletteOpen,
 						};
 
 					default:

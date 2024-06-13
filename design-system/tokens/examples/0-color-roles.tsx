@@ -171,9 +171,11 @@ const boxStyles = css({
 	minHeight: '100px',
 	padding: '1em',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: token('border.radius.100', '3px'),
 	marginBlockStart: '1em',
 	textAlign: 'left',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		cursor: 'pointer',
 	},
@@ -184,11 +186,17 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 		type="button"
 		css={[
 			boxStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: style.backgroundColor,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				border: style.border,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				color: style.color,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				':hover': { backgroundColor: style.hoverBackgroundColor },
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				':active': { backgroundColor: style.activeBackgroundColor },
 			}),
 		]}

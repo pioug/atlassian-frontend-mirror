@@ -23,10 +23,11 @@ const getTabPanelStyles = (): CSSObject => ({
 export const getTabsStyles = (): SerializedStyles =>
 	// eslint-disable-next-line @repo/internal/styles/no-exported-styles
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		'& [role="tabpanel"]': getTabPanelStyles(),
 		// The hidden attribute doesn't work on flex elements
 		// Change display to be none
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'& > [hidden]': {
 			display: 'none',
 		},
@@ -46,13 +47,16 @@ const tabLineStyles: CSSObject = {
 export const getTabListStyles = (): SerializedStyles =>
 	// eslint-disable-next-line @repo/internal/styles/no-exported-styles
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		'& [role="tab"]': getTabStyles(),
 		fontWeight: token('font.weight.medium', '500'),
 		marginInlineStart: tabInlineMargin,
 		'&::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			...tabLineStyles,
 			height: underlineHeight,
 			// This line is not a border so the selected line is visible in high contrast mode
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			backgroundColor: tabLineColors.lineColor,
 		},
 	});

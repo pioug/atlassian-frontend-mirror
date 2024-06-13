@@ -30,6 +30,7 @@ const getThemeStyles = (theme: SmartLinkTheme | SmartLinkInternalTheme): Seriali
 			// We are being specifc with the CSS selectors to ensure that Confluence overrides
 			// do not affect our internal Smart Card styles
 			return css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				'a&': {
 					color: token('color.text.subtlest', '#626F86'),
 					'&:active, &:visited, &:focus, &:hover': {
@@ -43,9 +44,11 @@ const getThemeStyles = (theme: SmartLinkTheme | SmartLinkInternalTheme): Seriali
 		case SmartLinkTheme.Black:
 			return css({
 				color: token('color.text.subtle', '#44546F'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				':active': {
 					color: token('color.text', '#172B4D'),
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				':hover': {
 					color: token('color.text.subtle', '#44546F'),
 					textDecoration: 'underline',
@@ -55,9 +58,11 @@ const getThemeStyles = (theme: SmartLinkTheme | SmartLinkInternalTheme): Seriali
 		default:
 			return css({
 				color: token('color.link', '#0C66E4'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				':active': {
 					color: token('color.link.pressed', '#0055CC'),
 				},
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 				':hover': {
 					color: token('color.link', '#0C66E4'),
 					textDecoration: 'underline',
@@ -77,8 +82,11 @@ const getAnchorStyles = (
 		{
 			flex: '1 1 auto',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		sizeStyles,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getTruncateStyles(maxLines, getLinkLineHeight(size), hasSpace ? 'break-word' : 'break-all'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getThemeStyles(theme),
 	);
 };
@@ -126,6 +134,7 @@ const Link: React.FC<LinkProps> = ({
 
 	const anchor = (
 		<a
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[getAnchorStyles(size, theme, getMaxLines(maxLines), hasSpace), overrideCss]}
 			data-smart-element={name}
 			data-smart-element-link

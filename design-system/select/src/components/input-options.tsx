@@ -38,7 +38,9 @@ const getPrimitiveStyles = (
 	};
 
 	const augmentedStyles: SerializedStyles = css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...getStyles('option', props),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...baseStyles,
 	});
 
@@ -124,7 +126,7 @@ const baseIconStyles = css({
 	// Here we are adding a border to the Checkbox and Radio SVG icons
 	// This is an a11y fix for Select only for now but it may be rolled
 	// into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'& svg rect, & svg circle:first-of-type': {
 		strokeWidth: token('border.width', '1px'),
 		strokeLinejoin: 'round',

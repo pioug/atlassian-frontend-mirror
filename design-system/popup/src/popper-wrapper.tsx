@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
 import { UNSAFE_useLayering } from '@atlaskit/layering';
@@ -35,7 +36,7 @@ const popupOverflowStyles = css({
 // disables iframe pointer events while popup is open, except if iframe is nested inside popup
 // solves an issue of popup not being closed on iframe click
 const blockPointerEventsOnExternalIframeStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'iframe:not([data-ds--level] iframe)': {
 		pointerEvents: 'none',
 	},

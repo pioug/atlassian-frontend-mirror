@@ -15,7 +15,7 @@ import Spinner from '../src';
  * freeze the spinner, avoiding potential for VR test flakiness.
  */
 const animationStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'svg, span': {
 		animationDuration: '0s',
 		animationTimingFunction: 'step-end',
@@ -24,7 +24,7 @@ const animationStyles = css({
 
 const layoutStyles = css({
 	width: 100,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	div: {
 		margin: token('space.100', '8px'),
 	},

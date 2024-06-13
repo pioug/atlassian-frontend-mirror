@@ -34,10 +34,11 @@ const labelStyles = css(
 		justifyContent: 'center',
 		padding: '0.125rem 0',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	codeStyles,
 );
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 export const flexStyles = css`
 	[data-smart-block] {
 		// MetadataBlock: Element showcase

@@ -74,6 +74,7 @@ export default function Label({ children, isDisabled, testId, label, id, xcss }:
 		<label
 			// Because we're using Emotion local jsx namespace we have to coerce xcss prop to a string.
 			// When we're fully on Compiled its local jsx namespace accepts the output of xcss prop.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={xcss as string}
 			css={[baseStyles, label && textLabelLayoutStyles, isDisabled && disabledStyles, labelStyles]}
 			data-testid={testId}

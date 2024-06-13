@@ -24,6 +24,7 @@ const tooltipMsgStyles = xcss({
 
 const iconTooltipLinkStyles = css({
 	color: token('color.text.subtlest', '#626F86'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:link, :visited': {
 		color: token('color.text.subtlest', '#626F86'),
 	},

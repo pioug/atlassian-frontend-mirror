@@ -10,9 +10,11 @@ import { borderRadius, size, center } from '@atlaskit/media-ui';
 import { rgba } from '../../styles';
 import { fontFamily } from '@atlaskit/theme/constants';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const wrapperStyles = css({
 	boxSizing: 'border-box',
 	fontFamily: fontFamily(),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'*': {
 		boxSizing: 'border-box',
 	},
@@ -66,8 +68,11 @@ export const cardActionButtonStyles = ({ variant }: CardActionButtonProps) =>
 			appearance: 'none',
 			border: 'none',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		center,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		size(26),
 		{
 			color: token('color.icon', N500),
@@ -75,5 +80,6 @@ export const cardActionButtonStyles = ({ variant }: CardActionButtonProps) =>
 				cursor: 'pointer',
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		getVariantStyles(variant),
 	);

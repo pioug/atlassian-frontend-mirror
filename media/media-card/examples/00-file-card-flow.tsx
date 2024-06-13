@@ -75,6 +75,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 				collectionName: defaultCollectionName,
 			};
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={cardWrapperStyles} key={id}>
 					<div>
 						<h3>{name}</h3>
@@ -143,6 +144,7 @@ class Example extends Component<ComponentProps, ComponentState> {
 	render() {
 		return (
 			<React.Fragment>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={cardFlowHeaderStyles}>
 					Upload file <input type="file" onChange={this.uploadFile} />
 					<Button appearance="primary" onClick={this.cancelUpload}>

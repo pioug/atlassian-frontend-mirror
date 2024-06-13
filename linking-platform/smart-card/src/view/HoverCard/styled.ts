@@ -25,13 +25,15 @@ export const CARD_GAP_PX = 10;
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const separatorCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'[data-separator] + [data-separator]:before': {
 		marginRight: elementGap,
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const HoverCardContainer = css`
 	background: none;
 	border-width: 0;
@@ -45,7 +47,7 @@ export const HoverCardContainer = css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const titleBlockCss = css`
 	gap: ${blockGap};
 
@@ -72,9 +74,11 @@ export const titleBlockCss = css`
 export const getTransitionStyles = (snippetHeight: number) =>
 	css({
 		transition: 'height 300ms ease-in-out',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${snippetHeight}px`,
 	});
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const popupContainerStyles = css({
 	borderRadius: token('border.radius.200', '8px'),
 	backgroundColor: token('elevation.surface.overlay', 'white'),
@@ -85,6 +89,7 @@ export const popupContainerStyles = css({
 });
 
 export const getPreviewBlockStyles = (previewHeight?: number) =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(previewHeight ? `height: ${previewHeight}px;` : '', {
 		borderTopLeftRadius: token('border.radius.200', '8px'),
 		borderTopRightRadius: token('border.radius.200', '8px'),

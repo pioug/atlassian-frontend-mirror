@@ -17,6 +17,7 @@ export class ErrorIcon extends Component<ErrorIconProps, {}> {
 		const { size } = this.props;
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={errorIconWrapperStyles}>
 				<WarningIcon label="Error" size={size} />
 			</div>

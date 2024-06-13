@@ -38,6 +38,7 @@ const Popup = styled.div`
 const ReferenceBox = styled.div({
 	background: token('color.background.brand.bold'),
 	padding: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	color: 'white',
 	textAlign: 'center',
@@ -49,6 +50,7 @@ const ReferenceBox = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBoundaries = styled.div({
 	background: 'lightblue',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	padding: token('space.100', '8px'),
 	display: 'flex',

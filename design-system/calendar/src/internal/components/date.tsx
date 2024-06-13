@@ -85,6 +85,7 @@ const Date = memo(
 			}
 		}, [onClick]);
 
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		const dateCellStyles = css(getDateCellStyles());
 
 		return (

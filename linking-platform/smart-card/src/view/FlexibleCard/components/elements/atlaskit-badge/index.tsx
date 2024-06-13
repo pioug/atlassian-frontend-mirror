@@ -27,6 +27,7 @@ const AtlaskitBadge: React.FC<AtlaskitBadgeProps> = ({
 
 	return (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={[badgeStyles, overrideCss]}
 			data-fit-to-content
 			data-smart-element={name}

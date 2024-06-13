@@ -237,7 +237,7 @@ export function getIconStyle({ spacing }: { spacing: Spacing }) {
 	return css({
 		display: 'flex',
 		// icon size cannot grow and shrink
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: spacing === 'none' ? 0 : innerMargin.icon,
 		flexGrow: 0,
 		flexShrink: 0,
@@ -251,7 +251,7 @@ export function getIconStyle({ spacing }: { spacing: Spacing }) {
 // inline-flex child
 export function getContentStyle({ spacing }: { spacing: Spacing }) {
 	return css({
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		margin: spacing === 'none' ? 0 : innerMargin.content,
 
 		// content can grow and shrink
@@ -267,6 +267,7 @@ export function getContentStyle({ spacing }: { spacing: Spacing }) {
 
 export function getFadingCss({ hasOverlay }: { hasOverlay: boolean }) {
 	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		opacity: hasOverlay ? 0 : 1,
 		transition: 'opacity 0.3s',
 	});

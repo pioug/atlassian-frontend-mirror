@@ -192,6 +192,7 @@ const baseXcss = (style?: SafeCSSObject | SafeCSSObject[]) => {
 	const transformedStyles = transformStyles(style as CSSObject);
 
 	return {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		[uniqueSymbol]: cssEmotion(transformedStyles as CSSInterpolation) as SerializedStyles,
 	} as const;
 };

@@ -4,7 +4,8 @@ order: 2
 
 ## Usage
 
-Use an avatar group when you want to display a collection of avatars. You can also use them for easy collapse states for a set number of avatars, and with a dropdown to show hidden avatars.
+Use an avatar group when you want to display a collection of avatars. You can also use them for easy
+collapse states for a set number of avatars, and with a dropdown to show hidden avatars.
 
 ## Behavior
 
@@ -12,25 +13,37 @@ Use an avatar group when you want to display a collection of avatars. You can al
 
 ![A diagram showing four examples of stacked avatars. A caption follows this image.](images/AvatarGroupStack.png)
 
-1. **Avatar group:** Stacked groups are limited to five avatars, and should only be used with medium or small avatars.
-2. **Truncated:** For groups larger than six, five avatars are displayed. Additional avatars are represented as an avatar with the text +N (where N is the remaining number of avatars above five).
-3. **States:** The avatar state will change when a person interacts with it, for example: displaying a tooltip on hover.
-4. **Dropdown menu:** When hovering over the truncated avatar, a dropdown menu shows the truncated user names.
+1. **Avatar group:** Stacked groups are limited to five avatars, and should only be used with medium
+   or small avatars.
+2. **Truncated:** For groups larger than six, five avatars are displayed. Additional avatars are
+   represented as an avatar with the text +N (where N is the remaining number of avatars above
+   five).
+3. **States:** The avatar state will change when a person interacts with it, for example: displaying
+   a tooltip on hover.
+4. **Dropdown menu:** When hovering over the truncated avatar, a dropdown menu shows the truncated
+   user names.
 
 ### Grid
 
 ![A diagram showing four examples of avatars displayed in a grid. A caption follows this image.](images/AvatarGroupGrid.png)
 
 1. **Avatar group:** Grids are limited to three rows.
-2. **Truncated:** For groups larger than 12, 11 avatars are displayed. Additional avatars are represented as an avatar with the text +N (where N is the remaining number of avatars above 11).
-3. **States:** The avatar state will change when a person interacts with it, for example: displaying a tooltip on hover.
-4. **List menu:** All of the avatars are displayed in a list when a person selects the truncated avatar.
+2. **Truncated:** For groups larger than 12, 11 avatars are displayed. Additional avatars are
+   represented as an avatar with the text +N (where N is the remaining number of avatars above 11).
+3. **States:** The avatar state will change when a person interacts with it, for example: displaying
+   a tooltip on hover.
+4. **List menu:** All of the avatars are displayed in a list when a person selects the truncated
+   avatar.
 
 ## Accessibility
 
-- As the avatar is a visual representation of a person or entity, make sure there’s an alt text equivalent included for screen readers for users, projects, spaces, groups, and repositories.
-- Use the `label` prop to describe the list's entity type, for example: if the label is `team members` for a group of five avatars, the screen reader announcement would be "list team members, five items".
-- When there is more than one avatar group on the page, make sure to differentiate each group with a unique label.
+- As the avatar is a visual representation of a person or entity, make sure there’s an alt text
+  equivalent included for screen readers for users, projects, spaces, groups, and repositories.
+- Use the `label` prop to describe the list's entity type, for example: if the label is
+  `team members` for a group of five avatars, the screen reader announcement would be "list team
+  members, five items".
+- When there is more than one avatar group on the page, make sure to differentiate each group with a
+  unique label.
 
 ## Related
 

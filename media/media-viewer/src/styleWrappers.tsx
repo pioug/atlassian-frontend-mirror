@@ -20,7 +20,9 @@ const blanketStyles = css({
 	left: 0,
 	bottom: 0,
 	right: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: blanketColor,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: overlayZindex,
 	display: 'flex',
 });
@@ -33,7 +35,9 @@ const headerWrapperStyles = ({ isArchiveSideBarVisible }: HeaderWrapperProps) =>
 		width: '100%',
 		height: '98px',
 		opacity: 0.85,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		background: `linear-gradient( to bottom, ${headerAndSidebarBackgroundColor}, rgba(14, 22, 36, 0) ) no-repeat`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		backgroundPosition: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px 0` : '0',
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 		color: '#c7d1db',
@@ -41,6 +45,7 @@ const headerWrapperStyles = ({ isArchiveSideBarVisible }: HeaderWrapperProps) =>
 		padding: token('space.300', '24px'),
 		boxSizing: 'border-box',
 		pointerEvents: 'none',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: overlayZindex + 1,
 	});
 
@@ -57,11 +62,13 @@ const closeButtonWrapperStyles = css({
 	position: 'absolute',
 	top: token('space.300', '24px'),
 	right: token('space.250', '20px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: overlayZindex + 2,
 });
 
 const contentWrapperStyles = ({ isSidebarVisible }: { isSidebarVisible?: boolean }) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: isSidebarVisible ? `calc(100% - ${SIDEBAR_WIDTH}px)` : '100%',
 	});
 
@@ -70,6 +77,7 @@ const zoomWrapperStyles = css({
 	position: 'absolute',
 	bottom: '0px',
 	height: '98px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundImage: `linear-gradient( to top, ${headerAndSidebarBackgroundColor}, rgba(14, 22, 36, 0) )`,
 	opacity: 0.85,
 	pointerEvents: 'none',
@@ -84,6 +92,7 @@ const zoomCenterControlsStyles = css({
 	display: 'flex',
 	justifyContent: 'center',
 	gap: token('space.100', '10px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		pointerEvents: 'all',
 	},
@@ -112,6 +121,7 @@ const hdIconGroupWrapperStyles = css({
 	gap: token('space.100', '10px'),
 	position: 'relative',
 	width: '24px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		position: 'absolute',
 	},
@@ -121,6 +131,7 @@ const errorMessageWrapperStyles = css({
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	color: '#c7d1db',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	p: {
 		lineHeight: '100%',
 	},
@@ -143,6 +154,7 @@ const pdfWrapperStyles = css({
 	left: 0,
 	bottom: 0,
 	right: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`.${hideControlsClassName}`]: {
 		position: 'fixed',
 	},
@@ -150,20 +162,24 @@ const pdfWrapperStyles = css({
 
 const arrowStyles = css({
 	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	svg: {
 		filter:
 			'drop-shadow(0px 1px 1px rgb(9 30 66 / 25%)) drop-shadow(0px 0px 1px rgb(9 30 66 / 31%))',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& button': {
 		height: 'inherit',
 		background: 'none',
 		'&:hover': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			svg: {
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 				color: '#b6c2cf',
 			},
 		},
 		'&:active': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			svg: {
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 				color: '#c7d1db',
@@ -189,11 +205,14 @@ const arrowsWrapperStyles = css({
 });
 
 const leftWrapperStyles = ({ isArchiveSideBarVisible }: LeftWrapperProps) =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(arrowWrapperStyles, {
 		textAlign: 'left',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		left: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0',
 	});
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const rightWrapperStyles = css(arrowWrapperStyles, {
 	textAlign: 'right',
 	right: 0,
@@ -202,12 +221,14 @@ const rightWrapperStyles = css(arrowWrapperStyles, {
 const headerStyles = ({ isArchiveSideBarVisible }: HeaderProps) =>
 	css({
 		display: 'flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		paddingLeft: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0',
 	});
 
 const leftHeaderStyles = css({
 	flex: 1,
 	overflow: 'hidden',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		pointerEvents: 'all',
 	},
@@ -239,8 +260,10 @@ const imgStyles = ({ cursor, shouldPixelate }: ImgStylesProps) =>
 			display: 'inline-block',
 			verticalAlign: 'middle',
 			position: 'relative',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			cursor: cursor,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		shouldPixelate
 			? `/* Prevent images from being smoothed when scaled up */
     image-rendering: optimizeSpeed; /* Legal fallback */
@@ -262,6 +285,7 @@ const metadataWrapperStyles = css({
 	display: 'flex',
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const metadataFileNameStyles = css(ellipsis());
 
 const metadataSubTextStyles = css(
@@ -269,6 +293,7 @@ const metadataSubTextStyles = css(
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 		color: '#c7d1db',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	ellipsis(),
 );
 
@@ -285,6 +310,7 @@ const rightHeaderStyles = css({
 	textAlign: 'right',
 	marginRight: token('space.500', '40px'),
 	minWidth: '200px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		pointerEvents: 'all',
 	},
@@ -298,7 +324,9 @@ const customAudioPlayerWrapperStyles = css({
 });
 
 const audioPlayerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: blanketColor,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: borderRadius(),
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -331,6 +359,7 @@ const defaultCoverWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		transform: 'scale(2)',
 	},
@@ -339,15 +368,17 @@ const defaultCoverWrapperStyles = css({
 const downloadButtonWrapperStyles = css({
 	marginTop: token('space.300', '28px'),
 	textAlign: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
 		'&:hover, &:active': {
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 			color: '#161a1d !important',
 		},
 	},
 });
 
 const customVideoPlayerWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	video: {
 		flex: 1,
 		width: '100vw',
@@ -362,6 +393,7 @@ const sidebarWrapperStyles = css({
 	width: `${SIDEBAR_WIDTH}px`,
 	height: '100vh',
 	overflow: 'hidden auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('elevation.surface', headerAndSidebarBackgroundColor),
 	color: token('color.text', '#c7d1db'),
 });
@@ -406,6 +438,7 @@ export const HeaderWrapper = ({
 }: ClassName & Children & HeaderWrapperProps) => {
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={headerWrapperStyles({ isArchiveSideBarVisible })}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
@@ -440,6 +473,7 @@ type ContentWrapperProps = {
 } & Children;
 
 export const ContentWrapper = ({ isSidebarVisible, children }: ContentWrapperProps) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={contentWrapperStyles({ isSidebarVisible })}>{children}</div>
 );
 
@@ -533,6 +567,7 @@ export type LeftWrapperProps = {
 };
 
 export const LeftWrapper = ({ children, isArchiveSideBarVisible }: Children & LeftWrapperProps) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={leftWrapperStyles({ isArchiveSideBarVisible })}>{children}</div>
 );
 
@@ -550,7 +585,7 @@ export const Header = ({
 	isArchiveSideBarVisible,
 	className,
 }: Children & HeaderProps & ClassName) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={headerStyles({ isArchiveSideBarVisible })} className={className}>
 		{children}
 	</div>
@@ -629,6 +664,7 @@ export const Img = ({
 		<img
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={imgStyles({ cursor, shouldPixelate })}
 			data-testid={datatestId}
 			src={src}

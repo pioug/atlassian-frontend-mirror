@@ -13,6 +13,7 @@ export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
 			viewBox="0 0 164 212"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={genericErrorStyles}
 			{...props}
 		>

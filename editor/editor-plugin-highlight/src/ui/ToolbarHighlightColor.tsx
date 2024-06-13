@@ -6,13 +6,12 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	getAriaKeyshortcuts,
+	toggleHighlightPalette,
+	tooltip,
+} from '@atlaskit/editor-common/keymaps';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -29,11 +28,12 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Flex } from '@atlaskit/primitives';
 
-import { changeColor } from '../commands';
+import { changeColor, setPalette } from '../commands';
 import type { HighlightPlugin } from '../plugin';
 
 import { EditorHighlightIcon } from './EditorHighlightIcon';
@@ -46,6 +46,7 @@ type ToolbarHighlightColorProps = {
 	isToolbarReducedSpacing: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
+	editorView: EditorView;
 } & WrappedComponentProps;
 
 const ToolbarHighlightColor = ({
@@ -53,26 +54,23 @@ const ToolbarHighlightColor = ({
 	popupsBoundariesElement,
 	popupsScrollableElement,
 	isToolbarReducedSpacing,
-	dispatchAnalyticsEvent,
 	disabled,
 	pluginInjectionApi,
 	intl: { formatMessage },
+	editorView,
 }: ToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
 
 	const { highlightState } = useSharedPluginState(pluginInjectionApi, ['highlight']);
 
-	const setDropdownOpen = (isOpen: boolean) => {
-		dispatchAnalyticsEvent?.({
-			action: isOpen ? ACTION.OPENED : ACTION.CLOSED,
-			actionSubject: ACTION_SUBJECT.TOOLBAR,
-			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
-			eventType: EVENT_TYPE.TRACK,
-		});
+	const isDropdownOpen: boolean = !!highlightState?.isPaletteOpen;
 
-		setIsDropdownOpen(isOpen);
+	const setDropdownOpen = (isOpen: boolean) => {
+		if (!highlightState?.disabled) {
+			const { state, dispatch } = editorView;
+			setPalette(pluginInjectionApi!, isOpen)(state, dispatch);
+		}
 	};
 
 	const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
@@ -163,10 +161,11 @@ const ToolbarHighlightColor = ({
 						spacing={isToolbarReducedSpacing ? 'none' : 'default'}
 						disabled={disabled || highlightState.disabled}
 						selected={isDropdownOpen}
-						aria-label={toolbarButtonLabel}
+						aria-label={tooltip(toggleHighlightPalette, toolbarButtonLabel)}
+						aria-keyshortcuts={getAriaKeyshortcuts(toggleHighlightPalette)}
 						aria-expanded={isDropdownOpen}
 						aria-haspopup
-						title={toolbarButtonLabel}
+						title={tooltip(toggleHighlightPalette, toolbarButtonLabel)}
 						onClick={handleClick}
 						onKeyDown={handleKeyDown}
 						ref={toolbarItemRef}

@@ -6,7 +6,7 @@ import type { SVGProps } from '../types';
 import { getBackground } from './utils';
 import { commonSVGStyles, sizeStyleMap } from './styles';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const svgStyles = css(commonSVGStyles);
 
 /**
@@ -30,8 +30,10 @@ const SVG = memo(function SVG({
 			viewBox="0 0 24 24"
 			style={{
 				color: primaryColor,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				fill: secondaryColor || getBackground(),
 			}}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[svgStyles, sizeStyleMap[size]]}
 			data-testid={testId}
 			aria-label={label || undefined}

@@ -26,11 +26,12 @@ export interface FileIconProps {
 	className?: string;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const IconWrapper = styled.span(
 	{
 		display: 'inline-flex',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	({ size }: { size: Required<FileIconProps['size']> }) =>
 		size === 'large' ? `padding: 4px;` : '',
 );

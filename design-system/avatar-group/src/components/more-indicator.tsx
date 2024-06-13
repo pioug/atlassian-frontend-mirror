@@ -24,11 +24,13 @@ const FONT_SIZE: Record<SizeType, string> = {
 };
 
 const buttonActiveStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		backgroundColor: token('color.background.selected', B50),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxShadow: `0 0 0 ${BORDER_WIDTH}px ${token('color.border.selected', B300)}`,
 		color: token('color.text.selected', B400),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transform: `scale(${ACTIVE_SCALE_FACTOR})`,
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered', N30),
@@ -42,7 +44,7 @@ const buttonActiveStyles = css({
 });
 
 const buttonStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		backgroundColor: token('color.background.neutral', N20),
 		color: token('color.text', N500),
@@ -58,6 +60,7 @@ const buttonStyles = css({
 			backgroundColor: token('color.background.neutral.pressed', B50),
 			color: token('color.text', B400),
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:after': {
 			display: 'none',
 		},

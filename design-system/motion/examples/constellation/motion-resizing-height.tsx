@@ -36,6 +36,7 @@ const searchTerm: { [key: string]: string } = {
 
 const containerStyles = css({
 	textAlign: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> *': {
 		marginInlineEnd: token('space.025', '2px'),
 	},
@@ -55,6 +56,7 @@ const logoContainerStyles = css({
 	padding: token('space.200', '16px'),
 	fontSize: token('font.size.200', '16px'),
 	fontWeight: token('font.weight.medium', '500'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		backgroundColor: token('color.background.accent.gray.subtler'),
 	},

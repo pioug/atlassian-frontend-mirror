@@ -17,6 +17,7 @@ const getSnippetStyles = (overrideCss?: SerializedStyles) =>
 			MsUserSelect: 'text',
 			userSelect: 'text',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		overrideCss,
 	);
 

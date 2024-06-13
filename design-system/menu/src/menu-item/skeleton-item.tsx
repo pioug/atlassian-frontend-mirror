@@ -30,10 +30,12 @@ const skeletonColor = token('color.skeleton', N20A);
 
 const skeletonStyles = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	minHeight: itemMinHeight,
 	padding: `0 ${token('space.250', '20px')}`,
 	alignItems: 'center',
 	pointerEvents: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::after': {
 		height: skeletonContentHeight,
 		backgroundColor: skeletonColor,
@@ -47,52 +49,66 @@ const skeletonStyles = css({
 });
 
 const defaultWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(1n)::after': {
 		flexBasis: '70%',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(2n)::after': {
 		flexBasis: '50%',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(3n)::after': {
 		flexBasis: '60%',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(4n)::after': {
 		flexBasis: '90%',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(5n)::after': {
 		flexBasis: '35%',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(6n)::after': {
 		flexBasis: '77%',
 	},
 });
 
 const customWidthStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::after': {
 		flexBasis: 'var(--width)',
 	},
 });
 
 const beforeElementStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::before': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: skeletonItemElemSize,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: skeletonItemElemSize,
 		flexShrink: 0,
 		backgroundColor: skeletonColor,
 		content: '""',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		marginInlineEnd: itemElemSpacing + itemElemSkeletonOffset,
 		marginInlineStart: token('space.025', '2px'),
 	},
 });
 
 const avatarStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::before': {
 		borderRadius: '100%',
 	},
 });
 
 const iconStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::before': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderRadius,
 	},
 });
@@ -124,7 +140,8 @@ const SkeletonItem = ({
 		'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
 	)
 		? undefined
-		: css(cssFn());
+		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			css(cssFn());
 
 	return (
 		<SkeletonShimmer isShimmering={isShimmering}>
@@ -136,6 +153,7 @@ const SkeletonItem = ({
 					style={
 						{
 							'--width': width,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						} as CSSProperties
 					}
 					css={[

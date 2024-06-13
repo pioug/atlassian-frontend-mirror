@@ -37,7 +37,7 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Wrapper = styled.span<WrapperProps>(
 	{
 		lineHeight: '16px',
@@ -51,6 +51,7 @@ export const Wrapper = styled.span<WrapperProps>(
 		color: token('color.text', N900),
 		backgroundColor: token('color.background.neutral', N30A),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 	(props) => isSelected(props),
 	{
 		transition: '0.1s all ease-in-out',

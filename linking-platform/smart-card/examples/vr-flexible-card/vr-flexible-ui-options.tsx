@@ -11,7 +11,9 @@ import FlexibleCard from '../../src/view/FlexibleCard';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const clickableContainerStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.layered-link': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: exampleTokens.iconBackgroundColor,
 		opacity: 0.2,
 	},

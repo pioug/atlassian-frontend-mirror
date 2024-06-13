@@ -5,8 +5,10 @@ import Tooltip from '@atlaskit/tooltip';
 import { KEY_ENTER, KEY_SPACE } from '../constants';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
+import { useIntl } from 'react-intl-next';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import messages from '../messages';
 
 export interface Props {
 	value: string;
@@ -33,7 +35,7 @@ const ColorCard = (props: Props) => {
 	} = props;
 
 	const ref = useRef<null | HTMLInputElement>(null);
-
+	const { formatMessage } = useIntl();
 	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 	}, []);
@@ -96,10 +98,10 @@ const ColorCard = (props: Props) => {
 				onKeyDown={handleKeyDown}
 				role="radio"
 				aria-checked={selected}
-				{...(!getBooleanFF(
-					'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i',
+				{...(getBooleanFF(
+					'platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s',
 				) && {
-					'aria-label': label,
+					'aria-label': formatMessage(messages.colorCardRadioItemLabel),
 				})}
 				tabIndex={0}
 				ref={ref}
@@ -126,6 +128,7 @@ const ColorCard = (props: Props) => {
 export default ColorCard;
 
 const colorCardOptionTabbingStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover, :focus': {
 		borderColor: token('color.border.focused', B75),
 	},

@@ -28,17 +28,21 @@ const badgeStyles = xcss({
 	marginLeft: 'space.050',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LoadingStateAnimationWrapper = styled.div({
 	position: 'relative',
 	animation: 'flickerAnimation 2s infinite',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'@keyframes flickerAnimation': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'0%': {
 			opacity: 1,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'50%': {
 			opacity: 0.5,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'100%': {
 			opacity: 1,
 		},

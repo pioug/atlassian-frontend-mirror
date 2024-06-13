@@ -34,6 +34,7 @@ const render = (client: ProviderProps['client'], title: string, description?: st
 // Cross-Join: https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3726016731
 export default () => {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={embedWrapperStyles}>
 			{render(new ForbiddenClient(), '[Forbidden] Default')}
 			{render(

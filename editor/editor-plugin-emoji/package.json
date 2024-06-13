@@ -1,97 +1,97 @@
 {
-  "name": "@atlaskit/editor-plugin-emoji",
-  "version": "1.3.3",
-  "description": "Emoji plugin for @atlaskit/editor-core",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Media Experience Porygon",
-    "releaseModel": "continuous",
-    "singleton": true,
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-plugin-analytics": "^1.2.0",
-    "@atlaskit/editor-plugin-type-ahead": "^1.2.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/prosemirror-input-rules": "^3.1.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/editor-plugin-composition": "^1.1.0",
-    "@atlaskit/editor-plugin-decorations": "^1.1.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/util-data-test": "^17.9.0",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  }
+	"name": "@atlaskit/editor-plugin-emoji",
+	"version": "1.3.3",
+	"description": "Emoji plugin for @atlaskit/editor-core",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Media Experience Porygon",
+		"releaseModel": "continuous",
+		"singleton": true,
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-plugin-analytics": "^1.2.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.2.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/emoji": "^67.6.0",
+		"@atlaskit/prosemirror-input-rules": "^3.1.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/editor-plugin-composition": "^1.1.0",
+		"@atlaskit/editor-plugin-decorations": "^1.1.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/util-data-test": "^17.9.0",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

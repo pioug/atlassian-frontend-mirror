@@ -31,7 +31,9 @@ const getImageStyles = (isFlexibleUi: boolean) => {
 		return;
 	}
 	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: gs(2),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: gs(2),
 	});
 };
@@ -41,7 +43,9 @@ const getSpanStyles = (isFlexibleUi: boolean) => {
 		return;
 	}
 	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: gs(2.5),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: gs(2),
 		display: 'flex',
 		alignItems: 'center',
@@ -63,6 +67,7 @@ export const Icon = ({
 	const image = url && (
 		<ImageLoader
 			src={url}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			loaded={<img css={getImageStyles(isFlexibleUi)} src={url} data-testid={`${testId}-image`} />}
 			errored={placeholder}
 		/>
@@ -70,6 +75,7 @@ export const Icon = ({
 
 	return (
 		<span
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={getSpanStyles(isFlexibleUi)}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

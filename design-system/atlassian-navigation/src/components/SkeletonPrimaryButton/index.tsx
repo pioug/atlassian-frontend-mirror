@@ -21,17 +21,20 @@ const primaryButtonSkeletonStyles = css({
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium'),
 	pointerEvents: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus, :active, :hover': {
 		appearance: 'none',
 		border: 0,
 		outline: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::-moz-focus-inner': {
 		border: 0,
 	},
 });
 
 const isHighlightedStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before': {
 		height: 3,
 		position: 'absolute',
@@ -45,6 +48,7 @@ const isHighlightedStyles = css({
 });
 
 const isHighlightedAndDropdownButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before': {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 		insetInlineEnd: -10,
@@ -52,6 +56,7 @@ const isHighlightedAndDropdownButtonStyles = css({
 });
 
 const isHighlightedNotDropdownButtonStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:before': {
 		insetInlineEnd: token('space.025', '2px'),
 	},
@@ -61,6 +66,7 @@ const isDropdownButtonStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginInlineEnd: 18,
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:after': {
 		display: 'inline-block',
 		width: 4,

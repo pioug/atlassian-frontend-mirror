@@ -146,16 +146,25 @@ export const Box = forwardRef(
 				{...safeHtmlAttributes}
 				css={[
 					baseStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					backgroundColor && backgroundColorStylesMap[backgroundColor],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					isSurfaceColorToken(backgroundColor) && surfaceColorStylesMap[backgroundColor],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					padding && paddingStylesMap.padding[padding],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingBlock && paddingStylesMap.paddingBlock[paddingBlock],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingBlockStart && paddingStylesMap.paddingBlockStart[paddingBlockStart],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingBlockEnd && paddingStylesMap.paddingBlockEnd[paddingBlockEnd],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingInline && paddingStylesMap.paddingInline[paddingInline],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingInlineStart && paddingStylesMap.paddingInlineStart[paddingInlineStart],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					paddingInlineEnd && paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					resolvedStyles.emotion,
 				]}
 				data-testid={testId}

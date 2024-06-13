@@ -52,9 +52,11 @@ const getPreviewBlockStyles = (
 		return css({
 			marginLeft: 'calc(var(--container-gap-left) * -1)',
 			marginRight: 'calc(var(--container-gap-right) * -1)',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:first-of-type': {
 				marginTop: 'calc(var(--container-padding) * -1)',
 			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-of-type': {
 				marginBottom: 'calc(var(--container-padding) * -1)',
 			},
@@ -80,6 +82,7 @@ const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
 	const [styles, setStyles] = useState<SerializedStyles | undefined>(overrideCss);
 
 	const updateStyles = useCallback(() => {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		setStyles(css(getPreviewBlockStyles(placement, ignoreContainerPadding), overrideCss));
 	}, [ignoreContainerPadding, overrideCss, placement]);
 

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 7.17.1
+
+### Patch Changes
+
+- [#109812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109812)
+  [`b066a2c5e63b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b066a2c5e63b2) -
+  ED-23599: Move sort column to top of drag menu when FF is on
+- Updated dependencies
+
+## 7.17.0
+
+### Minor Changes
+
+- [#108458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108458)
+  [`66522b500303c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66522b500303c) -
+  [ED-23469] Add featureFlag plugin as optional plugin dependency and switch to read
+  platform_editor_element_drag_and_drop gate value
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.16.19
 
 ### Patch Changes

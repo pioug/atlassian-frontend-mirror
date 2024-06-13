@@ -27,7 +27,7 @@ const commonSVGStyles = css({
 	 * We have to initially set stop-color to inherit (either via DOM attribute or an initial CSS
 	 * rule) and then override it with currentColor for the color changes to be picked up.
 	 */
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	stop: {
 		stopColor: 'currentColor',
 	},

@@ -8,23 +8,23 @@ import { token } from '@atlaskit/tokens';
 const gutter = token('space.negative.050', '-4px');
 
 const listStyles = css({
-	// removes default ul styles. Needs !important to override contextual styles in product.
 	display: 'flex',
 	margin: token('space.0', '0px'),
-	marginRight: gutter,
-	marginLeft: gutter,
 	padding: token('space.0', '0px'),
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
 	lineHeight: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	listStyleType: 'none !important',
+	marginInlineEnd: gutter,
+	marginInlineStart: gutter,
 });
 
 const listItemStyles = css({
 	margin: token('space.0', '0px'),
-	marginBottom: token('space.100', '8px'),
-	paddingRight: token('space.050', '4px'),
-	paddingLeft: token('space.050', '4px'),
+	marginBlockEnd: token('space.100', '8px'),
+	paddingInlineEnd: token('space.050', '4px'),
+	paddingInlineStart: token('space.050', '4px'),
 });
 
 const Grid: FC<{

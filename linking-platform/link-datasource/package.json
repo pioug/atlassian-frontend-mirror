@@ -75,7 +75,7 @@
     "@atlaskit/tag": "^12.2.0",
     "@atlaskit/textfield": "6.3.1",
     "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.49.0",
+    "@atlaskit/tokens": "^1.50.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/ufo": "^0.2.4",
     "@atlaskit/width-detector": "^4.2.0",

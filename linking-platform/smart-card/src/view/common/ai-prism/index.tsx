@@ -32,6 +32,7 @@ const AIPrism = ({
 		<AIGlowingBorder
 			additionalCss={{
 				animatedSvgContainer: css({
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					opacity: isVisible ? 1 : 0,
 					transition: 'opacity 0.5s ease',
 				}),
@@ -43,6 +44,7 @@ const AIPrism = ({
 		>
 			<div
 				css={[
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					popupContainerStyles,
 					contentStyles,
 					isVisible ? contentStylesPrismVisible : undefined,

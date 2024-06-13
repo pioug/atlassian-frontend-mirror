@@ -1,5 +1,54 @@
 # @atlaskit/editor-common
 
+## 82.5.0
+
+### Minor Changes
+
+- [#108718](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108718)
+  [`1aad4f15416c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1aad4f15416c2) -
+  [EDF-737] Add content warning to the floating toolbar of the ai panels, extended extensions
+  floating toolbar API to allow custom JSX
+- [#108805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108805)
+  [`5c0926002a5ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c0926002a5ac) -
+  Add new element drag and drop analytic events
+
+### Patch Changes
+
+- [#110426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110426)
+  [`f423990451a12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f423990451a12) -
+  [ED-23348] Fixed the feature flag set-up for the text highlight decorator
+
+## 82.4.0
+
+### Minor Changes
+
+- [#107302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107302)
+  [`b1279657d678b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1279657d678b) -
+  [ux] [ED-23162] Add keyboard shortcut to toggle highlight color palette
+
+## 82.3.0
+
+### Minor Changes
+
+- [#108458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108458)
+  [`07ff840152c4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07ff840152c4a) -
+  [ED-23469] Add elementDragAndDrop key for platform_editor_element_drag_and_drop feature gate
+- [#107856](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107856)
+  [`7ba2db81f78ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ba2db81f78ac) -
+  [ux] [ED-23348] Make transparent option in highlight color palette more obvious with a diagonal
+  line.
+
+### Patch Changes
+
+- [#109540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109540)
+  [`2267be0c78aea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2267be0c78aea) -
+  [ux] Fix hover and remove interactions with new macro UX updates and update vr test snapshots
+- [#109969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109969)
+  [`52590a0b562ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52590a0b562ef) -
+  ED-23690 Adds an attribute to annotation analytic events with the name of nodes inside the
+  annotation range
+- Updated dependencies
+
 ## 82.2.2
 
 ### Patch Changes

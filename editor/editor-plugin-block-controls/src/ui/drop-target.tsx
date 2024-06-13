@@ -3,6 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -72,7 +78,9 @@ export const DropTarget = ({
 				onDrag: () => {
 					scrollable.style.setProperty('scroll-behavior', 'unset');
 				},
-				onDragEnter: () => setIsDraggedOver(true),
+				onDragEnter: () => {
+					setIsDraggedOver(true);
+				},
 				onDragLeave: () => setIsDraggedOver(false),
 				onDrop: () => {
 					scrollable.style.setProperty('scroll-behavior', null);
@@ -86,7 +94,24 @@ export const DropTarget = ({
 
 					if (activeNode && pos !== undefined) {
 						const { pos: start } = activeNode;
-						api?.core?.actions.execute(api?.blockControls?.commands?.moveNode(start, pos));
+						api?.core?.actions.execute((state) => {
+							const resolvedMovingNode = state.tr.doc.resolve(start);
+							const maybeNode = resolvedMovingNode.nodeAfter;
+
+							api?.blockControls?.commands?.moveNode(start, pos)(state);
+							api?.analytics?.actions.attachAnalyticsEvent({
+								eventType: EVENT_TYPE.UI,
+								action: ACTION.DRAGGED,
+								actionSubject: ACTION_SUBJECT.ELEMENT,
+								actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+								attributes: {
+									nodeDepth: resolvedMovingNode.depth,
+									nodeType: maybeNode?.type.name || '',
+								},
+							})(state.tr);
+
+							return state.tr;
+						});
 					}
 				},
 			}),
@@ -99,7 +124,7 @@ export const DropTarget = ({
 		// Note: Firefox has trouble with using a button element as the handle for drag and drop
 		<div css={styleDropTarget} ref={ref} data-testid="block-ctrl-drop-target">
 			{
-				//4px gap to clear expand node border
+				// 4px gap to clear expand node border
 				isDraggedOver && (
 					<div
 						css={styleDropIndicator}

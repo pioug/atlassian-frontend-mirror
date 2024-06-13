@@ -34,9 +34,12 @@ export const Block = forwardRef<HTMLDivElement, BlockProps>(
 		return (
 			<div
 				ref={ref}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css({
 					display: 'flex',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					width: `${size}px`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					height: `${size}px`,
 					margin: token('space.200', '16px'),
 					alignItems: 'center',
@@ -44,8 +47,11 @@ export const Block = forwardRef<HTMLDivElement, BlockProps>(
 					backgroundColor: token('elevation.surface'),
 					borderRadius: `${Math.floor(size / 7)}px`,
 					boxShadow: token('elevation.shadow.overlay'),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					cursor: onClick ? 'pointer' : 'default',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 					':hover': {
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 						backgroundColor: onClick ? token('color.background.brand.bold') : undefined,
 					},
 				})}

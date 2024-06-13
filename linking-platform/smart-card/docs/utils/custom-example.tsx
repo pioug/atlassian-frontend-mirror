@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 const backColor = token('color.background.neutral.subtle', '#FFFFFF');
 const frontColor = token('color.background.neutral.subtle.hovered', '#091E420F');
 const backgroundStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.AKExampleShowcase': {
 		backgroundColor: backColor,
 		opacity: 1,
@@ -17,9 +18,11 @@ const backgroundStyles = css({
 });
 
 const toggleStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.AKExampleWrapper': {
 		paddingTop: token('space.300', '24px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.AKExampleToggle': {
 		display: 'none',
 	},
@@ -27,7 +30,9 @@ const toggleStyles = css({
 
 const getStyles = (sourceVisible: boolean, background: boolean) =>
 	css(
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		background ? backgroundStyles : undefined,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		sourceVisible === false ? toggleStyles : undefined,
 	);
 
@@ -40,6 +45,7 @@ const CustomExample: React.FC<FlexibleUiExampleProps> = ({
 	sourceVisible,
 	...props
 }) => (
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={getStyles(sourceVisible, background)}>
 		<Example packageName="@atlaskit/smart-card" sourceVisible={sourceVisible} {...props} />
 	</div>

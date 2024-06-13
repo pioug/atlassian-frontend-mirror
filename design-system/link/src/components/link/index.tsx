@@ -5,7 +5,7 @@ import { css, jsx } from '@compiled/react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { Box, xcss } from '@atlaskit/primitives';
-import UNSAFE_ANCHOR, { type AnchorProps } from '@atlaskit/primitives/anchor';
+import Anchor, { type AnchorProps } from '@atlaskit/primitives/anchor';
 
 const defaultLinkStyles = xcss({
 	color: 'color.link',
@@ -83,7 +83,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 	ref: Ref<HTMLAnchorElement>,
 ) => {
 	return (
-		<UNSAFE_ANCHOR
+		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...htmlAttributes}
 			target={target}
@@ -106,7 +106,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 					</svg>
 				</Box>
 			)}
-		</UNSAFE_ANCHOR>
+		</Anchor>
 	);
 };
 

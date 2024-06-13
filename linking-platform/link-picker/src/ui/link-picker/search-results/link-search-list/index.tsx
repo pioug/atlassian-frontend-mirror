@@ -144,6 +144,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 					return <NoResults />;
 				} else {
 					return (
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						<div css={emptyStateNoResultsWrapper}>
 							{activePlugin?.emptyStateNoResults ? activePlugin.emptyStateNoResults() : null}
 						</div>
@@ -158,6 +159,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			itemsContent = (
 				<Fragment>
 					<div
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={listTitleStyles}
 						id={testIds.resultListTitle}
 						data-testid={testIds.resultListTitle}
@@ -177,6 +179,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 					<ul
 						id={id}
 						role={role}
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={listStyles}
 						aria-controls="fabric.smartcard.linkpicker.suggested.results"
 						aria-labelledby={testIds.resultListTitle}
@@ -211,6 +214,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 							? '50px'
 							: '80px'
 					}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={spinnerContainerStyles}
 				>
 					<Spinner testId={testIds.searchResultLoadingIndicator} size="medium" />
@@ -219,6 +223,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		}
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div ref={ref} css={listContainerStyles} {...restProps}>
 				{itemsContent}
 				{loadingContent}

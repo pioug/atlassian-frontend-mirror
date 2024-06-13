@@ -29,7 +29,9 @@ const backgroundStyles = css({
 
 const toggleStyles = (show: boolean) =>
 	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		opacity: show ? 1 : 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		display: show ? 'block' : 'none',
 	});
 
@@ -38,8 +40,10 @@ const cardContainerStyles = (width: number, show: boolean = true) =>
 		{
 			margin: '0 auto',
 			minWidth: '10rem',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			width: `${width}%`,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		toggleStyles(show),
 	);
 
@@ -50,6 +54,7 @@ const dataContainerStyles = (show: boolean) =>
 			minWidth: '25rem',
 			width: '60%',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		toggleStyles(show),
 	);
 
@@ -106,9 +111,11 @@ const TemplateRenderer: React.FC<{
 					</span>
 				)}
 				<ErrorBoundary fallback={<div>Whoops! Something went wrong.</div>}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={dataContainerStyles(showDataView)}>
 						<FlexibleDataView url={url} />
 					</div>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={cardContainerStyles(width, !showDataView)}>
 						<Card appearance="block" {...template.cardProps} ui={template.ui} url={url}>
 							{template.blocks?.map((block, idx) => renderBlock(block, block.name + idx))}

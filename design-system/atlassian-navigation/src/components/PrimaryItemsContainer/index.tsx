@@ -23,7 +23,7 @@ const containerStyles = css({
 	flexBasis: 0,
 	flexGrow: 1,
 	flexShrink: 0,
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > *': {
 		margin: `0 ${token('space.050', '4px')}`,
 		flexShrink: 0,

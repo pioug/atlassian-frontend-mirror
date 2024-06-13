@@ -29,7 +29,7 @@ const productLogoStyles = css({
 	// Ensure anything passed into
 	// productHome is aligned correctly
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		display: 'none',
 	},
@@ -43,7 +43,7 @@ const productIconStyles = css({
 	// Ensure anything passed into
 	// productHome is aligned correctly
 	display: 'flex',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
 		display: 'none',
 	},
@@ -58,9 +58,11 @@ const productHomeButtonStyles = css({
 	borderRadius: token('border.radius', '3px'),
 	color: 'inherit',
 	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&::-moz-focus-inner': {
 		border: 0,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-of-type': {
 		marginInlineStart: 0,
 	},
@@ -80,15 +82,15 @@ const productHomeButtonStyles = css({
 		outline: `2px solid ${token('color.border.focused', B200)}`,
 	},
 
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'div&': {
 		pointerEvents: 'none',
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		margin: `0 ${token('space.100', '8px')}`,
 	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
 		margin: `0 ${token('space.200', '16px')}`,
 	},
@@ -103,7 +105,7 @@ const siteTitleStyles = css({
 });
 
 const hideSiteTitleStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
 		display: 'none',
 	},
@@ -194,6 +196,7 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 					}
 					css={[
 						siteTitleStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						getBooleanFF('platform.design-system-team.navigation-v2-no-jank_5yhbd') &&
 							hideSiteTitleStyles,
 					]}

@@ -14,9 +14,11 @@ const CustomPopupContainer = React.forwardRef<HTMLDivElement, PopupComponentProp
 	({ children, ...props }, ref) => (
 		<div
 			css={
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				getBooleanFF('platform.linking-platform.smart-card.hover-card-ai-summaries')
 					? undefined
-					: popupContainerStyles
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						popupContainerStyles
 			}
 			{...props}
 			ref={ref}

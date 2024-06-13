@@ -11,11 +11,13 @@ import { keylineHeight, padding } from './internal/constants';
 
 const footerStyles = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	padding: padding,
 	position: 'relative',
 	alignItems: 'center',
 	justifyContent: 'flex-end',
 	gap: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingBlockStart: `${padding - keylineHeight}px`,
 });
 

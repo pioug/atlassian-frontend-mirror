@@ -1,5 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import ProfileCardClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
 import { type ReportingLinesUser } from '../../types';
@@ -19,6 +22,13 @@ const EXAMPLE_REPORTING_LINE_USER: ReportingLinesUser = {
 		picture: 'picture',
 	},
 };
+
+jest.mock('@atlaskit/atlassian-context', () => ({
+	...jest.requireActual('@atlaskit/atlassian-context'),
+	isFedRamp: jest.fn(),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags');
 
 function mockReportingLines(promise: Promise<string>) {
 	fetchMock.post(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL, () => promise, {
@@ -79,6 +89,7 @@ function initProfileCardClientWithNoCloudId() {
 describe('TeamCentralCardClient', () => {
 	const hasWorkspaceCloudId = 'test-has-workspace';
 	const hasNoWorkspaceCloudId = 'test-has-no-workspace';
+	const mockIsFedRamp = isFedRamp as jest.Mock;
 
 	beforeEach(() => {
 		mockReportingLines(
@@ -109,6 +120,7 @@ describe('TeamCentralCardClient', () => {
 
 	afterEach(() => {
 		fetchMock.reset();
+		mockIsFedRamp.mockRestore();
 	});
 
 	it('can make successful request', async () => {
@@ -172,6 +184,22 @@ describe('TeamCentralCardClient', () => {
 		const client = initProfileCardClient(hasNoWorkspaceCloudId);
 		const shouldShowGiveKudos = await client.shouldShowGiveKudos();
 		expect(shouldShowGiveKudos).toEqual(false);
+	});
+
+	it('workspace should not be called if fedramp', () => {
+		(getBooleanFF as jest.Mock).mockReturnValue(true);
+		mockIsFedRamp.mockReturnValue(true);
+
+		initProfileCardClient(hasWorkspaceCloudId);
+		expect(fetchMock.called(WORKSPACE_TEAM_CENTRAL_URL + hasWorkspaceCloudId)).toBeFalsy();
+	});
+
+	it('workspace should be called if not fedramp', () => {
+		(getBooleanFF as jest.Mock).mockReturnValue(true);
+		mockIsFedRamp.mockReturnValue(false);
+
+		initProfileCardClient(hasWorkspaceCloudId);
+		expect(fetchMock.calls(WORKSPACE_TEAM_CENTRAL_URL + hasWorkspaceCloudId)).toBeTruthy();
 	});
 
 	it('cloudId not passed in should still check to show give kudos', async () => {

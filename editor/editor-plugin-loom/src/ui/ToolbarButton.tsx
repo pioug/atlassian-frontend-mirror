@@ -1,5 +1,5 @@
-import React from 'react';
-
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -12,7 +12,6 @@ import { LoomIcon } from '@atlaskit/logo';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { recordVideo } from '../commands';
-import { useWindowWidth } from '../hooks/useWindowWidth';
 import type { LoomPlugin } from '../plugin';
 
 // This const is derived from the breakpoint where the toolbar hides its icons. It is used to hide the text in the AI button.
@@ -29,11 +28,11 @@ const LoomToolbarButton = ({
 	appearance: EditorAppearance;
 	api: ExtractInjectionAPI<LoomPlugin> | undefined;
 } & WrappedComponentProps) => {
-	const width = useWindowWidth();
-	const { loomState } = useSharedPluginState(api, ['loom']);
+	const { loomState, widthState } = useSharedPluginState(api, ['loom', 'width']);
 	if (!loomState) {
 		return null;
 	}
+
 	const label = formatMessage(
 		appearance === 'comment'
 			? toolbarInsertBlockMessages.addLoomVideoComment
@@ -57,7 +56,7 @@ const LoomToolbarButton = ({
 			iconBefore={<LoomIcon label={label} size="small" />}
 		>
 			{getBooleanFF('platform.editor.plugin.loom.responsive-menu_4at4a') &&
-				width >= LOOM_BUTTON_WIDTH_BREAKPOINT && (
+				(widthState?.width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT && (
 					<span>{formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}</span>
 				)}
 		</ToolbarButton>

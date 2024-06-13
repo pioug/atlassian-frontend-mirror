@@ -33,6 +33,7 @@ const CheckboxOption = <T extends object>({
 		[],
 	);
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<span css={styles}>
 			<CheckboxField name={name}>
 				{({ fieldProps }) => (

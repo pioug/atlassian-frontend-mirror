@@ -36,6 +36,7 @@ const tableStyles = css({
 });
 
 const bodyBorder = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
 });
 
@@ -48,9 +49,13 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={
 					{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_HOVER_BACKGROUND]: row.hoverBackground,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_HIGHLIGHTED_BACKGROUND]: row.highlightedBackground,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_HOVER_HIGHLIGHTED_BACKGROUND]: row.hoverHighlightedBackground,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						[tableRowCSSVars.CSS_VAR_ROW_FOCUS_OUTLINE]: row.focusOutline,
 					} as React.CSSProperties
 				}
@@ -85,6 +90,7 @@ export const Caption: FC<{ children: ReactNode }> = ({ children }) => (
 	<caption
 		css={[
 			captionStyles,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			getBooleanFF('platform.design-system-team.dynamic-table-typography_7zio6')
 				? newCaptionStyles
 				: oldCaptionStyles,

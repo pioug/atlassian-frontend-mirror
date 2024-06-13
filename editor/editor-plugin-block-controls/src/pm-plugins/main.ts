@@ -1,10 +1,17 @@
 import rafSchedule from 'raf-schd';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
 
@@ -16,6 +23,42 @@ import {
 } from './decorations';
 
 export const key = new PluginKey<PluginState>('blockControls');
+
+type ElementDragSource = {
+	start: number;
+	// drag and drop exists for other nodes (e.g. tables), use type === 'element' to
+	// filter out
+	type: string;
+};
+
+const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+	return monitorForElements({
+		canMonitor: ({ source }) => source.data.type === 'element',
+		onDrop: ({ location, source }) => {
+			// if no drop targets are rendered, assume that drop is invalid
+			if (location.current.dropTargets.length === 0) {
+				const { start } = source.data as ElementDragSource;
+
+				api?.core?.actions.execute(({ tr }) => {
+					const resolvedMovingNode = tr.doc.resolve(start);
+					const maybeNode = resolvedMovingNode.nodeAfter;
+					api?.analytics?.actions.attachAnalyticsEvent({
+						eventType: EVENT_TYPE.UI,
+						action: ACTION.CANCELLED,
+						actionSubject: ACTION_SUBJECT.DRAG,
+						actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+						attributes: {
+							nodeDepth: resolvedMovingNode.depth,
+							nodeType: maybeNode?.type.name || '',
+						},
+					})(tr);
+
+					return tr;
+				});
+			}
+		},
+	});
+};
 
 export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
 	return new SafePlugin({
@@ -48,18 +91,27 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
 					(tr.docChanged && tr.doc.childCount === newState.doc.childCount) ||
 					(meta?.nodeMoved && tr.docChanged);
+
 				if (redrawDecorations && api) {
 					decorations = DecorationSet.create(newState.doc, []);
 					const nodeDecs = nodeDecorations(newState);
 					const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
 					decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
 					if (activeNode) {
-						const draghandleDec = dragHandleDecoration(
-							activeNode.pos,
-							activeNode.anchorName,
-							activeNode.nodeType,
-							api,
-						);
+						const newActiveNode = activeNode && tr.doc.nodeAt(activeNode.pos);
+
+						let nodeType = activeNode.nodeType;
+						let anchorName = activeNode.anchorName;
+
+						if (
+							newActiveNode &&
+							newActiveNode?.type.name !== activeNode.nodeType &&
+							!meta?.nodeMoved
+						) {
+							nodeType = newActiveNode.type.name;
+							anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
+						}
+						const draghandleDec = dragHandleDecoration(activeNode.pos, anchorName, nodeType, api);
 						decorations = decorations.add(newState.doc, [draghandleDec]);
 					}
 				}
@@ -136,6 +188,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				};
 			},
 		},
+
 		props: {
 			decorations: (state: EditorState) => {
 				const isDisabled = api?.editorDisabled?.sharedState.currentState()?.editorDisabled;
@@ -168,6 +221,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 			return {
 				destroy() {
 					resizeObserver.unobserve(dom);
+					return destroyFn(api);
 				},
 			};
 		},

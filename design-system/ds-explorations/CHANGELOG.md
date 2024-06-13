@@ -1,5 +1,14 @@
 # @atlaskit/ds-explorations
 
+## 4.0.1
+
+### Patch Changes
+
+- [#110191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110191)
+  [`c3dc02298f8aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3dc02298f8aa) -
+  [ux] Change heading xsmall lineheight from 16 to 20 for minor third theme.
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

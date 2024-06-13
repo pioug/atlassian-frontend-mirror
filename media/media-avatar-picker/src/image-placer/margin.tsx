@@ -19,6 +19,7 @@ export class Margin extends React.Component<MarginProps, MarginState> {
 			? ['marginWrapperCircle', marginWrapperCircleStyles]
 			: ['marginWrapperSquare', marginWrapperSquareStyles];
 
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		return <div css={styles({ width, height, size })} id={id} />;
 	}
 }

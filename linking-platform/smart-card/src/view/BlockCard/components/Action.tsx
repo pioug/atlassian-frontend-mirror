@@ -52,6 +52,7 @@ export const Action = ({ promise, text, buttonAppearance = 'default', id }: Acti
 				}
 			}}
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={[baseTextStyles, { opacity: state !== 'init' ? 0 : 1 }]}>{text}</div>
 			<ActionIcon state={state} />
 		</Button>

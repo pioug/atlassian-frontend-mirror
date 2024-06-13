@@ -7,9 +7,11 @@ import progressBarDont from './images/progress-bar-data-viz-dont.png';
 
 ## Usage
 
-A progress bar shows the duration of a system process, such as saving or processing changes, uploading and downloading files, and loading or updating an application.
+A progress bar shows the duration of a system process, such as saving or processing changes,
+uploading and downloading files, and loading or updating an application.
 
-Use a progress bar when the process is complex or has a long wait time, and you can determine the percentage of the process that has been completed.
+Use a progress bar when the process is complex or has a long wait time, and you can determine the
+percentage of the process that has been completed.
 
 For short loading times, use a [spinner](/components/spinner) instead.
 
@@ -17,44 +19,47 @@ For short loading times, use a [spinner](/components/spinner) instead.
 
 ![The example progress bar is a light grey horizontal line partially filled with a dark blue fill.](/images/progress-bar-anatomy.png)
 
-1. Progress line: Progress is visually represented by a filled line. It can be partially filled, complete, or indeterminate (partial completion of an unknown amount).
+1. Progress line: Progress is visually represented by a filled line. It can be partially filled,
+   complete, or indeterminate (partial completion of an unknown amount).
 2. Progress bar container: This determines the length of the bar within the available screen space.
 
 ## Accessibility
 
 ### Provide clear labels and messaging
 
-Always provide a clear `ariaLabel` that describes the current state of the progress bar. For example, "5 of 10 files uploaded", not "Files uploading".
+Always provide a clear `ariaLabel` that describes the current state of the progress bar. For
+example, "5 of 10 files uploaded", not "Files uploading".
 
-Wherever possible, also include this text as visual helper text. This lets people know what sub-processes are taking place.
+Wherever possible, also include this text as visual helper text. This lets people know what
+sub-processes are taking place.
 
 Use a clear success state when the actions required to continue have been fulfilled.
 
 ### Don't use progress bars for data visualization
 
 <DoDont
-  type="do"
-  image={{
-    url: progressBarDo,
-    alt: 'An example UI with the heading "Attach files". There are three files with progress bars indicating how far they are in the upload process.',
-  }}
+	type="do"
+	image={{
+		url: progressBarDo,
+		alt: 'An example UI with the heading "Attach files". There are three files with progress bars indicating how far they are in the upload process.',
+	}}
 >
-  Use the progress bar component as a loading indicator or to communicate the
-  status of a system process.
+	Use the progress bar component as a loading indicator or to communicate the status of a system
+	process.
 </DoDont>
 
 <DoDont
-  type="dont"
-  image={{
-    url: progressBarDont,
-    alt: 'An example table where the progress bar is used to indicate the percentage of work allocated per person.',
-  }}
+	type="dont"
+	image={{
+		url: progressBarDont,
+		alt: 'An example table where the progress bar is used to indicate the percentage of work allocated per person.',
+	}}
 >
-  Don't use the progress bar for data visualization. Use a custom component
-  instead.
+	Don't use the progress bar for data visualization. Use a custom component instead.
 </DoDont>
 
 ## Related
 
 - For most loading use cases, choose a [spinner component](/components/spinner).
-- For guidelines on applying color to custom components for data visualization, see [data visualization color](/foundations/color-new/data-visualization-color/).
+- For guidelines on applying color to custom components for data visualization, see
+  [data visualization color](/foundations/color-new/data-visualization-color/).

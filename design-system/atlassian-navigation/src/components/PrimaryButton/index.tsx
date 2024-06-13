@@ -25,11 +25,12 @@ const buttonBaseStyles = css({
 });
 
 const buttonHighlightedStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& > *': {
 		color: `var(${VAR_BUTTON_SELECTED_COLOR})`,
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:after': {
 		height: 3,
 		position: 'absolute',

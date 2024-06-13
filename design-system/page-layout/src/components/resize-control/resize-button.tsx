@@ -29,7 +29,7 @@ const furtherIncreasedHitAreasStyles = css({
 });
 
 const mobileStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	[UNSAFE_media.below.sm]: {
 		opacity: 1,
 	},
@@ -61,11 +61,13 @@ const resizeIconButtonStyles = css({
     color ${smallDurationMs}ms linear,
     opacity ${mediumDurationMs}ms ${easeOut}
   `,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {
 		backgroundColor: token('color.background.selected.bold', B100),
 		color: token('color.text.inverse', N0),
 		opacity: 1,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':active, :focus': {
 		backgroundColor: token('color.background.selected.bold.hovered', B200),
 		color: token('color.text.inverse', N0),

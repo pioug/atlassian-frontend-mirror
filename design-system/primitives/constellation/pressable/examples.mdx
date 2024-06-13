@@ -23,25 +23,22 @@ import SectionMessage from '@atlaskit/section-message';
 	directoryName="primitives"
 />
 
-Pressable is a primitive used for building custom buttons with Atlassian Design System styling and
-built-in event tracking. It renders a `<button>` element.
-
-Only use Pressable when existing components such as [button](/components/button/examples) are
-unsuitable and unable to be customized to fit your needs.
+Pressable is a primitive for building custom buttons with Atlassian Design System styling and
+built-in event tracking. It renders a `<button>` element. Use pressable when existing
+[buttons](/components/button/examples) can't be customized to fit your needs.
 
 ## Default
 
-Pressable is unstyled by default.
+Pressable is unstyled by default, aside from basic focus styles.
 
 <Example Component={PressableDefault} packageName="@atlaskit/primitives/pressable" />
 
 ## Basic styling with XCSS
 
-Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover`
-and `:active` pseudo-classes. Pressable includes consistent Atlassian Design System `:focus` styles,
-so it's unnecessary to add your own.
+Pressable can be styled further using the design system styling API,
+[XCSS](/components/primitives/xcss).
 
-For more information on XCSS, see the [XCSS documentation](/components/primitives/xcss).
+Make sure styling indicates the interaction state using `:hover` and `:active` pseudo-classes.
 
 <Example Component={PressableBasic} packageName="@atlaskit/primitives/pressable" />
 
@@ -57,20 +54,26 @@ Use a combination of XCSS and other primitives for more complex designs.
 
 ## Disabled
 
-Pressable can be disabled using the `isDisabled` prop. Disabled styles should be conditionally
-applied and defined using XCSS.
+You can disable pressable buttons with the `isDisabled` prop. Disabled styles should be applied and
+defined conditionally using XCSS.
+
+Disabled buttons can cause accessibility issues (disabled elements are not in the tab order) so
+wherever possible, avoid using `isDisabled`. Instead, use validation or other techniques to show
+users how to proceed.
+
+<!-- todo: snippet for disabled a11y warnings? -->
 
 <Example Component={PressableDisabled} packageName="@atlaskit/primitives/pressable" />
 
 ## Buttons without visible labels
 
-For buttons without visible labels such as icon buttons, ensure an accessible label is still
-available by using [the visually hidden component](/components/visually-hidden/examples). This will
-render hidden text inside the button, which is preferable over the `aria-label` attribute because
-not all screen readers translate this between languages.
+For buttons without visible labels such as icon buttons, make an accessible label available using
+the [visually hidden component](/components/visually-hidden/examples). This renders hidden text
+inside the button for assistive technologies, which is preferable to an `aria-label` attribute
+because not all screen readers translate these between languages.
 
-Provide a tooltip to help sighted users understand the button's purpose rather than relying on
-iconography alone.
+Also, consider providing a [tooltip](/components/tooltip) to help sighted users understand the
+button's purpose.
 
 <Example
 	Component={PressableWithoutVisibleLabels}
@@ -80,8 +83,8 @@ iconography alone.
 
 ## HTML attributes
 
-Pressable passes through all valid HTML attributes to the underlying `<button>` element. It will
-default the `type` attribute to `button` to prevent buttons unintentionally submitting forms.
+Pressable passes all valid HTML attributes to the underlying `<button>` element. The `type`
+attribute defaults to `button` to prevent unintentionally submitting forms.
 
 <Example Component={PressableHtmlAttributes} packageName="@atlaskit/primitives/pressable" />
 

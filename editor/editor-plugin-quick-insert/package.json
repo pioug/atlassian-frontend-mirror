@@ -1,96 +1,96 @@
 {
-  "name": "@atlaskit/editor-plugin-quick-insert",
-  "version": "1.1.6",
-  "description": "Quick insert plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Editor: Lego",
-    "singleton": true,
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-plugin-type-ahead": "^1.2.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  }
+	"name": "@atlaskit/editor-plugin-quick-insert",
+	"version": "1.1.6",
+	"description": "Quick insert plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"singleton": true,
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.2.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
 }

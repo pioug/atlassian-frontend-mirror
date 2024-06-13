@@ -44,18 +44,24 @@ const selectedColorMap = {
 };
 
 const commonStyles = xcss({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `var(${varDotsSize})`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	height: `var(${varDotsSize})`,
 	position: 'relative',
 	borderRadius: 'border.radius.circle',
 
 	'::before': {
 		display: 'block',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		width: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,
 		position: 'absolute',
 		content: '""',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetBlockStart: `calc(-1 * var(${varDotsMargin}) / 2)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		insetInlineStart: `calc(-1 * var(${varDotsMargin}) / 2)`,
 	},
 });

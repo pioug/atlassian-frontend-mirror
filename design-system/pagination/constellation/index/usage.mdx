@@ -4,9 +4,12 @@ order: 2
 
 ## Usage
 
-Use pagination when there are too many results to show on one page, so that people aren't overwhelmed by too much information. Pagination is a control that sits at the bottom of the page and allows the user to easily move between each page.
+Use pagination when there are too many results to show on one page, so that people aren't
+overwhelmed by too much information. Pagination is a control that sits at the bottom of the page and
+allows the user to easily move between each page.
 
-Pagination is commonly used for things like table listings, search results, and directories. What constitutes “too many results” can be influenced by:
+Pagination is commonly used for things like table listings, search results, and directories. What
+constitutes “too many results” can be influenced by:
 
 - system load times
 - the amount of data in each entry
@@ -16,20 +19,28 @@ Pagination is commonly used for things like table listings, search results, and 
 
 ![The pagination component is a horizontal list of page numbers with navigation arrows at each end.](./images/pagination-anatomy.png)
 
-1. **Previous and next:** Arrow icons that people use to move backward and forward from the currently selected page.
+1. **Previous and next:** Arrow icons that people use to move backward and forward from the
+   currently selected page.
 2. **Page navigation:** Numbers that people can select to move to a specific page.
 3. **Truncation:** When a threshold of pages is reached, the list is truncated using an ellipsis.
 
 ## Behavior
 
-- The ellipsis representing truncated pages isn't interactive. To reach page numbers that are truncated, people need to move to a page number that is closer to the number in the series. For example, in a pagination component numbered 1-5, people need to select 5 to reveal page 6.
-- Double truncation is used when the current page is separated by more than five pages from both the first and last page.
+- The ellipsis representing truncated pages isn't interactive. To reach page numbers that are
+  truncated, people need to move to a page number that is closer to the number in the series. For
+  example, in a pagination component numbered 1-5, people need to select 5 to reveal page 6.
+- Double truncation is used when the current page is separated by more than five pages from both the
+  first and last page.
 
 ## Accessibility
 
-- Using `aria-label` attributes improves the experience for people who use assistive technologies, like screen readers and speech recognition software.
-- Use the `label`, `pageLabel`, `nextLabel`, and `previousLabel` props to provide labels for the pagination buttons. While the default label props are in English, passing these props will ensure that assistive technologies in non-English languages can properly identify the content.
-- Be mindful of people using your product on small screen sizes and adjust the maximum number of pages accordingly.
+- Using `aria-label` attributes improves the experience for people who use assistive technologies,
+  like screen readers and speech recognition software.
+- Use the `label`, `pageLabel`, `nextLabel`, and `previousLabel` props to provide labels for the
+  pagination buttons. While the default label props are in English, passing these props will ensure
+  that assistive technologies in non-English languages can properly identify the content.
+- Be mindful of people using your product on small screen sizes and adjust the maximum number of
+  pages accordingly.
 
 ## Best practices
 
@@ -40,9 +51,13 @@ Pagination is commonly used for things like table listings, search results, and 
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 
-- Each page in the pagination control is a [button link](/components/button) that lets people quickly navigate through the results.
-- This component is mostly used with tables, see [dynamic table](/components/dynamic-table/examples) for examples.
+- Each page in the pagination control is a [button link](/components/button) that lets people
+  quickly navigate through the results.
+- This component is mostly used with tables, see [dynamic table](/components/dynamic-table/examples)
+  for examples.

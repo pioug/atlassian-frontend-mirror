@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.7.0
+
+### Minor Changes
+
+- [#110808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110808)
+  [`24a3703dbdfe3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/24a3703dbdfe3) -
+  Change use-tokens-typography rule to only suggest fixes.
+
 ## 10.6.1
 
 ### Patch Changes

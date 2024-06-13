@@ -26,15 +26,20 @@ const getPositionStyles = (position: SmartLinkPosition): SerializedStyles => {
 };
 
 const getIconStyles = (position: SmartLinkPosition, width: string): SerializedStyles =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	css(getPositionStyles(position), getIconSizeStyles(width));
 
 const getCustomRenderStyles = (value: string): SerializedStyles =>
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(getTruncateStyles(1, value), {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		lineHeight: value,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: value,
 		textAlign: 'center',
 		textOverflow: 'clip',
 		WebkitBoxOrient: 'unset',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		span: {
 			margin: 0,
 			padding: 0,

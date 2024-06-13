@@ -23,6 +23,7 @@ import { CreateFormFooter } from './form-footer';
 import { CreateFormLoader } from './form-loader';
 
 const formStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: `${CREATE_FORM_MAX_WIDTH_IN_PX}px`,
 	padding: `0 0 ${token('space.300', '24px')} 0`,
 	margin: `${token('space.0', '0px')} auto`,

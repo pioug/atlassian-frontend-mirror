@@ -28,6 +28,7 @@ export const titleBoxWrapperStyles = ({ breakpoint, titleBoxBgColor }: TitleBoxW
 			width: '100%',
 			backgroundColor: token(
 				'elevation.surface',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				rgba(titleBoxBgColor && HEX_REGEX.test(titleBoxBgColor) ? titleBoxBgColor : N0, 1),
 			),
 			color: token('color.text', N800),
@@ -37,6 +38,7 @@ export const titleBoxWrapperStyles = ({ breakpoint, titleBoxBgColor }: TitleBoxW
 			flexDirection: 'column',
 			justifyContent: 'center',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		generateResponsiveStyles(breakpoint),
 	);
 
@@ -51,7 +53,9 @@ export const titleBoxHeaderStyles = ({ hasIconOverlap }: TitleBoxHeaderProps) =>
 		{
 			fontWeight: 600,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		infoStyles,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		hasIconOverlap && iconOverlapStyles,
 	);
 
@@ -62,24 +66,30 @@ export const titleBoxFooterStyles = ({ hasIconOverlap }: TitleBoxFooterProps) =>
 		{
 			textOverflow: 'ellipsis',
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		infoStyles,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		hasIconOverlap && iconOverlapStyles,
 	);
 
 titleBoxFooterStyles.displayName = 'TitleBoxFooter';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const titleBoxIconStyles = css({
 	position: 'absolute',
 	right: token('space.050', '4px'),
 	bottom: '0px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const errorMessageWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'flex-start',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {
 		verticalAlign: 'middle',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		':nth-child(2)': {
 			marginLeft: token('space.050', '4px'),
 			marginRight: token('space.050', '4px'),

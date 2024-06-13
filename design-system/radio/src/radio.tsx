@@ -39,7 +39,7 @@ const labelStyles = css({
 	alignItems: 'flex-start',
 	color: token('color.text', N900),
 	font: token('font.body'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-disabled]': {
 		color: token('color.text.disabled', N80),
 		cursor: 'not-allowed',
@@ -131,11 +131,12 @@ const radioStyles = css({
 		outlineOffset: token('border.width.indicator', '3px'),
 	},
 
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&[data-invalid], &:checked[data-invalid]': {
 		'--radio-border-color': token('color.icon.danger', R300),
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:disabled, &:disabled:hover, &:disabled:focus, &:disabled:active, &:disabled[data-invalid]': {
 		cursor: 'not-allowed',
 		'--radio-background-color': token('color.background.disabled', N20),

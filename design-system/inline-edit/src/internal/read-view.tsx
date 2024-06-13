@@ -43,6 +43,7 @@ const readViewWrapperStyles = css({
 	width: 'auto',
 	maxWidth: '100%',
 	border: '2px solid transparent',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: borderRadius,
 	transition: 'background 0.2s',
 	'&:hover': {

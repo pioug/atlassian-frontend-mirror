@@ -4,19 +4,25 @@ import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
 const styles = css({
 	paddingTop: '1rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		"> [role='tablist']::before": {
 			left: 0,
 			right: 0,
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		"[role='tab']:first-of-type": {
 			paddingLeft: 0,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			"&[aria-selected='true']::after": {
 				left: 0,
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		"> [role='tabpanel']": {
 			padding: '2rem 0',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'> div': {
 				width: '100%',
 			},

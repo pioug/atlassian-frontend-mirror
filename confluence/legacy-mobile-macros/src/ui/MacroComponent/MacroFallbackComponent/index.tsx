@@ -25,11 +25,14 @@ import { type ActionProps, type CreateMacro, type MacroFallbackComponentProps } 
 
 const noop = () => {};
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 const Action = styled.span<ActionProps>((props) => ({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: props.callToAction
-		? token('color.link', colors.B300)
-		: token('color.text.subtlest', colors.N90),
+		? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			token('color.link', colors.B300)
+		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			token('color.text.subtlest', colors.N90),
 	alignSelf: 'center',
 	textAlign: 'right',
 	whiteSpace: 'nowrap',
@@ -41,8 +44,11 @@ const cardStyles = (componentType: ComponentType<any>) => {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 	return styled(componentType)({
 		'&&': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('elevation.surface', colors.N0),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			border: `solid 2px ${token('color.border', colors.N30)}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			color: `${token('color.text', colors.N800)} !important`,
 			display: 'flex',
 			height: 'unset',

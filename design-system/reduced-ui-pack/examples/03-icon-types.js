@@ -14,6 +14,7 @@ export default () => (
 	<div>
 		<Spritemap />
 		<Warning />
+		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766 */}
 		<style>
 			{`
             .icon-example {

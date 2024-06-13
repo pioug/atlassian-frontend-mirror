@@ -58,12 +58,17 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
 			testId={testId}
 			text={text}
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={containerStyles} data-testid={`${testId}-unresolved-container`}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={contentStyles}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<img css={imageStyles} data-testid={`${testId}-unresolved-image`} src={image} />
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<h2 css={titleStyles} data-testid={`${testId}-unresolved-title`}>
 						{title}
 					</h2>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<span css={descriptionStyles} data-testid={`${testId}-unresolved-description`}>
 						{description}
 					</span>

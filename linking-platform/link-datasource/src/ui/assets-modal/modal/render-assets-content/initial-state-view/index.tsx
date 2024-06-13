@@ -19,6 +19,7 @@ const svgAndTextsWrapperStyles = css({
 	alignSelf: 'center',
 });
 const searchTitleStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.heading.small', fontFallback.heading.small),
 	paddingTop: token('space.200', '16px'),
 	paddingBottom: token('space.100', '8px'),

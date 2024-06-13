@@ -19,26 +19,33 @@ import LinkButtonDisabled from '../../examples/constellation/new-button/link-but
 
 ## Default
 
-A button that triggers a link rather than an action. This will render an `<a>` tag instead of a `<button>`. It accepts anchor tag HTML attributes, including `href`.
+A button that triggers a link rather than an action. This will render an `<a>` tag instead of a
+`<button>`. It accepts anchor tag HTML attributes, including `href`.
 
-The default appearance is for secondary actions or general actions that aren't the most important in the area.
+The default appearance is for secondary actions or general actions that aren't the most important in
+the area.
 
 <Example Component={LinkButton} packageName="@atlaskit/button" />
 
 ### Routing
 
-Link button consumes the router link component configured in the [app provider](/components/app-provider/examples#router-links) when possible. This means router links are configured once across an application (replacing [the component prop](/components/button/button-legacy/examples#routing)).
+Link button consumes the router link component configured in the
+[app provider](/components/app-provider/examples#router-links) when possible. This means router
+links are configured once across an application (replacing
+[the component prop](/components/button/button-legacy/examples#routing)).
 
-External links, non-HTTP-based links (`mailto:`, `sms:`), and anchor or hash links (`#`) **won't** use the configured router link when passed to `href`. These render a standard `<a>` tag.
+External links, non-HTTP-based links (`mailto:`, `sms:`), and anchor or hash links (`#`) **won't**
+use the configured router link when passed to `href`. These render a standard `<a>` tag.
 
 ### Advanced href usage with TypeScript
 
-Link button accepts a generic type containing the configured router link's props. This is only for advanced usage to pass an object to `href`.
+Link button accepts a generic type containing the configured router link's props. This is only for
+advanced usage to pass an object to `href`.
 
 <Example
-  Component={LinkButtonWithRouting}
-  packageName="@atlaskit/button"
-  appearance="source-only"
+	Component={LinkButtonWithRouting}
+	packageName="@atlaskit/button"
+	appearance="source-only"
 />
 
 ## Appearance
@@ -51,18 +58,19 @@ Use a primary link button when the main call to action is to navigate to a new p
 
 ### Subtle
 
-Use subtle buttons when the surrounding context makes it clear the text is interactive, like in navigation areas.
+Use subtle buttons when the surrounding context makes it clear the text is interactive, like in
+navigation areas.
 
 <Example Component={LinkButtonSubtle} packageName="@atlaskit/button" />
 
 ### Link
 
 <SectionMessage title="Updates to link handling" appearance="information">
-  <p>
-    Link appearances now only support semantically correct links using link
-    button. If you have a legacy button that's used as a link, consider
-    replacing it with a link button or using another approach.
-  </p>
+	<p>
+		Link appearances now only support semantically correct links using link button. If you have a
+		legacy button that's used as a link, consider replacing it with a link button or using another
+		approach.
+	</p>
 </SectionMessage>
 
 Use a link appearance for buttons that look and behave like inline text links.
@@ -71,29 +79,37 @@ Use a link appearance for buttons that look and behave like inline text links.
 
 ### Subtle link
 
-Similar to a subtle button, but looks like a link. Use subtle link buttons with caution. Because there isn't any color or other visual affordance built in, this style relies on the context around it to show that it can be interacted with.
+Similar to a subtle button, but looks like a link. Use subtle link buttons with caution. Because
+there isn't any color or other visual affordance built in, this style relies on the context around
+it to show that it can be interacted with.
 
-This can make subtle link buttons less accessible than other link buttons. Make sure designs have clear visual affordances for interactive areas and elements.
+This can make subtle link buttons less accessible than other link buttons. Make sure designs have
+clear visual affordances for interactive areas and elements.
 
 <Example Component={LinkButtonSubtleLink} packageName="@atlaskit/button" />
 
 ### Warning
 
-Warning appearances are designed to confirm someone wants to proceed despite a potentially unintended or inconvenient (but reversible) outcome. In general, try to avoid these unclear outcomes in the first place.
+Warning appearances are designed to confirm someone wants to proceed despite a potentially
+unintended or inconvenient (but reversible) outcome. In general, try to avoid these unclear outcomes
+in the first place.
 
 <Example Component={LinkButtonWarning} packageName="@atlaskit/button" />
 
 ### Danger
 
-Danger appearances are similar to warnings, but these should be reserved for situations with severe consequences, such as a permanent loss of data or an action that affects many users.
+Danger appearances are similar to warnings, but these should be reserved for situations with severe
+consequences, such as a permanent loss of data or an action that affects many users.
 
 <Example Component={LinkButtonDanger} packageName="@atlaskit/button" />
 
 ## Icon
 
-Buttons can include an icon before or after the text label. Only use icons if it is necessary to aid comprehension. Most of the time, a text label alone is clearer.
+Buttons can include an icon before or after the text label. Only use icons if it is necessary to aid
+comprehension. Most of the time, a text label alone is clearer.
 
-For buttons that open a link in a new tab or external website, use a link button with an icon after the text.
+For buttons that open a link in a new tab or external website, use a link button with an icon after
+the text.
 
 <Example Component={LinkButtonIcon} packageName="@atlaskit/button" />
 
@@ -101,6 +117,8 @@ For buttons that open a link in a new tab or external website, use a link button
 
 ### Disabled
 
-Standard buttons use the `disabled` HTML attribute, however this doesn't exist for anchor `<a>` tags, so link buttons are disabled by removing the `href` attribute and adding `aria-disabled="true"` and `role="link"`.
+Standard buttons use the `disabled` HTML attribute, however this doesn't exist for anchor `<a>`
+tags, so link buttons are disabled by removing the `href` attribute and adding
+`aria-disabled="true"` and `role="link"`.
 
 <Example Component={LinkButtonDisabled} packageName="@atlaskit/button" />

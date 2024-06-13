@@ -6,6 +6,7 @@ import { ActionName, FooterBlock } from '../../src';
 import ExampleContainer from './example-container';
 
 const styles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'[data-smart-element-badge]': {
 		opacity: 0.2,
 	},

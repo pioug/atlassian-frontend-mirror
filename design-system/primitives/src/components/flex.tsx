@@ -146,8 +146,11 @@ const Flex = memo(
 					className={resolvedStyles.static}
 					css={[
 						baseStyles,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						gap && spaceStylesMap.gap[gap],
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						columnGap && spaceStylesMap.columnGap[columnGap],
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						rowGap && spaceStylesMap.rowGap[rowGap],
 						alignItems && alignItemsMap[alignItems],
 						direction && flexDirectionMap[direction],

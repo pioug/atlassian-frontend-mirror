@@ -13,6 +13,7 @@ const headerStyles = css({
 	display: 'flex',
 	alignItems: 'center',
 	cursor: 'pointer',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h6: {
 		flex: '2 0 auto',
 	},

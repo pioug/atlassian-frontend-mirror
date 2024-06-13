@@ -117,7 +117,7 @@ const toolbarItemToButtonConfig = (
 	toolbarItem: ToolbarItem,
 	parentKey?: string,
 ): ExtensionToolbarButton => {
-	const { tooltip, key, label, icon, action, disabled } = toolbarItem;
+	const { tooltip, tooltipStyle, key, label, ariaLabel, icon, action, disabled } = toolbarItem;
 	const itemKey = [parentKey, key].join(':');
 	if (typeof action !== 'function') {
 		logError(
@@ -153,7 +153,9 @@ const toolbarItemToButtonConfig = (
 	}
 	return {
 		key: itemKey,
+		ariaLabel,
 		tooltip,
+		tooltipStyle,
 		action,
 		disabled,
 		...labelAndIcon,

@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.16.1
+
+### Patch Changes
+
+- [#110975](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110975)
+  [`47a912f14bb6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47a912f14bb6f) -
+  Fixed a bug in `walkStyleProperties` that could result in `styled(BaseComponent)({})` styles to
+  not be linted.
+
+## 0.16.0
+
+### Minor Changes
+
+- [#109850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109850)
+  [`9a18d4ad09473`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a18d4ad09473) -
+  Added migration guide to styling standard documentation.
+
 ## 0.15.2
 
 ### Patch Changes

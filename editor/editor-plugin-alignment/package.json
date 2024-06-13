@@ -1,103 +1,103 @@
 {
-  "name": "@atlaskit/editor-plugin-alignment",
-  "version": "1.4.1",
-  "description": "Alignment plugin for @atlaskit/editor-core",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: AI",
-    "releaseModel": "continuous",
-    "singleton": true,
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-common": "^82.2.0",
-    "@atlaskit/editor-plugin-primary-toolbar": "^1.1.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-tables": "^2.7.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/tokens": "^1.49.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/editor-plugin-list": "^3.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "platform-feature-flags": {
-    "platform.editor.text-alignment-keyboard-shortcuts": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-plugin-alignment",
+	"version": "1.4.1",
+	"description": "Alignment plugin for @atlaskit/editor-core",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: AI",
+		"releaseModel": "continuous",
+		"singleton": true,
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-plugin-primary-toolbar": "^1.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-tables": "^2.7.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/editor-plugin-list": "^3.3.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"platform-feature-flags": {
+		"platform.editor.text-alignment-keyboard-shortcuts": {
+			"type": "boolean"
+		}
+	}
 }

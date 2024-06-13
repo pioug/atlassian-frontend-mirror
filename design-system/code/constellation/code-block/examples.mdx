@@ -27,15 +27,14 @@ You can highlight lines in a code block.
 
 - To highlight one line, input the line number: `highlight="3"`
 - To highlight a group of lines, input the line numbers as a range: `highlight="1-5"`
-- To highlight multiple groups, separate the individual lines and ranges with a comma: `highlight="1-5,7,10,15-20"`
+- To highlight multiple groups, separate the individual lines and ranges with a comma:
+  `highlight="1-5,7,10,15-20"`
 
 <Example Component={CodeBlockLineHighlight} packageName="@atlaskit/code" />
 
 ## Wrapping long lines
 
-By default, long lines will result in a horizontal-scrolling code block. You can use the `shouldWrapLongLines` prop to make the long lines wrap instead.
+By default, long lines will result in a horizontal-scrolling code block. You can use the
+`shouldWrapLongLines` prop to make the long lines wrap instead.
 
-<Example
-  Component={CodeBlockShouldWrapLongLinesExample}
-  packageName="@atlaskit/code"
-/>
+<Example Component={CodeBlockShouldWrapLongLinesExample} packageName="@atlaskit/code" />

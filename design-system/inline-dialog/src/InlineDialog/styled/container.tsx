@@ -64,6 +64,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 							`0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
 						),
 						...style,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					} as unknown as React.CSSProperties
 				}
 			>

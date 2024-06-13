@@ -69,6 +69,7 @@ export function useFlagGroup() {
 // transition: none is set on first-of-type to prevent a bug in Firefox
 // that causes a broken transition
 const baseStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: flagWidth,
 	position: 'absolute',
 	insetBlockEnd: 0,
@@ -78,20 +79,26 @@ const baseStyles = css({
 	'@media (max-width: 560px)': {
 		width: '100vw',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':first-of-type': {
 		transform: `translate(0,0)`,
 		transition: 'none',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(n + 2)': {
 		animationDuration: '0ms',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transform: `translateX(0) translateY(100%) translateY(${2 * gridSize}px)`,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(1)': {
 		zIndex: 5,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':nth-of-type(2)': {
 		zIndex: 4,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:nth-of-type(n + 4)': {
 		visibility: 'hidden',
 	},
@@ -100,7 +107,7 @@ const baseStyles = css({
 // Transform needed to push up while 1st flag is leaving
 // Exiting time should match the exiting time of motion so is halved
 const dismissAllowedStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&& + *': {
 		transform: `translate(0, 0)`,
 		transitionDuration: `${flagAnimationTime / 2}ms`,

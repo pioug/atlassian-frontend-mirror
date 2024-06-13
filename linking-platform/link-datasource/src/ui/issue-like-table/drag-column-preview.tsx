@@ -26,6 +26,7 @@ const TablePreviewHeading = styled(TableHeading)(
 		background: token('color.background.disabled', '#091E4224'),
 		maxWidth: maxWidth,
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	firstLastChildOverride,
 );
 
@@ -41,6 +42,7 @@ const TablePreviewCell = styled.td(
 		borderBottom: `0.5px solid ${token('color.border', N40)}`,
 		height: '30px',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	firstLastChildOverride,
 );
 
@@ -48,6 +50,7 @@ const tableStyles = css({
 	background: token('elevation.surface', '#FFF'),
 	borderCollapse: 'separate',
 	borderSpacing: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	font: token('font.body', fontFallback.body.medium),
 	maxWidth,
 });

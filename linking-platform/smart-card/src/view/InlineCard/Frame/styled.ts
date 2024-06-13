@@ -106,16 +106,19 @@ const baseWrapperStyles = (props: WrapperProps) =>
 		...(props.isHovered ? hoveredWihBorderStyles(props) : undefined),
 	}) as const;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const WrapperAnchor = styled.a<WrapperProps>((props) => ({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	...baseWrapperStyles(props),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	...isInteractive(props),
 }));
 
 WrapperAnchor.displayName = 'WrapperAnchor';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const WrapperSpan = styled.span<WrapperProps>((props) => ({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	...baseWrapperStyles(props),
 }));
 

@@ -17,6 +17,7 @@ const containerStyles = css({
 const headerStyles = css({
 	display: 'flex',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h5: {
 		flex: '2 0 auto',
 		marginTop: 'initial',

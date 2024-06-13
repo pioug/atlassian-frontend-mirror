@@ -9,6 +9,7 @@ export enum ACTION {
 	ACTIVATED = 'activated',
 	ADDED = 'added',
 	BROWSER_FREEZE = 'browserFreeze',
+	CANCELLED = 'cancelled',
 	CAUGHT_DOM_ERROR = 'caughtDomError',
 	CHANGED_BACKGROUND_COLOR = 'changedBackgroundColor',
 	CHANGED_ICON = 'changedIcon',
@@ -37,6 +38,7 @@ export enum ACTION {
 	DISMISSED = 'dismissed',
 	DISPATCHED_INVALID_TRANSACTION = 'dispatchedInvalidTransaction',
 	DISPATCHED_VALID_TRANSACTION = 'dispatchedValidTransaction',
+	DRAGGED = 'dragged',
 	EDITED = 'edited',
 	EDITOR_CRASHED = 'unhandledErrorCaught',
 	EDITOR_CRASHED_ADDITIONAL_INFORMATION = 'unhandledErrorCaughtAdditionalInfov2',
@@ -156,6 +158,7 @@ export enum INPUT_METHOD {
 	CONFIG_PANEL = 'configPanel',
 	CONTEXT_MENU = 'contextMenu',
 	DRAG_AND_DROP = 'dragAndDrop',
+	DRAG = 'drag',
 	EXTERNAL = 'external',
 	EXTENSION_API = 'extensionApi',
 	FLOATING_TB = 'floatingToolbar',
@@ -233,6 +236,9 @@ export enum ACTION_SUBJECT {
 	LOOM = 'loom',
 	MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
 	BODIED_EXTENSION = 'bodiedExtension',
+	DROP_TARGET = 'dropTarget',
+	DRAG = 'drag',
+	ELEMENT = 'element',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -262,6 +268,8 @@ export enum ACTION_SUBJECT_ID {
 	DECISION = 'decision',
 	DIVIDER = 'divider',
 	EDIT_LINK = 'editLink',
+	ELEMENT_DRAG_HANDLE = 'elementDragHandle',
+	ELEMENT_DROP_TARGET = 'elementDropTarget',
 	EMBEDS = 'embeds',
 	EMOJI = 'emoji',
 	EXPAND = 'expand',

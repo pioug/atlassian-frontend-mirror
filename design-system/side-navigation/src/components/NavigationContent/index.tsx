@@ -51,13 +51,16 @@ const NavigationContent = forwardRef<
 	return (
 		<div
 			ref={typedRef}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={outerContainerCSS({
 				showTopScrollIndicator,
 				scrollbarWidth: scrollbar.width,
 			})}
 			data-testid={testId}
 		>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div ref={scrollbar.ref} css={innerContainerCSS({ showTopScrollIndicator })}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={containerCSS({ showTopScrollIndicator })}>{children}</div>
 			</div>
 		</div>

@@ -1,5 +1,4 @@
 import { entireSelectionContainsMark } from '@atlaskit/editor-common/mark';
-import { REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import {
 	type ReadonlyTransaction,
@@ -59,28 +58,28 @@ const getColorFromCellSelection = (
 	const marks = getAllUniqueBackgroundColorMarksInCellSelection(selection, tr);
 
 	if (marks.length > 1) {
-		return null;
+		return 'multiple';
 	}
 
 	const firstColorMark = marks.at(0);
-	let foundNonColoredNode = false;
-
-	if (firstColorMark) {
-		selection.forEachCell((cell, cellPos) => {
-			if (foundNonColoredNode) {
-				return;
-			}
-
-			const from = cellPos;
-			const to = cellPos + cell.nodeSize;
-
-			if (!entireSelectionContainsMark(firstColorMark, tr.doc, from, to)) {
-				foundNonColoredNode = true;
-			}
-		});
+	if (!firstColorMark) {
+		return null;
 	}
 
-	return foundNonColoredNode ? REMOVE_HIGHLIGHT_COLOR : firstColorMark?.attrs.color;
+	let foundUncolouredNode = false;
+	selection.forEachCell((cell, cellPos) => {
+		if (foundUncolouredNode) {
+			return;
+		}
+
+		const from = cellPos;
+		const to = cellPos + cell.nodeSize;
+
+		if (!entireSelectionContainsMark(firstColorMark, tr.doc, from, to)) {
+			foundUncolouredNode = true;
+		}
+	});
+	return foundUncolouredNode ? null : firstColorMark.attrs.color;
 };
 
 // All other selections - find the first instance of a backgroundColor mark
@@ -94,7 +93,7 @@ const getColorFromRange = (
 	const marks = getAllUniqueBackgroundColorMarksInRange(from, to, tr);
 
 	if (marks.length > 1) {
-		return null;
+		return 'multiple';
 	}
 
 	const firstColorMark = marks.at(0);
@@ -103,16 +102,16 @@ const getColorFromRange = (
 		return firstColorMark.attrs.color;
 	}
 
-	return REMOVE_HIGHLIGHT_COLOR;
+	return null;
 };
 
 // For Cursor selections - set color if it is found in the storedMarks or $cursor.marks
 const getColorFromCursor = (
 	selection: TextSelection,
 	tr: Transaction | ReadonlyTransaction,
-): string => {
+): string | null => {
 	if (!selection.$cursor) {
-		return REMOVE_HIGHLIGHT_COLOR;
+		return null;
 	}
 
 	const mark = tr.doc.type.schema.marks.backgroundColor.isInSet([
@@ -120,12 +119,12 @@ const getColorFromCursor = (
 		...selection.$cursor.marks(),
 	]);
 
-	return mark?.attrs.color || REMOVE_HIGHLIGHT_COLOR;
+	return mark?.attrs.color ?? null;
 };
 
 export const getActiveColor = (tr: Transaction | ReadonlyTransaction) => {
 	const { selection } = tr;
-	let color: string | null;
+	let color: string | null = null;
 
 	if (selection instanceof CellSelection) {
 		color = getColorFromCellSelection(selection, tr);
@@ -135,5 +134,5 @@ export const getActiveColor = (tr: Transaction | ReadonlyTransaction) => {
 		color = getColorFromRange(selection.from, selection.to, tr);
 	}
 
-	return color === undefined ? REMOVE_HIGHLIGHT_COLOR : color;
+	return color;
 };

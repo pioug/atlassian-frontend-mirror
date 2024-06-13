@@ -21,6 +21,7 @@ const textFieldStyles = css({
 });
 
 const tooltipStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	a: {
 		color: token('color.background.accent.blue.subtle', '#579DFF'),
 		'&:active': {

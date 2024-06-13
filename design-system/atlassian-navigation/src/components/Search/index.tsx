@@ -23,8 +23,9 @@ const searchInputContainerStyles = css({
 	position: 'relative',
 	marginInlineEnd: token('space.100', '8px'),
 	marginInlineStart: token('space.250', '20px'),
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		display: 'none !important',
 	},
 });
@@ -41,6 +42,7 @@ const searchInputIconStyles = css({
 const newSearchBorderStyles = css({
 	border: `${token('border.width', '1px')} solid`,
 	'&:focus': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxShadow: `inset 0 0 0 ${token('border.width', '1px')} var(${varSearchFocusBorderColor})`,
 	},
 });
@@ -50,27 +52,34 @@ const searchInputStyles = css({
 	width: '220px',
 	height: token('space.400', '32px'),
 	padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: `var(${varSearchBackgroundColor})`,
 	border: '2px solid',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderColor: `var(${varSearchBorderColor})`,
 	borderRadius: token('border.radius.200', '6px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: `var(${varSearchColor})`,
 	font: token('font.body'),
 	outline: 'none',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'::placeholder': {
 		color: 'inherit',
 	},
 	'&:focus': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderColor: `var(${varSearchFocusBorderColor})`,
 	},
 	'&:hover': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: `var(${varSearchHoverBackgroundColor})`,
 	},
 });
 
 const searchIconStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		display: 'none !important',
 	},
 });

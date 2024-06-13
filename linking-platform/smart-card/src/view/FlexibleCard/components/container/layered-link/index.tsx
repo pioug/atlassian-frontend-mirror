@@ -18,6 +18,7 @@ const styles = css({
 
 	// Needs a heightened specificity to trump other anchor.
 	// Stack it under all other links in the post text.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'a&.layered-link': {
 		position: 'absolute',
 		zIndex: 0,
@@ -33,7 +34,9 @@ const styles = css({
 	// iterations of the second element, that are following the first element
 	// (though not necessarily immediately), and are children of the same parent
 	// element.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:hover ~ *': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'.actions-button-group': {
 			opacity: 1,
 		},

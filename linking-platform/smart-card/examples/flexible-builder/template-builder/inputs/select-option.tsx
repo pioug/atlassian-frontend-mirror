@@ -43,6 +43,7 @@ const SelectOption = <T extends object>({
 	}, [defaultValue, options, propName, template]);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<span css={styles}>
 			<Field<Value<{ label: string; value: string }>> name={name} label={label}>
 				{({ fieldProps: { id, ...rest } }) => (

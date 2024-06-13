@@ -4,7 +4,7 @@ import { B400, B50, N0, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const PopupComponentContainer = styled.div({
 	boxSizing: 'border-box',
 	display: 'block',
@@ -12,6 +12,7 @@ export const PopupComponentContainer = styled.div({
 	overflow: 'visible',
 	borderRadius: token('border.radius.100', '4px'),
 	background: token('color.background.input', N0),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':focus': {
 		outline: 'none',
 	},
@@ -21,7 +22,7 @@ export const PopupComponentContainer = styled.div({
 	),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CustomDropdown = styled.div({
 	width: '340px',
 	background: token('color.background.input', N0),
@@ -33,21 +34,26 @@ export const CustomDropdown = styled.div({
 	zIndex: layers.modal(),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const CustomDropdownItem = styled.div<{ isSelected: boolean }>((props) => ({
 	height: '36px',
 	width: '100%',
 	display: 'flex',
 	justifyContent: 'flex-start',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingLeft: props.isSelected ? '15px' : '16px',
 	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: props.isSelected ? token('color.text.selected', B400) : 'inherit',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	background: props.isSelected
 		? token('color.background.accent.blue.subtlest', B50)
 		: 'transparent',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderLeft: props.isSelected ? `2px solid ${token('color.text.selected', B400)}` : 'none',
 	'&:hover': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		background: props.isSelected
 			? token('color.background.accent.blue.subtlest', B50)
 			: token('color.background.input.hovered', N20),
@@ -55,13 +61,13 @@ export const CustomDropdownItem = styled.div<{ isSelected: boolean }>((props) =>
 	},
 }));
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CustomDateWrapper = styled.div({
 	padding: token('space.150', '12px'),
 	boxSizing: 'border-box',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DatePickersWrapper = styled.div({
 	display: 'flex',
 	justifyContent: 'space-between',
@@ -69,7 +75,7 @@ export const DatePickersWrapper = styled.div({
 	width: '100%',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const SelectDateRangeButton = styled.button({
 	background: token('color.background.accent.gray.subtler', N20),
 	border: 'none',
@@ -84,7 +90,7 @@ export const SelectDateRangeButton = styled.button({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DateRangeErrorMessage = styled.div({
 	display: 'flex',
 	lineHeight: 1.3333,

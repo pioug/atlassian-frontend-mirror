@@ -123,6 +123,8 @@ export const activateVideoControls = makeKeyMapWithCommon(
 	'Shift-F10',
 );
 
+export const toggleHighlightPalette = makeKeyMapWithCommon('Toggle Highlight Palette', 'Mod-Alt-b');
+
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 	ARROWLEFT: '\u2190',

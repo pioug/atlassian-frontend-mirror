@@ -11,24 +11,32 @@ Use tooltips to add a small amount of information to an element. Use tooltips to
 
 ## Accessibility
 
-If you have space for it, then a solution that is visible on the page, like an [inline message](/components/inline-message), will always be more accessible.
+If you have space for it, then a solution that is visible on the page, like an
+[inline message](/components/inline-message), will always be more accessible.
 
-- Never put links or other interactive components in tooltips because this isn't accessible or usable. Tooltips should only include short informative text.
-- Don't put essential information in a tooltip. Tooltips have low discoverability and have usability issues on devices without hover interactions.
+- Never put links or other interactive components in tooltips because this isn't accessible or
+  usable. Tooltips should only include short informative text.
+- Don't put essential information in a tooltip. Tooltips have low discoverability and have usability
+  issues on devices without hover interactions.
 - Never put a tooltip on a disabled button. This is inaccessible and unsupported.
 - Avoid truncating tooltip text as people will not be able to visually read the message.
 
 ## Best practices
 
-- Tooltips should only appear when the person has paused on the target element. It should remain visible if the person briefly moves the mouse off and back on to the target.
-- Tooltips shouldn't immediately disappear, unless the person hovers or keyboard focuses on another element with a tooltip.
-- When the person using the UI scrolls, their attention is no longer on the tooltip. We take this opportunity to immediately hide the tooltip.
+- Tooltips should only appear when the person has paused on the target element. It should remain
+  visible if the person briefly moves the mouse off and back on to the target.
+- Tooltips shouldn't immediately disappear, unless the person hovers or keyboard focuses on another
+  element with a tooltip.
+- When the person using the UI scrolls, their attention is no longer on the tooltip. We take this
+  opportunity to immediately hide the tooltip.
 
 ## Behavior
 
-Tooltips replace standard browser tooltips when more emphasis is required. Tooltips don't receive input focus.
+Tooltips replace standard browser tooltips when more emphasis is required. Tooltips don't receive
+input focus.
 
-The position of tooltips is flexible and will change depending on how close the element is to the edge of the screen.
+The position of tooltips is flexible and will change depending on how close the element is to the
+edge of the screen.
 
 ## Content guidelines
 
@@ -36,10 +44,15 @@ Avoid repeating content inside a tooltip if there's already a visible label.
 
 ## Data Center products
 
-For all new features, we recommend using Atlassian Design System and other [Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use [Atlassian User Interface (AUI)](https://aui.atlassian.com/).
+For all new features, we recommend using Atlassian Design System and other
+[Atlaskit components](https://atlaskit.atlassian.com/). For existing code, you can continue to use
+[Atlassian User Interface (AUI)](https://aui.atlassian.com/).
 
 ## Related
 
-- When you need more than a single line of extra information, use an [inline dialog](/components/inline-dialog) or [inline-message](/components/inline-message).
-- Use with [toggles](/components/toggle) to describe what happens when the toggle is switched on or off.
-- See our [button usage guidelines](/components/button/usage#never-put-tooltips-on-disabled-buttons) for more about why using a tooltip on a disabled button isn't supported.
+- When you need more than a single line of extra information, use an
+  [inline dialog](/components/inline-dialog) or [inline-message](/components/inline-message).
+- Use with [toggles](/components/toggle) to describe what happens when the toggle is switched on or
+  off.
+- See our [button usage guidelines](/components/button/usage#never-put-tooltips-on-disabled-buttons)
+  for more about why using a tooltip on a disabled button isn't supported.

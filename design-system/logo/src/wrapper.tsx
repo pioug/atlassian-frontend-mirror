@@ -16,7 +16,7 @@ const baseWrapperStyles = css({
 	lineHeight: 1,
 	userSelect: 'none',
 	whiteSpace: 'normal',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> svg': {
 		height: '100%',
 		fill: 'inherit',
@@ -24,7 +24,7 @@ const baseWrapperStyles = css({
 });
 
 const stopColorStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	stop: {
 		stopColor: 'currentColor',
 	},
@@ -33,6 +33,7 @@ const stopColorStyles = css({
 type SizeStyles = Record<Size, SerializedStyles>;
 const sizeStyles = Object.entries(sizes).reduce((acc, [key, val]) => {
 	acc[key as Size] = css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `${val}px`,
 	});
 	return acc;

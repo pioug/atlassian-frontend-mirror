@@ -15,6 +15,7 @@ const decoration = css({
 	// U+202E RIGHT-TO-LEFT OVERRIDE' (when using pseudo element after)
 	position: 'relative',
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':before': {
 		display: 'inline-flex',
 		padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
@@ -34,6 +35,7 @@ const decoration = css({
 		pointerEvents: 'auto',
 	},
 
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover:before': {
 		background: token('color.background.warning.hovered', Y75),
 		color: token('color.text.warning', '#533F04'),

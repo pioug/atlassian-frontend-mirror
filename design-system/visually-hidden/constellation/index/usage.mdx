@@ -4,10 +4,16 @@ order: 2
 
 ## Usage
 
-Some content needs to be hidden from sighted users while still available to screen reader users. This is useful for improving accessibility when the meaning of the content is clear visually but not to screen reader users.
+Some content needs to be hidden from sighted users while still available to screen reader users.
+This is useful for improving accessibility when the meaning of the content is clear visually but not
+to screen reader users.
 
 ## Best practices
 
-- Adding verbose cues or instructions that are only read by screen reader users can be more problematic than helpful. It's important to balance making content accessible to everyone and avoiding unnecessary clutter in the user experience.
-- Use the `role` prop to add an ARIA role to the wrapping `<span>` to add semantic meaning as needed.
-- Using visually hidden text may be preferable to `aria-label` in some cases because not all screen readers translate this between languages.
+- Adding verbose cues or instructions that are only read by screen reader users can be more
+  problematic than helpful. It's important to balance making content accessible to everyone and
+  avoiding unnecessary clutter in the user experience.
+- Use the `role` prop to add an ARIA role to the wrapping `<span>` to add semantic meaning as
+  needed.
+- Using visually hidden text may be preferable to `aria-label` in some cases because not all screen
+  readers translate this between languages.

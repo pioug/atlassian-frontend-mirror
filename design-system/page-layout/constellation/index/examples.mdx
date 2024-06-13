@@ -14,74 +14,80 @@ import PageLayoutServerRendered from '../../examples/constellation/page-layout-s
 import { ExpandLeftSidebarKeyboardShortcut } from '../../examples/common/expand-sidebar-keyboard-shortcut';
 import PageLayoutLeftSidebarWithKeyboardExpand from '../../examples/constellation/page-layout-left-sidebar-keyboard-event';
 
-<SectionMessage>
-  Open the examples below in Codesandbox for a full-page experience.
-</SectionMessage>
+<SectionMessage>Open the examples below in Codesandbox for a full-page experience.</SectionMessage>
 
 ## Basic
 
-`PageLayout` wraps an entire app view and helps split the viewport into sections where you can render components in slots, such as `TopNavigation`, `Main`, `LeftSidebar`, and more.
+`PageLayout` wraps an entire app view and helps split the viewport into sections where you can
+render components in slots, such as `TopNavigation`, `Main`, `LeftSidebar`, and more.
 
-<Example
-  Component={PageLayoutBasic}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
-/>
+<Example Component={PageLayoutBasic} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 This is a customisable and more interactive example to demonstrate the page layout slots.
 
 <Example
-  Component={PageLayoutInteractive}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutInteractive}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ## Integrated
 
-`PageLayout` is designed to work in tandem with the [Atlassian navigation](/components/atlassian-navigation/examples) and [side navigation](/components/side-navigation/examples) components. This is an example where these components are used together.
+`PageLayout` is designed to work in tandem with the
+[Atlassian navigation](/components/atlassian-navigation/examples) and
+[side navigation](/components/side-navigation/examples) components. This is an example where these
+components are used together.
 
 <Example
-  Component={PageLayoutIntegration}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutIntegration}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ## Left sidebar
 
-The left sidebar houses all the navigation components for the current space a user is in. `PageLayout` lets people choose to resize, collapse or expand the sidebar. This lets people get more screen space to do work when needed.
+The left sidebar houses all the navigation components for the current space a user is in.
+`PageLayout` lets people choose to resize, collapse or expand the sidebar. This lets people get more
+screen space to do work when needed.
 
 The left sidebar:
 
 - can be resized using a mouse or a keyboard
 - can be expanded/collapsed using a mouse or a keyboard
 - has a 'Flyout' feature when hovering over collapsed sidebar to quickly see navigation items
-- uses appropriate accessibility APIs to let users with assistive technologies interact with the left sidebar
+- uses appropriate accessibility APIs to let users with assistive technologies interact with the
+  left sidebar
 
-In this example, the left sidebar can be resized and even collapsed to give more screen space to the main content:
+In this example, the left sidebar can be resized and even collapsed to give more screen space to the
+main content:
 
 <Example
-  Component={PageLayoutResizeSidebar}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutResizeSidebar}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ### Locking the sidebar open
 
-Use the `useLeftSidebarFlyoutLock` hook to prevent the sidebar flyout from collapsing in some situations, such as when a pop-up menu has been opened inside the sidebar.
+Use the `useLeftSidebarFlyoutLock` hook to prevent the sidebar flyout from collapsing in some
+situations, such as when a pop-up menu has been opened inside the sidebar.
 
 <Example
-  Component={PageLayoutLockedSidebar}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutLockedSidebar}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ### Left sidebar without resize
 
-If you need a left sidebar slot without any resize functionality, use the lighter-weight `LeftSidebarWithoutResize` component instead of the `LeftSidebar` component.
+If you need a left sidebar slot without any resize functionality, use the lighter-weight
+`LeftSidebarWithoutResize` component instead of the `LeftSidebar` component.
 
 ### Programatically toggling with a keyboard shortcut
 
-A common pattern with our LeftSidebar is to show, hide, and/or toggle the state based on a keyboard shortcut or some external input. For this, we provide utilities that control sidebar state using React Context.
+A common pattern with our LeftSidebar is to show, hide, and/or toggle the state based on a keyboard
+shortcut or some external input. For this, we provide utilities that control sidebar state using
+React Context.
 
 These are the supported options exposed via context:
 
@@ -91,24 +97,30 @@ These are the supported options exposed via context:
 - `isLeftSidebarCollapsed` whether or not the left sidebar is currently hidden
 
 <Example
-  Component={ExpandLeftSidebarKeyboardShortcut}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={ExpandLeftSidebarKeyboardShortcut}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
-The context is only available within the `LeftSidebar` component, so ensure your logic exists as a child for these to be available, example:
+The context is only available within the `LeftSidebar` component, so ensure your logic exists as a
+child for these to be available, example:
 
 <Example
-  Component={PageLayoutLeftSidebarWithKeyboardExpand}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutLeftSidebarWithKeyboardExpand}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ## Skip links
 
-Skip links are hidden links that appear on focus and allow people to skip content on the page. We recommend implementing skip links for pages with complex navigation layouts as they allow people navigating by keyboard to skip to different sections of the page.
+Skip links are hidden links that appear on focus and allow people to skip content on the page. We
+recommend implementing skip links for pages with complex navigation layouts as they allow people
+navigating by keyboard to skip to different sections of the page.
 
-Page layout automatically generates a global skip link menu based on the sections included inside `PageLayout`. To add a section to the skip link menu, give it an ID to allow focus to be placed on the element, and a skipLinkTitle for the text used to describe the section. Screen readers will read the skipLinkTitle with the text 'skip to' prepended for context.
+Page layout automatically generates a global skip link menu based on the sections included inside
+`PageLayout`. To add a section to the skip link menu, give it an ID to allow focus to be placed on
+the element, and a skipLinkTitle for the text used to describe the section. Screen readers will read
+the skipLinkTitle with the text 'skip to' prepended for context.
 
 ### Behavior
 
@@ -124,24 +136,26 @@ To modify the "Skip to:" text, set the `skipLinksLabel` prop in PageLayout.
 
 On first tab into the example below, you should see the skip link menu appear:
 
-<Example
-  Component={PageLayoutBasic}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
-/>
+<Example Component={PageLayoutBasic} appearance="source-only" packageName="@atlaskit/page-layout" />
 
 ### Custom skip links
 
-Sometimes it may be necessary to add a skip link to a section of the page which is not one of the slots provided by `PageLayout`. This is where the `useCustomSkipLink` hook comes in handy. Here's an example of using the `useCustomSkipLink` to set up skip links to elements that are not direct children of a `PageLayout` slot.
+Sometimes it may be necessary to add a skip link to a section of the page which is not one of the
+slots provided by `PageLayout`. This is where the `useCustomSkipLink` hook comes in handy. Here's an
+example of using the `useCustomSkipLink` to set up skip links to elements that are not direct
+children of a `PageLayout` slot.
 
-You can choose the position the link will show up in the menu by using the optional `listIndex` prop. Positions are zero-indexed.
+You can choose the position the link will show up in the menu by using the optional `listIndex`
+prop. Positions are zero-indexed.
 
-**Note:** Although `useCustomSkipLink` can link to DOM elements outside of `PageLayout` using the HTML `id`, it needs to be called from within `PageLayout`, since it relies on the context provider that wraps `PageLayout`.
+**Note:** Although `useCustomSkipLink` can link to DOM elements outside of `PageLayout` using the
+HTML `id`, it needs to be called from within `PageLayout`, since it relies on the context provider
+that wraps `PageLayout`.
 
 <Example
-  Component={PageLayoutCustomSkipLinks}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutCustomSkipLinks}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ## Server side rendering
@@ -149,14 +163,15 @@ You can choose the position the link will show up in the menu by using the optio
 Here is an example of a server-rendered page.
 
 <Example
-  Component={PageLayoutServerRendered}
-  appearance="source-only"
-  packageName="@atlaskit/page-layout"
+	Component={PageLayoutServerRendered}
+	appearance="source-only"
+	packageName="@atlaskit/page-layout"
 />
 
 ## Using CSS variables
 
-`@atlaskit/page-layout` exports a set of variables that can be used to setup the grid on non-react pages. The following variables are exported:
+`@atlaskit/page-layout` exports a set of variables that can be used to setup the grid on non-react
+pages. The following variables are exported:
 
 - `LEFT_PANEL_WIDTH`
 - `RIGHT_PANEL_WIDTH`
@@ -166,6 +181,9 @@ Here is an example of a server-rendered page.
 - `BANNER_HEIGHT`
 - `LEFT_SIDEBAR_FLYOUT_WIDTH`
 
-Always use these variables instead of accessing the CSS variable names directly because these variables have sensible fallback values baked into them. Accessing the variables directly runs the risk of setting the intended styles to "unset" which can cause unintended styling issues.
+Always use these variables instead of accessing the CSS variable names directly because these
+variables have sensible fallback values baked into them. Accessing the variables directly runs the
+risk of setting the intended styles to "unset" which can cause unintended styling issues.
 
-See the [server rendered example](#server-side-rendering) for a more complete example of how to use these variables.
+See the [server rendered example](#server-side-rendering) for a more complete example of how to use
+these variables.

@@ -2,6 +2,8 @@ import React, { Fragment, type HTMLAttributes } from 'react';
 
 import styled from '@emotion/styled';
 
+import Link from '@atlaskit/link';
+
 import Tag from '../src/tag/simple-tag';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -24,9 +26,9 @@ interface SpreadExampleProps {
 const SpreadExample = ({ children, className, href, tabIndex = -1 }: SpreadExampleProps) => {
 	const props = { className, href, tabIndex };
 	return (
-		<a {...props} target="_blank">
+		<Link {...props} target="_blank">
 			{children}
-		</a>
+		</Link>
 	);
 };
 

@@ -20,6 +20,8 @@ export interface PluginState {
 		anchorName: string;
 		nodeType: string;
 	} | null;
+	isResizerResizing: boolean;
+	isDocSizeLimitEnabled: boolean;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;

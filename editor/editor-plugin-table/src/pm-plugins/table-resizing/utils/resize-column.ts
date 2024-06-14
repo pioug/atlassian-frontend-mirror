@@ -2,6 +2,7 @@
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 import { TableCssClassName as ClassName } from '../../../types';
+import { ALIGN_START } from '../../../utils/alignment';
 
 import { getTableContainerElementWidth, getTableScalingPercent } from './misc';
 import { growColumn, shrinkColumn, updateAffectedColumn } from './resize-logic';
@@ -61,7 +62,7 @@ export const resizeColumnAndTable = (
 	const tableContainerWidth = tableRef.closest('.pm-table-container')?.clientWidth;
 
 	const isOverflowed = !!(tableWidth && tableContainerWidth && tableWidth > tableContainerWidth);
-	let resizeAmount = amount * 2;
+	let resizeAmount = tableNode.attrs.layout === ALIGN_START && !isOverflowed ? amount : amount * 2;
 
 	// todo: reimplement - use getTableScalingPercentFrozen to get scaled percent before table width changes dynamically
 	// let scalePercent = 1;

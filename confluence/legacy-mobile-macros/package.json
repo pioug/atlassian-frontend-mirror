@@ -1,77 +1,77 @@
 {
-  "name": "@atlaskit/legacy-mobile-macros",
-  "version": "2.6.7",
-  "description": "Higher-order components that optionally add Confluence-specific functionality to editor-mobile-bridge",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Confluence Content Experience Mobile",
-    "inPublicMirror": false,
-    "releaseModel": "continuous"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/editor-common": "82.5.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/theme": "12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "styled-components": "^3.2.6",
-    "tslib": "^2.4.0",
-    "use-memo-one": "^1.1.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "react-dom": "^16.8.0",
-    "react-test-renderer": "^16.8.0",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "code-structure": [
-        "tangerine-next"
-      ],
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  },
-  "af:exports": {},
-  "exports": {}
+	"name": "@atlaskit/legacy-mobile-macros",
+	"version": "2.6.7",
+	"description": "Higher-order components that optionally add Confluence-specific functionality to editor-mobile-bridge",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Confluence Content Experience Mobile",
+		"inPublicMirror": false,
+		"releaseModel": "continuous"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/analytics-gas-types": "^5.1.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/editor-common": "82.5.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/theme": "12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"styled-components": "^3.2.6",
+		"tslib": "^2.4.0",
+		"use-memo-one": "^1.1.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"react-dom": "^16.8.0",
+		"react-test-renderer": "^16.8.0",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"tangerine-next"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"analytics": [
+				"analytics-next"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"af:exports": {},
+	"exports": {}
 }

@@ -12,7 +12,7 @@ import {
 	getAllowedFunctionCalls,
 	isAllowListedVariable,
 } from '@atlaskit/eslint-utils/allowed-function-calls';
-import type { Identifier, Node } from 'eslint-codemod-utils';
+import type * as ESTree from 'eslint-codemod-utils';
 import esquery from 'esquery';
 
 const schema: JSONSchema4 = [
@@ -49,7 +49,7 @@ const schema: JSONSchema4 = [
 ];
 
 const isIdentifierImported = (
-	identifier: Identifier,
+	identifier: ESTree.Identifier,
 	context: Rule.RuleContext,
 	functionAllowList: AllowList,
 	keysAllowList: AllowList,
@@ -76,7 +76,7 @@ const isIdentifierImported = (
 };
 
 const checkIdentifier = (
-	identifier: Identifier,
+	identifier: ESTree.Identifier,
 	context: Rule.RuleContext,
 	functionAllowList: AllowList,
 	keysAllowList: AllowList,
@@ -109,7 +109,7 @@ export const rule = createLintRule({
 		const functionAllowList = getAllowedFunctionCalls(context.options);
 		const keysAllowList = getAllowedDynamicKeys(context.options);
 
-		const checkForIdentifiers = (node: Node) => {
+		const checkForIdentifiers = (node: ESTree.Node) => {
 			const matches = esquery(node, 'Identifier');
 
 			for (const match of matches) {
@@ -129,18 +129,9 @@ export const rule = createLintRule({
 				}
 				node.arguments.forEach(checkForIdentifiers);
 			},
-			'JSXAttribute[name.name="css"] Identifier': (node: Node) => {
-				if (node.type !== 'Identifier') {
-					return;
-				}
-
-				checkIdentifier(node, context, functionAllowList, keysAllowList);
-			},
-			'JSXAttribute[name.name="style"] Identifier': (node: Node) => {
-				if (node.type !== 'Identifier') {
-					return;
-				}
-
+			'JSXAttribute[name.name=/^style|css$/] Identifier:not(TSTypeReference Identifier)'(
+				node: ESTree.Identifier,
+			) {
 				checkIdentifier(node, context, functionAllowList, keysAllowList);
 			},
 		};

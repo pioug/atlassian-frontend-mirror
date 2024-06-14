@@ -1,5 +1,5 @@
 {
-  "dependencies": {
-    "@atlaskit/dep1": "foo"
-  }
+	"dependencies": {
+		"@atlaskit/dep1": "foo"
+	}
 }

@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { render } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
+import userEvent from '@testing-library/user-event';
 
 import mockContextDefault from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
@@ -11,6 +12,7 @@ import { type ViewRelatedLinksActionProps } from '../types';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import ViewRelatedLinksAction from '..';
+import { SmartLinkModalProvider } from '../../../../../../state/modal';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),
@@ -34,7 +36,9 @@ describe('ViewRelatedLinksAction', () => {
 		const renderResult = render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
 				<IntlProvider locale="en">
-					<ViewRelatedLinksAction {...props} testId={testId} />
+					<SmartLinkModalProvider>
+						<ViewRelatedLinksAction {...props} testId={testId} />
+					</SmartLinkModalProvider>
 				</IntlProvider>
 			</AnalyticsListener>,
 		);
@@ -79,5 +83,27 @@ describe('ViewRelatedLinksAction', () => {
 		getByTestId(testId).click();
 
 		expect(onClick).toHaveBeenCalledTimes(1);
+	});
+
+	it('opens the RelatedLinksModal when the action is clicked', async () => {
+		const user = userEvent.setup();
+		const onClick = jest.fn();
+
+		const { getByTestId, findByRole, findByText } = setup({ onClick });
+
+		const actionButton = getByTestId(testId);
+		await user.click(actionButton);
+		const modal = await findByRole('dialog');
+		const modalTitle = await findByText('Recent Links');
+		const closeButton = await findByRole('button', { name: 'Close' });
+
+		expect(modal).toBeInTheDocument();
+		expect(modalTitle).toBeInTheDocument();
+		expect(closeButton).toBeInTheDocument();
+
+		expect(onClick).toHaveBeenCalledTimes(1);
+
+		await user.click(closeButton);
+		expect(modal).not.toBeInTheDocument();
 	});
 });

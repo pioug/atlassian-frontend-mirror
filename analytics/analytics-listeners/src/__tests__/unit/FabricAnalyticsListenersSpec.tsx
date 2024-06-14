@@ -12,6 +12,7 @@ import {
 	DummyPostOfficeComponent,
 	IncorrectEventType,
 	DummyAIMateComponent,
+	DummyAVPComponent,
 } from '../../../examples/helpers';
 import AtlaskitListener from '../../atlaskit/AtlaskitListener';
 import FabricElementsListener from '../../fabric/FabricElementsListener';
@@ -24,6 +25,7 @@ import NotificationsAnalyticsListener from '../../notifications/NotificationsAna
 import CrossFlowAnalyticsListener from '../../cross-flow/CrossFlowAnalyticsListener';
 import PostOfficeAnalyticsListener from '../../postOffice/PostOfficeAnalyticsListener';
 import AIMateAnalyticsListener from '../../aiMate/AIMateAnalyticsListener';
+import AVPAnalyticsListener from '../../avp/AVPAnalyticsListener';
 
 declare const global: any;
 
@@ -38,6 +40,7 @@ const DummyNotificationsCompWithAnalytics = createComponentWithAnalytics(
 const DummyCrossFlowCompWithAnalytics = createComponentWithAnalytics(FabricChannel.crossFlow);
 const DummyPostOfficeCompWithAnalytics = createComponentWithAnalytics(FabricChannel.postOffice);
 const DummyAIMateCompWithAnalytics = createComponentWithAnalytics(FabricChannel.aiMate);
+const DummyAVPCompWithAnalytics = createComponentWithAnalytics(FabricChannel.avp);
 const AtlaskitIncorrectEventType = IncorrectEventType(FabricChannel.atlaskit);
 
 describe('<FabricAnalyticsListeners />', () => {
@@ -716,6 +719,51 @@ describe('<FabricAnalyticsListeners />', () => {
 			);
 
 			const dummyComponent = analyticsListener.find(DummyAIMateComponent);
+			expect(dummyComponent).toHaveLength(1);
+
+			dummyComponent.simulate('click');
+		});
+	});
+
+	describe('<AVPAnalyticsListener />', () => {
+		it('should listen and fire a UI event with analyticsWebClient', () => {
+			const compOnClick = jest.fn();
+			const component = mount(
+				<FabricAnalyticsListeners client={analyticsWebClientMock}>
+					<DummyAVPCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const analyticsListener = component.find(AVPAnalyticsListener);
+			expect(analyticsListener.props()).toHaveProperty('client', analyticsWebClientMock);
+
+			const dummyComponent = analyticsListener.find(DummyAVPComponent);
+			expect(dummyComponent).toHaveLength(1);
+
+			dummyComponent.simulate('click');
+
+			expect(analyticsWebClientMock.sendUIEvent).toBeCalled();
+		});
+
+		it('should listen and fire a UI event with analyticsWebClient as Promise', (done) => {
+			analyticsWebClientMock.sendUIEvent = jest.fn(() => {
+				done();
+			});
+
+			const compOnClick = jest.fn();
+			const component = mount(
+				<FabricAnalyticsListeners client={Promise.resolve(analyticsWebClientMock)}>
+					<DummyAVPCompWithAnalytics onClick={compOnClick} />
+				</FabricAnalyticsListeners>,
+			);
+
+			const analyticsListener = component.find(AVPAnalyticsListener);
+			expect(analyticsListener.props()).toHaveProperty(
+				'client',
+				Promise.resolve(analyticsWebClientMock),
+			);
+
+			const dummyComponent = analyticsListener.find(DummyAVPComponent);
 			expect(dummyComponent).toHaveLength(1);
 
 			dummyComponent.simulate('click');

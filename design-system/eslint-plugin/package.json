@@ -1,99 +1,99 @@
 {
-  "name": "@atlaskit/eslint-plugin-design-system",
-  "description": "The essential plugin for use with the Atlassian Design System.",
-  "version": "10.7.0",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "ESLint plugin",
-      "category": "Tooling"
-    },
-    "runReact18": true
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    ".": "./index.js"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "dependencies": {
-    "@atlaskit/eslint-utils": "^1.6.0",
-    "@atlaskit/tokens": "*",
-    "@babel/runtime": "^7.0.0",
-    "@typescript-eslint/utils": "^5.48.1",
-    "ajv": "^6.12.6",
-    "eslint-codemod-utils": "^1.8.6",
-    "esquery": "^1.5.0",
-    "estraverse": "^5.3.0",
-    "lodash": "^4.17.21",
-    "semver": "^7.5.2"
-  },
-  "devDependencies": {
-    "@af/formatting": "*",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlassian/codegen": "*",
-    "@atlassian/eslint-utils": "^0.5.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "@types/eslint": "^8.56.6",
-    "@types/esquery": "^1.5.3",
-    "@types/estraverse": "^5.1.7",
-    "eslint": "^8.49.0",
-    "jscodeshift": "^0.13.0",
-    "outdent": "^0.5.0",
-    "react": "^16.8.0",
-    "ts-jest": "26.5.6",
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "~5.4.2"
-  },
-  "scripts": {
-    "ak-postbuild": "cp -r configs dist",
-    "codegen": "ts-node -r tsconfig-paths/register ./scripts/codegen.tsx",
-    "codegen-token-maps": "ts-node -r tsconfig-paths/register ./scripts/token-maps/codegen-token-maps.tsx"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions",
-      "circular-dependencies": "file-and-folder-level"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "static",
-        "emotion"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/eslint-plugin-design-system"
+	"name": "@atlaskit/eslint-plugin-design-system",
+	"description": "The essential plugin for use with the Atlassian Design System.",
+	"version": "10.7.0",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "ESLint plugin",
+			"category": "Tooling"
+		},
+		"runReact18": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		".": "./index.js"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"dependencies": {
+		"@atlaskit/eslint-utils": "^1.6.0",
+		"@atlaskit/tokens": "*",
+		"@babel/runtime": "^7.0.0",
+		"@typescript-eslint/utils": "^5.48.1",
+		"ajv": "^6.12.6",
+		"eslint-codemod-utils": "^1.8.6",
+		"esquery": "^1.5.0",
+		"estraverse": "^5.3.0",
+		"lodash": "^4.17.21",
+		"semver": "^7.5.2"
+	},
+	"devDependencies": {
+		"@af/formatting": "*",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlassian/codegen": "*",
+		"@atlassian/eslint-utils": "^0.5.0",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"@types/eslint": "^8.56.6",
+		"@types/esquery": "^1.5.3",
+		"@types/estraverse": "^5.1.7",
+		"eslint": "^8.49.0",
+		"jscodeshift": "^0.13.0",
+		"outdent": "^0.5.0",
+		"react": "^16.8.0",
+		"ts-jest": "26.5.6",
+		"ts-node": "^10.9.1",
+		"tsconfig-paths": "^4.2.0",
+		"typescript": "~5.4.2"
+	},
+	"scripts": {
+		"ak-postbuild": "cp -r configs dist",
+		"codegen": "ts-node -r tsconfig-paths/register ./scripts/codegen.tsx",
+		"codegen-token-maps": "ts-node -r tsconfig-paths/register ./scripts/token-maps/codegen-token-maps.tsx"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions",
+			"circular-dependencies": "file-and-folder-level"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/eslint-plugin-design-system"
 }

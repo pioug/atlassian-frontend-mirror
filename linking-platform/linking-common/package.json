@@ -1,84 +1,84 @@
 {
-  "name": "@atlaskit/linking-common",
-  "version": "5.7.1",
-  "description": "Contains utils and interfaces shared across different LP components",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Linking Platform",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "LinkingCommon"
-    }
-  },
-  "scripts": {
-    "codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "fetch-mock": "^8.0.0",
-    "json-ld-types": "^4.1.0",
-    "linkify-it": "^3.0.3",
-    "redux": "^3.7.2"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/link-test-helpers": "^7.0.0",
-    "@atlaskit/media-test-helpers": "^33.0.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/linkify-it": "^3.0.2",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "sinon": "^2.2.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "af:exports": {
-    "./types": "./src/types.ts",
-    "./url": "./src/url.ts",
-    "./user-agent": "./src/user-agent/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./mocks": "./src/common/mocks/index.ts",
-    "./sentry": "./src/sentry/index.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./types": "./src/types.ts",
-    "./url": "./src/url.ts",
-    "./user-agent": "./src/user-agent/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./mocks": "./src/common/mocks/index.ts",
-    "./sentry": "./src/sentry/index.ts",
-    ".": "./src/index.ts"
-  },
-  "platform-feature-flags": {}
+	"name": "@atlaskit/linking-common",
+	"version": "5.7.1",
+	"description": "Contains utils and interfaces shared across different LP components",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Linking Platform",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "LinkingCommon"
+		}
+	},
+	"scripts": {
+		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"fetch-mock": "^8.0.0",
+		"json-ld-types": "^4.1.0",
+		"linkify-it": "^3.0.3",
+		"redux": "^3.7.2"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@types/linkify-it": "^3.0.2",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"sinon": "^2.2.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"af:exports": {
+		"./types": "./src/types.ts",
+		"./url": "./src/url.ts",
+		"./user-agent": "./src/user-agent/index.ts",
+		"./utils": "./src/utils/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./mocks": "./src/common/mocks/index.ts",
+		"./sentry": "./src/sentry/index.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./types": "./src/types.ts",
+		"./url": "./src/url.ts",
+		"./user-agent": "./src/user-agent/index.ts",
+		"./utils": "./src/utils/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./mocks": "./src/common/mocks/index.ts",
+		"./sentry": "./src/sentry/index.ts",
+		".": "./src/index.ts"
+	},
+	"platform-feature-flags": {}
 }

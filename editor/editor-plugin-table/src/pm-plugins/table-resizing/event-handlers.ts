@@ -17,7 +17,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { stopKeyboardColumnResizing } from '../../commands/column-resize';
 import { updateResizeHandleDecorations } from '../../commands/misc';
 import { updateColumnWidths } from '../../transforms';
-import { getSelectedColumnIndexes } from '../../utils';
+import { getSelectedColumnIndexes, isTableNested } from '../../utils';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { META_KEYS } from '../table-analytics';
 
@@ -192,7 +192,10 @@ export const handleMouseDown = (
 
 				const resizedDelta = clientX - startX;
 
-				if (getBooleanFF('platform.editor.table.colum-resizing-improvements')) {
+				if (
+					getBooleanFF('platform.editor.table.colum-resizing-improvements') &&
+					!isTableNested(state, tablePos)
+				) {
 					const newResizeState = resizeColumnAndTable(
 						resizeState,
 						colIndex,
@@ -297,7 +300,10 @@ export const handleMouseDown = (
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 		}
 
-		if (getBooleanFF('platform.editor.table.colum-resizing-improvements')) {
+		if (
+			getBooleanFF('platform.editor.table.colum-resizing-improvements') &&
+			!isTableNested(state, tablePos)
+		) {
 			resizeColumnAndTable(
 				resizeState,
 				colIndex,

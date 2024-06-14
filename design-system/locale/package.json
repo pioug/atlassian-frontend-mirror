@@ -1,58 +1,58 @@
 {
-  "name": "@atlaskit/locale",
-  "version": "2.7.0",
-  "description": "Utility functions for handling localization",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./LocaleSelect": "./src/LocaleSelect.tsx"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./LocaleSelect": "./src/LocaleSelect.tsx"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Locale",
-      "category": "Libraries"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/select": "^17.10.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@atlaskit/textfield": "^6.3.0",
-    "styled-components": "^3.2.6",
-    "typescript": "~5.4.2"
-  },
-  "homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"
+	"name": "@atlaskit/locale",
+	"version": "2.7.0",
+	"description": "Utility functions for handling localization",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./LocaleSelect": "./src/LocaleSelect.tsx"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./LocaleSelect": "./src/LocaleSelect.tsx"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Locale",
+			"category": "Libraries"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/select": "^17.10.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@atlaskit/textfield": "^6.3.0",
+		"styled-components": "^3.2.6",
+		"typescript": "~5.4.2"
+	},
+	"homepage": "https://atlaskit.atlassian.com/packages/helpers/locale"
 }

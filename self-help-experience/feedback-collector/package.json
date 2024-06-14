@@ -1,102 +1,102 @@
 {
-  "name": "@atlaskit/feedback-collector",
-  "version": "13.3.5",
-  "description": "A component that collects feedback across Atlassian products.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./messages": "./src/messages.ts",
-    "./types": "./src/types.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./messages": "./src/messages.ts",
-    "./types": "./src/types.ts"
-  },
-  "atlassian": {
-    "team": "Self-Help Experiences",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Feedback Collector"
-    }
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/flag": "^15.5.0",
-    "@atlaskit/form": "^10.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/textarea": "^5.4.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/ssr": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "buffer": "^6.0.3",
-    "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.proforma-form-builder-feedback_hupaz": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/feedback-collector",
+	"version": "13.3.5",
+	"description": "A component that collects feedback across Atlassian products.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./messages": "./src/messages.ts",
+		"./types": "./src/types.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./messages": "./src/messages.ts",
+		"./types": "./src/types.ts"
+	},
+	"atlassian": {
+		"team": "Self-Help Experiences",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Feedback Collector"
+		}
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/flag": "^15.5.0",
+		"@atlaskit/form": "^10.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/textarea": "^5.4.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/ssr": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"buffer": "^6.0.3",
+		"enzyme": "^3.10.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.proforma-form-builder-feedback_hupaz": {
+			"type": "boolean"
+		}
+	}
 }

@@ -1,101 +1,101 @@
 {
-  "name": "@atlaskit/tag",
-  "version": "12.2.3",
-  "description": "A tag labels UI objects for quick recognition and navigation.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "homepage": "https://atlassian.design/components/tag/",
-  "atlassian": {
-    "team": "Design System Team",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Tag",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "af:exports": {
-    "./simple-tag": "./src/tag/simple-tag.tsx",
-    "./removable-tag": "./src/tag/removable-tag.tsx",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./simple-tag": "./src/tag/simple-tag.tsx",
-    "./removable-tag": "./src/tag/removable-tag.tsx",
-    ".": "./src/index.tsx"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/avatar": "^21.9.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/tag-group": "^10.3.0",
-    "@atlaskit/visual-regression": "*",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@types/jscodeshift": "^0.11.0",
-    "exenv": "^1.2.2",
-    "jscodeshift": "^0.13.0",
-    "react-dom": "^16.8.0",
-    "react-test-renderer": "^16.8.0",
-    "storybook-addon-performance": "^0.16.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "static"
-      ]
-    }
-  }
+	"name": "@atlaskit/tag",
+	"version": "12.2.3",
+	"description": "A tag labels UI objects for quick recognition and navigation.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"homepage": "https://atlassian.design/components/tag/",
+	"atlassian": {
+		"team": "Design System Team",
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Tag",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"af:exports": {
+		"./simple-tag": "./src/tag/simple-tag.tsx",
+		"./removable-tag": "./src/tag/removable-tag.tsx",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./simple-tag": "./src/tag/simple-tag.tsx",
+		"./removable-tag": "./src/tag/removable-tag.tsx",
+		".": "./src/index.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/motion": "^1.6.0",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/tag-group": "^10.3.0",
+		"@atlaskit/visual-regression": "*",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"@types/jscodeshift": "^0.11.0",
+		"exenv": "^1.2.2",
+		"jscodeshift": "^0.13.0",
+		"react-dom": "^16.8.0",
+		"react-test-renderer": "^16.8.0",
+		"storybook-addon-performance": "^0.16.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"static"
+			]
+		}
+	}
 }

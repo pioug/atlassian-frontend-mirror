@@ -1,5 +1,6 @@
-import React, { forwardRef, type ReactNode, type Ref, useCallback, useContext } from 'react';
+import React, { forwardRef, type Ref, useCallback, useContext } from 'react';
 
+import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
@@ -19,14 +20,9 @@ export type AnchorProps<RouterLinkConfig extends Record<string, any> = never> =
 			| 'href'
 			// Should not allow custom elements
 			| 'as'
-			| 'children'
 			| 'style'
 			| 'onClick'
 		> & {
-			/**
-			 * `children` should be defined to ensure links have text.
-			 */
-			children: ReactNode;
 			/**
 			 * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
 			 */
@@ -61,11 +57,15 @@ const defaultStyles = xcss({
 });
 
 const focusRingStyles = xcss({
-	':focus-visible': baseFocusRingStyles,
+	// Focus styles used when :focus-visible isn't supported
+	':focus': baseFocusRingStyles,
 
-	'@supports not selector(*:focus-visible)': {
-		':focus': baseFocusRingStyles,
+	// Remove default focus styles for mouse interactions if :focus-visible is supported
+	':focus:not(:focus-visible)': {
+		outline: 'none',
 	},
+
+	':focus-visible': baseFocusRingStyles,
 
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		':focus-visible': {
@@ -76,6 +76,7 @@ const focusRingStyles = xcss({
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
 const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
+const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
 
 const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 	{
@@ -96,6 +97,8 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		interactionName,
 		componentName,
 		analyticsContext,
+		'aria-label': ariaLabel,
+		'aria-labelledby': ariaLabelledBy,
 		...htmlAttributes
 	}: AnchorProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,
@@ -108,6 +111,9 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		},
 		[providedOnClick, interactionContext, interactionName],
 	);
+	// TODO: Use React 18's useId() hook when we update.
+	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+	const opensNewWindowLabelId = uid({ ariaLabelledBy });
 
 	const onClick = usePlatformLeafEventHandler({
 		fn: handleClick,
@@ -169,11 +175,23 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			paddingInlineStart={paddingInlineStart}
 			paddingInlineEnd={paddingInlineEnd}
 			onClick={onClick}
+			aria-label={
+				ariaLabel && target === '_blank' && !ariaLabelledBy
+					? `${ariaLabel} ${OPENS_NEW_WINDOW_LABEL}`
+					: ariaLabel
+			}
+			aria-labelledby={
+				ariaLabelledBy && target === '_blank'
+					? `${ariaLabelledBy} ${opensNewWindowLabelId}`
+					: ariaLabelledBy
+			}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			xcss={styles}
 		>
 			{children}
-			{target === '_blank' && <VisuallyHidden>(opens new window)</VisuallyHidden>}
+			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
+				<VisuallyHidden id={opensNewWindowLabelId}>{OPENS_NEW_WINDOW_LABEL}</VisuallyHidden>
+			)}
 		</Box>
 	);
 };

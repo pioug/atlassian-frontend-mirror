@@ -26,7 +26,6 @@ import {
 	akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { FindReplaceProps } from './FindReplace';
@@ -56,7 +55,6 @@ const wrapper = css({
 });
 
 const dropdownWidthNewDesign = 382;
-const dropdownWidthOldDesign = 352;
 
 export interface FindReplaceToolbarButtonProps extends Omit<FindReplaceProps, 'count'> {
 	index: number;
@@ -126,19 +124,13 @@ class FindReplaceToolbarButton extends React.PureComponent<
 					handleEscapeKeydown={() => {
 						if (isActive) {
 							this.props.onCancel({ triggerMethod: TRIGGER_METHOD.KEYBOARD });
-							if (getBooleanFF('platform.editor.a11y-find-replace')) {
-								if (this.state.openedByClick && this.toolbarButtonRef.current) {
-									this.toolbarButtonRef.current.focus();
-								}
-								this.setState({ openedByClick: false });
+							if (this.state.openedByClick && this.toolbarButtonRef.current) {
+								this.toolbarButtonRef.current.focus();
 							}
+							this.setState({ openedByClick: false });
 						}
 					}}
-					fitWidth={
-						getBooleanFF('platform.editor.a11y-find-replace')
-							? dropdownWidthNewDesign
-							: dropdownWidthOldDesign
-					}
+					fitWidth={dropdownWidthNewDesign}
 					zIndex={stackBelowOtherEditorFloatingPanels}
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
@@ -156,7 +148,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 							aria-haspopup
 							aria-label={keymap ? tooltip(keymap, title) : title}
 							aria-keyshortcuts={getAriaKeyshortcuts(keymap)}
-							ref={getBooleanFF('platform.editor.a11y-find-replace') ? this.toolbarButtonRef : null}
+							ref={this.toolbarButtonRef}
 						/>
 					}
 				>

@@ -1,88 +1,88 @@
 {
-  "name": "@atlaskit/eslint-utils",
-  "version": "1.6.1",
-  "description": "Shared utilities for ESLint rules",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "ESLint utils",
-      "category": "Tooling"
-    },
-    "runReact18": true
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <5.4": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./allowed-function-calls": "./src/allowed-function-calls/index.tsx",
-    "./create-rule": "./src/create-rule.tsx",
-    "./find-identifier-node": "./src/find-identifier-node.tsx",
-    "./find-variable": "./src/find-variable.tsx",
-    "./is-supported-import": "./src/is-supported-import.tsx",
-    "./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
-    "./schema": "./src/schema.tsx",
-    "./walk-style-properties": "./src/walk-style-properties.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./allowed-function-calls": "./src/allowed-function-calls/index.tsx",
-    "./create-rule": "./src/create-rule.tsx",
-    "./find-identifier-node": "./src/find-identifier-node.tsx",
-    "./find-variable": "./src/find-variable.tsx",
-    "./is-supported-import": "./src/is-supported-import.tsx",
-    "./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
-    "./schema": "./src/schema.tsx",
-    "./walk-style-properties": "./src/walk-style-properties.tsx"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "eslint-codemod-utils": "^1.8.6",
-    "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@types/eslint": "^8.56.6",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions",
-      "circular-dependencies": "file-and-folder-level"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "deprecation": "no-deprecated-imports",
-      "styling": []
-    }
-  },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-utils"
+	"name": "@atlaskit/eslint-utils",
+	"version": "1.6.1",
+	"description": "Shared utilities for ESLint rules",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "ESLint utils",
+			"category": "Tooling"
+		},
+		"runReact18": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <5.4": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx",
+		"./allowed-function-calls": "./src/allowed-function-calls/index.tsx",
+		"./create-rule": "./src/create-rule.tsx",
+		"./find-identifier-node": "./src/find-identifier-node.tsx",
+		"./find-variable": "./src/find-variable.tsx",
+		"./is-supported-import": "./src/is-supported-import.tsx",
+		"./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
+		"./schema": "./src/schema.tsx",
+		"./walk-style-properties": "./src/walk-style-properties.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx",
+		"./allowed-function-calls": "./src/allowed-function-calls/index.tsx",
+		"./create-rule": "./src/create-rule.tsx",
+		"./find-identifier-node": "./src/find-identifier-node.tsx",
+		"./find-variable": "./src/find-variable.tsx",
+		"./is-supported-import": "./src/is-supported-import.tsx",
+		"./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
+		"./schema": "./src/schema.tsx",
+		"./walk-style-properties": "./src/walk-style-properties.tsx"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"eslint-codemod-utils": "^1.8.6",
+		"lodash": "^4.17.21"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@types/eslint": "^8.56.6",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions",
+			"circular-dependencies": "file-and-folder-level"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"deprecation": "no-deprecated-imports",
+			"styling": []
+		}
+	},
+	"homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-utils"
 }

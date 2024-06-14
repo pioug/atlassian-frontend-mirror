@@ -2,6 +2,7 @@ import type { WeekDay } from '@atlaskit/calendar/types';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorCommand,
+	GetEditorFeatureFlags,
 	NextEditorPlugin,
 	TOOLBAR_MENU_TYPE,
 } from '@atlaskit/editor-common/types';
@@ -18,6 +19,7 @@ export type DateType = {
 
 export interface DatePluginConfig {
 	weekStartDay?: WeekDay;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export type DatePluginSharedState = {

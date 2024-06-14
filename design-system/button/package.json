@@ -1,211 +1,211 @@
 {
-  "name": "@atlaskit/button",
-  "version": "17.17.3",
-  "description": "A button triggers an event or action. They let users know what will happen next.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Button",
-      "category": "Components",
-      "status": {
-        "type": "beta",
-        "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
-        "actions": [
-          {
-            "text": "View the migration guide",
-            "href": "/components/button/button-legacy/migration-guide"
-          }
-        ]
-      },
-      "subPages": [
-        {
-          "title": "Icon button",
-          "id": "icon-button",
-          "status": {
-            "type": "beta",
-            "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
-            "actions": [
-              {
-                "text": "View the migration guide",
-                "href": "/components/button/button-legacy/migration-guide"
-              }
-            ]
-          },
-          "sortKey": 1
-        },
-        {
-          "title": "Link button",
-          "id": "link-button",
-          "status": {
-            "type": "beta",
-            "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
-            "actions": [
-              {
-                "text": "View the migration guide",
-                "href": "/components/button/button-legacy/migration-guide"
-              }
-            ]
-          },
-          "sortKey": 2
-        },
-        {
-          "title": "Link icon button",
-          "id": "link-icon-button",
-          "status": {
-            "type": "beta",
-            "description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
-            "actions": [
-              {
-                "text": "View the migration guide",
-                "href": "/components/button/button-legacy/migration-guide"
-              }
-            ]
-          },
-          "sortKey": 3
-        },
-        {
-          "title": "Split button",
-          "id": "split-button",
-          "status": {
-            "type": "beta"
-          },
-          "sortKey": 4
-        },
-        {
-          "title": "Button group",
-          "id": "button-group",
-          "sortKey": 5
-        },
-        {
-          "title": "Button (legacy)",
-          "id": "button-legacy",
-          "status": {
-            "type": "intent-to-deprecate",
-            "description": "Legacy buttons will soon be deprecated. Please use the new [button](/components/button), [icon button](/components/button/icon-button), [link button](/components/button/link-button), or [link icon button](/components/button/link-icon-button). Migrate from legacy buttons using our codemod.",
-            "actions": [
-              {
-                "text": "View the migration guide",
-                "href": "/components/button/button-legacy/migration-guide"
-              }
-            ]
-          },
-          "sortKey": 6
-        }
-      ]
-    },
-    "runReact18": true
-  },
-  "af:exports": {
-    "./button-group": "./src/entry-points/button-group.tsx",
-    "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
-    "./loading-button": "./src/entry-points/loading-button.tsx",
-    "./standard-button": "./src/entry-points/standard-button.tsx",
-    "./new": "./src/entry-points/new.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./button-group": "./src/entry-points/button-group.tsx",
-    "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
-    "./loading-button": "./src/entry-points/loading-button.tsx",
-    "./standard-button": "./src/entry-points/standard-button.tsx",
-    "./new": "./src/entry-points/new.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/focus-ring": "^1.4.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/interaction-context": "^2.1.0",
-    "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/visually-hidden": "^1.3.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/app-provider": "^1.3.0",
-    "@atlaskit/calendar": "^14.2.0",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/react-router-dom": "^4.3.1",
-    "ast-types": "^0.13.3",
-    "bind-event-listener": "^3.0.0",
-    "jest-emotion": "^10.0.32",
-    "jest-in-case": "^1.0.2",
-    "jscodeshift": "^0.13.0",
-    "lodash": "^4.17.21",
-    "react-dom": "^16.8.0",
-    "react-router-dom": "^4.2.2",
-    "react-test-renderer": "^16.8.0",
-    "storybook-addon-performance": "^0.16.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "static"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/button/",
-  "platform-feature-flags": {
-    "platform.design-system-team.button-tokenised-typography-styles": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/button",
+	"version": "17.17.3",
+	"description": "A button triggers an event or action. They let users know what will happen next.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Button",
+			"category": "Components",
+			"status": {
+				"type": "beta",
+				"description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+				"actions": [
+					{
+						"text": "View the migration guide",
+						"href": "/components/button/button-legacy/migration-guide"
+					}
+				]
+			},
+			"subPages": [
+				{
+					"title": "Icon button",
+					"id": "icon-button",
+					"status": {
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+						"actions": [
+							{
+								"text": "View the migration guide",
+								"href": "/components/button/button-legacy/migration-guide"
+							}
+						]
+					},
+					"sortKey": 1
+				},
+				{
+					"title": "Link button",
+					"id": "link-button",
+					"status": {
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+						"actions": [
+							{
+								"text": "View the migration guide",
+								"href": "/components/button/button-legacy/migration-guide"
+							}
+						]
+					},
+					"sortKey": 2
+				},
+				{
+					"title": "Link icon button",
+					"id": "link-icon-button",
+					"status": {
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes. Migrate from legacy buttons using our codemod.",
+						"actions": [
+							{
+								"text": "View the migration guide",
+								"href": "/components/button/button-legacy/migration-guide"
+							}
+						]
+					},
+					"sortKey": 3
+				},
+				{
+					"title": "Split button",
+					"id": "split-button",
+					"status": {
+						"type": "beta"
+					},
+					"sortKey": 4
+				},
+				{
+					"title": "Button group",
+					"id": "button-group",
+					"sortKey": 5
+				},
+				{
+					"title": "Button (legacy)",
+					"id": "button-legacy",
+					"status": {
+						"type": "intent-to-deprecate",
+						"description": "Legacy buttons will soon be deprecated. Please use the new [button](/components/button), [icon button](/components/button/icon-button), [link button](/components/button/link-button), or [link icon button](/components/button/link-icon-button). Migrate from legacy buttons using our codemod.",
+						"actions": [
+							{
+								"text": "View the migration guide",
+								"href": "/components/button/button-legacy/migration-guide"
+							}
+						]
+					},
+					"sortKey": 6
+				}
+			]
+		},
+		"runReact18": true
+	},
+	"af:exports": {
+		"./button-group": "./src/entry-points/button-group.tsx",
+		"./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
+		"./loading-button": "./src/entry-points/loading-button.tsx",
+		"./standard-button": "./src/entry-points/standard-button.tsx",
+		"./new": "./src/entry-points/new.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./button-group": "./src/entry-points/button-group.tsx",
+		"./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
+		"./loading-button": "./src/entry-points/loading-button.tsx",
+		"./standard-button": "./src/entry-points/standard-button.tsx",
+		"./new": "./src/entry-points/new.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/focus-ring": "^1.4.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/interaction-context": "^2.1.0",
+		"@atlaskit/platform-feature-flags": "^0.2.5",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/visually-hidden": "^1.3.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/app-provider": "^1.3.0",
+		"@atlaskit/calendar": "^14.2.0",
+		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/react-router-dom": "^4.3.1",
+		"ast-types": "^0.13.3",
+		"bind-event-listener": "^3.0.0",
+		"jest-emotion": "^10.0.32",
+		"jest-in-case": "^1.0.2",
+		"jscodeshift": "^0.13.0",
+		"lodash": "^4.17.21",
+		"react-dom": "^16.8.0",
+		"react-router-dom": "^4.2.2",
+		"react-test-renderer": "^16.8.0",
+		"storybook-addon-performance": "^0.16.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"static"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/button/",
+	"platform-feature-flags": {
+		"platform.design-system-team.button-tokenised-typography-styles": {
+			"type": "boolean"
+		}
+	}
 }

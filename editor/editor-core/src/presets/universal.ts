@@ -92,6 +92,7 @@ export default function createUniversalPreset(
 	const isFullPage = fullPageCheck(appearance);
 
 	const getEditorFeatureFlags = () => featureFlags;
+
 	const defaultPreset = createDefaultPreset({
 		...props,
 		appearance,
@@ -101,6 +102,10 @@ export default function createUniversalPreset(
 			...props.hyperlinkOptions,
 		},
 		__livePage: props.__livePage,
+		codeBlock: {
+			...props.codeBlock,
+			getEditorFeatureFlags,
+		},
 	});
 
 	const statusMenuDisabled = !props.allowStatus
@@ -142,6 +147,7 @@ export default function createUniversalPreset(
 							? props.allowExpand
 							: Boolean(props.allowExpand && props.allowExpand.allowInteractiveExpand !== false),
 					__livePage: props.__livePage,
+					getEditorFeatureFlags,
 				},
 			],
 			Boolean(props.allowExpand),
@@ -193,11 +199,12 @@ export default function createUniversalPreset(
 					allowZeroWidthSpaceAfter: !isMobile,
 					HighlightComponent: props.mention?.HighlightComponent,
 					profilecardProvider: props.mention?.profilecardProvider,
+					getEditorFeatureFlags,
 				},
 			],
 			Boolean(props.mentionProvider),
 		)
-		.maybeAdd(emojiPlugin, Boolean(props.emojiProvider))
+		.maybeAdd([emojiPlugin, { getEditorFeatureFlags }], Boolean(props.emojiProvider))
 		.maybeAdd(
 			[
 				tablesPlugin,
@@ -224,6 +231,7 @@ export default function createUniversalPreset(
 					allowNestedTasks: props.allowNestedTasks,
 					consumeTabs: isFullPage,
 					useLongPressSelection: false,
+					getEditorFeatureFlags,
 				},
 			],
 			Boolean(props.allowTasksAndDecisions || props.taskDecisionProvider),
@@ -271,6 +279,7 @@ export default function createUniversalPreset(
 						typeof props.allowPanel === 'object' ? props.allowPanel.allowCustomPanel : false,
 					allowCustomPanelEdit:
 						typeof props.allowPanel === 'object' ? props.allowPanel.allowCustomPanelEdit : false,
+					getEditorFeatureFlags,
 				},
 			],
 			Boolean(props.allowPanel),
@@ -307,6 +316,7 @@ export default function createUniversalPreset(
 				{
 					weekStartDay:
 						typeof props.allowDate === 'object' ? props.allowDate.weekStartDay : undefined,
+					getEditorFeatureFlags,
 				},
 			],
 			Boolean(props.allowDate),
@@ -356,6 +366,7 @@ export default function createUniversalPreset(
 				{
 					menuDisabled: statusMenuDisabled,
 					allowZeroWidthSpaceAfter: !isMobile,
+					getEditorFeatureFlags,
 				},
 			],
 			Boolean(props.allowStatus),

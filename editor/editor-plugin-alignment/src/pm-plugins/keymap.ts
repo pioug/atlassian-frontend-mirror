@@ -3,9 +3,9 @@ import {
 	alignLeft,
 	alignRight,
 	bindKeymapWithCommand,
+	keymap,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { changeAlignment } from '../commands';

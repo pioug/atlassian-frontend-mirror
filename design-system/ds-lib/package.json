@@ -1,114 +1,114 @@
 {
-  "name": "@atlaskit/ds-lib",
-  "version": "2.3.1",
-  "description": "Reusable utilities and hooks specific to design system.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "website": {
-      "deprecated": "This is an internal package and should not be used directly.",
-      "name": "DSLib",
-      "category": "Libraries"
-    }
-  },
-  "af:exports": {
-    "./keycodes": "./src/utils/keycodes.tsx",
-    "./noop": "./src/utils/noop.tsx",
-    "./deprecation-warning": "./src/utils/deprecation-warning.tsx",
-    "./warn-once": "./src/utils/warn-once.tsx",
-    "./merge-refs": "./src/utils/merge-refs.tsx",
-    "./use-controlled": "./src/hooks/use-controlled.tsx",
-    "./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
-    "./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
-    "./use-state-ref": "./src/hooks/use-state-ref.tsx",
-    "./use-focus-event": "./src/hooks/use-focus-event.tsx",
-    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
-    "./use-previous-value": "./src/hooks/use-previous-value.tsx",
-    "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
-    "./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
-  },
-  "exports": {
-    "./keycodes": "./src/utils/keycodes.tsx",
-    "./noop": "./src/utils/noop.tsx",
-    "./deprecation-warning": "./src/utils/deprecation-warning.tsx",
-    "./warn-once": "./src/utils/warn-once.tsx",
-    "./merge-refs": "./src/utils/merge-refs.tsx",
-    "./use-controlled": "./src/hooks/use-controlled.tsx",
-    "./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
-    "./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
-    "./use-state-ref": "./src/hooks/use-state-ref.tsx",
-    "./use-focus-event": "./src/hooks/use-focus-event.tsx",
-    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
-    "./use-previous-value": "./src/hooks/use-previous-value.tsx",
-    "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
-    "./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "bind-event-listener": "^3.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "jest-in-case": "^1.0.2",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "static",
-        "emotion"
-      ]
-    }
-  },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib"
+	"name": "@atlaskit/ds-lib",
+	"version": "2.3.1",
+	"description": "Reusable utilities and hooks specific to design system.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"website": {
+			"deprecated": "This is an internal package and should not be used directly.",
+			"name": "DSLib",
+			"category": "Libraries"
+		}
+	},
+	"af:exports": {
+		"./keycodes": "./src/utils/keycodes.tsx",
+		"./noop": "./src/utils/noop.tsx",
+		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
+		"./warn-once": "./src/utils/warn-once.tsx",
+		"./merge-refs": "./src/utils/merge-refs.tsx",
+		"./use-controlled": "./src/hooks/use-controlled.tsx",
+		"./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
+		"./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
+		"./use-state-ref": "./src/hooks/use-state-ref.tsx",
+		"./use-focus-event": "./src/hooks/use-focus-event.tsx",
+		"./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
+		"./use-previous-value": "./src/hooks/use-previous-value.tsx",
+		"./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
+		"./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
+	},
+	"exports": {
+		"./keycodes": "./src/utils/keycodes.tsx",
+		"./noop": "./src/utils/noop.tsx",
+		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
+		"./warn-once": "./src/utils/warn-once.tsx",
+		"./merge-refs": "./src/utils/merge-refs.tsx",
+		"./use-controlled": "./src/hooks/use-controlled.tsx",
+		"./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
+		"./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
+		"./use-state-ref": "./src/hooks/use-state-ref.tsx",
+		"./use-focus-event": "./src/hooks/use-focus-event.tsx",
+		"./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
+		"./use-previous-value": "./src/hooks/use-previous-value.tsx",
+		"./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
+		"./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"bind-event-listener": "^3.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"jest-in-case": "^1.0.2",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"ui-components": [
+				"lite-mode"
+			],
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	},
+	"homepage": "https://atlaskit.atlassian.com/packages/design-system/ds-lib"
 }

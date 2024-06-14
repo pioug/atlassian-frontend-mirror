@@ -619,7 +619,7 @@ describe('Avatar', () => {
 			);
 		});
 
-		it('should always prefer the context over provided values', () => {
+		it('should always prefer the provided prop value over the context value', () => {
 			const withContext = 'With Context';
 			const withContextSize: SizeType = 'xlarge';
 			const providedSize: SizeType = 'small';
@@ -635,19 +635,13 @@ describe('Avatar', () => {
 			const avatarWithContext = screen.getByTestId(`${withContextSize}--inner`);
 
 			expect(avatarWithContext).toBeInTheDocument();
+			expect(avatarWithContext).toHaveStyleDeclaration('height', `${AVATAR_SIZES[providedSize]}px`);
+			expect(avatarWithContext).toHaveStyleDeclaration('width', `${AVATAR_SIZES[providedSize]}px`);
 			expect(avatarWithContext).not.toHaveStyleDeclaration(
-				'height',
-				`${AVATAR_SIZES[providedSize]}px`,
-			);
-			expect(avatarWithContext).not.toHaveStyleDeclaration(
-				'width',
-				`${AVATAR_SIZES[providedSize]}px`,
-			);
-			expect(avatarWithContext).toHaveStyleDeclaration(
 				'height',
 				`${AVATAR_SIZES[withContextSize]}px`,
 			);
-			expect(avatarWithContext).toHaveStyleDeclaration(
+			expect(avatarWithContext).not.toHaveStyleDeclaration(
 				'width',
 				`${AVATAR_SIZES[withContextSize]}px`,
 			);

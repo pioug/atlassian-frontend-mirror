@@ -1,105 +1,105 @@
 {
-  "name": "@atlaskit/page",
-  "version": "12.4.0",
-  "description": "A page layout organizes sections on a page using a grid and grid columns.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlaskit:designLink": "https://atlassian.design/foundations/grid",
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Page",
-      "category": "Components",
-      "status": {
-        "type": "intent-to-deprecate",
-        "description": "We are planning on deprecating Page component. We recommend using the Page layout component instead.",
-        "actions": [
-          {
-            "text": "View page layout documentation",
-            "href": "https://atlassian.design/components/page-layout"
-          }
-        ]
-      }
-    },
-    "runReact18": true
-  },
-  "af:exports": {
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx",
-    "./Grid": "./src/grid-wrapper.tsx",
-    "./GridColumn": "./src/grid-column.tsx",
-    "./Page": "./src/page.tsx"
-  },
-  "exports": {
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx",
-    "./Grid": "./src/grid-wrapper.tsx",
-    "./GridColumn": "./src/grid-column.tsx",
-    "./Page": "./src/page.tsx"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "react-dom": "^16.8.0",
-    "react-lorem-component": "^0.13.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "analytics": "analytics-next",
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "design-system": "v1"
-    }
-  },
-  "homepage": "https://atlassian.design/components/page"
+	"name": "@atlaskit/page",
+	"version": "12.4.0",
+	"description": "A page layout organizes sections on a page using a grid and grid columns.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlaskit:designLink": "https://atlassian.design/foundations/grid",
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Page",
+			"category": "Components",
+			"status": {
+				"type": "intent-to-deprecate",
+				"description": "We are planning on deprecating Page component. We recommend using the Page layout component instead.",
+				"actions": [
+					{
+						"text": "View page layout documentation",
+						"href": "https://atlassian.design/components/page-layout"
+					}
+				]
+			}
+		},
+		"runReact18": true
+	},
+	"af:exports": {
+		"./types": "./src/types.tsx",
+		".": "./src/index.tsx",
+		"./Grid": "./src/grid-wrapper.tsx",
+		"./GridColumn": "./src/grid-column.tsx",
+		"./Page": "./src/page.tsx"
+	},
+	"exports": {
+		"./types": "./src/types.tsx",
+		".": "./src/index.tsx",
+		"./Grid": "./src/grid-wrapper.tsx",
+		"./GridColumn": "./src/grid-column.tsx",
+		"./Page": "./src/page.tsx"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"react-dom": "^16.8.0",
+		"react-lorem-component": "^0.13.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"analytics": "analytics-next",
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"deprecation": "no-deprecated-imports",
+			"design-system": "v1"
+		}
+	},
+	"homepage": "https://atlassian.design/components/page"
 }

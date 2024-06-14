@@ -1,6 +1,8 @@
 name: Media Viewer
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/b67342fb-426a-4066-b4d8-f13c0aa2e5ad'
-description: MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate
+description:
+  MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and
+  extendable yet easy-to-integrate
 configVersion: 1
 typeId: UI_ELEMENT
 ownerId: 'ari:cloud:teams::team/ef910622-ce0a-44a0-b441-ba89efe7891b'
@@ -23,7 +25,7 @@ links:
   - name: ''
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/media/media-viewer/'
-  - name: '' 
+  - name: ''
     type: DOCUMENT
     url: 'https://atlaskit.atlassian.com/packages/media/media-viewer'
   - name: '' # Tome Capability
@@ -45,6 +47,5 @@ relationships:
   DEPENDS_ON:
     - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef'
     - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/3bc23fc6-021a-4adf-9602-ade6d8cad7d3'
-
 # Learn more about formatting compass.yml:
 # https://go.atlassian.com/compass-yml-format

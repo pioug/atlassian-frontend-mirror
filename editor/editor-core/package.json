@@ -41,7 +41,7 @@
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
 		"@atlaskit/adf-schema": "^36.10.7",
-		"@atlaskit/analytics-namespaced-context": "^6.9.0",
+		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^17.17.0",
@@ -86,7 +86,7 @@
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.2.0",
-		"@atlaskit/analytics-listeners": "^8.9.1",
+		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/collab-provider": "9.29.3",
 		"@atlaskit/editor-plugin-annotation": "1.10.1",
 		"@atlaskit/editor-plugin-card": "^2.0.0",
@@ -100,7 +100,7 @@
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^33.0.27",
 		"@atlaskit/modal-dialog": "^12.13.0",
-		"@atlaskit/primitives": "^7.0.0",
+		"@atlaskit/primitives": "^7.1.0",
 		"@atlaskit/renderer": "^109.32.0",
 		"@atlaskit/smart-card": "^27.5.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
@@ -360,6 +360,10 @@
 			"type": "boolean"
 		},
 		"platform.editor.transparent-diagonal-decorator": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.dynamic-palette-borders": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		}

@@ -2,7 +2,7 @@ import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { collab } from '@atlaskit/prosemirror-collab';
 
 import { addSynchronyErrorAnalytics } from './analytics';
@@ -40,6 +40,19 @@ const createAddInlineCommentMark =
 	({ from, to, mark }: { from: number; to: number; mark: Mark }): boolean => {
 		providerPromise.then((provider) => {
 			const commentMark = new AddMarkStep(Math.min(from, to), Math.max(from, to), mark);
+
+			// @ts-expect-error 2339: Property 'api' does not exist on type 'CollabEditProvider<CollabEvents>'.
+			provider.api?.addComment([commentMark]);
+		});
+
+		return false;
+	};
+
+const createAddInlineCommentNodeMark =
+	(providerPromise: Promise<CollabEditProvider>) =>
+	({ pos, mark }: { pos: number; mark: Mark }): boolean => {
+		providerPromise.then((provider) => {
+			const commentMark = new AddNodeMarkStep(pos, mark);
 
 			// @ts-expect-error 2339: Property 'api' does not exist on type 'CollabEditProvider<CollabEvents>'.
 			provider.api?.addComment([commentMark]);
@@ -90,6 +103,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 		actions: {
 			getAvatarColor,
 			addInlineCommentMark: createAddInlineCommentMark(collabEditProviderPromise),
+			addInlineCommentNodeMark: createAddInlineCommentNodeMark(collabEditProviderPromise),
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) =>
 				tr.getMeta('isRemote') && tr.getMeta('replaceDocument'),
 		},

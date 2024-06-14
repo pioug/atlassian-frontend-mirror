@@ -61,7 +61,7 @@ const ${colorProperty}ActiveColorMap = {
 		.map((t) => {
 			// handle the default case eg color.border or color.text
 			const propName = t.token.replace(prefix, '').replace('.pressed', '');
-			return `'${propName}': css({\n\t':active': { ${cssProperty}: token('${t.token}') }\n})`;
+			return `'${propName}': css({\n\t'&:active': { ${cssProperty}: token('${t.token}') }\n})`;
 		})
 		.join(',\n\t')}
 };
@@ -74,7 +74,7 @@ const ${colorProperty}HoverColorMap = {
 		.map((t) => {
 			// handle the default case eg color.border or color.text
 			const propName = t.token.replace(prefix, '').replace('.hovered', '');
-			return `'${propName}': css({\n\t':hover': { ${cssProperty}: token('${t.token}') }\n})`;
+			return `'${propName}': css({\n\t'&:hover': { ${cssProperty}: token('${t.token}') }\n})`;
 		})
 		.join(',\n\t')}
 };`,

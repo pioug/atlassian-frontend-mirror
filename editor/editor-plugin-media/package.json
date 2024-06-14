@@ -38,7 +38,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^36.10.7",
-		"@atlaskit/analytics-namespaced-context": "^6.9.0",
+		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^17.17.0",
 		"@atlaskit/editor-common": "^82.5.0",
@@ -68,7 +68,7 @@
 		"@atlaskit/media-ui": "^25.10.0",
 		"@atlaskit/media-viewer": "^48.6.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
-		"@atlaskit/primitives": "^7.0.0",
+		"@atlaskit/primitives": "^7.1.0",
 		"@atlaskit/textfield": "^6.3.0",
 		"@atlaskit/theme": "^12.9.0",
 		"@atlaskit/tokens": "^1.50.0",
@@ -135,9 +135,6 @@
 		"platform.media-experience.media-viewer-v2_hgsii": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.a11y-media-resizing_b5v0o": {
-			"type": "boolean"
 		},
 		"platform.editor.allow-extended-panel": {
 			"type": "boolean"

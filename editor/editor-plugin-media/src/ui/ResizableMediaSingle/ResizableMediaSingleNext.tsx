@@ -310,6 +310,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		const { state, dispatch } = this.props.view;
 		const tr = state.tr;
 		tr.setMeta(MEDIA_PLUGIN_IS_RESIZING_KEY, isResizing);
+		tr.setMeta('is-resizer-resizing', isResizing);
 		return dispatch(tr);
 	};
 

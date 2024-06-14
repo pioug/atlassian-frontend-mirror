@@ -1010,6 +1010,70 @@ typescriptEslintTester.run(
 					},
 				],
 			},
+			{
+				name: 'skips auto-fix if assigned css object contains values defined in function scope',
+				options: [{ stylesPlacement: 'bottom' }],
+				code: outdent`
+					function Button({ children, ...props }) {
+						const containerStyles = {
+							padding: props.padding,
+						};
+						return (
+							<button css={containerStyles}>
+								{children}
+							</button>
+						);
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssAtBottomOfModule',
+					},
+				],
+			},
+			{
+				name: 'skips auto-fix if assigned css function call contains values defined in function scope',
+				options: [{ stylesPlacement: 'bottom' }],
+				code: outdent`
+					function Button(props) {
+						const containerStyles = css({
+							padding: props.padding,
+						});
+						return (
+							<button css={containerStyles}>
+								{props.children}
+							</button>
+						);
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssAtBottomOfModule',
+					},
+				],
+			},
+			{
+				name: 'skips auto-fix if assigned css function call contains values indirectly defined in function scope',
+				options: [{ stylesPlacement: 'bottom' }],
+				code: outdent`
+					function Button(props) {
+						const padding = props.padding;
+						const containerStyles = css({
+							padding,
+						});
+						return (
+							<button css={containerStyles}>
+								{props.children}
+							</button>
+						);
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssAtBottomOfModule',
+					},
+				],
+			},
 		],
 	},
 );

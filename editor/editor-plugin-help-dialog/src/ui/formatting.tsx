@@ -643,10 +643,6 @@ const quickInsertAutoFormat: (intl: IntlShape) => Format = ({ formatMessage }) =
 	),
 });
 
-const isAnyA11yResizeFeatureFlagEnabled =
-	getBooleanFF('platform.editor.a11y-media-resizing_b5v0o') ||
-	getBooleanFF('platform.editor.a11y-table-resizing_uapcv');
-
 export const getSupportedFormatting = (
 	schema: Schema,
 	intl: IntlShape,
@@ -665,6 +661,6 @@ export const getSupportedFormatting = (
 		...(getBooleanFF('platform.editor.a11y-table-resizing_uapcv')
 			? focusTableResizeHandleFormatting(intl)
 			: []),
-		...(isAnyA11yResizeFeatureFlagEnabled ? resizeInformationFormatting(intl) : []),
+		...resizeInformationFormatting(intl),
 	];
 };

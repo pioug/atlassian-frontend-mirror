@@ -1,54 +1,54 @@
 {
-  "name": "@atlaskit/outbound-auth-flow-client",
-  "version": "3.4.6",
-  "description": "Front-end library for starting outbound auth flows",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Ecosystem Capabilities",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ]
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0"
-  },
-  "devDependencies": {
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "fabric",
-    "ui"
-  ],
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./error": "./src/error.ts",
-    "./types": "./src/types.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./error": "./src/error.ts",
-    "./types": "./src/types.ts"
-  }
+	"name": "@atlaskit/outbound-auth-flow-client",
+	"version": "3.4.6",
+	"description": "Front-end library for starting outbound auth flows",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Ecosystem Capabilities",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		]
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0"
+	},
+	"devDependencies": {
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"fabric",
+		"ui"
+	],
+	"af:exports": {
+		".": "./src/index.ts",
+		"./error": "./src/error.ts",
+		"./types": "./src/types.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./error": "./src/error.ts",
+		"./types": "./src/types.ts"
+	}
 }

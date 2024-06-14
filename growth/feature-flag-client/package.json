@@ -1,57 +1,57 @@
 {
-  "name": "@atlaskit/feature-flag-client",
-  "version": "5.5.0",
-  "description": "A client to take care of feature flag evaluation and tracking of exposure events",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "MEP: Switcheroo",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Feature Flag Client"
-    }
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "documented-code": "no-undocumented-todos"
-    }
-  }
+	"name": "@atlaskit/feature-flag-client",
+	"version": "5.5.0",
+	"description": "A client to take care of feature flag evaluation and tracking of exposure events",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./types": "./src/types.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./types": "./src/types.ts"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "MEP: Switcheroo",
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Feature Flag Client"
+		}
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"enzyme": "^3.10.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"documented-code": "no-undocumented-todos"
+		}
+	}
 }

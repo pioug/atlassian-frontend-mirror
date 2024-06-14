@@ -1,73 +1,73 @@
 {
-  "name": "@atlaskit/help-article",
-  "version": "4.1.12",
-  "description": "A cross-product help-article component",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "atlassian": {
-    "team": "Self-Help Experiences",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Help Article"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/css-reset": "^6.9.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/renderer": "^109.32.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/styled": "^11.0.0",
-    "lodash": "^4.17.21"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "react-test-renderer": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui",
-    "help"
-  ],
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  }
+	"name": "@atlaskit/help-article",
+	"version": "4.1.12",
+	"description": "A cross-product help-article component",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"atlassian": {
+		"team": "Self-Help Experiences",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Help Article"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/css-reset": "^6.9.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/renderer": "^109.32.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/styled": "^11.0.0",
+		"lodash": "^4.17.21"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"enzyme": "^3.10.0",
+		"react-test-renderer": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui",
+		"help"
+	],
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	}
 }

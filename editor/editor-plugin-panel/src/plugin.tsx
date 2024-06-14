@@ -89,7 +89,9 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 					title: formatMessage(blockTypeMessages.infoPanel),
 					keywords: ['panel'],
 					description: formatMessage(blockTypeMessages.infoPanelDescription),
-					priority: 800,
+					priority: options.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
+						? 200
+						: 800,
 					icon: () => <IconPanel />,
 					action(insert, state) {
 						return createPanelAction({

@@ -21,8 +21,8 @@ import type { ApplyChangeHandler, ContextPanelPlugin } from '@atlaskit/editor-pl
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Fragment, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { forceAutoSave } from './commands';
@@ -72,6 +72,26 @@ type InsertMacroFromMacroBrowser = (
 
 export type RunMacroAutoConvert = (state: EditorState, text: string) => PmNode | null;
 
+export type InsertOrReplaceExtensionType = {
+	editorView: EditorView;
+	action: 'insert' | 'replace';
+	attrs: object;
+	content: Fragment;
+	position: number;
+	size: number;
+	tr: Transaction;
+};
+
+type InsertOrReplaceExtensionAction = ({
+	editorView,
+	action,
+	attrs,
+	content,
+	position,
+	size,
+	tr,
+}: InsertOrReplaceExtensionType) => Transaction;
+
 export type ExtensionPlugin = NextEditorPlugin<
 	'extension',
 	{
@@ -93,6 +113,8 @@ export type ExtensionPlugin = NextEditorPlugin<
 			editSelectedExtension: () => boolean;
 			api: () => ExtensionAPI;
 			insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+			insertOrReplaceExtension: InsertOrReplaceExtensionAction;
+			insertOrReplaceBodiedExtension: InsertOrReplaceExtensionAction;
 			runMacroAutoConvert: RunMacroAutoConvert;
 			forceAutoSave: typeof forceAutoSave;
 		};

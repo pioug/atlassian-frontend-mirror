@@ -391,7 +391,7 @@ const generateToolbarItems =
 									intl={intl}
 									editorAnalyticsApi={editorAnalyticsApi}
 									editorView={editorView}
-									onLinkEditClick={editLink(editorAnalyticsApi)}
+									onLinkEditClick={editLink(editorAnalyticsApi, true)}
 								/>
 							),
 						},
@@ -405,7 +405,7 @@ const generateToolbarItems =
 							title: intl.formatMessage(linkToolbarMessages.editLink),
 							showTitle: true,
 							testId: 'link-toolbar-edit-link-button',
-							onClick: editLink(editorAnalyticsApi),
+							onClick: editLink(editorAnalyticsApi, true),
 						},
 						{ type: 'separator' },
 					];
@@ -726,7 +726,7 @@ const getDatasourceButtonGroup = (
 					intl={intl}
 					editorAnalyticsApi={editorAnalyticsApi}
 					editorView={editorView}
-					onLinkEditClick={editLink(editorAnalyticsApi)}
+					onLinkEditClick={editLink(editorAnalyticsApi, false)}
 				/>
 			),
 		});

@@ -1,127 +1,127 @@
 {
-  "name": "@atlaskit/share",
-  "version": "4.18.3",
-  "description": "Fabric Share Element",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "People and Teams Collective",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Share"
-    }
-  },
-  "scripts": {
-    "lint:fix": "(cd ../../.. && yarn workspace @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
-    "lint": "(cd ../../.. && yarn eslint 'packages/elements/share/**/*.{ts,tsx,ts}')",
-    "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
-    "test": "(cd ../../.. && yarn test 'packages/elements/share')"
-  },
-  "config": {
-    "access": "private"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/dropdown-menu": "^12.11.0",
-    "@atlaskit/form": "^10.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/menu": "^2.4.0",
-    "@atlaskit/popper": "^6.0.0",
-    "@atlaskit/popup": "^1.17.0",
-    "@atlaskit/portal": "^4.5.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/smart-user-picker": "^6.9.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/tabs": "^16.1.0",
-    "@atlaskit/textarea": "^5.4.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.21.0",
-    "@atlaskit/util-service-support": "^6.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@react-loosely-lazy/manifest": "^1.0.0",
-    "fast-deep-equal": "^3.1.1",
-    "memoize-one": "^6.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "react-loosely-lazy": "^1.0.0",
-    "tiny-invariant": "^1.2.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.23.0",
-    "@atlaskit/flag": "^15.5.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "ui",
-    "share",
-    "fabric",
-    "teams"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "package-boundaries": [
-        "linting"
-      ],
-      "tree-shaking": [
-        "atlassian-conventions"
-      ],
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "deprecation": "no-deprecated-imports",
-      "design-tokens": [
-        "color"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./clients": "./src/clients/index.ts",
-    "./copy-link-button": "./src/components/CopyLinkButton.tsx"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./clients": "./src/clients/index.ts",
-    "./copy-link-button": "./src/components/CopyLinkButton.tsx",
-    "./i18n/*": "./src/i18n/*.ts"
-  }
+	"name": "@atlaskit/share",
+	"version": "4.18.3",
+	"description": "Fabric Share Element",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "People and Teams Collective",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Share"
+		}
+	},
+	"scripts": {
+		"lint:fix": "(cd ../../.. && yarn workspace @atlaskit/codeshifts format-package-jsons && yarn eslint --fix 'packages/elements/share/**/*.{ts,tsx,ts}')",
+		"lint": "(cd ../../.. && yarn eslint 'packages/elements/share/**/*.{ts,tsx,ts}')",
+		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json",
+		"test": "(cd ../../.. && yarn test 'packages/elements/share')"
+	},
+	"config": {
+		"access": "private"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/dropdown-menu": "^12.11.0",
+		"@atlaskit/form": "^10.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/popper": "^6.0.0",
+		"@atlaskit/popup": "^1.17.0",
+		"@atlaskit/portal": "^4.5.0",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/smart-user-picker": "^6.9.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/tabs": "^16.1.0",
+		"@atlaskit/textarea": "^5.4.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@atlaskit/user-picker": "^10.21.0",
+		"@atlaskit/util-service-support": "^6.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@react-loosely-lazy/manifest": "^1.0.0",
+		"fast-deep-equal": "^3.1.1",
+		"memoize-one": "^6.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"react-loosely-lazy": "^1.0.0",
+		"tiny-invariant": "^1.2.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-test-helpers": "^18.23.0",
+		"@atlaskit/flag": "^15.5.0",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"enzyme": "^3.10.0",
+		"enzyme-adapter-react-16": "^1.15.1",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"ui",
+		"share",
+		"fabric",
+		"teams"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"package-boundaries": [
+				"linting"
+			],
+			"tree-shaking": [
+				"atlassian-conventions"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"deprecation": "no-deprecated-imports",
+			"design-tokens": [
+				"color"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./clients": "./src/clients/index.ts",
+		"./copy-link-button": "./src/components/CopyLinkButton.tsx"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./clients": "./src/clients/index.ts",
+		"./copy-link-button": "./src/components/CopyLinkButton.tsx",
+		"./i18n/*": "./src/i18n/*.ts"
+	}
 }

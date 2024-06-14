@@ -325,6 +325,15 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	elementDragAndDrop?: boolean;
+
+	/**
+	 * @description
+	 * Rearranges the top 5 items in the quick insert menu
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23642
+	 * @default false
+	 */
+	platformEditorTypeaheadImprovedRelevancy?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

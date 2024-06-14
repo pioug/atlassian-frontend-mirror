@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import { bind } from 'bind-event-listener';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -35,50 +36,63 @@ export const MouseMoveWrapper = ({
 	nodeType: string;
 	getPos: () => number | undefined;
 }) => {
-	const nodePos = useMemo(() => getPos(), [getPos]);
 	const { blockControlsState } = useSharedPluginState(api, ['blockControls']);
 	const [isDragging, setIsDragging] = useState(false);
-	const [hideWrapper, setHideWrapper] = useState(blockControlsState?.activeNode?.pos === nodePos);
+	const [hideWrapper, setHideWrapper] = useState(false);
+	const ref = useRef<HTMLDivElement>(null);
+
 	const [pos, setPos] = useState<{ top: string; height: string }>();
+
+	useEffect(() => {
+		// Adding this event listener to fix issue where wrapper isn't hidden if user navigates to node before page finishes loading
+		// This will be removed when we refactor to remove this component
+		let unbind: () => void;
+		if (ref.current) {
+			unbind = bind(ref.current, {
+				type: 'mousemove',
+				listener: () => {
+					setHideWrapper(true);
+					unbind();
+				},
+			});
+		}
+		return () => unbind?.();
+	}, []);
 
 	const onMouseEnter = useCallback(() => {
 		if (!isDragging) {
 			setHideWrapper(true);
 		}
-
-		if (nodePos === undefined) {
+		const pos = getPos();
+		if (pos === undefined) {
 			return;
 		}
 
 		if (api && api.blockControls && !isDragging) {
 			api?.core?.actions.execute(
-				api.blockControls.commands.showDragHandleAt(nodePos, anchorName, nodeType),
+				api.blockControls.commands.showDragHandleAt(pos, anchorName, nodeType),
 			);
 		}
-	}, [setHideWrapper, isDragging, api, nodePos, anchorName, nodeType]);
+	}, [setHideWrapper, getPos, isDragging, api, anchorName, nodeType]);
 
 	useEffect(() => {
-		const unbind = api?.blockControls?.sharedState.onChange(({ nextSharedState }) => {
-			setIsDragging(Boolean(nextSharedState?.isDragging));
+		setIsDragging(Boolean(blockControlsState?.isDragging));
+		const pos = getPos();
 
-			if (!nextSharedState?.activeNode) {
-				return;
-			}
+		if (!blockControlsState?.activeNode) {
+			return;
+		}
 
-			if (nextSharedState?.activeNode?.pos !== nodePos && !nextSharedState?.isDragging) {
-				setHideWrapper(false);
-				return;
-			}
+		if (blockControlsState?.activeNode?.pos !== pos && !blockControlsState?.isDragging) {
+			setHideWrapper(false);
+			return;
+		}
 
-			if (nextSharedState?.isDragging) {
-				setHideWrapper(true);
-				return;
-			}
-		});
-		return () => {
-			unbind?.();
-		};
-	}, [nodePos, api]);
+		if (blockControlsState?.isDragging) {
+			setHideWrapper(true);
+			return;
+		}
+	}, [getPos, blockControlsState]);
 
 	useLayoutEffect(() => {
 		const supportsAnchor =
@@ -113,6 +127,7 @@ export const MouseMoveWrapper = ({
 
 	return (
 		<div
+			ref={ref}
 			onMouseEnter={onMouseEnter}
 			css={[basicStyles, !hideWrapper && mouseMoveWrapperStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

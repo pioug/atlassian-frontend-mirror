@@ -1,118 +1,118 @@
 {
-  "name": "@atlaskit/code",
-  "version": "15.2.1",
-  "description": "Code highlights short strings of code snippets inline with body text.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Code",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/visually-hidden": "^1.3.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "memoize-one": "^6.0.0",
-    "refractor": "^3.6.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@types/jscodeshift": "^0.11.0",
-    "@types/refractor": "^3.0.2",
-    "color-contrast-checker": "^1.5.0",
-    "jscodeshift": "^0.13.0",
-    "prismjs": "^1.25.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "design-system": "v1",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "dom-events": "use-bind-event-listener",
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx",
-    "./bidi-warning": "./src/bidi-warning/index.tsx",
-    "./bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
-    "./block": "./src/entry-points/block.tsx",
-    "./inline": "./src/entry-points/inline.tsx",
-    "./constants": "./src/entry-points/constants.tsx"
-  },
-  "exports": {
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx",
-    "./bidi-warning": "./src/bidi-warning/index.tsx",
-    "./bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
-    "./block": "./src/entry-points/block.tsx",
-    "./inline": "./src/entry-points/inline.tsx",
-    "./constants": "./src/entry-points/constants.tsx"
-  },
-  "homepage": "https://atlassian.design/components/code/"
+	"name": "@atlaskit/code",
+	"version": "15.2.1",
+	"description": "Code highlights short strings of code snippets inline with body text.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Code",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/codemod-utils": "^4.2.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/visually-hidden": "^1.3.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"memoize-one": "^6.0.0",
+		"refractor": "^3.6.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@types/jscodeshift": "^0.11.0",
+		"@types/refractor": "^3.0.2",
+		"color-contrast-checker": "^1.5.0",
+		"jscodeshift": "^0.13.0",
+		"prismjs": "^1.25.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"design-system": "v1",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"dom-events": "use-bind-event-listener",
+			"ui-components": [
+				"lite-mode"
+			],
+			"analytics": [
+				"analytics-next"
+			],
+			"theming": [
+				"react-context"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx",
+		"./bidi-warning": "./src/bidi-warning/index.tsx",
+		"./bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
+		"./block": "./src/entry-points/block.tsx",
+		"./inline": "./src/entry-points/inline.tsx",
+		"./constants": "./src/entry-points/constants.tsx"
+	},
+	"exports": {
+		"./types": "./src/entry-points/types.tsx",
+		".": "./src/index.tsx",
+		"./bidi-warning": "./src/bidi-warning/index.tsx",
+		"./bidi-warning-decorator": "./src/bidi-warning/bidi-warning-decorator.tsx",
+		"./block": "./src/entry-points/block.tsx",
+		"./inline": "./src/entry-points/inline.tsx",
+		"./constants": "./src/entry-points/constants.tsx"
+	},
+	"homepage": "https://atlassian.design/components/code/"
 }

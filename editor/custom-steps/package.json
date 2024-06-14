@@ -1,57 +1,57 @@
 {
-  "name": "@atlaskit/custom-steps",
-  "version": "0.2.2",
-  "description": "Editor Custom Steps",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: ADF",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "singleton": true
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-tables": "^2.7.0",
-    "@babel/runtime": "^7.0.0",
-    "memoize-one": "^6.0.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "circular-dependencies": [
-        "file-level"
-      ]
-    },
-    "@repo/internal": {
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  }
+	"name": "@atlaskit/custom-steps",
+	"version": "0.2.2",
+	"description": "Editor Custom Steps",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: ADF",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"singleton": true
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-tables": "^2.7.0",
+		"@babel/runtime": "^7.0.0",
+		"memoize-one": "^6.0.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"circular-dependencies": [
+				"file-level"
+			]
+		},
+		"@repo/internal": {
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	}
 }

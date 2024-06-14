@@ -49,3 +49,10 @@ export const highlightColorPalette: Array<PaletteColor> = [
 backgroundColorPalette.forEach((label, color) => {
 	highlightColorPalette.push(mapPaletteColor(label, color));
 });
+
+export const highlightColorPaletteWithTokenBorders: Array<PaletteColor> = highlightColorPalette.map(
+	(paletteColor) => ({
+		...paletteColor,
+		border: token('color.border', '#091E4224'),
+	}),
+);

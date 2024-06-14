@@ -1,6 +1,8 @@
 name: Icon File Type
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/737ae370-9075-43a8-8aa3-be5a8e8b0790'
-description: This package provides the collections of icons for the different types of content used across Atlassian products.
+description:
+  This package provides the collections of icons for the different types of content used across
+  Atlassian products.
 configVersion: 1
 typeId: UI_ELEMENT
 ownerId: 'ari:cloud:teams::team/ef910622-ce0a-44a0-b441-ba89efe7891b'
@@ -23,7 +25,7 @@ links:
   - name: ''
     type: REPOSITORY
     url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/media/icon-file-type/'
-  # - name: '' 
+  # - name: ''
   #   type: DOCUMENT
   #   url: ''
   # - name: '' # Tome Capability
@@ -42,6 +44,5 @@ links:
     type: PROJECT
     url: 'https://product-fabric.atlassian.net/jira/software/c/projects/MEX/boards/713'
 relationships: {}
-
 # Learn more about formatting compass.yml:
 # https://go.atlassian.com/compass-yml-format

@@ -30,7 +30,7 @@ export type RouterLinkComponentProps<RouterLinkConfig extends Record<string, any
 	 * ```
 	 */
 	href: string | RouterLinkConfig;
-	children: React.ReactNode;
+	children?: React.ReactNode;
 };
 
 export type RouterLinkProviderContextProps<RouterLinkConfig extends Record<string, any> = never> = {

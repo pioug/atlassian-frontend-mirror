@@ -1,90 +1,90 @@
 {
-  "name": "@atlaskit/smart-hooks",
-  "version": "0.2.9",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Search Platform: Search Experience",
-    "inPublicMirror": false,
-    "releaseModel": "continuous"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/smart-common": "^0.2.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.21.0",
-    "@babel/runtime": "^7.0.0",
-    "lodash": "^4.17.21",
-    "memoize-one": "^6.0.0",
-    "uuid": "^3.1.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@storybook/addon-knobs": "^5.3.18",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@welldone-software/why-did-you-render": "^6.2.0",
-    "enzyme": "^3.10.0",
-    "fetch-mock": "^8.0.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
-  }
+	"name": "@atlaskit/smart-hooks",
+	"version": "0.2.9",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Search Platform: Search Experience",
+		"inPublicMirror": false,
+		"releaseModel": "continuous"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-gas-types": "^5.1.0",
+		"@atlaskit/analytics-listeners": "^8.10.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/smart-common": "^0.2.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@atlaskit/user-picker": "^10.21.0",
+		"@babel/runtime": "^7.0.0",
+		"lodash": "^4.17.21",
+		"memoize-one": "^6.0.0",
+		"uuid": "^3.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@storybook/addon-knobs": "^5.3.18",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@welldone-software/why-did-you-render": "^6.2.0",
+		"enzyme": "^3.10.0",
+		"fetch-mock": "^8.0.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./i18n/*": "./src/i18n/*.ts"
+	}
 }

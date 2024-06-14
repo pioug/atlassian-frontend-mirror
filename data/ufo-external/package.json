@@ -1,74 +1,74 @@
 {
-  "name": "@atlaskit/ufo",
-  "version": "0.2.6",
-  "description": "UFO external part",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "UIP Frontend Observability",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "UFO"
-    }
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    "./global-stream-buffer": "./src/global-stream-buffer/index.ts",
-    "./logger": "./src/logger/index.ts",
-    "./platform-client": "./src/platform-client/index.ts",
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./global-stream-buffer": "./src/global-stream-buffer/index.ts",
-    "./logger": "./src/logger/index.ts",
-    "./platform-client": "./src/platform-client/index.ts",
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "uuid": "^3.1.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
-    }
-  }
+	"name": "@atlaskit/ufo",
+	"version": "0.2.6",
+	"description": "UFO external part",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "UIP Frontend Observability",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "UFO"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./global-stream-buffer": "./src/global-stream-buffer/index.ts",
+		"./logger": "./src/logger/index.ts",
+		"./platform-client": "./src/platform-client/index.ts",
+		"./types": "./src/types.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./global-stream-buffer": "./src/global-stream-buffer/index.ts",
+		"./logger": "./src/logger/index.ts",
+		"./platform-client": "./src/platform-client/index.ts",
+		"./types": "./src/types.ts",
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"uuid": "^3.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"deprecation": [
+				"no-deprecated-imports"
+			]
+		}
+	}
 }

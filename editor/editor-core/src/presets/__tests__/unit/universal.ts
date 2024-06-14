@@ -159,6 +159,7 @@ describe('createUniversalPreset', () => {
 				expect.objectContaining({
 					config: {
 						weekStartDay: 0,
+						getEditorFeatureFlags: expect.any(Function),
 					},
 				}),
 			);

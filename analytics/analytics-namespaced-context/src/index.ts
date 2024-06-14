@@ -29,3 +29,5 @@ export {
 export { POST_OFFICE_CONTEXT, PostOfficeAnalyticsContext } from './PostOfficeAnalyticsContext';
 
 export { AI_MATE_CONTEXT, AIMateAnalyticsContext } from './AIMateAnalyticsContext';
+
+export { AVP_CONTEXT, AVPAnalyticsContext } from './AVPAnalyticsContext';

@@ -639,7 +639,9 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 					title: formatMessage(messages.table),
 					description: formatMessage(messages.tableDescription),
 					keywords: ['cell', 'table'],
-					priority: 600,
+					priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
+						? 800
+						: 600,
 					keyshortcut: tooltip(toggleTable),
 					icon: () => <IconTable />,
 					action(insert, state) {

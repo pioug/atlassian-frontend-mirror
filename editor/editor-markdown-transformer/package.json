@@ -1,56 +1,56 @@
 {
-  "name": "@atlaskit/editor-markdown-transformer",
-  "version": "5.6.2",
-  "description": "Editor Markdown transformer",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./media": "./src/media.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./media": "./src/media.ts"
-  },
-  "atlassian": {
-    "team": "Editor: ADF",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Editor Markdown Transformer"
-    },
-    "runReact18": false
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@babel/runtime": "^7.0.0",
-    "markdown-it": "^13.0.2",
-    "markdown-it-table": "^2.0.6"
-  },
-  "devDependencies": {
-    "@atlaskit/editor-json-transformer": "^8.13.0",
-    "@emotion/react": "^11.7.1",
-    "@types/markdown-it": "^13.0.7",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2"
-  }
+	"name": "@atlaskit/editor-markdown-transformer",
+	"version": "5.6.2",
+	"description": "Editor Markdown transformer",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "MIT",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./media": "./src/media.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./media": "./src/media.ts"
+	},
+	"atlassian": {
+		"team": "Editor: ADF",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Editor Markdown Transformer"
+		},
+		"runReact18": false
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@babel/runtime": "^7.0.0",
+		"markdown-it": "^13.0.2",
+		"markdown-it-table": "^2.0.6"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@emotion/react": "^11.7.1",
+		"@types/markdown-it": "^13.0.7",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2"
+	}
 }

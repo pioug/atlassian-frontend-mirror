@@ -78,6 +78,9 @@
 	"platform-feature-flags": {
 		"platform.editor.live-view.no-editor-selection-in-view-mode": {
 			"type": "boolean"
+		},
+		"platform.editor.live-view.comments-in-media-toolbar-button": {
+			"type": "boolean"
 		}
 	}
 }

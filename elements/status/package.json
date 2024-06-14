@@ -1,85 +1,85 @@
 {
-  "name": "@atlaskit/status",
-  "version": "1.4.9",
-  "description": "Fabric Status React Components",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Scarlet",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Status"
-    },
-    "runReact18": false
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/lozenge": "^11.7.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "ui",
-    "date",
-    "fabric",
-    "editor"
-  ],
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./element": "./src/element.ts",
-    "./picker": "./src/picker.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./element": "./src/element.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./picker": "./src/picker.ts"
-  }
+	"name": "@atlaskit/status",
+	"version": "1.4.9",
+	"description": "Fabric Status React Components",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Scarlet",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Status"
+		},
+		"runReact18": false
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/lozenge": "^11.7.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/elements-test-helpers": "^0.7.0",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/react": "^12.1.5",
+		"enzyme": "^3.10.0",
+		"enzyme-adapter-react-16": "^1.15.1",
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"ui",
+		"date",
+		"fabric",
+		"editor"
+	],
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./element": "./src/element.ts",
+		"./picker": "./src/picker.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./element": "./src/element.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./picker": "./src/picker.ts"
+	}
 }

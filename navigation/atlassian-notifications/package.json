@@ -1,61 +1,61 @@
 {
-  "name": "@atlaskit/atlassian-notifications",
-  "version": "0.4.5",
-  "description": "Notifications for Atlassian products",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Work Platform: Incoming Work",
-    "releaseModel": "continuous"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./Notifications": "./src/Notifications.tsx",
-    "./styles": "./src/styles.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./Notifications": "./src/Notifications.tsx",
-    "./styles": "./src/styles.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  }
+	"name": "@atlaskit/atlassian-notifications",
+	"version": "0.4.5",
+	"description": "Notifications for Atlassian products",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Work Platform: Incoming Work",
+		"releaseModel": "continuous"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"enzyme": "^3.10.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"af:exports": {
+		".": "./src/index.ts",
+		"./Notifications": "./src/Notifications.tsx",
+		"./styles": "./src/styles.ts",
+		"./types": "./src/types.ts",
+		"./utils": "./src/utils.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./Notifications": "./src/Notifications.tsx",
+		"./styles": "./src/styles.ts",
+		"./types": "./src/types.ts",
+		"./utils": "./src/utils.ts"
+	}
 }

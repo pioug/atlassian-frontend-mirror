@@ -1,67 +1,67 @@
 {
-  "name": "@atlaskit/storybook-addon-design-system",
-  "version": "0.8.0",
-  "description": "Design token storybook addon",
-  "author": "Atlassian Pty Ltd",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "website": {
-      "name": "Storybook addon",
-      "category": "Tooling"
-    }
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
-  "dependencies": {
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@storybook/addons": "^6.4.0",
-    "@storybook/api": "^6.4.0",
-    "@storybook/components": "^6.4.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/storybook-addon-design-system"
+	"name": "@atlaskit/storybook-addon-design-system",
+	"version": "0.8.0",
+	"description": "Design token storybook addon",
+	"author": "Atlassian Pty Ltd",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"website": {
+			"name": "Storybook addon",
+			"category": "Tooling"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@storybook/addons": "^6.4.0",
+		"@storybook/api": "^6.4.0",
+		"@storybook/components": "^6.4.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/storybook-addon-design-system"
 }

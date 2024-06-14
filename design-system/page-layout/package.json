@@ -1,127 +1,127 @@
 {
-  "name": "@atlaskit/page-layout",
-  "version": "3.3.3",
-  "description": "A collection of components which let you compose an application's page layout.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Page layout",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "homepage": "https://atlassian.design/components/page-layout/",
-  "dependencies": {
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/link": "^0.4.0",
-    "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "bind-event-listener": "^3.0.0",
-    "raf-schd": "^4.0.3"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/integration-testing": "*",
-    "@atlaskit/atlassian-navigation": "^4.0.0",
-    "@atlaskit/atlassian-notifications": "^0.4.0",
-    "@atlaskit/drawer": "^7.11.0",
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/menu": "^2.4.0",
-    "@atlaskit/notification-indicator": "^9.2.0",
-    "@atlaskit/notification-log-client": "^6.1.0",
-    "@atlaskit/popup": "^1.17.0",
-    "@atlaskit/side-navigation": "^3.2.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/raf-schd": "^4.0.1",
-    "jest-emotion": "^10.0.32",
-    "raf-stub": "^2.0.1",
-    "storybook-addon-performance": "^0.16.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "static"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.design-system-team.page-layout-resize-button-fix_u0qxv": {
-      "type": "boolean"
-    },
-    "platform.atlassian.griffin-navigation-redesign": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/page-layout",
+	"version": "3.3.3",
+	"description": "A collection of components which let you compose an application's page layout.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Page layout",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"homepage": "https://atlassian.design/components/page-layout/",
+	"dependencies": {
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/link": "^0.4.0",
+		"@atlaskit/motion": "^1.6.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"bind-event-listener": "^3.0.0",
+		"raf-schd": "^4.0.3"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
+		"@atlaskit/atlassian-navigation": "^4.0.0",
+		"@atlaskit/atlassian-notifications": "^0.4.0",
+		"@atlaskit/drawer": "^7.11.0",
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/notification-indicator": "^9.2.0",
+		"@atlaskit/notification-log-client": "^6.1.0",
+		"@atlaskit/popup": "^1.17.0",
+		"@atlaskit/side-navigation": "^3.2.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@types/raf-schd": "^4.0.1",
+		"jest-emotion": "^10.0.32",
+		"raf-stub": "^2.0.1",
+		"storybook-addon-performance": "^0.16.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"ui-components": [
+				"lite-mode"
+			],
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"static"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.design-system-team.page-layout-resize-button-fix_u0qxv": {
+			"type": "boolean"
+		},
+		"platform.atlassian.griffin-navigation-redesign": {
+			"type": "boolean"
+		}
+	}
 }

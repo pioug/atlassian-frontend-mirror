@@ -1,94 +1,94 @@
 {
-  "name": "@atlaskit/progress-tracker",
-  "version": "8.6.2",
-  "description": "A progress tracker displays the steps and progress through a journey.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Progress tracker",
-      "category": "Components"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "react-transition-group": "^4.4.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/react-transition-group": "^2.0.6",
-    "jest-in-case": "^1.0.2",
-    "react-dom": "^16.8.0",
-    "react-router-dom": "^4.2.2",
-    "react-test-renderer": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "analytics": "analytics-next",
-      "deprecation": "no-deprecated-imports",
-      "ui-components": "primitives"
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    "./constants": "./src/constants.tsx",
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./constants": "./src/constants.tsx",
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx"
-  },
-  "homepage": "https://atlassian.design/components/progress-tracker/"
+	"name": "@atlaskit/progress-tracker",
+	"version": "8.6.2",
+	"description": "A progress tracker displays the steps and progress through a journey.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Progress tracker",
+			"category": "Components"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"react-transition-group": "^4.4.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/react-transition-group": "^2.0.6",
+		"jest-in-case": "^1.0.2",
+		"react-dom": "^16.8.0",
+		"react-router-dom": "^4.2.2",
+		"react-test-renderer": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"analytics": "analytics-next",
+			"deprecation": "no-deprecated-imports",
+			"ui-components": "primitives"
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		"./constants": "./src/constants.tsx",
+		"./types": "./src/types.tsx",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./constants": "./src/constants.tsx",
+		"./types": "./src/types.tsx",
+		".": "./src/index.tsx"
+	},
+	"homepage": "https://atlassian.design/components/progress-tracker/"
 }

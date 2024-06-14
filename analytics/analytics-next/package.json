@@ -1,115 +1,115 @@
 {
-  "name": "@atlaskit/analytics-next",
-  "version": "9.3.0",
-  "description": "React components, HOCs and hooks to assist with tracking user activity with React components",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "UIP Frontend Observability",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Analytics next"
-    }
-  },
-  "./types": "./src/types.ts",
-  "af:exports": {
-    "./types": "./src/types.ts",
-    "./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
-    "./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
-    "./AnalyticsErrorBoundary": "./src/components/AnalyticsErrorBoundary.tsx",
-    "./withAnalyticsEvents": "./src/hocs/withAnalyticsEvents.tsx",
-    "./withAnalyticsContext": "./src/hocs/withAnalyticsContext.tsx",
-    "./usePlatformLeafEventHandler": "./src/hooks/usePlatformLeafEventHandler.ts",
-    "./useAnalyticsEvents": "./src/hooks/useAnalyticsEvents.ts",
-    "./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
-    "./usePatchedProps": "./src/hooks/usePatchedProps.ts",
-    "./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
-    "./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
-    "./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./types": "./src/types.ts",
-    "./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
-    "./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
-    "./AnalyticsErrorBoundary": "./src/components/AnalyticsErrorBoundary.tsx",
-    "./withAnalyticsEvents": "./src/hocs/withAnalyticsEvents.tsx",
-    "./withAnalyticsContext": "./src/hocs/withAnalyticsContext.tsx",
-    "./usePlatformLeafEventHandler": "./src/hooks/usePlatformLeafEventHandler.ts",
-    "./useAnalyticsEvents": "./src/hooks/useAnalyticsEvents.ts",
-    "./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
-    "./usePatchedProps": "./src/hooks/usePatchedProps.ts",
-    "./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
-    "./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
-    "./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/platform-feature-flags": "^0.2.2",
-    "@babel/runtime": "^7.0.0",
-    "prop-types": "^15.5.10",
-    "use-memo-one": "^1.1.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/ssr": "*",
-    "@atlassian/feature-flags-test-utils": "*",
-    "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0",
-    "redux": "^3.7.2",
-    "storybook-addon-performance": "^0.16.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "ui-components": [
-        "lite-mode"
-      ],
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.analytics-next-use-modern-context_fqgbx": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/analytics-next",
+	"version": "9.3.0",
+	"description": "React components, HOCs and hooks to assist with tracking user activity with React components",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "UIP Frontend Observability",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Analytics next"
+		}
+	},
+	"./types": "./src/types.ts",
+	"af:exports": {
+		"./types": "./src/types.ts",
+		"./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
+		"./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
+		"./AnalyticsErrorBoundary": "./src/components/AnalyticsErrorBoundary.tsx",
+		"./withAnalyticsEvents": "./src/hocs/withAnalyticsEvents.tsx",
+		"./withAnalyticsContext": "./src/hocs/withAnalyticsContext.tsx",
+		"./usePlatformLeafEventHandler": "./src/hooks/usePlatformLeafEventHandler.ts",
+		"./useAnalyticsEvents": "./src/hooks/useAnalyticsEvents.ts",
+		"./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
+		"./usePatchedProps": "./src/hooks/usePatchedProps.ts",
+		"./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
+		"./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
+		"./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./types": "./src/types.ts",
+		"./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
+		"./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
+		"./AnalyticsErrorBoundary": "./src/components/AnalyticsErrorBoundary.tsx",
+		"./withAnalyticsEvents": "./src/hocs/withAnalyticsEvents.tsx",
+		"./withAnalyticsContext": "./src/hocs/withAnalyticsContext.tsx",
+		"./usePlatformLeafEventHandler": "./src/hooks/usePlatformLeafEventHandler.ts",
+		"./useAnalyticsEvents": "./src/hooks/useAnalyticsEvents.ts",
+		"./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
+		"./usePatchedProps": "./src/hooks/usePatchedProps.ts",
+		"./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
+		"./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
+		"./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
+		"@atlaskit/platform-feature-flags": "^0.2.2",
+		"@babel/runtime": "^7.0.0",
+		"prop-types": "^15.5.10",
+		"use-memo-one": "^1.1.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/ssr": "*",
+		"@atlassian/feature-flags-test-utils": "*",
+		"@testing-library/react": "^12.1.5",
+		"enzyme": "^3.10.0",
+		"react-dom": "^16.8.0",
+		"redux": "^3.7.2",
+		"storybook-addon-performance": "^0.16.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"ui-components": [
+				"lite-mode"
+			],
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.analytics-next-use-modern-context_fqgbx": {
+			"type": "boolean"
+		}
+	}
 }

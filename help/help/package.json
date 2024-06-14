@@ -1,105 +1,105 @@
 {
-  "name": "@atlaskit/help",
-  "version": "7.5.0",
-  "description": "A cross-product help component",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./analytics": "./src/analytics.ts",
-    "./messages": "./src/messages.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./analytics": "./src/analytics.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./messages": "./src/messages.ts"
-  },
-  "atlassian": {
-    "team": "Self-Help Experiences",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Help"
-    }
-  },
-  "scripts": {
-    "ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/form": "^10.3.0",
-    "@atlaskit/help-article": "^4.1.10",
-    "@atlaskit/help-layout": "^4.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/notification-indicator": "^9.2.0",
-    "@atlaskit/notification-log-client": "^6.1.0",
-    "@atlaskit/radio": "^6.3.0",
-    "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/textarea": "^5.4.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "date-fns": "^2.17.0",
-    "lodash": "^4.17.21",
-    "react-animate-height": "^2.0.5",
-    "react-transition-group": "^4.4.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "styled-components": "^3.2.6"
-  },
-  "devDependencies": {
-    "@atlaskit/navigation": "^37.0.0",
-    "@testing-library/react": "^12.1.5",
-    "@types/react-transition-group": "^2.0.6",
-    "algoliasearch": "^3.35.1",
-    "enzyme": "^3.10.0",
-    "react-test-renderer": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui",
-    "help"
-  ],
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  }
+	"name": "@atlaskit/help",
+	"version": "7.5.0",
+	"description": "A cross-product help component",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./analytics": "./src/analytics.ts",
+		"./messages": "./src/messages.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./analytics": "./src/analytics.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./messages": "./src/messages.ts"
+	},
+	"atlassian": {
+		"team": "Self-Help Experiences",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Help"
+		}
+	},
+	"scripts": {
+		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/form": "^10.3.0",
+		"@atlaskit/help-article": "^4.1.10",
+		"@atlaskit/help-layout": "^4.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/notification-indicator": "^9.2.0",
+		"@atlaskit/notification-log-client": "^6.1.0",
+		"@atlaskit/radio": "^6.3.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/textarea": "^5.4.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"date-fns": "^2.17.0",
+		"lodash": "^4.17.21",
+		"react-animate-height": "^2.0.5",
+		"react-transition-group": "^4.4.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"styled-components": "^3.2.6"
+	},
+	"devDependencies": {
+		"@atlaskit/navigation": "^37.0.0",
+		"@testing-library/react": "^12.1.5",
+		"@types/react-transition-group": "^2.0.6",
+		"algoliasearch": "^3.35.1",
+		"enzyme": "^3.10.0",
+		"react-test-renderer": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui",
+		"help"
+	],
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	}
 }

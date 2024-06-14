@@ -1,6 +1,8 @@
 name: Media Table
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/68a05520-f5c0-4478-9b4e-a3e36b80ca6c'
-description: This package provides the capability to display the already uploaded media in tabular format with pagination.
+description:
+  This package provides the capability to display the already uploaded media in tabular format with
+  pagination.
 configVersion: 1
 typeId: UI_ELEMENT
 ownerId: 'ari:cloud:teams::team/ef910622-ce0a-44a0-b441-ba89efe7891b'
@@ -44,6 +46,5 @@ links:
 relationships:
   DEPENDS_ON:
     - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef'
-
 # Learn more about formatting compass.yml:
 # https://go.atlassian.com/compass-yml-format

@@ -1,110 +1,110 @@
 {
-  "name": "@atlaskit/editor-plugin-loom",
-  "version": "2.2.10",
-  "description": "Loom plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Editor: Lego",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "EditorPluginLoom",
-      "category": "Components"
-    },
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/editor-common": "^82.5.0",
-    "@atlaskit/editor-plugin-analytics": "^1.2.0",
-    "@atlaskit/editor-plugin-hyperlink": "^2.0.0",
-    "@atlaskit/editor-plugin-width": "^1.1.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/platform-feature-flags": "0.2.5",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@loomhq/record-sdk": "^2.36.18"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "platform-feature-flags": {
-    "platform.editor.plugin.loom.responsive-menu_4at4a": {
-      "type": "boolean"
-    }
-  },
-  "devDependencies": {
-    "@atlaskit/editor-plugin-base": "^1.5.0",
-    "@atlaskit/editor-plugin-card": "^2.0.0",
-    "@atlaskit/editor-plugin-copy-button": "^1.1.0",
-    "@atlaskit/editor-plugin-decorations": "^1.1.0",
-    "@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^1.6.0",
-    "@atlaskit/editor-plugin-grid": "^1.1.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "raf-stub": "^2.0.1",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  }
+	"name": "@atlaskit/editor-plugin-loom",
+	"version": "2.2.10",
+	"description": "Loom plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "EditorPluginLoom",
+			"category": "Components"
+		},
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-plugin-analytics": "^1.2.0",
+		"@atlaskit/editor-plugin-hyperlink": "^2.0.0",
+		"@atlaskit/editor-plugin-width": "^1.1.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/platform-feature-flags": "0.2.5",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@loomhq/record-sdk": "^2.36.18"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"platform-feature-flags": {
+		"platform.editor.plugin.loom.responsive-menu_4at4a": {
+			"type": "boolean"
+		}
+	},
+	"devDependencies": {
+		"@atlaskit/editor-plugin-base": "^1.5.0",
+		"@atlaskit/editor-plugin-card": "^2.0.0",
+		"@atlaskit/editor-plugin-copy-button": "^1.1.0",
+		"@atlaskit/editor-plugin-decorations": "^1.1.0",
+		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
+		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
+		"@atlaskit/editor-plugin-floating-toolbar": "^1.6.0",
+		"@atlaskit/editor-plugin-grid": "^1.1.0",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"raf-stub": "^2.0.1",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
 }

@@ -1,88 +1,88 @@
 {
-  "name": "@atlaskit/icon-object",
-  "version": "6.4.0",
-  "description": "An object icon is used to represent an Atlassian-specific content type.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "homepage": "https://atlassian.design/components/icon-object/",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "atlaskit:src": "src/index.tsx",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Icon object",
-      "category": "Components"
-    }
-  },
-  "af:exports": {
-    "./metadata": "./src/entry-points/metadata.tsx",
-    "./glyph": "./glyph",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./metadata": "./src/entry-points/metadata.tsx",
-    "./glyph/*": "./glyph/*",
-    ".": "./src/index.tsx"
-  },
-  "scripts": {
-    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
-  },
-  "dependencies": {
-    "@atlaskit/icon": "^22.3.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/icon-build-process": "^0.6.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/visual-regression": "*",
-    "@emotion/styled": "^11.0.0",
-    "fs-extra": "^4.0.2",
-    "jscodeshift": "^0.13.0",
-    "pkg-dir": "^4.2.0",
-    "react-dom": "^16.8.0",
-    "ts-node": "^10.9.1"
-  },
-  "keywords": [
-    "atlaskit",
-    "ui"
-  ],
-  "techstack": {
-    "@repo/internal": {
-      "design-system": "v1",
-      "dom-events": "use-bind-event-listener",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "styling": [
-        "emotion"
-      ],
-      "deprecation": "no-deprecated-imports"
-    }
-  }
+	"name": "@atlaskit/icon-object",
+	"version": "6.4.0",
+	"description": "An object icon is used to represent an Atlassian-specific content type.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"homepage": "https://atlassian.design/components/icon-object/",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"atlaskit:src": "src/index.tsx",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Icon object",
+			"category": "Components"
+		}
+	},
+	"af:exports": {
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./glyph": "./glyph",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./glyph/*": "./glyph/*",
+		".": "./src/index.tsx"
+	},
+	"scripts": {
+		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/icon": "^22.3.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/icon-build-process": "^0.6.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/visual-regression": "*",
+		"@emotion/styled": "^11.0.0",
+		"fs-extra": "^4.0.2",
+		"jscodeshift": "^0.13.0",
+		"pkg-dir": "^4.2.0",
+		"react-dom": "^16.8.0",
+		"ts-node": "^10.9.1"
+	},
+	"keywords": [
+		"atlaskit",
+		"ui"
+	],
+	"techstack": {
+		"@repo/internal": {
+			"design-system": "v1",
+			"dom-events": "use-bind-event-listener",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"styling": [
+				"emotion"
+			],
+			"deprecation": "no-deprecated-imports"
+		}
+	}
 }

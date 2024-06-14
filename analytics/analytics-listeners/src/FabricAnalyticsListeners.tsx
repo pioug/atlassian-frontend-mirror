@@ -15,6 +15,7 @@ import CrossFlowAnalyticsListener from './cross-flow/CrossFlowAnalyticsListener'
 import LinkingPlatformAnalyticsListener from './linkingPlatform/LinkingPlatformAnalyticsListener';
 import PostOfficeAnalyticsListener from './postOffice/PostOfficeAnalyticsListener';
 import AIMateAnalyticsListener from './aiMate/AIMateAnalyticsListener';
+import AVPAnalyticsListener from './avp/AVPAnalyticsListener';
 
 export type Props = {
 	/** Children! */
@@ -39,6 +40,7 @@ const listenerMap = {
 	[FabricChannel.linkingPlatform]: LinkingPlatformAnalyticsListener,
 	[FabricChannel.postOffice]: PostOfficeAnalyticsListener,
 	[FabricChannel.aiMate]: AIMateAnalyticsListener,
+	[FabricChannel.avp]: AVPAnalyticsListener,
 };
 
 class FabricAnalyticsListeners extends React.Component<Props> {

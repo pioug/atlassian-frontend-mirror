@@ -1,119 +1,119 @@
 {
-  "name": "@atlaskit/editor-plugin-floating-toolbar",
-  "version": "1.6.0",
-  "description": "Floating toolbar plugin for @atlaskit/editor-core",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Editor: Lego",
-    "singleton": true,
-    "releaseModel": "continuous",
-    "runReact18": false
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-utils": "^19.2.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/editor-common": "^82.5.0",
-    "@atlaskit/editor-palette": "1.6.0",
-    "@atlaskit/editor-plugin-block-controls": "^1.4.1",
-    "@atlaskit/editor-plugin-context-panel": "^1.1.0",
-    "@atlaskit/editor-plugin-copy-button": "^1.1.0",
-    "@atlaskit/editor-plugin-decorations": "^1.1.0",
-    "@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
-    "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
-    "@atlaskit/editor-plugin-extension": "^1.5.0",
-    "@atlaskit/editor-plugin-table": "^7.17.0",
-    "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/menu": "^2.4.0",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "lodash": "^4.17.21",
-    "raf-schd": "^4.0.3",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "react-loadable": "^5.1.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "emotion"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.editor.a11y-floating-toolbar-markup_vexmo": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/editor-plugin-floating-toolbar",
+	"version": "1.6.0",
+	"description": "Floating toolbar plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": false
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-utils": "^19.2.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-palette": "1.6.0",
+		"@atlaskit/editor-plugin-block-controls": "^1.4.1",
+		"@atlaskit/editor-plugin-context-panel": "^1.1.0",
+		"@atlaskit/editor-plugin-copy-button": "^1.1.0",
+		"@atlaskit/editor-plugin-decorations": "^1.1.0",
+		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+		"@atlaskit/editor-plugin-extension": "^1.5.0",
+		"@atlaskit/editor-plugin-table": "^7.17.0",
+		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/emoji": "^67.6.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/platform-feature-flags": "^0.2.5",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"lodash": "^4.17.21",
+		"raf-schd": "^4.0.3",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"react-loadable": "^5.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"enzyme": "^3.10.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.editor.a11y-floating-toolbar-markup_vexmo": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
+			"type": "boolean"
+		}
+	}
 }

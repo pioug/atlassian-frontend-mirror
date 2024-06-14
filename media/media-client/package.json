@@ -1,99 +1,99 @@
 {
-  "name": "@atlaskit/media-client",
-  "version": "27.2.1",
-  "description": "Media API Web Client Library",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    "./constants": "./src/constants.ts",
-    "./test-helpers": "./src/test-helpers/index.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./constants": "./src/constants.ts",
-    "./test-helpers": "./src/test-helpers/index.ts",
-    ".": "./src/index.ts"
-  },
-  "atlassian": {
-    "team": "Media Experience",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Media Client"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/chunkinator": "^6.0.0",
-    "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/platform-feature-flags": "0.2.5",
-    "@babel/runtime": "^7.0.0",
-    "dataloader": "^2.0.0",
-    "deep-equal": "^1.0.1",
-    "eventemitter2": "^4.1.0",
-    "js-sha256": "^0.10.1",
-    "lru_map": "^0.4.1",
-    "rusha": "^0.8.13",
-    "rxjs": "^5.5.0",
-    "setimmediate": "^1.0.5",
-    "uuid": "^3.1.0",
-    "uuid-validate": "^0.0.3",
-    "xstate": "4.20.0"
-  },
-  "peerDependencies": {
-    "@atlaskit/media-core": "^34.1.2",
-    "@atlaskit/media-state": "^1.0.0"
-  },
-  "devDependencies": {
-    "@atlaskit/media-core": "^34.2.0",
-    "@atlaskit/media-state": "^1.1.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlassian/feature-flags-test-utils": "0.2.1",
-    "@emotion/react": "^11.7.1",
-    "@types/deep-equal": "^1.0.1",
-    "@types/uuid-validate": "^0.0.2",
-    "fetch-mock": "^8.0.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "circular-dependencies": [
-        "file-level"
-      ]
-    },
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.media-svg-rendering": {
-      "type": "boolean"
-    },
-    "platform.media-cdn-delivery": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/media-client",
+	"version": "27.2.1",
+	"description": "Media API Web Client Library",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./constants": "./src/constants.ts",
+		"./test-helpers": "./src/test-helpers/index.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./constants": "./src/constants.ts",
+		"./test-helpers": "./src/test-helpers/index.ts",
+		".": "./src/index.ts"
+	},
+	"atlassian": {
+		"team": "Media Experience",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Media Client"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/chunkinator": "^6.0.0",
+		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/platform-feature-flags": "0.2.5",
+		"@babel/runtime": "^7.0.0",
+		"dataloader": "^2.0.0",
+		"deep-equal": "^1.0.1",
+		"eventemitter2": "^4.1.0",
+		"js-sha256": "^0.10.1",
+		"lru_map": "^0.4.1",
+		"rusha": "^0.8.13",
+		"rxjs": "^5.5.0",
+		"setimmediate": "^1.0.5",
+		"uuid": "^3.1.0",
+		"uuid-validate": "^0.0.3",
+		"xstate": "4.20.0"
+	},
+	"peerDependencies": {
+		"@atlaskit/media-core": "^34.1.2",
+		"@atlaskit/media-state": "^1.0.0"
+	},
+	"devDependencies": {
+		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-state": "^1.1.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlassian/feature-flags-test-utils": "0.2.1",
+		"@emotion/react": "^11.7.1",
+		"@types/deep-equal": "^1.0.1",
+		"@types/uuid-validate": "^0.0.2",
+		"fetch-mock": "^8.0.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"circular-dependencies": [
+				"file-level"
+			]
+		},
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.media-svg-rendering": {
+			"type": "boolean"
+		},
+		"platform.media-cdn-delivery": {
+			"type": "boolean"
+		}
+	}
 }

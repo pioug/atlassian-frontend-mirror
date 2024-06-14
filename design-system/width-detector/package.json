@@ -1,71 +1,71 @@
 {
-  "name": "@atlaskit/width-detector",
-  "version": "4.2.0",
-  "description": "Wrapper for components that need to respond to width changes",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Width Detector",
-      "category": "Libraries"
-    },
-    "runReact18": true
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "raf-schd": "^4.0.3"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/integration-testing": "*",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/ssr": "*",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/react": "^12.1.5",
-    "@types/raf-schd": "^4.0.1",
-    "lodash": "^4.17.21",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "homepage": "https://atlaskit.atlassian.com/packages/helpers/width-detector",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./WidthDetector": "./src/WidthDetector.tsx"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./WidthDetector": "./src/WidthDetector.tsx"
-  }
+	"name": "@atlaskit/width-detector",
+	"version": "4.2.0",
+	"description": "Wrapper for components that need to respond to width changes",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Width Detector",
+			"category": "Libraries"
+		},
+		"runReact18": true
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"raf-schd": "^4.0.3"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ssr": "*",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/react": "^12.1.5",
+		"@types/raf-schd": "^4.0.1",
+		"lodash": "^4.17.21",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"homepage": "https://atlaskit.atlassian.com/packages/helpers/width-detector",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./WidthDetector": "./src/WidthDetector.tsx"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./WidthDetector": "./src/WidthDetector.tsx"
+	}
 }

@@ -1,77 +1,78 @@
 {
-  "name": "@atlaskit/media-common",
-  "version": "11.2.2",
-  "description": "Includes common utilities used by other media packages",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    "./downloadUrl": "./src/downloadUrl.ts",
-    "./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
-    "./analytics": "./src/analytics/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
-    "./test-helpers": "./src/test-helpers/index.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./downloadUrl": "./src/downloadUrl.ts",
-    "./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
-    "./analytics": "./src/analytics/index.ts",
-    "./docs": "./src/docs/index.ts",
-    "./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
-    "./test-helpers": "./src/test-helpers/index.ts",
-    ".": "./src/index.ts"
-  },
-  "atlassian": {
-    "team": "Media Experience",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Media Common"
-    }
-  },
-  "scripts": {},
-  "dependencies": {
-    "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/section-message": "^6.5.0",
-    "@babel/runtime": "^7.0.0",
-    "immer": "^9.0.12",
-    "uuid-validate": "^0.0.3"
-  },
-  "peerDependencies": {
-    "enzyme": ">=3.10.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "peerDependenciesMeta": {
-    "enzyme": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  }
+	"name": "@atlaskit/media-common",
+	"version": "11.2.2",
+	"description": "Includes common utilities used by other media packages",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./downloadUrl": "./src/downloadUrl.ts",
+		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
+		"./analytics": "./src/analytics/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
+		"./test-helpers": "./src/test-helpers/index.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./downloadUrl": "./src/downloadUrl.ts",
+		"./mediaFeatureFlags": "./src/mediaFeatureFlags/index.ts",
+		"./analytics": "./src/analytics/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./mediaTypeUtils": "./src/mediaTypeUtils/index.ts",
+		"./test-helpers": "./src/test-helpers/index.ts",
+		".": "./src/index.ts"
+	},
+	"atlassian": {
+		"team": "Media Experience",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Media Common"
+		}
+	},
+	"scripts": {},
+	"dependencies": {
+		"@atlaskit/analytics-gas-types": "^5.1.0",
+		"@atlaskit/analytics-namespaced-context": "^6.10.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@babel/runtime": "^7.0.0",
+		"immer": "^9.0.12",
+		"uuid-validate": "^0.0.3"
+	},
+	"peerDependencies": {
+		"enzyme": ">=3.10.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"peerDependenciesMeta": {
+		"enzyme": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@types/uuid-validate": "^0.0.2",
+		"enzyme": "^3.10.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	}
 }

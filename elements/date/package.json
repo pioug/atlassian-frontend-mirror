@@ -1,73 +1,73 @@
 {
-  "name": "@atlaskit/date",
-  "version": "0.10.10",
-  "description": "Fabric Date React Components",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "atlassian": {
-    "team": "Editor: AI",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Date"
-    },
-    "runReact18": false
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "date-fns": "^2.17.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@emotion/styled": "^11.0.0",
-    "@types/date-fns": "^2.6.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "ui",
-    "date",
-    "fabric",
-    "teams"
-  ],
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ]
-    }
-  }
+	"name": "@atlaskit/date",
+	"version": "0.10.10",
+	"description": "Fabric Date React Components",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"atlassian": {
+		"team": "Editor: AI",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Date"
+		},
+		"runReact18": false
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"date-fns": "^2.17.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/elements-test-helpers": "^0.7.0",
+		"@emotion/styled": "^11.0.0",
+		"@types/date-fns": "^2.6.0",
+		"enzyme": "^3.10.0",
+		"enzyme-adapter-react-16": "^1.15.1",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"ui",
+		"date",
+		"fabric",
+		"teams"
+	],
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			]
+		}
+	}
 }

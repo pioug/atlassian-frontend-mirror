@@ -1,63 +1,63 @@
 {
-  "name": "@atlaskit/panel",
-  "version": "0.9.10",
-  "description": "A React component rendering a collapsible panel",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Bitbucket: CoreX",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Panel"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "react-animate-height": "^2.0.5",
-    "react-focus-within": "^2.0.1",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "styled-components": "^3.2.6"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "enzyme": "^3.10.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    }
-  }
+	"name": "@atlaskit/panel",
+	"version": "0.9.10",
+	"description": "A React component rendering a collapsible panel",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./i18n/*": "./src/i18n/*.ts"
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Bitbucket: CoreX",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Panel"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"react-animate-height": "^2.0.5",
+		"react-focus-within": "^2.0.1",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"styled-components": "^3.2.6"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"enzyme": "^3.10.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		}
+	}
 }

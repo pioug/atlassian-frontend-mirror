@@ -6,6 +6,7 @@ import { PluginKey, TextSelection, type Transaction } from '@atlaskit/editor-pro
 import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
 import {
 	AddMarkStep,
+	AddNodeMarkStep,
 	ReplaceStep,
 	Step,
 	StepMap,
@@ -21,6 +22,82 @@ type ViewModeStepProps = {
 	mark?: Mark;
 	inverted?: boolean;
 };
+
+type ViewModeNodeStepProps = {
+	mark?: Mark;
+	inverted?: boolean;
+	pos: number;
+};
+
+class ViewModeNodeStep extends Step {
+	public readonly inverted: boolean;
+	public readonly pos: number;
+	public readonly mark: Mark | undefined;
+
+	private constructor({ inverted, pos, mark }: ViewModeNodeStepProps) {
+		super();
+		this.inverted = Boolean(inverted);
+		this.pos = pos;
+		this.mark = mark;
+	}
+
+	invert(doc: PMNode) {
+		return new ViewModeNodeStep({
+			inverted: true,
+			pos: this.pos,
+			mark: this.mark,
+		});
+	}
+
+	apply(doc: PMNode) {
+		return StepResult.ok(doc);
+	}
+
+	merge(): null {
+		return null;
+	}
+
+	map(mapping: Mappable): ViewModeNodeStep | null {
+		const mappedPos = mapping.mapResult(this.pos, 1);
+
+		if (mappedPos.deleted) {
+			return null;
+		}
+
+		return new ViewModeNodeStep({
+			inverted: this.inverted,
+			pos: mappedPos.pos,
+		});
+	}
+
+	getMap() {
+		return new StepMap([0, 0, 0]);
+	}
+
+	toJSON() {
+		// When serialized we should create a noop Replace step
+		return {
+			stepType: 'replace',
+			pos: 0,
+		};
+	}
+
+	static fromJSON() {
+		// This is a "local custom step" once serialized
+		// we need to transform it in a no-operation action
+
+		return new ReplaceStep(0, 0, Slice.empty);
+	}
+
+	static from(step: AddNodeMarkStep) {
+		const { mark, pos } = step;
+
+		return new ViewModeNodeStep({
+			mark,
+			pos,
+		});
+	}
+}
 class ViewModeStep extends Step {
 	public readonly inverted: boolean;
 	public readonly from: number;
@@ -112,10 +189,17 @@ const createFilterStepsPlugin =
 					return true;
 				}
 
-				const viewModeSteps = tr.steps.reduce<ViewModeStep[]>((acc, s) => {
-					if (s instanceof ViewModeStep) {
-						acc.push(s);
+				const viewModeSteps = tr.steps.reduce<(ViewModeStep | ViewModeNodeStep)[]>((acc, s) => {
+					if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+						if (s instanceof ViewModeNodeStep || s instanceof ViewModeStep) {
+							acc.push(s);
+						}
+					} else {
+						if (s instanceof ViewModeStep) {
+							acc.push(s);
+						}
 					}
+
 					return acc;
 				}, []);
 
@@ -129,12 +213,30 @@ const createFilterStepsPlugin =
 					if (step.inverted || !step.mark) {
 						return;
 					}
+
 					if (step.mark.type.name === 'annotation') {
-						api.collabEdit?.actions.addInlineCommentMark({
-							mark: step.mark,
-							from: step.from,
-							to: step.to,
-						});
+						if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+							if (step instanceof ViewModeNodeStep) {
+								api.collabEdit?.actions.addInlineCommentNodeMark({
+									mark: step.mark,
+									pos: step.pos,
+								});
+							} else if (step instanceof ViewModeStep) {
+								api.collabEdit?.actions.addInlineCommentMark({
+									mark: step.mark,
+									from: step.from,
+									to: step.to,
+								});
+							}
+						} else {
+							if (step instanceof ViewModeStep) {
+								api.collabEdit?.actions.addInlineCommentMark({
+									mark: step.mark,
+									from: step.from,
+									to: step.to,
+								});
+							}
+						}
 					}
 				});
 
@@ -238,10 +340,18 @@ export const editorViewModePlugin: EditorViewModePlugin = ({ config: options, ap
 
 		actions: {
 			applyViewModeStepAt: (tr: Transaction) => {
-				const marksSteps: AddMarkStep[] = tr.steps.reduce<AddMarkStep[]>((acc, s) => {
+				const marksSteps: (AddMarkStep | AddNodeMarkStep)[] = tr.steps.reduce<
+					(AddMarkStep | AddNodeMarkStep)[]
+				>((acc, s) => {
 					// TODO: We probably want to check the RemoveMarkStep flow too.
-					if (s instanceof AddMarkStep) {
-						acc.push(s);
+					if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+						if (s instanceof AddMarkStep || s instanceof AddNodeMarkStep) {
+							acc.push(s);
+						}
+					} else {
+						if (s instanceof AddMarkStep) {
+							acc.push(s);
+						}
 					}
 
 					return acc;
@@ -252,7 +362,15 @@ export const editorViewModePlugin: EditorViewModePlugin = ({ config: options, ap
 				}
 
 				marksSteps.reverse().map((s) => {
-					tr.step(ViewModeStep.from(s));
+					if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+						s instanceof AddNodeMarkStep
+							? tr.step(ViewModeNodeStep.from(s))
+							: tr.step(ViewModeStep.from(s));
+					} else {
+						if (s instanceof AddMarkStep) {
+							tr.step(ViewModeStep.from(s));
+						}
+					}
 				});
 
 				return true;

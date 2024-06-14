@@ -32,6 +32,7 @@ export const DatasourceModal = ({
 			width="calc(100% - 80px)"
 			shouldScrollInViewport={true}
 			shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
+			shouldReturnFocus={false}
 		>
 			<ScreenEvent />
 			{children}

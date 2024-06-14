@@ -12,6 +12,7 @@ import type ES from 'estree';
 import type { JSXAttribute } from 'estree-jsx';
 import assign from 'lodash/assign';
 
+import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { Import } from '../../ast-nodes';
@@ -299,12 +300,42 @@ class JSXExpressionLinter {
 	 * @param node Any node that is potentially hoistable.
 	 * @returns Whether the node potentially has a local variable (and thus is not safe to hoist).
 	 */
-	private potentiallyHasLocalVariable(node: HoistableNode) {
+	private potentiallyHasLocalVariable(node: ES.Node): boolean {
+		/**
+		 * If we've passed an `Identifier` then it is an identifier that's been
+		 * passed to the `css` prop.
+		 *
+		 * We need to check its initializer to see if it is safe to auto-fix.
+		 */
+		if (node.type === 'Identifier') {
+			const variable = findVariable({ identifier: node, sourceCode: this.context.getSourceCode() });
+			if (!variable) {
+				// If we cannot resolve the variable then we cannot check it, so assume worst-case.
+				return true;
+			}
+
+			return variable.defs.some((def) => {
+				// If the binding isn't from a variable declaration we assume worst-case.
+				if (def.type !== 'Variable') {
+					return true;
+				}
+
+				const { init } = def.node;
+				if (!init) {
+					// If there is no initializer something weird is happening so assume worst-case.
+					return true;
+				}
+
+				return this.potentiallyHasLocalVariable(init);
+			});
+		}
+
 		let hasPotentiallyLocalVariable = false;
 		const isImportedVariable = (identifier: string) =>
 			!!getModuleOfIdentifier(this.context.getSourceCode(), identifier);
 
 		estraverse.traverse(node, {
+			fallback: 'iteration',
 			enter: function (node: EslintNode, _parent: EslintNode | null) {
 				if (
 					isNodeOfType(node, 'SpreadElement') ||
@@ -409,16 +440,16 @@ class JSXExpressionLinter {
 		let moduleString;
 		let fixes: Rule.Fix[] = [];
 
+		if (this.potentiallyHasLocalVariable(node)) {
+			return [];
+		}
+
 		if (node.type === 'Identifier') {
 			const identifier = node as IdentifierWithParent;
 			const declarator = identifier.parent.parent;
 			moduleString = sourceCode.getText(declarator);
 			fixes.push(fixer.remove(declarator));
 		} else {
-			if (this.potentiallyHasLocalVariable(node)) {
-				return [];
-			}
-
 			const declarator = this.getDeclaratorString();
 			const text = sourceCode.getText(node);
 

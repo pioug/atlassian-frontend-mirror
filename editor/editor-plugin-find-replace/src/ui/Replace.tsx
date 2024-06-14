@@ -18,7 +18,6 @@ import { findReplaceMessages as messages } from '@atlaskit/editor-common/message
 import { Label, ValidMessage } from '@atlaskit/form';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Inline, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 
@@ -84,7 +83,6 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 	private successReplacementMessageRef = React.createRef<HTMLInputElement>();
 	private isComposing = false;
 	private closeFindReplaceDialog: string;
-	private replaceWith: string;
 	private replace: string;
 	private replaceAll: string;
 	private findNext: string;
@@ -106,7 +104,6 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 			replaceCount: 0,
 		};
 
-		this.replaceWith = formatMessage(messages.replaceWith);
 		this.replace = formatMessage(messages.replace);
 		this.replaceAll = formatMessage(messages.replaceAll);
 		this.findNext = formatMessage(messages.findNext);
@@ -123,14 +120,12 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 		if (replaceText && replaceText !== prevReplaceText) {
 			this.setState({ replaceText, isComposing: false });
 		}
-		if (getBooleanFF('platform.editor.a11y-find-replace')) {
-			const findTextField = document.getElementById('find-text-field');
-			const replaceButton = document.getElementById('replace-button');
-			const replaceAllButton = document.getElementById('replaceAll-button');
+		const findTextField = document.getElementById('find-text-field');
+		const replaceButton = document.getElementById('replace-button');
+		const replaceAllButton = document.getElementById('replaceAll-button');
 
-			if ((replaceButton?.tabIndex === -1 || replaceAllButton?.tabIndex === -1) && findTextField) {
-				findTextField.focus();
-			}
+		if ((replaceButton?.tabIndex === -1 || replaceAllButton?.tabIndex === -1) && findTextField) {
+			findTextField.focus();
 		}
 	}
 
@@ -248,16 +243,15 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 			numberOfMatches: replaceCount,
 		});
 
-		return getBooleanFF('platform.editor.a11y-find-replace') ? (
+		return (
 			<Fragment>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={textFieldWrapper}>
 						<Label htmlFor="replace-text-field">Replace with</Label>
 						<Textfield
 							name="replace"
 							id="replace-text-field"
+							testId="replace-field"
 							appearance="standard"
 							defaultValue={replaceText}
 							ref={this.replaceTextfieldRef}
@@ -273,9 +267,9 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 								<ValidMessage testId="message-success-replacement">
 									{
 										/*
-                    Replacement needed to trigger the SR announcement if message hasn't changed. e.g Replace button clicked twice.
-                    '\u00a0' is value for &nbsp
-                    */
+										Replacement needed to trigger the SR announcement if message hasn't changed. e.g Replace button clicked twice.
+										'\u00a0' is value for &nbsp
+									*/
 										this.state.fakeSuccessReplacementMessageUpdate
 											? resultsReplace.replace(/ /, '\u00a0')
 											: resultsReplace
@@ -285,11 +279,8 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 						)}
 					</div>
 				</div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate, sectionWrapperJustified]}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={orderOneStyles}>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton
 								title={this.findNext}
@@ -300,7 +291,6 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 								disabled={count.total <= 1}
 							/>
 						</div>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton
 								title={this.findPrevious}
@@ -340,7 +330,6 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 							</Button>
 						</Inline>
 					</div>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={orderZeroStyles}>
 						<Button
 							appearance="subtle"
@@ -352,34 +341,6 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 					</div>
 				</div>
 			</Fragment>
-		) : (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div css={sectionWrapperStyles}>
-				<Textfield
-					name="replace"
-					appearance="none"
-					placeholder={this.replaceWith}
-					defaultValue={replaceText}
-					ref={this.replaceTextfieldRef}
-					autoComplete="off"
-					onChange={this.handleReplaceChange}
-					onKeyDown={this.handleReplaceKeyDown}
-					onCompositionStart={this.handleCompositionStart}
-					onCompositionEnd={this.handleCompositionEnd}
-				/>
-				<Inline space="space.050">
-					<Button testId={this.replace} onClick={this.handleReplaceClick} isDisabled={!canReplace}>
-						{this.replace}
-					</Button>
-					<Button
-						testId={this.replaceAll}
-						onClick={this.handleReplaceAllClick}
-						isDisabled={!canReplace}
-					>
-						{this.replaceAll}
-					</Button>
-				</Inline>
-			</div>
 		);
 	}
 }

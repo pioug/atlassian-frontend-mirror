@@ -1,100 +1,100 @@
 {
-  "name": "@atlaskit/frontend-utilities",
-  "version": "2.7.2",
-  "description": "Collecton of small useful frontend utilities",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Frontend Platform Consortium",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "FrontendUtilities"
-    }
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./use-previous": "./src/hooks/use-previous/index.ts",
-    "./retry-operation": "./src/network/retry-operation/index.ts",
-    "./local-storage": "./src/storage/local-storage/index.ts",
-    "./storage-client": "./src/storage/storage-client/index.ts",
-    "./simple-hash": "./src/utils/simple-hash/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./use-previous": "./src/hooks/use-previous/index.ts",
-    "./retry-operation": "./src/network/retry-operation/index.ts",
-    "./local-storage": "./src/storage/local-storage/index.ts",
-    "./storage-client": "./src/storage/storage-client/index.ts",
-    "./simple-hash": "./src/utils/simple-hash/index.ts"
-  },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ]
-    }
-  }
+	"name": "@atlaskit/frontend-utilities",
+	"version": "2.7.2",
+	"description": "Collecton of small useful frontend utilities",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Frontend Platform Consortium",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "FrontendUtilities"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./use-previous": "./src/hooks/use-previous/index.ts",
+		"./retry-operation": "./src/network/retry-operation/index.ts",
+		"./local-storage": "./src/storage/local-storage/index.ts",
+		"./storage-client": "./src/storage/storage-client/index.ts",
+		"./simple-hash": "./src/utils/simple-hash/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./convert-to-error": "./src/error-handling/convert-to-error/index.ts",
+		"./hooks": "./src/hooks/index.ts",
+		"./use-previous": "./src/hooks/use-previous/index.ts",
+		"./retry-operation": "./src/network/retry-operation/index.ts",
+		"./local-storage": "./src/storage/local-storage/index.ts",
+		"./storage-client": "./src/storage/storage-client/index.ts",
+		"./simple-hash": "./src/utils/simple-hash/index.ts"
+	},
+	"scripts": {
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	}
 }

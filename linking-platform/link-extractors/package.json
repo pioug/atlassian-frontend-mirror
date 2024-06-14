@@ -1,98 +1,98 @@
 {
-  "name": "@atlaskit/link-extractors",
-  "version": "1.5.1",
-  "description": "Functions for extracting props from JSON-LD",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Linking Platform",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "LinkExtractors",
-      "category": "Components"
-    }
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@babel/runtime": "^7.0.0",
-    "json-ld-types": "^4.1.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/docs": "*",
-    "@atlaskit/link-test-helpers": "^7.0.0",
-    "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlassian/feature-flags-test-utils": "^0.2.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "code-structure": [
-        "tangerine-classic"
-      ],
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.linking-platform.extractor.improve-bitbucket-file-links": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/link-extractors",
+	"version": "1.5.1",
+	"description": "Functions for extracting props from JSON-LD",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Linking Platform",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "LinkExtractors",
+			"category": "Components"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./types": "./src/types.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./types": "./src/types.ts",
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/platform-feature-flags": "^0.2.1",
+		"@babel/runtime": "^7.0.0",
+		"json-ld-types": "^4.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/docs": "*",
+		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlassian/feature-flags-test-utils": "^0.2.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"tangerine-classic"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.linking-platform.extractor.improve-bitbucket-file-links": {
+			"type": "boolean"
+		}
+	}
 }

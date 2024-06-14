@@ -1,127 +1,127 @@
 {
-  "name": "@atlaskit/inline-dialog",
-  "version": "14.1.2",
-  "description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/types.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/types.tsx"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Inline dialog",
-      "status": {
-        "type": "intent-to-deprecate",
-        "description": "We are planning on deprecating Inline dialog. We recommend using the Popup component instead.",
-        "actions": [
-          {
-            "text": "View Popup documentation",
-            "href": "https://atlassian.design/components/popup/examples"
-          }
-        ]
-      },
-      "category": "Components"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/layering": "^0.3.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/popper": "^6.0.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "bind-event-listener": "^3.0.0",
-    "react-node-resolver": "^1.0.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/datetime-picker": "^13.5.0",
-    "@atlaskit/docs": "*",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/section-message": "^6.5.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@types/react-node-resolver": "^2.0.0",
-    "react-dom": "^16.8.0",
-    "react-lorem-component": "^0.13.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "design-system": "v1",
-      "deprecation": "no-deprecated-imports"
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.design-system-team.layering_qmiw3": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.design-system-team.inline-message-layering_wfp1p": {
-      "type": "boolean"
-    }
-  },
-  "homepage": "https://atlassian.design/components/inline-dialog/"
+	"name": "@atlaskit/inline-dialog",
+	"version": "14.1.2",
+	"description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		".": "./src/index.tsx",
+		"./types": "./src/types.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx",
+		"./types": "./src/types.tsx"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Inline dialog",
+			"status": {
+				"type": "intent-to-deprecate",
+				"description": "We are planning on deprecating Inline dialog. We recommend using the Popup component instead.",
+				"actions": [
+					{
+						"text": "View Popup documentation",
+						"href": "https://atlassian.design/components/popup/examples"
+					}
+				]
+			},
+			"category": "Components"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/layering": "^0.3.0",
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/popper": "^6.0.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"bind-event-listener": "^3.0.0",
+		"react-node-resolver": "^1.0.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/datetime-picker": "^13.5.0",
+		"@atlaskit/docs": "*",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@types/react-node-resolver": "^2.0.0",
+		"react-dom": "^16.8.0",
+		"react-lorem-component": "^0.13.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"design-system": "v1",
+			"deprecation": "no-deprecated-imports"
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.design-system-team.layering_qmiw3": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform.design-system-team.inline-message-layering_wfp1p": {
+			"type": "boolean"
+		}
+	},
+	"homepage": "https://atlassian.design/components/inline-dialog/"
 }

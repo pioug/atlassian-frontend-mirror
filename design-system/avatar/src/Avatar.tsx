@@ -95,7 +95,11 @@ export interface AvatarPropTypes {
 	 */
 	presence?: Presence | Omit<ReactNode, string> | (string & {}) | null;
 	/**
-	 * Defines the size of the avatar.
+	 * Defines the size of the avatar. Default value is `medium`.
+	 *
+	 * This can also be controlled by the `size` property of the
+	 * `AvatarContext` export from this package. If no prop is given when the
+	 * `size` is set via this context, the context's value will be used.
 	 */
 	size?: SizeType;
 	/**
@@ -276,7 +280,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 			name,
 			onClick,
 			presence,
-			size: sizeProp = 'medium' as SizeType,
+			size: sizeProp,
 			src,
 			stackIndex,
 			status,
@@ -289,7 +293,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 		const context = useAvatarContext();
 
-		const size = context?.size || sizeProp;
+		const size = sizeProp ?? context?.size ?? ('medium' as SizeType);
 
 		const customPresenceNode = isValidElement(presence) ? presence : null;
 		const customStatusNode = isValidElement(status) ? status : null;

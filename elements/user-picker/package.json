@@ -1,107 +1,107 @@
 {
-  "name": "@atlaskit/user-picker",
-  "version": "10.21.0",
-  "description": "Fabric component for display a dropdown to select a user from",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./analytics": "./src/analytics.ts",
-    "./option": "./src/option.ts",
-    "./types": "./src/types.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./analytics": "./src/analytics.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./option": "./src/option.ts",
-    "./types": "./src/types.ts"
-  },
-  "atlassian": {
-    "team": "Search Platform: Search Experience",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "User Picker"
-    },
-    "productPushConsumption": [
-      "jira"
-    ]
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/avatar": "^21.9.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/lozenge": "^11.7.0",
-    "@atlaskit/popper": "^6.0.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/teams-avatar": "^1.0.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "lodash": "^4.17.21",
-    "memoize-one": "^6.0.0",
-    "uuid": "^3.1.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@atlaskit/analytics-viewer": "^0.6.0",
-    "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/heading": "^2.3.0",
-    "@atlaskit/visual-regression": "*",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/uuid": "^3.4.4",
-    "enzyme": "^3.10.0",
-    "mock-apollo-client": "^0.1.0",
-    "react-beautiful-dnd": "^12.1.1",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "react-select-event": "^5.5.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ]
-    }
-  },
-  "keywords": [
-    "fabric",
-    "ui"
-  ]
+	"name": "@atlaskit/user-picker",
+	"version": "10.21.0",
+	"description": "Fabric component for display a dropdown to select a user from",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./analytics": "./src/analytics.ts",
+		"./option": "./src/option.ts",
+		"./types": "./src/types.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./analytics": "./src/analytics.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./option": "./src/option.ts",
+		"./types": "./src/types.ts"
+	},
+	"atlassian": {
+		"team": "Search Platform: Search Experience",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "User Picker"
+		},
+		"productPushConsumption": [
+			"jira"
+		]
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/lozenge": "^11.7.0",
+		"@atlaskit/popper": "^6.0.0",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/teams-avatar": "^1.0.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"lodash": "^4.17.21",
+		"memoize-one": "^6.0.0",
+		"uuid": "^3.1.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@atlaskit/analytics-viewer": "^0.6.0",
+		"@atlaskit/elements-test-helpers": "^0.7.0",
+		"@atlaskit/heading": "^2.3.0",
+		"@atlaskit/visual-regression": "*",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/uuid": "^3.4.4",
+		"enzyme": "^3.10.0",
+		"mock-apollo-client": "^0.1.0",
+		"react-beautiful-dnd": "^12.1.1",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"react-select-event": "^5.5.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			]
+		}
+	},
+	"keywords": [
+		"fabric",
+		"ui"
+	]
 }

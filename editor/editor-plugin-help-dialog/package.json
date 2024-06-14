@@ -87,9 +87,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.a11y-media-resizing_b5v0o": {
-			"type": "boolean"
-		},
 		"platform.editor.a11y-table-resizing_uapcv": {
 			"type": "boolean"
 		},

@@ -1,100 +1,100 @@
 {
-  "name": "@atlaskit/avatar-group",
-  "version": "9.6.1",
-  "description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Avatar group",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "dependencies": {
-    "@atlaskit/avatar": "^21.9.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/menu": "^2.4.0",
-    "@atlaskit/popup": "^1.17.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "bind-event-listener": "^3.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/visual-regression": "*",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "lodash": "^4.17.21",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "static"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
-  "homepage": "https://atlassian.design/components/avatar-group/"
+	"name": "@atlaskit/avatar-group",
+	"version": "9.6.1",
+	"description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Avatar group",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"dependencies": {
+		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/popup": "^1.17.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"bind-event-listener": "^3.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/visual-regression": "*",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"lodash": "^4.17.21",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"static"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx"
+	},
+	"homepage": "https://atlassian.design/components/avatar-group/"
 }

@@ -191,7 +191,9 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 				id: 'date',
 				title: formatMessage(messages.date),
 				description: formatMessage(messages.dateDescription),
-				priority: 800,
+				priority: options.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
+					? 100
+					: 800,
 				keywords: ['calendar', 'day', 'time', 'today', '/'],
 				keyshortcut: '//',
 				icon: () => <IconDate />,

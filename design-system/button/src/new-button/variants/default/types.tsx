@@ -2,7 +2,7 @@ import { type ButtonSpacing, type IconProp, type IconSize } from '../types';
 
 export type CommonDefaultButtonProps = {
 	/**
-	 * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
+	 * Text content to be rendered in the button.
 	 */
 	children: React.ReactNode;
 	/**

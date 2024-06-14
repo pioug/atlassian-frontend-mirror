@@ -99,7 +99,9 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					title: formatMessage(messages.mention),
 					description: formatMessage(messages.mentionDescription),
 					keywords: ['team', 'user'],
-					priority: 400,
+					priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
+						? 700
+						: 400,
 					keyshortcut: '@',
 					icon: () => <IconMention />,
 					action(insert, state) {

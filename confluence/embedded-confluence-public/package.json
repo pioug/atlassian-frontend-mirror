@@ -1,66 +1,66 @@
 {
-  "name": "@atlaskit/embedded-confluence",
-  "version": "2.17.0",
-  "description": "Embedded Confluence components for public consumption.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/embedded-confluence-bundle.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Confluence Better Together",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Embedded Confluence"
-    }
-  },
-  "scripts": {
-    "prepack": "node ./scripts/devCleanup.js",
-    "postpublish": "node ./scripts/devRestore.js",
-    "webpack-build": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --progress --config config/webpack.prod.js",
-    "ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "react-markdown": "^8.0.0",
-    "remark-gfm": "^3.0.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "optionalDependencies": {
-    "@atlassian/embedded-confluence-common": "^2.3.0",
-    "@atlassian/experience-tracker": "^2.2.0"
-  },
-  "browser": "dist/embedded-confluence-bundle.js",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./i18n": "./src/i18n/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n": "./src/i18n/index.ts"
-  }
+	"name": "@atlaskit/embedded-confluence",
+	"version": "2.17.0",
+	"description": "Embedded Confluence components for public consumption.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/embedded-confluence-bundle.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Confluence Better Together",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Embedded Confluence"
+		}
+	},
+	"scripts": {
+		"prepack": "node ./scripts/devCleanup.js",
+		"postpublish": "node ./scripts/devRestore.js",
+		"webpack-build": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --progress --config config/webpack.prod.js",
+		"ak-postbuild": "NODE_OPTIONS=--max-old-space-size=4096 webpack --env NODE_ENV=production --env prod --config config/webpack.prod.js"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"react-markdown": "^8.0.0",
+		"remark-gfm": "^3.0.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"optionalDependencies": {
+		"@atlassian/embedded-confluence-common": "^2.3.0",
+		"@atlassian/experience-tracker": "^2.2.0"
+	},
+	"browser": "dist/embedded-confluence-bundle.js",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./i18n": "./src/i18n/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./i18n": "./src/i18n/index.ts"
+	}
 }

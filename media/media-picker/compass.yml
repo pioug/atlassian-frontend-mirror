@@ -44,6 +44,5 @@ links:
 relationships:
   DEPENDS_ON:
     - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef'
-
 # Learn more about formatting compass.yml:
 # https://go.atlassian.com/compass-yml-format

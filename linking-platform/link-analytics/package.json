@@ -1,72 +1,72 @@
 {
-  "name": "@atlaskit/link-analytics",
-  "version": "8.3.12",
-  "description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Linking Platform",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "LinkingAnalytics"
-    }
-  },
-  "scripts": {
-    "codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-analytics run codegen-analytics'"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/link-client-extension": "^1.9.0",
-    "@atlaskit/linking-common": "^5.7.0",
-    "@atlaskit/linking-types": "^8.9.0",
-    "@babel/runtime": "^7.0.0",
-    "json-ld-types": "^4.1.0",
-    "lru_map": "^0.4.1",
-    "rusha": "^0.8.13"
-  },
-  "peerDependencies": {
-    "@atlaskit/link-provider": "^1.11.0",
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/analytics-codegen": "^0.1.0",
-    "@atlaskit/link-picker": "^1.37.0",
-    "@atlaskit/link-test-helpers": "^7.0.0",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "fetch-mock": "^8.0.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./resolved-attributes": "./src/resolved-attributes.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./resolved-attributes": "./src/resolved-attributes.ts"
-  }
+	"name": "@atlaskit/link-analytics",
+	"version": "8.3.12",
+	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Linking Platform",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "LinkingAnalytics"
+		}
+	},
+	"scripts": {
+		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-analytics run codegen-analytics'"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/link-client-extension": "^1.9.0",
+		"@atlaskit/linking-common": "^5.7.0",
+		"@atlaskit/linking-types": "^8.9.0",
+		"@babel/runtime": "^7.0.0",
+		"json-ld-types": "^4.1.0",
+		"lru_map": "^0.4.1",
+		"rusha": "^0.8.13"
+	},
+	"peerDependencies": {
+		"@atlaskit/link-provider": "^1.11.0",
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/analytics-codegen": "^0.1.0",
+		"@atlaskit/link-picker": "^1.37.0",
+		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"fetch-mock": "^8.0.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./resolved-attributes": "./src/resolved-attributes.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./resolved-attributes": "./src/resolved-attributes.ts"
+	}
 }

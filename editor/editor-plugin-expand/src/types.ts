@@ -1,5 +1,6 @@
 import type {
 	EditorAppearance,
+	GetEditorFeatureFlags,
 	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -42,6 +43,7 @@ export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
 	 * @default false
 	 */
 	__livePage?: boolean;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export type ExpandPlugin = NextEditorPlugin<

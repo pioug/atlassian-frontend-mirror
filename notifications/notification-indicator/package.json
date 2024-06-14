@@ -1,61 +1,61 @@
 {
-  "name": "@atlaskit/notification-indicator",
-  "version": "9.2.3",
-  "description": "A wrapped React component used to display whether user has any new notifications.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Work Platform: Incoming Work",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Notification Indicator"
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/badge": "^16.1.0",
-    "@atlaskit/notification-log-client": "^6.1.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ]
-    }
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "sinon": "^2.2.0",
-    "typescript": "~5.4.2"
-  }
+	"name": "@atlaskit/notification-indicator",
+	"version": "9.2.3",
+	"description": "A wrapped React component used to display whether user has any new notifications.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Work Platform: Incoming Work",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "Notification Indicator"
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/badge": "^16.1.0",
+		"@atlaskit/notification-log-client": "^6.1.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			]
+		}
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"enzyme": "^3.10.0",
+		"sinon": "^2.2.0",
+		"typescript": "~5.4.2"
+	}
 }

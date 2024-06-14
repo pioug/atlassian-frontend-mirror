@@ -10,7 +10,11 @@ import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { createEditSelectedExtensionAction } from './actions';
+import {
+	createEditSelectedExtensionAction,
+	insertOrReplaceBodiedExtension,
+	insertOrReplaceExtension,
+} from './actions';
 import { forceAutoSave } from './commands';
 import { getContextPanel } from './context-panel';
 import { createExtensionAPI } from './extension-api';
@@ -20,7 +24,7 @@ import { insertMacroFromMacroBrowser, runMacroAutoConvert } from './pm-plugins/m
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
-import type { ExtensionPlugin } from './types';
+import type { ExtensionPlugin, InsertOrReplaceExtensionType } from './types';
 
 export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
@@ -136,7 +140,42 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 				});
 			},
 			insertMacroFromMacroBrowser: insertMacroFromMacroBrowser(api?.analytics?.actions),
-
+			insertOrReplaceExtension: ({
+				editorView,
+				action,
+				attrs,
+				content,
+				position,
+				size,
+				tr,
+			}: InsertOrReplaceExtensionType) =>
+				insertOrReplaceExtension({
+					editorView,
+					action,
+					attrs,
+					content,
+					position,
+					size,
+					tr,
+				}),
+			insertOrReplaceBodiedExtension: ({
+				editorView,
+				action,
+				attrs,
+				content,
+				position,
+				size,
+				tr,
+			}: InsertOrReplaceExtensionType) =>
+				insertOrReplaceBodiedExtension({
+					editorView,
+					action,
+					attrs,
+					content,
+					position,
+					size,
+					tr,
+				}),
 			editSelectedExtension: createEditSelectedExtensionAction({
 				editorViewRef,
 				editorAnalyticsAPI: api?.analytics?.actions,

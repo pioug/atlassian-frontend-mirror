@@ -1,114 +1,114 @@
 {
-  "name": "@atlaskit/reactions",
-  "version": "22.7.1",
-  "description": "Reactions component",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: Collaboration",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Reactions"
-    },
-    "runReact18": true
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/avatar": "^21.9.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/popper": "^6.0.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/tabs": "^16.1.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/util-service-support": "^6.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "focus-trap": "^2.4.5"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/util-data-test": "^17.9.0",
-    "@emotion/jest": "^11.8.0",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "dotenv": "^8.2.0",
-    "es6-promise": "^4.0.5",
-    "fetch-mock": "^8.0.0",
-    "raf-stub": "^2.0.1",
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0",
-    "webpack-dev-server": "^4.11.1"
-  },
-  "keywords": [
-    "fabric",
-    "ui"
-  ],
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./MockReactionsClient": "./src/MockReactionsClient.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    "./MockReactionsClient": "./src/MockReactionsClient.ts"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color"
-      ]
-    },
-    "@atlassian/frontend": {
-      "tree-shaking": []
-    }
-  },
-  "scripts": {
-    "setup-first-time": "yarn run setup-local-config; yarn run setup-env",
-    "setup-local-config": "cp -nv local-config-template.ts local-config.ts",
-    "setup-env": "cp -nv .env-template .env",
-    "start": "cd ../../ && yarn start reactions",
-    "test": "cd ../../ && yarn test reactions",
-    "typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/reactions",
-    "start:dev": "cd ../../ && yarn start reactions --proxy ./packages/elements/reactions/proxy.ts",
-    "start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start reactions --proxy ./packages/elements/reactions/proxy.ts"
-  }
+	"name": "@atlaskit/reactions",
+	"version": "22.7.1",
+	"description": "Reactions component",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: Collaboration",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Reactions"
+		},
+		"runReact18": true
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-gas-types": "^5.1.0",
+		"@atlaskit/analytics-namespaced-context": "^6.10.0",
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/emoji": "^67.6.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/motion": "^1.6.0",
+		"@atlaskit/popper": "^6.0.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/tabs": "^16.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@atlaskit/util-service-support": "^6.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"focus-trap": "^2.4.5"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@atlaskit/elements-test-helpers": "^0.7.0",
+		"@atlaskit/util-data-test": "^17.9.0",
+		"@emotion/jest": "^11.8.0",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"@testing-library/user-event": "^14.4.3",
+		"dotenv": "^8.2.0",
+		"es6-promise": "^4.0.5",
+		"fetch-mock": "^8.0.0",
+		"raf-stub": "^2.0.1",
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0",
+		"webpack-dev-server": "^4.11.1"
+	},
+	"keywords": [
+		"fabric",
+		"ui"
+	],
+	"af:exports": {
+		".": "./src/index.ts",
+		"./MockReactionsClient": "./src/MockReactionsClient.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		"./MockReactionsClient": "./src/MockReactionsClient.ts"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color"
+			]
+		},
+		"@atlassian/frontend": {
+			"tree-shaking": []
+		}
+	},
+	"scripts": {
+		"setup-first-time": "yarn run setup-local-config; yarn run setup-env",
+		"setup-local-config": "cp -nv local-config-template.ts local-config.ts",
+		"setup-env": "cp -nv .env-template .env",
+		"start": "cd ../../ && yarn start reactions",
+		"test": "cd ../../ && yarn test reactions",
+		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/reactions",
+		"start:dev": "cd ../../ && yarn start reactions --proxy ./packages/elements/reactions/proxy.ts",
+		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start reactions --proxy ./packages/elements/reactions/proxy.ts"
+	}
 }

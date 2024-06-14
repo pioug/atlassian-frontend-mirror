@@ -28,4 +28,5 @@ export enum FabricChannel {
 	linkingPlatform = 'linkingPlatform',
 	postOffice = 'postOffice',
 	aiMate = 'aiMate',
+	avp = 'avp',
 }

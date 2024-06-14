@@ -59,6 +59,7 @@ export type CollabEditPlugin = NextEditorPlugin<
 		actions: {
 			getAvatarColor: (str: string) => { index: number; color: Color };
 			addInlineCommentMark: (props: { from: number; to: number; mark: Mark }) => boolean;
+			addInlineCommentNodeMark: (props: { pos: number; mark: Mark }) => boolean;
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;
 		};
 	}

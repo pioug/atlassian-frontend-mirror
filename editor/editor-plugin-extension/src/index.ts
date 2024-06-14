@@ -2,6 +2,7 @@ export type {
 	CreateExtensionAPI,
 	ExtensionPlugin,
 	ExtensionPluginOptions,
+	InsertOrReplaceExtensionType,
 	RunMacroAutoConvert,
 	RejectSave,
 } from './types';

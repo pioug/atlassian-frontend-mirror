@@ -187,60 +187,130 @@ describe('Icon button: Accessibility', () => {
 	});
 });
 
+const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
 describe('Link button" Accessibility', () => {
-	describe('"(opens new window)" announcements', () => {
-		it('should be added to the accessible name if `target="_blank"`', () => {
-			render(
-				<LinkButton href="https://www.atlassian.com" testId="anchor" target="_blank">
-					Atlassian website
-				</LinkButton>,
-			);
+	describe(`"${OPENS_NEW_WINDOW_LABEL}" announcements`, () => {
+		describe(`should be appended when \`target="_blank"\``, () => {
+			it('to `children` as visually hidden text', () => {
+				render(
+					<LinkButton href="https://www.atlassian.com" testId="button" target="_blank">
+						Atlassian website
+					</LinkButton>,
+				);
 
-			const anchor = screen.getByTestId('anchor');
-			expect(anchor).toHaveAccessibleName('Atlassian website (opens new window)');
+				const button = screen.getByTestId('button');
+				expect(button).toHaveAccessibleName(`Atlassian website ${OPENS_NEW_WINDOW_LABEL}`);
+
+				// Check for visually hidden styles
+				const hiddenText = screen.getByText(OPENS_NEW_WINDOW_LABEL);
+				expect(hiddenText).toHaveStyleDeclaration('width', '1px');
+				expect(hiddenText).toHaveStyleDeclaration('height', '1px');
+				expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
+				expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+			});
+			it('to `aria-label`', () => {
+				render(
+					<LinkButton
+						href="https://www.atlassian.com"
+						testId="button"
+						target="_blank"
+						aria-label="Trello"
+					>
+						Atlassian website
+					</LinkButton>,
+				);
+
+				const button = screen.getByTestId('button');
+				expect(button).toHaveAccessibleName(`Trello ${OPENS_NEW_WINDOW_LABEL}`);
+			});
+			it('to `aria-labelledby`', () => {
+				render(
+					<>
+						<div id="the-label">Confluence</div>
+						<LinkButton
+							href="https://www.atlassian.com"
+							testId="button"
+							target="_blank"
+							aria-labelledby="the-label"
+						>
+							Atlassian website
+						</LinkButton>
+					</>,
+				);
+
+				const button = screen.getByTestId('button');
+				expect(button).toHaveAccessibleName(`Confluence ${OPENS_NEW_WINDOW_LABEL}`);
+			});
 		});
 		it('should not be added to the accessible name if `target` is not "_blank"', () => {
 			render(
-				<LinkButton href="https://www.atlassian.com" testId="anchor" target="_self">
+				<LinkButton href="https://www.atlassian.com" testId="button" target="_self">
 					Atlassian website
 				</LinkButton>,
 			);
 
-			const anchor = screen.getByTestId('anchor');
-			expect(anchor).toHaveAccessibleName('Atlassian website');
+			const button = screen.getByTestId('button');
+			expect(button).toHaveAccessibleName('Atlassian website');
 		});
 	});
 });
 
 describe('Link icon button" Accessibility', () => {
-	describe('"(opens new window)" announcements', () => {
-		it('should be added to the accessible name if `target="_blank"`', () => {
-			render(
-				<LinkIconButton
-					icon={SettingsIcon}
-					label="Atlassian website"
-					href="https://www.atlassian.com"
-					testId="anchor"
-					target="_blank"
-				/>,
-			);
+	describe(`"${OPENS_NEW_WINDOW_LABEL}" announcements`, () => {
+		describe(`should be appended when \`target="_blank"\``, () => {
+			it('to `children` as visually hidden text', () => {
+				render(
+					<LinkIconButton
+						href="https://www.atlassian.com"
+						testId="button"
+						target="_blank"
+						icon={SettingsIcon}
+						label="Settings"
+					/>,
+				);
 
-			const anchor = screen.getByTestId('anchor');
-			expect(anchor).toHaveAccessibleName('Atlassian website (opens new window)');
+				const button = screen.getByTestId('button');
+				expect(button).toHaveAccessibleName(`Settings ${OPENS_NEW_WINDOW_LABEL}`);
+
+				// Check for visually hidden styles
+				const hiddenText = screen.getByText(OPENS_NEW_WINDOW_LABEL);
+				expect(hiddenText).toHaveStyleDeclaration('width', '1px');
+				expect(hiddenText).toHaveStyleDeclaration('height', '1px');
+				expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
+				expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+			});
+			it('to `aria-labelledby`', () => {
+				render(
+					<>
+						<div id="the-label">Confluence</div>
+						<LinkIconButton
+							href="https://www.atlassian.com"
+							testId="button"
+							target="_blank"
+							icon={SettingsIcon}
+							label="Settings"
+							aria-labelledby="the-label"
+						/>
+					</>,
+				);
+
+				const button = screen.getByTestId('button');
+				expect(button).toHaveAccessibleName(`Confluence ${OPENS_NEW_WINDOW_LABEL}`);
+			});
 		});
 		it('should not be added to the accessible name if `target` is not "_blank"', () => {
 			render(
 				<LinkIconButton
-					icon={SettingsIcon}
-					label="Atlassian website"
 					href="https://www.atlassian.com"
-					testId="anchor"
+					testId="button"
 					target="_self"
+					icon={SettingsIcon}
+					label="Settings"
 				/>,
 			);
 
-			const anchor = screen.getByTestId('anchor');
-			expect(anchor).toHaveAccessibleName('Atlassian website');
+			const button = screen.getByTestId('button');
+			expect(button).toHaveAccessibleName('Settings');
 		});
 	});
 });

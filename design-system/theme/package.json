@@ -1,114 +1,114 @@
 {
-  "name": "@atlaskit/theme",
-  "version": "12.9.0",
-  "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "runReact18": true,
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Theme",
-      "category": "Libraries"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/react": "^12.1.5",
-    "@types/color": "^3.0.0",
-    "color": "^3.0.0",
-    "emotion-theming": "^10.0.7",
-    "jest-in-case": "^1.0.2",
-    "jscodeshift": "^0.13.0",
-    "react-dom": "^16.8.0",
-    "styled-components": "^3.2.6",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "css",
-    "theme",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "design-system": "v1"
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    "./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
-    "./color-palettes": "./src/color-palettes.tsx",
-    "./colors": "./src/colors.tsx",
-    "./components": "./src/components.tsx",
-    "./constants": "./src/constants.tsx",
-    "./elevation": "./src/elevation.tsx",
-    "./types": "./src/types.tsx",
-    "./typography": "./src/typography.tsx"
-  },
-  "exports": {
-    "./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
-    "./color-palettes": "./src/color-palettes.tsx",
-    "./colors": "./src/colors.tsx",
-    "./components": "./src/components.tsx",
-    "./constants": "./src/constants.tsx",
-    "./elevation": "./src/elevation.tsx",
-    "./types": "./src/types.tsx",
-    "./typography": "./src/typography.tsx",
-    ".": "./src/index.tsx"
-  },
-  "homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin"
+	"name": "@atlaskit/theme",
+	"version": "12.9.0",
+	"description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"runReact18": true,
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Theme",
+			"category": "Libraries"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/codemod-utils": "^4.2.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/react": "^12.1.5",
+		"@types/color": "^3.0.0",
+		"color": "^3.0.0",
+		"emotion-theming": "^10.0.7",
+		"jest-in-case": "^1.0.2",
+		"jscodeshift": "^0.13.0",
+		"react-dom": "^16.8.0",
+		"styled-components": "^3.2.6",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"css",
+		"theme",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"deprecation": "no-deprecated-imports",
+			"design-system": "v1"
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		"./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
+		"./color-palettes": "./src/color-palettes.tsx",
+		"./colors": "./src/colors.tsx",
+		"./components": "./src/components.tsx",
+		"./constants": "./src/constants.tsx",
+		"./elevation": "./src/elevation.tsx",
+		"./types": "./src/types.tsx",
+		"./typography": "./src/typography.tsx"
+	},
+	"exports": {
+		"./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
+		"./color-palettes": "./src/color-palettes.tsx",
+		"./colors": "./src/colors.tsx",
+		"./components": "./src/components.tsx",
+		"./constants": "./src/constants.tsx",
+		"./elevation": "./src/elevation.tsx",
+		"./types": "./src/types.tsx",
+		"./typography": "./src/typography.tsx",
+		".": "./src/index.tsx"
+	},
+	"homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin"
 }

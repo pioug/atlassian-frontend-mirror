@@ -134,6 +134,7 @@ const Component = (props: InlineCommentHoverComponentProps & { setNewDocument: C
 			dom={domTarget}
 			onCreate={onPopupCreate}
 			onClose={onPopupClose}
+			inlineNodeTypes={[]}
 		/>
 	);
 };

@@ -1,79 +1,79 @@
 {
-  "name": "@atlaskit/adf-utils",
-  "version": "19.2.2",
-  "description": "Set of utilities to traverse, modify and create ADF documents.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Editor: ADF",
-    "inPublicMirror": true,
-    "releaseModel": "continuous"
-  },
-  "af:exports": {
-    "./builders": "./src/builders.ts",
-    "./empty-adf": "./src/empty-adf.ts",
-    "./scrub": "./src/scrub.ts",
-    "./transforms": "./src/transforms.ts",
-    "./traverse": "./src/traverse.ts",
-    "./validator": "./src/validator.ts",
-    "./types": "./src/types/index.ts",
-    "./validatorTypes": "./src/types/validatorTypes.ts"
-  },
-  "exports": {
-    "./builders": "./src/builders.ts",
-    "./empty-adf": "./src/empty-adf.ts",
-    "./scrub": "./src/scrub.ts",
-    "./transforms": "./src/transforms.ts",
-    "./traverse": "./src/traverse.ts",
-    "./validator": "./src/validator.ts",
-    "./types": "./src/types/index.ts",
-    "./validatorTypes": "./src/types/validatorTypes.ts"
-  },
-  "scripts": {
-    "generate:spec": "rm -rf ./src/validator/specs/ && yarn json-schema-generator --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
-  },
-  "dependencies": {
-    "@atlaskit/adf-schema": "^36.10.7",
-    "@atlaskit/codemod-utils": "^4.2.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "devDependencies": {
-    "@atlassian/adf-schema-json": "^1.14.0",
-    "jscodeshift": "^0.13.0",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "circular-dependencies": [
-        "file-level"
-      ]
-    },
-    "@repo/internal": {
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ]
-    }
-  },
-  "platform-feature-flags": {}
+	"name": "@atlaskit/adf-utils",
+	"version": "19.2.2",
+	"description": "Set of utilities to traverse, modify and create ADF documents.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Editor: ADF",
+		"inPublicMirror": true,
+		"releaseModel": "continuous"
+	},
+	"af:exports": {
+		"./builders": "./src/builders.ts",
+		"./empty-adf": "./src/empty-adf.ts",
+		"./scrub": "./src/scrub.ts",
+		"./transforms": "./src/transforms.ts",
+		"./traverse": "./src/traverse.ts",
+		"./validator": "./src/validator.ts",
+		"./types": "./src/types/index.ts",
+		"./validatorTypes": "./src/types/validatorTypes.ts"
+	},
+	"exports": {
+		"./builders": "./src/builders.ts",
+		"./empty-adf": "./src/empty-adf.ts",
+		"./scrub": "./src/scrub.ts",
+		"./transforms": "./src/transforms.ts",
+		"./traverse": "./src/traverse.ts",
+		"./validator": "./src/validator.ts",
+		"./types": "./src/types/index.ts",
+		"./validatorTypes": "./src/types/validatorTypes.ts"
+	},
+	"scripts": {
+		"generate:spec": "rm -rf ./src/validator/specs/ && yarn json-schema-generator --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/codemod-utils": "^4.2.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"devDependencies": {
+		"@atlassian/adf-schema-json": "^1.14.0",
+		"jscodeshift": "^0.13.0",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"circular-dependencies": [
+				"file-level"
+			]
+		},
+		"@repo/internal": {
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			]
+		}
+	},
+	"platform-feature-flags": {}
 }

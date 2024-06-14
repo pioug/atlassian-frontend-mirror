@@ -1,56 +1,56 @@
 {
-  "name": "@atlaskit/platform-feature-flags",
-  "version": "0.2.5",
-  "description": "Platform Feature Flags",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
-  },
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "UIP - Platform Integration Trust (PITa)",
-    "singleton": true,
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ]
-  },
-  "files": [
-    "dist",
-    "CHANGELOG.md"
-  ],
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {},
-  "bugs": {
-    "url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror/issues"
-  },
-  "homepage": "https://bitbucket.org/atlassian/atlassian-frontend-mirror#readme",
-  "keywords": []
+	"name": "@atlaskit/platform-feature-flags",
+	"version": "0.2.5",
+	"description": "Platform Feature Flags",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+	},
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "UIP - Platform Integration Trust (PITa)",
+		"singleton": true,
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		]
+	},
+	"files": [
+		"dist",
+		"CHANGELOG.md"
+	],
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {},
+	"bugs": {
+		"url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror/issues"
+	},
+	"homepage": "https://bitbucket.org/atlassian/atlassian-frontend-mirror#readme",
+	"keywords": []
 }

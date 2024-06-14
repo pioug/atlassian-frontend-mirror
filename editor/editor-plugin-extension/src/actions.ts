@@ -17,7 +17,12 @@ import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Fragment, Mark, Node as PmNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+	NodeSelection,
+	Selection,
+	TextSelection,
+	type Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
 	findSelectedNodeOfType,
 	replaceParentNodeOfType,
@@ -27,6 +32,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { createExtensionAPI, getEditInLegacyMacroBrowser } from './extension-api';
 import { getPluginState } from './pm-plugins/main';
+import type { InsertOrReplaceExtensionType } from './types';
 import { findExtensionWithLocalId } from './utils';
 
 export const buildExtensionNode = <S extends Schema>(
@@ -272,3 +278,41 @@ export const createEditSelectedExtensionAction =
 			updateExtension,
 		)(view.state, view.dispatch, view);
 	};
+
+export const insertOrReplaceExtension = ({
+	editorView,
+	action,
+	attrs,
+	content,
+	position,
+	size = 0,
+	tr,
+}: InsertOrReplaceExtensionType): Transaction => {
+	const newNode = editorView.state.schema.node('extension', attrs, content);
+	if (action === 'insert') {
+		tr = editorView.state.tr.insert(position, newNode);
+		return tr;
+	} else {
+		tr.replaceWith(position, position + size, newNode);
+		return tr;
+	}
+};
+
+export const insertOrReplaceBodiedExtension = ({
+	editorView,
+	action,
+	attrs,
+	content,
+	position,
+	size = 0,
+	tr,
+}: InsertOrReplaceExtensionType): Transaction => {
+	const newNode = editorView.state.schema.node('bodiedExtension', attrs, content);
+	if (action === 'insert') {
+		tr = editorView.state.tr.insert(position, newNode);
+		return tr;
+	} else {
+		tr.replaceWith(position, position + size, newNode);
+		return tr;
+	}
+};

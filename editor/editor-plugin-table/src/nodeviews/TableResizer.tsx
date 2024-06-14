@@ -350,6 +350,8 @@ export const TableResizer = ({
 			tableLocalId: node.attrs.localId,
 			tableRef: tableRef,
 		});
+		tr.setMeta('is-resizer-resizing', true);
+
 		tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
 			name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
 		});
@@ -507,6 +509,7 @@ export const TableResizer = ({
 				tableLocalId: '',
 				tableRef: null,
 			});
+			tr.setMeta('is-resizer-resizing', false);
 			const frameRateSamples = endMeasure();
 
 			if (frameRateSamples.length > 0) {

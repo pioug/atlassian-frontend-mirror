@@ -6,6 +6,7 @@ import {
 	annotationSpanningMultiText,
 	mediaWithAnnotation,
 	docWithTextAndMedia,
+	docWithInlineNodes,
 } from '../../../__tests__/__fixtures__/annotation';
 import {
 	ACTION,
@@ -14,6 +15,7 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
+import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;
@@ -165,6 +167,23 @@ describe('RendererActions', () => {
 
 			expect(actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation, true)).toMatchObject(
 				actions.applyAnnotation({ from: 68, to: 71 }, newAnnotation, false),
+			);
+		});
+
+		it('should apply annotation to text with inline nodes', () => {
+			jest
+				.spyOn(platformFeatureFlags, 'getBooleanFF')
+				.mockImplementation(
+					(flag) => flag === 'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+				);
+
+			const actions = initActions(docWithInlineNodes);
+			const pos = { from: 0, to: 29 };
+
+			expect(actions.applyAnnotation(pos, newAnnotation, false)).toMatchSnapshot();
+
+			expect(actions.applyAnnotation(pos, newAnnotation, true)).toMatchObject(
+				actions.applyAnnotation(pos, newAnnotation, false),
 			);
 		});
 

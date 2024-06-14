@@ -1,3 +1,5 @@
+import outdent from 'outdent';
+
 // @ts-ignore
 import { ruleTester } from '@atlassian/eslint-utils';
 
@@ -32,9 +34,9 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// it ignores already transformed code
 		`
-      const myI18nValue: string = "Close dialog";
-      <Text>{myI18nValue}</Text>
-    `,
+			const myI18nValue: string = "Close dialog";
+			<Text>{myI18nValue}</Text>
+		`,
 
 		// it ignores non-JSX code
 		'const x = 10;',
@@ -50,9 +52,9 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// it ignores string values defined as variable object notation
 		`
-      const myI18nValue: string = "Close dialog";
-      <p>{myI18nValue}</p>
-    `,
+			const myI18nValue: string = "Close dialog";
+			<p>{myI18nValue}</p>
+		`,
 
 		// it ignores styled calls extending components
 		`styled(Button)\`color: red;\``,
@@ -194,11 +196,11 @@ ruleTester.run('prefer-primitives', rule, {
 		// it suggests if div/span contains more than one JSX element
 		{
 			code: `
-      <span>
-        <article>Some article</article>
-        <article>Some other article</article>
-      </span>
-    `,
+			<span>
+				<article>Some article</article>
+				<article>Some other article</article>
+			</span>
+		`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',
@@ -208,7 +210,12 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// it suggests if the only child is a React.Fragment
 		{
-			code: [`<div>`, `  <>`, `    <something></something>`, `  </>`, `</div>`].join('\n'),
+			code: outdent`
+				<div>
+					<>
+						<something></something>
+					</>
+				</div>`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',
@@ -218,15 +225,14 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// Suggests if div/span has attributes
 		{
-			code: [
-				`<div`,
-				`  data-testid="some-test-id" `,
-				`  role="button"`,
-				`  aria-live="polite"`,
-				`  id="box-like"`,
-				`>`,
-				`</div>`,
-			].join('\n'),
+			code: outdent`
+				<div
+					data-testid="some-test-id"
+					role="button"
+					aria-live="polite"
+					id="box-like"
+				>
+				</div>`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',
@@ -256,10 +262,9 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// it suggests if element has css attribute with a variable reference
 		{
-			code: [
-				`const someStyles = css({ color: token('atlassian.red', 'red') });`,
-				'<div css={someStyles}>{children}</div>',
-			].join('\n'),
+			code: outdent`
+				const someStyles = css({ color: token('atlassian.red', 'red') });
+				<div css={someStyles}>{children}</div>`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',
@@ -289,14 +294,13 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// it suggests if element has multiple JSX children and appropriate styling
 		{
-			code: [
-				`const flexStyles = css({ display: 'flex' });`,
-				`<div css={flexStyles}>`,
-				`  <a href=\"/\">Home</a>`,
-				`  <a href=\"/about\">About</a>`,
-				`  <a href=\"/contact\">Contact</a>`,
-				`</div>`,
-			].join('\n'),
+			code: outdent`
+				const flexStyles = css({ display: 'flex' });
+				<div css={flexStyles}>
+					<a href=\"/\">Home</a>
+					<a href=\"/about\">About</a>
+					<a href=\"/contact\">Contact</a>
+				</div>`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',
@@ -307,19 +311,19 @@ ruleTester.run('prefer-primitives', rule, {
 		// it suggests if element has nested styles
 		{
 			code: `
-      const fakeStyles = css({
-        width: '100%',
-        height: '100%',
-        '& > div': {
-          display: 'flex',
-          boxSizing: 'border-box',
-        },
-      });
-      <div css={fakeStyles}>
-        <Item>1</Item>
-        <Item>2</Item>
-      </div>
-    `,
+			const fakeStyles = css({
+				width: '100%',
+				height: '100%',
+				'& > div': {
+					display: 'flex',
+					boxSizing: 'border-box',
+				},
+			});
+			<div css={fakeStyles}>
+				<Item>1</Item>
+				<Item>2</Item>
+			</div>
+		`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',
@@ -329,20 +333,19 @@ ruleTester.run('prefer-primitives', rule, {
 
 		// it suggests for real world example: https://stash.atlassian.com/projects/JIRACLOUD/repos/jira-frontend/commits/50026a9169018b0a01c6ab71bfa72e01b5f2d8f1#src/packages/portfolio-3/portfolio/src/app-simple-plans/view/main/tabs/dependencies/issue/story.tsx?f=11
 		{
-			code: [
-				`<div`,
-				`  style={{`,
-				`    display: 'flex',`,
-				`    flexBasis: '100%',`,
-				`    flexDirection: 'column',`,
-				`    flexGrow: 1,`,
-				`    maxWidth: '100%',`,
-				`    minHeight: '100%',`,
-				`  }}`,
-				`>`,
-				`  <IssueExample position={{ x: 200, y: 100 }} itemId="10000" />`,
-				`</div>`,
-			].join('\n'),
+			code: outdent`
+				<div
+					style={{
+						display: 'flex',
+						flexBasis: '100%',
+						flexDirection: 'column',
+						flexGrow: 1,
+						maxWidth: '100%',
+						minHeight: '100%',
+					}}
+				>
+					<IssueExample position={{ x: 200, y: 100 }} itemId="10000" />
+				</div>`,
 			errors: [
 				{
 					messageId: 'preferPrimitives',

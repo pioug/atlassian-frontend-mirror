@@ -851,6 +851,9 @@ export const getStartingToolbarItems = (
 						showTitle: true,
 						metadata: metadata,
 					},
+					{
+						type: 'separator',
+					},
 				];
 		return [
 			{

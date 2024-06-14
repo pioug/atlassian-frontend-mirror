@@ -1,70 +1,70 @@
 {
-  "name": "@atlaskit/analytics-namespaced-context",
-  "version": "6.9.2",
-  "description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    "./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
-    "./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
-    "./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
-    "./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
-    "./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
-    "./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
-    "./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
-    "./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
-    "./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
-    "./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
-    "./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
-    "./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
-    "./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
-    ".": "./src/index.ts"
-  },
-  "atlassian": {
-    "team": "UIP Frontend Observability",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ]
-  },
-  "config": {
-    "access": "public"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@babel/runtime": "^7.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "react": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "fabric",
-    "ui"
-  ]
+	"name": "@atlaskit/analytics-namespaced-context",
+	"version": "6.10.0",
+	"description": "Provides a namespace for AnalyticsContext data (@atlaskit/analytics-next)",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
+		"./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
+		"./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
+		"./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
+		"./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
+		"./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
+		"./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./MediaAnalyticsContext": "./src/MediaAnalyticsContext.tsx",
+		"./NavigationAnalyticsContext": "./src/NavigationAnalyticsContext.tsx",
+		"./PeopleTeamsAnalyticsContext": "./src/PeopleTeamsAnalyticsContext.tsx",
+		"./RecentWorkAnalyticsContext": "./src/RecentWorkAnalyticsContext.tsx",
+		"./AtlasAnalyticsContext": "./src/AtlasAnalyticsContext.tsx",
+		"./LinkingPlatformAnalyticsContext": "./src/LinkingPlatformAnalyticsContext.tsx",
+		"./PostOfficeAnalyticsContext": "./src/PostOfficeAnalyticsContext.tsx",
+		".": "./src/index.ts"
+	},
+	"atlassian": {
+		"team": "UIP Frontend Observability",
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		]
+	},
+	"config": {
+		"access": "public"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"react": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"fabric",
+		"ui"
+	]
 }

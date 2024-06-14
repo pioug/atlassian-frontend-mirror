@@ -24,6 +24,8 @@ export type AnnotationActionResult =
 	| ({
 			step: Step;
 			doc: JSONDocNode;
+			/** The list of types of all inline nodes, which were wrapped by annotation. */
+			inlineNodeTypes?: string[];
 			targetNodeType?: string;
 	  } & AnnotationByMatches)
 	| false;

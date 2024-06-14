@@ -16,6 +16,7 @@ import {
 	RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -112,6 +113,8 @@ export function InlineCommentView({
 		return null;
 	}
 
+	const inlineNodeTypes = getRangeInlineNodeNames({ doc: state.doc, pos: selection });
+
 	// Create Component
 	if (bookmark) {
 		if (!CreateComponent) {
@@ -140,6 +143,7 @@ export function InlineCommentView({
 						);
 						!editorView.hasFocus() && editorView.focus();
 					}}
+					inlineNodeTypes={inlineNodeTypes}
 				/>
 			</div>
 		);
@@ -192,6 +196,7 @@ export function InlineCommentView({
 			<ViewComponent
 				annotationsList={annotationsList}
 				annotations={activeAnnotations}
+				inlineNodeTypes={inlineNodeTypes}
 				dom={dom}
 				onDelete={(id) =>
 					removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(

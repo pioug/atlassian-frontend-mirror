@@ -1,9 +1,15 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
-import { DEFAULT_BORDER_COLOR, textColorPalette } from '@atlaskit/editor-common/ui-color';
+import {
+	DEFAULT_BORDER_COLOR,
+	textColorPalette,
+	textColorPaletteWithTokenBorders,
+} from '@atlaskit/editor-common/ui-color';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { getActiveColor } from '../utils/color';
 import { DEFAULT_COLOR } from '../utils/constants';
@@ -37,9 +43,13 @@ function createInitialPluginState(
 		{
 			value: defaultColor.color,
 			label: defaultColor.label,
-			border: DEFAULT_BORDER_COLOR,
+			border: getBooleanFF('platform.editor.dynamic-palette-borders')
+				? token('color.border', '#091E4224')
+				: DEFAULT_BORDER_COLOR,
 		},
-		...textColorPalette,
+		...(getBooleanFF('platform.editor.dynamic-palette-borders')
+			? textColorPaletteWithTokenBorders
+			: textColorPalette),
 	];
 
 	const state = {

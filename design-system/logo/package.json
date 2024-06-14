@@ -1,110 +1,110 @@
 {
-  "name": "@atlaskit/logo",
-  "version": "14.0.0",
-  "description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Logo",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "dependencies": {
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "react-uid": "^2.2.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "jscodeshift": "^0.13.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "design-system": "v1",
-      "dom-events": "use-bind-event-listener",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "deprecation": "no-deprecated-imports"
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
-    "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
-    "./confluence-icon": "./src/confluence-logo/icon.tsx",
-    "./jira-icon": "./src/jira-logo/icon.tsx",
-    "./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
-    "./jira-software-icon": "./src/jira-software-logo/icon.tsx",
-    "./opsgenie-icon": "./src/opsgenie-logo/icon.tsx",
-    "./statuspage-icon": "./src/statuspage-logo/icon.tsx",
-    "./trello-icon": "./src/trello-logo/icon.tsx",
-    "./atlas-icon": "./src/atlas-logo/icon.tsx",
-    "./constants": "./src/constants.tsx",
-    "./Wrapper": "./src/wrapper.tsx",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
-    "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
-    "./confluence-icon": "./src/confluence-logo/icon.tsx",
-    "./jira-icon": "./src/jira-logo/icon.tsx",
-    "./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
-    "./jira-software-icon": "./src/jira-software-logo/icon.tsx",
-    "./opsgenie-icon": "./src/opsgenie-logo/icon.tsx",
-    "./statuspage-icon": "./src/statuspage-logo/icon.tsx",
-    "./trello-icon": "./src/trello-logo/icon.tsx",
-    "./atlas-icon": "./src/atlas-logo/icon.tsx",
-    "./constants": "./src/constants.tsx",
-    "./Wrapper": "./src/wrapper.tsx",
-    ".": "./src/index.tsx"
-  },
-  "homepage": "https://atlassian.design/components/logo/"
+	"name": "@atlaskit/logo",
+	"version": "14.0.0",
+	"description": "A logo is a visual representation of a brand or product. It can be a word or an image, or a combination of both.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Logo",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"dependencies": {
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"react-uid": "^2.2.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"jscodeshift": "^0.13.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"design-system": "v1",
+			"dom-events": "use-bind-event-listener",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"deprecation": "no-deprecated-imports"
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		"./atlassian-icon": "./src/atlassian-logo/icon.tsx",
+		"./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
+		"./confluence-icon": "./src/confluence-logo/icon.tsx",
+		"./jira-icon": "./src/jira-logo/icon.tsx",
+		"./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
+		"./jira-software-icon": "./src/jira-software-logo/icon.tsx",
+		"./opsgenie-icon": "./src/opsgenie-logo/icon.tsx",
+		"./statuspage-icon": "./src/statuspage-logo/icon.tsx",
+		"./trello-icon": "./src/trello-logo/icon.tsx",
+		"./atlas-icon": "./src/atlas-logo/icon.tsx",
+		"./constants": "./src/constants.tsx",
+		"./Wrapper": "./src/wrapper.tsx",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./atlassian-icon": "./src/atlassian-logo/icon.tsx",
+		"./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
+		"./confluence-icon": "./src/confluence-logo/icon.tsx",
+		"./jira-icon": "./src/jira-logo/icon.tsx",
+		"./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
+		"./jira-software-icon": "./src/jira-software-logo/icon.tsx",
+		"./opsgenie-icon": "./src/opsgenie-logo/icon.tsx",
+		"./statuspage-icon": "./src/statuspage-logo/icon.tsx",
+		"./trello-icon": "./src/trello-logo/icon.tsx",
+		"./atlas-icon": "./src/atlas-logo/icon.tsx",
+		"./constants": "./src/constants.tsx",
+		"./Wrapper": "./src/wrapper.tsx",
+		".": "./src/index.tsx"
+	},
+	"homepage": "https://atlassian.design/components/logo/"
 }

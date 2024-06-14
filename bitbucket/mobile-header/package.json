@@ -1,62 +1,62 @@
 {
-  "name": "@atlaskit/mobile-header",
-  "version": "6.1.9",
-  "description": "A React component rendering a mobile header",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./styled": "./src/styled.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./styled": "./src/styled.ts"
-  },
-  "atlassian": {
-    "team": "Bitbucket: CoreX",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Mobile Header"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/styled": "^11.0.0"
-  },
-  "peerDependencies": {
-    "@emotion/react": "^11.0.0",
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "enzyme": "^3.10.0",
-    "react-dom": "^16.8.0",
-    "react-test-renderer": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    }
-  }
+	"name": "@atlaskit/mobile-header",
+	"version": "6.1.9",
+	"description": "A React component rendering a mobile header",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./styled": "./src/styled.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./styled": "./src/styled.ts"
+	},
+	"atlassian": {
+		"team": "Bitbucket: CoreX",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Mobile Header"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/styled": "^11.0.0"
+	},
+	"peerDependencies": {
+		"@emotion/react": "^11.0.0",
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"enzyme": "^3.10.0",
+		"react-dom": "^16.8.0",
+		"react-test-renderer": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		}
+	}
 }

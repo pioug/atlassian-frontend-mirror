@@ -85,6 +85,7 @@ describe('create-plugins-list without mock tests', () => {
 					allowInteractiveExpand: true,
 					useLongPressSelection: false,
 					appearance: 'full-page',
+					getEditorFeatureFlags: expect.any(Function),
 				},
 			});
 		});

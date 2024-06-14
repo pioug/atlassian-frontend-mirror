@@ -1,94 +1,94 @@
 {
-  "name": "@atlaskit/link-test-helpers",
-  "version": "7.0.9",
-  "description": "Collection of test helpers used in linking platform examples and specs",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Linking Platform",
-    "inPublicMirror": false,
-    "releaseModel": "continuous"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": [
-    "dist/es2019/jest/index.js",
-    "dist/esm/jest/index.js"
-  ],
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    "./jest": "./src/jest/index.ts",
-    "./datasource": "./src/datasource/index.ts",
-    "./assets": "./src/datasource/assets/index.ts",
-    "./images": "./src/images/index.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./jest": "./src/jest/index.ts",
-    "./datasource": "./src/datasource/index.ts",
-    "./assets": "./src/datasource/assets/index.ts",
-    "./images": "./src/images/index.ts",
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/linking-types": "^8.9.0",
-    "@babel/runtime": "^7.0.0",
-    "@jest/globals": "^26.4.2",
-    "@testing-library/react": "^12.1.5",
-    "fetch-mock": "^8.0.0",
-    "jest-diff": "^26.4.2",
-    "json-ld-types": "^4.1.0",
-    "lodash": "^4.17.21",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ]
-    }
-  }
+	"name": "@atlaskit/link-test-helpers",
+	"version": "7.0.9",
+	"description": "Collection of test helpers used in linking platform examples and specs",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Linking Platform",
+		"inPublicMirror": false,
+		"releaseModel": "continuous"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": [
+		"dist/es2019/jest/index.js",
+		"dist/esm/jest/index.js"
+	],
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		"./jest": "./src/jest/index.ts",
+		"./datasource": "./src/datasource/index.ts",
+		"./assets": "./src/datasource/assets/index.ts",
+		"./images": "./src/images/index.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./jest": "./src/jest/index.ts",
+		"./datasource": "./src/datasource/index.ts",
+		"./assets": "./src/datasource/assets/index.ts",
+		"./images": "./src/images/index.ts",
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/linking-types": "^8.9.0",
+		"@babel/runtime": "^7.0.0",
+		"@jest/globals": "^26.4.2",
+		"@testing-library/react": "^12.1.5",
+		"fetch-mock": "^8.0.0",
+		"jest-diff": "^26.4.2",
+		"json-ld-types": "^4.1.0",
+		"lodash": "^4.17.21",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			]
+		}
+	}
 }

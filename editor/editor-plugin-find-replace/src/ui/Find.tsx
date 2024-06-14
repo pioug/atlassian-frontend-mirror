@@ -11,11 +11,7 @@ import { injectIntl } from 'react-intl-next';
 import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { Label } from '@atlaskit/form';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import MatchCaseIcon from '@atlaskit/icon/glyph/emoji/keyboard';
-import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 
 import type { MatchCaseProps } from '../types';
@@ -25,7 +21,6 @@ import {
 	afterInputSection,
 	countStyles,
 	countStylesAlternateStyles,
-	countWrapperStyles,
 	matchCaseSection,
 	sectionWrapperStyles,
 	sectionWrapperStylesAlternate,
@@ -71,10 +66,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 	private isComposing = false;
 
 	private find: string;
-	private closeFindReplaceDialog: string;
 	private noResultsFound: string;
-	private findNext: string;
-	private findPrevious: string;
 	private matchCase: string;
 
 	constructor(props: FindProps & WrappedComponentProps) {
@@ -85,10 +77,7 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		} = props;
 
 		this.find = formatMessage(messages.find);
-		this.closeFindReplaceDialog = formatMessage(messages.closeFindReplaceDialog);
 		this.noResultsFound = formatMessage(messages.noResultsFound);
-		this.findNext = formatMessage(messages.findNext);
-		this.findPrevious = formatMessage(messages.findPrevious);
 		this.matchCase = formatMessage(messages.matchCase);
 
 		// We locally manage the value of the input inside this component in order to support compositions.
@@ -245,65 +234,38 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 			totalResultsCount: count.total,
 		});
 
-		if (getBooleanFF('platform.editor.a11y-find-replace')) {
-			const elemAfterInput = (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<div css={afterInputSection}>
-					<div aria-live="polite">
-						{findText && (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							<span data-testid="textfield-count" css={[countStyles, countStylesAlternateStyles]}>
-								{count.total === 0 ? this.noResultsFound : resultsCount}
-							</span>
-						)}
-					</div>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={matchCaseSection}>
-						<FindReplaceTooltipButton
-							title={this.matchCase}
-							appearance="default"
-							icon={MatchCaseIcon}
-							iconLabel={this.matchCase}
-							iconSize={getBooleanFF('platform.editor.a11y-find-replace') ? 'small' : undefined}
-							onClick={this.handleMatchCaseClick}
-							isPressed={shouldMatchCase}
-						/>
-					</div>
+		const elemAfterInput = (
+			<div css={afterInputSection}>
+				<div aria-live="polite">
+					{findText && (
+						<span data-testid="textfield-count" css={[countStyles, countStylesAlternateStyles]}>
+							{count.total === 0 ? this.noResultsFound : resultsCount}
+						</span>
+					)}
 				</div>
-			);
+				<div css={matchCaseSection}>
+					<FindReplaceTooltipButton
+						title={this.matchCase}
+						appearance="default"
+						icon={MatchCaseIcon}
+						iconLabel={this.matchCase}
+						iconSize={'small'}
+						onClick={this.handleMatchCaseClick}
+						isPressed={shouldMatchCase}
+					/>
+				</div>
+			</div>
+		);
 
-			return (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={textFieldWrapper}>
-						<Label htmlFor="find-text-field">{this.find}</Label>
-						<Textfield
-							name="find"
-							id="find-text-field"
-							appearance="standard"
-							value={this.state.localFindText}
-							ref={this.findTextfieldRef}
-							autoComplete="off"
-							onChange={this.handleFindChange}
-							onKeyDown={this.handleFindKeyDown}
-							onKeyUp={this.handleFindKeyUp}
-							onBlur={this.props.onFindBlur}
-							onCompositionStart={this.handleCompositionStart}
-							onCompositionEnd={this.handleCompositionEnd}
-							elemAfterInput={elemAfterInput}
-						/>
-					</div>
-				</div>
-			);
-		} else {
-			return (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<div css={sectionWrapperStyles}>
+		return (
+			<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
+				<div css={textFieldWrapper}>
+					<Label htmlFor="find-text-field">{this.find}</Label>
 					<Textfield
 						name="find"
-						appearance="none"
-						placeholder={this.find}
+						id="find-text-field"
+						testId="find-field"
+						appearance="standard"
 						value={this.state.localFindText}
 						ref={this.findTextfieldRef}
 						autoComplete="off"
@@ -313,50 +275,11 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 						onBlur={this.props.onFindBlur}
 						onCompositionStart={this.handleCompositionStart}
 						onCompositionEnd={this.handleCompositionEnd}
-					/>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div css={countWrapperStyles} aria-live="polite">
-						{findText && (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							<span data-testid="textfield-count" css={countStyles}>
-								{count.total === 0 ? this.noResultsFound : resultsCount}
-							</span>
-						)}
-					</div>
-					<FindReplaceTooltipButton
-						title={this.matchCase}
-						icon={MatchCaseIcon}
-						iconLabel={this.matchCase}
-						iconSize={getBooleanFF('platform.editor.a11y-find-replace') ? 'small' : undefined}
-						onClick={this.handleMatchCaseClick}
-						isPressed={shouldMatchCase}
-					/>
-					<FindReplaceTooltipButton
-						title={this.findNext}
-						icon={ChevronDownIcon}
-						iconLabel={this.findNext}
-						keymapDescription={'Enter'}
-						onClick={this.handleFindNextClick}
-						disabled={count.total <= 1}
-					/>
-					<FindReplaceTooltipButton
-						title={this.findPrevious}
-						icon={ChevronUpIcon}
-						iconLabel={this.findPrevious}
-						keymapDescription={'Shift Enter'}
-						onClick={this.handleFindPrevClick}
-						disabled={count.total <= 1}
-					/>
-					<FindReplaceTooltipButton
-						title={this.closeFindReplaceDialog}
-						icon={EditorCloseIcon}
-						iconLabel={this.closeFindReplaceDialog}
-						keymapDescription={'Escape'}
-						onClick={this.clearSearch}
+						elemAfterInput={elemAfterInput}
 					/>
 				</div>
-			);
-		}
+			</div>
+		);
 	}
 }
 

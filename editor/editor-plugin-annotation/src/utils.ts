@@ -192,7 +192,18 @@ export const findAnnotationsInSelection = (
 	const { empty, $anchor, anchor } = selection;
 	// Only detect annotations on caret selection
 	if (!empty || !doc) {
-		return [];
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			if (
+				selection instanceof NodeSelection &&
+				['inlineCard', 'emoji', 'date', 'mention', 'status'].includes(selection.node.type.name)
+			) {
+				// Inline comments on these nodes are supported -- so we continue to find annotations
+			} else {
+				return [];
+			}
+		} else {
+			return [];
+		}
 	}
 
 	const node = doc.nodeAt(anchor);

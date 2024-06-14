@@ -490,3 +490,46 @@ export const docWithTextAndMedia = {
 		},
 	],
 };
+
+export const docWithInlineNodes = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'leading text',
+				},
+				{
+					type: 'emoji',
+					attrs: {
+						shortName: ':slight_smile:',
+						id: '1f642',
+						text: '🙂',
+					},
+				},
+				{
+					type: 'status',
+					attrs: {
+						text: 'status',
+						color: 'neutral',
+						localId: '48059fb1-aaf9-4838-9a25-e7c6315caf69',
+						style: '',
+					},
+				},
+				{
+					type: 'date',
+					attrs: {
+						timestamp: '1572480000000',
+					},
+				},
+				{
+					type: 'text',
+					text: 'tailing text',
+				},
+			],
+		},
+	],
+};

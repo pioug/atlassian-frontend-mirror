@@ -1,111 +1,111 @@
 {
-  "name": "@atlaskit/motion",
-  "version": "1.6.1",
-  "description": "A set of utilities to apply motion in your application.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    "./curves": "./src/entry-points/curves.tsx",
-    "./durations": "./src/entry-points/durations.tsx",
-    "./accessibility": "./src/entry-points/accessibility.tsx",
-    "./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
-    "./fade-in": "./src/entry-points/fade-in.tsx",
-    "./slide-in": "./src/entry-points/slide-in.tsx",
-    "./zoom-in": "./src/entry-points/zoom-in.tsx",
-    "./shrink-out": "./src/entry-points/shrink-out.tsx",
-    "./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
-  },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    "./curves": "./src/entry-points/curves.tsx",
-    "./durations": "./src/entry-points/durations.tsx",
-    "./accessibility": "./src/entry-points/accessibility.tsx",
-    "./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
-    "./fade-in": "./src/entry-points/fade-in.tsx",
-    "./slide-in": "./src/entry-points/slide-in.tsx",
-    "./zoom-in": "./src/entry-points/zoom-in.tsx",
-    "./shrink-out": "./src/entry-points/shrink-out.tsx",
-    "./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
-  },
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "runReact18": true,
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Motion",
-      "category": "Libraries"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "bind-event-listener": "^3.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/react-hooks": "^8.0.1",
-    "raf-stub": "^2.0.1",
-    "react-dom": "^16.8.0",
-    "react-router-dom": "^4.2.2",
-    "typescript": "~5.4.2"
-  },
-  "keywords": [
-    "atlaskit",
-    "css",
-    "animation",
-    "motion",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/motion/"
+	"name": "@atlaskit/motion",
+	"version": "1.6.1",
+	"description": "A set of utilities to apply motion in your application.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"af:exports": {
+		".": "./src/index.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./curves": "./src/entry-points/curves.tsx",
+		"./durations": "./src/entry-points/durations.tsx",
+		"./accessibility": "./src/entry-points/accessibility.tsx",
+		"./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
+		"./fade-in": "./src/entry-points/fade-in.tsx",
+		"./slide-in": "./src/entry-points/slide-in.tsx",
+		"./zoom-in": "./src/entry-points/zoom-in.tsx",
+		"./shrink-out": "./src/entry-points/shrink-out.tsx",
+		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
+	},
+	"exports": {
+		".": "./src/index.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./curves": "./src/entry-points/curves.tsx",
+		"./durations": "./src/entry-points/durations.tsx",
+		"./accessibility": "./src/entry-points/accessibility.tsx",
+		"./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
+		"./fade-in": "./src/entry-points/fade-in.tsx",
+		"./slide-in": "./src/entry-points/slide-in.tsx",
+		"./zoom-in": "./src/entry-points/zoom-in.tsx",
+		"./shrink-out": "./src/entry-points/shrink-out.tsx",
+		"./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
+	},
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"runReact18": true,
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Motion",
+			"category": "Libraries"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"bind-event-listener": "^3.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"raf-stub": "^2.0.1",
+		"react-dom": "^16.8.0",
+		"react-router-dom": "^4.2.2",
+		"typescript": "~5.4.2"
+	},
+	"keywords": [
+		"atlaskit",
+		"css",
+		"animation",
+		"motion",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/motion/"
 }

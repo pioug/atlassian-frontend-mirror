@@ -1,137 +1,137 @@
 {
-  "name": "@atlaskit/media-ui",
-  "version": "25.10.4",
-  "description": "Includes common components and utilities used by other media packages",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Media Experience",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Media UI"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/code": "^15.2.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/icon-file-type": "^6.4.0",
-    "@atlaskit/locale": "^2.7.0",
-    "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/range": "^7.2.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/width-detector": "^4.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/styled": "^11.0.0",
-    "blueimp-load-image": "2.19.0",
-    "bytes": "^3.1.0",
-    "exenv": "^1.2.2",
-    "png-chunks-extract": "^1.0.0",
-    "react-render-image": "^1.1.3",
-    "react-video-renderer": "^2.4.8"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/visual-regression": "*",
-    "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@testing-library/jest-dom": "^6.4.5",
-    "@testing-library/react": "^12.1.5",
-    "@types/blueimp-load-image": "^5.16.3",
-    "@types/bytes": "^2.4.33",
-    "@types/enzyme": "3.1.15",
-    "@types/exenv": "^1.2.0",
-    "@types/png-chunks-extract": "^1.0.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "jest-emotion": "^10.0.32",
-    "jsverify": "^0.8.3",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "circular-dependencies": [
-        "file-level"
-      ]
-    },
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "af:exports": {
-    "./classNames": "./src/classNames.ts",
-    "./media-type-icon": "./src/media-type-icon.tsx",
-    "./mime-type-icon": "./src/mime-type-icon.tsx",
-    "./truncateText": "./src/truncateText.tsx",
-    "./messages": "./src/messages.ts",
-    "./modalSpinner": "./src/modalSpinner.tsx",
-    "./browser": "./src/browser.tsx",
-    "./codeViewer": "./src/codeViewer.ts",
-    "./util": "./src/util.ts",
-    "./errorIcon": "./src/errorIcon.tsx",
-    "./types": "./src/types.ts",
-    "./formatDate": "./src/formatDate.ts",
-    "./locales": "./src/locales.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    "./classNames": "./src/classNames.ts",
-    "./media-type-icon": "./src/media-type-icon.tsx",
-    "./mime-type-icon": "./src/mime-type-icon.tsx",
-    "./truncateText": "./src/truncateText.tsx",
-    "./messages": "./src/messages.ts",
-    "./modalSpinner": "./src/modalSpinner.tsx",
-    "./browser": "./src/browser.tsx",
-    "./codeViewer": "./src/codeViewer.ts",
-    "./util": "./src/util.ts",
-    "./errorIcon": "./src/errorIcon.tsx",
-    "./types": "./src/types.ts",
-    "./formatDate": "./src/formatDate.ts",
-    "./locales": "./src/locales.ts",
-    "./i18n/*": "./src/i18n/*.ts",
-    ".": "./src/index.ts"
-  },
-  "platform-feature-flags": {
-    "platform.editor.a11y_video_controls_keyboard_support_yhcxh": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/media-ui",
+	"version": "25.10.4",
+	"description": "Includes common components and utilities used by other media packages",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Media Experience",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Media UI"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/code": "^15.2.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon-file-type": "^6.4.0",
+		"@atlaskit/locale": "^2.7.0",
+		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/platform-feature-flags": "^0.2.5",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/range": "^7.2.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/width-detector": "^4.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/styled": "^11.0.0",
+		"blueimp-load-image": "2.19.0",
+		"bytes": "^3.1.0",
+		"exenv": "^1.2.2",
+		"png-chunks-extract": "^1.0.0",
+		"react-render-image": "^1.1.3",
+		"react-video-renderer": "^2.4.8"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/visual-regression": "*",
+		"@atlaskit/analytics-listeners": "^8.10.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@testing-library/jest-dom": "^6.4.5",
+		"@testing-library/react": "^12.1.5",
+		"@types/blueimp-load-image": "^5.16.3",
+		"@types/bytes": "^2.4.33",
+		"@types/enzyme": "3.1.15",
+		"@types/exenv": "^1.2.0",
+		"@types/png-chunks-extract": "^1.0.0",
+		"enzyme": "^3.10.0",
+		"enzyme-adapter-react-16": "^1.15.1",
+		"jest-emotion": "^10.0.32",
+		"jsverify": "^0.8.3",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"circular-dependencies": [
+				"file-level"
+			]
+		},
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"af:exports": {
+		"./classNames": "./src/classNames.ts",
+		"./media-type-icon": "./src/media-type-icon.tsx",
+		"./mime-type-icon": "./src/mime-type-icon.tsx",
+		"./truncateText": "./src/truncateText.tsx",
+		"./messages": "./src/messages.ts",
+		"./modalSpinner": "./src/modalSpinner.tsx",
+		"./browser": "./src/browser.tsx",
+		"./codeViewer": "./src/codeViewer.ts",
+		"./util": "./src/util.ts",
+		"./errorIcon": "./src/errorIcon.tsx",
+		"./types": "./src/types.ts",
+		"./formatDate": "./src/formatDate.ts",
+		"./locales": "./src/locales.ts",
+		".": "./src/index.ts"
+	},
+	"exports": {
+		"./classNames": "./src/classNames.ts",
+		"./media-type-icon": "./src/media-type-icon.tsx",
+		"./mime-type-icon": "./src/mime-type-icon.tsx",
+		"./truncateText": "./src/truncateText.tsx",
+		"./messages": "./src/messages.ts",
+		"./modalSpinner": "./src/modalSpinner.tsx",
+		"./browser": "./src/browser.tsx",
+		"./codeViewer": "./src/codeViewer.ts",
+		"./util": "./src/util.ts",
+		"./errorIcon": "./src/errorIcon.tsx",
+		"./types": "./src/types.ts",
+		"./formatDate": "./src/formatDate.ts",
+		"./locales": "./src/locales.ts",
+		"./i18n/*": "./src/i18n/*.ts",
+		".": "./src/index.ts"
+	},
+	"platform-feature-flags": {
+		"platform.editor.a11y_video_controls_keyboard_support_yhcxh": {
+			"type": "boolean"
+		}
+	}
 }

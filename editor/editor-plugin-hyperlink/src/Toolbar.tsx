@@ -241,13 +241,13 @@ export const getToolbarConfig =
 							showTitle: true,
 							metadata: metadata,
 						},
+						{
+							type: 'separator',
+						},
 					];
 
 					const items: Array<FloatingToolbarItem<Command>> = [
 						...startingToolbarItems,
-						{
-							type: 'separator',
-						},
 						{
 							id: 'editor.link.openLink',
 							testId: 'editor.link.openLink',

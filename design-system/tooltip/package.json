@@ -1,111 +1,111 @@
 {
-  "name": "@atlaskit/tooltip",
-  "version": "18.4.1",
-  "description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "atlassian": {
-    "team": "Design System Team",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "runReact18": true,
-    "website": {
-      "name": "Tooltip",
-      "category": "Components"
-    }
-  },
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./Tooltip": "./src/Tooltip.tsx",
-    "./TooltipContainer": "./src/TooltipContainer.tsx",
-    "./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
-    "./types": "./src/types.tsx",
-    "./utilities": "./src/utilities.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./Tooltip": "./src/Tooltip.tsx",
-    "./TooltipContainer": "./src/TooltipContainer.tsx",
-    "./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
-    "./types": "./src/types.tsx",
-    "./utilities": "./src/utilities.ts"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/popper": "^6.0.0",
-    "@atlaskit/portal": "^4.5.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "bind-event-listener": "^3.0.0",
-    "react-uid": "^2.2.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/dom": "^8.17.1",
-    "@testing-library/react": "^12.1.5",
-    "@types/react-redux": "^5.0.0",
-    "jest-in-case": "^1.0.2",
-    "react-dom": "^16.8.0",
-    "react-redux": "^5.1.2",
-    "storybook-addon-performance": "^0.16.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "react",
-    "ui"
-  ],
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": "atlassian-conventions"
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports",
-      "styling": [
-        "emotion",
-        "static"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/tooltip/"
+	"name": "@atlaskit/tooltip",
+	"version": "18.4.1",
+	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"atlassian": {
+		"team": "Design System Team",
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"runReact18": true,
+		"website": {
+			"name": "Tooltip",
+			"category": "Components"
+		}
+	},
+	"af:exports": {
+		".": "./src/index.ts",
+		"./Tooltip": "./src/Tooltip.tsx",
+		"./TooltipContainer": "./src/TooltipContainer.tsx",
+		"./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
+		"./types": "./src/types.tsx",
+		"./utilities": "./src/utilities.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./Tooltip": "./src/Tooltip.tsx",
+		"./TooltipContainer": "./src/TooltipContainer.tsx",
+		"./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
+		"./types": "./src/types.tsx",
+		"./utilities": "./src/utilities.ts"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/motion": "^1.6.0",
+		"@atlaskit/popper": "^6.0.0",
+		"@atlaskit/portal": "^4.5.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"bind-event-listener": "^3.0.0",
+		"react-uid": "^2.2.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/visual-regression": "*",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/dom": "^8.17.1",
+		"@testing-library/react": "^12.1.5",
+		"@types/react-redux": "^5.0.0",
+		"jest-in-case": "^1.0.2",
+		"react-dom": "^16.8.0",
+		"react-redux": "^5.1.2",
+		"storybook-addon-performance": "^0.16.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"react",
+		"ui"
+	],
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": "atlassian-conventions"
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"static"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/tooltip/"
 }

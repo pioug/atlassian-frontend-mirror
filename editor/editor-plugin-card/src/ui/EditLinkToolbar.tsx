@@ -153,7 +153,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 }
 
 export const editLink =
-	(editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+	(editorAnalyticsApi: EditorAnalyticsAPI | undefined, scrollIntoView: boolean): Command =>
 	(state, dispatch) => {
 		let type = 'hyperlink';
 		if (state.selection instanceof NodeSelection) {
@@ -171,6 +171,7 @@ export const editLink =
 						| ACTION_SUBJECT_ID.EMBEDS,
 				),
 			)(tr);
+			tr.setMeta('scrollIntoView', scrollIntoView);
 			dispatch(tr);
 			return true;
 		}

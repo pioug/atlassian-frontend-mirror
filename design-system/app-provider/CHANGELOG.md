@@ -1,5 +1,14 @@
 # @atlaskit/app-provider
 
+## 1.3.3
+
+### Patch Changes
+
+- [#110702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110702)
+  [`b8c2eefeb195b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8c2eefeb195b) -
+  Router link component configurations no longer require `children`, so labels can be supplied
+  through aria attributes if required
+
 ## 1.3.2
 
 ### Patch Changes

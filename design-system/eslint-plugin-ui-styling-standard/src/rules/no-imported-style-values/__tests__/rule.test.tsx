@@ -123,6 +123,24 @@ typescriptEslintTester.run(
 					},
 				],
 			},
+			{
+				name: 'Ignores type casts',
+				code: `
+					import type { CSSProperties } from 'react';
+          import { css } from '@compiled/react';
+
+					const Component = () => (
+						<div
+							style={
+								{
+									'--my-var': 'red',
+								} as CSSProperties
+							}
+						/>
+					);
+        `,
+				options: [],
+			},
 		],
 		invalid: [
 			{
@@ -253,7 +271,7 @@ typescriptEslintTester.run(
 				code: `
           import { hello } from 'package';
           import { css } from '@compiled/react';
-          
+
           const styles = css({
             color: hello.world,
           });

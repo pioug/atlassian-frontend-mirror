@@ -1,74 +1,74 @@
 {
-  "name": "@atlaskit/codemod-cli",
-  "version": "0.24.4",
-  "description": "A cli for distributing codemods for atlassian-frontend components and services",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./cli": "./src/cli.ts",
-    "./filepath": "./src/filepath.ts",
-    "./main": "./src/main.ts",
-    "./sinceRef": "./src/sinceRef.ts",
-    "./transforms": "./src/transforms.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
-  "exports": {
-    ".": "./index.js",
-    "./cli": "./src/cli.ts",
-    "./filepath": "./src/filepath.ts",
-    "./main": "./src/main.ts",
-    "./sinceRef": "./src/sinceRef.ts",
-    "./transforms": "./src/transforms.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous"
-  },
-  "scripts": {
-    "prestart": "cd ../../ && yarn build @atlaskit/codemod-utils tokens",
-    "start": "./bin/codemod-cli.js"
-  },
-  "bin": "./bin/codemod-cli.js",
-  "dependencies": {
-    "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@codeshift/utils": "^0.2.4",
-    "@hypermod/utils": "^0.4.2",
-    "@types/jscodeshift": "^0.11.0",
-    "chalk": "^4.1.2",
-    "enquirer": "^2.3.4",
-    "glob": "9.0.0",
-    "jscodeshift": "^0.13.0",
-    "meow": "^8.1.1",
-    "projector-spawn": "^1.0.1",
-    "semver": "^7.5.2",
-    "simple-git": "^3.16.0"
-  },
-  "devDependencies": {
-    "@af/formatting": "*",
-    "prettier": "^3.2.5",
-    "ts-node": "^10.9.1",
-    "typescript": "~5.4.2"
-  },
-  "homepage": "https://atlaskit.atlassian.com/packages/monorepo-tooling/codemod-cli"
+	"name": "@atlaskit/codemod-cli",
+	"version": "0.24.4",
+	"description": "A cli for distributing codemods for atlassian-frontend components and services",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./cli": "./src/cli.ts",
+		"./filepath": "./src/filepath.ts",
+		"./main": "./src/main.ts",
+		"./sinceRef": "./src/sinceRef.ts",
+		"./transforms": "./src/transforms.ts",
+		"./types": "./src/types.ts",
+		"./utils": "./src/utils.ts"
+	},
+	"exports": {
+		".": "./index.js",
+		"./cli": "./src/cli.ts",
+		"./filepath": "./src/filepath.ts",
+		"./main": "./src/main.ts",
+		"./sinceRef": "./src/sinceRef.ts",
+		"./transforms": "./src/transforms.ts",
+		"./types": "./src/types.ts",
+		"./utils": "./src/utils.ts"
+	},
+	"atlassian": {
+		"team": "Design System Team",
+		"releaseModel": "continuous"
+	},
+	"scripts": {
+		"prestart": "cd ../../ && yarn build @atlaskit/codemod-utils tokens",
+		"start": "./bin/codemod-cli.js"
+	},
+	"bin": "./bin/codemod-cli.js",
+	"dependencies": {
+		"@atlaskit/codemod-utils": "^4.2.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@codeshift/utils": "^0.2.4",
+		"@hypermod/utils": "^0.4.2",
+		"@types/jscodeshift": "^0.11.0",
+		"chalk": "^4.1.2",
+		"enquirer": "^2.3.4",
+		"glob": "9.0.0",
+		"jscodeshift": "^0.13.0",
+		"meow": "^8.1.1",
+		"projector-spawn": "^1.0.1",
+		"semver": "^7.5.2",
+		"simple-git": "^3.16.0"
+	},
+	"devDependencies": {
+		"@af/formatting": "*",
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.1",
+		"typescript": "~5.4.2"
+	},
+	"homepage": "https://atlaskit.atlassian.com/packages/monorepo-tooling/codemod-cli"
 }

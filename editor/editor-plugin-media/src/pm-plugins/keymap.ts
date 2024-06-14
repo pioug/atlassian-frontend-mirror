@@ -66,18 +66,16 @@ export function keymapPlugin(
 	bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
 	if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
-		if (getBooleanFF('platform.editor.a11y-media-resizing_b5v0o')) {
-			bindKeymapWithCommand(
-				increaseMediaSize.common!,
-				handleMediaIncrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
-				list,
-			);
-			bindKeymapWithCommand(
-				decreaseMediaSize.common!,
-				handleMediaDecrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
-				list,
-			);
-		}
+		bindKeymapWithCommand(
+			increaseMediaSize.common!,
+			handleMediaIncrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
+			list,
+		);
+		bindKeymapWithCommand(
+			decreaseMediaSize.common!,
+			handleMediaDecrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
+			list,
+		);
 	}
 
 	if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {

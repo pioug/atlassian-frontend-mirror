@@ -1,10 +1,4 @@
-import React, {
-	type ComponentPropsWithRef,
-	forwardRef,
-	type ReactNode,
-	useCallback,
-	useContext,
-} from 'react';
+import React, { type ComponentPropsWithRef, forwardRef, useCallback, useContext } from 'react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -20,15 +14,9 @@ export type PressableProps = Omit<
 	| 'disabled'
 	// Should not allow custom elements
 	| 'as'
-	| 'children'
 	| 'style'
 	| 'onClick'
 > & {
-	/**
-	 * `children` should be defined to ensure buttons are not empty,
-	 * because they should have labels.
-	 */
-	children: ReactNode;
 	isDisabled?: boolean;
 	/**
 	 * Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.
@@ -58,11 +46,15 @@ const baseFocusRingStyles = {
 } as const;
 
 const focusRingStyles = xcss({
-	':focus-visible': baseFocusRingStyles,
+	// Focus styles used when :focus-visible isn't supported
+	':focus': baseFocusRingStyles,
 
-	'@supports not selector(*:focus-visible)': {
-		':focus': baseFocusRingStyles,
+	// Remove default focus styles for mouse interactions if :focus-visible is supported
+	':focus:not(:focus-visible)': {
+		outline: 'none',
 	},
+
+	':focus-visible': baseFocusRingStyles,
 
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		':focus-visible': {

@@ -1,94 +1,94 @@
 {
-  "name": "@atlaskit/jql-autocomplete",
-  "version": "2.0.1",
-  "description": "JQL autocomplete engine",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Jira Platform: Search Experience / Empanada",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "JQL Autocomplete",
-      "category": "JQL"
-    }
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "dependencies": {
-    "@atlaskit/jql-parser": "^2.0.0",
-    "@babel/runtime": "^7.0.0",
-    "antlr4-c3": "3.0.1",
-    "antlr4ts": "0.5.0-alpha.4",
-    "assert": "^2.0.0",
-    "util": "^0.12.4"
-  },
-  "devDependencies": {
-    "@atlaskit/docs": "*",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "theming": [
-        "react-context"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ]
-    }
-  },
-  "stricter": {
-    "no-unused-dependencies": {
-      "exclude": [
-        "assert",
-        "util"
-      ]
-    }
-  }
+	"name": "@atlaskit/jql-autocomplete",
+	"version": "2.0.1",
+	"description": "JQL autocomplete engine",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Jira Platform: Search Experience / Empanada",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "JQL Autocomplete",
+			"category": "JQL"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/jql-parser": "^2.0.0",
+		"@babel/runtime": "^7.0.0",
+		"antlr4-c3": "3.0.1",
+		"antlr4ts": "0.5.0-alpha.4",
+		"assert": "^2.0.0",
+		"util": "^0.12.4"
+	},
+	"devDependencies": {
+		"@atlaskit/docs": "*",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			]
+		}
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"exclude": [
+				"assert",
+				"util"
+			]
+		}
+	}
 }

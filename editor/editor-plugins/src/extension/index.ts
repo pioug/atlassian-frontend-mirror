@@ -4,6 +4,7 @@ export type {
 	CreateExtensionAPI,
 	ExtensionPlugin,
 	ExtensionPluginOptions,
+	InsertOrReplaceExtensionType,
 	RunMacroAutoConvert,
 	RejectSave,
 } from '@atlaskit/editor-plugin-extension';

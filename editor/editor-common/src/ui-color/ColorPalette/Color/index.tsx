@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { buttonStyle, buttonWrapperStyle } from './styles';
@@ -71,7 +72,11 @@ function FunctionalComponentColor(props: Props) {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={`${isSelected ? 'selected' : ''}`}
 					style={{
-						backgroundColor: colorStyle || 'transparent',
+						backgroundColor:
+							colorStyle ||
+							(getBooleanFF('platform.editor.dynamic-palette-borders')
+								? token('color.background.input', '#FFFFFF')
+								: 'transparent'),
 						border: `1px solid ${borderColor}`,
 					}}
 					autoFocus={autoFocus}
@@ -123,7 +128,11 @@ class ClassComponentColor extends PureComponent<Props> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={`${isSelected ? 'selected' : ''}`}
 						style={{
-							backgroundColor: colorStyle || 'transparent',
+							backgroundColor:
+								colorStyle ||
+								(getBooleanFF('platform.editor.dynamic-palette-borders')
+									? token('color.background.input', '#FFFFFF')
+									: 'transparent'),
 							border: `1px solid ${borderColor}`,
 						}}
 						autoFocus={autoFocus}

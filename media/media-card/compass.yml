@@ -1,6 +1,10 @@
 name: Media Card
 id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/6d687ccf-d7c3-4faf-90a7-7397622c140f'
-description: This package provides the capability to display a preview of a file that has been already uploaded. It leverages the returned id opon a successful file upload and does all the work required to show the preview. Additionaly it also takes care of displaying the upload status of the file.
+description:
+  This package provides the capability to display a preview of a file that has been already
+  uploaded. It leverages the returned id opon a successful file upload and does all the work
+  required to show the preview. Additionaly it also takes care of displaying the upload status of
+  the file.
 configVersion: 1
 typeId: UI_ELEMENT
 ownerId: 'ari:cloud:teams::team/ef910622-ce0a-44a0-b441-ba89efe7891b'
@@ -44,6 +48,5 @@ links:
 relationships:
   DEPENDS_ON:
     - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef'
-
 # Learn more about formatting compass.yml:
 # https://go.atlassian.com/compass-yml-format

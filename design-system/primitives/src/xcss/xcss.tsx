@@ -269,7 +269,8 @@ type ChainedCSSPseudos =
 	| ':hover::before'
 	| ':hover::after'
 	| ':focus-visible::before'
-	| ':focus-visible::after';
+	| ':focus-visible::after'
+	| ':focus:not(:focus-visible)';
 // Pseudos should not contain nested pseudos, or media queries
 type CSSPseudos = {
 	[Pseudo in CSS.Pseudos | ChainedCSSPseudos]?: Omit<SafeCSSObject, CSS.Pseudos | AllMedia>;

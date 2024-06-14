@@ -347,6 +347,10 @@ export default class RendererActions
 		return {
 			step,
 			doc: this.transformer.encode(doc),
+			inlineNodeTypes: getRendererRangeInlineNodeNames({
+				actions: this,
+				pos: { from, to },
+			}),
 			originalSelection,
 			numMatches,
 			matchIndex,

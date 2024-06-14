@@ -11,6 +11,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
@@ -60,21 +61,31 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 	});
 };
 
+const initialState = {
+	decorations: DecorationSet.empty,
+	decorationState: [],
+	activeNode: null,
+	isDragging: false,
+	isMenuOpen: false,
+	start: null,
+	end: null,
+	editorHeight: 0,
+	isResizerResizing: false,
+	isDocSizeLimitEnabled: false,
+};
+
+if (getBooleanFF('platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq')) {
+	initialState.isDocSizeLimitEnabled = true;
+}
+
+const DRAG_AND_DROP_DOC_SIZE_LIMIT = 20000;
+
 export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
 	return new SafePlugin({
 		key,
 		state: {
 			init() {
-				return {
-					decorations: DecorationSet.empty,
-					decorationState: [],
-					activeNode: null,
-					isDragging: false,
-					isMenuOpen: false,
-					start: null,
-					end: null,
-					editorHeight: 0,
-				};
+				return initialState;
 			},
 			apply(
 				tr: ReadonlyTransaction,
@@ -82,17 +93,53 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				oldState: EditorState,
 				newState: EditorState,
 			) {
-				let { activeNode, decorations, isMenuOpen, decorationState, editorHeight } = currentState;
+				if (
+					initialState.isDocSizeLimitEnabled &&
+					newState.doc.nodeSize > DRAG_AND_DROP_DOC_SIZE_LIMIT
+				) {
+					return initialState;
+				}
+
+				let {
+					activeNode,
+					decorations,
+					isMenuOpen,
+					decorationState,
+					editorHeight,
+					isResizerResizing,
+				} = currentState;
+
 				const meta = tr.getMeta(key);
+
+				// If tables or media are being resized, we want to hide the drag handle
+				const resizerMeta = tr.getMeta('is-resizer-resizing');
+				isResizerResizing = resizerMeta ?? isResizerResizing;
+
+				const isEmptyDoc = newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
+
+				// This is not targeted enough - it's trying to catch events like expand being set to breakout
+				const maybeWidthUpdated =
+					tr.docChanged &&
+					oldState.doc.nodeSize === newState.doc.nodeSize &&
+					oldState.doc.childCount === newState.doc.childCount;
+
+				const nodeCountChanged = oldState.doc.childCount !== newState.doc.childCount;
+
+				// During resize, remove the drag handle widget
+				if (isResizerResizing || nodeCountChanged) {
+					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+					decorations = decorations.remove(oldHandle);
+				}
 
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				const redrawDecorations =
 					decorations === DecorationSet.empty ||
 					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
-					(tr.docChanged && tr.doc.childCount === newState.doc.childCount) ||
+					maybeWidthUpdated ||
+					nodeCountChanged ||
+					resizerMeta === false ||
 					(meta?.nodeMoved && tr.docChanged);
-
-				if (redrawDecorations && api) {
+				if (redrawDecorations && isResizerResizing === false && api) {
 					decorations = DecorationSet.create(newState.doc, []);
 					const nodeDecs = nodeDecorations(newState);
 					const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
@@ -181,10 +228,12 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				return {
 					decorations,
 					decorationState: decorationState ?? currentState.decorationState,
-					activeNode: meta?.activeNode ?? mappedActiveNodePos,
+					activeNode: isEmptyDoc ? null : meta?.activeNode ?? mappedActiveNodePos,
 					isDragging: meta?.isDragging ?? currentState.isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
+					isResizerResizing: isResizerResizing ?? isResizerResizing,
+					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 				};
 			},
 		},

@@ -1,6 +1,7 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorCommand,
+	GetEditorFeatureFlags,
 	NextEditorPlugin,
 	OptionalPlugin,
 	TypeAheadHandler,
@@ -16,6 +17,7 @@ import type {
 
 export interface EmojiPluginOptions {
 	headless?: boolean;
+	getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export type EmojiPluginState = {

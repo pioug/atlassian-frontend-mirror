@@ -81,6 +81,8 @@ type AnnotationComponentProps = {
 	 * Indicates that a draft comment was discarded/cancelled
 	 */
 	onClose?: () => void;
+	/** List of inline node types, which are wrapped by the annotation. */
+	inlineNodeTypes: string[] | undefined;
 };
 
 export type InlineCommentCreateComponentProps = AnnotationComponentProps & {

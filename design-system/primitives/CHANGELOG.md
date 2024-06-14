@@ -1,5 +1,21 @@
 # @atlaskit/primitives
 
+## 7.1.0
+
+### Minor Changes
+
+- [#110702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110702)
+  [`b8c2eefeb195b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8c2eefeb195b) - -
+  Anchor and Pressable primitives no longer require `children`, so labels can be supplied through
+  aria attributes if required
+
+### Patch Changes
+
+- [#110702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110702)
+  [`b8c2eefeb195b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8c2eefeb195b) - -
+  Fixed a bug with Anchor, where the "(opens new window)" label was not being automatically appended
+  to `aria-label` or `aria-labelledby`.
+
 ## 7.0.3
 
 ### Patch Changes

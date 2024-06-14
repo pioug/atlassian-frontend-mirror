@@ -115,6 +115,12 @@ export class DummyAIMateComponent extends React.Component<Props> {
 	}
 }
 
+export class DummyAVPComponent extends React.Component<Props> {
+	render() {
+		return <CustomButton text={FabricChannel.avp} onClick={this.props.onClick} />;
+	}
+}
+
 class MyButton extends React.Component<Props> {
 	static displayName = 'MyButton';
 	render() {
@@ -140,6 +146,7 @@ const componentChannels = {
 	[FabricChannel.crossFlow]: DummyCrossFlowComponent,
 	[FabricChannel.postOffice]: DummyPostOfficeComponent,
 	[FabricChannel.aiMate]: DummyAIMateComponent,
+	[FabricChannel.avp]: DummyAVPComponent,
 };
 
 export const createComponentWithAnalytics = (channel: FabricChannel) =>

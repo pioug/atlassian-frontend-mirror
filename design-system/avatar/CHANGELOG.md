@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 21.9.2
+
+### Patch Changes
+
+- [#110310](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110310)
+  [`ea4751db471b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea4751db471b1) -
+  Allow maker-provided prop to override the context value for the AvatarContext's `size` property.
+- Updated dependencies
+
 ## 21.9.1
 
 ### Patch Changes

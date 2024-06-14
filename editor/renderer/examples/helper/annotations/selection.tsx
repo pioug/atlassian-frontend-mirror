@@ -134,6 +134,7 @@ const Component = (props: InlineCommentSelectionComponentProps & { setNewDocumen
 			dom={domTarget}
 			onCreate={onPopupCreate}
 			onClose={onPopupClose}
+			inlineNodeTypes={[]}
 		/>
 	);
 };

@@ -1,76 +1,76 @@
 {
-  "name": "@atlaskit/media-filmstrip",
-  "version": "47.0.22",
-  "description": "Includes components that show media cards as a filmstrip",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    "./filmstrip": "./src/filmstrip.tsx",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./filmstrip": "./src/filmstrip.tsx",
-    ".": "./src/index.tsx"
-  },
-  "atlassian": {
-    "team": "Media Experience",
-    "inPublicMirror": true,
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Media Filmstrip"
-    }
-  },
-  "dependencies": {
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/media-card": "^77.12.0",
-    "@atlaskit/media-client": "^27.2.0",
-    "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "debounce": "^1.0.0"
-  },
-  "peerDependencies": {
-    "@atlaskit/media-core": "^34.2.0",
-    "@emotion/react": "^11.7.1",
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/media-core": "^34.2.0",
-    "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/ssr": "*",
-    "@types/debounce": "^1.2.0",
-    "enzyme": "^3.10.0",
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0",
-    "rxjs": "^5.5.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  }
+	"name": "@atlaskit/media-filmstrip",
+	"version": "47.0.22",
+	"description": "Includes components that show media cards as a filmstrip",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"af:exports": {
+		"./filmstrip": "./src/filmstrip.tsx",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./filmstrip": "./src/filmstrip.tsx",
+		".": "./src/index.tsx"
+	},
+	"atlassian": {
+		"team": "Media Experience",
+		"inPublicMirror": true,
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Media Filmstrip"
+		}
+	},
+	"dependencies": {
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/media-card": "^77.12.0",
+		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"debounce": "^1.0.0"
+	},
+	"peerDependencies": {
+		"@atlaskit/media-core": "^34.2.0",
+		"@emotion/react": "^11.7.1",
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlaskit/ssr": "*",
+		"@types/debounce": "^1.2.0",
+		"enzyme": "^3.10.0",
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
+		"rxjs": "^5.5.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	}
 }

@@ -1,57 +1,57 @@
 {
-  "name": "@atlaskit/quiz-widget",
-  "version": "2.1.10",
-  "description": "A React component that gives a possibility to pass quizzes",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Jira Training App",
-    "releaseModel": "continuous",
-    "website": {
-      "name": "QuizWidget"
-    }
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/radio": "^6.3.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/styled": "^11.0.0"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
-  "devDependencies": {
-    "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  }
+	"name": "@atlaskit/quiz-widget",
+	"version": "2.1.10",
+	"description": "A React component that gives a possibility to pass quizzes",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Jira Training App",
+		"releaseModel": "continuous",
+		"website": {
+			"name": "QuizWidget"
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/radio": "^6.3.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/styled": "^11.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-dom": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"enzyme": "^3.10.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	}
 }

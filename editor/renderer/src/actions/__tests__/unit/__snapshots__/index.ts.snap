@@ -166,6 +166,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
+  "inlineNodeTypes": undefined,
   "matchIndex": 1,
   "numMatches": 4,
   "originalSelection": "cute",
@@ -181,6 +182,120 @@ Object {
     },
     "stepType": "addMark",
     "to": 45,
+  },
+}
+`;
+
+exports[`RendererActions applyAnnotation should apply annotation to text with inline nodes 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "content": Array [
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "<<<ANNOTATION-ID>>>",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "leading text",
+            "type": "text",
+          },
+          Object {
+            "attrs": Object {
+              "id": "1f642",
+              "shortName": ":slight_smile:",
+              "text": "🙂",
+            },
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "<<<ANNOTATION-ID>>>",
+                },
+                "type": "annotation",
+              },
+            ],
+            "type": "emoji",
+          },
+          Object {
+            "attrs": Object {
+              "color": "neutral",
+              "localId": "48059fb1-aaf9-4838-9a25-e7c6315caf69",
+              "style": "",
+              "text": "status",
+            },
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "<<<ANNOTATION-ID>>>",
+                },
+                "type": "annotation",
+              },
+            ],
+            "type": "status",
+          },
+          Object {
+            "attrs": Object {
+              "timestamp": "1572480000000",
+            },
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "<<<ANNOTATION-ID>>>",
+                },
+                "type": "annotation",
+              },
+            ],
+            "type": "date",
+          },
+          Object {
+            "marks": Array [
+              Object {
+                "attrs": Object {
+                  "annotationType": "inlineComment",
+                  "id": "<<<ANNOTATION-ID>>>",
+                },
+                "type": "annotation",
+              },
+            ],
+            "text": "tailing text",
+            "type": "text",
+          },
+        ],
+        "type": "paragraph",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "inlineNodeTypes": Array [
+    "date",
+    "emoji",
+    "status",
+    "text",
+  ],
+  "matchIndex": 0,
+  "numMatches": 1,
+  "originalSelection": "leading texttailing text",
+  "pos": undefined,
+  "step": Object {
+    "from": 0,
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "<<<ANNOTATION-ID>>>",
+      },
+      "type": "annotation",
+    },
+    "stepType": "addMark",
+    "to": 29,
   },
 }
 `;
@@ -351,6 +466,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
+  "inlineNodeTypes": undefined,
   "matchIndex": 1,
   "numMatches": 2,
   "originalSelection": "cat",
@@ -545,6 +661,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
+  "inlineNodeTypes": undefined,
   "matchIndex": 0,
   "numMatches": 1,
   "originalSelection": "more formatt",
@@ -726,6 +843,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
+  "inlineNodeTypes": undefined,
   "matchIndex": 0,
   "numMatches": 0,
   "originalSelection": "",
@@ -910,6 +1028,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
+  "inlineNodeTypes": undefined,
   "matchIndex": 0,
   "numMatches": 1,
   "originalSelection": "some pla",
@@ -1091,6 +1210,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
+  "inlineNodeTypes": undefined,
   "matchIndex": 0,
   "numMatches": 0,
   "originalSelection": "",

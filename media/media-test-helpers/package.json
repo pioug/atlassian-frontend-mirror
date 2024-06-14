@@ -1,106 +1,106 @@
 {
-  "name": "@atlaskit/media-test-helpers",
-  "version": "33.0.35",
-  "description": "Collection of test helpers used in media component stories and specs",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Media Experience",
-    "inPublicMirror": true,
-    "releaseModel": "continuous"
-  },
-  "dependencies": {
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/checkbox": "^13.4.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/locale": "^2.7.0",
-    "@atlaskit/media-client": "^27.2.0",
-    "@atlaskit/media-common": "^11.2.0",
-    "@atlaskit/media-ui": "^25.10.0",
-    "@atlaskit/popup": "^1.17.0",
-    "@atlaskit/tabs": "^16.1.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/ufo": "^0.2.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.0.0",
-    "@testing-library/react": "^12.1.5",
-    "enzyme": "^3.10.0",
-    "exenv": "^1.2.2",
-    "kakapo": "^4.0.6",
-    "mock-socket": "^9.3.1",
-    "react-intl-next": "npm:react-intl@^5.18.1",
-    "rxjs": "^5.5.0",
-    "uuid": "^3.1.0",
-    "xhr-mock": "^2.4.0"
-  },
-  "peerDependencies": {
-    "@atlaskit/media-core": "^34.2.0",
-    "react": "^16.8.0"
-  },
-  "devDependencies": {
-    "@atlaskit/media-core": "^34.2.0",
-    "@types/exenv": "^1.2.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2"
-  },
-  "af:exports": {
-    "./renderWithIntl": "./src/renderWithIntl.tsx",
-    "./smart-card-state": "./src/smart-card-state.ts",
-    "./fakeMediaClient": "./src/fakeMediaClient.ts",
-    "./media-mock": "./src/mocks/media-mock.ts",
-    "./images": "./src/images.tsx",
-    "./jestHelpers": "./src/jestHelpers.ts",
-    "./collectionNames": "./src/collectionNames.ts",
-    "./exampleMediaItems": "./src/exampleMediaItems.ts",
-    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
-    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
-    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
-    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
-    "./mockData": "./src/utils/mockData.ts",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./renderWithIntl": "./src/renderWithIntl.tsx",
-    "./smart-card-state": "./src/smart-card-state.ts",
-    "./fakeMediaClient": "./src/fakeMediaClient.ts",
-    "./media-mock": "./src/mocks/media-mock.ts",
-    "./images": "./src/images.tsx",
-    "./jestHelpers": "./src/jestHelpers.ts",
-    "./collectionNames": "./src/collectionNames.ts",
-    "./exampleMediaItems": "./src/exampleMediaItems.ts",
-    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
-    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
-    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
-    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
-    "./mockData": "./src/utils/mockData.ts",
-    ".": "./src/index.tsx"
-  },
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  }
+	"name": "@atlaskit/media-test-helpers",
+	"version": "33.0.35",
+	"description": "Collection of test helpers used in media component stories and specs",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Media Experience",
+		"inPublicMirror": true,
+		"releaseModel": "continuous"
+	},
+	"dependencies": {
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/locale": "^2.7.0",
+		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/media-ui": "^25.10.0",
+		"@atlaskit/popup": "^1.17.0",
+		"@atlaskit/tabs": "^16.1.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/ufo": "^0.2.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"@emotion/styled": "^11.0.0",
+		"@testing-library/react": "^12.1.5",
+		"enzyme": "^3.10.0",
+		"exenv": "^1.2.2",
+		"kakapo": "^4.0.6",
+		"mock-socket": "^9.3.1",
+		"react-intl-next": "npm:react-intl@^5.18.1",
+		"rxjs": "^5.5.0",
+		"uuid": "^3.1.0",
+		"xhr-mock": "^2.4.0"
+	},
+	"peerDependencies": {
+		"@atlaskit/media-core": "^34.2.0",
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/media-core": "^34.2.0",
+		"@types/exenv": "^1.2.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"af:exports": {
+		"./renderWithIntl": "./src/renderWithIntl.tsx",
+		"./smart-card-state": "./src/smart-card-state.ts",
+		"./fakeMediaClient": "./src/fakeMediaClient.ts",
+		"./media-mock": "./src/mocks/media-mock.ts",
+		"./images": "./src/images.tsx",
+		"./jestHelpers": "./src/jestHelpers.ts",
+		"./collectionNames": "./src/collectionNames.ts",
+		"./exampleMediaItems": "./src/exampleMediaItems.ts",
+		"./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
+		"./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
+		"./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
+		"./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+		"./mockData": "./src/utils/mockData.ts",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./renderWithIntl": "./src/renderWithIntl.tsx",
+		"./smart-card-state": "./src/smart-card-state.ts",
+		"./fakeMediaClient": "./src/fakeMediaClient.ts",
+		"./media-mock": "./src/mocks/media-mock.ts",
+		"./images": "./src/images.tsx",
+		"./jestHelpers": "./src/jestHelpers.ts",
+		"./collectionNames": "./src/collectionNames.ts",
+		"./exampleMediaItems": "./src/exampleMediaItems.ts",
+		"./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
+		"./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
+		"./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
+		"./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+		"./mockData": "./src/utils/mockData.ts",
+		".": "./src/index.tsx"
+	},
+	"techstack": {
+		"@repo/internal": {
+			"design-tokens": [
+				"color",
+				"spacing"
+			]
+		}
+	}
 }

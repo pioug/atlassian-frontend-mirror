@@ -1,138 +1,138 @@
 {
-  "name": "@atlaskit/icon",
-  "version": "22.3.2",
-  "description": "An icon is a visual representation of a command, device, directory, or common action.",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "atlassian": {
-    "team": "Design System Team",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "releaseModel": "continuous",
-    "website": {
-      "name": "Icon",
-      "category": "Components"
-    },
-    "runReact18": true
-  },
-  "scripts": {
-    "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
-  },
-  "dependencies": {
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
-  },
-  "devDependencies": {
-    "@af/accessibility-testing": "*",
-    "@af/icon-build-process": "^0.6.0",
-    "@af/visual-regression": "*",
-    "@atlaskit/code": "^15.2.0",
-    "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/logo": "^14.0.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/theme": "^12.9.0",
-    "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/tooltip": "^18.4.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlassian/icon-lab": "^0.0.1",
-    "@babel/core": "^7.20.0",
-    "@emotion/babel-preset-css-prop": "^10.0.7",
-    "@testing-library/react": "^12.1.5",
-    "classnames": "^2.2.5",
-    "fs-extra": "^4.0.2",
-    "jest-emotion": "^10.0.32",
-    "jscodeshift": "^0.13.0",
-    "lodash": "^4.17.21",
-    "nullthrows": "^1.1.1",
-    "pkg-dir": "^4.2.0",
-    "react-dom": "^16.8.0",
-    "ts-node": "^10.9.1",
-    "wait-for-expect": "^1.2.0"
-  },
-  "keywords": [
-    "atlaskit",
-    "ui"
-  ],
-  "techstack": {
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "design-system": "v1",
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "ui-components": "lite-mode",
-      "analytics": "analytics-next",
-      "design-tokens": [
-        "color",
-        "spacing"
-      ],
-      "deprecation": "no-deprecated-imports"
-    }
-  },
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "homepage": "https://atlassian.design/components/icon/",
-  "af:exports": {
-    "./base": "./src/entry-points/base.tsx",
-    "./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
-    "./constants": "./src/entry-points/constants.tsx",
-    "./metadata": "./src/entry-points/metadata.tsx",
-    "./svg": "./src/entry-points/svg.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    "./glyph": "./glyph",
-    "./core": "./core",
-    "./utility": "./utility",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
-    "./base": "./src/entry-points/base.tsx",
-    "./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
-    "./constants": "./src/entry-points/constants.tsx",
-    "./metadata": "./src/entry-points/metadata.tsx",
-    "./svg": "./src/entry-points/svg.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    "./glyph/*": {
-      "types": "./glyph/*.d.ts",
-      "default": "./glyph/*.js"
-    },
-    "./core/*": {
-      "types": "./core/*.d.ts",
-      "default": "./core/*.js"
-    },
-    "./utility/*": {
-      "types": "./utility/*.d.ts",
-      "default": "./utility/*.js"
-    },
-    ".": "./src/index.tsx"
-  },
-  "platform-feature-flags": {
-    "platform.design-system-team.enable-new-icons": {
-      "type": "boolean"
-    }
-  }
+	"name": "@atlaskit/icon",
+	"version": "22.3.2",
+	"description": "An icon is a visual representation of a command, device, directory, or common action.",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.tsx",
+	"atlassian": {
+		"team": "Design System Team",
+		"productPushConsumption": [
+			"jira"
+		],
+		"releaseModel": "continuous",
+		"website": {
+			"name": "Icon",
+			"category": "Components"
+		},
+		"runReact18": true
+	},
+	"scripts": {
+		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/platform-feature-flags": "^0.2.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@af/accessibility-testing": "*",
+		"@af/icon-build-process": "^0.6.0",
+		"@af/visual-regression": "*",
+		"@atlaskit/code": "^15.2.0",
+		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/ssr": "*",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/visual-regression": "*",
+		"@atlassian/icon-lab": "^0.0.1",
+		"@babel/core": "^7.20.0",
+		"@emotion/babel-preset-css-prop": "^10.0.7",
+		"@testing-library/react": "^12.1.5",
+		"classnames": "^2.2.5",
+		"fs-extra": "^4.0.2",
+		"jest-emotion": "^10.0.32",
+		"jscodeshift": "^0.13.0",
+		"lodash": "^4.17.21",
+		"nullthrows": "^1.1.1",
+		"pkg-dir": "^4.2.0",
+		"react-dom": "^16.8.0",
+		"ts-node": "^10.9.1",
+		"wait-for-expect": "^1.2.0"
+	},
+	"keywords": [
+		"atlaskit",
+		"ui"
+	],
+	"techstack": {
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"design-system": "v1",
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"ui-components": "lite-mode",
+			"analytics": "analytics-next",
+			"design-tokens": [
+				"color",
+				"spacing"
+			],
+			"deprecation": "no-deprecated-imports"
+		}
+	},
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"homepage": "https://atlassian.design/components/icon/",
+	"af:exports": {
+		"./base": "./src/entry-points/base.tsx",
+		"./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./svg": "./src/entry-points/svg.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./glyph": "./glyph",
+		"./core": "./core",
+		"./utility": "./utility",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./base": "./src/entry-points/base.tsx",
+		"./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
+		"./constants": "./src/entry-points/constants.tsx",
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./svg": "./src/entry-points/svg.tsx",
+		"./types": "./src/entry-points/types.tsx",
+		"./glyph/*": {
+			"types": "./glyph/*.d.ts",
+			"default": "./glyph/*.js"
+		},
+		"./core/*": {
+			"types": "./core/*.d.ts",
+			"default": "./core/*.js"
+		},
+		"./utility/*": {
+			"types": "./utility/*.d.ts",
+			"default": "./utility/*.js"
+		},
+		".": "./src/index.tsx"
+	},
+	"platform-feature-flags": {
+		"platform.design-system-team.enable-new-icons": {
+			"type": "boolean"
+		}
+	}
 }

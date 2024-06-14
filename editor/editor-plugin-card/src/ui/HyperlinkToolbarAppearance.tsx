@@ -6,6 +6,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CardProvider, ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -129,6 +130,7 @@ export class HyperlinkToolbarAppearance extends Component<
 							inputMethod={INPUT_METHOD.FLOATING_TB}
 						/>
 					)}
+				<Separator />
 			</Flex>
 		);
 	}

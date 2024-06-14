@@ -264,6 +264,7 @@ describe('createPluginsList', () => {
 			config: {
 				menuDisabled: false,
 				allowZeroWidthSpaceAfter: true,
+				getEditorFeatureFlags: expect.any(Function),
 			},
 		});
 		expect(insertBlockPlugin).toBeCalledWith({
@@ -278,6 +279,7 @@ describe('createPluginsList', () => {
 			config: {
 				menuDisabled: true,
 				allowZeroWidthSpaceAfter: true,
+				getEditorFeatureFlags: expect.any(Function),
 			},
 		});
 		expect(insertBlockPlugin).toBeCalledWith({
@@ -292,6 +294,7 @@ describe('createPluginsList', () => {
 			config: {
 				menuDisabled: false,
 				allowZeroWidthSpaceAfter: true,
+				getEditorFeatureFlags: expect.any(Function),
 			},
 		});
 		expect(insertBlockPlugin).toBeCalledWith({
@@ -437,6 +440,7 @@ describe('createPluginsList', () => {
 					allowCompositionInputOverride: true,
 					appearance: 'mobile',
 					useLongPressSelection: false,
+					getEditorFeatureFlags: expect.any(Function),
 				},
 			});
 		});
@@ -448,6 +452,7 @@ describe('createPluginsList', () => {
 					allowCompositionInputOverride: false,
 					appearance: 'full-page',
 					useLongPressSelection: false,
+					getEditorFeatureFlags: expect.any(Function),
 				},
 			});
 		});

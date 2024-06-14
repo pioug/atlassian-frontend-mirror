@@ -1,123 +1,123 @@
 {
-  "name": "@atlaskit/link-create",
-  "version": "2.4.0",
-  "description": "The driver component of meta creation flow",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "atlassian": {
-    "team": "Linking Platform",
-    "inPublicMirror": false,
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "LinkCreate"
-    },
-    "i18n": true
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
-  },
-  "dependencies": {
-    "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.17.0",
-    "@atlaskit/empty-state": "^7.8.0",
-    "@atlaskit/form": "^10.3.0",
-    "@atlaskit/icon": "^22.3.0",
-    "@atlaskit/intl-messages-provider": "^1.0.2",
-    "@atlaskit/linking-common": "^5.7.0",
-    "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/primitives": "^7.0.0",
-    "@atlaskit/select": "^17.10.0",
-    "@atlaskit/smart-user-picker": "^6.9.0",
-    "@atlaskit/spinner": "^16.1.0",
-    "@atlaskit/textfield": "^6.3.0",
-    "@atlaskit/tokens": "^1.50.0",
-    "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "debounce-promise": "^3.1.2",
-    "final-form": "^4.20.3",
-    "react-final-form": "^6.5.3"
-  },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-intl-next": "npm:react-intl@^5.18.1"
-  },
-  "devDependencies": {
-    "@af/integration-testing": "*",
-    "@af/visual-regression": "*",
-    "@atlaskit/link-test-helpers": "^7.0.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlassian/feature-flags-test-utils": "*",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/debounce-promise": "^3.1.2",
-    "fetch-mock": "^8.0.0",
-    "react-dom": "^16.8.0",
-    "typescript": "~5.4.2",
-    "wait-for-expect": "^1.2.0"
-  },
-  "scripts": {
-    "codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-create run codegen-analytics'"
-  },
-  "techstack": {
-    "@atlassian/frontend": {
-      "code-structure": [
-        "tangerine-next"
-      ],
-      "import-structure": [
-        "atlassian-conventions"
-      ],
-      "circular-dependencies": [
-        "file-and-folder-level"
-      ]
-    },
-    "@repo/internal": {
-      "dom-events": "use-bind-event-listener",
-      "analytics": [
-        "analytics-next"
-      ],
-      "theming": [
-        "react-context",
-        "tokens"
-      ],
-      "ui-components": [
-        "lite-mode"
-      ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
-      "styling": [
-        "static",
-        "emotion"
-      ],
-      "imports": [
-        "import-no-extraneous-disable-for-examples-and-docs"
-      ]
-    }
-  },
-  "platform-feature-flags": {}
+	"name": "@atlaskit/link-create",
+	"version": "2.4.0",
+	"description": "The driver component of meta creation flow",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Linking Platform",
+		"inPublicMirror": false,
+		"releaseModel": "continuous",
+		"productPushConsumption": [
+			"jira"
+		],
+		"website": {
+			"name": "LinkCreate"
+		},
+		"i18n": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./i18n/*": "./src/i18n/*.ts"
+	},
+	"dependencies": {
+		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/empty-state": "^7.8.0",
+		"@atlaskit/form": "^10.3.0",
+		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/intl-messages-provider": "^1.0.2",
+		"@atlaskit/linking-common": "^5.7.0",
+		"@atlaskit/modal-dialog": "^12.13.0",
+		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/smart-user-picker": "^6.9.0",
+		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/tokens": "^1.50.0",
+		"@babel/runtime": "^7.0.0",
+		"@emotion/react": "^11.7.1",
+		"debounce-promise": "^3.1.2",
+		"final-form": "^4.20.3",
+		"react-final-form": "^6.5.3"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
+	},
+	"devDependencies": {
+		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
+		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
+		"@types/debounce-promise": "^3.1.2",
+		"fetch-mock": "^8.0.0",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2",
+		"wait-for-expect": "^1.2.0"
+	},
+	"scripts": {
+		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-create run codegen-analytics'"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"tangerine-next"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"theming": [
+				"react-context",
+				"tokens"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"platform-feature-flags": {}
 }

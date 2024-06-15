@@ -1,6 +1,8 @@
+// disable these two rules, there is no good way to query node without querySelector for svg
+/* eslint-disable testing-library/no-container,testing-library/no-node-access */
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import Avatar from '@atlaskit/avatar';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -35,7 +37,8 @@ describe('@atlaskit comments', () => {
 
 					const footer = screen.getByTestId('comment-footer');
 					// 3 actions and 2 separators between
-					expect(footer.childElementCount).toBe(5);
+					expect(within(footer).getAllByRole('button')).toHaveLength(3);
+					expect(within(footer).getAllByText(/·/i)).toHaveLength(2);
 				});
 			});
 
@@ -84,7 +87,7 @@ describe('@atlaskit comments', () => {
 					const afterContent = <button type="button">My sample after content</button>;
 					render(<Comment avatar="" content={content} afterContent={afterContent} />);
 
-					expect(screen.queryByRole('button')).toBeInTheDocument();
+					expect(screen.getByRole('button')).toBeInTheDocument();
 					expect(screen.getByText('My sample content')).toBeInTheDocument();
 				});
 			});
@@ -124,7 +127,6 @@ describe('@atlaskit comments', () => {
 					const { container } = render(
 						<Comment avatar="" restrictedTo="atlassian-staff" testId="comment" />,
 					);
-
 					const svg = container.querySelectorAll('svg');
 
 					expect(svg).toHaveLength(1);

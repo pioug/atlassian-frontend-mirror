@@ -1,6 +1,8 @@
+// disable these two rules, there is no good way to query node without querySelector
+/* eslint-disable testing-library/no-container,testing-library/no-node-access */
 import React from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import CodeBlock from '../../code-block';
 import { getColorPalette } from '../../internal/theme/get-theme';
@@ -30,10 +32,8 @@ const longCode = `// some code
 const testId = 'code-test';
 
 describe('CodeBlock', () => {
-	afterEach(cleanup);
-
-	const findCodeLine = (rendered: ReturnType<typeof render>, line: number): HTMLElement => {
-		return rendered.getByTestId(`${testId}-line-${line}`);
+	const findCodeLine = (line: number): HTMLElement => {
+		return screen.getByTestId(`${testId}-line-${line}`);
 	};
 
 	it('should have "text" as the default language', () => {
@@ -47,8 +47,8 @@ describe('CodeBlock', () => {
 	});
 
 	it('should apply correct bg color', () => {
-		const { getByTestId } = render(<CodeBlock text={code} testId="test" language="java" />);
-		expect(getByTestId('test')).toHaveStyle(
+		render(<CodeBlock text={code} testId="test" language="java" />);
+		expect(screen.getByTestId('test')).toHaveStyle(
 			`background-color: ${getColorPalette().backgroundColor};`,
 		);
 	});
@@ -71,52 +71,43 @@ describe('CodeBlock', () => {
 	});
 
 	it('should render the right thing on the right line', () => {
-		const rendered = render(<CodeBlock text={longCode} testId={testId} />);
+		render(<CodeBlock text={longCode} testId={testId} />);
 
 		longCode.split('\n').forEach((line, index) => {
 			const lineNum = index + 1;
-			expect(findCodeLine(rendered, lineNum).textContent?.trim()).toEqual(line);
+			expect(findCodeLine(lineNum).textContent?.trim()).toEqual(line);
 		});
 	});
 
 	describe('Highlighting lines works as expected', () => {
 		it(`should render single line highlight`, () => {
-			const renderResult = render(<CodeBlock text={longCode} testId={testId} highlight="1" />);
-			const { container } = renderResult;
+			const { container } = render(<CodeBlock text={longCode} testId={testId} highlight="1" />);
 
-			expect(findCodeLine(renderResult, 1)).toHaveAttribute('data-ds--code--row--highlight');
-			expect(findCodeLine(renderResult, 2)).not.toHaveAttribute('data-ds--code--row--highlight');
+			expect(findCodeLine(1)).toHaveAttribute('data-ds--code--row--highlight');
+			expect(findCodeLine(2)).not.toHaveAttribute('data-ds--code--row--highlight');
 			expect(container.querySelectorAll('[data-ds--code--row--highlight]')).toHaveLength(1);
 		});
 
 		it(`should render highlight for a range of lines`, () => {
-			const renderResult = render(<CodeBlock text={longCode} testId={testId} highlight="1-3" />);
-			const { container } = renderResult;
+			const { container } = render(<CodeBlock text={longCode} testId={testId} highlight="1-3" />);
 
 			[1, 2, 3].forEach((lineNumber) =>
-				expect(findCodeLine(renderResult, lineNumber)).toHaveAttribute(
-					'data-ds--code--row--highlight',
-				),
+				expect(findCodeLine(lineNumber)).toHaveAttribute('data-ds--code--row--highlight'),
 			);
-			expect(findCodeLine(renderResult, 4)).not.toHaveAttribute('data-ds--code--row--highlight');
+			expect(findCodeLine(4)).not.toHaveAttribute('data-ds--code--row--highlight');
 			expect(container.querySelectorAll('[data-ds--code--row--highlight]')).toHaveLength(3);
 		});
 
 		it(`should render highlight for a combination of single and ranges`, () => {
-			const renderResult = render(
+			const { container } = render(
 				<CodeBlock text={longCode} testId={testId} highlight="1-3,5,8-9" />,
 			);
-			const { container } = renderResult;
 
 			[1, 2, 3].forEach((lineNumber) =>
-				expect(findCodeLine(renderResult, lineNumber)).toHaveAttribute(
-					'data-ds--code--row--highlight',
-				),
+				expect(findCodeLine(lineNumber)).toHaveAttribute('data-ds--code--row--highlight'),
 			);
 			[4, 6, 10].forEach((lineNumber) =>
-				expect(findCodeLine(renderResult, lineNumber)).not.toHaveAttribute(
-					'data-ds--code--row--highlight',
-				),
+				expect(findCodeLine(lineNumber)).not.toHaveAttribute('data-ds--code--row--highlight'),
 			);
 			expect(container.querySelectorAll('[data-ds--code--row--highlight]')).toHaveLength(6);
 		});
@@ -124,13 +115,13 @@ describe('CodeBlock', () => {
 
 	describe('Tokenised class names are rendered correctly', () => {
 		it('should handle multiple combinations of up to 4 token classes', () => {
-			const { getByText } = render(
+			render(
 				<CodeBlock text="console.log('hi')" testId={testId} language="ts" showLineNumbers={true} />,
 			);
 
-			expect(getByText('console')).toHaveClass('token console class-name');
-			expect(getByText('.')).toHaveClass('token punctuation');
-			expect(getByText('log')).toHaveClass('token method function property-access');
+			expect(screen.getByText('console')).toHaveClass('token console class-name');
+			expect(screen.getByText('.')).toHaveClass('token punctuation');
+			expect(screen.getByText('log')).toHaveClass('token method function property-access');
 		});
 	});
 });

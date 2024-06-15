@@ -53,9 +53,8 @@ describe('@atlaskit comments', () => {
 			describe('if href not provided', () => {
 				it('should render a span', () => {
 					const children = <p>children</p>;
-					const { container } = render(<CommentField>{children}</CommentField>);
-
-					expect(container.querySelector('span')).toBeInTheDocument();
+					render(<CommentField>{children}</CommentField>);
+					expect(screen.getByRole('presentation')).toBeInTheDocument();
 					expect(screen.queryByRole('link')).not.toBeInTheDocument();
 					expect(screen.getByText('children')).toBeInTheDocument();
 				});

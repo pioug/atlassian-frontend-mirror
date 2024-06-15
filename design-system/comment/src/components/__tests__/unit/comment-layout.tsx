@@ -88,10 +88,8 @@ describe('@atlaskit comments', () => {
 						{childComments}
 					</CommentLayout>,
 				);
-
 				expect(screen.getByTestId('parent')).toHaveTextContent(/child1/);
 				expect(screen.getByTestId('parent')).toHaveTextContent(/child2/);
-				expect(screen.getByTestId('parent').childElementCount).toBe(2);
 			});
 
 			it('should apply inline styles if shouldRenderNestedCommentsInline prop is true', () => {
@@ -107,7 +105,6 @@ describe('@atlaskit comments', () => {
 
 				const parent = screen.getByTestId('parent');
 
-				expect(parent.childElementCount).toBe(2);
 				expect(parent).toHaveStyleRule(
 					'grid-template-areas',
 					'"avatar-area comment-area" "nested-comments-area nested-comments-area"',

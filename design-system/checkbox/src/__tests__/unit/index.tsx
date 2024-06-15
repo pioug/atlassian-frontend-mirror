@@ -1,6 +1,6 @@
 import React, { type ChangeEvent, createRef } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -191,14 +191,19 @@ describe('@atlaskit/checkbox', () => {
 				'aria-label': 'stub',
 			});
 			const checkbox = screen.getByTestId('test--checkbox-label') as HTMLInputElement;
-
-			expect(checkbox.querySelector('span')).toBe(null);
+			const label = within(checkbox).queryByText('', {
+				selector: 'span',
+			});
+			expect(label).not.toBeInTheDocument();
 		});
 		it('should change checked after defaultChecked is set to true', () => {
 			renderCheckbox({ testId: 'test' });
 			const checkbox = screen.getByTestId('test--checkbox-label') as HTMLInputElement;
 
-			expect(checkbox.querySelector('span')).toBeDefined();
+			const label = within(checkbox).queryByText('stub', {
+				selector: 'span',
+			});
+			expect(label).toBeInTheDocument();
 		});
 	});
 });

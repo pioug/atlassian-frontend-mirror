@@ -1,6 +1,6 @@
 import { isValidElement, type ReactElement } from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { type AST } from 'refractor';
 
 import createElement from '../../lib/react-renderer/create-element';
@@ -88,10 +88,9 @@ describe('createElement', () => {
 			key,
 		}) as ReactElement;
 
-		const { getByText, container } = render(element);
-
-		expect(container.querySelector('span')).toBeInTheDocument();
-		expect(getByText('text')).toBeInTheDocument();
+		render(element);
+		expect(screen.getByText('text', { selector: 'span' })).toBeInTheDocument();
+		expect(screen.getByText('text')).toBeInTheDocument();
 	});
 
 	it('should return a react component containing all node children', () => {
@@ -101,9 +100,9 @@ describe('createElement', () => {
 			key,
 		}) as ReactElement;
 
-		const { getByText } = render(element);
+		render(element);
 
-		expect(getByText('text22')).toBeInTheDocument();
+		expect(screen.getByText('text22')).toBeInTheDocument();
 	});
 
 	it('should apply element node styles', () => {
@@ -113,8 +112,8 @@ describe('createElement', () => {
 			key,
 		}) as ReactElement;
 
-		const { getByText } = render(element);
-		const renderedNode = getByText('text');
+		render(element);
+		const renderedNode = screen.getByText('text');
 
 		expect(renderedNode).toBeInTheDocument();
 		expect(renderedNode).toHaveStyle('text-align: center;');
@@ -128,8 +127,8 @@ describe('createElement', () => {
 			key,
 		}) as ReactElement;
 
-		const { getByText } = render(element);
-		const renderedNode = getByText('text');
+		render(element);
+		const renderedNode = screen.getByText('text');
 
 		expect(renderedNode).toHaveClass('testClassName');
 		expect(renderedNode).toHaveClass('testClassName2');

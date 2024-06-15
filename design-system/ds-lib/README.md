@@ -143,6 +143,9 @@ function Component() {
 
 ### `useCloseOnEscapePress()`
 
+**Notice: `useCloseOnEscapePress()` is deprecated, Please use `useCloseOnEscapePress` from
+`@atlaskit/layering` instead.**
+
 ```tsx
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 

@@ -145,20 +145,12 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
 					decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
 					if (activeNode) {
-						const newActiveNode = activeNode && tr.doc.nodeAt(activeNode.pos);
-
-						let nodeType = activeNode.nodeType;
-						let anchorName = activeNode.anchorName;
-
-						if (
-							newActiveNode &&
-							newActiveNode?.type.name !== activeNode.nodeType &&
-							!meta?.nodeMoved
-						) {
-							nodeType = newActiveNode.type.name;
-							anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
-						}
-						const draghandleDec = dragHandleDecoration(activeNode.pos, anchorName, nodeType, api);
+						const draghandleDec = dragHandleDecoration(
+							activeNode.pos,
+							activeNode.anchorName,
+							activeNode.nodeType,
+							api,
+						);
 						decorations = decorations.add(newState.doc, [draghandleDec]);
 					}
 				}

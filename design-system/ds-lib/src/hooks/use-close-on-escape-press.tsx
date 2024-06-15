@@ -10,6 +10,7 @@ interface UseCloseOnEscapePressOpts {
 }
 
 /**
+ * @deprecated Please use useCloseOnEscapePress from '@atlaskit/layering' instead.
  * Calls back when the escape key is pressed.
  * To be used exclusively for closing layered components.
  * Use the `isDisabled` argument to ignore closing events.

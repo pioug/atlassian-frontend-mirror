@@ -1,6 +1,8 @@
 /** @jsx jsx */
+// disable these two rules, there is no good way to query node without querySelector
+/* eslint-disable testing-library/no-container,testing-library/no-node-access */
 import { css, type CSSObject, jsx } from '@emotion/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import refractor from 'refractor';
 
 import Highlight from '../../async';
@@ -48,10 +50,10 @@ describe('Highlight', () => {
 
 	it('should render unhighlighted code and not call refractor if language is not set', () => {
 		const highlight = <Highlight {...props} language={undefined} text={javaCodeLine} />;
-		const { getByText } = render(highlight);
+		render(highlight);
 
 		expect(refractorSpy).not.toBeCalled();
-		expect(getByText(javaCodeLine)).toBeInTheDocument();
+		expect(screen.getByText(javaCodeLine)).toBeInTheDocument();
 	});
 
 	it('should render unhighlighted code if language is not valid', () => {
@@ -60,21 +62,21 @@ describe('Highlight', () => {
 				{javaCodeLine}
 			</Highlight>
 		);
-		const { getByText } = render(highlight);
+		render(highlight);
 
-		expect(getByText(javaCodeLine)).toBeInTheDocument();
+		expect(screen.getByText(javaCodeLine)).toBeInTheDocument();
 		expect(refractorSpy).toBeCalled();
 		expect(refractorSpy).toThrow();
 	});
 
 	it('should render highlighted code if valid language is set', () => {
 		const highlight = <Highlight {...props} language="java" text={javaCodeLine} />;
-		const { getByText, container } = render(highlight);
+		const { container } = render(highlight);
 
-		expect(getByText('int')).toBeInTheDocument();
-		expect(getByText('num')).toBeInTheDocument();
-		expect(getByText('=')).toBeInTheDocument();
-		expect(getByText('21')).toBeInTheDocument();
+		expect(screen.getByText('int')).toBeInTheDocument();
+		expect(screen.getByText('num')).toBeInTheDocument();
+		expect(screen.getByText('=')).toBeInTheDocument();
+		expect(screen.getByText('21')).toBeInTheDocument();
 		expect(refractorSpy).toBeCalledTimes(1);
 		expect(container.querySelector('code')).toBeInTheDocument();
 	});
@@ -154,18 +156,18 @@ describe('Highlight', () => {
 		const highlight = (
 			<Highlight {...props} codeBidiWarnings={true} text={javaCodeBlockWithBidiChar} />
 		);
-		const { getByText } = render(highlight);
+		render(highlight);
 
-		expect(getByText('U+202e')).toBeInTheDocument();
+		expect(screen.getByText('U+202e')).toBeInTheDocument();
 	});
 
 	it('should not render a bidi code warning if codeBidiWarnings flag is set to false', () => {
 		const highlight = (
 			<Highlight {...props} codeBidiWarnings={false} text={javaCodeBlockWithBidiChar} />
 		);
-		const { queryByLabelText } = render(highlight);
+		render(highlight);
 
-		expect(queryByLabelText('U+202e')).not.toBeInTheDocument();
+		expect(screen.queryByLabelText('U+202e')).not.toBeInTheDocument();
 	});
 
 	it('should render a bidi code warning with a tooltip if codeBidiWarningTooltipEnabled flag is set to true', () => {
@@ -177,9 +179,9 @@ describe('Highlight', () => {
 				text={javaCodeBlockWithBidiChar}
 			/>
 		);
-		const { getByRole } = render(highlight);
+		render(highlight);
 
-		expect(getByRole('presentation')).toBeInTheDocument();
+		expect(screen.getByRole('presentation')).toBeInTheDocument();
 	});
 
 	it('should not render a bidi code warning tooltip if codeBidiWarningTooltipEnabled flag is set to false', () => {
@@ -191,9 +193,9 @@ describe('Highlight', () => {
 				text={javaCodeBlockWithBidiChar}
 			/>
 		);
-		const { queryByRole } = render(highlight);
+		render(highlight);
 
-		expect(queryByRole('presentation')).not.toBeInTheDocument();
+		expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
 	});
 
 	it('should apply passed styles and class names', () => {
@@ -228,9 +230,9 @@ describe('Highlight', () => {
 				text={javaCodeLine}
 			/>
 		);
-		const { getByTestId } = render(highlight);
+		render(highlight);
 
-		expect(getByTestId('testId')).toBeInTheDocument();
+		expect(screen.getByTestId('testId')).toBeInTheDocument();
 	});
 
 	it('should apply lineProps passing lineNumber as an argument if lineProps is a function', () => {
@@ -245,8 +247,8 @@ describe('Highlight', () => {
 				text={javaCodeLine}
 			/>
 		);
-		const { getByTestId } = render(highlight);
+		render(highlight);
 
-		expect(getByTestId('testId-1')).toBeInTheDocument();
+		expect(screen.getByTestId('testId-1')).toBeInTheDocument();
 	});
 });

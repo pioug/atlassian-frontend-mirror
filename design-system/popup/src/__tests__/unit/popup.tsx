@@ -572,6 +572,38 @@ describe('Popup', () => {
 		expect(triggerParent).not.toContainElement(popupEl);
 	});
 
+	describe('when shouldFitContainer is passed', () => {
+		it('popup renders inside parent', () => {
+			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+			const popupEl = screen.getByText('content');
+			const triggerEl = screen.getByText('trigger');
+			const triggerParent = triggerEl.parentElement as HTMLElement;
+			expect(screen.getByText('content')).toBeInTheDocument();
+			expect(triggerParent).toContainElement(popupEl);
+		});
+
+		it('renders a wrapper div with position relative', () => {
+			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+			const triggerEl = screen.getByText('trigger');
+			const triggerParent = triggerEl.parentElement as HTMLElement;
+			expect(triggerParent).toHaveStyle('position: relative');
+		});
+
+		it('popup container renders with position absolute', () => {
+			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+			const popupEl = screen.getByText('content');
+			const popupParent = popupEl.parentElement as HTMLElement;
+			expect(popupParent).toHaveStyle('position: absolute');
+		});
+
+		it('popup container renders with width 100%', () => {
+			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+			const popupEl = screen.getByText('content');
+			const popupParent = popupEl.parentElement as HTMLElement;
+			expect(popupParent).toHaveStyle('width: 100%');
+		});
+	});
+
 	it('popup renders position fixed by default', () => {
 		render(<Popup {...defaultProps} isOpen />);
 		const popupEl = screen.getByText('content');

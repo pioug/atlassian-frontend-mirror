@@ -87,6 +87,14 @@ export interface PopupComponentProps {
 	shouldRenderToParent?: boolean;
 
 	/**
+	 * This fits the popup width to its parent's width.
+	 * When set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.
+	 * The popup will be rendered as a sibling to the trigger element, and will be full width.
+	 * The default is `false`.
+	 */
+	shouldFitContainer?: boolean;
+
+	/**
 	 * Use this to set the accessibility role for the popup.
 	 * We strongly recommend using only `menu` or `dialog`.
 	 */
@@ -191,6 +199,14 @@ interface BaseProps {
 	shouldRenderToParent?: boolean;
 
 	/**
+	 * This fits the popup width to its parent's width.
+	 * When set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.
+	 * The popup will be rendered as a sibling to the trigger element, and will be full width.
+	 * The default is `false`.
+	 */
+	shouldFitContainer?: boolean;
+
+	/**
 	 * This allows the popup disable focus lock. It will only work when `shouldRenderToParent` is `true`.
 	 * The default is `false`.
 	 */
@@ -222,7 +238,7 @@ interface BaseProps {
 	titleId?: string;
 }
 
-export interface PopupProps extends BaseProps {
+interface InternalPopupProps extends BaseProps {
 	/**
 	 * Render props used to anchor the popup to your content.
 	 * Make this an interactive element,
@@ -237,6 +253,18 @@ export interface PopupProps extends BaseProps {
 	 */
 	zIndex?: number;
 }
+
+type StandardPopupProps = InternalPopupProps & {
+	shouldFitContainer?: false;
+};
+
+type ShouldFitContainerPopupProps = InternalPopupProps & {
+	shouldFitContainer: true;
+	shouldRenderToParent?: true;
+	strategy?: 'absolute';
+};
+
+export type PopupProps = StandardPopupProps | ShouldFitContainerPopupProps;
 
 export interface PopperWrapperProps extends BaseProps {
 	triggerRef: TriggerRef;

@@ -16,6 +16,7 @@ import { type PopperWrapperProps, type PopupComponentProps } from './types';
 import { useCloseManager } from './use-close-manager';
 import { useFocusManager } from './use-focus-manager';
 
+const popupFullWidthStyles = css({ width: '100%' });
 const popupStyles = css({
 	display: 'block',
 	boxSizing: 'border-box',
@@ -43,11 +44,15 @@ const blockPointerEventsOnExternalIframeStyles = css({
 });
 
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>((props, ref) => {
-	const { shouldRenderToParent, children, ...htmlAttributes } = props;
+	const { shouldRenderToParent, shouldFitContainer, children, ...htmlAttributes } = props;
 
 	return (
 		<div
-			css={[popupStyles, !shouldRenderToParent && popupOverflowStyles]}
+			css={[
+				popupStyles,
+				!shouldRenderToParent && popupOverflowStyles,
+				shouldFitContainer && popupFullWidthStyles,
+			]}
 			{...htmlAttributes}
 			ref={ref}
 		>
@@ -73,6 +78,7 @@ function PopperWrapper({
 	triggerRef,
 	shouldUseCaptureOnOutsideClick,
 	shouldRenderToParent,
+	shouldFitContainer,
 	shouldDisableFocusLock,
 	strategy,
 	role,
@@ -145,6 +151,7 @@ function PopperWrapper({
 						// first on the browser address bar when using keyboard
 						tabIndex={autoFocus ? 0 : undefined}
 						shouldRenderToParent={shouldRenderToParent}
+						shouldFitContainer={shouldFitContainer}
 					>
 						{getBooleanFF('platform.design-system-team.iframe_gojiv') && (
 							<Global styles={blockPointerEventsOnExternalIframeStyles} />

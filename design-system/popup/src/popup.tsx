@@ -8,6 +8,7 @@ import { useUID } from 'react-uid';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
+import { Box, xcss } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 
 import PopperWrapper from './popper-wrapper';
@@ -15,6 +16,10 @@ import { type PopupProps } from './types';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
 
 const defaultLayer = layers.layer();
+
+const wrapperStyles = xcss({
+	position: 'relative',
+});
 
 export const Popup: FC<PopupProps> = memo(
 	({
@@ -35,6 +40,7 @@ export const Popup: FC<PopupProps> = memo(
 		zIndex = defaultLayer,
 		shouldUseCaptureOnOutsideClick = false,
 		shouldRenderToParent = false,
+		shouldFitContainer = false,
 		shouldDisableFocusLock = false,
 		strategy,
 		role,
@@ -64,10 +70,11 @@ export const Popup: FC<PopupProps> = memo(
 					onClose={onClose}
 					autoFocus={autoFocus}
 					shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
-					shouldRenderToParent={shouldRenderToParent}
+					shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
+					shouldFitContainer={shouldFitContainer}
 					shouldDisableFocusLock={shouldDisableFocusLock}
 					triggerRef={triggerRef}
-					strategy={strategy}
+					strategy={shouldFitContainer ? 'absolute' : strategy}
 					role={role}
 					label={label}
 					titleId={titleId}
@@ -75,7 +82,7 @@ export const Popup: FC<PopupProps> = memo(
 			</UNSAFE_LAYERING>
 		);
 
-		return (
+		const popupContent = (
 			<Manager>
 				<Reference>
 					{({ ref }) => {
@@ -88,13 +95,19 @@ export const Popup: FC<PopupProps> = memo(
 					}}
 				</Reference>
 				{isOpen &&
-					(shouldRenderToParent ? (
+					(shouldRenderToParent || shouldFitContainer ? (
 						renderPopperWrapper
 					) : (
 						<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
 					))}
 			</Manager>
 		);
+
+		if (shouldFitContainer) {
+			return <Box xcss={wrapperStyles}>{popupContent}</Box>;
+		}
+
+		return popupContent;
 	},
 );
 

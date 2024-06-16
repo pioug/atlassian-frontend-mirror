@@ -50,6 +50,7 @@
 		"@atlaskit/platform-feature-flags": "^0.2.0",
 		"@atlaskit/popper": "^6.0.0",
 		"@atlaskit/portal": "^4.5.0",
+		"@atlaskit/primitives": "^7.1.0",
 		"@atlaskit/theme": "^12.9.0",
 		"@atlaskit/tokens": "^1.50.0",
 		"@babel/runtime": "^7.0.0",

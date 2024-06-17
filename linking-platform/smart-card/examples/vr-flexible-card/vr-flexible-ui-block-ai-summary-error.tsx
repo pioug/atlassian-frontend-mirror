@@ -4,11 +4,12 @@ import { getErrorMessage } from '../../src/view/FlexibleCard/components/actions/
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 import { TitleBlock, SnippetBlock, Card, Provider } from '@atlaskit/smart-card';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { CardClient } from '@atlaskit/link-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import { DiProvider, injectable } from 'react-magnetic-di';
-import { useAISummary } from '../../src/state/hooks/use-ai-summary';
+import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
 import { AISummaryBlockErrorIndicator } from '../../src/view/FlexibleCard/components/blocks/ai-summary-block/resolved';
 import { ActionFooter } from '../../src/view/FlexibleCard/components/blocks/action-block/action-footer';
 
@@ -24,7 +25,7 @@ const mockState: AISummaryState = {
 	error: 'NETWORK_ERROR',
 };
 
-const mockUseAiSummary = injectable(useAISummary, () => ({
+const mockUseAiSummary = injectable(useAISummaryAction, () => ({
 	summariseUrl: () => Promise.resolve(mockState),
 	state: mockState,
 }));

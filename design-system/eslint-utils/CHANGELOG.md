@@ -1,5 +1,13 @@
 # @atlaskit/eslint-utils
 
+## 1.6.2
+
+### Patch Changes
+
+- [#110284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110284)
+  [`34021a2db424f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34021a2db424f) -
+  Internal refactoring to improve backwards compatibility with ESLint versions lower than 8
+
 ## 1.6.1
 
 ### Patch Changes

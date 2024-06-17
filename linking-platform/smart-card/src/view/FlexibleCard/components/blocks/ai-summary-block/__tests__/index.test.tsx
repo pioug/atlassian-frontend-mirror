@@ -2,6 +2,7 @@ import React from 'react';
 
 import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -21,7 +22,7 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 	useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
 }));
 
-const TestComponent = (props: AISummaryBlockProps & { spy: jest.Mock }) => (
+const TestComponent = (props: Partial<AISummaryBlockProps> & { spy: jest.Mock }) => (
 	<AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
 		<SmartCardProvider>
 			<IntlProvider locale="en">
@@ -36,7 +37,7 @@ const TestComponent = (props: AISummaryBlockProps & { spy: jest.Mock }) => (
 describe('AISummaryBlock', () => {
 	const testIdBase = 'some-test-id';
 
-	const renderAISummaryBlock = (props?: AISummaryBlockProps) => {
+	const renderAISummaryBlock = (props?: Partial<AISummaryBlockProps>) => {
 		const spy = jest.fn();
 
 		const { rerender, ...result } = render(<TestComponent spy={spy} {...props} />);

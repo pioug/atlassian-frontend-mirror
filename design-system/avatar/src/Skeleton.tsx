@@ -1,7 +1,11 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { type CSSProperties, type FC } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';

@@ -1,8 +1,7 @@
-This rule prevents usage of the `className` prop in JSX.
+Blocks the `className` prop, which encourages unsafe global styles and cannot be statically
+resolved.
 
-Avoid `className` because it invites the use of unsafe global styles and is impossible to determine
-via local tooling. Use props for configuration and typical CSS-in-JS for styling or `xcss` for
-bounded overrides.
+Use the `css` prop for styling, with props for configuration and `xcss` for bounded overrides.
 
 ## Examples
 
@@ -20,12 +19,21 @@ bounded overrides.
 
 ```tsx
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
-<div css={css({ padding: '10px' })} />;
+const myStyles = css({ padding: token('space.100') });
+
+<div css={myStyles} />;
 ```
 
 ```tsx
 <MyComponent isDisabled={isDisabled} />
+```
+
+```tsx
+import { Checkbox } from '@atlaskit/checkbox';
+
+<Checkbox xcss={{ alignItems: 'center' }} />;
 ```
 
 ## FAQ

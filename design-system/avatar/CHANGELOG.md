@@ -1,5 +1,18 @@
 # @atlaskit/avatar
 
+## 21.10.0
+
+### Minor Changes
+
+- [#111696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111696)
+  [`20c2d58f6f8a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20c2d58f6f8a9) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.9.2
 
 ### Patch Changes

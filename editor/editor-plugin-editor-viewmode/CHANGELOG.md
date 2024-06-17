@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 1.2.1
+
+### Patch Changes
+
+- [#111504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111504)
+  [`d862c6879131d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d862c6879131d) -
+  [ED-23748] Fix comment on media disappers in live edit and editor when
+  `platform.editor.live-view.comments-in-media-toolbar-button` is on
+
+## 1.2.0
+
+### Minor Changes
+
+- [#106594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106594)
+  [`554be969a7b69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/554be969a7b69) -
+  Support comments on media in Live View mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

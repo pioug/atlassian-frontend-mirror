@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 import { type CSSProperties, forwardRef, type MouseEvent, type ReactNode, useMemo } from 'react';
 import { type MediaType } from '@atlaskit/media-client';

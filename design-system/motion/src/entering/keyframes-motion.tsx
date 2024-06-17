@@ -1,5 +1,6 @@
 import React, { type Ref, useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { ClassNames, type CSSObject, keyframes } from '@emotion/react';
 
 import { reduceMotionAsPerUserPreference } from '../utils/accessibility';

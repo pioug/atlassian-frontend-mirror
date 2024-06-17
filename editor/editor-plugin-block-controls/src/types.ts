@@ -26,6 +26,15 @@ export interface PluginState {
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
 
+export type BlockControlsSharedState =
+	| {
+			isMenuOpen: boolean;
+			activeNode: { pos: number; anchorName: string } | null;
+			decorationState: DecorationState;
+			isDragging: boolean;
+	  }
+	| undefined;
+
 export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
@@ -35,14 +44,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 		];
-		sharedState:
-			| {
-					isMenuOpen: boolean;
-					activeNode: { pos: number; anchorName: string } | null;
-					decorationState: DecorationState;
-					isDragging: boolean;
-			  }
-			| undefined;
+		sharedState: BlockControlsSharedState;
 		commands: {
 			moveNode: (start: number, to: number) => EditorCommand;
 			showDragHandleAt: (pos: number, anchorName: string, nodeType: string) => EditorCommand;

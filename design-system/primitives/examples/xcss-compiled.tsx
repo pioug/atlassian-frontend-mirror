@@ -38,9 +38,11 @@ export default function Example() {
 		<>
 			<Inline grow="hug" space="space.100" xcss={styles.dashedBorder} alignInline="center">
 				<Box xcss={styles.root}>Static</Box>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<Box xcss={cx(styles.root, styles.bg)}>Composed</Box>
 				<Box
 					onClick={() => setIsFocused((prev) => !prev)}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					xcss={cx(styles.root, styles.bg, styles.interactive, isFocused && styles.focused)}
 				>
 					Conditionally composed

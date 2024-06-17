@@ -1,29 +1,31 @@
-This rule disallows using imported style values in `css`, `cssMap`, `styled`, `keyframes` and `xcss`
-calls.
+Blocks imported style values in `css`, `cssMap`, `styled`, `keyframes` and `xcss` calls.
 
-Importing style values may result in unexpected errors when used in these APIs, because its value
-will be null at runtime when using `@compiled/react`. Additionally, co-locating style definitions
-with their usage is considered best practice in order to improve code readability and build
-performance.
+Use alongside `no-exported-styles` which blocks exporting styles.
+
+Compiled style declarations are null at runtime, so using imported styles will cause unexpected
+errors.
+
+Co-locate style definitions with their usage instead. This will also improve code readability and
+build performance.
 
 ## Examples
 
 ### Incorrect
 
-```js
+```tsx
 import { css } from '@compiled/react';
-import { colors, getColor } from '@mui/theme';
+import { colors, getColor } from '../shared';
 
 const styles = css({
-	[colorKey]: getColor('red'),
-	background: colors['red'],
+	color: getColor('red'),
+	backgroundColor: colors['red'],
 });
 ```
 
-```js
+```tsx
 import { css } from '@compiled/react';
-import { buttonStyles, cssShared, HEIGHT, colorKey } from '../shared';
 import { ff } from '@atlaskit/ff';
+import { buttonStyles, cssShared, HEIGHT, colorKey } from '../shared';
 
 const sharedObject = { padding: 0 };
 
@@ -37,47 +39,49 @@ const styles = css({
 
 Importing styles to use in style composition is not allowed.
 
-```js
+```tsx
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 import { buttonStyles } from '../shared';
 
 const styles = css({
-	color: 'red',
+	color: token('color.text'),
 });
 
-export default () => <div css={[styles, buttonStyles]} />;
+const Component = () => <div css={[styles, buttonStyles]} />;
 ```
 
 Importing styles to pass to the style prop is also not allowed.
 
-```js
+```tsx
 import { importedWidth } from '../shared';
 
-export default () => <div style={{ width: importedWidth }} />;
+const Component = () => <div style={{ width: importedWidth }} />;
 ```
 
 ### Correct
 
-Co-locate your styles next to your components to improve code readability, linting, and build
-performance.
+Co-locate styles with components to improve code readability, linting, and build performance.
 
-```js
+```tsx
 import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const styles = css({
-	color: 'red',
+	color: token('color.text'),
 	padding: token('space.150'),
 });
-export const Component = ({ children }) => <div css={styles}>{children}></div>;
+
+const Component = () => <div css={styles} />;
 ```
 
-```js
+```tsx
 import { keyframes } from '@compiled/react';
 
 const animation = keyframes({});
 const styles = css({ animate: `${animation} 1s ease-in` });
-export const Component = ({ children }) => <div css={styles}>{children}></div>;
+
+const Component = () => <div css={styles} />;
 ```
 
 ## Options
@@ -138,7 +142,7 @@ Default imports are not currently supported.
 
 ### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -148,5 +152,4 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings).
+Override this list with the `importSources` option, which accepts an array of package names.

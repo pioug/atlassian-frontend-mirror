@@ -1,23 +1,35 @@
-This rule ensures the `cx()` function is only used within the `xcss` prop. This aids tracking what
-styles are applied to a jsx element.
+Blocks the `cx()` function from being used outside of the `xcss` prop. This aids tracking which
+styles are applied.
 
-The `cx` function is checked only if it is imported from `@compiled/react` or `@atlaskit/css`.
+Use the `cx()` function when passing multiple styles to the `xcss` prop. This provides more robust
+type checking than the conventional array syntax:
 
-Passing arguments to the `cx()` function is how you compose styles (combine more than one set of
-styles together) with XCSS. This is a workaround for the more conventional array syntax (e.g.
-[in Emotion](https://emotion.sh/docs/composition)) `<div xcss={[style1, style2]} />` not giving
-robust enough type checking.
+```tsx
+import { cssMap, cx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { Component } from 'some-package';
+
+const styles = cssMap({
+	text: { color: token('color.text') },
+	primary: { color: token('color.text.brand') },
+});
+
+<Component xcss={cx(isPrimary && styles.text, !isPrimary && styles.primary)} />;
+```
+
+The `cx()` function is only checked when imported from `@compiled/react` or `@atlaskit/css`.
 
 ## Examples
 
 ### Incorrect
 
-```js
-import { cx, cssMap } from '@compiled/react';
+```tsx
+import { cssMap, cx } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	text: { color: 'red' },
-	bg: { background: 'blue' },
+	text: { color: token('color.text') },
+	bg: { background: token('color.background.neutral') },
 });
 
 const joinedStyles = cx(styles.text, styles.bg);
@@ -27,12 +39,12 @@ const joinedStyles = cx(styles.text, styles.bg);
 
 ### Correct
 
-```js
-import { cx, cssMap } from '@compiled/react';
+```tsx
+import { cssMap, cx } from '@compiled/react';
 
 const styles = cssMap({
-	text: { color: 'red' },
-	bg: { background: 'blue' },
+	text: { color: token('color.text') },
+	bg: { background: token('color.background.neutral') },
 });
 
 <Button xcss={cx(styles.text, styles.bg)} />;

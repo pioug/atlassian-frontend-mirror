@@ -39,9 +39,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-common": "^82.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
-		"@atlaskit/editor-plugin-hyperlink": "^2.0.0",
+		"@atlaskit/editor-plugin-hyperlink": "^2.1.0",
 		"@atlaskit/editor-plugin-width": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/logo": "^14.0.0",
@@ -66,7 +66,7 @@
 		"@atlaskit/editor-plugin-decorations": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-		"@atlaskit/editor-plugin-floating-toolbar": "^1.6.0",
+		"@atlaskit/editor-plugin-floating-toolbar": "^1.7.0",
 		"@atlaskit/editor-plugin-grid": "^1.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

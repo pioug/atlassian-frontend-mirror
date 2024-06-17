@@ -224,9 +224,6 @@
 			"path": "../../design-system/width-detector/tsconfig.app.json"
 		},
 		{
-			"path": "../../linking-platform/link-picker-plugins/tsconfig.app.json"
-		},
-		{
 			"path": "../search-provider/tsconfig.app.json"
 		},
 		{

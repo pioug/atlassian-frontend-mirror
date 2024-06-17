@@ -40,7 +40,7 @@ export const rule = createLintRule({
 		const importSources = getImportSources(context);
 		return {
 			CallExpression(node) {
-				const { references } = context.sourceCode.getScope(node);
+				const { references } = context.getScope();
 
 				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
 					return;
@@ -71,7 +71,7 @@ export const rule = createLintRule({
 											value: SpreadElement | Expression | null,
 										): value is SpreadElement | Expression => value !== null,
 									)
-									.map((element) => context.sourceCode.getText(element));
+									.map((element) => context.getSourceCode().getText(element));
 
 								return fixer.replaceText(argument, items.join(', '));
 							},

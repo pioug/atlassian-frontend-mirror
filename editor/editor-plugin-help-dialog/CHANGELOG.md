@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.2.8
+
+### Patch Changes
+
+- [#111297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111297)
+  [`5f51c15a6d33f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f51c15a6d33f) -
+  Updates focus style override on the close button in the help modal, to work with the latest change
+  to `@atlaskit/button` focus style.
+- Updated dependencies
+
+## 1.2.7
+
+### Patch Changes
+
+- [#109353](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109353)
+  [`d932e2d76d8fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d932e2d76d8fc) -
+  Removed FF for Media resize
+- Updated dependencies
+
 ## 1.2.6
 
 ### Patch Changes

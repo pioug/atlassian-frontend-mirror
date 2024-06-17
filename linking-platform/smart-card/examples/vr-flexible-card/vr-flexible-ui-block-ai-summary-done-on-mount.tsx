@@ -3,11 +3,12 @@ import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-sum
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 import { TitleBlock, SnippetBlock, Card, Provider } from '../../src/index';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { CardClient } from '@atlaskit/link-provider';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import { DiProvider, injectable } from 'react-magnetic-di';
-import { useAISummary } from '../../src/state/hooks/use-ai-summary';
+import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
 
 class MaximumResolvedCustomClient extends CardClient {
 	fetchData(url: string) {
@@ -19,7 +20,7 @@ const mockState: AISummaryState = {
 	status: 'done',
 	content: `Here's some test content to indicate a summary`,
 };
-const mockUseAiSummary = injectable(useAISummary, () => ({
+const mockUseAiSummary = injectable(useAISummaryAction, () => ({
 	summariseUrl: () => Promise.resolve(mockState),
 	state: mockState,
 }));

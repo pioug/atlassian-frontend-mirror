@@ -5,7 +5,7 @@ const inlineMessageComponent = "[data-testid='the-inline-message']";
 const inlineMessageTitle = "[data-testid='the-inline-message--title']";
 const inlineMessageText = "[data-testid='the-inline-message--text']";
 const inlineMessageContent = "[data-testid='the-inline-message--inline-dialog']";
-const messageHeading = 'h4';
+const messageHeading = 'h2';
 
 test('InlineMessage should be able to be identified and clicked by data-testid', async ({
 	page,

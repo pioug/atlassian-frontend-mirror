@@ -37,9 +37,6 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		trigger: 'hover',
 		position: 'bottom-start',
 		triggerLinkType: 'link',
-		displayConfig: {
-			showKudos: true,
-		},
 	};
 
 	_isMounted: boolean = false;
@@ -237,9 +234,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 
 				const requests = Promise.all([
 					this.props.resourceClient.getTeamProfile(teamId, orgId, fireEvent),
-					this.props.displayConfig?.showKudos
-						? this.props.resourceClient.shouldShowGiveKudos()
-						: Promise.resolve(false),
+					this.props.resourceClient.shouldShowGiveKudos(),
 				]);
 
 				requests

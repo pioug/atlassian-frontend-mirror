@@ -1,5 +1,14 @@
 # @atlaskit/focus-ring
 
+## 1.4.1
+
+### Patch Changes
+
+- [#111297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111297)
+  [`5f51c15a6d33f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f51c15a6d33f) -
+  Adds a `:focus` style reset to prevent `:focus` styles with lower specificity from leaking
+  through.
+
 ## 1.4.0
 
 ### Minor Changes

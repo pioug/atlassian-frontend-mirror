@@ -70,16 +70,18 @@ exports[`ShowMoreButton Should match snapshot 1`] = `
   padding: 0;
 }
 
+.emotion-1:focus {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
 .emotion-1:focus-visible {
   outline: 2px solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
-@supports not selector(*:focus-visible) {
-  .emotion-1:focus {
-    outline: 2px solid var(--ds-border-focused, #2684FF);
-    outline-offset: 2px;
-  }
+.emotion-1:focus:not(:focus-visible) {
+  outline: none;
 }
 
 @media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {

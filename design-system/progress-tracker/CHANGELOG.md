@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 8.6.3
+
+### Patch Changes
+
+- [#102669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102669)
+  [`57f9d0819e9e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57f9d0819e9e6) -
+  Internal change only. Update spacing to use logical properties and tokenise typography values.
+
 ## 8.6.2
 
 ### Patch Changes

@@ -41,6 +41,7 @@ export const handleMouseDown = (
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	isTableScalingEnabled: boolean,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
+	isNewColumnResizingEnabled?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;
@@ -192,10 +193,7 @@ export const handleMouseDown = (
 
 				const resizedDelta = clientX - startX;
 
-				if (
-					getBooleanFF('platform.editor.table.colum-resizing-improvements') &&
-					!isTableNested(state, tablePos)
-				) {
+				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
 					const newResizeState = resizeColumnAndTable(
 						resizeState,
 						colIndex,
@@ -300,10 +298,7 @@ export const handleMouseDown = (
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 		}
 
-		if (
-			getBooleanFF('platform.editor.table.colum-resizing-improvements') &&
-			!isTableNested(state, tablePos)
-		) {
+		if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
 			resizeColumnAndTable(
 				resizeState,
 				colIndex,

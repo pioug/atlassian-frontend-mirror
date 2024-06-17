@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, type HTMLAttributes, type Ref } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import useScrollbarWidth from '@atlaskit/ds-lib/use-scrollbar-width';

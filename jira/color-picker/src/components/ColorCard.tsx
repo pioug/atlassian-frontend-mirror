@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
 import { KEY_ENTER, KEY_SPACE } from '../constants';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { useIntl } from 'react-intl-next';

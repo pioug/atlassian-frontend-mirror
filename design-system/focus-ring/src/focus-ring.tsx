@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Children, cloneElement, type FC, memo } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { ClassNames, css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -23,11 +24,15 @@ const baseInsetStyles = css({
 });
 
 const focusRingStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// Focus styles used when :focus-visible isn't supported
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	'&:focus': baseFocusOutsideStyles,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 	'&:focus-visible': baseFocusOutsideStyles,
-	'@supports not selector(*:focus-visible)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		'&:focus': baseFocusOutsideStyles,
+	// Remove default focus styles for mouse interactions if :focus-visible is supported
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:focus:not(:focus-visible)': {
+		outline: 'none',
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {
@@ -37,11 +42,15 @@ const focusRingStyles = css({
 });
 
 const insetFocusRingStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// Focus styles used when :focus-visible isn't supported
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	'&:focus': baseInsetStyles,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 	'&:focus-visible': baseInsetStyles,
-	'@supports not selector(*:focus-visible)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		'&:focus': baseInsetStyles,
+	// Remove default focus styles for mouse interactions if :focus-visible is supported
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:focus:not(:focus-visible)': {
+		outline: 'none',
 	},
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
 		'&:focus-visible': {

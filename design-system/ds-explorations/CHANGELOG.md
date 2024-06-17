@@ -1,5 +1,14 @@
 # @atlaskit/ds-explorations
 
+## 4.1.0
+
+### Minor Changes
+
+- [#109764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109764)
+  [`1a7a3be1e63f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a7a3be1e63f7) -
+  Change the InteractionSurface background styles' internal psuedo-selector (no expected difference
+  to specificity or anything)
+
 ## 4.0.1
 
 ### Patch Changes

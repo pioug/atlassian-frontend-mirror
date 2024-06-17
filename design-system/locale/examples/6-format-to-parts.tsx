@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createLocalizationProvider } from '../src';
 import LocaleSelect, { type Locale } from '../src/LocaleSelect';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import TextField from '@atlaskit/textfield';
 import { Label } from '@atlaskit/form';

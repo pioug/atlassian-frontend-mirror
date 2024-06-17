@@ -2,13 +2,14 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 import { Children, cloneElement, Component } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
 	display: 'flex',
-	borderBottom: `solid 2px ${token('color.border', '#dfe1e6')}`,
+	borderBlockEnd: `solid 2px ${token('color.border', '#dfe1e6')}`,
 });
 
 export default class Headers extends Component<any> {

@@ -35,7 +35,6 @@ export class AISummaryService implements AISummaryServiceInt {
 				'Content-Type': 'application/json;charset=UTF-8',
 				'x-experience-id': 'smart-link',
 				'x-product': getXProductHeaderValue(props.product)?.toLowerCase() || 'confluence',
-				...props.headers,
 			},
 		};
 

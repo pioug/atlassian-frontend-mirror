@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import {
@@ -9,6 +12,7 @@ import {
 	type Ref,
 } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { ClassNames, css, jsx } from '@emotion/react';
 import { type CSSInterpolation } from '@emotion/serialize';
 

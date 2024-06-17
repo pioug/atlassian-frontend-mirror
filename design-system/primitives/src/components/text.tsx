@@ -9,6 +9,7 @@ import {
 	useContext,
 } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
@@ -79,6 +80,7 @@ export type TextProps<T extends ElementType = 'span'> = TextPropsBase<T> &
 // For now, at least we know <Text> will be unaffected by this.
 const resetStyles = css({
 	margin: 0,
+	overflowWrap: 'anywhere',
 });
 
 const strongStyles = css({

@@ -58,3 +58,5 @@ export type {
 	TooltipProps,
 	ValidMessageProps,
 } from './components/__generated__';
+
+export type { BarChartProps } from './components/charts';

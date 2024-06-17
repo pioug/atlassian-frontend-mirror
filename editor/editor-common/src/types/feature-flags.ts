@@ -270,7 +270,16 @@ export type FeatureFlags = {
 	 * @see https://product-fabric.atlassian.net/browse/ED-23600
 	 * @default false
 	 */
-	tableSortColumnDiscoverability?: boolean;
+	tableSortColumnReorder?: boolean;
+
+	/**
+	 * @description
+	 * Enables new column resizing experience
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-17798
+	 * @default false
+	 */
+	tableNewColumnResizing?: boolean;
 
 	/**
 	 * @description

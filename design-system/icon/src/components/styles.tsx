@@ -1,5 +1,6 @@
 import type { Size } from '../types';
 import { dimensions } from '../constants';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject } from '@emotion/react';
 
 export const commonSVGStyles = {

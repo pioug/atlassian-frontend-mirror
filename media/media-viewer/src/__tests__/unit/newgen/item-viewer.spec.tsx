@@ -169,28 +169,6 @@ describe('<ItemViewer />', () => {
 		});
 	});
 
-	it('should should error and download button if processing Status failed', () => {
-		const subject = createMediaSubscribable({
-			status: 'failed-processing',
-			id: 'some-id',
-			name: 'some-name',
-			size: 123,
-			artifacts: {},
-			mediaType: 'unknown',
-			mimeType: 'some-mime-type',
-		});
-		const mediaClient = makeFakeMediaClient(subject);
-		const { el } = mountComponent(mediaClient, identifier);
-		el.update();
-		const errorMessage = el.find(ErrorMessage);
-		expect(errorMessage).toHaveLength(1);
-		expect(errorMessage.prop('error').message).toEqual('itemviewer-file-failed-processing-status');
-		expect(errorMessage.find(ErrorViewDownloadButton).length).toEqual(1);
-		expect(errorMessage.prop('traceContext')).toEqual({
-			traceId: expect.any(String),
-		});
-	});
-
 	it('should should error and download button if file is in error state', () => {
 		const defaultFileState: FileState = {
 			id: '123',
@@ -711,6 +689,23 @@ describe('<ItemViewer />', () => {
 			const errorMessage = el.find(ErrorMessage);
 			expect(errorMessage).toHaveLength(1);
 			expect(errorMessage.prop('error').message).toEqual(errorReason);
+			expect(fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: expect.objectContaining({
+						failReason: errorReason,
+						fileAttributes: {
+							fileId: 'some-id',
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileSize: undefined,
+						},
+					}),
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
 		});
 
 		it('should show error when viewer returned an error', () => {
@@ -732,6 +727,23 @@ describe('<ItemViewer />', () => {
 			const errorMessage = el.find(ErrorMessage);
 			expect(errorMessage).toHaveLength(1);
 			expect(errorMessage.prop('error').message).toEqual(errorReason);
+			expect(fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: expect.objectContaining({
+						failReason: errorReason,
+						fileAttributes: {
+							fileId: 'some-id',
+							fileMediatype: 'image',
+							fileMimetype: '',
+							fileSize: 10,
+						},
+					}),
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
 		});
 
 		it('should show error when file failed processing', () => {
@@ -758,6 +770,19 @@ describe('<ItemViewer />', () => {
 			expect(errorMessage).toHaveLength(1);
 			const error = errorMessage.prop('error') as Error;
 			expect(error.message).toEqual('itemviewer-file-failed-processing-status');
+			expect(errorMessage.find(ErrorViewDownloadButton).length).toEqual(1);
+			expect(errorMessage.prop('traceContext')).toEqual({
+				traceId: expect.any(String),
+			});
+			expect(fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					attributes: expect.objectContaining({
+						failReason: 'itemviewer-file-failed-processing-status',
+						fileAttributes,
+					}),
+				}),
+				expect.anything(),
+			);
 			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
 				error: undefined,
 				errorDetail: undefined,
@@ -779,7 +804,7 @@ describe('<ItemViewer />', () => {
 				status: 'processed',
 				artifacts: {},
 				name: '',
-				size: 0,
+				size: 1,
 				mimeType: '',
 				representations: { image: {} },
 			};
@@ -796,36 +821,66 @@ describe('<ItemViewer />', () => {
 			expect(errorMessage).toHaveLength(1);
 			const error = errorMessage.prop('error') as Error;
 			expect(error.message).toEqual('docviewer-fetch-url');
+			expect(fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: expect.objectContaining({
+						failReason: 'docviewer-fetch-url',
+						fileAttributes: {
+							fileId: 'some-id',
+							fileMediatype: 'doc',
+							fileMimetype: '',
+							fileSize: 1,
+						},
+					}),
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
 		});
 
-		test.each<[MediaType, MediaType]>([['audio', 'video']])(
-			'should show error when %s viewer errors',
-			(type) => {
-				const state: ProcessedFileState = {
-					id: identifier.id,
-					mediaType: type,
-					status: 'processed',
-					mimeType: '',
-					name: '',
-					size: 1,
-					artifacts: {},
-					representations: {},
-				};
-				const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-				const onErrorSpy = jest.fn();
-				const { el } = mountBaseComponent(mediaClient, identifier, {
-					onError: onErrorSpy,
-				});
-				const Viewer = el.find(type === 'audio' ? AudioViewer : VideoViewer);
-				const onError = Viewer.prop('onError');
-				onError(
-					new MediaViewerError(type === 'audio' ? 'audioviewer-playback' : 'videoviewer-playback'),
-				);
-				el.update();
-				const errorMessage = el.find(ErrorMessage);
-				expect(errorMessage).toHaveLength(1);
-			},
-		);
+		it.each<MediaType>(['audio', 'video'])('should show error when %s viewer errors', (type) => {
+			const state: ProcessedFileState = {
+				id: identifier.id,
+				mediaType: type,
+				status: 'processed',
+				mimeType: '',
+				name: '',
+				size: 1,
+				artifacts: {},
+				representations: {},
+			};
+			const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+			const onErrorSpy = jest.fn();
+			const { el } = mountBaseComponent(mediaClient, identifier, {
+				onError: onErrorSpy,
+			});
+			const Viewer = el.find(type === 'audio' ? AudioViewer : VideoViewer);
+			const onError = Viewer.prop('onError');
+			const failReason = type === 'audio' ? 'audioviewer-playback' : 'videoviewer-playback';
+			onError(new MediaViewerError(failReason));
+			el.update();
+			const errorMessage = el.find(ErrorMessage);
+			expect(errorMessage).toHaveLength(1);
+			expect(fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: expect.objectContaining({
+						failReason: failReason,
+						fileAttributes: {
+							fileId: 'some-id',
+							fileMediatype: type,
+							fileMimetype: '',
+							fileSize: 1,
+						},
+					}),
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
+		});
 	});
 
 	describe('CodeViewer', () => {
@@ -880,6 +935,23 @@ describe('<ItemViewer />', () => {
 			expect(errorMessage).toHaveLength(1);
 			expect(errorMessage.prop('error').message).toEqual('codeviewer-file-size-exceeds');
 			expect(errorMessage.find(ErrorViewDownloadButton).length).toEqual(1);
+			expect(fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadFailed',
+					actionSubject: 'mediaFile',
+					attributes: expect.objectContaining({
+						failReason: 'codeviewer-file-size-exceeds',
+						fileAttributes: {
+							fileId: 'some-id',
+							fileMediatype: 'unknown',
+							fileMimetype: '',
+							fileSize: 20000000,
+						},
+					}),
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
 		});
 	});
 });

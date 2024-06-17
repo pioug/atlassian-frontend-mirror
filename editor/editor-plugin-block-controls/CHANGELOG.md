@@ -1,5 +1,52 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.22
+
+### Patch Changes
+
+- [#111855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111855)
+  [`858997cc1d1e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/858997cc1d1e0) -
+  ED-23619 Improve drop latency by cleaning up decorations before they are being redrawn
+
+## 1.4.21
+
+### Patch Changes
+
+- [#111695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111695)
+  [`4dadac69832d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4dadac69832d7) -
+  Refactor Pragmatic usage
+- [#111695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111695)
+  [`c8e7bf89f5bd8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8e7bf89f5bd8) -
+  reduce rerenders in mousemovewrapper
+
+## 1.4.20
+
+### Patch Changes
+
+- [#111514](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111514)
+  [`a1b90bef5f34b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1b90bef5f34b) -
+  [ux] Revert: Fix cursor and handle position when changing node type
+- Updated dependencies
+
+## 1.4.19
+
+### Patch Changes
+
+- [#111390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111390)
+  [`bf010fb12e305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf010fb12e305) -
+  ED-23630 Call getPos in callbacks to fix node splitting and attach event listener when component
+  loads to show wrapper
+- [#111385](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111385)
+  [`181c5854ec25f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/181c5854ec25f) -
+  remove sharedstate onchange handler from mousemovewrapper
+- [#111045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111045)
+  [`2f693993423ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f693993423ec) -
+  improve input latency of drag and drop experience and hide drag handle during resizing
+- [#111418](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111418)
+  [`b351451c2ccb1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b351451c2ccb1) -
+  add docsize limit for dnd
+- Updated dependencies
+
 ## 1.4.18
 
 ### Patch Changes

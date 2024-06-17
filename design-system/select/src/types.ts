@@ -147,7 +147,7 @@ export type {
 	MultiValueRemoveProps,
 };
 
-declare module 'react-select/dist/declarations/src/Select' {
+declare module 'react-select/base' {
 	export interface Props<Option, IsMulti extends boolean, Group extends GroupType<Option>> {
 		[key: string]: any;
 	}

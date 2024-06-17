@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.7.1
+
+### Patch Changes
+
+- [#111413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111413)
+  [`492737dbcfc65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/492737dbcfc65) -
+  Fixes `consistent-css-prop-usage` to prevent unsafe auto-fixes. Previously style declarations
+  could be hoisted out of components even if they referenced variables only defined in the
+  component's scope.
+
 ## 10.7.0
 
 ### Minor Changes

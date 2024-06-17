@@ -84,7 +84,7 @@ const CommentBadgeWrapper = ({
 		return null;
 	}
 
-	const mediaElement = view.domAtPos((pos as number) + 1).node as HTMLElement;
+	const mediaSingleElement = view.domAtPos((pos as number) + 1).node as HTMLElement;
 
 	return (
 		<CommentBadgeComponent
@@ -93,7 +93,7 @@ const CommentBadgeWrapper = ({
 			width={mediaNode.attrs.width}
 			height={mediaNode.attrs.height}
 			onClick={onClick}
-			mediaElement={mediaElement}
+			mediaSingleElement={mediaSingleElement}
 			intl={intl}
 			status={entered ? 'entered' : status}
 			onMouseEnter={() => setEntered(true)}

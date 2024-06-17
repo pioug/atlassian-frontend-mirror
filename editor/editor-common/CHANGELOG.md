@@ -1,5 +1,72 @@
 # @atlaskit/editor-common
 
+## 82.8.1
+
+### Patch Changes
+
+- [#111851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111851)
+  [`4aefbe38ee8e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4aefbe38ee8e2) -
+  ED-23129: Updated experiment ID and corresponding editor FF
+
+## 82.8.0
+
+### Minor Changes
+
+- [#111788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111788)
+  [`5a286a37540ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a286a37540ff) -
+  [ux] [EDF-770] Show agents in the floating toolbar dropdown
+
+### Patch Changes
+
+- [#110948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110948)
+  [`6567f4bf996b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6567f4bf996b3) -
+  [ux] When we select caption comment, the comment badge should not be active (with FF) and rename
+  prop name to mediaSingleElement
+
+## 82.7.1
+
+### Patch Changes
+
+- [#111381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111381)
+  [`5ec7ab3d39035`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ec7ab3d39035) -
+  Replace the LD flag controlling new column resizing experience with statsig experiment
+- Updated dependencies
+
+## 82.7.0
+
+### Minor Changes
+
+- [#110802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110802)
+  [`4ec8e069a729b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ec8e069a729b) -
+  Added a new overlay button component, which selects the passed in node at node position on click.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.6.0
+
+### Minor Changes
+
+- [#110884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110884)
+  [`674f78166705c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/674f78166705c) -
+  [ux] [ED-23516] Change border color for highlight and text-color palettes to use tokens.
+  Changedefault palette color when undefined
+
+### Patch Changes
+
+- [#110390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110390)
+  [`bead123202369`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bead123202369) -
+  [ux] [ED-23642] Reordering the typeahead so that date, status, code block & info panel are above
+  the fold (in the top 5 results)
+- [#110966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110966)
+  [`31348c335b4b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31348c335b4b3) -
+  ED-23690 - add inlineNodeTypes property to AnnotationComponentProps
+- [#109764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109764)
+  [`0c87bddb30871`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c87bddb30871) -
+  ED-23659 - fix keymap plugin `Dead` keys processing.
+- Updated dependencies
+
 ## 82.5.0
 
 ### Minor Changes

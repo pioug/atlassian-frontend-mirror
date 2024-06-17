@@ -1,3 +1,4 @@
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { type JsonLd } from 'json-ld-types';
 
 import AtlasProject from '../../../__fixtures__/atlas-project';
@@ -484,5 +485,33 @@ describe('extractFlexibleUiContext', () => {
 		const data = extractFlexibleUiContext({ response });
 
 		expect(data?.title).toEqual(url);
+	});
+
+	describe('actions', () => {
+		const propUrl = 'prop-url';
+		const aiSummaryConfig = { isAdminHubAIEnabled: true };
+		const response = {
+			meta: {
+				...ConfluencePage.meta,
+				supportedFeature: ['AISummary'],
+			},
+			data: {
+				...ConfluencePage.data,
+				name: undefined,
+				url: 'response-url',
+			},
+		} as JsonLd.Response;
+
+		ffTest(
+			'platform.linking-platform.smart-card.hover-card-ai-summaries',
+			() => {
+				const data = extractFlexibleUiContext({ aiSummaryConfig, response, url: propUrl });
+				expect(data?.actions?.AISummaryAction?.url).toEqual('prop-url');
+			},
+			() => {
+				const data = extractFlexibleUiContext({ aiSummaryConfig, response, url: propUrl });
+				expect(data?.actions?.AISummaryAction).toBeUndefined();
+			},
+		);
 	});
 });

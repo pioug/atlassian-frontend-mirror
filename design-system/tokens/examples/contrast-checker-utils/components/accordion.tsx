@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
@@ -72,6 +73,7 @@ export default function Accordion({
 						]}
 					>
 						<Box
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={xcss({
 								display: 'inline-flex',
 								alignItems: 'center',
@@ -80,6 +82,7 @@ export default function Accordion({
 							as="span"
 						>
 							<Flex
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								xcss={xcss({
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 									transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
@@ -99,6 +102,7 @@ export default function Accordion({
 					</summary>
 					{isOpen && children && (
 						<Box
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={xcss({
 								paddingBlock: 'space.100',
 							})}

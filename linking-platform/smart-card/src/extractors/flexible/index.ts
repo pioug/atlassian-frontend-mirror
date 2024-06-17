@@ -51,6 +51,7 @@ const extractFlexibleUiContext = ({
 	actionOptions,
 	response,
 	aiSummaryConfig,
+	...props
 }: Partial<ExtractFlexibleUiDataContextParams> = {}): FlexibleUiDataContext | undefined => {
 	if (!response) {
 		return undefined;
@@ -60,7 +61,8 @@ const extractFlexibleUiContext = ({
 	const url = extractLink(data);
 
 	return {
-		actions: extractActions(response, url, actionOptions, id, aiSummaryConfig),
+		// Use the original URL in edge cases, such as short links for AI summary and copy link actions.
+		actions: extractActions(response, props.url, actionOptions, id, aiSummaryConfig),
 		assignedToGroup: extractPersonAssignedToAsArray(
 			data as JsonLd.Data.Task | JsonLd.Data.TaskType,
 		),

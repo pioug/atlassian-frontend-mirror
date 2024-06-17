@@ -8,6 +8,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { xcss, Box, Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 

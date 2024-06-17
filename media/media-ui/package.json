@@ -31,7 +31,7 @@
 		"@atlaskit/locale": "^2.7.0",
 		"@atlaskit/media-common": "^11.2.0",
 		"@atlaskit/platform-feature-flags": "^0.2.5",
-		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/range": "^7.2.0",
 		"@atlaskit/select": "^17.10.0",
 		"@atlaskit/spinner": "^16.1.0",

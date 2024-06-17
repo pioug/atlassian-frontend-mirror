@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
 export type CSSProperties = CSSObject & {

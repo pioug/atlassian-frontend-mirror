@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "2.0.4",
+	"version": "2.1.0",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,9 +37,9 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^36.10.7",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-common": "^82.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
-		"@atlaskit/editor-plugin-card": "2.0.4",
+		"@atlaskit/editor-plugin-card": "2.0.5",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/icon": "^22.3.0",
 		"@atlaskit/platform-feature-flags": "^0.2.5",
@@ -49,6 +49,7 @@
 	},
 	"peerDependencies": {
 		"react": "^16.8.0",
+		"react-dom": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
@@ -60,7 +61,6 @@
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"raf-stub": "^2.0.1",
-		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},
@@ -99,6 +99,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.card.inject-settings-button": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.smart-links-in-live-pages": {
 			"type": "boolean"
 		}
 	}

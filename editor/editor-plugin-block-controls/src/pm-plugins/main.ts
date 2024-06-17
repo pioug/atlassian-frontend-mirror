@@ -12,7 +12,10 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
 
@@ -33,42 +36,61 @@ type ElementDragSource = {
 };
 
 const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
-	return monitorForElements({
-		canMonitor: ({ source }) => source.data.type === 'element',
-		onDrop: ({ location, source }) => {
-			// if no drop targets are rendered, assume that drop is invalid
-			if (location.current.dropTargets.length === 0) {
-				const { start } = source.data as ElementDragSource;
+	const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent') as HTMLElement;
 
+	const cleanupFn: CleanupFn[] = [];
+
+	if (scrollable) {
+		cleanupFn.push(
+			autoScrollForElements({
+				element: scrollable,
+			}),
+		);
+	}
+
+	cleanupFn.push(
+		monitorForElements({
+			canMonitor: ({ source }) => source.data.type === 'element',
+			onDragStart: () => {
+				scrollable.style.setProperty('scroll-behavior', 'unset');
+			},
+			onDrop: ({ location, source }) => {
+				scrollable.style.setProperty('scroll-behavior', null);
 				api?.core?.actions.execute(({ tr }) => {
-					const resolvedMovingNode = tr.doc.resolve(start);
-					const maybeNode = resolvedMovingNode.nodeAfter;
-					api?.analytics?.actions.attachAnalyticsEvent({
-						eventType: EVENT_TYPE.UI,
-						action: ACTION.CANCELLED,
-						actionSubject: ACTION_SUBJECT.DRAG,
-						actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
-						attributes: {
-							nodeDepth: resolvedMovingNode.depth,
-							nodeType: maybeNode?.type.name || '',
-						},
-					})(tr);
-
-					return tr;
+					return tr.setMeta(key, { isDragging: false });
 				});
-			}
-		},
-	});
+				// if no drop targets are rendered, assume that drop is invalid
+				if (location.current.dropTargets.length === 0) {
+					const { start } = source.data as ElementDragSource;
+					api?.core?.actions.execute(({ tr }) => {
+						const resolvedMovingNode = tr.doc.resolve(start);
+						const maybeNode = resolvedMovingNode.nodeAfter;
+						api?.analytics?.actions.attachAnalyticsEvent({
+							eventType: EVENT_TYPE.UI,
+							action: ACTION.CANCELLED,
+							actionSubject: ACTION_SUBJECT.DRAG,
+							actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+							attributes: {
+								nodeDepth: resolvedMovingNode.depth,
+								nodeType: maybeNode?.type.name || '',
+							},
+						})(tr);
+						return tr;
+					});
+				}
+			},
+		}),
+	);
+
+	return combine(...cleanupFn);
 };
 
-const initialState = {
+const initialState: PluginState = {
 	decorations: DecorationSet.empty,
 	decorationState: [],
 	activeNode: null,
 	isDragging: false,
 	isMenuOpen: false,
-	start: null,
-	end: null,
 	editorHeight: 0,
 	isResizerResizing: false,
 	isDocSizeLimitEnabled: false,
@@ -114,43 +136,51 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
-
-				const isEmptyDoc = newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
-
-				// This is not targeted enough - it's trying to catch events like expand being set to breakout
-				const maybeWidthUpdated =
-					tr.docChanged &&
-					oldState.doc.nodeSize === newState.doc.nodeSize &&
-					oldState.doc.childCount === newState.doc.childCount;
-
 				const nodeCountChanged = oldState.doc.childCount !== newState.doc.childCount;
 
 				// During resize, remove the drag handle widget
-				if (isResizerResizing || nodeCountChanged) {
+				if (isResizerResizing || nodeCountChanged || meta?.nodeMoved) {
 					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
 					decorations = decorations.remove(oldHandle);
 				}
 
-				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
+				// This is not targeted enough - it's trying to catch events like expand being set to breakout
+				const maybeWidthUpdated =
+					tr.docChanged && oldState.doc.nodeSize === newState.doc.nodeSize && !nodeCountChanged;
+
 				const redrawDecorations =
 					decorations === DecorationSet.empty ||
 					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
 					maybeWidthUpdated ||
 					nodeCountChanged ||
 					resizerMeta === false ||
-					(meta?.nodeMoved && tr.docChanged);
-				if (redrawDecorations && isResizerResizing === false && api) {
+					(!!meta?.nodeMoved && tr.docChanged);
+
+				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
+				if (redrawDecorations && !isResizerResizing && api) {
 					decorations = DecorationSet.create(newState.doc, []);
 					const nodeDecs = nodeDecorations(newState);
 					const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
 					decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
-					if (activeNode) {
-						const draghandleDec = dragHandleDecoration(
-							activeNode.pos,
-							activeNode.anchorName,
-							activeNode.nodeType,
-							api,
-						);
+
+					// Note: Quite often the handle is not in the right position after a node is moved
+					// it is safer for now to not show it when a node is moved
+					if (activeNode && !meta?.nodeMoved) {
+						const newActiveNode = activeNode && tr.doc.nodeAt(tr.mapping.map(activeNode.pos));
+
+						let nodeType = activeNode.nodeType;
+						let anchorName = activeNode.anchorName;
+
+						if (
+							newActiveNode &&
+							newActiveNode?.type.name !== activeNode.nodeType &&
+							!meta?.nodeMoved
+						) {
+							nodeType = newActiveNode.type.name;
+							anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
+						}
+						const draghandleDec = dragHandleDecoration(activeNode.pos, anchorName, nodeType, api);
+
 						decorations = decorations.add(newState.doc, [draghandleDec]);
 					}
 				}
@@ -217,6 +247,8 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 							}
 						: activeNode;
 
+				const isEmptyDoc = newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
+
 				return {
 					decorations,
 					decorationState: decorationState ?? currentState.decorationState,
@@ -224,7 +256,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					isDragging: meta?.isDragging ?? currentState.isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
-					isResizerResizing: isResizerResizing ?? isResizerResizing,
+					isResizerResizing: isResizerResizing,
 					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 				};
 			},
@@ -259,10 +291,13 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 			// Start observing the editor DOM element
 			resizeObserver.observe(dom);
 
+			// Start pragmatic monitors
+			const pragmaticCleanup = destroyFn(api);
+
 			return {
 				destroy() {
 					resizeObserver.unobserve(dom);
-					return destroyFn(api);
+					pragmaticCleanup();
 				},
 			};
 		},

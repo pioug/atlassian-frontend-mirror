@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 17.10.4
+
+### Patch Changes
+
+- [#111724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111724)
+  [`c260b95b219de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c260b95b219de) -
+  Update react-select typescript module augmentation path
+
 ## 17.10.3
 
 ### Patch Changes

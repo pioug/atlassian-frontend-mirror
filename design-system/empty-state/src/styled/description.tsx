@@ -1,15 +1,16 @@
 /** @jsx jsx */
 import { type FC, type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const descriptionStyles = css({
-	marginTop: token('space.0', '0px'),
-	marginBottom: token('space.300', '24px'),
 	color: token('color.text', N800),
+	marginBlockEnd: token('space.300', '24px'),
+	marginBlockStart: token('space.0', '0px'),
 });
 
 /**

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import Popup from '@atlaskit/popup';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React, { type FC, useCallback, useMemo, useRef, useEffect } from 'react';
 import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkActions';

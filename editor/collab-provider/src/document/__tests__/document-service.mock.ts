@@ -38,7 +38,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		metadataService,
 		isNameSpaceLockedMock,
 		config.enableErrorOnFailedDocumentApply,
-		config.featureFlags?.reconcileOnRecovery,
 		options,
 	);
 

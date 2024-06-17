@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import ImageIcon from '@atlaskit/icon-file-type/glyph/image/24';
 import AudioIcon from '@atlaskit/icon-file-type/glyph/audio/24';

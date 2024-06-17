@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';

@@ -6,6 +6,7 @@ import VRTestWrapper from './utils/vr-test-wrapper';
 import EmbedModal from '../src/view/EmbedModal';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import './utils/embed-modal-override.css';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 export default () => (

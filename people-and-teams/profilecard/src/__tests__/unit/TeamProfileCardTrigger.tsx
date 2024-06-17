@@ -130,35 +130,6 @@ describe('TeamProfileCardTrigger', () => {
 			expect(await findByText('Give kudos')).toBeDefined();
 		});
 
-		it('should open "click" trigger after click (without kudos) when showKudos is false', async () => {
-			const resourceClient: unknown = {
-				...(mockResourceClient as object),
-				shouldShowGiveKudos: () => {
-					return Promise.resolve(true);
-				},
-			};
-
-			jest.useFakeTimers();
-
-			const { queryByText, getByTestId } = renderWithIntl(
-				<TeamProfileCardTrigger
-					{...defaultProps}
-					resourceClient={resourceClient as ProfileClient}
-					trigger="click"
-					displayConfig={{ showKudos: false }}
-				>
-					<span data-testid="test-inner-trigger">This is the trigger</span>
-				</TeamProfileCardTrigger>,
-			);
-
-			act(() => {
-				fireEvent.click(getByTestId('team-profilecard-trigger-wrapper'));
-				jest.runAllTimers();
-			});
-
-			expect(await queryByText('Give kudos')).toBe(null);
-		});
-
 		it('should open "hover" trigger after mouse over', () => {
 			const { getByTestId, queryByTestId } = renderWithIntl(
 				<TeamProfileCardTrigger

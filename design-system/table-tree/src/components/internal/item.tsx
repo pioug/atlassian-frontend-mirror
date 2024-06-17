@@ -2,6 +2,7 @@
 /* eslint-disable @repo/internal/react/no-clone-element */
 import { cloneElement, Component } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import toItemId from '../../utils/to-item-id';

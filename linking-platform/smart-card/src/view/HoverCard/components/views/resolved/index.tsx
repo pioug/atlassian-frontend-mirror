@@ -35,12 +35,9 @@ import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getCanBeDatasource } from '../../../../../state/helpers';
-import { useAISummary } from '../../../../../state/hooks/use-ai-summary';
-import { extractAri, extractLink } from '@atlaskit/link-extractors';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import useAISummaryAction from '../../../../../state/hooks/use-ai-summary-action';
 import { SmartLinkStatus } from '../../../../../constants';
 import { di } from 'react-magnetic-di';
-import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 
 export const toFooterActions = (
 	cardActions: LinkAction[],
@@ -83,31 +80,21 @@ export const toFooterActions = (
 	return [followAction, ...actions];
 };
 
-//This component encapsulates useAISummary hook under the AI Summary FF 'platform.linking-platform.smart-card.hover-card-ai-summaries'
+//This component encapsulates useAISummarySmartLink hook under the AI Summary FF 'platform.linking-platform.smart-card.hover-card-ai-summaries'
 const ConnectedAIBlock = ({
 	bottomPrimary,
 	imagePreview,
-	data,
+	url,
 }: {
 	bottomPrimary?: ElementItem[];
 	imagePreview: boolean;
-	data: JsonLd.Data.BaseData;
+	url: string;
 }) => {
-	di(useAISummary);
-
-	const dataUrl = data ? extractLink(data) : null;
-	const dataAri = data ? extractAri(data) : null;
-	const { product, connections } = useSmartLinkContext();
+	di(useAISummaryAction);
 
 	const {
 		state: { status, content },
-	} = useAISummary({
-		url: dataUrl || '',
-		ari: dataAri || '',
-		product,
-		envKey: connections.client.envKey as EnvironmentsKeys,
-		baseUrl: connections.client.baseUrlOverride,
-	});
+	} = useAISummaryAction(url);
 
 	const showData =
 		status === 'ready' ||
@@ -206,7 +193,7 @@ const HoverCardResolvedView = ({
 					onRender={onConnectedAIBlockRender}
 					blockRef={connectedAIBlockRef}
 				>
-					<ConnectedAIBlock imagePreview={!!imagePreview} bottomPrimary={tertiary} data={data} />
+					<ConnectedAIBlock imagePreview={!!imagePreview} bottomPrimary={tertiary} url={url} />
 				</CustomBlock>
 			)}
 
@@ -240,7 +227,6 @@ const HoverCardResolvedView = ({
 					aiSummaryMinHeight={connectedAIBlockHeight.current}
 				/>
 			)}
-
 			{!isAISummaryEnabled && (
 				<FooterBlock
 					actions={footerActions}

@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-media
 
+## 1.20.12
+
+### Patch Changes
+
+- [#110948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110948)
+  [`6567f4bf996b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6567f4bf996b3) -
+  [ux] When we select caption comment, the comment badge should not be active (with FF) and rename
+  prop name to mediaSingleElement
+- Updated dependencies
+
+## 1.20.11
+
+### Patch Changes
+
+- [#110390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110390)
+  [`bead123202369`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bead123202369) -
+  [ux] [ED-23642] Reordering the typeahead so that date, status, code block & info panel are above
+  the fold (in the top 5 results)
+- [#109353](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109353)
+  [`d932e2d76d8fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d932e2d76d8fc) -
+  Removed FF for Media resize
+- [#111045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111045)
+  [`2f693993423ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f693993423ec) -
+  improve input latency of drag and drop experience and hide drag handle during resizing
+- Updated dependencies
+
 ## 1.20.10
 
 ### Patch Changes

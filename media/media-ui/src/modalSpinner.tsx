@@ -2,6 +2,7 @@ import React from 'react';
 
 import { layers } from '@atlaskit/theme/constants';
 import Spinner from '@atlaskit/spinner';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 const overlayZindex = layers.modal() + 10;

@@ -1,2 +1,2 @@
 export { blockControlsPlugin } from './plugin';
-export type { BlockControlsPlugin, DecorationState } from './types';
+export type { BlockControlsPlugin, DecorationState, BlockControlsSharedState } from './types';

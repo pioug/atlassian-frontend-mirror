@@ -30,7 +30,6 @@ const context: FlexibleUiDataContext = {
 			url: 'https://www.link-url.com',
 		},
 		AISummaryAction: {
-			product: 'CONFLUENCE',
 			url: 'https://www.link-url.com',
 		},
 		AutomationAction: {

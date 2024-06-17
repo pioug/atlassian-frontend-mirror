@@ -1,15 +1,15 @@
 /** @jsx jsx */
 import { type FC, type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 const contentSlotStyles = css({
 	minWidth: 0,
-	// this spacing is a specific affordance to the avatar border
-	paddingTop: token('space.025', '2px'),
 	gridArea: 'comment-area',
+	paddingBlockStart: token('space.025', '2px'),
 	wordWrap: 'break-word',
 });
 

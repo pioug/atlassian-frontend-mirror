@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import Lozenge from '../index';
 import { type LozengeProps } from '../types';

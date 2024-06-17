@@ -40,10 +40,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/avatar-group": "^9.6.0",
-		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/avatar-group": "^9.7.0",
+		"@atlaskit/editor-common": "^82.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
-		"@atlaskit/editor-plugin-collab-edit": "^1.4.0",
+		"@atlaskit/editor-plugin-collab-edit": "^1.5.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",

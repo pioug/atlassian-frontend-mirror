@@ -1,8 +1,15 @@
 # no-styled
 
-This rule prevents usage of `styled` imports'.
+Blocks the `styled` API, which creates unnecessary indirection.
 
-Avoid usages of styled, eg. `styled.div`, `styled('div')`, `styled(Component)`, etc.
+This indirection:
+
+- obfuscates which tag is being rendered
+- adds linting complexity
+- promotes exported styles
+- can complicate refactoring
+
+Use the `css` API instead. It has better performance and clarity.
 
 ## Examples
 
@@ -51,8 +58,9 @@ export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))`
 
 ```tsx
 import { css, jsx } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
-const styles = css({ color: 'red' });
+const styles = css({ color: token('color.text.subtlest') });
 
 const Component = ({ children }) => {
 	return <div css={styles}>{children}</div>;
@@ -60,7 +68,6 @@ const Component = ({ children }) => {
 ```
 
 ```tsx
-// Using Primitives
 import { Box, xcss } from '@atlaskit/primitives';
 
 const styles = xcss({
@@ -74,16 +81,12 @@ const Component = ({ children }) => {
 
 ## FAQ
 
-### Why avoid using `styled` imports?
-
-Using `styled` imports impacts file readability, has TypeScript implications, adds linting
-complexity, promotes exported styles, and potential refactoring efforts. Using `css()` with the
-`<div css={…}>` syntax is more performant and clear.
-
 ### How will I extend like `styled(Button)`?
 
-Primarily, we would suggest you don't extend styles of a component you don't own unless they have an
-explicit bounded interface for you to customize against. The Atlassian Design System for example has
-removed `styled(Button)` interactivity in our latest variants because they are unsafe for us to
-evolve the system with. Instead, make use of reusable component patterns to pass props around which
-impact the styles of that component.
+Don't modify the styles of components you don't own, unless they provide an explicit bounded
+interface for doing so — such as the `xcss` prop.
+
+Use props (excluding `className` which is prohibited) to modify component styles instead.
+
+The Atlassian Design System, for example, no longer supports `styled(Button)` because it is unsafe
+for us to evolve the system with.

@@ -548,6 +548,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'itemviewer-fetch-metadata',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileSize: undefined,
+						},
 					}),
 				}),
 				expect.anything(),
@@ -584,6 +590,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'imageviewer-fetch-url',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
 					}),
 				}),
 				expect.anything(),
@@ -621,6 +633,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'itemviewer-file-failed-processing-status',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
 					}),
 				}),
 				expect.anything(),
@@ -653,7 +671,17 @@ describe('<ItemViewerV2 />', () => {
 
 			// check the error attributes
 			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({ action: 'previewUnsupported' }),
+				expect.objectContaining({
+					action: 'previewUnsupported',
+					attributes: expect.objectContaining({
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
+					}),
+				}),
 				expect.anything(),
 			);
 		});
@@ -680,6 +708,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'codeviewer-file-size-exceeds',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
 					}),
 				}),
 				expect.anything(),
@@ -715,6 +749,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'docviewer-fetch-url',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
 					}),
 				}),
 				expect.anything(),
@@ -753,6 +793,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'videoviewer-playback',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
 					}),
 				}),
 				expect.anything(),
@@ -791,6 +837,12 @@ describe('<ItemViewerV2 />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'audioviewer-playback',
+						fileAttributes: {
+							fileId: identifier.id,
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileSize: fileItem.details.size,
+						},
 					}),
 				}),
 				expect.anything(),

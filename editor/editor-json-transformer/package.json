@@ -55,7 +55,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-plugin-background-color": "^1.1.0",
-		"@atlaskit/editor-plugin-highlight": "1.7.5",
+		"@atlaskit/editor-plugin-highlight": "1.8.0",
 		"react": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

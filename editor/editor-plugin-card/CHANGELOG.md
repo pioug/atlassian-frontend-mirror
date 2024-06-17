@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 2.0.5
+
+### Patch Changes
+
+- [#110890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110890)
+  [`a0ec52861fce2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0ec52861fce2) -
+  [ux] Fixed a duplicate separator showing in the floating toolbar.
+- [#110903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110903)
+  [`7fafce0ccd594`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fafce0ccd594) -
+  [ux] Clicking edit link or edit datasource while in SLLV view will no longer trigger scrolling.
+- Updated dependencies
+
 ## 2.0.4
 
 ### Patch Changes

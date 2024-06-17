@@ -116,7 +116,9 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				onClickPreventDefault={onClickPreventDefault}
 				{...restProps}
 				components={components}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				styles={mergeStyles(
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					baseStyles<Option, IsMulti>(
 						// This will cover both props for invalid state while giving priority to isInvalid. When cleaning up validationState, we can just keep the inner condition.
 						typeof isInvalid !== 'undefined' ? (isInvalid ? 'error' : 'default') : validationState!,

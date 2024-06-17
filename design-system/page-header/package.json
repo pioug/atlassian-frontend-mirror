@@ -28,7 +28,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "^0.2.5",
-		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/theme": "^12.9.0",
 		"@atlaskit/tokens": "^1.50.0",
 		"@babel/runtime": "^7.0.0",

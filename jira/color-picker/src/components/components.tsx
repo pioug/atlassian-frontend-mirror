@@ -4,6 +4,7 @@ import { type Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
 import { token } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {

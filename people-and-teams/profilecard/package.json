@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "19.14.1",
+	"version": "19.15.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,10 +65,10 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/atlassian-context": "^0.0.0",
-		"@atlaskit/avatar": "^21.9.0",
-		"@atlaskit/avatar-group": "^9.6.0",
+		"@atlaskit/avatar": "^21.10.0",
+		"@atlaskit/avatar-group": "^9.7.0",
 		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/dropdown-menu": "^12.11.0",
+		"@atlaskit/dropdown-menu": "^12.12.0",
 		"@atlaskit/empty-state": "^7.8.0",
 		"@atlaskit/focus-ring": "^1.4.0",
 		"@atlaskit/give-kudos": "^2.1.1",
@@ -76,7 +76,8 @@
 		"@atlaskit/lozenge": "^11.7.0",
 		"@atlaskit/menu": "^2.4.0",
 		"@atlaskit/platform-feature-flags": "^0.2.4",
-		"@atlaskit/popup": "^1.17.0",
+		"@atlaskit/popup": "^1.18.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/spinner": "^16.1.0",
 		"@atlaskit/theme": "^12.9.0",
 		"@atlaskit/tokens": "^1.50.0",
@@ -94,6 +95,7 @@
 		"react-dom": "^16.8.0"
 	},
 	"devDependencies": {
+		"@af/visual-regression": "*",
 		"@atlassian/ptc-test-utils": "^0.8.0",
 		"@testing-library/react": "^12.1.5",
 		"enzyme": "^3.10.0",

@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import relativeDate from '../../internal/relative-date';
 import messages from '../../messages';
@@ -23,6 +24,11 @@ import {
 import { IconLabel } from '../Icon';
 
 import ReportingLinesDetails from './ReportingLinesDetails';
+
+const detailedListWrapperStyles = xcss({
+	margin: 'space.0',
+	padding: 'space.0',
+});
 
 const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 	if (!fullName && !nickname) {
@@ -162,10 +168,13 @@ export const ProfileCardDetails = (props: ProfilecardProps & AnalyticsWithDurati
 			{renderName(props.nickname, props.fullName, meta)}
 			{meta && <JobTitleLabel>{meta}</JobTitleLabel>}
 			<CustomLozenges lozenges={props.customLozenges} />
-			<IconLabel icon="email">{props.email}</IconLabel>
-			<IconLabel icon="time">{props.timestring}</IconLabel>
-			<IconLabel icon="companyName">{props.companyName}</IconLabel>
-			<IconLabel icon="location">{props.location}</IconLabel>
+			<Box as="dl" xcss={detailedListWrapperStyles}>
+				<IconLabel icon="email">{props.email}</IconLabel>
+				<IconLabel icon="time">{props.timestring}</IconLabel>
+				<IconLabel icon="companyName">{props.companyName}</IconLabel>
+				<IconLabel icon="location">{props.location}</IconLabel>
+			</Box>
+
 			<ReportingLinesDetails
 				reportingLines={props.reportingLines}
 				reportingLinesProfileUrl={props.reportingLinesProfileUrl}

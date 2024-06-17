@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import LoadingButton from '@atlaskit/button/loading-button';
@@ -30,7 +31,7 @@ const layoutStyles = css({
 	},
 });
 
-const InvertedSpinner = () => <Spinner appearance="invert" />;
+const InvertedSpinner = () => <Spinner appearance="invert" label="Loading" />;
 
 export default () => (
 	<div data-testid="spinner-buttons-container" css={[animationStyles, layoutStyles]}>
@@ -52,7 +53,7 @@ export default () => (
       are recommended. We are visual regression testing them all the same so
       that we'll be made aware if a change will break outdated button usages. */}
 		<div>
-			<Button appearance="primary" overlay={<Spinner appearance="invert" />}>
+			<Button appearance="primary" overlay={<Spinner appearance="invert" label="Loading" />}>
 				Button
 			</Button>
 		</div>

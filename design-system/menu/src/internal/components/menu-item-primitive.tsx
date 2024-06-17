@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { useContext } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { ClassNames, css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
@@ -285,6 +286,7 @@ const MenuItemPrimitive = ({
 											alignBlock="center"
 											grow="fill"
 											xcss={
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 												getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles')
 													? contentStyles
 													: [contentStyles, baseContentStyles]

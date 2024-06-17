@@ -1,7 +1,9 @@
 /** @jsx jsx */
 import { forwardRef, type Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';

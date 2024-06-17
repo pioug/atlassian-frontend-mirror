@@ -1,6 +1,10 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ElementType, type MouseEventHandler, useCallback, useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 

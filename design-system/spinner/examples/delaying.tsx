@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
@@ -97,7 +98,7 @@ function Basic() {
 					{phase === 'ready' && <Avatar size="xlarge" />}
 					{phase === 'loading' && (
 						<span css={spinnerStyles}>
-							<Spinner size="xlarge" delay={delays.spinner} />
+							<Spinner size="xlarge" delay={delays.spinner} label="Loading" />
 						</span>
 					)}
 				</React.Fragment>
@@ -127,7 +128,7 @@ function CrossFade() {
 							<FadeIn>
 								{(props) => (
 									<span {...props} css={spinnerStyles}>
-										<Spinner size="xlarge" delay={delays.spinner} />
+										<Spinner size="xlarge" delay={delays.spinner} label="Loading" />
 									</span>
 								)}
 							</FadeIn>

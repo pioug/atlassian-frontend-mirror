@@ -1,16 +1,17 @@
 /** @jsx jsx */
 import { type FC, type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 const actionsStyles = css({
 	display: 'flex',
-	marginBottom: token('space.100', '8px'),
-	paddingLeft: token('space.500', '40px'),
 	alignItems: 'center',
 	justifyContent: 'center',
+	marginBlockEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.500', '40px'),
 });
 
 /**

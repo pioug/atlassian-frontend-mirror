@@ -1,6 +1,9 @@
 import { DRAG_HANDLE_WIDTH, dragHandleGap } from '../ui/consts';
 
-export const getTopPosition = (dom: HTMLElement) => {
+export const getTopPosition = (dom: HTMLElement | null) => {
+	if (!dom) {
+		return 'auto';
+	}
 	const table = dom.querySelector('table');
 	if (table) {
 		return `${dom.offsetTop + (table?.offsetTop || 0)}px`;
@@ -10,11 +13,14 @@ export const getTopPosition = (dom: HTMLElement) => {
 };
 
 export const getLeftPosition = (
-	dom: HTMLElement,
+	dom: HTMLElement | null,
 	type: string,
 	innerContainer?: HTMLElement | null,
 	macroInteractionUpdates?: boolean,
 ) => {
+	if (!dom) {
+		return 'auto';
+	}
 	if (!innerContainer) {
 		return `${dom.offsetLeft - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
 	}

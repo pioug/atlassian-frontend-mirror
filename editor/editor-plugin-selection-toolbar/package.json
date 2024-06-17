@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.5.0",
-		"@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+		"@atlaskit/editor-common": "^82.8.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"

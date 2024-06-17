@@ -1,5 +1,14 @@
 # @atlaskit/blanket
 
+## 13.2.0
+
+### Minor Changes
+
+- [#111696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111696)
+  [`20c2d58f6f8a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20c2d58f6f8a9) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
 ## 13.1.0
 
 ### Minor Changes

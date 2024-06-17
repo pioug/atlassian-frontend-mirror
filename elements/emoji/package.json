@@ -42,7 +42,7 @@
 		"@atlaskit/icon": "^22.3.0",
 		"@atlaskit/media-client": "^27.2.0",
 		"@atlaskit/media-client-react": "^2.0.0",
-		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/spinner": "^16.1.0",
 		"@atlaskit/textfield": "^6.3.0",
 		"@atlaskit/theme": "^12.9.0",

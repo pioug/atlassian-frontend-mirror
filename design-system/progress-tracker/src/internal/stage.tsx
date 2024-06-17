@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { type CSSProperties, PureComponent } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
@@ -35,8 +36,7 @@ const listItemStyles = css({
 });
 
 const titleStyles = css({
-	lineHeight: '16px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	font: token('font.body'),
 	marginBlockStart: LABEL_TOP_SPACING,
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -49,11 +49,6 @@ const titleStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transition: `opacity var(${varTransitionSpeed}) cubic-bezier(0.2, 0, 0, 1)`,
 	},
-});
-
-const textStyles = css({
-	fontSize: '14px',
-	lineHeight: '16px',
 });
 
 export type { ProgressTrackerStageProps };
@@ -144,19 +139,15 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
 					>
-						<div css={titleStyles}>
-							<span
-								css={textStyles}
-								style={{
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									color: getTextColor(item.status),
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									fontWeight: getFontWeight(item.status),
-								}}
-								data-testid={testId && `${testId}-title`}
-							>
-								{this.shouldShowLink() ? render.link({ item }) : item.label}
-							</span>
+						<div
+							css={titleStyles}
+							style={{
+								color: getTextColor(item.status),
+								fontWeight: getFontWeight(item.status),
+							}}
+							data-testid={testId && `${testId}-title`}
+						>
+							{this.shouldShowLink() ? render.link({ item }) : item.label}
 						</div>
 					</CSSTransition>
 				</Box>

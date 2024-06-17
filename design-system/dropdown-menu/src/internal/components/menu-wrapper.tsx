@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { type KeyboardEvent, type MouseEvent, useContext, useEffect, useLayoutEffect } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import MenuGroup from '@atlaskit/menu/menu-group';

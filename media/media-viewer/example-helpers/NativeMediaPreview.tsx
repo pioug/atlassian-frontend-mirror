@@ -1,5 +1,6 @@
 /** @jsx jsx */
 /* eslint-disable jsx-a11y/media-has-caption */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import { type MediaClient, type Identifier, type MediaFileArtifacts } from '@atlaskit/media-client';

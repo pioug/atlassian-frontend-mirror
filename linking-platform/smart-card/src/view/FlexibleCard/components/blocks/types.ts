@@ -5,6 +5,7 @@ import {
 	type SmartLinkSize,
 	type SmartLinkStatus,
 } from '../../../../constants';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles } from '@emotion/react';
 import { type ActionProps } from '../actions/action/types';
 import { type PropsWithChildren, type Ref } from 'react';

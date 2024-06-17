@@ -143,11 +143,6 @@ export const DragHandle = ({
 				);
 				api?.core?.actions.focus();
 			},
-			onDrop() {
-				api?.core?.actions.execute(({ tr }) => {
-					return tr.setMeta(key, { isDragging: false });
-				});
-			},
 		});
 	}, [api, start, view, anchorName, nodeType]);
 
@@ -160,17 +155,16 @@ export const DragHandle = ({
 			`[data-drag-handler-anchor-name="${anchorName}"]`,
 		);
 
-		if (!dom) {
-			return;
-		}
 		const hasResizer = anchorName.includes('table') || anchorName.includes('mediaSingle');
 		const isExtension = anchorName.includes('extension') || anchorName.includes('bodiedExtension');
 
-		const innerContainer: HTMLElement | null = hasResizer
-			? dom.querySelector('.resizer-item')
-			: isExtension
-				? dom.querySelector('.extension-container[data-layout]')
-				: null;
+		const innerContainer: HTMLElement | null = dom
+			? hasResizer
+				? dom.querySelector('.resizer-item')
+				: isExtension
+					? dom.querySelector('.extension-container[data-layout]')
+					: null
+			: null;
 
 		if (supportsAnchor) {
 			return {

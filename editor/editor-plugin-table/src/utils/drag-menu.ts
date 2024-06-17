@@ -162,7 +162,7 @@ export const getDragMenuConfig = (
 	tableDuplicateCellColouring = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
-	tableSortColumnDiscoverability = false,
+	tableSortColumnReorder = false,
 ): DragMenuConfig[] => {
 	const { selection } = editorView.state;
 	const addOptions =
@@ -394,9 +394,7 @@ export const getDragMenuConfig = (
 	];
 
 	let allConfigs = [...restConfigs];
-	tableSortColumnDiscoverability
-		? allConfigs.unshift(...sortConfigs)
-		: allConfigs.push(...sortConfigs);
+	tableSortColumnReorder ? allConfigs.unshift(...sortConfigs) : allConfigs.push(...sortConfigs);
 
 	return allConfigs.filter(Boolean) as DragMenuConfig[];
 };

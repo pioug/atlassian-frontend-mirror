@@ -2,7 +2,6 @@
 export interface NCSFeatureFlags {
 	testFF?: boolean;
 	blockViewOnly?: boolean;
-	reconcileOnRecovery?: boolean;
 }
 
 export interface WithNCSFeatureFlags {

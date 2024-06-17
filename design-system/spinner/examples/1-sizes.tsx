@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
@@ -28,7 +29,7 @@ export default function Example() {
 		<div css={containerStyles}>
 			{sizes.map((size: Size) => (
 				<div key={size} css={itemStyles}>
-					<Spinner size={size} />
+					<Spinner size={size} label="Loading" />
 					{typeof size === 'number' ? (
 						<Lozenge appearance="new">custom</Lozenge>
 					) : (

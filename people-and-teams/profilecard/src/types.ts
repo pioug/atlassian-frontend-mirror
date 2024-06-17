@@ -133,9 +133,6 @@ export interface ProfileCardTriggerProps {
 	disabledAriaAttributes?: boolean;
 	onVisibilityChange?: (isVisible: boolean) => void;
 	isVisible?: boolean;
-	displayConfig?: {
-		showKudos?: boolean;
-	};
 }
 
 export interface ProfileCardTriggerState {
@@ -273,9 +270,6 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	 * Optional cloudId. Pass this if rendering card within a sited context.
 	 */
 	cloudId?: string;
-	displayConfig?: {
-		showKudos?: boolean;
-	};
 }
 
 export type StatusType = 'active' | 'inactive' | 'closed';

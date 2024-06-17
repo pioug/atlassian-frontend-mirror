@@ -2,7 +2,9 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { ThemeProvider } from 'styled-components';
 
 import Button from '@atlaskit/button/new';

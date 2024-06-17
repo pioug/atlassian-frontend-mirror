@@ -3,8 +3,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { Status } from '../types';
 
-import { REGULAR_FONT_WEIGHT, SEMI_BOLD_FONT_WEIGHT } from './constants';
-
 export const getMarkerColor = (status: Status) => {
 	switch (status) {
 		case 'unvisited':
@@ -36,11 +34,11 @@ export const getTextColor = (status: Status) => {
 export const getFontWeight = (status: Status) => {
 	switch (status) {
 		case 'unvisited':
-			return REGULAR_FONT_WEIGHT;
+			return token('font.weight.regular');
 		case 'current':
 		case 'visited':
 		case 'disabled':
-			return SEMI_BOLD_FONT_WEIGHT;
+			return token('font.weight.semibold');
 		default:
 			return undefined;
 	}

@@ -23,6 +23,7 @@ export function createPlugin(
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled?: boolean,
+	isNewColumnResizingEnabled?: boolean,
 ) {
 	return new SafePlugin({
 		key: pluginKey,
@@ -75,6 +76,7 @@ export function createPlugin(
 								getEditorFeatureFlags,
 								isTableScalingEnabled || false,
 								editorAnalyticsAPI,
+								isNewColumnResizingEnabled,
 							)
 						) {
 							const { state, dispatch } = view;

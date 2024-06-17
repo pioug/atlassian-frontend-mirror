@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -19,7 +20,7 @@ export interface FieldsetProps {
 }
 
 const fieldSetStyles = css({
-	marginTop: token('space.100', '8px'),
+	marginBlockStart: token('space.100', '8px'),
 });
 
 /**

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import Badge from '../src';
 
@@ -12,13 +12,27 @@ const wrapperStyles = xcss({
 	padding: 'space.100',
 });
 
+const smallContainerStyles = xcss({
+	display: 'flex',
+	width: '20px',
+	backgroundColor: 'color.background.accent.lime.subtlest',
+	height: '50px',
+});
+
 export default () => {
 	return (
-		<Box xcss={wrapperStyles}>
-			<Inline alignBlock="stretch" alignInline="center" grow="fill">
-				{/* this Badge should not stretch vertically */}
-				<Badge appearance="primary">{77}</Badge>
-			</Inline>
-		</Box>
+		<Stack space="space.200">
+			<Box xcss={wrapperStyles}>
+				<Inline alignBlock="stretch" alignInline="center" grow="fill">
+					{/* this Badge should not stretch vertically */}
+					<Badge appearance="primary">{77}</Badge>
+				</Inline>
+			</Box>
+
+			<Box xcss={smallContainerStyles}>
+				{/* this Badge should not break onto multiple lines */}
+				<Badge>x55</Badge>
+			</Box>
+		</Stack>
 	);
 };

@@ -7,25 +7,26 @@ export default function Alignment() {
 		<div>
 			<div>
 				<h1>
-					This &lt;h1&gt; element <Spinner /> is using h800
+					This &lt;h1&gt; element <Spinner label="Loading" /> is using h800
 				</h1>
 				<h2>
-					This &lt;h2&gt; element <Spinner /> is using h700
+					This &lt;h2&gt; element <Spinner label="Loading" /> is using h700
 				</h2>
 				<h3>
-					This &lt;h3&gt; element <Spinner /> is using h600
+					This &lt;h3&gt; element <Spinner label="Loading" /> is using h600
 				</h3>
 				<h4>
-					This &lt;h4&gt; element <Spinner /> is using h500
+					This &lt;h4&gt; element <Spinner label="Loading" /> is using h500
 				</h4>
 				<h5>
-					This &lt;h5&gt; element <Spinner /> is using h400
+					This &lt;h5&gt; element <Spinner label="Loading" /> is using h400
 				</h5>
 				<h6>
-					This &lt;h6&gt; element <Spinner /> is using h300
+					This &lt;h6&gt; element <Spinner label="Loading" /> is using h300
 				</h6>
 				<h6>
-					The spinner should be middle-aligned with the text | <Spinner size="small" />
+					The spinner should be middle-aligned with the text |{' '}
+					<Spinner size="small" label="Loading" />
 				</h6>
 			</div>
 		</div>

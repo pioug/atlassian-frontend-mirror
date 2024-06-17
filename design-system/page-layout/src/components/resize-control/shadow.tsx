@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { easeOut } from '@atlaskit/motion';
@@ -19,11 +20,10 @@ const transitionDuration = '0.22s';
 const shadowStyles = css({
 	width: 3,
 	position: 'absolute',
-	top: 0,
-	bottom: 0,
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	left: -1,
 	background: token('color.border', `linear-gradient(${direction}, ${colorStops})`),
+	insetBlockEnd: 0,
+	insetBlockStart: 0,
+	insetInlineStart: -1,
 	opacity: 0.5,
 	pointerEvents: 'none',
 	transitionDuration: transitionDuration,
@@ -33,11 +33,11 @@ const shadowStyles = css({
 
 const draggingStyles = css({
 	width: 6,
-	left: token('space.negative.075', '-6px'),
 	background: token(
 		'color.background.neutral.subtle',
 		`linear-gradient(${direction}, ${colorStops})`,
 	),
+	insetInlineStart: token('space.negative.075', '-6px'),
 	opacity: 0.8,
 });
 

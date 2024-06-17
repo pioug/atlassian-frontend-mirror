@@ -1,11 +1,16 @@
-Convert props syntax that are unsupported by `styled-components@<4` and `@emotion/styled` to a props
-syntax that is supported. This is useful when used in conjunction with
-`no-styled-tagged-template-expression`, as output from the latter may use props syntax that results
-in a type error.
+Blocks dynamic styling syntax that is unsupported by `styled-components@<4` and `@emotion/styled`,
+and provides an autofix for converting to a supported syntax.
 
-These libraries do not support having an arrow function inside a CSS value:
+Use this rule alongside `no-styled-tagged-template-expression`, which can output the unsupported
+dynamic styling syntax.
 
-```js
+This rule applies only to `styled` usages from `styled-components` and `@emotion/styled`.
+
+## Autofix
+
+The autofix will find style object values that are arrow functions,
+
+```tsx
 styled.div({
 	color: ({ myColor }) => myColor,
 	backgroundColor: (props) => props.someColor,
@@ -15,7 +20,7 @@ styled.div({
 However, refactoring the arrow function so that it is the argument to `styled.div` will fix the
 issue:
 
-```js
+```tsx
 styled.div((props) => ({
 	color: props.myColor,
 	backgroundColor: props.someColor,
@@ -38,47 +43,47 @@ manually fix the output, or migrate the code to `@compiled/react`.
 Type annotations in the arrow function are not supported; you will need to remediate the lint error
 manually. For example:
 
-```js
+```tsx
 type Props = {
-  myColor: string,
-  someColor: string,
+	myColor: string;
+	someColor: string;
 };
 
 styled.div({
-  color: ({ myColor }: Props) => myColor,
-  backgroundColor: (props: Props) => props.someColor,
+	color: ({ myColor }: Props) => myColor,
+	backgroundColor: (props: Props) => props.someColor,
 });
 ```
 
-will need to be manually refactored to
+could be refactored as
 
-```js
+```tsx
 type Props = {
-  myColor: string,
-  someColor: string,
+	myColor: string;
+	someColor: string;
 };
 
 styled.div((props: Props) => ({
-  color: props.myColor,
-  backgroundColor: props.someColor,
+	color: props.myColor,
+	backgroundColor: props.someColor,
 }));
 ```
 
-### Special syntax in the arrow function parameter(s)
+### Special syntax in function parameters
 
 Rest elements, default values, and so on in the parameter of an arrow function will need to be
 remediated manually. For example:
 
-```js
+```tsx
 styled.div({
 	color: ({ myColor = '#fff' }) => myColor,
 	backgroundColor: ({ myColor = '#aaa' }) => myColor,
 });
 ```
 
-could potentially be remediated with
+could be refactored as
 
-```js
+```tsx
 styled.div((props) => ({
 	color: myColor ?? '#fff',
 	backgroundColor: myColor ?? '#aaa',
@@ -89,7 +94,7 @@ styled.div((props) => ({
 
 ### Incorrect
 
-```js
+```tsx
 import styled from 'styled-components';
 
 styled.div({
@@ -104,7 +109,7 @@ styled.div({
 
 ### Correct
 
-```js
+```tsx
 import styled from '@emotion/styled';
 
 styled.div((props) => ({

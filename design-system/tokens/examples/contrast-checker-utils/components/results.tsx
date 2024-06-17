@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Fragment, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { VariableSizeList as List } from 'react-window';
 
@@ -112,6 +113,7 @@ const ResultsAccordion = ({
 				<TextField
 					aria-label="Filter results"
 					elemBeforeInput={
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						<Inline xcss={xcss({ paddingInline: 'space.100' })}>
 							<SearchIcon label="" />
 						</Inline>
@@ -338,6 +340,7 @@ const Results = ({
 			</Inline>
 			{resultsCustom ? (
 				<Fragment>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<Box xcss={xcss({ overflow: 'auto', height: '100%' })}>
 						<Stack space="space.200">
 							{(customTheme.length > 0 || Object.keys(customBaseTokens).length > 0) && (

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import { colors, gridSize, themed } from '@atlaskit/theme';
 import CodeBlock from '@atlaskit/code/block';

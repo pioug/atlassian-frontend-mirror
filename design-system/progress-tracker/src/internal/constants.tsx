@@ -10,11 +10,9 @@ export const varTransitionEasing = '--ds--pt--te';
 export const varMarkerColor = '--ds--pt--mc';
 export const varBackgroundColor = '--ds--pt--bg';
 
-export const REGULAR_FONT_WEIGHT = token('font.weight.regular', '400');
-export const SEMI_BOLD_FONT_WEIGHT = token('font.weight.semibold', '600');
-
 export const HALF_GRID_SIZE = token('space.050', '4px');
 export const PROGRESS_BAR_HEIGHT = token('space.100', '8px');
 
-// Labels sit 16px from bottom of progress bar i.e. 8 + 16
-export const LABEL_TOP_SPACING = token('space.300', '24px');
+// Labels sit 16px from bottom of progress bar
+// i.e. 8 (bar height) + 16 - 4 (line height 24->20 in PYX-695) = 20px
+export const LABEL_TOP_SPACING = token('space.250');

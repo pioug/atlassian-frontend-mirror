@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.10.2
+
+### Patch Changes
+
+- [#111460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111460)
+  [`c7cfc31d4a7b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c7cfc31d4a7b6) -
+  ED-23707 fix issue where comment ui was not triggered on commented node selections.
+- [#110966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110966)
+  [`31348c335b4b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31348c335b4b3) -
+  ED-23690 - add inlineNodeTypes property to AnnotationComponentProps
+- Updated dependencies
+
 ## 1.10.1
 
 ### Patch Changes

@@ -13,11 +13,11 @@ const spacerStyles = xcss({
 });
 
 type ExampleProps = {
-	isOpenDefault: boolean;
+	isOpenInitial: boolean;
 };
 
-const ShouldFitContainerExample = ({ isOpenDefault }: ExampleProps) => {
-	const [isOpen, setIsOpen] = useState(isOpenDefault);
+const ShouldFitContainerExample = ({ isOpenInitial }: ExampleProps) => {
+	const [isOpen, setIsOpen] = useState(isOpenInitial);
 
 	return (
 		<Box xcss={spacerStyles}>
@@ -42,12 +42,12 @@ const ShouldFitContainerExample = ({ isOpenDefault }: ExampleProps) => {
 	);
 };
 
-const ShouldFitContainerExampleWithDefaultClosed = () => (
-	<ShouldFitContainerExample isOpenDefault={false} />
+const ShouldFitContainerExampleWithInitialClosed = () => (
+	<ShouldFitContainerExample isOpenInitial={false} />
 );
 
-export const ShouldFitContainerExampleWithDefaultOpen = () => (
-	<ShouldFitContainerExample isOpenDefault />
+export const ShouldFitContainerExampleWithInitialOpen = () => (
+	<ShouldFitContainerExample isOpenInitial />
 );
 
-export default ShouldFitContainerExampleWithDefaultClosed;
+export default ShouldFitContainerExampleWithInitialClosed;

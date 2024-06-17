@@ -89,7 +89,6 @@ export class DocumentService {
 		private metadataService: MetadataService,
 		private isNameSpaceLocked: () => boolean,
 		private enableErrorOnFailedDocumentApply: boolean = false,
-		private reconcileOnRecovery: boolean = false,
 		private options: { __livePage: boolean } = { __livePage: false },
 	) {
 		this.stepQueue = new StepQueueState();
@@ -397,13 +396,8 @@ export class DocumentService {
 		// We preserve these as they will be lost apon this.updateDocument. This is because we are using document recovery.
 		// We can then reconcile the document with the preserved state.
 		const unconfirmedSteps = this.getUnconfirmedSteps();
-		let currentState;
-		if (this.reconcileOnRecovery) {
-			currentState = await this.getCurrentState();
-		}
-		const useReconcile = Boolean(
-			unconfirmedSteps?.length && this.reconcileOnRecovery && currentState,
-		);
+		const currentState = await this.getCurrentState();
+		const useReconcile = Boolean(unconfirmedSteps?.length && currentState);
 
 		try {
 			// Reset the editor,

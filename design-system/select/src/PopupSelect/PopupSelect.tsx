@@ -548,6 +548,7 @@ export default class PopupSelect<
 										props.onMenuClose?.();
 									}}
 									isSearchable={showSearchControl}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									styles={mergeStyles(this.defaultStyles, props.styles || {})}
 									maxMenuHeight={this.getMaxHeight()}
 									components={selectComponents}

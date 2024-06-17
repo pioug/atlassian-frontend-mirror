@@ -23,6 +23,7 @@ import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView'
 import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
 import FlexibleErroredView from './views/flexible/FlexibleErroredView';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
 

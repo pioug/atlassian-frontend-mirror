@@ -4,11 +4,10 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 
-import type { BlockControlsPlugin } from '../types';
+import type { BlockControlsPlugin, BlockControlsSharedState } from '../types';
 import { getTopPosition } from '../utils/drag-handle-positions';
 
 const basicStyles = css({
@@ -36,11 +35,10 @@ export const MouseMoveWrapper = ({
 	nodeType: string;
 	getPos: () => number | undefined;
 }) => {
-	const { blockControlsState } = useSharedPluginState(api, ['blockControls']);
-	const [isDragging, setIsDragging] = useState(false);
+	// Using a ref for isDragging reduce re-renders
+	const isDragging = useRef(false);
 	const [hideWrapper, setHideWrapper] = useState(false);
 	const ref = useRef<HTMLDivElement>(null);
-
 	const [pos, setPos] = useState<{ top: string; height: string }>();
 
 	useEffect(() => {
@@ -60,7 +58,7 @@ export const MouseMoveWrapper = ({
 	}, []);
 
 	const onMouseEnter = useCallback(() => {
-		if (!isDragging) {
+		if (!isDragging.current) {
 			setHideWrapper(true);
 		}
 		const pos = getPos();
@@ -68,31 +66,38 @@ export const MouseMoveWrapper = ({
 			return;
 		}
 
-		if (api && api.blockControls && !isDragging) {
+		if (api && api.blockControls && !isDragging.current) {
 			api?.core?.actions.execute(
 				api.blockControls.commands.showDragHandleAt(pos, anchorName, nodeType),
 			);
 		}
-	}, [setHideWrapper, getPos, isDragging, api, anchorName, nodeType]);
+	}, [getPos, isDragging, api, anchorName, nodeType]);
+
+	//THIS IS TRIGGERED A LOT!
+	const onSharedStateChange = useCallback(
+		({ nextSharedState }: { nextSharedState: BlockControlsSharedState }) => {
+			if (nextSharedState?.activeNode?.anchorName !== anchorName && !isDragging.current) {
+				setHideWrapper(false);
+			}
+
+			if (nextSharedState?.isDragging && !isDragging.current) {
+				isDragging.current = true;
+				setHideWrapper(true);
+			}
+			if (nextSharedState?.isDragging === false && isDragging.current) {
+				isDragging.current = false;
+				setHideWrapper(false);
+			}
+		},
+		[anchorName],
+	);
 
 	useEffect(() => {
-		setIsDragging(Boolean(blockControlsState?.isDragging));
-		const pos = getPos();
-
-		if (!blockControlsState?.activeNode) {
-			return;
-		}
-
-		if (blockControlsState?.activeNode?.pos !== pos && !blockControlsState?.isDragging) {
-			setHideWrapper(false);
-			return;
-		}
-
-		if (blockControlsState?.isDragging) {
-			setHideWrapper(true);
-			return;
-		}
-	}, [getPos, blockControlsState]);
+		const unbind = api?.blockControls?.sharedState.onChange(onSharedStateChange);
+		return () => {
+			unbind?.();
+		};
+	}, [onSharedStateChange, api]);
 
 	useLayoutEffect(() => {
 		const supportsAnchor =

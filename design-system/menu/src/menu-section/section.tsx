@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { Children, forwardRef, Fragment, type Ref } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';

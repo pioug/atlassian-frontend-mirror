@@ -60,9 +60,7 @@ describe('onStepsAdded', () => {
 	describe('catchupv2', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
-			const mocks = createMockService({
-				featureFlags: { reconcileOnRecovery: false },
-			});
+			const mocks = createMockService();
 			analyticsMock = mocks.analyticsHelperMock;
 			participantsServiceMock = mocks.participantsServiceMock;
 			service = mocks.service;

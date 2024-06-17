@@ -157,9 +157,12 @@ export const mocks = {
 		},
 	},
 	analytics: {
-		status: 'resolved',
+		status: 'resolved' as const,
 		details: {
 			meta: {
+				visibility: 'public' as const,
+				access: 'granted' as const,
+				auth: [],
 				definitionId: 'spaghetti-id',
 				key: 'spaghetti-key',
 				resourceType: 'spaghetti-resource',

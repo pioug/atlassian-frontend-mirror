@@ -1,6 +1,6 @@
 import AnalyticsWebClient from '@atlassiansox/analytics-web-client';
 import fetchMock, { type MockResponseInit } from 'jest-fetch-mock';
-import Statsig, { type DynamicConfig } from 'statsig-js-lite';
+import Statsig, { type DynamicConfig, type Layer } from 'statsig-js-lite';
 
 import type FeatureGates from '../index';
 // eslint-disable-next-line no-duplicate-imports
@@ -21,6 +21,8 @@ jest.mock('statsig-js-lite', () => {
 			checkGateWithExposureLoggingDisabled: jest.fn(),
 			getExperiment: jest.fn(),
 			getExperimentWithExposureLoggingDisabled: jest.fn(),
+			getLayer: jest.fn(),
+			getLayerWithExposureLoggingDisabled: jest.fn(),
 			setOverrides: jest.fn(),
 			shutdown: jest.fn(),
 			updateUserWithValues: jest.fn().mockReturnValue(true),
@@ -1104,16 +1106,6 @@ describe('FeatureGate client', () => {
 	});
 
 	describe('getExperimentValue', () => {
-		beforeEach(() => {
-			StatsigMocked.getExperiment.mockReturnValue({
-				get: jest.fn(),
-			} as unknown as DynamicConfig);
-
-			StatsigMocked.getExperimentWithExposureLoggingDisabled.mockReturnValue({
-				get: jest.fn(),
-			} as unknown as DynamicConfig);
-		});
-
 		test('evaluating a flag without setting fireExposureEvent will call Statsig.getExperiment', () => {
 			FeatureGatesClass.getExperimentValue('test-experiment', 'cohort', 'control');
 			expect(StatsigMocked.getExperiment).toBeCalledWith('test-experiment');
@@ -1204,6 +1196,100 @@ describe('FeatureGate client', () => {
 				fireExperimentExposure: false,
 			});
 			expect(StatsigMocked.getExperimentWithExposureLoggingDisabled).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('getLayer', () => {
+		test('catches any exception and logs a warning on the first occurrences of an error', () => {
+			console.warn = jest.fn();
+
+			StatsigMocked.getLayer.mockImplementation(() => {
+				throw new Error('mock error');
+			});
+
+			FeatureGatesClass.getLayer('test-layer');
+			FeatureGatesClass.getLayer('test-layer');
+
+			expect(console.warn).toBeCalledWith({
+				msg: 'An error has occurred getting the layer. Only the first occurrence of this error is logged.',
+				layerName: 'test-layer',
+				error: new Error('mock error'),
+			});
+			expect(console.warn).toHaveBeenCalledTimes(1);
+		});
+
+		test('defaults to sending the exposure event when no options are provided', () => {
+			FeatureGatesClass.getLayer('test-layer');
+			expect(StatsigMocked.getLayer).toHaveBeenCalledTimes(1);
+		});
+
+		test('defaults to sending the exposure event when options are provided, but fireExperimentExposure is not set', () => {
+			FeatureGatesClass.getLayer('test-layer', {});
+			expect(StatsigMocked.getLayer).toHaveBeenCalledTimes(1);
+		});
+
+		test('does not send the exposure event if the fireExperimentExposure option is set to false', () => {
+			FeatureGatesClass.getLayer('test-layer', {
+				fireLayerExposure: false,
+			});
+			expect(StatsigMocked.getLayerWithExposureLoggingDisabled).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('getLayerValue', () => {
+		test('evaluating a flag without setting fireExposureEvent will call Statsig.getLayer', () => {
+			FeatureGatesClass.getLayerValue('test-layer', 'cohort', 'control');
+			expect(StatsigMocked.getLayer).toBeCalledWith('test-layer');
+		});
+
+		test('evaluating a flag with fireExposureEvent set to true will call Statsig.getLayer', () => {
+			FeatureGatesClass.getLayerValue('test-layer', 'control', 'control', {
+				fireLayerExposure: true,
+			});
+			expect(StatsigMocked.getLayer).toBeCalledWith('test-layer');
+		});
+
+		test('evaluating a flag with fireExposureEvent set to false will call Statsig.getLayerWithExposureLoggingDisabled', () => {
+			FeatureGatesClass.getLayerValue('test-layer', 'cohort', 'control', {
+				fireLayerExposure: false,
+			});
+			expect(StatsigMocked.getLayerWithExposureLoggingDisabled).toBeCalledWith('test-layer');
+		});
+
+		test('evaluating a flag with fireExposureEvent set to undefined will call Statsig.getLayer', () => {
+			FeatureGatesClass.getLayerValue('test-layer', 'cohort', 'control', {
+				fireLayerExposure: undefined,
+			});
+			expect(StatsigMocked.getLayer).toBeCalledWith('test-layer');
+		});
+
+		test('catches any exception and logs a warning on the first occurrences of an error', () => {
+			console.warn = jest.fn();
+
+			StatsigMocked.getLayer.mockReturnValueOnce({
+				get: jest.fn().mockImplementation(() => {
+					throw new Error('mock error');
+				}),
+			} as unknown as Layer);
+
+			FeatureGatesClass.getLayerValue('test-layer', 'cohort', 'control', {
+				fireLayerExposure: true,
+			});
+
+			FeatureGatesClass.getLayerValue('test-layer', 'cohort', 'control', {
+				fireLayerExposure: true,
+			});
+
+			expect(console.warn).toBeCalledWith({
+				msg: 'An error has occurred getting the layer value. Only the first occurrence of this error is logged.',
+				layerName: 'test-layer',
+				defaultValue: 'control',
+				options: {
+					fireLayerExposure: true,
+				},
+				error: new Error('mock error'),
+			});
+			expect(console.warn).toHaveBeenCalledTimes(1);
 		});
 	});
 

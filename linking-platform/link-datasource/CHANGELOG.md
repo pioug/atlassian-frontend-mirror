@@ -1,5 +1,24 @@
 # @atlaskit/link-datasource
 
+## 2.3.9
+
+### Patch Changes
+
+- [#110751](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110751)
+  [`ce36b6b2a7de1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce36b6b2a7de1) -
+  Uppercase the search input when attempting to convert to an issue key
+- Updated dependencies
+
+## 2.3.8
+
+### Patch Changes
+
+- [#110903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110903)
+  [`20e5460b28e6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20e5460b28e6d) -
+  [ux] Closing the modal will no longer trigger return of focus, because it works in a very buggy
+  way inside editor.
+- Updated dependencies
+
 ## 2.3.7
 
 ### Patch Changes

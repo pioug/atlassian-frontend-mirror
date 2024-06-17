@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useContext, useEffect, useLayoutEffect as useRealLayoutEffect } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@emotion/react';
 
 import InteractionContext from '@atlaskit/interaction-context';

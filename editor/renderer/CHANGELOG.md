@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 109.32.5
+
+### Patch Changes
+
+- [#110948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110948)
+  [`6567f4bf996b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6567f4bf996b3) -
+  [ux] When we select caption comment, the comment badge should not be active (with FF) and rename
+  prop name to mediaSingleElement
+- Updated dependencies
+
+## 109.32.4
+
+### Patch Changes
+
+- [#110966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110966)
+  [`31348c335b4b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31348c335b4b3) -
+  ED-23690 - add inlineNodeTypes property to AnnotationComponentProps
+- Updated dependencies
+
 ## 109.32.3
 
 ### Patch Changes

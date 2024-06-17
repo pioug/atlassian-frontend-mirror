@@ -27,16 +27,14 @@ export const elementBeforeIconStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-export const dragMenuBackgroundColorStyles = (
-	tableSortColumnDiscoverability: boolean = false,
-) => css`
+export const dragMenuBackgroundColorStyles = (tableSortColumnReorder: boolean = false) => css`
 	.${ClassName.DRAG_SUBMENU} {
 		border-radius: ${token('border.radius', '3px')};
 		background: ${token('elevation.surface.overlay', 'white')};
 		box-shadow: ${token('elevation.shadow.overlay', `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`)};
 		display: block;
 		position: absolute;
-		top: ${tableSortColumnDiscoverability
+		top: ${tableSortColumnReorder
 			? TABLE_DRAG_MENU_PADDING_TOP +
 				TABLE_DRAG_MENU_SORT_GROUP_HEIGHT +
 				TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT

@@ -11,11 +11,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../types';
@@ -59,65 +56,44 @@ export const DropTarget = ({
 			return;
 		}
 
-		const combined: CleanupFn[] = [];
+		return dropTargetForElements({
+			element,
+			getIsSticky: () => true,
+			onDragEnter: () => {
+				setIsDraggedOver(true);
+			},
+			onDragLeave: () => setIsDraggedOver(false),
+			onDrop: () => {
+				const { activeNode, decorationState } =
+					api?.blockControls?.sharedState.currentState() || {};
+				if (!activeNode || !decorationState) {
+					return;
+				}
+				const { pos } = decorationState.find((dec) => dec.index === index) || {};
 
-		const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent') as HTMLElement;
+				if (activeNode && pos !== undefined) {
+					const { pos: start } = activeNode;
+					api?.core?.actions.execute((state) => {
+						const resolvedMovingNode = state.tr.doc.resolve(start);
+						const maybeNode = resolvedMovingNode.nodeAfter;
 
-		if (scrollable) {
-			combined.push(
-				autoScrollForElements({
-					element: scrollable,
-				}),
-			);
-		}
+						api?.blockControls?.commands?.moveNode(start, pos)(state);
+						api?.analytics?.actions.attachAnalyticsEvent({
+							eventType: EVENT_TYPE.UI,
+							action: ACTION.DRAGGED,
+							actionSubject: ACTION_SUBJECT.ELEMENT,
+							actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+							attributes: {
+								nodeDepth: resolvedMovingNode.depth,
+								nodeType: maybeNode?.type.name || '',
+							},
+						})(state.tr);
 
-		combined.push(
-			dropTargetForElements({
-				element,
-				getIsSticky: () => true,
-				onDrag: () => {
-					scrollable.style.setProperty('scroll-behavior', 'unset');
-				},
-				onDragEnter: () => {
-					setIsDraggedOver(true);
-				},
-				onDragLeave: () => setIsDraggedOver(false),
-				onDrop: () => {
-					scrollable.style.setProperty('scroll-behavior', null);
-
-					const { activeNode, decorationState } =
-						api?.blockControls?.sharedState.currentState() || {};
-					if (!activeNode || !decorationState) {
-						return;
-					}
-					const { pos } = decorationState.find((dec) => dec.index === index) || {};
-
-					if (activeNode && pos !== undefined) {
-						const { pos: start } = activeNode;
-						api?.core?.actions.execute((state) => {
-							const resolvedMovingNode = state.tr.doc.resolve(start);
-							const maybeNode = resolvedMovingNode.nodeAfter;
-
-							api?.blockControls?.commands?.moveNode(start, pos)(state);
-							api?.analytics?.actions.attachAnalyticsEvent({
-								eventType: EVENT_TYPE.UI,
-								action: ACTION.DRAGGED,
-								actionSubject: ACTION_SUBJECT.ELEMENT,
-								actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
-								attributes: {
-									nodeDepth: resolvedMovingNode.depth,
-									nodeType: maybeNode?.type.name || '',
-								},
-							})(state.tr);
-
-							return state.tr;
-						});
-					}
-				},
-			}),
-		);
-
-		return combine(...combined);
+						return state.tr;
+					});
+				}
+			},
+		});
 	}, [index, api]);
 
 	return (

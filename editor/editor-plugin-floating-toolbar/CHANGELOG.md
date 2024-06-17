@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.7.0
+
+### Minor Changes
+
+- [#111788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111788)
+  [`5a286a37540ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a286a37540ff) -
+  [ux] [EDF-770] Show agents in the floating toolbar dropdown
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.0
 
 ### Minor Changes

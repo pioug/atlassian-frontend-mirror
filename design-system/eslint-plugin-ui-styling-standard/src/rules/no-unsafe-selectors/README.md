@@ -1,21 +1,23 @@
-Disallows unsafe selectors in CSS-in-JS style objects.
+Blocks unsafe CSS selectors.
 
-This enables static analysis and prevents regressions and incidents when migrating between styling
-APIs.
-
-Use this rule alongside
+Use alongside
 [no-nested-selectors](https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-nested-selectors/usage)
-as the rules are complementary.
+which blocks nested CSS selectors.
+
+Blocking unsafe selectors enables static analysis and also prevents regressions and incidents when
+migrating styles at scale.
 
 ## Examples
 
-### Incorrect
+### Keyframes
 
-**No @keyframes at-rules**
+#### Incorrect
 
-Use the `keyframes` CSS-in-JS API instead.
+Don't use `@keyframes` at-rules in styles.
 
-```ts
+```tsx
+import { css } from '@compiled/react';
+
 css({
 	'@keyframes fadeIn': {
 		from: {
@@ -25,41 +27,102 @@ css({
 			opacity: 1,
 		},
 	},
+	animation: '1s ease-in fadeIn',
 });
 ```
 
-**No legacy pseudo-element syntax**
+#### Correct
 
-Use the `::` double colon syntax for pseudo-elements.
+Use the `keyframes` API.
 
-_Auto-fixer is available for this violation._
+```tsx
+import { css, keyframes } from '@compiled/react';
 
-```ts
+const fadeIn = keyframes({
+	from: {
+		opacity: 0,
+	},
+	to: {
+		opacity: 1,
+	},
+});
+
 css({
-	':after': {
+	animation: `1s ease-in ${fadeIn}`,
+});
+```
+
+### Legacy pseudo-element syntax
+
+#### Incorrect
+
+Don't use the legacy single colon syntax for pseudo-elements.
+
+This issue is autofixable.
+
+```tsx
+import { css } from '@compiled/react';
+
+css({
+	'&:after': {
 		content: '""',
-		width: 100,
-		height: 100,
-		backgroundColor: 'red',
 	},
 });
 ```
 
-**No increased specificity selectors**
+#### Correct
+
+Use the double colon syntax for pseudo-elements.
+
+```tsx
+import { css } from '@compiled/react';
+
+css({
+	'&::after': {
+		content: '""',
+	},
+});
+```
+
+### Increased specificity selectors
+
+#### Incorrect
+
+Don't use the nesting selector to increase specificity of styles.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+css({
+	'&&': {
+		color: token('color.text'),
+	},
+});
+```
+
+#### Correct
 
 Use styles that do not require increased specificity.
 
-```ts
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
 css({
-	'&&': {
-		color: 'red',
-	},
+	color: token('color.text'),
 });
 ```
 
-**No restricted at-rules**
+### At-rules
 
-```ts
+#### Incorrect
+
+Don't use at-rules in styles (see **Correct** below for exceptions).
+
+```tsx
+import { css } from '@compiled/react';
+
 css({
 	'@scope (.article-body) to (figure)': {
 		img: {
@@ -69,34 +132,89 @@ css({
 });
 ```
 
-**No restricted pseudos**
+#### Correct
 
-```ts
+Use only allowed at-rules:
+
+- `@media` (through our
+  [breakpoints](https://atlassian.design/components/primitives/responsive/breakpoints/examples))
+- `@property`
+- `@supports`
+
+```tsx
+import { css } from '@compiled/react';
+import { media } from '@atlaskit/primitives/responsive';
+
 css({
-	'&:first-child': {
-		width: 100,
+	[media.above.sm]: {
+		display: 'block',
 	},
 });
 ```
 
-**No ambiguous pseudos**
+### Restricted pseudo-selectors
 
-A pseudo-selector without a leading selector is ambiguous and is interpreted differently between
-contexts.
+#### Incorrect
 
-Most CSS-in-JS libraries will implicitly add the nesting selector `&` before ambiguous
-pseudo-selectors. This is often the desired behavior.
+Don't use pseudo-classes which take arguments or implicitly rely on external context.
 
-The CSS nesting specification, CSS pre-processors, newer versions of `styled-components` (version
-6+) and potentially future versions of `@emotion/*` will treat ambiguous pseudo-selectors as
-descendant selectors.
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
-Use explicit selectors. Do not rely on implicit behavior for pseudo-selectors.
+css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
+	'&:not(:hover)': {
+		backgroundColor: token('color.background.neutral'),
+	}
+	'&:first-child': {
+		fontWeight: token('font.weight.bold'),
+	},
+});
+```
 
-_Auto-fixer is available for this violation. By default a nesting selector `&` is added unless the
-`shouldAlwaysInsertNestingSelectorForAmbiguousPseudos` option is disabled._
+#### Correct
 
-```ts
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+type Props = { isFirstChild: boolean };
+
+const baseStyles = css({
+	backgroundColor: token('color.background.neutral'),
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
+});
+
+const firstChildStyles = css({
+	fontWeight: token('font.weight.bold'),
+});
+
+const Component = ({ isFirstChild }: Props) => (
+	<div css={[baseStyles, isFirstChild && firstChildStyles]} />
+);
+```
+
+### Ambiguous pseudo-selectors
+
+#### Incorrect
+
+Don't use pseudo-selectors without a leading selector, as they are ambiguous and interpreted
+differently between contexts.
+
+For example some contexts will treat `:hover` as `&:hover` while others will treat it as `& :hover`
+(which targets descendants).
+
+This issue is autofixable. By default a nesting selector `&` is added unless the
+`shouldAlwaysInsertNestingSelectorForAmbiguousPseudos` option is disabled.
+
+```tsx
+import { css } from '@compiled/react';
+
 css({
 	/**
 	 * This pseudo-class has no leading selector and is ambiguous.
@@ -119,13 +237,24 @@ css({
 });
 ```
 
-**No grouped at-rules**
+#### Correct
 
-Do not group at-rules with the `cssMap` API.
+Use explicit selectors. Do not rely on implicit or undefined behavior for pseudo-selectors.
 
-Write flattened at-rules instead.
+```tsx
 
-```ts
+```
+
+### Grouped at-rules
+
+#### Incorrect
+
+Don't group at-rules with the `cssMap` API.
+
+````tsx
+import { cssMap } from '@compiled/react';
+
+```tsx
 cssMap({
 	success: {
 		'@media': {
@@ -134,15 +263,13 @@ cssMap({
 		},
 	},
 });
-```
+````
 
-**No selectors object**
+#### Correct
 
-Do not use a selectors object with the `cssMap` API.
+Write flattened at-rules instead.
 
-Refactor your styles so it is not required.
-
-```ts
+```tsx
 cssMap({
 	success: {
 		selectors: {
@@ -156,7 +283,7 @@ cssMap({
 
 ### Correct
 
-```ts
+```tsx
 const fadeIn = keyframes({
 	from: {
 		opacity: 0,
@@ -171,7 +298,7 @@ css({
 });
 ```
 
-```ts
+```tsx
 css({
 	'::after': {
 		content: '""',
@@ -182,7 +309,7 @@ css({
 });
 ```
 
-```ts
+```tsx
 css({
 	'&:first-of-type': {
 		width: 100,
@@ -190,13 +317,13 @@ css({
 });
 ```
 
-```ts
+```tsx
 css({
 	'&:hover': {},
 });
 ```
 
-```ts
+```tsx
 cssMap({
 	success: {
 		'@media (min-width: 900px)': {},
@@ -205,7 +332,7 @@ cssMap({
 });
 ```
 
-```ts
+```tsx
 cssMap({
 	success: {
 		backgroundColor: 'white',
@@ -220,7 +347,7 @@ cssMap({
 
 ### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -230,8 +357,7 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings). This will override the built-in allow-list.
+Override this list with the `importSources` option, which accepts an array of package names.
 
 ### `shouldAlwaysInsertNestingSelectorForAmbiguousPseudos: boolean`
 

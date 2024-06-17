@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.8.0
+
+### Minor Changes
+
+- [#110884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110884)
+  [`674f78166705c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/674f78166705c) -
+  [ux] [ED-23516] Change border color for highlight and text-color palettes to use tokens.
+  Changedefault palette color when undefined
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.5
 
 ### Patch Changes

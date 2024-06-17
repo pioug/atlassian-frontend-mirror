@@ -7,6 +7,7 @@ import HipchatChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 import Popup from '@atlaskit/popup';

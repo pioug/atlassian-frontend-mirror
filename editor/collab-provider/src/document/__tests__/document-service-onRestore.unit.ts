@@ -41,9 +41,10 @@ describe('DocumentService onRestore', () => {
 	afterEach(() => jest.clearAllMocks());
 
 	describe('reinitialise the document', () => {
-		it('sends correct initial metadata and reserveCursor to provider', (done) => {
+		it('sends correct initial metadata and reserveCursor to provider', async (done) => {
 			expect.assertions(4);
 			getUnconfirmedStepsSpy.mockReturnValue([]);
+			getCurrentStateSpy.mockReturnValue({ content: 'something' });
 			const updateDoc = jest.spyOn(provider.documentService, 'updateDocument');
 			provider.on('init', (data: any) => {
 				expect(data).toEqual({
@@ -55,8 +56,7 @@ describe('DocumentService onRestore', () => {
 				expect(data).toEqual(dummyPayload.metadata);
 				done();
 			});
-			// @ts-ignore
-			provider.documentService.onRestore(dummyPayload);
+			await provider.documentService.onRestore(dummyPayload);
 			expect(updateDoc).toBeCalledTimes(1);
 			expect(updateDoc).toBeCalledWith({
 				...dummyPayload,
@@ -65,10 +65,10 @@ describe('DocumentService onRestore', () => {
 		});
 
 		describe('without unconfirmed steps', () => {
-			beforeEach(() => {
+			beforeEach(async () => {
 				getUnconfirmedStepsSpy.mockReturnValue([]);
-				// @ts-ignore
-				provider.documentService.onRestore(dummyPayload);
+				getCurrentStateSpy.mockReturnValue(undefined);
+				await provider.documentService.onRestore(dummyPayload);
 			});
 
 			it('fires analytics with correct unconfirmedSteps length', () => {
@@ -86,13 +86,14 @@ describe('DocumentService onRestore', () => {
 			});
 		});
 
-		describe('with unconfirmed steps', () => {
+		describe('with unconfirmed steps and no state', () => {
 			beforeEach(() => {
 				getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
+				getCurrentStateSpy.mockReturnValue(undefined);
 			});
 
-			it('fires analytics with correct unconfirmedSteps length', () => {
-				provider.documentService.onRestore(dummyPayload);
+			it('fires analytics with correct unconfirmedSteps length', async () => {
+				await provider.documentService.onRestore(dummyPayload);
 				expect(sendActionEventSpy).toBeCalledTimes(1);
 				expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'SUCCESS', {
 					hasTitle: true,
@@ -101,25 +102,20 @@ describe('DocumentService onRestore', () => {
 				});
 			});
 
-			it('calls applyLocalSteps with steps to apply', (done) => {
+			it('calls applyLocalSteps with steps to apply', async (done) => {
 				provider.on('local-steps', ({ steps }: any) => {
 					expect(steps).toEqual(['test', 'test']);
 					done();
 				});
-				provider.documentService.onRestore(dummyPayload);
+				await provider.documentService.onRestore(dummyPayload);
 				expect(applyLocalStepsSpy).toBeCalledTimes(1);
 				expect(applyLocalStepsSpy).toBeCalledWith(['test', 'test']);
 			});
 
-			describe('when reconcile on recovery featureflag is on', () => {
+			describe('when reconcile on recovery', () => {
 				beforeEach(() => {
-					provider.documentService.reconcileOnRecovery = true;
 					getCurrentStateSpy.mockReturnValue({ content: 'something' });
 					fetchReconcileSpy.mockReturnValue('thing');
-				});
-
-				afterEach(() => {
-					provider.documentService.reconcileOnRecovery = false;
 				});
 
 				it('doesnt call applyLocalSteps', async () => {
@@ -150,10 +146,11 @@ describe('DocumentService onRestore', () => {
 		const testError = new Error('testing');
 		beforeEach(() => {
 			getUnconfirmedStepsSpy.mockReturnValue(['test', 'test']);
+			getCurrentStateSpy.mockReturnValue(undefined);
+			fetchReconcileSpy.mockReturnValue({});
 		});
 
-		it('when updateDocument throws', (done) => {
-			expect.assertions(8);
+		it('when updateDocument throws', async (done) => {
 			jest.spyOn(provider.documentService, 'updateDocument').mockImplementation(() => {
 				throw testError;
 			});
@@ -169,7 +166,7 @@ describe('DocumentService onRestore', () => {
 					done(e);
 				}
 			});
-			provider.documentService.onRestore(dummyPayload);
+			await provider.documentService.onRestore(dummyPayload);
 			expect(sendActionEventSpy).toBeCalledTimes(1);
 			expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'FAILURE', {
 				numUnconfirmedSteps: 2,
@@ -191,10 +188,10 @@ describe('DocumentService onRestore', () => {
 				},
 			});
 			done();
+			expect.assertions(8);
 		});
 
-		it('when applyLocalSteps throws', () => {
-			expect.assertions(10);
+		it('when applyLocalSteps throws', async () => {
 			jest.spyOn(provider.documentService, 'applyLocalSteps').mockImplementation(() => {
 				throw new Error('testing');
 			});
@@ -209,7 +206,7 @@ describe('DocumentService onRestore', () => {
 					status: 500,
 				});
 			});
-			provider.documentService.onRestore(dummyPayload);
+			await provider.documentService.onRestore(dummyPayload);
 
 			expect(sendActionEventSpy).toBeCalledTimes(1);
 			expect(sendActionEventSpy).toBeCalledWith('reinitialiseDocument', 'FAILURE', {
@@ -245,6 +242,7 @@ describe('DocumentService onRestore', () => {
 					code: 'DOCUMENT_RESTORE_ERROR',
 				},
 			});
+			expect.assertions(10);
 		});
 	});
 });

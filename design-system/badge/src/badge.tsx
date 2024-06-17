@@ -9,6 +9,7 @@ const boxStyles = xcss({
 	borderRadius: 'border.radius.200',
 	display: 'inline-flex',
 	blockSize: 'min-content',
+	flexShrink: 0, // Text component can wrap text, this ensures it doesn't wrap in flex containers.
 });
 
 /**

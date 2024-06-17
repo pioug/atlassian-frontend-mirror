@@ -73,7 +73,7 @@ const FloatingDragMenu = ({
 	const {
 		tableDuplicateCellColouring = false,
 		tableWithFixedColumnWidthsOption = false,
-		tableSortColumnDiscoverability = false,
+		tableSortColumnReorder = false,
 	} = getEditorFeatureFlags ? getEditorFeatureFlags() : {};
 
 	const shouldUseIncreasedScalingPercent =
@@ -119,7 +119,7 @@ const FloatingDragMenu = ({
 				tableDuplicateCellColouring={tableDuplicateCellColouring}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 				isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
-				tableSortColumnDiscoverability={tableSortColumnDiscoverability}
+				tableSortColumnReorder={tableSortColumnReorder}
 			/>
 		</Popup>
 	);

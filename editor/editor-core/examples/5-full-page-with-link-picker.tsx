@@ -1,36 +1,12 @@
 import React from 'react';
 
-import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { useLinkPickerEditorProps } from '@atlassian/link-picker-plugins/editor';
+import { DeletedExample } from '@af/editor-examples-helpers/utils';
 
-import { default as FullPageExample } from './5-full-page';
-
-const smartCardClient = new CardClient('staging');
-
-const FullPageWithLinkPicker = () => {
-	const linkPicker = useLinkPickerEditorProps(undefined, {
-		product: 'confluence',
-		activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
-		cloudId: 'a957adff-45b0-4f4f-8669-b640ed9973b6',
-		aggregatorUrl: 'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
-	});
-
+export default function Example() {
 	return (
-		<FullPageExample
-			editorProps={{
-				linking: { linkPicker },
-				featureFlags: {
-					'lp-link-picker': true,
-				},
-			}}
+		<DeletedExample
+			commitId="dce7b3cd5ed80afa66a68862d29d186e3a45952a"
+			alternativeExample="Confluence basic"
 		/>
 	);
-};
-
-export default () => {
-	return (
-		<SmartCardProvider client={smartCardClient}>
-			<FullPageWithLinkPicker />
-		</SmartCardProvider>
-	);
-};
+}

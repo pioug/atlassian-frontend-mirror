@@ -1,3 +1,4 @@
+import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -7,7 +8,7 @@ import { InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange, shallowEqual } from '@atlaskit/editor-common/utils';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer, type Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
 	EditorState,
@@ -15,6 +16,10 @@ import type {
 	Selection,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+import { ButtonWrapper } from './decorations';
 
 const isSelectionInsideLink = (state: EditorState | Transaction) =>
 	!!state.doc.type.schema.marks.link.isInSet(state.selection.$from.marks());
@@ -171,7 +176,7 @@ const getActiveText = (selection: Selection): string | undefined => {
 
 export const stateKey = new PluginKey<HyperlinkState>('hyperlinkPlugin');
 
-export const plugin = (dispatch: Dispatch, editorAppearance?: EditorAppearance) =>
+export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: EditorAppearance) =>
 	new SafePlugin({
 		state: {
 			init(_, state: EditorState): HyperlinkState {
@@ -228,6 +233,36 @@ export const plugin = (dispatch: Dispatch, editorAppearance?: EditorAppearance) 
 						editorAppearance,
 						...stateForAnalytics,
 					};
+
+					if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+						if (action === LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS) {
+							const configureButtonTargetPos = tr.getMeta(stateKey).pos;
+
+							const targetPosHasChanged =
+								pluginState.configureButtonTargetPos !== configureButtonTargetPos;
+							let decorations = pluginState.decorations;
+							if (targetPosHasChanged) {
+								if (configureButtonTargetPos === undefined) {
+									decorations = DecorationSet.empty;
+								} else {
+									const decoration = Decoration.widget(configureButtonTargetPos, (view) => {
+										return ButtonWrapper({
+											editorView: view,
+											pos: configureButtonTargetPos,
+											intl,
+										});
+									});
+									decorations = DecorationSet.create(newState.doc, [decoration]);
+								}
+							}
+
+							state = {
+								...state,
+								configureButtonTargetPos,
+								decorations,
+							};
+						}
+					}
 				}
 
 				const hasPositionChanged =
@@ -257,6 +292,14 @@ export const plugin = (dispatch: Dispatch, editorAppearance?: EditorAppearance) 
 		},
 		key: stateKey,
 		props: {
+			decorations: (state: EditorState) => {
+				if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+					const { decorations } = stateKey.getState(state) ?? {};
+					return decorations;
+				} else {
+					return DecorationSet.empty;
+				}
+			},
 			handleDOMEvents: {
 				mouseup: (_, event: any) => {
 					// this prevents redundant selection transaction when clicking on link
@@ -291,6 +334,46 @@ export const plugin = (dispatch: Dispatch, editorAppearance?: EditorAppearance) 
 					return false;
 				},
 			},
+			...(getBooleanFF('platform.linking-platform.smart-links-in-live-pages') && {
+				markViews: {
+					link: (mark, view, inline) => {
+						const toDOM = mark.type.spec.toDOM;
+						if (!toDOM) {
+							throw new Error('toDom method missing');
+						}
+						const dom = DOMSerializer.renderSpec(document, toDOM(mark, inline)).dom;
+
+						if (!(dom instanceof HTMLElement)) {
+							throw new Error('Error rendering hyperlink spec to dom');
+						}
+
+						const setTargetElementPos = (val: number | undefined) => {
+							const tr = view.state.tr;
+							tr.setMeta(stateKey, { type: LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS, pos: val });
+							view.dispatch(tr);
+						};
+
+						dom.onmouseenter = () => {
+							const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
+							const nodePos = view.posAtDOM(dom, -1);
+							if (nodePos !== configureButtonTargetPos) {
+								setTargetElementPos(nodePos);
+							}
+						};
+
+						dom.onmouseleave = () => {
+							const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
+							if (configureButtonTargetPos !== undefined) {
+								setTargetElementPos(undefined);
+							}
+						};
+
+						return {
+							dom: dom,
+						};
+					},
+				},
+			}),
 		},
 	});
 

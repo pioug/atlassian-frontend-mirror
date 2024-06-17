@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Fragment, useCallback, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
@@ -90,12 +91,14 @@ const BaseTokenEditor = ({
 	onChange: (baseTokens: BaseTokens) => void;
 }) => {
 	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<Box xcss={xcss({ overflow: 'auto' })}>
 			<Inline space="space.100" grow="fill" shouldWrap={true}>
 				{Object.entries(groupedBaseTokens).map(([group, originalBaseTokens]) => {
 					return (
 						<Box
 							key={group}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={xcss({
 								overflow: 'hidden',
 								display: 'flex',
@@ -212,6 +215,7 @@ const PaletteBlock = ({
 								}
 							}}
 						/>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<Box xcss={xcss({ flexShrink: '0' })}>
 							<Inline space="space.025">
 								<IconButton

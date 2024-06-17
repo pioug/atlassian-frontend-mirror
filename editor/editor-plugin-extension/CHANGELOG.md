@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.6.0
+
+### Minor Changes
+
+- [#108272](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108272)
+  [`a2eeda76039fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2eeda76039fd) -
+  [EDF-465] Move convertExtensionType action to extensions plugin to decouple the ai plugin with the
+  extensions plug
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.4
 
 ### Patch Changes

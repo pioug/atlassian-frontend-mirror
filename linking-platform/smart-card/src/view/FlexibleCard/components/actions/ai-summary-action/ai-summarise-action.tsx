@@ -14,8 +14,6 @@ import { getErrorMessage } from './utils';
 
 export function AISummariseAction({
 	url,
-	ari,
-	product,
 	onClick: onClickCallback,
 	onError: onErrorCallback,
 	testId,

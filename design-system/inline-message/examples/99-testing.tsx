@@ -8,7 +8,9 @@ import InlineMessage from '../src';
 
 const messageContent = (
 	<Stack space="space.100">
-		<Heading size="small">It is so great to use data-testid</Heading>
+		<Heading size="small" as="h2">
+			It is so great to use data-testid
+		</Heading>
 		<Text>
 			Visit{' '}
 			<Link href="https://hello.atlassian.net/wiki/spaces/AF/pages/2634728893/Testing+in+Atlassian+Frontend">

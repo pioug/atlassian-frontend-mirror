@@ -1,5 +1,6 @@
 import {
 	TEST_DOCUMENT_WITH_ARI,
+	TEST_RESOLVED_META_DATA,
 	TEST_RESOLVED_META_DATA_WITH_AI_SUMMARY,
 } from '../../../common/__mocks__/jsonld';
 import { extractAISummaryAction } from '../extract-ai-summary-action';
@@ -8,14 +9,11 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const TEST_URL = 'https://my.url.com';
 
-const TEST_ARI = 'some-resource-identifier';
-
 const TEST_AI_SUMMARY_OPTIONS: AISummaryConfig = {
-	product: 'CONFLUENCE',
 	isAdminHubAIEnabled: true,
 };
 
-describe('extractFollowAction', () => {
+describe('extractAISummaryAction', () => {
 	const generateResponse = () => ({
 		data: {
 			...TEST_DOCUMENT_WITH_ARI,
@@ -35,11 +33,7 @@ describe('extractFollowAction', () => {
 					TEST_AI_SUMMARY_OPTIONS,
 				);
 
-				expect(action).toEqual({
-					url: TEST_URL,
-					ari: TEST_ARI,
-					product: TEST_AI_SUMMARY_OPTIONS.product,
-				});
+				expect(action).toEqual({ url: TEST_URL });
 			},
 			() => {
 				const response = generateResponse();
@@ -67,11 +61,7 @@ describe('extractFollowAction', () => {
 					TEST_AI_SUMMARY_OPTIONS,
 				);
 
-				expect(action).toEqual({
-					url: TEST_URL,
-					ari: TEST_ARI,
-					product: TEST_AI_SUMMARY_OPTIONS.product,
-				});
+				expect(action).toEqual({ url: TEST_URL });
 			},
 			() => {
 				const response = generateResponse();
@@ -99,11 +89,7 @@ describe('extractFollowAction', () => {
 					TEST_AI_SUMMARY_OPTIONS,
 				);
 
-				expect(action).toEqual({
-					url: TEST_URL,
-					ari: TEST_ARI,
-					product: TEST_AI_SUMMARY_OPTIONS.product,
-				});
+				expect(action).toEqual({ url: TEST_URL });
 			},
 			() => {
 				const response = generateResponse();
@@ -128,16 +114,6 @@ describe('extractFollowAction', () => {
 		});
 	});
 
-	describe('does not return AI summary action if the product is not defined', () => {
-		ffTest('platform.linking-platform.smart-card.hover-card-ai-summaries', () => {
-			const response = generateResponse();
-			const action = extractAISummaryAction(response, TEST_URL, undefined, {
-				isAdminHubAIEnabled: true,
-			});
-
-			expect(action).toBe(undefined);
-		});
-	});
 	describe('does not return AI summary action if isAdminHubAIEnabled is false', () => {
 		ffTest('platform.linking-platform.smart-card.hover-card-ai-summaries', () => {
 			const response = generateResponse();
@@ -145,6 +121,17 @@ describe('extractFollowAction', () => {
 				...TEST_AI_SUMMARY_OPTIONS,
 				isAdminHubAIEnabled: false,
 			});
+
+			expect(action).toBe(undefined);
+		});
+	});
+
+	describe('does not return AI summary action if link is not support AI Summary', () => {
+		ffTest('platform.linking-platform.smart-card.hover-card-ai-summaries', () => {
+			const action = extractAISummaryAction(
+				{ data: TEST_DOCUMENT_WITH_ARI, meta: TEST_RESOLVED_META_DATA },
+				undefined,
+			);
 
 			expect(action).toBe(undefined);
 		});

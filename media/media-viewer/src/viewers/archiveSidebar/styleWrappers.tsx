@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { type ReactNode, type MouseEvent, type Key } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, keyframes } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { ArchiveSideBarWidth } from './styles';

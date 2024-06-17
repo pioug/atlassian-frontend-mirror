@@ -8,7 +8,9 @@ import InlineMessage from '../src';
 
 const messageContent = (
 	<Stack space="space.100">
-		<Heading size="small">Authenticate heading</Heading>
+		<Heading size="small" as="h2">
+			Authenticate heading
+		</Heading>
 		<Text>
 			<Link href="http://www.atlassian.com">Authenticate</Link> to see more information
 		</Text>

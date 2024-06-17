@@ -1,5 +1,63 @@
 # @atlaskit/editor-plugins
 
+## 3.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.2
+
+### Patch Changes
+
+- [#111381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111381)
+  [`5ec7ab3d39035`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ec7ab3d39035) -
+  Replace the LD flag controlling new column resizing experience with statsig experiment
+- Updated dependencies
+
+## 3.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [#106001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106001)
+  [`2a3e33b1e7727`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a3e33b1e7727) -
+  [ux] ECA11Y-75: Remove feature flag and fix tests
+- [#108272](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108272)
+  [`a2eeda76039fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2eeda76039fd) -
+  [EDF-465] Move convertExtensionType action to extensions plugin to decouple the ai plugin with the
+  extensions plug
+
+### Patch Changes
+
+- [#109353](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109353)
+  [`d932e2d76d8fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d932e2d76d8fc) -
+  Removed FF for Media resize
+- Updated dependencies
+
 ## 3.1.5
 
 ### Patch Changes

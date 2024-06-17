@@ -1,7 +1,9 @@
 /* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { keyframes } from '@emotion/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 import { B200, N50A, N60A } from '@atlaskit/theme/colors';
@@ -320,4 +322,6 @@ export const DetailsLabelText = styled.span`
 	text-overflow: ellipsis;
 	color: ${labelTextColor};
 	padding-left: ${token('space.050', '4px')};
+	margin-inline-start: 0;
+	margin-top: 0;
 `;

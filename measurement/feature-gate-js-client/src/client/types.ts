@@ -106,6 +106,14 @@ export type GetExperimentValueOptions<T> = GetExperimentOptions & {
 	typeGuard?: (value: unknown) => value is T;
 };
 
+export type GetLayerOptions = {
+	fireLayerExposure?: boolean;
+};
+
+export type GetLayerValueOptions<T> = GetLayerOptions & {
+	typeGuard?: (value: unknown) => value is T;
+};
+
 export type InitializeValues = {
 	experimentValues: Record<string, unknown>;
 	customAttributesFromFetch: CustomAttributes | undefined;

@@ -120,7 +120,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 			return [
 				{
 					name: 'hyperlink',
-					plugin: ({ dispatch }) => plugin(dispatch, options?.editorAppearance),
+					plugin: ({ dispatch, getIntl }) => plugin(dispatch, getIntl(), options?.editorAppearance),
 				},
 				{
 					name: 'fakeCursorToolbarPlugin',

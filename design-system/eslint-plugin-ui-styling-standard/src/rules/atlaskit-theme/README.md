@@ -1,111 +1,130 @@
-This rule bans certain usages of `@atlaskit/theme` that `@compiled/react` is unable to compile. This
-includes `typography`, `elevation` and `skeletonShimmer`.
+Blocks legacy `@atlaskit/theme` mixins that `@compiled/react` cannot compile. This includes the
+`typography`, `elevation` and `skeletonShimmer` mixins.
 
 ## Examples
 
 ### Typography
 
-Use `<Heading>` instead of `typography`.
+Don't use `typography` mixins.
 
-👎 Example of **incorrect** code for this rule:
+Use [typography tokens](https://atlassian.design/foundations/typography-beta/applying-typography) or
+the [Heading](https://atlassian.design/components/heading) and
+[Text](https://atlassian.design/components/primitives/text) components.
+
+#### Incorrect
 
 ```tsx
-import { styled } from '@compiled/react';
+import { css } from '@compiled/react';
 import { typography } from '@atlaskit/theme';
 
-export const HeadingComponent = styled.h2`
-	${typography.h200()};
-`;
+const titleStyles = css(typography.h700());
 ```
 
-```tsx
-import { styled } from '@compiled/react';
-import { typography } from '@atlaskit/theme';
-
-export const HeadingComponent = styled.h2(typography.h200());
-```
-
-👍 Example of **correct** code for this rule:
+#### Correct
 
 ```tsx
-import { styled } from '@compiled/react';
-
-const HeadingComponent = styled.h2({
-	fontSize: '20px',
-});
-```
-
-```tsx
-import Heading from '@atlaskit/heading';
+import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
-import { styled } from '@compiled/react';
 
-const TitleComponent = styled.span({
-	marginTop: token('space.150', '12px'),
+const titleStyles = css({
+	font: token('font.heading.large'),
 });
 
-export const Title = (props) => (
-	<Heading level="h200" as="h3">
-		<TitleComponent {...props} />
-	</Heading>
+const paragraphStyles = css({
+	font: token('font.body.large'),
+});
+```
+
+```tsx
+import { css } from '@compiled/react';
+import Heading from '@atlaskit/heading';
+import { Stack, Text } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+const Component = () => (
+	<Stack>
+		<Heading size="large">Title</Heading>
+		<Text size="large">Lorem ipsum</Text>
+	</Stack>
 );
 ```
 
 ### Elevation
 
-We don’t support this mixin, please use tokens instead.
+Don't use `elevation` mixins.
 
-👎 Example of **incorrect** code for this rule:
+Use [elevation tokens](https://atlassian.design/foundations/elevation) instead.
+
+#### Incorrect
 
 ```tsx
-import { styled } from '@compiled/react';
+import { css } from '@compiled/react';
 import { elevation } from '@atlaskit/theme';
 
-export const ElevationComponent = styled.div`
-	${elevation.e100()};
-`;
+const cardStyles = css(elevation.e100());
 ```
 
-👍 Example of **correct** code for this rule:
+#### Correct
 
 ```tsx
 import { styled } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
-export const TestComponent = styled.div({
-	boxShadow: token(
-		'elevation.shadow.raised',
-		'0 1px 1px rgba(9,30,66,0.25),0 0 1px 1px rgba(9,30,66,0.13)',
-	),
+const cardStyles = css({
+	backgroundColor: token('elevation.surface.raised'),
+	boxShadow: token('elevation.shadow.raised'),
 });
 ```
 
 ### Skeleton Shimmer
 
-You can preview our `@atlaskit/skeleton` (docs available to internal Atlassians only:
-[link](https://staging.atlassian.design/components/skeleton/examples)).
+Don't use the `skeletonShimmer` mixin.
 
-Otherwise, please use an SVG skeleton or your own `@compiled/react` variant yourself.
+Preview our [Skeleton](https://staging.atlassian.design/components/skeleton/examples) component
+(internal Atlassians only).
 
-👎 Example of **incorrect** code for this rule:
+Otherwise:
+
+- Use the `color.skeleton` and `color.skeleton.subtle` tokens to make your own component.
+- Use `@atlassian/jira-skeletons` when working on Jira (internal Atlassians only).
+
+#### Incorrect
 
 ```tsx
-import { styled } from '@compiled/react';
+import { css } from '@compiled/react';
 import { skeletonShimmer } from '@atlaskit/theme/constants';
 
-export const SkeletonShimmerComponent = styled.div`
-	${skeletonShimmer};
-`;
+const skeletonStyles = css(skeletonShimmer());
 ```
 
-👍 Example of **correct** code for this rule:
+#### Correct
 
 ```tsx
-export const SkeletonShimmerComponent = () => {
-	return (
-		<Wrapper>
-			<object data="./skeleton.svg" type="image/svg+xml"></object>
-		</Wrapper>
-	);
-};
+import Skeleton from '@atlaskit/skeleton';
+
+<Skeleton width="200px" height="16px" isShimmering />;
+```
+
+```tsx
+import { css, keyframes } from '@compiled/react';
+
+const shimmer = keyframes({
+	from: { backgroundColor: token('color.skeleton') },
+	to: { backgroundColor: token('color.skeleton.subtle') },
+});
+
+const skeletonStyles = css({
+	backgroundColor: token('color.skeleton'),
+	animationName: shimmer,
+	animationDuration: '1.5s',
+	animationIterationCount: 'infinite',
+	animationTimingFunction: 'linear',
+	animationDirection: 'alternate',
+});
+```
+
+```tsx
+import { ListSkeleton } from '@atlassian/jira-skeletons';
+
+<ListSkeleton numOfRows={3} />;
 ```

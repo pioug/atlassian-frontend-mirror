@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React from 'react';
 import { Component } from 'react';
@@ -9,6 +10,7 @@ import { isImageRemote } from './isImageRemote';
 import { CONTAINER_PADDING } from './styles';
 import { token } from '@atlaskit/tokens';
 import { N50A } from '@atlaskit/theme/colors';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { Box, xcss } from '@atlaskit/primitives';
 import { ERROR } from '../avatar-picker-dialog';

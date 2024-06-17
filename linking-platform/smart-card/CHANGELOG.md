@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 27.6.1
+
+### Patch Changes
+
+- [#102669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102669)
+  [`8530f56308283`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8530f56308283) -
+  Refactor useAISummary hook
+- Updated dependencies
+
+## 27.6.0
+
+### Minor Changes
+
+- [#109796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109796)
+  [`c9e8631e9b24f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9e8631e9b24f) -
+  EDM-10129: add functionality to View Related Links Action to open Related Links Modal
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.5.4
 
 ### Patch Changes

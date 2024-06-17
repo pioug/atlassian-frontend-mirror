@@ -4,25 +4,18 @@ import { di } from 'react-magnetic-di';
 import { FormattedMessage } from 'react-intl-next';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
 import AIIcon from '../../../../../common/ai-icon';
 import { InfoIcon } from '../icons/info';
 import { messages } from '../../../../../../messages';
-import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
-
+import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
 import type { AISummaryActionData } from '../../../../../../state/flexible-ui-context/types';
 
-export const AIFooterMetadata = ({
-	testId,
-	url,
-	ari,
-	product,
-}: AISummaryActionData & { testId?: string }) => {
-	di(useAISummary);
+export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId?: string }) => {
+	di(useAISummaryAction);
 
 	const {
 		state: { status },
-	} = useAISummary({ url, ari, product });
+	} = useAISummaryAction(url);
 
 	if (status !== 'done') {
 		return null;

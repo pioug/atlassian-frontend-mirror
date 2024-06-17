@@ -31,7 +31,7 @@
 		"@atlaskit/button": "^17.17.0",
 		"@atlaskit/icon": "^22.3.0",
 		"@atlaskit/lozenge": "^11.7.0",
-		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/theme": "^12.9.0",
 		"@atlaskit/tokens": "^1.50.0",
 		"@babel/runtime": "^7.0.0",
@@ -43,7 +43,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/avatar": "^21.9.0",
+		"@atlaskit/avatar": "^21.10.0",
 		"@atlaskit/checkbox": "^13.4.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/ssr": "*",

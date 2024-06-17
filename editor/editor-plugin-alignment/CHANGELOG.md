@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.4.2
+
+### Patch Changes
+
+- [#109764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109764)
+  [`0c87bddb30871`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c87bddb30871) -
+  ED-23659 - fix `Mod-Alt-E` allign text left shortcut
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

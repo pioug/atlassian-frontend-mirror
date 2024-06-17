@@ -1,11 +1,10 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { shallow } from 'enzyme';
 import { IntlProvider } from 'react-intl-next';
 
 import { ProfileCardDetails } from '../../components/User/ProfileCardDetails';
-import { type LozengeProps, type ReportingLinesUser } from '../../types';
+import { type LozengeProps } from '../../types';
 
 jest.mock('react-intl-next', () => {
 	return {
@@ -231,37 +230,6 @@ describe('ProfileCardDetails', () => {
 			const childText = getTextOf(customLozenges[0].text as React.ReactElement | string);
 
 			expect(getByText(childText)).not.toBeNull();
-		});
-	});
-
-	describe('reportingLines property', () => {
-		const renderShallow = (props = {}) => {
-			return shallow(<ProfileCardDetails {...defaultProps} {...props} />);
-		};
-		const exampleReportingLinesUser: ReportingLinesUser = {
-			accountIdentifier: 'abcd',
-			identifierType: 'ATLASSIAN_ID',
-			pii: {
-				name: 'name',
-				picture: 'picture',
-			},
-		};
-
-		it('should match snapshot when no reporting lines are specified', () => {
-			expect(renderShallow({ reportingLines: undefined })).toMatchSnapshot();
-			expect(renderShallow({ reportingLines: {} })).toMatchSnapshot();
-			expect(renderShallow({ reportingLines: { managers: [], reports: [] } })).toMatchSnapshot();
-		});
-
-		it('should match snapshot when reporting lines are specified', () => {
-			expect(
-				renderShallow({
-					reportingLines: {
-						managers: [exampleReportingLinesUser],
-						reports: [exampleReportingLinesUser, exampleReportingLinesUser],
-					},
-				}),
-			).toMatchSnapshot();
 		});
 	});
 });

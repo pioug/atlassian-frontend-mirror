@@ -78,7 +78,8 @@ class ViewModeNodeStep extends Step {
 		// When serialized we should create a noop Replace step
 		return {
 			stepType: 'replace',
-			pos: 0,
+			from: 0,
+			to: 0,
 		};
 	}
 

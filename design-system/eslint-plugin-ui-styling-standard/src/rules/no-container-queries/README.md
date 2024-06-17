@@ -1,42 +1,92 @@
-This rule prevents the usage of the `@container` query in style declarations.
+Blocks `@container` at-rules
+([container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/@container)), which are
+unsafe.
 
-Container queries break the rules of scope and aren’t guaranteed to be deterministic or type safe
-and isn’t fully supported across our frontend tech stacks.
+Container queries are unsafe because they:
 
-We suggest you explore the use alternatives such as client JavaScript-based APIs or media queries.
+- break the rules of scope
+- aren't deterministic
+- aren't type-safe
+- aren't fully supported across our frontend tech stacks
+
+Use [media queries](https://atlassian.design/components/primitives/responsive/breakpoints/examples),
+a
+[WidthObserver](https://atlaskit.atlassian.com/packages/design-system/width-detector/docs/migration-guide),
+or a custom [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
+instead.
 
 ## Examples
 
 ### Incorrect
 
-```js
+```tsx
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
-const styles = css({
+const headingStyles = css({
 	'@container (width > 400px)': {
-		h2: {
-			fontSize: '1.5rem',
-		},
+		font: token('font.heading.large'),
 	},
 });
 ```
 
 ### Correct
 
-```js
+#### Media queries
+
+```tsx
 import { css } from '@compiled/react';
+import { media } from '@atlaskit/primitives/responsive';
+import { token } from '@atlaskit/tokens';
+
+const headingStyles = css({
+	[media.above.sm]: {
+		font: token('font.heading.large'),
+	},
+});
+```
+
+#### WidthObserver
+
+```tsx
+import { useState } from 'react';
+import { css, cssMap } from '@compiled/react';
+import throttle from 'lodash/throttle';
+import { WidthObserver } from '@atlaskit/width-detector';
+import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-	display: 'flex',
-	flexDirection: 'column',
+	// Required for the `WidthObserver`, which is absolutely positioned
+	position: 'relative',
 });
+
+const headingStyles = cssMap({
+	small: {
+		font: token('font.heading.small'),
+	},
+	large: {
+		font: token('font.heading.large'),
+	},
+});
+
+const ResponsiveH2 = () => {
+	const [width = 0, setWidth] = useState<number | undefined>(undefined);
+	const throttledSetWidth = throttle(setWidth, 50);
+
+	return (
+		<div css={containerStyles}>
+			<WidthObserver setWidth={throttledSetWidth} />
+			<h2 css={width < 400 ? headingStyles.small : headingStyles.large}>Title</h2>
+		</div>
+	);
+};
 ```
 
 ## Options
 
-### importSources
+### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -46,5 +96,4 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings).
+Override this list with the `importSources` option, which accepts an array of package names.

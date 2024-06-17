@@ -2,6 +2,7 @@
 import { token } from '@atlaskit/tokens';
 import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { type Appearance } from '@atlaskit/button';

@@ -47,6 +47,16 @@ describe('buildJQL', () => {
 		);
 	});
 
+	it('parses a lowercase jira issue key as expected', () => {
+		const jql = buildJQL({
+			rawSearch: 'edm-6023',
+		});
+
+		expect(jql).toEqual(
+			'text ~ "edm-6023*" or summary ~ "edm-6023*" or key = edm-6023 ORDER BY created DESC',
+		);
+	});
+
 	it('removes quotations and question marks', () => {
 		const jql = buildJQL({
 			rawSearch: '"?',

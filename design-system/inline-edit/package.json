@@ -42,7 +42,7 @@
 		"@atlaskit/form": "^10.3.0",
 		"@atlaskit/icon": "^22.3.0",
 		"@atlaskit/inline-dialog": "^14.1.0",
-		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/textfield": "^6.3.0",
 		"@atlaskit/theme": "^12.9.0",
 		"@atlaskit/tokens": "^1.50.0",

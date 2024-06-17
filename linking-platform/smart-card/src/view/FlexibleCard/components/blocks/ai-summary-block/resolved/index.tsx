@@ -18,7 +18,7 @@ import { renderElementItems } from '../../utils';
 import type { ActionItem } from '../../types';
 import type { AISummaryBlockProps } from '../types';
 import { messages } from '../../../../../../messages';
-import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
+import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
 import AIIcon from '../../../../../common/ai-icon';
 import AISummary from '../../../../../common/ai-summary';
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
@@ -29,12 +29,10 @@ import type {
 	AISummaryStatus,
 	ErrorMessage,
 } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import FeatureDiscovery from '../feature-discovery';
-import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 
 export const AISummaryBlockErrorIndicator = ({
 	showErrorIndicator,
@@ -72,8 +70,15 @@ export const AISummaryBlockStatusIndicator = ({
 	);
 };
 
-const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
-	di(useAISummary, AISummaryBlockErrorIndicator, AISummaryBlockStatusIndicator, AISummary);
+type AISummaryBlockResolvedViewProps = AISummaryBlockProps & {
+	/**
+	 * URL to be summarised
+	 */
+	url: string;
+};
+
+const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
+	di(useAISummaryAction, AISummaryBlockErrorIndicator, AISummaryBlockStatusIndicator, AISummary);
 
 	const {
 		actions = [],
@@ -83,25 +88,15 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
 		aiSummaryMinHeight = 0,
 		metadata,
 		placeholder,
+		url,
 	} = props;
 
 	const { fireEvent } = useAnalyticsEvents();
 
-	const context = useFlexibleUiContext();
-	const url = context?.url || '';
-	const ari = context?.ari || '';
-	const { product, connections } = useSmartLinkContext();
-
 	const {
 		summariseUrl,
 		state: { content, status, error },
-	} = useAISummary({
-		url,
-		ari,
-		product,
-		envKey: connections.client.envKey as EnvironmentsKeys,
-		baseUrl: connections.client.baseUrlOverride,
-	});
+	} = useAISummaryAction(url);
 
 	const showAISummary =
 		status === 'done' ||

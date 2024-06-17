@@ -69,7 +69,11 @@ snapshot(FlexibleUiBlockTitle, {
 snapshot(FlexibleUiBlockMetadata);
 snapshot(FlexibleUiBlockSnippet);
 snapshot(FlexibleUiBlockFooter);
-snapshot(FlexibleUiBlockAISummary);
+snapshot(FlexibleUiBlockAISummary, {
+	featureFlags: {
+		'platform.linking-platform.smart-card.hover-card-ai-summaries': [true],
+	},
+});
 snapshot(FlexibleUiBlockPreview);
 snapshot(FlexibleUiBlockActionList);
 snapshot(FlexibleUiBlockAction);

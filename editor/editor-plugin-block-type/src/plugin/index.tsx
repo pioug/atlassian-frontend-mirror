@@ -17,7 +17,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { keymap, toggleBlockQuote, tooltip } from '@atlaskit/editor-common/keymaps';
+import { keymap, tooltip } from '@atlaskit/editor-common/keymaps';
 import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
 import type {
 	QuickInsertActionInsert,
@@ -111,7 +111,7 @@ const blockquotePluginOptions = (
 			title: formatMessage(messages.blockquote),
 			description: formatMessage(messages.blockquoteDescription),
 			priority: 1300,
-			keyshortcut: tooltip(toggleBlockQuote),
+			keyshortcut: '>',
 			icon: () => <IconQuote />,
 			action(insert, state) {
 				const tr = insert(

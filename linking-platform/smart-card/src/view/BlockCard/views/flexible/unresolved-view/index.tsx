@@ -9,6 +9,7 @@ import {
 	FooterBlockOptions,
 } from '../utils';
 import { type UnresolvedViewProps } from './types';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 const customBlockStyles = css({

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.1.0
+
+### Minor Changes
+
+- [#110802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110802)
+  [`5a5f54961cab7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a5f54961cab7) -
+  [ux] Implemented an overlay button on hover of hyperlinks for live pages editor which selects the
+  hyperlink and opens the toolbar on click. (behind platform feature flag)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.5
+
+### Patch Changes
+
+- [#110890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110890)
+  [`a0ec52861fce2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0ec52861fce2) -
+  [ux] Fixed a duplicate separator showing in the floating toolbar.
+- Updated dependencies
+
 ## 2.0.4
 
 ### Patch Changes

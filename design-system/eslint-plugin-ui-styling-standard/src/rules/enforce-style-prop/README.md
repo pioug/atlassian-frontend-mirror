@@ -1,39 +1,45 @@
-This rule enforces passing dynamic CSS values to the `style` prop in JSX components.
+Blocks providing static values through the `style` prop, which should only be used to provide
+dynamic values (values unknown at build time).
 
-We only want `props.style` to be used for dynamic values that cannot be easily determined at build
-time, e.g. `<div style={{ width: props.width }}>`. No statics values such as numbers, strings or any
-other statically analysable values should be passed to the `style` attribute. Instead, static CSS
-values should be passed into the `css` prop in JSX components.
+Use the `css` prop for providing static values instead.
 
 ## Examples
 
 ### Incorrect
 
 ```tsx
-function Component() {
-	return (
-		<div
-			style={{
-				margin: 0,
-				color: 'red',
-			}}
-		/>
-	);
-}
+import { token } from '@atlaskit/tokens';
+
+const Component = () => (
+	<div
+		style={{
+			margin: 0,
+			color: token('color.text.danger'),
+		}}
+	/>
+);
 ```
 
 ### Correct
 
+Although `token` is a function call, it is statically resolvable by Compiled and should not be used
+in the `style` prop.
+
 ```tsx
-function Component(props) {
-	return (
-		<div
-			style={{
-				width: props.width,
-				'--my-nested-width': props.width,
-			}}
-			css={css({ margin: 0, color: 'red' })}
-		/>
-	);
-}
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+type Props = { width: string };
+
+const baseStyles = css({ margin: 0, color: token('color.text.danger') });
+
+const Component = ({ width }: Props) => (
+	<div
+		css={baseStyles}
+		style={{
+			width: props.width,
+			'--my-nested-width': props.width,
+		}}
+	/>
+);
 ```

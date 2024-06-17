@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { IntlProvider } from 'react-intl-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import '@atlaskit/link-test-helpers/jest';
 
@@ -35,7 +36,6 @@ describe('AISummaryAction', () => {
 	) => {
 		const onEvent = jest.fn();
 		const mockSummariseUrl = jest.fn();
-
 		const mockAISummaryState = { status: 'ready', content: '' };
 
 		(useFlexibleUiContext as jest.Mock).mockImplementation(() => overrideContext || mockContext);
@@ -50,7 +50,9 @@ describe('AISummaryAction', () => {
 		const renderResult = render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
 				<IntlProvider locale="en">
-					<AISummaryAction {...props} as="stack-item" testId={testId} />
+					<SmartCardProvider>
+						<AISummaryAction {...props} as="stack-item" testId={testId} />
+					</SmartCardProvider>
 				</IntlProvider>
 			</AnalyticsListener>,
 		);

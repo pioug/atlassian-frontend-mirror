@@ -211,9 +211,12 @@ export const ItemViewerV2Base = ({
 		});
 	}, [item]);
 
-	const onLoadFail = useCallback((mediaViewerError: MediaViewerError, data?: FileItem) => {
-		setItem(Outcome.failed(mediaViewerError, data));
-	}, []);
+	const onLoadFail = useCallback(
+		(mediaViewerError: MediaViewerError) => {
+			setItem(Outcome.failed(mediaViewerError, fileState));
+		},
+		[fileState],
+	);
 
 	const renderItem = (fileItem: NonErrorFileState) => {
 		const collectionName = isFileIdentifier(identifier) ? identifier.collectionName : undefined;
@@ -285,15 +288,7 @@ export const ItemViewerV2Base = ({
 					/>
 				);
 			case 'doc':
-				return (
-					<DocViewerV2
-						onSuccess={onSuccess}
-						onError={(err) => {
-							onLoadFail(err, fileState);
-						}}
-						{...viewerProps}
-					/>
-				);
+				return <DocViewerV2 onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 			case 'archive':
 				return <ArchiveViewerLoader onSuccess={onSuccess} onError={onLoadFail} {...viewerProps} />;
 		}

@@ -94,6 +94,7 @@ export interface TablePluginOptions {
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isTableScalingEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
+	isNewColumnResizingEnabled?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -296,8 +297,13 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tablePMColResizing',
 					plugin: ({ dispatch }) => {
-						const { fullWidthEnabled, tableOptions, getEditorFeatureFlags, isTableScalingEnabled } =
-							options || ({} as TablePluginOptions);
+						const {
+							fullWidthEnabled,
+							tableOptions,
+							getEditorFeatureFlags,
+							isTableScalingEnabled,
+							isNewColumnResizingEnabled,
+						} = options || ({} as TablePluginOptions);
 						const { allowColumnResizing } = pluginConfig(tableOptions);
 						return allowColumnResizing
 							? createFlexiResizingPlugin(
@@ -309,6 +315,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 									editorAnalyticsAPI,
 									isTableScalingEnabled || false,
+									isNewColumnResizingEnabled,
 								)
 							: undefined;
 					},

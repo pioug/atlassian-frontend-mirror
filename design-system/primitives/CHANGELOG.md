@@ -1,5 +1,30 @@
 # @atlaskit/primitives
 
+## 7.3.0
+
+### Minor Changes
+
+- [#111623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111623)
+  [`0392b6e4d865a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0392b6e4d865a) -
+  The `Text` component now aplies `overflow-wrap: anywhere` by default to ensure text does not break
+  out of fixed width containers. Be aware that if a single word is wider than its container width,
+  the word will be broken over multiple lines.
+
+## 7.2.0
+
+### Minor Changes
+
+- [#108733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108733)
+  [`c414bbde52951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c414bbde52951) -
+  Extends XCSS type to support `:focus:not(:focus-visible)`
+
+### Patch Changes
+
+- [#108733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108733)
+  [`c414bbde52951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c414bbde52951) -
+  Adds a `:focus` style reset to `Anchor` and `Pressable` to prevent `:focus` styles with lower
+  specificity from leaking through.
+
 ## 7.1.0
 
 ### Minor Changes

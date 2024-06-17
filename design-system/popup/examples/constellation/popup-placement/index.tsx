@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
@@ -50,6 +51,7 @@ const PopupPlacementExample = () => {
 							</div>
 						)}
 						trigger={(triggerProps) => (
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<Box xcss={placementGridPositions[placement]}>
 								<Button
 									{...triggerProps}

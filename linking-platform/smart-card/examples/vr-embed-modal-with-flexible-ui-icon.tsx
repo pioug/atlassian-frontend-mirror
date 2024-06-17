@@ -7,6 +7,7 @@ import EmbedModal from '../src/view/EmbedModal';
 import './utils/embed-modal-override.css';
 import Icon from '../src/view/FlexibleCard/components/elements/icon';
 import { IconType, SmartLinkSize } from '../src/constants';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 export default () => (

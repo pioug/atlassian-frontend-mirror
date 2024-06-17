@@ -1,36 +1,40 @@
-This rule prevents usage of array arguments to style declaration functions.
+Blocks passing array arguments to style declaration functions.
 
 ## Examples
 
 ### Incorrect
 
-```js
+```tsx
 import { css } from '@compiled/react';
+
 const styles = css([{ width: 100 }, { height: 100 }]);
 ```
 
-```js
+```tsx
 import { styled } from '@compiled/react';
+
 const styles = css([{ width: 100 }, ...items]);
 ```
 
 ### Correct
 
-```js
+```tsx
 import { css } from '@compiled/react';
+
 const styles = css({ width: 100 }, { height: 100 });
 ```
 
-```js
+```tsx
 import { css } from '@compiled/react';
+
 const styles = css({ width: 100 }, ...items);
 ```
 
 ## Options
 
-### importSources
+### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -40,5 +44,4 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings).
+Override this list with the `importSources` option, which accepts an array of package names.

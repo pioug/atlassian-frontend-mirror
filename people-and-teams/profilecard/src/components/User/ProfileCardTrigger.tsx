@@ -32,9 +32,6 @@ class ProfilecardTrigger extends React.PureComponent<
 		actions: [],
 		trigger: 'hover',
 		position: 'bottom-start',
-		displayConfig: {
-			showKudos: true,
-		},
 	};
 
 	_isMounted: boolean = false;
@@ -193,9 +190,7 @@ class ProfilecardTrigger extends React.PureComponent<
 				const requests = Promise.all([
 					this.props.resourceClient.getProfile(cloudId || '', userId, this.fireAnalytics),
 					this.props.resourceClient.getReportingLines(userId),
-					this.props.displayConfig?.showKudos
-						? this.props.resourceClient.shouldShowGiveKudos()
-						: Promise.resolve(false),
+					this.props.resourceClient.shouldShowGiveKudos(),
 				]);
 
 				requests

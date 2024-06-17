@@ -1,16 +1,20 @@
 # no-exported-styles
 
-This rule disallows exports of `css`, `cssMap`, `keyframes`, `styled`, `xcss` styles.
+Blocks exports of `css`, `cssMap`, `keyframes`, `styled`, `xcss` styles, which are unsafe.
 
-Exporting style declarations from these libraries may result in unexpected errors when imported,
-because its value will be null at runtime. Additionally, co-locating style definitions with their
-usage is considered best practice in order to improve code readability and build performance.
+Use alongside `no-imported-style-values` which blocks consumption of imported styles.
+
+Compiled style declarations are null at runtime, so using imported styles will cause unexpected
+errors.
+
+Co-locate style definitions with their usage instead. This will also improve code readability,
+maintainability and build performance.
 
 ## Examples
 
 ### Incorrect
 
-```js
+```tsx
 import { css } from '@compiled/react';
 
 export const styles = css({});
@@ -18,7 +22,7 @@ export const styles = css({});
 export default css({});
 ```
 
-```js
+```tsx
 import { keyframes } from '@compiled/react';
 
 export const animation = keyframes({});
@@ -26,21 +30,12 @@ export const animation = keyframes({});
 export default keyframes({});
 ```
 
-Avoid exporting any style-like objects or values for consumption as well as these will violate our
-`no-imported-style-values` rule which blocks consumption of imported styles.
-
-```js
-export default {
-	color: 'red',
-	margin: '0px',
-};
-```
-
-```js
+```tsx
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
-const color = css({
-	/* */
+const colorStyles = css({
+	color: token('color.text'),
 });
 
 const styles = {
@@ -56,29 +51,30 @@ export default styles.primary.text.color;
 
 ### Correct
 
-Co-locate your styles next to your components to improve code readability, linting, and build
-performance.
+Co-locate styles with components to improve code readability, linting, and build performance.
 
-```js
+```tsx
 import { css } from '@compiled/react';
 
 const styles = css({});
-export const Component = ({ children }) => <div css={styles}>{children}></div>;
+
+export const Component = () => <div css={styles} />;
 ```
 
-```js
-import { keyframes } from '@compiled/react';
+```tsx
+import { css, keyframes } from '@compiled/react';
 
 const animation = keyframes({});
 const styles = css({ animate: `${animation} 1s ease-in` });
-export const Component = ({ children }) => <div css={styles}>{children}></div>;
+
+export const Component = () => <div css={styles} />;
 ```
 
 ## Options
 
-### importSources
+### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -88,5 +84,4 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings).
+Override this list with the `importSources` option, which accepts an array of package names.

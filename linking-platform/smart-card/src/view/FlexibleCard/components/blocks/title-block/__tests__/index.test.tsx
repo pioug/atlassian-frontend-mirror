@@ -2,6 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { fireEvent, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import TitleBlock from '../index';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';

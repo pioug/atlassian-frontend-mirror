@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Children, createRef, type KeyboardEvent, type ReactNode, useCallback } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';

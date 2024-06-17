@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 
@@ -199,6 +200,7 @@ const TokenSelect = ({
 					</Inline>
 				)}
 			</Stack>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<Box xcss={xcss({ flexShrink: '0' })}>
 				<IconButton icon={CrossIcon} appearance="subtle" onClick={onRemove} label="remove" />
 			</Box>

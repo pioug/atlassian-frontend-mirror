@@ -1,5 +1,18 @@
 # @atlaskit/popup
 
+## 1.18.0
+
+### Minor Changes
+
+- [#111709](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111709)
+  [`2f3d71601a7c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f3d71601a7c2) -
+  [ux] Adds a new optional `shouldFitContainer` prop, which when set to `true`, will fit the popup
+  width to its parent's width.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.17.2
 
 ### Patch Changes

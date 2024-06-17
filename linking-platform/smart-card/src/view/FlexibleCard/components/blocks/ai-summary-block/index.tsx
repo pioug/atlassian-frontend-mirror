@@ -1,7 +1,8 @@
 import React from 'react';
 import AISummaryBlockResolvedView from './resolved';
 import { type AISummaryBlockProps } from './types';
-import { SmartLinkStatus } from '../../../../../constants';
+import { InternalActionName, SmartLinkStatus } from '../../../../../constants';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 
 /**
  * Represents an AISummaryBlock, designed to summarising link resource
@@ -10,16 +11,23 @@ import { SmartLinkStatus } from '../../../../../constants';
  * @param {AISummaryBlockProps} AISummaryBlock
  * @see Block
  */
-const AISummaryBlock: React.FC<AISummaryBlockProps> = ({
+const AISummaryBlock = ({
 	status,
 	testId = 'smart-ai-summary-block',
 	...props
-}) => {
+}: AISummaryBlockProps) => {
+	const context = useFlexibleUiContext();
+	const actionData = context?.actions?.[InternalActionName.AISummaryAction];
+
 	if (status !== SmartLinkStatus.Resolved) {
 		return null;
 	}
 
-	return <AISummaryBlockResolvedView {...props} testId={testId} />;
+	if (!actionData?.url) {
+		return null;
+	}
+
+	return <AISummaryBlockResolvedView {...props} testId={testId} url={actionData.url} />;
 };
 
 export default AISummaryBlock;

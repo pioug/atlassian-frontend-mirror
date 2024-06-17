@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 193.27.2
+
+### Patch Changes
+
+- [#111381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111381)
+  [`5ec7ab3d39035`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ec7ab3d39035) -
+  Replace the LD flag controlling new column resizing experience with statsig experiment
+
+## 193.27.0
+
+### Minor Changes
+
+- [#110884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110884)
+  [`674f78166705c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/674f78166705c) -
+  [ux] [ED-23516] Change border color for highlight and text-color palettes to use tokens.
+  Changedefault palette color when undefined
+
+### Patch Changes
+
+- [#110390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110390)
+  [`bead123202369`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bead123202369) -
+  [ux] [ED-23642] Reordering the typeahead so that date, status, code block & info panel are above
+  the fold (in the top 5 results)
+- Updated dependencies
+
 ## 193.26.0
 
 ### Minor Changes

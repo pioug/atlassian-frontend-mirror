@@ -1,12 +1,13 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const requiredIndicatorStyles = css({
-	paddingLeft: token('space.025', '2px'),
 	color: token('color.text.danger', R500),
+	paddingInlineStart: token('space.025', '2px'),
 });
 
 export default function RequiredIndicator() {

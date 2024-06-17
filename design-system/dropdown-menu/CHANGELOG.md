@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 12.12.0
+
+### Minor Changes
+
+- [#111282](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111282)
+  [`7b4ccf810b526`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b4ccf810b526) -
+  Adds a new optional `shouldFitContainer` prop, which when set to `true`, will fit the dropdown
+  menu width to its parent's width.
+
 ## 12.11.1
 
 ### Patch Changes

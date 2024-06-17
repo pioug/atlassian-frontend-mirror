@@ -1,5 +1,6 @@
 import React, { Component, type Ref } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import { render, screen } from '@testing-library/react';
 // import ReactDOM from 'react-dom';

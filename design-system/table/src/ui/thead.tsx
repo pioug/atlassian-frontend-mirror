@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import type { FC, ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -11,8 +12,8 @@ const baseStyles = css({
 	inset: 0,
 	backgroundColor: token('elevation.surface', 'white'),
 	border: 'none',
-	borderBottom: `2px solid ${token('color.border', '#eee')}`,
-	borderTop: '2px solid transparent',
+	borderBlockEnd: `2px solid ${token('color.border', '#eee')}`,
+	borderBlockStart: '2px solid transparent',
 });
 
 /**

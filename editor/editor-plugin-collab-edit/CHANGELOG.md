@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.5.0
+
+### Minor Changes
+
+- [#106594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106594)
+  [`554be969a7b69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/554be969a7b69) -
+  Support comments on media in Live View mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.4
 
 ### Patch Changes

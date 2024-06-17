@@ -17,6 +17,7 @@ export const dropTargetDecorations = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
 	const decs: Decoration[] = [];
+	unmountDecorations('data-blocks-drop-target-container');
 	// Decoration state is used to keep track of the position of the drop targets
 	// and allows us to easily map the updated position in the plugin apply method.
 	const decorationState: { index: number; pos: number }[] = [];
@@ -27,6 +28,8 @@ export const dropTargetDecorations = (
 				pos,
 				() => {
 					const element = document.createElement('div');
+					element.setAttribute('data-blocks-drop-target-container', 'true');
+
 					ReactDOM.render(
 						createElement(DropTarget, {
 							api,
@@ -36,7 +39,9 @@ export const dropTargetDecorations = (
 					);
 					return element;
 				},
-				{ type: 'drop-target-decoration' },
+				{
+					type: 'drop-target-decoration',
+				},
 			),
 		);
 		return false;
@@ -58,6 +63,7 @@ export const dropTargetDecorations = (
 			newState.doc.nodeSize - 2,
 			() => {
 				const element = document.createElement('div');
+				element.setAttribute('data-blocks-drop-target-container', 'true');
 				ReactDOM.render(
 					createElement(DropTarget, {
 						api,
@@ -67,7 +73,9 @@ export const dropTargetDecorations = (
 				);
 				return element;
 			},
-			{ type: 'drop-target-decoration' },
+			{
+				type: 'drop-target-decoration',
+			},
 		),
 	);
 
@@ -99,6 +107,7 @@ export const mouseMoveWrapperDecorations = (
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
 	const decs: Decoration[] = [];
+	unmountDecorations('data-blocks-decoration-container');
 
 	newState.doc.descendants((node, pos, _parent, index) => {
 		const anchorName = `--node-anchor-${node.type.name}-${index}`;
@@ -107,6 +116,7 @@ export const mouseMoveWrapperDecorations = (
 				pos,
 				(view, getPos) => {
 					const element = document.createElement('div');
+					element.setAttribute('data-blocks-decoration-container', 'true');
 					ReactDOM.render(
 						createElement(MouseMoveWrapper, {
 							view,
@@ -145,6 +155,7 @@ export const dragHandleDecoration = (
 		(view, getPos) => {
 			const element = document.createElement('div');
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
+			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			ReactDOM.render(
 				createElement(DragHandle, {
 					view,
@@ -157,6 +168,21 @@ export const dragHandleDecoration = (
 			);
 			return element;
 		},
-		{ side: -1, id: 'drag-handle' },
+		{
+			side: -1,
+			id: 'drag-handle',
+			destroy: (node) => {
+				ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
+			},
+		},
 	);
+};
+
+const unmountDecorations = (selector: string) => {
+	// Removing decorations manually instead of using native destroy function in prosemirror API
+	// as it was more responsive and causes less re-rendering
+	const decorationsToRemove = document.querySelectorAll(`[${selector}="true"]`);
+	decorationsToRemove.forEach((el) => {
+		ReactDOM.unmountComponentAtNode(el);
+	});
 };

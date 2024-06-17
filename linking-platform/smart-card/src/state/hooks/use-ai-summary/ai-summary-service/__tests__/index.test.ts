@@ -41,7 +41,6 @@ const customConfig: AISummaryServiceProps = {
 	url: url,
 	ari: 'test-ari',
 	baseUrl: 'https://custom-base-url/',
-	headers: { 'custom-header': 'custom-value' },
 	product: 'BITBUCKET' as ProductType,
 };
 
@@ -85,7 +84,6 @@ describe('AI Summary Service', () => {
 				credentials: 'include',
 				headers: {
 					...aiSummaryServiceDefaultHeadersConfig,
-					...customConfig.headers,
 					'x-product': customConfig.product?.toLowerCase(),
 				},
 				body: JSON.stringify({

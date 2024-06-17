@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "193.26.0",
+	"version": "193.27.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,9 +45,9 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/editor-common": "^82.5.0",
+		"@atlaskit/editor-common": "^82.8.0",
 		"@atlaskit/editor-json-transformer": "^8.13.0",
-		"@atlaskit/editor-plugins": "^3.1.0",
+		"@atlaskit/editor-plugins": "^3.2.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/emoji": "^67.6.0",
@@ -88,9 +88,9 @@
 		"@atlaskit/adf-utils": "^19.2.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/collab-provider": "9.29.3",
-		"@atlaskit/editor-plugin-annotation": "1.10.1",
+		"@atlaskit/editor-plugin-annotation": "1.10.2",
 		"@atlaskit/editor-plugin-card": "^2.0.0",
-		"@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+		"@atlaskit/editor-plugin-editor-viewmode": "^1.2.0",
 		"@atlaskit/editor-plugin-list": "^3.3.0",
 		"@atlaskit/editor-plugin-paste": "^1.2.0",
 		"@atlaskit/editor-test-helpers": "*",
@@ -100,16 +100,15 @@
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^33.0.27",
 		"@atlaskit/modal-dialog": "^12.13.0",
-		"@atlaskit/primitives": "^7.1.0",
+		"@atlaskit/primitives": "^7.3.0",
 		"@atlaskit/renderer": "^109.32.0",
-		"@atlaskit/smart-card": "^27.5.0",
+		"@atlaskit/smart-card": "^27.6.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
 		"@atlaskit/toggle": "^13.1.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.14.0",
-		"@atlassian/link-picker-plugins": "^24.4.0",
-		"@atlassian/search-provider": "2.4.80",
+		"@atlassian/search-provider": "2.4.81",
 		"@atlassian/ufo": "^0.2.0",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
@@ -287,10 +286,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.card.inject-settings-button": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.table.colum-resizing-improvements": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

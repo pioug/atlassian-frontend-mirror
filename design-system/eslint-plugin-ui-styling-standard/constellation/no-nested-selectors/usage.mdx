@@ -1,54 +1,88 @@
 # no-nested-selectors
 
-This rule prevents the usage of the nested selectors in style declarations. Avoid setting styles for
-any child elements or elements that require context from other elements.
+Blocks nested selectors in style declarations.
+
+Use styles which do not require context from other elements.
 
 ## Examples
 
 ### Incorrect
 
-```js
+```tsx
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
 const styles = css({
 	h2: {
-		fontSize: '1.5rem',
+		font: token('font.heading.large'),
+	},
+});
+
+const Component = () => (
+	<div css={styles}>
+		<h2>Heading</h2>
+	</div>
+);
+```
+
+```tsx
+import { styled } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const Table = styled.table({
+	border: `1px solid ${token('color.border')}`,
+	td: {
+		padding: token('space.100'),
 	},
 });
 ```
 
-```js
+```tsx
 import { styled } from '@compiled/react';
-const Component = styled.div({
-	'*': {
-		padding: 0,
-	},
-});
-```
+import { token } from '@atlaskit/tokens';
 
-```js
-import { styled } from '@compiled/react';
 const Component = styled.div({
 	'.myclass': {
-		padding: 0,
+		padding: token('space.100'),
 	},
 });
 ```
 
 ### Correct
 
-```js
+```tsx
 import { css } from '@compiled/react';
-const styles = css({
-	display: 'flex',
-	flexDirection: 'column',
+import { token } from '@atlaskit/tokens';
+
+const headingStyles = css({
+	font: token('font.heading.large'),
+});
+
+const Component = () => (
+	<div>
+		<h2 css={headingStyles}>Heading</h2>
+	</div>
+);
+```
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const tableStyles = css({
+	border: `1px solid ${token('color.border')}`,
+});
+
+const tdStyles = css({
+	padding: token('space.100'),
 });
 ```
 
 ## Options
 
-### importSources
+### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -58,5 +92,4 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings).
+Override this list with the `importSources` option, which accepts an array of package names.

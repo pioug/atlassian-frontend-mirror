@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import Spinner from '../src';
 
-const InvertedSpinner = () => <Spinner appearance="invert" />;
+const InvertedSpinner = () => <Spinner appearance="invert" label="Loading" />;
 
 function SpinnerButton() {
 	const [showSpinner, setSpinner] = useState<boolean>(false);

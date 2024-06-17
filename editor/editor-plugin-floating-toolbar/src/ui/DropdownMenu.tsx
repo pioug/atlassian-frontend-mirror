@@ -90,10 +90,14 @@ const DropdownMenuItem = (props: {
 	const itemSelected = item.selected;
 
 	const iconBefore = useMemo(() => {
-		return (
-			<SelectedIconBefore itemSelected={itemSelected} showSelected={showSelected} intl={intl} />
-		);
-	}, [itemSelected, showSelected, intl]);
+		if (item.icon) {
+			return item.icon;
+		} else {
+			return (
+				<SelectedIconBefore itemSelected={itemSelected} showSelected={showSelected} intl={intl} />
+			);
+		}
+	}, [itemSelected, showSelected, intl, item.icon]);
 
 	const [tooltipContent, setTooltipContent] = useState<string>(item.tooltip || '');
 

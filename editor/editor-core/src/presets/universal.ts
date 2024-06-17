@@ -211,7 +211,7 @@ export default function createUniversalPreset(
 				{
 					tableOptions:
 						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
-					tableResizingEnabled: ['full-page', 'full-width'].includes(appearance || ''),
+					tableResizingEnabled: isFullPage,
 					dragAndDropEnabled: featureFlags?.tableDragAndDrop && isFullPage,
 					isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
 					allowContextualMenu: !isMobile,
@@ -220,6 +220,7 @@ export default function createUniversalPreset(
 					getEditorFeatureFlags,
 					isTableAlignmentEnabled:
 						getBooleanFF('platform.editor.table.allow-table-alignment') && isFullPage,
+					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 				},
 			],
 			Boolean(props.allowTables),

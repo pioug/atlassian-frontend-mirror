@@ -170,8 +170,9 @@ export class ItemViewerBase extends React.Component<Props, State> {
 	};
 
 	private onLoadFail = (mediaViewerError: MediaViewerError, data?: FileItem) => {
+		const { item } = this.state;
 		this.safeSetState({
-			item: Outcome.failed(mediaViewerError, data),
+			item: Outcome.failed(mediaViewerError, data || item.data),
 		});
 	};
 

@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-table
 
+## 7.17.4
+
+### Patch Changes
+
+- [#111851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111851)
+  [`4aefbe38ee8e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4aefbe38ee8e2) -
+  ED-23129: Updated experiment ID and corresponding editor FF
+
+## 7.17.3
+
+### Patch Changes
+
+- [#111381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111381)
+  [`5ec7ab3d39035`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ec7ab3d39035) -
+  Replace the LD flag controlling new column resizing experience with statsig experiment
+
+## 7.17.2
+
+### Patch Changes
+
+- [#110390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110390)
+  [`bead123202369`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bead123202369) -
+  [ux] [ED-23642] Reordering the typeahead so that date, status, code block & info panel are above
+  the fold (in the top 5 results)
+- [#111045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111045)
+  [`2f693993423ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f693993423ec) -
+  improve input latency of drag and drop experience and hide drag handle during resizing
+- [#111428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111428)
+  [`5679a3e527073`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5679a3e527073) -
+  ED-23129: Disabled internal column resizing for nested tables
+- [#111254](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111254)
+  [`c76f505dccf41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c76f505dccf41) -
+  [ux] Fixed resizeAmount for left-aligned tables when internal column resizing is enabled.
+- Updated dependencies
+
 ## 7.17.1
 
 ### Patch Changes

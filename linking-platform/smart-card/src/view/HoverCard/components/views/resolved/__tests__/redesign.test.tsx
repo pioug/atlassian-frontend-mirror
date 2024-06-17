@@ -1,16 +1,16 @@
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
-import type { ProductType } from '@atlaskit/linking-common';
+import type { CardState, ProductType } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
-import { fireEvent, render } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { type RenderOptions, fireEvent, render } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
 import { SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
-import { type AnalyticsFacade, useSmartLinkAnalytics } from '../../../../../../state/analytics';
+import { useSmartLinkAnalytics } from '../../../../../../state/analytics';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { AISummariesStore } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/store';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
@@ -41,18 +41,6 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
 
 // Must be similar to the product name we use inside the mocked module below.
 const productName: ProductType = 'ATLAS';
-jest.mock('@atlaskit/link-provider', () => ({
-	useSmartLinkContext: () => ({
-		connections: { client: {} as any },
-		store: {
-			getState: jest.fn().mockReturnValue({ 'test-url': mocks.analytics }),
-			dispatch: jest.fn(),
-		},
-		product: 'ATLAS' as ProductType, // It is not allowed to reference any out-of-scope variables e.g. productName above
-		isAdminHubAIEnabled: true,
-	}),
-	useFeatureFlag: jest.fn(),
-}));
 
 const titleBlockProps = {
 	maxLines: 2,
@@ -61,11 +49,27 @@ const titleBlockProps = {
 };
 
 describe('HoverCardResolvedView', () => {
-	let analyticsEvents: AnalyticsFacade;
 	const id = 'resolved-test-id';
 	const location = 'resolved-test-location';
 	const dispatchAnalytics = jest.fn();
 	const url = 'test-url';
+	let cardState: CardState;
+
+	const wrapper: RenderOptions['wrapper'] = ({ children }) => (
+		<IntlProvider locale="en">
+			<SmartCardProvider
+				storeOptions={{
+					initialState: {
+						'test-url': cardState,
+					},
+				}}
+				product={productName}
+				isAdminHubAIEnabled
+			>
+				{children}
+			</SmartCardProvider>
+		</IntlProvider>
+	);
 
 	const TestComponent = ({
 		mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
@@ -76,29 +80,25 @@ describe('HoverCardResolvedView', () => {
 		isAISummaryEnabled?: boolean;
 		cardState: any;
 	}) => {
+		const analyticsEvents = useSmartLinkAnalytics(url, dispatchAnalytics, id, location);
+
 		return (
-			<IntlProvider locale="en">
-				<HoverCardResolvedView
-					analytics={analyticsEvents}
-					extensionKey={mockResponse.meta.key}
-					id="123"
-					flexibleCardProps={{ cardState, children: {}, url }}
-					onActionClick={jest.fn()}
-					cardState={cardState}
-					url={url}
-					titleBlockProps={titleBlockProps}
-					isAISummaryEnabled={isAISummaryEnabled}
-				/>
-			</IntlProvider>
+			<HoverCardResolvedView
+				analytics={analyticsEvents}
+				extensionKey={mockResponse.meta.key}
+				id="123"
+				flexibleCardProps={{ cardState, children: null, url }}
+				onActionClick={jest.fn()}
+				cardState={cardState}
+				url={url}
+				titleBlockProps={titleBlockProps}
+				isAISummaryEnabled={isAISummaryEnabled}
+			/>
 		);
 	};
 
 	beforeEach(() => {
 		jest.useFakeTimers();
-		const { result } = renderHook(() =>
-			useSmartLinkAnalytics(url, dispatchAnalytics, id, location),
-		);
-		analyticsEvents = result.current;
 	});
 
 	afterEach(() => {
@@ -113,7 +113,7 @@ describe('HoverCardResolvedView', () => {
 		mockResponse?: JsonLd.Response;
 		isAISummaryEnabled?: boolean;
 	} = {}) => {
-		const cardState = getCardState({
+		cardState = getCardState({
 			data: mockResponse.data,
 			meta: mockResponse.meta,
 			status: 'resolved',
@@ -126,6 +126,7 @@ describe('HoverCardResolvedView', () => {
 				mockResponse={mockResponse}
 				isAISummaryEnabled={isAISummaryEnabled}
 			/>,
+			{ wrapper },
 		);
 
 		const rerenderTestComponent = () =>
@@ -310,11 +311,11 @@ describe('HoverCardResolvedView', () => {
 									expect(snippetAfterRerender).not.toBeInTheDocument();
 								});
 
-								it('should use a resolved data URL instead of provided URL', async () => {
+								it('should use a resolved data URL instead of provided URL', () => {
 									// Provided URL can be different from the data URL obtained from the resolver (see short links as example).
 									// We want to ensure that all components within the Hover Card subscribe to the same URL AI Summary update
 									// and do not create two different instances of AI Summary Service.
-									await setup({
+									setup({
 										mockResponse: {
 											...mockAtlasProjectWithAiSummary,
 											data: {
@@ -332,8 +333,8 @@ describe('HoverCardResolvedView', () => {
 									expect(AISummariesStore.get('http://data-link-url.com')).toBeDefined();
 								});
 
-								it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', async () => {
-									await setup({
+								it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {
+									setup({
 										mockResponse: mockAtlasProjectWithAiSummary,
 										isAISummaryEnabled: true,
 									});
@@ -349,7 +350,7 @@ describe('HoverCardResolvedView', () => {
 					);
 
 					describe('with AI summary disabled', () => {
-						it('does not render AISummary block', async () => {
+						it('does not render AISummary block', () => {
 							const { queryByTestId } = setup({
 								mockResponse: mockAtlasProjectWithAiSummary,
 							});
@@ -385,7 +386,12 @@ describe('HoverCardResolvedView', () => {
 				});
 
 				it('should fire render success event when hover card is rendered', async () => {
-					const { findByTestId } = setup();
+					const { findByTestId } = setup({
+						mockResponse: {
+							...mockConfluenceResponse,
+							...mocks.analytics.details,
+						} as JsonLd.Response,
+					});
 					await findByTestId('smart-block-title-resolved-view');
 
 					expect(dispatchAnalytics).toHaveBeenCalledWith(
@@ -395,7 +401,10 @@ describe('HoverCardResolvedView', () => {
 
 				it('should fire render success event with canBeDatasource = true when hover card is rendered and state has datasources data', async () => {
 					const { findByTestId } = setup({
-						mockResponse: mockJiraResponseWithDatasources as JsonLd.Response,
+						mockResponse: {
+							...mockJiraResponseWithDatasources,
+							...mocks.analytics.details,
+						} as JsonLd.Response,
 					});
 					await findByTestId('smart-block-title-resolved-view');
 

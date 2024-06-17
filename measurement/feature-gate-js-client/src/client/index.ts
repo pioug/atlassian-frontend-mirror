@@ -1,6 +1,7 @@
 import Statsig, {
 	DynamicConfig,
 	EvaluationReason,
+	Layer,
 	type LocalOverrides,
 	type StatsigOptions,
 	type StatsigUser,
@@ -15,6 +16,8 @@ import {
 	type FromValuesClientOptions,
 	type GetExperimentOptions,
 	type GetExperimentValueOptions,
+	type GetLayerOptions,
+	type GetLayerValueOptions,
 	type Identifiers,
 	type InitializeValues,
 	PerimeterType,
@@ -66,6 +69,8 @@ class FeatureGates {
 	private static currentAttributes?: CustomAttributes;
 	private static hasGetExperimentErrorOccurred = false;
 	private static hasGetExperimentValueErrorOccurred = false;
+	private static hasGetLayerErrorOccurred = false;
+	private static hasGetLayerValueErrorOccurred = false;
 	private static hasCheckGateErrorOccurred = false;
 
 	/**
@@ -394,6 +399,16 @@ class FeatureGates {
 	 */
 	static manuallyLogExperimentExposure(experimentName: string): void {
 		Statsig.manuallyLogExperimentExposure(experimentName);
+	}
+
+	/**
+	 * Manually log a layer exposure (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
+	 * This is useful if you have evaluated a layer earlier via {@link FeatureGates.getLayerValue} where <code>options.fireExperimentExposure</code> is false.
+	 * @param layerName
+	 * @param parameterName
+	 */
+	static manuallyLogLayerExposure(layerName: string, parameterName: string): void {
+		Statsig.manuallyLogLayerParameterExposure(layerName, parameterName);
 	}
 
 	static shutdownStatsig(): void {
@@ -826,6 +841,104 @@ class FeatureGates {
 	 */
 	static getPackageVersion() {
 		return CLIENT_VERSION;
+	}
+
+	/**
+	 * Returns a specified layer otherwise returns an empty layer as a default value if the layer doesn't exist.
+	 *
+	 * @param {string} layerName - The name of the layer
+	 * @param {Object} options
+	 * @param {boolean} options.fireLayerExposure - Whether or not to fire the exposure event for the layer. Defaults to true. To log an exposure event manually at a later time, use {@link FeatureGates.manuallyLogLayerExposure} (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
+	 * @returns A layer
+	 * @example
+	 * ```ts
+	 * const layer = FeatureGates.getLayer('example-layer-name');
+	 * const exampletitle: string = layer.get("title", "Welcome to Statsig!");
+	 * ```
+	 */
+	static getLayer(layerName: string, options: GetLayerOptions = {}): Layer {
+		try {
+			const { fireLayerExposure = true } = options;
+			const evalMethod = fireLayerExposure
+				? Statsig.getLayer.bind(Statsig)
+				: Statsig.getLayerWithExposureLoggingDisabled.bind(Statsig);
+			return evalMethod(layerName);
+		} catch (error: unknown) {
+			// Log the first occurrence of the error
+			if (!FeatureGates.hasGetLayerErrorOccurred) {
+				// eslint-disable-next-line no-console
+				console.warn({
+					msg: 'An error has occurred getting the layer. Only the first occurrence of this error is logged.',
+					layerName,
+					error,
+				});
+				FeatureGates.hasGetLayerErrorOccurred = true;
+			}
+
+			// Return a default value
+			return Layer._create(layerName, {}, '', {
+				time: Date.now(),
+				reason: EvaluationReason.Error,
+			});
+		}
+	}
+
+	/**
+   * Returns the value of a given parameter in a layer config.
+   *
+   * @template T
+   * @param {string} layerName - The name of the layer
+   * @param {string} parameterName - The name of the parameter to fetch from the layer config
+   * @param {T} defaultValue - The value to serve if the layer or parameter do not exist, or if the returned value does not match the expected type.
+   * @param {Object} options
+   * @param {boolean} options.fireLayerExposure - Whether or not to fire the exposure event for the layer. Defaults to true. To log an exposure event manually at a later time, use {@link FeatureGates.manuallyLogLayerExposure} (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-))
+   * @param {function} options.typeGuard - A function that asserts that the return value has the expected type. If this function returns false, then the default value will be returned instead. This can be set to protect your code from unexpected values being set remotely. By default, this will be done by asserting that the default value and value are the same primitive type.
+   * @returns The value of the parameter if the layer and parameter both exist, otherwise the default value.
+   * @example
+   ``` ts
+   type ValidColor = 'blue' | 'red' | 'yellow';
+   type ValidColorTypeCheck = (value: unknown) => value is ValidColor;
+
+   const isValidColor: ValidColorTypeCheck =
+      (value: unknown) => typeof value === 'string' && ['blue', 'red', 'yellow'].includes(value);
+
+   const buttonColor: ValidColor = FeatureGates.getLayerValue(
+      'example-layer-name',
+      'backgroundColor',
+      'yellow',
+      {
+          typeGuard: isValidColor
+      }
+   );
+   ```
+  */
+	static getLayerValue<T>(
+		layerName: string,
+		parameterName: string,
+		defaultValue: T,
+		options: GetLayerValueOptions<T> = {},
+	): T {
+		const layer = FeatureGates.getLayer(layerName, options);
+
+		try {
+			const { typeGuard } = options;
+			return layer.get(parameterName, defaultValue, typeGuard);
+		} catch (error: unknown) {
+			// Log the first occurrence of the error
+			if (!FeatureGates.hasGetLayerValueErrorOccurred) {
+				// eslint-disable-next-line no-console
+				console.warn({
+					msg: 'An error has occurred getting the layer value. Only the first occurrence of this error is logged.',
+					layerName,
+					defaultValue,
+					options,
+					error,
+				});
+				FeatureGates.hasGetLayerValueErrorOccurred = true;
+			}
+
+			return defaultValue;
+		}
 	}
 }
 

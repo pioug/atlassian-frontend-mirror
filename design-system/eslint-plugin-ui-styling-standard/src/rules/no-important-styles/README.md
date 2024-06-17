@@ -1,4 +1,4 @@
-This rule prevents the usage of the `!important` flag in style declarations.
+Blocks the `!important` flag in style declarations.
 
 Properly composed styles will never need an `!important` flag. It is used to override specificity
 when working across different scopes, and the UI Styling Standard enforces styles with minimal
@@ -12,9 +12,10 @@ The use of `!important` is a code smell and greatly impacts readability and dete
 
 ```js
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
 const styles = css({
-	color: 'red!important',
+	color: `${token('color.text.danger')}!important`,
 });
 ```
 
@@ -22,8 +23,9 @@ const styles = css({
 
 ```js
 import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
 const styles = css({
-	color: 'red',
+	color: token('color.text.danger'),
 });
 ```

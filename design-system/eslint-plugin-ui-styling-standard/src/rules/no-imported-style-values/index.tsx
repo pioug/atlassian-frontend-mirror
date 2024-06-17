@@ -122,7 +122,7 @@ export const rule = createLintRule({
 		return {
 			// Checking css/cssMap/keyframes/styled/xcss calls
 			CallExpression(node) {
-				const { references } = context.sourceCode.getScope(node.callee);
+				const { references } = context.getScope();
 
 				if (!hasStyleObjectArguments(node.callee, references, importSources)) {
 					return;

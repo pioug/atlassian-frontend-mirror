@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 
@@ -198,6 +199,7 @@ export default () => {
 					padding="space.200"
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ width: 'fit-content' }}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					xcss={xcss({
 						borderColor: 'color.border',
 						borderWidth: 'border.width',
@@ -271,6 +273,7 @@ export default () => {
 								{colorString === customTheme.brandColor && (
 									<Box
 										as="p"
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										xcss={xcss({
 											width: '100%',
 											paddingBlockStart: 'space.100',
@@ -288,6 +291,7 @@ export default () => {
 								</b>
 								<Box
 									as="span"
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									xcss={xcss({
 										boxSizing: 'border-box',
 										width: '100%',
@@ -314,6 +318,7 @@ export default () => {
 								key={tokenName}
 								paddingInline="space.100"
 								paddingBlock="space.050"
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								xcss={xcss({
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 									border: `1px solid ${token('color.border')}`,

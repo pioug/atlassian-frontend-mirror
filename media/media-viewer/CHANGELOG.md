@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 48.6.3
+
+### Patch Changes
+
+- [#111350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111350)
+  [`efcf89de4e9ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efcf89de4e9ab) -
+  Added missing metadata in some error events
+- Updated dependencies
+
 ## 48.6.2
 
 ### Patch Changes

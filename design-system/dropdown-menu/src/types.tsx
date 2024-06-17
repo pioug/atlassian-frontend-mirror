@@ -86,8 +86,8 @@ export interface MenuWrapperProps extends MenuGroupProps {
 	setInitialFocusRef?: ContentProps['setInitialFocusRef'];
 	onClose?: ContentProps['onClose'];
 	onUpdate: ContentProps['update'];
-	isLoading?: DropdownMenuProps['isLoading'];
-	statusLabel?: DropdownMenuProps['statusLabel'];
+	isLoading?: InternalDropdownMenuProps['isLoading'];
+	statusLabel?: InternalDropdownMenuProps['statusLabel'];
 	shouldRenderToParent?: boolean;
 	isTriggeredUsingKeyboard?: boolean;
 	autoFocus?: boolean;
@@ -95,7 +95,7 @@ export interface MenuWrapperProps extends MenuGroupProps {
 
 export interface DropdownMenuGroupProps extends SectionProps {}
 
-export interface DropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> {
+interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> {
 	/**
 	 * Controls the appearance of the menu.
 	 * The default menu will scroll after its height exceeds the pre-defined amount.
@@ -135,6 +135,14 @@ export interface DropdownMenuProps<TriggerElement extends HTMLElement = HTMLElem
 	 * Position of the menu.
 	 */
 	placement?: Placement;
+
+	/**
+	 * This fits the dropdown menu width to its parent's width.
+	 * When set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.
+	 * The dropdown menu will be rendered as a sibling to the trigger element, and will be full width.
+	 * The default is `false`.
+	 */
+	shouldFitContainer?: boolean;
 
 	/**
 	 * Allows the dropdown menu to be placed on the opposite side of its trigger if it does not
@@ -197,6 +205,21 @@ export interface DropdownMenuProps<TriggerElement extends HTMLElement = HTMLElem
 	 */
 	label?: string;
 }
+
+type StandardDropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> =
+	InternalDropdownMenuProps<TriggerElement> & {
+		shouldFitContainer?: false;
+	};
+
+type ShouldFitContainerDropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> =
+	InternalDropdownMenuProps<TriggerElement> & {
+		shouldFitContainer: true;
+		shouldRenderToParent?: true;
+	};
+
+export type DropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> =
+	| StandardDropdownMenuProps<TriggerElement>
+	| ShouldFitContainerDropdownMenuProps<TriggerElement>;
 
 export interface DropdownItemProps {
 	/**

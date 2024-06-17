@@ -71,7 +71,7 @@ export default () => {
 							key={color}
 							backgroundColor="color.background.neutral"
 							padding="space.400"
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={xcss({
 								color,
 							})}

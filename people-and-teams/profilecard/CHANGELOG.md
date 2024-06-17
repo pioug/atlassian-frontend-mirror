@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 19.15.1
+
+### Patch Changes
+
+- [#104301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104301)
+  [`fa84aade26f84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa84aade26f84) -
+  ECA11Y-16: Detailed list markup for profilecard details
+
+## 19.15.0
+
+### Minor Changes
+
+- [#111727](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111727)
+  [`1a3782b867ff9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a3782b867ff9) -
+  Removed displayConfig prop
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.14.1
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/badge
 
+## 16.2.0
+
+### Minor Changes
+
+- [#111696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111696)
+  [`20c2d58f6f8a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20c2d58f6f8a9) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+- [#111623](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111623)
+  [`0392b6e4d865a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0392b6e4d865a) -
+  Sets `flex-shrink: 0` on Badge to avoid it spanning multiple lines when in flex containers that
+  aren't wide enough.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.2
 
 ### Patch Changes

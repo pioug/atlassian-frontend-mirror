@@ -1,9 +1,10 @@
 # no-global-styles
 
-This rule prevents global styles through CSS-in-JS or CSS module imports.
+Blocks global styles through CSS-in-JS and CSS module imports.
 
-Requiring local definition of styles helps to ensure that style dependencies are statically
-resolvable.
+Use local styles so that style dependencies are statically resolvable.
+
+The only global styling that should be used is `@atlaskit/css-reset`.
 
 ## Examples
 

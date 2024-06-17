@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
 import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';

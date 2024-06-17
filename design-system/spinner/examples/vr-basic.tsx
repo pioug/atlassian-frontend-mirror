@@ -1,5 +1,6 @@
 /** @jsx jsx */
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Spinner from '../src';
@@ -19,6 +20,6 @@ const animationStyles = css({
 
 export default () => (
 	<div css={animationStyles}>
-		<Spinner testId="spinner" />
+		<Spinner testId="spinner" label="Loading" />
 	</div>
 );

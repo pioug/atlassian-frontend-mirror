@@ -1,12 +1,12 @@
-This rule prevents the usage of styles that are difficult/impossible to statically analyze.
+Blocks styles that are difficult or impossible to statically analyze.
 
 ## Examples
 
-### Incorrect
+### Function calls
 
-**Function calls**
+#### Incorrect
 
-Function calls are not allowed as arguments or as values, unless they are specified in
+Function calls are blocked as arguments or as values, unless they are specified in
 `allowedFunctionCalls` (or in the default list).
 
 ```tsx
@@ -31,48 +31,121 @@ const styles = css({
 });
 ```
 
-**Dynamic keys**
+#### Correct
 
-Dynamic keys are not allowed, unless they are specified in `allowedDynamicKeys` (or in the default
+Use inline literals for static values.
+
+```tsx
+import { css } from '@compiled/react';
+
+const styles = css({ width: 100 });
+```
+
+Use the `style` prop for dynamic values.
+
+```tsx
+const Component = ({ width }) => <div style={{ width }} />;
+```
+
+Some functions such as `tokens()` are allowed.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const styles = css({ padding: token('space.100') });
+```
+
+### Dynamic keys
+
+#### Incorrect
+
+Dynamic keys are blocked, unless they are specified in `allowedDynamicKeys` (or in the default
 list).
 
 ```tsx
 import { css } from '@compiled/react';
-import { SELECTOR } from 'my-package';
+
+const HOVER_SELECTOR = '&:hover';
+const MARGIN = 'margin';
 
 const styles = css({
-	[SELECTOR]: {
-		color: 'red',
+	[HOVER_SELECTOR]: {
+		[MARGIN]: 0,
 	},
-	[`${SELECTOR} > p`]: {
+	[`${HOVER_SELECTOR} > p`]: {
 		width: 100,
 	},
 });
 ```
 
-**Variables**
+#### Correct
 
-Variables are not allowed as values, unless they:
+Use literal values for pseudo-states and property names.
 
-- Have a simple, static value
-- Are defined in the same file
+Don't use nested selectors, apply styles directly instead.
 
 ```tsx
 import { css } from '@compiled/react';
-import { SELECTOR } from 'my-package';
-
-function myFunction() {
-	return '5px';
-}
 
 const styles = css({
-	height: myFunction,
+	'&:hover': {
+		margin: 0,
+	},
+});
+
+const paragraphStyles = css({
+	width: 100,
 });
 ```
 
-**Object access**
+### Variables
 
-Accessing object members is not allowed in values.
+#### Incorrect
+
+Variables are only allowed as values if they:
+
+- have a simple, static value
+- are defined in the same file
+
+```tsx
+import { css } from '@compiled/react';
+import { HEIGHT } from '../shared';
+
+const styles = css({
+	height: HEIGHT,
+});
+```
+
+#### Correct
+
+Use inlined values.
+
+```tsx
+import { css } from '@compiled/react';
+
+const styles = css({
+	height: '32px',
+});
+```
+
+Alternatively, define variables in the same file.
+
+```tsx
+import { css } from '@compiled/react';
+
+const HEIGHT = '32px';
+
+const styles = css({
+	height: HEIGHT,
+});
+```
+
+### Object access
+
+#### Incorrect
+
+Don't access object members in values.
 
 ```tsx
 import { css } from '@compiled/react';
@@ -87,59 +160,89 @@ const styles = css({
 });
 ```
 
-**Spread elements**
+#### Correct
 
-Spread elements are not allowed.
-
-```tsx
-import { css } from '@compiled/react';
-
-const buttonStyles = {
-	color: 'blue',
-};
-
-const styles = css({
-	...buttonStyles,
-});
-```
-
-**Array values**
-
-Array values are not allowed. This syntax is not supported by most styling libraries.
-
-```tsx
-import { css } from '@compiled/react';
-
-const styles = css({
-	'::before': [{ fontWeight: 'bold' }, { color: 'red' }],
-});
-```
-
-### Correct
-
-Things to note about the following example:
-
-- The `warningStyles` are conditionally applied using the `css` prop
-- The dynamic `width` is applied using the `style` prop
-- The `token()` calls are allowed because they are statically analyzable (and in the default
-  allow-list)
+Use inlined values.
 
 ```tsx
 import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
-const baseStyles = css({
-	height: 100,
+const styles = css({
+	color: token('color.text'),
 });
+```
 
-const warningStyles = css({
-	color: token('color.text.warning'),
-	backgroundColor: token('color.background.warning'),
-});
+### Spread elements
 
-const Component = ({ isWarning, width }: { isWarning: boolean; width: number }) => {
-	return <div style={{ width }} css={[baseStyles, isWarning && warningStyles]} />;
+#### Incorrect
+
+Don't use the spread operator in styles.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const subtleTextStyles = {
+	color: token('color.text.subtle'),
 };
+
+const styles = css({
+	...subtleTextStyles,
+	margin: 0,
+});
+```
+
+#### Correct
+
+Use the `css` prop to compose styles.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const subtleTextStyles = {
+	color: token('color.text.subtle'),
+};
+
+const styles = css({
+	margin: 0,
+});
+
+const Component = () => <div css={[subtleTextStyles, styles]} />;
+```
+
+### Array values
+
+#### Incorrect
+
+Don't use array values. This syntax is not supported by Compiled, or most other CSS-in-JS libraries.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const boldMixin = { fontWeight: token('font.weight.bold') };
+
+const styles = css({
+	'&::before': [boldMixin, { color: token('color.text.danger') }],
+});
+```
+
+#### Correct
+
+Use a single object with inlined styles.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const styles = css({
+	'&::before': {
+		fontWeight: token('font.weight.bold'),
+		color: token('color.text.danger'),
+	},
+});
 ```
 
 ## Options
@@ -198,9 +301,9 @@ Default imports are not currently supported.
 // ...
 ```
 
-### `importSources : string[]`
+### `importSources: string[]`
 
-By default, this rule will check `css` usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -210,5 +313,4 @@ By default, this rule will check `css` usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings). This will override the built-in allow-list.
+Override this list with the `importSources` option, which accepts an array of package names.

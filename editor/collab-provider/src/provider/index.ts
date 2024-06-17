@@ -147,10 +147,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			this.setUserId,
 		);
 		this.metadataService = new MetadataService(this.emitCallback, this.channel.sendMetadata);
-		const reconcileOnRecovery = getCollabProviderFeatureFlag(
-			'reconcileOnRecovery',
-			this.config.featureFlags,
-		);
 		this.namespaceService = new NamespaceService();
 		this.documentService = new DocumentService(
 			this.participantsService,
@@ -165,7 +161,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			this.metadataService,
 			this.namespaceService.getIsNamespaceLocked.bind(this.namespaceService),
 			this.config.enableErrorOnFailedDocumentApply,
-			reconcileOnRecovery,
 			{ __livePage: this.config.__livePage || false },
 		);
 		this.api = new Api(config, this.documentService, this.channel);

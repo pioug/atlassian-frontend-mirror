@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.3.0
+
+### Minor Changes
+
+- [#106001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106001)
+  [`2a3e33b1e7727`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a3e33b1e7727) -
+  [ux] ECA11Y-75: Remove feature flag and fix tests
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.10
 
 ### Patch Changes

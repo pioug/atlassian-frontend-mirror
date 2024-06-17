@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-date
 
+## 1.2.4
+
+### Patch Changes
+
+- [#110390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110390)
+  [`bead123202369`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bead123202369) -
+  [ux] [ED-23642] Reordering the typeahead so that date, status, code block & info panel are above
+  the fold (in the top 5 results)
+- Updated dependencies
+
 ## 1.2.3
 
 ### Patch Changes

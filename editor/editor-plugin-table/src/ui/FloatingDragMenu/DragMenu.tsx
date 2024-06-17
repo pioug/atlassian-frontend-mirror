@@ -95,7 +95,7 @@ type DragMenuProps = {
 	tableDuplicateCellColouring?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 	isTableFixedColumnWidthsOptionEnabled?: boolean;
-	tableSortColumnDiscoverability?: boolean;
+	tableSortColumnReorder?: boolean;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -163,7 +163,7 @@ const MapDragMenuOptionIdToMessage: Record<DragMenuOptionIdType, MessageType> = 
 	},
 };
 
-const getGroupedDragMenuConfig = (tableSortColumnDiscoverability: boolean) => {
+const getGroupedDragMenuConfig = (tableSortColumnReorder: boolean) => {
 	let groupedDragMenuConfig: DragMenuOptionIdType[][] = [
 		[
 			'add_row_above',
@@ -178,7 +178,7 @@ const getGroupedDragMenuConfig = (tableSortColumnDiscoverability: boolean) => {
 		['move_column_left', 'move_column_right', 'move_row_up', 'move_row_down'],
 	];
 	const sortColumnItems: DragMenuOptionIdType[] = ['sort_column_asc', 'sort_column_desc'];
-	tableSortColumnDiscoverability
+	tableSortColumnReorder
 		? groupedDragMenuConfig.unshift(sortColumnItems)
 		: groupedDragMenuConfig.push(sortColumnItems);
 
@@ -188,10 +188,10 @@ const getGroupedDragMenuConfig = (tableSortColumnDiscoverability: boolean) => {
 const convertToDropdownItems = (
 	dragMenuConfig: DragMenuConfig[],
 	formatMessage: IntlShape['formatMessage'],
-	tableSortColumnDiscoverability: boolean = false,
+	tableSortColumnReorder: boolean = false,
 	selectionRect?: Rect,
 ) => {
-	const groupedDragMenuConfig = getGroupedDragMenuConfig(tableSortColumnDiscoverability);
+	const groupedDragMenuConfig = getGroupedDragMenuConfig(tableSortColumnReorder);
 	let menuItemsArr: MenuItem[][] = [...Array(groupedDragMenuConfig.length)].map(() => []);
 	let menuCallback: { [key: string]: Command } = {};
 	dragMenuConfig.forEach((item) => {
@@ -277,7 +277,7 @@ export const DragMenu = React.memo(
 		tableDuplicateCellColouring,
 		shouldUseIncreasedScalingPercent,
 		isTableFixedColumnWidthsOptionEnabled,
-		tableSortColumnDiscoverability,
+		tableSortColumnReorder,
 	}: DragMenuProps & WrappedComponentProps) => {
 		const { state, dispatch } = editorView;
 		const { selection } = state;
@@ -320,13 +320,13 @@ export const DragMenu = React.memo(
 			tableDuplicateCellColouring,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
-			tableSortColumnDiscoverability,
+			tableSortColumnReorder,
 		);
 
 		const { menuItems, menuCallback } = convertToDropdownItems(
 			dragMenuConfig,
 			formatMessage,
-			tableSortColumnDiscoverability,
+			tableSortColumnReorder,
 			selectionRect,
 		);
 
@@ -386,7 +386,7 @@ export const DragMenu = React.memo(
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={DropdownMenuSharedCssClassName.SUBMENU}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={dragMenuBackgroundColorStyles(tableSortColumnDiscoverability)}
+						css={dragMenuBackgroundColorStyles(tableSortColumnReorder)}
 					>
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -613,7 +613,7 @@ export const DragMenu = React.memo(
 		}
 
 		if (allowBackgroundColor) {
-			tableSortColumnDiscoverability
+			tableSortColumnReorder
 				? menuItems[1].items.unshift(createBackgroundColorMenuItem())
 				: menuItems[0].items.unshift(createBackgroundColorMenuItem());
 		}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.6.1
+
+### Patch Changes
+
+- [#111357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111357)
+  [`cf6122614ec5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf6122614ec5f) -
+  [ux] Adjusted the shortcut displayed for block quote on quick insert dropdown.
+
 ## 3.6.0
 
 ### Minor Changes

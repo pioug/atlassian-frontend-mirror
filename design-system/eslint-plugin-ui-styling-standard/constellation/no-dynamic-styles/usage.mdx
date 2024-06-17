@@ -1,12 +1,12 @@
 # no-dynamic-styles
 
-This rule prevents the use of dynamic styles (function expressions) in style declarations.
+Blocks dynamic styles (function expressions) in style declarations.
 
 This ensures that style declarations:
 
 - are statically analyzable
 - can be efficiently extracted into atomic CSS
-- are more readable, deterministic, and thus easier to maintain
+- are more readable and deterministic, thus easier to maintain
 
 ## Examples
 
@@ -31,14 +31,20 @@ const Component = styled.div<{ width: number }>({
 ```tsx
 import styled from 'styled-components';
 
-const Container = styled.div<hasPadding>({
+const Container = styled.div<{ hasPadding: boolean }>({
 	padding: ({ hasPadding }) => (hasPadding ? token('space.100', '8px') : token('space.0', '0px')),
 });
 ```
 
 ### Correct
 
-**Flags**
+Define all styles statically, and dynamically apply them using the `css` prop. Use the `style` prop
+for values that are only known at runtime.
+
+For further guidance, consult our
+[migration guide](https://atlassian.design/components/eslint-plugin-ui-styling-standard/migration-guide).
+
+#### Flags
 
 If you have a style that is on/off depending on a prop, use the `css` prop to conditionally apply
 it.
@@ -54,7 +60,7 @@ const Container = ({ hasPadding = false }: { hasPadding?: boolean }) => {
 };
 ```
 
-**Variants**
+#### Variants
 
 If you have variants which are known ahead of time, use `cssMap` to define them and the `css` prop
 to conditionally apply it.
@@ -79,7 +85,7 @@ const Wrapper = ({ appearance = 'primary' }: { appearance?: 'primary' | 'error' 
 );
 ```
 
-**Dynamic values**
+#### Dynamic values
 
 If you have styles which are truly dynamic, use the `style` prop.
 
@@ -97,7 +103,7 @@ const Component = ({ width }: { width: number }) => {
 import { css } from '@compiled/react';
 
 const containerStyles = css({
-	'::before': {
+	'&::before': {
 		width: 'var(--ak-example-width)',
 	},
 });
@@ -109,9 +115,9 @@ function Example({ width }: { width: number }) {
 
 ## Options
 
-### importSources
+### `importSources: string[]`
 
-By default, this rule will check usages from:
+By default, this rule will check styles using:
 
 - `@atlaskit/css`
 - `@atlaskit/primitives`
@@ -121,5 +127,4 @@ By default, this rule will check usages from:
 - `@emotion/styled`
 - `styled-components`
 
-To change this list of libraries, you can define a custom set of `importSources`, which accepts an
-array of package names (strings).
+Override this list with the `importSources` option, which accepts an array of package names.

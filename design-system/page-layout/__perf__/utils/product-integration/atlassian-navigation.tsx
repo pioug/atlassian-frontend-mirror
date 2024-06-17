@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Fragment, type MouseEvent, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 // AFP-1799 storybook examples in src cause issues

@@ -72,7 +72,7 @@ export const buildJQL = (input: BuildJQLInput): string => {
 
 		const orClauseFields = [text, summary];
 
-		if (jiraIssueKeyRegExp.test(trimmedRawSearch)) {
+		if (jiraIssueKeyRegExp.test(trimmedRawSearch.toUpperCase())) {
 			const key = constructTerminalClause('key', OPERATOR_EQUALS, basicSearch);
 			orClauseFields.push(key);
 		}

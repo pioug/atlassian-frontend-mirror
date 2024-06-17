@@ -1,5 +1,29 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.16.4
+
+### Patch Changes
+
+- [#111304](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111304)
+  [`df63ad1ddca6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df63ad1ddca6a) -
+  Updated rule docs for better clarity and consistency
+
+## 0.16.3
+
+### Patch Changes
+
+- [#110284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110284)
+  [`34021a2db424f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34021a2db424f) -
+  Internal refactoring to improve backwards compatibility with ESLint versions lower than 8
+
+## 0.16.2
+
+### Patch Changes
+
+- [#109764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109764)
+  [`5ceaeae2bef25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ceaeae2bef25) -
+  Fixes `no-imported-style-values` to ignore imported values that exist in the type level
+
 ## 0.16.1
 
 ### Patch Changes

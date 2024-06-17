@@ -1,6 +1,7 @@
 import React, { type FC } from 'react';
 
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 
 import { N30, N800 } from '@atlaskit/theme/colors';

@@ -44,7 +44,7 @@ export type CommentBadgeProps = {
 	width?: number;
 	height?: number;
 	status?: 'default' | 'entered' | 'active';
-	mediaElement?: HTMLElement | null;
+	mediaSingleElement?: HTMLElement | null;
 	onClick: (e: React.MouseEvent) => void;
 	onMouseEnter?: (e: React.MouseEvent) => void;
 	onMouseLeave?: (e: React.MouseEvent) => void;
@@ -59,7 +59,7 @@ export const CommentBadge = ({
 	width,
 	height,
 	status = 'default',
-	mediaElement,
+	mediaSingleElement,
 	onClick,
 	onMouseEnter,
 	onMouseLeave,
@@ -78,13 +78,13 @@ export const CommentBadge = ({
 			}),
 		);
 
-		if (mediaElement) {
-			observer.observe(mediaElement as HTMLElement);
+		if (mediaSingleElement) {
+			observer.observe(mediaSingleElement as HTMLElement);
 		}
 		return () => {
 			observer.disconnect();
 		};
-	}, [mediaElement]);
+	}, [mediaSingleElement]);
 
 	const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
 

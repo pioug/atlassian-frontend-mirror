@@ -1,5 +1,6 @@
 import type { Appearance } from '@atlaskit/button/types';
 import type { Space, XCSS } from '@atlaskit/primitives';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { SerializedStyles } from '@emotion/react';
 import type { ReactChild, ReactNode } from 'react';
 import type { SmartLinkSize } from '../../../../../constants';

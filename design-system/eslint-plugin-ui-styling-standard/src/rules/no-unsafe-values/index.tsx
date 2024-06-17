@@ -62,7 +62,7 @@ export const rule = createLintRule({
 
 		return {
 			CallExpression(node) {
-				const { references } = context.sourceCode.getScope(node);
+				const { references } = context.getScope();
 
 				if (
 					!isCss(node.callee, references, importSources) &&

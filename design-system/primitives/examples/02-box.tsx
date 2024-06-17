@@ -119,7 +119,7 @@ export default () => {
 							padding="space.400"
 							xcss={[
 								baseBorderStyles,
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								xcss({
 									borderColor: borderColor,
 								}),
@@ -145,7 +145,7 @@ export default () => {
 							key={shadow}
 							backgroundColor="elevation.surface"
 							padding="space.400"
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={xcss({
 								boxShadow: shadow,
 							})}
@@ -177,7 +177,7 @@ export default () => {
 							key={zIndex}
 							backgroundColor="elevation.surface"
 							padding="space.400"
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={[elevationStyles, xcss({ zIndex })]}
 							style={{
 								insetBlockStart: index * 64,

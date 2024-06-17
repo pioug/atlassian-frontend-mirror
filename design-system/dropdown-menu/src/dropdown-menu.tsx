@@ -87,6 +87,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
 	isOpen,
 	onOpenChange = noop,
 	placement = 'bottom-start',
+	shouldFitContainer = false,
 	shouldFlip = true,
 	shouldRenderToParent = false,
 	spacing,
@@ -201,6 +202,20 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
 		});
 	}, [isFocused, isLocalOpen, handleTriggerClicked, handleOnClose]);
 
+	/*
+	 * The Popup component requires either:
+	 * - shouldFitContainer={true} and shouldRenderToParent={true | undefined}
+	 * or
+	 * - shouldFitContainer={false | undefined} and shouldRenderToParent={true | false | undefined}
+	 *
+	 * But not:
+	 * - shouldFitContainer={true} and shouldRenderToParent={false}
+	 *
+	 * By only including either shouldFitContainer or shouldRenderToParent, we can ensure that the Popup component
+	 * types are satisfied.
+	 */
+	const conditionalProps = shouldFitContainer ? { shouldFitContainer } : { shouldRenderToParent };
+
 	return (
 		<SelectionStore>
 			<Popup
@@ -213,7 +228,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
 				fallbackPlacements={fallbackPlacements}
 				testId={testId && `${testId}--content`}
 				shouldUseCaptureOnOutsideClick
-				shouldRenderToParent={shouldRenderToParent}
+				{...conditionalProps}
 				shouldDisableFocusLock
 				trigger={({
 					ref,
@@ -259,7 +274,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
 						<MenuWrapper
 							spacing={spacing}
 							maxHeight={MAX_HEIGHT}
-							maxWidth={800}
+							maxWidth={shouldFitContainer ? undefined : 800}
 							onClose={handleOnClose}
 							onUpdate={update}
 							isLoading={isLoading}
@@ -267,7 +282,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
 							setInitialFocusRef={
 								isTriggeredUsingKeyboard || autoFocus ? setInitialFocusRef : undefined
 							}
-							shouldRenderToParent={shouldRenderToParent}
+							shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
 							isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
 							autoFocus={autoFocus}
 							testId={testId && `${testId}--menu-wrapper`}

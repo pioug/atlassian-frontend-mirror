@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
 
@@ -84,7 +85,7 @@ it('should not allow hover or active interactions while loading', () => {
 
 	// No longer loading
 	rerender(<CustomThemeButton testId="button" />);
-	expect(button.className).toBe(defaultClassName);
+	expect(button).toHaveClass(defaultClassName, { exact: true });
 
 	// get the 'hover' class name (we are not loading)
 	fireEvent.mouseOver(button);
@@ -94,11 +95,11 @@ it('should not allow hover or active interactions while loading', () => {
 
 	// start loading again
 	rerender(<CustomThemeButton testId="button" isLoading />);
-	expect(button.className).toBe(isLoadingClassName);
+	expect(button).toHaveClass(isLoadingClassName, { exact: true });
 
 	// No longer loading (still hovering though)
 	rerender(<CustomThemeButton testId="button" />);
-	expect(button.className).toBe(hoverClassName);
+	expect(button).toHaveClass(hoverClassName, { exact: true });
 
 	// Start mouse down (active)
 	fireEvent.mouseDown(button);
@@ -109,5 +110,5 @@ it('should not allow hover or active interactions while loading', () => {
 
 	// start loading again
 	rerender(<CustomThemeButton testId="button" isLoading />);
-	expect(button.className).toBe(isLoadingClassName);
+	expect(button).toHaveClass(isLoadingClassName, { exact: true });
 });

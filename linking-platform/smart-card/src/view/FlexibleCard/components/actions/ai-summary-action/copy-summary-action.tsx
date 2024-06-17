@@ -9,8 +9,6 @@ import type { AISummaryActionProps } from './types';
 
 export function CopySummaryAction({
 	url,
-	ari,
-	product,
 	onClick: onClickCallback,
 	testId,
 	content,

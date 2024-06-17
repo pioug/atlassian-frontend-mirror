@@ -43,6 +43,7 @@ import {
 	useInlineCommentsFilter,
 } from '../../../ui/annotations/hooks';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type MediaProps = MediaCardProps & {
 	providers?: ProviderFactory;
@@ -208,7 +209,7 @@ const CommentBadge = injectIntl(CommentBadgeComponent);
 
 const CommentBadgeWrapper = ({
 	marks,
-	mediaElement,
+	mediaSingleElement,
 	isDrafting = false,
 	...rest
 }: Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
@@ -227,16 +228,20 @@ const CommentBadgeWrapper = ({
 	useEffect(() => {
 		const observer = new MutationObserver((mutationList) => {
 			mutationList.forEach((mutation) => {
+				const parentNode = mutation.target.parentNode as Element | null;
 				if (mutation.attributeName === 'data-has-focus') {
+					const isMediaCaption = parentNode?.closest('[data-media-caption="true"]');
 					const elementHasFocus =
-						!!mutation.target.parentNode?.querySelector('[data-has-focus="true"]');
+						parentNode?.querySelector('[data-has-focus="true"]') &&
+						(!getBooleanFF('platform.comments-on-media.bug.incorrect-badge-highlight') ||
+							!isMediaCaption);
 					elementHasFocus ? setStatus('active') : setStatus('default');
 				}
 			});
 		});
 
-		if (mediaElement) {
-			observer.observe(mediaElement, {
+		if (mediaSingleElement) {
+			observer.observe(mediaSingleElement, {
 				attributes: true,
 				subtree: true,
 				attributeFilter: ['data-has-focus'],
@@ -246,7 +251,7 @@ const CommentBadgeWrapper = ({
 		return () => {
 			observer.disconnect();
 		};
-	}, [mediaElement, setStatus]);
+	}, [mediaSingleElement, setStatus]);
 
 	if (!isDrafting && !activeParentIds.length) {
 		return null;
@@ -335,7 +340,7 @@ class Media extends PureComponent<MediaProps, {}> {
 							{showCommentBadge && (
 								<CommentBadgeWrapper
 									marks={annotationMarks}
-									mediaElement={mediaSingleElement}
+									mediaSingleElement={mediaSingleElement}
 									width={width}
 									height={height}
 									isDrafting={isDrafting}

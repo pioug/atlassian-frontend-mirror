@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { createSerializer, matchers } from '@emotion/jest';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
 

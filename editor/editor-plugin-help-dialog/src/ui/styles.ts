@@ -157,7 +157,8 @@ export const componentFromKeymapWrapperStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
 export const toolbarButton = css({
-	'&:focus': {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:focus:not(:focus-visible)': {
 		outline: `2px solid ${token('color.border.focused', B300)}`,
 		outlineOffset: token('space.025', '2px'),
 	},

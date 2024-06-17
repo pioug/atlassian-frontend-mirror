@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles, css, jsx } from '@emotion/react';
 import AIStateIndicator from '../../FlexibleCard/components/blocks/ai-summary-block/ai-state-indicator';
 import UList from './ulist';

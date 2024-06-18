@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { useContext } from 'react';
 

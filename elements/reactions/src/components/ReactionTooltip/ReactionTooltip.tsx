@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { type PropsWithChildren } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { FormattedMessage } from 'react-intl-next';

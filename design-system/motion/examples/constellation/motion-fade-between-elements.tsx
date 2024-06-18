@@ -1,4 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ReactNode, useState } from 'react';
 

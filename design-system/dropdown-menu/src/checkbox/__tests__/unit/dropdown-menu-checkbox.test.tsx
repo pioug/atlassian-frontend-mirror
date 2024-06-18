@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import DropdownMenu, { DropdownItemCheckbox, DropdownItemCheckboxGroup } from '../../../index';
 
 describe('DropdownMenu with checkbox as item', () => {
 	describe('checkbox', () => {
 		it('render checkbox on the dropdown menu', () => {
-			const { getByText } = render(
+			render(
 				<DropdownMenu trigger="Select cities">
 					<DropdownItemCheckboxGroup id="cities">
 						<DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
@@ -16,15 +16,15 @@ describe('DropdownMenu with checkbox as item', () => {
 				</DropdownMenu>,
 			);
 
-			const trigger = getByText('Select cities');
+			const trigger = screen.getByText('Select cities');
 			fireEvent.click(trigger);
 
-			expect(getByText('Sydney')).toBeInTheDocument();
-			expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(screen.getByText('Sydney')).toBeInTheDocument();
+			expect(screen.getByText('Melbourne')).toBeInTheDocument();
 		});
 
 		it('click to check checkbox on the dropdown menu', async () => {
-			const { getByText, findAllByRole } = render(
+			render(
 				<DropdownMenu trigger="Select cities">
 					<DropdownItemCheckboxGroup id="cities">
 						<DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
@@ -33,33 +33,29 @@ describe('DropdownMenu with checkbox as item', () => {
 				</DropdownMenu>,
 			);
 
-			const trigger = getByText('Select cities');
+			const trigger = screen.getByText('Select cities');
 
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			expect(getByText('Sydney')).toBeInTheDocument();
-			expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(screen.getByText('Sydney')).toBeInTheDocument();
+			expect(screen.getByText('Melbourne')).toBeInTheDocument();
 
-			let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			let checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['false', 'false']);
 
-			const melbourne = getByText('Melbourne');
-			act(() => {
-				fireEvent.click(melbourne);
-			});
+			const melbourne = screen.getByText('Melbourne');
+			fireEvent.click(melbourne);
 
-			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['false', 'true']);
 		});
 
 		it('click to check multiple checkboxes on the dropdown menu', async () => {
-			const { getByText, findAllByRole } = render(
+			render(
 				<DropdownMenu trigger="Select cities">
 					<DropdownItemCheckboxGroup id="cities">
 						<DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
@@ -68,39 +64,33 @@ describe('DropdownMenu with checkbox as item', () => {
 				</DropdownMenu>,
 			);
 
-			const trigger = getByText('Select cities');
+			const trigger = screen.getByText('Select cities');
 
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			expect(getByText('Sydney')).toBeInTheDocument();
-			expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(screen.getByText('Sydney')).toBeInTheDocument();
+			expect(screen.getByText('Melbourne')).toBeInTheDocument();
 
-			let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			let checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['false', 'false']);
 
-			const sydney = getByText('Sydney');
-			const melbourne = getByText('Melbourne');
+			const sydney = screen.getByText('Sydney');
+			const melbourne = screen.getByText('Melbourne');
 
-			act(() => {
-				fireEvent.click(sydney);
-			});
+			fireEvent.click(sydney);
 
-			act(() => {
-				fireEvent.click(melbourne);
-			});
+			fireEvent.click(melbourne);
 
-			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['true', 'true']);
 		});
 
 		it('uncheck checkbox on the dropdown menu', async () => {
-			const { getByText, findAllByRole } = render(
+			render(
 				<DropdownMenu trigger="Select cities">
 					<DropdownItemCheckboxGroup id="cities">
 						<DropdownItemCheckbox id="sydney" defaultSelected>
@@ -111,33 +101,29 @@ describe('DropdownMenu with checkbox as item', () => {
 				</DropdownMenu>,
 			);
 
-			const trigger = getByText('Select cities');
+			const trigger = screen.getByText('Select cities');
 
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			expect(getByText('Sydney')).toBeInTheDocument();
-			expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(screen.getByText('Sydney')).toBeInTheDocument();
+			expect(screen.getByText('Melbourne')).toBeInTheDocument();
 
-			let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			let checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['true', 'false']);
 
-			const sydney = getByText('Sydney');
-			act(() => {
-				fireEvent.click(sydney);
-			});
+			const sydney = screen.getByText('Sydney');
+			fireEvent.click(sydney);
 
-			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['false', 'false']);
 		});
 
 		it('reopen dropdown menu the selection should be persisted', async () => {
-			const { getByText, findAllByRole, queryByText } = render(
+			render(
 				<DropdownMenu trigger="Select cities">
 					<DropdownItemCheckboxGroup id="cities">
 						<DropdownItemCheckbox id="sydney" defaultSelected>
@@ -148,44 +134,36 @@ describe('DropdownMenu with checkbox as item', () => {
 				</DropdownMenu>,
 			);
 
-			const trigger = getByText('Select cities');
+			const trigger = screen.getByText('Select cities');
 
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			expect(getByText('Sydney')).toBeInTheDocument();
-			expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(screen.getByText('Sydney')).toBeInTheDocument();
+			expect(screen.getByText('Melbourne')).toBeInTheDocument();
 
-			let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			let checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['true', 'false']);
 
-			const sydney = getByText('Sydney');
-			act(() => {
-				fireEvent.click(sydney);
-			});
+			const sydney = screen.getByText('Sydney');
+			fireEvent.click(sydney);
 
-			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['false', 'false']);
 
 			// close the dropdown menu
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			expect(queryByText('Sydney')).not.toBeInTheDocument();
-			expect(queryByText('Melbourne')).not.toBeInTheDocument();
+			expect(screen.queryByText('Sydney')).not.toBeInTheDocument();
+			expect(screen.queryByText('Melbourne')).not.toBeInTheDocument();
 
 			// click to reopen the dropdown menu
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 			expect(checkboxes).toEqual(['false', 'false']);

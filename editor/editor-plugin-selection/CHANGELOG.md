@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.2.7
+
+### Patch Changes
+
+- [#111382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111382)
+  [`5ce3f135c6211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ce3f135c6211) -
+  Cleanup feature flag to protect for explicit HTML element check in some places.
+
 ## 1.2.6
 
 ### Patch Changes

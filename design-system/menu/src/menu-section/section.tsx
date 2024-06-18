@@ -1,4 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Children, forwardRef, Fragment, type Ref } from 'react';
 

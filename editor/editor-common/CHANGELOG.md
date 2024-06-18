@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 82.8.4
+
+### Patch Changes
+
+- [#112090](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112090)
+  [`66cab83d1bc9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66cab83d1bc9d) -
+  [ux] [ECA11Y-185] Fixed element browser scrolling to selected item
+
+## 82.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.8.2
+
+### Patch Changes
+
+- [#111382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111382)
+  [`5ce3f135c6211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ce3f135c6211) -
+  Cleanup feature flag to protect for explicit HTML element check in some places.
+- Updated dependencies
+
 ## 82.8.1
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 
 import { PureComponent } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type Appearance, type ContentRef, type TaskType, type DecisionType } from '../types';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports

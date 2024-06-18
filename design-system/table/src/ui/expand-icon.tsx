@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { memo } from 'react';
 

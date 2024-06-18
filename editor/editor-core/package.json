@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "193.27.2",
+	"version": "193.27.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,15 +51,15 @@
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/emoji": "^67.6.0",
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/media-card": "^77.12.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
-		"@atlaskit/spinner": "^16.1.0",
+		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/task-decision": "^17.10.0",
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/tokens": "^1.50.0",
-		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/theme": "^12.10.0",
+		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@atlaskit/width-detector": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -95,16 +95,16 @@
 		"@atlaskit/editor-plugin-paste": "^1.2.0",
 		"@atlaskit/editor-test-helpers": "*",
 		"@atlaskit/link-provider": "^1.11.0",
-		"@atlaskit/logo": "^14.0.0",
+		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^33.0.27",
-		"@atlaskit/modal-dialog": "^12.13.0",
-		"@atlaskit/primitives": "^7.3.0",
+		"@atlaskit/modal-dialog": "^12.14.0",
+		"@atlaskit/primitives": "^7.4.0",
 		"@atlaskit/renderer": "^109.32.0",
 		"@atlaskit/smart-card": "^27.6.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
-		"@atlaskit/toggle": "^13.1.0",
+		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.14.0",
@@ -304,9 +304,6 @@
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.explicit-html-element-check": {
-			"type": "boolean"
 		},
 		"platform.editor.table.live-pages-sorting_4malx": {
 			"type": "boolean",

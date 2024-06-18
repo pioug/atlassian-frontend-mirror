@@ -4,7 +4,6 @@ import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-pro
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { selectedRect } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics';
@@ -156,25 +155,12 @@ export function createSelectionClickHandler(
 		if (direct && nodes.indexOf(node.type.name) !== -1) {
 			const target = event.target;
 
-			if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-				if (target instanceof HTMLElement && isValidTarget(target)) {
-					const selectionPos = options.getNodeSelectionPos
-						? options.getNodeSelectionPos(view.state, nodePos)
-						: nodePos;
-					selectNode(selectionPos)(view.state, view.dispatch);
-					return true;
-				}
-			} else {
-				if (event.target) {
-					const target = event.target as HTMLElement;
-					if (isValidTarget(target)) {
-						const selectionPos = options.getNodeSelectionPos
-							? options.getNodeSelectionPos(view.state, nodePos)
-							: nodePos;
-						selectNode(selectionPos)(view.state, view.dispatch);
-						return true;
-					}
-				}
+			if (target instanceof HTMLElement && isValidTarget(target)) {
+				const selectionPos = options.getNodeSelectionPos
+					? options.getNodeSelectionPos(view.state, nodePos)
+					: nodePos;
+				selectNode(selectionPos)(view.state, view.dispatch);
+				return true;
 			}
 		}
 		return false;

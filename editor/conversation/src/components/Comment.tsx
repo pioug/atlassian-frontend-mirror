@@ -6,6 +6,7 @@ import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import React from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import type { HttpError } from '../api/HttpError';
 import CommentContainer from '../containers/Comment';

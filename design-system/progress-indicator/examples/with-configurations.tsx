@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import React, { type ChangeEvent, type ReactNode, useState } from 'react';
 

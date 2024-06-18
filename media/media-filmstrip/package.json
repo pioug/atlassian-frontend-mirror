@@ -39,12 +39,12 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/media-card": "^77.12.0",
 		"@atlaskit/media-client": "^27.2.0",
 		"@atlaskit/media-common": "^11.2.0",
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/theme": "^12.10.0",
+		"@atlaskit/tokens": "^1.51.0",
 		"@babel/runtime": "^7.0.0",
 		"debounce": "^1.0.0"
 	},

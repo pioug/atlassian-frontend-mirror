@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.2.4
+
+### Patch Changes
+
+- [#112281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112281)
+  [`2e2ef0bbefc4b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e2ef0bbefc4b) -
+  Null check mention node so we don't crash if the mention plugin hasn't been added.
+
 ## 1.2.3
 
 ### Patch Changes

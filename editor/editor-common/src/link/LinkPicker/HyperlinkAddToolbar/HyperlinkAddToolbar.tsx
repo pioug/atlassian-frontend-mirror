@@ -2,6 +2,7 @@
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { PureComponent } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { flushSync } from 'react-dom';

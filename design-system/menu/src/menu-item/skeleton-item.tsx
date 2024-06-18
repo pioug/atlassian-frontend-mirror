@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import type { CSSProperties } from 'react';
 

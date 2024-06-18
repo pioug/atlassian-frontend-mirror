@@ -29,7 +29,10 @@ const getRemoteSvg = async (
 	}
 };
 
-export const useResolveSvg = (identifier: FileIdentifier, onError?: (error: Error) => void) => {
+export const useResolveSvg = (
+	identifier: FileIdentifier,
+	onError?: (error: MediaSVGError) => void,
+) => {
 	const mediaClient = useMediaClient();
 	const { id, collectionName } = identifier;
 	const { id: prevId } = usePrevious(identifier) || identifier;

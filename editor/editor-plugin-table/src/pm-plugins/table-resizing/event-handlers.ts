@@ -192,16 +192,20 @@ export const handleMouseDown = (
 				}
 
 				const resizedDelta = clientX - startX;
-
+				const shouldUseIncreasedScalingPercent =
+					isTableScalingWithFixedColumnWidthsOptionEnabled &&
+					getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
 					const newResizeState = resizeColumnAndTable(
 						resizeState,
 						colIndex,
-						clientX - startX,
+						resizedDelta,
 						dom,
 						originalTable,
 						resizingSelectedColumns ? selectedColumns : undefined,
-						shouldScale,
+						shouldScale, // isTableScalingEnabled
+						undefined, // originalTableWidth
+						shouldUseIncreasedScalingPercent,
 					);
 					tr = updateColumnWidths(newResizeState, table, start)(tr);
 					tr.setNodeAttribute(start - 1, 'width', newResizeState.tableWidth);
@@ -209,13 +213,12 @@ export const handleMouseDown = (
 					const newResizeState = resizeColumn(
 						resizeState,
 						colIndex,
-						clientX - startX,
+						resizedDelta,
 						dom,
 						originalTable,
 						resizingSelectedColumns ? selectedColumns : undefined,
 						shouldScale,
-						isTableScalingWithFixedColumnWidthsOptionEnabled &&
-							getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
+						shouldUseIncreasedScalingPercent,
 					);
 					tr = updateColumnWidths(newResizeState, table, start)(tr);
 				}

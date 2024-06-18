@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { defaultEmojiHeight } from '../../util/constants';
 import type { EmojiImageRepresentation } from '../../types';

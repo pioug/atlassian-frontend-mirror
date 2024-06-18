@@ -1,4 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 

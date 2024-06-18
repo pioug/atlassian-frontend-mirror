@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { act, cleanup, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button/new';
 
@@ -33,16 +33,14 @@ jest.mock('popper.js', () => {
 });
 
 describe('inline-dialog', () => {
-	afterEach(cleanup);
-
 	it('should render the children of an inline dialog as the target', () => {
-		const { queryByTestId } = render(
+		render(
 			<InlineDialog content={() => null}>
 				<div data-testid="child-content">Click me!</div>
 			</InlineDialog>,
 		);
 
-		expect(queryByTestId('child-content')).toBeInTheDocument();
+		expect(screen.getByTestId('child-content')).toBeInTheDocument();
 	});
 
 	describe('isOpen', () => {
@@ -53,23 +51,23 @@ describe('inline-dialog', () => {
 		);
 
 		it('should render the content when is open', () => {
-			const { queryByTestId } = render(
+			render(
 				<InlineDialog content={content} isOpen={true}>
 					<div id="children" />
 				</InlineDialog>,
 			);
 
-			expect(queryByTestId('inline-dialog-content')).toBeInTheDocument();
+			expect(screen.getByTestId('inline-dialog-content')).toBeInTheDocument();
 		});
 
 		it('should not render the content when is not open', () => {
-			const { queryByTestId } = render(
+			render(
 				<InlineDialog content={content} isOpen={false}>
 					<div id="children" />
 				</InlineDialog>,
 			);
 
-			expect(queryByTestId('inline-dialog-content')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('inline-dialog-content')).not.toBeInTheDocument();
 		});
 	});
 
@@ -77,13 +75,13 @@ describe('inline-dialog', () => {
 		it('should be triggered when the content is clicked', () => {
 			const spy = jest.fn();
 			const dummyContent = <div data-testid="dummy-content">This is some content</div>;
-			const { getByTestId } = render(
+			render(
 				<InlineDialog onContentClick={spy} content={dummyContent} isOpen>
 					<div>trigger</div>
 				</InlineDialog>,
 			);
 
-			fireEvent.click(getByTestId('dummy-content'));
+			fireEvent.click(screen.getByTestId('dummy-content'));
 
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
@@ -98,13 +96,13 @@ describe('inline-dialog', () => {
 				</a>
 			);
 
-			const { getByTestId } = render(
+			render(
 				<InlineDialog onContentFocus={spy} content={dummyLink} isOpen>
 					<div id="children" />
 				</InlineDialog>,
 			);
 
-			fireEvent.focus(getByTestId('dummy-link'));
+			fireEvent.focus(screen.getByTestId('dummy-link'));
 
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
@@ -118,13 +116,13 @@ describe('inline-dialog', () => {
 					This is a dummy link
 				</a>
 			);
-			const { getByTestId } = render(
+			render(
 				<InlineDialog onContentBlur={spy} content={dummyLink} isOpen>
 					<div id="children" />
 				</InlineDialog>,
 			);
 
-			fireEvent.blur(getByTestId('dummy-link'));
+			fireEvent.blur(screen.getByTestId('dummy-link'));
 
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
@@ -145,7 +143,7 @@ describe('inline-dialog', () => {
 			});
 
 			it('should add event listener onOpen', () => {
-				const { getByTestId } = render(
+				render(
 					<InlineDialog content={() => null} isOpen testId="inline-dialog">
 						<div id="children" />
 					</InlineDialog>,
@@ -155,7 +153,7 @@ describe('inline-dialog', () => {
 					jest.runAllTimers(); // trigger setTimeout
 				});
 
-				expect(getByTestId('inline-dialog')).toBeInTheDocument();
+				expect(screen.getByTestId('inline-dialog')).toBeInTheDocument();
 				expect(addSpy.mock.calls.filter(([event]) => event === 'click')).toHaveLength(1);
 				expect(addSpy.mock.calls.filter(([event]) => event === 'keydown')).toHaveLength(1);
 				expect(removeSpy.mock.calls.filter(([event]) => event === 'click')).toHaveLength(0);
@@ -165,7 +163,7 @@ describe('inline-dialog', () => {
 			it('should remove event listener onOpen => remove onClose', () => {
 				jest.useFakeTimers(); // mock timers
 
-				const { getByTestId, rerender } = render(
+				const { rerender } = render(
 					<InlineDialog content={() => null} isOpen testId="inline-dialog">
 						<div id="children" />
 					</InlineDialog>,
@@ -175,7 +173,7 @@ describe('inline-dialog', () => {
 					jest.runAllTimers(); // trigger setTimeout
 				});
 
-				expect(getByTestId('inline-dialog')).toBeInTheDocument();
+				expect(screen.getByTestId('inline-dialog')).toBeInTheDocument();
 				expect(addSpy.mock.calls.filter(([event]) => event === 'click')).toHaveLength(1);
 				expect(addSpy.mock.calls.filter(([event]) => event === 'keydown')).toHaveLength(1);
 
@@ -235,7 +233,7 @@ describe('inline-dialog', () => {
 			const callback = jest.fn();
 			jest.useFakeTimers(); // mock timers
 
-			const { getByText } = render(
+			render(
 				<InlineDialog content={() => null} onClose={callback} isOpen>
 					<button type="button" id="children">
 						Test
@@ -247,7 +245,7 @@ describe('inline-dialog', () => {
 				jest.runAllTimers(); // trigger setTimeout
 			});
 
-			const el = getByText('Test');
+			const el = screen.getByText('Test');
 
 			// Focus on triggering element. Not sure this is necessary considering
 			// we're calling keydown on the element itself, but wanted to make sure
@@ -299,7 +297,7 @@ describe('inline-dialog', () => {
 				);
 			};
 
-			const { getByTestId, queryByTestId } = render(
+			render(
 				<div>
 					<InlineDialogWrapper
 						inlineDialogTestId="inline-dialog-0"
@@ -313,14 +311,14 @@ describe('inline-dialog', () => {
 			);
 
 			// Open first dialog, second dialog should not exist yet.
-			fireEvent.click(getByTestId('open-inline-dialog-0'));
-			expect(getByTestId('inline-dialog-0')).toBeInTheDocument();
-			expect(queryByTestId('inline-dialog-1')).not.toBeInTheDocument();
+			fireEvent.click(screen.getByTestId('open-inline-dialog-0'));
+			expect(screen.getByTestId('inline-dialog-0')).toBeInTheDocument();
+			expect(screen.queryByTestId('inline-dialog-1')).not.toBeInTheDocument();
 
 			// Open second dialog, first dialog should close.
-			fireEvent.click(getByTestId('open-inline-dialog-1'));
-			expect(queryByTestId('inline-dialog-1')).toBeInTheDocument();
-			expect(queryByTestId('inline-dialog-0')).not.toBeInTheDocument();
+			fireEvent.click(screen.getByTestId('open-inline-dialog-1'));
+			expect(screen.getByTestId('inline-dialog-1')).toBeInTheDocument();
+			expect(screen.queryByTestId('inline-dialog-0')).not.toBeInTheDocument();
 		});
 	});
 });

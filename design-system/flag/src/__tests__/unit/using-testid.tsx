@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
@@ -9,7 +9,7 @@ import Flag from '../../flag';
 
 describe('Flag should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
-		const { getByTestId } = render(
+		render(
 			<Flag
 				actions={[
 					{ content: 'Show me', onClick: noop },
@@ -23,12 +23,12 @@ describe('Flag should be found by data-testid', () => {
 				testId="MyFlagTestId"
 			/>,
 		);
-		expect(getByTestId('MyFlagTestId')).toBeTruthy();
+		expect(screen.getByTestId('MyFlagTestId')).toBeInTheDocument();
 	});
 });
 describe('Flag actions should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
-		const { getByTestId } = render(
+		render(
 			<Flag
 				actions={[
 					{
@@ -45,6 +45,6 @@ describe('Flag actions should be found by data-testid', () => {
 				title="Welcome to the jungle"
 			/>,
 		);
-		expect(getByTestId('MyFlagActionTestId')).toBeTruthy();
+		expect(screen.getByTestId('MyFlagActionTestId')).toBeInTheDocument();
 	});
 });

@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type FC, Fragment, useState } from 'react';
 

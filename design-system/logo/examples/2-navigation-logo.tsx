@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import React, { Fragment, type ReactNode } from 'react';
 

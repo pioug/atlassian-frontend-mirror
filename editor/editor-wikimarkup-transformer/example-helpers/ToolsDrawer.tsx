@@ -5,6 +5,7 @@ import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { WikiMarkupTransformer } from '../src';
 
 import { content } from './styles';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import { MentionResource } from '@atlaskit/editor-core';

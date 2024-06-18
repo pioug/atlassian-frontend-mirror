@@ -54,31 +54,27 @@ describe('MessageIcon component', () => {
 				(['connectivity', 'confirmation', 'info', 'warning', 'error'] as const).forEach(
 					(appearance) => {
 						it(`should set defaultLabel for icon with type = ${appearance}`, () => {
-							const { getByTestId } = render(
-								<MessageIcon isOpen={false} appearance={appearance} />,
-							);
+							render(<MessageIcon isOpen={false} appearance={appearance} />);
 
-							const icon = getByTestId('inline-message-icon');
-							expect(icon.getAttribute('aria-label')).toBe(`${appearance} inline message`);
+							const icon = screen.getByLabelText(`${appearance} inline message`);
+							expect(icon).toBeInTheDocument();
 						});
 					},
 				);
 			});
 
 			it('should set received label as aria-label of icon', () => {
-				const { getByTestId } = render(
-					<MessageIcon isOpen={false} appearance="connectivity" label="test label" />,
-				);
+				render(<MessageIcon isOpen={false} appearance="connectivity" label="test label" />);
 
-				const icon = getByTestId('inline-message-icon');
-				expect(icon.getAttribute('aria-label')).toBe('test label');
+				const icon = screen.getByTestId('inline-message-icon');
+				expect(icon).toHaveAttribute('aria-label', 'test label');
 			});
 		});
 
 		describe('isOpen', () => {
 			it('should apply iconColorStyles if isOpen prop is true', () => {
 				const { container } = render(<MessageIcon appearance="info" isOpen={true} />);
-
+				// eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
 				expect(container.querySelector('span')).toHaveStyleRule(
 					'color',
 					'var(--icon-accent-color)',
@@ -88,6 +84,7 @@ describe('MessageIcon component', () => {
 			it('should not apply iconColorStyles if isOpen prop is false', () => {
 				const { container } = render(<MessageIcon appearance="info" isOpen={false} />);
 
+				// eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
 				expect(container.querySelector('span')).toHaveStyleRule('color', 'var(--icon-color)');
 			});
 		});

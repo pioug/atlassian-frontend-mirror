@@ -1,3 +1,5 @@
+import { type MediaSvgProps } from './types';
+
 export class MediaSVGError extends Error {
 	constructor(
 		readonly primaryReason: MediaSVGErrorReason,
@@ -15,4 +17,8 @@ export class MediaSVGError extends Error {
 	}
 }
 
-export type MediaSVGErrorReason = 'img-error' | 'binary-fetch';
+export type MediaSVGErrorReason = 'img-error' | 'binary-fetch' | 'unexpected';
+
+export const createUnexpectedErrorCallback = (onError: MediaSvgProps['onError']) => (e: Error) => {
+	onError?.(new MediaSVGError('unexpected', e));
+};

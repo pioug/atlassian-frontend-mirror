@@ -1,5 +1,14 @@
 # @atlaskit/media-svg
 
+## 0.1.8
+
+### Patch Changes
+
+- [#111464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111464)
+  [`52673c48385ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52673c48385ef) -
+  Added error boundary
+- Updated dependencies
+
 ## 0.1.7
 
 ### Patch Changes

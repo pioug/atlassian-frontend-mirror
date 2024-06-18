@@ -434,11 +434,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
 			<ModalTransition>
-				<DatasourceModal
-					testId="asset-datasource-modal"
-					onClose={onCancel}
-					shouldCloseOnOverlayClick={false}
-				>
+				<DatasourceModal testId="asset-datasource-modal" onClose={onCancel}>
 					<ModalHeader>{renderModalTitleContent()}</ModalHeader>
 					<ModalBody>
 						{errorState ? (

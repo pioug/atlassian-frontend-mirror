@@ -27,7 +27,9 @@ const LinkItem = forwardRef<HTMLElement, LinkItemProps>(
 		}
 
 		const cssOverride = overrideStyleFunction(baseSideNavItemStyle, cssFn);
-		// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides
+
+		// Anchor content will be handled by LinkItem
+		// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis, @repo/internal/react/no-unsafe-overrides, jsx-a11y/anchor-has-content
 		return <Link ref={ref} cssFn={cssOverride} href={href} {...rest} />;
 	},
 );

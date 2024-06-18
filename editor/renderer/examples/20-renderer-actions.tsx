@@ -10,6 +10,7 @@ import { RendererActionsContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';

@@ -1,4 +1,7 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import {
 	Children,

@@ -50,9 +50,9 @@
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/editor-tables": "^2.7.4",
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
-		"@atlaskit/primitives": "^7.3.0",
+		"@atlaskit/primitives": "^7.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -61,7 +61,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/tokens": "^1.51.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 import { CodeBlockSharedCssClassName, codeBlockSharedStyles } from '@atlaskit/editor-common/styles';

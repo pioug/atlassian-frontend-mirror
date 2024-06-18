@@ -3,6 +3,7 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';

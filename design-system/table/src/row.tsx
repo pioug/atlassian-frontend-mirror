@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type FC, memo, type ReactNode, useMemo } from 'react';
 

@@ -40,23 +40,21 @@ describe('Simple render', () => {
 			);
 		};
 
-		const { container, queryByText } = render(<InlineEditableTextFieldExample />);
+		render(<InlineEditableTextFieldExample />);
 
 		const read = screen.queryByTestId('read-view-editable-textfield');
 		expect(read).toBeInTheDocument();
 
-		const button = screen.queryByTestId('editable-textfield--edit-button');
-		fireEvent.click(button!);
+		const button = screen.getByTestId('editable-textfield--edit-button');
+		fireEvent.click(button);
 
-		const textField = container.querySelector('[data-testid="editable-textfield"]');
-		const confirm = queryByText('Confirm');
+		const textField = screen.getByTestId('editable-textfield');
+		const confirm = screen.getByText('Confirm');
 
-		fireEvent.change(textField!, { target: { value: 'New content' } });
-		fireEvent.click(confirm!);
+		fireEvent.change(textField, { target: { value: 'New content' } });
+		fireEvent.click(confirm);
 
-		expect(screen.queryByTestId('read-view-editable-textfield')!.innerText).toContain(
-			'New content',
-		);
+		expect(screen.getByTestId('read-view-editable-textfield').innerText).toContain('New content');
 	});
 
 	it('oncancel should clear the unsaved edit content back to defaultValue', () => {
@@ -78,33 +76,29 @@ describe('Simple render', () => {
 			);
 		};
 
-		const { container, queryByText } = render(<InlineEditableTextFieldExample />);
+		render(<InlineEditableTextFieldExample />);
 
 		const read = screen.queryByTestId('read-view-editable-textfield');
 		expect(read).toBeInTheDocument();
 
-		const button = screen.queryByTestId('editable-textfield--edit-button');
-		fireEvent.click(button!);
+		const button = screen.getByTestId('editable-textfield--edit-button');
+		fireEvent.click(button);
 
-		const textField = container.querySelector(
-			'[data-testid="editable-textfield"]',
-		) as HTMLInputElement;
+		const textField = screen.getByTestId('editable-textfield');
 		expect(textField).toBeInTheDocument();
-		const cancel = queryByText('Cancel');
+		const cancel = screen.getByText('Cancel');
 
-		fireEvent.change(textField!, { target: { value: 'New content' } });
+		fireEvent.change(textField, { target: { value: 'New content' } });
 		expect(onCancel).not.toHaveBeenCalled();
 
-		fireEvent.click(cancel!);
+		fireEvent.click(cancel);
 		expect(onCancel).toHaveBeenCalled();
 
-		const button2 = screen.queryByTestId('editable-textfield--edit-button');
-		fireEvent.click(button2!);
-		const textField2 = container.querySelector(
-			'[data-testid="editable-textfield"]',
-		) as HTMLInputElement;
+		const button2 = screen.getByTestId('editable-textfield--edit-button');
+		fireEvent.click(button2);
+		const textField2 = screen.getByTestId('editable-textfield') as HTMLInputElement;
 		expect(textField2).toBeInTheDocument();
-		expect(textField2!.value).toEqual('Default content');
+		expect(textField2.value).toEqual('Default content');
 	});
 
 	it('onblur should not clear the unsaved edit content back to defaultValue', () => {
@@ -128,19 +122,19 @@ describe('Simple render', () => {
 
 		render(<InlineEditableTextFieldExample />);
 
-		const read = screen.queryByTestId('read-view-editable-textfield') as HTMLInputElement;
+		const read = screen.getByTestId('read-view-editable-textfield') as HTMLInputElement;
 		expect(read).toBeInTheDocument();
 
-		const button = screen.queryByTestId('editable-textfield--edit-button');
-		fireEvent.click(button!);
+		const button = screen.getByTestId('editable-textfield--edit-button');
+		fireEvent.click(button);
 
-		const textField = screen.queryByTestId('editable-textfield') as HTMLInputElement;
+		const textField = screen.getByTestId('editable-textfield') as HTMLInputElement;
 
-		fireEvent.change(textField!, { target: { value: 'New content' } });
-		fireEvent.blur(textField!);
+		fireEvent.change(textField, { target: { value: 'New content' } });
+		fireEvent.blur(textField);
 		expect(onCancel).not.toHaveBeenCalled();
 
-		fireEvent.click(read!);
-		expect(textField!.value).toEqual('New content');
+		fireEvent.click(read);
+		expect(textField.value).toEqual('New content');
 	});
 });

@@ -141,6 +141,90 @@ typescriptEslintTester.run(
         `,
 				options: [],
 			},
+			{
+				name: 'Imported value in LHS of conditional expression in css prop',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED } from '../shared';
+
+					const baseStyles = css({ margin: 0 });
+					const styles = css({ color: token('color.text') });
+					const stylesFF = css({ color: token('color.text.danger') });
+
+					const Component = () => (
+						<>
+							<div css={IS_FF_ENABLED ? stylesFF : styles} />
+							<div css={[baseStyles, IS_FF_ENABLED ? stylesFF : styles]} />
+							<div css={ff('my-feature-flag') ? stylesFF : styles} />
+							<div css={[baseStyles, ff('my-feature-flag') ? stylesFF : styles]} />
+						</>
+					);
+				`,
+			},
+			{
+				name: 'Imported value as entire LHS of logical expression in css prop',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED } from '../shared';
+
+					const baseStyles = css({ margin: 0 });
+					const stylesFF = css({ color: token('color.text.danger') });
+
+					const Component = () => (
+						<>
+							<div css={IS_FF_ENABLED && stylesFF} />
+							<div css={[baseStyles, IS_FF_ENABLED && stylesFF]} />
+							<div css={ff('my-feature-flag') && stylesFF} />
+							<div css={[baseStyles, ff('my-feature-flag') && stylesFF]} />
+						</>
+					);
+				`,
+			},
+			{
+				name: 'Imported value in LHS of conditional expression in style prop',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED } from '../shared';
+
+					const Component = (props: { width: number }) => (
+						<>
+							<div style={{ width: IS_FF_ENABLED ? Math.abs(width) : width }} />
+							<div style={{ width: ff('my-feature-flag') ? Math.abs(width) : width }} />
+						</>
+					);
+				`,
+			},
+			{
+				name: 'Non-computed member access that collides with imported name',
+				code: `
+					import { abs } from '../shared';
+
+					const Component = (props: { width: number }) => (
+						<div style={{ width: Math.abs(width) }} />
+					);
+				`,
+			},
+			{
+				name: 'Non-computed property key that collides with imported name',
+				code: `
+					import { css } from '@compiled/react';
+					import { color } from '../shared';
+
+					const styles = css({
+						color: token('color.text'),
+					});
+
+					const Component = (props: { color: string }) => (
+						<div
+							css={styles}
+							style={{ color: props.color }}
+						/>
+					);
+				`,
+			},
 		],
 		invalid: [
 			{
@@ -277,6 +361,130 @@ typescriptEslintTester.run(
           });
         `,
 				errors: [{ messageId: 'no-imported-style-values' }],
+			},
+			{
+				name: 'Imported value in LHS of conditional expression in style declaration',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED } from '../shared';
+
+					const stylesA = css({
+						color: IS_FF_ENABLED ? token('color.text.danger'): token('color.text'),
+					});
+
+					const stylesB = css({
+						color: ff('my-feature-flag') ? token('color.text.danger') : token('color.text'),
+					});
+				`,
+				errors: [
+					{ messageId: 'no-imported-style-values', line: 7 },
+					{ messageId: 'no-imported-style-values', line: 11 },
+				],
+			},
+			{
+				name: 'Imported value in RHS of conditional expression in css prop',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED, stylesFF } from '../shared';
+
+					const baseStyles = css({ margin: 0 });
+					const styles = css({ color: token('color.text' )});
+
+					const Component = () => (
+						<>
+							<div css={IS_FF_ENABLED ? stylesFF : styles} />
+							<div css={[baseStyles, IS_FF_ENABLED ? stylesFF : styles]} />
+							<div css={ff('my-feature-flag') ? stylesFF : styles} />
+							<div css={[baseStyles, ff('my-feature-flag') ? stylesFF : styles]} />
+						</>
+					);
+				`,
+				errors: [
+					{ messageId: 'no-imported-style-values', line: 11 },
+					{ messageId: 'no-imported-style-values', line: 12 },
+					{ messageId: 'no-imported-style-values', line: 13 },
+					{ messageId: 'no-imported-style-values', line: 14 },
+				],
+			},
+			{
+				name: 'Imported value in RHS of logical expression in css prop',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED, stylesFF } from '../shared';
+
+					const baseStyles = css({ margin: 0 });
+					const styles = css({ color: token('color.text' )});
+
+					const Component = () => (
+						<>
+							<div css={IS_FF_ENABLED && stylesFF} />
+							<div css={[baseStyles, IS_FF_ENABLED && stylesFF]} />
+							<div css={ff('my-feature-flag') && stylesFF} />
+							<div css={[baseStyles, ff('my-feature-flag') && stylesFF]} />
+						</>
+					);
+				`,
+				errors: [
+					{ messageId: 'no-imported-style-values', line: 11 },
+					{ messageId: 'no-imported-style-values', line: 12 },
+					{ messageId: 'no-imported-style-values', line: 13 },
+					{ messageId: 'no-imported-style-values', line: 14 },
+				],
+			},
+			{
+				name: 'Imported value in RHS of conditional expression in style prop',
+				code: `
+					import { css } from '@compiled/react';
+					import { ff } from '@atlassian/jira-feature-flagging';
+					import { IS_FF_ENABLED, abs } from '../shared';
+
+					const Component = (props: { width: number }) => (
+						<>
+							<div style={{ width: IS_FF_ENABLED ? abs(width) : width }} />
+							<div style={{ width: ff('my-feature-flag') ? abs(width) : width }} />
+						</>
+					);
+				`,
+				errors: [
+					{ messageId: 'no-imported-style-values', line: 8 },
+					{ messageId: 'no-imported-style-values', line: 9 },
+				],
+			},
+			{
+				name: 'Computed member access with imported name',
+				code: `
+					import { abs } from '../shared';
+
+					const Component = (props: { width: number }) => (
+						<div style={{ width: Math[abs](width) }} />
+					);
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			},
+			{
+				name: 'Computed property key with imported name',
+				code: `
+					import { css } from '@compiled/react';
+					import { color } from '../shared';
+
+					const styles = css({
+						[color]: token('color.text'),
+					});
+
+					const Component = (props: { color: string }) => (
+						<div
+							css={styles}
+							style={{ [color]: props.color }}
+						/>
+					);
+				`,
+				errors: [
+					{ messageId: 'no-imported-style-values' },
+					{ messageId: 'no-imported-style-values' },
+				],
 			},
 		],
 	},

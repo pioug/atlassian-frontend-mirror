@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ComponentType, forwardRef, type ReactNode, type Ref } from 'react';
 

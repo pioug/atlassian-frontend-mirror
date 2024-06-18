@@ -1,4 +1,7 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ElementType, forwardRef, memo, type ReactNode, type Ref } from 'react';
 

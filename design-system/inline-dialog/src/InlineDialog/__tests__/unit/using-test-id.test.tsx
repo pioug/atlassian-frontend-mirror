@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { InlineDialogWithoutAnalytics as InlineDialog } from '../../index';
 
@@ -25,11 +25,11 @@ jest.mock('popper.js', () => {
 describe('Inline dialog should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		const testId = 'the-inline-dialog';
-		const { getByTestId } = render(
+		render(
 			<InlineDialog content={() => null} testId={testId} isOpen>
 				<div id="children" />
 			</InlineDialog>,
 		);
-		expect(getByTestId(testId)).toBeTruthy();
+		expect(screen.getByTestId(testId)).toBeInTheDocument();
 	});
 });

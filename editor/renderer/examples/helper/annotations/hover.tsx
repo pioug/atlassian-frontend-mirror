@@ -3,6 +3,7 @@ import Button from '@atlaskit/button/new';
 import type { InlineCommentHoverComponentProps } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import uuid from 'uuid/v4';

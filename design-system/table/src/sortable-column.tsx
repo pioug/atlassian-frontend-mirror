@@ -1,4 +1,7 @@
 /* eslint-disable no-unused-vars */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type FC, type ReactNode, useCallback } from 'react';
 

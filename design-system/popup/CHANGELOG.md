@@ -1,5 +1,18 @@
 # @atlaskit/popup
 
+## 1.19.0
+
+### Minor Changes
+
+- [#110836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110836)
+  [`a8bd419fd70b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8bd419fd70b9) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.18.0
 
 ### Minor Changes

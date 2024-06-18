@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
 

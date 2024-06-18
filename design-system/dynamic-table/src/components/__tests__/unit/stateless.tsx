@@ -21,9 +21,9 @@ const createProps: () => StatelessProps = () => ({
 
 test('onSort should change to ASC from DESC if table is not rankable', () => {
 	const props = createProps();
-	const { getAllByRole } = render(<StatelessDynamicTable {...props} sortOrder="DESC" />);
+	render(<StatelessDynamicTable {...props} sortOrder="DESC" />);
 
-	const sortButtons = getAllByRole('button');
+	const sortButtons = screen.getAllByRole('button');
 	fireEvent.click(sortButtons[0]);
 
 	const item = { key: sortKey, content: 'First name', isSortable: true };
@@ -38,9 +38,9 @@ test('onSort should change to ASC from DESC if table is not rankable', () => {
 
 test('onSort should change to none if table is rankable and sort order was DESC', () => {
 	const props = createProps();
-	const { getAllByRole } = render(<StatelessDynamicTable {...props} sortOrder="DESC" isRankable />);
+	render(<StatelessDynamicTable {...props} sortOrder="DESC" isRankable />);
 
-	const sortButtons = getAllByRole('button');
+	const sortButtons = screen.getAllByRole('button');
 	fireEvent.click(sortButtons[0]);
 
 	const item = { key: sortKey, content: 'First name', isSortable: true };
@@ -55,9 +55,9 @@ test('onSort should change to none if table is rankable and sort order was DESC'
 
 test('onSort should change to DESC if table is rankable and sort order was ASC', () => {
 	const props = createProps();
-	const { getAllByRole } = render(<StatelessDynamicTable {...props} sortOrder="ASC" isRankable />);
+	render(<StatelessDynamicTable {...props} sortOrder="ASC" isRankable />);
 
-	const sortButtons = getAllByRole('button');
+	const sortButtons = screen.getAllByRole('button');
 	fireEvent.click(sortButtons[0]);
 
 	const item = { key: sortKey, content: 'First name', isSortable: true };
@@ -72,11 +72,9 @@ test('onSort should change to DESC if table is rankable and sort order was ASC',
 
 test('onSort should change to ASC if table is rankable and was sorted using on different row', () => {
 	const props = createProps();
-	const { getAllByRole } = render(
-		<StatelessDynamicTable {...props} sortOrder="DESC" sortKey={secondSortKey} isRankable />,
-	);
+	render(<StatelessDynamicTable {...props} sortOrder="DESC" sortKey={secondSortKey} isRankable />);
 
-	const sortButtons = getAllByRole('button');
+	const sortButtons = screen.getAllByRole('button');
 	fireEvent.click(sortButtons[0]);
 
 	const item = { key: sortKey, content: 'First name', isSortable: true };
@@ -135,26 +133,26 @@ test('pagination should move to first page when total number of pages is 1', () 
 		<StatelessDynamicTable {...props} rowsPerPage={3} page={2} testId="myTable" />,
 	);
 
-	expect(screen.getByText('Thomas')).toBeTruthy(); // only showing 4th one
+	expect(screen.getByText('Thomas')).toBeInTheDocument(); // only showing 4th one
 	expect(screen.getAllByTestId(/^myTable--row-*/)).toHaveLength(1);
 
 	rerender(<StatelessDynamicTable {...props} rowsPerPage={4} page={2} testId="myTable" />);
 
-	expect(screen.getByText('hillary')).toBeTruthy();
+	expect(screen.getByText('hillary')).toBeInTheDocument();
 	expect(screen.getAllByTestId(/^myTable--row-*/)).toHaveLength(4); // but we're back on page 1, showing all rows
 });
 
 test('pagination should move to last page when selected page is greater than total pages', () => {
 	const props = createProps();
-	const { rerender, getAllByTestId, getByText } = render(
+	const { rerender } = render(
 		<StatelessDynamicTable {...props} rowsPerPage={1} page={4} testId="myTable" />,
 	);
 
-	expect(getByText('Thomas')).toBeTruthy(); // only show 4th one
-	expect(getAllByTestId(/^myTable--row-*/)).toHaveLength(1);
+	expect(screen.getByText('Thomas')).toBeInTheDocument(); // only show 4th one
+	expect(screen.getAllByTestId(/^myTable--row-*/)).toHaveLength(1);
 
 	rerender(<StatelessDynamicTable {...props} rowsPerPage={3} page={4} testId="myTable" />);
 
-	expect(getByText('Thomas')).toBeTruthy(); // only show 4th one
-	expect(getAllByTestId(/^myTable--row-*/)).toHaveLength(1); // we're on the 2nd page
+	expect(screen.getByText('Thomas')).toBeInTheDocument(); // only show 4th one
+	expect(screen.getAllByTestId(/^myTable--row-*/)).toHaveLength(1); // we're on the 2nd page
 });

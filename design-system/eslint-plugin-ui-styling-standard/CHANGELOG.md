@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.16.5
+
+### Patch Changes
+
+- [#111807](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111807)
+  [`a0bd2ff79dc32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0bd2ff79dc32) -
+  Fixes `no-imported-style-values` to allow imported identifiers when used in the LHS of conditional
+  expressions in the `css` prop. This enables dynamic application of styles using feature flags.
+
 ## 0.16.4
 
 ### Patch Changes

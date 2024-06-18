@@ -17,10 +17,11 @@ import { ZoomLevel } from '../../domain/zoomLevel';
 
 import { ZoomControls } from '../../zoomControls';
 import { createClosedEvent } from '../../analytics/events/ui/closed';
-import MediaSvg from '@atlaskit/media-svg';
-import { type MediaViewerError } from '../../errors';
+import MediaSvg, { type MediaSVGError } from '@atlaskit/media-svg';
+import { MediaViewerError } from '../../errors';
 import { clientRectangle, naturalSizeRectangle, zoomLevelAfterResize } from './utils';
 import { ImageWrapper } from './ImageWrapper';
+import { getErrorReason } from './errors';
 
 type WrapperScroll = {
 	scrollLeft: number;
@@ -36,7 +37,13 @@ export interface SvgViewerProps extends WithAnalyticsEventsProps {
 	traceContext?: MediaTraceContext;
 }
 
-const SvgViewerBase = ({ identifier, onLoad, onClose, onBlanketClicked }: SvgViewerProps) => {
+const SvgViewerBase = ({
+	identifier,
+	onLoad,
+	onClose,
+	onBlanketClicked,
+	onError,
+}: SvgViewerProps) => {
 	const [zoomLevel, setZoomLevel] = useState(new ZoomLevel(1));
 	const [isDragging, setIsDragging] = useState(false);
 	const [cursorPos, setCursorPos] = useState(new Vector2(0, 0));
@@ -85,7 +92,7 @@ const SvgViewerBase = ({ identifier, onLoad, onClose, onBlanketClicked }: SvgVie
 		};
 	}, [onResize, panImage, stopDragging]);
 
-	const onImgLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
+	const onSvgLoad = (ev: React.SyntheticEvent<HTMLImageElement>) => {
 		onLoad?.();
 
 		if (!wrapperRef.current) {
@@ -101,7 +108,15 @@ const SvgViewerBase = ({ identifier, onLoad, onClose, onBlanketClicked }: SvgVie
 		setZoomLevel(newZoomLevel);
 	};
 
-	const onImgClicked = (e: React.MouseEvent) => {
+	const onSvgError = (err: MediaSVGError) => {
+		const error = new MediaViewerError(
+			getErrorReason(err.primaryReason),
+			err instanceof Error ? err : undefined,
+		);
+		onError(error);
+	};
+
+	const onSvgClicked = (e: React.MouseEvent) => {
 		if (e.target === e.currentTarget) {
 			onBlanketClicked?.();
 			onClose?.();
@@ -162,19 +177,16 @@ const SvgViewerBase = ({ identifier, onLoad, onClose, onBlanketClicked }: SvgVie
 	const imgDimensions = camera?.scaledImg(zoomLevel.value);
 
 	return (
-		<ImageWrapper onClick={onImgClicked} ref={wrapperRef} isHidden={isHidden}>
+		<ImageWrapper onClick={onSvgClicked} ref={wrapperRef} isHidden={isHidden}>
 			<MediaSvg
 				testId={'media-viewer-svg'}
 				identifier={identifier}
 				dimensions={imgDimensions}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={imgStyles}
-				onLoad={onImgLoad}
+				onLoad={onSvgLoad}
 				onMouseDown={startDragging}
-				// TODO HANDLE ERRORS
-				onError={() => {
-					// onError();
-				}}
+				onError={onSvgError}
 			/>
 			{/*
           The BaselineExtend element is required to align the Img element in the

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Box from '@atlaskit/primitives/box';
 
@@ -17,7 +17,7 @@ describe('Flag Expander', () => {
 
 	it('should only render children when isExpanded true (and while doing expand/contract animation)', () => {
 		// Check that default collapsed state doesn't render children
-		const { queryByText, getByTestId } = render(
+		render(
 			<Flag
 				id=""
 				icon={<Box />}
@@ -27,30 +27,30 @@ describe('Flag Expander', () => {
 				testId="expander-test"
 			/>,
 		);
-		expect(queryByText('Hi!')).toBeNull();
+		expect(screen.queryByText('Hi!')).not.toBeInTheDocument();
 
 		// Trigger expand
-		let toggleButton = getByTestId('expander-test-toggle');
+		let toggleButton = screen.getByTestId('expander-test-toggle');
 		fireEvent.click(toggleButton);
-		expect(queryByText('Hi!')).not.toBeNull();
+		expect(screen.getByText('Hi!')).toBeInTheDocument();
 		act(() => {
 			jest.runAllTimers();
 		});
 
 		// Trigger collapse
-		toggleButton = getByTestId('expander-test-toggle');
+		toggleButton = screen.getByTestId('expander-test-toggle');
 		fireEvent.click(toggleButton);
-		expect(queryByText('Hi!')).not.toBeNull();
+		expect(screen.getByText('Hi!')).toBeInTheDocument();
 
 		// ..once collapse animation finishes, children not rendered
 		act(() => {
 			jest.runAllTimers();
 		});
-		expect(queryByText('Hi!')).toBeNull();
+		expect(screen.queryByText('Hi!')).not.toBeInTheDocument();
 	});
 
 	it('should set aria-hidden true on content when isExpanded is false', () => {
-		const { getByTestId } = render(
+		render(
 			<Flag
 				id=""
 				icon={<Box />}
@@ -61,11 +61,11 @@ describe('Flag Expander', () => {
 			/>,
 		);
 
-		expect(getByTestId('expander-test-expander').getAttribute('aria-hidden')).toEqual('true');
+		expect(screen.getByTestId('expander-test-expander')).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	it('should set aria-hidden false on content when isExpanded is true', () => {
-		const { getByTestId } = render(
+		render(
 			<Flag
 				id=""
 				icon={<Box />}
@@ -76,9 +76,9 @@ describe('Flag Expander', () => {
 			/>,
 		);
 
-		const toggleButton = getByTestId('expander-test-toggle');
+		const toggleButton = screen.getByTestId('expander-test-toggle');
 		fireEvent.click(toggleButton);
 
-		expect(getByTestId('expander-test-expander').getAttribute('aria-hidden')).toEqual('false');
+		expect(screen.getByTestId('expander-test-expander')).toHaveAttribute('aria-hidden', 'false');
 	});
 });

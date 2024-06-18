@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.17.6
+
+### Patch Changes
+
+- [#111968](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111968)
+  [`c01dd34bc8e6c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c01dd34bc8e6c) -
+  Fixes 2px difference issue for internal column resizing
+
+## 7.17.5
+
+### Patch Changes
+
+- [#111382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111382)
+  [`5ce3f135c6211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ce3f135c6211) -
+  Cleanup feature flag to protect for explicit HTML element check in some places.
+- Updated dependencies
+
 ## 7.17.4
 
 ### Patch Changes

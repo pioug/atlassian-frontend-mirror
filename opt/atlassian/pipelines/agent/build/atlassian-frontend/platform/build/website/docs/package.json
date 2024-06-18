@@ -24,9 +24,9 @@
 	"dependencies": {
 		"@atlaskit/button": "^17.17.0",
 		"@atlaskit/code": "^15.2.0",
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/section-message": "^6.5.0",
-		"@atlaskit/theme": "^12.9.0",
+		"@atlaskit/theme": "^12.10.0",
 		"@babel/runtime": "^7.0.0",
 		"codesandboxer": "^1.0.3",
 		"pretty-proptypes": "^1.7.0",

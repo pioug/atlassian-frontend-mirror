@@ -16,17 +16,24 @@ import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import * as MediaClientProviderModule from '@atlaskit/media-client-react';
+import * as analytics from '../../../analytics';
+import * as ufoWrapper from '../../../analytics/ufoExperiences';
 
-import { render, screen } from '@testing-library/react';
+const fireAnalyticsMock = jest.spyOn(analytics, 'fireAnalytics');
+const mocksucceedMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'succeedMediaFileUfoExperience');
+const mockfailMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'failMediaFileUfoExperience');
+const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUfoExperience');
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('<MediaViewer />', () => {
 	const user = userEvent.setup();
 	const onEvent = jest.fn();
 
-	afterEach(() => {
+	beforeEach(() => {
 		getFileStreamsCache().removeAll();
-		jest.restoreAllMocks();
+		jest.clearAllMocks();
 	});
 
 	// We are keeping the test for this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this test, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
@@ -297,198 +304,647 @@ describe('<MediaViewer />', () => {
 		});
 	});
 
-	describe('SVG', () => {
-		describe('Media Viewer v2 should render SVG natively', () => {
-			ffTest(
-				'platform.media-svg-rendering',
-				async () => {
-					const [fileItem, identifier] = generateSampleFileItem.svg();
-					const { mediaApi } = createMockedMediaApi(fileItem);
+	ffTest.on('platform.media-svg-rendering', 'SVG Native Rendering', () => {
+		describe('Media Viewer v2', () => {
+			it('should render SVG natively', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
 
-					const { findAllByTestId } = render(
-						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-							<MediaViewerV2 selectedItem={identifier} items={[identifier]} />
-						</MockedMediaClientProvider>,
-					);
+				const { findByTestId } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewerV2 selectedItem={identifier} items={[identifier]} />
+					</MockedMediaClientProvider>,
+				);
 
-					const elem = await findAllByTestId('media-viewer-svg');
-					expect(elem).toBeDefined();
-					expect(elem[0].nodeName.toLowerCase()).toBe('img');
-				},
-				async () => {
-					const [fileItem, identifier] = generateSampleFileItem.svg();
-					const { mediaApi } = createMockedMediaApi(fileItem);
+				const elem = await findByTestId('media-viewer-svg');
+				expect(elem).toBeDefined();
+				expect((elem as unknown as HTMLElement).nodeName.toLowerCase()).toBe('img');
+				const imgElement = elem as unknown as HTMLImageElement;
+				fireEvent.load(imgElement);
 
-					const { findAllByTestId } = render(
-						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-							<MediaViewerV2 selectedItem={identifier} items={[identifier]} />
-						</MockedMediaClientProvider>,
-					);
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+				};
 
-					const elem = await findAllByTestId('media-viewer-image');
-					expect(elem).toBeDefined();
-					expect(elem[0].nodeName.toLowerCase()).toBe('img');
-				},
-			);
-		});
+				expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						action: 'loadSucceeded',
+						actionSubject: 'mediaFile',
+						attributes: {
+							fileAttributes,
+							fileMediatype: 'image',
+							status: 'success',
+							traceContext: { traceId: expect.any(String) },
+						},
+						eventType: 'operational',
+					}),
+					expect.anything(),
+				);
 
-		describe('Media Viewer v1 should render SVG natively', () => {
-			describe('With a global MediaClientProvider', () => {
-				ffTest(
-					'platform.media-svg-rendering',
-					async () => {
-						const [fileItem, identifier] = generateSampleFileItem.svg();
-						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
-							initialItems: fileItem,
-						});
-
-						jest
-							.spyOn(MediaClientProviderModule, 'MediaClientProvider')
-							.mockImplementation(
-								MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
-							);
-
-						const ViewerV1Renderer = () => {
-							const mediaClient = useMediaClient();
-							return (
-								<MediaViewerV1
-									selectedItem={identifier}
-									items={[identifier]}
-									mediaClient={mediaClient}
-								/>
-							);
-						};
-
-						const { findAllByTestId } = render(
-							<MockedMediaClientProvider>
-								<ViewerV1Renderer />
-							</MockedMediaClientProvider>,
-						);
-
-						const elem = await findAllByTestId('media-viewer-svg');
-						expect(elem).toBeDefined();
-						expect(elem[0].nodeName.toLowerCase()).toBe('img');
-					},
-					async () => {
-						const [fileItem, identifier] = generateSampleFileItem.svg();
-						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
-							initialItems: fileItem,
-						});
-
-						const ViewerV1Renderer = () => {
-							const mediaClient = useMediaClient();
-							return (
-								<MediaViewerV1
-									selectedItem={identifier}
-									items={[identifier]}
-									mediaClient={mediaClient}
-								/>
-							);
-						};
-
-						const { findAllByTestId } = render(
-							<MockedMediaClientProvider>
-								<ViewerV1Renderer />
-							</MockedMediaClientProvider>,
-						);
-
-						const elem = await findAllByTestId('media-viewer-image');
-						expect(elem).toBeDefined();
-						expect(elem[0].nodeName.toLowerCase()).toBe('img');
-					},
+				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+				expect(mocksucceedMediaFileUfoExperience).toBeCalledWith(
+					expect.objectContaining({
+						fileAttributes,
+						fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: false },
+					}),
 				);
 			});
 
-			describe('Without a global MediaClientProvider', () => {
-				ffTest(
-					'platform.media-svg-rendering',
-					async () => {
-						const [fileItem, identifier] = generateSampleFileItem.svg();
-						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
-							initialItems: fileItem,
-						});
+			it('should render error screen when SVG binary fails to load', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
 
-						jest
-							.spyOn(MediaClientProviderModule, 'MediaClientProvider')
-							.mockImplementation(
-								MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
-							);
+				// simulate error
+				mediaApi.getFileBinary = () => {
+					throw new Error('binary fetching error');
+				};
 
-						const ViewerV1Renderer = () => {
-							const [mediaClient, setMediaClient] = useState<MediaClient>();
-							return (
-								<>
-									<MockedMediaClientProvider>
-										<MediaClientInjector onMediaClient={setMediaClient} />
-									</MockedMediaClientProvider>
-									{mediaClient && (
-										<MediaViewerV1
-											selectedItem={identifier}
-											items={[identifier]}
-											mediaClient={mediaClient}
-										/>
-									)}
-								</>
-							);
-						};
-
-						const MediaClientInjector = ({
-							onMediaClient,
-						}: {
-							onMediaClient: (mediaClient: MediaClient) => void;
-						}) => {
-							const mediaClient = useMediaClient();
-							onMediaClient(mediaClient);
-							return null;
-						};
-
-						const { findAllByTestId } = render(<ViewerV1Renderer />);
-
-						const elem = await findAllByTestId('media-viewer-svg');
-						expect(elem).toBeDefined();
-						expect(elem[0].nodeName.toLowerCase()).toBe('img');
-					},
-					async () => {
-						const [fileItem, identifier] = generateSampleFileItem.svg();
-						const { MockedMediaClientProvider } = createMockedMediaClientProvider({
-							initialItems: fileItem,
-						});
-
-						const ViewerV1Renderer = () => {
-							const [mediaClient, setMediaClient] = useState<MediaClient>();
-							return (
-								<>
-									<MockedMediaClientProvider>
-										<MediaClientInjector onMediaClient={setMediaClient} />
-									</MockedMediaClientProvider>
-									{mediaClient && (
-										<MediaViewerV1
-											selectedItem={identifier}
-											items={[identifier]}
-											mediaClient={mediaClient}
-										/>
-									)}
-								</>
-							);
-						};
-
-						const MediaClientInjector = ({
-							onMediaClient,
-						}: {
-							onMediaClient: (mediaClient: MediaClient) => void;
-						}) => {
-							const mediaClient = useMediaClient();
-							onMediaClient(mediaClient);
-							return null;
-						};
-
-						const { findAllByTestId } = render(<ViewerV1Renderer />);
-
-						const elem = await findAllByTestId('media-viewer-image');
-						expect(elem).toBeDefined();
-						expect(elem[0].nodeName.toLowerCase()).toBe('img');
-					},
+				const { findByAltText } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewerV2 selectedItem={identifier} items={[identifier]} />,
+					</MockedMediaClientProvider>,
 				);
+
+				const errorIcon = await findByAltText(/error loading file/i);
+				expect(errorIcon).toBeInTheDocument();
+
+				expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+				};
+
+				expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						attributes: expect.objectContaining({
+							failReason: 'svg-binary-fetch',
+							fileAttributes,
+						}),
+					}),
+					expect.anything(),
+				);
+
+				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+				expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+					expect.objectContaining({
+						error: 'nativeError',
+						errorDetail: 'binary-fetch',
+						failReason: 'svg-binary-fetch',
+						fileAttributes,
+						fileStateFlags: {
+							wasStatusProcessing: false,
+							wasStatusUploading: false,
+						},
+						request: undefined,
+						traceContext: {
+							traceId: expect.any(String),
+						},
+					}),
+				);
+			});
+
+			it('should render error screen when image tag fails to render the file', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				const { findByAltText, findByTestId } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewerV2 selectedItem={identifier} items={[identifier]} />,
+					</MockedMediaClientProvider>,
+				);
+
+				const elem = await findByTestId('media-viewer-svg');
+				expect(elem).toBeDefined();
+				expect((elem as unknown as HTMLElement).nodeName.toLowerCase()).toBe('img');
+				const imgElement = elem as unknown as HTMLImageElement;
+				fireEvent.error(imgElement);
+
+				const errorIcon = await findByAltText(/error loading file/i);
+				expect(errorIcon).toBeInTheDocument();
+
+				expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+				};
+
+				expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						attributes: expect.objectContaining({
+							failReason: 'svg-img-error',
+							fileAttributes,
+						}),
+					}),
+					expect.anything(),
+				);
+
+				expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+				expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+					expect.objectContaining({
+						error: 'nativeError',
+						errorDetail: 'img-error',
+						failReason: 'svg-img-error',
+						fileAttributes,
+						fileStateFlags: {
+							wasStatusProcessing: false,
+							wasStatusUploading: false,
+						},
+						request: undefined,
+						traceContext: {
+							traceId: expect.any(String),
+						},
+					}),
+				);
+			});
+		});
+
+		describe('Media Viewer v1', () => {
+			describe('should render SVG natively', () => {
+				it('with a global MediaClientProvider', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					jest
+						.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+						.mockImplementation(
+							MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+						);
+
+					const ViewerV1Renderer = () => {
+						const mediaClient = useMediaClient();
+						return (
+							<MediaViewerV1
+								selectedItem={identifier}
+								items={[identifier]}
+								mediaClient={mediaClient}
+							/>
+						);
+					};
+
+					const { findByTestId } = render(
+						<MockedMediaClientProvider>
+							<ViewerV1Renderer />
+						</MockedMediaClientProvider>,
+					);
+
+					const elem = await findByTestId('media-viewer-svg');
+					expect(elem).toBeDefined();
+					expect((elem as unknown as HTMLElement).nodeName.toLowerCase()).toBe('img');
+					const imgElement = elem as unknown as HTMLImageElement;
+					fireEvent.load(imgElement);
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							action: 'loadSucceeded',
+							actionSubject: 'mediaFile',
+							attributes: {
+								fileAttributes,
+								fileMediatype: 'image',
+								status: 'success',
+								traceContext: { traceId: expect.any(String) },
+							},
+							eventType: 'operational',
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mocksucceedMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							fileAttributes,
+							fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: false },
+						}),
+					);
+				});
+
+				it('without a global MediaClientProvider', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					jest
+						.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+						.mockImplementation(
+							MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+						);
+
+					const ViewerV1Renderer = () => {
+						const [mediaClient, setMediaClient] = useState<MediaClient>();
+						return (
+							<>
+								<MockedMediaClientProvider>
+									<MediaClientInjector onMediaClient={setMediaClient} />
+								</MockedMediaClientProvider>
+								{mediaClient && (
+									<MediaViewerV1
+										selectedItem={identifier}
+										items={[identifier]}
+										mediaClient={mediaClient}
+									/>
+								)}
+							</>
+						);
+					};
+
+					const MediaClientInjector = ({
+						onMediaClient,
+					}: {
+						onMediaClient: (mediaClient: MediaClient) => void;
+					}) => {
+						const mediaClient = useMediaClient();
+						onMediaClient(mediaClient);
+						return null;
+					};
+
+					const { findByTestId } = render(<ViewerV1Renderer />);
+
+					const elem = await findByTestId('media-viewer-svg');
+					expect(elem).toBeDefined();
+					expect((elem as unknown as HTMLElement).nodeName.toLowerCase()).toBe('img');
+					const imgElement = elem as unknown as HTMLImageElement;
+					fireEvent.load(imgElement);
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							action: 'loadSucceeded',
+							actionSubject: 'mediaFile',
+							attributes: {
+								fileAttributes,
+								fileMediatype: 'image',
+								status: 'success',
+								traceContext: { traceId: expect.any(String) },
+							},
+							eventType: 'operational',
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mocksucceedMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							fileAttributes,
+							fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: false },
+						}),
+					);
+				});
+			});
+
+			describe('should render error screen when SVG binary fails to load', () => {
+				it('with a global MediaClientProvider', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					// simulate error
+					mediaApi.getFileBinary = () => {
+						throw new Error('binary fetching error');
+					};
+
+					jest
+						.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+						.mockImplementation(
+							MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+						);
+
+					const ViewerV1Renderer = () => {
+						const mediaClient = useMediaClient();
+						return (
+							<MediaViewerV1
+								selectedItem={identifier}
+								items={[identifier]}
+								mediaClient={mediaClient}
+							/>
+						);
+					};
+
+					const { findByAltText } = render(
+						<MockedMediaClientProvider>
+							<ViewerV1Renderer />
+						</MockedMediaClientProvider>,
+					);
+
+					const errorIcon = await findByAltText(/error loading file/i);
+					expect(errorIcon).toBeInTheDocument();
+
+					expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							attributes: expect.objectContaining({
+								failReason: 'svg-binary-fetch',
+								fileAttributes,
+							}),
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							error: 'nativeError',
+							errorDetail: 'binary-fetch',
+							failReason: 'svg-binary-fetch',
+							fileAttributes,
+							fileStateFlags: {
+								wasStatusProcessing: false,
+								wasStatusUploading: false,
+							},
+							request: undefined,
+							traceContext: {
+								traceId: expect.any(String),
+							},
+						}),
+					);
+				});
+
+				it('without a global MediaClientProvider', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					// simulate error
+					mediaApi.getFileBinary = () => {
+						throw new Error('binary fetching error');
+					};
+
+					jest
+						.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+						.mockImplementation(
+							MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+						);
+
+					const MediaClientInjector = ({
+						onMediaClient,
+					}: {
+						onMediaClient: (mediaClient: MediaClient) => void;
+					}) => {
+						const mediaClient = useMediaClient();
+						onMediaClient(mediaClient);
+						return null;
+					};
+
+					const ViewerV1Renderer = () => {
+						const [mediaClient, setMediaClient] = useState<MediaClient>();
+						return (
+							<>
+								<MockedMediaClientProvider>
+									<MediaClientInjector onMediaClient={setMediaClient} />
+								</MockedMediaClientProvider>
+								{mediaClient && (
+									<MediaViewerV1
+										selectedItem={identifier}
+										items={[identifier]}
+										mediaClient={mediaClient}
+									/>
+								)}
+							</>
+						);
+					};
+
+					const { findByAltText } = render(<ViewerV1Renderer />);
+
+					const errorIcon = await findByAltText(/error loading file/i);
+					expect(errorIcon).toBeInTheDocument();
+
+					expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							attributes: expect.objectContaining({
+								failReason: 'svg-binary-fetch',
+								fileAttributes,
+							}),
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							error: 'nativeError',
+							errorDetail: 'binary-fetch',
+							failReason: 'svg-binary-fetch',
+							fileAttributes,
+							fileStateFlags: {
+								wasStatusProcessing: false,
+								wasStatusUploading: false,
+							},
+							request: undefined,
+							traceContext: {
+								traceId: expect.any(String),
+							},
+						}),
+					);
+				});
+			});
+
+			describe('should render error screen when image tag fails to render the file', () => {
+				it('with a global MediaClientProvider', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					jest
+						.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+						.mockImplementation(
+							MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+						);
+
+					const ViewerV1Renderer = () => {
+						const mediaClient = useMediaClient();
+						return (
+							<MediaViewerV1
+								selectedItem={identifier}
+								items={[identifier]}
+								mediaClient={mediaClient}
+							/>
+						);
+					};
+
+					const { findByAltText, findByTestId } = render(
+						<MockedMediaClientProvider>
+							<ViewerV1Renderer />
+						</MockedMediaClientProvider>,
+					);
+
+					const elem = await findByTestId('media-viewer-svg');
+					expect(elem).toBeDefined();
+					expect((elem as unknown as HTMLElement).nodeName.toLowerCase()).toBe('img');
+					const imgElement = elem as unknown as HTMLImageElement;
+					fireEvent.error(imgElement);
+
+					const errorIcon = await findByAltText(/error loading file/i);
+					expect(errorIcon).toBeInTheDocument();
+
+					expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							attributes: expect.objectContaining({
+								failReason: 'svg-img-error',
+								fileAttributes,
+							}),
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							error: 'nativeError',
+							errorDetail: 'img-error',
+							failReason: 'svg-img-error',
+							fileAttributes,
+							fileStateFlags: {
+								wasStatusProcessing: false,
+								wasStatusUploading: false,
+							},
+							request: undefined,
+							traceContext: {
+								traceId: expect.any(String),
+							},
+						}),
+					);
+				});
+
+				it('without a global MediaClientProvider', async () => {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+						initialItems: fileItem,
+					});
+
+					jest
+						.spyOn(MediaClientProviderModule, 'MediaClientProvider')
+						.mockImplementation(
+							MockedMediaClientProvider as typeof MediaClientProviderModule.MediaClientProvider,
+						);
+
+					const MediaClientInjector = ({
+						onMediaClient,
+					}: {
+						onMediaClient: (mediaClient: MediaClient) => void;
+					}) => {
+						const mediaClient = useMediaClient();
+						onMediaClient(mediaClient);
+						return null;
+					};
+
+					const ViewerV1Renderer = () => {
+						const [mediaClient, setMediaClient] = useState<MediaClient>();
+						return (
+							<>
+								<MockedMediaClientProvider>
+									<MediaClientInjector onMediaClient={setMediaClient} />
+								</MockedMediaClientProvider>
+								{mediaClient && (
+									<MediaViewerV1
+										selectedItem={identifier}
+										items={[identifier]}
+										mediaClient={mediaClient}
+									/>
+								)}
+							</>
+						);
+					};
+
+					const { findByAltText, findByTestId } = render(<ViewerV1Renderer />);
+
+					const elem = await findByTestId('media-viewer-svg');
+					expect(elem).toBeDefined();
+					expect((elem as unknown as HTMLElement).nodeName.toLowerCase()).toBe('img');
+					const imgElement = elem as unknown as HTMLImageElement;
+					fireEvent.error(imgElement);
+
+					const errorIcon = await findByAltText(/error loading file/i);
+					expect(errorIcon).toBeInTheDocument();
+
+					expect(screen.getByText(/something went wrong\./i)).toBeInTheDocument();
+
+					const fileAttributes = {
+						fileId: identifier.id,
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileSize: fileItem.details.size,
+					};
+
+					expect(fireAnalyticsMock).toHaveBeenLastCalledWith(
+						expect.objectContaining({
+							attributes: expect.objectContaining({
+								failReason: 'svg-img-error',
+								fileAttributes,
+							}),
+						}),
+						expect.anything(),
+					);
+
+					expect(mockstartMediaFileUfoExperience).toBeCalledTimes(1);
+					expect(mockfailMediaFileUfoExperience).toBeCalledWith(
+						expect.objectContaining({
+							error: 'nativeError',
+							errorDetail: 'img-error',
+							failReason: 'svg-img-error',
+							fileAttributes,
+							fileStateFlags: {
+								wasStatusProcessing: false,
+								wasStatusUploading: false,
+							},
+							request: undefined,
+							traceContext: {
+								traceId: expect.any(String),
+							},
+						}),
+					);
+				});
 			});
 		});
 	});

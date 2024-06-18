@@ -35,6 +35,8 @@ const RouterLink = React.memo<RouterLinkProps>((props) => {
 	} = props;
 
 	return (
+		// This renders as a native anchor, so lint errors are false
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<Link
 			onMouseEnter={onMouseEnter}
 			onMouseLeave={onMouseLeave}

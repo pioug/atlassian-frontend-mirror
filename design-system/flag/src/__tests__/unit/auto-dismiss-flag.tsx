@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Box from '@atlaskit/primitives/box';
 
@@ -17,8 +17,8 @@ describe('Auto dismiss flag', () => {
 
 	describe('AutoDismissFlag', () => {
 		it('should render a <Flag />', () => {
-			const { queryByText } = render(generateAutoDismissFlag());
-			expect(queryByText('Flag')).not.toBeNull();
+			render(generateAutoDismissFlag());
+			expect(screen.getByText('Flag')).toBeInTheDocument();
 		});
 
 		describe('timer tests', () => {
@@ -99,12 +99,12 @@ describe('Auto dismiss flag', () => {
 
 			it('should pause the dismiss timer on Flag mouseover, and resume on mouseout', () => {
 				const onDismissedSpy = jest.fn();
-				const { getByTestId } = render(
+				render(
 					<FlagGroup onDismissed={onDismissedSpy}>
 						{generateAutoDismissFlag({ testId: 'autodismiss-flag' })}
 					</FlagGroup>,
 				);
-				const flag = getByTestId('autodismiss-flag');
+				const flag = screen.getByTestId('autodismiss-flag');
 				fireEvent.mouseOver(flag);
 				runTimer();
 				expect(onDismissedSpy).not.toBeCalled();
@@ -115,12 +115,12 @@ describe('Auto dismiss flag', () => {
 
 			it('should pause the dismiss timer on Flag focus, and resume on blur', () => {
 				const onDismissedSpy = jest.fn();
-				const { getByTestId } = render(
+				render(
 					<FlagGroup onDismissed={onDismissedSpy}>
 						{generateAutoDismissFlag({ testId: 'autodismiss-flag' })}
 					</FlagGroup>,
 				);
-				const flag = getByTestId('autodismiss-flag');
+				const flag = screen.getByTestId('autodismiss-flag');
 				fireEvent.focus(flag);
 				runTimer();
 				expect(onDismissedSpy).not.toBeCalled();

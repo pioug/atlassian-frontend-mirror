@@ -4,9 +4,13 @@ import { createEvent, fireEvent, render, waitFor } from '@testing-library/react'
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
+import * as svgRendererModule from '../media-svg/svgRenderer';
+
 import { createMockedMediaClientProvider } from './__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { MediaSVGError } from './errors';
 import MediaSvg from './media-svg';
+
+const SvgRendererSpy = jest.spyOn(svgRendererModule, 'SvgRenderer');
 
 describe('MediaSvg', () => {
 	it('should fetch and render the original contents of an SVG file', async () => {
@@ -51,7 +55,7 @@ describe('MediaSvg', () => {
 
 		resolveBinary();
 
-		const elem = await findByTestId(testId);
+		const elem = (await findByTestId(testId)) as unknown as HTMLImageElement;
 		expect(elem.getAttribute('data-fileid')).toBe(identifier.id);
 		expect(elem.getAttribute('data-filecollection')).toBe(identifier.collectionName);
 
@@ -82,7 +86,7 @@ describe('MediaSvg', () => {
 				<MediaSvg testId={testId} identifier={identifier1} />,
 			</MockedMediaClientProvider>,
 		);
-		const elem = await findByTestId(testId);
+		const elem = (await findByTestId(testId)) as unknown as HTMLImageElement;
 		expect(elem.getAttribute('data-fileid')).toBe(identifier1.id);
 
 		rerender(
@@ -133,7 +137,7 @@ describe('MediaSvg', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const img = await findByTestId(testId);
+		const img = (await findByTestId(testId)) as unknown as HTMLImageElement;
 		fireEvent.error(img);
 
 		await waitFor(() => expect(onError).toBeCalledTimes(1));
@@ -157,7 +161,7 @@ describe('MediaSvg', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const elem = await findByTestId(testId);
+		const elem = (await findByTestId(testId)) as unknown as HTMLImageElement;
 		expect(elem.getAttribute('data-source')).toBe('local');
 		expect(mediaApi.getFileBinary).toBeCalledTimes(0);
 	});
@@ -176,9 +180,31 @@ describe('MediaSvg', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const img = await findByTestId(testId);
+		const img = (await findByTestId(testId)) as unknown as HTMLImageElement;
 		const evt = createEvent.contextMenu(img);
 		fireEvent(img, evt);
 		expect(evt.defaultPrevented).toBe(true);
+	});
+
+	it('should catch unexpected errors', async () => {
+		// Simulate an unexpected error
+		SvgRendererSpy.mockImplementationOnce(() => {
+			throw new Error('unexpected error');
+		});
+
+		const [fileItem, identifier] = generateSampleFileItem.svg();
+		const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+			initialItems: fileItem,
+		});
+
+		const onError = jest.fn();
+
+		render(
+			<MockedMediaClientProvider>
+				<MediaSvg identifier={identifier} onError={onError} />,
+			</MockedMediaClientProvider>,
+		);
+
+		await waitFor(() => expect(onError).toBeCalledTimes(1));
 	});
 });

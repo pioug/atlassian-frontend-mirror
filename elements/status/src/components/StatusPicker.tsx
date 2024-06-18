@@ -3,6 +3,7 @@ import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import React, { type FormEvent, PureComponent } from 'react';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import ColorPalette from './internal/color-palette';
 import { type Color } from './Status';

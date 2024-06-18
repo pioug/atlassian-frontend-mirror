@@ -4,6 +4,7 @@ import {
 	hasStyleObjectArguments,
 } from '@atlaskit/eslint-utils/is-supported-import';
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+import type { AST_NODE_TYPES } from '@typescript-eslint/typescript-estree';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 import type { Rule } from 'eslint';
 import {
@@ -14,6 +15,7 @@ import {
 } from '@atlaskit/eslint-utils/allowed-function-calls';
 import type * as ESTree from 'eslint-codemod-utils';
 import esquery from 'esquery';
+import estraverse from 'estraverse';
 
 const schema: JSONSchema4 = [
 	{
@@ -81,6 +83,22 @@ const checkIdentifier = (
 	functionAllowList: AllowList,
 	keysAllowList: AllowList,
 ) => {
+	const { parent } = identifier as Rule.Node;
+
+	// Even though `member` in `object.member` is syntactically an identifier,
+	// it should be ignored as `.member` is syntax sugar for `['member']` here.
+	// We should still lint `object[member]` (when `parent.computed` === true)
+	if (parent.type === 'MemberExpression' && identifier === parent.property && !parent.computed) {
+		return;
+	}
+
+	// Even though `key` in `{ key: 'value' }` is syntactically an identifier,
+	// it should be ignored as `key` is syntax sugar for `'key'` here.
+	// We should still lint `[key]` (when `parent.computed` === true)
+	if (parent && parent.type === 'Property' && identifier === parent.key && !parent.computed) {
+		return;
+	}
+
 	if (isIdentifierImported(identifier, context, functionAllowList, keysAllowList)) {
 		context.report({
 			node: identifier,
@@ -129,10 +147,39 @@ export const rule = createLintRule({
 				}
 				node.arguments.forEach(checkForIdentifiers);
 			},
-			'JSXAttribute[name.name=/^style|css$/] Identifier:not(TSTypeReference Identifier)'(
-				node: ESTree.Identifier,
-			) {
-				checkIdentifier(node, context, functionAllowList, keysAllowList);
+			'JSXAttribute[name.name=/^style|css$/]'(jsxAttribute: ESTree.Node) {
+				estraverse.traverse(jsxAttribute, {
+					fallback(node) {
+						// estraverse does not know about nodes not in the ESTree standard.
+						// This includes JSX nodes, so we must provide a fallback method to handle them.
+						// Using `fallback: 'iteration'` can cause cycles because it will iterate
+						// over the `parent` attribute on JSX nodes.
+						return Object.keys(node).filter((key) => key !== 'parent');
+					},
+					enter(node, parent) {
+						// Ignore type contexts
+						// Cast required because ESTree is not aware of TypeScript nodes
+						if ((node.type as AST_NODE_TYPES) === 'TSTypeReference') {
+							return estraverse.VisitorOption.Skip;
+						}
+
+						// Ignore conditions of ternary expressions
+						if (parent?.type === 'ConditionalExpression' && node === parent.test) {
+							return estraverse.VisitorOption.Skip;
+						}
+
+						// Ignore LHS of logical expressions (&&, ||)
+						if (parent?.type === 'LogicalExpression' && node === parent.left) {
+							return estraverse.VisitorOption.Skip;
+						}
+
+						if (node.type !== 'Identifier') {
+							return;
+						}
+
+						checkIdentifier(node, context, functionAllowList, keysAllowList);
+					},
+				});
 			},
 		};
 	},

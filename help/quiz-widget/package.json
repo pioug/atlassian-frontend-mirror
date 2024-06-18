@@ -37,10 +37,10 @@
 	"atlaskit:src": "src/index.ts",
 	"dependencies": {
 		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/icon": "^22.3.0",
-		"@atlaskit/radio": "^6.3.0",
-		"@atlaskit/spinner": "^16.1.0",
-		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/radio": "^6.4.0",
+		"@atlaskit/spinner": "^16.2.0",
+		"@atlaskit/tokens": "^1.51.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0"
 	},

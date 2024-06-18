@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ImgHTMLAttributes, type ReactNode } from 'react';
 

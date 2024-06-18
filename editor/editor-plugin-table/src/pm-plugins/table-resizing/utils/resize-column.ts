@@ -81,11 +81,6 @@ export const resizeColumnAndTable = (
 			amount < 0
 				? amount
 				: resizeAmount - (tableNode.attrs.width + resizeAmount - tableContainerWidth) / 2;
-	} else {
-		resizeAmount =
-			amount > 0 && tableContainerWidth
-				? resizeAmount - (tableNode.attrs.width + resizeAmount - tableContainerWidth) / 2
-				: resizeAmount;
 	}
 
 	const newState = updateAffectedColumn(resizeState, colIndex, resizeAmount);
@@ -103,7 +98,8 @@ export const resizeColumnAndTable = (
 
 	return {
 		...newState,
-		tableWidth: isOverflowed ? tableContainerWidth : resizeState.tableWidth + delta,
+		// resizeState.tableWidth sometimes is off by ~3px on load on resized table when !isOverflowed, using resizeState.maxSize instead
+		tableWidth: isOverflowed ? tableContainerWidth : resizeState.maxSize + delta,
 	};
 };
 

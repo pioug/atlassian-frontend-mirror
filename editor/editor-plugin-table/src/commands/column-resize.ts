@@ -296,12 +296,8 @@ export const changeColumnWidthByStep =
 			1;
 
 		let dom: HTMLTableElement | null = null;
-		if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-			const domAtPosition = domAtPos(tableStartPosition);
-			dom = domAtPosition.node instanceof HTMLTableElement ? domAtPosition.node : null;
-		} else {
-			dom = domAtPos(tableStartPosition).node as HTMLTableElement;
-		}
+		const domAtPosition = domAtPos(tableStartPosition);
+		dom = domAtPosition.node instanceof HTMLTableElement ? domAtPosition.node : null;
 
 		if (dom && dom.nodeName !== 'TABLE') {
 			dom = dom.closest('table');

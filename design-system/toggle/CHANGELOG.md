@@ -1,5 +1,18 @@
 # @atlaskit/toggle
 
+## 13.2.0
+
+### Minor Changes
+
+- [#111016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111016)
+  [`d131599730792`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d131599730792) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.1.0
 
 ### Minor Changes
@@ -571,32 +584,35 @@ _WRONG RELEASE TYPE - DON'T USE_
   After (we use Emotion here - but you can use any equivalent library):
 
   ```js
-  /** @jsx jsx */
-  import { jsx } from '@emotion/core';
-  import { visuallyHidden } from '@atlaskit/theme/constants';
-
-  <label css={visuallyHidden()} htmlFor="my-toggle">Allow pull requests</label>
-  <Toggle id="my-toggle" />
+  /**
   ```
 
-  This now also allows you to visually show a label (just omit the visually hidden mixin) - which
-  for the most part you'll want to do. Read
-  [the design docs](https://atlassian.design/guidelines/product/components/toggles) for more
-  inspiration.
+* @jsxRuntime classic _/ /\*\* @jsx jsx _/ import { jsx } from '@emotion/core'; import {
+  visuallyHidden } from '@atlaskit/theme/constants';
 
-  Happy toggling!
+<label css={visuallyHidden()} htmlFor="my-toggle">Allow pull requests</label>
+<Toggle id="my-toggle" />
+
+````
+
+This now also allows you to visually show a label (just omit the visually hidden mixin) - which
+for the most part you'll want to do. Read
+[the design docs](https://atlassian.design/guidelines/product/components/toggles) for more
+inspiration.
+
+Happy toggling!
 
 ### Minor Changes
 
 - [`5ab389c082`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ab389c082) - Adds an
-  `id` prop for you to use with a pairing label element, for use like so:
+`id` prop for you to use with a pairing label element, for use like so:
 
-  ```js
-  import Toggle from '@atlaskit/toggle';
+```js
+import Toggle from '@atlaskit/toggle';
 
-  <label htmlFor="my-toggle">Do the thing</label>
-  <Toggle id="my-toggle" />
-  ```
+<label htmlFor="my-toggle">Do the thing</label>
+<Toggle id="my-toggle" />
+````
 
 ## 8.1.9
 

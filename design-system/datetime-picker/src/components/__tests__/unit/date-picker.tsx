@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
@@ -19,10 +19,13 @@ const createDatePicker = (props: DatePickerBaseProps = {}) => (
 	<DatePicker label="Date" testId={testId} {...props} />
 );
 
-const getAllDays = () =>
-	screen
-		.getAllByRole('button')
-		.filter((el) => el.parentElement?.getAttribute('role') === 'gridcell');
+const getAllDays = () => {
+	let allDays: HTMLElement[] = [];
+	screen.getAllByRole('gridcell').forEach((gridCell) => {
+		allDays = allDays.concat(within(gridCell).getAllByRole('button'));
+	});
+	return allDays;
+};
 
 describe('DatePicker', () => {
 	describe('should call onChange only once when a date is selected and enter is pressed', () => {
@@ -520,8 +523,8 @@ describe('DatePicker', () => {
 			await user.keyboard('{Tab}');
 			expect(selectInput).not.toHaveFocus();
 			// An element within the calendar's container should have focus
-			const focusedElement = document.activeElement;
-			expect(focusedElement?.closest('[data-testid$="--calendar--container"]')).toBeTruthy();
+			const focusedElement = screen.getByTestId('escape-test--calendar--previous-month');
+			expect(focusedElement).toHaveFocus();
 
 			// Select one of the dates in the calendar
 			await user.keyboard('{Tab}');
@@ -616,8 +619,8 @@ describe('DatePicker', () => {
 			await user.keyboard('{Tab}');
 			expect(selectInput).not.toHaveFocus();
 			// An element within the calendar's container should have focus
-			const focusedElement = document.activeElement;
-			expect(focusedElement?.closest('[data-testid$="--calendar--container"]')).toBeTruthy();
+			const focusedElement = screen.getByTestId('escape-test--calendar--previous-month');
+			expect(focusedElement).toHaveFocus();
 
 			await user.type(selectInput, '{Escape}');
 			expect(queryCalendar()).not.toBeInTheDocument();

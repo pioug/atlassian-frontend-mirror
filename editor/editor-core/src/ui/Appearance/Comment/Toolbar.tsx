@@ -2,6 +2,7 @@
 import type { RefObject } from 'react';
 import React, { useEffect, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';

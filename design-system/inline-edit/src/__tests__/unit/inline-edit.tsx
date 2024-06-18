@@ -41,7 +41,7 @@ describe('InlineEdit component', () => {
 			const onConfirm = jest.fn();
 			const onEdit = jest.fn();
 
-			const { container, queryByText } = render(
+			render(
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
@@ -56,20 +56,20 @@ describe('InlineEdit component', () => {
 				/>,
 			);
 
-			const read = screen.queryByTestId('read-view');
+			const read = screen.getByTestId('read-view');
 			const edit = screen.queryByTestId('edit-view');
 
 			expect(read).toBeInTheDocument();
 			expect(edit).not.toBeInTheDocument();
 
 			//enter edit mode
-			fireEvent.click(read!);
+			fireEvent.click(read);
 
 			expect(onEdit).toHaveBeenCalledTimes(1);
 
-			const textField = container.querySelector('[data-testid="edit-view"]');
-			const confirm = queryByText('Confirm');
-			const cancel = queryByText('Cancel');
+			const textField = screen.getByTestId('edit-view');
+			const confirm = screen.queryByText('Confirm');
+			const cancel = screen.queryByText('Cancel');
 
 			expect(textField).toBeInTheDocument();
 			expect(confirm).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('InlineEdit component', () => {
 			const defaultValue = 'Some text';
 			const onConfirm = jest.fn();
 
-			const { container, queryByText } = render(
+			render(
 				<InlineEdit
 					defaultValue={defaultValue}
 					label="Inline edit"
@@ -94,20 +94,20 @@ describe('InlineEdit component', () => {
 				/>,
 			);
 
-			const read = screen.queryByTestId('read-view');
+			const read = screen.getByTestId('read-view');
 			const edit = screen.queryByTestId('edit-view');
 
 			expect(read).toBeInTheDocument();
 			expect(edit).not.toBeInTheDocument();
 
 			//enter edit mode
-			fireEvent.click(read!);
+			fireEvent.click(read);
 
-			const textField = container.querySelector('[data-testid="edit-view"]');
-			const confirm = queryByText('Confirm');
+			const textField = screen.getByTestId('edit-view');
+			const confirm = screen.getByText('Confirm');
 
-			fireEvent.change(textField!, { target: { value: 'New content' } });
-			fireEvent.click(confirm!);
+			fireEvent.change(textField, { target: { value: 'New content' } });
+			fireEvent.click(confirm);
 
 			expect(onConfirm).toHaveBeenCalledWith('New content', expect.objectContaining({}));
 		});
@@ -131,22 +131,22 @@ describe('InlineEdit component', () => {
 				);
 			};
 
-			const { container, queryByTestId, queryByText } = render(<InlineEditExample />);
+			render(<InlineEditExample />);
 
-			const read = screen.queryByTestId('read-view');
+			const read = screen.getByTestId('read-view');
 			expect(read).toBeInTheDocument();
-			expect(read!.innerText).toContain('Old content');
+			expect(read.innerText).toContain('Old content');
 
 			//enter edit mode
-			fireEvent.click(read!);
+			fireEvent.click(read);
 
-			const textField = container.querySelector('[data-testid="edit-view"]');
-			const confirm = queryByText('Confirm');
+			const textField = screen.getByTestId('edit-view');
+			const confirm = screen.getByText('Confirm');
 
-			fireEvent.change(textField!, { target: { value: 'New content' } });
-			fireEvent.click(confirm!);
+			fireEvent.change(textField, { target: { value: 'New content' } });
+			fireEvent.click(confirm);
 
-			expect(queryByTestId('read-view')!.innerText).toContain('New content');
+			expect(screen.getByTestId('read-view').innerText).toContain('New content');
 		});
 	});
 
@@ -188,19 +188,20 @@ describe('InlineEdit component', () => {
 				);
 			};
 
-			const { container } = render(<InlineEditWithDropdown />);
+			render(<InlineEditWithDropdown />);
 
-			const readView = screen.queryByTestId('read-view');
+			const readView = screen.getByTestId('read-view');
 			expect(readView).toBeInTheDocument();
 
-			fireEvent.click(readView!);
+			fireEvent.click(readView);
 
 			selectEvent.openMenu(screen.getByRole('combobox'));
-			const firstOption = container.querySelector('#react-select-2-option-0');
-			fireEvent.click(firstOption!);
-
-			const submitButton = container.querySelector('button[type="submit"]');
-			fireEvent.click(submitButton!);
+			const firstOption = screen.getByText('Apple');
+			fireEvent.click(firstOption);
+			const submitButton = screen.getByRole('button', {
+				name: 'Confirm',
+			});
+			fireEvent.click(submitButton);
 
 			expect(onConfirm).toHaveBeenCalledWith(
 				expect.arrayContaining([expect.objectContaining({ label: 'Apple', value: 'Apple' })]),
@@ -216,7 +217,7 @@ describe('InlineEdit component', () => {
 			const onConfirm = jest.fn();
 			const onAnalyticsEvent = jest.fn();
 
-			const { container } = render(
+			render(
 				<AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
 					<InlineEdit
 						defaultValue={defaultValue}
@@ -229,14 +230,13 @@ describe('InlineEdit component', () => {
 				</AnalyticsListener>,
 			);
 
-			const button = screen.queryByTestId('test--edit-button');
-			fireEvent.click(button!);
+			const button = screen.getByTestId('test--edit-button');
+			fireEvent.click(button);
+			const input = screen.getByRole('textbox', { name: /inline edit/i });
+			fireEvent.change(input, { target: { value: newValue } });
 
-			const input = container.querySelector('input[name="inlineEdit"]');
-			fireEvent.change(input!, { target: { value: newValue } });
-
-			const confirm = container.querySelector('button[type="submit"]');
-			fireEvent.click(confirm!);
+			const confirm = screen.getByTestId('test--confirm');
+			fireEvent.click(confirm);
 
 			expect(onConfirm).toHaveBeenCalled();
 			expect(onAnalyticsEvent.mock.calls[onAnalyticsEvent.mock.calls.length - 1]).toEqual(

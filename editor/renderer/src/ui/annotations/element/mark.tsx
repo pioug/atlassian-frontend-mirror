@@ -2,6 +2,7 @@
 import type { MouseEvent } from 'react';
 import type React from 'react';
 import { useMemo, useCallback } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';

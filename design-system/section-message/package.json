@@ -49,11 +49,11 @@
 	"dependencies": {
 		"@atlaskit/button": "^17.17.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/heading": "^2.3.0",
-		"@atlaskit/icon": "^22.3.0",
-		"@atlaskit/primitives": "^7.3.0",
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/tokens": "^1.50.0",
+		"@atlaskit/heading": "^2.4.0",
+		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/primitives": "^7.4.0",
+		"@atlaskit/theme": "^12.10.0",
+		"@atlaskit/tokens": "^1.51.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

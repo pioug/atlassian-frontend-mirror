@@ -3,6 +3,7 @@ jest.mock('../../../components/styles', () => ({
 }));
 
 import React from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type CSSObject } from '@emotion/react';
 import find from 'lodash/find';
 import { PopupSelect } from '@atlaskit/select';

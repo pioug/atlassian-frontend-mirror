@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { forwardRef, type KeyboardEvent, memo, type MouseEvent, type Ref } from 'react';
 

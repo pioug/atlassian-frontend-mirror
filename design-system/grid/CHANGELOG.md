@@ -1,5 +1,18 @@
 # @atlaskit/grid
 
+## 0.13.0
+
+### Minor Changes
+
+- [#110670](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110670)
+  [`c733254a2dd6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c733254a2dd6e) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.2
 
 ### Patch Changes

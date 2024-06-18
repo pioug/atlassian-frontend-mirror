@@ -5,6 +5,7 @@ import React, { useMemo } from 'react';
 import { N0 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line
 import { ThemeProvider as DeprecatedThemeProvider } from 'styled-components';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { ThemeProvider } from '@emotion/react';
 
 import { AtlaskitThemeProvider, themed } from '@atlaskit/theme/components';

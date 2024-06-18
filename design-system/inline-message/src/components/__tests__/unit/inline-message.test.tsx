@@ -9,8 +9,8 @@ const testId = 'test';
 
 describe('Inline Message', () => {
 	it('basic sanity check', () => {
-		const { getByTestId } = render(<InlineMessage testId={testId} />);
-		expect(getByTestId(testId)).not.toBe(undefined);
+		render(<InlineMessage testId={testId} />);
+		expect(screen.getByTestId(testId)).not.toBe(undefined);
 	});
 
 	it('should render secondary text and title if provided', () => {
@@ -31,40 +31,40 @@ describe('Inline Message', () => {
 		const user = userEvent.setup();
 
 		it('should start closed, no content on showing', () => {
-			const { queryByTestId } = render(
+			render(
 				<InlineMessage>
 					<div data-testid={testId} />
 				</InlineMessage>,
 			);
 
-			expect(queryByTestId(testId)).toBeNull();
+			expect(screen.queryByTestId(testId)).not.toBeInTheDocument();
 		});
 
 		it('should toggle when the button is clicked', async () => {
-			const { getByTestId, getByText } = render(
+			render(
 				<InlineMessage testId={testId}>
 					<div>Hello</div>
 				</InlineMessage>,
 			);
 
-			const button = getByTestId(`${testId}--button`);
+			const button = screen.getByTestId(`${testId}--button`);
 			await user.click(button);
-			expect(getByText('Hello')).toBeInTheDocument();
+			expect(screen.getByText('Hello')).toBeInTheDocument();
 		});
 
 		it('should hide when the button is clicked twice', async () => {
-			const { getByTestId, getByText, queryByText } = render(
+			render(
 				<InlineMessage testId={testId}>
 					<div>Hello</div>
 				</InlineMessage>,
 			);
 
-			const button = getByTestId(`${testId}--button`);
+			const button = screen.getByTestId(`${testId}--button`);
 			await user.click(button);
-			expect(getByText('Hello')).toBeInTheDocument();
+			expect(screen.getByText('Hello')).toBeInTheDocument();
 
 			await user.click(button);
-			expect(queryByText('Hello')).toBeNull();
+			expect(screen.queryByText('Hello')).not.toBeInTheDocument();
 		});
 	});
 });

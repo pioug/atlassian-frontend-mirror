@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { N20, B400, N800, N200 } from '@atlaskit/theme/colors';

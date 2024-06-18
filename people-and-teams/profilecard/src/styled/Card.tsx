@@ -301,7 +301,7 @@ export const DetailsLabel = styled.div`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const DetailsLabelIcon = styled.div`
+export const DetailsLabelIcon = styled.dt`
 	display: flex;
 	flex-shrink: 0;
 	color: ${labelIconColor};
@@ -317,7 +317,7 @@ export const DetailsLabelIcon = styled.div`
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const DetailsLabelText = styled.span`
+export const DetailsLabelText = styled.dd`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: ${labelTextColor};

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { PureComponent, type ReactNode } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import { listStyles, taskListStyles } from './styles';

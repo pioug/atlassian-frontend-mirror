@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Children, createRef, type KeyboardEvent, type ReactNode, useCallback } from 'react';
 

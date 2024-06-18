@@ -99,11 +99,11 @@ const ColorCard = (props: Props) => {
 				onKeyDown={handleKeyDown}
 				role="radio"
 				aria-checked={selected}
-				{...(getBooleanFF(
-					'platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s',
-				) && {
-					'aria-label': formatMessage(messages.colorCardRadioItemLabel),
-				})}
+				aria-label={
+					getBooleanFF('platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s')
+						? formatMessage(messages.colorCardRadioItemLabel)
+						: label
+				}
 				tabIndex={0}
 				ref={ref}
 			>

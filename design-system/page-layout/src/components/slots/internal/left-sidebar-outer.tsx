@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { forwardRef, type MouseEventHandler, type ReactNode, type Ref, useContext } from 'react';
 

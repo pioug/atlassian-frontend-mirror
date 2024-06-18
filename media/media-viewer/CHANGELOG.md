@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 48.6.4
+
+### Patch Changes
+
+- [#111464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111464)
+  [`1a9f6f0977000`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a9f6f0977000) -
+  Added error handling to SVG
+- Updated dependencies
+
 ## 48.6.3
 
 ### Patch Changes

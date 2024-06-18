@@ -3,7 +3,6 @@ import { addParagraphAtEnd } from '@atlaskit/editor-common/commands';
 import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // we ignore all of the clicks made inside <div class="ak-editor-content-area" /> (but not clicks on the node itself)
 const insideContentArea = (ref: HTMLElement | null): boolean => {
@@ -44,19 +43,16 @@ export const checkForModal = (target: HTMLElement | null) => {
 const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<any>) => {
 	const isEditorFocused = !!view?.hasFocus?.();
 
-	if (
-		getBooleanFF('platform.editor.explicit-html-element-check') &&
-		!(event.target instanceof HTMLElement)
-	) {
+	if (!(event.target instanceof HTMLElement)) {
 		return;
 	}
 
 	const target = event.target as HTMLElement;
 	const isTargetContentArea = target?.classList.contains('ak-editor-content-area');
 
-	const isTargetChildOfContentArea = getBooleanFF('platform.editor.explicit-html-element-check')
-		? insideContentArea(target?.parentNode instanceof HTMLElement ? target?.parentNode : null)
-		: insideContentArea(target?.parentNode as HTMLElement);
+	const isTargetChildOfContentArea = insideContentArea(
+		target?.parentNode instanceof HTMLElement ? target?.parentNode : null,
+	);
 	const isTargetInsideEditableArea = insideProseMirrorEditableArea(target);
 
 	// Any click inside ProseMirror should be managed by ProseMirror

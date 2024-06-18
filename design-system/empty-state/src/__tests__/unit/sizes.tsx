@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import EmptyState from '../../empty-state';
 import { type Width } from '../../types';
@@ -13,18 +13,16 @@ const widths = {
 };
 
 describe('<EmptyState size/width />', () => {
-	afterEach(cleanup);
-
 	it('should default to wide', () => {
-		const { getByTestId } = render(<EmptyState header="hello" testId="test" />);
-		const element = getByTestId('test');
+		render(<EmptyState header="hello" testId="test" />);
+		const element = screen.getByTestId('test');
 		expect(element).toHaveStyleDeclaration('max-width', widths.wide);
 	});
 
 	sizes.forEach((size) => {
 		describe(`with ${size} setting`, () => {
 			it('should prefer width over size', () => {
-				const { getByTestId } = render(
+				render(
 					<EmptyState
 						width={size}
 						size={size === 'wide' ? 'narrow' : 'wide'}
@@ -32,19 +30,19 @@ describe('<EmptyState size/width />', () => {
 						testId="test"
 					/>,
 				);
-				const element = getByTestId('test');
+				const element = screen.getByTestId('test');
 				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
 			});
 
 			it('should support size', () => {
-				const { getByTestId } = render(<EmptyState size={size} header="hello" testId="test" />);
-				const element = getByTestId('test');
+				render(<EmptyState size={size} header="hello" testId="test" />);
+				const element = screen.getByTestId('test');
 				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
 			});
 
 			it('should support width', () => {
-				const { getByTestId } = render(<EmptyState width={size} header="hello" testId="test" />);
-				const element = getByTestId('test');
+				render(<EmptyState width={size} header="hello" testId="test" />);
+				const element = screen.getByTestId('test');
 				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
 			});
 		});

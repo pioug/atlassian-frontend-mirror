@@ -97,7 +97,10 @@ function compose<
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
 	return mapSlice(slice, (node) => {
-		if (node.type.name === schema.nodes.mention.name) {
+		// We should move this to the mention plugin when we refactor how paste works in the future
+		// For now we can just null check mention exists in the schema to ensure we don't crash if it doesn't
+		// exist.
+		if (node.type.name === schema.nodes.mention?.name) {
 			const mention = node.attrs as MentionAttributes;
 			const newMention = { ...mention, text: '' };
 			return schema.nodes.mention.create(newMention, node.content, node.marks);

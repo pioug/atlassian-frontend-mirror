@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 2.3.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.10
+
+### Patch Changes
+
+- [#110278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110278)
+  [`07cfb7e9a83b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07cfb7e9a83b2) -
+  [ux] allow close on click-away on assets config modal
+
 ## 2.3.9
 
 ### Patch Changes

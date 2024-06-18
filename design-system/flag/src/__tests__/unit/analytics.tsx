@@ -1,7 +1,7 @@
 import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Box } from '@atlaskit/primitives';
@@ -44,7 +44,7 @@ describe('Flag analytics', () => {
 			const onPublicEvent = jest.fn();
 			const onAtlaskitEvent = jest.fn();
 
-			const { getByTestId } = render(
+			render(
 				<WithBoth
 					onPublicEvent={onPublicEvent}
 					onAtlaskitEvent={onAtlaskitEvent}
@@ -55,7 +55,7 @@ describe('Flag analytics', () => {
 					}}
 				/>,
 			);
-			const flag: HTMLElement = getByTestId('flag');
+			const flag: HTMLElement = screen.getByTestId('flag');
 			action.action === 'focused' ? fireEvent.focus(flag) : fireEvent.blur(flag);
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				payload: {
@@ -89,7 +89,7 @@ describe('Flag analytics', () => {
 		const onPublicEvent = jest.fn();
 		const onAtlaskitEvent = jest.fn();
 
-		const { getByTestId } = render(
+		render(
 			<WithBoth
 				onPublicEvent={onPublicEvent}
 				onAtlaskitEvent={onAtlaskitEvent}
@@ -98,7 +98,7 @@ describe('Flag analytics', () => {
 				}}
 			/>,
 		);
-		const flagDismiss: HTMLElement = getByTestId('flag-dismiss');
+		const flagDismiss: HTMLElement = screen.getByTestId('flag-dismiss');
 		fireEvent.click(flagDismiss);
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
@@ -135,7 +135,7 @@ describe('Flag analytics', () => {
 		const onPublicEvent = jest.fn();
 		const onAtlaskitEvent = jest.fn();
 
-		const { getByTestId } = render(
+		render(
 			<WithBoth
 				onPublicEvent={onPublicEvent}
 				onAtlaskitEvent={onAtlaskitEvent}
@@ -146,7 +146,7 @@ describe('Flag analytics', () => {
 				}}
 			/>,
 		);
-		const flagDismiss: HTMLElement = getByTestId('flag-dismiss');
+		const flagDismiss: HTMLElement = screen.getByTestId('flag-dismiss');
 		fireEvent.click(flagDismiss);
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
@@ -204,9 +204,9 @@ it('should allow the addition of additional context', () => {
 	const onEvent = jest.fn();
 	const extraContext = { hello: 'world' };
 
-	const { getByTestId } = render(<App onEvent={onEvent} analyticsContext={extraContext} />);
+	render(<App onEvent={onEvent} analyticsContext={extraContext} />);
 
-	const flag: HTMLElement = getByTestId('flag');
+	const flag: HTMLElement = screen.getByTestId('flag');
 	fireEvent.focus(flag);
 
 	const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
@@ -237,11 +237,9 @@ it('should allow the addition of additional context', () => {
 it('should not error if there is no analytics provider', () => {
 	const error = jest.spyOn(console, 'error');
 
-	const { getByTestId } = render(
-		<Flag testId="flag" icon={<Box />} id="flag" title="flag" onFocus={jest.fn()} />,
-	);
+	render(<Flag testId="flag" icon={<Box />} id="flag" title="flag" onFocus={jest.fn()} />);
 
-	const flag: HTMLElement = getByTestId('flag');
+	const flag: HTMLElement = screen.getByTestId('flag');
 	fireEvent.focus(flag);
 
 	expect(error).not.toHaveBeenCalled();

@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type CSSProperties, Fragment, type ReactElement, useCallback, useState } from 'react';
 

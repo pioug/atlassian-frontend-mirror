@@ -1,4 +1,5 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Should be safe to autofix, but ignoring for now */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 import {

@@ -67,7 +67,8 @@ function renderLink(pageType: string, selectedIndex: number, pages: Pages[]) {
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={style} {...rest} />
 		) : (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			// Anchor content comes from another location
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/anchor-has-content -- Ignored via go/DSP-18766
 			<Link style={style} {...rest} to={href} />
 		);
 	};

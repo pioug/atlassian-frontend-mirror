@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';

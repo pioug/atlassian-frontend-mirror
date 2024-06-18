@@ -1,5 +1,17 @@
 # @atlaskit/link-create
 
+## 2.5.0
+
+### Minor Changes
+
+- [#110690](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110690)
+  [`667a03a09590c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/667a03a09590c) -
+  Refactor and export exit warning modal provider to support inline create
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

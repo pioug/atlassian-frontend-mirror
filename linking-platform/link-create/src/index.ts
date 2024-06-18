@@ -22,6 +22,11 @@ export {
 
 export { useLinkCreateCallback, LinkCreateCallbackProvider } from './controllers/callback-context';
 
+export {
+	ExitWarningModalProvider as LinkCreateExitWarningProvider,
+	useWithExitWarning,
+} from './controllers/exit-warning-modal-context';
+
 export type { Validator, ValidatorMap } from './common/types';
 
 export { FORM_ERROR } from 'final-form';

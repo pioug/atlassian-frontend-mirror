@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "1.2.6",
+	"version": "1.2.7",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -85,9 +85,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.single-player-expand": {
-			"type": "boolean"
-		},
-		"platform.editor.explicit-html-element-check": {
 			"type": "boolean"
 		}
 	}

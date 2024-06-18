@@ -2,12 +2,12 @@
 import type { MouseEventHandler } from 'react';
 import React, { PureComponent, useContext } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, N70, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
@@ -305,18 +305,12 @@ export function DropdownMenuItem({
 	}
 
 	const _handleSubmenuActive: MouseEventHandler<HTMLDivElement> = (event) => {
-		if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-			setSubmenuActive(
-				Boolean(
-					event.target instanceof HTMLElement &&
-						event.target.closest(`.${DropdownMenuSharedCssClassName.SUBMENU}`),
-				),
-			);
-		} else {
-			setSubmenuActive(
-				!!(event.target as Element).closest(`.${DropdownMenuSharedCssClassName.SUBMENU}`),
-			);
-		}
+		setSubmenuActive(
+			Boolean(
+				event.target instanceof HTMLElement &&
+					event.target.closest(`.${DropdownMenuSharedCssClassName.SUBMENU}`),
+			),
+		);
 	};
 
 	const dropListItem = (

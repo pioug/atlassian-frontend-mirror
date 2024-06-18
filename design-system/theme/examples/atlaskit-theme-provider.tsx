@@ -1,4 +1,7 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { useState } from 'react';
 

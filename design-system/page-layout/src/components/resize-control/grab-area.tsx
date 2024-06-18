@@ -1,4 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ComponentProps, type FocusEvent, type KeyboardEvent, type MouseEvent } from 'react';
 

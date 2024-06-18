@@ -2,7 +2,7 @@ import Box from '@atlaskit/primitives/box';
 import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { type CreateFlagArgs, type DismissFn, FlagsProvider, useFlags } from '../../index';
 
@@ -40,46 +40,40 @@ const Consumer = (props: Partial<CreateFlagArgs>) => {
 
 describe('flag provider', () => {
 	it('should render children', () => {
-		const { getByText } = render(<FlagsProvider>child</FlagsProvider>);
-		expect(getByText('child')).toBeDefined();
+		render(<FlagsProvider>child</FlagsProvider>);
+		expect(screen.getByText('child')).toBeInTheDocument();
 	});
 
 	it('should render 3 flags', () => {
-		const { queryAllByText, getByText } = render(
+		render(
 			<FlagsProvider>
 				<Consumer />
 			</FlagsProvider>,
 		);
-		const showFlagButton = getByText('show');
-		act(() => {
-			fireEvent.click(showFlagButton);
-			fireEvent.click(showFlagButton);
-			fireEvent.click(showFlagButton);
-		});
+		const showFlagButton = screen.getByText('show');
+		fireEvent.click(showFlagButton);
+		fireEvent.click(showFlagButton);
+		fireEvent.click(showFlagButton);
 
-		expect(queryAllByText('title')).toHaveLength(3);
+		expect(screen.queryAllByText('title')).toHaveLength(3);
 	});
 
 	it('should dismiss the 2nd flag and only render 1 when directly closing the flag', () => {
 		jest.useFakeTimers();
-		const { queryAllByText, getByText, getByTestId } = render(
+		render(
 			<FlagsProvider>
 				<Consumer />
 			</FlagsProvider>,
 		);
-		const showFlagButton = getByText('show');
-		act(() => {
-			fireEvent.click(showFlagButton);
-			fireEvent.click(showFlagButton);
-		});
-		act(() => {
-			fireEvent.click(getByTestId('flag-dismiss'));
-		});
+		const showFlagButton = screen.getByText('show');
+		fireEvent.click(showFlagButton);
+		fireEvent.click(showFlagButton);
+		fireEvent.click(screen.getByTestId('flag-dismiss'));
 
 		act(() => {
 			jest.runAllTimers();
 		});
-		expect(queryAllByText('title')).toHaveLength(1);
+		expect(screen.queryAllByText('title')).toHaveLength(1);
 		jest.useRealTimers();
 	});
 });
@@ -92,7 +86,7 @@ describe('flags-renderer', () => {
 			showFlag = result.showFlag;
 			return null;
 		}
-		const { queryAllByText } = render(
+		render(
 			<FlagsProvider>
 				<App />
 			</FlagsProvider>,
@@ -107,7 +101,7 @@ describe('flags-renderer', () => {
 				icon: <Box />,
 			});
 		});
-		expect(queryAllByText(/title/)).toHaveLength(2);
+		expect(screen.queryAllByText(/title/)).toHaveLength(2);
 	});
 
 	it('should dismiss the first flag', () => {
@@ -118,7 +112,7 @@ describe('flags-renderer', () => {
 			return null;
 		}
 
-		const { getByText, queryAllByText } = render(
+		render(
 			<FlagsProvider>
 				<App />
 			</FlagsProvider>,
@@ -139,8 +133,8 @@ describe('flags-renderer', () => {
 		act(() => {
 			dismissFirstFlag();
 		});
-		expect(queryAllByText(/title/)).toHaveLength(1);
-		expect(getByText('title2')).toBeDefined();
+		expect(screen.queryAllByText(/title/)).toHaveLength(1);
+		expect(screen.getByText('title2')).toBeInTheDocument();
 	});
 
 	it('should dismiss the second flag', () => {
@@ -150,7 +144,7 @@ describe('flags-renderer', () => {
 			showFlag = result.showFlag;
 			return null;
 		}
-		const { getByText, queryAllByText } = render(
+		render(
 			<FlagsProvider>
 				<App />
 			</FlagsProvider>,
@@ -166,8 +160,8 @@ describe('flags-renderer', () => {
 			});
 			dismissFlag();
 		});
-		expect(queryAllByText(/title/)).toHaveLength(1);
-		expect(getByText('title1')).toBeDefined();
+		expect(screen.queryAllByText(/title/)).toHaveLength(1);
+		expect(screen.getByText('title1')).toBeInTheDocument();
 	});
 
 	it('should not submit multiple flags if the id is a duplicate', () => {
@@ -177,7 +171,7 @@ describe('flags-renderer', () => {
 			showFlag = result.showFlag;
 			return null;
 		}
-		const { queryAllByText } = render(
+		render(
 			<FlagsProvider>
 				<App />
 			</FlagsProvider>,
@@ -194,6 +188,6 @@ describe('flags-renderer', () => {
 				icon: <Box />,
 			});
 		});
-		expect(queryAllByText(/title/)).toHaveLength(1);
+		expect(screen.queryAllByText(/title/)).toHaveLength(1);
 	});
 });

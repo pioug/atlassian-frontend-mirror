@@ -4,10 +4,7 @@ import Modal, { type ModalDialogProps } from '@atlaskit/modal-dialog';
 
 import { useDatasourceAnalyticsEvents } from '../../../../analytics';
 
-type DatasourceModalProps = Pick<
-	ModalDialogProps,
-	'testId' | 'onClose' | 'children' | 'shouldCloseOnOverlayClick'
->;
+type DatasourceModalProps = Pick<ModalDialogProps, 'testId' | 'onClose' | 'children'>;
 
 const ScreenEvent = () => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
@@ -19,19 +16,13 @@ const ScreenEvent = () => {
 	return null;
 };
 
-export const DatasourceModal = ({
-	testId,
-	onClose,
-	shouldCloseOnOverlayClick,
-	children,
-}: DatasourceModalProps) => {
+export const DatasourceModal = ({ testId, onClose, children }: DatasourceModalProps) => {
 	return (
 		<Modal
 			testId={testId}
 			onClose={onClose}
 			width="calc(100% - 80px)"
 			shouldScrollInViewport={true}
-			shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
 			shouldReturnFocus={false}
 		>
 			<ScreenEvent />

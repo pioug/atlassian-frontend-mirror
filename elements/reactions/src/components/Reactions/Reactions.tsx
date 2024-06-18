@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';

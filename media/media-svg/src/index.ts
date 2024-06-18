@@ -1,2 +1,2 @@
-export type { MediaSvgProps } from './media-svg';
-export { default } from './media-svg';
+export type { MediaSvgProps, MediaSVGErrorReason } from './media-svg';
+export { default, MediaSVGError } from './media-svg';

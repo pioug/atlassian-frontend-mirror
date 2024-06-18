@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.17.4",
+	"version": "7.17.6",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,17 +43,17 @@
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/editor-tables": "^2.7.0",
-		"@atlaskit/icon": "^22.3.0",
-		"@atlaskit/menu": "^2.4.0",
+		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/menu": "^2.5.0",
 		"@atlaskit/platform-feature-flags": "^0.2.1",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.3.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-		"@atlaskit/primitives": "^7.3.0",
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/toggle": "^13.1.0",
-		"@atlaskit/tokens": "^1.50.0",
-		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/primitives": "^7.4.0",
+		"@atlaskit/theme": "^12.10.0",
+		"@atlaskit/toggle": "^13.2.0",
+		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"classnames": "^2.2.5",
@@ -139,9 +139,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.table.use-increased-scaling-percent": {
-			"type": "boolean"
-		},
-		"platform.editor.explicit-html-element-check": {
 			"type": "boolean"
 		},
 		"platform.editor.table.live-pages-sorting_4malx": {

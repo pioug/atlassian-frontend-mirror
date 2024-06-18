@@ -1,4 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { PureComponent } from 'react';
 
@@ -71,6 +74,8 @@ export default class ProgressTracker extends PureComponent<ProgressTrackerProps,
 		items: [],
 		spacing: 'cosy',
 		render: {
+			// Anchor content is coming from another location
+			// eslint-disable-next-line jsx-a11y/anchor-has-content
 			link: ({ item }: LinkComponentProps) => <Link {...item} />,
 		},
 		animated: true,

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '../../../index';
 
 describe('DropdownMenu with RadioGroup and Radio', () => {
 	it('should render defaultSelected item as checked', async () => {
-		const { findByText, findAllByRole } = render(
+		render(
 			<DropdownMenu trigger="Choices" testId="lite-mode-ddm">
 				<DropdownItemRadioGroup id="cities" title="Some cities">
 					<DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
@@ -17,12 +17,10 @@ describe('DropdownMenu with RadioGroup and Radio', () => {
 			</DropdownMenu>,
 		);
 
-		const trigger = await findByText('Choices');
-		act(() => {
-			fireEvent.click(trigger);
-		});
+		const trigger = await screen.findByText('Choices');
+		fireEvent.click(trigger);
 
-		let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+		let radios = ((await screen.findAllByRole('menuitemradio')) || []).map((x) =>
 			x.getAttribute('aria-checked'),
 		);
 
@@ -30,7 +28,7 @@ describe('DropdownMenu with RadioGroup and Radio', () => {
 	});
 
 	it('should be able to select a radio by click', async () => {
-		const { findByText, findAllByRole } = render(
+		render(
 			<DropdownMenu trigger="Choices" testId="lite-mode-ddm">
 				<DropdownItemRadioGroup id="cities" title="Some cities">
 					<DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
@@ -41,23 +39,19 @@ describe('DropdownMenu with RadioGroup and Radio', () => {
 			</DropdownMenu>,
 		);
 
-		const trigger = await findByText('Choices');
-		act(() => {
-			fireEvent.click(trigger);
-		});
+		const trigger = await screen.findByText('Choices');
+		fireEvent.click(trigger);
 
-		let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+		let radios = ((await screen.findAllByRole('menuitemradio')) || []).map((x) =>
 			x.getAttribute('aria-checked'),
 		);
 
 		expect(radios).toEqual(['false', 'true']);
 
-		const sydney = await findByText('Sydney');
-		act(() => {
-			fireEvent.click(sydney);
-		});
+		const sydney = await screen.findByText('Sydney');
+		fireEvent.click(sydney);
 
-		radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+		radios = ((await screen.findAllByRole('menuitemradio')) || []).map((x) =>
 			x.getAttribute('aria-checked'),
 		);
 

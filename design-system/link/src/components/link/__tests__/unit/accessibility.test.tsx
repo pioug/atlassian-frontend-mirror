@@ -11,6 +11,8 @@ describe(`Accessibility:`, () => {
 	variations.forEach(({ name, props }) => {
 		describe(`'${name}' accessibility`, () => {
 			it('should not fail an aXe audit', async () => {
+				// Anchor content will come from variations
+				// eslint-disable-next-line jsx-a11y/anchor-has-content
 				const { container } = render(<Link {...props} />);
 				await axe(container);
 			});
@@ -48,6 +50,8 @@ describe(`Accessibility:`, () => {
 			render(
 				<>
 					<div id="the-label">Confluence</div>
+					{/* Anchor content will come from variations */}
+					{/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 					<Link
 						href="https://www.atlassian.com"
 						testId="link"

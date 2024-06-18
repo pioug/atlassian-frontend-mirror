@@ -3,11 +3,11 @@
 import type { ReactNode } from 'react';
 import React, { useCallback, useLayoutEffect, useRef } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { fullPageMessages as messages } from '../../messages';
 import type { EditorAppearance } from '../../types';
@@ -144,55 +144,27 @@ export const ToolbarArrowKeyNavigationProvider = ({
 			// To trap the focus inside the horizontal toolbar for left and right arrow keys
 			const targetElement = event.target;
 
-			// To filter out the events outside the child component
-			if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-				if (
-					targetElement instanceof HTMLElement &&
-					!targetElement.closest(`${childComponentSelector}`)
-				) {
-					return;
-				}
-			} else {
-				if (!(targetElement as HTMLElement)?.closest(`${childComponentSelector}`)) {
-					return;
-				}
+			if (
+				targetElement instanceof HTMLElement &&
+				!targetElement.closest(`${childComponentSelector}`)
+			) {
+				return;
 			}
 
-			// The key events are from child components such as dropdown menus / popups are ignored
-			if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-				if (
-					(targetElement instanceof HTMLElement &&
-						document
-							.querySelector(
-								'[data-role="droplistContent"], [data-test-id="color-picker-menu"], [data-emoji-picker-container="true"]',
-							)
-							?.contains(targetElement)) ||
-					(targetElement instanceof HTMLElement &&
-						document
-							.querySelector('[data-test-id="color-picker-menu"]')
-							?.contains(targetElement)) ||
-					event.key === 'ArrowUp' ||
-					event.key === 'ArrowDown' ||
-					disableArrowKeyNavigation
-				) {
-					return;
-				}
-			} else {
-				if (
+			if (
+				(targetElement instanceof HTMLElement &&
 					document
 						.querySelector(
 							'[data-role="droplistContent"], [data-test-id="color-picker-menu"], [data-emoji-picker-container="true"]',
 						)
-						?.contains(targetElement as HTMLElement) ||
-					document
-						.querySelector('[data-test-id="color-picker-menu"]')
-						?.contains(targetElement as HTMLElement) ||
-					event.key === 'ArrowUp' ||
-					event.key === 'ArrowDown' ||
-					disableArrowKeyNavigation
-				) {
-					return;
-				}
+						?.contains(targetElement)) ||
+				(targetElement instanceof HTMLElement &&
+					document.querySelector('[data-test-id="color-picker-menu"]')?.contains(targetElement)) ||
+				event.key === 'ArrowUp' ||
+				event.key === 'ArrowDown' ||
+				disableArrowKeyNavigation
+			) {
+				return;
 			}
 			const menuWrapper = document.querySelector('.menu-key-handler-wrapper');
 			if (menuWrapper) {
@@ -205,27 +177,14 @@ export const ToolbarArrowKeyNavigationProvider = ({
 				return;
 			}
 
-			// This is kind of hack to reset the current focused toolbar item
-			// to handle some use cases such as Tab in/out of main toolbar
-			if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-				if (targetElement instanceof HTMLElement && !wrapperRef.current?.contains(targetElement)) {
-					selectedItemIndex.current = -1;
-				} else {
-					selectedItemIndex.current =
-						targetElement instanceof HTMLElement &&
-						filteredFocusableElements.indexOf(targetElement) > -1
-							? filteredFocusableElements.indexOf(targetElement)
-							: selectedItemIndex.current;
-				}
+			if (targetElement instanceof HTMLElement && !wrapperRef.current?.contains(targetElement)) {
+				selectedItemIndex.current = -1;
 			} else {
-				if (!wrapperRef.current?.contains(targetElement as HTMLElement)) {
-					selectedItemIndex.current = -1;
-				} else {
-					selectedItemIndex.current =
-						filteredFocusableElements.indexOf(targetElement as HTMLElement) > -1
-							? filteredFocusableElements.indexOf(targetElement as HTMLElement)
-							: selectedItemIndex.current;
-				}
+				selectedItemIndex.current =
+					targetElement instanceof HTMLElement &&
+					filteredFocusableElements.indexOf(targetElement) > -1
+						? filteredFocusableElements.indexOf(targetElement)
+						: selectedItemIndex.current;
 			}
 
 			// do not scroll to focused element for sticky toolbar when navigating with arrows to avoid unnesessary scroll jump

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { components, type ValueContainerProps } from '@atlaskit/select';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { type Option, type User } from '../types';

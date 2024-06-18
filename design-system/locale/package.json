@@ -43,14 +43,14 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/select": "^17.10.0",
+		"@atlaskit/select": "^17.11.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/textfield": "^6.3.0",
+		"@atlaskit/textfield": "^6.4.0",
 		"styled-components": "^3.2.6",
 		"typescript": "~5.4.2"
 	},

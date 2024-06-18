@@ -155,10 +155,6 @@ export const ItemViewerV2Base = ({
 
 	useEffect(() => {
 		if (isExternalImageIdentifier(identifier)) {
-			// external images do not need to talk to our backend,
-			// so therefore no need for media-client subscriptions.
-			// just set a successful outcome of type "external-image".
-			setItem(Outcome.successful('external-image'));
 			return;
 		}
 
@@ -167,9 +163,18 @@ export const ItemViewerV2Base = ({
 			createAnalyticsEventRef.current,
 		);
 		startMediaFileUfoExperience();
+	}, [identifier]);
+
+	useEffect(() => {
+		if (isExternalImageIdentifier(identifier)) {
+			// external images do not need to talk to our backend,
+			// so therefore no need for media-client subscriptions.
+			// just set a successful outcome of type "external-image".
+			setItem(Outcome.successful('external-image'));
+			return;
+		}
 
 		// File Subscription
-
 		if (fileState) {
 			const { status } = fileState;
 

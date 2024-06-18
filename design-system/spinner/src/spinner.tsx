@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import React, { useContext, useEffect, useLayoutEffect as useRealLayoutEffect } from 'react';
 

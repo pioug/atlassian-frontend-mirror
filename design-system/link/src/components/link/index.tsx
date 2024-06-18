@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type AnchorHTMLAttributes, forwardRef, type Ref } from 'react';
 

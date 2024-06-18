@@ -1,5 +1,6 @@
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4044
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import type { Color as StatusColor } from '@atlaskit/status/element';

@@ -42,12 +42,12 @@
 	"dependencies": {
 		"@atlaskit/button": "^17.17.0",
 		"@atlaskit/checkbox": "^13.4.0",
-		"@atlaskit/form": "^10.3.0",
-		"@atlaskit/icon": "^22.3.0",
-		"@atlaskit/textarea": "^5.4.0",
-		"@atlaskit/theme": "^12.9.0",
-		"@atlaskit/tokens": "^1.50.0",
-		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/form": "^10.4.0",
+		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/textarea": "^5.5.0",
+		"@atlaskit/theme": "^12.10.0",
+		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-transition-group": "^4.4.1"

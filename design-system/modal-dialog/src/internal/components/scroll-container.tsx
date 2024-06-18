@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 
 import React, { forwardRef, useEffect, useRef, useState } from 'react';

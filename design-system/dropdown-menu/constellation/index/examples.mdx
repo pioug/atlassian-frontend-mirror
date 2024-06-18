@@ -16,6 +16,7 @@ import DropdownMenuShouldFlip from '../../examples/constellation/dropdown-menu-s
 import DropdownMenuZIndex from '../../examples/constellation/dropdown-menu-z-index';
 import DropdownMenuDensity from '../../examples/constellation/dropdown-menu-density';
 import DropdownMenuWithoutPortal from '../../examples/constellation/dropdown-menu-without-portal';
+import DropdownMenuFullWidth from '../../examples/constellation/dropdown-menu-full-width';
 import DropdownMenuLabel from '../../examples/constellation/dropdown-menu-label';
 
 ## Appearance
@@ -122,6 +123,14 @@ By default, the dropdown menu content is rendered inside `React.Portal`. Use `sh
 prop to render the content directly after the trigger element.
 
 <Example Component={DropdownMenuWithoutPortal} packageName="@atlaskit/dropdown-menu" />
+
+## Full width dropdown menu
+
+Use `shouldFitContainer` to fit the dropdown menu width to its parent's width. When set to `true`,
+the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`. The
+dropdown menu will be rendered as a sibling to the trigger element, and will be full width.
+
+<Example Component={DropdownMenuFullWidth} packageName="@atlaskit/dropdown-menu" />
 
 ## Accessible labels
 

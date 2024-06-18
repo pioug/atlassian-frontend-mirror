@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.15.2
+
+### Patch Changes
+
+- [#112393](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112393)
+  [`1dd5c741792c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1dd5c741792c2) -
+  ECA11Y-16: Fix detailed list structure for profilecard
+
 ## 19.15.1
 
 ### Patch Changes

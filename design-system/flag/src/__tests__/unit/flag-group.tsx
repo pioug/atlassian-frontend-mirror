@@ -34,7 +34,7 @@ describe('FlagGroup', () => {
 		);
 
 		expect(screen.getByTestId('0')).toBeInTheDocument();
-
+		/* eslint-disable testing-library/no-node-access */
 		const flag1Container = screen.getByTestId('1').parentElement;
 		const flag2Container = screen.getByTestId('2').parentElement;
 		if (flag1Container === null || flag2Container === null) {
@@ -93,7 +93,6 @@ describe('FlagGroup', () => {
 			jest.runAllTimers();
 		});
 		expect(screen.queryByTestId('0')).not.toBeInTheDocument();
-
 		const flag1Container = screen.getByTestId('1').parentElement;
 		const flag2Container = screen.getByTestId('2').parentElement;
 		if (flag1Container === null || flag2Container === null) {

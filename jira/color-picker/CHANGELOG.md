@@ -1,5 +1,14 @@
 # @atlaskit/color-picker
 
+## 3.2.17
+
+### Patch Changes
+
+- [#111482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111482)
+  [`6ec58a4845b8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ec58a4845b8d) -
+  added default implementation at FF false case
+- Updated dependencies
+
 ## 3.2.16
 
 ### Patch Changes

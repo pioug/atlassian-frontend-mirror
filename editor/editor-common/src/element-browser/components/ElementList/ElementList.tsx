@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { Grid } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
@@ -336,11 +337,8 @@ function ElementList({
 											columnCount={columnCount}
 											columnWidth={columnWidth}
 											deferredMeasurementCache={cache}
-											{...(selectedItemIndex && {
-												scrollToCell: {
-													rowIndex: selectedItemIndex / columnCount,
-													columnIndex: selectedItemIndex % columnCount,
-												},
+											{...(selectedItemIndex !== undefined && {
+												scrollToRow: Math.floor(selectedItemIndex / columnCount),
 											})}
 										/>
 									) : (

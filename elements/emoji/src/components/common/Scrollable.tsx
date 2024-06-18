@@ -1,6 +1,7 @@
 // FIXME - FAB-1732 looking at making a shared component for this
 
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { findDOMNode } from 'react-dom';
 import { type MouseEventHandler, PureComponent, type ReactNode, type UIEvent } from 'react';

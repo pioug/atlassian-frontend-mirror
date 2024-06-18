@@ -1,5 +1,14 @@
 # @atlaskit/tag-group
 
+## 10.4.0
+
+### Minor Changes
+
+- [#111016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111016)
+  [`d131599730792`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d131599730792) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
 ## 10.3.0
 
 ### Minor Changes

@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { forwardRef, Fragment, type Ref, useState } from 'react';
 

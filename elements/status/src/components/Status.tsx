@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { PureComponent, type MouseEvent } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
 import {

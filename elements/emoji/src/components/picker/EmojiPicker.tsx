@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import type { ComponentClass } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { ufoExperiences } from '../../util/analytics';

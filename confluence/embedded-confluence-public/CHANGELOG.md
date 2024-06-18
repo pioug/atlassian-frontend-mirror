@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 2.18.0
+
+### Minor Changes
+
+- [#111577](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111577)
+  [`b53341a1a6936`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b53341a1a6936) -
+  Exposing subType top level field on page create methods
+
 ## 2.17.0
 
 ### Minor Changes

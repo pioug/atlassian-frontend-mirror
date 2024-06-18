@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { forwardRef, memo, useMemo, useState } from 'react';
 

@@ -65,6 +65,9 @@ export type MediaViewerErrorReason =
 	| 'codeviewer-load-src'
 	| 'codeviewer-file-size-exceeds'
 	| 'codeviewer-parse-email'
+	| 'svg-img-error'
+	| 'svg-binary-fetch'
+	| 'svg-unknown-error'
 	| 'unsupported';
 
 export type ArchiveViewerErrorReason =

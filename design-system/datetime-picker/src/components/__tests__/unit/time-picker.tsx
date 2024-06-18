@@ -271,8 +271,7 @@ describe('TimePicker', () => {
 	it('should clear the value if the clear button is pressed and the menu should stay closed', () => {
 		const onChangeSpy = jest.fn();
 		render(createTimePicker({ value: '15:32', onChange: onChangeSpy }));
-
-		const clearButton = screen.getByLabelText('clear').parentElement;
+		const clearButton = screen.getByRole('button', { name: /clear/i });
 		if (!clearButton) {
 			throw new Error('Expected button to be non-null');
 		}
@@ -298,7 +297,7 @@ describe('TimePicker', () => {
 			}),
 		);
 
-		const clearButton = screen.getByLabelText('clear').parentElement;
+		const clearButton = screen.getByRole('button', { name: /clear/i });
 		if (!clearButton) {
 			throw new Error('Expected button to be non-null');
 		}

@@ -16,6 +16,8 @@ export default function AllCombinationsExample() {
 				<tr>
 					<td>{name}</td>
 					<td>
+						{/* Anchor content will come from the variations file */}
+						{/*eslint-disable-next-line jsx-a11y/anchor-has-content */}
 						<Link {...props} />
 					</td>
 				</tr>

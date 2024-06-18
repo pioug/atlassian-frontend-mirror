@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import DynamicTable from '../../../index';
@@ -38,39 +38,37 @@ describe('Sorting', () => {
 	}));
 
 	it('should render a button in table head cell if column is sortable', () => {
-		const { getByRole } = render(<DynamicTable caption={caption} head={head} rows={rows} />);
+		render(<DynamicTable caption={caption} head={head} rows={rows} />);
 
-		const sortableHeader = getByRole('columnheader');
-		const sortableHeaderButton = getByRole('button');
+		const sortableHeader = screen.getByRole('columnheader');
+		const sortableHeaderButton = screen.getByRole('button');
 
 		expect(sortableHeader).toContainElement(sortableHeaderButton);
 	});
 
 	it('should render a button with a role description for assistive technologies', () => {
-		const { getByRole } = render(<DynamicTable caption={caption} head={head} rows={rows} />);
+		render(<DynamicTable caption={caption} head={head} rows={rows} />);
 
-		const sortableHeaderButton = getByRole('button');
+		const sortableHeaderButton = screen.getByRole('button');
 
 		expect(sortableHeaderButton).toHaveAttribute('aria-roledescription');
 	});
 
 	it('should not render a button in table head cell if column is not sortable', () => {
-		const { getByRole, queryByRole } = render(
-			<DynamicTable caption={caption} head={headNotSortable} rows={rows} />,
-		);
+		render(<DynamicTable caption={caption} head={headNotSortable} rows={rows} />);
 
-		const sortableHeader = getByRole('columnheader');
-		const sortableHeaderButton = queryByRole('button');
+		const sortableHeader = screen.getByRole('columnheader');
+		const sortableHeaderButton = screen.queryByRole('button');
 
 		expect(sortableHeader).toBeInTheDocument();
-		expect(sortableHeaderButton).toBeNull();
+		expect(sortableHeaderButton).not.toBeInTheDocument();
 	});
 
 	it('should cycle between aria-sort values when sorting by a column if isRankable is false', () => {
-		const { getByRole } = render(<DynamicTable caption={caption} head={head} rows={rows} />);
+		render(<DynamicTable caption={caption} head={head} rows={rows} />);
 
-		const header = getByRole('columnheader');
-		const sortButton = getByRole('button');
+		const header = screen.getByRole('columnheader');
+		const sortButton = screen.getByRole('button');
 
 		expect(header).not.toHaveAttribute('aria-sort');
 
@@ -86,12 +84,10 @@ describe('Sorting', () => {
 	});
 
 	it('should cycle back to no aria-sort attribute after "descending" sort order if isRankable is true', () => {
-		const { getByRole } = render(
-			<DynamicTable caption={caption} head={head} rows={rows} isRankable />,
-		);
+		render(<DynamicTable caption={caption} head={head} rows={rows} isRankable />);
 
-		const header = getByRole('columnheader');
-		const sortButton = getByRole('button');
+		const header = screen.getByRole('columnheader');
+		const sortButton = screen.getByRole('button');
 
 		expect(header).not.toHaveAttribute('aria-sort');
 
@@ -107,12 +103,10 @@ describe('Sorting', () => {
 	});
 
 	it('should keep focus on sort button when using keyboard to cycle through all sorting states', async () => {
-		const { getByRole } = render(
-			<DynamicTable caption={caption} head={head} rows={rows} isRankable />,
-		);
+		render(<DynamicTable caption={caption} head={head} rows={rows} isRankable />);
 
-		const header = getByRole('columnheader');
-		const sortButton = getByRole('button');
+		const header = screen.getByRole('columnheader');
+		const sortButton = screen.getByRole('button');
 		expect(header).not.toHaveAttribute('aria-sort');
 		sortButton.focus();
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -45,35 +45,29 @@ const DropdownCheckboxStateless = () => {
 describe('DropdownMenu with checkbox as item', () => {
 	describe('checkbox stateless', () => {
 		it('select item by click', async () => {
-			const { getByText, findAllByRole } = render(<DropdownCheckboxStateless />);
+			render(<DropdownCheckboxStateless />);
 
-			const trigger = getByText('Select cities');
+			const trigger = screen.getByText('Select cities');
 
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			fireEvent.click(trigger);
 
-			expect(getByText('Sydney')).toBeInTheDocument();
-			expect(getByText('Melbourne')).toBeInTheDocument();
+			expect(screen.getByText('Sydney')).toBeInTheDocument();
+			expect(screen.getByText('Melbourne')).toBeInTheDocument();
 
-			let checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			let checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 
 			expect(checkboxes).toEqual(['false', 'false']);
 
-			const sydney = getByText('Sydney');
-			const melbourne = getByText('Melbourne');
+			const sydney = screen.getByText('Sydney');
+			const melbourne = screen.getByText('Melbourne');
 
-			act(() => {
-				fireEvent.click(sydney);
-			});
+			fireEvent.click(sydney);
 
-			act(() => {
-				fireEvent.click(melbourne);
-			});
+			fireEvent.click(melbourne);
 
-			checkboxes = ((await findAllByRole('menuitemcheckbox')) || []).map((x) =>
+			checkboxes = ((await screen.findAllByRole('menuitemcheckbox')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 

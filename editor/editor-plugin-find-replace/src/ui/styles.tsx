@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
 /* eslint-disable @repo/internal/styles/no-exported-styles */
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';

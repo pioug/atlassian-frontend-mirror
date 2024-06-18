@@ -49,7 +49,7 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -57,8 +57,8 @@
 	},
 	"devDependencies": {
 		"@af/icon-build-process": "^0.6.0",
-		"@atlaskit/textfield": "^6.3.0",
-		"@atlaskit/tooltip": "^18.4.0",
+		"@atlaskit/textfield": "^6.4.0",
+		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"fs-extra": "^4.0.2",

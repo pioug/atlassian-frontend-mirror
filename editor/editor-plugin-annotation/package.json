@@ -41,7 +41,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "^1.2.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
 		"@babel/runtime": "^7.0.0"
 	},

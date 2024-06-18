@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -46,31 +46,25 @@ const LinkCreateWithModal = ({
 }: LinkCreateWithModalProps) => {
 	const intl = useIntl();
 
-	const { getShouldShowWarning } = useExitWarningModal();
-	const [showExitWarning, setShowExitWarning] = useState(false);
+	const { withExitWarning, showExitWarning, setShowExitWarning } = useExitWarningModal();
 
 	const { editViewPayload } = useEditPostCreateModal();
 	const { activePlugin } = useLinkCreatePlugins();
 
-	const handleCancel = useCallback(() => {
-		if (getShouldShowWarning() && !showExitWarning) {
-			setShowExitWarning(true);
-			return;
-		}
-
-		onCancel?.();
-	}, [onCancel, getShouldShowWarning, showExitWarning]);
-
-	const handleCloseExitWarning = useCallback(() => setShowExitWarning(false), []);
+	const handleCloseExitWarning = () => setShowExitWarning(false);
 
 	return (
-		<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure} onCancel={handleCancel}>
+		<LinkCreateCallbackProvider
+			onCreate={onCreate}
+			onFailure={onFailure}
+			onCancel={withExitWarning(onCancel)}
+		>
 			<ModalTransition>
 				{active && (
 					<Modal
 						testId="link-create-modal"
 						screen={SCREEN_ID}
-						onClose={handleCancel}
+						onClose={withExitWarning(onCancel)}
 						shouldScrollInViewport={true}
 						onOpenComplete={onOpenComplete}
 						onCloseComplete={onCloseComplete}

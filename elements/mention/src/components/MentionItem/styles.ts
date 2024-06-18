@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import { N900, N100, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

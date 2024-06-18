@@ -6,7 +6,6 @@ import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ResizeState } from '../pm-plugins/table-resizing/utils';
 import {
@@ -118,11 +117,7 @@ export const rescaleColumns =
 		const newTable = tr.doc.nodeAt(table.pos);
 		const domAtPos = view.domAtPos.bind(view);
 		const maybeTable = domAtPos(table.start).node;
-		const maybeTableElement = getBooleanFF('platform.editor.explicit-html-element-check')
-			? maybeTable instanceof HTMLElement
-				? maybeTable
-				: null
-			: (maybeTable as HTMLElement | null);
+		const maybeTableElement = maybeTable instanceof HTMLElement ? maybeTable : null;
 		const tableRef = maybeTableElement?.closest('table');
 
 		if (!tableRef || !newTable) {

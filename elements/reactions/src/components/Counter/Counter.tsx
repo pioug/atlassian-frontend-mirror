@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { useEffect, useMemo, useRef } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 import { SlideIn, ExitingPersistence, mediumDurationMs } from '@atlaskit/motion';
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports

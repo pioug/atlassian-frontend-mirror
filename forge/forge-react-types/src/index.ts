@@ -59,4 +59,4 @@ export type {
 	ValidMessageProps,
 } from './components/__generated__';
 
-export type { BarChartProps } from './components/charts';
+export type { BarChartProps, StackBarChartProps } from './components/charts';

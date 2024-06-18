@@ -10,3 +10,5 @@ export type BarChartProps = {
 	subTitle?: string;
 	colors?: string[];
 };
+
+export type StackBarChartProps = BarChartProps;

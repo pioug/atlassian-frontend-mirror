@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ChangeEventHandler, type FC, memo, useCallback, useMemo } from 'react';
 

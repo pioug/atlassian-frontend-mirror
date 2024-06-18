@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type CSSProperties, type FC, type ReactNode, useCallback, useState } from 'react';
 

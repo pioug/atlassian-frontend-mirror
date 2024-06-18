@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { Fragment, useContext, useLayoutEffect, useRef, PureComponent } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';

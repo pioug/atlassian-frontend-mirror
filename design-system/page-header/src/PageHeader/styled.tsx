@@ -3,6 +3,9 @@
 // by our consumers. The prop name concerned here is truncateTitle.
 // This can be done in the next lite-mode conversion.
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 
 import React, { type ReactNode } from 'react';

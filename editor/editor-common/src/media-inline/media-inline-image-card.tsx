@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';

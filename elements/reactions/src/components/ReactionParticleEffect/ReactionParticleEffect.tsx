@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import { containerStyle, reactionParticleStyle } from './styles';

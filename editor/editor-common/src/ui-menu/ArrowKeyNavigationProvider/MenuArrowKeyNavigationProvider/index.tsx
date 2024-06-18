@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
 const hasEnabledItems = (list: HTMLElement[]) =>
@@ -100,14 +98,8 @@ export const MenuArrowKeyNavigationProvider = ({
 				return;
 			}
 
-			if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-				if (targetElement instanceof HTMLElement && !wrapperRef.current?.contains(targetElement)) {
-					setCurrentSelectedItemIndex(-1);
-				}
-			} else {
-				if (!wrapperRef.current?.contains(targetElement as HTMLElement)) {
-					setCurrentSelectedItemIndex(-1);
-				}
+			if (targetElement instanceof HTMLElement && !wrapperRef.current?.contains(targetElement)) {
+				setCurrentSelectedItemIndex(-1);
 			}
 
 			switch (event.key) {
@@ -132,64 +124,34 @@ export const MenuArrowKeyNavigationProvider = ({
 				// ArrowLeft/Right on the menu should close the menus
 				// then logic to retain the focus can be handled in the parent components with KeydownHandlerContext
 				case 'ArrowLeft':
-					// Filter out the events from outside the menu
-					if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-						if (
-							targetElement instanceof HTMLElement &&
-							!targetElement.closest('.custom-key-handler-wrapper')
-						) {
-							return;
-						}
-					} else {
-						if (!(targetElement as HTMLElement)?.closest('.custom-key-handler-wrapper')) {
-							return;
-						}
+					if (
+						targetElement instanceof HTMLElement &&
+						!targetElement.closest('.custom-key-handler-wrapper')
+					) {
+						return;
 					}
 					handleClose!(event);
-					if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-						if (
-							targetElement instanceof HTMLElement &&
-							!targetElement.closest('[data-testid="editor-floating-toolbar"]')
-						) {
-							keyDownHandlerContext?.handleArrowLeft();
-						}
-					} else {
-						if (
-							!(targetElement as HTMLElement)?.closest('[data-testid="editor-floating-toolbar"]')
-						) {
-							keyDownHandlerContext?.handleArrowLeft();
-						}
+					if (
+						targetElement instanceof HTMLElement &&
+						!targetElement.closest('[data-testid="editor-floating-toolbar"]')
+					) {
+						keyDownHandlerContext?.handleArrowLeft();
 					}
 					break;
 
 				case 'ArrowRight':
-					// Filter out the events from outside the menu
-					if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-						if (
-							targetElement instanceof HTMLElement &&
-							!targetElement.closest('.custom-key-handler-wrapper')
-						) {
-							return;
-						}
-					} else {
-						if (!(targetElement as HTMLElement).closest('.custom-key-handler-wrapper')) {
-							return;
-						}
+					if (
+						targetElement instanceof HTMLElement &&
+						!targetElement.closest('.custom-key-handler-wrapper')
+					) {
+						return;
 					}
 					handleClose!(event);
-					if (getBooleanFF('platform.editor.explicit-html-element-check')) {
-						if (
-							targetElement instanceof HTMLElement &&
-							!targetElement.closest('[data-testid="editor-floating-toolbar"]')
-						) {
-							keyDownHandlerContext?.handleArrowRight();
-						}
-					} else {
-						if (
-							!(targetElement as HTMLElement).closest('[data-testid="editor-floating-toolbar"]')
-						) {
-							keyDownHandlerContext?.handleArrowRight();
-						}
+					if (
+						targetElement instanceof HTMLElement &&
+						!targetElement.closest('[data-testid="editor-floating-toolbar"]')
+					) {
+						keyDownHandlerContext?.handleArrowRight();
 					}
 					break;
 

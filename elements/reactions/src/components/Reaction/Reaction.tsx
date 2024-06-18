@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';

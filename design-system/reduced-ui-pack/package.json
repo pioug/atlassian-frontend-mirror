@@ -33,7 +33,7 @@
 		"dist/icons-sprite.svg"
 	],
 	"dependencies": {
-		"@atlaskit/theme": "^12.9.0"
+		"@atlaskit/theme": "^12.10.0"
 	},
 	"peerDependencies": {
 		"@atlaskit/css-reset": "^6.9.0",
@@ -41,7 +41,7 @@
 	},
 	"devDependencies": {
 		"@af/yarn-utils": "*",
-		"@atlaskit/icon": "^22.3.0",
+		"@atlaskit/icon": "^22.4.0",
 		"glob": "9.0.0",
 		"jsdom": "^17.0.0",
 		"mkdirp": "^0.5.1",

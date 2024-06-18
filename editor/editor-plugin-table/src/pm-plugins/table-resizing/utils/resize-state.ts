@@ -347,9 +347,7 @@ export const getNewResizeStateFromSelectedColumns = (
 	const maybeTable = domAtPos(table.start).node;
 
 	const maybeTableElement = maybeTable instanceof HTMLElement ? maybeTable : null;
-	const tableRef = getBooleanFF('platform.editor.explicit-html-element-check')
-		? maybeTableElement?.closest('table')
-		: (maybeTable as HTMLElement)?.closest('table');
+	const tableRef = maybeTableElement?.closest('table');
 
 	if (!tableRef) {
 		return;

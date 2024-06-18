@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ErrorMessage, HelperMessage, ValidMessage } from '@atlaskit/form';
@@ -14,8 +14,8 @@ describe('Messages', () => {
 	describe('aria-live attributes', () => {
 		[ErrorMessage, HelperMessage, ValidMessage].forEach((Component, index) => {
 			it(`${Component.name} should have aria-live`, () => {
-				const { getByTestId } = render(<Component {...props} key={index} />);
-				expect(getByTestId('testId')).toHaveAttribute('aria-live', 'polite');
+				render(<Component {...props} key={index} />);
+				expect(screen.getByTestId('testId')).toHaveAttribute('aria-live', 'polite');
 			});
 		});
 	});

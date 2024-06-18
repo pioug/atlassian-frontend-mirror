@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { formatShortcut, type Keymap } from '../../util/keymaps';
 import { tooltipShortcutStyle } from './styles';

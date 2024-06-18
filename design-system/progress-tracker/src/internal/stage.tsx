@@ -1,4 +1,7 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type CSSProperties, PureComponent } from 'react';
 

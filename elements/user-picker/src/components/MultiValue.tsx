@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { Box, xcss } from '@atlaskit/primitives';
 import { components, type OptionType } from '@atlaskit/select';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { AddOptionAvatar } from './AddOptionAvatar';
 import { SizeableAvatar } from './SizeableAvatar';

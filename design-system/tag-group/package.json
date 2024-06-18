@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag-group",
-	"version": "10.3.0",
+	"version": "10.4.0",
 	"description": "A tag group controls the layout and alignment for a collection of tags.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

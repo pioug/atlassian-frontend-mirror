@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 

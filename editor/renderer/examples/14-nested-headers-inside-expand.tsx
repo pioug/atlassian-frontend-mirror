@@ -2,6 +2,7 @@
 import Button from '@atlaskit/button/new';
 import { RadioGroup } from '@atlaskit/radio';
 import type { OptionsPropType } from '@atlaskit/radio/types';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';

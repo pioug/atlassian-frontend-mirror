@@ -12,6 +12,10 @@ import { captureException } from '@atlaskit/linking-common/sentry';
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';
 import { useLinkCreateCallback } from '../controllers/callback-context';
+import {
+	ExitWarningModalProvider,
+	useExitWarningModal,
+} from '../controllers/exit-warning-modal-context';
 
 import LinkCreate, { CreateForm, InlineCreate } from './index';
 
@@ -137,13 +141,15 @@ const setupInlineCreate = (props?: Partial<LinkCreateProps>, createError?: Error
 		return (
 			<IntlProvider locale="en">
 				<AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
-					<InlineCreate
-						testId={DEFAULT_TEST_ID}
-						plugins={createPlugins(createError)}
-						entityKey="entity-key"
-						active={true}
-						{...props}
-					/>
+					<ExitWarningModalProvider>
+						<InlineCreate
+							testId={DEFAULT_TEST_ID}
+							plugins={createPlugins(createError)}
+							entityKey="entity-key"
+							active={true}
+							{...props}
+						/>
+					</ExitWarningModalProvider>
 				</AnalyticsListener>
 			</IntlProvider>
 		);
@@ -464,6 +470,63 @@ describe('Confirm dismiss dialog', () => {
 
 	describe('Inline create', () => {
 		runTests(setupInlineCreate);
+
+		describe('withExitWarning', () => {
+			const setup = () => {
+				const mockCallback = jest.fn();
+
+				const Component = () => {
+					const { withExitWarning } = useExitWarningModal();
+
+					return (
+						<>
+							<Button onClick={withExitWarning(mockCallback)} testId="exit-button">
+								Exit
+							</Button>
+
+							<InlineCreate
+								testId={DEFAULT_TEST_ID}
+								plugins={createPlugins()}
+								entityKey="plugin-with-create-form"
+								active={true}
+							/>
+						</>
+					);
+				};
+
+				return {
+					...render(<Component />, { wrapper: ExitWarningModalProvider }),
+					mockCallback,
+				};
+			};
+
+			it('Should not invoke callback and show dialog when changes are made', async () => {
+				const { mockCallback } = setup();
+
+				const textField = screen.getByLabelText(/Enter some Text/i) as HTMLInputElement;
+
+				// User makes changes to the form
+				expect(textField).toBeTruthy();
+				await userEvent.click(textField);
+				await userEvent.keyboard('title text content');
+
+				// exit the form by clicking the custom exit button
+				await userEvent.click(screen.getByTestId('exit-button'));
+
+				expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+
+				expect(mockCallback).not.toHaveBeenCalled();
+			});
+
+			it('Should invoke callback and not show dialog', async () => {
+				const { mockCallback } = setup();
+
+				// exit the form by clicking the custom exit button
+				await userEvent.click(screen.getByTestId('exit-button'));
+
+				expect(mockCallback).toHaveBeenCalled();
+			});
+		});
 	});
 });
 

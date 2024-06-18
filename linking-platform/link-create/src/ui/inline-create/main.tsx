@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
@@ -17,10 +15,7 @@ import {
 	EditPostCreateModalProvider,
 	useEditPostCreateModal,
 } from '../../controllers/edit-post-create-context';
-import {
-	ExitWarningModalProvider,
-	useExitWarningModal,
-} from '../../controllers/exit-warning-modal-context';
+import { useExitWarningModal } from '../../controllers/exit-warning-modal-context';
 import { FormContextProvider } from '../../controllers/form-context';
 import { LinkCreatePluginsProvider, useLinkCreatePlugins } from '../../controllers/plugin-context';
 
@@ -35,25 +30,19 @@ const InlineCreateContent = ({
 	entityKey,
 	testId = DEFAULT_TEST_ID,
 }: LinkCreateProps) => {
-	const { getShouldShowWarning } = useExitWarningModal();
-	const [showExitWarning, setShowExitWarning] = useState(false);
+	const { withExitWarning, showExitWarning, setShowExitWarning } = useExitWarningModal();
 
 	const { editViewPayload } = useEditPostCreateModal();
 	const { activePlugin } = useLinkCreatePlugins();
 
-	const handleCancel = useCallback(() => {
-		if (getShouldShowWarning() && !showExitWarning) {
-			setShowExitWarning(true);
-			return;
-		}
-
-		onCancel?.();
-	}, [onCancel, getShouldShowWarning, showExitWarning]);
-
-	const handleCloseExitWarning = useCallback(() => setShowExitWarning(false), []);
+	const handleCloseExitWarning = () => setShowExitWarning(false);
 
 	return (
-		<LinkCreateCallbackProvider onCreate={onCreate} onFailure={onFailure} onCancel={handleCancel}>
+		<LinkCreateCallbackProvider
+			onCreate={onCreate}
+			onFailure={onFailure}
+			onCancel={withExitWarning(onCancel)}
+		>
 			<ErrorBoundary>
 				<InlineAnalytics screen={SCREEN_ID}>
 					<Box testId={testId}>
@@ -92,25 +81,23 @@ const InlineCreate = (props: LinkCreateProps) => {
 									: undefined
 							}
 						>
-							<ExitWarningModalProvider>
-								<InlineCreateContent
-									{...props}
-									onCreate={async (payload) => {
-										await props.onCreate?.(payload);
+							<InlineCreateContent
+								{...props}
+								onCreate={async (payload) => {
+									await props.onCreate?.(payload);
 
-										// if onComplete exists then there is an edit flow
-										if (props.onComplete) {
-											if (shouldActivateEditView()) {
-												//edit button is pressed
-												setEditViewPayload(payload);
-											} else {
-												//create button is pressed
-												props.onComplete();
-											}
+									// if onComplete exists then there is an edit flow
+									if (props.onComplete) {
+										if (shouldActivateEditView()) {
+											//edit button is pressed
+											setEditViewPayload(payload);
+										} else {
+											//create button is pressed
+											props.onComplete();
 										}
-									}}
-								/>
-							</ExitWarningModalProvider>
+									}
+								}}
+							/>
 						</FormContextProvider>
 					)}
 				</EditPostCreateModalProvider>

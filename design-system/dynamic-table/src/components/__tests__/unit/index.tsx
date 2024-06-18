@@ -42,6 +42,7 @@ describe('@atlaskit/dynamic-table', () => {
 			const table = screen.getByRole('table');
 
 			expect(header).toBeInTheDocument();
+			/* eslint-disable testing-library/no-node-access */
 			expect(table.children.length).toBe(1);
 		});
 		it('should render TableHead when items length is 0 and render EmptyViewContainer if emptyView prop is provided', () => {

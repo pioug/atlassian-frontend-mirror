@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -33,14 +33,12 @@ const DropdownMenuWithRadio = () => {
 describe('DropdownMenu with RadioGroup and Radio', () => {
 	describe('radio', () => {
 		it('should render radio as initially unchecked', async () => {
-			const { findByText, findAllByRole } = render(<DropdownMenuWithRadio />);
+			render(<DropdownMenuWithRadio />);
 
-			const trigger = await findByText('Choices');
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			const trigger = await screen.findByText('Choices');
+			fireEvent.click(trigger);
 
-			let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+			let radios = ((await screen.findAllByRole('menuitemradio')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 
@@ -48,26 +46,22 @@ describe('DropdownMenu with RadioGroup and Radio', () => {
 		});
 
 		it('should toggle the radio when click', async () => {
-			const { findByText, findAllByRole } = render(<DropdownMenuWithRadio />);
+			render(<DropdownMenuWithRadio />);
 
-			const trigger = await findByText('Choices');
-			act(() => {
-				fireEvent.click(trigger);
-			});
+			const trigger = await screen.findByText('Choices');
+			fireEvent.click(trigger);
 
-			let radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+			let radios = ((await screen.findAllByRole('menuitemradio')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 
 			expect(radios).toEqual(['false', 'false']);
 
-			const london = await findByText('London');
+			const london = await screen.findByText('London');
 
-			act(() => {
-				fireEvent.click(london);
-			});
+			fireEvent.click(london);
 
-			radios = ((await findAllByRole('menuitemradio')) || []).map((x) =>
+			radios = ((await screen.findAllByRole('menuitemradio')) || []).map((x) =>
 				x.getAttribute('aria-checked'),
 			);
 

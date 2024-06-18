@@ -2,6 +2,8 @@ import { type CSSProperties } from 'react';
 
 import type { FileIdentifier } from '@atlaskit/media-client';
 
+import { type MediaSVGError } from './errors';
+
 type Dimensions = {
 	width?: number | string;
 	height?: number | string;
@@ -15,7 +17,7 @@ export interface MediaSvgProps {
 	/* Dimensions of the rendered image. Can be pixel or any CSS unit. By default, the image will render to its internal dimension properties. */
 	dimensions?: Dimensions;
 	/* Callback that will be called if an error occurs. */
-	onError?: (error: Error) => void;
+	onError?: (error: MediaSVGError) => void;
 	/* alt text for the image element */
 	alt?: string;
 	/* IMG onLoad callback */

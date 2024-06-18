@@ -2,6 +2,7 @@
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import TextField from '@atlaskit/textfield';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';

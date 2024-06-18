@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type FC, type ReactNode, type CSSProperties } from 'react';
 import { components } from 'react-select';

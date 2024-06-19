@@ -14,7 +14,7 @@ type IdentifierWithParent = Scope.Reference['identifier'] & Rule.NodeParentExten
 
 const isParameter = (context: Rule.RuleContext, identifier: Identifier): boolean => {
 	const definitions = findVariable({
-		sourceCode: context.sourceCode,
+		sourceCode: context.getSourceCode(),
 		identifier: identifier,
 	})?.defs;
 	if (!definitions || !definitions.length) {
@@ -27,7 +27,7 @@ const isParameter = (context: Rule.RuleContext, identifier: Identifier): boolean
 
 const isIdentifierAllowed = (context: Rule.RuleContext, identifier: Identifier): boolean => {
 	const variable = findVariable({
-		sourceCode: context.sourceCode,
+		sourceCode: context.getSourceCode(),
 		identifier: identifier,
 	});
 
@@ -79,7 +79,7 @@ function isPropertyValueAllowed(property: ObjPropertyType, context: Rule.RuleCon
 		property.value.callee.type === 'Identifier'
 	) {
 		const variable = findVariable({
-			sourceCode: context.sourceCode,
+			sourceCode: context.getSourceCode(),
 			identifier: property.value.callee,
 		});
 		// Anything returned by getAllowedFunctionCalls should be used in css prop instead
@@ -98,7 +98,7 @@ function isPropertyValueAllowed(property: ObjPropertyType, context: Rule.RuleCon
 		property.value.object.type === 'Identifier'
 	) {
 		const definitions = findVariable({
-			sourceCode: context.sourceCode,
+			sourceCode: context.getSourceCode(),
 			identifier: property.value.object,
 		})?.defs;
 		if (!definitions || !definitions.length) {

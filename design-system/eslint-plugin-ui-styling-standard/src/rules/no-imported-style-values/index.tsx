@@ -58,7 +58,7 @@ const isIdentifierImported = (
 ): boolean => {
 	const variable = findVariable({
 		identifier: identifier,
-		sourceCode: context.sourceCode,
+		sourceCode: context.getSourceCode(),
 	});
 	if (!variable) {
 		return false;

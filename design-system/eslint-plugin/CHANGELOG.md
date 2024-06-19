@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.8.0
+
+### Minor Changes
+
+- [#111403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111403)
+  [`f6f2f96728bc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6f2f96728bc0) -
+  Marking the `overlay` prop on new Buttons as deprecated.
+
+## 10.7.2
+
+### Patch Changes
+
+- [#112386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112386)
+  [`762c18186f898`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/762c18186f898) -
+  Internal refactoring to use `context.getSourceCode()` instead of `context.sourceCode` to better
+  support older versions of eslint.
+
 ## 10.7.1
 
 ### Patch Changes

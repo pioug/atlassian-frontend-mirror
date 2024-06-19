@@ -40,7 +40,10 @@
 	},
 	"exports": {
 		"./metadata": "./src/entry-points/metadata.ts",
-		"./glyph/*": "./glyph/*",
+		"./glyph/*": {
+			"types": "./glyph/*.d.ts",
+			"default": "./glyph/*.js"
+		},
 		".": "./src/index.ts"
 	},
 	"scripts": {

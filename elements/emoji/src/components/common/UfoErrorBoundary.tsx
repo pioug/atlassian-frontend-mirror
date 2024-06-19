@@ -7,14 +7,16 @@ export class UfoErrorBoundary extends React.Component<{
 }> {
 	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		for (const exp of this.props.experiences) {
+			const { name, message } = error;
+			const infoStack = errorInfo.componentStack && typeof errorInfo.componentStack !== "undefined" ? errorInfo.componentStack : undefined;
 			exp.failure({
 				metadata: {
 					source: 'UfoErrorBoundary',
 					reason: 'error',
 					error: {
-						name: error.name,
-						message: error.message,
-						infoStack: errorInfo.componentStack,
+						name,
+						message,
+						infoStack,
 					},
 				},
 			});

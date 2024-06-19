@@ -137,6 +137,8 @@ export default {
   'fabric.editor.edit.datasource': 'Keresési lekérdezés szerkesztése',
   'fabric.editor.edit.searchInput': 'Link hozzáadása',
   'fabric.editor.editAltText': 'Alternatív szöveg szerkesztése',
+  'fabric.editor.editDatasourceStandalone': 'Szerkesztés',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Keresési lekérdezés szerkesztése',
   'fabric.editor.editDateText': 'Dátum szerkesztése',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Keresési lekérdezés szerkesztése',
   'fabric.editor.editDropdownEditLinkTitle': 'Hivatkozás szerkesztése',
@@ -266,6 +268,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Információ kiemelése színes panelen',
   'fabric.editor.inlineConfigureLink': 'Link konfigurálása',
   'fabric.editor.inlineDescription': 'Link megjelenítése beágyazott szövegként',
+  'fabric.editor.inlineGoToLink': 'Ugrás a linkre',
   'fabric.editor.inlineOverlay': 'Konfigurálás',
   'fabric.editor.inlineTitle': 'Beágyazott',
   'fabric.editor.inputQueryAssistiveTxt':

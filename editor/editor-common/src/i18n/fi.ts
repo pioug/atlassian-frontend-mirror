@@ -134,6 +134,8 @@ export default {
   'fabric.editor.edit.datasource': 'Muokkaa hakukyselyä',
   'fabric.editor.edit.searchInput': 'Lisää linkki',
   'fabric.editor.editAltText': 'Muokkaa vaihtoehtoista tekstiä',
+  'fabric.editor.editDatasourceStandalone': 'Muokkaa',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Muokkaa hakukyselyä',
   'fabric.editor.editDateText': 'Muokkaa päiväystä',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Muokkaa hakukyselyä',
   'fabric.editor.editDropdownEditLinkTitle': 'Muokkaa linkkiä',
@@ -261,6 +263,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Korosta tietoja värillisessä paneelissa',
   'fabric.editor.inlineConfigureLink': 'Määritä linkki',
   'fabric.editor.inlineDescription': 'Näytä linkki sitoutuvana tekstinä',
+  'fabric.editor.inlineGoToLink': 'Siirry linkkiin',
   'fabric.editor.inlineOverlay': 'Muokkaa',
   'fabric.editor.inlineTitle': 'Tekstiin sitoutuva',
   'fabric.editor.inputQueryAssistiveTxt':

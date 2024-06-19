@@ -296,7 +296,7 @@ export const insertRowButtonWrapper = () =>
 			`
     height: 2px;
     top: -11px;
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */ ''}
     left: ${tableInsertColumnButtonSize - 1}px;
   `,
 		),

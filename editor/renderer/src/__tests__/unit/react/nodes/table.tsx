@@ -1362,4 +1362,106 @@ describe('Renderer - React/Nodes/Table', () => {
 			},
 		);
 	});
+
+	describe('SSR - Table widths', () => {
+		const createTable = (width: number, layout: TableLayout) => {
+			return schema.nodeFromJSON({
+				...table(
+					tr([
+						th()(p('Header content 1')),
+						th()(p('Header content 2')),
+						th()(p('Header content 3')),
+					]),
+					tr([td()(p('Body content 1')), td()(p('Body content 2')), td()(p('Body content 3'))]),
+				),
+				attrs: { width, layout },
+			});
+		};
+
+		const createDefaultTable = (displayMode?: string) => {
+			return schema.nodeFromJSON({
+				...table(
+					tr([
+						th()(p('Header content 1')),
+						th()(p('Header content 2')),
+						th()(p('Header content 3')),
+					]),
+					tr([td()(p('Body content 1')), td()(p('Body content 2')), td()(p('Body content 3'))]),
+				),
+				attrs: { layout: 'default', displayMode },
+			});
+		};
+
+		const mountTable = (
+			node: PMNode,
+			columnWidths?: number[],
+			appearance: RendererAppearance = 'full-page',
+			isInsideOfBlockNode = false,
+		) => {
+			return mountWithIntl(
+				<Table
+					layout={node.attrs.layout}
+					rendererAppearance={appearance}
+					isNumberColumnEnabled={false}
+					tableNode={node}
+					columnWidths={columnWidths}
+					isInsideOfBlockNode={isInsideOfBlockNode}
+				>
+					<TableRow>
+						<TableHeader />
+						<TableHeader />
+						<TableHeader />
+					</TableRow>
+					<TableRow>
+						<TableCell />
+						<TableCell />
+						<TableCell />
+					</TableRow>
+				</Table>,
+			);
+		};
+
+		it('table has its own width in full-width renderer with no width', () => {
+			const tableNode = createTable(700, 'wide');
+			const wrap = mountTable(tableNode, undefined, 'full-width', true);
+
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.width).toBe(700);
+			expect(tableContainer.prop('style')!.left).toBe(undefined);
+			wrap.unmount();
+		});
+
+		it('default table should be full width in full-width mode', () => {
+			const tableNode = createDefaultTable();
+			const wrap = mountTable(tableNode, undefined, 'full-width');
+
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.width).toBe(1800);
+			wrap.unmount();
+		});
+
+		ffTest(
+			'platform.editor.table-width-diff-in-renderer_x5s3z',
+			() => {
+				const tableNode = createTable(1200, 'default');
+				const wrap = mountTable(tableNode, undefined, 'full-page');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.width).toBe(31);
+				wrap.unmount();
+			},
+			() => {
+				const tableNode = createTable(600, 'default');
+				const wrap = mountTable(tableNode, undefined, 'full-page');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.width).toBe(600);
+				wrap.unmount();
+			},
+		);
+	});
 });

@@ -1,4 +1,4 @@
-import { type Datasource, type EnvironmentsKeys } from '@atlaskit/linking-common';
+import { type ProductType, type Datasource, type EnvironmentsKeys } from '@atlaskit/linking-common';
 import { EditorCardProvider } from '..';
 import { type LinkAppearance, type ProviderPattern, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
@@ -133,13 +133,17 @@ describe('providers > editor', () => {
 	let mockFetch: jest.Mock;
 
 	// This ensures that @atlaskit/link-provider's client cache gets cleared
-	const setupEditorCardProvider = (envKey?: EnvironmentsKeys, baseUrlOverride?: string) => {
+	const setupEditorCardProvider = (
+		envKey?: EnvironmentsKeys,
+		baseUrlOverride?: string,
+		product?: ProductType,
+	) => {
 		jest.isolateModules(() => {
 			require('..').EditorCardProvider;
 		});
 
 		const IsolatedEditorCardProvider: typeof EditorCardProvider = require('..').EditorCardProvider;
-		return new IsolatedEditorCardProvider(envKey, baseUrlOverride);
+		return new IsolatedEditorCardProvider(envKey, baseUrlOverride, product);
 	};
 
 	beforeEach(() => {
@@ -246,6 +250,62 @@ describe('providers > editor', () => {
 					},
 				]),
 				method: 'post',
+			}),
+		);
+	});
+
+	it('if product is provided, should forward product value as X-Product header in /resolve/batch call', async () => {
+		const provider = setupEditorCardProvider(
+			'stg',
+			'https://trellis.coffee/gateway/api',
+			'CONFLUENCE',
+		);
+
+		mockFetch.mockResolvedValueOnce({
+			json: async () => getMockProvidersResponse(),
+			ok: true,
+		});
+		mockFetch.mockResolvedValueOnce({
+			json: async () => [{ body: mocks.success, status: 200 }],
+			ok: true,
+		});
+		const url = 'https://site-without-pattern.com';
+
+		await provider.findPattern(url);
+
+		expect(mockFetch).toHaveBeenCalledWith(
+			'https://trellis.coffee/gateway/api/object-resolver/resolve/batch',
+			expect.objectContaining({
+				method: 'post',
+				headers: expect.objectContaining({
+					'X-Product': 'CONFLUENCE',
+				}),
+			}),
+		);
+	});
+
+	it('if product is not provided, should not set X-Product header in /resolve/batch call', async () => {
+		const provider = setupEditorCardProvider('stg', 'https://trellis.coffee/gateway/api');
+
+		mockFetch.mockResolvedValueOnce({
+			json: async () => getMockProvidersResponse(),
+			ok: true,
+		});
+		mockFetch.mockResolvedValueOnce({
+			json: async () => [{ body: mocks.success, status: 200 }],
+			ok: true,
+		});
+		const url = 'https://site-without-pattern.com';
+
+		await provider.findPattern(url);
+
+		expect(mockFetch).toHaveBeenCalledWith(
+			'https://trellis.coffee/gateway/api/object-resolver/resolve/batch',
+			expect.objectContaining({
+				method: 'post',
+				headers: expect.not.objectContaining({
+					'X-Product': expect.anything(),
+				}),
 			}),
 		);
 	});

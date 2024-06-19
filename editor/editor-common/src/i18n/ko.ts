@@ -132,6 +132,8 @@ export default {
   'fabric.editor.edit.datasource': '검색 쿼리 편집',
   'fabric.editor.edit.searchInput': '링크 추가',
   'fabric.editor.editAltText': '대체 텍스트 편집',
+  'fabric.editor.editDatasourceStandalone': '편집',
+  'fabric.editor.editDatasourceStandaloneTooltip': '검색 쿼리 편집',
   'fabric.editor.editDateText': '날짜 편집',
   'fabric.editor.editDropdownEditDatasourceTitle': '검색 쿼리 편집',
   'fabric.editor.editDropdownEditLinkTitle': '링크 편집',
@@ -259,6 +261,7 @@ export default {
   'fabric.editor.infoPanel.description': '색상 있는 패널에서 정보 강조 표시',
   'fabric.editor.inlineConfigureLink': '링크 구성',
   'fabric.editor.inlineDescription': '링크를 인라인 텍스트로 표시',
+  'fabric.editor.inlineGoToLink': '링크로 이동',
   'fabric.editor.inlineOverlay': '구성',
   'fabric.editor.inlineTitle': '인라인',
   'fabric.editor.inputQueryAssistiveTxt':

@@ -6,6 +6,7 @@ import {
 	migrateFitContainerButtonToDefaultButtonComment,
 	migrateFitContainerButtonToIconButtonComment,
 	customThemeButtonComment,
+	overlayPropComment,
 	loadingButtonComment,
 } from '../utils/constants';
 
@@ -1154,6 +1155,47 @@ describe('Add comment for custom theme buttons', () => {
       const App = () => (
         /* TODO: (from codemod) ${customThemeButtonComment} */
         <CustomThemeButton />
+      );
+    `,
+	});
+});
+
+describe('Add comment for deprecated overlay prop', () => {
+	check({
+		it: 'should add an inline comment for legacy buttons with overlay props',
+		original: `
+      import Button from '@atlaskit/button';
+      const App = () => (<Button overlay="Loading...">Hello</Button>);
+    `,
+		expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+
+        <Button
+					/* TODO: (from codemod) ${overlayPropComment} */
+					overlay="Loading..."
+				>
+					Hello
+				</Button>
+      );
+    `,
+	});
+	check({
+		it: 'should add an inline comment for legacy custom theme buttons with overlay props',
+		original: `
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+      const App = () => (<CustomThemeButton overlay="Loading...">Hello</CustomThemeButton>);
+    `,
+		expected: `
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+      const App = () => (
+				/* TODO: (from codemod) ${customThemeButtonComment} */
+        <CustomThemeButton
+					/* TODO: (from codemod) ${overlayPropComment} */
+					overlay="Loading..."
+				>
+					Hello
+				</CustomThemeButton>
       );
     `,
 	});

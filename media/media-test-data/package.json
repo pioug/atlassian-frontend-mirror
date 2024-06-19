@@ -38,7 +38,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-client": "^27.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

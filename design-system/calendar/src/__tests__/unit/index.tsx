@@ -10,6 +10,7 @@ import dateToString from '../../internal/utils/date-to-string';
 import { type TabIndex, type WeekDay } from '../../types';
 
 jest.mock('react-uid', () => ({
+	...jest.requireActual('react-uid'),
 	useUIDSeed: () => () => 'react-uid',
 }));
 

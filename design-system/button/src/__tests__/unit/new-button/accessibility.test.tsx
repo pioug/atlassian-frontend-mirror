@@ -66,19 +66,6 @@ variants.forEach(({ name, Component, appearances }) =>
 				);
 				await axe(container);
 			});
-
-			it('should not fail an aXe audit with overlay', async () => {
-				const { container } = render(
-					<Component
-						overlay="Hello"
-						// @ts-ignore
-						appearance={appearance}
-					>
-						Save
-					</Component>,
-				);
-				await axe(container);
-			});
 		});
 	}),
 );

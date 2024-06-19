@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 // disable these two rules, there is no good way to query node without querySelector
 /* eslint-disable testing-library/no-container,testing-library/no-node-access */

@@ -216,7 +216,7 @@ export const IconWrapper = styled.div(
 	({ isPlaceholder }: PlaceholderProps) => {
 		if (isPlaceholder) {
 			return `
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */ ''}
       background-color: ${token('color.skeleton', colors.N30)};
     `;
 		} else {
@@ -237,7 +237,7 @@ export const TextWrapper = styled.div(
         ${borderRadius}
         width: 125px;
         height: 12px;
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */ ''}
         background-color: ${token('color.skeleton', colors.N30)};
       `;
 		} else {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 193.27.8
+
+### Patch Changes
+
+- [#112143](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112143)
+  [`b7018219e5891`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b7018219e5891) -
+  Updates VR tests to test for case with editor elements
+
 ## 193.27.5
 
 ### Patch Changes

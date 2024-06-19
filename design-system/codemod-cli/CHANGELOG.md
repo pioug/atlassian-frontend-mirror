@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.25.0
+
+### Minor Changes
+
+- [#111403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111403)
+  [`cc57d517bca2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc57d517bca2a) -
+  Migrate to new buttons codemod now adds comment for deprecated `overlay` props.
+
 ## 0.24.4
 
 ### Patch Changes

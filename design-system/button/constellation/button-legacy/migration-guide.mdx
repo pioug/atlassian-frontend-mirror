@@ -139,7 +139,8 @@ migrated automatically yet. Here's what to do in these situations:
 | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `appearance` set to `link` or `subtle link` on non-link buttons | Consider using [semantically correct buttons and links](/components/button/usage#use-buttons-for-actions-and-links-for-navigation) instead, or the new Link component or Anchor primitive. |
 | `style` or `css` props                                          | Consider using [Pressable](/components/primitives/pressable) to build custom buttons with Atlassian Design System styling.                                                                 |
-| `component` property                                            | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                       |
+| `component` prop                                                | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                       |
+| `overlay` prop                                                  | The `overlay` prop has been deprecated in new buttons. It only existed in legacy buttons to support loading spinners, which can be achieved in the new button using the `isLoading` prop.  |
 
 <SectionMessage>
 	Not all old buttons have a 1:1 replacement in the new components. We're still working to cover all

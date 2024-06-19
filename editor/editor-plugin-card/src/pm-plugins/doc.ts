@@ -1,7 +1,4 @@
-import React from 'react';
-
 import isEqual from 'lodash/isEqual';
-import { type IntlShape } from 'react-intl-next';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type { CreateUIAnalyticsEvent, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -22,20 +19,13 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
-import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import type {
 	CardAdf,
 	CardAppearance,
 	DatasourceAdf,
-	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import type {
-	Command,
-	ExtractInjectionAPI,
-	FloatingToolbarItem,
-} from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
 import {
-	getDatasourceType,
 	getLinkCreationAnalyticsEvent,
 	isFromCurrentDomain,
 	nodesBetweenChanged,
@@ -49,12 +39,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
 
-import { type cardPlugin } from '../plugin';
-import { getHyperlinkToolbarSettingsButton } from '../toolbar';
-import type { CardPluginOptions, CardPluginState, Request } from '../types';
-import { EditToolbarButton } from '../ui/EditToolbarButton';
-import { HyperlinkToolbarAppearance } from '../ui/HyperlinkToolbarAppearance';
-import { ToolbarViewedEvent } from '../ui/ToolbarViewedEvent';
+import type { CardPluginState, Request } from '../types';
 import {
 	appearanceForNodeType,
 	isDatasourceConfigEditable,
@@ -68,7 +53,6 @@ import {
 	removeDatasourceStash,
 	resolveCard,
 	setDatasourceStash,
-	showDatasourceModal,
 } from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
@@ -780,139 +764,3 @@ const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
 		}
 	}
 };
-
-export const editDatasource =
-	(datasourceId: string, editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
-	(state, dispatch) => {
-		const datasourceType = getDatasourceType(datasourceId);
-
-		if (dispatch && datasourceType) {
-			const { tr } = state;
-			showDatasourceModal(datasourceType)(tr);
-			// editorAnalyticsApi?.attachAnalyticsEvent(
-			//   buildEditLinkPayload(
-			//     type as
-			//       | ACTION_SUBJECT_ID.CARD_INLINE
-			//       | ACTION_SUBJECT_ID.CARD_BLOCK
-			//       | ACTION_SUBJECT_ID.EMBEDS,
-			//   ),
-			// )(tr);
-			dispatch(tr);
-			return true;
-		}
-		return false;
-	};
-
-export const getStartingToolbarItems = (
-	options: CardPluginOptions,
-	api?: ExtractInjectionAPI<typeof cardPlugin> | undefined,
-) => {
-	return (
-		intl: IntlShape,
-		link: string,
-		providerFactory: ProviderFactory,
-		onEditLink: Command,
-		metadata: { url: string; title: string },
-	): FloatingToolbarItem<Command>[] => {
-		const isEditDropdownEnabled =
-			getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
-			options.platform !== 'mobile' &&
-			options.allowDatasource;
-
-		const editLinkItem: FloatingToolbarItem<Command>[] = isEditDropdownEnabled
-			? [
-					{
-						type: 'custom',
-						fallback: [],
-						render: (editorView) => {
-							if (!editorView) {
-								return null;
-							}
-							return (
-								<EditToolbarButton
-									key="edit-toolbar-button"
-									intl={intl}
-									editorAnalyticsApi={api?.analytics?.actions}
-									url={link}
-									editorView={editorView}
-									onLinkEditClick={onEditLink}
-								/>
-							);
-						},
-					},
-				]
-			: [
-					{
-						id: 'editor.link.edit',
-						testId: 'editor.link.edit',
-						type: 'button',
-						onClick: onEditLink,
-						title: intl.formatMessage(linkToolbarMessages.editLink),
-						showTitle: true,
-						metadata: metadata,
-					},
-					{
-						type: 'separator',
-					},
-				];
-		return [
-			{
-				type: 'custom',
-				fallback: [],
-				render: (editorView) => (
-					<ToolbarViewedEvent
-						key="edit.link.menu.viewed"
-						url={link}
-						display="url"
-						editorView={editorView}
-					/>
-				),
-			},
-			{
-				type: 'custom',
-				fallback: [],
-				render: (editorView) => {
-					if (!editorView) {
-						return null;
-					}
-					return (
-						<HyperlinkToolbarAppearance
-							key="link-appearance"
-							url={link}
-							intl={intl}
-							editorView={editorView}
-							editorState={editorView.state}
-							cardOptions={options}
-							providerFactory={providerFactory}
-							platform={options?.platform}
-							editorAnalyticsApi={api?.analytics?.actions}
-						/>
-					);
-				},
-			},
-			...editLinkItem,
-		];
-	};
-};
-
-export const getEndingToolbarItems =
-	(options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
-	(intl: IntlShape, link: string): FloatingToolbarItem<Command>[] => {
-		if (getBooleanFF('platform.editor.card.inject-settings-button')) {
-			/**
-			 * Require either provider to be supplied (controls link preferences)
-			 * Or explicit user preferences config in order to enable button
-			 */
-			if (options.provider || options.userPreferencesLink) {
-				return [
-					{ type: 'separator' },
-					getHyperlinkToolbarSettingsButton(
-						intl,
-						api?.analytics?.actions,
-						options.userPreferencesLink,
-					),
-				];
-			}
-		}
-		return [];
-	};

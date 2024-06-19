@@ -136,6 +136,8 @@ export default {
   'fabric.editor.edit.datasource': 'Редагувати пошуковий запит',
   'fabric.editor.edit.searchInput': 'Додати посилання',
   'fabric.editor.editAltText': 'Редагувати текст заміщення',
+  'fabric.editor.editDatasourceStandalone': 'Редагувати',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Редагувати пошуковий запит',
   'fabric.editor.editDateText': 'Змінення дати',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Редагувати пошуковий запит',
   'fabric.editor.editDropdownEditLinkTitle': 'Редагування посилання',
@@ -265,6 +267,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Панель із виділеною кольорами інформацією',
   'fabric.editor.inlineConfigureLink': 'Посилання для налаштування',
   'fabric.editor.inlineDescription': 'Показати посилання як вбудований текст',
+  'fabric.editor.inlineGoToLink': 'Перейти за посиланням',
   'fabric.editor.inlineOverlay': 'Налаштування',
   'fabric.editor.inlineTitle': 'У рядку',
   'fabric.editor.inputQueryAssistiveTxt':

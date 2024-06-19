@@ -13,6 +13,7 @@ import PopupContentUpdateExample from '../../examples/constellation/popup-conten
 import PopupSurfaceDetectionExample from '../../examples/constellation/popup-surface-detection';
 import PopupContentWithoutPortalExample from '../../examples/constellation/popup-content-without-portal';
 import PopupWithRoleExample from '../../examples/constellation/popup-with-role';
+import PopupFullWidth from '../../examples/constellation/popup-full-width';
 
 ## Default
 
@@ -104,3 +105,11 @@ roles, but we strongly recommend using only `menu` or `dialog`. When the `role="
 passed, one of the following properties must also be added: `label` or `titleId`.
 
 <Example Component={PopupWithRoleExample} packageName="@atlaskit/popup" />
+
+## Full width
+
+Use `shouldFitContainer` to fit the popup width to its parent's width. When set to `true`, the
+trigger and popup elements will be wrapped in a `div` with `position: relative`. The popup will be
+rendered as a sibling to the trigger element, and will be full width.
+
+<Example Component={PopupFullWidth} packageName="@atlaskit/popup" />

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "10.10.3",
+	"version": "10.11.0",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/button": "^17.22.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/lozenge": "^11.8.0",
 		"@atlaskit/primitives": "^7.4.0",
@@ -44,7 +44,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/avatar": "^21.10.0",
-		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

@@ -28,8 +28,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-utils": "^19.2.0",
-		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/checkbox": "^13.4.0",
+		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/editor-common": "^82.8.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-block-controls": "^1.4.1",

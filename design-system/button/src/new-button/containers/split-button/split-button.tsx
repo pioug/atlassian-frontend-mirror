@@ -1,9 +1,13 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -28,7 +32,7 @@ import { getActions } from './utils';
 
 const baseDividerStyles = css({
 	display: 'inline-flex',
-	width: '1px',
+	width: token('border.width'),
 	position: 'relative',
 	zIndex: 2,
 });
@@ -67,6 +71,10 @@ const dividerAppearance: Record<SplitButtonContextAppearance, SerializedStyles> 
 	navigation: navigationDividerStyles,
 };
 
+const dividerRefreshedOffsetStyles = css({
+	marginInline: `calc(0px - ${token('border.width')})`,
+});
+
 const dividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
 	default: defaultDividerStyles,
 	compact: compactDividerStyles,
@@ -90,6 +98,8 @@ export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProp
 				dividerHeight[spacing],
 				dividerAppearance[appearance],
 				isDisabled ? dividerDisabledStyles : undefined,
+				getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
+					dividerRefreshedOffsetStyles,
 			]}
 		/>
 	);
@@ -117,11 +127,37 @@ const secondaryButtonStyles = css({
 		borderStartStartRadius: 0,
 	},
 });
+
+const defaultAppearanceContainerStyles = css({
+	borderRadius: token('border.radius', '3px'),
+	outlineColor: token('color.border'),
+	outlineOffset: `calc(0px - ${token('border.width')})`,
+	outlineStyle: 'solid',
+	outlineWidth: token('border.width'),
+});
+
 /**
  * TODO: Add JSdoc
  */
-export const SplitButtonContainer = ({ children }: { children: ReactNode }) => {
-	return <div css={splitButtonStyles}>{children}</div>;
+export const SplitButtonContainer = ({
+	appearance,
+	children,
+}: {
+	appearance: SplitButtonAppearance;
+	children: ReactNode;
+}) => {
+	return (
+		<div
+			css={[
+				getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
+					appearance === 'default' &&
+					defaultAppearanceContainerStyles,
+				splitButtonStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
 };
 
 /**
@@ -142,7 +178,7 @@ export const SplitButton = ({
 	const { PrimaryAction, SecondaryAction } = getActions(children);
 
 	return (
-		<SplitButtonContainer>
+		<SplitButtonContainer appearance={appearance}>
 			<SplitButtonContext.Provider
 				value={{
 					appearance,
@@ -166,6 +202,7 @@ type SplitButtonWithSlotsProps = {
 	isDisabled?: boolean;
 	isSelected?: boolean;
 };
+
 /**
  * TODO: Decide on API
  */
@@ -177,7 +214,7 @@ export const SplitButtonWithSlots = ({
 	isDisabled = false,
 }: SplitButtonWithSlotsProps) => {
 	return (
-		<SplitButtonContainer>
+		<SplitButtonContainer appearance={appearance}>
 			<SplitButtonContext.Provider
 				value={{
 					appearance,

@@ -47,7 +47,7 @@ export class CssMapObjectChecker {
 			// }
 			const variable = findVariable({
 				identifier: value.callee,
-				sourceCode: this.context.sourceCode,
+				sourceCode: this.context.getSourceCode(),
 			});
 			if (
 				!variable ||
@@ -77,7 +77,7 @@ export class CssMapObjectChecker {
 		} else if (value.type === 'Identifier') {
 			const variable = findVariable({
 				identifier: value,
-				sourceCode: this.context.sourceCode,
+				sourceCode: this.context.getSourceCode(),
 			});
 
 			// Get the variable's definition when initialised, and check the first definition that we find.

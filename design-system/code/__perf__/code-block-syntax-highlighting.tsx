@@ -2,7 +2,10 @@ import React from 'react';
 
 import { CodeBlock } from '../src';
 
-export const text = `/** @jsx jsx */
+export const text = `/**
+ * @jsxRuntime classic
+ */
+/** @jsx jsx */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';

@@ -42,7 +42,10 @@
 	},
 	"exports": {
 		"./metadata": "./src/entry-points/metadata.tsx",
-		"./glyph/*": "./glyph/*",
+		"./glyph/*": {
+			"types": "./glyph/*.d.ts",
+			"default": "./glyph/*.js"
+		},
 		".": "./src/index.tsx"
 	},
 	"scripts": {

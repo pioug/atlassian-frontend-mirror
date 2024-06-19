@@ -1,4 +1,7 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 

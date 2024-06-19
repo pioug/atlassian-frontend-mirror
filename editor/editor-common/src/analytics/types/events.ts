@@ -11,6 +11,7 @@ import type {
 import type { AvatarEventPayload } from './avatar';
 import type { ConfigPanelEventPayload } from './config-panel-events';
 import type { CutCopyEventPayload } from './cut-copy-events';
+import type { DatasourceClickedPayload } from './datasource-clicked-events';
 import type { DateEventPayload } from './date-events';
 import type { ElementBrowserEventPayload } from './element-browser-events';
 import type { ElementEventPayload } from './element-events';
@@ -93,6 +94,7 @@ export type AnalyticsEventPayload<T = void> =
 	| LoomEventPayload
 	| MBEEventPayload
 	| HighlightEventPayload
+	| DatasourceClickedPayload
 	| ElementEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

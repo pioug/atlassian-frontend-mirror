@@ -60,6 +60,7 @@ const Example = () => {
 					</Heading>
 					<PickerExamples id="basic" />
 					<Box
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						xcss={xcss({ border: '2px dashed gray', width: 'fit-content' })}
 						onMouseDownCapture={(e: React.MouseEvent<HTMLDivElement>) => e.preventDefault()}
 					>

@@ -7,6 +7,7 @@ import {
 	type CardAppearance,
 	type DatasourceAdf,
 	getStatus,
+	type ProductType,
 } from '@atlaskit/linking-common';
 import { extractPreview } from '@atlaskit/link-extractors';
 import {
@@ -95,7 +96,7 @@ export class EditorCardProvider implements CardProvider {
 	private providersLoader: DataLoader<string, ProvidersData | undefined>;
 	private cardClient: CardClient;
 
-	constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string) {
+	constructor(envKey?: EnvironmentsKeys, baseUrlOverride?: string, product?: ProductType) {
 		this.baseUrl = baseUrlOverride || getBaseUrl(envKey);
 		this.resolverUrl = getResolverUrl(envKey, baseUrlOverride);
 		this.transformer = new Transformer();
@@ -105,7 +106,11 @@ export class EditorCardProvider implements CardProvider {
 		this.providersLoader = new DataLoader((keys) => this.batchProviders(keys), {
 			batchScheduleFn: (callback) => setTimeout(callback, BATCH_WAIT_TIME),
 		});
+
 		this.cardClient = new CardClient(envKey, baseUrlOverride);
+		if (product) {
+			this.cardClient.setProduct(product);
+		}
 	}
 
 	private async batchProviders(

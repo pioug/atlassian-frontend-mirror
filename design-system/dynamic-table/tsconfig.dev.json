@@ -78,6 +78,9 @@
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{
+			"path": "../section-message/tsconfig.app.json"
+		},
+		{
 			"path": "../spinner/tsconfig.app.json"
 		},
 		{

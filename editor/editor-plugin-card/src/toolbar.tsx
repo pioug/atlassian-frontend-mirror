@@ -52,13 +52,15 @@ import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance, CardPlatform } from '@atlaskit/smart-card';
 
-import { changeSelectedCardToText, editDatasource } from './pm-plugins/doc';
+import { changeSelectedCardToText } from '../src/pm-plugins/doc';
+
 import { pluginKey } from './pm-plugins/main';
-import type { CardPluginState } from './types';
+import type { CardPluginOptions, CardPluginState } from './types';
 import { DatasourceAppearanceButton } from './ui/DatasourceAppearanceButton';
-import { EditDatasourceButton } from './ui/EditDatasourceButton';
+import { editDatasource, EditDatasourceButton } from './ui/EditDatasourceButton';
 import { buildEditLinkToolbar, editLink, editLinkToolbarConfig } from './ui/EditLinkToolbar';
 import { EditToolbarButton } from './ui/EditToolbarButton';
+import { HyperlinkToolbarAppearance } from './ui/HyperlinkToolbarAppearance';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { ToolbarViewedEvent } from './ui/ToolbarViewedEvent';
 import {
@@ -392,6 +394,7 @@ const generateToolbarItems =
 									editorAnalyticsApi={editorAnalyticsApi}
 									editorView={editorView}
 									onLinkEditClick={editLink(editorAnalyticsApi, true)}
+									currentAppearance={currentAppearance}
 								/>
 							),
 						},
@@ -537,7 +540,7 @@ const generateToolbarItems =
 							editorAnalyticsApi={editorAnalyticsApi}
 							url={url}
 							editorView={editorView}
-							editorState={state}
+							currentAppearance={currentAppearance}
 						/>
 					),
 				});
@@ -639,7 +642,7 @@ const getDatasourceButtonGroup = (
 				metadata: metadata,
 				className: 'datasource-edit',
 				title: intl.formatMessage(linkToolbarMessages.editDatasource),
-				onClick: editDatasource(datasourceId, editorAnalyticsApi),
+				onClick: editDatasource(datasourceId, editorAnalyticsApi, 'datasource'),
 				testId: 'datasource-edit-button',
 			},
 			{ type: 'separator' },
@@ -727,6 +730,7 @@ const getDatasourceButtonGroup = (
 					editorAnalyticsApi={editorAnalyticsApi}
 					editorView={editorView}
 					onLinkEditClick={editLink(editorAnalyticsApi, false)}
+					currentAppearance="datasource"
 				/>
 			),
 		});
@@ -789,3 +793,118 @@ export const shouldRenderToolbarPulse = (
 		embedEnabled && appearance === 'inline' && status === 'resolved' && isDiscoverabilityEnabled
 	);
 };
+
+export const getStartingToolbarItems = (
+	options: CardPluginOptions,
+	api?: ExtractInjectionAPI<typeof cardPlugin> | undefined,
+) => {
+	return (
+		intl: IntlShape,
+		link: string,
+		providerFactory: ProviderFactory,
+		onEditLink: Command,
+		metadata: { url: string; title: string },
+	): FloatingToolbarItem<Command>[] => {
+		const isEditDropdownEnabled =
+			getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
+			options.platform !== 'mobile' &&
+			options.allowDatasource;
+
+		const editLinkItem: FloatingToolbarItem<Command>[] = isEditDropdownEnabled
+			? [
+					{
+						type: 'custom',
+						fallback: [],
+						render: (editorView) => {
+							if (!editorView) {
+								return null;
+							}
+							return (
+								<EditToolbarButton
+									key="edit-toolbar-button"
+									intl={intl}
+									editorAnalyticsApi={api?.analytics?.actions}
+									url={link}
+									editorView={editorView}
+									onLinkEditClick={onEditLink}
+									currentAppearance="url"
+								/>
+							);
+						},
+					},
+				]
+			: [
+					{
+						id: 'editor.link.edit',
+						testId: 'editor.link.edit',
+						type: 'button',
+						onClick: onEditLink,
+						title: intl.formatMessage(linkToolbarMessages.editLink),
+						showTitle: true,
+						metadata: metadata,
+					},
+					{
+						type: 'separator',
+					},
+				];
+		return [
+			{
+				type: 'custom',
+				fallback: [],
+				render: (editorView) => (
+					<ToolbarViewedEvent
+						key="edit.link.menu.viewed"
+						url={link}
+						display="url"
+						editorView={editorView}
+					/>
+				),
+			},
+			{
+				type: 'custom',
+				fallback: [],
+				render: (editorView) => {
+					if (!editorView) {
+						return null;
+					}
+					return (
+						<HyperlinkToolbarAppearance
+							key="link-appearance"
+							url={link}
+							intl={intl}
+							editorView={editorView}
+							editorState={editorView.state}
+							cardOptions={options}
+							providerFactory={providerFactory}
+							platform={options?.platform}
+							editorAnalyticsApi={api?.analytics?.actions}
+						/>
+					);
+				},
+			},
+			...editLinkItem,
+		];
+	};
+};
+
+export const getEndingToolbarItems =
+	(options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
+	(intl: IntlShape, link: string): FloatingToolbarItem<Command>[] => {
+		if (getBooleanFF('platform.editor.card.inject-settings-button')) {
+			/**
+			 * Require either provider to be supplied (controls link preferences)
+			 * Or explicit user preferences config in order to enable button
+			 */
+			if (options.provider || options.userPreferencesLink) {
+				return [
+					{ type: 'separator' },
+					getHyperlinkToolbarSettingsButton(
+						intl,
+						api?.analytics?.actions,
+						options.userPreferencesLink,
+					),
+				];
+			}
+		}
+		return [];
+	};

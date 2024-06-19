@@ -103,9 +103,9 @@ export class HyperlinkToolbarAppearance extends Component<
 					<EditDatasourceButton
 						url={url}
 						intl={intl}
-						editorState={editorState}
 						editorView={editorView}
 						editorAnalyticsApi={editorAnalyticsApi}
+						currentAppearance="url"
 					/>
 				)}
 				<LinkToolbarAppearance

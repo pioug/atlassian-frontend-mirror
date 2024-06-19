@@ -24,6 +24,7 @@ const IconButton = React.memo(
 		{
 			// Prevent duplicate labels being added.
 			'aria-label': preventedAriaLabel,
+			'aria-labelledby': ariaLabelledBy,
 			analyticsContext,
 			appearance,
 			autoFocus,
@@ -62,6 +63,7 @@ const IconButton = React.memo(
 		const baseProps = useIconButton<HTMLButtonElement>({
 			analyticsContext,
 			appearance,
+			ariaLabelledBy,
 			autoFocus,
 			buttonType: 'button',
 			icon,
@@ -84,6 +86,7 @@ const IconButton = React.memo(
 			ref,
 			shape,
 			spacing,
+			testId,
 			UNSAFE_size,
 		});
 
@@ -109,6 +112,7 @@ const IconButton = React.memo(
 						<Pressable
 							// Top level props
 							{...rest}
+							aria-labelledby={baseProps['aria-labelledby']}
 							type={type}
 							testId={testId}
 							componentName="IconButton"
@@ -171,6 +175,7 @@ const IconButton = React.memo(
 		return (
 			<Pressable
 				{...rest}
+				aria-labelledby={baseProps['aria-labelledby']}
 				ref={baseProps.ref}
 				xcss={baseProps.xcss}
 				isDisabled={baseProps.isDisabled}

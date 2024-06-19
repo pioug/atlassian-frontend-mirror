@@ -1,5 +1,8 @@
 // eslint-disable-file
 export const hundredLineExample = `/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import React, { CSSProperties, forwardRef } from 'react';
 

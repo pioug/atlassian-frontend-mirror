@@ -12,3 +12,5 @@ export type BarChartProps = {
 };
 
 export type StackBarChartProps = BarChartProps;
+export type HorizontalStackBarChartProps = BarChartProps;
+export type HorizontalBarChartProps = BarChartProps;

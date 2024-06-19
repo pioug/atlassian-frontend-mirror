@@ -47,7 +47,7 @@
 		"@atlaskit/editor-plugin-media": "^1.20.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-tables": "^2.7.0",
-		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-common": "^11.2.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
 		"@babel/runtime": "^7.0.0",

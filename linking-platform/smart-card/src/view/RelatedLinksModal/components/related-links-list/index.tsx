@@ -16,6 +16,7 @@ const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 		<Stack testId={testId}>
 			<Box
 				paddingBlockStart="space.050"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				xcss={xcss({
 					font: token('font.heading.xxsmall'),
 					textTransform: 'uppercase',
@@ -33,6 +34,7 @@ const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 				</Box>
 			)}
 			{urls.length === 0 && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<Box paddingBlock="space.100" xcss={xcss({ font: token('font.body.small') })}>
 					<FormattedMessage {...messages.related_links_not_found} />
 				</Box>

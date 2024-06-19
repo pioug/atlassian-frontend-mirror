@@ -268,6 +268,7 @@ export enum ACTION_SUBJECT_ID {
 	DECISION = 'decision',
 	DIVIDER = 'divider',
 	EDIT_LINK = 'editLink',
+	EDIT_DATASOURCE = 'editDatasource',
 	ELEMENT_DRAG_HANDLE = 'elementDragHandle',
 	ELEMENT_DROP_TARGET = 'elementDropTarget',
 	EMBEDS = 'embeds',

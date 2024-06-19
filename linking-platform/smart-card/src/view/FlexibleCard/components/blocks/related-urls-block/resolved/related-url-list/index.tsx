@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl-next';
 
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
@@ -27,11 +27,11 @@ const RelatedUrlList: React.FC<ResolvedResultProps> = ({
 	const intl = useIntl();
 
 	return resolvedResults.length > 0 ? (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<Stack testId={testId} xcss={xcss({ width: '100%' })}>
-			<Box
+			<Pressable
 				onClick={chevronClickHandler}
 				testId={`${testId}-expand-title`}
-				as="button"
 				backgroundColor="color.background.neutral.subtle"
 				aria-expanded={!!isOpen}
 				padding="space.0"
@@ -45,7 +45,7 @@ const RelatedUrlList: React.FC<ResolvedResultProps> = ({
 					/>
 					<ChevronComponent label={getFormattedMessageAsString(intl, title)} size={'medium'} />
 				</Inline>
-			</Box>
+			</Pressable>
 			{isOpen && (
 				<ResolvedResultsStack
 					resolvedResults={resolvedResults}

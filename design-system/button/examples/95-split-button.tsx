@@ -167,16 +167,39 @@ export default () => {
 					</Inline>
 					<Inline space="space.150">
 						<SplitButton>
+							<Button isSelected>Primary action</Button>
+							<IconButton onClick={open} icon={ChevronDownIcon} label="Secondary action" />
+						</SplitButton>
+						<SplitButton>
 							<Button>Primary action</Button>
+							<IconButton
+								isSelected
+								onClick={open}
+								icon={ChevronDownIcon}
+								label="Secondary action"
+							/>
+						</SplitButton>
+						<SplitButton appearance="primary">
+							<Button isSelected>Primary action</Button>
 							<IconButton onClick={open} icon={ChevronDownIcon} label="Secondary action" />
 						</SplitButton>
 						<SplitButton appearance="primary">
 							<Button>Primary action</Button>
-							<IconButton onClick={open} icon={ChevronDownIcon} label="Secondary action" />
+							<IconButton
+								isSelected
+								onClick={open}
+								icon={ChevronDownIcon}
+								label="Secondary action"
+							/>
 						</SplitButton>
 						<SplitButton isDisabled>
 							<Button>Primary action</Button>
-							<IconButton onClick={open} icon={ChevronDownIcon} label="Secondary action" />
+							<IconButton
+								isSelected
+								onClick={open}
+								icon={ChevronDownIcon}
+								label="Secondary action"
+							/>
 						</SplitButton>
 					</Inline>
 				</Stack>

@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 
+import { useCountDown } from '@af/editor-examples-helpers/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import {
@@ -10,8 +11,6 @@ import {
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 // import Button, { ButtonGroup } from '@atlaskit/button';
 import Toggle from '@atlaskit/toggle';
-
-import { useCountDown } from '../example-helpers/hooks/useCountDown';
 
 import { default as FullPageExample } from './5-full-page';
 

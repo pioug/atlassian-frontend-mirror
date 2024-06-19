@@ -7,8 +7,10 @@ import { snapshotInformational } from '@af/visual-regression';
 
 import {
 	BlockExtension,
+	BlockExtensionWithLayout,
 	BlockExtensionWithSmartLink,
 	BodiedExtension,
+	BodiedExtensionWithLayout,
 	BodiedExtensionWithSmartLink,
 	InlineExtension,
 	InlineExtensionCenterAligned,
@@ -283,6 +285,40 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 		await toolbarModel.fullWidth();
+	},
+	featureFlags: {
+		'platform.editor.react-18-portal': true,
+	},
+});
+
+snapshotInformational(BodiedExtensionWithLayout, {
+	description: 'Selected bodied extension label with a layout element',
+	selector: {
+		byTestId: CONTENT_AREA_TEST_ID,
+	},
+	prepare: async (page, component) => {
+		const editor = await EditorPageModel.from({ page });
+		const nodes = EditorNodeContainerModel.from(editor);
+		await nodes.bodiedExtension.click();
+		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
+		await toolbarModel.waitForStable();
+	},
+	featureFlags: {
+		'platform.editor.react-18-portal': true,
+	},
+});
+
+snapshotInformational(BlockExtensionWithLayout, {
+	description: 'Selected block extension label with a layout element',
+	selector: {
+		byTestId: CONTENT_AREA_TEST_ID,
+	},
+	prepare: async (page, component) => {
+		const editor = await EditorPageModel.from({ page });
+		const nodes = EditorNodeContainerModel.from(editor);
+		await nodes.extension.click();
+		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
+		await toolbarModel.waitForStable();
 	},
 	featureFlags: {
 		'platform.editor.react-18-portal': true,

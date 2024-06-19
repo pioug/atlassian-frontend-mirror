@@ -1,8 +1,13 @@
 import React from 'react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { ACTION_SUBJECT_ID, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { ACTION, buildEditLinkPayload, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	type ACTION_SUBJECT_ID,
+	buildEditLinkPayload,
+	type EditorAnalyticsAPI,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import type { HyperlinkAddToolbarProps } from '@atlaskit/editor-common/link';
 import { HyperlinkAddToolbar as HyperlinkToolbar } from '@atlaskit/editor-common/link';

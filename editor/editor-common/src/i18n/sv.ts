@@ -136,6 +136,8 @@ export default {
   'fabric.editor.edit.datasource': 'Redigera sökfråga',
   'fabric.editor.edit.searchInput': 'Lägg till en länk',
   'fabric.editor.editAltText': 'Redigera alternativ text',
+  'fabric.editor.editDatasourceStandalone': 'Redigera',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Redigera sökfråga',
   'fabric.editor.editDateText': 'Redigeringsdatum',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Redigera sökfråga',
   'fabric.editor.editDropdownEditLinkTitle': 'Redigera länk',
@@ -263,6 +265,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Markera information med en färgad panel',
   'fabric.editor.inlineConfigureLink': 'Konfigurera länk',
   'fabric.editor.inlineDescription': 'Visa länk som infogad text',
+  'fabric.editor.inlineGoToLink': 'Gå till länk',
   'fabric.editor.inlineOverlay': 'Konfigurera',
   'fabric.editor.inlineTitle': 'Inline',
   'fabric.editor.inputQueryAssistiveTxt':

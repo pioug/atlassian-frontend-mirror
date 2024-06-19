@@ -1,5 +1,14 @@
 # @atlaskit/ds-explorations
 
+## 4.2.0
+
+### Minor Changes
+
+- [#111878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111878)
+  [`223959ef57c80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/223959ef57c80) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
 ## 4.1.0
 
 ### Minor Changes

@@ -130,6 +130,8 @@ export default {
   'fabric.editor.edit.datasource': '編輯搜尋查詢',
   'fabric.editor.edit.searchInput': '新增連結',
   'fabric.editor.editAltText': '編輯替代文字',
+  'fabric.editor.editDatasourceStandalone': '編輯',
+  'fabric.editor.editDatasourceStandaloneTooltip': '編輯搜尋查詢',
   'fabric.editor.editDateText': '編輯日期',
   'fabric.editor.editDropdownEditDatasourceTitle': '編輯搜尋查詢',
   'fabric.editor.editDropdownEditLinkTitle': '編輯連結',
@@ -256,6 +258,7 @@ export default {
   'fabric.editor.infoPanel.description': '以彩色面板醒目提示資訊',
   'fabric.editor.inlineConfigureLink': '設定連結',
   'fabric.editor.inlineDescription': '將連結顯示為內嵌文字',
+  'fabric.editor.inlineGoToLink': '前往連結',
   'fabric.editor.inlineOverlay': '設定',
   'fabric.editor.inlineTitle': '內嵌',
   'fabric.editor.inputQueryAssistiveTxt':

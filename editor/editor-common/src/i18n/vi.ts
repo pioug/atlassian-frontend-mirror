@@ -133,6 +133,8 @@ export default {
   'fabric.editor.edit.datasource': 'Sửa truy vấn tìm kiếm',
   'fabric.editor.edit.searchInput': 'Thêm một đường liên kết',
   'fabric.editor.editAltText': 'Chỉnh sửa văn bản thay thế',
+  'fabric.editor.editDatasourceStandalone': 'Sửa',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Sửa truy vấn tìm kiếm',
   'fabric.editor.editDateText': 'Sửa ngày',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Sửa truy vấn tìm kiếm',
   'fabric.editor.editDropdownEditLinkTitle': 'Sửa liên kết',
@@ -262,6 +264,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Bôi đậm thông tin bằng ô màu',
   'fabric.editor.inlineConfigureLink': 'Định cấu hình liên kết',
   'fabric.editor.inlineDescription': 'Hiển thị liên kết dưới dạng văn bản nội tuyến',
+  'fabric.editor.inlineGoToLink': 'Đi đến liên kết',
   'fabric.editor.inlineOverlay': 'Đặt cấu hình',
   'fabric.editor.inlineTitle': 'Nội tuyến',
   'fabric.editor.inputQueryAssistiveTxt':

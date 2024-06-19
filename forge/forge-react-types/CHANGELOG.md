@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.17.0
+
+### Minor Changes
+
+- [#111262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111262)
+  [`373f957f5ab2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/373f957f5ab2c) -
+  Added Horizontal Bar Chart to UI Kit
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.16.0
 
 ### Minor Changes

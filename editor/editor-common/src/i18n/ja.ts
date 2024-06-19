@@ -134,6 +134,8 @@ export default {
   'fabric.editor.edit.datasource': '検索クエリを編集',
   'fabric.editor.edit.searchInput': 'リンクを追加',
   'fabric.editor.editAltText': '代替テキストを編集',
+  'fabric.editor.editDatasourceStandalone': '編集',
+  'fabric.editor.editDatasourceStandaloneTooltip': '検索クエリを編集',
   'fabric.editor.editDateText': '日付の編集',
   'fabric.editor.editDropdownEditDatasourceTitle': '検索クエリを編集',
   'fabric.editor.editDropdownEditLinkTitle': 'リンクを編集',
@@ -261,6 +263,7 @@ export default {
   'fabric.editor.infoPanel.description': '色付きのパネルで情報を強調',
   'fabric.editor.inlineConfigureLink': 'リンクを設定',
   'fabric.editor.inlineDescription': 'リンクをインライン テキストとして表示します。',
+  'fabric.editor.inlineGoToLink': 'リンクへ移動',
   'fabric.editor.inlineOverlay': '構成',
   'fabric.editor.inlineTitle': 'インライン',
   'fabric.editor.inputQueryAssistiveTxt':

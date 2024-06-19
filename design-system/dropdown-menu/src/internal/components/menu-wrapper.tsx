@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type KeyboardEvent, type MouseEvent, useContext, useEffect, useLayoutEffect } from 'react';
 

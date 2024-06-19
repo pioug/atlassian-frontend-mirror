@@ -170,7 +170,7 @@ describe('Anchor', () => {
 				// confirm the primitive can't be intentionally misused by
 				// forwarding this prop to Box.
 				// @ts-expect-error
-				as="button"
+				as="div"
 				testId={testId}
 			>
 				Anchor

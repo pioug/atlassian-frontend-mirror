@@ -1,4 +1,7 @@
 /* sample-data.js */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { type FC, type ReactNode } from 'react';
 

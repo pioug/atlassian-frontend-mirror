@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { createEvent, fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
@@ -164,26 +164,6 @@ describe('MediaSvg', () => {
 		const elem = (await findByTestId(testId)) as unknown as HTMLImageElement;
 		expect(elem.getAttribute('data-source')).toBe('local');
 		expect(mediaApi.getFileBinary).toBeCalledTimes(0);
-	});
-
-	it('should disable context menu', async () => {
-		// https://asecurityteam.atlassian.net/browse/PSHELP-42057
-		const [fileItem, identifier] = generateSampleFileItem.svg();
-		const { MockedMediaClientProvider } = createMockedMediaClientProvider({
-			initialItems: fileItem,
-		});
-		const testId = 'media-svg';
-
-		const { findByTestId } = render(
-			<MockedMediaClientProvider>
-				<MediaSvg testId={testId} identifier={identifier} />,
-			</MockedMediaClientProvider>,
-		);
-
-		const img = (await findByTestId(testId)) as unknown as HTMLImageElement;
-		const evt = createEvent.contextMenu(img);
-		fireEvent(img, evt);
-		expect(evt.defaultPrevented).toBe(true);
 	});
 
 	it('should catch unexpected errors', async () => {

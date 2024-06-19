@@ -24,18 +24,15 @@ import {
 } from '@atlaskit/link-datasource';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { queueCardsFromChangedTr } from '../src/pm-plugins/doc';
+
 import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
-import {
-	getEndingToolbarItems,
-	getStartingToolbarItems,
-	queueCardsFromChangedTr,
-} from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
-import { floatingToolbar } from './toolbar';
+import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './toolbar';
 import type { CardPluginOptions, CardPluginState } from './types';
 import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
 import { EditorLinkingPlatformAnalytics } from './ui/EditorLinkingPlatformAnalytics';

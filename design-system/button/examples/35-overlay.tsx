@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-deprecated-apis */
 import React, { useState } from 'react';
 
 import capitalize from 'lodash/capitalize';

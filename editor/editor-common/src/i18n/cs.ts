@@ -136,6 +136,8 @@ export default {
   'fabric.editor.edit.datasource': 'Upravit vyhledávací dotaz',
   'fabric.editor.edit.searchInput': 'Přidat odkaz',
   'fabric.editor.editAltText': 'Upravit alternativní text',
+  'fabric.editor.editDatasourceStandalone': 'Upravit',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Upravit vyhledávací dotaz',
   'fabric.editor.editDateText': 'Upravit datum',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Upravit vyhledávací dotaz',
   'fabric.editor.editDropdownEditLinkTitle': 'Upravit odkaz',
@@ -263,6 +265,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Zvýraznit informace v barevném panelu',
   'fabric.editor.inlineConfigureLink': 'Konfigurovat odkaz',
   'fabric.editor.inlineDescription': 'Zobrazit odkaz jako vložený text',
+  'fabric.editor.inlineGoToLink': 'Přejít na odkaz',
   'fabric.editor.inlineOverlay': 'Konfigurovat',
   'fabric.editor.inlineTitle': 'Vložený',
   'fabric.editor.inputQueryAssistiveTxt':

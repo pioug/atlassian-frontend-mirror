@@ -23,8 +23,9 @@ import { ButtonItem } from '@atlaskit/menu';
 import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { editDatasource } from '../pm-plugins/doc';
-import { isDatasourceConfigEditable } from '../utils';
+import { type CardType } from '../types';
+import { editDatasource } from '../ui/EditDatasourceButton';
+import { focusEditorView, isDatasourceConfigEditable } from '../utils';
 
 import { CardContextProvider } from './CardContextProvider';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
@@ -32,11 +33,12 @@ import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 export interface EditDatasourceToolbarButtonProps {
 	datasourceId?: string;
 	intl: IntlShape;
+	onLinkEditClick: Command;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	url?: string;
 	editorView?: EditorView;
 	cardContext?: CardContext;
-	onLinkEditClick: Command;
+	currentAppearance?: CardType;
 }
 
 const dropdownExpandContainer = css({
@@ -46,8 +48,16 @@ const dropdownExpandContainer = css({
 type EditVariant = 'none' | 'edit-link' | 'edit-datasource' | 'edit-dropdown';
 
 const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProps) => {
-	const { url, cardContext, intl, editorAnalyticsApi, editorView, onLinkEditClick } = props;
-	const response = useFetchDatasourceInfo({
+	const {
+		cardContext,
+		currentAppearance,
+		editorAnalyticsApi,
+		editorView,
+		intl,
+		onLinkEditClick,
+		url,
+	} = props;
+	const { extensionKey, ...response } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
 		url,
 		cardContext,
@@ -56,26 +66,17 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 
 	const [isOpen, setIsOpen] = useState(false);
 	const containerRef = useRef();
+
 	const toggleOpen = () => setIsOpen((open) => !open);
 
 	const onClose = () => setIsOpen(false);
 
-	const dispatchCommand = useCallback(
-		(fn?: Function) => {
-			if (editorView) {
-				fn?.(editorView.state, editorView.dispatch);
-
-				if (!editorView.hasFocus()) {
-					editorView.focus();
-				}
-			}
-		},
-		[editorView],
-	);
-
 	const onEditLink = useCallback(() => {
-		dispatchCommand(onLinkEditClick);
-	}, [dispatchCommand, onLinkEditClick]);
+		if (editorView) {
+			onLinkEditClick(editorView.state, editorView.dispatch);
+			focusEditorView(editorView);
+		}
+	}, [editorView, onLinkEditClick]);
 
 	const editVariant = useMemo<EditVariant>(() => {
 		const hasUrl = url !== null && url !== undefined;
@@ -97,10 +98,16 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 	}, [cardContext?.store, datasourceId, url]);
 
 	const onEditDatasource = useCallback(() => {
-		if (datasourceId) {
-			dispatchCommand(editDatasource(datasourceId, editorAnalyticsApi));
+		if (editorView && datasourceId) {
+			editDatasource(
+				datasourceId,
+				editorAnalyticsApi,
+				currentAppearance,
+				extensionKey,
+			)(editorView.state, editorView.dispatch);
+			focusEditorView(editorView);
 		}
-	}, [dispatchCommand, datasourceId, editorAnalyticsApi]);
+	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
 	switch (editVariant) {
 		case 'edit-link': {
@@ -182,7 +189,15 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 };
 
 export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps) => {
-	const { datasourceId, intl, editorAnalyticsApi, url, editorView, onLinkEditClick } = props;
+	const {
+		currentAppearance,
+		datasourceId,
+		editorAnalyticsApi,
+		editorView,
+		intl,
+		onLinkEditClick,
+		url,
+	} = props;
 	return (
 		<CardContextProvider>
 			{({ cardContext }) => (
@@ -194,6 +209,7 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps) => {
 					editorView={editorView}
 					cardContext={cardContext}
 					onLinkEditClick={onLinkEditClick}
+					currentAppearance={currentAppearance}
 				/>
 			)}
 		</CardContextProvider>

@@ -43,8 +43,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/empty-state": "^7.8.0",
+		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/empty-state": "^7.9.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
@@ -69,7 +69,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/drawer": "^7.11.0",
+		"@atlaskit/drawer": "^7.12.0",
 		"@atlaskit/link-test-helpers": "^7.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

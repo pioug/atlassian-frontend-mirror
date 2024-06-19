@@ -9,7 +9,7 @@
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
-    "./playwright/**/*.ts"  ],
+    "./playwright/**/*.ts", "../editor-examples-helpers/src/utils/useCountDown.ts"  ],
   "compilerOptions": {
     "baseUrl": "./",
     "noErrorTruncation": true

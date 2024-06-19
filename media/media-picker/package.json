@@ -39,9 +39,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/flag": "^15.5.0",
+		"@atlaskit/flag": "^15.6.0",
 		"@atlaskit/icon": "^22.4.0",
-		"@atlaskit/media-client": "^27.2.0",
+		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",
 		"@atlaskit/media-common": "^11.2.0",
 		"@atlaskit/media-ui": "^25.10.0",
@@ -65,7 +65,7 @@
 	"devDependencies": {
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
-		"@atlaskit/button": "^17.17.0",
+		"@atlaskit/button": "^17.22.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-test-helpers": "^33.0.0",
 		"@atlaskit/ssr": "*",

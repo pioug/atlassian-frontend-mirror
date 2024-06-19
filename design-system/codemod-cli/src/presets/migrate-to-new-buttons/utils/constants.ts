@@ -59,6 +59,8 @@ export const migrateFitContainerButtonToIconButtonComment = `"shouldFitContainer
 
 export const customThemeButtonComment = `CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles.`;
 
+export const overlayPropComment = `The 'overlay' prop has been deprecated. This only existed in legacy buttons for supporting loading spinners, which can now be achieved in new buttons using the \`isLoading\` prop. Please remove the \`overlay\` prop and consider using the new \`isLoading\` prop.`;
+
 export const loadingButtonComment = ({
 	hasLinkAppearance,
 	hasHref,

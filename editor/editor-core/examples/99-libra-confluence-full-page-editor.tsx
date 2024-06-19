@@ -20,6 +20,7 @@ import {
 	ExampleViewInlineCommentComponent,
 	getXProductExtensionProvider,
 } from '@atlaskit/editor-test-helpers/example-helpers';
+import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { APIError } from '@atlaskit/linking-common';
@@ -30,7 +31,6 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 
-import { MockActivityResource } from '../example-helpers/activity-provider';
 import type { EditorNextProps, EditorProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';
 

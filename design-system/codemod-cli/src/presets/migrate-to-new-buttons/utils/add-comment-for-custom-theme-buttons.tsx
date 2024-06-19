@@ -2,6 +2,7 @@ import type { API, Collection } from 'jscodeshift';
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import { entryPointsMapping, customThemeButtonComment } from './constants';
+import { addCommentForOverlayProp } from './add-comment-for-overlay-prop';
 
 export const addCommentForCustomThemeButtons = (
 	fileSource: Collection<any>,
@@ -34,6 +35,8 @@ export const addCommentForCustomThemeButtons = (
 	if (!customThemeButtonElement.length) {
 		return;
 	}
+
+	addCommentForOverlayProp(customThemeButtonElement, j);
 
 	addCommentBefore(
 		j,

@@ -60,9 +60,11 @@ function FunctionalComponentColor(props: Props) {
 
 	return (
 		<Tooltip content={label}>
+			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<span css={buttonWrapperStyle}>
 				<button
 					type="button"
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={buttonStyle}
 					aria-label={label}
 					role="radio"

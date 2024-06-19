@@ -137,6 +137,8 @@ export default {
   'fabric.editor.edit.datasource': 'Edytuj zapytanie wyszukiwania',
   'fabric.editor.edit.searchInput': 'Dodaj łącze',
   'fabric.editor.editAltText': 'Edytuj tekst alternatywny',
+  'fabric.editor.editDatasourceStandalone': 'Edytuj',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Edytuj zapytanie wyszukiwania',
   'fabric.editor.editDateText': 'Edytuj datę',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Edytuj zapytanie wyszukiwania',
   'fabric.editor.editDropdownEditLinkTitle': 'Edytuj łącze',
@@ -266,6 +268,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Wyróżnij informacje kolorem',
   'fabric.editor.inlineConfigureLink': 'Konfiguruj łącze',
   'fabric.editor.inlineDescription': 'Wyświetla łącze bezpośrednio w tekście',
+  'fabric.editor.inlineGoToLink': 'Otwórz łącze',
   'fabric.editor.inlineOverlay': 'Konfiguruj',
   'fabric.editor.inlineTitle': 'Bezpośrednio w tekście',
   'fabric.editor.inputQueryAssistiveTxt':

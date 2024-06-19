@@ -3,13 +3,13 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
+import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-import { MockActivityResource } from '../example-helpers/activity-provider';
 import { Editor } from '../src';
 import type { EditorProps } from '../src';
 import CollapsedEditor from '../src/ui/CollapsedEditor';

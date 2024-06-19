@@ -1,5 +1,7 @@
 import React, { Fragment, useRef } from 'react';
 
+import { uid } from 'react-uid';
+
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -7,11 +9,13 @@ import { Box, xcss } from '@atlaskit/primitives';
 import * as colors from '@atlaskit/theme/colors';
 import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
 import { type Appearance, type CommonButtonProps, type Spacing } from '../types';
 
 import blockEvents from './block-events';
+import { LOADING_LABEL } from './constants';
 
 export type ControlledEvents<TagName extends HTMLElement> = Pick<
 	React.DOMAttributes<TagName>,
@@ -42,6 +46,8 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
 	children: React.ReactNode;
 	spacing?: Spacing;
 	isLoading?: boolean;
+	ariaLabel?: string;
+	ariaLabelledBy?: string;
 } & Pick<
 	CommonButtonProps<TagName>,
 	'analyticsContext' | 'autoFocus' | 'interactionName' | 'isDisabled' | 'isSelected' | 'overlay'
@@ -55,6 +61,8 @@ export type UseButtonBaseReturn<TagName extends HTMLElement> = {
 	ref(node: TagName | null): void;
 	children: React.ReactNode;
 	isDisabled: boolean;
+	'aria-label'?: string;
+	'aria-labelledby'?: string;
 } & ControlledEvents<TagName>;
 
 const fontSize: number = getFontSize();
@@ -68,28 +76,26 @@ const buttonStyles = xcss({
 	alignItems: 'baseline',
 	justifyContent: 'center',
 	columnGap: 'space.050',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	background: token('color.background.neutral', colors.N20A),
 	borderRadius: 'border.radius.100',
 	borderWidth: 'border.width.0',
-	// @ts-expect-error
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	color: token('color.text', colors.N500),
 	flexShrink: 0,
 	height: `${32 / fontSize}em`,
 	paddingInlineEnd: 'space.150',
 	paddingInlineStart: 'space.150',
 	textAlign: 'center',
-	transition: 'background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+	transition: 'background 0.1s ease-out',
 	verticalAlign: 'middle',
-	':visited': {
-		// @ts-expect-error
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		color: token('color.text', colors.N500),
+	'::after': {
+		borderRadius: 'inherit',
+		inset: 'space.0',
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		pointerEvents: 'none',
+		position: 'absolute',
 	},
 });
 
-const baseButtonStyles = xcss({
+const hardCodedButtonStyles = xcss({
 	fontFamily: 'inherit',
 	fontSize: 'inherit',
 	fontStyle: 'normal',
@@ -110,7 +116,6 @@ const defaultInteractiveStyles = xcss({
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text', colors.N500),
-		transitionDuration: '0s, 0.15s',
 	},
 	':active': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -118,7 +123,41 @@ const defaultInteractiveStyles = xcss({
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text', colors.B400),
-		transitionDuration: '0s, 0s',
+	},
+});
+
+const defaultInteractiveRefreshedStyles = xcss({
+	':hover': {
+		background: token('color.background.neutral.subtle.hovered'),
+		color: 'color.text.subtle',
+	},
+	':active': {
+		background: token('color.background.neutral.subtle.pressed'),
+		color: 'color.text.subtle',
+	},
+});
+
+const defaultStyles = xcss({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+	background: token('color.background.neutral', colors.N20A),
+	// @ts-expect-error — using tokens for explicit fallback usage.
+	color: token('color.text', colors.N500),
+	':visited': {
+		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		color: token('color.text', colors.N500),
+	},
+});
+
+const defaultRefreshedStyles = xcss({
+	background: token('color.background.neutral.subtle'),
+	color: 'color.text.subtle',
+	'::after': {
+		content: '""',
+		borderColor: 'color.border',
+	},
+	':visited': {
+		color: 'color.text.subtle',
 	},
 });
 
@@ -216,6 +255,14 @@ const subtleStyles = xcss({
 	},
 });
 
+const subtleRefreshedStyles = xcss({
+	background: token('color.background.neutral.subtle', 'transparent'),
+	color: 'color.text.subtle',
+	':visited': {
+		color: 'color.text.subtle',
+	},
+});
+
 const subtleInteractiveStyles = xcss({
 	':hover': {
 		background: token('color.background.neutral.subtle.hovered', '#091e4214'),
@@ -226,6 +273,17 @@ const subtleInteractiveStyles = xcss({
 		background: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
 		// @ts-expect-error
 		color: token('color.text', '#42526E'),
+	},
+});
+
+const subtleInteractiveRefreshedStyles = xcss({
+	':hover': {
+		background: token('color.background.neutral.subtle.hovered', '#091e4214'),
+		color: 'color.text.subtle',
+	},
+	':active': {
+		background: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
+		color: 'color.text.subtle',
 	},
 });
 
@@ -308,6 +366,9 @@ const disabledStyles = xcss({
 		// @ts-expect-error
 		color: token('color.text.disabled'),
 	},
+	'::after': {
+		content: 'none',
+	},
 });
 
 const selectedStyles = xcss({
@@ -320,6 +381,18 @@ const selectedStyles = xcss({
 		// @ts-expect-error
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.selected', colors.N20),
+	},
+});
+
+const selectedRefreshedStyles = xcss({
+	background: token('color.background.selected'),
+	color: 'color.text.selected',
+	'::after': {
+		content: '""',
+		borderColor: 'color.border.selected',
+	},
+	':visited': {
+		color: 'color.text.selected',
 	},
 });
 
@@ -488,7 +561,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 	autoFocus = false,
 	isDisabled: propIsDisabled = false,
 	isLoading = false,
-	isSelected = false,
+	isSelected: propIsSelected = false,
 	// TODO: Separate Icon Button styling from button base
 	isIconButton = false,
 	isCircle = false,
@@ -510,19 +583,30 @@ const useButtonBase = <TagName extends HTMLElement>({
 	ref,
 	shouldFitContainer = false,
 	spacing: propSpacing = 'default',
+	ariaLabel,
+	ariaLabelledBy,
 }: UseButtonBaseArgs<TagName>): UseButtonBaseReturn<TagName> => {
 	const localRef = useRef<TagName | null>(null);
 	const splitButtonContext = useSplitButtonContext();
+	// TODO: Use React 18's useId() hook when we update.
+	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+	const loadingLabelId = uid({ ariaLabelledBy });
 
 	const isSplitButton = Boolean(splitButtonContext);
 	const isNavigationSplitButton = splitButtonContext?.isNavigationSplitButton || false;
 
-	const appearance = splitButtonContext?.appearance || propAppearance;
+	const isDefaultAppearanceSplitButton = splitButtonContext?.appearance === 'default';
+	const appearance =
+		getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
+		isDefaultAppearanceSplitButton
+			? 'subtle'
+			: splitButtonContext?.appearance || propAppearance;
 	const spacing = splitButtonContext?.spacing || propSpacing;
 	const isDisabled = splitButtonContext?.isDisabled || propIsDisabled;
 	const hasOverlay = Boolean(overlay);
 	const isInteractive = !isDisabled && !isLoading && !hasOverlay;
 	const isEffectivelyDisabled = isDisabled || Boolean(overlay);
+	const isSelected = propIsSelected && !isDisabled;
 
 	useAutoFocus(localRef, autoFocus);
 
@@ -531,9 +615,17 @@ const useButtonBase = <TagName extends HTMLElement>({
 		xcss: [
 			getBooleanFF('platform.design-system-team.button-tokenised-typography-styles')
 				? tokenizedButtonStyles
-				: baseButtonStyles,
+				: hardCodedButtonStyles,
 			buttonStyles,
-			appearance === 'default' && isInteractive && defaultInteractiveStyles,
+			appearance === 'default' &&
+				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+					? defaultRefreshedStyles
+					: defaultStyles),
+			appearance === 'default' &&
+				isInteractive &&
+				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+					? defaultInteractiveRefreshedStyles
+					: defaultInteractiveStyles),
 			appearance === 'primary' && primaryStyles,
 			appearance === 'primary' && isInteractive && primaryInteractiveStyles,
 			appearance === 'warning' && warningStyles,
@@ -542,14 +634,24 @@ const useButtonBase = <TagName extends HTMLElement>({
 			appearance === 'danger' && isInteractive && dangerInteractiveStyles,
 			appearance === 'discovery' && discoveryStyles,
 			appearance === 'discovery' && isInteractive && discoveryInteractiveStyles,
-			appearance === 'subtle' && subtleStyles,
-			appearance === 'subtle' && isInteractive && subtleInteractiveStyles,
+			appearance === 'subtle' &&
+				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+					? subtleRefreshedStyles
+					: subtleStyles),
+			appearance === 'subtle' &&
+				isInteractive &&
+				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+					? subtleInteractiveRefreshedStyles
+					: subtleInteractiveStyles),
 			appearance === 'link' && linkStyles,
 			appearance === 'subtle-link' && subtleLinkStyles,
 			!isSelected && (appearance === 'link' || appearance === 'subtle-link')
 				? linkDecorationStyles
 				: linkDecorationUnsetStyles,
-			isSelected && selectedStyles,
+			isSelected &&
+				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+					? selectedRefreshedStyles
+					: selectedStyles),
 			isSelected && isInteractive && selectedInteractiveStyles,
 			// TODO: remove me once we kill color fallbacks
 			isSelected && appearance === 'danger' && selectedDangerStyles,
@@ -588,8 +690,15 @@ const useButtonBase = <TagName extends HTMLElement>({
 						{overlay}
 					</Box>
 				) : null}
+				{isLoading && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
+					<VisuallyHidden id={loadingLabelId}>, Loading</VisuallyHidden>
+				)}
 			</Fragment>
 		),
+		'aria-label':
+			isLoading && ariaLabel && !ariaLabelledBy ? `${ariaLabel} ${LOADING_LABEL}` : ariaLabel,
+		'aria-labelledby':
+			isLoading && ariaLabelledBy ? `${ariaLabelledBy} ${loadingLabelId}` : ariaLabelledBy,
 		...blockEvents(isEffectivelyDisabled, {
 			onClick,
 			onMouseDownCapture,

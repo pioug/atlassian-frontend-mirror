@@ -139,6 +139,8 @@ export default {
   'fabric.editor.edit.datasource': 'Изменить поисковый запрос',
   'fabric.editor.edit.searchInput': 'Добавить ссылку',
   'fabric.editor.editAltText': 'Изменить альтернативный текст',
+  'fabric.editor.editDatasourceStandalone': 'Изменить',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Изменить поисковый запрос',
   'fabric.editor.editDateText': 'Редактирование даты',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Изменить поисковый запрос',
   'fabric.editor.editDropdownEditLinkTitle': 'Изменить ссылку',
@@ -267,6 +269,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Выделение информации цветом',
   'fabric.editor.inlineConfigureLink': 'Настроить ссылку',
   'fabric.editor.inlineDescription': 'Отображение ссылки в виде встроенного текста',
+  'fabric.editor.inlineGoToLink': 'Перейти по ссылке',
   'fabric.editor.inlineOverlay': 'Настроить',
   'fabric.editor.inlineTitle': 'Встроенный текст',
   'fabric.editor.inputQueryAssistiveTxt':

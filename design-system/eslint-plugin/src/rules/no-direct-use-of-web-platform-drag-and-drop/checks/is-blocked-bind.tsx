@@ -16,7 +16,7 @@ export function isBlockedBind(context: Rule.RuleContext, node: CallExpression): 
 		return false;
 	}
 
-	const module = getModuleOfIdentifier(context.sourceCode, 'bind');
+	const module = getModuleOfIdentifier(context.getSourceCode(), 'bind');
 
 	if (module?.moduleName !== 'bind-event-listener') {
 		return false;

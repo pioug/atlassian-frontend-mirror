@@ -1,4 +1,5 @@
 /** @jsx jsx */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import { type FileIdentifier } from '@atlaskit/media-client';
@@ -63,10 +64,6 @@ export const SvgRenderer = ({
 			onMouseDown={onMouseDown}
 			onError={() => {
 				onError && onError(new MediaSVGError('img-error'));
-			}}
-			onContextMenu={(e) => {
-				// Disabled context menu to prevent user from copying the url and open in browser. That causes script execution.
-				e.preventDefault();
 			}}
 		/>
 	);

@@ -137,6 +137,8 @@ export default {
   'fabric.editor.edit.datasource': 'Modifica query di ricerca',
   'fabric.editor.edit.searchInput': 'Aggiungi un link',
   'fabric.editor.editAltText': 'Modifica testo alternativo',
+  'fabric.editor.editDatasourceStandalone': 'Modifica',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Modifica la query di ricerca',
   'fabric.editor.editDateText': 'Modifica data',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Modifica la query di ricerca',
   'fabric.editor.editDropdownEditLinkTitle': 'Modifica il link',
@@ -267,6 +269,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Metti in evidenza l’informazione in un pannello colorato',
   'fabric.editor.inlineConfigureLink': 'Configura il link',
   'fabric.editor.inlineDescription': 'Visualizza il link come testo in linea',
+  'fabric.editor.inlineGoToLink': 'Vai al link',
   'fabric.editor.inlineOverlay': 'Configura',
   'fabric.editor.inlineTitle': 'In linea',
   'fabric.editor.inputQueryAssistiveTxt':

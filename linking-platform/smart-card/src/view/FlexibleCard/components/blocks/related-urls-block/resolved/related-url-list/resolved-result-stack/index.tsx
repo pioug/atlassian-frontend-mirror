@@ -25,6 +25,7 @@ const ResolvedResultsStack: React.FC<ResolvedResultsStackProps> = ({
 			space="space.050"
 			testId={`${testId}-items-wrapper`}
 			as="ul"
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			xcss={xcss({ paddingLeft: 'space.0', marginTop: 'space.0' })}
 		>
 			{resolvedResults.map((resolvedResults, idx) => (

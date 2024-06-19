@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 27.6.2
+
+### Patch Changes
+
+- [#112295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112295)
+  [`e8037887d2086`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8037887d2086) -
+  Migration of Box button primitives to the Pressable primitive.
+- Updated dependencies
+
 ## 27.6.1
 
 ### Patch Changes

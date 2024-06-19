@@ -28,6 +28,7 @@ import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default
 import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
 import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
 import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
+import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';
 
 const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;
@@ -106,6 +107,8 @@ const transformer = (file: FileInfo, api: API): string => {
 				Object.values(OLD_BUTTON_VARIANTS).includes(path.value.openingElement.name.name))
 		);
 	});
+
+	addCommentForOverlayProp(oldButtonElements, j);
 
 	const oldButtonsWithoutUnsupportedProps = oldButtonElements.filter(
 		(path) => !ifHasUnsupportedProps(path.value.openingElement.attributes),

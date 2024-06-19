@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.16.6
+
+### Patch Changes
+
+- [#112386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112386)
+  [`762c18186f898`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/762c18186f898) -
+  Internal refactoring to use `context.getSourceCode()` instead of `context.sourceCode` to better
+  support older versions of eslint.
+
 ## 0.16.5
 
 ### Patch Changes

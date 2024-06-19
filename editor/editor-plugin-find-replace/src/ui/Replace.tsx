@@ -246,7 +246,9 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 
 		return (
 			<Fragment>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={textFieldWrapper}>
 						<Label htmlFor="replace-text-field">Replace with</Label>
 						<Textfield
@@ -280,8 +282,11 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 						)}
 					</div>
 				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate, sectionWrapperJustified]}>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={orderOneStyles}>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton
 								title={this.findNext}
@@ -292,6 +297,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 								disabled={count.total <= 1}
 							/>
 						</div>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={nextPreviousItemStyles}>
 							<FindReplaceTooltipButton
 								title={this.findPrevious}
@@ -305,6 +311,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 
 						<Inline
 							space="space.075"
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							xcss={xcss({
 								// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 								paddingInlineStart: 'space.050',
@@ -331,6 +338,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 							</Button>
 						</Inline>
 					</div>
+					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={orderZeroStyles}>
 						<Button
 							appearance="subtle"

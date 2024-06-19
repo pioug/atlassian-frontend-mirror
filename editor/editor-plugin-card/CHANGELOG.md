@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 2.0.7
+
+### Patch Changes
+
+- [#111799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111799)
+  [`8da4e04d627d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8da4e04d627d5) -
+  Adds analytic events for toolbar edit dropdown for datasources
+
 ## 2.0.6
 
 ### Patch Changes

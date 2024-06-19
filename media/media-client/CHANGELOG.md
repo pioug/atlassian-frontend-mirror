@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 27.3.0
+
+### Minor Changes
+
+- [#112714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112714)
+  [`2a85dbbc4bc4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a85dbbc4bc4f) -
+  CXP-3328 Safeguard getArtifactUrl output with CDN feature flag
+
 ## 27.2.1
 
 ### Patch Changes

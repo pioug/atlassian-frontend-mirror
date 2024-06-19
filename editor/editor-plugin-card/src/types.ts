@@ -20,6 +20,8 @@ import type { EditorCardPluginEvents } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
 import type { DatasourceTableLayout } from './ui/LayoutButton/types';
 
+export type CardType = CardAppearance | 'url' | 'datasource';
+
 export type DatasourceNode = Omit<Node, 'attrs'> & {
 	readonly attrs: DatasourceAdf['attrs'] & Partial<RichMediaAttributes>;
 };

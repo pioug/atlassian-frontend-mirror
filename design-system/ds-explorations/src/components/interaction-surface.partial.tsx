@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Fragment, type ReactNode, useContext } from 'react';
 
@@ -31,11 +34,11 @@ interface InteractionSurfaceProps extends BasePrimitiveProps {
  * @example
  * ```js
  * // a minimal icon button
- * <Box as="button">
+ * <Pressable>
  *   <InteractionSurface>
  *    <WarningIcon label="icon button" />
  *  </InteractionSurface>
- * </Box>
+ * </Pressable>
  * ```
  */
 const InteractionSurface = ({ appearance, children, testId }: InteractionSurfaceProps) => {

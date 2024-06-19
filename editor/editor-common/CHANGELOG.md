@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 82.8.5
+
+### Patch Changes
+
+- [#111799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111799)
+  [`8da4e04d627d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8da4e04d627d5) -
+  Adds analytic events for toolbar edit dropdown for datasources
+
 ## 82.8.4
 
 ### Patch Changes

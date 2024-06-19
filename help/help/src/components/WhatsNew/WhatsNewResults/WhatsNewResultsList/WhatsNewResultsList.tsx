@@ -68,7 +68,8 @@ const WhatsNewResultsList: React.FC<Partial<WhatsNewResultsListInterface> & Prop
 										styles={{
 											border:
 												style === 'secondary'
-													? `2px solid ${token('color.border', colors.N30)}`
+													? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+														`2px solid ${token('color.border', colors.N30)}`
 													: 0,
 											padding:
 												style === 'secondary'

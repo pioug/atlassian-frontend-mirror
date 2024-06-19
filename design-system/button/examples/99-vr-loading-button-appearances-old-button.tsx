@@ -1,4 +1,7 @@
 /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import React from 'react';
 

@@ -1,8 +1,14 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+
+import { Stack } from '@atlaskit/primitives';
+import SectionMessage from '@atlaskit/section-message';
 
 import DynamicTable from '../src';
 
@@ -52,19 +58,24 @@ export default () => {
 	const rows = Array.from({ length: 20 }, (_, id) => createRow(id, suffix.toString()));
 
 	return (
-		<DynamicTable
-			caption={caption}
-			head={head}
-			rows={rows}
-			rowsPerPage={10}
-			defaultPage={1}
-			loadingSpinnerSize="large"
-			isLoading={false}
-			isFixedSize
-			defaultSortKey="status"
-			defaultSortOrder="ASC"
-			onSort={() => console.log('onSort')}
-			onSetPage={() => console.log('onSetPage')}
-		/>
+		<Stack>
+			<SectionMessage>
+				Please note the content of each table cell updates every 3 seconds.
+			</SectionMessage>
+			<DynamicTable
+				caption={caption}
+				head={head}
+				rows={rows}
+				rowsPerPage={10}
+				defaultPage={1}
+				loadingSpinnerSize="large"
+				isLoading={false}
+				isFixedSize
+				defaultSortKey="status"
+				defaultSortOrder="ASC"
+				onSort={() => console.log('onSort')}
+				onSetPage={() => console.log('onSetPage')}
+			/>
+		</Stack>
 	);
 };

@@ -8,15 +8,15 @@ import { FEDRAMP_MODERATE } from '../../common/constants';
  * See [go-is-fedramp](https://go.atlassian.com/is-fedramp)
  */
 export function isFedRamp(): boolean {
+	const global: any = globalThis;
 	// MICROS_PERIMETER is already used by few products, so we need to keep it for backward compatibility
-	// @ts-ignore - This is causing ts errors when this package is being enrolled into jira local consumption so temporarily ts ignoring this line for now
-	const env = globalThis.MICROS_PERIMETER || globalThis.UNSAFE_ATL_CONTEXT_BOUNDARY;
+	const env = global.MICROS_PERIMETER || global.UNSAFE_ATL_CONTEXT_BOUNDARY;
 
 	if (env) {
 		return env === FEDRAMP_MODERATE;
 	}
 
-	const matches = globalThis.location?.hostname?.match(
+	const matches = global.location?.hostname?.match(
 		/atlassian-us-gov-mod\.(com|net)|atlassian-us-gov\.(com|net)|atlassian-fex\.(com|net)|atlassian-stg-fedm\.(com|net)/,
 	);
 

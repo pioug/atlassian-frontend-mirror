@@ -236,14 +236,17 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		});
 
 		const elemAfterInput = (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={afterInputSection}>
 				<div aria-live="polite">
 					{findText && (
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						<span data-testid="textfield-count" css={[countStyles, countStylesAlternateStyles]}>
 							{count.total === 0 ? this.noResultsFound : resultsCount}
 						</span>
 					)}
 				</div>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={matchCaseSection}>
 					<FindReplaceTooltipButton
 						title={this.matchCase}
@@ -259,7 +262,9 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		);
 
 		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={textFieldWrapper}>
 					<Label htmlFor="find-text-field">{this.find}</Label>
 					<Textfield

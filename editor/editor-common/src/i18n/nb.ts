@@ -135,6 +135,8 @@ export default {
   'fabric.editor.edit.datasource': 'Rediger søkespørring',
   'fabric.editor.edit.searchInput': 'Legg til en kobling',
   'fabric.editor.editAltText': 'Rediger alternativ tekst',
+  'fabric.editor.editDatasourceStandalone': 'Rediger',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Rediger søkespørring',
   'fabric.editor.editDateText': 'Rediger dato',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Rediger søkespørring',
   'fabric.editor.editDropdownEditLinkTitle': 'Rediger kobling',
@@ -262,6 +264,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Uthev informasjonen i et farget panel',
   'fabric.editor.inlineConfigureLink': 'Konfigurer kobling',
   'fabric.editor.inlineDescription': 'Vis kobling som innebygd tekst',
+  'fabric.editor.inlineGoToLink': 'Gå til kobling',
   'fabric.editor.inlineOverlay': 'Konfigurer',
   'fabric.editor.inlineTitle': 'Innebygd',
   'fabric.editor.inputQueryAssistiveTxt':

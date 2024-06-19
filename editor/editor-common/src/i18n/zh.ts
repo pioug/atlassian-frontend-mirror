@@ -130,6 +130,8 @@ export default {
   'fabric.editor.edit.datasource': '编辑搜索查询',
   'fabric.editor.edit.searchInput': '添加链接',
   'fabric.editor.editAltText': '编辑替代文本',
+  'fabric.editor.editDatasourceStandalone': '编辑',
+  'fabric.editor.editDatasourceStandaloneTooltip': '编辑搜索查询',
   'fabric.editor.editDateText': '编辑日期',
   'fabric.editor.editDropdownEditDatasourceTitle': '编辑搜索查询',
   'fabric.editor.editDropdownEditLinkTitle': '编辑链接',
@@ -255,6 +257,7 @@ export default {
   'fabric.editor.infoPanel.description': '在彩色面板高亮显示信息',
   'fabric.editor.inlineConfigureLink': '配置链接',
   'fabric.editor.inlineDescription': '以内联文本显示链接',
+  'fabric.editor.inlineGoToLink': '转至链接',
   'fabric.editor.inlineOverlay': '配置',
   'fabric.editor.inlineTitle': '内联',
   'fabric.editor.inputQueryAssistiveTxt':

@@ -16,6 +16,8 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 	{
 		analyticsContext,
 		appearance,
+		'aria-label': ariaLabel,
+		'aria-labelledby': ariaLabelledBy,
 		autoFocus,
 		children,
 		href,
@@ -45,6 +47,8 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 	ref: Ref<HTMLAnchorElement>,
 ) => {
 	const baseProps = useDefaultButton<HTMLAnchorElement>({
+		ariaLabel,
+		ariaLabelledBy,
 		analyticsContext,
 		appearance,
 		autoFocus,
@@ -69,6 +73,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		ref,
 		shouldFitContainer,
 		spacing,
+		testId,
 		UNSAFE_iconAfter_size,
 		UNSAFE_iconBefore_size,
 	});
@@ -77,6 +82,8 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
+			aria-label={baseProps['aria-label']}
+			aria-labelledby={baseProps['aria-labelledby']}
 			ref={baseProps.ref}
 			xcss={baseProps.xcss}
 			onClick={baseProps.onClick}

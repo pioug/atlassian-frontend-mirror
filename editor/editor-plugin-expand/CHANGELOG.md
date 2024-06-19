@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 1.7.5
+
+### Patch Changes
+
+- [#111395](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111395)
+  [`982ae51e945a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/982ae51e945a5) -
+  [ux] ED-23658 A user on a live page in view mode is not able to edit the contents of an expand.
+- Updated dependencies
+
 ## 1.7.4
 
 ### Patch Changes

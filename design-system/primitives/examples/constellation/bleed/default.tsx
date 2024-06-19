@@ -1,9 +1,9 @@
 import React from 'react';
 
 import PersonIcon from '@atlaskit/icon/glyph/person';
-import { Bleed, Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Bleed, Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 
-const boxStyles = xcss({
+const buttonStyles = xcss({
 	padding: 'space.0',
 	color: 'color.text.inverse',
 	borderRadius: 'border.radius.circle',
@@ -27,22 +27,17 @@ export default function Basic() {
 		<Stack space="space.100">
 			<Inline>
 				{['first', 'second', 'third', 'fourth'].map((key) => (
-					<Box
-						key={key}
-						as="button"
-						xcss={boxStyles}
-						backgroundColor="color.background.neutral.bold"
-					>
+					<Pressable key={key} xcss={buttonStyles} backgroundColor="color.background.neutral.bold">
 						<PersonIcon label="An avatar" size="medium" />
-					</Box>
+					</Pressable>
 				))}
 			</Inline>
 			<Inline xcss={nudgeStyles}>
 				{['first', 'second', 'third', 'fourth'].map((key) => (
 					<Bleed inline="space.050" key={key}>
-						<Box as="button" xcss={boxStyles} backgroundColor="color.background.neutral.bold">
+						<Pressable xcss={buttonStyles} backgroundColor="color.background.neutral.bold">
 							<PersonIcon label="An avatar" size="medium" />
-						</Box>
+						</Pressable>
 					</Bleed>
 				))}
 			</Inline>

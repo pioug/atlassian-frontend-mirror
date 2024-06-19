@@ -62,6 +62,7 @@ interface Props {
 
 const buttonStyles = css({
 	padding: '0',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& span': { margin: '0' },
 });
 

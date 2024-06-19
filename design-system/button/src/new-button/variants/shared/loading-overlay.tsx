@@ -38,21 +38,23 @@ export default function renderLoadingOverlay({
 	spacing,
 	isDisabled,
 	isSelected,
+	testId,
 }: {
 	spacing?: ButtonSpacing;
 	appearance?: Appearance;
 	isDisabled?: boolean;
 	isSelected?: boolean;
+	testId?: string;
 }) {
 	return (
 		<Spinner
-			label=", Loading"
 			size={getIconSpacing(spacing)}
 			appearance={getSpinnerAppearance({
 				appearance,
 				isDisabled,
 				isSelected,
 			})}
+			testId={testId ? `${testId}--loading-spinner` : undefined}
 		/>
 	);
 }

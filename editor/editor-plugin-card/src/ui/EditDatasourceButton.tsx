@@ -1,22 +1,32 @@
 /** @jsx jsx */
+import { useCallback } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl-next';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	type EditorAnalyticsAPI,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
+import { type Command } from '@atlaskit/editor-common/types';
 import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator as Separator,
 	SmallerEditIcon,
 } from '@atlaskit/editor-common/ui';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { getDatasourceType } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
 import { Flex } from '@atlaskit/primitives';
 
-import { editDatasource } from '../pm-plugins/doc';
-import { isDatasourceConfigEditable } from '../utils';
+import { showDatasourceModal } from '../pm-plugins/actions';
+import { type CardType } from '../types';
+import { focusEditorView, isDatasourceConfigEditable } from '../utils';
 
 import { CardContextProvider } from './CardContextProvider';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
@@ -26,8 +36,8 @@ export interface EditDatasourceButtonProps {
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	url?: string;
 	editorView?: EditorView;
-	editorState: EditorState;
 	cardContext?: CardContext;
+	currentAppearance?: CardType;
 }
 
 const buttonStyles = css({
@@ -42,13 +52,25 @@ const EditDatasourceButtonWithCardContext = ({
 	editorAnalyticsApi,
 	url,
 	editorView,
-	editorState,
+	currentAppearance,
 }: EditDatasourceButtonProps) => {
-	const { datasourceId } = useFetchDatasourceInfo({
+	const { datasourceId, extensionKey } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
 		url,
 		cardContext,
 	});
+
+	const onEditDatasource = useCallback(() => {
+		if (editorView && datasourceId) {
+			editDatasource(
+				datasourceId,
+				editorAnalyticsApi,
+				currentAppearance,
+				extensionKey,
+			)(editorView.state, editorView.dispatch);
+			focusEditorView(editorView);
+		}
+	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
 	if (!datasourceId || !isDatasourceConfigEditable(datasourceId)) {
 		return null;
@@ -61,13 +83,6 @@ const EditDatasourceButtonWithCardContext = ({
 		}
 	}
 
-	const dispatchCommand = (fn?: Function) => {
-		fn && fn(editorState, editorView && editorView.dispatch);
-		if (editorView && !editorView.hasFocus()) {
-			editorView.focus();
-		}
-	};
-
 	return (
 		<Flex>
 			<Button
@@ -75,7 +90,7 @@ const EditDatasourceButtonWithCardContext = ({
 				title={intl.formatMessage(messages.datasourceTitle)}
 				icon={<SmallerEditIcon />}
 				selected={false}
-				onClick={() => dispatchCommand(editDatasource(datasourceId, editorAnalyticsApi))}
+				onClick={onEditDatasource}
 				testId={'card-edit-datasource-button'}
 			/>
 			<Separator />
@@ -88,7 +103,7 @@ export const EditDatasourceButton = ({
 	editorAnalyticsApi,
 	url,
 	editorView,
-	editorState,
+	currentAppearance,
 }: EditDatasourceButtonProps) => {
 	return (
 		<CardContextProvider>
@@ -98,10 +113,38 @@ export const EditDatasourceButton = ({
 					intl={intl}
 					editorAnalyticsApi={editorAnalyticsApi}
 					editorView={editorView}
-					editorState={editorState}
 					cardContext={cardContext}
+					currentAppearance={currentAppearance}
 				/>
 			)}
 		</CardContextProvider>
 	);
 };
+
+export const editDatasource =
+	(
+		datasourceId: string,
+		editorAnalyticsApi?: EditorAnalyticsAPI,
+		appearance?: CardType,
+		extensionKey?: string,
+	): Command =>
+	(state, dispatch) => {
+		const datasourceType = getDatasourceType(datasourceId);
+		if (dispatch && datasourceType) {
+			const { tr } = state;
+			showDatasourceModal(datasourceType)(tr);
+			editorAnalyticsApi?.attachAnalyticsEvent({
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BUTTON,
+				actionSubjectId: ACTION_SUBJECT_ID.EDIT_DATASOURCE,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					extensionKey,
+					appearance,
+				},
+			})(tr);
+			dispatch(tr);
+			return true;
+		}
+		return false;
+	};

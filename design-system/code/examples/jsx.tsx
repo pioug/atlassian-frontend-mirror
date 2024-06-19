@@ -2,7 +2,10 @@ import React from 'react';
 
 import { CodeBlock } from '../src';
 
-const exampleCodeBlock = `/** @jsx jsx */
+const exampleCodeBlock = `/**
+ * @jsxRuntime classic
+ */
+/** @jsx jsx */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';

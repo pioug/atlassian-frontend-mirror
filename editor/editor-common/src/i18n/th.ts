@@ -133,6 +133,8 @@ export default {
   'fabric.editor.edit.datasource': 'แก้ไขคำถามการค้นหา',
   'fabric.editor.edit.searchInput': 'เพิ่มลิงก์',
   'fabric.editor.editAltText': 'แก้ไขข้อความอธิบายรูปภาพ',
+  'fabric.editor.editDatasourceStandalone': 'แก้ไข',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'แก้ไขคำถามการค้นหา',
   'fabric.editor.editDateText': 'แก้ไขวันที่',
   'fabric.editor.editDropdownEditDatasourceTitle': 'แก้ไขคำถามการค้นหา',
   'fabric.editor.editDropdownEditLinkTitle': 'แก้ไขลิงก์',
@@ -259,6 +261,7 @@ export default {
   'fabric.editor.infoPanel.description': 'ไฮไลท์ข้อมูลในแผงสี',
   'fabric.editor.inlineConfigureLink': 'กำหนดค่าลิงก์',
   'fabric.editor.inlineDescription': 'แสดงลิงก์เป็นข้อความแบบบรรทัดเดียว',
+  'fabric.editor.inlineGoToLink': 'ไปที่ลิงก์',
   'fabric.editor.inlineOverlay': 'กำหนดค่า',
   'fabric.editor.inlineTitle': 'บรรทัดเดียว',
   'fabric.editor.inputQueryAssistiveTxt':

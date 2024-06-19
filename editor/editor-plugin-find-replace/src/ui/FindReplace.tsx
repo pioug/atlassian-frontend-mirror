@@ -144,6 +144,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 		const focusToolbarButton = this.props.focusToolbarButton || (() => {});
 
 		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div ref={this.modalRef} css={[wrapperStyles, wrapperPaddingStyles]}>
 				<Find
 					allowMatchCase={allowMatchCase}
@@ -162,6 +163,7 @@ class FindReplace extends React.PureComponent<FindReplaceProps> {
 					findTyped={this.state.findTyped}
 					setFindTyped={this.setFindTyped}
 				/>
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<hr css={ruleStyles} id="replace-hr-element" />
 				<Replace
 					canReplace={count.total > 0}

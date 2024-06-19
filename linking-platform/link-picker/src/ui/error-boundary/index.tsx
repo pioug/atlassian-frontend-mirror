@@ -1,4 +1,4 @@
-import React, { type ReactNode, useCallback } from 'react';
+import React, { type ErrorInfo, type ReactNode, useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
@@ -7,7 +7,7 @@ import { ANALYTICS_CHANNEL } from '../../common/constants';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { useLinkPickerSessionId } from '../../controllers/session-provider';
 
-import { BaseErrorBoundary, type ErrorBoundaryErrorInfo } from './error-boundary-base';
+import { BaseErrorBoundary } from './error-boundary-base';
 import { ErrorBoundaryFallback } from './error-boundary-fallback';
 
 interface ErrorBoundaryProps {
@@ -19,7 +19,7 @@ export function ErrorBoundary({ children }: ErrorBoundaryProps) {
 	const linkPickerSessionId = useLinkPickerSessionId();
 
 	const handleError = useCallback(
-		(error: Error, info?: ErrorBoundaryErrorInfo) => {
+		(error: Error, info?: ErrorInfo) => {
 			// Fire Analytics event
 			createAnalyticsEvent!(
 				createEventPayload('ui.linkPicker.unhandledErrorCaught', {

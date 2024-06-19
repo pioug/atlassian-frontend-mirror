@@ -23,6 +23,8 @@ const Button = React.memo(
 		{
 			analyticsContext,
 			appearance,
+			'aria-label': ariaLabel,
+			'aria-labelledby': ariaLabelledBy,
 			autoFocus,
 			children,
 			iconAfter,
@@ -53,6 +55,8 @@ const Button = React.memo(
 		ref,
 	) {
 		const baseProps = useDefaultButton<HTMLButtonElement>({
+			ariaLabel,
+			ariaLabelledBy,
 			analyticsContext,
 			appearance,
 			autoFocus,
@@ -78,6 +82,7 @@ const Button = React.memo(
 			ref,
 			shouldFitContainer,
 			spacing,
+			testId,
 			UNSAFE_iconAfter_size,
 			UNSAFE_iconBefore_size,
 		});
@@ -86,6 +91,8 @@ const Button = React.memo(
 			<Pressable
 				// TODO: Remove spread props
 				{...rest}
+				aria-label={baseProps['aria-label']}
+				aria-labelledby={baseProps['aria-labelledby']}
 				ref={baseProps.ref}
 				xcss={baseProps.xcss}
 				isDisabled={baseProps.isDisabled}

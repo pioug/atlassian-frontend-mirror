@@ -12,7 +12,7 @@ variants.forEach(({ name, Component, elementType }) => {
 
 			it('is not focusable', () => {
 				render(
-					<Component testId="button" isLoading>
+					<Component testId="button" isDisabled>
 						Hello
 					</Component>,
 				);
@@ -30,7 +30,7 @@ variants.forEach(({ name, Component, elementType }) => {
 				expect(button).toBeEnabled();
 
 				rerender(
-					<Component testId="button" isLoading>
+					<Component testId="button" isDisabled>
 						Hello
 					</Component>,
 				);

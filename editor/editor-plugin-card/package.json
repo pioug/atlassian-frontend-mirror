@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "2.0.6",
+	"version": "2.0.7",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,9 +37,9 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^36.10.7",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.17.1",
+		"@atlaskit/button": "^17.22.0",
 		"@atlaskit/custom-steps": "^0.2.0",
-		"@atlaskit/dropdown-menu": "^12.12.0",
+		"@atlaskit/dropdown-menu": "^12.13.0",
 		"@atlaskit/editor-common": "^82.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
 		"@atlaskit/editor-plugin-decorations": "^1.1.0",

@@ -522,14 +522,6 @@ export class ExpandNodeView implements NodeView {
 				}
 			}
 
-			if (this.content) {
-				// Disallow interaction/selection inside when collapsed.
-				this.content.setAttribute(
-					'contenteditable',
-					this.getContentEditable(node) ? 'true' : 'false',
-				);
-			}
-
 			this.node = node;
 			this.updateExpandToggleIcon(this.node);
 			return true;
@@ -555,7 +547,10 @@ export class ExpandNodeView implements NodeView {
 	updateExpandBodyContentEditable() {
 		// Disallow interaction/selection inside expand body when collapsed.
 		if (this.content) {
-			this.content.setAttribute('contenteditable', expandedState.get(this.node) ? 'true' : 'false');
+			this.content.setAttribute(
+				'contenteditable',
+				this.getContentEditable(this.node) ? 'true' : 'false',
+			);
 		}
 	}
 

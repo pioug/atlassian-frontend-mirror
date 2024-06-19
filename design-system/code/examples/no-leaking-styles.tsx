@@ -6,7 +6,10 @@ import { CodeBlock } from '../src';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Ignored via go/DSP-18766
 import '!style-loader!css-loader!prismjs/themes/prism-tomorrow.css';
 
-const exampleCodeBlock = `/** @jsx jsx */
+const exampleCodeBlock = `/**
+ * @jsxRuntime classic
+ */
+/** @jsx jsx */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';

@@ -1,1 +1,6 @@
-export type { BarChartProps, StackBarChartProps } from './BarChartProps';
+export type {
+	BarChartProps,
+	StackBarChartProps,
+	HorizontalStackBarChartProps,
+	HorizontalBarChartProps,
+} from './BarChartProps';

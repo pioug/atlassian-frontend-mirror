@@ -133,6 +133,8 @@ export default {
   'fabric.editor.edit.datasource': 'Arama sorgusunu düzenle',
   'fabric.editor.edit.searchInput': 'Bağlantı ekle',
   'fabric.editor.editAltText': 'Alternatif metni düzenle',
+  'fabric.editor.editDatasourceStandalone': 'Düzenle',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Arama sorgusunu düzenle',
   'fabric.editor.editDateText': 'Tarihi Düzenleyin',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Arama sorgusunu düzenle',
   'fabric.editor.editDropdownEditLinkTitle': 'Bağlantıyı düzenle',
@@ -260,6 +262,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Renkli bir panoda bilgileri vurgulayın',
   'fabric.editor.inlineConfigureLink': 'Bağlantıyı yapılandırın',
   'fabric.editor.inlineDescription': 'Bağlantıyı satır içi metin olarak gösterir',
+  'fabric.editor.inlineGoToLink': 'Bağlantıya git',
   'fabric.editor.inlineOverlay': 'Yapılandır',
   'fabric.editor.inlineTitle': 'Satır içi',
   'fabric.editor.inputQueryAssistiveTxt':

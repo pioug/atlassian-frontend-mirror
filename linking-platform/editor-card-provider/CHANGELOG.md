@@ -1,5 +1,14 @@
 # @atlaskit/editor-card-provider
 
+## 3.4.0
+
+### Minor Changes
+
+- [#112094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112094)
+  [`b19771fec1a43`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b19771fec1a43) -
+  Accept additional optional product arg in provider that will be forwarded as X-Product header to
+  ORSbatch resolve endpoint
+
 ## 3.3.6
 
 ### Patch Changes

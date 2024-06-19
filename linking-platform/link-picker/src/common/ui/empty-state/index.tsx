@@ -13,6 +13,7 @@ type EmptyStateProps = {
 export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
 	return (
 		<Flex
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			xcss={xcss({
 				marginBlockStart: 'space.600',
 				marginBlockEnd: 'space.600',

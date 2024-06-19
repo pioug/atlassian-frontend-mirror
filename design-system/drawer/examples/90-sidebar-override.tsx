@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 
 import { Component, type FC, type ReactNode, type SyntheticEvent } from 'react';

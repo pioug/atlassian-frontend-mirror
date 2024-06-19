@@ -7,13 +7,16 @@ import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
 import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
+import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { MockedSmartCardClientNoDelay } from '@atlaskit/media-integration-test-helpers/no-delay-card-client';
 
 import {
+	blockExtensionWithLayoutElement,
 	blockExtensionWithParagraphAboveNodeAdf,
 	blockExtensionWithSmartLinkAdf,
+	bodiedExtensionWithLayoutElement,
 	bodiedExtensionWithParagraphAboveNodeAdf,
 	bodiedExtensionWithSmartLinkAdf,
 	inlineExtensionCenterAlignedAdf,
@@ -33,7 +36,8 @@ const createPreset = () =>
 		.add(gridPlugin)
 		.add([cardPlugin, { platform: 'web' }])
 		.add([extensionPlugin, { extensionHandlers }])
-		.add(alignmentPlugin);
+		.add(alignmentPlugin)
+		.add(layoutPlugin);
 
 export function BlockExtension() {
 	const { preset } = usePreset(createPreset);
@@ -130,5 +134,27 @@ export function InlineExtensionWithSmartLink() {
 				appearance="full-page"
 			/>
 		</SmartCardProvider>
+	);
+}
+
+export function BodiedExtensionWithLayout() {
+	const { preset } = usePreset(createPreset);
+	return (
+		<ComposableEditor
+			defaultValue={bodiedExtensionWithLayoutElement}
+			preset={preset}
+			appearance="full-page"
+		/>
+	);
+}
+
+export function BlockExtensionWithLayout() {
+	const { preset } = usePreset(createPreset);
+	return (
+		<ComposableEditor
+			defaultValue={blockExtensionWithLayoutElement}
+			preset={preset}
+			appearance="full-page"
+		/>
 	);
 }

@@ -5,14 +5,15 @@ const FEDRAMP_MODERATE = 'fedramp-moderate';
 // We cannot import the same-named function from @atlassian/atl-context due to editor-common being a public package (and atl-context being private)
 // TODO: Seek alternatives
 export function isFedRamp(): boolean {
+	const global: any = globalThis;
 	// MICROS_PERIMETER is already used by few products, so we need to keep it for backward compatibility
-	const env = globalThis.MICROS_PERIMETER || globalThis.UNSAFE_ATL_CONTEXT_BOUNDARY;
+	const env = global.MICROS_PERIMETER || global.UNSAFE_ATL_CONTEXT_BOUNDARY;
 
 	if (env) {
 		return env === FEDRAMP_MODERATE;
 	}
 
-	const matches = globalThis.location?.hostname?.match(
+	const matches = global.location?.hostname?.match(
 		/atlassian-us-gov-mod\.(com|net)|atlassian-us-gov\.(com|net)|atlassian-fex\.(com|net)|atlassian-stg-fedm\.(com|net)/,
 	);
 

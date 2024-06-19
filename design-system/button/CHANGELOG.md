@@ -1,5 +1,84 @@
 # @atlaskit/button
 
+## 17.22.0
+
+### Minor Changes
+
+- [`5081c9ca53507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5081c9ca53507) -
+  Correctly handle render props for icons in order to prevent unintentional renders.
+
+## 17.21.0
+
+### Minor Changes
+
+- [#112202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112202)
+  [`60baf23d5f27d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60baf23d5f27d) -
+  Testing a new visual appearance behind a feature flag. If successful it'll be released at a later
+  date.
+
+## 17.20.0
+
+### Minor Changes
+
+- [#111403](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111403)
+  [`f6f2f96728bc0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f6f2f96728bc0) -
+  Marking the `overlay` prop on new Buttons as deprecated.
+
+## 17.19.0
+
+### Minor Changes
+
+- [#111878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111878)
+  [`223959ef57c80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/223959ef57c80) -
+  Explicitly set jsxRuntime to classic via pragma comments in order to avoid issues where jsxRuntime
+  is implicitly set to automatic.
+
+## 17.18.0
+
+### Minor Changes
+
+- [#111486](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111486)
+  [`f848f651ef678`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f848f651ef678) - ###
+  Accessibility improvement
+
+  New buttons now adds ", Loading" to the accessible name of loading buttons regardless of how they
+  are labelled. This supports labelling by text content (`children`), `aria-label`, and
+  `aria-labelledby`.
+
+  The ", Loading" label was previously part of the loading spinner `<svg>`, which has been relocated
+  because this does not support `aria-label` or `aria-labelledby`. Any test locators for loading
+  buttons may need to be updated.
+
+  The most robust way to find loading buttons is by role and accessible name. This accounts for
+  label precedence. For example:
+
+  ```
+  screen.findByRole("button", {
+    name: /, Loading/,
+  })
+  ```
+
+  To validate a loading button that is already located, use `toHaveAccessibleName()`:
+
+  ```
+  render(<Button testId="foo" isLoading>My label</Button>);
+
+  const button = screen.getByTestId("foo");
+  expect(button).toHaveAccessibleName(`My label , Loading`);
+  ```
+
+  For locating loading spinners, a test ID has been added that is based on the button `testId`. For
+  example:
+
+  ```
+  render(<Button isLoading testId="bar">My label</Button>);
+
+
+  const spinner = screen.getByTestId("bar--loading-spinner-wrapper");
+  expect(spinner).toBeInTheDocument();
+
+  ```
+
 ## 17.17.3
 
 ### Patch Changes

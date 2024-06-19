@@ -135,6 +135,8 @@ export default {
   'fabric.editor.edit.datasource': 'Zoekopdracht bewerken',
   'fabric.editor.edit.searchInput': 'Een link toevoegen',
   'fabric.editor.editAltText': 'Alt-tekst bewerken',
+  'fabric.editor.editDatasourceStandalone': 'Bewerken',
+  'fabric.editor.editDatasourceStandaloneTooltip': 'Zoekopdracht bewerken',
   'fabric.editor.editDateText': 'Bewerkingsdatum',
   'fabric.editor.editDropdownEditDatasourceTitle': 'Zoekopdracht bewerken',
   'fabric.editor.editDropdownEditLinkTitle': 'Link bewerken',
@@ -262,6 +264,7 @@ export default {
   'fabric.editor.infoPanel.description': 'Informatie markeren in een gekleurd paneel',
   'fabric.editor.inlineConfigureLink': 'Link configureren',
   'fabric.editor.inlineDescription': 'Link als inline-tekst weergeven',
+  'fabric.editor.inlineGoToLink': 'Ga naar link',
   'fabric.editor.inlineOverlay': 'Configureren',
   'fabric.editor.inlineTitle': 'Inline',
   'fabric.editor.inputQueryAssistiveTxt':

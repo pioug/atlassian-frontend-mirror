@@ -1,5 +1,13 @@
 # @atlaskit/media-svg
 
+## 0.1.9
+
+### Patch Changes
+
+- [#112176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112176)
+  [`676a8fc27f966`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/676a8fc27f966) -
+  Restored context menu
+
 ## 0.1.8
 
 ### Patch Changes

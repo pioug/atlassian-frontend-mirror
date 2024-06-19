@@ -1458,28 +1458,51 @@ describe('MediaStore', () => {
 			});
 
 			describe('handling CDN url', () => {
-				it("should use artifact's cdnUrl over the regular artifact's url", async () => {
-					const url = await mediaStore.getArtifactURL(
-						{
-							'video_640.mp4': {
-								processingStatus: 'succeeded',
-								url: '/sd-video',
-								cdnUrl:
-									'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
-							},
+				describe("should use artifact's cdnUrl over the regular artifact's url", () => {
+					ffTest(
+						'platform.media-cdn-delivery',
+						async () => {
+							const url = await mediaStore.getArtifactURL(
+								{
+									'video_640.mp4': {
+										processingStatus: 'succeeded',
+										url: '/sd-video',
+										cdnUrl:
+											'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
+									},
+								},
+								'video_640.mp4',
+								'some-collection',
+							);
+
+							expect(url).toEqual(
+								'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?collection=some-collection&max-age=2592000&token=cdn-token',
+							);
+
+							// Authentication does not need to be resolved for CDN URLs
+							expect(resolveAuth).not.toHaveBeenCalledWith(authProvider, {
+								collectionName: 'some-collection',
+							});
 						},
-						'video_640.mp4',
-						'some-collection',
-					);
+						async () => {
+							const url = await mediaStore.getArtifactURL(
+								{
+									'video_640.mp4': {
+										processingStatus: 'succeeded',
+										url: '/sd-video',
+										cdnUrl:
+											'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
+									},
+								},
+								'video_640.mp4',
+								'some-collection',
+							);
 
-					expect(url).toEqual(
-						'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?collection=some-collection&max-age=2592000&token=cdn-token',
+							expect(url).toEqual(
+								'http://some-host/sd-video?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token',
+							);
+						},
 					);
-
-					// Authentication does not need to be resolved for CDN URLs
-					expect(resolveAuth).not.toHaveBeenCalledWith(authProvider, {
-						collectionName: 'some-collection',
-					});
 				});
 			});
 

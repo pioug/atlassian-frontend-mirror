@@ -1,4 +1,5 @@
 import React from 'react';
+/* eslint-disable @atlaskit/design-system/no-deprecated-apis */
 
 import { render, screen } from '@testing-library/react';
 

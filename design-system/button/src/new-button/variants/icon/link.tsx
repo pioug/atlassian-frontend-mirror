@@ -15,6 +15,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 	{
 		// Prevent duplicate labels being added.
 		'aria-label': preventedAriaLabel,
+		'aria-labelledby': ariaLabelledBy,
 		analyticsContext,
 		appearance,
 		autoFocus,
@@ -48,6 +49,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 	const baseProps = useIconButton<HTMLAnchorElement>({
 		analyticsContext,
 		appearance,
+		ariaLabelledBy,
 		autoFocus,
 		buttonType: 'link',
 		icon,
@@ -69,6 +71,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		ref,
 		shape,
 		spacing,
+		testId,
 		UNSAFE_size,
 	});
 
@@ -94,6 +97,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 					<Anchor
 						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 						{...rest}
+						aria-labelledby={baseProps['aria-labelledby']}
 						testId={testId}
 						componentName="LinkIconButton"
 						analyticsContext={analyticsContext}
@@ -163,6 +167,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
+			aria-labelledby={baseProps['aria-labelledby']}
 			ref={baseProps.ref}
 			xcss={baseProps.xcss}
 			onClick={baseProps.onClick}

@@ -44,6 +44,7 @@ const Action = styled.span<ActionProps>((props) => ({
 const cardStyles = (componentType: ComponentType<any>) => {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 	return styled(componentType)({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&&': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			backgroundColor: token('elevation.surface', colors.N0),

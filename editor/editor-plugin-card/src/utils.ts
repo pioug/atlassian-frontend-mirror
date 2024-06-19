@@ -3,6 +3,7 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
@@ -174,4 +175,14 @@ export const isDatasourceNode = (node?: Node): node is DatasourceNode => {
 		return false;
 	}
 	return node.type.name === 'blockCard' && isDatasourceAdfAttributes(node.attrs);
+};
+
+/**
+ * Focuses the editorView if it's not already focused.
+ * @param editorView The editor view to focus.
+ */
+export const focusEditorView = (editorView: EditorView) => {
+	if (!editorView.hasFocus()) {
+		editorView.focus();
+	}
 };

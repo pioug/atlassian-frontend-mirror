@@ -42,8 +42,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.17.0",
-		"@atlaskit/dropdown-menu": "^12.12.0",
+		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/dropdown-menu": "^12.13.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/menu": "^2.5.0",
@@ -75,7 +75,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-test-helpers": "^18.23.0",
-		"@atlaskit/flag": "^15.5.0",
+		"@atlaskit/flag": "^15.6.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
 		"enzyme": "^3.10.0",

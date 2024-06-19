@@ -40,6 +40,7 @@ const listItemStyles = css({
 
 const titleStyles = css({
 	font: token('font.body'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginBlockStart: LABEL_TOP_SPACING,
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -145,7 +146,9 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						<div
 							css={titleStyles}
 							style={{
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								color: getTextColor(item.status),
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								fontWeight: getFontWeight(item.status),
 							}}
 							data-testid={testId && `${testId}-title`}

@@ -12,6 +12,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -25,7 +26,6 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { MentionResource, TeamMentionResource } from '../src';
 import { toJSON } from '../src/utils';
 
-import { MockActivityResource } from './activity-provider';
 import { buttonGroup, content } from './styles';
 
 const mediaMock = createEditorMediaMock();

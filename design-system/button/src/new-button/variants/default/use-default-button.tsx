@@ -1,16 +1,19 @@
 import React, { Fragment } from 'react';
 
 import Content from '../shared/content';
+import IconRenderer from '../shared/icon-renderer';
 import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
 	type UseButtonBaseArgs,
 	type UseButtonBaseReturn,
 } from '../shared/use-button-base';
+import type { CommonButtonProps } from '../types';
 
-import { type CommonDefaultButtonProps } from './types';
+import type { CommonDefaultButtonProps } from './types';
 
 type UseDefaultButtonArgs<TagName extends HTMLElement> = UseButtonBaseArgs<TagName> &
-	CommonDefaultButtonProps;
+	CommonDefaultButtonProps &
+	Pick<CommonButtonProps<TagName>, 'testId'>;
 
 type UseButtonReturn<TagName extends HTMLElement> = UseButtonBaseReturn<TagName>;
 
@@ -26,11 +29,13 @@ type UseButtonReturn<TagName extends HTMLElement> = UseButtonBaseReturn<TagName>
 const useDefaultButton = <TagName extends HTMLElement>({
 	analyticsContext,
 	appearance,
+	ariaLabel,
+	ariaLabelledBy,
 	autoFocus,
 	buttonType,
 	children,
-	iconAfter: IconAfter,
-	iconBefore: IconBefore,
+	iconAfter,
+	iconBefore,
 	interactionName,
 	isDisabled,
 	isLoading = false,
@@ -49,6 +54,7 @@ const useDefaultButton = <TagName extends HTMLElement>({
 	ref,
 	shouldFitContainer,
 	spacing,
+	testId,
 	UNSAFE_iconAfter_size,
 	UNSAFE_iconBefore_size,
 }: UseDefaultButtonArgs<TagName>): UseButtonReturn<TagName> => {
@@ -58,18 +64,20 @@ const useDefaultButton = <TagName extends HTMLElement>({
 		analyticsContext,
 		appearance,
 		autoFocus,
+		ariaLabel,
+		ariaLabelledBy,
 		buttonType,
 		children: (
 			<Fragment>
-				{IconBefore && (
+				{iconBefore && (
 					<Content type="icon" position="before" hasOverlay={hasOverlay}>
-						<IconBefore label="" size={UNSAFE_iconBefore_size} color={'currentColor'} />
+						<IconRenderer icon={iconBefore} size={UNSAFE_iconBefore_size} />
 					</Content>
 				)}
 				{children && <Content hasOverlay={hasOverlay}>{children}</Content>}
-				{IconAfter && (
+				{iconAfter && (
 					<Content type="icon" position="after" hasOverlay={hasOverlay}>
-						<IconAfter label="" size={UNSAFE_iconAfter_size} color={'currentColor'} />
+						<IconRenderer icon={iconAfter} size={UNSAFE_iconAfter_size} />
 					</Content>
 				)}
 			</Fragment>
@@ -94,13 +102,14 @@ const useDefaultButton = <TagName extends HTMLElement>({
 					appearance,
 					isDisabled,
 					isSelected,
+					testId,
 				})
 			: overlay,
 		ref,
 		shouldFitContainer,
 		spacing,
-		hasIconBefore: Boolean(IconBefore),
-		hasIconAfter: Boolean(IconAfter),
+		hasIconBefore: Boolean(iconBefore),
+		hasIconAfter: Boolean(iconAfter),
 	});
 
 	return baseProps;

@@ -289,3 +289,102 @@ export const inlineExtensionWithSmartlinkAdf: DocNode = {
 		},
 	],
 };
+
+export const bodiedExtensionWithLayoutElement: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'bodiedExtension',
+			attrs: {
+				extensionType: 'com.atlassian.confluence.macro.core',
+				extensionKey: 'bodied-eh',
+				parameters: {},
+				layout: 'default',
+				localId: 'testId',
+			},
+			content: [
+				{
+					type: 'paragraph',
+					content: [],
+				},
+			],
+		},
+		{
+			type: 'layoutSection',
+			content: [
+				{
+					type: 'layoutColumn',
+					attrs: {
+						width: 50,
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [],
+						},
+					],
+				},
+				{
+					type: 'layoutColumn',
+					attrs: {
+						width: 50,
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [],
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
+export const blockExtensionWithLayoutElement: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'extension',
+			attrs: {
+				extensionType: 'com.atlassian.confluence.macro.core',
+				extensionKey: 'block-eh',
+				parameters: {},
+				text: 'Block extension demo',
+				layout: 'default',
+				localId: 'ff266732-1a05-4ce8-9056-8728b5480ca9',
+			},
+		},
+		{
+			type: 'layoutSection',
+			content: [
+				{
+					type: 'layoutColumn',
+					attrs: {
+						width: 50,
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [],
+						},
+					],
+				},
+				{
+					type: 'layoutColumn',
+					attrs: {
+						width: 50,
+					},
+					content: [
+						{
+							type: 'paragraph',
+							content: [],
+						},
+					],
+				},
+			],
+		},
+	],
+};

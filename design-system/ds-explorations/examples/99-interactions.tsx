@@ -1,3 +1,6 @@
+/**
+ * @jsxRuntime classic
+ */
 /** @jsx jsx */
 import { Fragment } from 'react';
 
@@ -6,10 +9,9 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
-import FocusRing from '@atlaskit/focus-ring';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -62,74 +64,63 @@ export default () => {
 							'color.background.warning.bold',
 						] as const
 					).map((app) => (
-						<FocusRing key={app}>
-							<Box
-								as="button"
-								onClick={() => console.log('hello')}
-								xcss={focusRingBoxStyles}
-								paddingInline="space.150"
-								backgroundColor={app}
-							>
-								<InteractionSurface>
-									<Text align="center" weight="medium">
-										{app}
-									</Text>
-								</InteractionSurface>
-							</Box>
-						</FocusRing>
+						<Pressable
+							key={app}
+							onClick={() => console.log('hello')}
+							xcss={focusRingBoxStyles}
+							paddingInline="space.150"
+							backgroundColor={app}
+						>
+							<InteractionSurface>
+								<Text align="center" weight="medium">
+									{app}
+								</Text>
+							</InteractionSurface>
+						</Pressable>
 					))}
 				</Inline>
 				<Heading level="h400">
 					Icon Buttons with <Code>InteractionSurface</Code>
 				</Heading>
 				<Inline space="space.200" testId="icon-buttons">
-					<FocusRing>
-						<Box
-							as="button"
-							backgroundColor="color.background.brand.bold"
-							onClick={() => console.log('hello')}
-							padding="space.050"
-							xcss={focusRingBoxStyles}
-						>
-							<InteractionSurface>
-								<WarningIcon
-									label="icon button"
-									primaryColor={token('color.icon.inverse')}
-									secondaryColor={token('color.background.brand.bold')}
-								/>
-							</InteractionSurface>
-						</Box>
-					</FocusRing>
-					<FocusRing>
-						<Box
-							as="button"
-							backgroundColor="color.background.neutral"
-							onClick={() => console.log('hello')}
-							xcss={focusRingBoxStyles}
-							padding="space.050"
-						>
-							<InteractionSurface>
-								<WarningIcon label="icon button" />
-							</InteractionSurface>
-						</Box>
-					</FocusRing>
-					<FocusRing>
-						<Box
-							as="button"
-							backgroundColor="color.background.warning.bold"
-							onClick={() => console.log('hello')}
-							xcss={focusRingBoxStyles}
-							padding="space.050"
-						>
-							<InteractionSurface>
-								<WarningIcon
-									label="icon button"
-									primaryColor={token('color.icon.warning.inverse')}
-									secondaryColor={token('color.background.warning.bold')}
-								/>
-							</InteractionSurface>
-						</Box>
-					</FocusRing>
+					<Pressable
+						backgroundColor="color.background.brand.bold"
+						onClick={() => console.log('hello')}
+						padding="space.050"
+						xcss={focusRingBoxStyles}
+					>
+						<InteractionSurface>
+							<WarningIcon
+								label="icon button"
+								primaryColor={token('color.icon.inverse')}
+								secondaryColor={token('color.background.brand.bold')}
+							/>
+						</InteractionSurface>
+					</Pressable>
+					<Pressable
+						backgroundColor="color.background.neutral"
+						onClick={() => console.log('hello')}
+						xcss={focusRingBoxStyles}
+						padding="space.050"
+					>
+						<InteractionSurface>
+							<WarningIcon label="icon button" />
+						</InteractionSurface>
+					</Pressable>
+					<Pressable
+						backgroundColor="color.background.warning.bold"
+						onClick={() => console.log('hello')}
+						xcss={focusRingBoxStyles}
+						padding="space.050"
+					>
+						<InteractionSurface>
+							<WarningIcon
+								label="icon button"
+								primaryColor={token('color.icon.warning.inverse')}
+								secondaryColor={token('color.background.warning.bold')}
+							/>
+						</InteractionSurface>
+					</Pressable>
 				</Inline>
 				<Heading level="h400">
 					Progress Indicator with <Code>InteractionSurface</Code>
@@ -142,21 +133,18 @@ export default () => {
 							'color.background.warning.bold',
 						] as const
 					).map((app) => (
-						<FocusRing>
-							<Box
-								key={app}
-								as="button"
-								backgroundColor={app}
-								onClick={() => console.log('hello')}
-								xcss={focusRingBoxStyles}
-								padding="space.050"
-								aria-label="progress indicator"
-							>
-								<InteractionSurface>
-									<Fragment />
-								</InteractionSurface>
-							</Box>
-						</FocusRing>
+						<Pressable
+							key={app}
+							backgroundColor={app}
+							onClick={() => console.log('hello')}
+							xcss={focusRingBoxStyles}
+							padding="space.050"
+							aria-label="progress indicator"
+						>
+							<InteractionSurface>
+								<Fragment />
+							</InteractionSurface>
+						</Pressable>
 					))}
 				</Inline>
 				<Heading level="h400">Textfield / input spikes</Heading>

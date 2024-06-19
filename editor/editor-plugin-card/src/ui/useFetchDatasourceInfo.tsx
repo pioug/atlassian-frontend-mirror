@@ -24,6 +24,7 @@ export const useFetchDatasourceInfo = ({
 	// Since fetchData() is async, using this ready check to see if we have the parameters before passing it to the modal.
 	// Only non-datasource nodes will be not ready initially since we need to fetch data.
 	const [ready, setReady] = useState<boolean>(!isRegularCardNode);
+	const [extensionKey, setExtensionKey] = useState<string | undefined>(undefined);
 
 	useEffect(() => {
 		const fetchDatasource = async () => {
@@ -37,12 +38,14 @@ export const useFetchDatasourceInfo = ({
 				const response = await cardContext?.connections?.client?.fetchData(url);
 				const datasources = (response && (response as JsonLdDatasourceResponse).datasources) || [];
 
+				setExtensionKey(response?.meta.key);
 				setDatasourceId(datasources[0]?.id);
 				setParameters(datasources[0]?.parameters);
 				setReady(true);
 			} catch (e) {
 				setDatasourceId(undefined);
 				setParameters(undefined);
+				setExtensionKey(undefined);
 				// If fetch somehow errors, still set ready as true so we don't block the rendering of the modal.
 				// It will just open with empty params.
 				setReady(true);
@@ -58,5 +61,6 @@ export const useFetchDatasourceInfo = ({
 		datasourceId,
 		parameters,
 		ready,
+		extensionKey,
 	};
 };

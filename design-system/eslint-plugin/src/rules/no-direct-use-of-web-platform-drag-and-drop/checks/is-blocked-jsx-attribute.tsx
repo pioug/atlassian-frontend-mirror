@@ -53,7 +53,7 @@ function isOnBoxPrimitive(
 		return false;
 	}
 
-	const module = getModuleOfIdentifier(context.sourceCode, 'Box');
+	const module = getModuleOfIdentifier(context.getSourceCode(), 'Box');
 
 	return module?.moduleName === '@atlaskit/primitives';
 }

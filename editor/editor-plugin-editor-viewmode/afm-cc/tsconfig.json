@@ -20,12 +20,6 @@
     "references": [
         {
             "path": "../../editor-common/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../editor-plugin-collab-edit/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         }
     ]
 }

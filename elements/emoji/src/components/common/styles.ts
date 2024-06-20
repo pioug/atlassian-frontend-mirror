@@ -32,7 +32,7 @@ export const emojiToneSelectorContainer = css({
 	flex: 1,
 	display: 'flex',
 	justifyContent: 'flex-end',
-	padding: '10px 10px 11px 0',
+	padding: '11px 10px 12px 0',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766

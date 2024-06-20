@@ -1,5 +1,25 @@
 # @atlaskit/forge-react-types
 
+## 0.19.0
+
+### Minor Changes
+
+- [#105555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105555)
+  [`db7ba9676c4d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db7ba9676c4d9) -
+  Added line chart component
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.18.0
+
+### Minor Changes
+
+- [#110807](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110807)
+  [`d591152369810`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d591152369810) -
+  added horizontal stack bar chart to UI Kit
+
 ## 0.17.0
 
 ### Minor Changes

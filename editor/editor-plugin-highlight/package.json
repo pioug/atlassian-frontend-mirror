@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "1.8.0",
+	"version": "1.9.0",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.8.0",
+		"@atlaskit/editor-common": "^82.9.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
 		"@atlaskit/editor-plugin-background-color": "^1.1.0",
@@ -52,7 +52,7 @@
 		"@atlaskit/editor-tables": "^2.7.4",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
-		"@atlaskit/primitives": "^7.4.0",
+		"@atlaskit/primitives": "^8.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -109,6 +109,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.dynamic-palette-borders": {
+			"type": "boolean"
+		},
+		"platform.editor.refactor-highlight-toolbar_mo0pj": {
 			"type": "boolean"
 		}
 	}

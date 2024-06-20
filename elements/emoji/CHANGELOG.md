@@ -1,5 +1,19 @@
 # @atlaskit/emoji
 
+## 67.6.26
+
+### Patch Changes
+
+- [#112164](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112164)
+  [`9483ff476c29c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9483ff476c29c) -
+  [ux] Migrated native HTML buttons to Pressable from `@atlaskit/primitives`.
+
+## 67.6.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 67.6.24
 
 ### Patch Changes

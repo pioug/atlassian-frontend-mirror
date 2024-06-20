@@ -44,13 +44,13 @@ export const UNSAFE_BREAKPOINTS_CONFIG = {
 		gridItemGutter: token('space.400', '32px'),
 		gridMargin: token('space.400', '32px'),
 		min: '90rem' as const,
-		max: '109.99rem' as const,
+		max: '110.49rem' as const,
 	},
 	// large high res
 	xl: {
 		gridItemGutter: token('space.400', '32px'),
 		gridMargin: token('space.500', '40px'),
-		min: '110rem' as const,
+		min: '110.5rem' as const,
 		max: null,
 	},
 	// NOTE: We previously had an `xxl=135rem` breakpoint, but it was removed as it was not used anywhere and felt too large

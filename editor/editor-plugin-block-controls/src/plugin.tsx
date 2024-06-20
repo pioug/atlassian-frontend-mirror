@@ -1,5 +1,11 @@
 import React from 'react';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { createPlugin, key } from './pm-plugins/main';
@@ -25,6 +31,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			(start: number, to: number) =>
 			({ tr }: { tr: Transaction }) => {
 				const node = tr.doc.nodeAt(start);
+				const resolvedNode = tr.doc.resolve(start);
+
 				if (!node) {
 					return tr;
 				}
@@ -37,6 +45,17 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				tr = selectNode(tr, mappedTo, node.type.name);
 				tr.setMeta(key, { nodeMoved: true });
 				api?.core.actions.focus();
+
+				api?.analytics?.actions.attachAnalyticsEvent({
+					eventType: EVENT_TYPE.TRACK,
+					action: ACTION.MOVED,
+					actionSubject: ACTION_SUBJECT.ELEMENT,
+					actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+					attributes: {
+						nodeDepth: resolvedNode.depth,
+						nodeType: node.type.name,
+					},
+				})(tr);
 
 				return tr;
 			},

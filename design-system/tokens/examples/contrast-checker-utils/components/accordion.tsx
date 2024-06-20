@@ -46,6 +46,7 @@ export default function Accordion({
 				<details
 					onToggle={handleToggle}
 					open={isOpen}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={{
 						alignItems: 'center',
 						border: `1px solid ${token('color.border')}`,
@@ -57,6 +58,7 @@ export default function Accordion({
 				>
 					<summary
 						css={[
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							{
 								margin: '0em -0.5em 0',
 								padding: '1em',

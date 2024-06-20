@@ -32,6 +32,7 @@ describe('<StaggeredEntrance />', () => {
 		return (
 			<div
 				ref={box ? null : staggered.ref}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					animationDelay: `${staggered.delay}ms`,
 				}}

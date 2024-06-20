@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "A link takes people to a new location in the product or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^7.4.0",
+		"@atlaskit/primitives": "^8.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.17.2"
 	},

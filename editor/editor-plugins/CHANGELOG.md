@@ -1,5 +1,67 @@
 # @atlaskit/editor-plugins
 
+## 3.3.0
+
+### Minor Changes
+
+- [#108237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108237)
+  [`ea7dd8ebb249e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea7dd8ebb249e) -
+  Split out side-effects from viewmode plugin to seperate plugin to reduce cyclical dependency risk
+
+  # WHAT
+
+  - Remove `createFilterStepsPlugin` from the editorViewMode Plugin and is implemented in
+    editorViewModeEffects instead.
+  - Remove `appendTransaction` from the editorViewMode plugin and add as a new PMPlugin in
+    editorViewModeEffects
+  - `applyViewModeStepAt` is moved to editorViewModeEffects. This is currently only used in
+    Annotation plugin which now consumes the new plugin instead and has a minor bump.
+
+  # WHY
+
+  ViewMode information is needed for upstream work in the CollabEdit plugin (see ED-23466).
+  Currently the viewMode plugin already depends on CollabEdit and as such implementing new work
+  causes a cylical dependency problem. ViewMode is likely to be required in an increasing number of
+  plugins and ideally should be as pure as possible with no dependencies. A larger rethink of how
+  these plugins fit together may be required but that is outside the scope of this change.
+
+  # HOW
+
+  All incompatibilities should be addressed within this changeset, however for the sake of
+  completeness:
+
+  - `editor-plugin-editor-viewmode-effects` must be added to any preset that relies on the viewmode
+    filter steps plugin for viewmode annotations. Currently this seems to only be the confluence
+    editor itself.
+  - `applyViewModeStepAt` should now be called from the `editorViewModeEffects` plugin. This will
+    need to be added to your plugin types independently (all uses covered by this change)
+
+### Patch Changes
+
+- [#112947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112947)
+  [`ec865ff1780db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec865ff1780db) -
+  [ux] [ED-23760] Refactor Editor Highlight toolbar button to facilitate reuse and add a (currently
+  unused) Floating toolbar button
+- Updated dependencies
+
+## 3.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.12
 
 ### Patch Changes

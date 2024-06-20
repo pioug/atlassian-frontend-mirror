@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.3.0
+
+### Minor Changes
+
+- [#113008](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113008)
+  [`c8b9e56f27f6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8b9e56f27f6e) -
+  Allows mimetype as top attribute in analytics data payloads
+
 ## 11.2.2
 
 ### Patch Changes

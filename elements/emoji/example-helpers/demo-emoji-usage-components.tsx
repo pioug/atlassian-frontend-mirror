@@ -1,5 +1,8 @@
 import React from 'react';
 import { PureComponent } from 'react';
+
+import { Pressable } from '@atlaskit/primitives';
+
 import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
 import { localStoragePrefix } from '../src/util/constants';
@@ -179,7 +182,7 @@ export abstract class UsageShowAndClearComponent extends PureComponent<
 			<div style={{ padding: '10px' }}>
 				{wrappedComponent}
 				<div>
-					<button onClick={this.clearUsageData}>Clear All Usage</button>
+					<Pressable onClick={this.clearUsageData}>Clear All Usage</Pressable>
 				</div>
 				<EmojiUsageList
 					emojiProvider={emojiResource as EmojiProvider}

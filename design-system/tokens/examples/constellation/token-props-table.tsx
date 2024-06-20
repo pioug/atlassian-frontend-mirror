@@ -96,11 +96,13 @@ const TokenPropsTable = ({
 	return (
 		<div css={containerStyles}>
 			<table css={tableStyles}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<caption css={{ textAlign: 'left', margin: '0', fontSize: '1em' }}>
 					<h3 css={headerStyles}>
 						<code css={codeStyles}>{propName}</code>
 						{required && defaultValue === undefined && (
 							<code
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={{
 									marginLeft: '1em',
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -112,6 +114,7 @@ const TokenPropsTable = ({
 						)}
 						{deprecated && (
 							<code
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={{
 									marginLeft: '1em',
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -133,6 +136,7 @@ const TokenPropsTable = ({
 							<th scope="row">Default</th>
 							<td>
 								<code
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										color: `${token('color.text.subtle')}`,
@@ -145,9 +149,11 @@ const TokenPropsTable = ({
 					)}
 					<tr>
 						<th>Type</th>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<td css={{ display: 'flex', flexDirection: 'column' }}>
 							<span>
 								<code
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										background: `${token('color.background.neutral')}`,

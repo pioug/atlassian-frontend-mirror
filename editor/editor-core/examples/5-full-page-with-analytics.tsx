@@ -1,19 +1,12 @@
 import React from 'react';
 
-import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
-
-import { default as FullPageExample } from './5-full-page';
-
-const editorProps = { UNSAFE_useAnalyticsContext: true };
+import { DeletedExample } from '@af/editor-examples-helpers/utils';
 
 export default function Example() {
 	return (
-		<AnalyticsListener
-			channel={FabricChannel.atlaskit}
-			onEvent={(evt) => console.log('atlaskit channel', evt)}
-		>
-			<FullPageExample editorProps={editorProps} />
-		</AnalyticsListener>
+		<DeletedExample
+			commitId="a2c0301174c6edcb2f6fc2c02367694ce913a7fd"
+			alternativeExample="Confluence basic"
+		/>
 	);
 }

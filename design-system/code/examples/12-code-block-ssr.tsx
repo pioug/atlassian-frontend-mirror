@@ -30,6 +30,7 @@ ReactDOM.render(
 
 const Layout = (props: { children: ReactNode }) => (
 	<div
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			padding: token('space.100', '8px'),
 			display: 'grid',
@@ -43,6 +44,7 @@ const Layout = (props: { children: ReactNode }) => (
 
 const H2 = (props: { children: ReactNode }) => (
 	<h2
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			marginBottom: token('space.100', '8px'),
 		}}

@@ -32,6 +32,7 @@ export default () => {
 	return (
 		<RetryContainer>
 			<ul
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					maxWidth: '474px',
 					padding: 0,
@@ -46,6 +47,7 @@ export default () => {
 							{(props) => (
 								<li
 									{...props}
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
 										display: 'block',
 										padding: 0,
@@ -60,6 +62,7 @@ export default () => {
 										}}
 									>
 										<div
+											// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={{
 												width: '100%',
 												display: 'flex',
@@ -69,6 +72,7 @@ export default () => {
 										>
 											{logo[0]}
 											<h3
+												// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 												css={{
 													margin: 0,
 													fontWeight: 300,

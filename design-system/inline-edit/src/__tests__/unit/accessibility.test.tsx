@@ -20,7 +20,7 @@ it('Inline Edit should pass basic aXe audit', async () => {
 	await axe(container);
 });
 
-it('Inline Edit should pass basic aXe audit', async () => {
+it('Inline Editable Textfield should pass basic aXe audit', async () => {
 	const { container } = render(
 		<InlineEditableTextfield
 			defaultValue="Default value"

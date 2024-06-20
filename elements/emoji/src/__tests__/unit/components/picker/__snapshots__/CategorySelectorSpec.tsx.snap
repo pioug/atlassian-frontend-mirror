@@ -33,40 +33,59 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 }
 
 .emotion-1 {
-  background-color: transparent;
-  border: 0;
-  border-radius: var(--ds-border-radius-100, 3px);
-  color: var(--ds-text-subtlest, rgba(9, 30, 66, 0.54));
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  border: none;
   cursor: pointer;
+  background-color: var(--ds-background-neutral-subtle, transparent);
+  border: 0;
+  border-radius: var(--ds-border-radius, 3px);
   padding: var(--ds-space-0, 0px);
   -webkit-transition: color 0.2s ease;
   transition: color 0.2s ease;
-  color: var(--ds-text-selected, #0065FF);
+  color: var(--ds-text-subtlest, #7A869A);
+  color: var(--ds-text-selected, #0052CC);
 }
 
-.emotion-1::-moz-focus-inner {
-  border: 0 none;
-  padding: var(--ds-space-0, 0px);
+.emotion-1:focus {
+  outline-color: var(--ds-border-focused, #2684FF);
+  outline-width: var(--ds-border-width-outline, 2px);
+  outline-style: solid;
+  outline-offset: var(--ds-space-025, 2px);
 }
 
-.emotion-1:hover {
-  color: var(--ds-text-selected, #2684FF);
-}
-
-.emotion-1:focus-visible {
-  box-shadow: 0 0 0 2px var(--ds-border-focused, #4C9AFF);
-  transition-duration: 0s,0.2s;
+.emotion-1:focus:not(:focus-visible) {
   outline: none;
 }
 
+.emotion-1:focus-visible {
+  outline-color: var(--ds-border-focused, #2684FF);
+  outline-width: var(--ds-border-width-outline, 2px);
+  outline-style: solid;
+  outline-offset: var(--ds-space-025, 2px);
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-1:focus-visible {
+    outline: 1px solid;
+  }
+}
+
 .emotion-1:hover {
-  color: var(--ds-text-selected, #0065FF);
+  color: var(--ds-text-selected, #0052CC);
+}
+
+.emotion-1:hover {
+  color: var(--ds-text-selected, #0052CC);
 }
 
 <button
   aria-label="Activity"
   aria-selected="true"
-  class="emotion-1"
+  class=" emotion-1"
   data-focus-index="3"
   data-testid="category-selector-ACTIVITY"
   id="category-selector-ACTIVITY"

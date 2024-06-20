@@ -1,5 +1,19 @@
 # @atlaskit/share
 
+## 4.18.5
+
+### Patch Changes
+
+- [#111756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111756)
+  [`c2d33a4c17472`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2d33a4c17472) -
+  PTC-9281 Fix reading order in Share Dialog
+
+## 4.18.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.18.3
 
 ### Patch Changes

@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 import {
 	CATEGORYSELECTOR_KEYBOARD_KEYS_SUPPORTED,
@@ -12,13 +13,7 @@ import {
 import type { CategoryDescription, OnCategory } from '../../types';
 import { messages } from '../i18n';
 import { CategoryDescriptionMap, type CategoryGroupKey, type CategoryId } from './categories';
-import {
-	active,
-	categorySelector,
-	disable,
-	categoryStyles,
-	categorySelectorTablist,
-} from './styles';
+import { categorySelector, categorySelectorTablist } from './styles';
 import { usePrevious } from '../../hooks/usePrevious';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
 
@@ -47,6 +42,34 @@ const addNewCategories = (
 		.concat(newCategories.filter((category) => !!CategoryDescriptionMap[category]))
 		.sort(sortCategories);
 };
+
+const commonCategoryStyles = xcss({
+	backgroundColor: 'color.background.neutral.subtle',
+	border: 0,
+	borderRadius: 'border.radius',
+	padding: 'space.0',
+	transition: 'color 0.2s ease',
+});
+
+const defaultCategoryStyles = xcss({
+	color: 'color.text.subtlest',
+
+	':hover': {
+		color: 'color.text.selected',
+	},
+});
+
+const activeCategoryStyles = xcss({
+	color: 'color.text.selected',
+
+	':hover': {
+		color: 'color.text.selected',
+	},
+});
+
+const disabledCategoryStyles = xcss({
+	color: 'color.text.subtlest',
+});
 
 export const categorySelectorComponentTestId = 'category-selector-component';
 export const categorySelectorCategoryTestId = (categoryId: string) =>
@@ -134,38 +157,32 @@ const CategorySelector = (props: Props) => {
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
 					const category = CategoryDescriptionMap[categoryId];
-					const categoryClasses = [categoryStyles];
-
-					if (categoryId === activeCategoryId) {
-						categoryClasses.push(active);
-					}
-
-					if (disableCategories) {
-						categoryClasses.push(disable);
-					}
 
 					const Icon = category.icon;
 					const categoryName = formatMessage(messages[category.name]);
 					return (
 						<Tooltip content={categoryName} position="bottom" key={category.id}>
-							<button
-								type="button"
+							<Pressable
 								id={`category-selector-${category.id}`}
 								data-focus-index={index}
 								aria-label={categoryName}
 								aria-controls={currentFocus === index ? RENDER_EMOJI_PICKER_LIST_TESTID : undefined}
 								aria-selected={categoryId === activeCategoryId}
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-								css={categoryClasses}
-								disabled={disableCategories}
+								xcss={[
+									commonCategoryStyles,
+									defaultCategoryStyles,
+									categoryId === activeCategoryId && activeCategoryStyles,
+									disableCategories && disabledCategoryStyles,
+								]}
+								isDisabled={disableCategories}
 								onClick={handleClick(categoryId, index)}
-								data-testid={categorySelectorCategoryTestId(categoryId)}
+								testId={categorySelectorCategoryTestId(categoryId)}
 								tabIndex={currentFocus === index ? 0 : -1}
 								onKeyDown={handleKeyDown}
 								role="tab"
 							>
 								<Icon label={categoryName} />
-							</button>
+							</Pressable>
 						</Tooltip>
 					);
 				})}

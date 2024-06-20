@@ -1,7 +1,7 @@
 import { token } from '@atlaskit/tokens';
 
 import { heading, subtleHeading } from './colors';
-import { fontSize, gridSize } from './constants';
+import { gridSize } from './constants';
 import type { ThemeProps } from './types';
 
 /**
@@ -41,7 +41,7 @@ export const fontFallback = {
 };
 
 const baseHeading = (size: number, lineHeight: number) => ({
-	fontSize: `${size / fontSize()}em`,
+	fontSize: `${size / 14}em`,
 	fontStyle: 'inherit',
 	lineHeight: lineHeight / size,
 });

@@ -26,6 +26,7 @@ export default () => {
 
 	return (
 		<RetryContainer>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={{ textAlign: 'center' }}>
 				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
 				<Button

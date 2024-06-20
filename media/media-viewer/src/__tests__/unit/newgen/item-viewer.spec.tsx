@@ -472,6 +472,7 @@ describe('<ItemViewer />', () => {
 				action: 'loadSucceeded',
 				actionSubject: 'mediaFile',
 				attributes: {
+					fileMimetype: 'image/png',
 					fileAttributes: {
 						fileId: 'some-id',
 						fileMediatype: 'image',
@@ -516,6 +517,7 @@ describe('<ItemViewer />', () => {
 				action: 'loadSucceeded',
 				actionSubject: 'mediaFile',
 				attributes: {
+					fileMimetype: 'image/png',
 					fileAttributes: {
 						fileId: 'some-id',
 						fileMediatype: 'image',
@@ -564,6 +566,7 @@ describe('<ItemViewer />', () => {
 				actionSubject: 'mediaFile',
 				attributes: {
 					status: 'success',
+					fileMimetype: undefined,
 					fileAttributes: {
 						fileId: 'external-image',
 						fileMediatype: undefined,
@@ -621,12 +624,14 @@ describe('<ItemViewer />', () => {
 				attributes: {
 					...errorInfo,
 					status: 'fail',
+					fileMimetype: fileAttributes.fileMimetype,
 					fileAttributes: fileAttributes,
 				},
 				eventType: 'operational',
 			});
 			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
 				...errorInfo,
+				fileMimetype: fileAttributes.fileMimetype,
 				fileAttributes: fileAttributes,
 				fileStateFlags: {
 					wasStatusProcessing: false,
@@ -655,6 +660,7 @@ describe('<ItemViewer />', () => {
 				action: 'loadSucceeded',
 				actionSubject: 'mediaFile',
 				attributes: {
+					fileMimetype: 'image/png',
 					fileAttributes: {
 						fileId: 'some-id',
 						fileMediatype: 'image',
@@ -778,6 +784,7 @@ describe('<ItemViewer />', () => {
 				expect.objectContaining({
 					attributes: expect.objectContaining({
 						failReason: 'itemviewer-file-failed-processing-status',
+						fileMimetype: fileAttributes.fileMimetype,
 						fileAttributes,
 					}),
 				}),
@@ -788,6 +795,7 @@ describe('<ItemViewer />', () => {
 				errorDetail: undefined,
 				failReason: error.message,
 				request: undefined,
+				fileMimetype: fileAttributes.fileMimetype,
 				fileAttributes: fileAttributes,
 				traceContext: { traceId: expect.any(String) },
 				fileStateFlags: {

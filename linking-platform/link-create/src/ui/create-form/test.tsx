@@ -198,11 +198,9 @@ describe('<CreateForm />', () => {
 			const UserPickerTestId = 'link-create-user-picker';
 			const testDefaultOwner = {
 				id: 'Gabby Test',
-				userId: 'Gabby Test',
 				name: 'Gabby Chan',
 				avatar:
 					'https://secure.gravatar.com/avatar/140d72fbc7a920fea9d11c1a3567c75c?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FC-1.png',
-				email: 'gchannnn@atlassian.com',
 			};
 
 			setUpCreateForm(

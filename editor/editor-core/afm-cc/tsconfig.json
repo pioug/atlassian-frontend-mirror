@@ -74,9 +74,6 @@
             "path": "../../../design-system/tooltip/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../data/ufo-external/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../../design-system/width-detector/afm-cc/tsconfig.json"
         },
         {

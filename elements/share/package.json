@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "4.18.3",
+	"version": "4.18.5",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,10 +47,11 @@
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/menu": "^2.5.0",
+		"@atlaskit/platform-feature-flags": "^0.2.4",
 		"@atlaskit/popper": "^6.1.0",
 		"@atlaskit/popup": "^1.19.0",
 		"@atlaskit/portal": "^4.6.0",
-		"@atlaskit/primitives": "^7.4.0",
+		"@atlaskit/primitives": "^8.0.0",
 		"@atlaskit/smart-user-picker": "^6.9.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tabs": "^16.2.0",
@@ -123,5 +124,10 @@
 		"./clients": "./src/clients/index.ts",
 		"./copy-link-button": "./src/components/CopyLinkButton.tsx",
 		"./i18n/*": "./src/i18n/*.ts"
+	},
+	"platform-feature-flags": {
+		"platform.enable-appropriate-reading-order-in-share-dialog_fu49": {
+			"type": "boolean"
+		}
 	}
 }

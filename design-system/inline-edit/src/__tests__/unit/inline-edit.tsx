@@ -150,6 +150,39 @@ describe('InlineEdit component', () => {
 		});
 	});
 
+	describe('accessible edit button label', () => {
+		it('should contain the default label', () => {
+			render(
+				<InlineEdit
+					label="Inline edit"
+					defaultValue=""
+					onConfirm={() => {}}
+					readView={() => <div>Read view</div>}
+					editView={() => <div>Edit view</div>}
+				/>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument();
+		});
+
+		it('should use the custom label', () => {
+			render(
+				<InlineEdit
+					label="Inline edit"
+					defaultValue=""
+					editButtonLabel="my custom edit button label"
+					onConfirm={() => {}}
+					readView={() => <div>Read view</div>}
+					editView={() => <div>Edit view</div>}
+				/>,
+			);
+
+			expect(
+				screen.getByRole('button', { name: 'my custom edit button label' }),
+			).toBeInTheDocument();
+		});
+	});
+
 	describe('generic types', () => {
 		interface OptionType {
 			label: string;

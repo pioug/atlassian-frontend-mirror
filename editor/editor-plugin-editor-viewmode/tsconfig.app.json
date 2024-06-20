@@ -34,12 +34,6 @@
 	"references": [
 		{
 			"path": "../editor-common/tsconfig.app.json"
-		},
-		{
-			"path": "../editor-plugin-collab-edit/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	]
 }

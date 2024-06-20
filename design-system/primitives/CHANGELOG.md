@@ -1,5 +1,76 @@
 # @atlaskit/primitives
 
+## 8.0.0
+
+### Major Changes
+
+- [#109778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109778)
+  [`d20b004b7c9dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d20b004b7c9dd) -
+  Box no longer supports usage as a button. Use
+  [the Pressable primitive](https://atlassian.design/components/primitives/pressable/examples)
+  instead, which is more specialized and has built-in event tracking support.
+
+  - Pressable has focus ring styles built-in, so remove existing styles including
+    `@atlaskit/focus-ring`
+  - Pressable has a default cursor (`cursor: pointer`) built-in, so existing styles can be removed.
+  - Pressable has a `isDisabled` prop, rather than direct usage of the `disabled` attribute.
+  - Pressable is built on Box, so no visual changes are expected.
+
+  **Before migration**
+
+  ```
+  import { Box, xcss } from '@atlaskit/primitives';
+  import FocusRing from '@atlaskit/focus-ring';
+
+  const buttonStyles = xcss({
+  	cursor: 'pointer',
+  	backgroundColor: 'color.background.brand.bold'
+  });
+
+
+  const MyApp = () => (
+  	<FocusRing>
+  		<Box
+  			as="button"
+  			xcss={buttonStyles}
+  			disabled={isDisabled}
+  		>
+  			Hello
+  		</Box>
+  	</FocusRing>
+  )
+  ```
+
+  **After migration**
+
+  ```
+  import { Pressable, xcss } from '@atlaskit/primitives';
+
+  const buttonStyles = xcss({
+  	backgroundColor: 'color.background.brand.bold'
+  });
+
+  const MyApp = () => (
+  	<Pressable
+  		xcss={buttonStyles}
+  		isDisabled={isDisabled}
+  	>
+  		Hello
+  	</Pressable>
+  );
+  ```
+
+### Minor Changes
+
+- [#108386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108386)
+  [`8f3fa9e80b93c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f3fa9e80b93c) -
+  Updated xl breakpoint to be 1768px instead of 1760px (110.5rem instead of 110rem) to match updated
+  design guidance.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.1
 
 ### Patch Changes

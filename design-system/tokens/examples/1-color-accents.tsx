@@ -306,7 +306,7 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 		type="button"
 		css={[
 			boxStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				backgroundColor: style.backgroundColor,

@@ -26,8 +26,6 @@ export type UserPickerProps = {
 
 type User = {
 	id: string;
-	userId: string;
-	name: string;
-	avatar: string;
-	email: string;
+	name?: string;
+	avatarUrl?: string;
 };

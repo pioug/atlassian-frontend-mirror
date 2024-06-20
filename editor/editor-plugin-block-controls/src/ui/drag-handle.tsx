@@ -4,6 +4,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
@@ -139,9 +145,25 @@ export const DragHandle = ({
 				if (start === undefined) {
 					return;
 				}
-				api?.core?.actions.execute(
-					api?.blockControls?.commands.setNodeDragged(start, anchorName, nodeType),
-				);
+				api?.core?.actions.execute(({ tr }) => {
+					api?.blockControls?.commands.setNodeDragged(start, anchorName, nodeType)({ tr });
+
+					const resolvedMovingNode = tr.doc.resolve(start);
+					const maybeNode = resolvedMovingNode.nodeAfter;
+					api?.analytics?.actions.attachAnalyticsEvent({
+						eventType: EVENT_TYPE.UI,
+						action: ACTION.DRAGGED,
+						actionSubject: ACTION_SUBJECT.ELEMENT,
+						actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+						attributes: {
+							nodeDepth: resolvedMovingNode.depth,
+							nodeType: maybeNode?.type.name || '',
+						},
+					})(tr);
+
+					return tr;
+				});
+
 				api?.core?.actions.focus();
 			},
 		});

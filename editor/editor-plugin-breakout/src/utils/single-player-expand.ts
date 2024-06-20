@@ -8,7 +8,7 @@ export const updateExpandedState = (
 	node: ContentNodeWithPos,
 	isLivePage?: boolean,
 ) => {
-	if (getBooleanFF('platform.editor.single-player-expand') && isLivePage) {
+	if (isLivePage || getBooleanFF('platform.editor.single-player-expand')) {
 		const wasExpandExpanded = expandedState.get(node.node);
 		const newExpand = tr.doc.nodeAt(node.pos);
 		if (wasExpandExpanded !== undefined && newExpand) {

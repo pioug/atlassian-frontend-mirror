@@ -25,6 +25,7 @@ const CustomComponent = (props: CustomItemComponentProps) => {
 	const { children, ...rest } = props;
 	return (
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				position: 'relative',
 				overflow: 'hidden',
@@ -59,6 +60,7 @@ const CustomisedExample = () => {
 			id="1-1"
 			title={
 				<div
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={{
 						width: '100%',
 						whiteSpace: 'nowrap',

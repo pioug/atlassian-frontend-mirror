@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import { G300 } from '@atlaskit/theme/colors';
@@ -168,6 +169,11 @@ export class CopyLinkButton extends React.Component<Props, State> {
 						) : (
 							this.renderTriggerButton(triggerProps)
 						)
+					}
+					shouldRenderToParent={
+						getBooleanFF('platform.enable-appropriate-reading-order-in-share-dialog_fu49')
+							? true
+							: false
 					}
 				/>
 			</React.Fragment>

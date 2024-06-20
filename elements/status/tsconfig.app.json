@@ -42,6 +42,9 @@
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{

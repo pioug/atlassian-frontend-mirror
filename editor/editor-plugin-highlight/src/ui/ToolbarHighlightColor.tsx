@@ -39,7 +39,7 @@ import { Flex } from '@atlaskit/primitives';
 import { changeColor, setPalette } from '../commands';
 import type { HighlightPlugin } from '../plugin';
 
-import { EditorHighlightIcon } from './EditorHighlightIcon';
+import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
 
 type ToolbarHighlightColorProps = {
 	popupsMountPoint?: HTMLElement;

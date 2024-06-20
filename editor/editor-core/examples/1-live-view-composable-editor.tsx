@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { EditorExampleControls } from '@af/editor-examples-helpers/utils';
-import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
@@ -12,13 +10,9 @@ import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-
-import type { EditorActions } from '../src';
-import WithEditorActions from '../src/ui/WithEditorActions';
 
 const smartLinksProvider = new ConfluenceCardProvider('staging');
 const smartCardClient = new ConfluenceCardClient('staging');
@@ -27,36 +21,12 @@ const EXAMPLE_NAME = 'live-view-composable-editor';
 
 const MockProfileClient: any = simpleMockProfilecardClient();
 
-const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
-	const onClickPublish = () => {
-		props.editorActions.getResolvedEditorState().then((value) => {
-			if (value?.content) {
-				localStorage.setItem(`${EXAMPLE_NAME}-doc`, JSON.stringify(value.content));
-			}
-		});
-	};
-
-	return (
-		<ButtonGroup>
-			<Button appearance="primary" onClick={onClickPublish}>
-				Publish
-			</Button>
-			<Button appearance="subtle" onClick={() => props.editorActions.clear()}>
-				Close
-			</Button>
-		</ButtonGroup>
-	);
-};
-
 function getDefaultValue() {
 	const doc = localStorage.getItem(`${EXAMPLE_NAME}-doc`);
 	return doc ? JSON.parse(doc) : '';
 }
 
 function ComposableEditorPage() {
-	// [ED-22843] this feature flag is for testing purposes only
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	const isLiveViewToggled = getBooleanFF('__live-view-toggle') ? true : false;
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const [isViewMode, setIsViewMode] = React.useState(false);
 
@@ -122,7 +92,7 @@ function ComposableEditorPage() {
 					allowResizing: true,
 				},
 			},
-			__livePage: isLiveViewToggled,
+			__livePage: true,
 			defaultValue: getDefaultValue(),
 		},
 	});
@@ -144,18 +114,10 @@ function ComposableEditorPage() {
 	};
 
 	React.useEffect(() => {
-		if (!isLiveViewToggled) {
-			return;
-		}
 		editorApi?.core?.actions.execute(
 			editorApi?.editorViewMode?.commands.updateViewMode(isViewMode ? 'view' : 'edit'),
 		);
-	}, [
-		editorApi?.core?.actions,
-		editorApi?.editorViewMode?.commands,
-		isLiveViewToggled,
-		isViewMode,
-	]);
+	}, [editorApi?.core?.actions, editorApi?.editorViewMode?.commands, isViewMode]);
 
 	return (
 		<SmartCardProvider client={smartCardClient}>
@@ -183,15 +145,6 @@ function ComposableEditorPage() {
 				}}
 				onChange={(adf) => onDocumentChanged(adf)}
 				mentionProvider={Promise.resolve(mentionResourceProvider)}
-				primaryToolbarComponents={
-					isLiveViewToggled ? (
-						<></>
-					) : (
-						<WithEditorActions
-							render={(actions) => <SaveAndCancelButtons editorActions={actions} />}
-						/>
-					)
-				}
 			/>
 		</SmartCardProvider>
 	);

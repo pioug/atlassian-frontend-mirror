@@ -13,6 +13,7 @@ import {
 import { type Appearance } from '@atlaskit/button';
 import { type IconProps } from '@atlaskit/icon';
 import ShareIcon from '@atlaskit/icon/glyph/share';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -650,6 +651,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 						isMenuItemSelected,
 						dialogPlacement,
 					})}
+					shouldRenderToParent={
+						getBooleanFF('platform.enable-appropriate-reading-order-in-share-dialog_fu49')
+							? true
+							: false
+					}
 				/>
 
 				{/* The select menu portal */}

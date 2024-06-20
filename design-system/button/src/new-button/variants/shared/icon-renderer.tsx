@@ -31,15 +31,16 @@ const IconRenderer = ({
 	icon: IconProp;
 	size: IconProps['size'] | UNSAFE_NewIconProps['LEGACY_size'];
 }) => {
-		return (
-			<>
-				{getBooleanFF('platform.design-system-team.button-render-prop-fix_lyo55') && isIconRenderProp(Icon) ? (
-					Icon({ label: '', size: size, color: 'currentColor' })
-				) : (
-					<Icon label="" size={size} color={'currentColor'} />
-				)}
-			</>
-		);
+	return (
+		<>
+			{getBooleanFF('platform.design-system-team.button-render-prop-fix_lyo55') &&
+			isIconRenderProp(Icon) ? (
+				Icon({ label: '', size: size, color: 'currentColor' })
+			) : (
+				<Icon label="" size={size} color={'currentColor'} />
+			)}
+		</>
+	);
 };
 
 export default IconRenderer;

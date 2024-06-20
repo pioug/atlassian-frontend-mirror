@@ -58,12 +58,14 @@ export default function ContrastCard({
 				>
 					<Inline space="space.150">
 						<div
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={{
 								backgroundColor: backgroundValue,
 								alignSelf: 'center',
 							}}
 						>
 							<div
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={{
 									backgroundColor: middleLayerValue || 'transparent',
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -71,6 +73,7 @@ export default function ContrastCard({
 								}}
 							>
 								<div
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
 										backgroundColor: foregroundValue,
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -85,6 +88,7 @@ export default function ContrastCard({
 							{middleLayerName && <code>{middleLayerName}</code>}
 							<code>{backgroundName}</code>
 							<dl
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={{
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									paddingBlock: middleLayerName ? token('space.100', '8px') : 0,
@@ -118,9 +122,12 @@ export default function ContrastCard({
 const ValueListItem = ({ description, value }: { description: string; value?: string }) => (
 	<Inline spread="space-between" space="space.100">
 		<dt>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<strong css={{ textTransform: 'capitalize' }}>{description}</strong>
 		</dt>
+		{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 		<dd css={{ marginTop: 0, marginInlineStart: 0 }}>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<p css={{ margin: 0 }}>{value}</p>
 		</dd>
 	</Inline>

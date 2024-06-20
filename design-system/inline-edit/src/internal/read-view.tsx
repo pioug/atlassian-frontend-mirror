@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { borderRadius } from './constants';
 
@@ -107,9 +106,8 @@ const ReadView = ({
 				onClick={onEditRequested}
 				ref={editButtonRef}
 				testId={testId && `${testId}--edit-button`}
-			>
-				<VisuallyHidden>{editButtonLabel}</VisuallyHidden>
-			</Pressable>
+				aria-label={editButtonLabel}
+			></Pressable>
 			<div
 				css={[readViewWrapperStyles, readViewFitContainerWidth && readViewFitContainerWidthStyles]}
 				/**

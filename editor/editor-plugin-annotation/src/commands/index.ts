@@ -248,7 +248,7 @@ export const setInlineCommentDraftState =
 		);
 		return createCommand(
 			commandAction,
-			transform.addOpenCloseAnalytics(editorAnalyticsAPI)(drafting, inputMethod),
+			transform.handleDraftState(editorAnalyticsAPI)(drafting, inputMethod),
 		);
 	};
 

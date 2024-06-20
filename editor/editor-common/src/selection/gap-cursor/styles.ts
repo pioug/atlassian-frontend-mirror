@@ -14,7 +14,8 @@ const gapCursorBlink = keyframes({
 
 export const hideCaretModifier = 'ProseMirror-hide-gapcursor';
 const gapCursor = '.ProseMirror-gapcursor';
-const prosemirrorwidget = '.ProseMirror-widget';
+const prosemirrorwidgetNotBlock =
+	'.ProseMirror-widget:not([data-blocks-decoration-container="true"]):not([data-blocks-drag-handle-container="true"])';
 const wrapLeft = '[layout="wrap-left"]';
 const wrapRight = '[layout="wrap-right"]';
 
@@ -145,8 +146,8 @@ export const gapCursorStyles = css`
   ${wrapRight} + ${gapCursor} + span + ${wrapLeft} + * > *,
   ${gapCursor} + ${wrapLeft} + span + ${wrapRight} + * > *,
   ${gapCursor} + ${wrapRight} + span + ${wrapLeft} + * > *,
-  ${prosemirrorwidget} + ${gapCursor} + *,
-  ${prosemirrorwidget} + ${gapCursor} + span + * {
+  ${prosemirrorwidgetNotBlock} + ${gapCursor} + *,
+  ${prosemirrorwidgetNotBlock} + ${gapCursor} + span + * {
 		margin-top: 0;
 	}
 `;

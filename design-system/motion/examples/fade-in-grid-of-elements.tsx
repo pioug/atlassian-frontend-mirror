@@ -46,6 +46,7 @@ export default () => {
 	return (
 		<div>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					textAlign: 'center',
 					'> *': { margin: token('space.025', '2px') },
@@ -69,6 +70,7 @@ export default () => {
 
 			<RetryContainer key={state.numOfChildren}>
 				<ul
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={{
 						display: 'flex',
 						maxWidth: '474px',
@@ -87,6 +89,7 @@ export default () => {
 									{(props) => (
 										<li
 											{...props}
+											// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={{
 												display: 'block',
 												padding: 0,

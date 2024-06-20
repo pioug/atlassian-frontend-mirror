@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 193.27.14
+
+### Patch Changes
+
+- [#111892](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111892)
+  [`f95eaf80a5a47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f95eaf80a5a47) -
+  ED-23476 Migrates UFO logging to editor-examples-helpers
+- [#112947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112947)
+  [`ec865ff1780db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec865ff1780db) -
+  [ux] [ED-23760] Refactor Editor Highlight toolbar button to facilitate reuse and add a (currently
+  unused) Floating toolbar button
+- Updated dependencies
+
 ## 193.27.8
 
 ### Patch Changes

@@ -79,7 +79,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 		const buttons = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
 		expect(buttons.length).toBeGreaterThan(0);
 
-		const btn = buttons[2];
-		expect(btn).toHaveStyle('animation-delay: 100ms');
+		const animationWrapper = buttons[2].parentElement;
+		expect(animationWrapper).toHaveStyle('animation-delay: 100ms');
 	});
 });

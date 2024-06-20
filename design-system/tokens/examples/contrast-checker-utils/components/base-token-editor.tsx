@@ -196,6 +196,7 @@ const PaletteBlock = ({
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives
 		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				backgroundColor: baseToken.value || originalValue,
 				padding: token('space.100', '0.25rem'),

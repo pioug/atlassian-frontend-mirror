@@ -1,5 +1,19 @@
 # @atlaskit/inline-edit
 
+## 13.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 13.5.1
+
+### Patch Changes
+
+- [#112629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112629)
+  [`5ec24ab3bc584`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ec24ab3bc584) -
+  DSP-19376 Prevent edit button label from being copied to clipboard in read view
+
 ## 13.5.0
 
 ### Minor Changes

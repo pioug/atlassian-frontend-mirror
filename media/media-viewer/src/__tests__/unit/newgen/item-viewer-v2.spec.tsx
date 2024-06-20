@@ -312,6 +312,7 @@ describe('<ItemViewerV2 />', () => {
 					action: 'loadSucceeded',
 					actionSubject: 'mediaFile',
 					attributes: {
+						fileMimetype: 'image/png',
 						fileAttributes: {
 							fileId: identifier.id,
 							fileMediatype: 'image',
@@ -384,6 +385,7 @@ describe('<ItemViewerV2 />', () => {
 					action: 'loadSucceeded',
 					actionSubject: 'mediaFile',
 					attributes: {
+						fileMimetype: 'image/png',
 						fileAttributes: {
 							fileId: identifier.id,
 							fileMediatype: 'image',
@@ -436,6 +438,7 @@ describe('<ItemViewerV2 />', () => {
 					actionSubject: 'mediaFile',
 					attributes: {
 						status: 'success',
+						fileMimetype: undefined,
 						fileAttributes: {
 							fileId: 'external-image',
 							fileMediatype: undefined,
@@ -501,7 +504,8 @@ describe('<ItemViewerV2 />', () => {
 					attributes: {
 						...errorInfo,
 						status: 'fail',
-						fileAttributes: fileAttributes,
+						filteredMimeType: fileAttributes.fileMimetype,
+						fileAttributes,
 					},
 					eventType: 'operational',
 				}),
@@ -510,7 +514,8 @@ describe('<ItemViewerV2 />', () => {
 
 			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
 				...errorInfo,
-				fileAttributes: fileAttributes,
+				fileAttributes,
+				filteredMimeType: fileAttributes.fileMimetype,
 				fileStateFlags: {
 					wasStatusProcessing: false,
 					wasStatusUploading: false,

@@ -1,5 +1,20 @@
 # @atlaskit/media-viewer
 
+## 48.6.6
+
+### Patch Changes
+
+- [#113008](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113008)
+  [`c8b9e56f27f6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8b9e56f27f6e) -
+  Logs mimetype for SVG monitoring
+- Updated dependencies
+
+## 48.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.6.4
 
 ### Patch Changes

@@ -43,6 +43,7 @@ export default () => {
 	return (
 		<RetryContainer>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					textAlign: 'center',
 					'> *': { marginRight: token('space.050', '4px') },
@@ -52,6 +53,7 @@ export default () => {
 				<Button onClick={() => setItems(logos)}>Reset</Button>
 
 				<ul
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={{
 						maxWidth: '474px',
 						height: '328px',
@@ -68,6 +70,7 @@ export default () => {
 									{(props) => (
 										<li
 											{...props}
+											// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={{
 												display: 'block',
 												padding: 0,
@@ -82,6 +85,7 @@ export default () => {
 												}}
 											>
 												<div
+													// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 													css={{
 														width: '100%',
 														display: 'flex',
@@ -91,6 +95,7 @@ export default () => {
 												>
 													{logo[0]}
 													<h3
+														// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 														css={{
 															margin: 0,
 															fontWeight: 300,

@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.25
+
+### Patch Changes
+
+- [#112850](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112850)
+  [`b5b96fe430ecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5b96fe430ecb) -
+  ED-23767 Add drop listener to prevent default behaviour of duplicating dropped node
+
+## 1.4.24
+
+### Patch Changes
+
+- [#112937](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112937)
+  [`77f74659f0ac3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77f74659f0ac3) -
+  [ED-23676] Fix drag and drop issue with table charts
+
+## 1.4.23
+
+### Patch Changes
+
+- [#112385](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112385)
+  [`7889fc5a6eff5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7889fc5a6eff5) -
+  Add new moved events for dnd, change which events are fired in block control plugin
+
 ## 1.4.22
 
 ### Patch Changes

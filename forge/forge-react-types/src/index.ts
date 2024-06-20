@@ -64,4 +64,5 @@ export type {
 	StackBarChartProps,
 	HorizontalStackBarChartProps,
 	HorizontalBarChartProps,
+	LineChartProps,
 } from './components/charts';

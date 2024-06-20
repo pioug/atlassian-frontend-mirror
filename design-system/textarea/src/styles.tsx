@@ -5,13 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject } from '@emotion/react';
 
-import {
-	codeFontFamily as getCodeFontFamily,
-	fontFamily as getFontFamily,
-	fontSize as getFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import * as componentTokens from './component-tokens';
@@ -77,16 +70,14 @@ export interface StyleProps {
 	isMonospaced: boolean | undefined;
 	maxHeight: string;
 }
-const grid = gridSize();
-const lineHeightBase = grid * 2.5;
-const lineHeightCompact = grid * 2;
+const lineHeightBase = 8 * 2.5;
+const lineHeightCompact = 8 * 2;
 const compactVerticalPadding = 2;
 const verticalPadding = 6;
-const horizontalPadding = grid;
+const horizontalPadding = 8;
 const transitionDuration = '0.2s';
-const fontSize: number = getFontSize();
-const fontFamily = getFontFamily();
-const codeFontFamily = getCodeFontFamily();
+const fontFamily = token('font.family.body');
+const codeFontFamily = token('font.family.code');
 export const borderWidth = 2;
 
 // Safari puts on some difficult to remove styles, mainly for disabled inputs
@@ -229,8 +220,7 @@ const borderPaddingAndHeightStyles = (minimumRows = 1, appearance: string | unde
 			minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: `${compactVerticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			lineHeight: lineHeightCompact / fontSize,
+			lineHeight: lineHeightCompact / 14,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&:not([data-compact])': {
@@ -238,8 +228,7 @@ const borderPaddingAndHeightStyles = (minimumRows = 1, appearance: string | unde
 			minHeight: borderBoxMinHeight(minimumRows, borderHeight),
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: `${verticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			lineHeight: lineHeightBase / fontSize,
+			lineHeight: lineHeightBase / 14,
 		},
 	});
 };
@@ -256,7 +245,7 @@ const staticStyles = css({
 	borderRadius: token('border.radius', '3px'),
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	borderWidth: 1,
-	fontSize: fontSize,
+	font: token('font.body'),
 	outline: 'none',
 	overflow: 'auto',
 	transition: `background-color ${transitionDuration} ease-in-out,

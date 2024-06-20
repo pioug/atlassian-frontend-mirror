@@ -97,6 +97,7 @@ const Toggle = memo(
 		const uuid = useUIDSeed()('toggle');
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<label {...controlProps} css={toggleStyles}>
 				{label ? (
 					<span id={`${uuid}-label`} hidden>

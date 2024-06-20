@@ -60,6 +60,7 @@ export type WithTraceContext = {
 export type SuccessAttributes = {
 	status: 'success';
 	fileMediatype?: MediaType;
+	fileMimetype?: string;
 };
 
 export type FailureAttributes = {
@@ -67,6 +68,8 @@ export type FailureAttributes = {
 	failReason: string;
 	error?: string;
 	errorDetail?: string;
+	fileMediatype?: MediaType;
+	fileMimetype?: string;
 };
 
 export type StatusAttributes = SuccessAttributes | FailureAttributes;

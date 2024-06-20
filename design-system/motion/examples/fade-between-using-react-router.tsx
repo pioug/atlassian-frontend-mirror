@@ -43,6 +43,7 @@ export default () => {
 	return (
 		<MemoryRouter>
 			<RetryContainer>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={{ textAlign: 'center' }}>
 					<Route>
 						{(route: RouteComponentProps) => (
@@ -55,6 +56,7 @@ export default () => {
 					</Route>
 
 					<Centered>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={{ position: 'relative' }}>
 							<Route>
 								{(route: RouteComponentProps) => (

@@ -1,6 +1,5 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { matchers } from '@emotion/jest';
 import { act, fireEvent, type RenderResult, screen, waitFor, within } from '@testing-library/react';
@@ -214,7 +213,7 @@ describe('<EmojiPicker />', () => {
 			);
 			expect(categorySelectorButtons[0]).toHaveStyleRule(
 				'color',
-				token('color.text.selected', B300),
+				token('color.text.selected', '#0052CC'),
 			);
 		});
 
@@ -395,7 +394,7 @@ describe('<EmojiPicker />', () => {
 			expect(helper.categoryVisible(frequentCategory)).toBe(true);
 			expect(categorySelectorButtons[0]).toHaveStyleRule(
 				'color',
-				token('color.text.selected', B300),
+				token('color.text.selected', '#0052CC'),
 			);
 		});
 

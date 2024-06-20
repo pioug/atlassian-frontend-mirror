@@ -33,7 +33,7 @@
 		"releaseModel": "continuous"
 	},
 	"dependencies": {
-		"@atlaskit/media-common": "^11.2.0",
+		"@atlaskit/media-common": "^11.3.0",
 		"@babel/runtime": "^7.0.0",
 		"immer": "^9.0.12",
 		"zustand": "^4.3.9"

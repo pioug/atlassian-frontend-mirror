@@ -8,16 +8,13 @@ import { type ReactNode } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { type Spacing } from '../../variants/types';
 
-const fontSize: number = getFontSize();
-
 const heights: { [key in Spacing]: string } = {
-	default: `${32 / fontSize}em`,
-	compact: `${24 / fontSize}em`,
+	default: `${32 / 14}em`,
+	compact: `${24 / 14}em`,
 	none: 'auto',
 };
 

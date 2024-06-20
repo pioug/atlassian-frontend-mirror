@@ -27,6 +27,7 @@ const Card = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode }) 
 		{(props) => (
 			<li
 				{...props}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					display: 'block',
 					padding: 0,
@@ -41,6 +42,7 @@ const Card = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode }) 
 					}}
 				>
 					<div
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 						css={{
 							width: '100%',
 							display: 'flex',
@@ -50,6 +52,7 @@ const Card = ({ icon, text }: { icon: React.ReactNode; text: React.ReactNode }) 
 					>
 						{icon}
 						<h3
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={{
 								margin: 0,
 								fontWeight: 300,
@@ -71,6 +74,7 @@ export default () => {
 	return (
 		<RetryContainer>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					textAlign: 'center',
 					'> *': { marginRight: token('space.050', '4px') },
@@ -80,6 +84,7 @@ export default () => {
 				<Button onClick={() => setItems(6)}>Reset</Button>
 
 				<ul
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={{
 						maxWidth: '474px',
 						padding: 0,

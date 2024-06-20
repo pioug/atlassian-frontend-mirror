@@ -1,27 +1,35 @@
-import React, { type ComponentPropsWithRef, forwardRef, useCallback, useContext } from 'react';
+import React, {
+	type ComponentPropsWithoutRef,
+	type ComponentPropsWithRef,
+	forwardRef,
+	type ReactNode,
+	useCallback,
+	useContext,
+} from 'react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
+import { type BackgroundColor, type Space } from '../xcss/style-maps.partial';
 import { type XCSS, xcss } from '../xcss/xcss';
 
-import Box, { type BoxProps } from './box';
+import Box from './box';
+import type { BasePrimitiveProps, StyleProp } from './types';
 
-export type PressableProps = Omit<
-	BoxProps<'button'>,
-	// Handled by `isDisabled`
-	| 'disabled'
-	// Should not allow custom elements
-	| 'as'
-	| 'style'
-	| 'onClick'
-> & {
-	isDisabled?: boolean;
+type BasePressableProps = {
+	/**
+	 * Elements to be rendered inside the Box.
+	 */
+	children?: ReactNode;
 	/**
 	 * Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.
 	 */
 	onClick?: (e: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	/**
+	 * Whether the button is disabled.
+	 */
+	isDisabled?: boolean;
 	/**
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
@@ -34,7 +42,66 @@ export type PressableProps = Omit<
 	 * Additional information to be included in the `context` of Atlaskit analytics events that come from pressable.
 	 */
 	analyticsContext?: Record<string, any>;
+	/**
+	 * Token representing background color with a built-in fallback value.
+	 */
+	backgroundColor?: BackgroundColor;
+	/**
+	 * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
+	 *
+	 * @see paddingBlock
+	 * @see paddingInline
+	 */
+	padding?: Space;
+	/**
+	 * Tokens representing CSS shorthand `paddingBlock`.
+	 *
+	 * @see paddingBlockStart
+	 * @see paddingBlockEnd
+	 */
+	paddingBlock?: Space;
+	/**
+	 * Tokens representing CSS `paddingBlockStart`.
+	 */
+	paddingBlockStart?: Space;
+	/**
+	 * Tokens representing CSS `paddingBlockEnd`.
+	 */
+	paddingBlockEnd?: Space;
+	/**
+	 * Tokens representing CSS shorthand `paddingInline`.
+	 *
+	 * @see paddingInlineStart
+	 * @see paddingInlineEnd
+	 */
+	paddingInline?: Space;
+	/**
+	 * Tokens representing CSS `paddingInlineStart`.
+	 */
+	paddingInlineStart?: Space;
+	/**
+	 * Tokens representing CSS `paddingInlineEnd`.
+	 */
+	paddingInlineEnd?: Space;
+	/**
+	 * Forwarded ref.
+	 */
+	ref?: ComponentPropsWithRef<'button'>['ref'];
 };
+
+export type PressableProps = Omit<
+	ComponentPropsWithoutRef<'button'>,
+	// Handled by `isDisabled`
+	| 'disabled'
+	// Has a custom handler for analytics
+	| 'onClick'
+	// Declared in StyleProp
+	| 'style'
+	| 'className'
+> &
+	BasePrimitiveProps &
+	StyleProp &
+	BasePressableProps;
 
 // TODO: Duplicated FocusRing styles due to lack of `xcss` support
 // and to prevent additional dependency
@@ -131,6 +198,7 @@ const Pressable = forwardRef(
 		return (
 			<Box
 				{...htmlAttributes}
+				// @ts-expect-error - `as` is not compatible with Box. Pressable will be rewritten to diverge from Box soon.
 				as="button"
 				ref={ref}
 				testId={testId}

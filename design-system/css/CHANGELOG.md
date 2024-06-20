@@ -1,5 +1,14 @@
 # @atlaskit/css
 
+## 0.3.0
+
+### Minor Changes
+
+- [#108386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108386)
+  [`8f3fa9e80b93c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f3fa9e80b93c) -
+  Updated xl breakpoint to be 1768px instead of 1760px (110.5rem instead of 110rem) to match updated
+  design guidance.
+
 ## 0.2.0
 
 ### Minor Changes

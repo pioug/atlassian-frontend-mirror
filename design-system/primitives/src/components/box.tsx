@@ -27,8 +27,8 @@ import { SurfaceContext } from './internal/surface-provider';
 import { type SVGElements } from './internal/types';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
-// Can either Exclude or Extract - here we're excluding all SVG-related elements
-type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements>;
+// Can either Exclude or Extract - here we're excluding all SVG-related elements and button (handled by Pressable)
+type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements | 'button'>;
 
 // Basically just ElementType but without ComponentType, it makes sense to keep the "Type" suffix
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions

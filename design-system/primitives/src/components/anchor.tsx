@@ -20,8 +20,10 @@ export type AnchorProps<RouterLinkConfig extends Record<string, any> = never> =
 			| 'href'
 			// Should not allow custom elements
 			| 'as'
-			| 'style'
 			| 'onClick'
+			// Declared in StyleProp
+			| 'style'
+			| 'className'
 		> & {
 			/**
 			 * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.

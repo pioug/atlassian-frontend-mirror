@@ -145,6 +145,7 @@ export enum ACTION {
 	REMOVE_CHILD = 'removeChild',
 	UPDATE_PARAMETERS = 'updateParameters',
 	GET_CHILDERN = 'getChildern',
+	MOVED = 'moved',
 }
 
 export enum INPUT_METHOD {

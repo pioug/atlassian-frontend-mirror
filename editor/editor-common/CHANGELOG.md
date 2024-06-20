@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 82.9.2
+
+### Patch Changes
+
+- [#112394](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112394)
+  [`cbce87c004124`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbce87c004124) -
+  ED-23678 fix blocks gap cursor styling
+- Updated dependencies
+
+## 82.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.9.0
+
+### Minor Changes
+
+- [#110714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110714)
+  [`9e5e71458aec6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e5e71458aec6) -
+  [ED-23281] Explictly opt out scrollIntoView when adding annotation mark as it is handled by
+  scrolling comment sidebar into view instead
+
+## 82.8.6
+
+### Patch Changes
+
+- [#112385](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112385)
+  [`7889fc5a6eff5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7889fc5a6eff5) -
+  Add new moved events for dnd, change which events are fired in block control plugin
+
 ## 82.8.5
 
 ### Patch Changes

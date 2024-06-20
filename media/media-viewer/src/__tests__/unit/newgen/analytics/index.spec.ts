@@ -92,8 +92,9 @@ describe('getFileAttributes()', () => {
 	it('should capture errorDetail when nativeError as secondary reason for load fail event', () => {
 		expect(
 			createLoadFailedEvent(
-				'some-id',
+				processedFile.id,
 				new MediaViewerError('imageviewer-fetch-url', new Error('some-error-message')),
+				processedFile,
 			),
 		).toEqual({
 			action: 'loadFailed',
@@ -102,11 +103,12 @@ describe('getFileAttributes()', () => {
 				error: 'nativeError',
 				errorDetail: 'some-error-message',
 				failReason: 'imageviewer-fetch-url',
+				fileMimetype: processedFile.mimeType,
 				fileAttributes: {
-					fileId: 'some-id',
-					fileMediatype: undefined,
-					fileMimetype: undefined,
-					fileSize: undefined,
+					fileId: processedFile.id,
+					fileMediatype: processedFile.mediaType,
+					fileMimetype: processedFile.mimeType,
+					fileSize: processedFile.size,
 				},
 				status: 'fail',
 			},
@@ -117,7 +119,7 @@ describe('getFileAttributes()', () => {
 	it('should capture request metadata when requestError as secondary error for load fail event', () => {
 		expect(
 			createLoadFailedEvent(
-				'some-id',
+				processedFile.id,
 				new MediaViewerError(
 					'imageviewer-fetch-url',
 					new RequestError('serverInvalidBody', {
@@ -127,6 +129,7 @@ describe('getFileAttributes()', () => {
 						mediaEnv: 'some-env',
 					}),
 				),
+				processedFile,
 			),
 		).toEqual({
 			action: 'loadFailed',
@@ -140,11 +143,12 @@ describe('getFileAttributes()', () => {
 					mediaRegion: 'some-region',
 					mediaEnv: 'some-env',
 				},
+				fileMimetype: processedFile.mimeType,
 				fileAttributes: {
-					fileId: 'some-id',
-					fileMediatype: undefined,
-					fileMimetype: undefined,
-					fileSize: undefined,
+					fileId: processedFile.id,
+					fileMediatype: processedFile.mediaType,
+					fileMimetype: processedFile.mimeType,
+					fileSize: processedFile.size,
 				},
 				status: 'fail',
 			},

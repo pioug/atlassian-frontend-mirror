@@ -1,5 +1,6 @@
 import rafSchedule from 'raf-schd';
 
+import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -10,6 +11,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -57,12 +59,9 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 			onDrop: ({ location, source }) => {
 				scrollable.style.setProperty('scroll-behavior', null);
 				api?.core?.actions.execute(({ tr }) => {
-					return tr.setMeta(key, { isDragging: false });
-				});
-				// if no drop targets are rendered, assume that drop is invalid
-				if (location.current.dropTargets.length === 0) {
 					const { start } = source.data as ElementDragSource;
-					api?.core?.actions.execute(({ tr }) => {
+					// if no drop targets are rendered, assume that drop is invalid
+					if (location.current.dropTargets.length === 0) {
 						const resolvedMovingNode = tr.doc.resolve(start);
 						const maybeNode = resolvedMovingNode.nodeAfter;
 						api?.analytics?.actions.attachAnalyticsEvent({
@@ -75,9 +74,9 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 								nodeType: maybeNode?.type.name || '',
 							},
 						})(tr);
-						return tr;
-					});
-				}
+					}
+					return tr.setMeta(key, { isDragging: false });
+				});
 			},
 		}),
 	);
@@ -129,9 +128,13 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					decorationState,
 					editorHeight,
 					isResizerResizing,
+					isDragging,
 				} = currentState;
 
 				const meta = tr.getMeta(key);
+				// when creating analytics during drag/drop events, PM thinks the doc has changed
+				// so tr.docChange is true and causes some decorations to not render
+				const isAnalyticTr = tr.steps.every((step: Step) => step instanceof AnalyticsStep);
 
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
@@ -204,7 +207,8 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				}
 
 				// Add drop targets when node is being dragged
-				if (meta?.isDragging && !tr.docChanged && api) {
+				// if the transaction is only for analytics and user is dragging, continue to draw drop targets
+				if (meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr)) && api) {
 					const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
 						oldState,
 						newState,
@@ -223,7 +227,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				}
 
 				// Map drop target decoration positions when the document changes
-				if (tr.docChanged && currentState.isDragging) {
+				if (tr.docChanged && isDragging) {
 					decorationState = decorationState.map(({ index, pos }) => {
 						return {
 							index,
@@ -251,9 +255,9 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 				return {
 					decorations,
-					decorationState: decorationState ?? currentState.decorationState,
+					decorationState,
 					activeNode: isEmptyDoc ? null : meta?.activeNode ?? mappedActiveNodePos,
-					isDragging: meta?.isDragging ?? currentState.isDragging,
+					isDragging: meta?.isDragging ?? isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
 					isResizerResizing: isResizerResizing,
@@ -270,6 +274,29 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					return;
 				}
 				return key.getState(state)?.decorations;
+			},
+			handleDOMEvents: {
+				drop(view: EditorView, event: DragEvent) {
+					// prosemirror has sends a default transaction on drop (meta where uiEvent is 'drop'),
+					// this duplicates the an empty version of the node it was dropping,
+					// Adding some check here to prevent that if drop position is within activeNode
+					const { state } = view;
+					const pluginState = key.getState(state);
+
+					if (!(event.target instanceof HTMLElement) || !pluginState?.activeNode) {
+						return false;
+					}
+
+					const node = view.nodeDOM(pluginState?.activeNode?.pos);
+					const isActiveNode = node?.contains(event.target) || event.target === node;
+					if (isActiveNode) {
+						// Prevent the default drop behavior if the position is within the activeNode
+						event.preventDefault();
+						return true;
+					}
+
+					return false;
+				},
 			},
 		},
 		view: (editorView: EditorView) => {

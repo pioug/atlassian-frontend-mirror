@@ -19,7 +19,16 @@
   ],
   "references": [
     {
+      "path": "../../media-client/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-client-react/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../media-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-ui/afm-jira/tsconfig.json"
     }
   ]
 }

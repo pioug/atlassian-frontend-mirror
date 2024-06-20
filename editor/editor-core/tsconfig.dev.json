@@ -212,9 +212,6 @@
 			"path": "../../design-system/tooltip/tsconfig.app.json"
 		},
 		{
-			"path": "../../data/ufo-external/tsconfig.app.json"
-		},
-		{
 			"path": "../../elements/util-data-test/tsconfig.app.json"
 		},
 		{
@@ -225,9 +222,6 @@
 		},
 		{
 			"path": "../search-provider/tsconfig.app.json"
-		},
-		{
-			"path": "../../data/ufo-internal/tsconfig.app.json"
 		}
 	]
 }

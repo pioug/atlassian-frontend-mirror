@@ -10,26 +10,21 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { type EllipsisItemProps } from '../types';
 
-const height = (gridSize() * 3) / fontSize();
 const noop = __noop;
 
 const itemWrapperStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
 	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `${height}em`,
+	height: `${24 / 14}em`,
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
 	flexDirection: 'row',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: `${height}em`,
+	lineHeight: `${24 / 14}em`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:not(:last-child)::after': {
 		width: token('space.100', '8px'),

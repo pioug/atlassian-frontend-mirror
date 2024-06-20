@@ -28,7 +28,7 @@ describe('UNSAFE_buildAboveMediaQueryCSS', () => {
 			}),
 			xl: expect.objectContaining({
 				name: expect.any(String),
-				styles: '@media (min-width: 110rem){display:none;}',
+				styles: '@media (min-width: 110.5rem){display:none;}',
 			}),
 		});
 	});
@@ -49,7 +49,7 @@ describe('UNSAFE_buildAboveMediaQueryCSS', () => {
 		expect(output.xl).toEqual(
 			expect.objectContaining({
 				name: expect.any(String),
-				styles: '@media (min-width: 110rem){content:"xl";}',
+				styles: '@media (min-width: 110.5rem){content:"xl";}',
 			}),
 		);
 	});
@@ -76,7 +76,7 @@ describe('UNSAFE_buildBelowMediaQueryCSS', () => {
 			}),
 			xl: expect.objectContaining({
 				name: expect.any(String),
-				styles: '@media not all and (min-width: 110rem){display:none;}',
+				styles: '@media not all and (min-width: 110.5rem){display:none;}',
 			}),
 		});
 	});
@@ -97,7 +97,7 @@ describe('UNSAFE_buildBelowMediaQueryCSS', () => {
 		expect(output.xl).toEqual(
 			expect.objectContaining({
 				name: expect.any(String),
-				styles: '@media not all and (min-width: 110rem){content:"xl";}',
+				styles: '@media not all and (min-width: 110.5rem){content:"xl";}',
 			}),
 		);
 	});

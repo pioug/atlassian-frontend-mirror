@@ -60,12 +60,20 @@ const addInlineComment =
 	(transaction: Transaction, state: EditorState) => {
 		let tr = addAnnotationMark(id, supportedBlockNodes)(transaction, state);
 
-		editorAPI?.editorViewMode?.actions.applyViewModeStepAt(tr);
+		editorAPI?.editorViewModeEffects?.actions.applyViewModeStepAt(tr);
 
 		// add insert analytics step to transaction
 		tr = addInsertAnalytics(editorAnalyticsAPI)(tr, state);
 		// add close analytics step to transaction
 		tr = addOpenCloseAnalytics(editorAnalyticsAPI)(false, INPUT_METHOD.TOOLBAR)(tr, state);
+
+		const pluginState = getPluginState(state);
+		const isAutoScrollBugFixEnabled =
+			pluginState?.featureFlagsPluginState?.commentsOnMediaAutoscrollInEditor;
+		if (isAutoScrollBugFixEnabled) {
+			// Explicitly disable scrollIntoView as scrolling is handled by CommentSidebar
+			tr.setMeta('scrollIntoView', false);
+		}
 
 		return tr;
 	};
@@ -80,6 +88,23 @@ const addOpenCloseAnalytics =
 		)(state) as AnalyticsEventPayload;
 		editorAnalyticsAPI?.attachAnalyticsEvent(draftingPayload)(transaction);
 		return transaction;
+	};
+
+const handleDraftState =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(drafting: boolean, method: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR) =>
+	(transaction: Transaction, state: EditorState) => {
+		const tr = addOpenCloseAnalytics(editorAnalyticsAPI)(drafting, method)(transaction, state);
+
+		const pluginState = getPluginState(state);
+		const isAutoScrollBugFixEnabled =
+			pluginState?.featureFlagsPluginState?.commentsOnMediaAutoscrollInEditor;
+
+		if (isAutoScrollBugFixEnabled) {
+			// Explicitly disable scrollIntoView as scrolling is handled by CommentSidebar
+			tr.setMeta('scrollIntoView', false);
+		}
+		return tr;
 	};
 
 const addInsertAnalytics =
@@ -129,6 +154,7 @@ const addResolveAnalytics =
 export default {
 	addAnnotationMark,
 	addInlineComment,
+	handleDraftState,
 	addOpenCloseAnalytics,
 	addInsertAnalytics,
 	addResolveAnalytics,

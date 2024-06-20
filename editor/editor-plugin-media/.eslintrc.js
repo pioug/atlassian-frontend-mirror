@@ -1,6 +1,6 @@
 module.exports = {
 	rules: {
-		'@atlaskit/design-system/consistent-css-prop-usage': 'warn',
+		'@atlaskit/design-system/consistent-css-prop-usage': 'error',
 		'@typescript-eslint/no-unused-vars': [
 			'error',
 			{

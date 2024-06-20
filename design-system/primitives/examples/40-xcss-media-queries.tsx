@@ -31,7 +31,7 @@ const aboveStyles = xcss({
 	},
 	[media.above.xl]: {
 		':after': {
-			content: '"(min-width: 110rem)"',
+			content: '"(min-width: 110.5rem)"',
 		},
 	},
 });

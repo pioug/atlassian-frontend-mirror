@@ -343,6 +343,16 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	platformEditorTypeaheadImprovedRelevancy?: boolean;
+
+	/**
+	 * @description
+	 * Enables fix for comment sidebar is not scrolled into view when adding/viewing a comment on media
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-23281
+	 * @default false
+
+	 */
+	commentsOnMediaAutoscrollInEditor?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

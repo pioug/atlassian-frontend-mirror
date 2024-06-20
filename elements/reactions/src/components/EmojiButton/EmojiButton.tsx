@@ -9,9 +9,26 @@ import {
 	type EmojiProvider,
 	ResourcedEmoji,
 } from '@atlaskit/emoji';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import { messages } from '../../shared/i18n';
 import { isLeftClick } from '../../shared/utils';
-import { emojiButtonStyle } from './styles';
+
+const emojiButtonStyles = xcss({
+	outline: 'none',
+	display: 'flex',
+	backgroundColor: 'color.background.neutral.subtle',
+	border: 0,
+	borderRadius: 'border.radius',
+	margin: 'space.0',
+	padding: 'space.100',
+
+	// @ts-expect-error - Nested selectors not supported in XCSS
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	':hover > span': {
+		transition: 'transform cubic-bezier(0.23, 1, 0.32, 1) 200ms',
+		transform: 'scale(1.33)',
+	},
+});
 
 export const RENDER_BUTTON_TESTID = 'button-emoji-id';
 
@@ -44,17 +61,15 @@ export const EmojiButton = ({ emojiId, onClick, emojiProvider }: EmojiButtonProp
 	const intl = useIntl();
 
 	return (
-		<button
-			data-testid={RENDER_BUTTON_TESTID}
+		<Pressable
+			testId={RENDER_BUTTON_TESTID}
 			onClick={onButtonClick}
 			aria-label={intl.formatMessage(messages.reactWithEmoji, {
 				emoji: emojiId.shortName,
 			})}
-			type="button"
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={emojiButtonStyle}
+			xcss={emojiButtonStyles}
 		>
 			<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} />
-		</button>
+		</Pressable>
 	);
 };

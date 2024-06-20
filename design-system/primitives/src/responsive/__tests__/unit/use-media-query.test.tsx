@@ -13,7 +13,7 @@ const mockMatchMediaAtWidth = (rem: number = 0) => {
 	window.matchMedia = jest.fn().mockImplementation((query) => {
 		const isMax =
 			!!String(query).includes('max-width') ||
-			!!String(query).match(/not all and \(min-width: [\d]+rem\)/);
+			!!String(query).match(/not all and \(min-width: [\d\.]+rem\)/);
 		const mediaWidth = parseFloat(query.replace(/[^\d\.]+/g, ''));
 		const matches = isMax ? mediaWidth > rem : mediaWidth <= rem;
 
@@ -51,12 +51,12 @@ describe('useMediaQuery (with a mocked matchMedia)', () => {
 			['(min-width: 48rem)'],
 			['(min-width: 64rem)'],
 			['(min-width: 90rem)'],
-			['(min-width: 110rem)'],
+			['(min-width: 110.5rem)'],
 			['not all and (min-width: 30rem)'],
 			['not all and (min-width: 48rem)'],
 			['not all and (min-width: 64rem)'],
 			['not all and (min-width: 90rem)'],
-			['not all and (min-width: 110rem)'],
+			['not all and (min-width: 110.5rem)'],
 		]);
 	});
 
@@ -195,13 +195,13 @@ describe('useMediaQuery (with a mocked matchMedia)', () => {
 		['above.sm', 47.99, 48],
 		['above.md', 63.99, 64],
 		['above.lg', 89.99, 90],
-		['above.xl', 109.99, 110],
+		['above.xl', 110.49, 110.5],
 		// NOTE: There is no `below.xxs`, we can't be below 0…
 		['below.xs', 30, 29.99],
 		['below.sm', 48, 47.99],
 		['below.md', 64, 63.99],
 		['below.lg', 90, 89.99],
-		['below.xl', 110, 109.99],
+		['below.xl', 110.5, 110.49],
 	] as const)('%p changes around %prem', (query, noMatchAt, matchAt) => {
 		// Eg. at 30rem it's not "below xs"; below is <= 29.99rem
 		mockMatchMediaAtWidth(noMatchAt);

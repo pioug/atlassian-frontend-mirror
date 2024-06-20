@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
-import { N900, N0, N50 } from '@atlaskit/theme/colors';
+import { N50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import React, { PureComponent } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -10,19 +11,18 @@ import { ANALYTICS_HOVER_DELAY } from '../constants';
 import { messages } from '../i18n';
 import { type Color as ColorType } from '../Status';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-const buttonStyles = css`
-	height: 24px;
-	width: 24px;
-	background: ${token('color.background.neutral', N900)};
-	padding: 0;
-	border-radius: 4px;
-	border: 1px solid ${token('color.border', N0)};
-	cursor: pointer;
-	display: block;
-	box-sizing: border-box;
-	overflow: hidden;
-`;
+const buttonStyles = xcss({
+	height: '24px',
+	width: '24px',
+	background: 'color.background.neutral',
+	padding: 'space.0',
+	borderRadius: 'border.radius',
+	borderWidth: 'border.width',
+	borderStyle: 'solid',
+	borderColor: 'color.border',
+	display: 'block',
+	overflow: 'hidden',
+});
 
 // We have tried with changing border and padding from 1px to token near version 2px,
 // the pop - up is being expanded to two lines.
@@ -62,15 +62,13 @@ export default class Color extends PureComponent<ColorProps> {
 			<li css={buttonWrapperStyles}>
 				<FormattedMessage {...messages[`${value}Color` as keyof typeof messages]}>
 					{(labels) => (
-						<button
-							css={buttonStyles}
+						<Pressable
+							xcss={buttonStyles}
 							onClick={this.onClick}
 							onMouseEnter={this.onMouseEnter}
 							onMouseLeave={this.onMouseLeave}
 							onMouseDown={this.onMouseDown}
 							tabIndex={tabIndex}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={`${isSelected ? 'selected' : ''}`}
 							title={labels[0] as string}
 							// button element does not support aria-selected.
 							// For button selected (to be precise pressed) or not
@@ -87,7 +85,7 @@ export default class Color extends PureComponent<ColorProps> {
 							{isSelected && (
 								<EditorDoneIcon primaryColor={iconColor} label={labels[0] as string} />
 							)}
-						</button>
+						</Pressable>
 					)}
 				</FormattedMessage>
 			</li>

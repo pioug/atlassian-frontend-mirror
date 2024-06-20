@@ -131,7 +131,7 @@ describe('xcss()', () => {
 				content: '>',
 			},
 			// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-			'@media (min-width: 110rem)': {
+			'@media (min-width: 110.5rem)': {
 				':hover': {
 					color: 'color.text',
 				},
@@ -144,7 +144,7 @@ describe('xcss()', () => {
           "::before": Object {
             "content": ">",
           },
-          "@media (min-width: 110rem)": Object {
+          "@media (min-width: 110.5rem)": Object {
             ":hover": Object {
               "color": "var(--ds-text, #172B4D)",
             },

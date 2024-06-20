@@ -7,7 +7,6 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import * as colors from '@atlaskit/theme/colors';
-import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -65,8 +64,6 @@ export type UseButtonBaseReturn<TagName extends HTMLElement> = {
 	'aria-labelledby'?: string;
 } & ControlledEvents<TagName>;
 
-const fontSize: number = getFontSize();
-
 const buttonStyles = xcss({
 	display: 'inline-flex',
 	boxSizing: 'border-box',
@@ -79,7 +76,7 @@ const buttonStyles = xcss({
 	borderRadius: 'border.radius.100',
 	borderWidth: 'border.width.0',
 	flexShrink: 0,
-	height: `${32 / fontSize}em`,
+	height: `${32 / 14}em`,
 	paddingInlineEnd: 'space.150',
 	paddingInlineStart: 'space.150',
 	textAlign: 'center',
@@ -100,7 +97,7 @@ const hardCodedButtonStyles = xcss({
 	fontSize: 'inherit',
 	fontStyle: 'normal',
 	fontWeight: 500,
-	lineHeight: `${32 / fontSize}em`,
+	lineHeight: `${32 / 14}em`,
 	paddingBlock: 'space.0',
 });
 
@@ -141,6 +138,7 @@ const defaultStyles = xcss({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 	background: token('color.background.neutral', colors.N20A),
 	// @ts-expect-error — using tokens for explicit fallback usage.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values --  -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N500),
 	':visited': {
 		// @ts-expect-error
@@ -481,14 +479,14 @@ const selectedDiscoveryStyles = xcss({
 
 const spacingCompactStyles = xcss({
 	columnGap: 'space.050',
-	height: `${24 / fontSize}em`,
+	height: `${24 / 14}em`,
 	paddingInlineEnd: 'space.150',
 	paddingInlineStart: 'space.150',
 	verticalAlign: 'middle',
 });
 
 const baseSpacingCompactStyles = xcss({
-	lineHeight: `${24 / fontSize}em`,
+	lineHeight: `${24 / 14}em`,
 });
 
 const tokenizedSpacingCompactStyles = xcss({
@@ -513,14 +511,14 @@ const fullWidthStyles = xcss({ width: '100%' });
 const loadingOverlayStyles = xcss({ cursor: 'progress' });
 const nonInteractiveStyles = xcss({ cursor: 'not-allowed' });
 const iconButtonStyles = xcss({
-	height: `${32 / fontSize}em`,
-	width: `${32 / fontSize}em`,
+	height: `${32 / 14}em`,
+	width: `${32 / 14}em`,
 	paddingInlineEnd: 'space.0',
 	paddingInlineStart: 'space.0',
 });
 const iconButtonCompactStyles = xcss({
-	width: `${24 / fontSize}em`,
-	height: `${24 / fontSize}em`,
+	width: `${24 / 14}em`,
+	height: `${24 / 14}em`,
 });
 const buttonIconBeforeStyles = xcss({ paddingInlineStart: 'space.100' });
 const buttonIconAfterStyles = xcss({ paddingInlineEnd: 'space.100' });

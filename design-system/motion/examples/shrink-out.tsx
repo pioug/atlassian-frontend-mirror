@@ -29,6 +29,7 @@ export default () => {
 
 	return (
 		<div>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={{ textAlign: 'center' }}>
 				<ButtonGroup label="Products options">
 					<Button onClick={() => setProducts(products)}>Reset</Button>

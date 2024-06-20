@@ -27,7 +27,7 @@ describe('ColorPalette', () => {
 		renderWithIntl(<ColorPalette onClick={jest.fn()} selectedColor={'red'} />);
 
 		const selectedButton = screen.getByRole('button', { pressed: true });
-		expect(selectedButton.classList.contains('selected')).toBe(true);
+		expect(selectedButton).toHaveAttribute('aria-pressed', 'true');
 		expect(selectedButton).toHaveAttribute('tabindex', '-1');
 		expect(selectedButton).toHaveAttribute('title', 'Red');
 	});

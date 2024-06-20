@@ -41,6 +41,7 @@ export const dropTargetDecorations = (
 				},
 				{
 					type: 'drop-target-decoration',
+					side: -1,
 				},
 			),
 		);

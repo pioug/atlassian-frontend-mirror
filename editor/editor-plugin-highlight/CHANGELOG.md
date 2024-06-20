@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.9.0
+
+### Minor Changes
+
+- [#112947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112947)
+  [`ec865ff1780db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec865ff1780db) -
+  [ux] [ED-23760] Refactor Editor Highlight toolbar button to facilitate reuse and add a (currently
+  unused) Floating toolbar button
+
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.0
 
 ### Minor Changes

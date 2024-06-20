@@ -5,6 +5,8 @@ import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
+import { Box, Pressable, xcss } from '@atlaskit/primitives';
+
 import {
 	createAndFireSafe,
 	createReactionClickedEvent,
@@ -18,14 +20,7 @@ import { ReactionParticleEffect } from '../ReactionParticleEffect';
 import { ReactionTooltip, type ReactionTooltipProps } from '../ReactionTooltip';
 import { messages } from '../../shared/i18n';
 import { isLeftClick } from '../../shared/utils';
-import {
-	containerStyle,
-	emojiStyle,
-	emojiNoReactionStyle,
-	flashStyle,
-	reactedStyle,
-	reactionStyle,
-} from './styles';
+import { emojiStyle, emojiNoReactionStyle, flashStyle } from './styles';
 import { type ReactionFocused } from '../../types/reaction';
 
 /**
@@ -47,10 +42,6 @@ export interface ReactionProps extends Pick<ReactionTooltipProps, 'allowUserDial
 	 */
 	onClick: ReactionClick;
 	/**
-	 * Optional wrapper reaction <button /> class name
-	 */
-	className?: string;
-	/**
 	 * Optional event when the mouse cursor hovers over the reaction
 	 */
 	onMouseEnter?: ReactionMouseEnter;
@@ -71,6 +62,45 @@ export interface ReactionProps extends Pick<ReactionTooltipProps, 'allowUserDial
 	 */
 	handleUserListClick?: (emojiId: string) => void;
 }
+const containerStyles = xcss({
+	position: 'relative',
+});
+
+const reactionStyles = xcss({
+	display: 'flex',
+	flexDirection: 'row',
+	alignItems: 'flex-start',
+	minWidth: '36px',
+	height: '24px',
+	backgroundColor: 'color.background.neutral.subtle',
+	borderWidth: 'border.width',
+	borderStyle: 'solid',
+	borderColor: 'color.border',
+	borderRadius: 'border.radius.circle',
+	color: 'color.text.subtle',
+	marginBlockStart: 'space.050',
+	marginInlineEnd: 'space.050',
+	padding: 'space.0',
+	overflow: 'hidden',
+
+	':hover': {
+		backgroundColor: 'color.background.neutral.subtle.hovered',
+	},
+	':active': {
+		backgroundColor: 'color.background.neutral.subtle.pressed',
+	},
+});
+
+const reactedStyles = xcss({
+	backgroundColor: 'color.background.selected',
+	borderColor: 'color.border.selected',
+	':hover': {
+		backgroundColor: 'color.background.selected.hovered',
+	},
+	':active': {
+		backgroundColor: 'color.background.selected.pressed',
+	},
+});
 
 /**
  * Render an emoji reaction button
@@ -81,7 +111,6 @@ export const Reaction = ({
 	reaction,
 	onMouseEnter = () => {},
 	onFocused = () => {},
-	className,
 	flash = false,
 	showParticleEffect = false,
 	handleUserListClick = () => {},
@@ -152,8 +181,7 @@ export const Reaction = ({
 	};
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div css={containerStyle}>
+		<Box xcss={containerStyles}>
 			{showParticleEffect && (
 				<ReactionParticleEffect emojiId={emojiId} emojiProvider={emojiProvider} />
 			)}
@@ -164,17 +192,13 @@ export const Reaction = ({
 				allowUserDialog={allowUserDialog}
 				isEnabled={isTooltipEnabled}
 			>
-				<button
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={className}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={[reactionStyle, reaction.reacted && reactedStyle]}
+				<Pressable
+					xcss={[reactionStyles, reaction.reacted && reactedStyles]}
 					aria-label={intl.formatMessage(messages.reactWithEmoji, {
 						emoji: emojiName,
 					})}
-					type="button"
 					data-emoji-id={reaction.emojiId}
-					data-testid={RENDER_REACTION_TESTID}
+					testId={RENDER_REACTION_TESTID}
 					onClick={handleClick}
 					onMouseEnter={handleMouseEnter}
 					onFocus={handleFocused}
@@ -188,8 +212,8 @@ export const Reaction = ({
 						</div>
 						<Counter value={reaction.count} highlight={reaction.reacted} />
 					</FlashAnimation>
-				</button>
+				</Pressable>
 			</ReactionTooltip>
-		</div>
+		</Box>
 	);
 };

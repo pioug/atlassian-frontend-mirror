@@ -13,7 +13,7 @@ import {
 	emojiPickerMinHeight,
 	emojiPickerWidth,
 } from '../../util/constants';
-import { B100, B200, B300, N100A, N30, N30A, N50, N900 } from '@atlaskit/theme/colors';
+import { N30, N30A, N900 } from '@atlaskit/theme/colors';
 import type { PickerSize } from '../../types';
 import { emojiPickerHeightOffset } from './utils';
 
@@ -65,54 +65,6 @@ export const categorySelectorTablist = css({
 	flexDirection: 'row',
 	justifyContent: 'space-around',
 	alignItems: 'center',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
-export const active = css({
-	color: token('color.text.selected', B300),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	['&:hover']: {
-		color: token('color.text.selected', B300),
-	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
-export const disable = css({
-	color: token('color.text.subtlest', N50),
-	cursor: 'default',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	['&:hover']: {
-		color: token('color.text.subtlest', N50),
-	},
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
-export const categoryStyles = css({
-	backgroundColor: 'transparent',
-	border: 0,
-	borderRadius: token('border.radius.100', '3px'),
-	color: token('color.text.subtlest', N100A),
-	cursor: 'pointer',
-	padding: token('space.0', '0px'),
-	transition: 'color 0.2s ease',
-
-	/* Firefox */
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	['&::-moz-focus-inner']: {
-		border: '0 none',
-		padding: token('space.0', '0px'),
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	['&:hover']: {
-		color: token('color.text.selected', B200),
-	},
-
-	'&:focus-visible': {
-		boxShadow: `0 0 0 2px ${token('color.border.focused', B100)}`,
-		transitionDuration: '0s, 0.2s',
-		outline: 'none',
-	},
 });
 
 /// EmojiPickerList

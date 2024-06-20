@@ -10,11 +10,13 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BackgroundColorPlugin } from '@atlaskit/editor-plugin-background-color';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { changeColor } from './commands';
 import { keymapPlugin } from './pm-plugins/keymap';
 import type { HighlightPluginState } from './pm-plugins/main';
 import { createPlugin, highlightPluginKey } from './pm-plugins/main';
+import { PrimaryToolbarHighlightColorWithIntl as PrimaryToolbarHighlightColor } from './ui/PrimaryToolbarHighlightColor';
 import { ToolbarHighlightColorWithIntl as ToolbarHighlightColor } from './ui/ToolbarHighlightColor';
 
 export type HighlightPlugin = NextEditorPlugin<
@@ -46,20 +48,29 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		popupsScrollableElement,
 		disabled,
 		isToolbarReducedSpacing,
-		dispatchAnalyticsEvent,
 		editorView,
-	}) => (
-		<ToolbarHighlightColor
-			popupsMountPoint={popupsMountPoint}
-			popupsBoundariesElement={popupsBoundariesElement}
-			popupsScrollableElement={popupsScrollableElement}
-			disabled={disabled}
-			isToolbarReducedSpacing={isToolbarReducedSpacing}
-			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-			pluginInjectionApi={api}
-			editorView={editorView}
-		/>
-	);
+	}) =>
+		getBooleanFF('platform.editor.refactor-highlight-toolbar_mo0pj') ? (
+			<PrimaryToolbarHighlightColor
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
+				disabled={disabled}
+				isToolbarReducedSpacing={isToolbarReducedSpacing}
+				pluginInjectionApi={api}
+				editorView={editorView}
+			/>
+		) : (
+			<ToolbarHighlightColor
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
+				disabled={disabled}
+				isToolbarReducedSpacing={isToolbarReducedSpacing}
+				pluginInjectionApi={api}
+				editorView={editorView}
+			/>
+		);
 
 	return {
 		name: 'highlight',

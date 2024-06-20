@@ -1,27 +1,12 @@
 import React from 'react';
 
-import { ufologger } from '@atlaskit/ufo/logger';
-import { payloadPublisher } from '@atlassian/ufo';
+import { DeletedExample } from '@af/editor-examples-helpers/utils';
 
-import { default as FullPageExample } from './5-full-page';
-
-/**
- * The publisher will be set up in product side in the real world
- * We add it in the example here so we can see events coming from UFO in the console
- */
-payloadPublisher.setup({
-	product: 'examples',
-	gasv3: {
-		sendOperationalEvent: (event) => {
-			console.log('sendOperationalEvent:', event);
-		},
-	},
-	app: { version: { web: 'unknown' } },
-});
-ufologger.enable();
-
-const editorProps = {
-	featureFlags: { ufo: true },
-};
-
-export default () => <FullPageExample editorProps={editorProps} />;
+export default function Example() {
+	return (
+		<DeletedExample
+			commitId="78a5c9a16a37548a049b84f555459d60c41388a0"
+			alternativeExample="Confluence basic"
+		/>
+	);
+}

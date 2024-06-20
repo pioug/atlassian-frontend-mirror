@@ -44,6 +44,7 @@ const Code = memo(
 			children
 		);
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			<code ref={ref} data-testid={testId} css={styles} {...otherProps}>
 				{decoratedChildren}
 			</code>

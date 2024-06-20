@@ -1,6 +1,3 @@
-// [ED-22843] use FF in editor-core for sake of example
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 // Used in products integration code
 export { name, version } from './version-wrapper';
 export { default as Editor } from './editor';
@@ -91,13 +88,5 @@ export type {
 	 */
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-
-// [ED-22843] use FF in editor-core for sake of example
-// @ts-expect-error function is not being used
-const ignoreFunction = () => {
-	// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage, @atlaskit/platform/ensure-feature-flag-prefix
-	getBooleanFF('__live-view-toggle');
-	return;
-};
 
 export { createEditorContentStyle } from './ui/ContentStyles';

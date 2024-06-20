@@ -1,6 +1,6 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
 
-const screenWidths = [360, 480, 768, 1024, 1440, 1760, 2160];
+const screenWidths = [360, 480, 768, 1024, 1440, 1768, 2160];
 
 describe('Snapshot Test', () => {
 	it('Media queries should match production example', async () => {

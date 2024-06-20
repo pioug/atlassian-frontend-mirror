@@ -104,7 +104,7 @@ export default function Pressable(
 		/**
 		 * Elements to be rendered inside the primitive.
 		 */
-		children: React.ReactNode;
+		children?: React.ReactNode;
 
 		/**
 		 * Forwarded ref element.

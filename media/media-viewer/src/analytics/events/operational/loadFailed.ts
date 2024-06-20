@@ -32,6 +32,7 @@ export const createLoadFailedEvent = (
 			error: getSecondaryErrorReason(error),
 			errorDetail: getErrorDetail(error),
 			request: getRequestMetadata(error),
+			fileMimetype,
 			fileAttributes: {
 				fileId,
 				fileMediatype,

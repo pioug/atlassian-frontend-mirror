@@ -10,8 +10,6 @@ import { css, jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
@@ -19,8 +17,6 @@ import { type BreadcrumbsItemProps } from '../types';
 
 import Step from './internal/step';
 import useOverflowable from './internal/use-overflowable';
-
-const height = (gridSize() * 3) / fontSize();
 
 const AKTooltip = lazyForPaint(
 	() => import(/* webpackChunkName: "@atlaskit-internal_Tooltip" */ '@atlaskit/tooltip'),
@@ -31,13 +27,11 @@ const itemWrapperStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
 	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `${height}em`,
+	height: `${24 / 14}em`,
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
 	flexDirection: 'row',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: `${height}em`,
+	lineHeight: `${24 / 14}em`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:not(:last-child)::after': {
 		width: '8px',

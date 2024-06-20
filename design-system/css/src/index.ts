@@ -13,7 +13,7 @@ type MediaQuery =
 	| '(min-width: 48rem)'
 	| '(min-width: 64rem)'
 	| '(min-width: 90rem)'
-	| '(min-width: 110rem)';
+	| '(min-width: 110.5rem)';
 
 const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles, { media: MediaQuery }>();
 

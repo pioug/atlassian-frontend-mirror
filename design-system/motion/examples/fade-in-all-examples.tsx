@@ -28,6 +28,7 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					width: '158px',
 					margin: `${token('space.200', '16px')} auto`,
@@ -48,6 +49,7 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					display: 'flex',
 					maxWidth: '474px',
@@ -78,6 +80,7 @@ export default () => md`
   ${(
 		<RetryContainer>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					display: 'flex',
 					width: '474px',

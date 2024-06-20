@@ -1,10 +1,18 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
-import type { UIAEP } from './utils';
+import type { TrackAEP, UIAEP } from './utils';
 
 type ElementAttributes = {
 	nodeDepth: number;
 	nodeType: string;
 };
+
+type ElementMovedAEP = TrackAEP<
+	ACTION.MOVED,
+	ACTION_SUBJECT.ELEMENT,
+	ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+	ElementAttributes,
+	null
+>;
 
 type ElementDragAEP = UIAEP<
 	ACTION.DRAGGED,
@@ -22,4 +30,4 @@ type DragCancelledAEP = UIAEP<
 	null
 >;
 
-export type ElementEventPayload = ElementDragAEP | DragCancelledAEP;
+export type ElementEventPayload = ElementMovedAEP | ElementDragAEP | DragCancelledAEP;

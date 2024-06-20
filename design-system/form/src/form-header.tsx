@@ -10,11 +10,8 @@ import { css, jsx } from '@emotion/react';
 import Heading from '@atlaskit/heading';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
-import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
-
-const fontFamily = getFontFamily();
 
 export interface FormHeaderProps {
 	/**
@@ -50,7 +47,7 @@ const formHeaderTitleStyles = css({
 });
 
 const formHeaderWrapperStyles = css({
-	fontFamily: `${fontFamily}`,
+	fontFamily: token('font.family.body'),
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

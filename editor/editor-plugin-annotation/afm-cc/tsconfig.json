@@ -25,7 +25,7 @@
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
+            "path": "../../editor-plugin-editor-viewmode-effects/afm-cc/tsconfig.json"
         },
         {
             "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"

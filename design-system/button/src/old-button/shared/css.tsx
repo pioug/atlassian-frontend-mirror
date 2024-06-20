@@ -2,7 +2,6 @@
 import { css, type CSSObject } from '@emotion/react';
 
 import {
-	fontSize as getFontSize,
 	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 	gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
@@ -14,7 +13,6 @@ import { type Appearance, type Spacing } from '../types';
 import colors, { type ColorGroup, type ColorRule } from './colors';
 
 const gridSize: number = getGridSize();
-const fontSize: number = getFontSize();
 
 // ## Button layout
 //
@@ -29,8 +27,8 @@ const fontSize: number = getFontSize();
 //                                        Margins don't collapse with inline-flex
 //
 const heights: { [key in Spacing]: string } = {
-	default: `${(gridSize * 4) / fontSize}em`, // 32px
-	compact: `${(gridSize * 3) / fontSize}em`,
+	default: `${32 / 14}em`, // 32px
+	compact: `${24 / 14}em`,
 	none: 'auto',
 };
 const lineHeights: { [key in Spacing]: string } = {

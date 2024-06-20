@@ -31,7 +31,7 @@ export function UserPicker({
 			{({ fieldId, ...fieldProps }) => {
 				return (
 					<SmartUserPicker
-						defaultValue={defaultValue}
+						defaultValue={{ ...defaultValue, type: 'user' }}
 						placeholder={placeholder}
 						onChange={(value) => fieldProps.onChange(value)}
 						subtle

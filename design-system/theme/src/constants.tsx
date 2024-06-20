@@ -24,10 +24,40 @@ export const borderRadius = () => 3;
  * Available space tokens can be found on {@link https://atlassian.design/foundations/spacing/#scale}
  */
 export const gridSize = () => 8;
+
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated Use token('font.body') or Text/Heading components instead.
+ * Font tokens {@link https://atlassian.design/components/tokens/all-tokens#font}
+ * Heading component {@link https://atlassian.design/components/heading/examples}
+ * Text component {@link https://atlassian.design/components/primitives/text/examples}
+ */
 export const fontSize = () => 14;
+
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated Use `token('font.body.small')` or Text/Heading components instead.
+ * Font tokens {@link https://atlassian.design/components/tokens/all-tokens#font}
+ * Heading component {@link https://atlassian.design/components/heading/examples}
+ * Text component {@link https://atlassian.design/components/primitives/text/examples}
+ */
 export const fontSizeSmall = () => 11;
+
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated Use `token('font.family.body') or consider the Text/Heading components instead.
+ * Font family tokens {@link https://atlassian.design/components/tokens/all-tokens#font-family}
+ * Heading component {@link https://atlassian.design/components/heading/examples}
+ * Text component {@link https://atlassian.design/components/primitives/text/examples}
+ */
 export const fontFamily = () =>
 	`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif`;
+
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
+ * @deprecated Use `token('font.family.code`) instead.
+ * Font family tokens {@link https://atlassian.design/components/tokens/all-tokens#font-family}
+ */
 export const codeFontFamily = () =>
 	`'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace`;
 

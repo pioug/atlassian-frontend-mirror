@@ -58,6 +58,7 @@ export default () => {
 
 	return (
 		<RetryContainer>
+			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 			<div css={{ textAlign: 'center' }}>
 				<ButtonGroup label="Motion options">
 					<Button onClick={() => setIndex((prev) => (prev + 1) % elements.length)}>Switch</Button>
@@ -78,6 +79,7 @@ export default () => {
 				</ButtonGroup>
 
 				<Centered>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={{ position: 'relative' }}>
 						<ExitingPersistence appear={appear} exitThenEnter={exitThenEnter}>
 							<div key={index}>{elements[index](exitThenEnter)}</div>

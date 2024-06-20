@@ -336,6 +336,7 @@ describe('<MediaViewer />', () => {
 						attributes: {
 							fileAttributes,
 							fileMediatype: 'image',
+							fileMimetype: fileAttributes.fileMimetype,
 							status: 'success',
 							traceContext: { traceId: expect.any(String) },
 						},
@@ -384,6 +385,7 @@ describe('<MediaViewer />', () => {
 					expect.objectContaining({
 						attributes: expect.objectContaining({
 							failReason: 'svg-binary-fetch',
+							fileMimetype: fileAttributes.fileMimetype,
 							fileAttributes,
 						}),
 					}),
@@ -441,6 +443,7 @@ describe('<MediaViewer />', () => {
 					expect.objectContaining({
 						attributes: expect.objectContaining({
 							failReason: 'svg-img-error',
+							fileMimetype: fileAttributes.fileMimetype,
 							fileAttributes,
 						}),
 					}),
@@ -518,6 +521,7 @@ describe('<MediaViewer />', () => {
 							attributes: {
 								fileAttributes,
 								fileMediatype: 'image',
+								fileMimetype: fileAttributes.fileMimetype,
 								status: 'success',
 								traceContext: { traceId: expect.any(String) },
 							},
@@ -597,6 +601,7 @@ describe('<MediaViewer />', () => {
 							attributes: {
 								fileAttributes,
 								fileMediatype: 'image',
+								fileMimetype: fileAttributes.fileMimetype,
 								status: 'success',
 								traceContext: { traceId: expect.any(String) },
 							},
@@ -666,6 +671,7 @@ describe('<MediaViewer />', () => {
 						expect.objectContaining({
 							attributes: expect.objectContaining({
 								failReason: 'svg-binary-fetch',
+								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
 							}),
 						}),
@@ -754,6 +760,7 @@ describe('<MediaViewer />', () => {
 						expect.objectContaining({
 							attributes: expect.objectContaining({
 								failReason: 'svg-binary-fetch',
+								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
 							}),
 						}),
@@ -832,6 +839,7 @@ describe('<MediaViewer />', () => {
 						expect.objectContaining({
 							attributes: expect.objectContaining({
 								failReason: 'svg-img-error',
+								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
 							}),
 						}),
@@ -921,6 +929,7 @@ describe('<MediaViewer />', () => {
 						expect.objectContaining({
 							attributes: expect.objectContaining({
 								failReason: 'svg-img-error',
+								fileMimetype: fileAttributes.fileMimetype,
 								fileAttributes,
 							}),
 						}),

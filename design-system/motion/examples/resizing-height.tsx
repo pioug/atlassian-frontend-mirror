@@ -45,6 +45,7 @@ export default () => {
 	return (
 		<div>
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					textAlign: 'center',
 					'> *': { margin: token('space.025', '2px') },
@@ -68,7 +69,7 @@ export default () => {
 				<div
 					data-testid="menu"
 					{...useResizingHeight()}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={css({
 						width: '100%',
 						maxWidth: '500px',
@@ -86,7 +87,7 @@ export default () => {
 							type="text"
 							readOnly
 							value={searchTerm[`s${num}`]}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							css={css({
 								display: 'block',
 								boxSizing: 'border-box',
@@ -114,7 +115,7 @@ export default () => {
 								<FadeIn key={index}>
 									{(motion) => (
 										<div
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 											css={css({
 												display: 'flex',
 												padding: token('space.200', '16px'),
@@ -129,6 +130,7 @@ export default () => {
 										>
 											{logos[index][0]}
 											<h3
+												// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 												css={{
 													margin: 0,
 													fontWeight: 300,

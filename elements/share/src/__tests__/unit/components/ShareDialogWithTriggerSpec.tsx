@@ -211,7 +211,7 @@ describe('ShareDialogWithTrigger', () => {
 				isDialogOpen: !isDialogOpen,
 			});
 
-			expect(wrapper.find(Popup).prop('isOpen')).toEqual(!isDialogOpen);
+			expect(wrapper.find(Popup).first().prop('isOpen')).toEqual(!isDialogOpen);
 			expect(wrapper.find(ShareButton).prop('isSelected')).toEqual(!isDialogOpen);
 		});
 

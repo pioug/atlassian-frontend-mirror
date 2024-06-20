@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.2.4
+
+### Patch Changes
+
+- [#107785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107785)
+  [`7304a7cd937f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7304a7cd937f9) -
+  [ux] [ED-23522] Single player expands on behind `platform.editor.single-player-expand` for all
+  editors, single player expands on without `platform.editor.single-player-expand` feature flag for
+  live page editors
+- Updated dependencies
+
 ## 1.2.3
 
 ### Patch Changes

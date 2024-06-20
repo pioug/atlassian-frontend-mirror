@@ -22,17 +22,20 @@ const AppFrame = ({ children, shouldHideAppBar, shouldHideBorder, content }: App
 		// eslint-disable-next-line
 		<div
 			onClick={(e) => e.preventDefault()}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				height: '100%',
 				minHeight: 600,
 			}}
 		>
 			{shouldHideAppBar || (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<div css={{ zIndex: 10, position: 'relative' }}>
 					<GlobalNav />
 				</div>
 			)}
 			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				css={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					height: shouldHideAppBar ? '100%' : `calc(100% - ${HORIZONTAL_GLOBAL_NAV_HEIGHT}px)`,
@@ -41,6 +44,7 @@ const AppFrame = ({ children, shouldHideAppBar, shouldHideBorder, content }: App
 				}}
 			>
 				<div
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={{
 						minHeight: 600,
 						borderRight: shouldHideBorder ? undefined : `1px solid ${token('color.border')}`,

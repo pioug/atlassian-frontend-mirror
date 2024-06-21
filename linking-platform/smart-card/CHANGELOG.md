@@ -1,5 +1,15 @@
 # @atlaskit/smart-card
 
+## 27.6.4
+
+### Patch Changes
+
+- [#112182](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112182)
+  [`474de215aa66e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/474de215aa66e) -
+  Moving fix for using select all shortcut inside a database or other embed card into the card
+  itself to fix selection issues with embed card.
+- Updated dependencies
+
 ## 27.6.3
 
 ### Patch Changes

@@ -42,7 +42,7 @@ export const rule = createLintRuleWithTypedConfig({
 		docs: {
 			description: 'Prevents usage of nested selectors within css styling',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-nested-selectors':

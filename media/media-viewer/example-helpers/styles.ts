@@ -43,13 +43,3 @@ export const mVSidebarHeaderStyles = css({
 	width: '100%',
 	justifyContent: 'space-between',
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
-export const nativePreviewButtonStyles = css({
-	height: '125px',
-	width: '156px',
-	background: 'none',
-	overflow: 'hidden',
-	appearance: 'none',
-	padding: 0,
-});

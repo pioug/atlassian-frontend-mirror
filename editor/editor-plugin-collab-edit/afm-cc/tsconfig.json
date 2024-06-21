@@ -28,10 +28,16 @@
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../prosemirror-collab/afm-cc/tsconfig.json"

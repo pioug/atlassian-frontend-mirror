@@ -1,5 +1,15 @@
 # @atlaskit/lozenge
 
+## 11.8.2
+
+### Patch Changes
+
+- [#113134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113134)
+  [`23be44b6bf355`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23be44b6bf355) -
+  Internal change to hardcode font size for now to ensure it doesn't change with new typography
+  themes.
+- Updated dependencies
+
 ## 11.8.1
 
 ### Patch Changes

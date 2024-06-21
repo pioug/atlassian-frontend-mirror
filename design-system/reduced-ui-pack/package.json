@@ -33,7 +33,7 @@
 		"dist/icons-sprite.svg"
 	],
 	"dependencies": {
-		"@atlaskit/theme": "^12.10.0"
+		"@atlaskit/theme": "^12.11.0"
 	},
 	"peerDependencies": {
 		"@atlaskit/css-reset": "^6.9.0",

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 2.0.10
+
+### Patch Changes
+
+- [#112182](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112182)
+  [`474de215aa66e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/474de215aa66e) -
+  Moving fix for using select all shortcut inside a database or other embed card into the card
+  itself to fix selection issues with embed card.
+- Updated dependencies
+
 ## 2.0.9
 
 ### Patch Changes

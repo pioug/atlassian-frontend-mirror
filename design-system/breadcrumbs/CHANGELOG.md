@@ -1,5 +1,15 @@
 # @atlaskit/breadcrumbs
 
+## 12.2.1
+
+### Patch Changes
+
+- [#105813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105813)
+  [`f2f51e7a24d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2f51e7a24d00) -
+  Internal change only. Remove references to deprecated @atlaskit/theme constants and replace with
+  hard-coded values.
+- Updated dependencies
+
 ## 12.2.0
 
 ### Minor Changes

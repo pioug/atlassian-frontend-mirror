@@ -36,6 +36,42 @@ to wire up. Because of this the majority of _motion atoms_ will utilise children
 </FadeIn>
 ```
 
+### Usage with Primitives
+
+Motion animation components cannot be used to animate Primitive components directly. This is because
+the `className` prop needs to be passed to the element used for the animation, and Primitives do not
+expose this prop.
+
+However, Primitives can still be used within the children of the motion component.
+
+If you need to style the element that the animation is being applied to, an alternative is to use
+`css` from `@compiled/react`:
+
+```tsx
+import type { ReactNode } from 'react';
+import { css } from '@compiled/react';
+import { SlideIn } from '@atlaskit/motion';
+import { Box, Inline } from '@atlaskit/primitives';
+
+const styles = css({
+	width: '100vw',
+	height: '90dvh',
+});
+
+const ComponentWithSlideIn = ({ children }: { children: ReactNode }) => (
+	<SlideIn enterFrom="bottom" fade="in">
+		{({ className, ref }) => (
+			<div css={styles} className={className} ref={ref} aria-modal>
+				<Inline>
+					<Heading size="large">Hello!</Heading>
+					<Box>{children}</Box>
+				</Inline>
+			</div>
+		)}
+	</SlideIn>
+);
+```
+
 ### Motion abstractions
 
 We want you to use abstractions (atoms) to power your motion and to not worry about underlying tech.

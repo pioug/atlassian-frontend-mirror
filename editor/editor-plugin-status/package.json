@@ -38,13 +38,13 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^36.10.7",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/editor-common": "^82.9.0",
+		"@atlaskit/editor-common": "^82.10.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/status": "^1.4.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

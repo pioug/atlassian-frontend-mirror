@@ -11,7 +11,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { useSharedPluginState } from '../../../hooks';
 import { createWidthContext, WidthContext } from '../../../ui';
-import type { ExtensionsPluginInjectionAPI } from '../../types';
+import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
@@ -21,7 +21,7 @@ export interface Props {
 	node: PmNode;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	children?: React.ReactNode;
-	showMacroInteractionDesignUpdates?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	isNodeSelected?: boolean;
 	isNodeHovered?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
@@ -31,12 +31,14 @@ const InlineExtension = (props: Props) => {
 	const {
 		node,
 		pluginInjectionApi,
-		showMacroInteractionDesignUpdates,
+		macroInteractionDesignFeatureFlags,
 		isNodeSelected,
 		children,
 		isNodeHovered,
 		setIsNodeHovered,
 	} = props;
+	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+
 	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
 
 	const hasChildren = !!children;

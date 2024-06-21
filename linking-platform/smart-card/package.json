@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "27.6.3",
+	"version": "27.6.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,9 +31,9 @@
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/avatar": "^21.10.0",
-		"@atlaskit/avatar-group": "^9.7.0",
+		"@atlaskit/avatar-group": "^9.8.0",
 		"@atlaskit/badge": "^16.2.0",
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/dropdown-menu": "^12.13.0",
 		"@atlaskit/form": "^10.4.0",
@@ -61,8 +61,8 @@
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/textarea": "^5.5.0",
 		"@atlaskit/textfield": "^6.4.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -196,6 +196,9 @@
 			"type": "boolean"
 		},
 		"platform.linking-platform.smart-card.enable-view-related-urls-action": {
+			"type": "boolean"
+		},
+		"platform.editor.card.fix-embed-card-select-all": {
 			"type": "boolean"
 		}
 	}

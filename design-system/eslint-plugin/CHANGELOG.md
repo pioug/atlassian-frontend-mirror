@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.8.1
+
+### Patch Changes
+
+- [#113465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113465)
+  [`1b198cf33c32e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b198cf33c32e) -
+  Create `use-latest-xcss-syntax-typography` rule. Bans the use of 'fontSize', 'lineHeight',
+  'fontWeight' on xcss.
+- Updated dependencies
+
 ## 10.8.0
 
 ### Minor Changes

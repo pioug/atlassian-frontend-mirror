@@ -13,7 +13,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
@@ -195,22 +194,11 @@ const DropdownMenuItem = (props: {
 	const isAriaChecked = (item: DropdownOptionT<any>) => {
 		const { selected, domItemOptions } = item;
 
-		if (
-			getBooleanFF('platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33') &&
-			domItemOptions?.type === 'item-checkbox'
-		) {
-			return selected;
-		}
-		return undefined;
+		return domItemOptions?.type === 'item-checkbox' ? selected : undefined;
 	};
 
 	const hasRole = (item: DropdownOptionT<any>) => {
-		const { domItemOptions } = item;
-
-		return getBooleanFF('platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33') &&
-			domItemOptions?.type === 'item-checkbox'
-			? 'menuitemcheckbox'
-			: undefined;
+		return item.domItemOptions?.type === 'item-checkbox' ? 'menuitemcheckbox' : undefined;
 	};
 
 	useEffect(() => {
@@ -264,24 +252,14 @@ type SelectedIconBeforeProps = {
 };
 const SelectedIconBefore = ({ itemSelected, intl, showSelected }: SelectedIconBeforeProps) => {
 	if (showSelected && itemSelected) {
-		if (getBooleanFF('platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33')) {
-			return (
-				<span aria-hidden="true">
-					<EditorDoneIcon
-						primaryColor={token('color.icon.selected', B400)}
-						size="small"
-						label={intl.formatMessage(messages.confirmModalOK)}
-					/>
-				</span>
-			);
-		}
-
 		return (
-			<EditorDoneIcon
-				primaryColor={token('color.icon.selected', B400)}
-				size="small"
-				label={intl.formatMessage(messages.confirmModalOK)}
-			/>
+			<span aria-hidden="true">
+				<EditorDoneIcon
+					primaryColor={token('color.icon.selected', B400)}
+					size="small"
+					label={intl.formatMessage(messages.confirmModalOK)}
+				/>
+			</span>
 		);
 	}
 
@@ -292,14 +270,7 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 	const { hide, dispatchCommand, items, intl, editorView, showSelected = true } = props;
 
 	return (
-		<div
-			css={menuContainerStyles}
-			role={
-				getBooleanFF('platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33')
-					? 'menu'
-					: undefined
-			}
-		>
+		<div css={menuContainerStyles} role="menu">
 			{items
 				.filter((item) => !item.hidden)
 				.map((item, idx) => (

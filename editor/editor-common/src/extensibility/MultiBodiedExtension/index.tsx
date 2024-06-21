@@ -24,7 +24,7 @@ import {
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import { WithPluginState } from '../../with-plugin-state';
 import ExtensionLozenge from '../Extension/Lozenge';
-import type { ExtensionsPluginInjectionAPI } from '../types';
+import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../types';
 
 import { useMultiBodiedExtensionActions } from './action-api';
 import { mbeExtensionWrapperCSSStyles, overlayStyles } from './styles';
@@ -65,7 +65,7 @@ type Props = {
 	eventDispatcher?: EventDispatcher;
 	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 	editorAppearance?: EditorAppearance;
-	showMacroInteractionDesignUpdates?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	isNodeSelected?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -123,12 +123,13 @@ const MultiBodiedExtensionWithWidth = ({
 	eventDispatcher,
 	widthState,
 	editorAppearance,
-	showMacroInteractionDesignUpdates,
+	macroInteractionDesignFeatureFlags,
 	isNodeSelected,
 	isNodeHovered,
 	isNodeNested,
 	setIsNodeHovered,
 }: PropsWithWidth) => {
+	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const { parameters, extensionKey } = node.attrs;
 	const title =
 		(parameters && parameters.extensionTitle) ||

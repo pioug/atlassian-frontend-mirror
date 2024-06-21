@@ -1,5 +1,31 @@
 # @atlaskit/button
 
+## 17.23.0
+
+### Minor Changes
+
+- [#112945](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112945)
+  [`d7af9e23536c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7af9e23536c0) -
+  New button prevents unintended spread props being passed to children. The following props will now
+  be ignored:
+
+  - css
+  - style
+  - as
+  - className
+
+  Note: These props were already excluded via types. The API has not changed.
+
+## 17.22.2
+
+### Patch Changes
+
+- [#105813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105813)
+  [`f2f51e7a24d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2f51e7a24d00) -
+  Internal change only. Remove references to deprecated @atlaskit/theme constants and replace with
+  hard-coded values.
+- Updated dependencies
+
 ## 17.22.1
 
 ### Patch Changes

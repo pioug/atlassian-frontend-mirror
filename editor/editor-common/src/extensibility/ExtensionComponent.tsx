@@ -23,7 +23,7 @@ import { getExtensionRenderer } from '../utils';
 import Extension from './Extension/Extension';
 import InlineExtension from './Extension/InlineExtension';
 import MultiBodiedExtension from './MultiBodiedExtension';
-import type { ExtensionsPluginInjectionAPI } from './types';
+import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
 
 export interface Props {
 	editorView: EditorView;
@@ -36,7 +36,7 @@ export interface Props {
 	editorAppearance?: EditorAppearance;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	eventDispatcher?: EventDispatcher;
-	showMacroInteractionDesignUpdates?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 }
 
 export interface State {
@@ -102,7 +102,7 @@ export class ExtensionComponent extends Component<Props, State> {
 			pluginInjectionApi,
 			getPos,
 			eventDispatcher,
-			showMacroInteractionDesignUpdates,
+			macroInteractionDesignFeatureFlags,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -125,7 +125,7 @@ export class ExtensionComponent extends Component<Props, State> {
 					eventDispatcher={eventDispatcher}
 					pluginInjectionApi={pluginInjectionApi}
 					editorAppearance={editorAppearance}
-					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+					macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 					isNodeSelected={selectedNode === node}
 					isNodeNested={isNodeNested}
 					isNodeHovered={this.state.isNodeHovered}
@@ -149,7 +149,7 @@ export class ExtensionComponent extends Component<Props, State> {
 						editorAppearance={editorAppearance}
 						hideFrame={this.state._privateProps?.__hideFrame}
 						pluginInjectionApi={pluginInjectionApi}
-						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+						macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 						isNodeSelected={selectedNode === node}
 						isNodeHovered={this.state.isNodeHovered}
 						isNodeNested={isNodeNested}
@@ -162,7 +162,7 @@ export class ExtensionComponent extends Component<Props, State> {
 				return (
 					<InlineExtension
 						node={node}
-						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+						macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 						isNodeSelected={selectedNode === node}
 						pluginInjectionApi={pluginInjectionApi}
 						isNodeHovered={this.state.isNodeHovered}

@@ -38,15 +38,15 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/dynamic-table": "^14.18.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",
 		"@atlaskit/media-ui": "^25.10.0",
 		"@atlaskit/media-viewer": "^48.6.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0",
 		"memoize-one": "^6.0.0"

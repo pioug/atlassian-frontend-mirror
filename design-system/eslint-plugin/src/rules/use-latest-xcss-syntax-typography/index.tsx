@@ -1,0 +1,35 @@
+import type { Rule } from 'eslint';
+
+import { createLintRule } from '../utils/create-rule';
+
+import { BannedProperty } from './linters';
+
+export const error = `Don't set fontSize, lineHeight, fontWeight properties on xcss. They are unsafe as they allow invalid combinations of typography tokens. There is ongoing work to make this a TypeScript error. Once that happens, you will have to delete/refactor anyway.`;
+
+const rule = createLintRule({
+	meta: {
+		name: 'use-latest-xcss-syntax-typography',
+		type: 'problem',
+		fixable: 'code',
+		hasSuggestions: false,
+		docs: {
+			description:
+				'Prohibits use of unsafe styling properties in xcss. Please use Text/Heading primitives instead.',
+			recommended: true,
+			severity: 'warn',
+		},
+		messages: {
+			noUnsafeTypographyProperties: error,
+		},
+	},
+	create(context) {
+		return {
+			'CallExpression[callee.name="xcss"] ObjectExpression > Property > Identifier[name=/(fontSize|lineHeight|fontWeight)/]':
+				(node: Rule.Node) => BannedProperty.lint(node, { context }),
+			'CallExpression[callee.name="xcss"] ObjectExpression > Property > Literal[value=/(fontSize|lineHeight|fontWeight)/]':
+				(node: Rule.Node) => BannedProperty.lint(node, { context }),
+		};
+	},
+});
+
+export default rule;

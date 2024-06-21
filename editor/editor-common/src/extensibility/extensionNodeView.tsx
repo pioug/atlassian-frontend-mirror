@@ -14,7 +14,7 @@ import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
-import type { ExtensionsPluginInjectionAPI } from './types';
+import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
 
 interface ExtensionNodeViewOptions {
 	appearance?: EditorAppearance;
@@ -54,14 +54,14 @@ export class ExtensionNode extends ReactNodeView {
 			// referentiality plugin won't utilise appearance just yet
 			extensionNodeViewOptions?: ExtensionNodeViewOptions;
 			pluginInjectionApi: ExtensionsPluginInjectionAPI;
-			showMacroInteractionDesignUpdates: boolean;
+			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 		},
 		forwardRef: ForwardRef,
 	) {
 		return (
 			<ExtensionNodeWrapper
 				nodeType={this.node.type.name}
-				showMacroInteractionDesignUpdates={props.showMacroInteractionDesignUpdates}
+				macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
 			>
 				<Extension
 					editorView={this.view}
@@ -79,7 +79,7 @@ export class ExtensionNode extends ReactNodeView {
 					extensionHandlers={props.extensionHandlers}
 					editorAppearance={props.extensionNodeViewOptions?.appearance}
 					pluginInjectionApi={props.pluginInjectionApi}
-					showMacroInteractionDesignUpdates={props.showMacroInteractionDesignUpdates}
+					macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
 				/>
 			</ExtensionNodeWrapper>
 		);
@@ -93,7 +93,7 @@ export default function ExtensionNodeView(
 	extensionHandlers: ExtensionHandlers,
 	extensionNodeViewOptions: ExtensionNodeViewOptions,
 	pluginInjectionApi: ExtensionsPluginInjectionAPI,
-	showMacroInteractionDesignUpdates?: boolean,
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		const hasIntlContext = true;
@@ -108,7 +108,7 @@ export default function ExtensionNodeView(
 				extensionHandlers,
 				extensionNodeViewOptions,
 				pluginInjectionApi,
-				showMacroInteractionDesignUpdates,
+				macroInteractionDesignFeatureFlags,
 			},
 			undefined,
 			undefined,

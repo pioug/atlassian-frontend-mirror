@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.20.0
+
+### Minor Changes
+
+- [#113460](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113460)
+  [`b375e07bd430a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b375e07bd430a) -
+  Add Single Value Chart into UI Kit
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.19.0
 
 ### Minor Changes

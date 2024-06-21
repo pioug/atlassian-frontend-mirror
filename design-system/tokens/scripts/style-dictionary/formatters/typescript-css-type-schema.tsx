@@ -29,6 +29,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const textColor: TransformedToken[] = [];
 	const textColorPressed: TransformedToken[] = [];
 	const iconColor: TransformedToken[] = [];
+	const iconColorPressed: TransformedToken[] = [];
 	const opacity: TransformedToken[] = [];
 
 	for (let i = 0; i < tokens.length; i++) {
@@ -57,8 +58,15 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 			}
 		}
 
-		if (token.path.includes('color') && token.path.includes('icon')) {
-			iconColor.push(token);
+		if (
+			token.path.includes('color') &&
+			(token.path.includes('icon') || token.path.includes('link'))
+		) {
+			if (token.path.includes('pressed')) {
+				iconColorPressed.push(token);
+			} else {
+				iconColor.push(token);
+			}
 		}
 
 		if (token.path.includes('color') && token.path.includes('border')) {
@@ -102,6 +110,8 @@ export type BackgroundColorHovered = ${mapToCssVar(backgroundColorHovered)};
 export type BackgroundColorPressed = ${mapToCssVar(backgroundColorPressed)};
 
 export type IconColor = ${mapToCssVar(iconColor)};
+
+export type IconColorPressed = ${mapToCssVar(iconColorPressed)};
 
 export type BorderColor = ${mapToCssVar(borderColor)};
 

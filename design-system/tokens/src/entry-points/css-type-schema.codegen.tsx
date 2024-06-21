@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::d6db772743ab5a9b0a9f8ae71d16ede7>>
+ * @codegen <<SignedSource::9a6f7080318b265d2bc48dc19e3f60c7>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColor =
@@ -207,6 +207,8 @@ export type BackgroundColorPressed =
 	| 'var(--ds-surface-raised-pressed)';
 
 export type IconColor =
+	| 'var(--ds-link)'
+	| 'var(--ds-link-visited)'
 	| 'var(--ds-icon)'
 	| 'var(--ds-icon-accent-lime)'
 	| 'var(--ds-icon-accent-red)'
@@ -229,6 +231,8 @@ export type IconColor =
 	| 'var(--ds-icon-discovery)'
 	| 'var(--ds-icon-information)'
 	| 'var(--ds-icon-subtle)';
+
+export type IconColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
 
 export type BorderColor =
 	| 'var(--ds-border)'

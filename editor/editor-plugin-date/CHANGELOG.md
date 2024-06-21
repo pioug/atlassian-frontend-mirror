@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-date
 
+## 1.2.6
+
+### Patch Changes
+
+- [#112831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112831)
+  [`4449002c52e44`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4449002c52e44) -
+  [ux] [ED-23702] Open date picker when it is the first node in an inline comment
+
 ## 1.2.5
 
 ### Patch Changes

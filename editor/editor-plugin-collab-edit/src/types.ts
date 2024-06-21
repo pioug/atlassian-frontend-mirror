@@ -7,6 +7,7 @@ import type {
 } from '@atlaskit/editor-common/collab';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -54,7 +55,11 @@ export type CollabEditPlugin = NextEditorPlugin<
 	'collabEdit',
 	{
 		pluginConfiguration: PrivateCollabEditOptions;
-		dependencies: [OptionalPlugin<FeatureFlagsPlugin>, OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [
+			OptionalPlugin<FeatureFlagsPlugin>,
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
+		];
 		sharedState: CollabEditPluginSharedState;
 		actions: {
 			getAvatarColor: (str: string) => { index: number; color: Color };

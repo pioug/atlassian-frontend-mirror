@@ -192,6 +192,11 @@ const createPlugin = (
 		appearance: options.appearance,
 	};
 
+	const macroInteractionDesignFeatureFlags = {
+		showMacroInteractionDesignUpdates: featureFlags?.macroInteractionUpdates ?? false,
+		showMacroButtonUpdates: featureFlags?.macroInteractionButtonUpdates ?? false,
+	};
+
 	return new SafePlugin({
 		state,
 		view: (editorView) => {
@@ -335,7 +340,7 @@ const createPlugin = (
 					extensionHandlers,
 					extensionNodeViewOptions,
 					pluginInjectionApi,
-					featureFlags?.macroInteractionUpdates ?? false,
+					macroInteractionDesignFeatureFlags,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				bodiedExtension: ExtensionNodeView(
@@ -345,7 +350,7 @@ const createPlugin = (
 					extensionHandlers,
 					extensionNodeViewOptions,
 					pluginInjectionApi,
-					featureFlags?.macroInteractionUpdates ?? false,
+					macroInteractionDesignFeatureFlags,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				inlineExtension: ExtensionNodeView(
@@ -355,7 +360,7 @@ const createPlugin = (
 					extensionHandlers,
 					extensionNodeViewOptions,
 					pluginInjectionApi,
-					featureFlags?.macroInteractionUpdates ?? false,
+					macroInteractionDesignFeatureFlags,
 				),
 				multiBodiedExtension: ExtensionNodeView(
 					portalProviderAPI,
@@ -364,7 +369,7 @@ const createPlugin = (
 					extensionHandlers,
 					extensionNodeViewOptions,
 					pluginInjectionApi,
-					featureFlags?.macroInteractionUpdates ?? false,
+					macroInteractionDesignFeatureFlags,
 				),
 			},
 			createSelectionBetween: function (view, anchor, head) {

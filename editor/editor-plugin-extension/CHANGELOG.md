@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.7.0
+
+### Minor Changes
+
+- [#112575](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112575)
+  [`63dcaae87255b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63dcaae87255b) -
+  Passes new FF for new experiment to macro code and updates type to be object from boolean to
+  account for multiple FFs
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.1
 
 ### Patch Changes

@@ -169,7 +169,7 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::485e5a3659092381fa81ce940d43a939>>
+ * @codegen <<SignedSource::b0d40448c552e91658e4f2267d9f40b3>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
@@ -754,6 +754,8 @@ export const backgroundColorMap = {
 	'color.blanket': token('color.blanket', '#091e4289'),
 	'color.blanket.selected': token('color.blanket.selected', '#388BFF14'),
 	'color.blanket.danger': token('color.blanket.danger', '#EF5C4814'),
+	'color.skeleton': token('color.skeleton', '#F4F5F7'),
+	'color.skeleton.subtle': token('color.skeleton.subtle', '#091e420a'),
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),

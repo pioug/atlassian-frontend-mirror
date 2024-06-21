@@ -33,8 +33,8 @@
 		"@atlaskit/avatar": "^21.10.0",
 		"@atlaskit/item": "^12.1.0",
 		"@atlaskit/spinner": "^16.2.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@babel/runtime": "^7.0.0",
 		"keycode": "^2.1.7"
 	},

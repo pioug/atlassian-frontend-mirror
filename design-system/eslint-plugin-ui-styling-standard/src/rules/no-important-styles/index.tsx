@@ -12,7 +12,7 @@ export const rule = createLintRuleWithTypedConfig({
 		docs: {
 			description: 'Disallows important style declarations',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-important-styles':

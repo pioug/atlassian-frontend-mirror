@@ -30,7 +30,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/consistent-css-prop-usage/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 			pluginConfig: {
 				// When passing a css prop to a React component, we don't know whether the component
 				// is Emotion or Compiled. Hence it is not safe to run autofixes like wrapping it in
@@ -51,7 +51,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-css-tagged-template-expression/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 	},
 	{
@@ -66,7 +66,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-keyframes-tagged-template-expression/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 	},
 	{
@@ -81,7 +81,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-styled-tagged-template-expression/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 	},
 	{
@@ -94,7 +94,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-suppress-xcss',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 	},
 	{
@@ -107,7 +107,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-js-xcss',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 	},
 	{
@@ -121,7 +121,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-empty-styled-expression/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 			pluginConfig: { importSources },
 		},
 	},
@@ -136,7 +136,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-exported-css/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 			pluginConfig: { importSources },
 		},
 	},
@@ -151,7 +151,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-exported-keyframes/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 			pluginConfig: { importSources },
 		},
 	},
@@ -166,7 +166,7 @@ export const externalRules: ExternalRuleMeta[] = [
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-invalid-css-map/usage',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 			pluginConfig: {
 				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
 			},

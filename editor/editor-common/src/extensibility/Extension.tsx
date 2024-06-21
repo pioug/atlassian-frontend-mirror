@@ -11,7 +11,7 @@ import type { ProsemirrorGetPosHandler } from '../react-node-view';
 import type { EditorAppearance } from '../types';
 
 import { ExtensionComponent } from './ExtensionComponent';
-import type { ExtensionsPluginInjectionAPI } from './types';
+import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
 
 export interface Props {
 	editorView: EditorView;
@@ -24,7 +24,7 @@ export interface Props {
 	editorAppearance?: EditorAppearance;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	eventDispatcher?: EventDispatcher;
-	showMacroInteractionDesignUpdates?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 }
 
 export class Extension extends Component<Props, any> {
@@ -56,7 +56,7 @@ export class Extension extends Component<Props, any> {
 			editorAppearance,
 			pluginInjectionApi,
 			eventDispatcher,
-			showMacroInteractionDesignUpdates,
+			macroInteractionDesignFeatureFlags,
 		} = this.props;
 
 		return (
@@ -71,7 +71,7 @@ export class Extension extends Component<Props, any> {
 				editorAppearance={editorAppearance}
 				pluginInjectionApi={pluginInjectionApi}
 				eventDispatcher={eventDispatcher}
-				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+				macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 			/>
 		);
 	};

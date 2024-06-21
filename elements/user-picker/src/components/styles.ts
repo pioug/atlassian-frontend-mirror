@@ -13,7 +13,7 @@ export const getStyles = memoizeOne(
 		isMulti?: boolean,
 		isCompact?: boolean,
 		overrideStyles?: StylesConfig,
-	) => {
+	): StylesConfig => {
 		let styles = {
 			menu: (css: any, state: any) => ({
 				...css,
@@ -180,7 +180,7 @@ export const getStyles = memoizeOne(
 );
 
 export const getPopupStyles = memoizeOne(
-	(width: string | number, isMulti?: boolean, overrideStyles?: StylesConfig) =>
+	(width: string | number, isMulti?: boolean, overrideStyles?: StylesConfig): StylesConfig =>
 		({
 			...getStyles(width, isMulti, false, overrideStyles),
 		}) as StylesConfig,

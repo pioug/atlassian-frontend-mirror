@@ -72,9 +72,6 @@ const isYoutubeVideo = (url: string) =>
 	url.match(/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/);
 
 const isLoomUrl = (url: string) => {
-	if (!getBooleanFF('platform.linking-platform.embed-loom-by-default')) {
-		return null;
-	}
 	return url.match(
 		/^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/,
 	);

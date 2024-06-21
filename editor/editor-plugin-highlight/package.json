@@ -41,7 +41,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.9.0",
+		"@atlaskit/editor-common": "^82.10.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
 		"@atlaskit/editor-plugin-background-color": "^1.1.0",
@@ -61,7 +61,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

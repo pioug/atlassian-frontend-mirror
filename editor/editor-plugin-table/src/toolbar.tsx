@@ -47,7 +47,6 @@ import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearHoverSelection,
@@ -108,11 +107,7 @@ export const getToolbarMenuConfig = (
 	isTableScalingWithFixedColumnWidthsOptionShown = false,
 	areTableColumnWidthsFixed = false,
 ): FloatingToolbarItem<Command> => {
-	const optionItem: typeOption = getBooleanFF(
-		'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
-	)
-		? 'item-checkbox'
-		: 'item';
+	const optionItem: typeOption = 'item-checkbox';
 
 	const options = [
 		{

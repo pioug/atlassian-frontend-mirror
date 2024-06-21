@@ -133,17 +133,13 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 	const resizable = useRef<Resizable>(null);
 	const resizeHandleThumbRef = useRef<HTMLButtonElement>(null);
 
-	useImperativeHandle(
-		ref,
-		() => {
-			return {
-				getResizerThumbEl() {
-					return resizeHandleThumbRef.current;
-				},
-			};
-		},
-		[resizeHandleThumbRef],
-	);
+	useImperativeHandle(ref, () => {
+		return {
+			getResizerThumbEl() {
+				return resizeHandleThumbRef.current;
+			},
+		};
+	}, [resizeHandleThumbRef]);
 
 	const {
 		width,

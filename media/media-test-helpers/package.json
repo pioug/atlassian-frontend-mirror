@@ -27,7 +27,7 @@
 		"releaseModel": "continuous"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/locale": "^2.7.0",
@@ -37,7 +37,7 @@
 		"@atlaskit/popup": "^1.19.0",
 		"@atlaskit/tabs": "^16.2.0",
 		"@atlaskit/textfield": "^6.4.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@babel/runtime": "^7.0.0",

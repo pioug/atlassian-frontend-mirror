@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 1.1.7
+
+### Patch Changes
+
+- [#113525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113525)
+  [`f60b24002afb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f60b24002afb7) -
+  Null check code block node so we don't crash if the code block plugin hasn't been added.
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

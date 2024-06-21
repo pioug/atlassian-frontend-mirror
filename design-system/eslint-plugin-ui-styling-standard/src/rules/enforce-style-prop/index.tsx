@@ -133,7 +133,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows usage of static styles in the `style` attribute in components',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'enforce-style-prop':

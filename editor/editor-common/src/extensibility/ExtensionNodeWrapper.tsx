@@ -7,6 +7,8 @@ import classnames from 'classnames';
 
 import { ZERO_WIDTH_SPACE } from '../utils';
 
+import type { MacroInteractionDesignFeatureFlags } from './types';
+
 const styles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline-extension': {
@@ -21,8 +23,9 @@ const styles = css({
 type Props = {
 	children: React.ReactNode;
 	nodeType: string;
-	showMacroInteractionDesignUpdates?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 };
+
 /**
  * If inlineExtension, add zero width space to the end of the nodes and wrap with span;
  * Also if showMacroInteractionDesignUpdates is true, then add the inline-block style to account for the lozenge.
@@ -34,8 +37,10 @@ type Props = {
 export const ExtensionNodeWrapper = ({
 	children,
 	nodeType,
-	showMacroInteractionDesignUpdates,
+	macroInteractionDesignFeatureFlags,
 }: Props) => {
+	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+
 	const wrapperClassNames = classnames({
 		'inline-extension': nodeType === 'inlineExtension' && showMacroInteractionDesignUpdates,
 		relative: showMacroInteractionDesignUpdates,

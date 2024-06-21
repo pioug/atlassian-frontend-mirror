@@ -28,12 +28,6 @@
       "path": "../../inline-dialog/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../layering/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../primitives/afm-jira/tsconfig.json"
     },
     {

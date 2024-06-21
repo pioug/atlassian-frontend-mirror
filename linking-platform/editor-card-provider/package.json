@@ -59,9 +59,6 @@
 		"platform.linking-platform.embed-youtube-by-default": {
 			"type": "boolean"
 		},
-		"platform.linking-platform.embed-loom-by-default": {
-			"type": "boolean"
-		},
 		"platform.linking-platform.jira-dashboard-embed_ycjcj": {
 			"type": "boolean"
 		}

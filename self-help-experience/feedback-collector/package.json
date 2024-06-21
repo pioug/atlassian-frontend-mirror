@@ -47,7 +47,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/flag": "^15.6.0",
 		"@atlaskit/form": "^10.4.0",
@@ -57,8 +57,8 @@
 		"@atlaskit/section-message": "^6.5.0",
 		"@atlaskit/select": "^17.11.0",
 		"@atlaskit/textarea": "^5.5.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},

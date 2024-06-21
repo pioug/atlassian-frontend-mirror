@@ -30,7 +30,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Prevents usage of @container query within css styling',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-container-queries':

@@ -65,7 +65,7 @@ export const rule: Rule.RuleModule = createLintRule({
 		docs: {
 			description: 'Ensures usage of `@compiled/react` instead of other CSS-in-JS libraries',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'use-compiled': `Use '@compiled/react' instead of '{{importSource}}'`,

@@ -1,0 +1,30 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__smart-user-picker/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../elements/user-picker/afm-jira/tsconfig.json"
+    }
+  ]
+}

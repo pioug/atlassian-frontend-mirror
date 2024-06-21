@@ -51,7 +51,7 @@ export const isToolbarVisible = (
 	if (
 		grandParentNodeType &&
 		grandParentNodeType.name === state.schema.nodes.doc.name &&
-		parentNodeType.name !== state.schema.nodes.codeBlock.name &&
+		parentNodeType.name !== state.schema.nodes.codeBlock?.name &&
 		!isPastedFromFabricEditor(lastContentPasted.pasteSource) &&
 		!hasLinkMark(lastContentPasted.pastedSlice) &&
 		!hasMediaNode(lastContentPasted.pastedSlice)

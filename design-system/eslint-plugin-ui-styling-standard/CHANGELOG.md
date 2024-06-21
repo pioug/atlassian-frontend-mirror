@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.17.0
+
+### Minor Changes
+
+- [#110617](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110617)
+  [`6c94f6748cd97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c94f6748cd97) -
+  turning warn to error for ui styling standard rules
+
 ## 0.16.6
 
 ### Patch Changes

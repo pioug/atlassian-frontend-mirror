@@ -26,7 +26,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Prevents usage of array arguments to style declaration functions',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-array-arguments':

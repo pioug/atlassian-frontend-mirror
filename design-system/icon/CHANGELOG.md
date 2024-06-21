@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 22.4.1
+
+### Patch Changes
+
+- [#113646](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113646)
+  [`01c04f5a4e85a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01c04f5a4e85a) -
+  Update experimental new icons to support link tokens as colors
+- Updated dependencies
+
 ## 22.4.0
 
 ### Minor Changes

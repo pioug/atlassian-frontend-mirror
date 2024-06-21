@@ -26,7 +26,8 @@ const tokenStyles = {
 			t.token.startsWith(tokenStyles.background.prefix) ||
 			t.token.startsWith('elevation.surface') ||
 			t.token.startsWith('utility.elevation.surface') ||
-			t.token.startsWith('color.blanket'),
+			t.token.startsWith('color.blanket') ||
+			t.token.startsWith('color.skeleton'),
 	},
 	border: {
 		objectName: 'borderColor',

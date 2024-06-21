@@ -15,7 +15,7 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { UNSAFE_LAYERING, UNSAFE_useLayering } from '@atlaskit/layering';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
@@ -37,6 +37,40 @@ const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
 	);
 };
 
+const InlineDialogWithLayering: FC<InlineDialogProps> = ({
+	isOpen,
+	onContentBlur,
+	onContentClick,
+	onContentFocus,
+	onClose,
+	placement,
+	strategy,
+	testId,
+	content,
+	children,
+}) => {
+	return (
+		<UNSAFE_LAYERING
+			isDisabled={
+				getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') ? !isOpen : true
+			}
+		>
+			<InlineDialog
+				isOpen={isOpen}
+				onContentBlur={onContentBlur}
+				onContentClick={onContentClick}
+				onContentFocus={onContentFocus}
+				onClose={onClose}
+				placement={placement}
+				strategy={strategy}
+				testId={testId}
+				content={content}
+			>
+				{children}
+			</InlineDialog>
+		</UNSAFE_LAYERING>
+	);
+};
 const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
 	isOpen = false,
 	onContentBlur = noop,
@@ -222,5 +256,5 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(InlineDialog),
+	})(InlineDialogWithLayering),
 );

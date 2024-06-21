@@ -51,7 +51,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows styles that are difficult/impossible to statically anaylze.',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages,
 		type: 'problem',

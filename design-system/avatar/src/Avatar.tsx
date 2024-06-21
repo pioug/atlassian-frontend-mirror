@@ -190,10 +190,6 @@ const getStyles = (
 		margin: ${token('space.025', '2px')};
 		padding: ${token('space.0', '0px')};
 
-		/* Added font-size and font-family styles to fix alignment issue in firefox for interactive button avatar */
-		font-size: inherit;
-		font-family: inherit;
-
 		&::-moz-focus-inner {
 			border: 0;
 			margin: ${token('space.0', '0px')};

@@ -1,12 +1,12 @@
+import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-//
 const previewStyle = {
-	borderColor: token('color.border.focused'),
+	borderColor: token('color.border.focused', B200),
 	borderStyle: 'solid',
-	borderRadius: token('border.radius.100'),
-	borderWidth: token('border.width.outline'),
-	backgroundColor: token('color.blanket.selected'),
+	borderRadius: token('border.radius.100', '3px'),
+	borderWidth: token('border.width.outline', '2px'),
+	backgroundColor: token('color.blanket.selected', '#388BFF14'),
 };
 
 export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: string) => {
@@ -19,27 +19,30 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 	parent.classList.add('ProseMirror');
 
 	const shouldBeGenericPreview = nodeType === 'embedCard' || nodeType === 'extension';
+	const embedCard: HTMLElement | null = dom.querySelector('.embedCardView-content-wrap');
 
-	if (shouldBeGenericPreview) {
+	if (shouldBeGenericPreview || embedCard) {
 		parent.style.border = `${previewStyle.borderWidth} ${previewStyle.borderStyle} ${previewStyle.borderColor}`;
 		parent.style.borderRadius = previewStyle.borderRadius;
 		parent.style.backgroundColor = previewStyle.backgroundColor;
 		parent.style.height = '100%';
 		parent.setAttribute('data-testid', 'block-ctrl-generic-drag-preview');
+	} else {
+		const resizer: HTMLElement | null = dom.querySelector('.resizer-item');
+		const clonedDom =
+			resizer && ['mediaSingle', 'table'].includes(nodeType)
+				? (resizer.cloneNode(true) as HTMLElement)
+				: (dom.cloneNode(true) as HTMLElement);
+
+		// Remove any margin from the cloned element to ensure is doesn't position incorrectly
+		clonedDom.style.marginLeft = '0';
+		clonedDom.style.marginTop = '0';
+		clonedDom.style.marginRight = '0';
+		clonedDom.style.marginBottom = '0';
+		clonedDom.style.opacity = '0.4';
+		clonedDom.style.boxShadow = 'none';
+		parent.appendChild(clonedDom);
 	}
-	const resizer: HTMLElement | null = dom.querySelector('.resizer-item');
-	const clonedDom = resizer
-		? (resizer.cloneNode(true) as HTMLElement)
-		: (dom.cloneNode(!shouldBeGenericPreview) as HTMLElement);
-
-	// Remove any margin from the cloned element to ensure is doesn't position incorrectly
-	clonedDom.style.marginLeft = '0';
-	clonedDom.style.marginTop = '0';
-	clonedDom.style.marginRight = '0';
-	clonedDom.style.marginBottom = '0';
-	clonedDom.style.opacity = '0.4';
-
-	parent.appendChild(clonedDom);
 	container.appendChild(parent);
 
 	const scrollParent = document.querySelector('.fabric-editor-popup-scroll-parent');

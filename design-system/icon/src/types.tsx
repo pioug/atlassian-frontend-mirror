@@ -1,6 +1,6 @@
 import type { ComponentType, SVGProps as ReactSVGProps, ReactNode } from 'react';
 
-import type { IconColor } from '@atlaskit/tokens/css-type-schema';
+import type { IconColor, IconColorPressed } from '@atlaskit/tokens/css-type-schema';
 
 export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
@@ -44,7 +44,7 @@ export interface NewGlyphColorProps {
 	/**
 	 * Color for the icon. Supports any icon design token, or 'currentColor' to inherit the current text color.
 	 */
-	color?: IconColor | 'currentColor';
+	color?: IconColor | IconColorPressed | 'currentColor';
 }
 
 export interface GlyphSizeProps {

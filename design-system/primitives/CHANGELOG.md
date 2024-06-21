@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 8.0.1
+
+### Patch Changes
+
+- [#108692](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108692)
+  [`294e1a9116fce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/294e1a9116fce) -
+  Update `color.skeleton` and `color.skeleton.subtle` to be valid backgroundColor values on XCSS.
+
 ## 8.0.0
 
 ### Major Changes

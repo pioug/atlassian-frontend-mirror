@@ -23,7 +23,6 @@ import { denormaliseEmojiServiceResponse, emojiRequest, getAltRepresentation } f
 import TokenManager from './TokenManager';
 
 import debug from '../../util/logger';
-import { isFedRamp } from '../../util/environment';
 
 export interface EmojiUploadResponse {
 	emojis: EmojiServiceDescription[];
@@ -143,7 +142,7 @@ export default class SiteEmojiResource {
 							token: uploadToken.jwt,
 							baseUrl: url,
 						}),
-					useSha256ForUploads: isFedRamp(), // SHA256 is not supported yet in commecrial regions
+					useSha256ForUploads: true,
 				});
 
 				const subscription = mediaClient.file

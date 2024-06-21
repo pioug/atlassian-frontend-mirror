@@ -37,7 +37,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows exports of css, keyframes, styled and xcss',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-exported-styles':

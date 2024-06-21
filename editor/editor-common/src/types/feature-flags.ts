@@ -300,6 +300,15 @@ export type FeatureFlags = {
 	macroInteractionUpdates?: boolean;
 
 	/**
+	 * @description
+	 * Enables macro interaction visual button updates
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/PGXT-5513
+	 * @default false
+	 */
+	macroInteractionButtonUpdates?: boolean;
+
+	/**
    * @description
    * Enables bug fix on media comments
    *

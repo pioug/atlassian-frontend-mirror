@@ -1,5 +1,14 @@
 # @atlaskit/inline-dialog
 
+## 14.2.1
+
+### Patch Changes
+
+- [#113051](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113051)
+  [`8fb8ca26fb173`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8fb8ca26fb173) -
+  Integrate layering in inline dialog
+- Updated dependencies
+
 ## 14.2.0
 
 ### Minor Changes

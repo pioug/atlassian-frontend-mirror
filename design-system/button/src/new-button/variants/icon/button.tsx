@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -52,10 +53,18 @@ const IconButton = React.memo(
 			tooltip,
 			type = 'button',
 			UNSAFE_size,
-			...rest
+			...unsafeRest
 		}: IconButtonProps,
 		ref: React.Ref<HTMLButtonElement>,
 	) {
+		// @ts-expect-error
+		const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
+		const rest = getBooleanFF(
+			'platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw',
+		)
+			? saferRest
+			: unsafeRest;
+
 		/**
 		 * TODO: At some stage I'll look into re-using more logic across 'default' and 'icon'
 		 * buttons. It's currently duplicated and mostly the same.
@@ -110,8 +119,8 @@ const IconButton = React.memo(
 				>
 					{(triggerProps) => (
 						<Pressable
-							// Top level props
 							{...rest}
+							// Top level props
 							aria-labelledby={baseProps['aria-labelledby']}
 							type={type}
 							testId={testId}

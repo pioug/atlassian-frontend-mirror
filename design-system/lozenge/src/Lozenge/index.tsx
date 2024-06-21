@@ -19,8 +19,12 @@ const baseStyles = xcss({
 });
 
 const textStyles = css({
-	font: token('font.body.small'),
+	fontFamily:
+		'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+	fontSize: '11px',
+	fontStyle: 'normal',
 	fontWeight: token('font.weight.bold'),
+	lineHeight: '16px',
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	textTransform: 'uppercase',

@@ -5,8 +5,8 @@ import { type Action, type ActionSubject, type ActionSubjectId } from './types';
 export const useJqlEditorAutocompleteAnalytics = (analyticsSource: string) => {
 	return useJqlPackageAnalytics<Action, ActionSubject, ActionSubjectId>(
 		analyticsSource,
-		process.env._PACKAGE_NAME_,
-		process.env._PACKAGE_VERSION_,
+		process.env._PACKAGE_NAME_ as string,
+		process.env._PACKAGE_VERSION_ as string,
 		ANALYTICS_CHANNEL,
 	);
 };

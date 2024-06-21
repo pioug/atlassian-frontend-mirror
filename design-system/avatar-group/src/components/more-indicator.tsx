@@ -18,13 +18,13 @@ import Avatar, {
 import { B300, B400, B50, N0, N20, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const FONT_SIZE: Record<SizeType, string> = {
-	xsmall: '0.625rem', // 10px
-	small: '0.625rem', // 10px
-	medium: '0.6875rem', // 11px
-	large: '0.75rem', // 12px
-	xlarge: '1rem', // 16px
-	xxlarge: '1rem', // 16px
+const buttonSizes: Record<SizeType, React.CSSProperties['font']> = {
+	xsmall: token('font.body.small'),
+	small: token('font.body.small'),
+	medium: token('font.body.small'),
+	large: token('font.body.UNSAFE_small'),
+	xlarge: token('font.body.large'),
+	xxlarge: token('font.body.large'),
 };
 
 const buttonActiveStyles = css({
@@ -52,9 +52,6 @@ const buttonStyles = css({
 	'&&': {
 		backgroundColor: token('color.background.neutral', N20),
 		color: token('color.text', N500),
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		fontFamily: 'inherit',
-		fontWeight: token('font.weight.medium', '500'),
 
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.hovered', N30),
@@ -65,7 +62,7 @@ const buttonStyles = css({
 			color: token('color.text', B400),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&:after': {
+		'&::after': {
 			display: 'none',
 		},
 	},
@@ -121,6 +118,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 				onClick={onClickHander}
 			>
 				{({ testId: _, className, ref, ...props }) => (
+					// eslint-disable-next-line @atlaskit/design-system/no-html-button
 					<button
 						type="submit"
 						{...buttonProps}
@@ -131,11 +129,9 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 						aria-expanded={ariaExpanded}
 						aria-haspopup={ariaHaspopup}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={
-							{
-								fontSize: FONT_SIZE[size],
-							} as React.CSSProperties
-						}
+						style={{
+							font: buttonSizes[size],
+						}}
 						css={[buttonStyles, isActive && buttonActiveStyles]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}

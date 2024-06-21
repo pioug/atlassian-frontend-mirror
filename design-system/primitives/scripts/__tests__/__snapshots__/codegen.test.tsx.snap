@@ -552,6 +552,8 @@ exports[`@atlaskit/primitives background styles are generated correctly 1`] = `
 	'color.blanket': token('color.blanket', '#091e4289'),
 	'color.blanket.selected': token('color.blanket.selected', '#388BFF14'),
 	'color.blanket.danger': token('color.blanket.danger', '#EF5C4814'),
+	'color.skeleton': token('color.skeleton', '#F4F5F7'),
+	'color.skeleton.subtle': token('color.skeleton.subtle', '#091e420a'),
 	'elevation.surface': token('elevation.surface', '#FFFFFF'),
 	'elevation.surface.hovered': token('elevation.surface.hovered', '#FAFBFC'),
 	'elevation.surface.pressed': token('elevation.surface.pressed', '#F4F5F7'),

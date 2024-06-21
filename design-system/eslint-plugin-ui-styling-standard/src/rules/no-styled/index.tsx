@@ -9,7 +9,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows usage of the `styled` imports',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-styled': "Avoid usages of styled, eg. styled.div, styled('div'), styled(Component), etc.",

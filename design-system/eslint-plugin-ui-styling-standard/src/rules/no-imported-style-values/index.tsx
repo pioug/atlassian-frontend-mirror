@@ -113,7 +113,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows imports of style values',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-imported-style-values':

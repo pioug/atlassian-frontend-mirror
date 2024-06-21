@@ -18,7 +18,7 @@ import type { EditorAppearance, EditorContainerWidth } from '../../../types';
 import { overflowShadow } from '../../../ui';
 import type { OverflowShadowProps } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
-import type { ExtensionsPluginInjectionAPI } from '../../types';
+import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
@@ -42,7 +42,7 @@ export interface Props {
 	hideFrame?: boolean;
 	editorAppearance?: EditorAppearance;
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
-	showMacroInteractionDesignUpdates?: boolean;
+	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	isNodeSelected?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -61,13 +61,14 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		shadowClassNames,
 		hideFrame,
 		editorAppearance,
-		showMacroInteractionDesignUpdates,
+		macroInteractionDesignFeatureFlags,
 		isNodeSelected,
 		isNodeHovered,
 		isNodeNested,
 		setIsNodeHovered,
 	} = props;
 
+	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
 	const isMobile = editorAppearance === 'mobile';

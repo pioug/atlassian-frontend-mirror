@@ -21,7 +21,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Prevents global styles through CSS-in-JS or CSS module imports',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-global-styles': 'Global styles are not allowed.',

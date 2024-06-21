@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.52.0
+
+### Minor Changes
+
+- [#113646](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113646)
+  [`01c04f5a4e85a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01c04f5a4e85a) -
+  Add link tokens to the IconColor type, and add new IconColorPressed type
+
 ## 1.51.0
 
 ### Minor Changes

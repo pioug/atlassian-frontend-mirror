@@ -65,4 +65,5 @@ export type {
 	HorizontalStackBarChartProps,
 	HorizontalBarChartProps,
 	LineChartProps,
+	SingleValueChartProps,
 } from './components/charts';

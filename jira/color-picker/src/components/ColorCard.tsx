@@ -6,10 +6,9 @@ import { KEY_ENTER, KEY_SPACE } from '../constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { useIntl } from 'react-intl-next';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import messages from '../messages';
+import { mergeRefs } from 'use-callback-ref';
 
 export interface Props {
 	value: string;
@@ -36,7 +35,6 @@ const ColorCard = (props: Props) => {
 	} = props;
 
 	const ref = useRef<null | HTMLInputElement>(null);
-	const { formatMessage } = useIntl();
 	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 	}, []);
@@ -88,40 +86,75 @@ const ColorCard = (props: Props) => {
 
 	return (
 		<Tooltip content={label}>
-			<div
-				css={[
-					sharedColorContainerStyles,
-					(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
-					focused && !isTabbing && colorCardOptionFocusedStyles,
-				]}
-				onClick={handleClick}
-				onMouseDown={handleMouseDown}
-				onKeyDown={handleKeyDown}
-				role="radio"
-				aria-checked={selected}
-				aria-label={
-					getBooleanFF('platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s')
-						? formatMessage(messages.colorCardRadioItemLabel)
-						: label
-				}
-				tabIndex={0}
-				ref={ref}
-			>
-				<div css={colorCardWrapperStyles}>
-					<div
-						css={colorCardContentStyles}
-						style={{
-							background: value || 'transparent',
-						}}
-					>
-						{selected && (
-							<div css={colorCardContentCheckMarkStyles}>
-								<EditorDoneIcon primaryColor={checkMarkColor} label="" />
+			{getBooleanFF('platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s') ? (
+				(tooltipProps) => {
+					delete tooltipProps['aria-describedby'];
+					return (
+						<div
+							{...tooltipProps}
+							css={[
+								sharedColorContainerStyles,
+								(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
+								focused && !isTabbing && colorCardOptionFocusedStyles,
+							]}
+							onClick={handleClick}
+							onMouseDown={handleMouseDown}
+							onKeyDown={handleKeyDown}
+							role="radio"
+							aria-checked={selected}
+							aria-label={label}
+							tabIndex={0}
+							ref={mergeRefs([ref, tooltipProps.ref])}
+						>
+							<div css={colorCardWrapperStyles}>
+								<div
+									css={colorCardContentStyles}
+									style={{
+										background: value || 'transparent',
+									}}
+								>
+									{selected && (
+										<div css={colorCardContentCheckMarkStyles}>
+											<EditorDoneIcon primaryColor={checkMarkColor} label="" />
+										</div>
+									)}
+								</div>
 							</div>
-						)}
+						</div>
+					);
+				}
+			) : (
+				<div
+					css={[
+						sharedColorContainerStyles,
+						(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
+						focused && !isTabbing && colorCardOptionFocusedStyles,
+					]}
+					onClick={handleClick}
+					onMouseDown={handleMouseDown}
+					onKeyDown={handleKeyDown}
+					role="radio"
+					aria-checked={selected}
+					aria-label={label}
+					tabIndex={0}
+					ref={ref}
+				>
+					<div css={colorCardWrapperStyles}>
+						<div
+							css={colorCardContentStyles}
+							style={{
+								background: value || 'transparent',
+							}}
+						>
+							{selected && (
+								<div css={colorCardContentCheckMarkStyles}>
+									<EditorDoneIcon primaryColor={checkMarkColor} label="" />
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</Tooltip>
 	);
 };

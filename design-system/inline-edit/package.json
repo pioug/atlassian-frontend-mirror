@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-edit",
-	"version": "13.5.2",
+	"version": "13.5.3",
 	"description": "An inline edit displays a custom input component that switches between reading and editing on the same page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,15 +37,15 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/inline-dialog": "^14.2.0",
 		"@atlaskit/primitives": "^8.0.0",
 		"@atlaskit/textfield": "^6.4.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

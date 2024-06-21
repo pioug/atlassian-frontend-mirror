@@ -10,26 +10,26 @@ export const getSelection = (tr: Transaction, start: number) => {
 	if (isNodeSelection) {
 		return new NodeSelection($startPos);
 	} else {
-		// To trigger the annotation floating toolbar for non-selectable node, we need to select on the text node
-		// Find the first text node in the node
-		let textNodesPos: number = start;
-		let foundTextNodes = false;
+		// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes
+		// Find the first inline node in the node
+		let inlineNodePos: number = start;
+		let foundInlineNode = false;
 		tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
-			if (foundTextNodes) {
+			if (foundInlineNode) {
 				return false;
 			}
-			if (n.isText) {
-				textNodesPos = pos;
-				foundTextNodes = true;
+			if (n.isInline) {
+				inlineNodePos = pos;
+				foundInlineNode = true;
 				return false;
 			}
 			return true;
 		});
 
-		const textNodeDepth = textNodesPos - start;
+		const inlineNodeDepth = inlineNodePos - start;
 		return new TextSelection(
-			tr.doc.resolve(textNodesPos),
-			tr.doc.resolve(start + nodeSize - textNodeDepth),
+			tr.doc.resolve(inlineNodePos),
+			tr.doc.resolve(start + nodeSize - inlineNodeDepth),
 		);
 	}
 };

@@ -1,5 +1,6 @@
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getSendableSelection } from '../actions';
 import { pluginKey } from '../pm-plugins/main/plugin-key';
@@ -10,10 +11,18 @@ type Props = {
 	oldEditorState: EditorState;
 	newEditorState: EditorState;
 	useNativePlugin: boolean;
+	viewMode?: 'view' | 'edit';
 };
 
 export const sendTransaction =
-	({ originalTransaction, transactions, oldEditorState, newEditorState, useNativePlugin }: Props) =>
+	({
+		originalTransaction,
+		transactions,
+		oldEditorState,
+		newEditorState,
+		useNativePlugin,
+		viewMode,
+	}: Props) =>
 	(provider: CollabEditProvider) => {
 		const docChangedTransaction = transactions.find((tr) => tr.docChanged);
 		const currentPluginState = pluginKey.getState(newEditorState);
@@ -40,9 +49,14 @@ export const sendTransaction =
 		const selectionChanged = !oldEditorState.selection.eq(newEditorState.selection);
 		const participantsChanged =
 			prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
+
 		if (
-			(sessionId && selectionChanged && !docChangedTransaction) ||
-			(sessionId && participantsChanged)
+			sessionId &&
+			(getBooleanFF('platform.editor.no-telecursors-for-viewmode-users_hok8o')
+				? viewMode === 'edit' &&
+					((selectionChanged && !docChangedTransaction) || participantsChanged)
+				: (sessionId && selectionChanged && !docChangedTransaction) ||
+					(sessionId && participantsChanged))
 		) {
 			const selection = getSendableSelection(newEditorState.selection);
 			const message: CollabTelepointerPayload = {

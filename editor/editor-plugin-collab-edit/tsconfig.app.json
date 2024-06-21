@@ -42,10 +42,16 @@
 			"path": "../editor-plugin-analytics/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../prosemirror-collab/tsconfig.app.json"

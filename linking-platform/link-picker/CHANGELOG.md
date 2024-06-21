@@ -1,5 +1,16 @@
 # @atlaskit/link-picker
 
+## 1.37.3
+
+### Patch Changes
+
+- [#113192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113192)
+  [`80dfa651ba955`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80dfa651ba955) -
+  Migration of native HTML buttons to new Pressable primitive.
+- [#113192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113192)
+  [`80dfa651ba955`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80dfa651ba955) -
+  Migration of native HTML buttons to new Pressable primitive.
+
 ## 1.37.2
 
 ### Patch Changes

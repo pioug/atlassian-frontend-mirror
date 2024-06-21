@@ -27,7 +27,7 @@ export const rule = createLintRule({
 			description:
 				'Ensures the cx() function, which is part of the XCSS API, is only used within the xcss prop. This aids tracking what styles are applied to a jsx element.',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'local-cx-xcss':

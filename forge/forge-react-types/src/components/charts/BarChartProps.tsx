@@ -7,7 +7,7 @@ export type BarChartProps = {
 	yAccessor: number | string;
 	colorAccessor?: number | string;
 	title?: string;
-	subTitle?: string;
+	subtitle?: string;
 	colors?: string[];
 };
 

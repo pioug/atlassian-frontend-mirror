@@ -9,8 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Inline, Text } from '@atlaskit/primitives';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -155,49 +153,43 @@ const InlineMessage: FC<InlineMessageProps> = ({
 			}
 			data-testid={testId}
 		>
-			<UNSAFE_LAYERING
-				isDisabled={
-					getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') ? !isOpen : true
-				}
+			<InlineDialog
+				onClose={onCloseDialog}
+				content={children}
+				isOpen={isOpen}
+				placement={placement}
+				testId={testId && `${testId}--inline-dialog`}
 			>
-				<InlineDialog
-					onClose={onCloseDialog}
-					content={children}
-					isOpen={isOpen}
-					placement={placement}
-					testId={testId && `${testId}--inline-dialog`}
+				<Button
+					data-ds--inline-message--button
+					appearance="subtle-link"
+					onClick={toggleDialog}
+					spacing="none"
+					testId={testId && `${testId}--button`}
+					aria-expanded={isOpen}
 				>
-					<Button
-						data-ds--inline-message--button
-						appearance="subtle-link"
-						onClick={toggleDialog}
-						spacing="none"
-						testId={testId && `${testId}--button`}
-						aria-expanded={isOpen}
-					>
-						<Inline space="space.050" alignBlock="center">
-							<MessageIcon isOpen={isOpen} appearance={appearance} label={iconLabel} />
-							<Inline space="space.100">
-								{title && (
-									<Text weight="medium" testId={testId && `${testId}--title`}>
-										{title}
-									</Text>
-								)}
-								{secondaryText && (
-									<Text
-										weight="medium"
-										color="color.text.subtlest"
-										maxLines={1}
-										testId={testId && `${testId}--text`}
-									>
-										{secondaryText}
-									</Text>
-								)}
-							</Inline>
+					<Inline space="space.050" alignBlock="center">
+						<MessageIcon isOpen={isOpen} appearance={appearance} label={iconLabel} />
+						<Inline space="space.100">
+							{title && (
+								<Text weight="medium" testId={testId && `${testId}--title`}>
+									{title}
+								</Text>
+							)}
+							{secondaryText && (
+								<Text
+									weight="medium"
+									color="color.text.subtlest"
+									maxLines={1}
+									testId={testId && `${testId}--text`}
+								>
+									{secondaryText}
+								</Text>
+							)}
 						</Inline>
-					</Button>
-				</InlineDialog>
-			</UNSAFE_LAYERING>
+					</Inline>
+				</Button>
+			</InlineDialog>
 		</div>
 	);
 };

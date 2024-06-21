@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 193.27.17
+
+### Patch Changes
+
+- [#105724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105724)
+  [`d31b1d6bce097`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d31b1d6bce097) -
+  [ux] [ED-23466] Don't show view-mode telepointers to other live-mode users
+- Updated dependencies
+
 ## 193.27.14
 
 ### Patch Changes
@@ -2308,8 +2317,7 @@
 
 - [#57786](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/57786)
   [`632207571c08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/632207571c08) -
-  [NO ISSUE] Reduce Editor re-renderers with proper memonization (behind flag
-  platform.editor.less-editor-props-rerendering)'
+  [NO ISSUE] Reduce Editor re-renderers with proper memonization (behind flag platform.editor.less-editor-props-rerendering)'
 - [#56858](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/56858)
   [`ae1466a4a6ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae1466a4a6ab) -
   Extract clear marks on empty doc plugin from editor-core to new plugin.

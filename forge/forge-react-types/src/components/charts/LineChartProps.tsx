@@ -7,6 +7,6 @@ export type LineChartProps = {
 	yAccessor: number | string;
 	colorAccessor?: number | string;
 	title?: string;
-	subTitle?: string;
+	subtitle?: string;
 	colors?: string[];
 };

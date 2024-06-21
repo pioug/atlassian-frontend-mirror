@@ -13,14 +13,16 @@ import { jsx } from '@emotion/react';
 
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
 	ConditionalSpotlightTargetWrapper,
 	type ConditionalSpotlightTargetWrapperProps,
 } from './conditional-spotlight-target-wrapper';
-import { clearTextButtonStyles, fieldStyles } from './styled';
+import { fieldStyles } from './styled';
 import { isRedoEvent, isUndoEvent } from './utils';
 
 export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
@@ -41,6 +43,12 @@ export const testIds = {
 	urlError: 'link-error',
 	clearUrlButton: 'clear-text',
 };
+const clearTextButtonStyles = xcss({
+	padding: 'space.0',
+	marginRight: 'space.050',
+	backgroundColor: 'color.background.neutral.subtle',
+	border: 'none',
+});
 
 export const TextInput = ({
 	name,
@@ -99,15 +107,13 @@ export const TextInput = ({
 
 	const clearText = restProps.value !== '' && (
 		<Tooltip content={clearLabel}>
-			<button
-				type="button"
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={clearTextButtonStyles}
-				onClick={handleClear}
-				data-testid={testIds.clearUrlButton}
-			>
-				<Selectclear size="medium" label={clearLabel || ''} />
-			</button>
+			<Pressable xcss={clearTextButtonStyles} onClick={handleClear} testId={testIds.clearUrlButton}>
+				<Selectclear
+					size="medium"
+					label={clearLabel || ''}
+					primaryColor={token('color.icon.subtle')}
+				/>
+			</Pressable>
 		</Tooltip>
 	);
 

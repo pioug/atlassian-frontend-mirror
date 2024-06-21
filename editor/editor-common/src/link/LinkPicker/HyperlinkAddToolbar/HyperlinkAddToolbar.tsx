@@ -16,7 +16,8 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import { N200, N90 } from '@atlaskit/theme/colors';
+import { Pressable, xcss } from '@atlaskit/primitives';
+import { N200 } from '@atlaskit/theme/colors';
 import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -59,12 +60,10 @@ export const visuallyHiddenStyles = css({
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
-const clearText = css({
-	cursor: 'pointer',
-	padding: 0,
-	marginRight: token('space.100', '8px'),
-	color: token('color.icon.subtle', N90),
-	background: 'transparent',
+const clearTextButtonStyles = xcss({
+	padding: 'space.0',
+	marginRight: 'space.100',
+	backgroundColor: 'color.background.neutral.subtle',
 	border: 'none',
 });
 
@@ -621,9 +620,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 						{displayUrl && (
 							<div css={clearTextWrapper}>
 								<Tooltip content={formatClearLinkText}>
-									<button type="button" css={clearText} onClick={this.handleClearText} tabIndex={0}>
-										<CrossCircleIcon label={formatClearLinkText} />
-									</button>
+									<Pressable xcss={clearTextButtonStyles} onClick={this.handleClearText}>
+										<CrossCircleIcon
+											label={formatClearLinkText}
+											primaryColor={token('color.icon.subtle')}
+										/>
+									</Pressable>
 								</Tooltip>
 							</div>
 						)}
@@ -646,14 +648,16 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 						{displayText && (
 							<div css={clearTextWrapper}>
 								<Tooltip content={formatMessage(messages.clearText)}>
-									<button
-										type="button"
-										css={clearText}
+									<Pressable
+										xcss={clearTextButtonStyles}
 										onClick={this.handleClearDisplayText}
 										onKeyDown={this.handleClearTextKeyDown}
 									>
-										<CrossCircleIcon label={formatMessage(messages.clearText)} />
-									</button>
+										<CrossCircleIcon
+											label={formatMessage(messages.clearText)}
+											primaryColor={token('color.icon.subtle')}
+										/>
+									</Pressable>
 								</Tooltip>
 							</div>
 						)}

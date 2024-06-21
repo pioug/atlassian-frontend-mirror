@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.5.1
+
+### Patch Changes
+
+- [#105724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105724)
+  [`d31b1d6bce097`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d31b1d6bce097) -
+  [ux] [ED-23466] Don't show view-mode telepointers to other live-mode users
+
 ## 1.5.0
 
 ### Minor Changes

@@ -38,8 +38,8 @@
 		"./styles": "./src/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^17.22.0",
-		"@atlaskit/editor-common": "^82.9.0",
+		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/editor-common": "^82.10.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
@@ -47,8 +47,8 @@
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/primitives": "^8.0.0",
 		"@atlaskit/textfield": "^6.4.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

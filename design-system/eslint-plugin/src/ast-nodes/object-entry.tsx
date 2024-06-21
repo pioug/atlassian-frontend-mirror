@@ -77,7 +77,7 @@ export const ObjectEntry = {
 		}
 
 		if (isNodeOfType(node.key, 'Literal')) {
-			return node.key.raw;
+			return node.key.value?.toString();
 		}
 		if (isNodeOfType(node.key, 'Identifier')) {
 			return node.key.name;

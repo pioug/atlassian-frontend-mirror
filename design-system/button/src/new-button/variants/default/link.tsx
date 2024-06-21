@@ -1,5 +1,6 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Anchor from '@atlaskit/primitives/anchor';
 
 import { type AdditionalDefaultLinkVariantProps, type CommonLinkVariantProps } from '../types';
@@ -42,15 +43,23 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		testId,
 		UNSAFE_iconAfter_size,
 		UNSAFE_iconBefore_size,
-		...rest
+		...unsafeRest
 	}: LinkButtonProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,
 ) => {
+	// @ts-expect-error
+	const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
+	const rest = getBooleanFF(
+		'platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw',
+	)
+		? saferRest
+		: unsafeRest;
+
 	const baseProps = useDefaultButton<HTMLAnchorElement>({
-		ariaLabel,
-		ariaLabelledBy,
 		analyticsContext,
 		appearance,
+		ariaLabel,
+		ariaLabelledBy,
 		autoFocus,
 		buttonType: 'link',
 		children,

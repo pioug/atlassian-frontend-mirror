@@ -1,5 +1,14 @@
 # @atlaskit/color-picker
 
+## 3.2.18
+
+### Patch Changes
+
+- [#112744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112744)
+  [`1fc633df8a651`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1fc633df8a651) -
+  excluded aria-decribedby from tooltipProps for color option in ColorCard component
+- Updated dependencies
+
 ## 3.2.17
 
 ### Patch Changes

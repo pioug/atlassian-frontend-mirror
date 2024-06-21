@@ -14,6 +14,7 @@ import {
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconDate } from '@atlaskit/editor-common/quick-insert';
+import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 
@@ -68,13 +69,18 @@ function ContentComponent({
 
 	const element = findDomRefAtPos(showDatePickerAt, domAtPos) as HTMLElement;
 
+	// Resolves ED-23702 for when the date is wrapped in an inline comment
+	const dateNode = element?.classList.contains(DateSharedCssClassName.DATE_CONTAINER)
+		? element
+		: (element?.querySelector(`.${DateSharedCssClassName.DATE_CONTAINER}`) as HTMLElement | null);
+
 	return (
 		<DatePicker
 			mountTo={popupsMountPoint}
 			boundariesElement={popupsBoundariesElement}
 			scrollableElement={popupsScrollableElement}
 			key={showDatePickerAt}
-			element={element}
+			element={dateNode || element}
 			isNew={isNew}
 			autoFocus={focusDateInput}
 			onDelete={() => {

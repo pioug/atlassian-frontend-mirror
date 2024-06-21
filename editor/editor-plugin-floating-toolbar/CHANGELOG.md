@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.7.2
+
+### Patch Changes
+
+- [#110582](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110582)
+  [`8846a40609a0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8846a40609a0e) -
+  remove platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33 ff
+- Updated dependencies
+
 ## 1.7.1
 
 ### Patch Changes

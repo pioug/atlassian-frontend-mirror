@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "77.12.1",
+	"version": "77.12.2",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,12 +53,14 @@
 		"@atlaskit/media-ui": "^25.10.0",
 		"@atlaskit/media-viewer": "^48.6.0",
 		"@atlaskit/platform-feature-flags": "^0.2.2",
+		"@atlaskit/primitives": "^8.0.0",
 		"@atlaskit/spinner": "^16.2.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@atlaskit/ufo-interaction-ignore": "^1.1.0",
+		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",
 		"classnames": "^2.2.5",
 		"eventemitter2": "^4.1.0",
@@ -82,7 +84,6 @@
 		"@atlaskit/media-state": "^1.1.0",
 		"@atlaskit/media-test-data": "^2.3.0",
 		"@atlaskit/media-test-helpers": "^33.0.0",
-		"@atlaskit/primitives": "^8.0.0",
 		"@atlaskit/range": "^7.3.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^13.2.0",

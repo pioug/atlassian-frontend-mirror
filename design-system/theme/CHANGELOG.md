@@ -1,5 +1,14 @@
 # @atlaskit/theme
 
+## 12.11.0
+
+### Minor Changes
+
+- [#105813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105813)
+  [`f2f51e7a24d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2f51e7a24d00) -
+  Deprecate constants fontSize, fontSizeSmall, fontFamily, and codeFontFamily. Token equivalents
+  should be used instead.
+
 ## 12.10.0
 
 ### Minor Changes

@@ -155,6 +155,8 @@ export const dragHandleDecoration = (
 		pos,
 		(view, getPos) => {
 			const element = document.createElement('div');
+			// Need to set it to inline to avoid text being split when merging two paragraphs
+			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			ReactDOM.render(

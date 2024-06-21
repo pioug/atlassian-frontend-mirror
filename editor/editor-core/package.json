@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "193.27.14",
+	"version": "193.27.17",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,8 +44,8 @@
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^17.22.0",
-		"@atlaskit/editor-common": "^82.9.0",
+		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/editor-common": "^82.10.0",
 		"@atlaskit/editor-json-transformer": "^8.13.0",
 		"@atlaskit/editor-plugins": "^3.3.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
@@ -57,8 +57,8 @@
 		"@atlaskit/platform-feature-flags": "^0.2.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/task-decision": "^17.10.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/width-detector": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -81,7 +81,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.0.4",
+		"@af/editor-examples-helpers": "0.0.5",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.2.0",
@@ -107,7 +107,7 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.14.0",
-		"@atlassian/search-provider": "2.4.83",
+		"@atlassian/search-provider": "2.4.84",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -355,6 +355,10 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.refactor-highlight-toolbar_mo0pj": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.no-telecursors-for-viewmode-users_hok8o": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		}

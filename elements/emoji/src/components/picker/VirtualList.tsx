@@ -310,39 +310,35 @@ export const VirtualList = React.forwardRef<ListRef, Props>((props, ref) => {
 
 	// Exposing a custom ref handle to the parent component EmojiPickerList to trigger scrollToRow via the listRef
 	// https://beta.reactjs.org/reference/react/useImperativeHandle
-	useImperativeHandle(
-		ref,
-		() => {
-			return {
-				scrollToRow(index?: number) {
-					if (index !== undefined) {
-						rowVirtualizer.setOptions({
-							...rowVirtualizer.options,
-							scrollPaddingStart: 0,
-						});
-						rowVirtualizer.scrollToIndex(index, {
-							align: scrollToAlignment,
-						});
-					}
-				},
-				scrollToRowAndFocusLastEmoji(index?: number) {
-					if (index !== undefined) {
-						focusEmoji(index, EMOJI_LIST_COLUMNS, KeyboardNavigationDirection.Left, true);
-					}
-				},
-				scrollToEmojiAndFocus(rowIndex: number, columnIndex: number) {
-					focusEmoji(rowIndex, columnIndex, KeyboardNavigationDirection.Left, true);
-				},
-				updateFocusIndex(rowIndex: number, columnIndex = 0) {
-					// row could be removed from virtual list after scrolling, we'll update emoji cell tabIndex after losing focus
-					if (!virtualistItemsRef.current?.contains(document.activeElement)) {
-						setEmojisFocus({ rowIndex, columnIndex });
-					}
-				},
-			};
-		},
-		[setEmojisFocus, focusEmoji, rowVirtualizer, scrollToAlignment],
-	);
+	useImperativeHandle(ref, () => {
+		return {
+			scrollToRow(index?: number) {
+				if (index !== undefined) {
+					rowVirtualizer.setOptions({
+						...rowVirtualizer.options,
+						scrollPaddingStart: 0,
+					});
+					rowVirtualizer.scrollToIndex(index, {
+						align: scrollToAlignment,
+					});
+				}
+			},
+			scrollToRowAndFocusLastEmoji(index?: number) {
+				if (index !== undefined) {
+					focusEmoji(index, EMOJI_LIST_COLUMNS, KeyboardNavigationDirection.Left, true);
+				}
+			},
+			scrollToEmojiAndFocus(rowIndex: number, columnIndex: number) {
+				focusEmoji(rowIndex, columnIndex, KeyboardNavigationDirection.Left, true);
+			},
+			updateFocusIndex(rowIndex: number, columnIndex = 0) {
+				// row could be removed from virtual list after scrolling, we'll update emoji cell tabIndex after losing focus
+				if (!virtualistItemsRef.current?.contains(document.activeElement)) {
+					setEmojisFocus({ rowIndex, columnIndex });
+				}
+			},
+		};
+	}, [setEmojisFocus, focusEmoji, rowVirtualizer, scrollToAlignment]);
 
 	return (
 		<div

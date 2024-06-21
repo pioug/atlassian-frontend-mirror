@@ -1,6 +1,3 @@
-/** @jsx jsx */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import React from 'react';
 import { Component } from 'react';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
@@ -9,31 +6,10 @@ import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
 import { CONTAINER_PADDING } from './styles';
 import { token } from '@atlaskit/tokens';
-import { N50A } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { IconButton } from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 import { ERROR } from '../avatar-picker-dialog';
 import { CONTAINER_INNER_SIZE } from '../avatar-picker-dialog/layout-const';
-
-const removeImageButtonStyles = css({
-	borderRadius: token('border.radius.050', '3px'),
-	backgroundColor: 'transparent',
-	width: '24px',
-	height: '24px',
-	border: 'none',
-	cursor: 'pointer',
-	padding: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	svg: {
-		position: 'absolute',
-		top: token('space.050', '4px'),
-		left: token('space.050', '4px'),
-	},
-	'&:hover': {
-		backgroundColor: token('color.background.neutral.hovered', N50A),
-	},
-});
 
 const removeImageContainerStyles = xcss({
 	position: 'absolute',
@@ -199,9 +175,14 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 				)}
 				<Box id="drag-overlay" xcss={dragOverlayStyles} onMouseDown={this.onDragStarted} />
 				<Box id="remove-image-container" xcss={removeImageContainerStyles}>
-					<button id="remove-image-button" css={removeImageButtonStyles} onClick={onRemoveImage}>
-						<CrossIcon size="small" label={formatMessage(messages.remove_image)} />
-					</button>
+					<IconButton
+						id="remove-image-button"
+						icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+						onClick={onRemoveImage}
+						label={formatMessage(messages.remove_image)}
+						spacing="compact"
+						appearance="subtle"
+					/>
 				</Box>
 			</Box>
 		);

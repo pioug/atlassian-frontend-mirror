@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "1.37.2",
+	"version": "1.37.3",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -63,7 +63,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/empty-state": "^7.9.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
@@ -77,8 +77,8 @@
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tabs": "^16.2.0",
 		"@atlaskit/textfield": "^6.4.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@atlaskit/visually-hidden": "^1.4.0",

@@ -20,7 +20,7 @@ const rule = createLintRuleWithTypedConfig({
 		docs: {
 			description: 'Disallows use of nested styles in `css` functions.',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		fixable: 'code',
 		hasSuggestions: true,

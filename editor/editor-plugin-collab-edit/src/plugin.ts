@@ -155,6 +155,8 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				api?.analytics?.actions,
 			);
 
+			const viewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
+
 			executeProviderCode(
 				sendTransaction({
 					originalTransaction: props.originalTransaction,
@@ -162,6 +164,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					oldEditorState: props.oldEditorState,
 					newEditorState: props.newEditorState,
 					useNativePlugin: options?.useNativePlugin ?? false,
+					viewMode,
 				}),
 				addErrorAnalytics,
 			);

@@ -37,13 +37,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/avatar": "^21.10.0",
-		"@atlaskit/button": "^17.22.0",
+		"@atlaskit/button": "^17.23.0",
 		"@atlaskit/drawer": "^7.12.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/inline-dialog": "^14.2.0",
 		"@atlaskit/section-message": "^6.5.0",
-		"@atlaskit/theme": "^12.10.0",
-		"@atlaskit/tokens": "^1.51.0",
+		"@atlaskit/theme": "^12.11.0",
+		"@atlaskit/tokens": "^1.52.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"

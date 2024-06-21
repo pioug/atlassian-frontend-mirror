@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 67.6.27
+
+### Patch Changes
+
+- [#112111](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112111)
+  [`431990381260c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/431990381260c) -
+  Remove isFedRamp check from emoji FE
+- Updated dependencies
+
 ## 67.6.26
 
 ### Patch Changes

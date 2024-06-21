@@ -1,0 +1,64 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__jql-editor/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-gas-types/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/avatar/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/form/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../jql-ast/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../jql-autocomplete/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../jql-editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../jql-parser/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+    }
+  ]
+}

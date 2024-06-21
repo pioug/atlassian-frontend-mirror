@@ -6,3 +6,5 @@ export type {
 } from './BarChartProps';
 
 export type { LineChartProps } from './LineChartProps';
+
+export type { SingleValueChartProps } from './SingleValueChartProps';

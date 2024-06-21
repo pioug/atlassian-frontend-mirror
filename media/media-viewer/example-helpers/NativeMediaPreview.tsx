@@ -1,16 +1,21 @@
-/** @jsx jsx */
-/* eslint-disable jsx-a11y/media-has-caption */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { type MediaClient, type Identifier, type MediaFileArtifacts } from '@atlaskit/media-client';
-import { nativePreviewButtonStyles } from './styles';
+import { Pressable, xcss } from '@atlaskit/primitives';
 
 type NativeMediaViewerProps = {
 	identifier: Identifier;
 	mediaClient: MediaClient;
 	onClick: () => void;
 };
+
+const nativePreviewButtonStyles = xcss({
+	height: '125px',
+	width: '156px',
+	backgroundColor: 'color.background.neutral.subtle',
+	overflow: 'hidden',
+	padding: 'space.0',
+});
 
 export const NativeMediaPreview = ({
 	identifier,
@@ -56,19 +61,19 @@ export const NativeMediaPreview = ({
 	if (isPreviewUnavailable) {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<button data-testid="media-native-preview" css={nativePreviewButtonStyles} onClick={onClick}>
+			<Pressable testId="media-native-preview" xcss={nativePreviewButtonStyles} onClick={onClick}>
 				Preview Unavailable
-			</button>
+			</Pressable>
 		);
 	}
 
 	if (url) {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<button data-testid="media-native-preview" css={nativePreviewButtonStyles} onClick={onClick}>
+			<Pressable testId="media-native-preview" xcss={nativePreviewButtonStyles} onClick={onClick}>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<img style={{ maxWidth: '100%' }} src={url} />
-			</button>
+			</Pressable>
 		);
 	}
 

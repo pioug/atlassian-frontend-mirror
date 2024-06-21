@@ -1,5 +1,14 @@
 # @atlaskit/textarea
 
+## 5.5.1
+
+### Patch Changes
+
+- [#105813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105813)
+  [`f2f51e7a24d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2f51e7a24d00) -
+  Internal change only. Update typography to use typography tokens.
+- Updated dependencies
+
 ## 5.5.0
 
 ### Minor Changes

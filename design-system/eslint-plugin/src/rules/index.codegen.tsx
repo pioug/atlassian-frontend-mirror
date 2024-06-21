@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::287628b11d396c2bcbcf6f4a175a3d3a>>
+ * @codegen <<SignedSource::b359d356c482db0087ddfce5bd105403>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -35,6 +35,7 @@ import useHeading from './use-heading';
 import useHeadingLevelInSpotlightCard from './use-heading-level-in-spotlight-card';
 import useHrefInLinkItem from './use-href-in-link-item';
 import useLatestXcssSyntax from './use-latest-xcss-syntax';
+import useLatestXcssSyntaxTypography from './use-latest-xcss-syntax-typography';
 import useMenuSectionTitle from './use-menu-section-title';
 import usePopupLabel from './use-popup-label';
 import usePrimitives from './use-primitives';
@@ -76,6 +77,7 @@ export default {
 	'use-heading-level-in-spotlight-card': useHeadingLevelInSpotlightCard,
 	'use-href-in-link-item': useHrefInLinkItem,
 	'use-latest-xcss-syntax': useLatestXcssSyntax,
+	'use-latest-xcss-syntax-typography': useLatestXcssSyntaxTypography,
 	'use-menu-section-title': useMenuSectionTitle,
 	'use-popup-label': usePopupLabel,
 	'use-primitives': usePrimitives,

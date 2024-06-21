@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 21.10.2
+
+### Patch Changes
+
+- [#113372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113372)
+  [`4b4faf5caa25a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b4faf5caa25a) -
+  [ux] The font size and font weight of avatar group more button is brought in line with design
+  system guidelines.
+
 ## 21.10.1
 
 ### Patch Changes

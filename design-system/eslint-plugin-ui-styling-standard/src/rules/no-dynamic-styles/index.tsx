@@ -27,7 +27,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows use of dynamic styles in CSS-in-JS calls',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		schema,
 		messages: {

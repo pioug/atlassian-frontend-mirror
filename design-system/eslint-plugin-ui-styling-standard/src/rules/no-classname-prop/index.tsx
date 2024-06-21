@@ -8,7 +8,7 @@ export const rule = createLintRule({
 		docs: {
 			description: 'Disallows usage of the `className` prop in JSX',
 			recommended: true,
-			severity: 'warn',
+			severity: 'error',
 		},
 		messages: {
 			'no-classname-prop':

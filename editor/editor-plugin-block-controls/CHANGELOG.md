@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.27
+
+### Patch Changes
+
+- [#113232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113232)
+  [`0a1d7a1348305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a1d7a1348305) -
+  [ux] Fix drag previews when media is nested in the node
+- [#113423](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113423)
+  [`e22e9f7eadce7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e22e9f7eadce7) -
+  Fix text spliting when deleting paragraph
+- Updated dependencies
+
+## 1.4.26
+
+### Patch Changes
+
+- [#113192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113192)
+  [`e30355e61e571`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e30355e61e571) -
+  [ED-23770] Fix the bug where clicking drag handle does not select inline nodes
+- Updated dependencies
+
 ## 1.4.25
 
 ### Patch Changes

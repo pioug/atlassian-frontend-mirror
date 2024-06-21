@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 82.10.0
+
+### Minor Changes
+
+- [#112575](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112575)
+  [`63dcaae87255b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63dcaae87255b) -
+  Passes new FF for new experiment to macro code and updates type to be object from boolean to
+  account for multiple FFs
+
+### Patch Changes
+
+- [#113192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113192)
+  [`80dfa651ba955`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80dfa651ba955) -
+  Migration of native HTML buttons to new Pressable primitive.
+- [#113192](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113192)
+  [`80dfa651ba955`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80dfa651ba955) -
+  Migration of native HTML buttons to new Pressable primitive.
+
 ## 82.9.2
 
 ### Patch Changes

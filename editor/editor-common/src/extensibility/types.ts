@@ -9,3 +9,8 @@ import type { EditorContainerWidth, NextEditorPlugin, PublicPluginAPI } from '..
 type WidthPluginType = NextEditorPlugin<'width', { sharedState: EditorContainerWidth | undefined }>;
 
 export type ExtensionsPluginInjectionAPI = PublicPluginAPI<[WidthPluginType]> | undefined;
+
+export type MacroInteractionDesignFeatureFlags = {
+	showMacroInteractionDesignUpdates?: boolean;
+	showMacroButtonUpdates?: boolean;
+};

@@ -420,7 +420,7 @@ describe('providers > editor', () => {
 		},
 	);
 
-	describe.each<[string, string]>([
+	it.each<[string, string]>([
 		['Loom Video share', 'https://www.loom.com:44/share/4e890d2246f945aa9239e1f38c64ec05'],
 		['Loom Video embed', 'https://www.loom.com/embed/4e890d2246f945aa9239e1f38c64ec05'],
 		[
@@ -434,37 +434,18 @@ describe('providers > editor', () => {
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
 		async (_, url) => {
-			ffTest(
-				'platform.linking-platform.embed-loom-by-default',
-				async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () => getMockProvidersResponse(),
-						ok: true,
-					});
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.success, status: 200 }],
-						ok: true,
-					});
-					const adf = await provider.resolve(url, 'inline', false);
-					expect(adf).toEqual(expectedEmbedAdf(url));
-				},
-				async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () => getMockProvidersResponse(),
-						ok: true,
-					});
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.success, status: 200 }],
-						ok: true,
-					});
-					const adf = await provider.resolve(url, 'inline', false);
-					expect(adf).toEqual(expectedInlineAdf(url));
-				},
-			);
+			const provider = new EditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () => getMockProvidersResponse(),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+			const adf = await provider.resolve(url, 'inline', false);
+			expect(adf).toEqual(expectedEmbedAdf(url));
 		},
 	);
 

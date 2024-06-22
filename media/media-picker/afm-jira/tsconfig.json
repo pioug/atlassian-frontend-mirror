@@ -1,12 +1,11 @@
 {
-  "extends": "../../../../tsconfig.products.json",
+  "extends": "../../../../tsconfig.entry-points.jira.json",
   "compilerOptions": {
     "declaration": true,
     "target": "es5",
     "outDir": "../../../../../tsDist/@atlaskit__media-picker/app",
     "composite": true,
-    "rootDir": "../",
-    "baseUrl": "../"
+    "rootDir": "../"
   },
   "include": [
     "../src/**/*.ts",
@@ -47,6 +46,9 @@
     },
     {
       "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-core/afm-jira/tsconfig.json"
     }
   ]
 }

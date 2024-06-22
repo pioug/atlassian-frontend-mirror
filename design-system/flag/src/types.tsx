@@ -111,6 +111,10 @@ export interface FlagPropsWithoutId
 	 * Standard onMouseOver event, applied to Flag by AutoDismissFlag.
 	 */
 	onMouseOver?: MouseEventHandler;
+	/**
+	 * Milliseconds to delay the screen reader announcement due to announcement conflict.
+	 */
+	delayAnnouncement?: number;
 }
 
 // Normal FlagProps should include the id

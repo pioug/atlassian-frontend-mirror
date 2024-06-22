@@ -25,20 +25,20 @@ export abstract class BaseViewer<
 	State extends BaseState<Content> = BaseState<Content>,
 > extends React.Component<Props, State> {
 	state = this.getInitialState();
-	protected isMounted: boolean = false;
+	protected mounted: boolean = false;
 
 	componentDidMount() {
-		this.isMounted = true;
+		this.mounted = true;
 		this.init();
 	}
 
 	componentWillUnmount() {
-		this.isMounted = false;
+		this.mounted = false;
 		this.release();
 	}
 
 	protected safeSetState(newState: Partial<State>) {
-		if (this.isMounted) {
+		if (this.mounted) {
 			this.setState({ ...this.state, ...newState });
 		}
 	}

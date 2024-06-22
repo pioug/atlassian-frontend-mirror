@@ -3,7 +3,7 @@
   "compilerOptions": {
     "declaration": true,
     "target": "es5",
-    "outDir": "../../../../../tsDist/@atlaskit__media-ui/app",
+    "outDir": "../../../../../tsDist/@atlaskit__media-viewer/app",
     "composite": true,
     "rootDir": "../"
   },
@@ -27,16 +27,28 @@
       "path": "../../../design-system/code/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/form/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
     },
     {
       "path": "../../icon-file-type/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../design-system/locale/afm-jira/tsconfig.json"
+      "path": "../../media-client/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-client-react/afm-jira/tsconfig.json"
     },
     {
       "path": "../../media-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-svg/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-ui/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
@@ -45,13 +57,13 @@
       "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../design-system/range/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/select/afm-jira/tsconfig.json"
+      "path": "../../../design-system/side-navigation/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/theme/afm-jira/tsconfig.json"
@@ -60,10 +72,7 @@
       "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
-    },
-    {
-      "path": "../../../design-system/width-detector/afm-jira/tsconfig.json"
+      "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
     }
   ]
 }

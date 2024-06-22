@@ -1,11 +1,10 @@
 {
-  "extends": "../../../../tsconfig.products.json",
+  "extends": "../../../../tsconfig.entry-points.jira.json",
   "compilerOptions": {
     "target": "es5",
     "outDir": "../../../../../tsDist/@atlaskit__media-client-react/app",
     "composite": true,
-    "rootDir": "../",
-    "baseUrl": "../"
+    "rootDir": "../"
   },
   "include": [
     "../src/**/*.ts",
@@ -20,6 +19,9 @@
   "references": [
     {
       "path": "../../media-client/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../media-state/afm-jira/tsconfig.json"
     }
   ]
 }

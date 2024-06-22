@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../tsconfig.products.json",
+  "extends": "../../../../tsconfig.entry-points.jira.json",
   "include": [
     "../src/**/*.ts"
   ],
@@ -11,8 +11,7 @@
   "compilerOptions": {
     "outDir": "../../../../../tsDist/@atlaskit__platform-feature-flags/app",
     "composite": true,
-    "rootDir": "../",
-    "baseUrl": "../"
+    "rootDir": "../"
   },
   "references": []
 }

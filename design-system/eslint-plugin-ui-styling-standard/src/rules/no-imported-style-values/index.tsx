@@ -4,7 +4,7 @@ import {
 	hasStyleObjectArguments,
 } from '@atlaskit/eslint-utils/is-supported-import';
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
-import type { AST_NODE_TYPES } from '@typescript-eslint/typescript-estree';
+import type { AST_NODE_TYPES } from '@typescript-eslint/typescript-estree/dist/ts-estree';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 import type { Rule } from 'eslint';
 import {

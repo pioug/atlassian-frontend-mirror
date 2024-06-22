@@ -19,6 +19,7 @@ import type { FlagProps } from './types';
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
 import { Expander, DismissButton } from './internal';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 const CSS_VAR_ICON_COLOR = '--flag-icon-color';
 
@@ -90,7 +91,10 @@ const Flag: FC<FlagProps> = (props) => {
 		testId,
 		id,
 		analyticsContext,
+		delayAnnouncement,
 	} = props;
+
+	const [isDelayToAnnounce, setIsDelayToAnnounce] = useState(false);
 
 	const { onDismissed: onDismissedFromFlagGroup, isDismissAllowed } = useFlagGroup();
 
@@ -130,6 +134,15 @@ const Flag: FC<FlagProps> = (props) => {
 		}
 	}, [actions.length, description, isBold, isExpanded]);
 
+	useEffect(() => {
+		if (!delayAnnouncement) {
+			return;
+		}
+		setTimeout(() => {
+			setIsDelayToAnnounce(true);
+		}, delayAnnouncement);
+	}, [delayAnnouncement]);
+
 	const onFocusAnalytics = usePlatformLeafEventHandler({
 		fn: onFocus,
 		action: 'focused',
@@ -155,9 +168,21 @@ const Flag: FC<FlagProps> = (props) => {
 	const iconColor = flagIconColor[appearance];
 	const isDismissable = isBold || isDismissAllowed;
 	const shouldRenderGap = (!isBold && (description || actions.length)) || isExpanded;
+	// when delayAnnouncement is available we will use a hidden content for announcement
+	const delayedAnnouncement = delayAnnouncement ? (
+		<VisuallyHidden role="alert">
+			{title}
+			{description}
+		</VisuallyHidden>
+	) : undefined;
 
 	return (
-		<div role="alert" css={flagWrapperStyles} data-testid={testId} {...autoDismissProps}>
+		<div
+			role={delayAnnouncement ? undefined : 'alert'}
+			css={flagWrapperStyles}
+			data-testid={testId}
+			{...autoDismissProps}
+		>
 			<Box backgroundColor={flagBackgroundColor[appearance]} padding="space.200" xcss={flagStyles}>
 				<Inline alignBlock="stretch" space="space.200">
 					<div
@@ -171,6 +196,8 @@ const Flag: FC<FlagProps> = (props) => {
 						<Stack
 							space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
 						>
+							{/* if isDelayToAnnounce is true, we will use the hidden content for screen reader to announce */}
+							{isDelayToAnnounce && delayedAnnouncement}
 							<Inline alignBlock="stretch" space="space.100" spread="space-between">
 								<Box paddingBlockStart="space.025" xcss={overflowWrapStyles}>
 									<Text color={textColor} weight="semibold">

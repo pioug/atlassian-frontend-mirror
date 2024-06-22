@@ -1,11 +1,10 @@
 {
-  "extends": "../../../../tsconfig.products.json",
+  "extends": "../../../../tsconfig.entry-points.jira.json",
   "compilerOptions": {
     "target": "es5",
     "outDir": "../../../../../tsDist/@atlaskit__link-analytics/app",
     "composite": true,
-    "rootDir": "../",
-    "baseUrl": "../"
+    "rootDir": "../"
   },
   "include": [
     "../src/**/*.ts",
@@ -29,6 +28,9 @@
     },
     {
       "path": "../../linking-types/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../link-provider/afm-jira/tsconfig.json"
     }
   ]
 }

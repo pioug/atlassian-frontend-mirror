@@ -1,3 +1,4 @@
+import { type ErrorInfo } from 'react';
 import {
 	type FileDetails,
 	type FileStatus,
@@ -109,7 +110,7 @@ export type ErrorBoundaryErrorInfo = {
 
 export type AnalyticsErrorBoundaryAttributes = {
 	error?: Error | string;
-	info?: ErrorBoundaryErrorInfo;
+	info?: ErrorInfo;
 	browserInfo: string;
 	failReason: string;
 };

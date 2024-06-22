@@ -119,12 +119,12 @@ export class ItemViewerBase extends React.Component<Props, State> {
 		wasStatusProcessing: false,
 	};
 
-	isMounted = false;
+	mounted = false;
 
 	private traceContext: MediaTraceContext = { traceId: getRandomHex(8) };
 
 	safeSetState = (newState: State) => {
-		if (this.isMounted) {
+		if (this.mounted) {
 			this.setState(newState);
 		}
 	};
@@ -143,12 +143,12 @@ export class ItemViewerBase extends React.Component<Props, State> {
 	}
 
 	componentWillUnmount() {
-		this.isMounted = false;
+		this.mounted = false;
 		this.release();
 	}
 
 	componentDidMount() {
-		this.isMounted = true;
+		this.mounted = true;
 		this.init(this.props);
 	}
 

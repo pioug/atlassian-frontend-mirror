@@ -1,13 +1,9 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { type ErrorInfo, type PropsWithChildren } from 'react';
 import { type MediaFeatureFlags, withMediaAnalyticsContext } from '@atlaskit/media-common';
 import { type CardDimensions, type CardOnClickCallback } from '../types';
 import { UnhandledErrorCard } from './ui/unhandledErrorCard';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-	type AnalyticsErrorBoundaryCardPayload,
-	fireMediaCardEvent,
-	type ErrorBoundaryErrorInfo,
-} from '../utils/analytics';
+import { type AnalyticsErrorBoundaryCardPayload, fireMediaCardEvent } from '../utils/analytics';
 
 export type MediaCardAnalyticsErrorBoundaryProps = PropsWithChildren<
 	{
@@ -32,7 +28,7 @@ class WrappedMediaCardAnalyticsErrorBoundary extends React.Component<
 	}
 
 	static displayName = 'MediaCardAnalyticsErrorBoundary';
-	private fireOperationalEvent = (error: Error | string, info?: ErrorBoundaryErrorInfo) => {
+	private fireOperationalEvent = (error: Error | string, info?: ErrorInfo) => {
 		const { data = {}, createAnalyticsEvent } = this.props;
 		const payload: AnalyticsErrorBoundaryCardPayload = {
 			eventType: 'operational',
@@ -49,7 +45,7 @@ class WrappedMediaCardAnalyticsErrorBoundary extends React.Component<
 		fireMediaCardEvent(payload, createAnalyticsEvent);
 	};
 
-	componentDidCatch(error: Error, info?: ErrorBoundaryErrorInfo): void {
+	componentDidCatch(error: Error, info?: ErrorInfo): void {
 		try {
 			this.fireOperationalEvent(error, info);
 		} catch (e) {}

@@ -1,14 +1,10 @@
-import React, { type PropsWithChildren } from 'react';
+import React, { type ErrorInfo, type PropsWithChildren } from 'react';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { withAnalyticsEvents, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { token } from '@atlaskit/tokens';
 import { B300, R300, N30A, N900 } from '@atlaskit/theme/colors';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import {
-	type AnalyticsErrorBoundaryInlinePayload,
-	fireMediaCardEvent,
-	type ErrorBoundaryErrorInfo,
-} from '../utils/analytics';
+import { type AnalyticsErrorBoundaryInlinePayload, fireMediaCardEvent } from '../utils/analytics';
 export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
 	{
 		isSelected?: boolean;
@@ -84,7 +80,7 @@ class WrappedMediaInlineAnalyticsErrorBoundary extends React.Component<
 	}
 
 	static displayName = 'MediaInlineAnalyticsErrorBoundary';
-	private fireOperationalEvent = (error: Error | string, info?: ErrorBoundaryErrorInfo) => {
+	private fireOperationalEvent = (error: Error | string, info?: ErrorInfo) => {
 		const { data = {}, createAnalyticsEvent } = this.props;
 		const payload: AnalyticsErrorBoundaryInlinePayload = {
 			eventType: 'operational',
@@ -101,7 +97,7 @@ class WrappedMediaInlineAnalyticsErrorBoundary extends React.Component<
 		fireMediaCardEvent(payload, createAnalyticsEvent);
 	};
 
-	componentDidCatch(error: Error, info?: ErrorBoundaryErrorInfo): void {
+	componentDidCatch(error: Error, info?: ErrorInfo): void {
 		try {
 			this.fireOperationalEvent(error, info);
 			this.setState({ hasError: true });

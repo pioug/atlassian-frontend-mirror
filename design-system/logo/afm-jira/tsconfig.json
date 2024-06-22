@@ -1,12 +1,11 @@
 {
-  "extends": "../../../../tsconfig.products.json",
+  "extends": "../../../../tsconfig.entry-points.jira.json",
   "compilerOptions": {
     "declaration": true,
     "target": "es5",
     "outDir": "../../../../../tsDist/@atlaskit__logo/app",
     "composite": true,
-    "rootDir": "../",
-    "baseUrl": "../"
+    "rootDir": "../"
   },
   "include": [
     "../src/**/*.ts",

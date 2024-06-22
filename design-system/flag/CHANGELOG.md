@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 15.6.2
+
+### Patch Changes
+
+- [#113275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113275)
+  [`b52de02acc0d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b52de02acc0d0) -
+  Add support to delay the screen reader announcement by props
+
 ## 15.6.1
 
 ### Patch Changes

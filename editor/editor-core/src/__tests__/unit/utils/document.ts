@@ -128,6 +128,9 @@ describe(name, () => {
 		it('should accept an array of nodes in json or stringified format and insert them as a fragment', () => {
 			const nodes = [
 				{
+					attrs: {
+						localId: null,
+					},
 					type: 'paragraph',
 					content: [
 						{
@@ -143,6 +146,9 @@ describe(name, () => {
 					},
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -168,6 +174,9 @@ describe(name, () => {
 		it('should filter out invalid items', () => {
 			const nodes = [
 				{
+					attrs: {
+						localId: null,
+					},
 					type: 'paragraph',
 					content: [
 						{
@@ -310,6 +319,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [{ type: 'text', text: 'hello' }, unsupportedInlineWithContents],
 						},
@@ -321,6 +333,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{ type: 'text', text: 'hello' },
@@ -342,6 +357,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -365,6 +383,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -410,6 +431,9 @@ describe(name, () => {
 											},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 												},
 											],
@@ -424,6 +448,9 @@ describe(name, () => {
 											},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 												},
 											],
@@ -438,6 +465,9 @@ describe(name, () => {
 											},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 												},
 											],
@@ -491,6 +521,9 @@ describe(name, () => {
 											},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 												},
 											],
@@ -505,6 +538,9 @@ describe(name, () => {
 											},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 												},
 											],
@@ -535,6 +571,9 @@ describe(name, () => {
 											attrs: {},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [],
 												},
@@ -545,6 +584,9 @@ describe(name, () => {
 											attrs: {},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [],
 												},
@@ -555,6 +597,9 @@ describe(name, () => {
 											attrs: {},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [],
 												},
@@ -593,6 +638,9 @@ describe(name, () => {
 											attrs: {},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [],
 												},
@@ -603,6 +651,9 @@ describe(name, () => {
 											attrs: {},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [],
 												},
@@ -734,6 +785,9 @@ describe(name, () => {
 											type: 'layoutCol',
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [{ type: 'text', text: 'hello' }],
 												},
@@ -747,6 +801,9 @@ describe(name, () => {
 									attrs: { width: 50 },
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [{ type: 'text', text: 'world' }],
 										},
@@ -768,6 +825,9 @@ describe(name, () => {
 									type: 'layoutCol',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -785,6 +845,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -817,6 +880,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -834,6 +900,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -851,6 +920,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -871,6 +943,9 @@ describe(name, () => {
 											type: 'layoutColumn',
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [
 														{
@@ -893,6 +968,9 @@ describe(name, () => {
 											type: 'layoutColumn',
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [
 														{
@@ -924,6 +1002,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -941,6 +1022,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -958,6 +1042,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -975,6 +1062,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -992,6 +1082,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -1040,6 +1133,9 @@ describe(name, () => {
 									attrs: { width: 50 },
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [{ type: 'text', text: 'world' }],
 										},
@@ -1078,6 +1174,9 @@ describe(name, () => {
 									type: 'layoutColumn',
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -1501,6 +1600,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -1526,6 +1628,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -1555,6 +1660,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -1580,6 +1688,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -1610,6 +1721,9 @@ describe(name, () => {
 							},
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -1639,6 +1753,9 @@ describe(name, () => {
 									attrs: { panelType: 'success' },
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [{ type: 'text', text: 'Hello' }],
 										},
@@ -1670,6 +1787,9 @@ describe(name, () => {
 									},
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [],
 										},
@@ -1682,6 +1802,9 @@ describe(name, () => {
 									},
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [],
 										},
@@ -1705,12 +1828,26 @@ describe(name, () => {
 								{
 									type: 'layoutColumn',
 									attrs: { width: 50 },
-									content: [{ type: 'paragraph' }],
+									content: [
+										{
+											attrs: {
+												localId: null,
+											},
+											type: 'paragraph',
+										},
+									],
 								},
 								{
 									type: 'layoutColumn',
 									attrs: { width: 50 },
-									content: [{ type: 'paragraph' }],
+									content: [
+										{
+											attrs: {
+												localId: null,
+											},
+											type: 'paragraph',
+										},
+									],
 								},
 							],
 							marks: [
@@ -1746,6 +1883,9 @@ describe(name, () => {
 										},
 										content: [
 											{
+												attrs: {
+													localId: null,
+												},
 												type: 'paragraph',
 												content: [],
 											},
@@ -1758,6 +1898,9 @@ describe(name, () => {
 										},
 										content: [
 											{
+												attrs: {
+													localId: null,
+												},
 												type: 'paragraph',
 												content: [],
 											},
@@ -1787,12 +1930,26 @@ describe(name, () => {
 									{
 										type: 'layoutColumn',
 										attrs: { width: 50 },
-										content: [{ type: 'paragraph' }],
+										content: [
+											{
+												attrs: {
+													localId: null,
+												},
+												type: 'paragraph',
+											},
+										],
 									},
 									{
 										type: 'layoutColumn',
 										attrs: { width: 50 },
-										content: [{ type: 'paragraph' }],
+										content: [
+											{
+												attrs: {
+													localId: null,
+												},
+												type: 'paragraph',
+											},
+										],
 									},
 								],
 								marks: [
@@ -1839,6 +1996,7 @@ describe(name, () => {
 														},
 													],
 													attrs: {
+														localId: null,
 														newAttribute1: 'someVal',
 													},
 												},
@@ -1854,6 +2012,7 @@ describe(name, () => {
 													type: 'paragraph',
 													content: [],
 													attrs: {
+														localId: null,
 														newAttribute2: 'someVal',
 													},
 												},
@@ -1874,6 +2033,9 @@ describe(name, () => {
 											attrs: {},
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													content: [{ type: 'text', text: 'safasfsafsa' }],
 													marks: [
@@ -1902,6 +2064,9 @@ describe(name, () => {
 											attrs: { width: 50 },
 											content: [
 												{
+													attrs: {
+														localId: null,
+													},
 													type: 'paragraph',
 													marks: [
 														{
@@ -1938,6 +2103,7 @@ describe(name, () => {
 										},
 									],
 									attrs: {
+										localId: null,
 										someOther: 'valueOther',
 									},
 								},
@@ -1947,6 +2113,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -1983,6 +2152,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -2003,6 +2175,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -2039,6 +2214,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -2058,6 +2236,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -2102,6 +2283,9 @@ describe(name, () => {
 									},
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -2128,6 +2312,9 @@ describe(name, () => {
 									},
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -2174,6 +2361,9 @@ describe(name, () => {
 									],
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -2200,6 +2390,9 @@ describe(name, () => {
 									},
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -2253,6 +2446,9 @@ describe(name, () => {
 									],
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -2279,6 +2475,9 @@ describe(name, () => {
 									},
 									content: [
 										{
+											attrs: {
+												localId: null,
+											},
 											type: 'paragraph',
 											content: [
 												{
@@ -2320,6 +2519,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -2340,6 +2542,9 @@ describe(name, () => {
 							type: 'doc',
 							content: [
 								{
+									attrs: {
+										localId: null,
+									},
 									type: 'paragraph',
 									content: [
 										{
@@ -2633,6 +2838,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -2651,6 +2859,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -2709,6 +2920,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -2724,6 +2938,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -2790,6 +3007,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -2810,6 +3030,9 @@ describe(name, () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -2856,6 +3079,9 @@ describe(name, () => {
 
 			it('Inline comment on a Inline code when resolved should not wrap inline code in unsupportedMark', () => {
 				const content = {
+					attrs: {
+						localId: null,
+					},
 					type: 'paragraph',
 					content: [
 						{

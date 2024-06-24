@@ -32,12 +32,35 @@ function hasRightAlignmentMark(marks?: PMNode['marks']) {
 	return marks.some((mark) => mark.type.name === 'alignment' && mark.attrs.align === 'end');
 }
 
-function WrapChildTextInSpan(children: React.ReactNode) {
-	// We wrap the text in a span so that we can apply CSS pseudo elements
-	// to each text node within the heading element.
-	return React.Children.map(children, (child) => {
-		return typeof child === 'string' && !/^\s*$/.test(child) ? <span>{child}</span> : child;
-	});
+function WrappedHeadingAnchor({
+	enableNestedHeaderLinks,
+	level,
+	headingId,
+}: {
+	enableNestedHeaderLinks: boolean | undefined;
+	level: number;
+	headingId: string;
+}) {
+	return (
+		<AnalyticsContext.Consumer>
+			{({ fireAnalyticsEvent }) => (
+				<HeadingAnchor
+					enableNestedHeaderLinks={enableNestedHeaderLinks}
+					level={level}
+					onCopyText={() => {
+						fireAnalyticsEvent({
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.BUTTON,
+							actionSubjectId: ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
+							eventType: EVENT_TYPE.UI,
+						});
+
+						return copyTextToClipboard(getCurrentUrlWithHash(headingId));
+					}}
+				/>
+			)}
+		</AnalyticsContext.Consumer>
+	);
 }
 
 function Heading(
@@ -63,26 +86,20 @@ function Heading(
 	return (
 		<HX id={headingIdToUse} {...dataAttributes}>
 			<>
-				{showAnchorLink && isRightAligned ? WrapChildTextInSpan(props.children) : props.children}
-				{showAnchorLink && headingId && (
-					<AnalyticsContext.Consumer>
-						{({ fireAnalyticsEvent }) => (
-							<HeadingAnchor
-								enableNestedHeaderLinks={enableNestedHeaderLinks}
-								level={props.level}
-								onCopyText={() => {
-									fireAnalyticsEvent({
-										action: ACTION.CLICKED,
-										actionSubject: ACTION_SUBJECT.BUTTON,
-										actionSubjectId: ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
-										eventType: EVENT_TYPE.UI,
-									});
-
-									return copyTextToClipboard(getCurrentUrlWithHash(headingId));
-								}}
-							/>
-						)}
-					</AnalyticsContext.Consumer>
+				{showAnchorLink && headingId && isRightAligned && (
+					<WrappedHeadingAnchor
+						level={props.level}
+						enableNestedHeaderLinks={enableNestedHeaderLinks}
+						headingId={headingId}
+					/>
+				)}
+				{props.children}
+				{showAnchorLink && headingId && !isRightAligned && (
+					<WrappedHeadingAnchor
+						level={props.level}
+						enableNestedHeaderLinks={enableNestedHeaderLinks}
+						headingId={headingId}
+					/>
 				)}
 			</>
 		</HX>

@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -34,6 +37,9 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -60,6 +66,9 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -86,6 +95,9 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -119,6 +131,9 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -149,6 +164,9 @@ exports[`WikiMarkup => ADF Formatters - citation should detect citation mark sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -179,6 +197,9 @@ exports[`WikiMarkup => ADF Formatters - citation should not be a citation mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ??citation?? text",
@@ -196,6 +217,9 @@ exports[`WikiMarkup => ADF Formatters - citation should not be a citation mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ?? citation?? text",
@@ -213,6 +237,9 @@ exports[`WikiMarkup => ADF Formatters - citation should not be a citation mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ??citation ?? text",
@@ -230,6 +257,9 @@ exports[`WikiMarkup => ADF Formatters - citation should not be a citation mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a??citation?? text",
@@ -247,6 +277,9 @@ exports[`WikiMarkup => ADF Formatters - citation should not be a citation mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ??citation??text",
@@ -264,6 +297,9 @@ exports[`WikiMarkup => ADF Formatters - citation should not be a citation mark s
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a 牛??citation??牛 text",

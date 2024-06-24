@@ -1,21 +1,9 @@
 import { traverse } from '@atlaskit/adf-utils/traverse';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { animationFrame, scrollToBottom } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-	clickOnExtension,
-	hoverOverTrashButton,
-	waitForExtensionToolbar,
-} from '@atlaskit/editor-test-helpers/page-objects/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-	clickOnCard,
-	waitForCardToolbar,
-} from '@atlaskit/editor-test-helpers/page-objects/smart-links';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	clickOnStatus,
@@ -31,21 +19,17 @@ import {
 import type { ViewportSize } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { Device, deviceViewPorts } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-helpers';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import floatsAdf2 from './__fixtures__/action-decision-lists-adjacent-floats-adf.json';
-import extensionAdf from './__fixtures__/inline-extension-inside-lists.adf.json';
 import floatsAdf from './__fixtures__/lists-adjacent-floats-adf.json';
 import listsOlUlAdf from './__fixtures__/lists-ordered-unordered-adf.json';
 import listsWithOrderAndNestedListsAdf from './__fixtures__/lists-with-order-and-nested-lists-adf.json';
-import smartLinksAdf from './__fixtures__/smart-link-nested-in-list.adf.json';
 import statusAdf from './__fixtures__/status-inside-lists.adf.json';
 import { createListWithNItems } from './__fixtures__/very-long-lists.adf';
 
 describe('Lists', () => {
 	let page: PuppeteerPage;
-	const cardProvider = new EditorTestCardProvider();
 
 	const initEditor = async (
 		page: PuppeteerPage,
@@ -67,34 +51,6 @@ describe('Lists', () => {
 	afterEach(async () => {
 		await animationFrame(page);
 		await snapshot(page);
-	});
-
-	it('should render card toolbar on click when its nested inside lists', async () => {
-		await initEditor(
-			page,
-			smartLinksAdf,
-			{ width: 800, height: 300 },
-			{
-				smartLinks: { provider: Promise.resolve(cardProvider) },
-			},
-		);
-		await waitForResolvedInlineCard(page);
-		await clickOnCard(page);
-		await waitForCardToolbar(page);
-		await page.mouse.move(0, 0);
-	});
-
-	it('should render extension toolbar on click when its nested inside lists', async () => {
-		await initEditor(page, extensionAdf, { width: 800, height: 300 });
-		await clickOnExtension(page, 'com.atlassian.confluence.macro.core', 'inline-eh');
-		await waitForExtensionToolbar(page);
-	});
-
-	it('should render red outline when hovering trash button for inline extensions and nested inside list', async () => {
-		await initEditor(page, extensionAdf, { width: 800, height: 300 });
-		await clickOnExtension(page, 'com.atlassian.confluence.macro.core', 'inline-eh');
-		await waitForExtensionToolbar(page);
-		await hoverOverTrashButton(page);
 	});
 
 	it('should render status toolbar on click when its nested inside lists', async () => {

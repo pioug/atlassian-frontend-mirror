@@ -115,6 +115,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "colum 1 ",
@@ -180,6 +183,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "column 2",
@@ -395,6 +401,9 @@ Object {
       "type": "mediaGroup",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "a",
@@ -777,6 +786,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "foo",
@@ -841,6 +853,9 @@ exports[`JIRA wiki markup - Images and attachments should add collection from co
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hello! ",
@@ -964,6 +979,9 @@ exports[`JIRA wiki markup - Images and attachments should find attachments in mu
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a line of text",
@@ -1003,6 +1021,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "yep",
@@ -1126,6 +1147,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Foo",
@@ -1206,6 +1230,9 @@ Object {
       "type": "mediaGroup",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " ",

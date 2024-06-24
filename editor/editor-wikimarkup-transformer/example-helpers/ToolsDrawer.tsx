@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+// eslint-disable-next-line no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { WikiMarkupTransformer } from '../src';
 

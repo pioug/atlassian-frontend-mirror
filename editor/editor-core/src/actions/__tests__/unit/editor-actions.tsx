@@ -191,6 +191,9 @@ Object {
 							content: [
 								{
 									type: 'paragraph',
+									attrs: {
+										localId: null,
+									},
 									content: [
 										{
 											type: 'text',

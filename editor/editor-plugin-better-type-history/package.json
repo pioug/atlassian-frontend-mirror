@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.10.0",
+		"@atlaskit/editor-common": "^82.11.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -45,7 +45,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-schema": "^37.0.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
 		"@atlaskit/editor-plugin-history": "^1.1.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.2.0",

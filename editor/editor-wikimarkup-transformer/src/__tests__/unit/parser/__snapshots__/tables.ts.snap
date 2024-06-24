@@ -24,6 +24,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "colum 1 ",
@@ -78,6 +81,9 @@ Object {
                   "type": "mediaGroup",
                 },
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": " abc ",
@@ -143,6 +149,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "column 2",
@@ -189,6 +198,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -214,6 +226,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -239,6 +254,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -269,6 +287,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -294,6 +315,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 1",
@@ -314,6 +338,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 2",
@@ -339,6 +366,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -364,6 +394,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 3",
@@ -384,6 +417,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 4",
@@ -434,6 +470,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -465,6 +504,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -490,6 +532,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -527,6 +572,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -558,6 +606,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 1",
@@ -578,6 +629,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 2",
@@ -607,6 +661,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -638,6 +695,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 3",
@@ -658,6 +718,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 4",
@@ -708,6 +771,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -727,6 +793,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -746,6 +815,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -765,6 +837,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -822,6 +897,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -847,6 +925,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -872,6 +953,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -902,6 +986,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -927,6 +1014,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 1",
@@ -947,6 +1037,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 2",
@@ -972,6 +1065,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -997,6 +1093,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 3",
@@ -1017,6 +1116,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 4",
@@ -1187,6 +1289,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -1212,6 +1317,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -1242,6 +1350,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -1267,6 +1378,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 1",
@@ -1287,6 +1401,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 2",
@@ -1312,6 +1429,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -1337,6 +1457,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 3",
@@ -1357,6 +1480,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 4",
@@ -1407,6 +1533,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "marks": Array [
@@ -1477,6 +1606,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "test",
@@ -1502,6 +1634,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "test",
@@ -1527,6 +1662,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "asdasd[",
@@ -1568,6 +1706,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "test",
@@ -1614,6 +1755,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "a",
@@ -1639,6 +1783,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "b",
@@ -1685,6 +1832,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -1710,6 +1860,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -1740,6 +1893,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -1760,6 +1916,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -1792,6 +1951,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -1812,6 +1974,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -1831,6 +1996,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Col A1",
@@ -1851,6 +2019,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Col A2",
@@ -1889,6 +2060,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -1909,6 +2083,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -1928,6 +2105,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -1948,6 +2128,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -1980,6 +2163,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Heading 1",
@@ -2000,6 +2186,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -2020,6 +2209,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -2039,6 +2231,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Two empty cells on the right ->",
@@ -2059,6 +2254,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -2073,6 +2271,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -2105,6 +2306,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -2125,6 +2329,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -2139,6 +2346,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "<- Empty cell on the left",
@@ -2164,6 +2374,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Empty cell on the right ->",
@@ -2184,6 +2397,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "type": "paragraph",
                 },
               ],
@@ -2198,6 +2414,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "<- Empty cell on the left",
@@ -2244,6 +2463,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -2269,6 +2491,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -2311,6 +2536,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -2353,6 +2581,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -2395,6 +2626,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -2437,6 +2671,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -2484,6 +2721,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Queue Size ",
@@ -2504,6 +2744,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "4 ",
@@ -2524,6 +2767,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "4 ",
@@ -2544,6 +2790,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "4 ",
@@ -2564,6 +2813,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "2 ",
@@ -2584,6 +2836,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "5 ",
@@ -2630,6 +2885,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "test table",
@@ -2694,6 +2952,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "test table",
@@ -2714,6 +2975,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "test table",
@@ -2768,6 +3032,9 @@ Object {
       "type": "table",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "sample text",
@@ -2805,6 +3072,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",
@@ -2901,6 +3171,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",
@@ -2919,6 +3192,9 @@ Object {
                   },
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "type": "paragraph",
                     },
                   ],
@@ -3021,6 +3297,9 @@ Object {
                   },
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "foo",
@@ -3072,6 +3351,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "foo",
@@ -3121,6 +3403,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3146,6 +3431,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3171,6 +3459,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3201,6 +3492,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3226,6 +3520,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 1",
@@ -3246,6 +3543,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 2",
@@ -3271,6 +3571,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3296,6 +3599,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 3",
@@ -3316,6 +3622,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Cell 4",
@@ -3362,6 +3671,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3387,6 +3699,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3412,6 +3727,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3442,6 +3760,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "col A1",
@@ -3462,6 +3783,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "col A2",
@@ -3482,6 +3806,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "col A3",
@@ -3507,6 +3834,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "col B1",
@@ -3527,6 +3857,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "col B2",
@@ -3549,6 +3882,7 @@ Object {
                 Object {
                   "attrs": Object {
                     "level": 1,
+                    "localId": null,
                   },
                   "content": Array [
                     Object {
@@ -3596,6 +3930,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3621,6 +3958,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3651,6 +3991,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "baz ",
@@ -3671,6 +4014,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "multiline",
@@ -3738,6 +4084,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3763,6 +4112,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3786,6 +4138,9 @@ Object {
       "type": "table",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a new line text, not in the table",
@@ -3823,6 +4178,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "cell 1",
@@ -3843,6 +4201,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "cell 2",
@@ -3889,6 +4250,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3914,6 +4278,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3939,6 +4306,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -3969,6 +4339,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Trailing space on this line ",
@@ -3982,6 +4355,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "text": "Dot point",
@@ -4008,6 +4384,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",
@@ -4028,6 +4407,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",
@@ -4074,6 +4456,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4099,6 +4484,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4124,6 +4512,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4153,6 +4544,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4303,6 +4697,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4328,6 +4725,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4358,6 +4758,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Col A1",
@@ -4378,6 +4781,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "Col A2",
@@ -4424,6 +4830,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "cell 1",
@@ -4444,6 +4853,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "cell 2",
@@ -4469,6 +4881,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "cell 3",
@@ -4489,6 +4904,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "cell 4 ",
@@ -4535,6 +4953,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4560,6 +4981,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4585,6 +5009,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "marks": Array [
@@ -4619,6 +5046,9 @@ Object {
                     Object {
                       "content": Array [
                         Object {
+                          "attrs": Object {
+                            "localId": null,
+                          },
                           "content": Array [
                             Object {
                               "text": "Dot point",
@@ -4645,6 +5075,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",
@@ -4665,6 +5098,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",

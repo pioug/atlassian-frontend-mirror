@@ -12,6 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
+import { stripEmptyProperties } from '../../utils';
 
 import { type ProductHomeProps } from './types';
 import { getTag } from './utils';
@@ -171,7 +172,7 @@ const ProductHome = ({
 		onMouseDown && onMouseDown(e);
 	};
 
-	const productHomeButtonDynamicStyles = {
+	const productHomeButtonDynamicStyles = stripEmptyProperties({
 		[VAR_PRODUCT_HOME_COLOR_ACTIVE]: primaryButton.active.color,
 		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE]: primaryButton.active.backgroundColor,
 		[VAR_PRODUCT_HOME_BOX_SHADOW_ACTIVE]: primaryButton.active.boxShadow,
@@ -182,7 +183,7 @@ const ProductHome = ({
 		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER]: primaryButton.hover.backgroundColor,
 		[VAR_PRODUCT_HOME_BOX_SHADOW_HOVER]: primaryButton.hover.boxShadow,
 		[VAR_LOGO_MAX_WIDTH]: `${logoMaxWidth}px`,
-	};
+	});
 
 	return (
 		<Fragment>

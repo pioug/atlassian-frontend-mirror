@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Double dash should not replace with double dashes wh
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "--foo",
@@ -42,6 +45,9 @@ exports[`JIRA wiki markup - Double dash should replace double dash with a specia
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "foo – bar",

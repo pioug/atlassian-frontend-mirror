@@ -31,6 +31,9 @@ describe('document: processRawValue', () => {
 				type: 'doc',
 				content: [
 					{
+						attrs: {
+							localId: null,
+						},
 						type: 'paragraph',
 						content: [
 							{
@@ -68,6 +71,9 @@ describe('document: processRawValue', () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -119,6 +125,9 @@ describe('document: processRawValue', () => {
 				type: 'doc',
 				content: [
 					{
+						attrs: {
+							localId: null,
+						},
 						type: 'paragraph',
 						content: [
 							{
@@ -150,6 +159,9 @@ describe('document: processRawValue', () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -197,6 +209,9 @@ describe('document: processRawValue', () => {
 				type: 'doc',
 				content: [
 					{
+						attrs: {
+							localId: null,
+						},
 						type: 'paragraph',
 						content: [
 							{
@@ -240,6 +255,9 @@ describe('document: processRawValue', () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -296,6 +314,9 @@ describe('document: processRawValue', () => {
 				type: 'doc',
 				content: [
 					{
+						attrs: {
+							localId: null,
+						},
 						type: 'paragraph',
 						content: [
 							{
@@ -330,6 +351,9 @@ describe('document: processRawValue', () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{
@@ -380,6 +404,9 @@ describe('document: processRawValue', () => {
 				type: 'doc',
 				content: [
 					{
+						attrs: {
+							localId: null,
+						},
 						type: 'paragraph',
 						content: [
 							{
@@ -417,6 +444,9 @@ describe('document: processRawValue', () => {
 					type: 'doc',
 					content: [
 						{
+							attrs: {
+								localId: null,
+							},
 							type: 'paragraph',
 							content: [
 								{

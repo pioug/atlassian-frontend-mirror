@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.11.0
+
+### Minor Changes
+
+- [#112275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112275)
+  [`6f3058e0347a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f3058e0347a3) -
+  ED-23734 - add `getInlineNodeTypes` function to `InlineCommentViewComponentProps`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.4
 
 ### Patch Changes

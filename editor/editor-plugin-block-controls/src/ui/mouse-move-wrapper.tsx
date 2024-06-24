@@ -6,10 +6,12 @@ import { css, jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockControlsPlugin, BlockControlsSharedState } from '../types';
 import { getTopPosition } from '../utils/drag-handle-positions';
+
+import { DRAG_HANDLE_ZINDEX } from './consts';
 
 const basicStyles = css({
 	position: 'absolute',
@@ -20,7 +22,8 @@ const basicStyles = css({
 });
 
 const mouseMoveWrapperStyles = css({
-	zIndex: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	zIndex: DRAG_HANDLE_ZINDEX,
 });
 
 export const MouseMoveWrapper = ({

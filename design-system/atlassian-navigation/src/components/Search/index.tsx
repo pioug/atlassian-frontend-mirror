@@ -19,6 +19,7 @@ import {
 	varSearchHoverBackgroundColor,
 } from '../../common/constants';
 import { useTheme } from '../../theme';
+import { stripEmptyProperties } from '../../utils';
 import { IconButton } from '../IconButton';
 
 import { type SearchProps } from './types';
@@ -110,13 +111,13 @@ const SearchComponent = (props: SearchComponentProps) => {
 		onClick && onClick(...args);
 	};
 
-	const searchInputDynamicStyles = {
+	const searchInputDynamicStyles = stripEmptyProperties({
 		[varSearchBackgroundColor]: search.default.backgroundColor,
 		[varSearchColor]: search.default.color,
 		[varSearchBorderColor]: search.default.borderColor,
 		[varSearchFocusBorderColor]: search.focus.borderColor,
 		[varSearchHoverBackgroundColor]: search.hover.backgroundColor,
-	};
+	});
 
 	return (
 		<div css={searchInputContainerStyles} role="search">

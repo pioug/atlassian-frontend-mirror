@@ -12,6 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
 import { useTheme } from '../../theme';
+import { stripEmptyProperties } from '../../utils';
 
 const VAR_PRODUCT_HOME_COLOR_ACTIVE = '--product-home-color-active';
 const VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE = '--product-home-bg-color-active';
@@ -131,7 +132,7 @@ export const ProductHomeSkeleton = ({ showSiteName }: { showSiteName: boolean })
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
 
-	const productHomeButtonDynamicStyles = {
+	const productHomeButtonDynamicStyles = stripEmptyProperties({
 		[VAR_PRODUCT_HOME_COLOR_ACTIVE]: primaryButton.active.color,
 		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_ACTIVE]: primaryButton.active.backgroundColor,
 		[VAR_PRODUCT_HOME_BOX_SHADOW_ACTIVE]: primaryButton.active.boxShadow,
@@ -142,7 +143,7 @@ export const ProductHomeSkeleton = ({ showSiteName }: { showSiteName: boolean })
 		[VAR_PRODUCT_HOME_BACKGROUND_COLOR_HOVER]: primaryButton.hover.backgroundColor,
 		[VAR_PRODUCT_HOME_BOX_SHADOW_HOVER]: primaryButton.hover.boxShadow,
 		[VAR_SITE_TITLE_BG_COLOR_AFTER]: theme.mode.skeleton.backgroundColor,
-	};
+	});
 
 	const siteTitleDynamicStyles = {
 		borderRight: theme.mode.productHome.borderRight,

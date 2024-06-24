@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should be a emphasis mark if th
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a",
@@ -34,6 +37,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should be a emphasis mark if th
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -64,6 +70,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should be an emphasis mark and 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -86,6 +95,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis mark and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -116,6 +128,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -142,6 +157,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -168,6 +186,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -201,6 +222,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis mark at 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -231,6 +255,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should detect emphasis surround
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -261,6 +288,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should not be a emphasis mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a _emphasis_ text",
@@ -278,6 +308,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should not be a emphasis mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a 牛_emphasis_牛 text",
@@ -295,6 +328,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should not be a emphasis mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a _ emphasis_ text",
@@ -312,6 +348,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should not be a emphasis mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a _emphasis _ text",
@@ -329,6 +368,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should not be a emphasis mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a_emphasis_ text",
@@ -346,6 +388,9 @@ exports[`WikiMarkup => ADF Formatters - emphasis should not be a emphasis mark i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a _emphasis_text",

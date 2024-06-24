@@ -57,11 +57,21 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 
 				if (process.env.IS_REACT_18 === 'true') {
 					act(() => {
-						root.render(<ViewComponent annotations={[]} deleteAnnotation={deleteAnnotationMock} />);
+						root.render(
+							<ViewComponent
+								annotations={[]}
+								deleteAnnotation={deleteAnnotationMock}
+								getInlineNodeTypes={() => ['text']}
+							/>,
+						);
 					});
 				} else {
 					render(
-						<ViewComponent annotations={[]} deleteAnnotation={deleteAnnotationMock} />,
+						<ViewComponent
+							annotations={[]}
+							deleteAnnotation={deleteAnnotationMock}
+							getInlineNodeTypes={() => ['text']}
+						/>,
 						container,
 					);
 				}
@@ -84,6 +94,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 								annotations={annotations}
 								clickElementTarget={container!}
 								deleteAnnotation={deleteAnnotationMock}
+								getInlineNodeTypes={() => ['text']}
 							/>,
 						);
 					});
@@ -93,6 +104,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 							annotations={annotations}
 							clickElementTarget={container!}
 							deleteAnnotation={deleteAnnotationMock}
+							getInlineNodeTypes={() => ['text']}
 						/>,
 						container,
 					);
@@ -121,6 +133,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 								annotations={annotations}
 								clickElementTarget={container!}
 								deleteAnnotation={() => false}
+								getInlineNodeTypes={() => ['text']}
 							/>,
 						);
 					});
@@ -130,6 +143,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 							annotations={annotations}
 							clickElementTarget={container!}
 							deleteAnnotation={() => false}
+							getInlineNodeTypes={() => ['text']}
 						/>,
 						container,
 					);
@@ -172,6 +186,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 							<ViewComponent
 								annotations={[{ id: 'fake-id-1', type: AnnotationTypes.INLINE_COMMENT }]}
 								deleteAnnotation={deleteAnnotationMock}
+								getInlineNodeTypes={() => ['text']}
 							/>,
 						);
 					});
@@ -181,6 +196,7 @@ describe('Mobile Renderer: Annotations/create-view-component', () => {
 							<ViewComponent
 								annotations={[{ id: 'fake-id-1', type: AnnotationTypes.INLINE_COMMENT }]}
 								deleteAnnotation={deleteAnnotationMock}
+								getInlineNodeTypes={() => ['text']}
 							/>,
 							container,
 						);

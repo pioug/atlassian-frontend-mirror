@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "25.10.5",
+	"version": "25.10.6",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/code": "^15.3.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/icon-file-type": "^6.4.0",

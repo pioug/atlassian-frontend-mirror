@@ -11,7 +11,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
-import type { MarkType } from '@atlaskit/editor-prosemirror/dist/types/model';
+import type { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

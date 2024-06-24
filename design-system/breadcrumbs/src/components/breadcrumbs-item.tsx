@@ -31,13 +31,13 @@ const itemWrapperStyles = css({
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
 	flexDirection: 'row',
-	lineHeight: `${24 / 14}em`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:not(:last-child)::after': {
 		width: '8px',
-		padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
 		flexShrink: 0,
 		content: '"/"',
+		paddingBlock: token('space.025'),
+		paddingInline: token('space.100'),
 		textAlign: 'center',
 	},
 });
@@ -45,15 +45,18 @@ const itemWrapperStyles = css({
 const VAR_STEP_TRUNCATION_WIDTH = '--max-width';
 const ICON_WIDTH_ESTIMATE = 24;
 
+const staticItemStyles = css({
+	font: token('font.body'),
+	paddingBlock: token('space.025'),
+});
+
 const staticItemWithTruncationStyles = css({
 	maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH})`,
-	fontWeight: token('font.weight.regular'),
 });
 
 const staticItemWithoutTruncationStyles = css({
 	minWidth: 0,
 	flexShrink: 1,
-	fontWeight: token('font.weight.regular'),
 });
 
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
@@ -92,14 +95,14 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
 	const step = truncationWidth ? (
 		<Step
 			{...buttonProps}
-			css={staticItemWithTruncationStyles}
+			css={[staticItemStyles, staticItemWithTruncationStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={dynamicItemStyles}
 		>
 			{text}
 		</Step>
 	) : (
-		<Step {...buttonProps} css={staticItemWithoutTruncationStyles}>
+		<Step {...buttonProps} css={[staticItemStyles, staticItemWithoutTruncationStyles]}>
 			{text}
 		</Step>
 	);

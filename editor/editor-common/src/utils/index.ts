@@ -12,6 +12,7 @@ export {
 	canApplyAnnotationOnRange,
 	containsAnyAnnotations,
 	getAnnotationIdsFromRange,
+	getAnnotationInlineNodeTypes,
 	hasAnnotationMark,
 	getRangeInlineNodeNames,
 } from './annotation';

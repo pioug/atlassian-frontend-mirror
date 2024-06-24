@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ActivityProvider } from '@atlaskit/activity';
+// eslint-disable-next-line no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import type { MentionProvider } from '@atlaskit/editor-core';
 import { MentionResource } from '@atlaskit/editor-core';

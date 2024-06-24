@@ -23,11 +23,11 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		expect(button).toHaveStyleRule('width', '16px');
 	});
 
-	it('should have disabled css when disabled is true', async () => {
+	it('should disable the button when disabled is true', async () => {
 		renderWithIntl(<Trigger tooltipContent="" disabled />);
 		const btn = await screen.findByRole('button');
 		expect(btn).toBeInTheDocument();
-		expect(btn).toHaveAttribute('aria-disabled', 'true');
+		expect(btn).toHaveAttribute('disabled');
 	});
 
 	it('should call "onClick" when clicked', async () => {

@@ -33,10 +33,12 @@ const ExampleRow = ({
 	appearance,
 	spacing,
 	isIconOnly,
+	isLoading,
 }: {
 	appearance: Appearance;
 	spacing: Spacing;
 	isIconOnly: boolean;
+	isLoading: boolean;
 	component: Variant['Component'];
 	version: 'new';
 }) => {
@@ -45,7 +47,7 @@ const ExampleRow = ({
 			<th>{capitalize(appearance)}</th>
 			<td>
 				<Component
-					isLoading
+					isLoading={isLoading}
 					// @ts-ignore
 					appearance={appearance}
 					// @ts-ignore
@@ -59,7 +61,7 @@ const ExampleRow = ({
 					// @ts-ignore
 					appearance={appearance}
 					isDisabled
-					isLoading
+					isLoading={isLoading}
 					// @ts-ignore
 					spacing={spacing}
 				>
@@ -71,7 +73,7 @@ const ExampleRow = ({
 					// @ts-ignore
 					appearance={appearance}
 					isSelected
-					isLoading
+					isLoading={isLoading}
 					// @ts-ignore
 					spacing={spacing}
 				>
@@ -84,7 +86,7 @@ const ExampleRow = ({
 					appearance={appearance}
 					isSelected
 					isDisabled
-					isLoading
+					isLoading={isLoading}
 					// @ts-ignore
 					spacing={spacing}
 				>
@@ -96,11 +98,17 @@ const ExampleRow = ({
 };
 
 export default function LoadingExample() {
+	const [isLoading, setIsLoading] = useState(true);
 	const [isAnimationsDisabled, setAnimationsDisabled] = useState(true);
 
 	return (
 		<div css={isAnimationsDisabled && disableAnimationStyles}>
 			<Box padding="space.200">
+				<Checkbox
+					label="Show loading state"
+					isChecked={isLoading}
+					onChange={() => setIsLoading((value) => !value)}
+				/>
 				<Checkbox
 					label="Disable animations for VR testing"
 					isChecked={isAnimationsDisabled}
@@ -146,6 +154,7 @@ export default function LoadingExample() {
 															spacing={space}
 															version="new"
 															isIconOnly={isIconOnly}
+															isLoading={isLoading}
 														/>
 													</Fragment>
 												))}

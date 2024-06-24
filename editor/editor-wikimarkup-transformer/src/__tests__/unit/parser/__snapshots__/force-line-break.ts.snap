@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 returns empty paragraph i
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "type": "paragraph",
     },
   ],
@@ -15,6 +18,9 @@ exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "type": "hardBreak",
@@ -34,6 +40,9 @@ Object {
       "type": "paragraph",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "foo ",
@@ -54,6 +63,9 @@ exports[`WikiMarkup => ADF - force line break should detect invalid force line b
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is not a line break \\\\\\\\\\\\ not on second line",
@@ -71,6 +83,9 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this-is-not-line-break\\\\\\\\but-this-one-is-line-break",
@@ -95,6 +110,9 @@ exports[`WikiMarkup => ADF - force line break should detect the correct force li
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this-is-line-break",
@@ -126,6 +144,9 @@ exports[`WikiMarkup => ADF - force line break should detect the force line break
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a line break ",

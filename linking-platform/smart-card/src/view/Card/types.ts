@@ -1,11 +1,11 @@
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type CardAppearance, CardState } from '@atlaskit/linking-common';
+import { type CardAppearance, type CardState } from '@atlaskit/linking-common';
 
 import { type CardPlatform } from '@atlaskit/link-extractors';
 
 import { type AnalyticsFacade } from '../../state/analytics';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
-import { ErrorCardType, type InlinePreloaderStyle, type OnErrorCallback } from '../types';
+import { type ErrorCardType, type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 import { type FrameStyle } from '../EmbedCard/types';
 
 export type { CardAppearance, CardPlatform };

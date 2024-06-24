@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/docs",
-	"version": "9.1.3",
+	"version": "9.1.4",
 	"description": "Utilities for building documentation",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,7 +22,7 @@
 	},
 	"repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
 	"dependencies": {
-		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/code": "^15.3.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/section-message": "^6.5.0",

@@ -4,6 +4,7 @@ import {
 	HeadingsCenterRenderer,
 	HeadingsLeftRenderer,
 	HeadingsRightRenderer,
+	HeadingsRTLSymbolsWithHighlighterRenderer,
 	HeadingCommentRenderer,
 	HeadingMultilineRenderer,
 	HeadingsRightMobileRenderer,
@@ -18,6 +19,8 @@ snapshot(HeadingRenderer);
 snapshot(HeadingsCenterRenderer);
 snapshot(HeadingsLeftRenderer);
 snapshot(HeadingsRightRenderer);
+// With the highlight renderer enabled it should not show symbols incorrectly
+snapshot(HeadingsRTLSymbolsWithHighlighterRenderer);
 
 /**
  * Should only apply RTL to copy link

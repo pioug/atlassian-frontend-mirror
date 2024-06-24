@@ -21,6 +21,7 @@ export type {
 	ThemeIds,
 	ThemeOptionsSchema,
 	ThemeState,
+	ActiveThemeState,
 } from './theme-config';
 export type {
 	FontFamilyToken,

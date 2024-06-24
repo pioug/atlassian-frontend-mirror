@@ -64,7 +64,7 @@
 		"build:images": "ts-node --files --project ./tsconfig.ts-node.json ./src/static/generator/generate.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-schema": "^37.0.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/theme": "^12.11.0",
 		"@babel/runtime": "^7.0.0",

@@ -4,7 +4,6 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
-import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
 	type UseButtonBaseArgs,
 	type UseButtonBaseReturn,
@@ -38,7 +37,7 @@ const useIconButton = <TagName extends HTMLElement>({
 	icon,
 	interactionName,
 	isDisabled,
-	isLoading,
+	isLoading = false,
 	isSelected,
 	label,
 	onClick,
@@ -51,7 +50,6 @@ const useIconButton = <TagName extends HTMLElement>({
 	onPointerUpCapture,
 	onTouchEndCapture,
 	onTouchStartCapture,
-	overlay,
 	ref,
 	shape,
 	shouldFitContainer,
@@ -59,7 +57,6 @@ const useIconButton = <TagName extends HTMLElement>({
 	testId,
 	UNSAFE_size,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
-	const hasOverlay = Boolean(overlay || isLoading);
 	const isCircle = shape === 'circle';
 
 	const baseProps = useButtonBase<TagName>({
@@ -70,7 +67,7 @@ const useIconButton = <TagName extends HTMLElement>({
 		ariaLabelledBy,
 		buttonType,
 		children: (
-			<Content type="icon" hasOverlay={hasOverlay}>
+			<Content type="icon" isLoading={isLoading}>
 				<IconRenderer icon={icon} size={UNSAFE_size} />
 				<VisuallyHidden>{label}</VisuallyHidden>
 			</Content>
@@ -91,18 +88,10 @@ const useIconButton = <TagName extends HTMLElement>({
 		onPointerDownCapture,
 		onPointerUpCapture,
 		onClickCapture,
-		overlay: isLoading
-			? renderLoadingOverlay({
-					spacing,
-					appearance,
-					isDisabled,
-					isSelected,
-					testId,
-				})
-			: overlay,
 		ref,
 		shouldFitContainer,
 		spacing,
+		testId,
 	});
 
 	return baseProps;

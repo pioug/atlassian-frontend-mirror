@@ -24,15 +24,20 @@ const itemWrapperStyles = css({
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
 	flexDirection: 'row',
-	lineHeight: `${24 / 14}em`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:not(:last-child)::after': {
 		width: token('space.100', '8px'),
-		padding: `${token('space.0', '0px')} ${token('space.100', '8px')}`,
 		flexShrink: 0,
 		content: '"/"',
+		paddingBlock: token('space.025'),
+		paddingInline: token('space.100'),
 		textAlign: 'center',
 	},
+});
+
+const staticItemStyles = css({
+	font: token('font.body'),
+	paddingBlock: token('space.025'),
 });
 
 const EllipsisItem = memo((props: EllipsisItemProps) => {
@@ -46,6 +51,7 @@ const EllipsisItem = memo((props: EllipsisItemProps) => {
 				testId={testId}
 				onClick={onClick}
 				aria-label={label}
+				css={staticItemStyles}
 			>
 				&hellip;
 			</Button>

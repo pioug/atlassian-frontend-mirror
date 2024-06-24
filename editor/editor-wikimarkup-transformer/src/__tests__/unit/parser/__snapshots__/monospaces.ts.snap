@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert attac
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -26,6 +29,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert bold 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -48,6 +54,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert citat
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -70,6 +79,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert itali
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -92,6 +104,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert ruler
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -114,6 +129,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert strik
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -136,6 +154,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert subsc
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -158,6 +179,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert super
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -180,6 +204,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert wiki-
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -202,6 +229,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should convert raw link 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -224,6 +254,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should not convert color
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -246,6 +279,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1470] should not convert raw t
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -268,6 +304,9 @@ exports[`JIRA wiki markup - Preformatted text [CS-1553] should NOT convert bulle
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -290,6 +329,9 @@ exports[`JIRA wiki markup - Preformatted text should NOT convert media inside pr
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [

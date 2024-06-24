@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF Formatters - citation [CS-491] should detect mention 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hi ",
@@ -35,6 +38,9 @@ exports[`WikiMarkup => ADF Formatters - citation [CS-1896] Should convert empty 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hi [~accountid:], your text is so plain, almost as plain as [~]",
@@ -52,6 +58,9 @@ exports[`WikiMarkup => ADF Formatters - citation Should convert mention without 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hi ",
@@ -83,6 +92,9 @@ exports[`WikiMarkup => ADF Formatters - citation should convert mention with con
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hi ",

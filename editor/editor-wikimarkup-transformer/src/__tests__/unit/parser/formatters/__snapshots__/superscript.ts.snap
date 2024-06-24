@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should be a superscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -29,6 +32,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -58,6 +64,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -87,6 +96,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -123,6 +135,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -156,6 +171,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -189,6 +207,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should detect superscript ma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -222,6 +243,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should not be a superscript 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ^superscript^ text",
@@ -239,6 +263,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should not be a superscript 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a 牛^superscript^牛 text",
@@ -256,6 +283,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should not be a superscript 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ^ superscript^ text",
@@ -273,6 +303,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should not be a superscript 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ^superscript ^ text",
@@ -290,6 +323,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should not be a superscript 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a^superscript^ text",
@@ -307,6 +343,9 @@ exports[`WikiMarkup => ADF Formatters - Superscript should not be a superscript 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ^superscript^text",

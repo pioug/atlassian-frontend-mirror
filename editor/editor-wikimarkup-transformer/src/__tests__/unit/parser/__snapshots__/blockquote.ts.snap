@@ -6,6 +6,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is a blockquote node",

@@ -8,6 +8,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list item – 1",
@@ -22,6 +25,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list item — 2",
@@ -49,6 +55,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -96,6 +105,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -137,6 +149,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -178,6 +193,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -219,6 +237,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -260,6 +281,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "_",
@@ -282,6 +306,9 @@ Object {
               "type": "codeBlock",
             },
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "_",
@@ -309,6 +336,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -343,6 +373,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -380,6 +413,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "test ",
@@ -421,6 +457,9 @@ Object {
               "type": "codeBlock",
             },
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "-",
@@ -451,6 +490,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "test ",
@@ -561,6 +603,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -595,6 +640,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -632,6 +680,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "********************* a",
@@ -659,6 +710,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -688,6 +742,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -695,6 +752,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "b",
@@ -731,6 +791,9 @@ exports[`JIRA wiki markup - Lists should NOT create a list of more than 20 level
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "********************* a",
@@ -752,6 +815,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "|",
@@ -774,6 +840,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "|",
@@ -801,6 +870,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "different",
@@ -814,6 +886,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "bullet",
@@ -828,6 +903,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "types",
@@ -861,6 +939,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "This is a media group ",
@@ -905,6 +986,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": " and text after it",
@@ -932,6 +1016,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "This is a media group ",
@@ -1036,6 +1123,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": " and text after it ",
@@ -1148,6 +1238,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "nested",
@@ -1161,6 +1254,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "media group ",
@@ -1211,6 +1307,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -1218,6 +1317,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": " here",
@@ -1232,6 +1334,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "nice nice",
@@ -1252,6 +1357,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "all good",
@@ -1279,6 +1387,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -1301,6 +1412,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "abc",
@@ -1328,6 +1442,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "This is sparta",
@@ -1355,6 +1472,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -1387,6 +1507,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
           ],
@@ -1411,6 +1534,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -1433,6 +1559,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "b",
@@ -1446,6 +1575,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "c",
@@ -1459,6 +1591,9 @@ Object {
                         Object {
                           "content": Array [
                             Object {
+                              "attrs": Object {
+                                "localId": null,
+                              },
                               "content": Array [
                                 Object {
                                   "text": "d",
@@ -1501,6 +1636,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -1523,6 +1661,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "b",
@@ -1536,6 +1677,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "c",
@@ -1549,6 +1693,9 @@ Object {
                         Object {
                           "content": Array [
                             Object {
+                              "attrs": Object {
+                                "localId": null,
+                              },
                               "content": Array [
                                 Object {
                                   "text": "d",
@@ -1594,6 +1741,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -1604,6 +1754,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "a",
@@ -1637,6 +1790,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "type": "paragraph",
             },
             Object {
@@ -1644,6 +1800,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "a",
@@ -1677,6 +1836,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "attrs": Object {
@@ -1697,6 +1859,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "attrs": Object {
@@ -1725,6 +1890,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "abc",
@@ -1739,6 +1907,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "attrs": Object {
@@ -1758,6 +1929,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "attrs": Object {
@@ -1797,6 +1971,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "attrs": Object {
@@ -1833,6 +2010,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -1847,6 +2027,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "numbered",
@@ -1860,6 +2043,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "with",
@@ -1874,6 +2060,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "nested",
@@ -1888,6 +2077,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "bullet",
@@ -1908,6 +2100,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list",
@@ -1935,6 +2130,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -1949,6 +2147,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "bulleted",
@@ -1965,6 +2166,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "with",
@@ -1979,6 +2183,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "nested",
@@ -1993,6 +2200,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "numbered",
@@ -2013,6 +2223,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list",
@@ -2043,6 +2256,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -2057,6 +2273,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "numbered",
@@ -2071,6 +2290,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list",
@@ -2098,6 +2320,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "nested",
@@ -2132,6 +2357,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "some",
@@ -2146,6 +2374,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "bullet",
@@ -2159,6 +2390,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "marks": Array [
@@ -2178,6 +2412,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "bullets",
@@ -2198,6 +2435,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "points",
@@ -2225,6 +2465,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "different",
@@ -2239,6 +2482,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "bullet",
@@ -2253,6 +2499,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "types",
@@ -2280,6 +2529,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "different",
@@ -2294,6 +2546,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "bullet",
@@ -2308,6 +2563,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "types",
@@ -2335,6 +2593,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -2348,6 +2609,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "type": "paragraph",
                     },
                     Object {
@@ -2355,6 +2619,9 @@ Object {
                         Object {
                           "content": Array [
                             Object {
+                              "attrs": Object {
+                                "localId": null,
+                              },
                               "type": "paragraph",
                             },
                             Object {
@@ -2362,6 +2629,9 @@ Object {
                                 Object {
                                   "content": Array [
                                     Object {
+                                      "attrs": Object {
+                                        "localId": null,
+                                      },
                                       "content": Array [
                                         Object {
                                           "text": "b",
@@ -2388,6 +2658,9 @@ Object {
                 Object {
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "c",
@@ -2421,6 +2694,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a",
@@ -2451,6 +2727,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list with macro",
@@ -2478,6 +2757,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "list 2",
@@ -2508,6 +2790,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "item 1",
@@ -2585,6 +2870,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "item 2",
@@ -2612,6 +2900,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "nested",
@@ -2653,6 +2944,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -2700,6 +2994,9 @@ exports[`JIRA wiki markup - Lists should not create a list if started with multi
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "------ a",
@@ -2717,6 +3014,9 @@ exports[`JIRA wiki markup - Lists should not fail for multiple lists 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Steps to reproduce:",
@@ -2730,6 +3030,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "Type something",
@@ -2744,6 +3047,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "Type @",
@@ -2758,6 +3064,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "Type few letters",
@@ -2772,6 +3081,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "mention mark disappears ",
@@ -2787,6 +3099,9 @@ Object {
       "type": "bulletList",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Expected:",
@@ -2800,6 +3115,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "Mention mark doesn't disappear",
@@ -2827,6 +3145,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "item 1",
@@ -2841,6 +3162,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "item 2 with ",

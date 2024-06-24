@@ -41,7 +41,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.10.0",
+		"@atlaskit/editor-common": "^82.11.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.0",
 		"@atlaskit/editor-plugin-background-color": "^1.1.0",

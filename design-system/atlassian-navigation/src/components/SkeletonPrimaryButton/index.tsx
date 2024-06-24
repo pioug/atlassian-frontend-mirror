@@ -8,6 +8,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { useTheme } from '../../theme';
+import { stripEmptyProperties } from '../../utils';
 
 import { type SkeletonPrimaryButtonProps } from './types';
 
@@ -109,14 +110,14 @@ export const SkeletonPrimaryButton = ({
 	const theme = useTheme();
 	const primaryButton = theme.mode.primaryButton;
 
-	const dynamicStyles = {
+	const dynamicStyles = stripEmptyProperties({
 		...primaryButton.default,
 		...(isHighlighted && { color: primaryButton.selected.color }),
 		[VAR_PRIMARY_BUTTON_BEFORE_HIGHLIGHTED_BACKGROUND_COLOR]: primaryButton.selected.borderColor,
 		[VAR_PRIMARY_BUTTON_AFTER_DROPDOWN_BORDER_COLOR]: isHighlighted
 			? primaryButton.default.borderColor
 			: primaryButton.default.color,
-	};
+	});
 
 	return (
 		<button

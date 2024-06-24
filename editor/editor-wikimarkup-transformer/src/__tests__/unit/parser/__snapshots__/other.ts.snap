@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Other should be ok with empty line wiki 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "type": "paragraph",
     },
   ],
@@ -15,6 +18,9 @@ exports[`JIRA wiki markup - Other should begin with hardBreak if it begins with 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "foo",
@@ -32,6 +38,9 @@ exports[`JIRA wiki markup - Other should process second empty line as a new para
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "foo",
@@ -41,6 +50,9 @@ Object {
       "type": "paragraph",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "bar",

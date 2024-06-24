@@ -13,6 +13,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "red",
@@ -101,6 +104,9 @@ exports[`JIRA wiki markup - Macros [CS-3139] code macro accepts C++ as language 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -143,6 +149,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a ",
@@ -188,6 +197,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a ",
@@ -233,6 +245,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "a ",
@@ -271,6 +286,9 @@ exports[`JIRA wiki markup - Macros ADFS-277 should not blow up when default colo
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -296,6 +314,9 @@ exports[`JIRA wiki markup - Macros ADFS-719 should not blow up when a valid adf 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "type": "paragraph",
     },
   ],
@@ -328,6 +349,9 @@ exports[`JIRA wiki markup - Macros ESS-2539 should ignore the newline right befo
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is sample text ",
@@ -345,6 +369,9 @@ exports[`JIRA wiki markup - Macros ESS-2539 should not ignore the newline if the
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is sample text ",
@@ -369,6 +396,9 @@ exports[`JIRA wiki markup - Macros Should take only first occurrence of attribut
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -404,6 +434,9 @@ exports[`JIRA wiki markup - Macros Should work with multiple equal signs in a si
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -439,6 +472,9 @@ exports[`JIRA wiki markup - Macros should allow pipes within colour macro, and n
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -473,6 +509,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -487,6 +526,9 @@ Object {
           "type": "paragraph",
         },
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "This text is inside panel",
@@ -501,6 +543,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "type": "paragraph",
         },
       ],
@@ -516,6 +561,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "quote",
@@ -528,6 +576,9 @@ Object {
       "type": "panel",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "only quote",
@@ -539,6 +590,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "type": "paragraph",
         },
       ],
@@ -562,6 +616,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -581,6 +638,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "Panel with nested quote here",
@@ -593,6 +653,9 @@ Object {
       "type": "blockquote",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": ".",
@@ -610,6 +673,9 @@ exports[`JIRA wiki markup - Macros should convert multiple quotes containing str
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -621,6 +687,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "quote1",
@@ -635,6 +704,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "quote2",
@@ -664,6 +736,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -678,6 +753,9 @@ Object {
           "type": "paragraph",
         },
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "Panel with nested quote here",
@@ -700,6 +778,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "simple quote",
@@ -720,6 +801,9 @@ exports[`JIRA wiki markup - Macros should convert string with quote into paragra
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a string with a ",
@@ -731,6 +815,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "quote",
@@ -760,6 +847,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is a text",
@@ -846,6 +936,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "type": "paragraph",
         },
       ],
@@ -986,6 +1079,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "text",
@@ -1072,6 +1168,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is a text as well",
@@ -1094,6 +1193,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is text inside a quote",
@@ -1298,6 +1400,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "text",
@@ -1377,6 +1482,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is text at end of a quote",
@@ -1406,6 +1514,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is a text",
@@ -1430,6 +1541,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "this is a text as well",
@@ -1459,6 +1573,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -1473,6 +1590,9 @@ Object {
           "type": "paragraph",
         },
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "Panel with nested quote here",
@@ -1502,6 +1622,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -1516,6 +1639,9 @@ Object {
           "type": "paragraph",
         },
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "Panel with nested quote here",
@@ -1545,6 +1671,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -1559,6 +1688,9 @@ Object {
           "type": "paragraph",
         },
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "Panel with nested quote here",
@@ -1621,6 +1753,9 @@ exports[`JIRA wiki markup - Macros should process code with title 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -1656,6 +1791,9 @@ exports[`JIRA wiki markup - Macros should render {anchor} as empty string 1`] = 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "You cannot see this ",
@@ -1673,6 +1811,9 @@ exports[`JIRA wiki markup - Macros should render {loremipsum} as plain text 1`] 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is plain text {loremipsum}",
@@ -1699,6 +1840,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "green",
@@ -1721,6 +1865,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "something",
@@ -1734,6 +1881,9 @@ Object {
             Object {
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "list item",
@@ -1760,6 +1910,9 @@ exports[`JIRA wiki markup - Macros should render macro likes {macrolike} as plai
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is plain text {macrolike}",
@@ -1786,6 +1939,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "red",
@@ -1806,6 +1962,9 @@ exports[`JIRA wiki markup - Macros should render rule node if it is on the top l
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a text",
@@ -1818,6 +1977,9 @@ Object {
       "type": "rule",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a text as well",
@@ -1835,6 +1997,9 @@ exports[`JIRA wiki markup - Macros should split nodes if there is more than one 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1846,6 +2011,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "quote with a ",
@@ -1867,6 +2035,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "panel",
@@ -1881,6 +2052,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": " inside",
@@ -1893,6 +2067,9 @@ Object {
       "type": "blockquote",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": ".",
@@ -1910,6 +2087,9 @@ exports[`JIRA wiki markup - Macros should support strings with a wrong order of 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1928,6 +2108,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "panel with a ",
@@ -1942,6 +2125,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "type": "paragraph",
         },
       ],
@@ -1957,6 +2143,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "quote inside",
@@ -1969,6 +2158,9 @@ Object {
       "type": "panel",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " but it is broken",
@@ -1980,6 +2172,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "type": "paragraph",
         },
       ],
@@ -1994,6 +2189,9 @@ exports[`JIRA wiki markup - Macros should title of noformat 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -2031,6 +2229,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -2058,6 +2259,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -2088,6 +2292,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -2115,6 +2322,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -2148,6 +2358,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [
@@ -2181,6 +2394,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "marks": Array [

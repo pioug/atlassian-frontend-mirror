@@ -304,13 +304,24 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 			// Use ResizeObserver to observe height changes
 			const resizeObserver = new ResizeObserver(
-				rafSchedule(() => {
-					const editorHeight = dom.offsetHeight;
+				rafSchedule((entries) => {
+					const editorHeight = entries[0].contentBoxSize[0].blockSize;
 
 					// Update the plugin state when the height changes
 					const pluginState = key.getState(editorView.state);
 					if (!pluginState?.isDragging) {
-						editorView.dispatch(editorView.state.tr.setMeta(key, { editorHeight }));
+						const isResizerResizing = !!dom.querySelector('.is-resizing');
+
+						const transaction = editorView.state.tr;
+
+						if (pluginState?.isResizerResizing !== isResizerResizing) {
+							transaction.setMeta('is-resizer-resizing', isResizerResizing);
+						}
+
+						if (!isResizerResizing) {
+							transaction.setMeta(key, { editorHeight });
+						}
+						editorView.dispatch(transaction);
 					}
 				}),
 			);

@@ -57,7 +57,7 @@ const afterIconStyles = xcss({
 type ContentProps = {
 	children: React.ReactNode;
 	type?: 'text' | 'icon';
-	hasOverlay: boolean;
+	isLoading: boolean;
 	position?: 'before' | 'after';
 };
 
@@ -66,14 +66,14 @@ type ContentProps = {
  *
  * Used for slots within a Button, including icons and text content.
  */
-const Content = ({ children, type = 'text', hasOverlay, position }: ContentProps) => {
+const Content = ({ children, type = 'text', isLoading, position }: ContentProps) => {
 	return (
 		<Box
 			as="span"
 			xcss={[
 				commonStyles,
 				...(type === 'text' ? [textStyles] : [iconStyles]),
-				...(hasOverlay ? [fadeStyles] : []),
+				...(isLoading ? [fadeStyles] : []),
 				...(position === 'before' ? [beforeIconStyles] : []),
 				...(position === 'after' ? [afterIconStyles] : []),
 			]}

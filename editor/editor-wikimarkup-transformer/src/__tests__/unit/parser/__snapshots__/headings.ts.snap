@@ -13,6 +13,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "nothing",
@@ -35,6 +38,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 1,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -64,6 +68,7 @@ Object {
         Object {
           "attrs": Object {
             "level": 1,
+            "localId": null,
           },
           "content": Array [
             Object {
@@ -85,6 +90,9 @@ exports[`JIRA wiki markup - headings should convert string with heading in it 1`
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a string.",
@@ -96,6 +104,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 1,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -136,6 +145,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "text": "h7. heading",

@@ -34,13 +34,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^36.10.7",
-		"@atlaskit/editor-common": "^82.10.0",
+		"@atlaskit/adf-schema": "^37.0.0",
+		"@atlaskit/editor-common": "^82.11.0",
 		"@atlaskit/editor-plugin-analytics": "^1.2.3",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.5",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
 		"@atlaskit/editor-plugin-width": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/editor-tables": "^2.7.0",
 		"@atlaskit/icon": "^22.4.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",

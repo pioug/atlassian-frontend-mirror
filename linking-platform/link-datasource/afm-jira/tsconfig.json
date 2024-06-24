@@ -1,0 +1,147 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__link-datasource/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/avatar/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/avatar-group/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/badge/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/datetime-picker/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/empty-state/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/form/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/heading/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon-object/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/image/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../helpers/intl-messages-provider/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../jql/jql-ast/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../jql/jql-editor/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../jql/jql-editor-autocomplete-rest/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../link-client-extension/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../linking-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../linking-types/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/logo/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/lozenge/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../teamwork-ecosystem/outbound-auth-flow-client/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/popup/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/hitbox/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/select/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../smart-card/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../smart-experiences/smart-user-picker/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tag/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../data/ufo-external/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/width-detector/afm-jira/tsconfig.json"
+    }
+  ]
+}

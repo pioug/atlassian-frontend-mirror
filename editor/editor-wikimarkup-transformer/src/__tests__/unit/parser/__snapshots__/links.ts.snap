@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Links [ADFS-80] should render color in links 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "asdasd[",
@@ -37,6 +40,9 @@ exports[`JIRA wiki markup - Links [CS-240] should handle links with titles 1`] =
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -67,6 +73,9 @@ exports[`JIRA wiki markup - Links [CS-240] should know where to end the link 1`]
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -97,6 +106,9 @@ exports[`JIRA wiki markup - Links [CS-385] should link text in link format 1`] =
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -123,6 +135,9 @@ exports[`JIRA wiki markup - Links [CS-478] should resolve link with | in the url
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -149,6 +164,9 @@ exports[`JIRA wiki markup - Links [CS-542] should correctly style superscript li
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -181,6 +199,9 @@ exports[`JIRA wiki markup - Links [CS-542] should correctly style superscript li
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -213,6 +234,9 @@ exports[`JIRA wiki markup - Links [CS-542] should not parse nested links 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "[test",
@@ -243,6 +267,9 @@ exports[`JIRA wiki markup - Links [CS-676] should trim escape in href 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a link ",
@@ -273,6 +300,9 @@ exports[`JIRA wiki markup - Links [CS-787] should convert back to inline card 1`
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a smart link ",
@@ -297,6 +327,9 @@ exports[`JIRA wiki markup - Links [ESS-2439] should ignore the ending brackets a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -331,6 +364,9 @@ exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is in
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This ",
@@ -362,6 +398,9 @@ exports[`JIRA wiki markup - Links should accept anchor-links starting with # 1`]
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is an ",
@@ -396,6 +435,9 @@ exports[`JIRA wiki markup - Links should convert IRC address text 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "An IRC address: ",
@@ -426,6 +468,9 @@ exports[`JIRA wiki markup - Links should convert file links to link marks 1`] = 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a local file ",
@@ -460,6 +505,9 @@ exports[`JIRA wiki markup - Links should convert links with port to link marks 1
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Link with port ",
@@ -494,6 +542,9 @@ exports[`JIRA wiki markup - Links should convert links with text to link marks 1
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is an ",
@@ -528,6 +579,9 @@ exports[`JIRA wiki markup - Links should convert mailto address text 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "An IRC address: ",
@@ -558,6 +612,9 @@ exports[`JIRA wiki markup - Links should convert mailto: links to link marks + r
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -592,6 +649,9 @@ exports[`JIRA wiki markup - Links should convert normal url text to link marks 1
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hey, checkout atlassian=",
@@ -622,6 +682,9 @@ exports[`JIRA wiki markup - Links should convert simple links to link marks 1`] 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -656,6 +719,9 @@ exports[`JIRA wiki markup - Links should convert url text inside <> to link mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hey, this is amazing <",
@@ -690,6 +756,9 @@ exports[`JIRA wiki markup - Links should create Media Image and Link from linkab
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a linkable image ",
@@ -729,6 +798,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -755,6 +827,9 @@ exports[`JIRA wiki markup - Links should handle anchors with text and title 1`] 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -781,6 +856,9 @@ exports[`JIRA wiki markup - Links should ignore anchors 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Anchor  here",
@@ -798,6 +876,9 @@ exports[`JIRA wiki markup - Links should ignore invalid protocal 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "An invalid URL: invalid://nowhere.com/hello",

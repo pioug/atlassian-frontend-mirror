@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 18.0.0
+
+### Major Changes
+
+- [#113901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113901)
+  [`49ea6581aea88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49ea6581aea88) -
+  The `overlay` prop has been removed in new buttons. It only existed in legacy buttons to support
+  loading spinners, which can be achieved in the new button using the `isLoading` prop.
+
 ## 17.23.0
 
 ### Minor Changes

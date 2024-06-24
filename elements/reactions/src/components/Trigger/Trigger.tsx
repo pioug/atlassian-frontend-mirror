@@ -3,10 +3,10 @@ import React, { type AriaAttributes } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type AnalyticsEvent, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/standard-button';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
+import { token } from '@atlaskit/tokens';
 import EmojiAddIcon from '@atlaskit/icon/glyph/emoji-add';
-import { triggerStyle } from './styles';
 
 /**
  * Test id for the tooltip
@@ -39,6 +39,43 @@ export interface TriggerProps {
 	ariaAttributes?: AriaAttributes;
 }
 
+const triggerStyles = xcss({
+	minWidth: '32px',
+	height: '24px',
+	padding: 'space.0',
+	borderWidth: 'border.width',
+	borderStyle: 'solid',
+	borderRadius: 'border.radius.circle',
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	lineHeight: '16px',
+});
+
+const enabledTriggerStyles = xcss({
+	borderColor: 'color.border',
+	backgroundColor: 'color.background.neutral.subtle',
+
+	':hover': {
+		backgroundColor: 'color.background.neutral.subtle.hovered',
+	},
+	':active': {
+		backgroundColor: 'color.background.neutral.subtle.pressed',
+	},
+});
+
+const disabledTriggerStyles = xcss({
+	borderColor: 'color.border.disabled',
+	backgroundColor: 'color.background.disabled',
+});
+
+const miniModeStyles = xcss({
+	minWidth: '24px',
+	padding: 'space.050',
+	border: 'none',
+	borderRadius: 'border.radius',
+});
+
 /**
  * Render an emoji button to open the reactions select picker
  */
@@ -57,19 +94,24 @@ export const Trigger = React.forwardRef(
 
 		return (
 			<Tooltip testId={RENDER_TOOLTIP_TRIGGER_TESTID} content={tooltipContent}>
-				<Button
+				<Pressable
 					testId={RENDER_TRIGGER_BUTTON_TESTID}
-					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={triggerStyle({ miniMode, disabled })}
-					appearance="subtle"
+					xcss={[
+						triggerStyles,
+						disabled ? disabledTriggerStyles : enabledTriggerStyles,
+						miniMode && miniModeStyles,
+					]}
 					onClick={handleMouseDown}
-					aria-disabled={disabled}
-					iconBefore={<EmojiAddIcon size="small" label="Add reaction" />}
-					spacing="none"
+					isDisabled={disabled}
 					ref={ref}
 					{...ariaAttributes}
-				/>
+				>
+					<EmojiAddIcon
+						primaryColor={disabled ? token('color.icon.disabled') : token('color.icon')}
+						size="small"
+						label="Add reaction"
+					/>
+				</Pressable>
 			</Tooltip>
 		);
 	},

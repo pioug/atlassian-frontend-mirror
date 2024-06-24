@@ -85,6 +85,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 	private isComposing = false;
 	private closeFindReplaceDialog: string;
 	private replace: string;
+	private replaceWith: string;
 	private replaceAll: string;
 	private findNext: string;
 	private findPrevious: string;
@@ -106,6 +107,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 		};
 
 		this.replace = formatMessage(messages.replace);
+		this.replaceWith = formatMessage(messages.replaceWith);
 		this.replaceAll = formatMessage(messages.replaceAll);
 		this.findNext = formatMessage(messages.findNext);
 		this.findPrevious = formatMessage(messages.findPrevious);
@@ -250,7 +252,7 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 				<div css={[sectionWrapperStyles, sectionWrapperStylesAlternate]}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={textFieldWrapper}>
-						<Label htmlFor="replace-text-field">Replace with</Label>
+						<Label htmlFor="replace-text-field">{this.replaceWith}</Label>
 						<Textfield
 							name="replace"
 							id="replace-text-field"

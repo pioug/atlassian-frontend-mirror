@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -34,6 +37,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -60,6 +66,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -86,6 +95,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -119,6 +131,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -149,6 +164,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark s
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -179,6 +197,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark w
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -201,6 +222,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a {{monospace}} text",
@@ -218,6 +242,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a 牛{{monospace}}牛 text",
@@ -235,6 +262,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a {{ monospace}} text",
@@ -252,6 +282,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a {{monospace }} text",
@@ -269,6 +302,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a{{monospace}} text",
@@ -286,6 +322,9 @@ exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a {{monospace}}text",

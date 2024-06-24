@@ -145,6 +145,16 @@ export type Durations = {
 	total: number;
 };
 
+export type Metadata = {
+	// Unified Help Only
+	bm25Variant?: string;
+	confidenceScore?: number;
+	isFallbackMessage?: boolean;
+	originalQuery?: string;
+	semanticSearchLocationVariant?: string;
+	semanticSearchVariant?: string;
+};
+
 export type Message = {
 	appendices?: Appendices;
 	author?: {

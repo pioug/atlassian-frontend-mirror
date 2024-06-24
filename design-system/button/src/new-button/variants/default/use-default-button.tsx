@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
-import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
 	type UseButtonBaseArgs,
 	type UseButtonBaseReturn,
@@ -50,7 +49,6 @@ const useDefaultButton = <TagName extends HTMLElement>({
 	onPointerUpCapture,
 	onTouchEndCapture,
 	onTouchStartCapture,
-	overlay,
 	ref,
 	shouldFitContainer,
 	spacing,
@@ -58,8 +56,6 @@ const useDefaultButton = <TagName extends HTMLElement>({
 	UNSAFE_iconAfter_size,
 	UNSAFE_iconBefore_size,
 }: UseDefaultButtonArgs<TagName>): UseButtonReturn<TagName> => {
-	const hasOverlay = Boolean(overlay || isLoading);
-
 	const baseProps = useButtonBase<TagName>({
 		analyticsContext,
 		appearance,
@@ -70,13 +66,13 @@ const useDefaultButton = <TagName extends HTMLElement>({
 		children: (
 			<Fragment>
 				{iconBefore && (
-					<Content type="icon" position="before" hasOverlay={hasOverlay}>
+					<Content type="icon" position="before" isLoading={isLoading}>
 						<IconRenderer icon={iconBefore} size={UNSAFE_iconBefore_size} />
 					</Content>
 				)}
-				{children && <Content hasOverlay={hasOverlay}>{children}</Content>}
+				{children && <Content isLoading={isLoading}>{children}</Content>}
 				{iconAfter && (
-					<Content type="icon" position="after" hasOverlay={hasOverlay}>
+					<Content type="icon" position="after" isLoading={isLoading}>
 						<IconRenderer icon={iconAfter} size={UNSAFE_iconAfter_size} />
 					</Content>
 				)}
@@ -96,18 +92,10 @@ const useDefaultButton = <TagName extends HTMLElement>({
 		onPointerDownCapture,
 		onPointerUpCapture,
 		onClickCapture,
-		overlay: isLoading
-			? renderLoadingOverlay({
-					spacing,
-					appearance,
-					isDisabled,
-					isSelected,
-					testId,
-				})
-			: overlay,
 		ref,
 		shouldFitContainer,
 		spacing,
+		testId,
 		hasIconBefore: Boolean(iconBefore),
 		hasIconAfter: Boolean(iconAfter),
 	});

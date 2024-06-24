@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Triple Dash should not replace with triple dashes wh
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "---foo",
@@ -42,6 +45,9 @@ exports[`JIRA wiki markup - Triple Dash should replace triple dash with a specia
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "foo — bar",

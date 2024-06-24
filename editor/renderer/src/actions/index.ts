@@ -4,6 +4,7 @@ import type { AnnotationActionResult, AnnotationByMatches } from '@atlaskit/edit
 import {
 	canApplyAnnotationOnRange,
 	getAnnotationIdsFromRange,
+	getAnnotationInlineNodeTypes,
 } from '@atlaskit/editor-common/utils';
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -378,5 +379,15 @@ export default class RendererActions
 			matchIndex,
 			pos: blockNodePos,
 		};
+	}
+
+	// TODO: Do not forget to remove `undefined` when the
+	//       `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is removed.
+	getInlineNodeTypes(annotationId: string): string[] | undefined {
+		if (!this.doc || !this.schema) {
+			return [];
+		}
+
+		return getAnnotationInlineNodeTypes({ doc: this.doc, schema: this.schema }, annotationId);
 	}
 }

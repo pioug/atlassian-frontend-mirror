@@ -20,6 +20,9 @@ describe('ADF => WikiMarkup => ADF - Emoji', () => {
 			type: 'doc',
 			content: [
 				{
+					attrs: {
+						localId: null,
+					},
 					type: 'paragraph',
 					content: [
 						{

@@ -1,3 +1,4 @@
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { Mark, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -154,4 +155,37 @@ export function getRangeInlineNodeNames({
 	// We sort the list alphabetically to make human consumption of the list easier (in tools like the analytics extension)
 	const sortedNames = [...nodeNames].sort();
 	return sortedNames;
+}
+
+/**
+ * This function returns a list of node types that are wrapped by an annotation mark.
+ *
+ * The `undefined` will be returned if `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is off.
+ *
+ * @todo: Do not forget to remove `undefined` when the
+ *        `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is removed.
+ */
+export function getAnnotationInlineNodeTypes(
+	state: { doc: PMNode; schema: Schema },
+	annotationId: string,
+): string[] | undefined {
+	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		return undefined;
+	}
+
+	const mark = state.schema.marks.annotation.create({
+		id: annotationId,
+		annotationType: AnnotationTypes.INLINE_COMMENT,
+	});
+
+	const inlineNodeNames = new Set<string>();
+	state.doc.descendants((node, pos) => {
+		if (mark.isInSet(node.marks)) {
+			inlineNodeNames.add(node.type.name);
+		}
+		return true;
+	});
+
+	// This sorting is done to make human consumption easier (ie. in dev tools, test snapshots, analytics events, ...)
+	return [...inlineNodeNames].sort();
 }

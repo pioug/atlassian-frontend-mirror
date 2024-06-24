@@ -1,28 +1,28 @@
 import {
-	TrackQuickActionFailureReason,
-	TrackQuickActionType,
+	type TrackQuickActionFailureReason,
+	type TrackQuickActionType,
 } from '../../../../../../utils/analytics/analytics';
 
 export const unknownLoadErrorAnalyticsPayload = {
-	smartLinkActionType: TrackQuickActionType.StatusUpdate,
-	reason: TrackQuickActionFailureReason.UnknownError,
+	smartLinkActionType: 'StatusUpdate' as TrackQuickActionType,
+	reason: 'UnknownError' as TrackQuickActionFailureReason,
 	step: 'load',
 };
 
 export const permissionLoadErrorAnalyticsPayload = {
-	smartLinkActionType: TrackQuickActionType.StatusUpdate,
-	reason: TrackQuickActionFailureReason.PermissionError,
+	smartLinkActionType: 'StatusUpdate' as TrackQuickActionType,
+	reason: 'PermissionError' as TrackQuickActionFailureReason,
 	step: 'load',
 };
 
 export const unknownUpdateErrorAnalyticsPayload = {
-	smartLinkActionType: TrackQuickActionType.StatusUpdate,
-	reason: TrackQuickActionFailureReason.UnknownError,
+	smartLinkActionType: 'StatusUpdate' as TrackQuickActionType,
+	reason: 'UnknownError' as TrackQuickActionFailureReason,
 	step: 'update',
 };
 
 export const validationUpdateErrorAnalyticsPayload = {
-	smartLinkActionType: TrackQuickActionType.StatusUpdate,
-	reason: TrackQuickActionFailureReason.ValidationError,
+	smartLinkActionType: 'StatusUpdate' as TrackQuickActionType,
+	reason: 'ValidationError' as TrackQuickActionFailureReason,
 	step: 'update',
 };

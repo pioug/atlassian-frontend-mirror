@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Text effects [CS-576] should allow {color} macro in 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is ",
@@ -43,6 +46,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -87,6 +93,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "marks": Array [
@@ -124,6 +133,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every * and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -154,6 +166,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every + and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -184,6 +199,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every ?? an
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -214,6 +232,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every ^ and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -247,6 +268,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every _ and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -277,6 +301,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every {{ an
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -307,6 +334,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every ~ and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -340,6 +370,9 @@ exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every - and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -370,6 +403,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between * and * sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -400,6 +436,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between * and * whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -430,6 +469,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between * and * whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -460,6 +502,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between + and + sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -490,6 +535,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between + and + whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -520,6 +568,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between + and + whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -550,6 +601,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ?? and ?? s
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -580,6 +634,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ?? and ?? w
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -610,6 +667,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ?? and ?? w
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -640,6 +700,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ^ and ^ sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -673,6 +736,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ^ and ^ whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -706,6 +772,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ^ and ^ whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -739,6 +808,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between _ and _ sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -769,6 +841,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between _ and _ whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -799,6 +874,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between _ and _ whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -829,6 +907,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between {{ and }} s
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -859,6 +940,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between {{ and }} w
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -889,6 +973,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between {{ and }} w
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -919,6 +1006,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ~ and ~ sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -952,6 +1042,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ~ and ~ whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -985,6 +1078,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ~ and ~ whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -1018,6 +1114,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between - and - sur
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -1048,6 +1147,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between - and - whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -1078,6 +1180,9 @@ exports[`JIRA wiki markup - Text effects ESS-2375 tests text between - and - whe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This string tests the ",
@@ -1108,6 +1213,9 @@ exports[`JIRA wiki markup - Text effects ESS-2439 should not let auto-links end 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1142,6 +1250,9 @@ exports[`JIRA wiki markup - Text effects ESS-2439 should not let auto-links end 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1176,6 +1287,9 @@ exports[`JIRA wiki markup - Text effects ESS-2439 should remove the last closing
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1210,6 +1324,9 @@ exports[`JIRA wiki markup - Text effects should NOT auto-linkify monospace forma
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -1232,6 +1349,9 @@ exports[`JIRA wiki markup - Text effects should auto-link ftp urls 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1266,6 +1386,9 @@ exports[`JIRA wiki markup - Text effects should auto-linkify text links with til
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1300,6 +1423,9 @@ exports[`JIRA wiki markup - Text effects should convert double baskslash to a ha
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a text with a",
@@ -1324,6 +1450,9 @@ exports[`JIRA wiki markup - Text effects should default unknown color to black #
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a unknown ",
@@ -1353,6 +1482,9 @@ exports[`JIRA wiki markup - Text effects should differentiate raw comma from url
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text ",
@@ -1387,6 +1519,9 @@ exports[`JIRA wiki markup - Text effects should differentiate raw comma from url
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text ",
@@ -1421,6 +1556,9 @@ exports[`JIRA wiki markup - Text effects should divide marks intervals into comb
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a *string with a ",
@@ -1454,6 +1592,9 @@ exports[`JIRA wiki markup - Text effects should find monospace text 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a string with ",
@@ -1480,6 +1621,9 @@ exports[`JIRA wiki markup - Text effects should find strong marks in the text 1`
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a string with a ",
@@ -1510,6 +1654,9 @@ exports[`JIRA wiki markup - Text effects should not apply marks on separate line
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a line with an *asterisk",
@@ -1534,6 +1681,9 @@ exports[`JIRA wiki markup - Text effects should not apply strong when ending lin
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "*not valid strong **",
@@ -1551,6 +1701,9 @@ exports[`JIRA wiki markup - Text effects should not double url-encode text links
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text ",
@@ -1585,6 +1738,9 @@ exports[`JIRA wiki markup - Text effects should not double url-encode text links
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text ",
@@ -1619,6 +1775,9 @@ exports[`JIRA wiki markup - Text effects should not double url-encode text links
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text ",
@@ -1653,6 +1812,9 @@ exports[`JIRA wiki markup - Text effects should not fail while applying marks to
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a text ",
@@ -1695,6 +1857,9 @@ exports[`JIRA wiki markup - Text effects should not let auto-links end with a ba
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1729,6 +1894,9 @@ exports[`JIRA wiki markup - Text effects should not let auto-links end with a pe
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "text prefix ",
@@ -1763,6 +1931,9 @@ exports[`JIRA wiki markup - Text effects should not replace marks in the middle 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -1781,6 +1952,9 @@ Object {
       "type": "paragraph",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -1807,6 +1981,9 @@ exports[`JIRA wiki markup - Text effects should not search for monospace text in
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a string with ",
@@ -1837,6 +2014,9 @@ exports[`JIRA wiki markup - Text effects should process citation 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1863,6 +2043,9 @@ exports[`JIRA wiki markup - Text effects should process deleted 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1889,6 +2072,9 @@ exports[`JIRA wiki markup - Text effects should process emphasis 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1915,6 +2101,9 @@ exports[`JIRA wiki markup - Text effects should process inserted 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1941,6 +2130,9 @@ exports[`JIRA wiki markup - Text effects should process string with a wrong orde
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -1987,6 +2179,9 @@ exports[`JIRA wiki markup - Text effects should process subscript 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -2016,6 +2211,9 @@ exports[`JIRA wiki markup - Text effects should process superscript 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -2045,6 +2243,9 @@ exports[`JIRA wiki markup - Text effects should use code mark first if it's the 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",

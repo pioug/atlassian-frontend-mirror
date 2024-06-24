@@ -49,12 +49,6 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
 	 */
 	autoFocus?: boolean;
 	/**
-	 * @deprecated This is no longer supported and will be removed in a future major release. It only existed to support loading spinners, which can now be achieved with the `isLoading` prop.
-	 *
-	 * Used to 'overlay' something over a button. This is commonly used to display a loading spinner.
-	 */
-	overlay?: React.ReactNode;
-	/**
 	 * Disable the button to prevent user interaction.
 	 */
 	isDisabled?: boolean;

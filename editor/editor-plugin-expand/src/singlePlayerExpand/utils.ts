@@ -1,4 +1,4 @@
-import type { EditorState } from '@atlaskit/editor-prosemirror/dist/types/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 export {

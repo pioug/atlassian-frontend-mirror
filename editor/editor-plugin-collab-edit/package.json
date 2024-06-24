@@ -35,9 +35,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-schema": "^37.0.0",
 		"@atlaskit/custom-steps": "^0.2.0",
-		"@atlaskit/editor-common": "^82.10.0",
+		"@atlaskit/editor-common": "^82.11.0",
 		"@atlaskit/editor-plugin-analytics": "1.2.3",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",

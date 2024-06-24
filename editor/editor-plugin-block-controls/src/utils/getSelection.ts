@@ -7,7 +7,8 @@ export const getSelection = (tr: Transaction, start: number) => {
 	const nodeSize = node ? node.nodeSize : 1;
 	const $startPos = tr.doc.resolve(start);
 
-	if (isNodeSelection) {
+	// decisionList node is not selectable, but we want to select the whole node not just text
+	if (isNodeSelection || node?.type.name === 'decisionList') {
 		return new NodeSelection($startPos);
 	} else {
 		// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes

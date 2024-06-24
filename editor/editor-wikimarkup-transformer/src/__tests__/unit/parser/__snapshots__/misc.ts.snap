@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Misc :puppy: should not be an emoji clusterfuck 1`] 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": ":puppy:",
@@ -21,6 +24,9 @@ exports[`JIRA wiki markup - Misc [CS-480] this is not a list 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "-",
@@ -45,6 +51,9 @@ exports[`JIRA wiki markup - Misc ESS-2440 should render consecutive emojis corre
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "emoji prefix ",
@@ -90,6 +99,9 @@ exports[`JIRA wiki markup - Misc It should be possible to have a ruler as the fi
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "Hi",
@@ -121,6 +133,9 @@ exports[`JIRA wiki markup - Misc an emoji at the end of line should still be emo
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "hello",
@@ -146,6 +161,9 @@ exports[`JIRA wiki markup - Misc an emoji itself should work too 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "attrs": Object {
@@ -167,6 +185,9 @@ exports[`JIRA wiki markup - Misc an emoji with characters after should not be an
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": ":)hello",
@@ -184,6 +205,9 @@ exports[`JIRA wiki markup - Misc an emoji with characters before and after shoul
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "hello:)hello",
@@ -201,6 +225,9 @@ exports[`JIRA wiki markup - Misc an emoji with characters before and after with 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "hello",
@@ -230,6 +257,9 @@ exports[`JIRA wiki markup - Misc an emoji with characters before should still be
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "hello",
@@ -255,6 +285,9 @@ exports[`JIRA wiki markup - Misc should escape macros 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a {panel} text, not a macro",
@@ -273,6 +306,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "type": "paragraph",
         },
       ],
@@ -287,6 +323,9 @@ exports[`JIRA wiki markup - Misc should escape monospace text 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a {{normal text}}, not a monospaced",
@@ -304,6 +343,9 @@ exports[`JIRA wiki markup - Misc should find emojis and mentions in text 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a string with ",
@@ -347,6 +389,9 @@ exports[`JIRA wiki markup - Misc should find emojis in text 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a string with ",
@@ -388,6 +433,9 @@ exports[`JIRA wiki markup - Misc should find emojis in text with marks 1`] = `
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a string ",

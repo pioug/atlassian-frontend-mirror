@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.3.12",
+	"version": "2.3.13",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,12 +35,12 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-schema": "^37.0.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/avatar": "^21.10.0",
 		"@atlaskit/avatar-group": "^9.8.0",
 		"@atlaskit/badge": "^16.2.0",
-		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/datetime-picker": "^13.6.0",
 		"@atlaskit/dropdown-menu": "^12.13.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",

@@ -1,5 +1,19 @@
 # @atlaskit/atlassian-navigation
 
+## 4.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.1.2
+
+### Patch Changes
+
+- [#113632](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113632)
+  [`821abfcb39199`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/821abfcb39199) -
+  Strip empty style properties to reduce SSR hydration warnings
+
 ## 4.1.1
 
 ### Patch Changes

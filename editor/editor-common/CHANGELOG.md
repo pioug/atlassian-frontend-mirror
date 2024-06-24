@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 82.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.11.0
+
+### Minor Changes
+
+- [#112275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112275)
+  [`6f3058e0347a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f3058e0347a3) -
+  ED-23734 - add `getInlineNodeTypes` function to `InlineCommentViewComponentProps`
+
 ## 82.10.0
 
 ### Minor Changes

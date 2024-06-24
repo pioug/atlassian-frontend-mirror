@@ -28,7 +28,7 @@ export function AISummariseAction({
 	const { fireEvent } = useAnalyticsEvents();
 
 	const onCompleted = useCallback(
-		(state) => {
+		(state: AISummaryState) => {
 			if (state?.status === 'error') {
 				onErrorCallback?.(getErrorMessage(state.error));
 			}

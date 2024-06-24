@@ -16,7 +16,10 @@ import {
 	RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
+import {
+	getAnnotationInlineNodeTypes,
+	getRangeInlineNodeNames,
+} from '@atlaskit/editor-common/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -113,13 +116,13 @@ export function InlineCommentView({
 		return null;
 	}
 
-	const inlineNodeTypes = getRangeInlineNodeNames({ doc: state.doc, pos: selection });
-
 	// Create Component
 	if (bookmark) {
 		if (!CreateComponent) {
 			return null;
 		}
+
+		const inlineNodeTypes = getRangeInlineNodeNames({ doc: state.doc, pos: selection });
 
 		//getting all text between bookmarked positions
 		const textSelection = state.doc.textBetween(selection.from, selection.to);
@@ -186,6 +189,12 @@ export function InlineCommentView({
 		return null;
 	}
 
+	// For view mode, the finding of inline node types is a bit more complex,
+	// that's why we will not provide it as a `inlineNodeTypes` props to the view component,
+	// to speed up the rendering process.
+	const getInlineNodeTypes = (annotationId: string) =>
+		getAnnotationInlineNodeTypes(editorView.state, annotationId);
+
 	return (
 		<AnnotationViewWrapper
 			data-editor-popup="true"
@@ -196,7 +205,7 @@ export function InlineCommentView({
 			<ViewComponent
 				annotationsList={annotationsList}
 				annotations={activeAnnotations}
-				inlineNodeTypes={inlineNodeTypes}
+				getInlineNodeTypes={getInlineNodeTypes}
 				dom={dom}
 				onDelete={(id) =>
 					removeInlineCommentNearSelection(id, inlineCommentProvider.supportedBlockNodes)(

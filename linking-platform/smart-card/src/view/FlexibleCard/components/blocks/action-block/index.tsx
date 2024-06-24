@@ -71,7 +71,7 @@ const ActionBlock = ({
 		: undefined;
 
 	const onClick = useCallback(
-		(name) => {
+		(name: FlexibleUiActionName) => {
 			setMessage(undefined);
 			onClickCallback?.(name);
 		},

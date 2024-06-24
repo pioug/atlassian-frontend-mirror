@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 1.7.1
+
+### Patch Changes
+
+- [#113947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113947)
+  [`169747d542a4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/169747d542a4f) -
+  Support exiting animation in strict mode.
+
 ## 1.7.0
 
 ### Minor Changes

@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 109.33.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.33.0
+
+### Minor Changes
+
+- [#112275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112275)
+  [`6f3058e0347a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f3058e0347a3) -
+  ED-23734 - add `getInlineNodeTypes` function to `InlineCommentViewComponentProps`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.32.5
 
 ### Patch Changes

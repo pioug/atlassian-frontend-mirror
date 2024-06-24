@@ -32,7 +32,7 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^82.10.0",
+		"@atlaskit/editor-common": "^82.11.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -40,7 +40,7 @@
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/adf-schema": "^36.10.7",
+		"@atlaskit/adf-schema": "^37.0.0",
 		"@atlaskit/editor-json-transformer": "^8.13.0",
 		"@atlaskit/editor-test-helpers": "^18.23.0",
 		"typescript": "~5.4.2"

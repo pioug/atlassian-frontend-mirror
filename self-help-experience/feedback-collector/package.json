@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "13.3.5",
+	"version": "13.3.6",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/flag": "^15.6.0",
 		"@atlaskit/form": "^10.4.0",

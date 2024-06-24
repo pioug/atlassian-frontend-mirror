@@ -1,6 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { gs, mq } from '../../common/utils';
 
 export interface ContentProps {
@@ -17,17 +17,24 @@ export interface ContentProps {
  */
 export const blockCardContentClassName = 'block-card-content';
 
+const baseStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	flexGrow: 1,
+});
+
 export const Content = ({ children, isCompact = false }: ContentProps) => (
 	<div
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		css={mq({
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			padding: isCompact ? gs(1) : gs(2),
-			display: 'flex',
-			flexDirection: 'column',
-			justifyContent: isCompact ? 'unset' : ['unset', 'space-between'],
-			flexGrow: 1,
-		})}
+		css={[
+			baseStyles,
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			mq({
+				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				padding: isCompact ? gs(1) : gs(2),
+				justifyContent: isCompact ? 'unset' : ['unset', 'space-between'],
+			}),
+		]}
 		data-trello-do-not-use-override="block-card-content"
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={blockCardContentClassName}

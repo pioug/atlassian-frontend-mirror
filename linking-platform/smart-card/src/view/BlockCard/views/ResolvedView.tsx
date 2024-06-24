@@ -31,6 +31,15 @@ const styles = css({
 	justifyContent: 'space-between',
 	alignItems: 'flex-start',
 });
+
+const lozengeStyles = {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	height: gs(2.5),
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+};
+
 export interface ResolvedViewProps {
 	/* Details about the provider for the link */
 	context?: ContextViewModel;
@@ -137,15 +146,7 @@ export const ResolvedView = ({
 							{titlePrefix ? <Emoji emoji={titlePrefix} /> : <Icon {...icon} />}
 							<Name name={title} textColor={titleTextColor} />
 							{lozenge && (
-								<LozengeBlockWrapper
-									css={{
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										height: gs(2.5),
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-									}}
-								>
+								<LozengeBlockWrapper css={lozengeStyles}>
 									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 									<Lozenge style={lozenge.style} {...lozenge}>
 										{lozenge.text}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/table",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "A table is used to display data.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,7 +45,7 @@
 		"./primitives": "./src/ui/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^17.23.0",
+		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/focus-ring": "^1.5.0",

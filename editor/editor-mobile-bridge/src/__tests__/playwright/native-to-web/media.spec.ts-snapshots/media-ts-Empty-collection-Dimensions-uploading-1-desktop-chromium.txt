@@ -32,7 +32,10 @@
       ]
     },
     {
-      "type": "paragraph"
+      "type": "paragraph",
+      "attrs": {
+        "localId": null
+      }
     }
   ]
 }

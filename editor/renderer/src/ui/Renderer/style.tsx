@@ -223,40 +223,13 @@ const alignedHeadingAnchorStyle = ({ allowNestedHeaderLinks }: RendererWrapperPr
      * container edge.
      */
 		.fabric-editor-block-mark:not([data-align='center'])[data-align] {
-			> {
-				h1,
-				h2,
-				h3,
-				h4,
-				h5,
-				h6 {
-					// Using right to left text to achieve the inverse effect
-					// of where the copy link button icon sits for left/center
-					// alignment.
-					// Although this is unorthodox it's the only approach which
-					// allows the button to sit flush against the left edge of
-					// bottom line of text.
-					direction: rtl;
-
-					// By default RTL will negatively impact the layout of special
-					// characters within the heading text, and potentially other
-					// nested inline nodes. To prevent this we insert pseudo elements
-					// containing HTML entities to retain LTR for all heading content
-					// except for the copy link button.
-					> *:not(.${HeadingAnchorWrapperClassName}):not(br) {
-						::before {
-							// Open LTR: https://www.fileformat.info/info/unicode/char/202a/index.htm
-							content: '\u202A';
-						}
-						::after {
-							// Close LTR: https://www.fileformat.info/info/unicode/char/202c/index.htm
-							content: '\u202C';
-						}
-					}
-				}
-			}
 			.${HeadingAnchorWrapperClassName} {
 				margin: 0 ${token('space.075', '6px')} 0 0;
+				// If the anchor is right aligned then the left side of the heading
+				// is aligned with the left side of the anchor.
+				// In order to align as expected we transform it the width of the element (plus our expected 6px)
+				// to the left
+				transform: translateX(calc(-100% - ${token('space.075', '6px')}));
 			}
 
 			@media (hover: hover) and (pointer: fine) {

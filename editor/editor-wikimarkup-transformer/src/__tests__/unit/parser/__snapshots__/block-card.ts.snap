@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Block Card should create Block Card between lines of
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "line 1 ",
@@ -23,6 +26,9 @@ Object {
       "type": "blockCard",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "line 2 ",
@@ -40,6 +46,9 @@ exports[`JIRA wiki markup - Block Card should create Block Card for old represen
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "line 1 ",
@@ -59,6 +68,9 @@ Object {
       "type": "blockCard",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "line 2 ",
@@ -76,6 +88,9 @@ exports[`JIRA wiki markup - Block Card should create Block Card if preceded and 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "abc ",
@@ -95,6 +110,9 @@ Object {
       "type": "blockCard",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " def",
@@ -140,6 +158,9 @@ Object {
       "type": "blockCard",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " ",
@@ -196,6 +217,9 @@ Object {
                   },
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": "test ",
@@ -227,6 +251,9 @@ Object {
                   },
                   "content": Array [
                     Object {
+                      "attrs": Object {
+                        "localId": null,
+                      },
                       "content": Array [
                         Object {
                           "text": " test",
@@ -303,6 +330,9 @@ exports[`JIRA wiki markup - Block Card should create embedCard (it is a block no
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "hello ",
@@ -322,6 +352,9 @@ Object {
       "type": "embedCard",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " world!",
@@ -446,6 +479,9 @@ Object {
       "type": "table",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "      ",

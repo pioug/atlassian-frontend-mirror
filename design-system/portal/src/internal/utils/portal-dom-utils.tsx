@@ -17,7 +17,7 @@ export const createContainer = (zIndex: number | string): HTMLDivElement => {
  * Returns document body element
  * @return {number} - The document body element
  */
-const getBody = (): HTMLElement => {
+const getBody = (): HTMLElement | null => {
 	return document.body;
 };
 
@@ -33,7 +33,7 @@ const getPortalParent = (): Element => {
 		// we are setting display to flex because we want each portal to create a new stacking context
 		// See https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context
 		parent.style.display = 'flex';
-		getBody().appendChild(parent);
+		getBody()?.appendChild(parent);
 		return parent;
 	}
 	return parentElement;

@@ -15,9 +15,9 @@ import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { type CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/src/analytics/types/table-events';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { type NodeWithPos } from '@atlaskit/editor-prosemirror/dist/types/utils';
-import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { type Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import {

@@ -143,6 +143,9 @@ describe('Renderer', () => {
 				type: 'doc',
 				content: [
 					{
+						attrs: {
+							localId: null,
+						},
 						type: 'paragraph',
 					},
 				],

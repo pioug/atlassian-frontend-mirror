@@ -1,6 +1,6 @@
 import { expandedState } from '@atlaskit/editor-common/expand';
-import type { Transaction } from '@atlaskit/editor-prosemirror/dist/types/state';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/dist/types/utils';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const updateExpandedState = (

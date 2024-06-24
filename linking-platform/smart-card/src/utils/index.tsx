@@ -4,7 +4,7 @@ import Loadable from 'react-loadable';
 import type { CardProps } from '../view/Card';
 import { type FrameStyle } from '../view/EmbedCard/types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
+import { type ActiveThemeState } from '@atlaskit/tokens';
 import { themeObjectToString } from '@atlaskit/tokens';
 
 export const isCardWithData = (props: CardProps) => !!props.data;

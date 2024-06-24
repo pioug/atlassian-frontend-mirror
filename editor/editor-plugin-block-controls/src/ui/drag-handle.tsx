@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
@@ -27,6 +27,7 @@ import {
 	DRAG_HANDLE_BORDER_RADIUS,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_WIDTH,
+	DRAG_HANDLE_ZINDEX,
 	dragHandleGap,
 } from './consts';
 import { dragPreview } from './drag-preview';
@@ -49,7 +50,8 @@ const dragHandleButtonStyles = css({
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
 	color: token('color.icon', '#44546F'),
 	cursor: 'grab',
-	zIndex: 2,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	zIndex: DRAG_HANDLE_ZINDEX,
 
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
@@ -81,8 +83,29 @@ export const DragHandle = ({
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
+	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+
+	useEffect(() => {
+		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
+		if (nodeType === 'blockCard') {
+			const dom: HTMLElement | null = view.dom.querySelector(
+				`[data-drag-handler-anchor-name="${anchorName}"]`,
+			);
+			const container = dom?.querySelector('.datasourceView-content-inner-wrap');
+
+			if (container) {
+				const resizeObserver = new ResizeObserver((entries) => {
+					const width = entries[0].contentBoxSize[0].inlineSize;
+					setBlockCardWidth(width);
+				});
+
+				resizeObserver.observe(container);
+				return () => resizeObserver.unobserve(container);
+			}
+		}
+	}, [anchorName, nodeType, view.dom]);
 
 	const handleOnClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
@@ -167,7 +190,7 @@ export const DragHandle = ({
 				api?.core?.actions.focus();
 			},
 		});
-	}, [api, start, view, anchorName, nodeType]);
+	}, [anchorName, api, nodeType, view, start]);
 
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 	const positionStyles = useMemo(() => {
@@ -178,21 +201,29 @@ export const DragHandle = ({
 			`[data-drag-handler-anchor-name="${anchorName}"]`,
 		);
 
-		const hasResizer = anchorName.includes('table') || anchorName.includes('mediaSingle');
-		const isExtension = anchorName.includes('extension') || anchorName.includes('bodiedExtension');
+		const hasResizer = nodeType === 'table' || nodeType === 'mediaSingle';
+		const isExtension = nodeType === 'extension' || nodeType === 'bodiedExtension';
+		const isBlockCard = nodeType === 'blockCard' && !!blockCardWidth;
+		const isEmbedCard = nodeType === 'embedCard';
 
-		const innerContainer: HTMLElement | null = dom
-			? hasResizer
-				? dom.querySelector('.resizer-item')
-				: isExtension
-					? dom.querySelector('.extension-container[data-layout]')
-					: null
-			: null;
+		let innerContainer: HTMLElement | null = null;
+		if (dom) {
+			if (isEmbedCard) {
+				innerContainer = dom.querySelector('.rich-media-item');
+			} else if (hasResizer) {
+				innerContainer = dom.querySelector('.resizer-item');
+			} else if (isExtension) {
+				innerContainer = dom.querySelector('.extension-container[data-layout]');
+			} else if (isBlockCard) {
+				//specific to datasource blockCard
+				innerContainer = dom.querySelector('.datasourceView-content-inner-wrap');
+			}
+		}
 
 		if (supportsAnchor) {
 			return {
 				left:
-					hasResizer || isExtension
+					hasResizer || isExtension || isBlockCard || isEmbedCard
 						? getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
 						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
 				top: anchorName.includes('table')
@@ -204,7 +235,7 @@ export const DragHandle = ({
 			left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
 			top: getTopPosition(dom),
 		};
-	}, [anchorName, view, nodeType, macroInteractionUpdates]);
+	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
 
 	return (
 		<button

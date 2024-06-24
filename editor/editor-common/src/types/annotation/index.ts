@@ -98,6 +98,16 @@ export type InlineCommentViewComponentProps = {
 	clickElementTarget?: HTMLElement;
 
 	deleteAnnotation: (annotationInfo: AnnotationInfo) => ActionResult;
+	/**
+	 * Return a list of inline node types, which are wrapped by the annotation,
+	 * for annotation with given ID.
+	 *
+	 * The `undefined` will be returned if `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is off.
+	 *
+	 * @todo: Do not forget to remove `undefined` when the
+	 *        `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is removed.
+	 */
+	getInlineNodeTypes: (annotationId: string) => string[] | undefined;
 };
 
 export type InlineCommentHoverComponentProps = {

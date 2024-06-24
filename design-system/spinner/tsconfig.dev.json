@@ -63,9 +63,6 @@
 			"path": "../form/tsconfig.app.json"
 		},
 		{
-			"path": "../icon/tsconfig.app.json"
-		},
-		{
 			"path": "../../observability/interaction-context/tsconfig.app.json"
 		},
 		{

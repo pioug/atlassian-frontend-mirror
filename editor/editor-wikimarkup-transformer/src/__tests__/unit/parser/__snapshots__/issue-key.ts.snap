@@ -4,6 +4,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issue inside
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -26,6 +29,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issue inside
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "\\"ABC-10\\"",
@@ -43,6 +49,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issue inside
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "'ABC-10'",
@@ -60,6 +69,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issue key mi
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "YXZABC-10",
@@ -77,6 +89,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues if co
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ABC-10 is not a smart card",
@@ -94,6 +109,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -116,6 +134,9 @@ Object {
       "type": "codeBlock",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " is not a smart card",
@@ -133,6 +154,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this is a media ",
@@ -180,6 +204,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues insid
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -202,6 +229,9 @@ Object {
       "type": "codeBlock",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " is not a smart card",
@@ -219,6 +249,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should not parse issues not p
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this issue wasn't provided in the context XYZ-99",
@@ -238,6 +271,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 1,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -265,6 +299,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 2,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -292,6 +327,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 3,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -319,6 +355,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 4,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -346,6 +383,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 5,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -373,6 +411,7 @@ Object {
     Object {
       "attrs": Object {
         "level": 6,
+        "localId": null,
       },
       "content": Array [
         Object {
@@ -402,6 +441,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "this ",
@@ -436,6 +478,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a p
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -454,6 +499,9 @@ Object {
       },
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "attrs": Object {
@@ -469,6 +517,9 @@ Object {
       "type": "panel",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " is a smart card",
@@ -486,6 +537,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a p
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -514,6 +568,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside a q
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -525,6 +582,9 @@ Object {
     Object {
       "content": Array [
         Object {
+          "attrs": Object {
+            "localId": null,
+          },
           "content": Array [
             Object {
               "attrs": Object {
@@ -540,6 +600,9 @@ Object {
       "type": "blockquote",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " is a smart card",
@@ -577,6 +640,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "text": "foo",
@@ -597,6 +663,9 @@ Object {
               },
               "content": Array [
                 Object {
+                  "attrs": Object {
+                    "localId": null,
+                  },
                   "content": Array [
                     Object {
                       "attrs": Object {
@@ -626,6 +695,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issue inside bra
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -654,6 +726,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues after an 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this !",
@@ -682,6 +757,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues in betwee
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this !",
@@ -721,6 +799,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside a 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -753,6 +834,9 @@ Object {
         Object {
           "content": Array [
             Object {
+              "attrs": Object {
+                "localId": null,
+              },
               "content": Array [
                 Object {
                   "text": "this ",
@@ -787,6 +871,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside ex
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this !",
@@ -815,6 +902,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues inside pa
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this (",
@@ -843,6 +933,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -882,6 +975,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -921,6 +1017,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -956,6 +1055,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse issues that end 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "this ",
@@ -995,6 +1097,9 @@ exports[`JIRA wiki markup - Issue key (smart card) should parse more than one is
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "attrs": Object {

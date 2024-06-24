@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.3.2
+
+### Patch Changes
+
+- [#113632](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113632)
+  [`20724f0cd35f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20724f0cd35f3) -
+  Fix missing 'Replace with' translation
+- Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

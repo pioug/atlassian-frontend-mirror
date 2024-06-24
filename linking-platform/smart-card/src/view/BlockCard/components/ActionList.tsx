@@ -11,7 +11,16 @@ import { type ActionProps, Action } from './Action';
 import { gs, mq } from '../../common/utils';
 import { di } from 'react-magnetic-di';
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+const wrapperStyles = mq({
+	display: 'flex',
+	marginTop: [gs(2), 0],
+});
+
 const buttonStyles = css({ height: 'auto' });
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+const actionsWrapperStyles = { marginLeft: gs(0.5) };
 
 export interface ActionListProps {
 	/* An array of action props, which will generate action buttons with the first passed appearing on the left (in LTR reading) */
@@ -27,11 +36,7 @@ export const ActionList = ({ items }: ActionListProps) => {
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={mq({
-				display: 'flex',
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				marginTop: [gs(2), 0],
-			})}
+			css={wrapperStyles}
 		>
 			<ButtonGroup>
 				{actionsToShow.map((action) => (
@@ -40,7 +45,7 @@ export const ActionList = ({ items }: ActionListProps) => {
 			</ButtonGroup>
 			{actionsToList.length ? (
 				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<div css={{ marginLeft: gs(0.5) }}>
+				<div css={actionsWrapperStyles}>
 					<DropdownMenu
 						trigger={({ triggerRef, ...props }) => (
 							<Button

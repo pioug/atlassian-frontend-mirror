@@ -8,6 +8,7 @@ import { MentionResource } from '@atlaskit/editor-core';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import type { ActivityProvider } from '@atlaskit/activity';
+// eslint-disable-next-line  no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import type { EmojiProvider } from '@atlaskit/emoji';
 import { token } from '@atlaskit/tokens';

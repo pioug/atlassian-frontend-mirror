@@ -7,7 +7,7 @@ import React, {
 	useMemo,
 	useState,
 } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
 import { type SmartLinkModalAPI, type SmartLinkModalProviderProps } from './types';
 
 const FALLBACK_API = { open: () => {}, close: () => {} };
@@ -25,10 +25,13 @@ export const SmartLinkModalProvider = ({ children }: SmartLinkModalProviderProps
 		[],
 	);
 
-	const fallbackRender = useCallback(({ resetErrorBoundary }) => {
-		resetErrorBoundary();
-		return null;
-	}, []);
+	const fallbackRender = useCallback(
+		({ resetErrorBoundary }: { resetErrorBoundary: FallbackProps['resetErrorBoundary'] }) => {
+			resetErrorBoundary();
+			return null;
+		},
+		[],
+	);
 
 	const onReset = useCallback(() => setElement(null), []);
 

@@ -13,6 +13,7 @@ import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+// eslint-disable-next-line  no-restricted-imports -- Legacy package outside of AFM lacks entry points
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';

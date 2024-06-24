@@ -1,16 +1,27 @@
 # @atlaskit/focused-task-close-account
 
+## 2.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.10
 
 ### Patch Changes
 
-- [#90546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90546) [`e3e2542b4963`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3e2542b4963) - Update TypeScript type parameters when using `FormattedMessage` from `react-intl` to improve compatibility with React 18
+- [#90546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90546)
+  [`e3e2542b4963`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3e2542b4963) -
+  Update TypeScript type parameters when using `FormattedMessage` from `react-intl` to improve
+  compatibility with React 18
 
 ## 2.1.9
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 2.1.8
 
@@ -34,38 +45,51 @@
 
 ### Patch Changes
 
-- [#41882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41882) [`54e68dcc7da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e68dcc7da) - Pass en-US as default locale
+- [#41882](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/41882)
+  [`54e68dcc7da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54e68dcc7da) - Pass
+  en-US as default locale
 
 ## 2.1.4
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 - Updated dependencies
 
 ## 2.1.3
 
 ### Patch Changes
 
-- [#34118](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34118) [`2eb438477ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eb438477ab) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+- [#34118](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/34118)
+  [`2eb438477ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2eb438477ab) - Internal
+  change to enforce token usage for spacing properties. There is no expected visual or behaviour
+  change.
 
 ## 2.1.2
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 2.1.1
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 2.1.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
@@ -81,13 +105,18 @@
 
 ### Patch Changes
 
-- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324) [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds for this package now pass through a tokens babel plugin, removing runtime invocations of the tokens() function and improving performance.
+- [#28324](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28324)
+  [`6455cf006b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6455cf006b3) - Builds
+  for this package now pass through a tokens babel plugin, removing runtime invocations of the
+  tokens() function and improving performance.
 
 ## 2.0.4
 
 ### Patch Changes
 
-- [#28249](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28249) [`6fefd25917e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fefd25917e) - Moved `@emotion/styled` to dependency to ensure correct version (v11) is resolved.
+- [#28249](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/28249)
+  [`6fefd25917e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fefd25917e) - Moved
+  `@emotion/styled` to dependency to ensure correct version (v11) is resolved.
 
 ## 2.0.3
 
@@ -111,34 +140,46 @@
 
 ### Major Changes
 
-- [#27192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27192) [`aee282f2e3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aee282f2e3d) - Migration from styled-components to @emotion v11
+- [#27192](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/27192)
+  [`aee282f2e3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aee282f2e3d) -
+  Migration from styled-components to @emotion v11
 
 ## 1.1.3
 
 ### Patch Changes
 
-- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 1.1.2
 
 ### Patch Changes
 
-- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 1.1.1
 
 ### Patch Changes
 
-- [#23677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23677) [`334b293ddbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/334b293ddbc) - Fix a bug in UI - showing <b> in UI which is caused when we upgraded react-intl version
+- [#23677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/23677)
+  [`334b293ddbc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/334b293ddbc) - Fix a
+  bug in UI - showing <b> in UI which is caused when we upgraded react-intl version
 
 ## 1.1.0
 
 ### Minor Changes
 
-- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570) [`bc5e7240a08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc5e7240a08) - [ux] Instrumented `@atlaskit/focused-task-close-account` with the new theming package, `@atlaskit/tokens`.
+- [#21570](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/21570)
+  [`bc5e7240a08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc5e7240a08) - [ux]
+  Instrumented `@atlaskit/focused-task-close-account` with the new theming package,
+  `@atlaskit/tokens`.
 
-  New tokens will be visible only in applications configured to use the new Tokens API (currently in alpha).
-  These changes are intended to be interoperable with the legacy theme implementation. Legacy dark mode users should expect no visual or breaking changes.
+  New tokens will be visible only in applications configured to use the new Tokens API (currently in
+  alpha). These changes are intended to be interoperable with the legacy theme implementation.
+  Legacy dark mode users should expect no visual or breaking changes.
 
 ### Patch Changes
 
@@ -148,20 +189,28 @@
 
 ### Patch Changes
 
-- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
 - Updated dependencies
 
 ## 1.0.0
 
 ### Major Changes
 
-- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810) [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) - ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including breaking API changes, types and tests in atlassian-frontend packages
+- [#14810](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/14810)
+  [`47f58da5946`](https://bitbucket.org/atlassian/atlassian-frontend/commits/47f58da5946) -
+  ED-13322, ED-13324, ED-13326, ED-13323, ED-13204: Upgrade and support react-intl@^5.18.1 including
+  breaking API changes, types and tests in atlassian-frontend packages
 
-  What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with actual installed react-intl APIs.
-  Why change was made: As part of a coordinated upgrade effort across AF packages, as react-intl v2 is quite dated.
-  How consumer should update their code: Ensure react-intl ^5.18.1 is installed in consuming applications.
+  What changed: Upgraded our react-intl support from ^2.6.0 to ^5.18.1. This means editor packages
+  now rely on consumers installing ^5.18.1, otherwise editor usage of react-intl will mismatch with
+  actual installed react-intl APIs. Why change was made: As part of a coordinated upgrade effort
+  across AF packages, as react-intl v2 is quite dated. How consumer should update their code: Ensure
+  react-intl ^5.18.1 is installed in consuming applications.
 
-  Upgrade guide: To consume atlassian-frontend packages that use react-intl5 setup a second provider for the new version, using an npm alias
+  Upgrade guide: To consume atlassian-frontend packages that use react-intl5 setup a second provider
+  for the new version, using an npm alias
 
   ```js
   "react-intl": "^2.6.0",
@@ -173,23 +222,23 @@
   import { IntlProvider as IntlNextProvider } from 'react-intl-next';
 
   return (
-    <IntlProvider
-      key={locale}
-      data-test-language={locale}
-      locale={locale}
-      defaultLocale={DEFAULT_LOCALE}
-      messages={messages}
-    >
-      <IntlNextProvider
-        key={locale}
-        data-test-language={locale}
-        locale={locale}
-        defaultLocale={DEFAULT_LOCALE}
-        messages={messages}
-      >
-        {children}
-      </IntlNextProvider>
-    </IntlProvider>
+  	<IntlProvider
+  		key={locale}
+  		data-test-language={locale}
+  		locale={locale}
+  		defaultLocale={DEFAULT_LOCALE}
+  		messages={messages}
+  	>
+  		<IntlNextProvider
+  			key={locale}
+  			data-test-language={locale}
+  			locale={locale}
+  			defaultLocale={DEFAULT_LOCALE}
+  			messages={messages}
+  		>
+  			{children}
+  		</IntlNextProvider>
+  	</IntlProvider>
   );
   ```
 
@@ -197,7 +246,9 @@
 
 ### Minor Changes
 
-- [#15553](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15553) [`d4bcdb647a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4bcdb647a7) - fixed rendering on mobile screens.
+- [#15553](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/15553)
+  [`d4bcdb647a7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d4bcdb647a7) - fixed
+  rendering on mobile screens.
 
 ## 0.14.5
 
@@ -209,7 +260,9 @@
 
 ### Patch Changes
 
-- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update package.jsons to remove unused dependencies.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864)
+  [`b90c0237824`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b90c0237824) - Update
+  package.jsons to remove unused dependencies.
 - Updated dependencies
 
 ## 0.14.3
@@ -222,7 +275,9 @@
 
 ### Patch Changes
 
-- [#12933](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12933) [`eb0dc29d09b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb0dc29d09b) - Declarative entry points, removes messages, types EPs
+- [#12933](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/12933)
+  [`eb0dc29d09b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb0dc29d09b) -
+  Declarative entry points, removes messages, types EPs
 
 ## 0.14.1
 
@@ -234,21 +289,28 @@
 
 ### Minor Changes
 
-- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762) [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux] Updated and added new translations
+- [#7762](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/7762)
+  [`7ddbf962bd9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ddbf962bd9) - [ux]
+  Updated and added new translations
 
 ## 0.13.7
 
 ### Patch Changes
 
-- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 0.13.6
 
 ### Patch Changes
 
-- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
-  This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
-  Also add `typescript` to `devDependencies` to denote version that the package was built with.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
+  [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
+  types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
+  compiler option. This requires version 3.8 of Typescript, read more about how we handle Typescript
+  versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
+  `devDependencies` to denote version that the package was built with.
 
 ## 0.13.5
 
@@ -266,16 +328,20 @@
 
 ### Patch Changes
 
-- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
+  [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
+  to TypeScript 3.9.6 and tslib to 2.0.0
 
-  Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
-  to prevent duplicates of tslib being bundled.
+  Since tslib is a dependency for all our packages we recommend that products also follow this tslib
+  upgrade to prevent duplicates of tslib being bundled.
 
 ## 0.13.2
 
 ### Patch Changes
 
-- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369) [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated translations
+- [#3369](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3369)
+  [`d03bff2147`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d03bff2147) - updated
+  translations
 
 ## 0.13.1
 
@@ -287,8 +353,11 @@
 
 ### Minor Changes
 
-- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
-  For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
+  [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially
+  dropping IE11 support, from this version onwards there are no warranties of the package working in
+  IE11. For more information see:
+  https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
 
@@ -298,25 +367,33 @@
 
 ### Patch Changes
 
-- [#2576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2576) [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update translation files via Traduki build
+- [#2576](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2576)
+  [`fc83c36503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc83c36503) - Update
+  translation files via Traduki build
 
 ## 0.12.17
 
 ### Patch Changes
 
-- [#2891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2891) [`39faba6e98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39faba6e98) - Update all the theme imports to something tree-shakable
+- [#2891](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2891)
+  [`39faba6e98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39faba6e98) - Update all
+  the theme imports to something tree-shakable
 
 ## 0.12.16
 
 ### Patch Changes
 
-- [#2677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2677) [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade react-transition-group to latest
+- [#2677](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2677)
+  [`4560b65a4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4560b65a4f) - upgrade
+  react-transition-group to latest
 
 ## 0.12.15
 
 ### Patch Changes
 
-- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137) [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to use the latest and more performant version of `@atlaskit/avatar`
+- [#2137](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2137)
+  [`baaad91b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/baaad91b65) - Updated to
+  use the latest and more performant version of `@atlaskit/avatar`
 - Updated dependencies
 
 ## 0.12.14
@@ -325,7 +402,8 @@
 
 - [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
+  [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
   - @atlaskit/docs@8.3.2
   - @atlaskit/avatar@17.1.7
@@ -341,8 +419,10 @@
 
 ### Patch Changes
 
-- Updated dependencies [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
-- Updated dependencies [b9dc265bc9](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9dc265bc9):
+- Updated dependencies
+  [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
+- Updated dependencies
+  [b9dc265bc9](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9dc265bc9):
   - @atlaskit/icon@20.0.0
   - @atlaskit/avatar@17.1.6
   - @atlaskit/section-message@4.1.4
@@ -354,7 +434,8 @@
 
 ## 0.12.12
 
-- Updated dependencies [ae4f336a3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ae4f336a3a):
+- Updated dependencies
+  [ae4f336a3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ae4f336a3a):
   - @atlaskit/i18n-tools@0.6.0
 
 ## 0.12.11
@@ -367,14 +448,16 @@
 
 ## 0.12.10
 
-- Updated dependencies [97bab7fd28](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bab7fd28):
+- Updated dependencies
+  [97bab7fd28](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/97bab7fd28):
   - @atlaskit/button@13.3.1
   - @atlaskit/checkbox@10.0.0
   - @atlaskit/docs@8.1.7
 
 ## 0.12.9
 
-- Updated dependencies [8d0f37c23e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8d0f37c23e):
+- Updated dependencies
+  [8d0f37c23e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8d0f37c23e):
   - @atlaskit/drawer@5.0.10
   - @atlaskit/avatar@17.0.0
   - @atlaskit/theme@9.2.2
@@ -385,7 +468,8 @@
 
 - [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
 
-  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving non-relative imports as relative imports
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
+  non-relative imports as relative imports
 
 ## 0.12.7
 
@@ -397,7 +481,8 @@
 
 ## 0.12.6
 
-- Updated dependencies [75c64ee36a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/75c64ee36a):
+- Updated dependencies
+  [75c64ee36a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/75c64ee36a):
   - @atlaskit/drawer@5.0.0
 
 ## 0.12.5
@@ -428,18 +513,22 @@
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
   - Creating folders at the root for entry-points
-  - Removing the generation of the entry-points at the root
-    Please see this [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points) for further details
+  - Removing the generation of the entry-points at the root Please see this
+    [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this
+    [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points)
+    for further details
 
 ## 0.12.2
 
-- Updated dependencies [87a2638655](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/87a2638655):
+- Updated dependencies
+  [87a2638655](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/87a2638655):
   - @atlaskit/button@13.0.10
   - @atlaskit/checkbox@9.0.0
 
 ## 0.12.1
 
-- Updated dependencies [06326ef3f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06326ef3f7):
+- Updated dependencies
+  [06326ef3f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06326ef3f7):
   - @atlaskit/docs@8.1.3
   - @atlaskit/avatar@16.0.6
   - @atlaskit/button@13.0.9
@@ -459,7 +548,8 @@
 
 ## 0.11.4
 
-- Updated dependencies [cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
+- Updated dependencies
+  [cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
   - @atlaskit/docs@8.1.2
   - @atlaskit/avatar@16.0.3
   - @atlaskit/button@13.0.8
@@ -471,12 +561,14 @@
 
 ## 0.11.3
 
-- Updated dependencies [181209d135](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/181209d135):
+- Updated dependencies
+  [181209d135](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/181209d135):
   - @atlaskit/inline-dialog@12.0.0
 
 ## 0.11.2
 
-- Updated dependencies [70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
+- Updated dependencies
+  [70862830d6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/70862830d6):
   - @atlaskit/button@13.0.6
   - @atlaskit/checkbox@8.0.0
   - @atlaskit/icon@17.2.0
@@ -484,7 +576,8 @@
 
 ## 0.11.1
 
-- Updated dependencies [6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
+- Updated dependencies
+  [6dd86f5b07](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/6dd86f5b07):
   - @atlaskit/avatar@16.0.2
   - @atlaskit/checkbox@7.0.1
   - @atlaskit/drawer@4.1.1
@@ -496,17 +589,20 @@
 
 - [minor][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
 
-  - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use this package, please ensure you use at least this version of react and react-dom.
+  - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
+    this package, please ensure you use at least this version of react and react-dom.
 
 ## 0.10.0
 
 - [minor][7cf935a323](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7cf935a323):
 
-  - DeleteUserContentPreviewScreen changes which include similar design to select if the user prefers nickname or former user but as a survey
+  - DeleteUserContentPreviewScreen changes which include similar design to select if the user
+    prefers nickname or former user but as a survey
 
 ## 0.9.2
 
-- Updated dependencies [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
+- Updated dependencies
+  [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
   - @atlaskit/docs@7.0.3
   - @atlaskit/avatar@15.0.4
   - @atlaskit/button@12.0.3
@@ -519,7 +615,8 @@
 
 ## 0.9.1
 
-- Updated dependencies [1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
+- Updated dependencies
+  [1e826b2966](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e826b2966):
   - @atlaskit/docs@7.0.2
   - @atlaskit/avatar@15.0.3
   - @atlaskit/checkbox@6.0.3
@@ -544,7 +641,8 @@
 
 ## 0.8.3
 
-- Updated dependencies [9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
+- Updated dependencies
+  [9d5cc39394](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d5cc39394):
   - @atlaskit/docs@7.0.1
   - @atlaskit/avatar@15.0.1
   - @atlaskit/checkbox@6.0.1
@@ -558,7 +656,8 @@
 
 ## 0.8.2
 
-- Updated dependencies [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
+- Updated dependencies
+  [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
   - @atlaskit/button@10.1.3
   - @atlaskit/icon@16.0.4
   - @atlaskit/docs@7.0.0
@@ -571,7 +670,8 @@
 
 ## 0.8.1
 
-- Updated dependencies [d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
+- Updated dependencies
+  [d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
   - @atlaskit/docs@6.0.1
   - @atlaskit/avatar@14.1.8
   - @atlaskit/button@10.1.2
@@ -672,8 +772,15 @@
 
 - [minor][c8ea304](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c8ea304):
 
-  - Bug fix - index.ts file moved to src folder. The component couldn’t be imported as the index file was not in the correct directory. Minor changes - ‘Learn more link’ now a part of the FocusedTask props as different links could be sent from unified-profile and id-org manager flow. accessibleSites prop is now an array of string instead of the AccessibleSitesResponse. If accessibleSites data is empty or null, the text displayed will be different. Added deactivateUserHandler prop to DeleteUserOverviewScreen, so that if it's not passed, the warning section is not displayed.
+  - Bug fix - index.ts file moved to src folder. The component couldn’t be imported as the index
+    file was not in the correct directory. Minor changes - ‘Learn more link’ now a part of the
+    FocusedTask props as different links could be sent from unified-profile and id-org manager flow.
+    accessibleSites prop is now an array of string instead of the AccessibleSitesResponse. If
+    accessibleSites data is empty or null, the text displayed will be different. Added
+    deactivateUserHandler prop to DeleteUserOverviewScreen, so that if it's not passed, the warning
+    section is not displayed.
 
 ## 0.1.0
 
-- [minor] initial release of the focused task close account component [b0bfb38](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0bfb38)
+- [minor] initial release of the focused task close account component
+  [b0bfb38](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/b0bfb38)

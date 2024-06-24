@@ -4,6 +4,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should be a subscript mark and
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -29,6 +32,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -62,6 +68,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "marks": Array [
@@ -91,6 +100,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -120,6 +132,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -156,6 +171,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark a
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -189,6 +207,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark s
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -222,6 +243,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ~subscript~ text",
@@ -239,6 +263,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a 牛~subscript~牛 text",
@@ -256,6 +283,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ~ subscript~ text",
@@ -273,6 +303,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ~subscript ~ text",
@@ -290,6 +323,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a~subscript~ text",
@@ -307,6 +343,9 @@ exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ~subscript~text",

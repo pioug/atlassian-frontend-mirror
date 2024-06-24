@@ -15,6 +15,7 @@ import { type Appearance, type CommonButtonProps, type Spacing } from '../types'
 
 import blockEvents from './block-events';
 import { LOADING_LABEL } from './constants';
+import renderLoadingOverlay from './loading-overlay';
 
 export type ControlledEvents<TagName extends HTMLElement> = Pick<
 	React.DOMAttributes<TagName>,
@@ -49,7 +50,7 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
 	ariaLabelledBy?: string;
 } & Pick<
 	CommonButtonProps<TagName>,
-	'analyticsContext' | 'autoFocus' | 'interactionName' | 'isDisabled' | 'isSelected' | 'overlay'
+	'analyticsContext' | 'autoFocus' | 'interactionName' | 'isDisabled' | 'isSelected' | 'testId'
 > &
 	ControlledEvents<TagName>;
 
@@ -348,6 +349,7 @@ const linkDecorationStyles = xcss({
 });
 
 const disabledStyles = xcss({
+	cursor: 'not-allowed',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	background: token('color.background.disabled', colors.N20A),
 	// @ts-expect-error
@@ -508,8 +510,7 @@ const tokenizedSpacingNoneStyles = xcss({
 
 const circleStyles = xcss({ borderRadius: 'border.radius.circle' });
 const fullWidthStyles = xcss({ width: '100%' });
-const loadingOverlayStyles = xcss({ cursor: 'progress' });
-const nonInteractiveStyles = xcss({ cursor: 'not-allowed' });
+const loadingStyles = xcss({ cursor: 'progress' });
 const iconButtonStyles = xcss({
 	height: `${32 / 14}em`,
 	width: `${32 / 14}em`,
@@ -530,7 +531,7 @@ const navigationSplitButtonStyles = xcss({
 	paddingInlineEnd: 'space.075',
 	paddingInlineStart: 'space.075',
 });
-const overlayStyles = xcss({
+const loadingOverlayStyles = xcss({
 	display: 'flex',
 	position: 'absolute',
 	alignItems: 'center',
@@ -577,10 +578,10 @@ const useButtonBase = <TagName extends HTMLElement>({
 	onPointerDownCapture,
 	onPointerUpCapture,
 	onClickCapture,
-	overlay,
 	ref,
 	shouldFitContainer = false,
 	spacing: propSpacing = 'default',
+	testId,
 	ariaLabel,
 	ariaLabelledBy,
 }: UseButtonBaseArgs<TagName>): UseButtonBaseReturn<TagName> => {
@@ -601,9 +602,9 @@ const useButtonBase = <TagName extends HTMLElement>({
 			: splitButtonContext?.appearance || propAppearance;
 	const spacing = splitButtonContext?.spacing || propSpacing;
 	const isDisabled = splitButtonContext?.isDisabled || propIsDisabled;
-	const hasOverlay = Boolean(overlay);
-	const isInteractive = !isDisabled && !isLoading && !hasOverlay;
-	const isEffectivelyDisabled = isDisabled || Boolean(overlay);
+	const isInteractive = !isDisabled && !isLoading;
+	// Also treat loading buttons as disabled
+	const isEffectivelyDisabled = isDisabled || isLoading;
 	const isSelected = propIsSelected && !isDisabled;
 
 	useAutoFocus(localRef, autoFocus);
@@ -673,23 +674,27 @@ const useButtonBase = <TagName extends HTMLElement>({
 			isIconButton && iconButtonStyles,
 			isIconButton && spacing === 'compact' && iconButtonCompactStyles,
 			shouldFitContainer && fullWidthStyles,
-			isLoading && loadingOverlayStyles,
-			(isDisabled || (hasOverlay && !isLoading)) && nonInteractiveStyles,
+			isLoading && loadingStyles,
 			isSplitButton && splitButtonStyles,
 			isNavigationSplitButton && navigationSplitButtonStyles,
 		],
-		// Consider overlay buttons to be effectively disabled
 		isDisabled: isEffectivelyDisabled,
 		children: (
 			<Fragment>
 				{children}
-				{overlay ? (
-					<Box as="span" xcss={overlayStyles}>
-						{overlay}
+				{isLoading ? (
+					<Box as="span" xcss={loadingOverlayStyles}>
+						{renderLoadingOverlay({
+							spacing,
+							appearance,
+							isDisabled,
+							isSelected,
+							testId,
+						})}
 					</Box>
 				) : null}
 				{isLoading && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
-					<VisuallyHidden id={loadingLabelId}>, Loading</VisuallyHidden>
+					<VisuallyHidden id={loadingLabelId}>{LOADING_LABEL}</VisuallyHidden>
 				)}
 			</Fragment>
 		),

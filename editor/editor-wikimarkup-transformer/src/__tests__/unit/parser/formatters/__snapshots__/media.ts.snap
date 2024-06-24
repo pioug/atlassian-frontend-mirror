@@ -34,6 +34,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " text",
@@ -51,6 +54,9 @@ exports[`WikiMarkup => ADF Formatters - image media should detect image media at
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -98,6 +104,9 @@ exports[`WikiMarkup => ADF Formatters - image media should detect image media at
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -137,6 +146,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "another line",
@@ -154,6 +166,9 @@ exports[`WikiMarkup => ADF Formatters - image media should detect image media at
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a ",
@@ -193,6 +208,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": " text",
@@ -210,6 +228,9 @@ exports[`WikiMarkup => ADF Formatters - image media should detect image media su
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is a (",
@@ -249,6 +270,9 @@ Object {
       "type": "mediaSingle",
     },
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": ") text",
@@ -266,6 +290,9 @@ exports[`WikiMarkup => ADF Formatters - image media should not be a image media 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a 牛!image.jpg!牛 text",
@@ -283,6 +310,9 @@ exports[`WikiMarkup => ADF Formatters - image media should not be a image media 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a ! image.jpg! text",
@@ -300,6 +330,9 @@ exports[`WikiMarkup => ADF Formatters - image media should not be a image media 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a !image.jpg ! text",
@@ -317,6 +350,9 @@ exports[`WikiMarkup => ADF Formatters - image media should not be a image media 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a!image.jpg! text",
@@ -334,6 +370,9 @@ exports[`WikiMarkup => ADF Formatters - image media should not be a image media 
 Object {
   "content": Array [
     Object {
+      "attrs": Object {
+        "localId": null,
+      },
       "content": Array [
         Object {
           "text": "This is not a !image.jpg!text",

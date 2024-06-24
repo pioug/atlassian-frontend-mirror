@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useMemo, useCallback } from 'react';
 import { ProvidersContext } from '../context';
 import { useAnnotationClickEvent } from '../hooks';
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -39,6 +39,14 @@ const AnnotationView = (props: Props) => {
 		[actionContext],
 	);
 
+	// For view mode, the finding of inline node types is a bit more complex,
+	// that's why we will not provide it as a `inlineNodeTypes` props to the view component,
+	// to speed up the rendering process.
+	const getInlineNodeTypes = useCallback(
+		(annotationId: string) => actionContext.getInlineNodeTypes(annotationId),
+		[actionContext],
+	);
+
 	if (ViewComponent && viewComponentProps) {
 		const { annotations, clickElementTarget } = viewComponentProps;
 		return (
@@ -46,6 +54,7 @@ const AnnotationView = (props: Props) => {
 				annotations={annotations}
 				clickElementTarget={clickElementTarget}
 				deleteAnnotation={deleteAnnotation}
+				getInlineNodeTypes={getInlineNodeTypes}
 			/>
 		);
 	}

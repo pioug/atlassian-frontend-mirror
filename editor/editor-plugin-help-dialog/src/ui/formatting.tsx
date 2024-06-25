@@ -54,7 +54,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import type Format from './Format';
+import type { Format } from './Format';
 import { codeLg, codeMd, codeSm, shortcutsArray } from './styles';
 
 const navigationKeymaps: (intl: IntlShape) => Format[] = ({ formatMessage }) => [

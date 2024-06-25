@@ -1,25 +1,42 @@
-import React, {
+/**
+ * @jsxRuntime classic
+ */
+/** @jsx jsx */
+import {
 	type ComponentPropsWithoutRef,
-	type ComponentPropsWithRef,
 	forwardRef,
 	type ReactNode,
+	type Ref,
 	useCallback,
 	useContext,
 } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
-import { type BackgroundColor, type Space } from '../xcss/style-maps.partial';
-import { type XCSS, xcss } from '../xcss/xcss';
+import {
+	type BackgroundColor,
+	backgroundColorStylesMap,
+	borderColorMap,
+	borderWidthMap,
+	isSurfaceColorToken,
+	paddingStylesMap,
+	positiveSpaceMap,
+	type Space,
+	surfaceColorStylesMap,
+} from '../xcss/style-maps.partial';
+import { parseXcss } from '../xcss/xcss';
 
-import Box from './box';
+import { SurfaceContext } from './internal/surface-provider';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BasePressableProps = {
 	/**
-	 * Elements to be rendered inside the Box.
+	 * Elements to be rendered inside the Pressable.
 	 */
 	children?: ReactNode;
 	/**
@@ -86,7 +103,7 @@ type BasePressableProps = {
 	/**
 	 * Forwarded ref.
 	 */
-	ref?: ComponentPropsWithRef<'button'>['ref'];
+	ref?: Ref<HTMLButtonElement>;
 };
 
 export type PressableProps = Omit<
@@ -103,31 +120,38 @@ export type PressableProps = Omit<
 	StyleProp &
 	BasePressableProps;
 
-// TODO: Duplicated FocusRing styles due to lack of `xcss` support
-// and to prevent additional dependency
-const baseFocusRingStyles = {
-	outlineColor: 'color.border.focused',
-	outlineWidth: 'border.width.outline',
-	outlineStyle: 'solid',
-	outlineOffset: 'space.025',
-} as const;
-
-const focusRingStyles = xcss({
-	// Focus styles used when :focus-visible isn't supported
-	':focus': baseFocusRingStyles,
-
-	// Remove default focus styles for mouse interactions if :focus-visible is supported
-	':focus:not(:focus-visible)': {
+// This duplicates FocusRing styles from `@atlaskit/focus-ring`.
+const focusRingStyles = css({
+	'&:focus, &:focus-visible': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		outlineColor: borderColorMap['color.border.focused'],
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		outlineOffset: positiveSpaceMap['space.025'],
+		outlineStyle: 'solid',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		outlineWidth: borderWidthMap['border.width.outline'],
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:focus:not(:focus-visible)': {
 		outline: 'none',
 	},
-
-	':focus-visible': baseFocusRingStyles,
-
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-		':focus-visible': {
+		'&:focus-visible': {
 			outline: '1px solid',
 		},
 	},
+});
+
+const baseStyles = css({
+	boxSizing: 'border-box',
+	appearance: 'none',
+	border: 'none',
+});
+const enabledStyles = css({
+	cursor: 'pointer',
+});
+const disabledStyles = css({
+	cursor: 'not-allowed',
 });
 
 /**
@@ -153,15 +177,16 @@ const Pressable = forwardRef(
 			paddingInlineEnd,
 			isDisabled,
 			type = 'button',
-			testId,
-			xcss: xcssStyles,
 			onClick: providedOnClick = noop,
 			interactionName,
 			componentName,
 			analyticsContext,
+			style,
+			testId,
+			xcss,
 			...htmlAttributes
 		}: PressableProps,
-		ref?: ComponentPropsWithRef<'button'>['ref'],
+		ref?: Ref<HTMLButtonElement>,
 	) => {
 		const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
 		const handleClick = useCallback(
@@ -182,42 +207,60 @@ const Pressable = forwardRef(
 			actionSubject: 'button',
 		});
 
-		// Combine default styles with supplied styles. XCSS does not support deep nested arrays
-		let styles: XCSS | Array<XCSS | false | undefined> = [
-			xcss({ cursor: isDisabled ? 'not-allowed' : 'pointer' }),
-			focusRingStyles,
-		];
+		// This is to remove className from safeHtmlAttributes
+		// @ts-expect-error className doesn't exist in the prop definition but we want to ensure it cannot be applied even if types are bypassed
+		const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
+		const resolvedStyles = parseXcss(xcss);
 
-		// We're type coercing this as Compiled styles in an array isn't supported by the types
-		// But the runtime accepts it none-the-wiser. We can remove this entire block and replace
-		// it with cx(defaultStyles, focusRingStyles, xcssStyles) when we've moved away from Emotion.
-		styles = (
-			Array.isArray(xcssStyles) ? [...styles, ...xcssStyles] : [...styles, xcssStyles]
-		) as XCSS[];
-
-		return (
-			<Box
-				{...htmlAttributes}
-				// @ts-expect-error - `as` is not compatible with Box. Pressable will be rewritten to diverge from Box soon.
-				as="button"
+		const node = (
+			// eslint-disable-next-line @atlaskit/design-system/no-html-button
+			<button
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
 				ref={ref}
-				testId={testId}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={resolvedStyles.static}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...safeHtmlAttributes}
+				// eslint-disable-next-line react/button-has-type
 				type={type}
 				onClick={onClick}
-				backgroundColor={backgroundColor}
-				padding={padding}
-				paddingBlock={paddingBlock}
-				paddingBlockStart={paddingBlockStart}
-				paddingBlockEnd={paddingBlockEnd}
-				paddingInline={paddingInline}
-				paddingInlineStart={paddingInlineStart}
-				paddingInlineEnd={paddingInlineEnd}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				xcss={styles}
 				disabled={isDisabled}
+				css={[
+					baseStyles,
+					focusRingStyles,
+					isDisabled ? disabledStyles : enabledStyles,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					backgroundColor && backgroundColorStylesMap[backgroundColor],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					isSurfaceColorToken(backgroundColor) && surfaceColorStylesMap[backgroundColor],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					padding && paddingStylesMap.padding[padding],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					paddingBlock && paddingStylesMap.paddingBlock[paddingBlock],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					paddingBlockStart && paddingStylesMap.paddingBlockStart[paddingBlockStart],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					paddingBlockEnd && paddingStylesMap.paddingBlockEnd[paddingBlockEnd],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					paddingInline && paddingStylesMap.paddingInline[paddingInline],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					paddingInlineStart && paddingStylesMap.paddingInlineStart[paddingInlineStart],
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					paddingInlineEnd && paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					resolvedStyles.emotion,
+				]}
+				data-testid={testId}
 			>
 				{children}
-			</Box>
+			</button>
+		);
+
+		return backgroundColor ? (
+			<SurfaceContext.Provider value={backgroundColor}>{node}</SurfaceContext.Provider>
+		) : (
+			node
 		);
 	},
 );

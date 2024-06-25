@@ -7,17 +7,23 @@ import { MediaClientProvider } from '@atlaskit/media-client-react';
 import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button';
-
+import { RadioGroup } from '@atlaskit/radio';
 import { MainWrapper } from '../example-helpers';
-import { ToggleBox, CardBox, CardRow, delayApiResponses } from '../example-helpers/svg-helpers';
+import {
+	ToggleBox,
+	CardBox,
+	CardRow,
+	delayApiResponses,
+	errorApiResponses,
+} from '../example-helpers/svg-helpers';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
 const Example = ({ identifiers }: { identifiers: FileIdentifier[] }) => {
 	return (
 		<div>
-			{identifiers.map((identifier) => (
-				<CardRow>
+			{identifiers.map((identifier, index) => (
+				<CardRow key={`cardRow-${index}`}>
 					<CardBox title="crop">
 						<Card
 							mediaClientConfig={dummyMediaClientConfig}
@@ -74,9 +80,13 @@ const generators = [svgAjDigitalCamera, svgCar, svgAtom, svgOpenWeb];
 const MockedProvider = ({
 	delayedPreview,
 	uploadingFile,
+	binaryFetchError,
+	imageFetchError,
 }: {
 	delayedPreview?: boolean;
 	uploadingFile?: boolean;
+	binaryFetchError: boolean;
+	imageFetchError: boolean;
 }) => {
 	const [{ MockedMediaClientProvider, mediaApi, uploadItem }, identifiers, itemsWithBinaries] =
 		usePrepareMediaState(generators);
@@ -89,6 +99,14 @@ const MockedProvider = ({
 		itemsWithBinaries.forEach((item) => {
 			uploadItem(item, 0.5);
 		});
+	}
+
+	if (binaryFetchError) {
+		errorApiResponses.getFileBinary(mediaApi);
+	}
+
+	if (imageFetchError) {
+		errorApiResponses.getFileImage(mediaApi);
 	}
 
 	if (delayedPreview) {
@@ -122,17 +140,40 @@ export default function () {
 	const [useMockedAPI, setUseMockedAPI] = useState(false);
 	const [delayedPreview, setDelayedPreview] = useState(false);
 	const [uploadingFile, setUploadingFile] = useState(false);
+	const [binaryFetchError, setBinaryFetchError] = useState(false);
+	const [imageFetchError, setImageFetchError] = useState(false);
 	return (
 		<MainWrapper disableFeatureFlagWrapper>
 			<ToggleBox label="Use mocked api" isChecked={useMockedAPI} onChange={setUseMockedAPI} />
 			{useMockedAPI && (
 				<>
+					<RadioGroup
+						options={[
+							{ name: 'delay-endppoints', value: 'false', label: 'Use delayed binary' },
+							{ name: 'delay-endppoints', value: 'true', label: 'Use delayed preview' },
+						]}
+						defaultValue={'false'}
+						onChange={(evt) => {
+							const { value } = evt.target;
+							setReloadkey(reloadKey + 1);
+							setDelayedPreview(value === 'true');
+						}}
+						aria-labelledby="radiogroup-label"
+					/>
 					<ToggleBox
-						label={delayedPreview ? 'Use delayed Preview' : 'Use delayed binary'}
-						isChecked={delayedPreview}
+						label={'Binary fetch error'}
+						isChecked={binaryFetchError}
 						onChange={(v) => {
 							setReloadkey(reloadKey + 1);
-							setDelayedPreview(v);
+							setBinaryFetchError(v);
+						}}
+					/>
+					<ToggleBox
+						label={'Image fetch error'}
+						isChecked={imageFetchError}
+						onChange={(v) => {
+							setReloadkey(reloadKey + 1);
+							setImageFetchError(v);
 						}}
 					/>
 					<ToggleBox
@@ -160,6 +201,8 @@ export default function () {
 					key={`${reloadKey}`}
 					delayedPreview={delayedPreview}
 					uploadingFile={uploadingFile}
+					binaryFetchError={binaryFetchError}
+					imageFetchError={imageFetchError}
 				/>
 			) : (
 				<BackendProvider key={`${reloadKey}`} />

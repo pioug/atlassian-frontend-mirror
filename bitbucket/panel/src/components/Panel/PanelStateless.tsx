@@ -3,7 +3,7 @@ import React, { type FC, type ReactNode } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 

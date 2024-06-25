@@ -601,10 +601,9 @@
 
   Run `npx @atlaskit/codemod-cli -h` for more details on usage.
 
-  For Atlassians,
-
-  refer to the [documentation](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods)
-  for more details on the codemod CLI.
+  For Atlassians, refer to the
+  [documentation](https://hello.atlassian.net/wiki/spaces/AF/pages/2627171992/Codemods) for more
+  details on the codemod CLI.
 
 ### Minor Changes
 

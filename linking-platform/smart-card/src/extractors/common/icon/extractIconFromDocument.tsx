@@ -33,15 +33,12 @@ export const extractIconFromDocument = (
 	type: DocumentType,
 	opts: IconOpts,
 ): React.ReactNode | undefined => {
-	const { provider } = opts;
 	const iconFromType = documentTypeToIcon(type, opts);
 	const iconFromFileFormat = documentFileFormatToIcon(opts);
 	const iconFromProvider = opts.provider && opts.provider.icon;
 
 	if (getBooleanFF('platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour')) {
-		const providerId = provider?.id;
 		return prioritiseIcon<React.ReactNode>({
-			providerId,
 			fileFormatIcon: iconFromFileFormat,
 			documentTypeIcon: iconFromType,
 			urlIcon: opts.icon,

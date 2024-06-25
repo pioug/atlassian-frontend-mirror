@@ -2,8 +2,8 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
+import AkButton from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import AkButton from '@atlaskit/button/custom-theme-button';
 import MenuIcon from '@atlaskit/icon/glyph/menu';
 
 import MobileHeader from '../components/MobileHeader';

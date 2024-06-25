@@ -1,5 +1,18 @@
-import React, { forwardRef, type Ref, useCallback, useContext } from 'react';
+/**
+ * @jsxRuntime classic
+ */
+/** @jsx jsx */
+import {
+	type ComponentPropsWithoutRef,
+	forwardRef,
+	type ReactNode,
+	type Ref,
+	useCallback,
+	useContext,
+} from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 import { uid } from 'react-uid';
 import invariant from 'tiny-invariant';
 
@@ -9,77 +22,146 @@ import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { type XCSS, xcss } from '../xcss/xcss';
+import {
+	type BackgroundColor,
+	backgroundColorStylesMap,
+	borderColorMap,
+	borderWidthMap,
+	isSurfaceColorToken,
+	paddingStylesMap,
+	positiveSpaceMap,
+	type Space,
+	surfaceColorStylesMap,
+} from '../xcss/style-maps.partial';
+import { parseXcss } from '../xcss/xcss';
 
-import Box, { type BoxProps } from './box';
+import { SurfaceContext } from './internal/surface-provider';
+import type { BasePrimitiveProps, StyleProp } from './types';
+
+type BaseAnchorProps = {
+	/**
+	 * Elements to be rendered inside the Anchor.
+	 */
+	children?: ReactNode;
+	/**
+	 * Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.
+	 */
+	onClick?: (e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void;
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
+	/**
+	 * An optional component name used to identify this component in Atlaskit analytics events. This can be used if a parent component's name is preferred over the default 'Anchor'.
+	 */
+	componentName?: string;
+	/**
+	 * Additional information to be included in the `context` of Atlaskit analytics events that come from anchor.
+	 */
+	analyticsContext?: Record<string, any>;
+	/**
+	 * Token representing background color with a built-in fallback value.
+	 */
+	backgroundColor?: BackgroundColor;
+	/**
+	 * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
+	 *
+	 * @see paddingBlock
+	 * @see paddingInline
+	 */
+	padding?: Space;
+	/**
+	 * Tokens representing CSS shorthand `paddingBlock`.
+	 *
+	 * @see paddingBlockStart
+	 * @see paddingBlockEnd
+	 */
+	paddingBlock?: Space;
+	/**
+	 * Tokens representing CSS `paddingBlockStart`.
+	 */
+	paddingBlockStart?: Space;
+	/**
+	 * Tokens representing CSS `paddingBlockEnd`.
+	 */
+	paddingBlockEnd?: Space;
+	/**
+	 * Tokens representing CSS shorthand `paddingInline`.
+	 *
+	 * @see paddingInlineStart
+	 * @see paddingInlineEnd
+	 */
+	paddingInline?: Space;
+	/**
+	 * Tokens representing CSS `paddingInlineStart`.
+	 */
+	paddingInlineStart?: Space;
+	/**
+	 * Tokens representing CSS `paddingInlineEnd`.
+	 */
+	paddingInlineEnd?: Space;
+	/**
+	 * Forwarded ref.
+	 */
+	ref?: Ref<HTMLAnchorElement>;
+};
 
 export type AnchorProps<RouterLinkConfig extends Record<string, any> = never> =
 	RouterLinkComponentProps<RouterLinkConfig> &
 		Omit<
-			BoxProps<'a'>,
+			ComponentPropsWithoutRef<'a'>,
+			// Handled by router link config
 			| 'href'
-			// Should not allow custom elements
-			| 'as'
+			// Has a custom handler for analytics
 			| 'onClick'
 			// Declared in StyleProp
 			| 'style'
 			| 'className'
-		> & {
-			/**
-			 * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
-			 */
-			onClick?: (e: React.MouseEvent<HTMLAnchorElement>, analyticsEvent: UIAnalyticsEvent) => void;
-			/**
-			 * An optional name used to identify the interaction type to press listeners. For example, interaction tracing. For more information,
-			 * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
-			 */
-			interactionName?: string;
-			/**
-			 * An optional component name used to identify this component to press listeners. This can be used if a parent component's name is preferred. For example, interaction tracing. For more information,
-			 * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
-			 */
-			componentName?: string;
-			/**
-			 * Additional information to be included in the `context` of analytics events that come from anchor.
-			 */
-			analyticsContext?: Record<string, any>;
-		};
+		> &
+		BasePrimitiveProps &
+		StyleProp &
+		BaseAnchorProps;
 
-// TODO: Duplicated FocusRing styles due to lack of `xcss` support
-// and to prevent additional dependency
-const baseFocusRingStyles = {
-	outlineColor: 'color.border.focused',
-	outlineWidth: 'border.width.outline',
-	outlineStyle: 'solid',
-	outlineOffset: 'space.025',
-} as const;
-
-const defaultStyles = xcss({
-	textDecoration: 'underline',
-});
-
-const focusRingStyles = xcss({
-	// Focus styles used when :focus-visible isn't supported
-	':focus': baseFocusRingStyles,
-
-	// Remove default focus styles for mouse interactions if :focus-visible is supported
-	':focus:not(:focus-visible)': {
+// TODO: duplicates FocusRing styles from `@atlaskit/focus-ring`.
+const focusRingStyles = css({
+	'&:focus, &:focus-visible': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		outlineColor: borderColorMap['color.border.focused'],
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		outlineOffset: positiveSpaceMap['space.025'],
+		outlineStyle: 'solid',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		outlineWidth: borderWidthMap['border.width.outline'],
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:focus:not(:focus-visible)': {
 		outline: 'none',
 	},
-
-	':focus-visible': baseFocusRingStyles,
-
 	'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-		':focus-visible': {
+		'&:focus-visible': {
 			outline: '1px solid',
 		},
 	},
+});
+
+const baseStyles = css({
+	boxSizing: 'border-box',
+	textDecoration: 'underline',
 });
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
 const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
 const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
 
+/**
+ * __Anchor__
+ *
+ * A primitive for building custom anchor links.
+ *
+ * - [Examples](https://atlassian.design/components/primitives/anchor/examples)
+ * - [Code](https://atlassian.design/components/primitives/anchor/code)
+ * - [Usage](https://atlassian.design/components/primitives/anchor/usage)
+ */
 const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 	{
 		href,
@@ -92,18 +174,19 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		paddingInline,
 		paddingInlineStart,
 		paddingInlineEnd,
-		testId,
-		xcss: xcssStyles,
-		target,
 		onClick: providedOnClick = noop,
 		interactionName,
 		componentName,
 		analyticsContext,
 		'aria-label': ariaLabel,
 		'aria-labelledby': ariaLabelledBy,
+		style,
+		target,
+		testId,
+		xcss,
 		...htmlAttributes
 	}: AnchorProps<RouterLinkConfig>,
-	ref: Ref<HTMLAnchorElement>,
+	ref?: Ref<HTMLAnchorElement>,
 ) => {
 	const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
 	const handleClick = useCallback(
@@ -113,6 +196,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		},
 		[providedOnClick, interactionContext, interactionName],
 	);
+
 	// TODO: Use React 18's useId() hook when we update.
 	// eslint-disable-next-line @repo/internal/react/disallow-unstable-values
 	const opensNewWindowLabelId = uid({ ariaLabelledBy });
@@ -127,16 +211,12 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		actionSubject: 'link',
 	});
 
-	const RouterLink = useRouterLink();
+	// This is to remove className from safeHtmlAttributes
+	// @ts-expect-error className doesn't exist in the prop definition but we want to ensure it cannot be applied even if types are bypassed
+	const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
+	const resolvedStyles = parseXcss(xcss);
 
-	// We're type coercing this as Compiled styles in an array isn't supported by the types
-	// But the runtime accepts it none-the-wiser. We can remove this entire block and replace
-	// it with cx(defaultStyles, focusRingStyles, xcssStyles) when we've moved away from Emotion.
-	const styles = (
-		Array.isArray(xcssStyles)
-			? [defaultStyles, focusRingStyles, ...xcssStyles]
-			: [defaultStyles, focusRingStyles, xcssStyles]
-	) as XCSS[];
+	const RouterLink = useRouterLink();
 
 	const isExternal = typeof href === 'string' && IS_EXTERNAL_LINK_REGEX.test(href);
 	const isNonHttpBased = typeof href === 'string' && IS_NON_HTTP_BASED.test(href);
@@ -157,25 +237,20 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		`@atlaskit/primitives: Anchor primitive cannot pass an object to 'href' unless a router link is configured in the AppProvider`,
 	);
 
-	return (
-		<Box
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...htmlAttributes}
-			// @ts-expect-error (TODO: Box doesn't allow `as` components)
-			as={isRouterLink ? RouterLink : 'a'}
+	const Component = isRouterLink ? RouterLink : 'a';
+
+	const node = (
+		<Component
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
 			ref={ref}
-			testId={testId}
-			data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={resolvedStyles.static}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...safeHtmlAttributes}
+			// @ts-expect-error
 			href={!isRouterLink && typeof href !== 'string' ? undefined : href}
 			target={target}
-			backgroundColor={backgroundColor}
-			padding={padding}
-			paddingBlock={paddingBlock}
-			paddingBlockStart={paddingBlockStart}
-			paddingBlockEnd={paddingBlockEnd}
-			paddingInline={paddingInline}
-			paddingInlineStart={paddingInlineStart}
-			paddingInlineEnd={paddingInlineEnd}
 			onClick={onClick}
 			aria-label={
 				ariaLabel && target === '_blank' && !ariaLabelledBy
@@ -187,14 +262,44 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 					? `${ariaLabelledBy} ${opensNewWindowLabelId}`
 					: ariaLabelledBy
 			}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			xcss={styles}
+			css={[
+				baseStyles,
+				focusRingStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				backgroundColor && backgroundColorStylesMap[backgroundColor],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				isSurfaceColorToken(backgroundColor) && surfaceColorStylesMap[backgroundColor],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				padding && paddingStylesMap.padding[padding],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				paddingBlock && paddingStylesMap.paddingBlock[paddingBlock],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				paddingBlockStart && paddingStylesMap.paddingBlockStart[paddingBlockStart],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				paddingBlockEnd && paddingStylesMap.paddingBlockEnd[paddingBlockEnd],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				paddingInline && paddingStylesMap.paddingInline[paddingInline],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				paddingInlineStart && paddingStylesMap.paddingInlineStart[paddingInlineStart],
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				paddingInlineEnd && paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				resolvedStyles.emotion,
+			]}
+			data-testid={testId}
+			data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
 		>
 			{children}
 			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
 				<VisuallyHidden id={opensNewWindowLabelId}>{OPENS_NEW_WINDOW_LABEL}</VisuallyHidden>
 			)}
-		</Box>
+		</Component>
+	);
+
+	return backgroundColor ? (
+		<SurfaceContext.Provider value={backgroundColor}>{node}</SurfaceContext.Provider>
+	) : (
+		node
 	);
 };
 

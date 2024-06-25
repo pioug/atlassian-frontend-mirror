@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -17,6 +18,9 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 	const parent = document.createElement('div');
 	// ProseMirror class is required to make sure the cloned dom is styled correctly
 	parent.classList.add('ProseMirror');
+	if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+		parent.classList.add('block-ctrl-drag-preview');
+	}
 
 	const shouldBeGenericPreview = nodeType === 'embedCard' || nodeType === 'extension';
 	const embedCard: HTMLElement | null = dom.querySelector('.embedCardView-content-wrap');

@@ -177,7 +177,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
           id="focused-task-close-account.delete-account.overview.warning-section.body"
         />
         <p>
-          <CustomThemeButton
+          <Button
             appearance="link"
             onClick={[Function]}
             spacing="none"
@@ -187,7 +187,7 @@ exports[`DeleteUserOverviewScreen 1`] = `
               description="Text that appears in a button, link or heading for the action of deactivating an account"
               id="focused-task-close-account.deactivate-account"
             />
-          </CustomThemeButton>
+          </Button>
         </p>
       </SectionMessage>
     </Styled(div)>
@@ -360,7 +360,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.delete-account.overview.warning-section.body"
         />
         <p>
-          <CustomThemeButton
+          <Button
             appearance="link"
             onClick={[Function]}
             spacing="none"
@@ -370,7 +370,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               description="Text that appears in a button, link or heading for the action of deactivating an account"
               id="focused-task-close-account.deactivate-account"
             />
-          </CustomThemeButton>
+          </Button>
         </p>
       </SectionMessage>
     </Styled(div)>
@@ -543,7 +543,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           id="focused-task-close-account.delete-account.overview.warning-section.body"
         />
         <p>
-          <CustomThemeButton
+          <Button
             appearance="link"
             onClick={[Function]}
             spacing="none"
@@ -553,7 +553,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
               description="Text that appears in a button, link or heading for the action of deactivating an account"
               id="focused-task-close-account.deactivate-account"
             />
-          </CustomThemeButton>
+          </Button>
         </p>
       </SectionMessage>
     </Styled(div)>

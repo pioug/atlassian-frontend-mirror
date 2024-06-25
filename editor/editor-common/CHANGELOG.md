@@ -1,5 +1,42 @@
 # @atlaskit/editor-common
 
+## 82.14.0
+
+### Minor Changes
+
+- [#114477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114477)
+  [`33e0090cf80ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33e0090cf80ef) -
+  ED-23785 - add `inlineNodeTypes` to `InlineCommentSelectionComponentProps`
+
+## 82.13.0
+
+### Minor Changes
+
+- [#113571](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113571)
+  [`67a148fad7f47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67a148fad7f47) -
+  ED-23785 - add `inlineNodeTypes` to `InlineCommentSelectionComponentProps`
+
+### Patch Changes
+
+- [#114315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114315)
+  [`5a42f41565210`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a42f41565210) -
+  [ux] [ED-23759] Add localisation string for text highlighting floating toolbar experiment
+- [#114122](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114122)
+  [`cf80fda06fa1d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf80fda06fa1d) -
+  Cleaning up unused code using WithPluginState for extensions
+
+## 82.12.0
+
+### Minor Changes
+
+- [#114156](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114156)
+  [`bc6a63af2d1d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc6a63af2d1d0) -
+  Bump adf-schema to 37.0.0 and adf-schema-json to 1.16.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.11.1
 
 ### Patch Changes

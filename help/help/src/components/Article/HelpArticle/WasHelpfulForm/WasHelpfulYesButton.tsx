@@ -5,7 +5,7 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 
 import { messages } from '../../../../messages';
 

@@ -54,7 +54,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 			attributes: {
 				platform: PLATFORM.WEB,
 				errorMessage: `${additionalInfo}${error?.message}`,
-				componentStack: errorInfo?.componentStack,
+				componentStack: errorInfo?.componentStack || undefined,
 				errorRethrown: Boolean(this.props.rethrowError),
 			},
 		});

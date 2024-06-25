@@ -20,6 +20,7 @@ export type MediaCardErrorPrimaryReason =
 	| LocalPreviewPrimaryReason
 	| ImageLoadPrimaryReason
 	| SsrPreviewPrimaryReason
+	| SvgPrimaryReason
 	| 'missing-error-data'
 	// Reasons below are used to wrap unexpected/unknown errors with ensureMediaCardError
 	| 'preview-fetch';
@@ -49,6 +50,8 @@ export type SsrPreviewPrimaryReason =
 	| 'ssr-client-load'
 	| 'ssr-server-uri'
 	| 'ssr-server-load';
+
+export type SvgPrimaryReason = 'svg-img-error' | 'svg-binary-fetch' | 'svg-unknown-error';
 
 export function isMediaFileStateError(err: Error): err is MediaFileStateError {
 	return err instanceof MediaFileStateError;

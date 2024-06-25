@@ -78,6 +78,8 @@ export type InlineCommentSelectionComponentProps = {
 	 * getAnnotationIndexMatch finds the { numMatch, matchIndex } tuple of the current selection
 	 */
 	getAnnotationIndexMatch?: () => AnnotationByMatches | false;
+	/** The list of types of all inline nodes, which were wrapped by annotation. */
+	inlineNodeTypes?: string[];
 };
 
 type AnnotationInfo = {

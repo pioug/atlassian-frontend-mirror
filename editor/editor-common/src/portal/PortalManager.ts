@@ -1,10 +1,10 @@
 type PortalsBucketUpdater = React.Dispatch<
-	React.SetStateAction<Record<React.Key, React.ReactPortal>>
+	React.SetStateAction<Record<string | number, React.ReactPortal>>
 >;
 type PortalRendererUpdater = React.Dispatch<React.SetStateAction<Array<PortalBucketType>>>;
 
 type PortalBucketType = {
-	portals: Record<React.Key, React.ReactPortal>;
+	portals: Record<string | number, React.ReactPortal>;
 	capacity: number;
 	updater: PortalsBucketUpdater | null;
 };
@@ -132,7 +132,7 @@ export class PortalManager {
 		});
 	}
 
-	registerPortal(key: React.Key, portal: React.ReactPortal) {
+	registerPortal(key: string | number, portal: React.ReactPortal) {
 		this.createBucket();
 		this.buckets[this.getCurrentBucket()].capacity -= 1;
 

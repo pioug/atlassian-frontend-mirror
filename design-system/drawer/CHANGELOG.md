@@ -1,5 +1,14 @@
 # @atlaskit/drawer
 
+## 7.12.2
+
+### Patch Changes
+
+- [#113824](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113824)
+  [`0086bc04e40ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0086bc04e40ec) -
+  Add support of layering in drawer to have a correct escape close flow for multiple layered
+  components
+
 ## 7.12.1
 
 ### Patch Changes

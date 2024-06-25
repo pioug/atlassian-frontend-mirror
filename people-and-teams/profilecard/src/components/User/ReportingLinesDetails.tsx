@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Avatar from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 
 import messages from '../../messages';
 import {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import Drawer from '@atlaskit/drawer';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 

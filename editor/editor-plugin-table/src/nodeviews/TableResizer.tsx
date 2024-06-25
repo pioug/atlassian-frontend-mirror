@@ -20,7 +20,7 @@ import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import { browser } from '@atlaskit/editor-common/utils';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
@@ -288,7 +288,13 @@ export const TableResizer = ({
 	);
 
 	const switchToCenterAlignment = useCallback(
-		(pos, node, newWidth, state, dispatch) => {
+		(
+			pos: number,
+			node: PMNode,
+			newWidth: any,
+			state: EditorState,
+			dispatch: ((tr: Transaction) => void) | undefined,
+		) => {
 			if (
 				isTableAlignmentEnabled &&
 				node &&

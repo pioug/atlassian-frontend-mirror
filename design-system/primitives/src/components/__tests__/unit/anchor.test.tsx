@@ -162,21 +162,24 @@ describe('Anchor', () => {
 		expect(screen.getByTestId(testId).nodeName).toEqual('A');
 	});
 
-	it('should only render an <a> regardless of Box `as` prop override', () => {
+	it('should apply href', () => {
 		render(
-			<Anchor
-				href="/home"
-				// The `as` prop isn't allowed by types, but we should
-				// confirm the primitive can't be intentionally misused by
-				// forwarding this prop to Box.
-				// @ts-expect-error
-				as="div"
-				testId={testId}
-			>
-				Anchor
+			<Anchor href="/home" testId={testId}>
+				Anchor with href
 			</Anchor>,
 		);
-		expect(screen.getByTestId(testId).nodeName).toEqual('A');
+
+		expect(screen.getByTestId(testId)).toHaveAttribute('href', '/home');
+	});
+
+	it('should apply target', () => {
+		render(
+			<Anchor href="/home" testId={testId} target="_blank">
+				Anchor with target
+			</Anchor>,
+		);
+
+		expect(screen.getByTestId(testId)).toHaveAttribute('target', '_blank');
 	});
 
 	it('should render plain text as children', () => {
@@ -207,14 +210,27 @@ describe('Anchor', () => {
 				href="https://atlassian.design/"
 				testId={testId}
 				aria-label="Read the Atlassian Design System documentation"
+				aria-labelledby="foo"
+				aria-busy="true"
+				role="link"
 			>
-				Mute sound
+				Anchor
 			</Anchor>,
 		);
-		expect(screen.getByTestId(testId)).toHaveAttribute(
-			'aria-label',
-			'Read the Atlassian Design System documentation',
+		const anchor = screen.getByTestId(testId);
+		expect(anchor).toHaveAttribute('aria-label', 'Read the Atlassian Design System documentation');
+		expect(anchor).toHaveAttribute('aria-labelledby', 'foo');
+		expect(anchor).toHaveAttribute('aria-busy', 'true');
+		expect(anchor).toHaveAttribute('role', 'link');
+	});
+
+	it('should apply data attributes', () => {
+		render(
+			<Anchor href="https://atlassian.design/" testId={testId} data-test="foo">
+				Anchor
+			</Anchor>,
 		);
+		expect(screen.getByTestId(testId)).toHaveAttribute('data-test', 'foo');
 	});
 
 	it('should call click handler when present', () => {
@@ -231,49 +247,80 @@ describe('Anchor', () => {
 		expect(mockOnClick).toHaveBeenCalled();
 	});
 
-	it('should apply styles with `xcss`', () => {
-		render(
-			<Anchor href="/home" testId={testId} xcss={anchorStyles}>
-				Anchor with xcss styles
-			</Anchor>,
-		);
+	describe('styles', () => {
+		it('should apply styles with `xcss`', () => {
+			render(
+				<Anchor href="/home" testId={testId} xcss={anchorStyles}>
+					Anchor with xcss styles
+				</Anchor>,
+			);
 
-		const styles = getComputedStyle(screen.getByTestId(testId));
-		expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
-	});
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+		});
 
-	test('`xcss` should result in expected css', () => {
-		render(
-			<Anchor
-				href="/required"
-				testId={testId}
-				backgroundColor="elevation.surface"
-				padding="space.0"
-				paddingBlock="space.0"
-				paddingBlockStart="space.0"
-				paddingBlockEnd="space.0"
-				paddingInline="space.0"
-				paddingInlineStart="space.0"
-				paddingInlineEnd="space.0"
-				xcss={styles}
-			>
-				child
-			</Anchor>,
-		);
-		const element = screen.getByTestId(testId);
-		expect(element).toBeInTheDocument();
+		test('`xcss` should result in expected css', () => {
+			render(
+				<Anchor
+					href="/required"
+					testId={testId}
+					backgroundColor="elevation.surface"
+					padding="space.0"
+					paddingBlock="space.0"
+					paddingBlockStart="space.0"
+					paddingBlockEnd="space.0"
+					paddingInline="space.0"
+					paddingInlineStart="space.0"
+					paddingInlineEnd="space.0"
+					xcss={styles}
+				>
+					child
+				</Anchor>,
+			);
+			const element = screen.getByTestId(testId);
+			expect(element).toBeInTheDocument();
 
-		expect(element).toHaveCompiledCss({
-			// Every value in here overrides the props values
-			// eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
-			backgroundColor: 'var(--ds-surface, #FFFFFF)',
-			padding: 'var(--ds-space-100, 8px)',
-			paddingBlock: 'var(--ds-space-100, 8px)',
-			paddingBlockStart: 'var(--ds-space-100, 8px)',
-			paddingBlockEnd: 'var(--ds-space-100, 8px)',
-			paddingInline: 'var(--ds-space-100, 8px)',
-			paddingInlineStart: 'var(--ds-space-100, 8px)',
-			paddingInlineEnd: 'var(--ds-space-100, 8px)',
+			expect(element).toHaveCompiledCss({
+				// Every value in here overrides the props values
+				// eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
+				backgroundColor: 'var(--ds-surface, #FFFFFF)',
+				padding: 'var(--ds-space-100, 8px)',
+				paddingBlock: 'var(--ds-space-100, 8px)',
+				paddingBlockStart: 'var(--ds-space-100, 8px)',
+				paddingBlockEnd: 'var(--ds-space-100, 8px)',
+				paddingInline: 'var(--ds-space-100, 8px)',
+				paddingInlineStart: 'var(--ds-space-100, 8px)',
+				paddingInlineEnd: 'var(--ds-space-100, 8px)',
+			});
+		});
+
+		it('should apply styles with `style`', () => {
+			render(
+				<Anchor
+					href="/required"
+					testId={testId}
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						textTransform: 'uppercase',
+					}}
+				>
+					Anchor with inline styles
+				</Anchor>,
+			);
+
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+		});
+
+		it('should have default underline', () => {
+			render(
+				<Anchor href="/required" testId={testId}>
+					Anchor
+				</Anchor>,
+			);
+
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('text-decoration')).toBe('underline');
 		});
 	});
 

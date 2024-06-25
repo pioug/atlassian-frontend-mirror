@@ -15,11 +15,11 @@ const displayVariations: DisplayVariation[] = [
 		},
 	},
 	{
-		name: 'No underline',
+		name: 'Subtle',
 		props: {
 			href: 'https://www.atlassian.com',
 			children: 'Link',
-			isUnderlined: false,
+			appearance: 'subtle',
 		},
 	},
 	{
@@ -31,12 +31,12 @@ const displayVariations: DisplayVariation[] = [
 		},
 	},
 	{
-		name: 'Opens in new tab, no underline',
+		name: 'Opens in new tab, subtle',
 		props: {
 			href: 'https://www.atlassian.com',
 			children: 'Link',
 			target: '_blank',
-			isUnderlined: false,
+			appearance: 'subtle',
 		},
 	},
 ];

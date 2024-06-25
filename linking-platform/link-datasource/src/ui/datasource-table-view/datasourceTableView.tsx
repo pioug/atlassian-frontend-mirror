@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
@@ -20,6 +21,7 @@ import {
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import i18nEN from '../../i18n/en';
 import { ScrollableContainerHeight } from '../../ui/issue-like-table/styled';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
 import { NoResults } from '../common/error-state/no-results';
@@ -135,8 +137,13 @@ const DatasourceTableViewWithoutAnalytics = ({
 	});
 
 	const forcedReset = useCallback(() => {
-		reset({ shouldForceRequest: true });
-	}, [reset]);
+		reset({
+			shouldForceRequest: true,
+			shouldResetColumns:
+				getBooleanFF('platform.linking-platform.datasource-assets_update_refresh_button_dt3qk') &&
+				datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+		});
+	}, [reset, datasourceId]);
 
 	const onRefresh = useCallback(() => {
 		fireEvent('ui.button.clicked.sync', {

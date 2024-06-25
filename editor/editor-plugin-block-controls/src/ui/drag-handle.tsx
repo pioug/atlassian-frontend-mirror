@@ -12,8 +12,10 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
@@ -119,8 +121,8 @@ export const DragHandle = ({
 			return tr;
 		});
 
-		api?.core?.actions.focus();
-	}, [start, api, dragHandleSelected, setDragHandleSelected, nodeType]);
+		view.focus();
+	}, [start, api, view, dragHandleSelected, setDragHandleSelected, nodeType]);
 
 	// handleMouseDown required along with onClick to ensure the correct selection
 	// is set immediately when the drag handle is clicked. Otherwise browser native
@@ -135,8 +137,29 @@ export const DragHandle = ({
 			tr.setMeta(key, { pos: start });
 			return tr;
 		});
-		api?.core?.actions.focus();
-	}, [start, api, nodeType]);
+		view.focus();
+	}, [start, api, view, nodeType]);
+
+	// TODO - This needs to be investigated further. Drag preview generation is not always working
+	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
+	// but ensures the preview is generated correctly.
+	const handleMouseDownWrapperRemoved = useCallback(() => {
+		api?.core?.actions.execute(({ tr }) => {
+			if (start === undefined) {
+				return tr;
+			}
+
+			const node = tr.doc.nodeAt(start);
+			if (!node) {
+				return tr;
+			}
+			const $startPos = tr.doc.resolve(start + node.nodeSize);
+			const selection = new TextSelection($startPos);
+			tr.setSelection(selection);
+			tr.setMeta(key, { pos: start });
+			return tr;
+		});
+	}, [start, api]);
 
 	useEffect(() => {
 		const element = buttonRef.current;
@@ -173,6 +196,7 @@ export const DragHandle = ({
 
 					const resolvedMovingNode = tr.doc.resolve(start);
 					const maybeNode = resolvedMovingNode.nodeAfter;
+					tr.setMeta('scrollIntoView', false);
 					api?.analytics?.actions.attachAnalyticsEvent({
 						eventType: EVENT_TYPE.UI,
 						action: ACTION.DRAGGED,
@@ -187,7 +211,7 @@ export const DragHandle = ({
 					return tr;
 				});
 
-				api?.core?.actions.focus();
+				view.focus();
 			},
 		});
 	}, [anchorName, api, nodeType, view, start]);
@@ -224,7 +248,9 @@ export const DragHandle = ({
 			return {
 				left:
 					hasResizer || isExtension || isBlockCard || isEmbedCard
-						? getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
+						? getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+							? `calc(calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)}`
+							: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
 						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
 				top: anchorName.includes('table')
 					? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
@@ -245,7 +271,11 @@ export const DragHandle = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={positionStyles}
 			onClick={handleOnClick}
-			onMouseDown={handleMouseDown}
+			onMouseDown={
+				getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+					? handleMouseDownWrapperRemoved
+					: handleMouseDown
+			}
 			data-testid="block-ctrl-drag-handle"
 		>
 			<DragHandlerIcon label="" size="medium" />

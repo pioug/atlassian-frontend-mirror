@@ -17,7 +17,7 @@ exports[`isOpen snapshot 1`] = `
         onNext={[Function]}
         onPrevious={[Function]}
         secondaryActions={
-          <Memo(CustomThemeButton)
+          <Memo(Button)
             appearance="subtle-link"
             href="https://hello.atlassian.net"
             spacing="none"
@@ -29,7 +29,7 @@ exports[`isOpen snapshot 1`] = `
               id="focused-task-close-account.learnMore"
             />
              
-          </Memo(CustomThemeButton)>
+          </Memo(Button)>
         }
         submitButton={
           <div
@@ -43,7 +43,7 @@ exports[`isOpen snapshot 1`] = `
 `;
 
 exports[`learnMoreLink display Learn more link is displayed when the link is passed in the props 1`] = `
-<CustomThemeButton
+<Button
   appearance="subtle-link"
   href="https://hello.atlassian.net"
   spacing="none"
@@ -55,5 +55,5 @@ exports[`learnMoreLink display Learn more link is displayed when the link is pas
     id="focused-task-close-account.learnMore"
   />
    
-</CustomThemeButton>
+</Button>
 `;

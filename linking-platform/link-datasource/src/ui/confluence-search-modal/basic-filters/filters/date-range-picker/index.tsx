@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
@@ -9,6 +9,7 @@ import { R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import {
 	type DateRangeOption,
 	type DateRangeType,
@@ -45,20 +46,33 @@ export type DateRangeSelection = Pick<DateRangeOption, 'value' | 'from' | 'to'>;
 interface DateRangeProps {
 	onSelectionChange: (options: DateRangeSelection) => void;
 	selection?: DateRangeSelection;
+	filterName?: string;
 }
 
-export const DateRangePicker = ({ onSelectionChange, selection }: DateRangeProps) => {
+export const DateRangePicker = ({
+	onSelectionChange,
+	selection,
+	filterName = 'datasource-date-range-picker',
+}: DateRangeProps) => {
 	const { value: selectedValue, from: fromDate, to: toDate } = selection || {};
 	const todayDate = new Date().toISOString();
 
 	const { locale, formatMessage, formatDate } = useIntl();
+	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	const [currentOption, setCurrentOption] = useState(selectedValue);
 	const [customFromDate, setCustomFromDate] = useState(fromDate);
 	const [customToDate, setCustomToDate] = useState(toDate);
-	const [isPickerOpen, setIsPickerOpen] = useState(false);
+	const [isPickerOpen, setIsPickerOpen] = useState<boolean | undefined>(undefined);
 
 	const isCustomSelected = currentOption === 'custom';
+	const analyticsPayload = useMemo(
+		() => ({
+			filterName,
+			selectionCount: (currentOption ?? defaultOptionValue) === defaultOptionValue ? 0 : 1,
+		}),
+		[filterName, currentOption],
+	);
 
 	const invalidDateRange = useInvalidDateRange(customFromDate, customToDate);
 
@@ -94,12 +108,18 @@ export const DateRangePicker = ({ onSelectionChange, selection }: DateRangeProps
 			return;
 		}
 		setIsPickerOpen(true);
-		return;
+		fireEvent('ui.dropdown.opened.basicSearchDropdown', analyticsPayload);
 	};
+
+	useEffect(() => {
+		if (isPickerOpen === false) {
+			fireEvent('ui.dropdown.closed.basicSearchDropdown', analyticsPayload);
+		}
+	}, [analyticsPayload, fireEvent, isPickerOpen]);
 
 	return (
 		<Popup
-			isOpen={isPickerOpen}
+			isOpen={!!isPickerOpen}
 			onClose={handlePickerToggle}
 			popupComponent={PopupComponent}
 			zIndex={layers.modal()}
@@ -127,7 +147,6 @@ export const DateRangePicker = ({ onSelectionChange, selection }: DateRangeProps
 										testId="date-from-picker"
 										dateFormat="D MMM YYYY"
 										onChange={setCustomFromDate}
-										onDelete={() => setCustomFromDate(undefined)}
 										defaultValue={fromDate}
 										placeholder={formatMessage(dateRangeMessages.dateRangeFrom)}
 										isInvalid={Boolean(invalidDateRange)}
@@ -148,7 +167,6 @@ export const DateRangePicker = ({ onSelectionChange, selection }: DateRangeProps
 										testId="date-to-picker"
 										dateFormat="D MMM YYYY"
 										onChange={setCustomToDate}
-										onDelete={() => setCustomToDate(undefined)}
 										defaultValue={toDate}
 										placeholder={formatMessage(dateRangeMessages.dateRangeTo)}
 										isInvalid={Boolean(invalidDateRange)}
@@ -195,7 +213,7 @@ export const DateRangePicker = ({ onSelectionChange, selection }: DateRangeProps
 					fromDate,
 				);
 
-				const isSelected = !!selectedValue || isPickerOpen;
+				const isSelected = !!selectedValue || !!isPickerOpen;
 
 				return (
 					<PopupTrigger

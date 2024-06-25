@@ -197,7 +197,7 @@ function CategoryListItem({
 		[category.name, selectedCategory],
 	);
 	const onTabPress = useCallback(
-		(e) => {
+		(e: React.KeyboardEvent<HTMLElement>) => {
 			const isShiftPressed = e.shiftKey;
 			if (!isShiftPressed) {
 				// set focus from focused category to first item in it
@@ -218,7 +218,7 @@ function CategoryListItem({
 	);
 
 	const onArrowPress = useCallback(
-		(e) => {
+		(e: React.KeyboardEvent<HTMLElement>) => {
 			if (e.key === 'ArrowUp' && selectPreviousCategory) {
 				return selectPreviousCategory();
 			}
@@ -230,7 +230,7 @@ function CategoryListItem({
 	);
 
 	const onKeyDown = useCallback(
-		(e) => {
+		(e: React.KeyboardEvent<HTMLElement>) => {
 			const isTabPressed = e.key === 'Tab';
 			const isArrowPressed = arrowsKeys.has(e.key);
 			if (isTabPressed) {

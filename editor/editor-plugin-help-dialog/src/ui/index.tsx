@@ -14,7 +14,7 @@ import AkModalDialog, { ModalTransition } from '@atlaskit/modal-dialog';
 import { closeHelpCommand } from '../commands';
 import type { HelpDialogPlugin } from '../types';
 
-import type Format from './Format';
+import type { Format } from './Format';
 import { getSupportedFormatting } from './formatting';
 import Modal from './Modal';
 

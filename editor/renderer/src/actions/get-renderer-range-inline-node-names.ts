@@ -1,5 +1,4 @@
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type RendererActions from './index';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -18,7 +17,7 @@ export function getRendererRangeInlineNodeNames({
 		return undefined;
 	}
 
-	const doc = (actions as unknown as { doc: PMNode }).doc;
+	const { doc } = actions;
 	if (!pos || !doc) {
 		return undefined;
 	}

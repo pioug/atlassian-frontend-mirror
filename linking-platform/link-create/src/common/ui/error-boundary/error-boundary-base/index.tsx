@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 export type ErrorBoundaryErrorInfo = {
 	componentStack: string;
@@ -11,7 +11,7 @@ type BaseErrorBoundaryState = {
 interface BaseErrorBoundaryProps {
 	children: ReactNode;
 	errorComponent?: JSX.Element;
-	onError?: (error: Error, info?: ErrorBoundaryErrorInfo) => void;
+	onError?: (error: Error, info?: ErrorInfo) => void;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -21,7 +21,7 @@ export class BaseErrorBoundary extends Component<BaseErrorBoundaryProps, BaseErr
 		this.state = { hasError: false };
 	}
 
-	componentDidCatch(error: Error, info?: ErrorBoundaryErrorInfo): void {
+	componentDidCatch(error: Error, info?: ErrorInfo): void {
 		const { onError } = this.props;
 		onError && onError(error, info);
 		this.setState({ hasError: true });

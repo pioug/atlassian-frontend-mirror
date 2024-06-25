@@ -50,6 +50,7 @@ const BasicFilterContainer = ({
 			<DateRangePicker
 				selection={lastModifiedSelection}
 				onSelectionChange={onDateRangePickerChange}
+				filterName={`clol-basic-filter-${CLOLBasicFilters.lastModified}`}
 			/>
 		</Flex>
 	);

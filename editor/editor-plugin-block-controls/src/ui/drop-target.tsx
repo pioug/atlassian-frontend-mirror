@@ -21,6 +21,7 @@ const styleDropTarget = css({
 	width: '100%',
 	left: '0',
 	display: 'block',
+	zIndex: 1,
 });
 
 const styleDropIndicator = css({

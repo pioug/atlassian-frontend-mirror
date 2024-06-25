@@ -23,7 +23,7 @@ export class UfoErrorBoundary extends React.Component<UfoErrorBoundaryProps> {
 					error: {
 						name: error.name,
 						message: error.message,
-						infoStack: errorInfo.componentStack,
+						infoStack: errorInfo.componentStack ?? undefined,
 					},
 				},
 			});

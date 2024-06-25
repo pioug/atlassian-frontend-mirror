@@ -10,7 +10,7 @@ import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages
 import { browser } from '@atlaskit/editor-common/utils';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 
-import type Format from './Format';
+import type { Format } from './Format';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
 import { column, content, contentWrapper, line, row, title } from './styles';

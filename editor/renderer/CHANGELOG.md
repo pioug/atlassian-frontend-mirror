@@ -1,5 +1,44 @@
 # @atlaskit/renderer
 
+## 109.36.0
+
+### Minor Changes
+
+- [#114477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114477)
+  [`33e0090cf80ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33e0090cf80ef) -
+  ED-23785 - add `inlineNodeTypes` to `InlineCommentSelectionComponentProps`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.35.0
+
+### Minor Changes
+
+- [#113571](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113571)
+  [`67a148fad7f47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67a148fad7f47) -
+  ED-23785 - add `inlineNodeTypes` to `InlineCommentSelectionComponentProps`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.34.0
+
+### Minor Changes
+
+- [#114156](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114156)
+  [`bc6a63af2d1d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc6a63af2d1d0) -
+  Bump adf-schema to 37.0.0 and adf-schema-json to 1.16.0
+
+### Patch Changes
+
+- [#113904](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113904)
+  [`5c0a612e2326f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c0a612e2326f) -
+  [ux] Fixes special symbols showing from left to right on renderer for headings.
+- Updated dependencies
+
 ## 109.33.1
 
 ### Patch Changes

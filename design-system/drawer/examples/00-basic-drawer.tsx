@@ -9,6 +9,7 @@ import { Component, type SyntheticEvent } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import InlineMessage from '@atlaskit/inline-message';
 
 import Drawer from '../src';
 
@@ -49,6 +50,10 @@ export default class DrawersExample extends Component<{}, State> {
 					label="Basic drawer"
 				>
 					<code>Content</code>
+					<br />
+					<InlineMessage title="Inline Message Title Example" secondaryText="Secondary Text">
+						<p>Primary and secondary text dialog</p>
+					</InlineMessage>
 				</Drawer>
 				<Button id="open-drawer" type="button" onClick={this.openDrawer}>
 					Open drawer

@@ -1,4 +1,4 @@
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

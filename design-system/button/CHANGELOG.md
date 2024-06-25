@@ -79,8 +79,8 @@
 ### Minor Changes
 
 - [#111486](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111486)
-  [`f848f651ef678`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f848f651ef678) - ###
-  Accessibility improvement
+  [`f848f651ef678`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f848f651ef678) -
+  **Accessibility improvement**
 
   New buttons now adds ", Loading" to the accessible name of loading buttons regardless of how they
   are labelled. This supports labelling by text content (`children`), `aria-label`, and
@@ -96,7 +96,7 @@
   ```
   screen.findByRole("button", {
     name: /, Loading/,
-  })
+  });
   ```
 
   To validate a loading button that is already located, use `toHaveAccessibleName()`:
@@ -114,10 +114,8 @@
   ```
   render(<Button isLoading testId="bar">My label</Button>);
 
-
   const spinner = screen.getByTestId("bar--loading-spinner-wrapper");
   expect(spinner).toBeInTheDocument();
-
   ```
 
 ## 17.17.3

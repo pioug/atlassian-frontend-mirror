@@ -10,7 +10,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
 import { DROPBOX_IFRAME_NAME } from './constants';

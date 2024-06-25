@@ -7,7 +7,7 @@ import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -49,7 +49,7 @@ const ActionItem: FC<CommentActionItemProps> = ({
 		/**
 		 * It is not normally acceptable to add click and key handlers to non-interactive
 		 * elements as this is an accessibility anti-pattern. However, because this
-		 * instance is to add support for analtyics instead of creating an inaccessible
+		 * instance is to add support for analytics instead of creating an inaccessible
 		 * custom element, we can add role="presentation" so that there are no negative
 		 * impacts to assistive technologies.
 		 */

@@ -27,6 +27,7 @@ import {
 	mouseMoveWrapperDecorations,
 	nodeDecorations,
 } from './decorations';
+import { handleMouseOver } from './handle-mouse-over';
 
 export const key = new PluginKey<PluginState>('blockControls');
 
@@ -147,28 +148,57 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					decorations = decorations.remove(oldHandle);
 				}
 
+				let isDecsMissing = false;
+				let isHandleMissing = false;
+				if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+					// Ensure decorations stay in sync when nodes are added or removed from the doc
+					isHandleMissing =
+						!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
+					const decsLength = decorations
+						.find()
+						.filter(({ spec }) => spec.id !== 'drag-handle').length;
+					isDecsMissing = !isDragging && decsLength !== newState.doc.childCount;
+				}
+
 				// This is not targeted enough - it's trying to catch events like expand being set to breakout
 				const maybeWidthUpdated =
 					tr.docChanged && oldState.doc.nodeSize === newState.doc.nodeSize && !nodeCountChanged;
+
+				// This addresses scenarios such as undoing table resizing,
+				// where a keyboard shortcut triggers a width change, and
+				// the node's actual width is then updated in a separate renderering cycle.
+				// The tr.meta.activeNode is triggered by the showDragHandleAt function during the mouse entry event
+				// (when the table node rerenders)
+				// The activeNode is from the previous rendering cycle, and verify if they share the same anchor.
+				const maybeNodeWidthUpdated =
+					meta?.activeNode &&
+					meta?.activeNode?.nodeType === 'table' &&
+					meta.activeNode.anchorName === activeNode?.anchorName;
 
 				const redrawDecorations =
 					decorations === DecorationSet.empty ||
 					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
 					maybeWidthUpdated ||
 					nodeCountChanged ||
+					maybeNodeWidthUpdated ||
 					resizerMeta === false ||
+					isDecsMissing ||
 					(!!meta?.nodeMoved && tr.docChanged);
 
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				if (redrawDecorations && !isResizerResizing && api) {
 					decorations = DecorationSet.create(newState.doc, []);
 					const nodeDecs = nodeDecorations(newState);
-					const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
-					decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
+					if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+						decorations = decorations.add(newState.doc, [...nodeDecs]);
+					} else {
+						const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
+						decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
+					}
 
 					// Note: Quite often the handle is not in the right position after a node is moved
 					// it is safer for now to not show it when a node is moved
-					if (activeNode && !meta?.nodeMoved) {
+					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
 						const newActiveNode = activeNode && tr.doc.nodeAt(tr.mapping.map(activeNode.pos));
 
 						let nodeType = activeNode.nodeType;
@@ -256,7 +286,8 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				return {
 					decorations,
 					decorationState,
-					activeNode: isEmptyDoc ? null : meta?.activeNode ?? mappedActiveNodePos,
+					activeNode:
+						isEmptyDoc || isHandleMissing ? null : meta?.activeNode ?? mappedActiveNodePos,
 					isDragging: meta?.isDragging ?? isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
@@ -297,44 +328,54 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 					return false;
 				},
+				mouseover: (view: EditorView, event: Event) => {
+					if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+						handleMouseOver(view, event, api);
+					}
+					return false;
+				},
 			},
 		},
 		view: (editorView: EditorView) => {
 			const dom = editorView.dom;
+			let resizeObserver: ResizeObserver;
 
-			// Use ResizeObserver to observe height changes
-			const resizeObserver = new ResizeObserver(
-				rafSchedule((entries) => {
-					const editorHeight = entries[0].contentBoxSize[0].blockSize;
+			if (!getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+				// Use ResizeObserver to observe height changes
+				resizeObserver = new ResizeObserver(
+					rafSchedule((entries) => {
+						const editorHeight = entries[0].contentBoxSize[0].blockSize;
 
-					// Update the plugin state when the height changes
-					const pluginState = key.getState(editorView.state);
-					if (!pluginState?.isDragging) {
-						const isResizerResizing = !!dom.querySelector('.is-resizing');
+						// Update the plugin state when the height changes
+						const pluginState = key.getState(editorView.state);
+						if (!pluginState?.isDragging) {
+							const isResizerResizing = !!dom.querySelector('.is-resizing');
 
-						const transaction = editorView.state.tr;
+							const transaction = editorView.state.tr;
 
-						if (pluginState?.isResizerResizing !== isResizerResizing) {
-							transaction.setMeta('is-resizer-resizing', isResizerResizing);
+							if (pluginState?.isResizerResizing !== isResizerResizing) {
+								transaction.setMeta('is-resizer-resizing', isResizerResizing);
+							}
+
+							if (!isResizerResizing) {
+								transaction.setMeta(key, { editorHeight });
+							}
+							editorView.dispatch(transaction);
 						}
-
-						if (!isResizerResizing) {
-							transaction.setMeta(key, { editorHeight });
-						}
-						editorView.dispatch(transaction);
-					}
-				}),
-			);
-
-			// Start observing the editor DOM element
-			resizeObserver.observe(dom);
+					}),
+				);
+				// Start observing the editor DOM element
+				resizeObserver.observe(dom);
+			}
 
 			// Start pragmatic monitors
 			const pragmaticCleanup = destroyFn(api);
 
 			return {
 				destroy() {
-					resizeObserver.unobserve(dom);
+					if (!getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+						resizeObserver.unobserve(dom);
+					}
 					pragmaticCleanup();
 				},
 			};

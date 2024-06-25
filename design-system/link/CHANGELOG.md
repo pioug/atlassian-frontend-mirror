@@ -1,5 +1,15 @@
 # @atlaskit/link
 
+## 0.5.2
+
+### Patch Changes
+
+- [#114203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114203)
+  [`fb57afa892329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb57afa892329) -
+  [ux] The `isUnderlined` prop has been removed and replaced with `appearance="subtle"` which
+  provides a link with no underline and subtle color.
+- Updated dependencies
+
 ## 0.5.1
 
 ### Patch Changes

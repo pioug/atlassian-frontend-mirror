@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import type {
 	ExtensionManifest,
 	FieldDefinition,

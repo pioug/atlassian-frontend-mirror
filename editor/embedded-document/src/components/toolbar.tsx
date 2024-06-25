@@ -1,6 +1,6 @@
 import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';

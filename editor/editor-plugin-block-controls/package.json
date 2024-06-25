@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "1.4.27",
+	"version": "1.4.29",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,8 +35,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^37.0.0",
-		"@atlaskit/editor-common": "^82.11.0",
-		"@atlaskit/editor-plugin-analytics": "^1.2.3",
+		"@atlaskit/editor-common": "^82.14.0",
+		"@atlaskit/editor-plugin-analytics": "^1.3.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.5",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
 		"@atlaskit/editor-plugin-width": "^1.1.0",
@@ -49,7 +49,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.3.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.52.0",
+		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
@@ -96,6 +96,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq": {
+			"type": "boolean"
+		},
+		"platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2": {
 			"type": "boolean"
 		},
 		"platform.editor.media.extended-resize-experience": {

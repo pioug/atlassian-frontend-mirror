@@ -1,0 +1,39 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-loom/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-hyperlink/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-width/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/logo/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    }
+  ]
+}

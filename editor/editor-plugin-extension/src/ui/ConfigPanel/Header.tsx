@@ -7,7 +7,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import Loadable from 'react-loadable';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import type { Icon } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';

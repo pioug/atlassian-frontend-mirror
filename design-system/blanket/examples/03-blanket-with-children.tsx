@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import { Fragment, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -10,7 +10,8 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
-import { Stack, xcss } from '@atlaskit/primitives';
+import { useCloseOnEscapePress } from '@atlaskit/layering';
+import { Stack, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
@@ -36,9 +37,18 @@ const BasicExample = () => {
 		setShouldAllowClickThrough(true);
 	}, []);
 
+	useCloseOnEscapePress({
+		onClose: onBlanketClicked,
+		isDisabled: !isBlanketVisible,
+	});
+
 	return (
-		<Fragment>
-			<p>Select "Show blanket" to open the blanket. Press Escape to dismiss the blanket.</p>
+		<Stack space="space.100" alignInline="start">
+			<Text>
+				Select "Show blanket" to open the blanket. Either click on the blanket or press Escape to
+				dismiss the blanket.
+			</Text>
+			<Text>Note: This example uses only the blanket component, not a modal dialog.</Text>
 			<Button appearance="default" onClick={showBlanketClick} testId="show-button">
 				Show blanket
 			</Button>
@@ -53,7 +63,7 @@ const BasicExample = () => {
 					<Lorem count={20} />
 				</Stack>
 			</Blanket>
-		</Fragment>
+		</Stack>
 	);
 };
 

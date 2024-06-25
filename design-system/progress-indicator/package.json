@@ -29,8 +29,8 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/primitives": "^8.0.0",
-		"@atlaskit/tokens": "^1.52.0",
+		"@atlaskit/primitives": "^8.2.0",
+		"@atlaskit/tokens": "^1.53.0",
 		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

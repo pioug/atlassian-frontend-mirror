@@ -30,7 +30,7 @@ const scheduleEditorDisabledUpdate = rafSchedule((view: EditorView) => {
 
 /*
 Stores the state of the editor enabled/disabled for panel and floating
-toolbar to subscribe to through <WithPluginState>. Otherwise the NodeViews
+toolbar to subscribe to through useSharedPluginState. Otherwise the NodeViews
 won't re-render when it changes.
 */
 function createPlugin(dispatch: Dispatch<EditorDisabledPluginState>): SafePlugin | undefined {

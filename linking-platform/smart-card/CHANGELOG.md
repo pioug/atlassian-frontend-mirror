@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 27.7.0
+
+### Minor Changes
+
+- [#113897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113897)
+  [`8314fc2cfc713`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8314fc2cfc713) -
+  [ux] EDM-9697 Use new icon order for all smartlink object types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.6.5
 
 ### Patch Changes

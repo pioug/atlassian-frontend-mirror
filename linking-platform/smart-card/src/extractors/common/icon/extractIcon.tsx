@@ -9,6 +9,7 @@ import BranchIcon from '@atlaskit/icon-object/glyph/branch/16';
 import RepoIcon from '@atlaskit/icon-object/glyph/code/16';
 import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
 
+import { getIconForFileType } from '../../../utils';
 import { extractorPriorityMap } from './priority';
 import {
 	extractProvider,
@@ -54,6 +55,45 @@ export const extractIcon = (
 		return extractIconByType(type, opts);
 	}
 };
+function typeToIcon(
+	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
+	opts: IconOpts,
+): React.ReactNode | undefined {
+	switch (type) {
+		case 'atlassian:SourceCodeCommit':
+			return <CommitIcon label={opts.title || 'commit'} testId="commit-icon" />;
+		case 'atlassian:Project':
+			return <ProjectIcon label={opts.title || 'project'} size="small" testId="project-icon" />;
+		case 'atlassian:SourceCodePullRequest':
+			return <PullRequestIcon label={opts.title || 'pullRequest'} testId="pull-request-icon" />;
+		case 'atlassian:SourceCodeReference':
+			return <BranchIcon label={opts.title || 'reference'} testId="branch-icon" />;
+		case 'atlassian:SourceCodeRepository':
+			return <RepoIcon label={opts.title || 'repository'} testId="repo-icon" />;
+		case 'atlassian:Goal':
+			return <TaskIcon label={opts.title || 'goal'} testId="task-icon" />;
+		case 'atlassian:Task':
+			return extractIconFromTask(opts);
+		default:
+			return undefined;
+	}
+}
+
+function standardisedExtractIcon(
+	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
+	opts: IconOpts,
+) {
+	const iconFromType = typeToIcon(type, opts);
+	const iconFromFileFormat = opts.fileFormat ? getIconForFileType(opts.fileFormat) : undefined;
+	const iconFromProvider = opts.provider && opts.provider.icon;
+
+	return prioritiseIcon<React.ReactNode>({
+		fileFormatIcon: iconFromFileFormat,
+		documentTypeIcon: iconFromType,
+		urlIcon: opts.icon,
+		providerIcon: iconFromProvider,
+	});
+}
 
 /**
  * Extracts an icon based on the given type.
@@ -69,6 +109,22 @@ const extractIconByType = (
 	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
 	opts: IconOpts,
 ): React.ReactNode | undefined => {
+	if (getBooleanFF('platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour')) {
+		switch (type) {
+			case 'Document':
+			case 'schema:BlogPosting':
+			case 'schema:DigitalDocument':
+			case 'schema:TextDigitalDocument':
+			case 'schema:PresentationDigitalDocument':
+			case 'schema:SpreadsheetDigitalDocument':
+			case 'atlassian:Template':
+			case 'atlassian:UndefinedLink':
+				return extractIconFromDocument(type, opts);
+			default:
+				return standardisedExtractIcon(type, opts);
+		}
+	}
+
 	switch (type) {
 		case 'Document':
 		case 'schema:BlogPosting':
@@ -98,25 +154,6 @@ const extractIconByType = (
 		case 'atlassian:Task':
 			return extractIconFromTask(opts);
 		default:
-			return getBooleanFF(
-				'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-			)
-				? extractDefaultIcon(opts)
-				: opts.provider && opts.provider.icon;
+			return opts.provider && opts.provider.icon;
 	}
-};
-
-/**
- * Choose which icon to show when the type is not recognized.
- */
-const extractDefaultIcon = (opts: IconOpts): React.ReactNode | undefined => {
-	const { provider } = opts;
-	const providerId = provider?.id;
-	return prioritiseIcon<React.ReactNode>({
-		providerId,
-		fileFormatIcon: undefined,
-		documentTypeIcon: undefined,
-		urlIcon: opts.icon,
-		providerIcon: opts.provider?.icon,
-	});
 };

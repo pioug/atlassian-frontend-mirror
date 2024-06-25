@@ -1,5 +1,13 @@
 # @atlaskit/portal
 
+## 4.6.1
+
+### Patch Changes
+
+- [#113286](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113286)
+  [`5e96c34106b2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e96c34106b2e) -
+  DSP-19412 Add optional chaining to document.body function call to resolve type errors
+
 ## 4.6.0
 
 ### Minor Changes

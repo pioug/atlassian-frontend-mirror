@@ -217,9 +217,6 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 								{({ formProps }: { formProps: any }) => {
 									return (
 										<form {...formProps} name="form-example">
-											<ArticleFeedbackText>
-												{formatMessage(messages.help_article_rating_form_title)}
-											</ArticleFeedbackText>
 											{!wasHelpful && (
 												<Field name="feedbackReason" isRequired>
 													{({ fieldProps }: { fieldProps: any }) => (
@@ -233,13 +230,23 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 											)}
 											<Field name="feedbackReasonText" defaultValue="">
 												{({ fieldProps }: { fieldProps: any }) => (
-													<TextArea
-														{...fieldProps}
-														minimumRows={4}
-														maxLength={FEEDBACK_REASON_TEXT_MAX_LENGTH}
-														value={feedbackReasonText}
-														onChange={feedbackReasonTextOnChange}
-													/>
+													<>
+														<ArticleFeedbackText
+															id="articleFeedbackText"
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+															style={{ top: token('space.negative.100', '-8px') }}
+														>
+															{formatMessage(messages.help_article_rating_form_title)}
+														</ArticleFeedbackText>
+														<TextArea
+															{...fieldProps}
+															minimumRows={4}
+															aria-labelledby="articleFeedbackText"
+															maxLength={FEEDBACK_REASON_TEXT_MAX_LENGTH}
+															value={feedbackReasonText}
+															onChange={feedbackReasonTextOnChange}
+														/>
+													</>
 												)}
 											</Field>
 

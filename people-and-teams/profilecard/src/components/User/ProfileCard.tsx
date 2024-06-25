@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import FocusRing from '@atlaskit/focus-ring';
 import Spinner from '@atlaskit/spinner';
 import { N0 } from '@atlaskit/theme/colors';

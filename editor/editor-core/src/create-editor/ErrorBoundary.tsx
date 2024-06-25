@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type ErrorInfo } from 'react';
 
 import uuid from 'uuid';
 
@@ -38,13 +38,9 @@ export type ErrorBoundaryState = {
 	error?: Error;
 };
 
-type AnalyticsErrorBoundaryErrorInfo = {
-	componentStack: string;
-};
-
 type AnalyticsErrorBoundaryAttributes = {
 	error: Error;
-	info?: AnalyticsErrorBoundaryErrorInfo;
+	info?: ErrorInfo;
 	[key: string]: any;
 };
 
@@ -142,14 +138,14 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 		browserInfo: attributes.browserInfo,
 		error: attributes.error.toString(),
 		errorInfo: {
-			componentStack: attributes.errorInfo.componentStack,
+			componentStack: attributes.errorInfo.componentStack || undefined,
 		},
 		errorId: attributes.errorId,
 		browserExtensions: attributes.browserExtensions?.toString(),
 		docStructure: attributes.docStructure as string,
 	});
 
-	componentDidCatch(error: Error, errorInfo: AnalyticsErrorBoundaryErrorInfo) {
+	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
 		// Only report and re-render once, to avoid over-reporting errors and infinite rerendering
 		if (this.state.error) {
 			return;

@@ -29,8 +29,8 @@ export const getSelection = (tr: Transaction, start: number) => {
 
 		const inlineNodeDepth = inlineNodePos - start;
 		return new TextSelection(
-			tr.doc.resolve(inlineNodePos),
 			tr.doc.resolve(start + nodeSize - inlineNodeDepth),
+			tr.doc.resolve(inlineNodePos),
 		);
 	}
 };

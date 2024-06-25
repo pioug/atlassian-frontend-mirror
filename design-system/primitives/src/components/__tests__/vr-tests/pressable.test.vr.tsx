@@ -24,6 +24,27 @@ snapshot(PressableDefault, {
 		},
 	],
 });
+
+snapshot(PressableDefault, {
+	description: 'Hovered',
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'pressable-default' },
+		},
+	],
+});
+
+snapshot(PressableDefault, {
+	description: 'Focused',
+	states: [
+		{
+			state: 'focused',
+			selector: { byTestId: 'pressable-default' },
+		},
+	],
+});
+
 snapshot(PressableStyled, {
 	variants: [
 		{

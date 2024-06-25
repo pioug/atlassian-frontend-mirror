@@ -1,0 +1,120 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-extension/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../adf-utils/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/avatar/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/checkbox/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/datetime-picker/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-json-transformer/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-context-identifier/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-context-panel/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-decorations/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-width/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-tables/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/empty-state/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/form/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/radio/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/section-message/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/select/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../smart-experiences/smart-user-picker/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tabs/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/textarea/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/toggle/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+    }
+  ]
+}

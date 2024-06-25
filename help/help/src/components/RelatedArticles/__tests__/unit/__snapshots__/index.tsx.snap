@@ -99,16 +99,7 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   margin: 0;
 }
 
-
-
-.emotion-31,
-.emotion-31:hover,
-.emotion-31:active,
-.emotion-31:focus,
-.emotion-31:focus-visible,
-.emotion-31:visited,
-.emotion-31:disabled,
-.emotion-31[disabled] {
+.emotion-31 {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -144,17 +135,54 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  outline: none;
 }
 
-.emotion-31::-moz-focus-inner,
-.emotion-31:hover::-moz-focus-inner,
-.emotion-31:active::-moz-focus-inner,
-.emotion-31:focus::-moz-focus-inner,
-.emotion-31:focus-visible::-moz-focus-inner,
-.emotion-31:visited::-moz-focus-inner,
-.emotion-31:disabled::-moz-focus-inner,
-.emotion-31[disabled]::-moz-focus-inner {
+.emotion-31:visited {
+  background: var(--ds-background-neutral-subtle, none);
+  color: var(--ds-link, #0052CC)!important;
+}
+
+.emotion-31:hover {
+  background: var(--ds-background-neutral-subtle, none);
+  color: var(--ds-link, #0065FF)!important;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-31:active {
+  background: var(--ds-background-neutral-subtle, none);
+  color: var(--ds-link-pressed, #0747A6)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-31[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-subtle, none);
+  color: var(--ds-link-pressed, #0747A6)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-31[disabled] {
+  background: var(--ds-background-neutral-subtle, none);
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-31[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-31[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-31[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral-subtle, none);
+  color: var(--ds-link, #0052CC)!important;
+}
+
+.emotion-31::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.29
+
+### Patch Changes
+
+- [#113919](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113919)
+  [`b23ee751fde25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b23ee751fde25) -
+  [ux] fix : the page is not scrolled down when click on the handle of a long node
+- [#113848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113848)
+  [`173e8cc6ecdb3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/173e8cc6ecdb3) -
+  ED-23779 fix undo caused wrong selector position
+
+## 1.4.28
+
+### Patch Changes
+
+- [#113750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113750)
+  [`f0bb95b1231d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0bb95b1231d8) -
+  [ux] Fix drag handle pos for block and embed card nodes
+- [#114031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114031)
+  [`a9de475bcf1f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9de475bcf1f7) -
+  Highlight whole node when selecting decistion list via drag handle
+- Updated dependencies
+
 ## 1.4.27
 
 ### Patch Changes

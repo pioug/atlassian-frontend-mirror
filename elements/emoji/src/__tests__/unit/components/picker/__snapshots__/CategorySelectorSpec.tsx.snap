@@ -50,22 +50,16 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
   color: var(--ds-text-selected, #0052CC);
 }
 
-.emotion-1:focus {
+.emotion-1:focus,
+.emotion-1:focus-visible {
   outline-color: var(--ds-border-focused, #2684FF);
-  outline-width: var(--ds-border-width-outline, 2px);
-  outline-style: solid;
   outline-offset: var(--ds-space-025, 2px);
+  outline-style: solid;
+  outline-width: var(--ds-border-width-outline, 2px);
 }
 
 .emotion-1:focus:not(:focus-visible) {
   outline: none;
-}
-
-.emotion-1:focus-visible {
-  outline-color: var(--ds-border-focused, #2684FF);
-  outline-width: var(--ds-border-width-outline, 2px);
-  outline-style: solid;
-  outline-offset: var(--ds-space-025, 2px);
 }
 
 @media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {

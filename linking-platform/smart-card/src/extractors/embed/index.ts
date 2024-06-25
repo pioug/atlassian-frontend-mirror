@@ -42,10 +42,6 @@ function generateContext(jsonLd: JsonLd.Data.BaseData): LinkProvider | undefined
 	const generator = jsonLd.generator;
 
 	const icon: React.ReactNode = prioritiseIcon<React.ReactNode>({
-		providerId:
-			generator && typeof generator !== 'string' && generator['@type'] !== 'Link'
-				? generator['@id']
-				: undefined,
 		fileFormatIcon: undefined,
 		documentTypeIcon: undefined,
 		urlIcon: extractUrlFromIconJsonLd(jsonLd.icon),

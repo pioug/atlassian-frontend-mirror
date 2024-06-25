@@ -44,7 +44,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/primitives": "^8.0.0",
+		"@atlaskit/primitives": "^8.2.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

@@ -7,9 +7,10 @@ import { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { LinkButton } from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
+import { Anchor, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { Footer } from '../../src';
 
@@ -27,6 +28,16 @@ export const CustomItemFooter = ({ children, ...props }: CustomItemComponentProp
 	);
 };
 
+const descriptionLinkStyles = xcss({
+	fontWeight: token('font.weight.medium'),
+	color: 'color.text.subtle',
+	textDecoration: 'none',
+
+	':hover': {
+		color: 'color.text.subtle',
+	},
+});
+
 // This example footer conforms to a design taken from Jira designs found at
 // https://www.figma.com/file/GA22za6unqO2WsBWM0Ddxk/Jira-navigation-3?node-id=124%3A7194
 const ExampleFooter = () => (
@@ -35,13 +46,13 @@ const ExampleFooter = () => (
 		// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 		description={
 			<Fragment>
-				<LinkButton appearance="subtle-link" href="/feedback" spacing="none">
+				<Anchor href="/feedback" xcss={descriptionLinkStyles}>
 					Give feedback
-				</LinkButton>
+				</Anchor>
 				{' ∙ '}
-				<LinkButton appearance="subtle-link" href="/learn" spacing="none">
+				<Anchor href="/learn" xcss={descriptionLinkStyles}>
 					Learn more
-				</LinkButton>
+				</Anchor>
 			</Fragment>
 		}
 		iconBefore={<Icon label="mode" glyph={SampleIcon} />}

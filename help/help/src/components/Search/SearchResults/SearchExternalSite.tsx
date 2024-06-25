@@ -5,7 +5,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import * as colors from '@atlaskit/theme/colors';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 

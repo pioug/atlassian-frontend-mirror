@@ -5,7 +5,7 @@ import HelpArticleContent from '@atlaskit/help-article';
 import { token } from '@atlaskit/tokens';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 
 import { messages } from '../../../messages';
 

@@ -66,4 +66,5 @@ export type {
 	HorizontalBarChartProps,
 	LineChartProps,
 	SingleValueChartProps,
+	PieChartProps,
 } from './components/charts';

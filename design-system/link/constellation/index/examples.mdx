@@ -3,7 +3,7 @@ order: 0
 ---
 
 import Default from '../../examples/constellation/link-default';
-import Underlined from '../../examples/constellation/link-no-underline';
+import Subtle from '../../examples/constellation/link-subtle';
 import Visited from '../../examples/constellation/link-visited';
 import NewWindow from '../../examples/constellation/link-new-window';
 import BodyCopy from '../../examples/constellation/link-body-copy';
@@ -12,24 +12,21 @@ import HtmlAttributes from '../../examples/constellation/link-html-attributes';
 
 ## Default
 
-The default form of a link.
+The default appearance of a link.
 
 <Example Component={Default} packageName="@atlaskit/link" />
 
-## No underline
+## Subtle
 
-The default link underline can be removed using `isUnderlined`, however it will still display on
-hover. Only remove underlines if the context surrounding the link makes it clear that it is
-interactive, such as in navigation.
+Use a subtle link if the default link appearance is too prominent.
 
-Underlines help differentiate links from regular text and addresses a WCAG-A recommendation. Using
-color alone isn't accessible, especially if links are surrounded by other text. For more information
-about accessibility see
-['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
-and
-['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
+The underline is excluded in resting state, but will display on hover.
 
-<Example Component={Underlined} packageName="@atlaskit/link" />
+Ensure the surrounding context makes it clear that it is interactive, such as in navigation or
+breadcrumbs. Avoid using this in body copy as it may be difficult to distinguish from the
+surrounding text.
+
+<Example Component={Subtle} packageName="@atlaskit/link" />
 
 ## Visited
 

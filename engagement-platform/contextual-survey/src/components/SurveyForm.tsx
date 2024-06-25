@@ -5,7 +5,7 @@ import { type RefObject, useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Transition } from 'react-transition-group';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import { LoadingButton as Button } from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field, FormFooter, type OnSubmitHandler } from '@atlaskit/form';
 import Textarea from '@atlaskit/textarea';

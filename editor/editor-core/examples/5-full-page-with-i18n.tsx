@@ -1,56 +1,12 @@
-/* eslint-disable import/dynamic-import-chunkname */
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
+import { DeletedExample } from '@af/editor-examples-helpers/utils';
 
-import { getTranslations } from '@af/editor-examples-helpers/utils';
-import { LanguagePicker } from '@af/editor-examples-helpers/utils';
-
-import enMessages from '../src/i18n/en';
-import languages from '../src/i18n/languages';
-import WithEditorActions from '../src/ui/WithEditorActions';
-
-import FullPageExample from './5-full-page';
-import { SaveAndCancelButtons } from './5-full-page';
-
-export type Props = {};
-export type State = { locale: string; messages: { [key: string]: string } };
-
-export default class ExampleEditor extends React.Component<Props, State> {
-	state: State = { locale: 'en', messages: enMessages };
-
-	render() {
-		const { locale, messages } = this.state;
-		return (
-			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages}>
-				<FullPageExample
-					disableIntlProviderInExample={true}
-					editorProps={{
-						allowHelpDialog: true,
-						primaryToolbarComponents: (
-							<WithEditorActions
-								render={(actions) => (
-									<React.Fragment>
-										<LanguagePicker
-											languages={languages}
-											locale={locale}
-											onChange={this.loadLocale}
-										/>
-										<SaveAndCancelButtons editorActions={actions} />
-									</React.Fragment>
-								)}
-							/>
-						),
-					}}
-				/>
-			</IntlProvider>
-		);
-	}
-
-	private loadLocale = async (locale: string) => {
-		const messages = await getTranslations(locale);
-		this.setState({ locale, messages });
-	};
-
-	private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
+export default function Example() {
+	return (
+		<DeletedExample
+			commitId="194edd62fb2cc4e92614eeae0477760479086867"
+			alternativeExample="Confluence basic"
+		/>
+	);
 }

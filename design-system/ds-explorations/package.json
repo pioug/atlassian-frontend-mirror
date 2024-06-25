@@ -26,7 +26,7 @@
 		"prepare": "yarn ak-postbuild"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^1.52.0",
+		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -36,7 +36,7 @@
 	"devDependencies": {
 		"@af/formatting": "*",
 		"@atlaskit/ds-lib": "*",
-		"@atlaskit/primitives": "^8.0.0",
+		"@atlaskit/primitives": "^8.2.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",

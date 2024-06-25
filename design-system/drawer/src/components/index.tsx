@@ -9,6 +9,8 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
 import { defaultFocusLockSettings } from '../constants';
@@ -36,6 +38,29 @@ const createAndFireOnClick = (
 			trigger,
 		},
 	})(createAnalyticsEvent);
+
+// escape close manager for layering
+const EscapeCloseManager = ({
+	createAnalyticsEvent,
+	handleClose,
+}: {
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+	handleClose: (event: SyntheticEvent<any>, analyticsEvent: any) => void;
+}) => {
+	const onClose: (e: KeyboardEvent) => void = React.useCallback(
+		(event) => {
+			const analyticsEvent =
+				createAnalyticsEvent && createAndFireOnClick(createAnalyticsEvent, 'escKey');
+			if (handleClose) {
+				handleClose(event as unknown as React.KeyboardEvent, analyticsEvent);
+			}
+		},
+		[handleClose, createAnalyticsEvent],
+	);
+	useCloseOnEscapePress({ onClose: onClose });
+	// only create a dummy component for using ths hook in class component
+	return <></>;
+};
 
 export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }> {
 	static defaultProps = {
@@ -94,8 +119,11 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 	handleKeyDown = (event: KeyboardEvent) => {
 		const { isOpen, onKeyDown } = this.props;
 
-		if (event.key === 'Escape' && isOpen) {
-			this.handleClose(event as unknown as React.KeyboardEvent, 'escKey');
+		if (!getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p')) {
+			// when feature flag on, we will use the EscapeCloseManager instead
+			if (event.key === 'Escape' && isOpen) {
+				this.handleClose(event as unknown as React.KeyboardEvent, 'escKey');
+			}
 		}
 		if (onKeyDown) {
 			onKeyDown(event as unknown as React.KeyboardEvent);
@@ -127,34 +155,46 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 		} = this.props;
 
 		return (
-			<Portal zIndex={zIndex}>
-				<Blanket
-					isOpen={isOpen}
-					onBlanketClicked={this.handleBlanketClick}
-					testId={testId && `${testId}--blanket`}
-				/>
-				<DrawerPrimitive
-					testId={testId}
-					icon={icon}
-					closeLabel={closeLabel}
-					in={isOpen}
-					onClose={this.handleBackButtonClick}
-					onCloseComplete={onCloseComplete}
-					onOpenComplete={onOpenComplete}
-					width={width}
-					label={label}
-					titleId={titleId}
-					shouldUnmountOnExit={shouldUnmountOnExit}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					overrides={overrides}
-					autoFocusFirstElem={autoFocusFirstElem}
-					isFocusLockEnabled={isFocusLockEnabled}
-					shouldReturnFocus={shouldReturnFocus}
-					scrollContentLabel={scrollContentLabel}
-				>
-					{children}
-				</DrawerPrimitive>
-			</Portal>
+			<UNSAFE_LAYERING
+				isDisabled={
+					getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') ? !isOpen : true
+				}
+			>
+				<Portal zIndex={zIndex}>
+					<Blanket
+						isOpen={isOpen}
+						onBlanketClicked={this.handleBlanketClick}
+						testId={testId && `${testId}--blanket`}
+					/>
+					<DrawerPrimitive
+						testId={testId}
+						icon={icon}
+						closeLabel={closeLabel}
+						in={isOpen}
+						onClose={this.handleBackButtonClick}
+						onCloseComplete={onCloseComplete}
+						onOpenComplete={onOpenComplete}
+						width={width}
+						label={label}
+						titleId={titleId}
+						shouldUnmountOnExit={shouldUnmountOnExit}
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+						overrides={overrides}
+						autoFocusFirstElem={autoFocusFirstElem}
+						isFocusLockEnabled={isFocusLockEnabled}
+						shouldReturnFocus={shouldReturnFocus}
+						scrollContentLabel={scrollContentLabel}
+					>
+						{children}
+						{getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') && (
+							<EscapeCloseManager
+								createAnalyticsEvent={this.props.createAnalyticsEvent}
+								handleClose={this.handleClose}
+							/>
+						)}
+					</DrawerPrimitive>
+				</Portal>
+			</UNSAFE_LAYERING>
 		);
 	}
 }

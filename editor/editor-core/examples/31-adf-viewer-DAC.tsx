@@ -12,6 +12,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import TextArea from '@atlaskit/textarea';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
@@ -23,8 +24,6 @@ import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
-
-import { mediaProvider } from './5-full-page';
 
 interface AdfState {
 	isValidAdf: boolean;
@@ -77,7 +76,7 @@ export default class Example extends React.Component<{}, AdfState> {
 											<ToolbarHelp key={1} titlePosition="top" title="Help" />,
 										]}
 										media={{
-											provider: mediaProvider,
+											provider: storyMediaProviderFactory(),
 											allowMediaSingle: true,
 										}}
 										{...providers}

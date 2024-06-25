@@ -28,7 +28,7 @@ export const ExitWarningModalProvider = ({ children }: { children: React.ReactNo
 	}, []);
 
 	const withExitWarning = useCallback(
-		(callback) => () => {
+		(callback?: (_: boolean) => void) => () => {
 			if (shouldShowWarning.current && !showExitWarning) {
 				setShowExitWarning(true);
 				return false;

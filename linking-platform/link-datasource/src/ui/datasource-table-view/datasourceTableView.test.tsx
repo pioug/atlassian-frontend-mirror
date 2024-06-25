@@ -11,6 +11,7 @@ import {
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
@@ -386,7 +387,33 @@ describe('DatasourceTableView', () => {
 		getByRole('button', { name: 'Refresh' }).click();
 
 		expect(mockReset).toHaveBeenCalledTimes(1);
-		expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true });
+		expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true, shouldResetColumns: false });
+	});
+
+	describe('should call reset() with shouldResetColumns set to true when FF on and false when FF off', () => {
+		ffTest(
+			'platform.linking-platform.datasource-assets_update_refresh_button_dt3qk',
+			() => {
+				const { getByRole, mockReset } = setupAssetsTable();
+				asMock(mockReset).mockReset();
+				getByRole('button', { name: 'Refresh' }).click();
+				expect(mockReset).toHaveBeenCalledTimes(1);
+				expect(mockReset).toHaveBeenCalledWith({
+					shouldForceRequest: true,
+					shouldResetColumns: true,
+				});
+			},
+			() => {
+				const { getByRole, mockReset } = setupAssetsTable();
+				asMock(mockReset).mockReset();
+				getByRole('button', { name: 'Refresh' }).click();
+				expect(mockReset).toHaveBeenCalledTimes(1);
+				expect(mockReset).toHaveBeenCalledWith({
+					shouldForceRequest: true,
+					shouldResetColumns: false,
+				});
+			},
+		);
 	});
 
 	it('should not show duplicate response items when a new column is added', () => {

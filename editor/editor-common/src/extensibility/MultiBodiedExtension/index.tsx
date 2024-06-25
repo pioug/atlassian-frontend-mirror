@@ -8,7 +8,6 @@ import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
 
@@ -22,7 +21,6 @@ import {
 	sharedMultiBodiedExtensionStyles,
 } from '../../ui/MultiBodiedExtension';
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
-import { WithPluginState } from '../../with-plugin-state';
 import ExtensionLozenge from '../Extension/Lozenge';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../types';
 
@@ -283,54 +281,10 @@ const MultiBodiedExtensionWithWidth = ({
 	);
 };
 
-const MultiBodiedExtensionWithSharedState = (props: Props & OverflowShadowProps) => {
+const MultiBodiedExtension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
 	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
 	return <MultiBodiedExtensionWithWidth widthState={widthState} {...props} />;
 };
-
-// Workaround taken from platform/packages/editor/editor-core/src/plugins/extension/ui/Extension/Extension/index.tsx
-const MultiBodiedExtension = (props: Props & OverflowShadowProps) => {
-	// TODO: ED-17836 This code is here because confluence injects
-	// the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
-	// which cannot access the `pluginInjectionApi`. When we move
-	// Confluence to using presets we can remove this workaround.
-	const { pluginInjectionApi } = props;
-	return pluginInjectionApi === undefined ? (
-		<MultiBodiedExtensionDeprecated {...props} />
-	) : (
-		<MultiBodiedExtensionWithSharedState {...props} />
-	);
-};
-
-// TODO: ED-17836 This code is here because Confluence injects
-// the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
-// which cannot access the `pluginInjectionApi`. When we move
-// Confluence to using presets we can remove this workaround.
-// @ts-ignore
-const widthPluginKey = {
-	key: 'widthPlugin$',
-	getState: (state: EditorState) => {
-		return (state as any)['widthPlugin$'];
-	},
-} as PluginKey;
-const MultiBodiedExtensionDeprecated = (props: Props & OverflowShadowProps) => {
-	return (
-		// @ts-ignore - 'WithPluginState' cannot be used as a JSX component.
-		// This error was introduced after upgrading to TypeScript 5
-		<WithPluginState
-			editorView={props.editorView}
-			plugins={{
-				widthState: widthPluginKey,
-			}}
-			render={({ widthState }) => (
-				<MultiBodiedExtensionWithWidth widthState={widthState} {...props} />
-			)}
-		/>
-	);
-};
-/**
- * End workaround
- */
 
 export default MultiBodiedExtension;

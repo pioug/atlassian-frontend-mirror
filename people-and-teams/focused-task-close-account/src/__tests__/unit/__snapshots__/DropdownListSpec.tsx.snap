@@ -61,7 +61,7 @@ exports[`Dropdown list button renders sites list with collapse button for more t
     />
   </Styled(div)>
   <Styled(div)>
-    <CustomThemeButton
+    <Button
       appearance="link"
       onClick={[Function]}
       spacing="none"
@@ -71,7 +71,7 @@ exports[`Dropdown list button renders sites list with collapse button for more t
         description="Button text displaying text on collapse"
         id="focused-task-close-account.delete-account.drop-down-collapse-button"
       />
-    </CustomThemeButton>
+    </Button>
   </Styled(div)>
 </Fragment>
 `;
@@ -96,7 +96,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
     </li>
   </Styled(ul)>
   <Styled(div)>
-    <CustomThemeButton
+    <Button
       appearance="link"
       onClick={[Function]}
       spacing="none"
@@ -111,7 +111,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
           }
         }
       />
-    </CustomThemeButton>
+    </Button>
   </Styled(div)>
 </Fragment>
 `;
@@ -136,7 +136,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
     </li>
   </Styled(ul)>
   <Styled(div)>
-    <CustomThemeButton
+    <Button
       appearance="link"
       onClick={[Function]}
       spacing="none"
@@ -151,7 +151,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
           }
         }
       />
-    </CustomThemeButton>
+    </Button>
   </Styled(div)>
 </Fragment>
 `;

@@ -10,10 +10,15 @@ import { css, jsx } from '@emotion/react';
 
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import { useCloseOnEscapePress } from '@atlaskit/layering';
+import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
+
+import Blanket from '../src';
 
 const labelStyles = css({
 	display: 'inline-block',
@@ -28,13 +33,16 @@ const labelStyles = css({
 	marginBlockStart: token('space.0', '0px'),
 });
 
-const blanketStyles = css({
+const blanketStyles = xcss({
 	display: 'inline-flex',
 	boxSizing: 'border-box',
 	maxWidth: '144px',
 	flexDirection: 'column',
 	background: token('elevation.surface'),
-	border: `2px dashed ${token('color.background.accent.blue.subtler')}`,
+	borderColor: 'color.border',
+	borderStyle: 'dashed',
+	borderWidth: 'border.width',
+	borderRadius: 'border.radius.100',
 	pointerEvents: 'initial',
 });
 
@@ -42,8 +50,6 @@ const behindOffsetStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 	marginInlineStart: '144px',
 });
-
-import Blanket from '../src';
 
 const BasicExample = () => {
 	const [isTinted, setIsTinted] = useState(false);
@@ -66,15 +72,22 @@ const BasicExample = () => {
 		setCountBlanketClicked((countClicked) => countClicked + 1);
 	}, []);
 
+	useCloseOnEscapePress({
+		onClose: toggleIsTinted,
+		isDisabled: !isTinted,
+	});
+
 	return (
-		<div>
+		<Box>
 			<Blanket
 				isTinted={isTinted}
 				shouldAllowClickThrough={shouldAllowClickThrough}
 				onBlanketClicked={incrementBlanketCountClicked}
 			>
-				<div css={blanketStyles}>
-					<h2 data-testid="child-heading">Blanket children</h2>
+				<Box xcss={blanketStyles}>
+					<Heading size="large" testId="child-heading">
+						Blanket children
+					</Heading>
 					<label css={labelStyles} htmlFor="is-tinted">
 						Tint the blanket
 					</label>
@@ -83,6 +96,7 @@ const BasicExample = () => {
 						testId="is-tinted"
 						onChange={toggleIsTinted}
 						defaultChecked={isTinted}
+						isChecked={isTinted}
 					/>
 					<label css={labelStyles} htmlFor="allow-click-through">
 						Allow click through
@@ -93,22 +107,22 @@ const BasicExample = () => {
 						onChange={toggleShouldAllowClickThrough}
 						defaultChecked={shouldAllowClickThrough}
 					/>
-				</div>
+				</Box>
 			</Blanket>
 			<div css={behindOffsetStyles}>
-				<h2>Behind blanket</h2>
-				<div>
+				<Heading size="large">Behind blanket</Heading>
+				<Inline alignBlock="center">
 					<Button onClick={incrementCount} testId="increment">
 						Increment
 					</Button>
 					<Badge testId="count-increment-clicked">{countIncrementClicked}</Badge>
-				</div>
-				<div>
-					Blanket clicked
+				</Inline>
+				<Inline alignBlock="center">
+					<Text>Blanket clicked</Text>
 					<Badge testId="count-blanket-clicked">{countBlanketClicked}</Badge>
-				</div>
+				</Inline>
 			</div>
-		</div>
+		</Box>
 	);
 };
 

@@ -1,4 +1,7 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { doc, p, status } from '@atlaskit/adf-utils/builders';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -9,7 +12,7 @@ import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import type { ApplyAnnotation } from '../../../../../actions/index';
@@ -20,8 +23,11 @@ import type { Position } from '../../../types';
 import { SelectionInlineCommentMounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../draft');
+
+const inlineNodeTypesTestId = 'inline-nodes-type';
 
 describe('Annotations: SelectionInlineCommentMounter', () => {
 	const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
@@ -32,10 +38,15 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 	let createRangeMock: jest.SpyInstance;
 	let onCloseCallback: Function = () => {};
 
-	const renderMounter = (
-		fakeDocumentPosition: Position | false = { from: 0, to: 10 },
+	const renderMounter = ({
+		fakeDocumentPosition = { from: 0, to: 10 },
 		isAnnotationAllowed = true,
-	) => {
+		actionsDoc,
+	}: {
+		fakeDocumentPosition?: Position | false;
+		isAnnotationAllowed?: boolean;
+		actionsDoc?: PMNode;
+	} = {}) => {
 		const wrapperDOM = {
 			current: container!,
 		} as React.RefObject<HTMLDivElement>;
@@ -43,6 +54,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		let applyDraftModeCallback: Function = () => {};
 		// @ts-ignore
 		const actions = {
+			doc: actionsDoc,
 			isValidAnnotationPosition: jest.fn(() => true),
 			getAnnotationsByPosition: jest.fn(() => []),
 		} as RendererActions;
@@ -51,7 +63,11 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			onCreateCallback = props.onCreate;
 			onCloseCallback = props.onClose;
 			applyDraftModeCallback = props.applyDraftMode;
-			return <span data-dummy>dummy</span>;
+			return (
+				<span data-dummy>
+					<div data-testid={inlineNodeTypesTestId}>{JSON.stringify(props.inlineNodeTypes)}</div>
+				</span>
+			);
 		};
 
 		render(
@@ -165,7 +181,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			it('should return false for the annotation if the range is not valid', () => {
 				let retVal: AnnotationActionResult = false;
 
-				const { applyDraftModeCallback } = renderMounter(false);
+				const { applyDraftModeCallback } = renderMounter({ fakeDocumentPosition: false });
 
 				act(() => {
 					retVal = applyDraftModeCallback({ annotationId: '12345' });
@@ -178,14 +194,16 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		describe('and when the document position changes', () => {
 			it('should create the annotation in the previous draft position', () => {
 				const fakeDocumentPosition = { from: 0, to: 10 };
-				const { onCreateCallback, applyDraftModeCallback } = renderMounter(fakeDocumentPosition);
+				const { onCreateCallback, applyDraftModeCallback } = renderMounter({
+					fakeDocumentPosition,
+				});
 
 				act(() => {
 					applyDraftModeCallback({ keepNativeSelection: true });
 				});
 
 				const nextDocumentPosition = { from: 30, to: 45 };
-				renderMounter(nextDocumentPosition);
+				renderMounter({ fakeDocumentPosition: nextDocumentPosition });
 
 				onCreateCallback('annotationId');
 
@@ -220,7 +238,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		});
 
 		it('sends create not allowed analytics event when annotation is not allowed', () => {
-			const { applyDraftModeCallback } = renderMounter(undefined, false);
+			const { applyDraftModeCallback } = renderMounter({ isAnnotationAllowed: false });
 			act(() => {
 				applyDraftModeCallback({ keepNativeSelection: true });
 			});
@@ -238,7 +256,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		describe('when the position is valid', () => {
 			it('should call applyAnnotation method', () => {
 				const fakeDocumentPosition = { from: 0, to: 10 };
-				const { onCreateCallback } = renderMounter(fakeDocumentPosition);
+				const { onCreateCallback } = renderMounter({ fakeDocumentPosition });
 
 				const fakeAnnotation = {
 					annotationId: 'annotationId',
@@ -256,7 +274,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 			it('sends insert analytics event', () => {
 				const fakeDocumentPosition = { from: 0, to: 10 };
-				const { onCreateCallback } = renderMounter(fakeDocumentPosition);
+				const { onCreateCallback } = renderMounter({ fakeDocumentPosition });
 				onCreateCallback('annotationId');
 
 				expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
@@ -274,7 +292,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		let onCloseCallback: Function;
 		beforeEach(() => {
 			const fakeDocumentPosition = { from: 0, to: 10 };
-			onCloseCallback = renderMounter(fakeDocumentPosition).onCloseCallback;
+			onCloseCallback = renderMounter({ fakeDocumentPosition }).onCloseCallback;
 
 			act(() => {
 				onCloseCallback();
@@ -295,5 +313,23 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				attributes: {},
 			});
 		});
+	});
+
+	describe('should provide inlineNodeTypes props to the component', () => {
+		const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
+
+		ffTest(
+			'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+			() => {
+				renderMounter({ actionsDoc });
+
+				expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('["status","text"]');
+			},
+			() => {
+				renderMounter({ actionsDoc });
+
+				expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
+			},
+		);
 	});
 });

@@ -1,5 +1,14 @@
 # @atlaskit/breadcrumbs
 
+## 12.2.3
+
+### Patch Changes
+
+- [#111502](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111502)
+  [`f5d70d96f5f53`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5d70d96f5f53) -
+  Internal update to typography styles, no visual changes.
+- Updated dependencies
+
 ## 12.2.2
 
 ### Patch Changes

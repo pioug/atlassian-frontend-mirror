@@ -1,0 +1,60 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-paste/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-markdown-transformer/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-annotation/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-better-type-history/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-card/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-list/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-media/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-tables/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../media/media-client/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../media/media-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    }
+  ]
+}

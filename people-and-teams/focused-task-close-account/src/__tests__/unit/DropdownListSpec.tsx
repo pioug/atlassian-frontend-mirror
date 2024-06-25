@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { DropdownList } from '../../components/DropdownList';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 
 const accessibleSites = ['hello.atlassian.net', 'acme.atlassian.net', 'test.atlassian.net'];
 

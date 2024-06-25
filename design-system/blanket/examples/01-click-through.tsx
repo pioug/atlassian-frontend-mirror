@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { useCloseOnEscapePress } from '@atlaskit/layering';
+import { Stack, Text } from '@atlaskit/primitives';
 
 import Blanket from '../src';
 
@@ -9,19 +11,25 @@ const BasicExample = () => {
 	const showBlanketClick = useCallback(() => {
 		setIsBlanketVisible((isBlanketVisible) => !isBlanketVisible);
 	}, [setIsBlanketVisible]);
+	useCloseOnEscapePress({
+		onClose: showBlanketClick,
+		isDisabled: !isBlanketVisible,
+	});
 	return (
-		<div>
+		<Stack space="space.100" alignInline="start">
+			<Text>
+				Open the blanket by clicking the "Show blanket" button. To dismiss the blanket, either click
+				the "Hide blanket" button or press the Escape key.
+			</Text>
+			<Text>
+				Because shouldAllowClickThrough is enabled, onBlanketClicked is not called & elements
+				underneath the blanket can be interacted with directly.
+			</Text>
 			<Button appearance="default" onClick={showBlanketClick}>
-				{!isBlanketVisible ? 'Show Blanket' : 'Hide Blanket'}
+				{!isBlanketVisible ? 'Show blanket' : 'Hide blanket'}
 			</Button>
-			<p>
-				Open the blanket with shouldAllowClickThrough enabled & click the blanket to dismiss it.
-				With shouldAllowClickThrough enabled, onBlanketClicked is not called & elements underneath
-				the blanket can be interacted with directly.
-			</p>
-
 			<Blanket isTinted={isBlanketVisible} shouldAllowClickThrough />
-		</div>
+		</Stack>
 	);
 };
 

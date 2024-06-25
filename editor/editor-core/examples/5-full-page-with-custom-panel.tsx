@@ -1,60 +1,21 @@
 import React from 'react';
 
-import { IntlProvider } from 'react-intl-next';
-
-import { LanguagePicker } from '@af/editor-examples-helpers/utils';
-
 import { exampleDocument } from '../example-helpers/example-doc-with-custom-panels';
-import enMessages from '../src/i18n/en';
-import languages from '../src/i18n/languages';
 
 import { default as FullPageExample } from './5-full-page';
-
-export type Props = {};
-export type State = {
-	locale: string;
-	messages: { [key: string]: string };
-};
-
-export default class ExampleEditor extends React.Component<Props, State> {
-	state: State = { locale: 'en', messages: enMessages };
-
+export default class ExampleEditor extends React.Component {
 	render() {
-		const { locale, messages } = this.state;
-
 		return (
-			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages} key={locale}>
-				<FullPageExample
-					disableIntlProviderInExample={true}
-					editorProps={{
-						defaultValue: exampleDocument,
-						allowHelpDialog: true,
-						allowPanel: {
-							allowCustomPanel: true,
-							allowCustomPanelEdit: true,
-						},
-					}}
-					customPrimaryToolbarComponents={
-						<LanguagePicker languages={languages} locale={locale} onChange={this.loadLocale} />
-					}
-				/>
-			</IntlProvider>
+			<FullPageExample
+				editorProps={{
+					defaultValue: exampleDocument,
+					allowHelpDialog: true,
+					allowPanel: {
+						allowCustomPanel: true,
+						allowCustomPanelEdit: true,
+					},
+				}}
+			/>
 		);
 	}
-
-	private loadLocale = async (locale: string) => {
-		const messages = await Promise.all([
-			// eslint-disable-next-line import/dynamic-import-chunkname
-			import(`../src/i18n/${locale}`),
-			// eslint-disable-next-line import/dynamic-import-chunkname
-			import(`../../../elements/mention/src/i18n/${locale}`),
-		]).then((args) => ({
-			...args[0].default,
-			...args[1].default,
-		}));
-
-		this.setState({ locale, messages });
-	};
-
-	private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { AKIconWrapper } from '../Icon';

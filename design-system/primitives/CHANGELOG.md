@@ -1,5 +1,34 @@
 # @atlaskit/primitives
 
+## 8.2.1
+
+### Patch Changes
+
+- [#113600](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113600)
+  [`7ba62903cc2eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ba62903cc2eb) -
+  Internal changes to both Pressable and Anchor primitives. They no longer use the Box primitive.
+  There are no changes for consumers.
+
+## 8.2.0
+
+### Minor Changes
+
+- [#114203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114203)
+  [`fb57afa892329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb57afa892329) -
+  Added `:visited:hover` XCSS pseudo combination.
+
+## 8.1.0
+
+### Minor Changes
+
+- [#113286](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113286)
+  [`7c318f9ea8f09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c318f9ea8f09) -
+  Added support for skeleton color tokens as XCSS background colors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.0.1
 
 ### Patch Changes

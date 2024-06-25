@@ -1,5 +1,34 @@
 # @atlaskit/link-datasource
 
+## 2.4.2
+
+### Patch Changes
+
+- [#113897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113897)
+  [`d074d3df7025a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d074d3df7025a) -
+  Update Assets LoL table footer refresh button to clear column and visible key state
+- Updated dependencies
+
+## 2.4.1
+
+### Patch Changes
+
+- [#113044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113044)
+  [`2370431d9d611`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2370431d9d611) -
+  Add analytics events(opened, closed) for lastModified confluence SLLV filter.
+
+## 2.4.0
+
+### Minor Changes
+
+- [#114156](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114156)
+  [`bc6a63af2d1d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc6a63af2d1d0) -
+  Bump adf-schema to 37.0.0 and adf-schema-json to 1.16.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.13
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useContext } from 'react';
+import React, { useCallback, useState, useContext, useMemo } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
 	AnnotationByMatches,
@@ -55,6 +55,13 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const providers = useContext(ProvidersContext);
 	const isCommentsOnMediaBugFixEnabled = !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
+	const inlineNodeTypes = useMemo(() => {
+		return getRendererRangeInlineNodeNames({
+			pos: documentPosition,
+			actions,
+		});
+	}, [documentPosition, actions]);
+
 	const onCreateCallback = useCallback(
 		(annotationId: string) => {
 			// We want to support creation on a documentPosition if the user is only using ranges
@@ -83,10 +90,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 					actionSubject: ACTION_SUBJECT.ANNOTATION,
 					actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 					attributes: {
-						inlineNodeNames: getRendererRangeInlineNodeNames({
-							pos: positionToAnnotate,
-							actions,
-						}),
+						inlineNodeNames: inlineNodeTypes,
 					},
 					eventType: EVENT_TYPE.TRACK,
 				}).fire(FabricChannel.editor);
@@ -101,6 +105,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			draftDocumentPosition,
 			createAnalyticsEvent,
 			isCommentsOnMediaBugFixEnabled,
+			inlineNodeTypes,
 		],
 	);
 
@@ -125,10 +130,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 						actionSubject: ACTION_SUBJECT.ANNOTATION,
 						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 						attributes: {
-							inlineNodeNames: getRendererRangeInlineNodeNames({
-								pos: documentPosition,
-								actions,
-							}),
+							inlineNodeNames: inlineNodeTypes,
 						},
 						eventType: EVENT_TYPE.TRACK,
 					}).fire(FabricChannel.editor);
@@ -149,10 +151,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 					eventType: EVENT_TYPE.TRACK,
 					attributes: {
 						overlap: uniqueAnnotationsInRange.length,
-						inlineNodeNames: getRendererRangeInlineNodeNames({
-							pos: documentPosition,
-							actions,
-						}),
+						inlineNodeNames: inlineNodeTypes,
 					},
 				}).fire(FabricChannel.editor);
 			}
@@ -191,6 +190,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			isCommentsOnMediaBugFixEnabled,
 			actions,
 			range,
+			inlineNodeTypes,
 		],
 	);
 
@@ -212,16 +212,13 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 				actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
 				eventType: EVENT_TYPE.TRACK,
 				attributes: {
-					inlineNodeNames: getRendererRangeInlineNodeNames({
-						pos: documentPosition,
-						actions,
-					}),
+					inlineNodeNames: inlineNodeTypes,
 				},
 			}).fire(FabricChannel.editor);
 		}
 		removeDraftModeCallback();
 		onCloseProps();
-	}, [actions, documentPosition, onCloseProps, removeDraftModeCallback, createAnalyticsEvent]);
+	}, [onCloseProps, removeDraftModeCallback, createAnalyticsEvent, inlineNodeTypes]);
 
 	return (
 		<Component
@@ -234,6 +231,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 			getAnnotationIndexMatch={createIndexCallback}
 			applyDraftMode={applyDraftModeCallback}
 			removeDraftMode={removeDraftModeCallback}
+			inlineNodeTypes={inlineNodeTypes}
 		/>
 	);
 });

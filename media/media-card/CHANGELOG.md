@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 77.12.3
+
+### Patch Changes
+
+- [`cd38da52e02b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd38da52e02b7) -
+  Media Card handles SVG errors and logs extra info for monitoring
+
 ## 77.12.2
 
 ### Patch Changes

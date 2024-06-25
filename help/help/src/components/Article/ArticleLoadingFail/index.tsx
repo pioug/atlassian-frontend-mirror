@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import {
 	useAnalyticsEvents,

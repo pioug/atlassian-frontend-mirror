@@ -1,0 +1,48 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-tasks-and-decisions/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-namespaced-context/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-context-identifier/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-type-ahead/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../input-rules/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../elements/task-decision/afm-jira/tsconfig.json"
+    }
+  ]
+}

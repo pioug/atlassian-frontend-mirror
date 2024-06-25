@@ -34,6 +34,72 @@ const isJiraProvider = (provider?: string) => provider === JIRA_GENERATOR_ID;
 const isNativeProvider = (provider?: string) =>
 	isConfluenceProvider(provider) || isJiraProvider(provider);
 
+function chooseIcon({
+	urlIcon,
+	type,
+	label,
+	data,
+	providerIcon,
+}: {
+	urlIcon: IconDescriptor | undefined;
+	providerIcon: IconDescriptor | undefined;
+	type: string;
+	label: string | undefined;
+	data: JsonLd.Data.BaseData;
+}) {
+	const providerId = (data.generator as JsonLd.Primitives.Object)?.['@id'];
+	const fileFormat = (data as JsonLd.Data.Document)?.['schema:fileFormat'];
+	const fileFormatIcon = extractFileFormatIcon(fileFormat);
+	const documentTypeIcon =
+		typeToIconDescriptor({ type, label, providerId, data }) || extractDocumentTypeIcon(type, label);
+
+	return prioritiseIcon<IconDescriptor>({
+		fileFormatIcon,
+		documentTypeIcon,
+		urlIcon,
+		providerIcon,
+	});
+}
+
+function typeToIconDescriptor({
+	type,
+	label,
+	providerId,
+	data,
+}: {
+	type: string;
+	label: string | undefined;
+	providerId: string | undefined;
+	data: JsonLd.Data.BaseData;
+}): IconDescriptor | undefined {
+	switch (type) {
+		case 'atlassian:Goal':
+			return { icon: IconType.Task, label: label || 'Goal' };
+		case 'atlassian:Project':
+			return { icon: IconType.Project, label: label || 'Project' };
+		case 'atlassian:SourceCodeCommit':
+			return { icon: IconType.Commit, label: label || 'Commit' };
+		case 'atlassian:SourceCodePullRequest':
+			return { icon: IconType.PullRequest, label: label || 'Pull request' };
+		case 'atlassian:SourceCodeReference':
+			return { icon: IconType.Branch, label: label || 'Reference' };
+		case 'atlassian:SourceCodeRepository':
+			return { icon: IconType.Repo, label: label || 'Repository' };
+		case 'atlassian:Task':
+			const taskLabel = label || 'Task';
+			const taskIconDescriptor = { icon: IconType.Task, label: taskLabel };
+			if (isJiraProvider(providerId)) {
+				const { taskType, taskIcon } = extractTask(data as JsonLd.Data.Task);
+				return taskType === 'JiraCustomTaskType'
+					? taskIcon || taskIconDescriptor
+					: extractJiraTaskIcon(taskType, taskLabel);
+			}
+			return taskIconDescriptor;
+		default:
+			return undefined;
+	}
+}
+
 /**
  * Return the icon object given a JSON-LD data object.
  */
@@ -44,6 +110,10 @@ const extractJsonldDataIcon = (data: JsonLd.Data.BaseData): IconDescriptor | und
 	const urlIcon = extractUrlIcon(data.icon, label);
 	const provider = generator?.['@id'];
 	const providerIcon = extractProviderIcon(data);
+
+	if (getBooleanFF('platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour')) {
+		return chooseIcon({ urlIcon, providerIcon, type, label, data });
+	}
 
 	switch (type) {
 		case 'Document':
@@ -62,17 +132,6 @@ const extractJsonldDataIcon = (data: JsonLd.Data.BaseData): IconDescriptor | und
 			const fileFormat = documentData?.['schema:fileFormat'];
 			const fileFormatIcon = extractFileFormatIcon(fileFormat);
 			const documentTypeIcon = extractDocumentTypeIcon(type, label);
-			if (
-				getBooleanFF('platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour')
-			) {
-				return prioritiseIcon<IconDescriptor>({
-					providerId: provider,
-					fileFormatIcon,
-					documentTypeIcon,
-					urlIcon,
-					providerIcon,
-				});
-			}
 			return isNativeProvider(provider)
 				? fileFormatIcon || documentTypeIcon || urlIcon || providerIcon
 				: providerIcon || fileFormatIcon || documentTypeIcon;
@@ -98,43 +157,8 @@ const extractJsonldDataIcon = (data: JsonLd.Data.BaseData): IconDescriptor | und
 		case 'atlassian:SourceCodeRepository':
 			return { icon: IconType.Repo, label: label || 'Repository' };
 		default:
-			return getBooleanFF(
-				'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-			)
-				? extractDefaultIcon({ data, type, label, provider, urlIcon, providerIcon })
-				: providerIcon;
+			return providerIcon;
 	}
 };
 
 export default extractJsonldDataIcon;
-
-/**
- * Choose which icon to show when the type is not recognized.
- */
-const extractDefaultIcon = ({
-	data,
-	type,
-	label,
-	provider,
-	urlIcon,
-	providerIcon,
-}: {
-	data: JsonLd.Data.BaseData;
-	type: string;
-	label: string | undefined;
-	provider: string | undefined;
-	urlIcon: IconDescriptor | undefined;
-	providerIcon: IconDescriptor | undefined;
-}): IconDescriptor | undefined => {
-	const documentData = data as JsonLd.Data.Document;
-	const fileFormat = documentData?.['schema:fileFormat'];
-	const fileFormatIcon = extractFileFormatIcon(fileFormat);
-	const documentTypeIcon = extractDocumentTypeIcon(type, label);
-	return prioritiseIcon<IconDescriptor>({
-		providerId: provider,
-		fileFormatIcon,
-		documentTypeIcon,
-		urlIcon,
-		providerIcon,
-	});
-};

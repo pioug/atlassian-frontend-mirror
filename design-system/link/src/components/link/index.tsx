@@ -10,12 +10,11 @@ import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { Box, xcss } from '@atlaskit/primitives';
 import Anchor, { type AnchorProps } from '@atlaskit/primitives/anchor';
 
-const defaultLinkStyles = xcss({
-	color: 'color.link',
-	':active': {
-		color: 'color.link.pressed',
-	},
+const commonLinkStyles = xcss({
 	':visited': {
+		color: 'color.link.visited',
+	},
+	':visited:hover': {
 		color: 'color.link.visited',
 	},
 	':visited:active': {
@@ -23,19 +22,31 @@ const defaultLinkStyles = xcss({
 	},
 });
 
-const underlineStyles = xcss({
+const defaultAppearanceStyles = xcss({
 	textDecoration: 'underline',
+	color: 'color.link',
 
 	':hover': {
+		color: 'color.link',
 		textDecoration: 'none',
+	},
+
+	':active': {
+		color: 'color.link.pressed',
 	},
 });
 
-const noUnderlineStyles = xcss({
+const subtleAppearanceStyles = xcss({
 	textDecoration: 'none',
+	color: 'color.text.subtle',
 
 	':hover': {
+		color: 'color.text.subtle',
 		textDecoration: 'underline',
+	},
+
+	':active': {
+		color: 'color.text',
 	},
 });
 
@@ -66,16 +77,16 @@ export type LinkProps<RouterLinkConfig extends Record<string, any> = never> = Om
 	> &
 	RouterLinkComponentProps<RouterLinkConfig> & {
 		/**
-		 * Show an underline in the link's resting state. Defaults to `true`
+		 * The appearance of the link. Defaults to `default`. A `subtle` appearance will render the link with a lighter color and no underline in resting state.
 		 */
-		isUnderlined?: boolean;
+		appearance?: 'default' | 'subtle';
 	};
 
 const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 	{
 		children,
 		testId,
-		isUnderlined = true,
+		appearance = 'default',
 		target,
 		// @ts-expect-error
 		className: preventedClassName,
@@ -92,7 +103,11 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 			target={target}
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			xcss={[defaultLinkStyles, isUnderlined ? underlineStyles : noUnderlineStyles]}
+			xcss={[
+				commonLinkStyles,
+				appearance === 'default' && defaultAppearanceStyles,
+				appearance === 'subtle' && subtleAppearanceStyles,
+			]}
 			testId={testId}
 			componentName="Link"
 		>

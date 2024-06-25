@@ -9,6 +9,7 @@ import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 //
 const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
 	typescript: ['5.4'],
+	tslib: ['2.6'],
 	'@types/react': ['16.14', '18.2'],
 	'react-relay': ['npm:atl-react-relay@0.0.0-main-2ccd6998'],
 	'relay-compiler': ['npm:atl-relay-compiler@0.0.0-main-2ccd6998'],

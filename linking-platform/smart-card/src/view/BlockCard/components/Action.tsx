@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import { useState } from 'react';
 
 import { type Appearance } from '@atlaskit/button/types';
-import Button from '@atlaskit/button/custom-theme-button';
+import { LoadingButton as Button } from '@atlaskit/button';
 import { ActionIcon } from './ActionIcon';
 
 export interface ActionProps {

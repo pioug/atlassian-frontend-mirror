@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
 import Theme, {

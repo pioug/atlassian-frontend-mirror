@@ -19,7 +19,7 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
       />
     </Styled(h3)>
     <Styled(div)>
-      <CustomThemeButton
+      <Button
         appearance="subtle"
         href="profile-urlabcd"
         isDisabled={false}
@@ -35,7 +35,7 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
             name
           </Styled(span)>
         </Styled(div)>
-      </CustomThemeButton>
+      </Button>
     </Styled(div)>
   </Styled(div)>
   <Styled(div)>

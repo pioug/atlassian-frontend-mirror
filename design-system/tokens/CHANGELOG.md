@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.53.0
+
+### Minor Changes
+
+- [#114028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114028)
+  [`e4471e32707ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e4471e32707ff) -
+  Export `ActiveThemeState` type from main entry point
+
 ## 1.52.0
 
 ### Minor Changes

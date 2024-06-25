@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import SectionMessage from '@atlaskit/section-message';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 

@@ -26,6 +26,26 @@ snapshot(AnchorDefault, {
 	],
 });
 
+snapshot(AnchorDefault, {
+	description: 'Hovered',
+	states: [
+		{
+			state: 'hovered',
+			selector: { byTestId: 'anchor-default' },
+		},
+	],
+});
+
+snapshot(AnchorDefault, {
+	description: 'Focused',
+	states: [
+		{
+			state: 'focused',
+			selector: { byTestId: 'anchor-default' },
+		},
+	],
+});
+
 snapshot(AnchorStyled, {
 	variants: [
 		{

@@ -1,12 +1,22 @@
 import React, { Fragment, type MouseEvent } from 'react';
 
-import { LinkButton } from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
-import { Box } from '@atlaskit/primitives';
+import { Anchor, Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { Footer, NavigationFooter } from '../src';
 
 import SampleIcon from './common/next-gen-project-icon';
+
+const descriptionLinkStyles = xcss({
+	fontWeight: token('font.weight.medium'),
+	color: 'color.text.subtle',
+	textDecoration: 'none',
+
+	':hover': {
+		color: 'color.text.subtle',
+	},
+});
 
 const Example = () => {
 	return (
@@ -16,13 +26,13 @@ const Example = () => {
 					useDeprecatedApi={false}
 					description={
 						<Fragment>
-							<LinkButton appearance="subtle-link" href="/feedback" spacing="none">
+							<Anchor href="/feedback" xcss={descriptionLinkStyles}>
 								Give feedback
-							</LinkButton>
+							</Anchor>
 							{' ∙ '}
-							<LinkButton appearance="subtle-link" href="/learn" spacing="none">
+							<Anchor href="/learn" xcss={descriptionLinkStyles}>
 								Learn more
-							</LinkButton>
+							</Anchor>
 						</Fragment>
 					}
 				>
@@ -36,13 +46,13 @@ const Example = () => {
 					iconBefore={<Icon label="" glyph={SampleIcon} />}
 					description={
 						<Fragment>
-							<LinkButton appearance="subtle-link" href="/feedback" spacing="none">
+							<Anchor href="/feedback" xcss={descriptionLinkStyles}>
 								Give feedback
-							</LinkButton>
+							</Anchor>
 							{' ∙ '}
-							<LinkButton appearance="subtle-link" href="/learn" spacing="none">
+							<Anchor href="/learn" xcss={descriptionLinkStyles}>
 								Learn more
-							</LinkButton>
+							</Anchor>
 						</Fragment>
 					}
 				>

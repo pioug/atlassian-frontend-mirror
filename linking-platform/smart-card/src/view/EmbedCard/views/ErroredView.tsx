@@ -2,7 +2,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { fontSize } from '@atlaskit/theme/constants';
 import { R300 } from '@atlaskit/theme/colors';

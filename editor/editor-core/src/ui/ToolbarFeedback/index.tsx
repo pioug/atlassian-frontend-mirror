@@ -6,8 +6,8 @@ import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
+import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
 import type { AnalyticsDispatch } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,

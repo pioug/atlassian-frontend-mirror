@@ -1,0 +1,85 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__editor-core/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/stories/*"
+  ],
+  "references": [
+    {
+      "path": "../../activity-provider/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../analytics/analytics-namespaced-context/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../analytics/analytics-next/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-json-transformer/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugins/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../elements/emoji/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../media/media-card/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../elements/mention/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/spinner/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../elements/task-decision/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/width-detector/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../linking-platform/link-provider/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../media/media-core/afm-jira/tsconfig.json"
+    }
+  ]
+}

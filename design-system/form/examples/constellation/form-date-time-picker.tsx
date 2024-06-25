@@ -70,8 +70,10 @@ const FormDateTimePickerExample = () => {
 								return (
 									<Fragment>
 										<DateTimePicker
+											// @ts-ignore - Type '"error" | "none"' is not assignable to type 'ValidationState | undefined'.
 											datePickerSelectProps={{ validationState, inputId: id }}
 											timePickerSelectProps={{
+												// @ts-ignore - Type '"error" | "none"' is not assignable to type 'ValidationState | undefined'.
 												validationState,
 												'aria-labelledby': `${id}-label`,
 											}}

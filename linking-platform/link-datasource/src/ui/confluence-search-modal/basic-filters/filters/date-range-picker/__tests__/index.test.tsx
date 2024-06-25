@@ -4,9 +4,11 @@ import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
+import { EVENT_CHANNEL } from '../../../../../../analytics';
 import { type DateRangeOption } from '../../../../../common/modal/popup-select/types';
 import { DateRangePicker, type DateRangeSelection } from '../index';
 
@@ -25,21 +27,30 @@ jest.mock('@atlaskit/datetime-picker', () => ({
 	DatePicker: jest.fn().mockReturnValue(<div data-testid={'mocked-date-picker'}></div>),
 }));
 
+const onAnalyticFireEvent = jest.fn();
+
 describe('DateRangePicker', () => {
 	const buildTestFixture = (
 		onSelectionChange: (updatedOption: DateRangeSelection) => void,
 		config?: {
-			selection: DateRangeOption | undefined;
+			selection?: DateRangeOption | undefined;
+			filterName?: string;
 		},
 	) => {
 		return (
-			<IntlProvider locale="en">
-				<DateRangePicker onSelectionChange={onSelectionChange} selection={config?.selection} />
-			</IntlProvider>
+			<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+				<IntlProvider locale="en">
+					<DateRangePicker
+						onSelectionChange={onSelectionChange}
+						selection={config?.selection}
+						filterName={config?.filterName}
+					/>
+				</IntlProvider>
+			</AnalyticsListener>
 		);
 	};
 
-	const setup = () => {
+	const setup = ({ filterName }: { filterName?: string } = {}) => {
 		userEvent.setup();
 		const spy = jest.fn();
 
@@ -54,7 +65,7 @@ describe('DateRangePicker', () => {
 		};
 
 		const onSelectionChange = jest.fn();
-		const { rerender } = render(buildTestFixture(onSelectionChange));
+		const { rerender } = render(buildTestFixture(onSelectionChange, { filterName }));
 
 		return {
 			getFromDatePickerMockProps,
@@ -65,11 +76,11 @@ describe('DateRangePicker', () => {
 		};
 	};
 
-	describe('basic functionality', () => {
-		beforeEach(() => {
-			jest.clearAllMocks();
-		});
+	beforeEach(() => {
+		jest.clearAllMocks();
+	});
 
+	describe('basic functionality', () => {
 		it('should render a button with default option selected', async () => {
 			setup();
 
@@ -507,6 +518,169 @@ describe('DateRangePicker', () => {
 
 				expect(triggerButton).toHaveTextContent(`Last updated: Jan 1, 2016 - Dec 12, 2016`);
 			});
+		});
+	});
+
+	describe('analytics', () => {
+		it('should not fire any analytics events intially when rendering the component', async () => {
+			setup();
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+
+			expect(triggerButton).toBeInTheDocument();
+			expect(onAnalyticFireEvent).not.toBeCalled();
+		});
+
+		it('should fire "ui.dropdown.opened.basicSearchDropdown" analytics event when the picker is opened', async () => {
+			setup();
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton);
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'opened',
+						actionSubject: 'dropdown',
+						actionSubjectId: 'basicSearchDropdown',
+						attributes: {
+							filterName: 'datasource-date-range-picker',
+							selectionCount: 0,
+						},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire "ui.dropdown.opened.basicSearchDropdown" analytics event with correct "filterName" when a custom name passed', async () => {
+			setup({
+				filterName: 'my-cool-filter',
+			});
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton);
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'opened',
+						actionSubject: 'dropdown',
+						actionSubjectId: 'basicSearchDropdown',
+						attributes: {
+							filterName: 'my-cool-filter',
+							selectionCount: 0,
+						},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire "ui.dropdown.closed.basicSearchDropdown" analytics event when the picker is closed', async () => {
+			setup();
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton);
+			await userEvent.click(triggerButton);
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'closed',
+						actionSubject: 'dropdown',
+						actionSubjectId: 'basicSearchDropdown',
+						attributes: {
+							filterName: 'datasource-date-range-picker',
+							selectionCount: 0,
+						},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire "ui.dropdown.closed.basicSearchDropdown" analytics event with correct "filterName" when a custom name passed', async () => {
+			setup({
+				filterName: 'my-cool-filter',
+			});
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton);
+			await userEvent.click(triggerButton);
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'closed',
+						actionSubject: 'dropdown',
+						actionSubjectId: 'basicSearchDropdown',
+						attributes: {
+							filterName: 'my-cool-filter',
+							selectionCount: 0,
+						},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire "ui.dropdown.closed.basicSearchDropdown" analytics event with correct "selectionCount" when the picker is closed after selection', async () => {
+			setup();
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton);
+
+			const option = await screen.findByText('Today');
+			await userEvent.click(option); // selection will close the picker automatically
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'closed',
+						actionSubject: 'dropdown',
+						actionSubjectId: 'basicSearchDropdown',
+						attributes: {
+							filterName: 'datasource-date-range-picker',
+							selectionCount: 1,
+						},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('should fire "ui.dropdown.opened.basicSearchDropdown" analytics event with correct "selectionCount" when the picker is opened after selection', async () => {
+			setup();
+
+			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
+			await userEvent.click(triggerButton); // open picker
+
+			const option = await screen.findByText('Today');
+			await userEvent.click(option); // selection will close the picker automatically
+
+			await userEvent.click(triggerButton); // open picker again
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'opened',
+						actionSubject: 'dropdown',
+						actionSubjectId: 'basicSearchDropdown',
+						attributes: {
+							filterName: 'datasource-date-range-picker',
+							selectionCount: 1,
+						},
+						eventType: 'ui',
+					},
+				},
+				EVENT_CHANNEL,
+			);
 		});
 	});
 });

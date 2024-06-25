@@ -111,7 +111,7 @@ export class CodeBlockView {
 				codeElement.innerHTML = savedInnerHTML;
 
 				// We need to set cursor for the DOM update
-				const textElement = [...codeElement.childNodes].find(
+				const textElement = Array.from(codeElement.childNodes).find(
 					(child) => child.nodeName === '#text',
 				) as Text;
 

@@ -1,0 +1,93 @@
+{
+  "extends": "../../../../tsconfig.entry-points.jira.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__editor-plugin-table/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../custom-steps/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-common/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-palette/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-accessibility-utils/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-content-insertion/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-guideline/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-width/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-tables/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/menu/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/core/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/auto-scroll/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../pragmatic-drag-and-drop/hitbox/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/toggle/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+    }
+  ]
+}

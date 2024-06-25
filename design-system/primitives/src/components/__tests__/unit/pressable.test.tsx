@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -40,21 +40,13 @@ describe('Pressable', () => {
 		expect(screen.getByTestId(testId)).toHaveAttribute('type', 'button');
 	});
 
-	it('should only render a <button> regardless of Box `as` prop override', () => {
+	it('should allow default type to be overridden', () => {
 		render(
-			<Pressable
-				// The `as` prop isn't allowed by types, but we should
-				// confirm the primitive can't be intentionally misused by
-				// forwarding this prop to Box.
-				// @ts-expect-error
-				as="a"
-				href="atlassian.design"
-				testId={testId}
-			>
+			<Pressable testId={testId} type="submit">
 				Pressable
 			</Pressable>,
 		);
-		expect(screen.getByTestId(testId).nodeName).toEqual('BUTTON');
+		expect(screen.getByTestId(testId)).toHaveAttribute('type', 'submit');
 	});
 
 	it('should render plain text as children', () => {
@@ -77,26 +69,60 @@ describe('Pressable', () => {
 
 	it('should apply aria attributes', () => {
 		render(
-			<Fragment>
-				<Pressable testId="pressed" aria-pressed="true">
-					Mute sound
+			<>
+				<Pressable
+					testId={testId}
+					aria-label="Read the Atlassian Design System documentation"
+					aria-labelledby="foo"
+					role="tab"
+					aria-selected="true"
+					aria-controls="tabpanel-id"
+				>
+					Pressable
 				</Pressable>
-				<Pressable testId="haspopup" aria-haspopup="menu">
-					Menu
-				</Pressable>
-			</Fragment>,
+				<div id="tabpanel-id">Tab panel</div>
+			</>,
 		);
-		expect(screen.getByTestId('pressed')).toHaveAttribute('aria-pressed', 'true');
-		expect(screen.getByTestId('haspopup')).toHaveAttribute('aria-haspopup', 'menu');
+		const pressable = screen.getByTestId(testId);
+		expect(pressable).toHaveAttribute(
+			'aria-label',
+			'Read the Atlassian Design System documentation',
+		);
+		expect(pressable).toHaveAttribute('aria-labelledby', 'foo');
+		expect(pressable).toHaveAttribute('aria-selected', 'true');
+		expect(pressable).toHaveAttribute('aria-controls', 'tabpanel-id');
+		expect(pressable).toHaveAttribute('role', 'tab');
 	});
 
-	it('should disable the button using `isDisabled` prop', () => {
+	it('should apply data attributes', () => {
 		render(
-			<Pressable testId={testId} isDisabled>
-				Disabled
+			<Pressable testId={testId} data-test="foo">
+				Pressable
 			</Pressable>,
 		);
-		expect(screen.getByTestId(testId)).toBeDisabled();
+		expect(screen.getByTestId(testId)).toHaveAttribute('data-test', 'foo');
+	});
+
+	describe('`isDisabled` prop', () => {
+		it('should disable the button', () => {
+			render(
+				<Pressable testId={testId} isDisabled>
+					Disabled
+				</Pressable>,
+			);
+			expect(screen.getByTestId(testId)).toBeDisabled();
+		});
+
+		it('should add not-allowed cursor', () => {
+			render(
+				<Pressable testId={testId} isDisabled>
+					Pressable
+				</Pressable>,
+			);
+
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('cursor')).toBe('not-allowed');
+		});
 	});
 
 	it('should call click handler when present', () => {
@@ -113,48 +139,76 @@ describe('Pressable', () => {
 		expect(mockOnClick).toHaveBeenCalled();
 	});
 
-	it('should apply styles with `xcss`', () => {
-		render(
-			<Pressable testId={testId} xcss={pressableStyles}>
-				Pressable with xcss styles
-			</Pressable>,
-		);
+	describe('styles', () => {
+		it('should apply styles with `xcss`', () => {
+			render(
+				<Pressable testId={testId} xcss={pressableStyles}>
+					Pressable with xcss styles
+				</Pressable>,
+			);
 
-		const styles = getComputedStyle(screen.getByTestId(testId));
-		expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
-	});
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+		});
 
-	test('`xcss` should result in expected css', () => {
-		render(
-			<Pressable
-				testId={testId}
-				backgroundColor="elevation.surface"
-				padding="space.0"
-				paddingBlock="space.0"
-				paddingBlockStart="space.0"
-				paddingBlockEnd="space.0"
-				paddingInline="space.0"
-				paddingInlineStart="space.0"
-				paddingInlineEnd="space.0"
-				xcss={styles}
-			>
-				child
-			</Pressable>,
-		);
-		const element = screen.getByTestId(testId);
-		expect(element).toBeInTheDocument();
+		test('`xcss` should result in expected css', () => {
+			render(
+				<Pressable
+					testId={testId}
+					backgroundColor="elevation.surface"
+					padding="space.0"
+					paddingBlock="space.0"
+					paddingBlockStart="space.0"
+					paddingBlockEnd="space.0"
+					paddingInline="space.0"
+					paddingInlineStart="space.0"
+					paddingInlineEnd="space.0"
+					xcss={styles}
+				>
+					child
+				</Pressable>,
+			);
+			const element = screen.getByTestId(testId);
+			expect(element).toBeInTheDocument();
 
-		expect(element).toHaveCompiledCss({
-			// Every value in here overrides the props values
-			// eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
-			backgroundColor: 'var(--ds-surface, #FFFFFF)',
-			padding: 'var(--ds-space-100, 8px)',
-			paddingBlock: 'var(--ds-space-100, 8px)',
-			paddingBlockStart: 'var(--ds-space-100, 8px)',
-			paddingBlockEnd: 'var(--ds-space-100, 8px)',
-			paddingInline: 'var(--ds-space-100, 8px)',
-			paddingInlineStart: 'var(--ds-space-100, 8px)',
-			paddingInlineEnd: 'var(--ds-space-100, 8px)',
+			expect(element).toHaveCompiledCss({
+				// Every value in here overrides the props values
+				// eg. `props.padding="space.0"` is overridden by `xcss.padding: 'space.100'`
+				backgroundColor: 'var(--ds-surface, #FFFFFF)',
+				padding: 'var(--ds-space-100, 8px)',
+				paddingBlock: 'var(--ds-space-100, 8px)',
+				paddingBlockStart: 'var(--ds-space-100, 8px)',
+				paddingBlockEnd: 'var(--ds-space-100, 8px)',
+				paddingInline: 'var(--ds-space-100, 8px)',
+				paddingInlineStart: 'var(--ds-space-100, 8px)',
+				paddingInlineEnd: 'var(--ds-space-100, 8px)',
+			});
+		});
+
+		it('should apply styles with `style`', () => {
+			render(
+				<Pressable
+					testId={testId}
+					style={{
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						textTransform: 'uppercase',
+					}}
+				>
+					Pressable with inline styles
+				</Pressable>,
+			);
+
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('text-transform')).toBe('uppercase');
+		});
+
+		it('should have critical default styles', () => {
+			render(<Pressable testId={testId}>Pressable</Pressable>);
+
+			const styles = getComputedStyle(screen.getByTestId(testId));
+			expect(styles.getPropertyValue('border')).toBe('');
+			expect(styles.getPropertyValue('appearance')).toBe('none');
+			expect(styles.getPropertyValue('cursor')).toBe('pointer');
 		});
 	});
 

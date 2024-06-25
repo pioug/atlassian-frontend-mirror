@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -12,15 +13,15 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 
 import { Editor } from '../src';
 import type { EditorProps } from '../src';
+import type { EditorActions } from '../src';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarHelp from '../src/ui/ToolbarHelp';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-import { mediaProvider } from './5-full-page';
-
 export type Props = {
 	editorProps?: EditorProps;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	replacementDoc?: any;
 };
 
@@ -29,6 +30,8 @@ export type State = {
 	defaultValue?: Node | string | Object;
 	assistiveLabel?: string;
 };
+
+const mediaProvider = storyMediaProviderFactory();
 
 export class CommentEditorJiraBento extends React.Component<Props, State> {
 	state = {
@@ -46,8 +49,8 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 		activityProvider: Promise.resolve(new MockActivityResource()),
 	};
 
-	onChange = (actions: any) => () => {
-		actions.getValue().then((value: any) => {
+	onChange = (actions: EditorActions) => () => {
+		actions.getValue().then((value) => {
 			this.setState({ defaultValue: value });
 		});
 	};
@@ -67,7 +70,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 							this.onAssitiveLabelInputChange(assistiveLabel)
 						}
 					>
-						{({ formProps }: any) => (
+						{({ formProps }) => (
 							<form
 								{...formProps}
 								style={{
@@ -80,7 +83,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
 								}}
 							>
 								<Field label="Assistive Label" name="assistiveLabel">
-									{({ fieldProps }: any) => (
+									{({ fieldProps }) => (
 										<Textfield placeholder="Enter assistiveLabel" {...fieldProps} />
 									)}
 								</Field>

@@ -49,7 +49,7 @@ const Content = ({ cssFn, scrollContentLabel = 'Scrollable content', ...props }:
 			tabIndex={showContentFocus ? 0 : undefined}
 			role={showContentFocus ? 'region' : undefined}
 			aria-label={showContentFocus ? scrollContentLabel : undefined}
-			data-testId="drawer-contents"
+			data-testid="drawer-contents"
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...props}
 		/>

@@ -256,6 +256,7 @@ export const getRenderSucceededEventPayload = (
 	action: 'succeeded',
 	actionSubject: 'mediaCardRender',
 	attributes: {
+		fileMimetype: fileAttributes.fileMimetype,
 		fileAttributes,
 		performanceAttributes,
 		status: 'success',
@@ -378,6 +379,7 @@ export const getRenderErrorEventPayload = (
 	action: 'failed',
 	actionSubject: 'mediaCardRender',
 	attributes: {
+		fileMimetype: fileAttributes.fileMimetype,
 		fileAttributes,
 		performanceAttributes,
 		status: 'fail',
@@ -421,6 +423,7 @@ export const getRenderFailedFileStatusPayload = (
 	action: 'failed',
 	actionSubject: 'mediaCardRender',
 	attributes: {
+		fileMimetype: fileAttributes.fileMimetype,
 		fileAttributes,
 		performanceAttributes,
 		status: 'fail',

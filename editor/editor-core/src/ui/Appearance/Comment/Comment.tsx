@@ -7,8 +7,8 @@ import classnames from 'classnames';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/custom-theme-button';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';

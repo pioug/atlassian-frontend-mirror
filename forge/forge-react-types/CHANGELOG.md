@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.21.0
+
+### Minor Changes
+
+- [#113502](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113502)
+  [`a6b334ccc7d63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6b334ccc7d63) -
+  Add PieChart component to UI Kit
+
 ## 0.20.1
 
 ### Patch Changes

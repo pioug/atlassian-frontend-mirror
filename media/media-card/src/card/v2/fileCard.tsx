@@ -426,13 +426,34 @@ export const FileCard = ({
 	//---------------------- Callbacks & Handlers  -------------------//
 	//----------------------------------------------------------------//
 
+	const onSvgError = (error: MediaCardError) => {
+		setError(error);
+		setStatus('error');
+		setShouldRenderSVG(false);
+	};
+
 	const onImageError = (newCardPreview?: MediaFilePreview) => {
+		if (
+			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
+			metadata.mimeType === 'image/svg+xml'
+		) {
+			return;
+		}
 		onImageErrorBase(newCardPreview);
 	};
 
-	const onImageLoad = (newCardPreview?: MediaFilePreview) => {
-		onImageLoadBase(newCardPreview);
+	const onSvgLoad = () => {
+		setPreviewDidRender(true);
+	};
 
+	const onImageLoad = (newCardPreview?: MediaFilePreview) => {
+		if (
+			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
+			metadata.mimeType === 'image/svg+xml'
+		) {
+			return;
+		}
+		onImageLoadBase(newCardPreview);
 		setPreviewDidRender(true);
 	};
 
@@ -598,6 +619,7 @@ export const FileCard = ({
 	useEffect(() => {
 		if (
 			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
+			finalStatus !== 'error' &&
 			/**
 			 * We need to check that the card is visible before switching to SVG
 			 * in order to avoid race conditions of the ViewportDector being unmounted before
@@ -609,7 +631,7 @@ export const FileCard = ({
 		) {
 			setShouldRenderSVG(true);
 		}
-	}, [isCardVisible, disableOverlay, metadata]);
+	}, [isCardVisible, disableOverlay, metadata.mimeType, finalStatus]);
 
 	//----------------------------------------------------------------//
 	//----------------- fireScreenEvent ------------------------------//
@@ -839,8 +861,8 @@ export const FileCard = ({
 					onClick={onCardViewClick}
 					onMouseEnter={onImageMouseEnter}
 					progress={uploadProgressRef.current}
-					onImageError={onImageError}
-					onImageLoad={onImageLoad}
+					onError={onSvgError}
+					onLoad={onSvgLoad}
 					mediaCardCursor={mediaCardCursor}
 					shouldOpenMediaViewer={shouldOpenMediaViewer}
 					openMediaViewerButtonRef={mediaViewerButtonRef}

@@ -11,8 +11,6 @@ export {
 	ExampleEditorComponent,
 	getAppearance,
 	quickInsertProvider,
-	mediaProvider,
-	getProviders,
 	SaveAndCancelButtons,
 	saveChanges,
 	LOCALSTORAGE_defaultTitleKey,

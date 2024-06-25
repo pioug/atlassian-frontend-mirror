@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-markdown-transformer",
-	"version": "5.6.2",
+	"version": "5.7.0",
 	"description": "Editor Markdown transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		"markdown-it-table": "^2.0.6"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-json-transformer": "^8.13.0",
+		"@atlaskit/editor-json-transformer": "^8.14.0",
 		"@emotion/react": "^11.7.1",
 		"@types/markdown-it": "^13.0.7",
 		"react": "^16.8.0",

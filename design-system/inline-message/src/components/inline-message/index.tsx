@@ -7,7 +7,7 @@ import { type CSSProperties, type FC, type ReactNode, useCallback, useState } fr
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Inline, Text } from '@atlaskit/primitives';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';

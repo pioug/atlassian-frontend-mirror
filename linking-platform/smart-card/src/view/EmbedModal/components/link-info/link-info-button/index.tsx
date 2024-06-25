@@ -1,6 +1,6 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { type LinkInfoButtonProps } from './types';
 

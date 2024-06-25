@@ -63,7 +63,7 @@ export default class RendererActions
 	// the <RendererContext> component for now.
 	private initFromContext: boolean = false;
 	private transformer: JSONTransformer;
-	private doc?: Node;
+	public doc?: Node;
 	private schema?: Schema;
 	// Any kind of refence is allowed
 	private ref?: any;

@@ -18,9 +18,11 @@ import { Wrapper, ImageContainer } from '../../ui/wrapper';
 import { fileCardImageViewSelector } from '../../classnames';
 import { useBreakpoint } from '../../useBreakpoint';
 
-import MediaSvg, { type MediaSvgProps } from '@atlaskit/media-svg';
+import MediaSvg, { type MediaSvgProps, type MediaSVGError } from '@atlaskit/media-svg';
 import { calculateSvgDimensions } from './helpers';
 import OpenMediaViewerButton from '../../ui/openMediaViewerButton/openMediaViewerButton';
+import { MediaCardError } from '../../../errors';
+import { getErrorReason } from './errors';
 
 export const convertResizeMode = (
 	resizeMode?: ImageResizeMode,
@@ -57,8 +59,8 @@ export interface SvgViewBaseOwnProps {
 	readonly progress?: number;
 	readonly alt?: string;
 	readonly resizeMode?: ImageResizeMode;
-	readonly onImageLoad?: (cardPreview: MediaFilePreview) => void;
-	readonly onImageError?: (cardPreview: MediaFilePreview) => void;
+	readonly onLoad: () => void;
+	readonly onError: (error: MediaCardError) => void;
 	readonly shouldOpenMediaViewer?: boolean;
 	readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
 }
@@ -81,6 +83,8 @@ export const SvgViewBase = ({
 	resizeMode,
 	shouldOpenMediaViewer,
 	openMediaViewerButtonRef = null,
+	onLoad,
+	onError,
 }: SvgViewProps) => {
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [didPreviewRender, setDidPreviewRender] = useState<boolean>(false);
@@ -91,7 +95,14 @@ export const SvgViewBase = ({
 	const onSvgLoad = (evt: React.SyntheticEvent<HTMLImageElement, Event>) => {
 		setSvgDimensions(calculateSvgDimensions(evt.currentTarget, resizeMode));
 		setDidSvgRender(true);
+		onLoad();
 	};
+
+	const onSvgError = (err: MediaSVGError) => {
+		const error = new MediaCardError(getErrorReason(err.primaryReason), err.secondaryError);
+		onError(error);
+	};
+
 	const onPreviewLoad = () => {
 		setDidPreviewRender(true);
 	};
@@ -134,6 +145,7 @@ export const SvgViewBase = ({
 						identifier={identifier}
 						dimensions={svgDimensions}
 						onLoad={onSvgLoad}
+						onError={onSvgError}
 						style={{
 							visibility: didSvgRender ? 'visible' : 'hidden',
 							objectFit: convertResizeMode(resizeMode),

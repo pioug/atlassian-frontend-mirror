@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button';
 import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '@atlaskit/editor-common/quick-insert';

@@ -266,6 +266,7 @@ type CSSMediaQueries = { [MQ in AllMedia]?: Omit<SafeCSSObject, AllMedia> };
 // Allow only a specific subset of chained selectors to maintain workable TypeScript performance
 type ChainedCSSPseudos =
 	| ':visited:active'
+	| ':visited:hover'
 	| ':active:visited'
 	| ':hover::before'
 	| ':hover::after'

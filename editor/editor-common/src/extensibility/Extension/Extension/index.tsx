@@ -7,10 +7,8 @@ import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { WithPluginState } from '../../..//with-plugin-state';
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { useSharedPluginState } from '../../../hooks';
 import type { ProsemirrorGetPosHandler } from '../../../react-node-view';
@@ -214,53 +212,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 }
 
 const Extension = (props: Props & OverflowShadowProps) => {
-	// TODO: ED-17836 This code is here because confluence injects
-	// the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
-	// which cannot access the `pluginInjectionApi`. When we move
-	// Confluence to using presets we can remove this workaround.
-	const { pluginInjectionApi } = props;
-	return pluginInjectionApi === undefined ? (
-		<ExtensionDeprecated {...props} />
-	) : (
-		<ExtensionWithSharedState {...props} />
-	);
-};
-
-const ExtensionWithSharedState = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
 	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
 	return <ExtensionWithPluginState widthState={widthState} {...props} />;
 };
-
-// TODO: ED-17836 This code is here because Confluence injects
-// the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
-// which cannot access the `pluginInjectionApi`. When we move
-// Confluence to using presets we can remove this workaround.
-// @ts-ignore
-const widthPluginKey = {
-	key: 'widthPlugin$',
-	getState: (state: EditorState) => {
-		return (state as any)['widthPlugin$'];
-	},
-} as PluginKey;
-
-const ExtensionDeprecated = (props: Props & OverflowShadowProps) => {
-	return (
-		// @ts-ignore - 'WithPluginState' cannot be used as a JSX component.
-		// This error was introduced after upgrading to TypeScript 5
-		<WithPluginState
-			editorView={props.view}
-			plugins={{
-				widthState: widthPluginKey,
-			}}
-			render={({ widthState }) => <ExtensionWithPluginState widthState={widthState} {...props} />}
-		/>
-	);
-};
-
-/**
- * End workaround
- */
 
 export default overflowShadow(Extension, {
 	overflowSelector: '.extension-overflow-wrapper',

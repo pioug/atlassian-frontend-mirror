@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 22.7.4
+
+### Patch Changes
+
+- [#113286](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113286)
+  [`3099017035f37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3099017035f37) -
+  Migrate native HTML buttons to Pressable primitive.
+- Updated dependencies
+
 ## 22.7.3
 
 ### Patch Changes

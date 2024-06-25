@@ -138,7 +138,7 @@ export type DragMenuOptionIdType =
 	| 'sort_column_asc'
 	| 'sort_column_desc';
 
-export interface DragMenuConfig extends DropdownOptionT<Command> {
+export interface DragMenuConfig extends Omit<DropdownOptionT<Command>, 'icon'> {
 	id: DragMenuOptionIdType;
 	icon?: React.ComponentType<React.PropsWithChildren<IconProps>>;
 	keymap?: string;

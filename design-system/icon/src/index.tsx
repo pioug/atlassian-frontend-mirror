@@ -13,4 +13,5 @@ export type {
 	CustomGlyphProps,
 	SVGProps,
 	NewIconProps as UNSAFE_NewIconProps,
+	IconMigrationMap as UNSAFE_IconMigrationMap,
 } from './types';

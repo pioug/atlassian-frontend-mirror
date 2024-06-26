@@ -267,25 +267,6 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should display subtitle with `Results` after search', async () => {
-		const url = getURL('vr-basic');
-		const page = await setup(url);
-
-		await page.type('[data-testid="link-url"]', 'FAB');
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	it('Should error message after search returns no results', async () => {
-		const url = getURL('vr-basic');
-		const page = await setup(url);
-
-		await page.type('[data-testid="link-url"]', 'FOO', { delay: 50 });
-		await page.waitForSelector('[data-testid="link-search-no-results"]');
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
 	it('Should render tabs with multiple plugins', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
@@ -369,26 +350,6 @@ describe('link-picker', () => {
 		await page.click('[data-test-id="forward"]');
 		await page.click('[data-test-id="forward"]');
 		await page.click('[data-test-id="forward"]');
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	it('Should provide an error message when an error is thrown by a plugin', async () => {
-		const url = getURL('vr-handle-plugin-error');
-		const page = await setup(url);
-
-		await page.click('#link-picker-tabs-1');
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	it('Should hide footer buttons when user is unauthenticated to active Plugin', async () => {
-		const url = getURL('vr-handle-plugin-error');
-		const page = await setup(url);
-
-		await page.click('#link-picker-tabs-2');
 
 		const image = await takeElementScreenShot(page, testSelector);
 		expect(image).toMatchProdImageSnapshot();

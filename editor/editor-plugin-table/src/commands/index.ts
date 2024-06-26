@@ -40,6 +40,7 @@ export {
 	addBoldInEmptyHeaderCells,
 	addResizeHandleDecorations,
 	updateWidthToWidest,
+	setFocusToCellMenu,
 } from './misc';
 export { sortByColumn } from './sort';
 export { goToNextCell } from './go-to-next-cell';

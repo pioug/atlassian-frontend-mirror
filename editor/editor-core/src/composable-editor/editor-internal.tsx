@@ -14,12 +14,9 @@ import {
 	PortalRenderer,
 } from '@atlaskit/editor-common/portal-provider';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-	AllEditorPresetPluginTypes,
-	PublicPluginAPI,
-	Transformer,
-} from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';

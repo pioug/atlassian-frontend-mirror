@@ -443,8 +443,8 @@ describe('@atlaskit/icon', () => {
 				path.join(__dirname, '../../../../core', `${a}.js`),
 			);
 
-			const actualPaths = walkSync(path.join(__dirname, '../../../../core'), []).filter((ab) =>
-				/.*\.js$/.test(ab),
+			const actualPaths = walkSync(path.join(__dirname, '../../../../core'), []).filter(
+				(ab) => /.*\.js$/.test(ab) && !ab.includes('/migration'),
 			);
 
 			expect(actualPaths.sort()).toEqual(expectedPaths.sort());
@@ -457,8 +457,8 @@ describe('@atlaskit/icon', () => {
 				path.join(__dirname, '../../../../utility', `${a}.js`),
 			);
 
-			const actualPaths = walkSync(path.join(__dirname, '../../../../utility'), []).filter((ab) =>
-				/.*\.js$/.test(ab),
+			const actualPaths = walkSync(path.join(__dirname, '../../../../utility'), []).filter(
+				(ab) => /.*\.js$/.test(ab) && !ab.includes('/migration'),
 			);
 
 			expect(actualPaths.sort()).toEqual(expectedPaths.sort());
@@ -492,6 +492,21 @@ describe('@atlaskit/icon', () => {
 				expect(screen.getByRole('img')).toBeInTheDocument();
 				expect(Icon).toBeInstanceOf(Function);
 			});
+
+			const oldNames = metadataCore[key].oldName;
+			if (oldNames) {
+				oldNames.forEach((oldName) => {
+					it(`should be possible to create the ${oldName} -> ${key} migration icon component`, async () => {
+						const componentName = key === oldName ? key : `${key}--${oldName.replace('/', '-')}`;
+						const component = await import(`../../../../core/migration/${componentName}`);
+
+						const Icon = component.default;
+						render(<Icon label={Icon.name} />);
+						expect(screen.getByRole('img')).toBeInTheDocument();
+						expect(Icon).toBeInstanceOf(Function);
+					});
+				});
+			}
 		});
 
 		Object.keys(metadataUtility).forEach((key) => {
@@ -503,6 +518,21 @@ describe('@atlaskit/icon', () => {
 				expect(screen.getByRole('img')).toBeInTheDocument();
 				expect(Icon).toBeInstanceOf(Function);
 			});
+
+			const oldNames = metadataUtility[key].oldName;
+			if (oldNames) {
+				oldNames.forEach((oldName) => {
+					it(`should be possible to create the ${oldName} -> ${key} migration icon component`, async () => {
+						const componentName = key === oldName ? key : `${key}--${oldName.replace('/', '-')}`;
+						const component = await import(`../../../../utility/migration/${componentName}`);
+
+						const Icon = component.default;
+						render(<Icon label={Icon.name} />);
+						expect(screen.getByRole('img')).toBeInTheDocument();
+						expect(Icon).toBeInstanceOf(Function);
+					});
+				});
+			}
 		});
 	});
 

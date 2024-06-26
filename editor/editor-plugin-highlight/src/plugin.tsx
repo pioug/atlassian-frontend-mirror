@@ -1,7 +1,9 @@
 import React from 'react';
 
 import type {
+	Command,
 	EditorCommand,
+	FloatingToolbarCustom,
 	NextEditorPlugin,
 	OptionalPlugin,
 	ToolbarUIComponentFactory,
@@ -16,12 +18,18 @@ import { changeColor } from './commands';
 import { keymapPlugin } from './pm-plugins/keymap';
 import type { HighlightPluginState } from './pm-plugins/main';
 import { createPlugin, highlightPluginKey } from './pm-plugins/main';
+import { FloatingToolbarHighlightColorWithIntl as FloatingToolbarHighlightColor } from './ui/FloatingToolbarHighlightColor';
 import { PrimaryToolbarHighlightColorWithIntl as PrimaryToolbarHighlightColor } from './ui/PrimaryToolbarHighlightColor';
 import { ToolbarHighlightColorWithIntl as ToolbarHighlightColor } from './ui/ToolbarHighlightColor';
+
+export type HighlightPluginOptions = {
+	textHighlightingFloatingToolbarExperiment?: boolean;
+};
 
 export type HighlightPlugin = NextEditorPlugin<
 	'highlight',
 	{
+		pluginConfiguration?: HighlightPluginOptions;
 		dependencies: [
 			// We need the mark to be defined before we can use the highlight functionality
 			BackgroundColorPlugin,
@@ -39,7 +47,7 @@ export type HighlightPlugin = NextEditorPlugin<
 	}
 >;
 
-export const highlightPlugin: HighlightPlugin = ({ api }) => {
+export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
@@ -82,7 +90,10 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		pmPlugins: () => [
 			{
 				name: 'highlight',
-				plugin: () => createPlugin({ api }),
+				plugin: () =>
+					createPlugin({
+						api,
+					}),
 			},
 			{
 				name: 'highlightKeymap',
@@ -104,6 +115,34 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 					component: primaryToolbarComponent,
 				}),
 			);
+		},
+
+		pluginsOptions: {
+			selectionToolbar() {
+				if (
+					!options?.textHighlightingFloatingToolbarExperiment ||
+					!getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')
+				) {
+					return;
+				}
+
+				const toolbarCustom: FloatingToolbarCustom<Command> = {
+					type: 'custom',
+					render: (_view, _idx, dispatchAnalyticsEvent) => (
+						<FloatingToolbarHighlightColor
+							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+							pluginInjectionApi={api}
+						/>
+					),
+					fallback: [],
+				};
+
+				return {
+					rank: -9,
+					isToolbarAbove: true,
+					items: [toolbarCustom],
+				};
+			},
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

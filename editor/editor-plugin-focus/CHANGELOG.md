@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-focus
 
+## 1.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.5
 
 ### Patch Changes

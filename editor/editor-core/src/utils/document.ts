@@ -2,10 +2,9 @@ import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ReplaceRawValue, Transformer } from '@atlaskit/editor-common/types';
-import { getStepRange, processRawValue } from '@atlaskit/editor-common/utils';
+import { processRawValue } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { getBreakoutMode } from './node-width';
 
@@ -41,26 +40,6 @@ export function processRawFragmentValue(
 	}
 
 	return Fragment.from(adfEntities);
-}
-
-export type ChangedFn = (
-	node: Node,
-	pos: number,
-	parent: Node | null,
-	index: number,
-) => boolean | void;
-
-export function nodesBetweenChanged(
-	tr: Transaction | ReadonlyTransaction,
-	f: ChangedFn,
-	startPos?: number,
-) {
-	const stepRange = getStepRange(tr);
-	if (!stepRange) {
-		return;
-	}
-
-	tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
 
 export function getNodesCount(node: Node): Record<string, number> {

@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 193.28.6
+
+### Patch Changes
+
+- [#110942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110942)
+  [`aa339aee9aa7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa339aee9aa7d) -
+  [ED-23431] Fix EditorPluginAPI type system
+- Updated dependencies
+
+## 193.28.5
+
+### Patch Changes
+
+- [#114448](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114448)
+  [`68d40145e3e0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/68d40145e3e0a) -
+  Remove unused barrel util files.
+
+## 193.28.4
+
+### Patch Changes
+
+- [#114683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114683)
+  [`ff0815316ab38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff0815316ab38) -
+  Removes usage of custom theme button in places where its API is not being used and the default
+  button is able to be used instead. This should give a slight performance (runtime) improvement.
+
 ## 193.28.0
 
 ### Minor Changes

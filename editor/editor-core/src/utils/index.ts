@@ -15,10 +15,7 @@ export {
 
 export { insideTable } from '@atlaskit/editor-common/core-utils';
 
-export { nodesBetweenChanged, getNodesCount } from './document';
-
-export { isParagraph, isText, isLinkMark } from './nodes';
-export { setNodeSelection, setTextSelection } from './selection';
+export { getNodesCount } from './document';
 
 export type { JSONDocNode };
 

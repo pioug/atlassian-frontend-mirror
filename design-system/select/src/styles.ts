@@ -311,7 +311,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		groupHeading: (css) => ({
 			...css,
 			...(getBooleanFF('platform.design-system-team.select-new-typography_7m89c') && {
-				font: token('font.body'),
+				font: token('font.body.small'),
 			}),
 			color: token('color.text.subtle', N200),
 		}),

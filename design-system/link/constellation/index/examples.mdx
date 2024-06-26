@@ -18,12 +18,11 @@ The default appearance of a link.
 
 ## Subtle
 
-Use a subtle link if the default link appearance is too prominent.
+Use a subtle link if the default link appearance is too prominent. There is no underline in resting
+state, but one appears on hover.
 
-The underline is excluded in resting state, but will display on hover.
-
-Ensure the surrounding context makes it clear that it is interactive, such as in navigation or
-breadcrumbs. Avoid using this in body copy as it may be difficult to distinguish from the
+Ensure the surrounding context makes it clear that the link is interactive, such as in navigation or
+breadcrumbs. Avoid using subtle links in body copy because they're hard to distinguish from the
 surrounding text.
 
 <Example Component={Subtle} packageName="@atlaskit/link" />
@@ -47,13 +46,13 @@ information see
 
 ## In body text
 
-Links are suitable for using in body copy, and will wrap onto new lines if necessary.
+Links work in body copy, and will wrap onto new lines if necessary.
 
 <Example Component={BodyCopy} packageName="@atlaskit/link" />
 
 ## Inheriting font styles
 
-Link will inherit font styles of surrounding text.
+Links will inherit font styles of surrounding text.
 
 <Example Component={FontStyleInheritance} packageName="@atlaskit/link" />
 
@@ -65,7 +64,7 @@ Link passes through all valid HTML attributes to the underlying `<a>` element.
 
 ## Router links
 
-Link supports automatic configuration of router link components through the AppProvider. Here's an
+Link supports automatic configuration of router link components through the `AppProvider`. Here's an
 [example of the router link configuration for the anchor primitive](/components/primitives/anchor/examples#router-links).
 
 ## Event tracking

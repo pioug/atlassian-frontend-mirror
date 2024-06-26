@@ -135,6 +135,7 @@ export default (pluginState: TablePluginState, action: TablePluginAction): Table
 		case 'HOVER_CELL':
 		case 'SHOW_RESIZE_HANDLE_LINE':
 		case 'SET_EDITOR_FOCUS':
+		case 'SET_CELL_MENU_OPEN':
 			return { ...pluginState, ...action.data };
 
 		default:

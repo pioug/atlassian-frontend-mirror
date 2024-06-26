@@ -433,6 +433,10 @@ function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
 		return '';
 	}
 
+	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		return '';
+	}
+
 	return css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":

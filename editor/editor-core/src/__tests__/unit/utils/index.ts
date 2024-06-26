@@ -1,5 +1,5 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { dedupe, shallowEqual } from '@atlaskit/editor-common/utils';
+import { closestElement, dedupe, shallowEqual } from '@atlaskit/editor-common/utils';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -32,7 +32,6 @@ import {
 	isMarkTypeAllowedInCurrentSelection,
 	isSelectionInsideLastNodeInDocument,
 } from '../../../utils';
-import { closestElement } from '../../../utils/dom';
 
 describe('@atlaskit/editore-core/utils', () => {
 	const createEditor = createEditorFactory();

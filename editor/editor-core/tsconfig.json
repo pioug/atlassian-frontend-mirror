@@ -9,9 +9,9 @@
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
-    "./playwright/**/*.ts", "../editor-examples-helpers/src/utils/useCountDown.ts"  ],
+    "./playwright/**/*.ts"
+  ],
   "compilerOptions": {
-    "baseUrl": "./",
-    "noErrorTruncation": true
+    "baseUrl": "./"
   }
 }

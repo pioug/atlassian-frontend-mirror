@@ -49,7 +49,7 @@ export type FocusItem = {
 
 export type Behaviors = 'checkbox' | 'radio' | 'menuitemcheckbox' | 'menuitemradio';
 
-export interface CustomTriggerProps<TriggerElement extends HTMLElement = HTMLElement>
+export interface CustomTriggerProps<TriggerElement extends HTMLElement = any>
 	extends Omit<TriggerProps, 'ref'> {
 	/**
 	 * Ref that should be applied to the trigger. This is used to calculate the menu position.
@@ -95,7 +95,7 @@ export interface MenuWrapperProps extends MenuGroupProps {
 
 export interface DropdownMenuGroupProps extends SectionProps {}
 
-interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> {
+interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	/**
 	 * Controls the appearance of the menu.
 	 * The default menu will scroll after its height exceeds the pre-defined amount.
@@ -206,18 +206,18 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = HTMLEle
 	label?: string;
 }
 
-type StandardDropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> =
+type StandardDropdownMenuProps<TriggerElement extends HTMLElement = any> =
 	InternalDropdownMenuProps<TriggerElement> & {
 		shouldFitContainer?: false;
 	};
 
-type ShouldFitContainerDropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> =
+type ShouldFitContainerDropdownMenuProps<TriggerElement extends HTMLElement = any> =
 	InternalDropdownMenuProps<TriggerElement> & {
 		shouldFitContainer: true;
 		shouldRenderToParent?: true;
 	};
 
-export type DropdownMenuProps<TriggerElement extends HTMLElement = HTMLElement> =
+export type DropdownMenuProps<TriggerElement extends HTMLElement = any> =
 	| StandardDropdownMenuProps<TriggerElement>
 	| ShouldFitContainerDropdownMenuProps<TriggerElement>;
 

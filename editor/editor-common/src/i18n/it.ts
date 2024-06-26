@@ -244,6 +244,7 @@ export default {
   'fabric.editor.helpDialogTips':
     'Premi {keyMap} per aprire velocemente questa finestra di dialogo ogni volta che vuoi',
   'fabric.editor.highlight': 'Colore di evidenziazione',
+  'fabric.editor.highlightColor': 'Attiva/disattiva la palette dei colori di evidenziazione',
   'fabric.editor.horizontalRule': 'Divisore',
   'fabric.editor.horizontalRule.description': 'Contenuti separati con una riga orizzontale',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Incolla o cerca il link',
@@ -542,7 +543,7 @@ export default {
   'fabric.theme.light-yellow': 'Giallo chiaro',
   'fabric.theme.lime': 'Verde lime',
   'fabric.theme.magenta': 'Magenta',
-  'fabric.theme.no-color': "Rimuovi l'evidenziazione",
+  'fabric.theme.no-color': 'Nessuna evidenziazione',
   'fabric.theme.orange': 'Arancione',
   'fabric.theme.purple': 'Viola',
   'fabric.theme.red': 'Rosso',

@@ -5,10 +5,11 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type {
+	BasePluginDependenciesAPI,
+	CorePlugin,
 	DefaultEditorPlugin,
 	NextEditorPlugin,
 	PluginDependenciesAPI,
-	PluginInjectionAPI,
 } from '../types/next-editor-plugin';
 
 import { corePlugin } from './core-plugin';
@@ -258,23 +259,16 @@ type EditorStateDelta = {
 };
 
 interface PluginInjectionAPIDefinition {
-	api: <T extends NextEditorPlugin<any, any>>() => PluginInjectionAPI<
-		T extends NextEditorPlugin<infer Name, any> ? Name : never,
-		T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
-	>['dependencies'];
+	api: () => { [key: string]: BasePluginDependenciesAPI<any> };
 	onEditorViewUpdated: (props: EditorStateDelta) => void;
 	onEditorPluginInitialized: (plugin: NextEditorPluginInitializedType) => void;
 }
 
-const editorAPICache = new WeakMap<
-	EditorPluginInjectionAPI,
-	PluginInjectionAPI<any, any>['dependencies']
->();
-
-type DependenciesGenericType<T> = PluginInjectionAPI<
-	T extends NextEditorPlugin<infer Name, any> ? Name : never,
-	T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
->['dependencies'];
+type GenericAPIWithCore = {
+	core: PluginDependenciesAPI<CorePlugin>;
+	[key: string]: BasePluginDependenciesAPI<any>;
+};
+const editorAPICache = new WeakMap<EditorPluginInjectionAPI, GenericAPIWithCore>();
 
 export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	private sharedStateAPI: SharedStateAPI;
@@ -291,10 +285,10 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		this.addPlugin(corePlugin({ config: { getEditorView } }));
 	}
 
-	private createAPI<T extends NextEditorPlugin<any, any>>() {
+	private createAPI() {
 		const { sharedStateAPI, actionsAPI, commandsAPI, getPluginByName } = this;
 
-		return new Proxy<DependenciesGenericType<T>>({} as any, {
+		return new Proxy<GenericAPIWithCore>({} as any, {
 			get: function (target, prop: string, receiver) {
 				// If we pass this as a prop React hates us
 				// Let's just reflect the result and ignore these
@@ -321,12 +315,12 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 		});
 	}
 
-	api<T extends NextEditorPlugin<any, any>>() {
+	api(): GenericAPIWithCore {
 		if (!editorAPICache.get(this)) {
-			editorAPICache.set(this, this.createAPI<T>());
+			editorAPICache.set(this, this.createAPI());
 		}
 
-		return editorAPICache.get(this) as DependenciesGenericType<T>;
+		return editorAPICache.get(this)!;
 	}
 
 	onEditorViewUpdated = ({ newEditorState, oldEditorState }: EditorStateDiff) => {

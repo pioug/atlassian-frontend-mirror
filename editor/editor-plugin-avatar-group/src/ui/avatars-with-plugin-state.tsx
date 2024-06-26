@@ -7,12 +7,11 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import messages from '@atlaskit/editor-common/messages';
-import type { FeatureFlags, OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type {
-	CollabEditPlugin,
-	CollabInviteToEditProps,
-} from '@atlaskit/editor-plugin-collab-edit';
+import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { CollabInviteToEditProps } from '@atlaskit/editor-plugin-collab-edit';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { AvatarGroupPlugin } from '../plugin';
 
 import { Avatars } from './avatars';
 import { InviteToEditButton } from './invite-to-edit';
@@ -22,7 +21,7 @@ export type AvatarsWithPluginStateProps = {
 	eventDispatcher?: EventDispatcher;
 	featureFlags: FeatureFlags;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	editorAPI: PublicPluginAPI<[OptionalPlugin<CollabEditPlugin>]> | undefined;
+	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
 } & CollabInviteToEditProps;
 
 const AvatarsWithPluginState = (props: AvatarsWithPluginStateProps & WrappedComponentProps) => {

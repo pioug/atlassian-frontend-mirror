@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 7.18.3
+
+### Patch Changes
+
+- [#115110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115110)
+  [`c6f8e2be84f70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6f8e2be84f70) -
+  ECA11Y-20/ECA11Y-59 Make table cell options menu accessible for keyboard only users
+
+## 7.18.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.18.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.18.0
 
 ### Minor Changes

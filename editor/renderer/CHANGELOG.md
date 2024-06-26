@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 109.36.1
+
+### Patch Changes
+
+- [#112336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112336)
+  [`a1733f8d7c4cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1733f8d7c4cc) -
+  [ux] ED-23648 tweak editor and renderer inline comment sizing to fit inline nodes
+- Updated dependencies
+
 ## 109.36.0
 
 ### Minor Changes

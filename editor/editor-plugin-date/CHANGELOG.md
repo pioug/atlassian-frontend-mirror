@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-date
 
+## 1.3.1
+
+### Patch Changes
+
+- [#110942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110942)
+  [`aa339aee9aa7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa339aee9aa7d) -
+  [ED-23431] Fix EditorPluginAPI type system
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

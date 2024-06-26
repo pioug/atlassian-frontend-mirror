@@ -11,7 +11,7 @@ import {
 	MentionNameStatus,
 	type MentionProvider,
 } from '@atlaskit/mention/resource';
-import { isPromise } from '@atlaskit/mention/types';
+import { isPromise, type MentionEventHandler } from '@atlaskit/mention/types';
 
 // Workaround for a firefox issue where dom selection is off sync
 // https://product-fabric.atlassian.net/browse/ED-12442
@@ -93,7 +93,7 @@ export const Mention = (props: MentionProps) => {
 		}
 	}, []);
 
-	const actionHandlers: Record<string, () => void> = {};
+	const actionHandlers: Record<string, MentionEventHandler> = {};
 	['onClick', 'onMouseEnter', 'onMouseLeave'].forEach((handler) => {
 		actionHandlers[handler] = (eventHandlers && (eventHandlers as any)[handler]) || (() => {});
 	});
@@ -101,6 +101,7 @@ export const Mention = (props: MentionProps) => {
 	if (profilecardProvider) {
 		return (
 			<MentionWithProfileCard
+				autoFocus={false}
 				id={id}
 				text={resolvedName}
 				accessLevel={accessLevel}

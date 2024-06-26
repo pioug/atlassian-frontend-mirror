@@ -30,4 +30,16 @@ type DragCancelledAEP = UIAEP<
 	null
 >;
 
-export type ElementEventPayload = ElementMovedAEP | ElementDragAEP | DragCancelledAEP;
+type ElementClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+	ElementAttributes,
+	null
+>;
+
+export type ElementEventPayload =
+	| ElementClickedAEP
+	| ElementMovedAEP
+	| ElementDragAEP
+	| DragCancelledAEP;

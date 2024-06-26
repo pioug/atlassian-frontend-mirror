@@ -1,9 +1,11 @@
 import path from 'path';
-import buildIcons, { createIconDocs } from '@af/icon-build-process';
-import type { IconBuildConfig } from '@af/icon-build-process';
+import { UNSAFE_buildNew as buildIconsNew, UNSAFE_createIconDocsNew } from '@af/icon-build-process';
+import type { UNSAFE_NewIconBuildConfig } from '@af/icon-build-process';
 import pkgDir from 'pkg-dir';
 import fs from 'fs-extra';
 import synonyms from '../utils/synonyms';
+import migrationMap from '../src/migration-map';
+import legacyMetadata from '../src/metadata';
 import coreIconMetadata from '../icons_raw/metadata-core';
 import utilityIconMetadata from '../icons_raw/metadata-utility';
 
@@ -40,27 +42,30 @@ if (!root) {
 /**
  * The updated icon build process for the new icons under `@atlaskit/icon/core/*`
  */
-const configCore: IconBuildConfig = {
+const configCore: UNSAFE_NewIconBuildConfig = {
 	srcDir: path.resolve(root, 'icons_raw/core'),
 	processedDir: path.resolve(root, 'icons_optimised/core'),
 	destDir: path.resolve(root, 'core'),
 	maxWidth: 24,
 	maxHeight: 24,
 	glob: '**/*.svg',
+	packageName: '@atlaskit/icon',
 	baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
-	isUpdatedIconBuildEnabled: true,
 	iconType: 'core',
 	metadata: coreIconMetadata,
+	legacyMetadata: legacyMetadata,
+	migrationMap: migrationMap,
 };
 
-buildIcons(configCore).then((icons) => {
-	const iconDocs = createIconDocs(
+buildIconsNew(configCore).then((icons) => {
+	const iconDocs = UNSAFE_createIconDocsNew(
 		icons,
-		'@atlaskit/icon/core',
+		'@atlaskit/icon',
+		'core',
 		synonyms,
 		['icon', 'core'],
-		true,
 		coreIconMetadata,
+		migrationMap,
 	);
 
 	return fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
@@ -69,27 +74,30 @@ buildIcons(configCore).then((icons) => {
 /**
  * The updated icon build process for the new icons under `@atlaskit/icon/utility/*`
  */
-const configUtility: IconBuildConfig = {
+const configUtility: UNSAFE_NewIconBuildConfig = {
 	srcDir: path.resolve(root, 'icons_raw/utility'),
 	processedDir: path.resolve(root, 'icons_optimised/utility'),
 	destDir: path.resolve(root, 'utility'),
 	maxWidth: 12,
 	maxHeight: 12,
 	glob: '**/*.svg',
+	packageName: '@atlaskit/icon',
 	baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
-	isUpdatedIconBuildEnabled: true,
 	iconType: 'utility',
 	metadata: utilityIconMetadata,
+	legacyMetadata: legacyMetadata,
+	migrationMap: migrationMap,
 };
 
-buildIcons(configUtility).then((icons) => {
-	const iconDocs = createIconDocs(
+buildIconsNew(configUtility).then((icons) => {
+	const iconDocs = UNSAFE_createIconDocsNew(
 		icons,
-		'@atlaskit/icon/utility',
+		'@atlaskit/icon',
+		'utility',
 		synonyms,
 		['icon', 'utility'],
-		true,
 		utilityIconMetadata,
+		migrationMap,
 	);
 
 	return fs.outputFile(path.resolve(root, 'src/metadata-utility.tsx'), iconDocs);

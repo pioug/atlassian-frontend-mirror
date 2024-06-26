@@ -118,6 +118,7 @@ export interface ProfileCardTriggerProps {
     cloudId.
    */
 	cloudId?: string;
+	autoFocus?: boolean;
 	resourceClient: ProfileClient;
 	actions?: ProfileCardAction[];
 	reportingLinesProfileUrl?: string;

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-mentions
 
+## 1.7.1
+
+### Patch Changes
+
+- [#111187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111187)
+  [`3fc3b37188f2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fc3b37188f2c) -
+  [ux] [ED-23788] Make sure that profilecards in the Editor do not autofocus, so that users can
+  click on a mention and immediate delete it by pressing `Backspace` or `Delete`
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

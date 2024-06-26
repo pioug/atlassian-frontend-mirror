@@ -43,7 +43,7 @@ gained from the initial table plugin extraction.
 
 Linting errors will now be present for any new code that gets added, where we continue to attempt
 importing from one plugin into another. (See `ELR101`, `ELR102` in
-`repo-docs/content/cloud/framework/atlassian-frontend/editor/lint.md`).
+`https://hello.atlassian.net/wiki/spaces/AF/pages/2634573964/Editor+Lint`).
 
 ### Other resources
 

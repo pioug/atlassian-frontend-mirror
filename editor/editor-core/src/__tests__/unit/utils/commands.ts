@@ -7,8 +7,6 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, li, p, table, td, tr, ul } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { isNthParentOfType } from '../../../utils/commands';
-
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('utils -> commands', () => {
@@ -120,41 +118,6 @@ describe('utils -> commands', () => {
 
 			// ensure we pass back the result from the callback
 			expect(result).toBe(true);
-		});
-	});
-
-	describe('isNthParentOfType', () => {
-		const { editorView } = createEditor({
-			doc: table()(tr(td()(p('hel{<>}lo')))),
-			editorProps: { allowTables: true },
-		});
-
-		it('returns true for paragraph at selection depth', () => {
-			expect(isNthParentOfType('paragraph', 0)(editorView.state)).toBe(true);
-		});
-
-		it('returns false for some other node at selection depth', () => {
-			expect(isNthParentOfType('h1', 0)(editorView.state)).toBe(false);
-		});
-
-		it('returns true for td at parent from selection', () => {
-			expect(isNthParentOfType('tableCell', 1)(editorView.state)).toBe(true);
-		});
-
-		it('returns true for tr at second level from selection', () => {
-			expect(isNthParentOfType('tableRow', 2)(editorView.state)).toBe(true);
-		});
-
-		it('returns true for table at third level from selection', () => {
-			expect(isNthParentOfType('table', 3)(editorView.state)).toBe(true);
-		});
-
-		it('returns true for doc at fourth level from selection', () => {
-			expect(isNthParentOfType('doc', 4)(editorView.state)).toBe(true);
-		});
-
-		it('returns false for nodes beyond fourth level from selection', () => {
-			expect(isNthParentOfType('doc', 5)(editorView.state)).toBe(false);
 		});
 	});
 

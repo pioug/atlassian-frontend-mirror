@@ -47,7 +47,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/blanket": "^13.2.0",
 		"@atlaskit/button": "^18.0.0",
-		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/layering": "^0.3.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",

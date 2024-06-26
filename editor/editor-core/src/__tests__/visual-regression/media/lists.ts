@@ -1,10 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clickEditableContent } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-	resizeMediaInPosition,
-	waitForMediaToBeLoaded,
-} from '@atlaskit/editor-test-helpers/page-objects/media';
+import { resizeMediaInPosition } from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	Appearance,
@@ -13,8 +10,6 @@ import {
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
-import bulletListAdf from './__fixtures__/mediaSingle-in-buttetList.adf.json';
-import numberListAdf from './__fixtures__/mediaSingle-in-numberList.adf.json';
 import * as panelList from './__fixtures__/panel-list-adf.json';
 
 let page: PuppeteerPage;
@@ -31,22 +26,6 @@ const initEditor = async (adf?: Object) => {
 describe('Snapshot Test: Media', () => {
 	beforeEach(async () => {
 		page = global.page;
-	});
-
-	describe('Lists', () => {
-		it('can insert a media single inside a bullet list', async () => {
-			await initEditor(bulletListAdf);
-			await waitForMediaToBeLoaded(page);
-
-			await snapshot(page);
-		});
-
-		it('can insert a media single inside a numbered list', async () => {
-			await initEditor(numberListAdf);
-			await waitForMediaToBeLoaded(page);
-
-			await snapshot(page);
-		});
 	});
 
 	// TODO: Convert to integration test (https://product-fabric.atlassian.net/browse/ED-6692)

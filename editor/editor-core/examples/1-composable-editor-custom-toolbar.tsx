@@ -10,7 +10,8 @@ import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractPublicEditorAPI, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { ExtractPresetAPI } from '@atlaskit/editor-common/src/preset';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorActions } from '@atlaskit/editor-core';
 import { EditorContext } from '@atlaskit/editor-core';
@@ -91,7 +92,7 @@ function FormattingToolbar({ editorApi }: ToolbarProps) {
 }
 
 interface ToolbarProps {
-	editorApi: ExtractPublicEditorAPI<ReturnType<typeof createPreset>> | undefined;
+	editorApi: ExtractPresetAPI<ReturnType<typeof createPreset>> | undefined;
 }
 
 function Toolbar({ editorApi }: ToolbarProps) {

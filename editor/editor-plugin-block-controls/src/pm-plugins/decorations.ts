@@ -86,6 +86,21 @@ export const dropTargetDecorations = (
 	return { decs, decorationState };
 };
 
+export const emptyParagraphNodeDecorations = () => {
+	const anchorName = `--node-anchor-paragraph-0`;
+	const style = `anchor-name: ${anchorName}; margin-top: 0px;`;
+	return Decoration.node(
+		0,
+		2,
+		{
+			style,
+			['data-drag-handler-anchor-name']: anchorName,
+		},
+		{
+			type: 'node-decoration',
+		},
+	);
+};
 export const nodeDecorations = (newState: EditorState) => {
 	const decs: Decoration[] = [];
 	newState.doc.descendants((node, pos, _parent, index) => {
@@ -98,11 +113,18 @@ export const nodeDecorations = (newState: EditorState) => {
 		}
 
 		decs.push(
-			Decoration.node(pos, pos + node.nodeSize, {
-				style,
-				['data-drag-handler-anchor-name']: anchorName,
-				['data-drag-handler-node-type']: node.type.name,
-			}),
+			Decoration.node(
+				pos,
+				pos + node.nodeSize,
+				{
+					style,
+					['data-drag-handler-anchor-name']: anchorName,
+					['data-drag-handler-node-type']: node.type.name,
+				},
+				{
+					type: 'node-decoration',
+				},
+			),
 		);
 		return false;
 	});

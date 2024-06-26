@@ -1,6 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import { animationFrame, getEditorWidth } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+	animationFrame,
+	getEditorWidth,
+	selectors,
+} from '@atlaskit/editor-test-helpers/page-objects/editor';
 import type { TestPageConfig } from '@atlaskit/editor-test-helpers/page-objects/media';
 import {
 	changeMediaLayout,

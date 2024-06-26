@@ -773,3 +773,16 @@ export const setTableAlignmentWithTableContentWithPos =
 
 		return tr;
 	};
+
+export const setFocusToCellMenu = (isCellMenuOpenByKeyboard = true, originalTr?: Transaction) =>
+	createCommand(
+		() => {
+			return {
+				type: 'SET_CELL_MENU_OPEN',
+				data: {
+					isCellMenuOpenByKeyboard: isCellMenuOpenByKeyboard,
+				},
+			};
+		},
+		(tr) => (originalTr || tr).setMeta('addToHistory', false),
+	);

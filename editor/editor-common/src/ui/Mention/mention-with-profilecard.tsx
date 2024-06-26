@@ -8,6 +8,7 @@ import type { ProfilecardProvider } from '../../provider-factory/profile-card-pr
 import type { MentionEventHandler } from '../EventHandlers';
 
 export interface Props {
+	autoFocus?: boolean;
 	id: string;
 	text: string;
 	accessLevel?: string;
@@ -20,6 +21,7 @@ export interface Props {
 }
 
 export default function MentionWithProfileCard({
+	autoFocus,
 	id,
 	text,
 	accessLevel,
@@ -39,6 +41,7 @@ export default function MentionWithProfileCard({
 
 	return (
 		<ProfileCardTrigger
+			autoFocus={autoFocus}
 			cloudId={cloudId}
 			userId={id}
 			resourceClient={resourceClient}

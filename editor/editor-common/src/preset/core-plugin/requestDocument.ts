@@ -3,9 +3,11 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { Transformer } from '../../types';
-
-import type { DefaultTransformerResultCallback, InferTransformerResultCallback } from './types';
+import type {
+	DefaultTransformerResultCallback,
+	InferTransformerResultCallback,
+	Transformer,
+} from '../../types';
 
 const transformer = new JSONTransformer();
 export function toJSON(node: PMNode): JSONDocNode {

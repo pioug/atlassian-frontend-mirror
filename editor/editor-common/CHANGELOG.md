@@ -1,5 +1,53 @@
 # @atlaskit/editor-common
 
+## 83.0.3
+
+### Patch Changes
+
+- [#115110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115110)
+  [`c6f8e2be84f70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6f8e2be84f70) -
+  ECA11Y-20/ECA11Y-59 Make table cell options menu accessible for keyboard only users
+
+## 83.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 83.0.1
+
+### Patch Changes
+
+- [#114565](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114565)
+  [`9c4aee75822c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c4aee75822c7) -
+  Add analytic event for drag and drop click event
+
+## 83.0.0
+
+### Major Changes
+
+- [#110942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110942)
+  [`aa339aee9aa7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa339aee9aa7d) -
+  [ED-23431] Fix EditorPluginAPI type system
+
+### Patch Changes
+
+- [#112336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112336)
+  [`a1733f8d7c4cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1733f8d7c4cc) -
+  [ux] ED-23648 tweak editor and renderer inline comment sizing to fit inline nodes
+- [#114903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114903)
+  [`8f2977cd60ba0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f2977cd60ba0) -
+  [ux] [ED-23063] Adds optional floating toolbar button for text highlighting to the selection
+  toolbar (disabled by default)
+- [#110942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110942)
+  [`aa339aee9aa7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa339aee9aa7d) -
+  Fix Type error: optionalPlugin marked as required under unit test
+- [#111187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111187)
+  [`3fc3b37188f2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fc3b37188f2c) -
+  [ux] [ED-23788] Make sure that profilecards in the Editor do not autofocus, so that users can
+  click on a mention and immediate delete it by pressing `Backspace` or `Delete`
+- Updated dependencies
+
 ## 82.14.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "22.4.1",
+	"version": "22.5.0",
 	"description": "An icon is a visual representation of a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,19 +40,19 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
-		"@af/icon-build-process": "^0.6.0",
+		"@af/icon-build-process": "^1.0.0",
 		"@af/visual-regression": "*",
 		"@atlaskit/code": "^15.3.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/logo": "^14.1.0",
-		"@atlaskit/primitives": "^8.2.0",
+		"@atlaskit/primitives": "^9.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/icon-lab": "^0.0.1",
+		"@atlassian/icon-lab": "^0.0.2",
 		"@babel/core": "^7.20.0",
 		"@emotion/babel-preset-css-prop": "^10.0.7",
 		"@testing-library/react": "^12.1.5",
@@ -100,18 +100,22 @@
 	"af:exports": {
 		"./base": "./src/entry-points/base.tsx",
 		"./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
+		"./UNSAFE_migration-map": "./src/entry-points/migration-map.tsx",
 		"./constants": "./src/entry-points/constants.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./svg": "./src/entry-points/svg.tsx",
 		"./types": "./src/entry-points/types.tsx",
 		"./glyph": "./glyph",
 		"./core": "./core",
+		"./core/migration": "./core/migration",
 		"./utility": "./utility",
+		"./utility/migration": "./utility/migration",
 		".": "./src/index.tsx"
 	},
 	"exports": {
 		"./base": "./src/entry-points/base.tsx",
 		"./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
+		"./UNSAFE_migration-map": "./src/entry-points/migration-map.tsx",
 		"./constants": "./src/entry-points/constants.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./svg": "./src/entry-points/svg.tsx",
@@ -124,9 +128,17 @@
 			"types": "./core/*.d.ts",
 			"default": "./core/*.js"
 		},
+		"./core/migration/*": {
+			"types": "./core/migration/*.d.ts",
+			"default": "./core/migration/*.js"
+		},
 		"./utility/*": {
 			"types": "./utility/*.d.ts",
 			"default": "./utility/*.js"
+		},
+		"./utility/migration/*": {
+			"types": "./utility/migration/*.d.ts",
+			"default": "./utility/migration/*.js"
 		},
 		".": "./src/index.tsx"
 	},

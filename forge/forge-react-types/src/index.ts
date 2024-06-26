@@ -68,3 +68,5 @@ export type {
 	SingleValueChartProps,
 	PieChartProps,
 } from './components/charts';
+
+export type { ChartColorTokens } from './types';

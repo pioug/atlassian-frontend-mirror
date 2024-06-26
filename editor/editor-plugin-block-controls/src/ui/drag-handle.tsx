@@ -118,6 +118,21 @@ export const DragHandle = ({
 
 			tr = selectNode(tr, start, nodeType);
 			tr.setMeta(key, { pos: start });
+
+			const resolvedMovingNode = tr.doc.resolve(start);
+			const maybeNode = resolvedMovingNode.nodeAfter;
+
+			api?.analytics?.actions.attachAnalyticsEvent({
+				eventType: EVENT_TYPE.UI,
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BUTTON,
+				actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+				attributes: {
+					nodeDepth: resolvedMovingNode.depth,
+					nodeType: maybeNode?.type.name || '',
+				},
+			})(tr);
+
 			return tr;
 		});
 

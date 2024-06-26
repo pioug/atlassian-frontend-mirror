@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.10.0
+
+### Minor Changes
+
+- [#114903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114903)
+  [`8f2977cd60ba0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f2977cd60ba0) -
+  [ux] [ED-23063] Adds optional floating toolbar button for text highlighting to the selection
+  toolbar (disabled by default)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.0
 
 ### Minor Changes

@@ -21,7 +21,11 @@ export interface PluginState {
 		nodeType: string;
 	} | null;
 	isResizerResizing: boolean;
-	isDocSizeLimitEnabled: boolean;
+	isDocSizeLimitEnabled: boolean | null;
+	/**
+	 * is dragging the node without using drag handle, i,e, native prosemirror DnD
+	 */
+	isPMDragging: boolean;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;
@@ -32,6 +36,7 @@ export type BlockControlsSharedState =
 			activeNode: { pos: number; anchorName: string } | null;
 			decorationState: DecorationState;
 			isDragging: boolean;
+			isPMDragging: boolean;
 	  }
 	| undefined;
 

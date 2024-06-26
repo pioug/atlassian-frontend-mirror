@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Flex, xcss } from '@atlaskit/primitives';
+import { Flex, Text, xcss } from '@atlaskit/primitives';
 
 type EmptyStateProps = {
 	header: string;
@@ -10,27 +10,30 @@ type EmptyStateProps = {
 	renderImage?: () => React.ReactNode;
 };
 
+const containerStyles = xcss({
+	marginBlockStart: 'space.600',
+	marginBlockEnd: 'space.600',
+	textAlign: 'center',
+});
+
 export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
 	return (
 		<Flex
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			xcss={xcss({
-				marginBlockStart: 'space.600',
-				marginBlockEnd: 'space.600',
-				textAlign: 'center',
-			})}
+			xcss={containerStyles}
 			testId={testId}
 			direction="column"
 			alignItems="center"
-			gap="space.100"
+			gap="space.300"
 		>
 			{renderImage?.()}
-			<Heading size="medium">{header}</Heading>
-			{description && (
-				<Box as="p" color={'color.text'}>
-					{description}
-				</Box>
-			)}
+			<Flex direction="column" alignItems="center" gap="space.200">
+				<Heading size="medium">{header}</Heading>
+				{description && (
+					<Text as="p" color="color.text">
+						{description}
+					</Text>
+				)}
+			</Flex>
 		</Flex>
 	);
 };

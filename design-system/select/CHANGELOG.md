@@ -1,5 +1,20 @@
 # @atlaskit/select
 
+## 17.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.11.2
+
+### Patch Changes
+
+- [#114458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114458)
+  [`854b5695ee062`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/854b5695ee062) -
+  Making updates to feature flagged font size changes. If successful, these changes will be made
+  available in a later release.
+
 ## 17.11.1
 
 ### Patch Changes

@@ -13,10 +13,7 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { Item } from '@atlaskit/editor-common/floating-toolbar';
 import { areSameItems, messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-	OptionalPlugin,
-	PluginInjectionAPIWithDependencies,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Announcer, FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
@@ -25,9 +22,6 @@ import {
 	ToolbarArrowKeyNavigationProvider,
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -36,6 +30,7 @@ import { token } from '@atlaskit/tokens';
 
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
+import type { FloatingToolbarPlugin } from '../types';
 
 import Dropdown from './Dropdown';
 import { EmojiPickerButton } from './EmojiPickerButton';
@@ -64,15 +59,7 @@ export interface Props {
 	node: Node;
 	extensionsProvider?: Promise<ExtensionProvider>;
 	scrollable?: boolean;
-	api:
-		| PluginInjectionAPIWithDependencies<
-				[
-					typeof decorationsPlugin,
-					OptionalPlugin<typeof contextPanelPlugin>,
-					OptionalPlugin<ExtensionPlugin>,
-				]
-		  >
-		| undefined;
+	api: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 	mediaAssistiveMessage?: string;
 }
 

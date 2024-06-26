@@ -39,6 +39,7 @@ export {
 	addBoldInEmptyHeaderCells,
 	addResizeHandleDecorations,
 	updateWidthToWidest,
+	setFocusToCellMenu,
 	sortByColumn,
 	goToNextCell,
 	removeDescendantNodes,

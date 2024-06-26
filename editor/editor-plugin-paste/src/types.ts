@@ -31,6 +31,7 @@ export type LastContentPasted = {
 export type PastePluginOptions = {
 	cardOptions?: CardOptions;
 	sanitizePrivateContent?: boolean;
+	isFullPage?: boolean;
 };
 
 export type PastePlugin = NextEditorPlugin<

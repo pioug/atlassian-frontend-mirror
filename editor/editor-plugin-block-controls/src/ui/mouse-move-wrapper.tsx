@@ -8,6 +8,7 @@ import { bind } from 'bind-event-listener';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, BlockControlsSharedState } from '../types';
 import { getTopPosition } from '../utils/drag-handle-positions';
 
@@ -137,10 +138,20 @@ export const MouseMoveWrapper = ({
 	return (
 		<div
 			ref={ref}
-			onMouseEnter={onMouseEnter}
+			onMouseEnter={() => {
+				// Once onDragEnter handler is processed, wrapper for drop target is hidden
+				// This means wrapper for draggable is shown, triggering onMouseEnter and showing draggable's drag handle again
+				// hence we want to ignore it while we still dragging
+				if (!key.getState(view.state)?.isPMDragging) {
+					onMouseEnter();
+				}
+			}}
 			css={[basicStyles, !hideWrapper && mouseMoveWrapperStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={pos}
+			// we want achieve the same result as onMouseEnter: make wrapper inactive and display drag handle next to drop target
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			onDragEnter={onMouseEnter}
 		></div>
 	);
 };

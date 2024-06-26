@@ -27,15 +27,12 @@ import {
 	backgroundColorStylesMap,
 	borderColorMap,
 	borderWidthMap,
-	isSurfaceColorToken,
 	paddingStylesMap,
 	positiveSpaceMap,
 	type Space,
-	surfaceColorStylesMap,
 } from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
 
-import { SurfaceContext } from './internal/surface-provider';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BaseAnchorProps = {
@@ -239,7 +236,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 
 	const Component = isRouterLink ? RouterLink : 'a';
 
-	const node = (
+	return (
 		<Component
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={style}
@@ -268,8 +265,6 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				backgroundColor && backgroundColorStylesMap[backgroundColor],
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				isSurfaceColorToken(backgroundColor) && surfaceColorStylesMap[backgroundColor],
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				padding && paddingStylesMap.padding[padding],
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				paddingBlock && paddingStylesMap.paddingBlock[paddingBlock],
@@ -294,12 +289,6 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 				<VisuallyHidden id={opensNewWindowLabelId}>{OPENS_NEW_WINDOW_LABEL}</VisuallyHidden>
 			)}
 		</Component>
-	);
-
-	return backgroundColor ? (
-		<SurfaceContext.Provider value={backgroundColor}>{node}</SurfaceContext.Provider>
-	) : (
-		node
 	);
 };
 

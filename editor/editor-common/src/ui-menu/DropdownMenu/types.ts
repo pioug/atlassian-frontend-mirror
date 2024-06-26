@@ -26,6 +26,8 @@ export interface Props {
 	arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
 	section?: SectionOptions;
 	children?: React.ReactNode;
+	// disabled by default to prevent new row insertion if enter pressed
+	isAllowEnterDefaultBehavior?: boolean;
 }
 
 export interface MenuItem {
@@ -47,6 +49,7 @@ export interface MenuItem {
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
 	onClick?: (editorActions: EditorActions) => void;
+	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
 }
 
 export interface State {

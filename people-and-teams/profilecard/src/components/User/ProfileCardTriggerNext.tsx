@@ -24,6 +24,7 @@ import { ProfileCardLazy } from './lazyProfileCard';
 import UserLoadingState from './UserLoadingState';
 
 export default function ProfilecardTriggerNext({
+	autoFocus,
 	trigger = 'hover',
 	userId,
 	cloudId,
@@ -362,7 +363,7 @@ export default function ProfilecardTriggerNext({
 				}}
 				zIndex={layers.modal()}
 				shouldUseCaptureOnOutsideClick
-				autoFocus={trigger === 'click'}
+				autoFocus={autoFocus ?? trigger === 'click'}
 			/>
 			{shouldShowGiveKudos && (
 				<Suspense fallback={null}>

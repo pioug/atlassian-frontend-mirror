@@ -79,7 +79,7 @@ const getFallbackPlacements = (placement: Placement): Placement[] | undefined =>
  * - [Code](https://atlassian.design/components/dropdown-menu/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
  */
-const DropdownMenu = <T extends HTMLElement = HTMLElement>({
+const DropdownMenu = <T extends HTMLElement = any>({
 	autoFocus = false,
 	children,
 	defaultOpen = false,

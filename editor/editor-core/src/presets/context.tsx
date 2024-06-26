@@ -1,10 +1,6 @@
 import React, { useContext, useMemo, useState } from 'react';
 
-import type {
-	NextEditorPlugin,
-	OptionalPlugin,
-	PublicPluginAPI,
-} from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 
 export type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;
 
@@ -28,7 +24,7 @@ export const PresetContextProvider = ({ children }: EditorAPIProviderProps) => {
 };
 
 export function usePresetContext<
-	Plugins extends OptionalPlugin<NextEditorPlugin<any, any>>[],
+	Plugins extends NextEditorPlugin<any, any>[],
 >(): PublicPluginAPI<Plugins> {
 	const { editorApi } = useContext(EditorAPIContext);
 	return editorApi as PublicPluginAPI<Plugins>;

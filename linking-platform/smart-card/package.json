@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "27.7.0",
+	"version": "27.7.3",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/icon-file-type": "^6.4.0",
 		"@atlaskit/icon-object": "^6.4.0",
 		"@atlaskit/icon-priority": "^6.3.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/outbound-auth-flow-client": "^3.4.0",
 		"@atlaskit/platform-feature-flags": "^0.2.1",
 		"@atlaskit/popup": "^1.19.0",
-		"@atlaskit/primitives": "^8.2.0",
+		"@atlaskit/primitives": "^9.0.0",
 		"@atlaskit/section-message": "^6.5.0",
 		"@atlaskit/select": "^17.11.0",
 		"@atlaskit/spinner": "^16.2.0",
@@ -118,7 +118,7 @@
 		"lorem-ipsum": "^1.0.6",
 		"react": "^16.8.0",
 		"react-ace": "^6.1.0",
-		"react-beautiful-dnd": "^12.1.1",
+		"react-beautiful-dnd": "^12.2.0",
 		"react-dom": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-test-renderer": "^16.8.0",

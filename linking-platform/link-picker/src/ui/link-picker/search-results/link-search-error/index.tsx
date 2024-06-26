@@ -4,11 +4,9 @@ import { jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
-import EmptyState from '@atlaskit/empty-state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { GenericErrorSVG } from '../../../../common/generic-error-svg';
-import { EmptyState as EmptyStateInternal } from '../../../../common/ui/empty-state';
+import { EmptyState } from '../../../../common/ui/empty-state';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 
@@ -32,12 +30,9 @@ export const testIds = {
 
 export const LinkSearchError = () => {
 	const intl = useIntl();
-	const Component = getBooleanFF('platform.linking-platform.link-picker.remove-dst-empty-state')
-		? EmptyStateInternal
-		: EmptyState;
 
 	return (
-		<Component
+		<EmptyState
 			testId={testIds.searchError}
 			header={intl.formatMessage(messages.searchErrorHeader)}
 			description={

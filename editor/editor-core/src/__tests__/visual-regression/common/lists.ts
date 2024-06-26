@@ -6,11 +6,6 @@ import { animationFrame, scrollToBottom } from '@atlaskit/editor-test-helpers/pa
 import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-	clickOnStatus,
-	waitForStatusToolbar,
-} from '@atlaskit/editor-test-helpers/page-objects/status';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
 	Appearance,
 	initEditorWithAdf,
 	snapshot,
@@ -25,7 +20,6 @@ import floatsAdf2 from './__fixtures__/action-decision-lists-adjacent-floats-adf
 import floatsAdf from './__fixtures__/lists-adjacent-floats-adf.json';
 import listsOlUlAdf from './__fixtures__/lists-ordered-unordered-adf.json';
 import listsWithOrderAndNestedListsAdf from './__fixtures__/lists-with-order-and-nested-lists-adf.json';
-import statusAdf from './__fixtures__/status-inside-lists.adf.json';
 import { createListWithNItems } from './__fixtures__/very-long-lists.adf';
 
 describe('Lists', () => {
@@ -51,12 +45,6 @@ describe('Lists', () => {
 	afterEach(async () => {
 		await animationFrame(page);
 		await snapshot(page);
-	});
-
-	it('should render status toolbar on click when its nested inside lists', async () => {
-		await initEditor(page, statusAdf, { width: 800, height: 400 });
-		await clickOnStatus(page);
-		await waitForStatusToolbar(page);
 	});
 
 	// TODO: Add back 9999 case (flaky timing out VR test: https://product-fabric.atlassian.net/browse/ED-16361)

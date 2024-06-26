@@ -3,7 +3,6 @@ import { type UNSAFE_IconMetadata } from '@af/icon-build-process';
 
 const iconMetadata: UNSAFE_IconMetadata = {
 	add: {
-		oldName: 'AddIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -20,7 +19,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'alert, event, operations',
 	},
 	'align-center': {
-		oldName: 'EditorAlignLeftIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -29,7 +27,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'alignment, text, content',
 	},
 	'align-left': {
-		oldName: 'EditorAlignLeftIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -38,7 +35,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'alignment, text, content, summary',
 	},
 	'align-right': {
-		oldName: 'EditorAlignLeftIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -47,7 +43,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'alignment, text, content',
 	},
 	'angle-brackets': {
-		oldName: 'CodeIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Global noun',
@@ -56,7 +51,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'code, <>, </>, syntax',
 	},
 	app: {
-		oldName: 'AddonIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -73,7 +67,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'third-party, applications',
 	},
 	'archive-box': {
-		oldName: 'ArchiveIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -82,7 +75,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'file box',
 	},
 	'arrow-down': {
-		oldName: 'ArrowDownIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -91,7 +83,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'down, bottom, sorting',
 	},
 	'arrow-left': {
-		oldName: 'ArrowLeftIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -100,7 +91,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'back, previous',
 	},
 	'arrow-right': {
-		oldName: 'ArrowRightIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -109,7 +99,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'forward, next, link',
 	},
 	'arrow-up': {
-		oldName: 'ArrowUpIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -118,7 +107,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'improvement',
 	},
 	'arrow-up-right': {
-		oldName: 'OpenIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -135,7 +123,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'AI',
 	},
 	attachment: {
-		oldName: 'AttachmentIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -144,7 +131,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'paperclip, attach',
 	},
 	audio: {
-		oldName: 'AudioIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -160,7 +146,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'lightning bolt, automation rule',
 	},
 	backlog: {
-		oldName: 'BacklogIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -169,7 +154,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'rows',
 	},
 	board: {
-		oldName: 'BoardIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -193,7 +177,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'knowledge base, article',
 	},
 	branch: {
-		oldName: 'BitbucketBranchesIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -202,7 +185,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'git branch, bitbucket branch, branches',
 	},
 	briefcase: {
-		oldName: 'SuitcaseIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -219,7 +201,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'bug report, test',
 	},
 	'bulleted-list': {
-		oldName: 'BulletListIcon /  EditorBulletListIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -228,7 +209,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'bullets, unordered list',
 	},
 	calendar: {
-		oldName: 'CalendarIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -237,7 +217,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'date, month, day, year',
 	},
 	camera: {
-		oldName: 'CameraIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -245,7 +224,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		usage: 'Known uses: upload photo in Trello, photos.',
 	},
 	capture: {
-		oldName: 'JiraCaptureIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -260,7 +238,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'horizontal arrows',
 	},
 	'chart-bar': {
-		oldName: 'GraphBarIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -293,7 +270,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'reports, graph, impact effort,',
 	},
 	'check-circle': {
-		oldName: 'CheckCircleIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -302,7 +278,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'tick, yes, success, filled',
 	},
 	'check-mark': {
-		oldName: 'CheckIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -311,7 +286,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'tick',
 	},
 	'checkbox-checked': {
-		oldName: 'CheckboxIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -320,7 +294,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'filled, checked, select all',
 	},
 	'checkbox-indeterminate': {
-		oldName: 'CheckboxIndeterminateIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -344,7 +317,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		usage: 'Reserved for child issues in Jira.',
 	},
 	clock: {
-		oldName: 'RecentIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -353,7 +325,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'time, recent, history',
 	},
 	close: {
-		oldName: 'CrossIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -362,7 +333,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'cross, x',
 	},
 	'cloud-arrow-up': {
-		oldName: 'UploadIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -371,7 +341,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'deployments, up arrow',
 	},
 	collapse: {
-		oldName: 'EditorCollapseIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -380,7 +349,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'contract, width, horizontal arrows',
 	},
 	comment: {
-		oldName: 'CodeIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -389,7 +357,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'speech bubble',
 	},
 	'comment-add': {
-		oldName: 'MediaServicesAddCommentIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -398,7 +365,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'speech bubble, plus',
 	},
 	commit: {
-		oldName: 'BitbucketCommitsIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -414,7 +380,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'template',
 	},
 	component: {
-		oldName: 'ComponentIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -423,7 +388,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'lego, brick, block',
 	},
 	copy: {
-		oldName: 'CopyIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -432,7 +396,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'copy, object',
 	},
 	'credit-card': {
-		oldName: 'CreditcardIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -441,7 +404,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'payment, invoice',
 	},
 	'cross-circle': {
-		oldName: 'CrossCircleIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -450,7 +412,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'x, exit, clear, no, filled',
 	},
 	customize: {
-		oldName: 'PreferencesIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -459,7 +420,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'customise, configure, modify, preferences, settings, sliders',
 	},
 	dashboard: {
-		oldName: 'ActivityIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -476,7 +436,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'spreadsheet, table, data, cells',
 	},
 	decision: {
-		oldName: 'DecisionIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -485,7 +444,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'fork, diagonal arrow',
 	},
 	delete: {
-		oldName: 'TrashIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -494,7 +452,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'trash, bin, remove',
 	},
 	department: {
-		oldName: 'DepartmentIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Global noun',
@@ -519,7 +476,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'down arrow, file download',
 	},
 	'drag-handle': {
-		oldName: 'DragHandlerIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -528,7 +484,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'drag handler, drag dots, reorder, move',
 	},
 	edit: {
-		oldName: 'EditIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -537,7 +492,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'pencil, pencil on page',
 	},
 	email: {
-		oldName: 'EmailIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -546,7 +500,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'envelope, message',
 	},
 	emoji: {
-		oldName: 'EmojiEmoji',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -555,7 +508,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'smiley face, emoticon',
 	},
 	'emoji-add': {
-		oldName: 'EmojiAddIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -572,7 +524,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'lightning bolt, filled',
 	},
 	error: {
-		oldName: 'ErrorIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -581,7 +532,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'filled, status',
 	},
 	expand: {
-		oldName: 'EditorExpandIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -590,7 +540,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'diagonal, resize',
 	},
 	'eye-open': {
-		oldName: 'WatchIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -600,7 +549,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'watch, visible, visbility, permissions',
 	},
 	'eye-open-filled': {
-		oldName: 'WatchFilledIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -625,7 +573,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'diagonal arrow, chat bubble',
 	},
 	filter: {
-		oldName: 'FilterIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -634,7 +581,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'funnel, refine',
 	},
 	flag: {
-		oldName: 'EmojiFlags',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -643,7 +589,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'important, emoji category',
 	},
 	flask: {
-		oldName: 'JiraLabsIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Global noun',
@@ -652,7 +597,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'labs, test, erlenmeyer flask, beaker',
 	},
 	'folder-closed': {
-		oldName: 'FolderIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -669,7 +613,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'directory',
 	},
 	'fullscreen-enter': {
-		oldName: 'VidFullScreenOnIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -678,7 +621,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'full screen',
 	},
 	'fullscreen-exit': {
-		oldName: 'VidFullScreenOffIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -687,7 +629,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'un-full screen, un-fullscreen',
 	},
 	globe: {
-		oldName: 'WorldIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -704,7 +645,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'target',
 	},
 	grid: {
-		oldName: 'AppSwitcherIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -721,7 +661,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'tag, topic, pound',
 	},
 	heart: {
-		oldName: 'EmojiSymbols',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -730,7 +669,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'like, love, emoji category',
 	},
 	home: {
-		oldName: 'HomeIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -740,7 +678,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'house, building',
 	},
 	image: {
-		oldName: 'ImageIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -749,7 +686,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'picture, asset',
 	},
 	inbox: {
-		oldName: 'TrayIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -766,7 +702,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'witches hat, traffic cone',
 	},
 	information: {
-		oldName: 'InfoIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -775,7 +710,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'info, filled, helper, tip',
 	},
 	issue: {
-		oldName: 'IssueIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -783,7 +717,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		usage: 'Reserved for issues in Jira.',
 	},
 	issues: {
-		oldName: 'IssuesIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -792,7 +725,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'multiple issues',
 	},
 	lightbulb: {
-		oldName: 'LightbulbIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Platform',
@@ -801,7 +733,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'idea, initiative, tip, learnings',
 	},
 	link: {
-		oldName: 'LinkIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -810,7 +741,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'url, hyperlink, website, www, http,',
 	},
 	'link-broken': {
-		oldName: 'UnlinkIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -819,7 +749,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'unlink, remove link, break link, url, hyperlink, website, www, https',
 	},
 	'link-external': {
-		oldName: 'ShortcutIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -836,7 +765,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'ding, risks',
 	},
 	location: {
-		oldName: 'LocationIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -845,7 +773,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'map, pin, address',
 	},
 	'lock-locked': {
-		oldName: 'LockIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -862,7 +789,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'open permissions, unrestricted access, security, insecure, authentication',
 	},
 	'log-in': {
-		oldName: 'SignInIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -871,7 +797,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'sign in, enter, account',
 	},
 	'log-out': {
-		oldName: 'SignOutIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -880,7 +805,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'sign out, exit, account',
 	},
 	marketplace: {
-		oldName: 'MarketplaceIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -889,7 +813,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'app store, storefront, stand, third-party developer',
 	},
 	maximize: {
-		oldName: 'MediaServicesActualSizeIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -898,7 +821,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'resize, diagonal arrows, bigger',
 	},
 	megaphone: {
-		oldName: 'FeedbackIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -907,7 +829,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'announcement, bullhorn, feedback, news',
 	},
 	mention: {
-		oldName: 'MentionIcon, EditorMentionIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -916,7 +837,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'at symbol, @, tag, username',
 	},
 	microphone: {
-		oldName: 'VidAudioOnIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -925,7 +845,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'mic, mic on, voice, speak',
 	},
 	minimize: {
-		oldName: 'VidFullScreenOffIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -934,7 +853,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'minimise, resize, diagonal arrows',
 	},
 	node: {
-		oldName: 'PageDotIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -943,7 +861,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'page, dot, page tree, navigation',
 	},
 	'office-building': {
-		oldName: 'OfficeBuildingIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -952,7 +869,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'organization, organisation, business',
 	},
 	page: {
-		oldName: 'PageIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -961,7 +877,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'feed, document',
 	},
 	pages: {
-		oldName: 'QueuesIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -970,7 +885,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'feeds, documents',
 	},
 	person: {
-		oldName: 'PersonIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -987,7 +901,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'user, customer, plus',
 	},
 	'person-added': {
-		oldName: 'PersonWithTickIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -996,7 +909,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'user, customer, check, tick',
 	},
 	'person-avatar': {
-		oldName: 'PersonIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1012,7 +924,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'user, customer, right arrow',
 	},
 	phone: {
-		oldName: 'DialOutIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1037,7 +948,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'push pin, thumbtack, tack, filled',
 	},
 	shortcut: {
-		oldName: 'AddItemIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1054,7 +964,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'plug-in, add-on, socket',
 	},
 	premium: {
-		oldName: 'PremiumIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1175,7 +1084,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'rocket, rocketship, spaceship',
 	},
 	'pull-request': {
-		oldName: 'BitbucketPullrequestsIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Global noun',
@@ -1184,7 +1092,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'git pull request, bitbucket pull request',
 	},
 	'question-circle': {
-		oldName: 'QuestionIcon, EditorHelpIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -1193,7 +1100,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'help, answers, faq',
 	},
 	'quotation-mark': {
-		oldName: 'EditorQuoteIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -1202,7 +1108,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'quote, testimonial, blockquote',
 	},
 	redo: {
-		oldName: 'RedoIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1211,7 +1116,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'editor, redo, backwards',
 	},
 	release: {
-		oldName: 'ShipIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -1228,7 +1132,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'try again,',
 	},
 	roadmap: {
-		oldName: 'RoadmapIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -1260,7 +1163,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'tick, check, circle, unfinished',
 	},
 	screen: {
-		oldName: 'ScreenIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1269,7 +1171,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'display, monitor, desktop',
 	},
 	search: {
-		oldName: 'SearchIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1286,7 +1187,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'submit, paper airplane, paper aeroplane',
 	},
 	settings: {
-		oldName: 'SettingsIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1303,7 +1203,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'objects, whiteboard, asset, graphic',
 	},
 	share: {
-		oldName: 'ShareIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1320,7 +1219,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'security, secure, safety, defence, protection, guard',
 	},
 	'show-more-horizontal': {
-		oldName: 'MoreIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1329,7 +1227,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'ellipses, three dots, more actions',
 	},
 	'show-more-vertical': {
-		oldName: 'MoreVerticalIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1354,7 +1251,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'navigation, open sidebar',
 	},
 	snippet: {
-		oldName: 'BitbucketSnippetsIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1371,7 +1267,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'table, cells, data',
 	},
 	sprint: {
-		oldName: 'SprintIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -1380,7 +1275,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'loop, iterate',
 	},
 	'star-starred': {
-		oldName: 'StarFilledIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1389,7 +1283,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'favourite, star, starred, filled',
 	},
 	'star-unstarred': {
-		oldName: 'StarIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1398,7 +1291,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'favourite, star',
 	},
 	stopwatch: {
-		oldName: 'StopwatchIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1415,7 +1307,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'bookmark, issue',
 	},
 	subtasks: {
-		oldName: 'SubtaskIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Global noun',
@@ -1424,7 +1315,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'issue, todo, checklist',
 	},
 	tag: {
-		oldName: 'LabelIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1433,7 +1323,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'label, topic',
 	},
 	task: {
-		oldName: 'TaskIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -1442,7 +1331,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'todo, list',
 	},
 	tasks: {
-		oldName: 'SubtaskIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -1451,7 +1339,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'todo, list',
 	},
 	teams: {
-		oldName: 'TeamsIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Global noun',
@@ -1460,7 +1347,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'infinite love, people, persons, customers, users',
 	},
 	'text-style': {
-		oldName: 'EditorTextStyleIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1477,7 +1363,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'vote, downvote, dislike, feedback, hand',
 	},
 	'thumbs-up': {
-		oldName: 'LikeIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Platform',
@@ -1502,7 +1387,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'connector, movement',
 	},
 	undo: {
-		oldName: 'UndoIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1519,7 +1403,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'stream, file',
 	},
 	video: {
-		oldName: 'VideoFilledIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1528,7 +1411,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'media, movie',
 	},
 	'video-next': {
-		oldName: 'VidForwardIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1537,7 +1419,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'skip, next, media, forward',
 	},
 	'video-pause': {
-		oldName: 'VidPauseIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1546,7 +1427,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'media, video',
 	},
 	'video-play': {
-		oldName: 'VidPlayIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1555,7 +1435,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'media, video',
 	},
 	'video-previous': {
-		oldName: 'VidBackwardIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1564,7 +1443,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'media, video, back, previous',
 	},
 	'volume-high': {
-		oldName: 'VidVolumeFullIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1572,7 +1450,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'louder, volume up',
 	},
 	'volume-low': {
-		oldName: 'VidVolumeHalfIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1580,7 +1457,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'quiter, volume down',
 	},
 	'volume-muted': {
-		oldName: 'VidVolumeMutedIcon',
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
 		type: 'Platform',
@@ -1588,7 +1464,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'volume off, no volume',
 	},
 	warning: {
-		oldName: 'WarningIcon',
 		categorization: 'Single-purpose',
 		location: 'ADS',
 		type: 'Core',
@@ -1605,7 +1480,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'shapes, canvas',
 	},
 	'zoom-in': {
-		oldName: 'MediaServicesZoomInIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',
@@ -1614,7 +1488,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'magnify, magnifying glass',
 	},
 	'zoom-out': {
-		oldName: 'MediaServicesZoomOutIcon',
 		categorization: 'Single-purpose',
 		location: 'Icon contributions',
 		type: 'Core',

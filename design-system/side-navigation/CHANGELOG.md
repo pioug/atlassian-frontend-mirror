@@ -1,5 +1,19 @@
 # @atlaskit/side-navigation
 
+## 3.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.2
+
+### Patch Changes
+
+- [#114764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114764)
+  [`ae20dac6e31c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae20dac6e31c4) -
+  Bump packages to use react-beautiful-dnd@12.2.0
+
 ## 3.3.1
 
 ### Patch Changes

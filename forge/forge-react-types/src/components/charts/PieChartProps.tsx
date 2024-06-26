@@ -1,3 +1,5 @@
+import type { ChartColorTokens } from '../../types';
+
 export type PieChartProps = {
 	width?: number;
 	height?: number;
@@ -10,5 +12,5 @@ export type PieChartProps = {
 	subtitle?: string;
 	isDonut?: boolean;
 	showMarkLabels?: boolean;
-	colors?: string[];
+	colors?: ChartColorTokens[];
 };

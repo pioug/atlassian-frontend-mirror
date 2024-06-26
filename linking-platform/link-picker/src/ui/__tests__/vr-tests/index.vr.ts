@@ -8,6 +8,8 @@ import {
 	DisableWidthWithPluginsExample,
 	ErrorBoundaryExample,
 	LargePaddingUsingTokensExample,
+	PluginErrorExample,
+	UnauthenticatedErrorExample,
 	VaryingPaddingsExample,
 	WithCancelExample,
 	ZeroPaddingExample,
@@ -56,6 +58,8 @@ snapshot(ErrorBoundaryExample, {
 		},
 	],
 });
+snapshot(PluginErrorExample, allVariantsOptions);
+snapshot(UnauthenticatedErrorExample, allVariantsOptions);
 
 /** Width examples */
 snapshot(DisableWidthExample);
@@ -63,7 +67,7 @@ snapshot(DisableWidthWithPluginsExample);
 snapshot(DisableWidth500Example);
 snapshot(DisableWidth300Example);
 
-// /** Padding examples */
+/** Padding examples */
 snapshot(ZeroPaddingExample);
 snapshot(LargePaddingUsingTokensExample, {
 	variants: [

@@ -1,5 +1,16 @@
 # @atlaskit/primitives
 
+## 9.0.0
+
+### Major Changes
+
+- [#114987](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114987)
+  [`d4d420c947747`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4d420c947747) -
+  [ux] Pressable and Anchor primitives no longer support surface color detection to improve
+  performance. These primitives don't contain nested layouts so this is not needed. Although this is
+  a breaking change, the impact of this change is minimal as no usage of surface detection in these
+  primitives has been observed.
+
 ## 8.2.1
 
 ### Patch Changes

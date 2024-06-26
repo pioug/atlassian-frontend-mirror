@@ -69,6 +69,7 @@ export type {
 	MediaResizeTrackAction,
 	MediaInputResizeTrackAction,
 } from './media-events';
+export type { MoveContentEventPayload } from './move-content-events';
 export type { DispatchAnalyticsEvent } from './dispatch-analytics-event';
 export {
 	DELETE_DIRECTION,

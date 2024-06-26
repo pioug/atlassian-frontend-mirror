@@ -4,7 +4,7 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import Button from '@atlaskit/button';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { ExtractPublicEditorAPI } from '@atlaskit/editor-common/types';
+import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';
 
 import { ComposableEditor } from '../../../composable-editor';
 import { EditorContext, INPUT_METHOD } from '../../../index';
@@ -69,7 +69,7 @@ const createPreset = (lpLinkPicker: boolean | undefined) =>
 	});
 
 interface ToolbarProps {
-	editorApi: ExtractPublicEditorAPI<ReturnType<typeof createPreset>> | undefined;
+	editorApi: ExtractPresetAPI<ReturnType<typeof createPreset>> | undefined;
 }
 
 function Toolbar({ editorApi }: ToolbarProps) {

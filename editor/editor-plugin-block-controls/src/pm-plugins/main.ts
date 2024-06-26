@@ -9,8 +9,9 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -24,6 +25,7 @@ import type { BlockControlsPlugin, PluginState } from '../types';
 import {
 	dragHandleDecoration,
 	dropTargetDecorations,
+	emptyParagraphNodeDecorations,
 	mouseMoveWrapperDecorations,
 	nodeDecorations,
 } from './decorations';
@@ -76,7 +78,7 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 							},
 						})(tr);
 					}
-					return tr.setMeta(key, { isDragging: false });
+					return tr.setMeta(key, { isDragging: false, isPMDragging: false });
 				});
 			},
 		}),
@@ -93,14 +95,11 @@ const initialState: PluginState = {
 	isMenuOpen: false,
 	editorHeight: 0,
 	isResizerResizing: false,
-	isDocSizeLimitEnabled: false,
+	isDocSizeLimitEnabled: null,
+	isPMDragging: false,
 };
 
-if (getBooleanFF('platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq')) {
-	initialState.isDocSizeLimitEnabled = true;
-}
-
-const DRAG_AND_DROP_DOC_SIZE_LIMIT = 20000;
+const DRAG_AND_DROP_DOC_SIZE_LIMIT = 50;
 
 export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
 	return new SafePlugin({
@@ -115,9 +114,16 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				oldState: EditorState,
 				newState: EditorState,
 			) {
+				if (initialState.isDocSizeLimitEnabled === null) {
+					if (getBooleanFF('platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq')) {
+						initialState.isDocSizeLimitEnabled = true;
+					} else {
+						initialState.isDocSizeLimitEnabled = false;
+					}
+				}
 				if (
 					initialState.isDocSizeLimitEnabled &&
-					newState.doc.nodeSize > DRAG_AND_DROP_DOC_SIZE_LIMIT
+					newState.doc.childCount > DRAG_AND_DROP_DOC_SIZE_LIMIT
 				) {
 					return initialState;
 				}
@@ -130,6 +136,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					editorHeight,
 					isResizerResizing,
 					isDragging,
+					isPMDragging,
 				} = currentState;
 
 				const meta = tr.getMeta(key);
@@ -199,16 +206,21 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					// Note: Quite often the handle is not in the right position after a node is moved
 					// it is safer for now to not show it when a node is moved
 					if (activeNode && !meta?.nodeMoved && !isDecsMissing) {
-						const newActiveNode = activeNode && tr.doc.nodeAt(tr.mapping.map(activeNode.pos));
+						let mappedPosisiton = tr.mapping.map(activeNode.pos);
+						const prevMappedPos = oldState.tr.mapping.map(activeNode.pos);
+
+						// When a node type changed to be nested inside another node, the position of the active node is off by 1
+						// This is a workaround to fix the position of the active node when it is nested
+						if (mappedPosisiton === prevMappedPos + 1) {
+							mappedPosisiton = prevMappedPos;
+						}
+
+						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
 
 						let nodeType = activeNode.nodeType;
 						let anchorName = activeNode.anchorName;
 
-						if (
-							newActiveNode &&
-							newActiveNode?.type.name !== activeNode.nodeType &&
-							!meta?.nodeMoved
-						) {
+						if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
 							nodeType = newActiveNode.type.name;
 							anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
 						}
@@ -271,6 +283,16 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					decorations = decorations.map(tr.mapping, tr.doc);
 				}
 
+				const isEmptyDoc = newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
+
+				const hasNodeDecoration = decorations
+					.find()
+					.some(({ spec }) => spec.type === 'node-decoration');
+
+				if (!hasNodeDecoration && isEmptyDoc) {
+					decorations = decorations.add(newState.doc, [emptyParagraphNodeDecorations()]);
+				}
+
 				// Map active node position when the document changes
 				const mappedActiveNodePos =
 					tr.docChanged && activeNode
@@ -280,8 +302,6 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 								nodeType: activeNode.nodeType,
 							}
 						: activeNode;
-
-				const isEmptyDoc = newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
 
 				return {
 					decorations,
@@ -293,6 +313,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
 					isResizerResizing: isResizerResizing,
 					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
+					isPMDragging: meta?.isPMDragging ?? isPMDragging,
 				};
 			},
 		},
@@ -311,16 +332,21 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					// prosemirror has sends a default transaction on drop (meta where uiEvent is 'drop'),
 					// this duplicates the an empty version of the node it was dropping,
 					// Adding some check here to prevent that if drop position is within activeNode
-					const { state } = view;
+					const { state, dispatch, dragging } = view;
 					const pluginState = key.getState(state);
+
+					if (pluginState?.isPMDragging) {
+						dispatch(state.tr.setMeta(key, { isPMDragging: false }));
+					}
 
 					if (!(event.target instanceof HTMLElement) || !pluginState?.activeNode) {
 						return false;
 					}
-
-					const node = view.nodeDOM(pluginState?.activeNode?.pos);
-					const isActiveNode = node?.contains(event.target) || event.target === node;
-					if (isActiveNode) {
+					// Currently we can only drag one node at a time
+					// so we only need to check first child
+					const draggable = dragging?.slice.content.firstChild;
+					const activeNode = state.tr.doc.nodeAt(pluginState.activeNode.pos);
+					if (draggable === activeNode) {
 						// Prevent the default drop behavior if the position is within the activeNode
 						event.preventDefault();
 						return true;
@@ -328,9 +354,32 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 					return false;
 				},
+				dragstart(view: EditorView) {
+					view.dispatch(view.state.tr.setMeta(key, { isPMDragging: true }));
+				},
+				dragend(view: EditorView) {
+					const { state, dispatch } = view;
+					if (key.getState(state)?.isPMDragging) {
+						dispatch(state.tr.setMeta(key, { isPMDragging: false }));
+					}
+				},
 				mouseover: (view: EditorView, event: Event) => {
 					if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 						handleMouseOver(view, event, api);
+					}
+					return false;
+				},
+				keydown(view: EditorView, event: KeyboardEvent) {
+					// Command + Shift + ArrowUp to select was broken with the plugin enabled so this manually sets the selection
+					const { selection, doc, tr } = view.state;
+					const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
+
+					if (event.key === 'ArrowUp' && event.shiftKey && metaKey) {
+						if (selection instanceof TextSelection || selection instanceof NodeSelection) {
+							const newSelection = TextSelection.create(doc, selection.head, 1);
+							view.dispatch(tr.setSelection(newSelection));
+							return true;
+						}
 					}
 					return false;
 				},

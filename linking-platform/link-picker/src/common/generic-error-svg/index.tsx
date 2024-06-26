@@ -1,9 +1,13 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { genericErrorStyles } from './styled';
+const HEIGHT = 90;
+
+const genericErrorStyles = css({
+	height: `${HEIGHT}px`,
+	display: 'block',
+});
 
 export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
 	const id = 'link-picker-ui-generic-error-svg';
@@ -14,7 +18,6 @@ export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
 			viewBox="0 0 164 212"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={genericErrorStyles}
 			{...props}
 		>

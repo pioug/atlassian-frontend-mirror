@@ -6,7 +6,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { createPlugin, key } from './pm-plugins/main';
 import type { BlockControlsPlugin } from './types';
@@ -82,7 +82,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			},
 	},
 
-	getSharedState(editorState) {
+	getSharedState(editorState: EditorState | undefined) {
 		if (!editorState) {
 			return undefined;
 		}
@@ -91,6 +91,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 			activeNode: key.getState(editorState)?.activeNode ?? null,
 			decorationState: key.getState(editorState)?.decorationState ?? [],
 			isDragging: key.getState(editorState)?.isDragging ?? false,
+			isPMDragging: key.getState(editorState)?.isPMDragging ?? false,
 		};
 	},
 

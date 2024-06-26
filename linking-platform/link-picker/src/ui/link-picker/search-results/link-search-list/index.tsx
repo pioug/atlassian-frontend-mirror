@@ -2,11 +2,12 @@
 import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../../common/types';
@@ -14,7 +15,6 @@ import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';
 
 import { NoResults, testIds as noResultsTestIds } from './link-search-no-results';
-import { emptyStateNoResultsWrapper } from './link-search-no-results/styled';
 import { LinkSearchListItem, testIds as searchResultItemTestIds } from './list-item';
 import { listContainerStyles, listStyles, listTitleStyles, spinnerContainerStyles } from './styled';
 import { useTrackResultsShown } from './use-track-results-shown';
@@ -65,6 +65,10 @@ export interface LinkSearchListProps
 	hasSearchTerm?: boolean;
 	activePlugin?: LinkPickerPlugin;
 }
+
+const emptyStateNoResultsWrapper = css({
+	minHeight: token('space.200', '16px'),
+});
 
 export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 	(

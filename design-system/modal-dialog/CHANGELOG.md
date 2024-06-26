@@ -1,5 +1,19 @@
 # @atlaskit/modal-dialog
 
+## 12.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.14.2
+
+### Patch Changes
+
+- [#114764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114764)
+  [`ae20dac6e31c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae20dac6e31c4) -
+  Bump packages to use react-beautiful-dnd@12.2.0
+
 ## 12.14.1
 
 ### Patch Changes

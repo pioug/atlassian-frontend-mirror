@@ -1,5 +1,11 @@
 # @atlaskit/page-header
 
+## 10.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.7.1
 
 ### Patch Changes

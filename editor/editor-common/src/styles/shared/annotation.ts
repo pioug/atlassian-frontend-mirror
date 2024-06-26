@@ -25,26 +25,27 @@ const Y200a = 'rgba(255, 196, 0, 0.82)';
 export const AnnotationSharedCSSByState = () => {
 	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
 		return {
+			common: {
+				borderBottom: '2px solid transparent',
+				cursor: 'pointer',
+				padding: '1px 0 2px',
+				'&:has(.card), &:has([data-inline-card])': {
+					paddingTop: '4px',
+					border: 'none',
+					boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow', Y200a)}`,
+				},
+				'&:has(.date-lozenger-container)': {
+					paddingTop: '2px',
+				},
+			},
 			focus: css({
 				background: token('color.background.accent.yellow.subtler', Y75),
-				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+				borderBottomColor: token('color.border.accent.yellow', Y300),
 				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
-				cursor: 'pointer',
-				padding: '1.5px 0',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'&:has(.card)': {
-					padding: '4.5px 0 3px 0',
-				},
 			}),
 			blur: css({
 				background: token('color.background.accent.yellow.subtlest', Yellow100),
-				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
-				cursor: 'pointer',
-				padding: '1.5px 0',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'&:has(.card)': {
-					padding: '4.5px 0 3px 0',
-				},
+				borderBottomColor: token('color.border.accent.yellow', Y200a),
 			}),
 		};
 	} else if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
@@ -98,20 +99,46 @@ export const AnnotationSharedCSSByState = () => {
 		};
 	}
 };
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState()` is not safe in object syntax
-export const annotationSharedStyles = () => css`
-	.ProseMirror {
-		.${AnnotationSharedClassNames.focus} {
-			${AnnotationSharedCSSByState().focus};
-		}
 
-		.${AnnotationSharedClassNames.draft} {
-			${AnnotationSharedCSSByState().focus};
-			cursor: initial;
-		}
+export const annotationSharedStyles = () =>
+	getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState()` is not safe in object syntax
+			css`
+				.ProseMirror {
+					.${AnnotationSharedClassNames.blur},
+						.${AnnotationSharedClassNames.focus},
+						.${AnnotationSharedClassNames.draft} {
+						${AnnotationSharedCSSByState().common};
+					}
 
-		.${AnnotationSharedClassNames.blur} {
-			${AnnotationSharedCSSByState().blur};
-		}
-	}
-`;
+					.${AnnotationSharedClassNames.focus} {
+						${AnnotationSharedCSSByState().focus};
+					}
+
+					.${AnnotationSharedClassNames.draft} {
+						${AnnotationSharedCSSByState().focus};
+						cursor: initial;
+					}
+
+					.${AnnotationSharedClassNames.blur} {
+						${AnnotationSharedCSSByState().blur};
+					}
+				}
+			`
+		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState()` is not safe in object syntax
+			css`
+				.ProseMirror {
+					.${AnnotationSharedClassNames.focus} {
+						${AnnotationSharedCSSByState().focus};
+					}
+
+					.${AnnotationSharedClassNames.draft} {
+						${AnnotationSharedCSSByState().focus};
+						cursor: initial;
+					}
+
+					.${AnnotationSharedClassNames.blur} {
+						${AnnotationSharedCSSByState().blur};
+					}
+				}
+			`;

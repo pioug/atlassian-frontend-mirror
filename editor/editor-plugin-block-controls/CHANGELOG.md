@@ -1,5 +1,60 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.34
+
+### Patch Changes
+
+- [#115110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115110)
+  [`cc8cc2bbe88f8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc8cc2bbe88f8) -
+  Fix a regression where drag and drop a node at itself duplicates the node
+- [#114841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114841)
+  [`2ea1a74c41971`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ea1a74c41971) -
+  Fix drag handle position when change from paragraph to blockQuote
+- [#115110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115110)
+  [`bfa2f902f0cb3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfa2f902f0cb3) -
+  change doc size limit to child count
+
+## 1.4.33
+
+### Patch Changes
+
+- [#111344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/111344)
+  [`a89589001c3b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a89589001c3b1) -
+  [ED-23591] Select media node when there is only one within mediaGroup
+- [#114726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114726)
+  [`3735569cbd151`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3735569cbd151) -
+  ED-23811 Set selection when command+shift+up is pressed in blocks plugin
+- Updated dependencies
+
+## 1.4.32
+
+### Patch Changes
+
+- [#113591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113591)
+  [`cc5ac590d4c43`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc5ac590d4c43) -
+  [ED-23794] Fix the issue where prosemirror drag and drop stop working with block controls plugin
+  enabled
+- [#114565](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114565)
+  [`9c4aee75822c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c4aee75822c7) -
+  Add analytic event for drag and drop click event
+
+## 1.4.31
+
+### Patch Changes
+
+- [#110942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/110942)
+  [`aa339aee9aa7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa339aee9aa7d) -
+  [ED-23431] Fix EditorPluginAPI type system
+- Updated dependencies
+
+## 1.4.30
+
+### Patch Changes
+
+- [#114676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114676)
+  [`8b085c84572b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b085c84572b0) -
+  remove mouse move wrapper under feature flag
+
 ## 1.4.29
 
 ### Patch Changes

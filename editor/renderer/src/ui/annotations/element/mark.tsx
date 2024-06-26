@@ -18,6 +18,7 @@ const markStyles = () => css`
 	-webkit-tap-highlight-color: transparent;
 
 	&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
+		${AnnotationSharedCSSByState().common};
 		${AnnotationSharedCSSByState().blur};
 
 		&:focus,

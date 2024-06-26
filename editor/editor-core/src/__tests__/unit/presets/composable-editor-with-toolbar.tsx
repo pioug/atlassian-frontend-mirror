@@ -8,8 +8,8 @@ import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorCommand,
+	ExtractInjectionAPI,
 	NextEditorPlugin,
-	PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
@@ -179,7 +179,7 @@ const dogPlugin: NextEditorPlugin<
 	};
 };
 
-function Toolbar({ editorApi }: { editorApi: PublicPluginAPI<[typeof dogPlugin]> | undefined }) {
+function Toolbar({ editorApi }: { editorApi: ExtractInjectionAPI<typeof dogPlugin> | undefined }) {
 	const { dogState } = useSharedPluginState(editorApi, ['dog']);
 	return (
 		<div>

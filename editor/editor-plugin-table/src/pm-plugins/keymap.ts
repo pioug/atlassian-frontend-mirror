@@ -17,6 +17,7 @@ import {
 	deleteColumn,
 	deleteRow,
 	escape,
+	focusToContextMenuTrigger,
 	increaseMediaSize,
 	moveColumnLeft,
 	moveColumnRight,
@@ -35,7 +36,7 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { goToNextCell, moveCursorBackward } from '../commands';
+import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from '../commands';
 import {
 	addRowAroundSelection,
 	changeColumnWidthByStepWithAnalytics,
@@ -296,6 +297,10 @@ export function keymapPlugin(
 			}),
 			list,
 		);
+	}
+
+	if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+		bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);
 	}
 
 	return keymap(list) as SafePlugin;

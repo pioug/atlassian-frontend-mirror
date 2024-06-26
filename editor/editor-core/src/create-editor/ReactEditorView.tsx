@@ -26,14 +26,17 @@ import type {
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type {
+	AllEditorPresetPluginTypes,
+	EditorPresetBuilder,
+} from '@atlaskit/editor-common/preset';
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
-import type { AllEditorPresetPluginTypes, Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types';
 import {
 	EditorExperience,
 	ExperienceStore,

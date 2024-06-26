@@ -4,14 +4,15 @@ import memoizeOne from 'memoize-one';
 
 import type { AvatarProps } from '@atlaskit/avatar-group';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+
+import type { AvatarGroupPlugin } from '../plugin';
 
 import { ColoredAvatarItem } from './colored-avatar-item';
 
 const toAvatar = (
 	participant: CollabParticipant,
-	api: PublicPluginAPI<[OptionalPlugin<CollabEditPlugin>]> | undefined,
+	api: ExtractInjectionAPI<AvatarGroupPlugin> | undefined,
 ): AvatarProps => ({
 	name: participant.name,
 	src: participant.avatar,

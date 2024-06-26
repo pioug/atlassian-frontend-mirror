@@ -4,14 +4,17 @@ import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { ExtensionHandlers, ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type {
+	AllEditorPresetPluginTypes,
+	AllPluginNames,
+	EditorPresetBuilder,
+} from '@atlaskit/editor-common/preset';
 import type {
 	ContextIdentifierProvider,
 	Providers,
 	SearchProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import type {
-	AllEditorPresetPluginTypes,
 	FeedbackInfo,
 	LinkingOptions,
 	QuickInsertOptions,
@@ -288,7 +291,7 @@ export interface EditorNextProps
 	extends EditorBaseProps,
 		EditorSharedPropsWithPlugins,
 		EditorProviderProps {
-	preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+	preset: EditorPresetBuilder<AllPluginNames[], AllEditorPresetPluginTypes[]>;
 	/**
 	 * @deprecated
 	 * This prop does nothing and will be removed soon.

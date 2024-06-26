@@ -7,7 +7,7 @@ import Link from '../../src';
 export default function FontStyleInheritance() {
 	return (
 		<Heading size="xxlarge">
-			<Link href="/components/link/code">The link</Link> inherits font styles
+			The <Link href="/components/link/code">link</Link> inherits font styles
 		</Heading>
 	);
 }

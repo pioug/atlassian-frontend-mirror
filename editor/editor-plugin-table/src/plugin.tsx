@@ -514,6 +514,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 								isHeaderRowEnabled,
 								isDragAndDropEnabled,
 								tableWrapperTarget,
+								isCellMenuOpenByKeyboard,
 							} = tablePluginState!;
 
 							const { allowControls } = pluginConfig;
@@ -525,7 +526,9 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							return (
 								<>
 									{targetCellPosition &&
-										tableRef &&
+										(tableRef ||
+											(getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c') &&
+												isCellMenuOpenByKeyboard)) &&
 										!isResizing &&
 										options &&
 										options.allowContextualMenu && (
@@ -540,6 +543,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 												isContextualMenuOpen={isContextualMenuOpen}
 												stickyHeader={stickyHeader}
 												tableWrapper={tableWrapperTarget}
+												isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 											/>
 										)}
 									{allowControls && (
@@ -578,6 +582,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											getEditorFeatureFlags={
 												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
 											}
+											isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 										/>
 									)}
 									{isDragAndDropEnabled && (

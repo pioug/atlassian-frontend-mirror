@@ -24,21 +24,11 @@ import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
 
 type FloatingToolbarHighlightColorProps = {
-	popupsMountPoint?: HTMLElement;
-	popupsBoundariesElement?: HTMLElement;
-	popupsScrollableElement?: HTMLElement;
-	disabled: boolean;
-	isToolbarReducedSpacing: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	pluginInjectionApi: ExtractInjectionAPI<HighlightPlugin> | undefined;
 } & WrappedComponentProps;
 
 const FloatingToolbarHighlightColor = ({
-	popupsMountPoint,
-	popupsBoundariesElement,
-	popupsScrollableElement,
-	isToolbarReducedSpacing,
-	disabled,
 	pluginInjectionApi,
 	intl: { formatMessage },
 }: FloatingToolbarHighlightColorProps) => {
@@ -78,16 +68,13 @@ const FloatingToolbarHighlightColor = ({
 	return (
 		<Flex alignItems="center">
 			<PaletteDropdown
-				popupsMountPoint={popupsMountPoint}
-				popupsBoundariesElement={popupsBoundariesElement}
-				popupsScrollableElement={popupsScrollableElement}
 				isOpen={isDropdownOpen && !highlightState.disabled}
 				activeColor={highlightState.activeColor}
 				trigger={
 					<ToolbarButton
 						buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
-						spacing={isToolbarReducedSpacing ? 'none' : 'default'}
-						disabled={disabled || highlightState.disabled}
+						spacing={'default'}
+						disabled={highlightState.disabled}
 						selected={isDropdownOpen}
 						aria-label={toolbarButtonLabel}
 						aria-expanded={isDropdownOpen}
@@ -108,7 +95,9 @@ const FloatingToolbarHighlightColor = ({
 								</span>
 							</Flex>
 						}
-					/>
+					>
+						{formatMessage(messages.highlightFloatingToolbar)}
+					</ToolbarButton>
 				}
 				onColorChange={(color) => handleColorChange(color)}
 				isOpenedByKeyboard={isOpenedByKeyboard}

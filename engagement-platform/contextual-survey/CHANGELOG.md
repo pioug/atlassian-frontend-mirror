@@ -1,5 +1,14 @@
 # @atlaskit/contextual-survey
 
+## 2.2.18
+
+### Patch Changes
+
+- [#114683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114683)
+  [`ff0815316ab38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff0815316ab38) -
+  Removes usage of custom theme button in places where its API is not being used and the default
+  button is able to be used instead. This should give a slight performance (runtime) improvement.
+
 ## 2.2.17
 
 ### Patch Changes

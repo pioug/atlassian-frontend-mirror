@@ -1,33 +1,16 @@
-import React, { type ComponentProps } from 'react';
+import React from 'react';
 import OldButton from '@atlaskit/button';
 import Button, { IconButton } from '@atlaskit/button/new';
 
 import AddIconOld from '../glyph/add';
-import HipchatChevronDownOld from '../glyph/hipchat/chevron-down';
+import HipchatChevronDownIconOld from '../glyph/hipchat/chevron-down';
 import AddIcon from '../core/add';
 import ChevronDownIcon from '../utility/chevron-down';
+import AddIconMigration from '../core/migration/add';
+import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat-chevron-down';
 
 import { Inline, Stack, xcss } from '@atlaskit/primitives';
 import Heading from '@atlaskit/heading';
-
-const FFAddIcon = ({ label, spacing, ...iconProps }: ComponentProps<typeof AddIcon>) => (
-	<AddIcon
-		spacing={spacing}
-		LEGACY_fallbackIcon={AddIconOld}
-		LEGACY_size="medium"
-		label={label}
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...iconProps}
-	/>
-);
-
-const FFChevronDown = ({ ...iconProps }: ComponentProps<typeof AddIcon>) => (
-	<ChevronDownIcon
-		LEGACY_fallbackIcon={HipchatChevronDownOld}
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...iconProps}
-	/>
-);
 
 const styles = xcss({ padding: 'space.200' });
 const IconSizeExample = () => {
@@ -41,7 +24,7 @@ const IconSizeExample = () => {
 						<OldButton
 							isSelected={isSelected}
 							iconBefore={<AddIconOld label="" />}
-							iconAfter={<HipchatChevronDownOld label="" />}
+							iconAfter={<HipchatChevronDownIconOld label="" />}
 						>
 							Button
 						</OldButton>
@@ -55,7 +38,7 @@ const IconSizeExample = () => {
 						<Button
 							isSelected={isSelected}
 							iconBefore={AddIconOld}
-							iconAfter={HipchatChevronDownOld}
+							iconAfter={HipchatChevronDownIconOld}
 						>
 							Button
 						</Button>
@@ -68,31 +51,35 @@ const IconSizeExample = () => {
 					<Inline space="space.100" alignBlock="center">
 						<OldButton
 							isSelected={isSelected}
-							iconBefore={<FFAddIcon label="" color="currentColor" />}
-							iconAfter={<FFChevronDown label="" color="currentColor" />}
+							iconBefore={<AddIconMigration label="" color="currentColor" />}
+							iconAfter={<ChevronDownIconMigration label="" color="currentColor" />}
 						>
 							Button
 						</OldButton>
 						<OldButton
 							isSelected={isSelected}
-							iconBefore={<FFAddIcon label="" color="currentColor" />}
+							iconBefore={<AddIconMigration label="" color="currentColor" />}
 						>
 							Button
 						</OldButton>
 						<OldButton
 							isSelected={isSelected}
-							iconBefore={<FFAddIcon label="add" spacing="spacious" color="currentColor" />}
+							iconBefore={<AddIconMigration label="add" spacing="spacious" color="currentColor" />}
 						/>
 						Old button, new icon - with legacy fallback (feature flagged)
 					</Inline>
 					<Inline space="space.100" alignBlock="center">
-						<Button isSelected={isSelected} iconBefore={FFAddIcon} iconAfter={FFChevronDown}>
+						<Button
+							isSelected={isSelected}
+							iconBefore={AddIconMigration}
+							iconAfter={ChevronDownIconMigration}
+						>
 							Button
 						</Button>
-						<Button isSelected={isSelected} iconBefore={FFAddIcon}>
+						<Button isSelected={isSelected} iconBefore={AddIconMigration}>
 							Button
 						</Button>
-						<IconButton isSelected={isSelected} label="add" icon={FFAddIcon} />
+						<IconButton isSelected={isSelected} label="add" icon={AddIconMigration} />
 						New button, new icon - with legacy fallback (feature flagged)
 					</Inline>
 					<Inline space="space.100" alignBlock="center">

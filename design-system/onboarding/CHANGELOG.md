@@ -1,5 +1,19 @@
 # @atlaskit/onboarding
 
+## 11.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.8.0
+
+### Minor Changes
+
+- [#114901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114901)
+  [`61f6a496bcddf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61f6a496bcddf) -
+  Added a possible fix (behind a feature flag) for a positioning bug with the Spotlight component.
+
 ## 11.7.2
 
 ### Patch Changes

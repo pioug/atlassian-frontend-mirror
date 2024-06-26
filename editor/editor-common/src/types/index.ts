@@ -1,10 +1,3 @@
-import type { Node } from '@atlaskit/editor-prosemirror/model';
-
-export interface Transformer<T> {
-	encode(node: Node): T;
-	parse(content: T): Node;
-}
-
 export enum SortOrder {
 	ASC = 'asc',
 	DESC = 'desc',
@@ -104,27 +97,22 @@ export type {
 
 export type {
 	NextEditorPlugin,
-	AllEditorPresetPluginTypes,
 	PluginDependenciesAPI,
-	ExtractPluginNameFromAllBuilderPlugins,
-	SafePresetCheck,
 	DefaultEditorPlugin,
 	OptionalPlugin,
-	PluginInjectionAPI,
-	CreatePluginDependenciesAPI,
-	NextEditorPluginMetadata,
 	ExtractInjectionAPI,
-	ExtractPluginActions,
-	PluginInjectionAPIWithDependencies,
 	PublicPluginAPI,
+	NextEditorPluginMetadata,
+	DependencyPlugin,
+	EditorInjectionAPI,
 	NextEditorPluginFunctionOptionalConfigDefinition,
-	ExtractNextEditorPlugins,
-	MaybePlugin,
-	MaybePluginName,
-	PresetPlugin,
+	Transformer,
+	CorePlugin,
+	DefaultTransformerResultCallback,
+	InferTransformerResultCallback,
+	BasePluginDependenciesAPI,
+	TransformerResult,
 } from './next-editor-plugin';
-
-export type { ExtractPublicEditorAPI } from './editor-public-api';
 
 export type { EditorCommand, EditorCommandWithMetadata } from './editor-command';
 
@@ -209,3 +197,13 @@ export type { Refs, RefsNode, DocBuilder } from './doc-builder';
 export type { SelectionToolbarGroup, SelectionToolbarHandler } from './selection-toolbar';
 
 export type { FeedbackInfo } from './feedback-dialog';
+
+// DEPREACTED
+import type { EditorPresetBuilder, ExtractPresetAPI } from '../preset';
+
+/**
+ * @depreacted
+ *
+ * Please use ExtractPresetAPI from "@atlaskit/editor-common/preset" instead.
+ */
+export type ExtractPublicEditorAPI<T extends EditorPresetBuilder<any, any>> = ExtractPresetAPI<T>;

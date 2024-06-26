@@ -39,15 +39,17 @@ export const InlineDialogFormWrapper = ({
 	integrationMode?: IntegrationMode;
 	isMenuItemSelected?: boolean;
 }>) => {
+	const styles = {
+		width: calculateFormWrapperWidth({
+			integrationMode,
+			isMenuItemSelected,
+		}),
+	};
+
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={{
-				width: calculateFormWrapperWidth({
-					integrationMode,
-					isMenuItemSelected,
-				}),
-			}}
+			css={styles}
 		>
 			{children}
 		</div>

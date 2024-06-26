@@ -1,9 +1,9 @@
-import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { InsertBlockPluginDependencies } from '../../types';
+import type { InsertBlockPlugin } from '../../index';
 import type { BlockMenuItem } from '../ToolbarInsertBlock/create-items';
 
 type SimpleEventHandler<T> = (event?: T) => void;
@@ -14,7 +14,7 @@ export interface InsertMenuProps {
 	showElementBrowserLink: boolean;
 	toggleVisiblity: SimpleEventHandler<MouseEvent | KeyboardEvent>;
 	onInsert: OnInsert;
-	pluginInjectionApi: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies> | undefined;
+	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 }
 
 export type SvgGetterParams = {

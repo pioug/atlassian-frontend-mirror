@@ -1,5 +1,19 @@
 # @atlaskit/user-picker
 
+## 10.21.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.21.2
+
+### Patch Changes
+
+- [#114764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114764)
+  [`ae20dac6e31c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae20dac6e31c4) -
+  Bump packages to use react-beautiful-dnd@12.2.0
+
 ## 10.21.1
 
 ### Patch Changes

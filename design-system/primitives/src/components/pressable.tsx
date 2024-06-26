@@ -23,15 +23,12 @@ import {
 	backgroundColorStylesMap,
 	borderColorMap,
 	borderWidthMap,
-	isSurfaceColorToken,
 	paddingStylesMap,
 	positiveSpaceMap,
 	type Space,
-	surfaceColorStylesMap,
 } from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
 
-import { SurfaceContext } from './internal/surface-provider';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BasePressableProps = {
@@ -212,7 +209,7 @@ const Pressable = forwardRef(
 		const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
 		const resolvedStyles = parseXcss(xcss);
 
-		const node = (
+		return (
 			// eslint-disable-next-line @atlaskit/design-system/no-html-button
 			<button
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -232,8 +229,6 @@ const Pressable = forwardRef(
 					isDisabled ? disabledStyles : enabledStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					backgroundColor && backgroundColorStylesMap[backgroundColor],
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					isSurfaceColorToken(backgroundColor) && surfaceColorStylesMap[backgroundColor],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					padding && paddingStylesMap.padding[padding],
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -255,12 +250,6 @@ const Pressable = forwardRef(
 			>
 				{children}
 			</button>
-		);
-
-		return backgroundColor ? (
-			<SurfaceContext.Provider value={backgroundColor}>{node}</SurfaceContext.Provider>
-		) : (
-			node
 		);
 	},
 );

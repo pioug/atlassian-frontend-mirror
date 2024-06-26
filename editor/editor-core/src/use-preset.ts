@@ -1,18 +1,19 @@
 import type { DependencyList } from 'react';
 import { useLayoutEffect, useMemo, useState } from 'react';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type {
-	AllEditorPresetPluginTypes,
-	ExtractPublicEditorAPI,
-} from '@atlaskit/editor-common/types';
+import {
+	type AllEditorPresetPluginTypes,
+	EditorPresetBuilder,
+	type ExtractPresetAPI,
+} from '@atlaskit/editor-common/preset';
 
-interface PresetAPI<
-	PluginNames extends string[] = [],
-	StackPlugins extends AllEditorPresetPluginTypes[] = [],
-> {
-	editorApi: ExtractPublicEditorAPI<EditorPresetBuilder<PluginNames, StackPlugins>> | undefined;
-	preset: EditorPresetBuilder<PluginNames, StackPlugins>;
+interface PresetAPI<Preset extends EditorPresetBuilder<any, any>> {
+	// Due to TypeScript limitation (see: https://github.com/microsoft/TypeScript/issues/34933)
+	// we may be need to return any
+	editorApi:
+		| (Preset extends EditorPresetBuilder<any, any> ? ExtractPresetAPI<Preset> : never)
+		| undefined;
+	preset: Preset;
 }
 
 /**
@@ -49,15 +50,14 @@ interface PresetAPI<
  * ```
  */
 export function usePreset<
-	PluginNames extends string[] = [],
-	StackPlugins extends AllEditorPresetPluginTypes[] = [],
+	PluginNames extends string[],
+	StackPlugins extends AllEditorPresetPluginTypes[],
+	Preset extends EditorPresetBuilder<PluginNames, StackPlugins>,
 >(
-	createPreset: (builder: EditorPresetBuilder) => EditorPresetBuilder<PluginNames, StackPlugins>,
+	createPreset: (builder: EditorPresetBuilder) => Preset,
 	dependencies: DependencyList = [],
-): PresetAPI<PluginNames, StackPlugins> {
-	const [editorApi, setAPI] = useState<
-		PresetAPI<PluginNames, StackPlugins>['editorApi'] | undefined
-	>(undefined);
+): PresetAPI<Preset> {
+	const [editorApi, setAPI] = useState<PresetAPI<Preset>['editorApi'] | undefined>(undefined);
 	const preset = useMemo(
 		() => createPreset(new EditorPresetBuilder()),
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +65,7 @@ export function usePreset<
 	);
 	useLayoutEffect(() => {
 		preset.apiPromise.then((api) => {
-			setAPI(api);
+			setAPI(api as unknown as PresetAPI<Preset>['editorApi']);
 		});
 	}, [preset.apiPromise]);
 

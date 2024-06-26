@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 27.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.7.2
+
+### Patch Changes
+
+- [#114764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114764)
+  [`ae20dac6e31c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae20dac6e31c4) -
+  Bump packages to use react-beautiful-dnd@12.2.0
+
+## 27.7.1
+
+### Patch Changes
+
+- [#114683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114683)
+  [`ff0815316ab38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff0815316ab38) -
+  Removes usage of custom theme button in places where its API is not being used and the default
+  button is able to be used instead. This should give a slight performance (runtime) improvement.
+
 ## 27.7.0
 
 ### Minor Changes

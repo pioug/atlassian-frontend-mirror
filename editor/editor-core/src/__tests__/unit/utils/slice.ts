@@ -1,11 +1,10 @@
+import { mapFragment } from '@atlaskit/editor-common/utils';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { clean, p, strong } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-
-import { mapFragment } from '../../../utils/slice';
 
 const fragment = (...args: any) =>
 	Fragment.from(args.map((i: any) => clean(i)(defaultSchema)) as Node[]);

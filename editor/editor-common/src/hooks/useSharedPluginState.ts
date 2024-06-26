@@ -3,36 +3,31 @@ import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 
 import type {
+	BasePluginDependenciesAPI,
+	EditorInjectionAPI,
+	ExtractInjectionAPI,
 	ExtractPluginSharedState,
 	NextEditorPlugin,
+	NextEditorPluginMetadata,
 	PluginDependenciesAPI,
-	PublicPluginAPI,
 } from '../types/next-editor-plugin';
 
 type NamedPluginStatesFromInjectionAPI<
-	API extends PublicPluginAPI<any> | null | undefined,
-	PluginList extends string[],
+	API extends ExtractInjectionAPI<NextEditorPlugin<any, any>>,
+	PluginNames extends string | number | symbol,
 > = Readonly<{
-	[K in PluginList[number] as `${K}State`]: API extends PublicPluginAPI<any>
-		? API[K] extends PluginDependenciesAPI<infer Plugin> | undefined
-			? ExtractPluginSharedState<Plugin> | undefined
+	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends
+		| BasePluginDependenciesAPI<any>
+		| undefined
+		? Exclude<API[K], undefined> extends BasePluginDependenciesAPI<infer Metadata>
+			? Metadata extends NextEditorPluginMetadata
+				? ExtractPluginSharedState<Metadata> | undefined
+				: never
 			: never
 		: never;
 }>;
 
-type NamedPluginDependencies<
-	API extends PublicPluginAPI<any> | null | undefined,
-	PluginList extends string[],
-> = Readonly<{
-	[K in PluginList[number] as `${K}State`]: API extends PublicPluginAPI<any>
-		? API[K] extends PluginDependenciesAPI<any> | undefined
-			? API[K] | undefined
-			: never
-		: never;
-}>;
-
-type ExtractPluginNames<API extends PublicPluginAPI<any>> =
-	API extends PublicPluginAPI<any> ? keyof API : never;
+type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API;
 
 type NamedPluginKeys = Readonly<{
 	[stateName: string]: PluginDependenciesAPI<NextEditorPlugin<any, any>> | undefined;
@@ -136,12 +131,12 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
  * the values are the shared state exposed by that plugin.
  */
 export function useSharedPluginState<
-	Plugins extends NextEditorPlugin<any, any>[],
-	PluginNames extends ExtractPluginNames<PublicPluginAPI<Plugins>>[],
+	API extends EditorInjectionAPI<any, any>,
+	PluginNames extends ExtractPluginNames<API>,
 >(
-	injectionApi: PublicPluginAPI<Plugins> | null | undefined,
-	plugins: PluginNames,
-): NamedPluginStatesFromInjectionAPI<typeof injectionApi, PluginNames> {
+	injectionApi: API | null | undefined,
+	plugins: PluginNames[],
+): NamedPluginStatesFromInjectionAPI<API, PluginNames> {
 	const pluginNames = useStaticPlugins(plugins);
 
 	// Create a memoized object containing the named plugins
@@ -150,17 +145,13 @@ export function useSharedPluginState<
 			pluginNames.reduce(
 				(acc, pluginName) => ({
 					...acc,
-					// @ts-expect-error - Implicit conversion of a 'symbol' to a 'string' will fail at runtime. Consider wrapping this expression in 'String(...)'
-					// This error was introduced after upgrading to TypeScript 5
-					[`${pluginName}State`]: injectionApi?.[pluginName],
+					[`${String(pluginName)}State`]: injectionApi?.[pluginName],
 				}),
-				{} as NamedPluginDependencies<typeof injectionApi, PluginNames>,
+				{} as NamedPluginStatesFromInjectionAPI<API, PluginNames>,
 			),
 		[injectionApi, pluginNames],
 	);
 
-	// @ts-expect-error - Type '`${K}State`' is not assignable to type '`${K}State`'. Two different types with this name exist, but they are unrelated.
-	// This error was introduced after upgrading to TypeScript 5
 	return useSharedPluginStateInternal(namedExternalPlugins);
 }
 

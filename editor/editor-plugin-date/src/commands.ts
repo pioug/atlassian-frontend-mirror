@@ -4,12 +4,8 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type {
-	OptionalPlugin,
-	PluginInjectionAPIWithDependencies,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
@@ -19,7 +15,7 @@ import type { DatePlugin, DeleteDate, InsertDate } from './types';
 import { isToday } from './utils/internal';
 
 type DeleteDateCommand = (
-	pluginInjectionApi: PluginInjectionAPIWithDependencies<[DatePlugin]> | undefined,
+	pluginInjectionApi: ExtractInjectionAPI<DatePlugin> | undefined,
 ) => DeleteDate;
 
 /** Delete the date and close the datepicker */
@@ -40,9 +36,7 @@ export const deleteDateCommand: DeleteDateCommand =
 	};
 
 type InsertDateCommand = (
-	pluginInjectionApi:
-		| PluginInjectionAPIWithDependencies<[OptionalPlugin<AnalyticsPlugin>, DatePlugin]>
-		| undefined,
+	pluginInjectionApi: ExtractInjectionAPI<DatePlugin> | undefined,
 ) => InsertDate;
 
 export const insertDateCommand: InsertDateCommand =

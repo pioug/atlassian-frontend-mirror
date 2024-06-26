@@ -2,7 +2,10 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
-import { MockLinkPickerPromisePlugin } from '../__tests__/__helpers/mock-plugins';
+import {
+	MockLinkPickerPromisePlugin,
+	UnstableMockLinkPickerPlugin,
+} from '../__tests__/__helpers/mock-plugins';
 
 import { default as LinkPicker } from './index';
 
@@ -118,4 +121,23 @@ export const VaryingPaddingsExample = createExample({
 
 export const ErrorBoundaryExample = createExample({
 	url: 112323 as any, // typecast to trigger an error
+});
+
+export const PluginErrorExample = createExample({
+	plugins: [
+		new UnstableMockLinkPickerPlugin({
+			tabKey: 'tab2',
+			tabTitle: 'Unstable',
+		}),
+	],
+});
+
+export const UnauthenticatedErrorExample = createExample({
+	plugins: [
+		new UnstableMockLinkPickerPlugin({
+			tabKey: 'tab3',
+			tabTitle: 'Unauth',
+			errorFallback: (_, __) => null,
+		}),
+	],
 });

@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 22.5.0
+
+### Minor Changes
+
+- [#114987](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114987)
+  [`4fdcfc2b65ce0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fdcfc2b65ce0) - -
+  Added experimental new variants of the new icon components with legacy fallbacks built in. These
+  are available at `core/migration` and `utility/migration` and are generated based on a new
+  migration mapping, available at `@atlaskit/icon/UNSAFE_migration-map`.
+  - Updated the `oldName` value in `metadata-core` and `metadata-utility` to contain an array of
+    legacy icon IDs, generated from the information in the migration map.
+
 ## 22.4.1
 
 ### Patch Changes

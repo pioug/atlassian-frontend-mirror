@@ -109,7 +109,7 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		testId,
 		label,
 		LEGACY_secondaryColor,
-		LEGACY_size = 'medium',
+		LEGACY_size,
 		LEGACY_fallbackIcon: FallbackIcon,
 		// Used to set icon dimensions/behaviour in codegen
 		type = 'global',

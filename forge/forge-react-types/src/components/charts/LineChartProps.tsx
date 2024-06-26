@@ -1,3 +1,5 @@
+import type { ChartColorTokens } from '../../types';
+
 export type LineChartProps = {
 	width?: number;
 	height?: number;
@@ -8,5 +10,5 @@ export type LineChartProps = {
 	colorAccessor?: number | string;
 	title?: string;
 	subtitle?: string;
-	colors?: string[];
+	colors?: ChartColorTokens[];
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.21.0",
+	"version": "0.22.1",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,9 +40,9 @@
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/lozenge": "^11.8.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
-		"@atlaskit/primitives": "^8.2.0",
+		"@atlaskit/primitives": "^9.0.0",
 		"@atlaskit/progress-bar": "2.2.0",
-		"@atlaskit/progress-tracker": "8.7.1",
+		"@atlaskit/progress-tracker": "8.7.2",
 		"@atlaskit/radio": "^6.4.0",
 		"@atlaskit/range": "^7.3.0",
 		"@atlaskit/section-message": "^6.5.0",

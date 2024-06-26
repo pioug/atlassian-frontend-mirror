@@ -1,10 +1,6 @@
 import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type {
-	AllEditorPresetPluginTypes,
-	ReactHookFactory,
-	UIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type { ReactHookFactory, UIComponentFactory } from '@atlaskit/editor-common/types';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin } from '@atlaskit/editor-prosemirror/state';
@@ -101,12 +97,7 @@ type PluginData = {
 	editorConfig: LightEditorConfig;
 };
 export const createPMSchemaAndPlugins =
-	(
-		inputPreset: EditorPresetBuilder<
-			string[],
-			AllEditorPresetPluginTypes[]
-		> = new EditorPresetBuilder(),
-	) =>
+	(inputPreset: EditorPresetBuilder = new EditorPresetBuilder()) =>
 	(
 		pluginFactoryParams: Omit<LightPMPluginFactoryParams, 'schema'> & {
 			pluginInjectionAPI: EditorPluginInjectionAPI;
@@ -117,10 +108,7 @@ export const createPMSchemaAndPlugins =
 		// we are ignoring the below because while this logic knows if
 		// basePlugin is in the inputPreset, the type system does not
 		// so it marks it as a duplicate plugin :) - this is fine
-		const preset = inputPreset.has(basePlugin)
-			? inputPreset
-			: // @ts-expect-error
-				inputPreset.add(basePlugin);
+		const preset = inputPreset.has(basePlugin) ? inputPreset : inputPreset.add(basePlugin);
 		editorPlugins = preset.build({
 			pluginInjectionAPI: pluginFactoryParams.pluginInjectionAPI,
 		});

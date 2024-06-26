@@ -24,9 +24,6 @@
       "path": "../../../design-system/button/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../design-system/empty-state/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../../design-system/form/afm-jira/tsconfig.json"
     },
     {

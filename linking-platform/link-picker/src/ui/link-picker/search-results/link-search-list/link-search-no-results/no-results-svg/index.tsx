@@ -1,16 +1,19 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { noResultsSVGStyles } from './styled';
+const HEIGHT = 120;
+
+const noResultsSVGStyles = css({
+	height: `${HEIGHT}px`,
+	display: 'block',
+});
 
 export const NoResultsSVG = () => {
 	const id = 'link-picker-ui-no-results-svg';
 
 	return (
 		<svg
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={noResultsSVGStyles}
 			height="120"
 			viewBox="0 0 208 191"

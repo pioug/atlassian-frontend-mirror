@@ -39,6 +39,7 @@ import type {
 import type { ListEventPayload } from './list-events';
 import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
+import type { MoveContentEventPayload } from './move-content-events';
 import type { NodeEventPayload } from './node-events';
 import type { PasteEventPayload } from './paste-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
@@ -65,6 +66,7 @@ export type AnalyticsEventPayload<T = void> =
 	| SubstituteEventPayload
 	| InsertEventPayload
 	| NodeEventPayload
+	| MoveContentEventPayload
 	| MediaEventPayload
 	| TableEventPayload
 	| PasteEventPayload

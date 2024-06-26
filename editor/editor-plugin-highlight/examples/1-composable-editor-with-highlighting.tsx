@@ -21,6 +21,7 @@ import { historyPlugin } from '@atlaskit/editor-plugins/history';
 import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { statusPlugin } from '@atlaskit/editor-plugins/status';
 import { type TablePluginOptions, tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
@@ -474,6 +475,7 @@ const Editor = () => {
 			.add(widthPlugin)
 			.add(guidelinePlugin)
 			.add(selectionPlugin)
+			.add([selectionToolbarPlugin, { preferenceToolbarAboveSelection: true }])
 			.add(quickInsertPlugin)
 			.add([tablesPlugin, tableOptions])
 			.add([
@@ -509,7 +511,7 @@ const Editor = () => {
 			.add(floatingToolbarPlugin)
 			.add(emojiPlugin)
 			.add(backgroundColorPlugin)
-			.add(highlightPlugin),
+			.add([highlightPlugin, { textHighlightingFloatingToolbarExperiment: true }]),
 	);
 
 	return (

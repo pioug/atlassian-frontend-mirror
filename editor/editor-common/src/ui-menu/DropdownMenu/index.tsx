@@ -1,6 +1,6 @@
 /** @jsx jsx */
-import type { MouseEventHandler } from 'react';
 import React, { PureComponent, useContext } from 'react';
+import type { MouseEventHandler, PointerEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -8,6 +8,7 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, N70, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
@@ -68,12 +69,9 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 			}
 			${!submenuActive &&
 			`
-          > span:active[aria-disabled='false'] {
-            background-color: ${token(
-							'color.background.neutral.subtle.pressed',
-							'rgb(179, 212, 255)',
-						)};
-          }`}
+					> span:active[aria-disabled='false'] {
+						background-color: ${token('color.background.neutral.subtle.pressed', 'rgb(179, 212, 255)')};
+					}`}
 			> span[aria-disabled='true'] {
 				color: ${token('color.text.disabled', N70)};
 			}
@@ -115,14 +113,23 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 		}
 	};
 
-	private handleCloseAndFocus = () => {
+	private handleCloseAndFocus = (event: PointerEvent | KeyboardEvent) => {
 		this.state.target?.querySelector('button')?.focus();
-		this.handleClose();
+		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+			this.handleClose(event);
+		} else {
+			this.handleClose();
+		}
 	};
 
-	private handleClose = () => {
-		if (this.props.onOpenChange) {
-			this.props.onOpenChange({ isOpen: false });
+	private handleClose = (event?: PointerEvent | KeyboardEvent) => {
+		const { onOpenChange } = this.props;
+		if (onOpenChange) {
+			if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+				onOpenChange({ isOpen: false, event: event });
+			} else {
+				onOpenChange({ isOpen: false });
+			}
 		}
 	};
 
@@ -142,8 +149,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 			onItemActivated,
 			arrowKeyNavigationProviderOptions,
 			section,
+			isAllowEnterDefaultBehavior,
 		} = this.props;
-
 		// Note that this onSelection function can't be refactored to useMemo for
 		// performance gains as it is being used as a dependency in a useEffect in
 		// MenuArrowKeyNavigationProvider in order to check for re-renders to adjust
@@ -194,7 +201,13 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						handleClickOutside={this.handleClose}
 						handleEscapeKeydown={this.handleCloseAndFocus}
 						handleEnterKeydown={(e: KeyboardEvent) => {
-							e.preventDefault();
+							if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+								if (!isAllowEnterDefaultBehavior) {
+									e.preventDefault();
+								}
+							} else {
+								e.preventDefault();
+							}
 							e.stopPropagation();
 						}}
 						targetRef={this.state.target}
@@ -338,6 +351,11 @@ export function DropdownMenuItem({
 				component={DropdownMenuItemCustomComponent}
 				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
 				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
+				aria-expanded={
+					getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
+						? item['aria-expanded']
+						: undefined
+				}
 			>
 				{item.content}
 			</CustomItem>

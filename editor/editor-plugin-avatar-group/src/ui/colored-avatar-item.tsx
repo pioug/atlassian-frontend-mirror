@@ -2,16 +2,17 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { R100 } from '@atlaskit/theme/colors';
+
+import type { AvatarGroupPlugin } from '../plugin';
 
 import { badge } from './styles';
 
 export interface ColoredAvatarItemProps {
 	sessionId: string;
 	name: string;
-	api: PublicPluginAPI<[OptionalPlugin<CollabEditPlugin>]> | undefined;
+	api: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
 }
 
 export const ColoredAvatarItem = (props: ColoredAvatarItemProps) => {

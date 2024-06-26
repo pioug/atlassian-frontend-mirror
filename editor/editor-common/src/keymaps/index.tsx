@@ -125,6 +125,10 @@ export const activateVideoControls = makeKeyMapWithCommon(
 );
 
 export const toggleHighlightPalette = makeKeyMapWithCommon('Toggle Highlight Palette', 'Mod-Alt-b');
+export const focusToContextMenuTrigger = makeKeyMapWithCommon(
+	'Focus table context menu trigger',
+	'Shift-F10',
+);
 
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys

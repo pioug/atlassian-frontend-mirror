@@ -1,5 +1,6 @@
 import { Side as GapCursorSide, setGapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { setCellSelection } from '@atlaskit/editor-common/utils';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
@@ -20,8 +21,6 @@ import {
 import { doc, hr, p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-
-import { setCellSelection } from '../../../utils/selection';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

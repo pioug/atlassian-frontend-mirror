@@ -48,6 +48,8 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-c
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 // #endregion
 
 export type DefaultPresetPluginOptions = {
@@ -87,6 +89,8 @@ export type DefaultPresetPluginOptions = {
  */
 export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 	const isMobile = options.appearance === 'mobile';
+	const isFullPage = fullPageCheck(options.appearance);
+
 	const preset = new EditorPresetBuilder()
 		.add([featureFlagsPlugin, options.featureFlags || {}])
 		.maybeAdd(
@@ -100,7 +104,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 			Boolean(options.allowAnalyticsGASV3),
 		)
 		.add(betterTypeHistoryPlugin)
-		.add([pastePlugin, { ...options?.paste }])
+		.add([pastePlugin, { ...options?.paste, isFullPage }])
 		.add(clipboardPlugin)
 		.add(focusPlugin)
 		.add(compositionPlugin)

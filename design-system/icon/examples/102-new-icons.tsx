@@ -1,8 +1,10 @@
 import React from 'react';
 
 import AppIconOld from '../glyph/addon';
+import AppIconMigration from '../core/migration/app--addon';
 import HipchatChevronDownOld from '../glyph/hipchat/chevron-down';
 import ChevronDownIcon from '../utility/chevron-down';
+import ChevronDownIconMigration from '../utility/migration/chevron-down--hipchat-chevron-down';
 import AppIcon from '../core/app';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
@@ -53,6 +55,19 @@ const IconSizeExample = () => {
 					<AppIcon label="" spacing="spacious" LEGACY_fallbackIcon={AppIconOld} />
 				</IconContainer>
 				New icons with legacy fallback (feature flagged)
+			</Inline>
+
+			<Inline space="space.100">
+				<IconContainer>
+					<ChevronDownIconMigration label="" LEGACY_size="small" />
+				</IconContainer>
+				<IconContainer>
+					<AppIconMigration label="" spacing="none" LEGACY_size="small" />
+				</IconContainer>
+				<IconContainer>
+					<AppIconMigration label="" spacing="spacious" />
+				</IconContainer>
+				Auto fallback component
 			</Inline>
 		</Stack>
 	);

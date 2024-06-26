@@ -5,7 +5,10 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { MaxContentSizePluginState } from '@atlaskit/editor-plugins/max-content-size';
+import type {
+	MaxContentSizePlugin,
+	MaxContentSizePluginState,
+} from '@atlaskit/editor-plugins/max-content-size';
 import { token } from '@atlaskit/tokens';
 
 import { usePresetContext } from '../../presets/context';
@@ -139,7 +142,7 @@ interface RenderChromeProps {
 }
 
 function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
-	const api = usePresetContext();
+	const api = usePresetContext<[MaxContentSizePlugin]>();
 	const { maxContentSizeState } = useSharedPluginState(api, ['maxContentSize']);
 
 	return <Fragment>{renderChrome({ maxContentSize: maxContentSizeState })}</Fragment>;

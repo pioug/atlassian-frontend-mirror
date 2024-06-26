@@ -1,15 +1,15 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
-import type { Transformer } from '../../types';
-import { editorCommandToPMCommand } from '../editor-commands';
-
-import { scheduleDocumentRequest } from './requestDocument';
 import type {
 	CorePlugin,
 	DefaultTransformerResultCallback,
 	InferTransformerResultCallback,
-} from './types';
+	Transformer,
+} from '../../types';
+import { editorCommandToPMCommand } from '../editor-commands';
+
+import { scheduleDocumentRequest } from './requestDocument';
 
 /**
  * Core plugin that is always included in the preset.

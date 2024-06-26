@@ -3,7 +3,6 @@ import { type UNSAFE_IconMetadata } from '@af/icon-build-process';
 
 const iconMetadata: UNSAFE_IconMetadata = {
 	add: {
-		oldName: 'AddIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Utility',
@@ -28,7 +27,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'Known uses: table cells, checkboxes.',
 	},
 	'chevron-down': {
-		oldName: 'ChevronDownIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Utility',
@@ -37,7 +35,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'accordion, down',
 	},
 	'chevron-left': {
-		oldName: 'ChevronLeftIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Utility',
@@ -46,7 +43,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'less than, <, previous',
 	},
 	'chevron-right': {
-		oldName: 'ChevronRightIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Utility',
@@ -55,7 +51,6 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		tags: 'greater than, >, next',
 	},
 	'chevron-up': {
-		oldName: 'ChevronUpIcon',
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		type: 'Utility',

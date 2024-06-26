@@ -70,7 +70,7 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
 						{...provided.draggableProps}
 						// It is necessary to prevent the passing of aria-labelledby
 						aria-labelledby={undefined}
-						aria-describedby={provided.dragHandleProps?.['aria-labelledby']}
+						aria-describedby={provided.dragHandleProps?.['aria-describedby']}
 						ref={this.innerRef(provided.innerRef)}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ ...provided.draggableProps.style, ...inlineStyles }}

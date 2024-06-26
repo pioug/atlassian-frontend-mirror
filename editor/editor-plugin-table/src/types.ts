@@ -178,6 +178,7 @@ export interface TablePluginState {
 	// use options.isTableScalingEnabled and avoid using pluginState.isTableScalingEnabled or
 	// const { isTableScalingEnabled } = getPluginState(state) for that purpose.
 	isTableScalingEnabled?: boolean;
+	isCellMenuOpenByKeyboard?: boolean;
 }
 
 export type TablePluginAction =
@@ -297,7 +298,13 @@ export type TablePluginAction =
 	| {
 			type: 'HIDE_INSERT_COLUMN_OR_ROW_BUTTON';
 	  }
-	| { type: 'TOGGLE_CONTEXTUAL_MENU' };
+	| { type: 'TOGGLE_CONTEXTUAL_MENU' }
+	| {
+			type: 'SET_CELL_MENU_OPEN';
+			data: {
+				isCellMenuOpenByKeyboard: boolean;
+			};
+	  };
 
 export type ColumnResizingPluginAction =
 	| {

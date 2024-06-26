@@ -27,9 +27,11 @@ const pressableStyles = xcss({
 	width: 'size.600',
 	paddingInline: 'space.050',
 	backgroundColor: 'color.background.neutral.subtle',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':hover': {
 		backgroundColor: 'color.background.neutral.subtle.hovered',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 	':active': {
 		backgroundColor: 'color.background.neutral.subtle.pressed',
 	},
@@ -100,10 +102,13 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		metadata['Legacy Icon names'] = oldName.join(', ');
 		metadata['Legacy Icon imports'] = oldName.reduce((acc, name) => {
 			const legacyIconImport =
-				Object.entries(legacyIconMetadata).find(([_, value]) => value.componentName === name)?.[1]
-					.package || '';
-			return `${acc}${legacyIconImport}, `;
-		});
+				Object.values(legacyIconMetadata).find((value) => value.componentName === name)?.package ||
+				undefined;
+			if (!acc && legacyIconImport) {
+				return legacyIconImport;
+			}
+			return legacyIconImport ? `${acc}, ${legacyIconImport}` : acc;
+		}, '');
 	}
 
 	const modal = (

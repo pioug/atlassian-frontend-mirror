@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -17,6 +17,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { toggleContextualMenu } from '../../commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
@@ -37,6 +38,7 @@ export interface Props {
 	isNumberColumnEnabled?: boolean;
 	stickyHeader?: RowStickyState;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	isCellMenuOpenByKeyboard?: boolean;
 }
 
 const BUTTON_OFFSET = 3;
@@ -50,6 +52,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		stickyHeader,
 		tableWrapper,
 		targetCellPosition,
+		isCellMenuOpenByKeyboard,
 		intl: { formatMessage },
 	} = props; //  : Props & WrappedComponentProps
 
@@ -68,6 +71,16 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	const domAtPos = editorView.domAtPos.bind(editorView);
 	let targetCellRef: Node | undefined;
 	targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
+
+	useEffect(() => {
+		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+			if (isCellMenuOpenByKeyboard && !isContextualMenuOpen) {
+				const { state, dispatch } = editorView;
+				// open the menu when the keyboard shortcut is pressed
+				toggleContextualMenu()(state, dispatch);
+			}
+		}
+	}, [isCellMenuOpenByKeyboard, isContextualMenuOpen, editorView]);
 
 	if (!targetCellRef || !(targetCellRef instanceof HTMLElement)) {
 		return null;
@@ -92,6 +105,11 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				onClick={handleClick}
 				iconBefore={<ExpandIcon label="" />}
 				aria-label={labelCellOptions}
+				aria-expanded={
+					getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
+						? isContextualMenuOpen
+						: undefined
+				}
 			/>
 		</div>
 	);

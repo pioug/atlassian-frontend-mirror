@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "82.14.0",
+	"version": "83.0.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -178,10 +178,10 @@
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/editor-tables": "^2.7.0",
 		"@atlaskit/emoji": "^67.6.0",
-		"@atlaskit/icon": "^22.4.0",
+		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/icon-object": "^6.4.0",
 		"@atlaskit/link-datasource": "^2.4.0",
-		"@atlaskit/link-picker": "^1.37.0",
+		"@atlaskit/link-picker": "^1.38.0",
 		"@atlaskit/media-card": "^77.12.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",
@@ -189,11 +189,11 @@
 		"@atlaskit/media-file-preview": "^0.5.0",
 		"@atlaskit/media-picker": "^66.4.0",
 		"@atlaskit/media-ui": "^25.10.0",
-		"@atlaskit/media-viewer": "48.6.7",
+		"@atlaskit/media-viewer": "48.6.8",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/menu": "^2.5.0",
 		"@atlaskit/platform-feature-flags": "^0.2.0",
-		"@atlaskit/primitives": "^8.2.0",
+		"@atlaskit/primitives": "^9.0.0",
 		"@atlaskit/profilecard": "^19.15.0",
 		"@atlaskit/section-message": "^6.5.0",
 		"@atlaskit/smart-card": "^27.7.0",
@@ -327,6 +327,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.text-alignment-keyboard-shortcuts": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-table-context-menu_y4c9c": {
 			"type": "boolean"
 		}
 	}

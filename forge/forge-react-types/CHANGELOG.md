@@ -1,5 +1,22 @@
 # @atlaskit/forge-react-types
 
+## 0.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.22.0
+
+### Minor Changes
+
+- [#114728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114728)
+  [`624681820dace`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/624681820dace) -
+  colorAccessor is now a mandatory prop for StackBarChart and HorizontalStackBarChart
+- [#114508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114508)
+  [`7760a71229d04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7760a71229d04) -
+  Add chart color token support to UI Kit charts.
+
 ## 0.21.0
 
 ### Minor Changes

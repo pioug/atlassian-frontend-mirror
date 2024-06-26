@@ -1,10 +1,12 @@
 import { createPlugin } from './pm-plugins/main';
+import { createPlugin as createMoveAnalyticsPlugin } from './pm-plugins/move-analytics/plugin';
 import { pluginKey } from './pm-plugins/plugin-factory';
 import type { PastePlugin } from './types';
 
 export const pastePlugin: PastePlugin = ({ config, api }) => {
-	const { cardOptions, sanitizePrivateContent } = config ?? {};
+	const { cardOptions, sanitizePrivateContent, isFullPage } = config ?? {};
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const editorAnalyticsAPI = api?.analytics?.actions;
 	return {
 		name: 'paste',
 
@@ -23,6 +25,12 @@ export const pastePlugin: PastePlugin = ({ config, api }) => {
 							sanitizePrivateContent,
 							providerFactory,
 						),
+				},
+				{
+					name: 'moveAnalyticsPlugin',
+					plugin: ({ dispatch }) => {
+						return isFullPage ? createMoveAnalyticsPlugin(dispatch, editorAnalyticsAPI) : undefined;
+					},
 				},
 			];
 		},

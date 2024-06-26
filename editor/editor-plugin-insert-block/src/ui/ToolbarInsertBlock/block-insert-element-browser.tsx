@@ -1,10 +1,10 @@
 import React from 'react';
 
-import type { PluginInjectionAPIWithDependencies } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { InsertBlockPluginDependencies } from '../../types';
+import type { InsertBlockPlugin } from '../../index';
 import InsertMenu from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';
 
@@ -30,7 +30,7 @@ export interface BlockInsertElementBrowserProps {
 	onKeyDown?: React.KeyboardEventHandler;
 	onInsert: OnInsert;
 	togglePlusMenuVisibility: SimpleEventHandler<MouseEvent | KeyboardEvent>;
-	pluginInjectionApi: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies> | undefined;
+	pluginInjectionApi: ExtractInjectionAPI<InsertBlockPlugin> | undefined;
 }
 
 export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps) => {

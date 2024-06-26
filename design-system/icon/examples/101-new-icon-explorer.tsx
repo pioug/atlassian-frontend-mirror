@@ -17,11 +17,27 @@ import iconMetadata from '../src/metadata-core';
 import utilityIconMetadata from '../src/metadata-utility';
 import IconExplorerCell from './utils/new-icon-explorer-cell';
 import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
+import metadata from '../src/entry-points/metadata';
+import migrationMap from '../src/entry-points/migration-map';
 
 import FlaskIcon from '../core/flask';
 import { IconTile } from '../src';
 
 type IconsList = Record<string, IconExplorerCellProps>;
+
+const legacyIconPackageMap = Object.keys(migrationMap).reduce(
+	(acc, iconName) => {
+		// Search for the icon key in metadata that has the matching componentName to the migration map keys
+		const metadataKey = Object.keys(metadata).find(
+			(key) => metadata[key].componentName === iconName,
+		);
+		if (metadataKey) {
+			acc[iconName] = metadata[metadataKey].package;
+		}
+		return acc;
+	},
+	{} as Record<string, string>,
+);
 
 // WARNING
 // It is going to be very tempting to move these into some higher level abstraction
@@ -101,7 +117,13 @@ const filterIcons = (icons: IconsList, query: string) => {
 	return Object.keys(icons)
 		.map((index) => icons[index])
 		.filter((icon) =>
-			icon.keywords
+			[
+				...icon.keywords,
+				...(icon.oldName || []),
+				...(icon?.oldName && typeof icon?.oldName !== 'string'
+					? icon.oldName.map((icon) => legacyIconPackageMap[icon])
+					: []),
+			]
 				.map((keyword) => (regex.test(keyword) ? 1 : 0))
 				.reduce((allMatches: number, match: number) => allMatches + match, 0),
 		);

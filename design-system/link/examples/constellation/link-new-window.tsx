@@ -5,7 +5,7 @@ import Link from '../../src';
 export default function NewWindow() {
 	return (
 		<Link href="https://www.atlassian.com" target="_blank">
-			The Atlassian website
+			Atlassian home
 		</Link>
 	);
 }

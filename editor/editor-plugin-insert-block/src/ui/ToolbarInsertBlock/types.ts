@@ -3,8 +3,8 @@ import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
 	Command,
 	EditorActionsOptions as EditorActions,
+	ExtractInjectionAPI,
 	ImageUploadPluginReferenceEvent,
-	PluginInjectionAPIWithDependencies,
 } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type';
@@ -12,7 +12,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiProvider } from '@atlaskit/emoji';
 
-import type { InsertBlockPluginDependencies } from '../../types';
+import type { InsertBlockPlugin } from '../../index';
 
 import type { BlockMenuItem } from './create-items';
 
@@ -59,7 +59,7 @@ export interface Props {
 		isEditing?: boolean,
 	) => (view: EditorView) => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	pluginInjectionApi?: PluginInjectionAPIWithDependencies<InsertBlockPluginDependencies>;
+	pluginInjectionApi?: ExtractInjectionAPI<InsertBlockPlugin>;
 	mentionsDisabled?: boolean;
 }
 

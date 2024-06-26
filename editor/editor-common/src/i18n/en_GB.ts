@@ -240,6 +240,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Press {keyMap} to quickly open this dialog at any time',
   'fabric.editor.highlight': 'Highlight colour',
   'fabric.editor.highlightColor': 'Toggle highlight colour palette',
+  'fabric.editor.highlightFloatingToolbar': 'Highlight',
   'fabric.editor.horizontalRule': 'Divider',
   'fabric.editor.horizontalRule.description': 'Separate content with a horizontal line',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Paste or search for link',

@@ -40,6 +40,7 @@ export interface Props {
 	scrollableElement?: HTMLElement;
 	pluginConfig?: PluginConfig;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
+	isCellMenuOpenByKeyboard?: boolean;
 }
 
 const FloatingContextualMenu = ({
@@ -52,6 +53,7 @@ const FloatingContextualMenu = ({
 	editorAnalyticsAPI,
 	getEditorContainerWidth,
 	getEditorFeatureFlags,
+	isCellMenuOpenByKeyboard,
 }: Props) => {
 	// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
 	const { targetCellPosition, isDragAndDropEnabled } = getPluginState(editorView.state);
@@ -108,6 +110,7 @@ const FloatingContextualMenu = ({
 					editorAnalyticsAPI={editorAnalyticsAPI}
 					getEditorContainerWidth={getEditorContainerWidth}
 					getEditorFeatureFlags={getEditorFeatureFlags}
+					isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 				/>
 			</div>
 		</Popup>

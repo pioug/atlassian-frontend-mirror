@@ -1,15 +1,10 @@
-/** @jsx jsx */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
+
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import EmptyState from '@atlaskit/empty-state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-import { EmptyState as EmptyStateInternal } from '../../../../../common/ui/empty-state';
+import { EmptyState } from '../../../../../common/ui/empty-state';
 
 import { NoResultsSVG } from './no-results-svg';
-import { emptyStateWrapperStyles } from './styled';
 
 export const messages = defineMessages({
 	noResults: {
@@ -31,24 +26,12 @@ export const testIds = {
 export const NoResults = () => {
 	const intl = useIntl();
 
-	const Component = getBooleanFF('platform.linking-platform.link-picker.remove-dst-empty-state')
-		? EmptyStateInternal
-		: EmptyState;
-
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<div css={emptyStateWrapperStyles}>
-			<Component
-				testId={testIds.emptyResultPage}
-				header={intl.formatMessage(messages.noResults)}
-				headingLevel={
-					getBooleanFF('platform.linking-platform.link-picker.remove-dst-empty-state')
-						? undefined
-						: 3
-				}
-				description={intl.formatMessage(messages.noResultsDescription)}
-				renderImage={() => <NoResultsSVG />}
-			/>
-		</div>
+		<EmptyState
+			testId={testIds.emptyResultPage}
+			header={intl.formatMessage(messages.noResults)}
+			description={intl.formatMessage(messages.noResultsDescription)}
+			renderImage={() => <NoResultsSVG />}
+		/>
 	);
 };

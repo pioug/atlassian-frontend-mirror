@@ -10,10 +10,12 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
-import type { FeatureFlags, OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
-import type { CollabEditPlugin, ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit';
+import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { AvatarGroupPlugin } from '../plugin';
 
 import { avatarContainerStyles } from './styles';
 import toAvatar from './to-avatar';
@@ -24,7 +26,7 @@ export interface AvatarsProps {
 	editorView?: EditorView;
 	featureFlags: FeatureFlags;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-	editorAPI: PublicPluginAPI<[OptionalPlugin<CollabEditPlugin>]> | undefined;
+	editorAPI: ExtractInjectionAPI<AvatarGroupPlugin> | undefined;
 	children: ReactNode;
 }
 

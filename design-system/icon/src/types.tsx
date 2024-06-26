@@ -116,7 +116,7 @@ export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
 	/**
 	 * Size of the legacy fallback icon. Legacy icons default to "medium".
 	 */
-	LEGACY_size?: 'small' | 'medium';
+	LEGACY_size?: Size;
 	/**
 	 * Icon type. Used in icon build process.
 	 */
@@ -201,3 +201,31 @@ export interface SVGProps extends GlyphProps {
 	 */
 	children?: ReactNode;
 }
+
+/**
+ * The migration outcome for a given legacy icon
+ */
+type IconMigrationResult = {
+	newIcon?: {
+		name?: string;
+		type?: string;
+		package?: string;
+	};
+	sizeGuidance: Record<Size, IconMigrationSizeGuidance>;
+};
+export type IconMigrationSizeGuidance =
+	| '16-icon-tile'
+	| '24-icon-tile'
+	| '32-icon-tile'
+	| '48-icon-tile'
+	| 'swap'
+	| 'swap-slight-visual-change'
+	| 'swap-visual-change'
+	| 'swap-size-shift-utility'
+	| 'product-icon'
+	| 'not-recommended'
+	| 'icon-tile'
+	| 'top-nav'
+	| 'icon-lab'
+	| 'no-larger-size';
+export type IconMigrationMap = Record<string, IconMigrationResult>;

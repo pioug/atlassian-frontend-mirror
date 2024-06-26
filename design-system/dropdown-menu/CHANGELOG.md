@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 12.13.3
+
+### Patch Changes
+
+- [#114987](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114987)
+  [`8e9045b0b4ce2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e9045b0b4ce2) -
+  Update DropdownMenu's default generic type for `triggerRef` from `HTMLElement` to `any`.
+- Updated dependencies
+
 ## 12.13.2
 
 ### Patch Changes

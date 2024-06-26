@@ -1,3 +1,5 @@
+import type { ChartColorTokens } from '../../types';
+
 export type BarChartProps = {
 	width?: number;
 	height?: number;
@@ -8,9 +10,13 @@ export type BarChartProps = {
 	colorAccessor?: number | string;
 	title?: string;
 	subtitle?: string;
-	colors?: string[];
+	colors?: ChartColorTokens[];
 };
 
-export type StackBarChartProps = BarChartProps;
-export type HorizontalStackBarChartProps = BarChartProps;
+type StackChartProps = BarChartProps & {
+	colorAccessor: number | string;
+};
+
 export type HorizontalBarChartProps = BarChartProps;
+export type StackBarChartProps = StackChartProps;
+export type HorizontalStackBarChartProps = StackChartProps;

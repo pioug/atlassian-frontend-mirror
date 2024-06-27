@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 22.8.1
+
+### Patch Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`f0dec2710f268`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0dec2710f268) -
+  [ux] Removes selected reaction animation. The previous version 22.7.4 unintentionally
+  re-introduced an animation of selected reactions which already existed but was previously broken.
+  It was decided to remove this animation instead. The delay between selecting a reaction and
+  closing the selection popup was removed as this was only delayed to accomodate the animation.
+
+## 22.8.0
+
+### Minor Changes
+
+- [`f67c5ff12702a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f67c5ff12702a) -
+  [ux] Added a new summary feature to reactions
+
 ## 22.7.5
 
 ### Patch Changes

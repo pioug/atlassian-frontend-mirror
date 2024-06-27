@@ -37,8 +37,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^18.0.0",
-		"@atlaskit/editor-common": "^83.0.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.3.0",
+		"@atlaskit/editor-common": "^83.3.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.4.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/modal-dialog": "^12.14.0",

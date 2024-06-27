@@ -2,16 +2,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, keyframes } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
-export const emojiStyle = css({
-	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.selected': {
-		transition: 'transform 200ms ease-in-out',
-		transform: 'translateY(-48px) scale(2.667)',
-	},
-});
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-keyframes -- Ignored via go/DSP-18766
 export const revealAnimation = keyframes({
 	'0%': {

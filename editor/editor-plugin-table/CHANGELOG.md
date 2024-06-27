@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.1
+
+### Patch Changes
+
+- [`0c728cec893a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c728cec893a0) -
+  ED-23730: Change table to align center when column resizing makes table width wider than
+  linelength
+
+## 7.19.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.18.4
+
+### Patch Changes
+
+- [#113338](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113338)
+  [`6b5439f51eab4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b5439f51eab4) -
+  ECA11Y-5 remove FF from codebase
+
 ## 7.18.3
 
 ### Patch Changes

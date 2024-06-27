@@ -146,7 +146,6 @@ const setupInlineCreate = (props?: Partial<LinkCreateProps>, createError?: Error
 							testId={DEFAULT_TEST_ID}
 							plugins={createPlugins(createError)}
 							entityKey="entity-key"
-							active={true}
 							{...props}
 						/>
 					</ExitWarningModalProvider>
@@ -488,7 +487,6 @@ describe('Confirm dismiss dialog', () => {
 								testId={DEFAULT_TEST_ID}
 								plugins={createPlugins()}
 								entityKey="plugin-with-create-form"
-								active={true}
 							/>
 						</>
 					);

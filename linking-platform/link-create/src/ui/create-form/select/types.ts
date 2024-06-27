@@ -19,3 +19,14 @@ export type SelectProps<T = OptionType> = AKSelectProps<T> & {
 	/** Validators for this field */
 	validators?: Validator[];
 };
+
+export type SitePickerOptionValue = {
+	avatarUrl?: string;
+	cloudId: string;
+	url: string;
+};
+
+export type SitePickerOptionType = {
+	label: string;
+	value: SitePickerOptionValue;
+};

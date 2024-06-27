@@ -30,14 +30,10 @@ const extendedHoverZone = css({
 
 const paragraphWithTrailingBreak = '+ p > .ProseMirror-trailingBreak';
 const paragraphWithCursorTarget = '+ p > .cursor-target';
+const paragraphWithTrailingBreakAsOnlyChild = '+ p > .ProseMirror-trailingBreak:only-child';
+const paragraphWithPlaceholder = '+ p > .placeholder-decoration';
 
-const globalStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'.ProseMirror-widget:first-child + *': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		marginTop: '0 !important',
-	},
-
+const withoutInlineNodeStyleFix = css({
 	// Currently, we are hiding the drag handle container by checking if the paragraph has a trailing break and no cursor target
 	// TODO ED-23827 add a classname to empty paragraphs for easier targeting
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -48,6 +44,23 @@ const globalStyles = css({
 		},
 });
 
+const withInlineNodeStyleFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithTrailingBreakAsOnlyChild}), .ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithPlaceholder})`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'none !important',
+		},
+});
+
+const globalStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.ProseMirror-widget:first-child + *': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		marginTop: '0 !important',
+	},
+});
+
 export const GlobalStylesWrapper = () => {
 	return (
 		<Global
@@ -55,6 +68,9 @@ export const GlobalStylesWrapper = () => {
 				globalStyles,
 				getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') &&
 					extendedHoverZone,
+				getBooleanFF('platform.editor.elements.drag-and-drop-ED-23868')
+					? withInlineNodeStyleFix
+					: withoutInlineNodeStyleFix,
 			]}
 		/>
 	);

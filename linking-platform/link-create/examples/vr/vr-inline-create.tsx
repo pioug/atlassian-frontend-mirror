@@ -35,7 +35,7 @@ const createExample = (props: Partial<LinkCreateProps> = {}): React.ComponentTyp
 		return (
 			<IntlProvider locale="en">
 				<Box xcss={containerStyles}>
-					<InlineCreate {...props} active={true} entityKey={ENTITY_KEY} plugins={mockPlugins} />
+					<InlineCreate {...props} entityKey={ENTITY_KEY} plugins={mockPlugins} />
 				</Box>
 			</IntlProvider>
 		);
@@ -67,7 +67,6 @@ const createExampleWithEdit = (props: Partial<LinkCreateProps> = {}): React.Comp
 			<IntlProvider locale="en">
 				<Box xcss={containerStyles}>
 					<InlineCreate
-						active={true}
 						entityKey={ENTITY_KEY}
 						plugins={mockPlugins}
 						onComplete={() => {

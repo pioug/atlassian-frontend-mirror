@@ -189,7 +189,7 @@ const Example = () => {
 				isOpen={drawerOpen}
 				width="medium"
 			>
-				<Box paddingInline="space.100">
+				<Box paddingInlineEnd="space.250">
 					<InlineCreate
 						plugins={[exampleCustomPlugin]}
 						testId="inline-create"

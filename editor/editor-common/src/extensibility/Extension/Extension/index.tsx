@@ -66,7 +66,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		setIsNodeHovered,
 	} = props;
 
-	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+	const { showMacroInteractionDesignUpdates, showMacroButtonUpdates } =
+		macroInteractionDesignFeatureFlags || {};
 	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
 	const isMobile = editorAppearance === 'mobile';
@@ -156,6 +157,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					isNodeNested={isNodeNested}
 					node={node}
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+					showMacroButtonUpdates={showMacroButtonUpdates}
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={hasBody}

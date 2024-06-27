@@ -303,6 +303,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							getEditorFeatureFlags,
 							isTableScalingEnabled,
 							isNewColumnResizingEnabled,
+							isTableAlignmentEnabled,
 						} = options || ({} as TablePluginOptions);
 						const { allowColumnResizing } = pluginConfig(tableOptions);
 						return allowColumnResizing
@@ -316,6 +317,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									editorAnalyticsAPI,
 									isTableScalingEnabled || false,
 									isNewColumnResizingEnabled,
+									isTableAlignmentEnabled,
 								)
 							: undefined;
 					},

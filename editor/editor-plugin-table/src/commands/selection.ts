@@ -18,7 +18,6 @@ import {
 	isTableSelected,
 	selectedRect,
 } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { selectColumn, selectRow } from '../commands/misc';
 import type tablePlugin from '../plugin';
@@ -219,12 +218,9 @@ const arrowLeftFromText =
 		const table = findTable(selection);
 		if (table) {
 			const { $from } = selection;
-			let isColumnResizing = false;
 
-			if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-				const columResizePluginState = getPluginState(state) || {};
-				isColumnResizing = Boolean(columResizePluginState?.isKeyboardResize);
-			}
+			const columResizePluginState = getPluginState(state) || {};
+			const isColumnResizing = Boolean(columResizePluginState?.isKeyboardResize);
 
 			if (
 				isSelectionAtStartOfTable($from, selection) &&
@@ -261,12 +257,9 @@ const arrowRightFromText =
 		const table = findTable(selection);
 		if (table) {
 			const { $to } = selection;
-			let isColumnResizing = false;
 
-			if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-				const columResizePluginState = getPluginState(state) || {};
-				isColumnResizing = Boolean(columResizePluginState?.isKeyboardResize);
-			}
+			const columResizePluginState = getPluginState(state) || {};
+			const isColumnResizing = Boolean(columResizePluginState?.isKeyboardResize);
 			if (
 				isSelectionAtEndOfTable($to, selection) &&
 				$to.parent.type.name === 'paragraph' &&

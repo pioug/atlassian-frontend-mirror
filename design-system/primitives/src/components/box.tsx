@@ -142,7 +142,7 @@ export const Box = forwardRef(
 			<Component
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
-				// @ts-expect-error Expression produces a union type that is too complex to represent. We may be able to narrow the type here but unsure.
+				// @ts-ignore Expression produces a union type that is too complex to represent. We may be able to narrow the type here but unsure.
 				ref={ref}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={resolvedStyles.static}

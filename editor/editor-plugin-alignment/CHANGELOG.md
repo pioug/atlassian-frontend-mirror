@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.7.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.0
+
+### Minor Changes
+
+- [#114806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114806)
+  [`d3310bbf372ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3310bbf372ec) -
+  [ux] The keyboard navigation for the main toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.1
 
 ### Patch Changes

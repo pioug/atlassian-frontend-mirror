@@ -13,8 +13,6 @@ import { type SkeletonIconButtonProps } from './types';
 
 const skeletonIconButtonStyles = css({
 	margin: 0,
-	// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
-	marginRight: token('space.050', '4px'),
 	padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 	border: 0,
 	borderRadius: token('border.radius.circle', '100%'),
@@ -24,11 +22,6 @@ const skeletonIconButtonStyles = css({
 		appearance: 'none',
 		border: 0,
 		outline: 0,
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&:only-of-type': {
-		// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
-		marginRight: 0,
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
@@ -40,6 +33,14 @@ const skeletonIconButtonStyles = css({
 		height: 24,
 		borderRadius: token('border.radius.circle', '100%'),
 		verticalAlign: 'middle',
+	},
+});
+
+const buttonWrapperStyles = css({
+	marginInlineEnd: token('space.050', '4px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:only-of-type': {
+		marginInlineEnd: 0,
 	},
 });
 
@@ -57,14 +58,17 @@ export const SkeletonIconButton = ({ children, testId }: SkeletonIconButtonProps
 	const theme = useTheme();
 
 	return (
-		<button
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={theme.mode.iconButton.default as React.CSSProperties}
-			data-testid={testId}
-			css={skeletonIconButtonStyles}
-			type="button"
-		>
-			{children}
-		</button>
+		<div role="listitem" css={buttonWrapperStyles}>
+			{/*eslint-disable-next-line @atlaskit/design-system/no-html-button*/}
+			<button
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={theme.mode.iconButton.default as React.CSSProperties}
+				data-testid={testId}
+				css={skeletonIconButtonStyles}
+				type="button"
+			>
+				{children}
+			</button>
+		</div>
 	);
 };

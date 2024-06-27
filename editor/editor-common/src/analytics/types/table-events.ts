@@ -354,6 +354,7 @@ type AlignmentOptions = 'center' | 'align-start';
 
 export enum CHANGE_ALIGNMENT_REASON {
 	TABLE_RESIZING = 'tableResizing',
+	TABLE_COLUMN_RESIZED = 'tableColumnResized',
 	EDITOR_APPEARANCE_CHANGED = 'editorAppearanceChanged',
 	TOOLBAR_OPTION_CHANGED = 'toolbarOptionChanged',
 }

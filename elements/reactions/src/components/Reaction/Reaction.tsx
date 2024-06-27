@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
-import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import {
 	createAndFireSafe,
@@ -15,13 +15,13 @@ import {
 } from '../../analytics';
 import { type ReactionSummary, type ReactionClick, type ReactionMouseEnter } from '../../types';
 import { Counter } from '../Counter';
-import { FlashAnimation } from '../FlashAnimation';
 import { ReactionParticleEffect } from '../ReactionParticleEffect';
 import { ReactionTooltip, type ReactionTooltipProps } from '../ReactionTooltip';
 import { messages } from '../../shared/i18n';
 import { isLeftClick } from '../../shared/utils';
-import { emojiStyle, emojiNoReactionStyle, flashStyle } from './styles';
+import { emojiStyle, emojiNoReactionStyle } from './styles';
 import { type ReactionFocused } from '../../types/reaction';
+import { ReactionButton } from './ReactionButton';
 
 /**
  * Test id for Reaction item wrapper div
@@ -64,31 +64,6 @@ export interface ReactionProps extends Pick<ReactionTooltipProps, 'allowUserDial
 }
 const containerStyles = xcss({
 	position: 'relative',
-});
-
-const reactionStyles = xcss({
-	display: 'flex',
-	flexDirection: 'row',
-	alignItems: 'flex-start',
-	minWidth: '36px',
-	height: '24px',
-	backgroundColor: 'color.background.neutral.subtle',
-	borderWidth: 'border.width',
-	borderStyle: 'solid',
-	borderColor: 'color.border',
-	borderRadius: 'border.radius.circle',
-	color: 'color.text.subtle',
-	marginBlockStart: 'space.050',
-	marginInlineEnd: 'space.050',
-	padding: 'space.0',
-	overflow: 'hidden',
-
-	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
-	},
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
-	},
 });
 
 const reactedStyles = xcss({
@@ -192,27 +167,27 @@ export const Reaction = ({
 				allowUserDialog={allowUserDialog}
 				isEnabled={isTooltipEnabled}
 			>
-				<Pressable
-					xcss={[reactionStyles, reaction.reacted && reactedStyles]}
-					aria-label={intl.formatMessage(messages.reactWithEmoji, {
+				<ReactionButton
+					onClick={handleClick}
+					flash={flash}
+					additionalStyles={reaction.reacted ? [reactedStyles] : []}
+					ariaLabel={intl.formatMessage(messages.reactWithEmoji, {
 						emoji: emojiName,
 					})}
-					data-emoji-id={reaction.emojiId}
-					testId={RENDER_REACTION_TESTID}
-					onClick={handleClick}
 					onMouseEnter={handleMouseEnter}
 					onFocus={handleFocused}
-					data-emoji-button-id={reaction.emojiId}
+					testId={RENDER_REACTION_TESTID}
+					dataAttributes={{
+						'data-emoji-id': reaction.emojiId,
+						'data-emoji-button-id': reaction.emojiId,
+					}}
 				>
-					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<FlashAnimation flash={flash} css={flashStyle}>
-						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-						<div css={[emojiStyle, reaction.count === 0 && emojiNoReactionStyle]}>
-							<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
-						</div>
-						<Counter value={reaction.count} highlight={reaction.reacted} />
-					</FlashAnimation>
-				</Pressable>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+					<div css={[emojiStyle, reaction.count === 0 && emojiNoReactionStyle]}>
+						<ResourcedEmoji emojiProvider={emojiProvider} emojiId={emojiId} fitToHeight={16} />
+					</div>
+					<Counter value={reaction.count} highlight={reaction.reacted} />
+				</ReactionButton>
 			</ReactionTooltip>
 		</Box>
 	);

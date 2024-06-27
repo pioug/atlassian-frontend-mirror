@@ -28,6 +28,12 @@ export const messages = defineMessages({
 		defaultMessage: 'React with {emoji} emoji',
 		description: 'Aria label on reaction button',
 	},
+	summary: {
+		id: 'fabric.reactions.summary',
+		defaultMessage: 'View all user reactions',
+		description:
+			'Aria label on summary reaction button. Clicking this button shows who reacted in a popup',
+	},
 	unexpectedError: {
 		id: 'fabric.reactions.error.unexpected',
 		defaultMessage: 'Reactions are temporarily unavailable',

@@ -1,5 +1,30 @@
 # @atlaskit/collab-provider
 
+## 9.32.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 9.31.0
+
+### Minor Changes
+
+- [#114811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114811)
+  [`ad0d2f10ef71b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad0d2f10ef71b) -
+  CONFONBO-3268: Changes for the experiment Teammate Presence: expose 2 new collab events to add
+  statuses (viewing/editing) to Confluence
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.30.1
 
 ### Patch Changes

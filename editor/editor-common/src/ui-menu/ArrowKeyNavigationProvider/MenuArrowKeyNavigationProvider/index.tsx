@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
 const hasEnabledItems = (list: HTMLElement[]) =>
@@ -17,10 +19,15 @@ export const MenuArrowKeyNavigationProvider = ({
 	closeOnTab,
 	onSelection,
 	editorRef,
+	popupsMountPoint,
 }: React.PropsWithChildren<Omit<MenuArrowKeyNavigationProviderProps, 'type'>>) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
-	const [listenerTargetElement] = useState<HTMLElement | null>(editorRef.current);
+	const element =
+		getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') && popupsMountPoint
+			? [popupsMountPoint, editorRef.current]
+			: [editorRef.current];
+	const [listenerTargetElement] = useState<(HTMLElement | null)[]>(element);
 
 	const incrementIndex = useCallback(
 		(list: HTMLElement[]) => {
@@ -170,9 +177,15 @@ export const MenuArrowKeyNavigationProvider = ({
 			}
 		};
 
-		listenerTargetElement && listenerTargetElement.addEventListener('keydown', handleKeyDown);
+		listenerTargetElement &&
+			listenerTargetElement.forEach(function (elem) {
+				elem && elem.addEventListener('keydown', handleKeyDown);
+			});
 		return () => {
-			listenerTargetElement && listenerTargetElement.removeEventListener('keydown', handleKeyDown);
+			listenerTargetElement &&
+				listenerTargetElement.forEach(function (elem) {
+					elem && elem.removeEventListener('keydown', handleKeyDown);
+				});
 		};
 	}, [
 		currentSelectedItemIndex,

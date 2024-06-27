@@ -90,6 +90,11 @@ const isDropdownButtonStyles = css({
 	},
 });
 
+const buttonWrapperStyles = css({
+	display: 'flex',
+	margin: 0,
+});
+
 /**
  * __Skeleton primary button__
  *
@@ -120,22 +125,25 @@ export const SkeletonPrimaryButton = ({
 	});
 
 	return (
-		<button
-			type="button"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={dynamicStyles as React.CSSProperties}
-			css={[
-				primaryButtonSkeletonStyles,
-				isHighlighted && isHighlightedStyles,
-				isDropdownButton && isDropdownButtonStyles,
-				isHighlighted &&
-					(isDropdownButton
-						? isHighlightedAndDropdownButtonStyles
-						: isHighlightedNotDropdownButtonStyles),
-			]}
-			data-testid={testId}
-		>
-			{text || children}
-		</button>
+		<div role="listitem" css={buttonWrapperStyles}>
+			{/*eslint-disable-next-line @atlaskit/design-system/no-html-button*/}
+			<button
+				type="button"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={dynamicStyles as React.CSSProperties}
+				css={[
+					primaryButtonSkeletonStyles,
+					isHighlighted && isHighlightedStyles,
+					isDropdownButton && isDropdownButtonStyles,
+					isHighlighted &&
+						(isDropdownButton
+							? isHighlightedAndDropdownButtonStyles
+							: isHighlightedNotDropdownButtonStyles),
+				]}
+				data-testid={testId}
+			>
+				{text || children}
+			</button>
+		</div>
 	);
 };

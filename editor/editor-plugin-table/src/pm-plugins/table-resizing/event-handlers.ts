@@ -1,6 +1,7 @@
 import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
 	ACTION_SUBJECT,
+	CHANGE_ALIGNMENT_REASON,
 	EVENT_TYPE,
 	INPUT_METHOD,
 	TABLE_ACTION,
@@ -18,6 +19,11 @@ import { stopKeyboardColumnResizing } from '../../commands/column-resize';
 import { updateResizeHandleDecorations } from '../../commands/misc';
 import { updateColumnWidths } from '../../transforms';
 import { getSelectedColumnIndexes, isTableNested } from '../../utils';
+import {
+	ALIGN_CENTER,
+	ALIGN_START,
+	shouldChangeAlignmentToCenterResized,
+} from '../../utils/alignment';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { META_KEYS } from '../table-analytics';
 
@@ -42,10 +48,12 @@ export const handleMouseDown = (
 	isTableScalingEnabled: boolean,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isNewColumnResizingEnabled?: boolean,
+	isTableAlignmentEnabled?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;
 	const domAtPos = view.domAtPos.bind(view);
+	const { lineLength } = getEditorContainerWidth();
 
 	if (
 		editorDisabled ||
@@ -152,15 +160,11 @@ export const handleMouseDown = (
 
 		// If we let go in the same place we started, don't need to do anything.
 		if (dragging && clientX === dragging.startX) {
-			if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-				if (isKeyboardResize || !isTableHovered) {
-					/** if column resize had started via keyboard but continued by mouse
-					 *  or mouse pointer leaves the table but mouse button still pressed
-					 */
-					return stopKeyboardColumnResizing({})(state, dispatch, view);
-				} else {
-					return stopResizing()(state, dispatch);
-				}
+			if (isKeyboardResize || !isTableHovered) {
+				/** if column resize had started via keyboard but continued by mouse
+				 *  or mouse pointer leaves the table but mouse button still pressed
+				 */
+				return stopKeyboardColumnResizing({})(state, dispatch, view);
 			} else {
 				return stopResizing()(state, dispatch);
 			}
@@ -175,6 +179,8 @@ export const handleMouseDown = (
 			// There may be a more elegant solution to this, to avoid a jarring experience.
 			if (table.eq(originalTable)) {
 				const map = TableMap.get(table);
+				const totalRowCount = map.height;
+				const totalColumnCount = map.width;
 				const colIndex =
 					map.colCount($cell.pos - start) +
 					($cell.nodeAfter ? $cell.nodeAfter.attrs.colspan : 1) -
@@ -206,9 +212,43 @@ export const handleMouseDown = (
 						shouldScale, // isTableScalingEnabled
 						undefined, // originalTableWidth
 						shouldUseIncreasedScalingPercent,
+						lineLength,
+						isTableAlignmentEnabled,
 					);
 					tr = updateColumnWidths(newResizeState, table, start)(tr);
-					tr.setNodeAttribute(start - 1, 'width', newResizeState.tableWidth);
+
+					// If the table is aligned to the start and the table width is greater than the line length, we should change the alignment to center
+					const shouldChangeAlignment = shouldChangeAlignmentToCenterResized(
+						isTableAlignmentEnabled,
+						originalTable,
+						lineLength,
+						newResizeState.tableWidth,
+					);
+					if (shouldChangeAlignment) {
+						tr = tr.setNodeMarkup(start - 1, state.schema.nodes.table, {
+							...table.attrs,
+							width: newResizeState.tableWidth,
+							layout: ALIGN_CENTER,
+						});
+
+						editorAnalyticsAPI?.attachAnalyticsEvent({
+							action: TABLE_ACTION.CHANGED_ALIGNMENT,
+							actionSubject: ACTION_SUBJECT.TABLE,
+							actionSubjectId: null,
+							attributes: {
+								tableWidth: newResizeState.tableWidth,
+								newAlignment: ALIGN_CENTER,
+								previousAlignment: ALIGN_START,
+								totalRowCount: totalRowCount,
+								totalColumnCount: totalColumnCount,
+								inputMethod: INPUT_METHOD.AUTO,
+								reason: CHANGE_ALIGNMENT_REASON.TABLE_COLUMN_RESIZED,
+							},
+							eventType: EVENT_TYPE.TRACK,
+						})(tr);
+					} else {
+						tr.setNodeAttribute(start - 1, 'width', newResizeState.tableWidth);
+					}
 				} else {
 					const newResizeState = resizeColumn(
 						resizeState,
@@ -255,15 +295,11 @@ export const handleMouseDown = (
 					},
 				})(tr);
 			}
-			if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-				if (isKeyboardResize || !isTableHovered) {
-					/** if column resize had started via keyboard but continued by mouse
-					 *  or mouse pointer leaves the table but mouse button still pressed
-					 */
-					return stopKeyboardColumnResizing({ originalTr: tr })(state, dispatch, view);
-				} else {
-					return stopResizing(tr)(state, dispatch);
-				}
+			if (isKeyboardResize || !isTableHovered) {
+				/** if column resize had started via keyboard but continued by mouse
+				 *  or mouse pointer leaves the table but mouse button still pressed
+				 */
+				return stopKeyboardColumnResizing({ originalTr: tr })(state, dispatch, view);
 			} else {
 				return stopResizing(tr)(state, dispatch);
 			}
@@ -280,7 +316,7 @@ export const handleMouseDown = (
 			!dragging ||
 			resizeHandlePos === null ||
 			!pointsAtCell(state.doc.resolve(resizeHandlePos)) ||
-			(!isTableHovered && getBooleanFF('platform.editor.a11y-column-resizing_emcvz'))
+			!isTableHovered
 		) {
 			return finish(event);
 		}
@@ -312,6 +348,8 @@ export const handleMouseDown = (
 				shouldScale,
 				undefined,
 				shouldUseIncreasedScalingPercent,
+				lineLength,
+				isTableAlignmentEnabled,
 			);
 		} else {
 			resizeColumn(

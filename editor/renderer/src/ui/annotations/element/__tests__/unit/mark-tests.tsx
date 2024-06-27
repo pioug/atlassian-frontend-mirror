@@ -1,9 +1,12 @@
 import React from 'react';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import { act, fireEvent } from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { MarkComponent } from '../../mark';
+
+jest.mock('@atlaskit/feature-gate-js-client');
 
 describe('Annotations/Mark', () => {
 	const fakeId = 'fakeId';
@@ -45,6 +48,7 @@ describe('Annotations/Mark', () => {
 
 	describe('when state is active', () => {
 		const state = AnnotationMarkStates.ACTIVE;
+		(FeatureGates.checkGate as jest.Mock).mockReturnValue(true);
 
 		beforeEach(() => {
 			if (process.env.IS_REACT_18 === 'true') {
@@ -90,6 +94,9 @@ describe('Annotations/Mark', () => {
 				rendererMark: 'true',
 				hasFocus: 'false',
 			});
+			expect(markWrapper!.getAttribute('role')).toEqual('button');
+			expect(markWrapper!.getAttribute('tabIndex')).toEqual('0');
+			expect(markWrapper!.getAttribute('aria-expanded')).toEqual('false');
 		});
 
 		it('should render the aria-details with parent ids and the mark id', async () => {
@@ -201,6 +208,7 @@ describe('Annotations/Mark', () => {
 
 	describe('when state is not active', () => {
 		const state = AnnotationMarkStates.RESOLVED;
+		(FeatureGates.checkGate as jest.Mock).mockReturnValue(true);
 
 		beforeEach(() => {
 			if (process.env.IS_REACT_18 === 'true') {
@@ -250,6 +258,9 @@ describe('Annotations/Mark', () => {
 			const markWrapper = container.querySelector('mark');
 			expect(markWrapper).not.toBeNull();
 			expect(markWrapper!.getAttribute('aria-details')).toBeNull();
+			expect(markWrapper!.getAttribute('role')).not.toEqual('button');
+			expect(markWrapper!.getAttribute('tabIndex')).not.toEqual('0');
+			expect(markWrapper!.getAttribute('aria-expanded')).toEqual(null);
 		});
 	});
 });

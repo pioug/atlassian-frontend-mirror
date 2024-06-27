@@ -1,47 +1,49 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-
-import { Component } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Code } from '@atlaskit/code';
+import { Label } from '@atlaskit/form';
+import { Box, Inline } from '@atlaskit/primitives';
 
-import Drawer, { type DrawerWidth } from '../src';
+import Drawer from '../src';
+import { type DrawerWidth } from '../src/components/types';
 import { widths } from '../src/constants';
 
-interface State {
-	width: DrawerWidth;
-}
+const DrawersExample = () => {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+	const [width, setWidth] = useState<DrawerWidth>('narrow');
 
-export default class DrawersExample extends Component<{}, State> {
-	state = {
-		width: widths[0] as DrawerWidth,
+	const handleOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		setWidth(event.target.value as DrawerWidth);
 	};
 
-	onNextClick = () => {
-		const width = widths[(widths.indexOf(this.state.width) + 1) % widths.length] as DrawerWidth;
-		this.setState({
-			width,
-		});
-	};
+	return (
+		<Box>
+			{!isDrawerOpen && <Button onClick={() => setIsDrawerOpen(true)}>Open Drawer</Button>}
+			<Drawer
+				testId="widths"
+				onClose={() => setIsDrawerOpen(false)}
+				isOpen={isDrawerOpen}
+				width={width}
+				label={`Drawer ${width}`}
+			>
+				<Label htmlFor="select-drawer-width">Drawer width</Label>
+				<Box>
+					<select id="select-drawer-width" onChange={handleOnChange} value={width}>
+						{widths.map((w) => (
+							<option key={w} value={w}>
+								{w}
+							</option>
+						))}
+					</select>
+				</Box>
 
-	render() {
-		return (
-			<Drawer isOpen width={this.state.width} label="Drawer with width controls">
-				<div>
-					<code>{this.state.width} width</code>
-				</div>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ margin: '1rem 0' }}>
-					<Button type="button" onClick={this.onNextClick}>
-						Next width
-					</Button>
-				</div>
+				<Inline>
+					<Code id="drawerContents">{`width: ${width}`}</Code>
+				</Inline>
 			</Drawer>
-		);
-	}
-}
+		</Box>
+	);
+};
+
+export default DrawersExample;

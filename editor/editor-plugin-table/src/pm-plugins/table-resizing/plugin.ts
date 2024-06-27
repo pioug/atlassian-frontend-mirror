@@ -4,7 +4,6 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TableCssClassName as ClassName } from '../../types';
 import type { ColumnResizingPluginState } from '../../types';
@@ -24,6 +23,7 @@ export function createPlugin(
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled?: boolean,
 	isNewColumnResizingEnabled?: boolean,
+	isTableAlignmentEnabled?: boolean,
 ) {
 	return new SafePlugin({
 		key: pluginKey,
@@ -55,15 +55,13 @@ export function createPlugin(
 
 					const { dragging } = getPluginState(state);
 					let isColumnKeyboardResizeStarted = false;
-					if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-						/*
-              We need to start listening mouse events if column resize started from keyboard.
-              This will allow continue resizing via mouse
-            */
-						const { isKeyboardResize } = getTablePluginState(state);
-						if (isKeyboardResize) {
-							isColumnKeyboardResizeStarted = isKeyboardResize;
-						}
+					/*
+						We need to start listening mouse events if column resize started from keyboard.
+						This will allow continue resizing via mouse
+					*/
+					const { isKeyboardResize } = getTablePluginState(state);
+					if (isKeyboardResize) {
+						isColumnKeyboardResizeStarted = isKeyboardResize;
 					}
 
 					if (resizeHandlePos !== null && (!dragging || isColumnKeyboardResizeStarted)) {
@@ -77,6 +75,7 @@ export function createPlugin(
 								isTableScalingEnabled || false,
 								editorAnalyticsAPI,
 								isNewColumnResizingEnabled,
+								isTableAlignmentEnabled,
 							)
 						) {
 							const { state, dispatch } = view;

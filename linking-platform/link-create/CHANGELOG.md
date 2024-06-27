@@ -1,5 +1,33 @@
 # @atlaskit/link-create
 
+## 2.7.1
+
+### Patch Changes
+
+- [`cb4871502a9d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb4871502a9d7) -
+  [ux] Stop event propagation on cancel button click of create form
+
+## 2.7.0
+
+### Minor Changes
+
+- [#112648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112648)
+  [`3cd8fd44d0d08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3cd8fd44d0d08) -
+  Export new InlineCreate component alongside related docs
+
+## 2.6.0
+
+### Minor Changes
+
+- [#114849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114849)
+  [`3ddb026a666ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ddb026a666ce) -
+  [ux] Added a site picker to the goal form. And moved the SiteSelect from link-create-confluence to
+  link-create so that theres no circular dependency between link-create-goal and
+  link-create-confluence. Also, added sites as a prop to pass in to goal picker
+
+  "breaking" change which is that the peer dependency in (link-create-goal & link-create-confluence)
+  must also be bumped/checked is in range
+
 ## 2.5.3
 
 ### Patch Changes

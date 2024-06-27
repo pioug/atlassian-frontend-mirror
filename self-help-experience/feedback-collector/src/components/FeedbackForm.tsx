@@ -196,6 +196,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 									{({ fieldProps: { id, ...restProps } }) => (
 										<Select<OptionType>
 											{...restProps}
+											required
 											onChange={(option) => {
 												if (!option || option instanceof Array) {
 													return;

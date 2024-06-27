@@ -8,7 +8,6 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import type { Direction } from '@atlaskit/editor-tables/types';
 import { goToNextCell as baseGotoNextCell, findTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { insertRowWithAnalytics } from '../commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -31,15 +30,13 @@ export const goToNextCell =
 			return false;
 		}
 
-		if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-			const isColumnResizing = getPluginState(state)?.isKeyboardResize;
-			if (isColumnResizing) {
-				stopKeyboardColumnResizing({
-					ariaNotify: ariaNotify,
-					getIntl: getIntl,
-				})(state, dispatch, view);
-				return true;
-			}
+		const isColumnResizing = getPluginState(state)?.isKeyboardResize;
+		if (isColumnResizing) {
+			stopKeyboardColumnResizing({
+				ariaNotify: ariaNotify,
+				getIntl: getIntl,
+			})(state, dispatch, view);
+			return true;
 		}
 
 		const map = TableMap.get(table.node);

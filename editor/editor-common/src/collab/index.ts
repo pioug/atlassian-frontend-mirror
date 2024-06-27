@@ -342,6 +342,21 @@ export interface CollabSendableSelection {
 	head?: number | string;
 }
 
+export type Activity = 'VIEWING' | 'EDITING';
+
+export type CollabActivityData = {
+	activity: Activity;
+	userId?: string;
+};
+
+export type CollabActivityJoinPayload = CollabActivityData & {
+	type: 'activity:join';
+};
+
+export type CollabActivityAckPayload = CollabActivityData & {
+	type: 'activity:ack';
+};
+
 export interface CollabEventTelepointerData {
 	type: 'telepointer';
 	selection: CollabSendableSelection;
@@ -402,6 +417,21 @@ export type UserPermitType = {
 export type CollabPermissionEventPayload = UserPermitType;
 
 export interface CollabEvents {
+	/**
+	 * Experimental Only: Teammate Presence (Confluence Land and Onboarding)
+	 *
+	 * This event is emitted when a new collaborator joins the session. The event carries information about
+	 * the action the new collaborator is currently doing in the session, such as viewing or editing.
+	 */
+	'activity:join': CollabActivityJoinPayload;
+	/**
+	 * Experimental Only: Teammate Presence (Confluence Land and Onboarding)
+	 *
+	 * This event is emitted by the existing collaborators in response to a new collaborator joining.
+	 * It is used to inform the new collaborator about the current actions or states of the existing
+	 * collaborators, such as viewing or editing.
+	 */
+	'activity:ack': CollabActivityAckPayload;
 	'metadata:changed': Metadata;
 	init: CollabInitPayload;
 	connected: CollabConnectedPayload;

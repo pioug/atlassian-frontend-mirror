@@ -1030,6 +1030,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 				value={{
 					editorRef: this.editorRef,
 					editorView: this.view,
+					popupsMountPoint: this.props.editorProps.popupsMountPoint,
 				}}
 			>
 				{renderTrackingEnabled && (

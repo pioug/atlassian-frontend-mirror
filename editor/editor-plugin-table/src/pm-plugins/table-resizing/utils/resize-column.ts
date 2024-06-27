@@ -1,8 +1,12 @@
 // Resize a given column by an amount from the current state
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
-import { TableCssClassName as ClassName } from '../../../types';
-import { ALIGN_START } from '../../../utils/alignment';
+import { type AlignmentOptions, TableCssClassName as ClassName } from '../../../types';
+import {
+	ALIGN_CENTER,
+	ALIGN_START,
+	shouldChangeAlignmentToCenterResized,
+} from '../../../utils/alignment';
 
 import { getTableContainerElementWidth, getTableScalingPercent } from './misc';
 import { growColumn, shrinkColumn, updateAffectedColumn } from './resize-logic';
@@ -56,6 +60,8 @@ export const resizeColumnAndTable = (
 	isTableScalingEnabled = false,
 	originalTableWidth?: number,
 	shouldUseIncreasedScalingPercent = false,
+	lineLength?: number,
+	isTableAlignmentEnabled = false,
 ): ResizeState => {
 	// TODO: can we use document state, and apply scaling factor?
 	const tableWidth = tableRef.clientWidth;
@@ -93,7 +99,17 @@ export const resizeColumnAndTable = (
 	const delta = newState.cols[colIndex].width - resizeState.cols[colIndex].width;
 
 	if (!isOverflowed) {
-		updateTablePreview(delta, tableRef, tableNode);
+		// If the table is aligned to the start and the table width is greater than the line length, we should change the alignment to center
+		const shouldChangeAlignment = shouldChangeAlignmentToCenterResized(
+			isTableAlignmentEnabled,
+			tableNode,
+			lineLength,
+			newState.tableWidth + delta,
+		);
+
+		shouldChangeAlignment
+			? updateTablePreview(delta, tableRef, tableNode, ALIGN_CENTER)
+			: updateTablePreview(delta, tableRef, tableNode);
 	}
 
 	return {
@@ -107,10 +123,12 @@ const updateTablePreview = (
 	resizeAmount: number,
 	tableRef: HTMLElement | null,
 	tableNode: PmNode,
+	tableAligment?: AlignmentOptions,
 ) => {
 	const currentWidth = getTableContainerElementWidth(tableNode);
 	const resizingContainer = tableRef?.closest(`.${ClassName.TABLE_RESIZER_CONTAINER}`);
 	const resizingItem = resizingContainer?.querySelector('.resizer-item');
+	const alignmentContainer = resizingContainer?.parentElement;
 
 	if (resizingItem) {
 		const newWidth = `${currentWidth + resizeAmount}px`;
@@ -119,5 +137,9 @@ const updateTablePreview = (
 		}
 		(resizingContainer as HTMLElement).style.width = newWidth;
 		(resizingItem as HTMLElement).style.width = newWidth;
+
+		if (tableAligment && alignmentContainer) {
+			alignmentContainer.style.justifyContent = tableAligment;
+		}
 	}
 };

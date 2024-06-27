@@ -16,6 +16,8 @@ export type {
 	CollabPermissionEventPayload,
 	CollabEventRemoteData,
 	CollabEventPresenceData,
+	CollabActivityJoinPayload,
+	CollabActivityAckPayload,
 	CollabEventConnectingData,
 	CollabEventTelepointerData,
 	CollabSendableSelection,

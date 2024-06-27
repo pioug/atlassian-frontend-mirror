@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 193.29.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.28.10
+
+### Patch Changes
+
+- [#113338](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113338)
+  [`6b5439f51eab4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b5439f51eab4) -
+  ECA11Y-5 remove FF from codebase
+- [#115170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115170)
+  [`84489f16bb385`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84489f16bb385) -
+  Adds a pm-plugin to register contentMoved event as an alternative to DnD feature.
+
 ## 193.28.6
 
 ### Patch Changes

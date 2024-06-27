@@ -28,6 +28,11 @@ describe('FooterBlock', () => {
 		expect(container.children.length).toBeGreaterThan(0);
 	});
 
+	it('should render non-empty block when status is not resolved but alwaysShow is true', () => {
+		const { container } = renderFooterBlock({ status: SmartLinkStatus.Fallback, alwaysShow: true });
+		expect(container.children.length).toBeGreaterThan(0);
+	});
+
 	it.each([
 		[SmartLinkStatus.Resolving],
 		[SmartLinkStatus.Forbidden],

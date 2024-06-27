@@ -193,33 +193,31 @@ export const createPlugin = (
 								(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
 						}
 						const tableNode = findTable(state.selection);
-						if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-							// when keyboard cursor leaves the table we need to stop column resizing
-							const pluginPrevState = getPluginState(prevState);
-							const isStopKeyboardColumResizing =
-								pluginPrevState.isResizeHandleWidgetAdded && pluginPrevState.isKeyboardResize;
-							if (isStopKeyboardColumResizing) {
-								const isTableNodesDifferent = pluginPrevState?.tableNode !== tableNode?.node;
-								if (pluginPrevState?.tableNode && tableNode && isTableNodesDifferent) {
-									const oldRowsNumber = TableMap.get(pluginPrevState.tableNode).height;
-									const newRowsNumber = TableMap.get(tableNode.node).height;
-									if (
-										oldRowsNumber !== newRowsNumber || // Add/delete row
-										tableNode.node.attrs.localId !== pluginPrevState.tableNode.attrs.localId
-									) {
-										// Jump to another table
-										stopKeyboardColumnResizing({
-											ariaNotify: ariaNotifyPlugin,
-											getIntl: getIntl,
-										})(state, dispatch);
-									}
-								} else if (!tableNode) {
-									// selection outside of table
+						// when keyboard cursor leaves the table we need to stop column resizing
+						const pluginPrevState = getPluginState(prevState);
+						const isStopKeyboardColumResizing =
+							pluginPrevState.isResizeHandleWidgetAdded && pluginPrevState.isKeyboardResize;
+						if (isStopKeyboardColumResizing) {
+							const isTableNodesDifferent = pluginPrevState?.tableNode !== tableNode?.node;
+							if (pluginPrevState?.tableNode && tableNode && isTableNodesDifferent) {
+								const oldRowsNumber = TableMap.get(pluginPrevState.tableNode).height;
+								const newRowsNumber = TableMap.get(tableNode.node).height;
+								if (
+									oldRowsNumber !== newRowsNumber || // Add/delete row
+									tableNode.node.attrs.localId !== pluginPrevState.tableNode.attrs.localId
+								) {
+									// Jump to another table
 									stopKeyboardColumnResizing({
 										ariaNotify: ariaNotifyPlugin,
 										getIntl: getIntl,
 									})(state, dispatch);
 								}
+							} else if (!tableNode) {
+								// selection outside of table
+								stopKeyboardColumnResizing({
+									ariaNotify: ariaNotifyPlugin,
+									getIntl: getIntl,
+								})(state, dispatch);
 							}
 						}
 					}
@@ -337,15 +335,13 @@ export const createPlugin = (
 			},
 			handleTextInput: (view, _from, _to, text) => {
 				const { state, dispatch } = view;
-				if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-					const { isKeyboardResize } = getPluginState(state);
-					if (isKeyboardResize) {
-						stopKeyboardColumnResizing({
-							ariaNotify: ariaNotifyPlugin,
-							getIntl: getIntl,
-						})(state, dispatch);
-						return false;
-					}
+				const { isKeyboardResize } = getPluginState(state);
+				if (isKeyboardResize) {
+					stopKeyboardColumnResizing({
+						ariaNotify: ariaNotifyPlugin,
+						getIntl: getIntl,
+					})(state, dispatch);
+					return false;
 				}
 				const tr = replaceSelectedTable(state, text, INPUT_METHOD.KEYBOARD, editorAnalyticsAPI);
 				if (tr.selectionSet) {

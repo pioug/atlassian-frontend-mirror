@@ -1,5 +1,54 @@
 # @atlaskit/editor-common
 
+## 83.3.1
+
+### Patch Changes
+
+- [`0c728cec893a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c728cec893a0) -
+  ED-23730: Change table to align center when column resizing makes table width wider than
+  linelength
+
+## 83.3.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 83.2.0
+
+### Minor Changes
+
+- [#114794](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114794)
+  [`f859d1c0d08dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f859d1c0d08dc) -
+  [ux] Adds in logic to conditionally show new label designs for macro interaction updates. Also
+  updates/adds new tests.
+
+## 83.1.0
+
+### Minor Changes
+
+- [#114806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114806)
+  [`d3310bbf372ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3310bbf372ec) -
+  [ux] The keyboard navigation for the main toolbar
+- [#114811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114811)
+  [`ad0d2f10ef71b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad0d2f10ef71b) -
+  CONFONBO-3268: Changes for the experiment Teammate Presence: expose 2 new collab events to add
+  statuses (viewing/editing) to Confluence
+
+## 83.0.4
+
+### Patch Changes
+
+- [#115170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115170)
+  [`84489f16bb385`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84489f16bb385) -
+  Adds a pm-plugin to register contentMoved event as an alternative to DnD feature.
+
 ## 83.0.3
 
 ### Patch Changes

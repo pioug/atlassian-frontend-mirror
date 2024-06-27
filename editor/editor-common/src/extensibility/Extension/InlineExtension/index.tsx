@@ -37,7 +37,8 @@ const InlineExtension = (props: Props) => {
 		isNodeHovered,
 		setIsNodeHovered,
 	} = props;
-	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+	const { showMacroInteractionDesignUpdates, showMacroButtonUpdates } =
+		macroInteractionDesignFeatureFlags || {};
 
 	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
 
@@ -71,6 +72,7 @@ const InlineExtension = (props: Props) => {
 					isNodeSelected={isNodeSelected}
 					isNodeHovered={isNodeHovered}
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+					showMacroButtonUpdates={showMacroButtonUpdates}
 					setIsNodeHovered={setIsNodeHovered}
 				/>
 			)}

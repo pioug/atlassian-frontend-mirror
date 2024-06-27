@@ -52,6 +52,9 @@
             "path": "../../../elements/emoji/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {

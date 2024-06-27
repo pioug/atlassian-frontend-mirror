@@ -29,6 +29,7 @@ export interface ConnectedReactionsViewProps
 			| 'emojiProvider'
 			| 'emojiPickerSize'
 			| 'miniMode'
+			| 'summaryViewEnabled'
 		>,
 		Pick<ReactionPickerProps, 'pickerQuickReactionEmojiIds'> {
 	/**

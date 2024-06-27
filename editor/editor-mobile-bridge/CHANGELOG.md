@@ -1,5 +1,47 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.29.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.29.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.28.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.28.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.28.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.28.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.28.9
 
 ### Patch Changes

@@ -58,7 +58,10 @@ export function CreateFormFooter({
 					type="button"
 					actionSubjectId="cancel"
 					appearance="subtle"
-					onClick={handleCancel}
+					onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+						e.stopPropagation();
+						handleCancel();
+					}}
 					testId={`${testId}-button-cancel`}
 				>
 					{intl.formatMessage(messages.close)}

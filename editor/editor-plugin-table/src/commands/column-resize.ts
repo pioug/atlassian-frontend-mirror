@@ -123,10 +123,6 @@ export const initiateKeyboardColumnResizing =
 		getIntl?: () => IntlShape;
 	}): Command =>
 	(state, dispatch, view) => {
-		if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-			return false;
-		}
-
 		const { selection } = state;
 		const selectionRect = isSelectionType(selection, 'cell')
 			? getSelectionRect(selection)!
@@ -160,10 +156,6 @@ export const activateNextResizeArea =
 		getIntl?: () => IntlShape;
 	}): Command =>
 	(state, dispatch, view) => {
-		if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-			return false;
-		}
-
 		const { resizeHandlePos } = getTableResizingPluginState(state) || {};
 		// If No resizing has initiated, skip to regular handler
 		if (!resizeHandlePos) {
@@ -274,9 +266,6 @@ export const changeColumnWidthByStep =
 		const fakeDispatch = (tr: Transaction) => {
 			customTr = tr;
 		};
-		if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-			return false;
-		}
 		const { resizeHandlePos } = getTableResizingPluginState(state);
 		const cell = findCellClosestToPos(state.selection.$from);
 		if (!view || !resizeHandlePos || !cell) {
@@ -403,9 +392,6 @@ export const stopKeyboardColumnResizing =
 		originalTr?: Transaction;
 	}): Command =>
 	(state, dispatch) => {
-		if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-			return false;
-		}
 		let customTr = originalTr || state.tr;
 		const fakeDispatch = (tr: Transaction) => {
 			customTr = tr;

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.22.2
+
+### Patch Changes
+
+- [#115072](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115072)
+  [`c5449a8a22317`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5449a8a22317) -
+  Revert color prop to be optional in UI Kit Heading component props
+
 ## 0.22.1
 
 ### Patch Changes

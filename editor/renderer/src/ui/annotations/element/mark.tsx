@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import type { MouseEvent } from 'react';
 import type React from 'react';
 import { useMemo, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
@@ -28,6 +28,10 @@ const markStyles = () => css`
 	}
 `;
 
+const isMobile = () => {
+	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
+
 type MarkComponentProps = {
 	id: AnnotationId;
 	annotationParentIds: AnnotationId[];
@@ -47,14 +51,21 @@ export const MarkComponent = ({
 	onClick,
 	useBlockLevel,
 }: React.PropsWithChildren<MarkComponentProps>) => {
+	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
+		'inline_comments_keyboard_accessible_renderer',
+	);
+
 	const annotationIds = useMemo(
 		() => [...new Set([...annotationParentIds, id])],
 		[id, annotationParentIds],
 	);
 	const onMarkClick = useCallback(
-		(event: MouseEvent) => {
+		(event: MouseEvent | KeyboardEvent) => {
 			// prevent inline mark logic for media block marks
-			if (event.currentTarget.getAttribute('data-block-mark')) {
+			if (
+				event.currentTarget instanceof HTMLElement &&
+				event.currentTarget.getAttribute('data-block-mark')
+			) {
 				return;
 			}
 
@@ -85,6 +96,14 @@ export const MarkComponent = ({
 		[annotationIds, onClick, state],
 	);
 
+	const onMarkEnter = (evt: KeyboardEvent) => {
+		const focusedElementTag = document.activeElement?.tagName;
+
+		if (focusedElementTag === 'MARK' && evt.key === 'Enter') {
+			onMarkClick(evt);
+		}
+	};
+
 	const overriddenData = !state
 		? dataAttributes
 		: {
@@ -92,11 +111,24 @@ export const MarkComponent = ({
 				'data-mark-annotation-state': state,
 				'data-has-focus': hasFocus,
 			};
+
+	const desktopAccessibilityAttributes = isInlineCommentsKbAccessible
+		? isMobile()
+			? {}
+			: {
+					role: 'button',
+					tabIndex: 0,
+					onKeyDown: onMarkEnter,
+					'aria-expanded': hasFocus,
+				}
+		: {};
+
 	const accessibility =
 		state !== AnnotationMarkStates.ACTIVE
 			? { 'aria-disabled': true }
 			: {
 					'aria-details': annotationIds.join(', '),
+					...desktopAccessibilityAttributes,
 				};
 
 	return jsx(

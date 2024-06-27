@@ -1,26 +1,27 @@
-export type { CreateFormProps } from './ui/index';
 export type {
-	LinkCreateProps,
-	LinkCreatePlugin,
-	LinkCreateWithModalProps,
 	CreatePayload,
 	EditViewProps,
+	LinkCreatePlugin,
+	LinkCreateProps,
+	LinkCreateWithModalProps,
 } from './common/types';
+export type { CreateFormProps } from './ui/index';
 
 export {
-	default,
-	TextField,
-	CreateForm,
-	Select,
 	AsyncSelect,
+	CreateForm,
 	CreateFormLoader,
 	FormSpy,
-	// todo: EDM-10077 - export this once inline-create is tested/ready
-	//InlineCreate,
+	Select,
+	SiteSelect,
+	TextField,
+	InlineCreate,
 	UserPicker,
+	default,
+	type SitePickerOptionType,
 } from './ui/index';
 
-export { useLinkCreateCallback, LinkCreateCallbackProvider } from './controllers/callback-context';
+export { LinkCreateCallbackProvider, useLinkCreateCallback } from './controllers/callback-context';
 
 export {
 	ExitWarningModalProvider as LinkCreateExitWarningProvider,
@@ -30,3 +31,4 @@ export {
 export type { Validator, ValidatorMap } from './common/types';
 
 export { FORM_ERROR } from 'final-form';
+export { PageIcon, UrlIcon } from './common/ui/icon';

@@ -1,4 +1,5 @@
 import type {
+	CollabEditProvider,
 	CollabEventConnectionData,
 	CollabEventInitData,
 	CollabEventPresenceData,
@@ -43,6 +44,32 @@ export const handlePresence = (presenceData: CollabEventPresenceData, view: Edit
 		state: { tr },
 	} = view;
 	view.dispatch(tr.setMeta('presence', presenceData));
+};
+
+const ACTIVITY_EDITING = 'EDITING';
+
+/**
+ * A Handler for event "activity:ack" forwarded from NCS.
+ * This event "activity:ack" is emitted by the existing collaborators in response to a new collaborator
+ * joining. It is used to inform the new collaborator about the current actions or states of the existing
+ * collaborators, such as viewing or editing.
+ */
+export const handleActivityAck = () => {};
+
+/**
+ * A Handler for event "activity:join" forwarded from NCS.
+ * Existing participant respond to the new joiner with their status.
+ * This event "activity:join" is emitted when a new collaborator joins the session. The event carries
+ * information about the action the new collaborator is currently doing in the session, such as viewing
+ * or editing.
+ */
+export const handleActivityJoin = (provider: CollabEditProvider | null) => {
+	if (provider) {
+		provider.sendMessage({
+			type: 'activity:ack',
+			activity: ACTIVITY_EDITING,
+		});
+	}
 };
 
 export const applyRemoteData = (

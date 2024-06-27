@@ -27,6 +27,7 @@ import { RENDER_MODAL_TESTID } from '../ReactionDialog/ReactionsDialog';
 import { RENDER_SELECTOR_TESTID } from '../Selector';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
+import { RENDER_SUMMARY_BUTTON_TESTID } from '../ReactionSummary/ReactionSummaryButton';
 
 jest.mock('../../shared/constants', () => ({
 	...jest.requireActual('../../shared/constants'),
@@ -512,6 +513,69 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 					'fabric-elements',
 				);
 			});
+		});
+	});
+
+	describe('summary view', () => {
+		const summaryReactions = [
+			...reactions,
+			// adding 2 more reactions since the default array only has 2 and the default threshold to show a summary is 3
+			getReactionSummary(DefaultReactions[2].shortName, 9, false),
+			getReactionSummary(DefaultReactions[3].shortName, 5, false),
+		];
+
+		const renderReactionsWithSummary = (
+			extraProps: Partial<ReactionsProps> = {},
+			onEvent: (event: UIAnalyticsEvent, channel?: string) => void = () => {},
+		) => {
+			return renderWithIntl(
+				<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
+					<Reactions
+						emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+						reactions={summaryReactions}
+						status={ReactionStatus.ready}
+						onReactionClick={mockOnReactionsClick}
+						onSelection={mockOnSelection}
+						loadReaction={mockLoadReaction}
+						summaryViewEnabled={true}
+						summaryViewThreshold={3}
+						{...extraProps}
+					/>
+				</AnalyticsListener>,
+			);
+		};
+
+		it('should enable summary view when the number of reactions meets the threshold', async () => {
+			// threshold is 3 by default and there are 4 reactions
+			renderReactionsWithSummary();
+			const summaryView = await screen.findByTestId('reaction-summary-view');
+			expect(summaryView).toBeInTheDocument();
+		});
+
+		it('should not enable summary view when the number of reactions is below the threshold', async () => {
+			renderReactionsWithSummary({ summaryViewThreshold: 8 });
+			const summaryView = screen.queryByTestId('reaction-summary-view');
+			expect(summaryView).not.toBeInTheDocument();
+		});
+
+		it('should enable summary view when the number of reactions is the same as the threshold', async () => {
+			renderReactionsWithSummary({ summaryViewThreshold: 4 });
+			const summaryView = await screen.findByTestId('reaction-summary-view');
+			expect(summaryView).toBeInTheDocument();
+		});
+
+		it('should open detailed reactions view on summary click', async () => {
+			renderReactionsWithSummary();
+			const reactionSummaryButton = await screen.findByTestId(RENDER_SUMMARY_BUTTON_TESTID);
+
+			act(() => {
+				// click the summary button which opens it to see all the reactions
+				fireEvent.click(reactionSummaryButton);
+			});
+			const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			expect(reactionButtons.length).toEqual(summaryReactions.length);
+			fireEvent.click(reactionButtons[0]);
+			expect(mockOnReactionsClick).toHaveBeenCalled();
 		});
 	});
 });

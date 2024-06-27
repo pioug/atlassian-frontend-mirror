@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.3.7
+
+### Patch Changes
+
+- [#115437](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115437)
+  [`58a645bff2002`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58a645bff2002) -
+  [ux] Update feedback type select input to include aria-required attribute
+
 ## 13.3.6
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.4.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.3.2
+
+### Patch Changes
+
+- [#115170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115170)
+  [`84489f16bb385`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84489f16bb385) -
+  Adds a pm-plugin to register contentMoved event as an alternative to DnD feature.
+
 ## 1.3.1
 
 ### Patch Changes

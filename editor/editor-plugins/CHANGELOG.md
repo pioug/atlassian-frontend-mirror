@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 3.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.14
+
+### Patch Changes
+
+- [#113338](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113338)
+  [`6b5439f51eab4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b5439f51eab4) -
+  ECA11Y-5 remove FF from codebase
+- Updated dependencies
+
 ## 3.3.13
 
 ### Patch Changes

@@ -45,7 +45,12 @@ import {
 	TABLE_HIGHLIGHT_TOLERANCE,
 	TABLE_SNAP_GAP,
 } from '../ui/consts';
-import { ALIGN_CENTER, ALIGN_START, normaliseAlignment } from '../utils/alignment';
+import {
+	ALIGN_CENTER,
+	ALIGN_START,
+	normaliseAlignment,
+	shouldChangeAlignmentToCenterResized,
+} from '../utils/alignment';
 import {
 	generateResizedPayload,
 	generateResizeFrameRatePayloads,
@@ -93,8 +98,6 @@ export interface TableResizerImprovementProps extends TableResizerProps {
 type ResizerNextHandler = React.ElementRef<typeof ResizerNext>;
 
 const RESIZE_STEP_VALUE = 10;
-
-const FULL_WIDTH_EDITOR_CONTENT_WIDTH = 1800;
 
 const handles = { right: true };
 const handleStyles = {
@@ -296,11 +299,7 @@ export const TableResizer = ({
 			dispatch: ((tr: Transaction) => void) | undefined,
 		) => {
 			if (
-				isTableAlignmentEnabled &&
-				node &&
-				node.attrs.layout === ALIGN_START &&
-				newWidth > lineLength &&
-				lineLength < FULL_WIDTH_EDITOR_CONTENT_WIDTH && // We don't want to switch alignment in Full-width editor
+				shouldChangeAlignmentToCenterResized(isTableAlignmentEnabled, node, lineLength, newWidth) &&
 				isResizing.current
 			) {
 				const tableNodeWithPos = { pos, node };

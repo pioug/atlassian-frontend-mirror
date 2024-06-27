@@ -8,8 +8,10 @@ import type {
 	PresenceData,
 	PresencePayload,
 	TelepointerPayload,
+	ActivityPayload,
 } from '../types';
 import type {
+	CollabActivityData,
 	CollabEventPresenceData,
 	CollabTelepointerPayload,
 	ProviderParticipant,
@@ -44,8 +46,12 @@ export class ParticipantsService {
 		private analyticsHelper: AnalyticsHelper | undefined,
 		private participantsState: ParticipantsState = new ParticipantsState(),
 		private emit: (
-			evt: 'presence' | 'telepointer' | 'disconnected',
-			data: CollabEventPresenceData | CollabTelepointerPayload | CollabEventDisconnectedData,
+			evt: 'presence' | 'telepointer' | 'disconnected' | 'activity:join' | 'activity:ack',
+			data:
+				| CollabEventPresenceData
+				| CollabTelepointerPayload
+				| CollabEventDisconnectedData
+				| CollabActivityData,
 		) => void,
 		private getUser: GetUserType,
 		private channelBroadcast: <K extends keyof ChannelEvent>(
@@ -267,6 +273,40 @@ export class ParticipantsService {
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while sending presence');
+		}
+	};
+
+	/**
+	 * sending new joiner's activity to existing participants
+	 */
+	onParticipantActivityJoin = (payload: ActivityPayload) => {
+		try {
+			logger('New participant joined: ', payload.activity);
+			const data: CollabActivityData = {
+				userId: payload.userId,
+				activity: payload.activity,
+			};
+			this.emit('activity:join', data);
+		} catch (error) {
+			// We don't want to throw errors for Presence features as they tend to self-restore
+			this.analyticsHelper?.sendErrorEvent(error, `Error while sending 'activity:join'`);
+		}
+	};
+
+	/**
+	 * respond to new joiner with existing participant's activity
+	 */
+	onParticipantActivityAck = (payload: ActivityPayload) => {
+		try {
+			logger('Existing participants ack: ', payload.activity);
+			const data: CollabActivityData = {
+				activity: payload.activity,
+				userId: this.getPresenceData().userId,
+			};
+			this.emit('activity:ack', data);
+		} catch (error) {
+			// We don't want to throw errors for Presence features as they tend to self-restore
+			this.analyticsHelper?.sendErrorEvent(error, `Error while sending 'activity:ack'`);
 		}
 	};
 

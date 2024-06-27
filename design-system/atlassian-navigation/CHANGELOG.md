@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.2.0
+
+### Minor Changes
+
+- [#114836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114836)
+  [`b18e778d0c7f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b18e778d0c7f4) -
+  Accessibility changes: improving skeleton semantics for better readability for screen readers.
+
 ## 4.1.4
 
 ### Patch Changes

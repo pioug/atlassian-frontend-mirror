@@ -1,15 +1,28 @@
 /** @jsx jsx */
 
+import { type PropsWithChildren } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
-import AkSelect, { type OptionType } from '@atlaskit/select';
+import { Inline } from '@atlaskit/primitives';
+import AkSelect, {
+	components,
+	type OptionProps,
+	type OptionType,
+	type SingleValueProps,
+} from '@atlaskit/select';
+import { layers } from '@atlaskit/theme/constants';
 
+import { UrlIcon } from '../../../common/ui/icon';
 import { CreateField } from '../../../controllers/create-field';
 
-import { type SelectProps } from './types';
+import { messages } from './messages';
+import { type SelectProps, type SitePickerOptionType } from './types';
 
 export const TEST_ID = 'link-create-select';
+
 /**
  * A select component utilising the Atlaskit Select and CreateField.
  * Validation is handled by the form on form submission. Any
@@ -42,3 +55,62 @@ export function Select<T = OptionType>({
 		</CreateField>
 	);
 }
+
+export type SiteSelectProps = {
+	testId: string;
+	options?: SitePickerOptionType[];
+	name?: string;
+};
+
+export const SiteSelect = ({ options, name, testId }: SiteSelectProps) => {
+	const intl = useIntl();
+	const siteTestId = testId ? testId : 'link-create-site-picker';
+
+	return (
+		<Select<SitePickerOptionType>
+			isRequired
+			isSearchable
+			name={name ?? 'site'}
+			options={options}
+			label={intl.formatMessage(messages.siteLabel)}
+			components={{
+				Option: SitePickerOption,
+				SingleValue: SitePickerSingleValue,
+			}}
+			testId={siteTestId}
+			styles={{
+				menuPortal: (base) => ({ ...base, zIndex: layers.modal() }),
+				option: (base) => ({
+					...base,
+					display: 'flex',
+					alignItems: 'center',
+					cursor: 'pointer',
+				}),
+			}}
+		/>
+	);
+};
+
+export const SitePickerOption = ({
+	children,
+	...props
+}: PropsWithChildren<OptionProps<SitePickerOptionType, false>>): JSX.Element => (
+	<components.Option {...props}>
+		<Inline space="space.100" alignBlock="center">
+			<UrlIcon url={props.data.value.avatarUrl} />
+			{children}
+		</Inline>
+	</components.Option>
+);
+
+export const SitePickerSingleValue = ({
+	children,
+	...props
+}: PropsWithChildren<SingleValueProps<SitePickerOptionType, false>>): JSX.Element => (
+	<components.SingleValue {...props}>
+		<Inline space="space.100" alignBlock="center">
+			<UrlIcon url={props.data.value.avatarUrl} />
+			{children}
+		</Inline>
+	</components.SingleValue>
+);

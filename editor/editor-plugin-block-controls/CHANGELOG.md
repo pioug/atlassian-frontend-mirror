@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.1
+
+### Patch Changes
+
+- [#113204](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113204)
+  [`6c05be5902ad7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c05be5902ad7) -
+  hide handle on empty p fix under a ff
+
+## 1.5.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.35
+
+### Patch Changes
+
+- [#115170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115170)
+  [`d3d39a486f0d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3d39a486f0d9) -
+  Fix drag handle position when deleting a paragraph
+- [#115170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115170)
+  [`108a85e557e41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/108a85e557e41) -
+  Hide drag handle on empty paragraph
+
 ## 1.4.34
 
 ### Patch Changes

@@ -16,6 +16,7 @@ import {
 	ToolbarButton,
 } from '@atlaskit/editor-common/ui-menu';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { AlignmentPlugin } from '../../plugin';
 import type { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
@@ -77,6 +78,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 							this.hide({ isOpen: false, event });
 						}
 					}}
+					onOpenChange={this.onOpenChange}
 					handleEscapeKeydown={this.hideOnEscape}
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
@@ -171,6 +173,12 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 	private hideOnEscape = () => {
 		this.hide();
 		this.toolbarItemRef?.current?.focus();
+	};
+
+	private onOpenChange = () => {
+		if (getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty')) {
+			this.setState({ isOpen: false });
+		}
 	};
 }
 

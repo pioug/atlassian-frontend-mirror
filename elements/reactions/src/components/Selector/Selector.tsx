@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type EmojiId, type OnEmojiEvent } from '@atlaskit/emoji/types';
@@ -9,7 +9,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { DefaultReactions } from '../../shared/constants';
 import { EmojiButton } from '../EmojiButton';
 import { ShowMore } from '../ShowMore';
-import { emojiStyle, revealStyle } from './styles';
+import { revealStyle } from './styles';
 
 /**
  * Test id for wrapper Selector div
@@ -61,11 +61,13 @@ const separatorStyles = xcss({
 type RevealProps = {
 	children: React.ReactNode;
 	delay: number;
+	testId?: string;
 };
 
-const Reveal = ({ children, delay }: RevealProps) => {
+const Reveal = ({ children, delay, testId }: RevealProps) => {
 	return (
 		<div
+			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 			css={revealStyle}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
@@ -86,37 +88,6 @@ export const Selector = ({
 	showMore,
 	pickerQuickReactionEmojiIds = DefaultReactions,
 }: SelectorProps) => {
-	const [selection, setSelection] = useState<EmojiId>();
-	/**
-	 * Collection of global DOM timeout ids when user selects emojis for animation display
-	 */
-	const timeoutIds = useRef<Array<number>>([]);
-
-	/**
-	 * Clear the timeouts for the selected emojis when the component unmounts
-	 */
-	useEffect(() => {
-		const timeoutValues = timeoutIds.current;
-		return function cleanup() {
-			timeoutValues.forEach(clearTimeout);
-		};
-	}, []);
-
-	/**
-	 * event handler when an emoji gets selected
-	 * @param item selected emoji
-	 * @param description depth detail of the selected emoji
-	 * @param event Dom event data
-	 */
-	const onSelected: OnEmojiEvent = (item, description, event) => {
-		timeoutIds.current.push(
-			window.setTimeout(() => {
-				onSelection(item, description, event);
-			}, 250),
-		);
-		setSelection(item);
-	};
-
 	/**
 	 * Render the default emoji icon
 	 * @param emoji emoji item
@@ -124,18 +95,14 @@ export const Selector = ({
 	 */
 	const renderEmoji = (emoji: EmojiId, index: number) => {
 		return (
-			<Reveal delay={index * REVEAL_DELAY} key={emoji.id ?? emoji.shortName}>
-				<div
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={emoji === selection ? 'selected' : undefined}
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					css={emojiStyle}
-					data-testid={RENDER_SELECTOR_TESTID}
-				>
-					<Tooltip content={emoji.shortName}>
-						<EmojiButton emojiId={emoji} emojiProvider={emojiProvider} onClick={onSelected} />
-					</Tooltip>
-				</div>
+			<Reveal
+				delay={index * REVEAL_DELAY}
+				key={emoji.id ?? emoji.shortName}
+				testId={RENDER_SELECTOR_TESTID}
+			>
+				<Tooltip content={emoji.shortName}>
+					<EmojiButton emojiId={emoji} emojiProvider={emojiProvider} onClick={onSelection} />
+				</Tooltip>
 			</Reveal>
 		);
 	};

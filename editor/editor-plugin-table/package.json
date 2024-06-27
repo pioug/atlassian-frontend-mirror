@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.18.3",
+	"version": "7.19.1",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,14 +28,14 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^37.0.0",
+		"@atlaskit/adf-schema": "^38.0.0",
 		"@atlaskit/button": "^18.0.0",
-		"@atlaskit/custom-steps": "^0.3.0",
-		"@atlaskit/editor-common": "^83.0.0",
+		"@atlaskit/custom-steps": "^0.4.0",
+		"@atlaskit/editor-common": "^83.3.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
-		"@atlaskit/editor-plugin-analytics": "^1.3.0",
-		"@atlaskit/editor-plugin-content-insertion": "^1.3.0",
+		"@atlaskit/editor-plugin-analytics": "^1.4.0",
+		"@atlaskit/editor-plugin-content-insertion": "^1.4.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-guideline": "^1.1.0",
 		"@atlaskit/editor-plugin-selection": "^1.2.0",
@@ -118,9 +118,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.a11y-table-resizing_uapcv": {
-			"type": "boolean"
-		},
-		"platform.editor.a11y-column-resizing_emcvz": {
 			"type": "boolean"
 		},
 		"platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg": {

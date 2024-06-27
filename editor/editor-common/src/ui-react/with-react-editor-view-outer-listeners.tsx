@@ -3,6 +3,7 @@ import React, { PureComponent, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 
@@ -22,6 +23,7 @@ class WithOutsideClick extends PureComponent<
 		isActiveComponent: boolean;
 		editorView?: EditorView;
 		editorRef?: React.RefObject<HTMLDivElement>;
+		popupsMountPoint?: HTMLElement;
 		children?: React.ReactNode;
 	},
 	{}
@@ -33,11 +35,11 @@ class WithOutsideClick extends PureComponent<
 
 		if (this.props.handleEscapeKeydown) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
-			(this.props.editorRef?.current || this.props.targetRef || document).addEventListener(
-				'keydown',
-				this.handleKeydown as any,
-				false,
-			);
+			(getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') &&
+			this.props.popupsMountPoint
+				? this.props.popupsMountPoint
+				: undefined || this.props.editorRef?.current || this.props.targetRef || document
+			).addEventListener('keydown', this.handleKeydown as any, false);
 		}
 	}
 
@@ -47,11 +49,11 @@ class WithOutsideClick extends PureComponent<
 		}
 
 		if (this.props.handleEscapeKeydown) {
-			(this.props.editorRef?.current || this.props.targetRef || document).removeEventListener(
-				'keydown',
-				this.handleKeydown as any,
-				false,
-			);
+			(getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') &&
+			this.props.popupsMountPoint
+				? this.props.popupsMountPoint
+				: undefined || this.props.editorRef?.current || this.props.targetRef || document
+			).removeEventListener('keydown', this.handleKeydown as any, false);
 		}
 	}
 
@@ -124,11 +126,12 @@ export default function withReactEditorViewOuterListeners<P extends {}>(
 
 		return (
 			<ReactEditorViewContext.Consumer>
-				{({ editorView, editorRef }) => (
+				{({ editorView, popupsMountPoint, editorRef }) => (
 					<WithOutsideClick
 						editorView={editorView}
 						editorRef={editorRef}
 						targetRef={props.targetRef}
+						popupsMountPoint={popupsMountPoint}
 						isActiveComponent={isActiveComponent}
 						handleClickOutside={handleClickOutside}
 						handleEnterKeydown={handleEnterKeydown}

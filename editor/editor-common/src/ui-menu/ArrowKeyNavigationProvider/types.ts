@@ -25,6 +25,7 @@ export type ColorPaletteArrowKeyNavigationProps = ColorPaletteArrowKeyNavigation
 	closeOnTab?: boolean;
 	editorRef: React.RefObject<HTMLDivElement>;
 	ignoreEscapeKey?: boolean | false;
+	popupsMountPoint?: HTMLElement | undefined;
 };
 
 export type MenuArrowKeyNavigationOptions = {
@@ -39,6 +40,7 @@ export type MenuArrowKeyNavigationProviderProps = MenuArrowKeyNavigationOptions 
 	onSelection?: (index: number) => void;
 	closeOnTab?: boolean;
 	editorRef: React.RefObject<HTMLDivElement>;
+	popupsMountPoint?: HTMLElement | undefined;
 };
 
 export type ArrowKeyNavigationProviderOptions =

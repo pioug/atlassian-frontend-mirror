@@ -11,6 +11,7 @@ import type {
 	CollabSendableSelection,
 	Metadata,
 	UserPermitType,
+	Activity,
 } from '@atlaskit/editor-common/collab';
 
 // Re-export values for the /types entry point to this package
@@ -180,7 +181,7 @@ export type InitPayload = {
 export type BroadcastIncomingPayload = {
 	sessionId?: string;
 	timestamp?: number;
-	data: PresencePayload | TelepointerPayload | StepsPayload | any; // broadcasted data from NCS, any added as a fallback
+	data: PresencePayload | TelepointerPayload | StepsPayload | ActivityPayload | any; // broadcasted data from NCS, any added as a fallback
 };
 
 export type PresenceData = {
@@ -192,6 +193,11 @@ export type PresenceData = {
 
 export type PresencePayload = PresenceData & {
 	timestamp: number;
+};
+
+export type ActivityPayload = {
+	userId: string | undefined;
+	activity: Activity;
 };
 
 export type TelepointerPayload = PresencePayload & {
@@ -247,6 +253,8 @@ export type ChannelEvent = {
 	'presence:joined': PresencePayload;
 	presence: PresencePayload;
 	'participant:left': PresencePayload;
+	'participant:activity-join': ActivityPayload;
+	'participant:activity-ack': ActivityPayload;
 	'participant:telepointer': TelepointerPayload;
 	'participant:updated': PresencePayload;
 	'steps:commit': StepsPayload & { userId: string };

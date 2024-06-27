@@ -18,4 +18,8 @@ export type FooterBlockProps = {
 	 * Allows hiding of the resources provider
 	 */
 	hideProvider?: boolean;
+	/**
+	 * Allows rendering of the footer regardless of whether the block has resolved
+	 */
+	alwaysShow?: boolean;
 } & BlockProps;

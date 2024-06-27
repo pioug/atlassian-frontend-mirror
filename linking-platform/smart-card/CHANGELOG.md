@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.8.0
+
+### Minor Changes
+
+- [#112648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112648)
+  [`14d0401d877b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d0401d877b7) -
+  Allows flex-ui footer to render regardless of card resolving the url
+
 ## 27.7.3
 
 ### Patch Changes

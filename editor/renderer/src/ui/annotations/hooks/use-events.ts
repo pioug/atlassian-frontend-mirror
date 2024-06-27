@@ -7,6 +7,7 @@ import type {
 	OnAnnotationClickPayload,
 	AnnotationUpdateEmitter,
 } from '@atlaskit/editor-common/types';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import type { AnnotationMarkStates, AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -81,6 +82,9 @@ export const useAnnotationStateByTypeEvent = ({
 
 export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => {
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
+	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
+		'inline_comments_keyboard_accessible_renderer',
+	);
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -95,6 +99,9 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 
 		const removeFocus = () => {
 			setHasFocus(false);
+			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
+				document.activeElement.blur();
+			}
 		};
 
 		updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
@@ -104,7 +111,7 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
 			updateSubscriber.off(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
 		};
-	}, [id, updateSubscriber]);
+	}, [id, updateSubscriber, isInlineCommentsKbAccessible]);
 
 	return hasFocus;
 };
@@ -122,6 +129,9 @@ export const useAnnotationClickEvent = (
 	const [annotationClickEvent, setAnnotationClickEvent] =
 		useState<AnnotationsWithClickTarget>(null);
 	const { updateSubscriber, createAnalyticsEvent, isCommentsOnMediaAnalyticsEnabled } = props;
+	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
+		'inline_comments_keyboard_accessible_renderer',
+	);
 
 	useLayoutEffect(() => {
 		if (!updateSubscriber) {
@@ -168,6 +178,9 @@ export const useAnnotationClickEvent = (
 				annotations: [],
 				clickElementTarget: undefined,
 			});
+			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
+				document.activeElement.blur();
+			}
 		};
 
 		updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
@@ -177,7 +190,12 @@ export const useAnnotationClickEvent = (
 			updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
 			updateSubscriber.off(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 		};
-	}, [updateSubscriber, createAnalyticsEvent, isCommentsOnMediaAnalyticsEnabled]);
+	}, [
+		updateSubscriber,
+		createAnalyticsEvent,
+		isCommentsOnMediaAnalyticsEnabled,
+		isInlineCommentsKbAccessible,
+	]);
 
 	return annotationClickEvent;
 };

@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 109.38.0
+
+### Minor Changes
+
+- [#115247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115247)
+  [`251d23ff9e6c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d23ff9e6c8) -
+  upgrade adf-schema version to 38.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.37.0
+
+### Minor Changes
+
+- [#115232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115232)
+  [`67c2dc683387a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67c2dc683387a) -
+  [ux] adding keyboard support for inline comments in renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.36.1
 
 ### Patch Changes

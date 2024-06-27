@@ -32,6 +32,11 @@ const skeletonCreateButtonStyles = css({
 	},
 });
 
+const buttonWrapperStyles = css({
+	display: 'flex',
+	margin: 0,
+});
+
 /**
  * __Skeleton create button__
  *
@@ -46,14 +51,17 @@ export const SkeletonCreateButton = ({ text, testId }: SkeletonCreateButtonProps
 	const theme = useTheme();
 
 	return (
-		<button
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={theme.mode.create.default as React.CSSProperties}
-			css={skeletonCreateButtonStyles}
-			data-testid={testId}
-			type="button"
-		>
-			{text}
-		</button>
+		<div role="listitem" css={buttonWrapperStyles}>
+			{/*eslint-disable-next-line @atlaskit/design-system/no-html-button*/}
+			<button
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={theme.mode.create.default as React.CSSProperties}
+				css={skeletonCreateButtonStyles}
+				data-testid={testId}
+				type="button"
+			>
+				{text}
+			</button>
+		</div>
 	);
 };

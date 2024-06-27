@@ -11,6 +11,8 @@ import type {
 	Metadata,
 	CollabInitPayload,
 	SyncUpErrorFunction,
+	CollabActivityJoinPayload,
+	CollabActivityAckPayload,
 } from '@atlaskit/editor-common/collab';
 
 import { createLogger } from '../helpers/utils';
@@ -225,6 +227,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			.on('participant:telepointer', (payload) =>
 				this.participantsService.onParticipantTelepointer(payload, this.sessionId),
 			)
+			.on('participant:activity-join', this.participantsService.onParticipantActivityJoin)
+			.on('participant:activity-ack', this.participantsService.onParticipantActivityAck)
 			.on('presence:joined', this.participantsService.onPresenceJoined)
 			.on('presence', this.participantsService.onPresence)
 			.on('participant:left', this.participantsService.onParticipantLeft)
@@ -407,18 +411,34 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @param {CollabSendableSelection} data.selection Object representing the selected element
 	 * @param {string} data.sessionId Identifier identifying the session
 	 */
-	sendMessage(data: CollabTelepointerPayload) {
+	sendMessage(
+		data: CollabTelepointerPayload | CollabActivityJoinPayload | CollabActivityAckPayload,
+	) {
+		const basePayload = {
+			userId: this.userId!,
+			sessionId: this.sessionId!,
+			clientId: this.clientId!,
+			permit: this.permit,
+		};
 		try {
 			if (data?.type === 'telepointer') {
-				const payload = {
-					userId: this.userId!,
-					sessionId: this.sessionId!,
-					clientId: this.clientId!,
-					selection: data.selection,
-					permit: this.permit,
-				};
-				const callback = telepointerCallback(this.config.documentAri);
-				this.channel.broadcast('participant:telepointer', payload, callback);
+				this.channel.broadcast(
+					'participant:telepointer',
+					{
+						...basePayload,
+						selection: data.selection,
+					},
+					telepointerCallback(this.config.documentAri),
+				);
+			} else if (data?.type === 'activity:join' || data?.type === 'activity:ack') {
+				this.channel.broadcast(
+					data?.type === 'activity:join' ? 'participant:activity-join' : 'participant:activity-ack',
+					{
+						...basePayload,
+						activity: data.activity,
+					},
+					activityCallback(),
+				);
 			}
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
@@ -589,5 +609,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 */
 	getParticipants = () => {
 		return this.participantsService.getParticipants();
+	};
+}
+
+/**
+ * Callback for handling the broadcast response of participant activity.
+ * This example assumes a simple logging mechanism. It could be expanded to handle errors or other responses.
+ *
+ * @param activity The activity that was broadcast.
+ * @returns A function that handles the response from the broadcast operation.
+ */
+function activityCallback() {
+	return (error: Error) => {
+		if (error) {
+			// Log or handle the error. This could involve retrying the broadcast or notifying the user.
+			logger('Error broadcasting participant activity:', error);
+			return;
+		}
 	};
 }

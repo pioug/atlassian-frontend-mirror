@@ -564,32 +564,30 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 					),
 				},
 			]),
-	...(getBooleanFF('platform.editor.a11y-column-resizing_emcvz')
-		? [
-				{
-					name: formatMessage(messages.selectColumnResize),
-					type: 'table',
-					autoFormatting: () => (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<span css={shortcutsArray}>
-							<span>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-								{' + '}
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-								{' + '}
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<span css={codeMd}>Shift</span>
-								{' + '}
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<span css={codeSm}>C</span>
-							</span>
-						</span>
-					),
-				},
-			]
-		: []),
+	...[
+		{
+			name: formatMessage(messages.selectColumnResize),
+			type: 'table',
+			autoFormatting: () => (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<span css={shortcutsArray}>
+					<span>
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<span css={browser.mac ? codeSm : codeMd}>{browser.mac ? '⌘' : 'Ctrl'}</span>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<span css={codeMd}>Shift</span>
+						{' + '}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+						<span css={codeSm}>C</span>
+					</span>
+				</span>
+			),
+		},
+	],
 	{
 		name: formatMessage(messages.highlightColor),
 		type: 'highlight',

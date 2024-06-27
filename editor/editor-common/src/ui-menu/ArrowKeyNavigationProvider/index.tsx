@@ -15,7 +15,7 @@ export const ArrowKeyNavigationProvider = (
 	if (type === ArrowKeyNavigationType.COLOR) {
 		return (
 			<ReactEditorViewContext.Consumer>
-				{({ editorView, editorRef }) =>
+				{({ popupsMountPoint, editorView, editorRef }) =>
 					editorRef && (
 						<ColorPaletteArrowKeyNavigationProvider
 							selectedRowIndex={props.selectedRowIndex}
@@ -23,6 +23,7 @@ export const ArrowKeyNavigationProvider = (
 							isOpenedByKeyboard={props.isOpenedByKeyboard}
 							isPopupPositioned={props.isPopupPositioned}
 							editorRef={editorRef}
+							popupsMountPoint={popupsMountPoint}
 							{...restProps}
 						>
 							{children}
@@ -34,9 +35,13 @@ export const ArrowKeyNavigationProvider = (
 	}
 	return (
 		<ReactEditorViewContext.Consumer>
-			{({ editorView, editorRef }) =>
+			{({ popupsMountPoint, editorView, editorRef }) =>
 				editorRef && (
-					<MenuArrowKeyNavigationProvider editorRef={editorRef} {...restProps}>
+					<MenuArrowKeyNavigationProvider
+						editorRef={editorRef}
+						popupsMountPoint={popupsMountPoint}
+						{...restProps}
+					>
 						{children}
 					</MenuArrowKeyNavigationProvider>
 				)

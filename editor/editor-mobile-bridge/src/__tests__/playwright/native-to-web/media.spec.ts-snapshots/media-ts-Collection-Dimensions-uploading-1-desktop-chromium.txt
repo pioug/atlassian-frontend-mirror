@@ -12,21 +12,21 @@
         {
           "type": "media",
           "attrs": {
-            "id": "fake-aaaa-bbbb-cccc-dddddddddd",
             "type": "file",
-            "collection": "InitialCollectionForTesting",
-            "occurrenceKey": null,
+            "id": "fake-aaaa-bbbb-cccc-dddddddddd",
             "alt": "test-file.jpeg",
-            "width": 2265,
+            "collection": "InitialCollectionForTesting",
             "height": 1500,
-            "url": null,
+            "occurrenceKey": null,
+            "width": 2265,
+            "__contextId": null,
+            "__displayType": null,
+            "__external": false,
+            "__fileMimeType": "image/jpeg",
             "__fileName": "test-file.jpeg",
             "__fileSize": null,
-            "__fileMimeType": "image/jpeg",
-            "__displayType": null,
-            "__contextId": null,
             "__mediaTraceId": null,
-            "__external": false
+            "url": null
           }
         }
       ]

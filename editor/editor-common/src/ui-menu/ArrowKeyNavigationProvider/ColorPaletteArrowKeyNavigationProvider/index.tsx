@@ -1,5 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import type { ColorPaletteArrowKeyNavigationProps } from '../types';
 /**
  * This component is a wrapper for color picker which listens to keydown events of children
@@ -15,11 +17,16 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
 	closeOnTab,
 	editorRef,
 	ignoreEscapeKey,
+	popupsMountPoint,
 }: React.PropsWithChildren<Omit<ColorPaletteArrowKeyNavigationProps, 'type'>>) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const currentSelectedColumnIndex = useRef(selectedColumnIndex === -1 ? 0 : selectedColumnIndex);
 	const currentSelectedRowIndex = useRef(selectedRowIndex === -1 ? 0 : selectedRowIndex);
-	const [listenerTargetElement] = useState<HTMLElement | null>(editorRef.current);
+	const element =
+		getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') && popupsMountPoint
+			? popupsMountPoint
+			: editorRef.current;
+	const [listenerTargetElement] = useState<HTMLElement | null>(element);
 
 	const incrementRowIndex = (rowElements: HTMLElement[], columnElements: HTMLElement[]) => {
 		if (currentSelectedRowIndex.current === rowElements.length - 1) {

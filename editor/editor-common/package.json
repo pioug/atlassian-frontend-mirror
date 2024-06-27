@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "83.0.3",
+	"version": "83.3.1",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -162,8 +162,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^37.0.0",
-		"@atlaskit/adf-utils": "^19.3.0",
+		"@atlaskit/adf-schema": "^38.0.0",
+		"@atlaskit/adf-utils": "^19.4.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
@@ -171,8 +171,8 @@
 		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/code": "^15.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/custom-steps": "^0.3.0",
-		"@atlaskit/editor-json-transformer": "^8.14.0",
+		"@atlaskit/custom-steps": "^0.4.0",
+		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
@@ -180,7 +180,7 @@
 		"@atlaskit/emoji": "^67.6.0",
 		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/icon-object": "^6.4.0",
-		"@atlaskit/link-datasource": "^2.4.0",
+		"@atlaskit/link-datasource": "^2.5.0",
 		"@atlaskit/link-picker": "^1.38.0",
 		"@atlaskit/media-card": "^77.12.0",
 		"@atlaskit/media-client": "^27.3.0",
@@ -196,7 +196,7 @@
 		"@atlaskit/primitives": "^9.0.0",
 		"@atlaskit/profilecard": "^19.15.0",
 		"@atlaskit/section-message": "^6.5.0",
-		"@atlaskit/smart-card": "^27.7.0",
+		"@atlaskit/smart-card": "^27.8.0",
 		"@atlaskit/smart-user-picker": "^6.9.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/task-decision": "^17.10.0",
@@ -330,6 +330,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.a11y-table-context-menu_y4c9c": {
+			"type": "boolean"
+		},
+		"platform.editor.a11y-main-toolbar-navigation_osrty": {
 			"type": "boolean"
 		}
 	}

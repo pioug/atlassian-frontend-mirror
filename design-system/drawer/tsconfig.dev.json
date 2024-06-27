@@ -54,6 +54,9 @@
 			"path": "../checkbox/tsconfig.app.json"
 		},
 		{
+			"path": "../code/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -61,6 +64,9 @@
 		},
 		{
 			"path": "../ds-lib/tsconfig.app.json"
+		},
+		{
+			"path": "../form/tsconfig.app.json"
 		},
 		{
 			"path": "../icon/tsconfig.app.json"

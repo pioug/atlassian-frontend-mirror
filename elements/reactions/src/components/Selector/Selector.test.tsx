@@ -76,10 +76,10 @@ describe('@atlaskit/reactions/components/selector', () => {
 
 	it('should calculate animation delay based on reaction index', async () => {
 		renderWithIntl(renderSelector());
-		const buttons = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
-		expect(buttons.length).toBeGreaterThan(0);
+		const animationWrappers = await screen.findAllByTestId(RENDER_SELECTOR_TESTID);
+		expect(animationWrappers.length).toBeGreaterThan(0);
 
-		const animationWrapper = buttons[2].parentElement;
+		const animationWrapper = animationWrappers[2];
 		expect(animationWrapper).toHaveStyle('animation-delay: 100ms');
 	});
 });

@@ -43,6 +43,7 @@ import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
 import { type SelectorProps } from '../Selector';
 
 import { reactionPickerStyle, seeWhoReactedStyle, wrapperStyle } from './styles';
+import { ReactionSummaryView } from '../ReactionSummary/';
 
 /**
  * Set of all available UFO experiences relating to reactions dialog
@@ -70,6 +71,11 @@ export const RENDER_REACTIONS_TESTID = 'render-reactions';
  * Test id for the view all reacted user to trigger the dialog
  */
 export const RENDER_VIEWALL_REACTED_USERS_DIALOG = 'viewall-reacted-users-dialog';
+
+/**
+ * Test id for summary view of reactions
+ */
+export const RENDER_REACTIONS_SUMMARY_TESTID = 'reaction-summary-view';
 
 export interface ReactionsProps
 	extends Pick<
@@ -136,6 +142,14 @@ export interface ReactionsProps
 	 * Optional callback function called when selecting a reaction in reactions dialog
 	 */
 	onDialogSelectReactionCallback?: onDialogSelectReactionChange;
+	/**
+	 * Enables a summary view for displaying reactions. If enabled and the number of reactions meets or exceeds the summaryViewThreshold, reactions will be shown in a more aggregated format.
+	 */
+	summaryViewEnabled?: boolean;
+	/**
+	 * The minimum number of reactions required to switch to the summary view when summaryViewEnabled is true. Defaults to 3 if not specified.
+	 */
+	summaryViewThreshold?: number;
 }
 
 /**
@@ -181,6 +195,8 @@ export const Reactions = React.memo(
 		onDialogSelectReactionCallback = () => {},
 		emojiPickerSize = 'medium',
 		miniMode = false,
+		summaryViewEnabled = false,
+		summaryViewThreshold = 3,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -361,23 +377,45 @@ export const Reactions = React.memo(
 			return reactions.concat(items);
 		}, [quickReactionEmojis, reactions]);
 
+		const shouldShowSummaryView =
+			summaryViewEnabled &&
+			memorizedReactions.length >= summaryViewThreshold &&
+			memorizedReactions.length > 0;
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
-				{memorizedReactions.map((reaction) => (
-					<Reaction
-						key={reaction.emojiId}
-						reaction={reaction}
-						emojiProvider={emojiProvider}
-						onClick={onReactionClick}
-						onMouseEnter={handleReactionMouseEnter}
-						onFocused={handleReactionFocused}
-						flash={flash[reaction.emojiId]}
-						handleUserListClick={handleOpenReactionsDialog}
-						allowUserDialog={allowUserDialog}
-						showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
-					/>
-				))}
+				{shouldShowSummaryView ? (
+					<div data-testid={RENDER_REACTIONS_SUMMARY_TESTID}>
+						<ReactionSummaryView
+							reactions={memorizedReactions}
+							emojiProvider={emojiProvider}
+							flash={flash}
+							particleEffectByEmoji={particleEffectByEmoji}
+							handleOpenReactionsDialog={handleOpenReactionsDialog}
+							allowUserDialog={allowUserDialog}
+							onReactionClick={onReactionClick}
+							onReactionFocused={handleReactionFocused}
+							onReactionMouseEnter={handleReactionMouseEnter}
+						/>
+					</div>
+				) : (
+					memorizedReactions.map((reaction) => (
+						<Reaction
+							key={reaction.emojiId}
+							reaction={reaction}
+							emojiProvider={emojiProvider}
+							onClick={onReactionClick}
+							onMouseEnter={handleReactionMouseEnter}
+							onFocused={handleReactionFocused}
+							flash={flash[reaction.emojiId]}
+							handleUserListClick={handleOpenReactionsDialog}
+							allowUserDialog={allowUserDialog}
+							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+						/>
+					))
+				)}
+
 				<ReactionPicker
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={reactionPickerStyle}

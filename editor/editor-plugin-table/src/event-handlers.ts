@@ -286,16 +286,12 @@ export const handleMouseOut = (view: EditorView, mouseEvent: Event): boolean => 
 	// we don't need to hide the resize handle decoration
 	if (isResizeHandleDecoration(target) && !isResizeHandleDecoration(relatedTarget)) {
 		const { state, dispatch } = view;
-		if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-			const { isKeyboardResize } = getPluginState(state);
-			if (isKeyboardResize) {
-				// no need to hide decoration if column resizing started by keyboard
-				return false;
-			}
-			return hideResizeHandleLine()(state, dispatch);
-		} else {
-			return hideResizeHandleLine()(state, dispatch);
+		const { isKeyboardResize } = getPluginState(state);
+		if (isKeyboardResize) {
+			// no need to hide decoration if column resizing started by keyboard
+			return false;
 		}
+		return hideResizeHandleLine()(state, dispatch);
 	}
 
 	return false;
@@ -401,9 +397,7 @@ const handleMouseMoveDebounce = rafSchedule(
 				const { state, dispatch } = view;
 				const { resizeHandleColumnIndex, resizeHandleRowIndex } = getPluginState(state);
 
-				const isKeyboardResize = getBooleanFF('platform.editor.a11y-column-resizing_emcvz')
-					? getPluginState(state).isKeyboardResize
-					: false;
+				const isKeyboardResize = getPluginState(state).isKeyboardResize;
 				const tableCell = closestElement(element, 'td, th') as HTMLTableCellElement;
 				const cellStartPosition = view.posAtDOM(tableCell, 0);
 				const rect = findCellRectClosestToPos(state.doc.resolve(cellStartPosition));

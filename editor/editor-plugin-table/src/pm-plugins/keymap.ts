@@ -232,72 +232,70 @@ export function keymapPlugin(
 		);
 	}
 
-	if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-		bindKeymapWithCommand(
-			startColumnResizing.common!,
-			initiateKeyboardColumnResizing({
-				ariaNotify: ariaNotifyPlugin,
-				getIntl: getIntl,
-			}),
-			list,
-		);
+	bindKeymapWithCommand(
+		startColumnResizing.common!,
+		initiateKeyboardColumnResizing({
+			ariaNotify: ariaNotifyPlugin,
+			getIntl: getIntl,
+		}),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			moveRight.common!,
-			activateNextResizeArea({
-				direction: 1,
-				ariaNotify: ariaNotifyPlugin,
-				getIntl: getIntl,
-			}),
-			list,
-		);
+	bindKeymapWithCommand(
+		moveRight.common!,
+		activateNextResizeArea({
+			direction: 1,
+			ariaNotify: ariaNotifyPlugin,
+			getIntl: getIntl,
+		}),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			moveLeft.common!,
-			activateNextResizeArea({
-				direction: -1,
-				ariaNotify: ariaNotifyPlugin,
-				getIntl: getIntl,
-			}),
-			list,
-		);
+	bindKeymapWithCommand(
+		moveLeft.common!,
+		activateNextResizeArea({
+			direction: -1,
+			ariaNotify: ariaNotifyPlugin,
+			getIntl: getIntl,
+		}),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			decreaseMediaSize.common!,
-			changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
-				-10,
-				getEditorContainerWidth,
-				isTableScalingEnabled,
-				isTableFixedColumnWidthsOptionEnabled,
-				INPUT_METHOD.SHORTCUT,
-				ariaNotifyPlugin,
-				getIntl,
-			),
-			list,
-		);
+	bindKeymapWithCommand(
+		decreaseMediaSize.common!,
+		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
+			-10,
+			getEditorContainerWidth,
+			isTableScalingEnabled,
+			isTableFixedColumnWidthsOptionEnabled,
+			INPUT_METHOD.SHORTCUT,
+			ariaNotifyPlugin,
+			getIntl,
+		),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			increaseMediaSize.common!,
-			changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
-				10,
-				getEditorContainerWidth,
-				isTableScalingEnabled,
-				isTableFixedColumnWidthsOptionEnabled,
-				INPUT_METHOD.SHORTCUT,
-				ariaNotifyPlugin,
-				getIntl,
-			),
-			list,
-		);
-		bindKeymapWithCommand(
-			escape.common!,
-			stopKeyboardColumnResizing({
-				ariaNotify: ariaNotifyPlugin,
-				getIntl: getIntl,
-			}),
-			list,
-		);
-	}
+	bindKeymapWithCommand(
+		increaseMediaSize.common!,
+		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
+			10,
+			getEditorContainerWidth,
+			isTableScalingEnabled,
+			isTableFixedColumnWidthsOptionEnabled,
+			INPUT_METHOD.SHORTCUT,
+			ariaNotifyPlugin,
+			getIntl,
+		),
+		list,
+	);
+	bindKeymapWithCommand(
+		escape.common!,
+		stopKeyboardColumnResizing({
+			ariaNotify: ariaNotifyPlugin,
+			getIntl: getIntl,
+		}),
+		list,
+	);
 
 	if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
 		bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);

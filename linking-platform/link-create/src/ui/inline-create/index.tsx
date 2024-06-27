@@ -8,7 +8,7 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 
 import { PACKAGE_DATA } from '../../common/constants';
-import type { LinkCreateWithModalProps } from '../../common/types';
+import type { LinkCreateProps } from '../../common/types';
 import { ErrorBoundary } from '../../common/ui/error-boundary';
 import { Experience } from '../../common/ui/experience-tracker';
 import { withLinkCreateAnalyticsContext } from '../../common/utils/analytics';
@@ -18,7 +18,7 @@ import i18nEN from '../../i18n/en';
 import InlineCreate from './main';
 
 const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
-	memo((props: LinkCreateWithModalProps) => {
+	memo((props: LinkCreateProps) => {
 		return (
 			<Experience>
 				<ErrorBoundary>
@@ -29,7 +29,7 @@ const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
 	}),
 );
 
-const ComposedLinkCreate = memo((props: LinkCreateWithModalProps) => {
+const ComposedLinkCreate = memo((props: LinkCreateProps) => {
 	return (
 		<AnalyticsContext data={PACKAGE_DATA}>
 			<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>

@@ -14,6 +14,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
 	applyRemoteData,
+	handleActivityAck,
+	handleActivityJoin,
 	handleConnection,
 	handleInit,
 	handlePresence,
@@ -31,6 +33,8 @@ export interface CollabHandlers {
 	connectedHandler: (data: CollabEventConnectionData) => void;
 	dataHandler: (data: CollabEventRemoteData) => void;
 	presenceHandler: (data: CollabEventPresenceData) => void;
+	activityAckHandler: () => void;
+	activityJoinHandler: () => void;
 	telepointerHandler: (data: CollabTelepointerPayload) => void;
 	localStepsHandler: (data: CollabEventLocalStepData) => void;
 	errorHandler: (error: any) => void;
@@ -92,6 +96,8 @@ export const subscribe = effect<
 			connectedHandler: (data) => handleConnection(data, view),
 			dataHandler: (data) => applyRemoteData(data, view, options),
 			presenceHandler: (data) => handlePresence(data, view),
+			activityAckHandler: () => handleActivityAck(),
+			activityJoinHandler: () => handleActivityJoin(provider),
 			telepointerHandler: (data) => handleTelePointer(data, view),
 			localStepsHandler: (data) => {
 				const { steps } = data;
@@ -123,6 +129,8 @@ export const subscribe = effect<
 			.on('connected', handlers.connectedHandler)
 			.on('data', handlers.dataHandler)
 			.on('presence', handlers.presenceHandler)
+			.on('activity:ack', handlers.activityAckHandler)
+			.on('activity:join', handlers.activityJoinHandler)
 			.on('telepointer', handlers.telepointerHandler)
 			.on('local-steps', handlers.localStepsHandler)
 			.on('error', handlers.errorHandler)
@@ -136,6 +144,8 @@ export const subscribe = effect<
 				.off('connected', handlers.connectedHandler)
 				.off('data', handlers.dataHandler)
 				.off('presence', handlers.presenceHandler)
+				.off('activity:ack', handlers.activityAckHandler)
+				.off('activity:join', handlers.activityJoinHandler)
 				.off('telepointer', handlers.telepointerHandler)
 				.off('local-steps', handlers.localStepsHandler)
 				.off('error', handlers.errorHandler)

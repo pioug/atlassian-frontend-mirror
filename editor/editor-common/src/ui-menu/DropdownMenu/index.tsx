@@ -254,8 +254,11 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 	}
 
 	componentDidUpdate(previousProps: Props) {
-		const isOpenToggled = this.props.isOpen !== previousProps.isOpen;
-		if (this.props.isOpen && isOpenToggled) {
+		const { mountTo, isOpen } = this.props;
+
+		const isOpenToggled = isOpen !== previousProps.isOpen;
+
+		if (isOpen && isOpenToggled) {
 			if (
 				typeof this.props.shouldFocusFirstItem === 'function' &&
 				this.props.shouldFocusFirstItem()
@@ -264,6 +267,11 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 					key: 'ArrowDown',
 					bubbles: true,
 				});
+
+				if (mountTo && getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty')) {
+					mountTo.dispatchEvent(keyboardEvent);
+					return;
+				}
 				this.state.target?.dispatchEvent(keyboardEvent);
 			}
 		}

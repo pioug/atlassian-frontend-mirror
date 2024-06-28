@@ -5,6 +5,7 @@ import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import { act, fireEvent } from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { MarkComponent } from '../../mark';
+import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/feature-gate-js-client');
 
@@ -54,6 +55,24 @@ describe('Annotations/Mark', () => {
 			if (process.env.IS_REACT_18 === 'true') {
 				act(() => {
 					root.render(
+						<IntlProvider locale="en">
+							<MarkComponent
+								id={fakeId}
+								annotationParentIds={annotationParentIds}
+								dataAttributes={fakeDataAttributes}
+								state={state}
+								hasFocus={false}
+								onClick={onClick}
+							>
+								<small>some</small>
+							</MarkComponent>
+							,
+						</IntlProvider>,
+					);
+				});
+			} else {
+				render(
+					<IntlProvider locale="en">
 						<MarkComponent
 							id={fakeId}
 							annotationParentIds={annotationParentIds}
@@ -63,21 +82,8 @@ describe('Annotations/Mark', () => {
 							onClick={onClick}
 						>
 							<small>some</small>
-						</MarkComponent>,
-					);
-				});
-			} else {
-				render(
-					<MarkComponent
-						id={fakeId}
-						annotationParentIds={annotationParentIds}
-						dataAttributes={fakeDataAttributes}
-						state={state}
-						hasFocus={false}
-						onClick={onClick}
-					>
-						<small>some</small>
-					</MarkComponent>,
+						</MarkComponent>
+					</IntlProvider>,
 					container,
 				);
 			}
@@ -147,6 +153,32 @@ describe('Annotations/Mark', () => {
 			if (process.env.IS_REACT_18 === 'true') {
 				act(() => {
 					root.render(
+						<IntlProvider locale="en">
+							<MarkComponent
+								id={fakeId}
+								annotationParentIds={annotationParentIds}
+								dataAttributes={fakeDataAttributes}
+								state={state}
+								hasFocus={false}
+								onClick={onClick}
+							>
+								<MarkComponent
+									id={childFakeId}
+									annotationParentIds={childAnnotationParentIds}
+									dataAttributes={childFakeDataAttributes}
+									state={state}
+									hasFocus={false}
+									onClick={onClick}
+								>
+									<small>some</small>
+								</MarkComponent>
+							</MarkComponent>
+						</IntlProvider>,
+					);
+				});
+			} else {
+				render(
+					<IntlProvider locale="en">
 						<MarkComponent
 							id={fakeId}
 							annotationParentIds={annotationParentIds}
@@ -165,30 +197,8 @@ describe('Annotations/Mark', () => {
 							>
 								<small>some</small>
 							</MarkComponent>
-						</MarkComponent>,
-					);
-				});
-			} else {
-				render(
-					<MarkComponent
-						id={fakeId}
-						annotationParentIds={annotationParentIds}
-						dataAttributes={fakeDataAttributes}
-						state={state}
-						hasFocus={false}
-						onClick={onClick}
-					>
-						<MarkComponent
-							id={childFakeId}
-							annotationParentIds={childAnnotationParentIds}
-							dataAttributes={childFakeDataAttributes}
-							state={state}
-							hasFocus={false}
-							onClick={onClick}
-						>
-							<small>some</small>
 						</MarkComponent>
-					</MarkComponent>,
+					</IntlProvider>,
 					container,
 				);
 			}
@@ -214,6 +224,23 @@ describe('Annotations/Mark', () => {
 			if (process.env.IS_REACT_18 === 'true') {
 				act(() => {
 					root.render(
+						<IntlProvider locale="en">
+							<MarkComponent
+								id={fakeId}
+								annotationParentIds={annotationParentIds}
+								dataAttributes={fakeDataAttributes}
+								state={state}
+								hasFocus={false}
+								onClick={onClick}
+							>
+								<small>some</small>
+							</MarkComponent>
+						</IntlProvider>,
+					);
+				});
+			} else {
+				render(
+					<IntlProvider locale="en">
 						<MarkComponent
 							id={fakeId}
 							annotationParentIds={annotationParentIds}
@@ -223,21 +250,8 @@ describe('Annotations/Mark', () => {
 							onClick={onClick}
 						>
 							<small>some</small>
-						</MarkComponent>,
-					);
-				});
-			} else {
-				render(
-					<MarkComponent
-						id={fakeId}
-						annotationParentIds={annotationParentIds}
-						dataAttributes={fakeDataAttributes}
-						state={state}
-						hasFocus={false}
-						onClick={onClick}
-					>
-						<small>some</small>
-					</MarkComponent>,
+						</MarkComponent>
+					</IntlProvider>,
 					container,
 				);
 			}

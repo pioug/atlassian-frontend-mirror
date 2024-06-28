@@ -539,7 +539,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: Th
 		${shadowSharedStyle};
 		${dateSharedStyle};
 		${textColorStyles};
-		${backgroundColorStyles};
+		${backgroundColorStyles()};
 		${tasksAndDecisionsStyles};
 		${smartCardSharedStyles}
 		${getAnnotationStyles(wrapperProps)}

@@ -63,10 +63,14 @@ export default class CardClient implements CardClientInterface {
 		this.product = product;
 	}
 
-	private batchResolve = async (urls: ReadonlyArray<string>): Promise<BatchResponse> => {
+	private postBatchResolve = async (
+		resources: ReadonlyArray<string>,
+		resourceType: 'URL' | 'ARI' = 'URL',
+	): Promise<BatchResponse> => {
 		// De-duplicate requested URLs (see `this.createLoader` for more detail).
-		const deDuplicatedUrls = [...new Set(urls)];
-		let resolvedUrls: BatchResponse = [];
+		// Also de-duplicate requested ARIs as backend does not de-duplicate any requests.
+		const deDuplicatedResources = [...new Set(resources)];
+		let resolvedResources: BatchResponse = [];
 
 		const headers = {
 			/**
@@ -83,16 +87,27 @@ export default class CardClient implements CardClientInterface {
 
 		try {
 			// Ask the backend to resolve the URLs for us.
-			resolvedUrls = await request<BatchResponse>(
-				'post',
-				`${this.resolverUrl}/resolve/batch`,
-				deDuplicatedUrls.map((resourceUrl) => ({ resourceUrl })),
-				headers,
-			);
+			if (resourceType === 'URL') {
+				resolvedResources = await request<BatchResponse>(
+					'post',
+					`${this.resolverUrl}/resolve/batch`,
+					deDuplicatedResources.map((resourceUrl) => ({ resourceUrl })),
+					headers,
+				);
+			}
+			// Ask the backend to resolve the ARIs for us.
+			if (resourceType === 'ARI') {
+				resolvedResources = await request<BatchResponse>(
+					'post',
+					`${this.resolverUrl}/resolve/ari/batch`,
+					deDuplicatedResources.map((ari) => ({ ari })),
+					headers,
+				);
+			}
 		} catch (error) {
 			// we make sure we return a valid dataloader response by creating an error
-			// response for each url
-			resolvedUrls = urls.map(() => {
+			// response for each url/ari
+			resolvedResources = resources.map(() => {
 				// @ts-ignore
 				const status = isErrorResponse(error) ? error.status : 500;
 				const errorResponse: ErrorResponse = {
@@ -106,15 +121,25 @@ export default class CardClient implements CardClientInterface {
 
 		// Reduce into a map to make accessing faster and easier.
 		const map: Record<string, SuccessResponse | ErrorResponse> = {};
-		// NOTE: the batch endpoint returns the URLs in the same order they were given.
-		for (let i = 0; i < deDuplicatedUrls.length; ++i) {
-			const url = deDuplicatedUrls[i];
-			const data = resolvedUrls[i];
-			map[url] = data;
+		// NOTE: the batch endpoint returns the URLs/ARIs in the same order they were given.
+		for (let i = 0; i < deDuplicatedResources.length; ++i) {
+			const resource = deDuplicatedResources[i];
+			const data = resolvedResources[i];
+			map[resource] = data;
 		}
 
 		// Reconvert list back into the original order in which it was given to us.
-		return urls.map((originalUrl) => map[originalUrl]);
+		return resources.map((originalResource) => map[originalResource]);
+	};
+
+	// Endpoint for batch resolve url
+	private batchResolve = async (urls: ReadonlyArray<string>): Promise<BatchResponse> => {
+		return this.postBatchResolve(urls, 'URL');
+	};
+
+	// Endpoint for batch resolve ari
+	private batchResolveAris = async (aris: ReadonlyArray<string>): Promise<BatchResponse> => {
+		return this.postBatchResolve(aris, 'ARI');
 	};
 
 	private createLoader() {
@@ -157,6 +182,7 @@ export default class CardClient implements CardClientInterface {
 	private async resolveUrl(url: string, force: boolean = false) {
 		const hostname = new URL(url).hostname;
 		const loader = this.getLoader(hostname);
+
 		let responsePromise: Promise<SuccessResponse | ErrorResponse> | undefined;
 
 		responsePromise = urlResponsePromiseCache.get(url);
@@ -231,6 +257,7 @@ export default class CardClient implements CardClientInterface {
 		return isErrorResponse(response) && response.error.status === 429;
 	}
 
+	// Fetch data from URL
 	public async fetchData(url: string, force?: boolean): Promise<JsonLd.Response> {
 		let response = await this.resolveUrl(url, force);
 
@@ -256,6 +283,14 @@ export default class CardClient implements CardClientInterface {
 		this.resolvedCache[url] = true;
 		// Return the JSON-LD response back up!
 		return response.body;
+	}
+
+	/**
+	 * Fetch data for multiple ARIs (batch) in one operation
+	 * @param aris Array of ARIs to fetch data for
+	 */
+	public async fetchDataAris(aris: string[]): Promise<BatchResponse> {
+		return await this.batchResolveAris(aris);
 	}
 
 	public async postData(data: InvokePayload<InvokeRequest>): Promise<JsonLd.Response> {

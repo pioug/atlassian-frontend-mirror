@@ -12,6 +12,7 @@ import {
 	findNodePosByLocalIds,
 	isEmptyDocument,
 	processRawValue,
+	toJSON,
 } from '@atlaskit/editor-common/utils';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -21,7 +22,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
-import { toJSON } from '../utils';
 import { __temporaryFixForConfigPanel, getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { processRawFragmentValue } from '../utils/document';

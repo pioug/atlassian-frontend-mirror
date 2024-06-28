@@ -7,12 +7,16 @@ import { forwardRef, type KeyboardEvent, memo, type MouseEvent, type Ref } from 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { useRouterLink } from '@atlaskit/app-provider';
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { LinkItemProps } from '../types';
+
+const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
+const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
 
 const preventEvent = (e: MouseEvent | KeyboardEvent) => {
 	e.preventDefault();
@@ -54,9 +58,28 @@ const LinkItem = memo(
 			} = props;
 			const onMouseDownHandler = onMouseDown;
 
+			const RouterLink = useRouterLink();
+
 			if (!children) {
 				return null;
 			}
+
+			const isExternal = typeof href === 'string' && IS_EXTERNAL_LINK_REGEX.test(href);
+			const isNonHttpBased = typeof href === 'string' && IS_NON_HTTP_BASED.test(href);
+
+			/**
+			 * Renders a router link if:
+			 *
+			 * - a link component is set in the app provider
+			 * - it's not an external link (starting with `http://` or `https://`)
+			 * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.).
+			 */
+			const isRouterLink = RouterLink && !isExternal && !isNonHttpBased;
+
+			const Component =
+				getBooleanFF('platform.wanjel.use-router-links-for-the-linkitem-component') && isRouterLink
+					? RouterLink
+					: 'a';
 
 			propDeprecationWarning(
 				process.env._PACKAGE_NAME_ || '',
@@ -94,11 +117,13 @@ const LinkItem = memo(
 					testId={testId && `${testId}--primitive`}
 				>
 					{({ children, className }) => (
-						<a
+						<Component
 							data-testid={testId}
+							data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
 							{...rest}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className}
+							// @ts-expect-error
 							href={isDisabled ? undefined : href}
 							draggable={false}
 							// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
@@ -110,7 +135,7 @@ const LinkItem = memo(
 							ref={ref as Ref<HTMLAnchorElement>}
 						>
 							{children}
-						</a>
+						</Component>
 					)}
 				</MenuItemPrimitive>
 			);

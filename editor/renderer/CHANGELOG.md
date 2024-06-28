@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 109.40.0
+
+### Minor Changes
+
+- [`955949c077d4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/955949c077d4f) -
+  [ux] [ED-23627] Text highlighting UI review
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.39.0
+
+### Minor Changes
+
+- [#115188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115188)
+  [`6d33539d8ed41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d33539d8ed41) -
+  Announcing inline comments to screenreaders on renderer
+
 ## 109.38.0
 
 ### Minor Changes

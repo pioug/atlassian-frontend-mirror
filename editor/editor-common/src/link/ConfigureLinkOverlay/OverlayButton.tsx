@@ -17,6 +17,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { cardMessages } from '../../messages';
 
 const buttonStyles = css({
+	display: 'flex',
 	background: token('color.background.neutral', N30A),
 	color: token('color.icon', N700),
 	'&:hover': {
@@ -36,6 +37,7 @@ const buttonWrapperStyles = css({
 	top: '50%',
 	transform: 'translateY(-50%)',
 	background: token('elevation.surface.raised', N0),
+	borderRadius: token('border.radius', '3px'),
 });
 
 export interface OverlayButtonProps {

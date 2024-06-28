@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 83.4.0
+
+### Minor Changes
+
+- [`955949c077d4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/955949c077d4f) -
+  [ux] [ED-23627] Text highlighting UI review
+
 ## 83.3.1
 
 ### Patch Changes

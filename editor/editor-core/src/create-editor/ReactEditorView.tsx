@@ -48,6 +48,7 @@ import {
 	analyticsEventKey,
 	browser,
 	countNodes,
+	findChangedNodesFromTransaction,
 	getAnalyticsEventSeverity,
 	getResponseEndTime,
 	measureRender,
@@ -55,6 +56,8 @@ import {
 	shouldForceTracking,
 	startMeasure,
 	stopMeasure,
+	validateNodes,
+	validNode,
 } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -77,7 +80,6 @@ import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
 import { getNodesCount } from '../utils/document';
 import { isFullPage } from '../utils/is-full-page';
-import { findChangedNodesFromTransaction, validateNodes, validNode } from '../utils/nodes';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import measurements from '../utils/performance/measure-enum';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';

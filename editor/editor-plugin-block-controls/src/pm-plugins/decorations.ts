@@ -30,9 +30,7 @@ export const dropTargetDecorations = (
 				() => {
 					const element = document.createElement('div');
 					element.setAttribute('data-blocks-drop-target-container', 'true');
-					if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-						element.style.clear = 'unset';
-					}
+					element.style.clear = 'unset';
 					ReactDOM.render(
 						createElement(DropTarget, {
 							api,
@@ -143,6 +141,11 @@ export const mouseMoveWrapperDecorations = (
 	unmountDecorations('data-blocks-decoration-container');
 
 	newState.doc.descendants((node, pos, _parent, index) => {
+		// Do not render a mouse move wrapper for nodes that have wrapping - this causes wrapping to break
+		const hasWrapping = node.attrs.layout === 'wrap-left' || node.attrs.layout === 'wrap-right';
+		if (hasWrapping) {
+			return false;
+		}
 		const anchorName = `--node-anchor-${node.type.name}-${index}`;
 		decs.push(
 			Decoration.widget(
@@ -150,6 +153,7 @@ export const mouseMoveWrapperDecorations = (
 				(view, getPos) => {
 					const element = document.createElement('div');
 					element.setAttribute('data-blocks-decoration-container', 'true');
+					element.setAttribute('style', 'clear: unset;');
 					ReactDOM.render(
 						createElement(MouseMoveWrapper, {
 							view,

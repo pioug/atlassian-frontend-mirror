@@ -11,7 +11,7 @@ import {
 	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 	JiraIssuesConfigModal,
 } from '@atlaskit/link-datasource';
-import type { ConfigModalProps } from '@atlaskit/link-datasource/src/common/types';
+import type { ConfigModalProps } from '@atlaskit/link-datasource';
 import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 

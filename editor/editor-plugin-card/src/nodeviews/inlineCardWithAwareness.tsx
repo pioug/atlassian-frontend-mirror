@@ -149,6 +149,7 @@ const InlineCard = ({
 				markMostRecentlyInsertedLink={markMostRecentlyInsertedLink}
 				pluginInjectionApi={pluginInjectionApi}
 				setOverlayHoveredStyles={setOverlayHoveredStyles}
+				view={view}
 			>
 				{innerCard}
 			</AwarenessWrapper>
@@ -170,6 +171,7 @@ const InlineCard = ({
 		pluginInjectionApi,
 		setOverlayHoveredStyles,
 		url,
+		view,
 	]);
 
 	// [WS-2307]: we only render card wrapped into a Provider when the value is ready,

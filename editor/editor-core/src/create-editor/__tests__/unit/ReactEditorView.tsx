@@ -83,7 +83,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { EditorExperience, RELIABILITY_INTERVAL } from '@atlaskit/editor-common/ufo';
 import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
+import { analyticsEventKey, toJSON } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -111,7 +111,6 @@ import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
 import type { EditorAppearance, EditorProps } from '../../../types';
 import type { EditorConfig } from '../../../types/editor-config';
 import PluginSlot from '../../../ui/PluginSlot';
-import { toJSON } from '../../../utils';
 import {
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,

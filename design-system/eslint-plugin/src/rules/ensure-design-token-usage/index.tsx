@@ -10,6 +10,7 @@ import {
 import { getImportSources } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
+import { errorBoundary } from '../utils/error-boundary';
 import { includesHardCodedColor } from '../utils/is-color';
 import {
 	isDecendantOfGlobalToken,
@@ -25,7 +26,6 @@ import {
 	lintObjectForColor,
 	lintTemplateIdentifierForColor,
 } from './color';
-import { errorBoundary } from './error-boundary';
 import ruleMeta from './rule-meta';
 import { lintObjectForSpacing } from './spacing';
 import { type RuleConfig } from './types';

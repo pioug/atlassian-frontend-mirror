@@ -2,10 +2,17 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
+/**
+ * @jsxFrag React.Fragment
+ */
+import React, { forwardRef, type Ref } from 'react';
+
 import { createSerializer, matchers } from '@emotion/jest';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+
+import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 
 import type { CSSFn } from '../../../types';
 import LinkItem from '../../link-item';
@@ -17,6 +24,41 @@ window.requestAnimationFrame = (cb) => {
 	cb(-1);
 	return -1;
 };
+
+type MyRouterLinkConfig = {
+	to: string;
+	customProp?: string;
+};
+
+const MyRouterLinkComponent = forwardRef(
+	(
+		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
+		ref: Ref<HTMLAnchorElement>,
+	) => {
+		const label = <>{children} (Router link)</>;
+
+		if (typeof href === 'string') {
+			return (
+				<a ref={ref} data-test-link-type="simple" href={href} {...rest}>
+					{label}
+				</a>
+			);
+		}
+
+		return (
+			<a
+				ref={ref}
+				data-test-link-type="advanced"
+				data-custom-attribute={href.customProp}
+				href={href.to}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				{label}
+			</a>
+		);
+	},
+);
 
 describe('<LinkItem />', () => {
 	it('should callback on click', () => {
@@ -192,5 +234,285 @@ describe('<LinkItem />', () => {
 		);
 
 		expect(getByTestId('target')).toHaveAttribute('aria-current', 'page');
+	});
+
+	describe('should conditionally render router links or standard <a> anchors', () => {
+		describe('when link items are used outside an AppProvider', () => {
+			it('should render a standard <a> anchor for internal links', () => {
+				render(
+					<LinkItem href="/home" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for external links (http)', () => {
+				render(
+					<LinkItem href="http://www.atlassian.com" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for external links (https)', () => {
+				render(
+					<LinkItem href="https://www.atlassian.com" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for email links', () => {
+				render(
+					<LinkItem href="mailto:test@example.com" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for telephone links', () => {
+				render(
+					<LinkItem href="tel:0400-000-000" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for SMS links', () => {
+				render(
+					<LinkItem href="sms:0400-000-000?&body=foo" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for hash links on the current page', () => {
+				render(
+					<LinkItem href="#hash" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for hash links on internal pages', () => {
+				render(
+					<LinkItem href="/home#hash" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+		});
+
+		describe('when link items are used inside an AppProvider, without a routerLinkComponent defined', () => {
+			it('should render a standard <a> anchor for internal links', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="/home" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for external links (http)', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="http://www.atlassian.com" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for external links (https)', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="https://www.atlassian.com" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for email links', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="mailto:test@example.com" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for telephone links', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="tel:0400-000-000" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for SMS links', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="sms:0400-000-000?&body=foo" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for hash links on the current page', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="#hash" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for hash links on internal pages', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="/home#hash" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+		});
+
+		describe('when link items are used inside an AppProvider, with a routerLinkComponent defined', () => {
+			it('should render a router link for internal links', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="/home" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'true');
+			});
+
+			it('should render a standard <a> anchor for external links (http)', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="http://www.atlassian.com" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for external links (https)', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="https://www.atlassian.com" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for email links', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="mailto:test@example.com" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for telephone links', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="tel:0400-000-000" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for SMS links', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="sms:0400-000-000?&body=foo" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor for hash links on the current page', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="#hash" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a render a router link for hash links on internal pages', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="/home#hash" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'true');
+			});
+		});
 	});
 });

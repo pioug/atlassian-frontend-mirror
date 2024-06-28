@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "193.29.0",
+	"version": "193.30.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,8 +45,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^18.0.0",
-		"@atlaskit/editor-common": "^83.3.0",
-		"@atlaskit/editor-json-transformer": "^8.15.0",
+		"@atlaskit/editor-common": "^83.4.0",
 		"@atlaskit/editor-plugins": "^3.3.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
@@ -74,7 +73,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.11.0",
+		"@atlaskit/link-provider": "^1.12.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"react": "^16.8.0",
 		"react-dom": "^16.8.0",
@@ -87,27 +86,28 @@
 		"@atlaskit/adf-utils": "^19.4.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/collab-provider": "9.32.0",
+		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-plugin-annotation": "1.13.0",
 		"@atlaskit/editor-plugin-card": "^2.2.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-list": "^3.5.0",
 		"@atlaskit/editor-plugin-paste": "^1.4.0",
 		"@atlaskit/editor-test-helpers": "*",
-		"@atlaskit/link-provider": "^1.11.0",
+		"@atlaskit/link-provider": "^1.12.0",
 		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^33.0.27",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^9.0.0",
-		"@atlaskit/renderer": "^109.38.0",
+		"@atlaskit/renderer": "^109.40.0",
 		"@atlaskit/smart-card": "^27.8.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.86",
+		"@atlassian/search-provider": "2.4.87",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -311,9 +311,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.react-18-portal": {
-			"type": "boolean"
-		},
 		"platform.editor.table.allow-table-alignment": {
 			"type": "boolean"
 		},
@@ -356,6 +353,18 @@
 		},
 		"platform.editor.a11y-main-toolbar-navigation_osrty": {
 			"type": "boolean"
+		},
+		"platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.elements.drag-and-drop-ed-23892": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"platform.editor.review-text-highlighting-styling": {
+			"type": "boolean",
+			"referenceOnly": "true"
 		}
 	},
 	"stricter": {

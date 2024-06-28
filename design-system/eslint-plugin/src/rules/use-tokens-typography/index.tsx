@@ -1,9 +1,9 @@
 import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-rule';
+import { errorBoundary } from '../utils/error-boundary';
 
 import { getConfig, ruleSchema } from './config';
-import { errorBoundary } from './error-boundary';
 import { StyleObject } from './transformers/style-object';
 
 const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {

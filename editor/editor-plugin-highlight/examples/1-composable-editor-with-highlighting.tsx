@@ -443,6 +443,47 @@ const highlightAdfDoc = {
 				},
 			],
 		},
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'Adjacent ',
+					marks: [
+						{
+							type: 'backgroundColor',
+							attrs: {
+								color: '#d3f1a7',
+							},
+						},
+					],
+				},
+				{
+					type: 'text',
+					text: 'highlights',
+					marks: [
+						{
+							type: 'backgroundColor',
+							attrs: {
+								color: '#c6edfb',
+							},
+						},
+					],
+				},
+				{
+					type: 'text',
+					text: ' example',
+					marks: [
+						{
+							type: 'backgroundColor',
+							attrs: {
+								color: '#fedec8',
+							},
+						},
+					],
+				},
+			],
+		},
 	],
 };
 

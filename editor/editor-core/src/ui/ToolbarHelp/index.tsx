@@ -3,10 +3,10 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import QuestionIcon from '@atlaskit/icon/glyph/question';
 import type { PositionType } from '@atlaskit/tooltip/types';
 
-import ToolbarButton from '../ToolbarButton';
 import WithHelpTrigger from '../WithHelpTrigger';
 
 import { messages } from './messages';

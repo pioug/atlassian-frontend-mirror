@@ -22,6 +22,7 @@ import {
 import getDefaultImports from '../utils/get-default-imports';
 import getSpecifierNames from '../utils/get-specifier-names';
 import { generateNewElement, handleIconAttributes } from '../utils/generate-new-button-element';
+import { generateLinkComponent } from '../utils/generate-link-element';
 import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
 import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-imported';
 import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
@@ -29,6 +30,7 @@ import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-ic
 import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
 import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
 import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';
+import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 
 const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;
@@ -98,6 +100,7 @@ const transformer = (file: FileInfo, api: API): string => {
 			fileSource,
 			j,
 		),
+		link: checkIfVariantAlreadyImported('link', '@atlaskit/link', fileSource, j),
 	};
 
 	const oldButtonElements = fileSource.find(j.JSXElement).filter((path) => {
@@ -128,20 +131,22 @@ const transformer = (file: FileInfo, api: API): string => {
 		const hasIcon =
 			buttonAttributes.includes('iconBefore') || buttonAttributes.includes('iconAfter');
 		const hasNoChildren = element.value.children?.length === 0;
+		const hasSpacing =
+			attributes.find(
+				(attr) =>
+					attr.type === 'JSXAttribute' &&
+					attr.name.name === 'spacing' &&
+					attr.value?.type === 'StringLiteral' &&
+					attr.value.value !== 'none',
+			) || !buttonAttributes.includes('spacing');
+
+		const hasSpacingNone = findJSXAttributeWithValue(
+			element.value.openingElement,
+			'spacing',
+			'none',
+		);
 		const isFitContainerIconButton =
 			hasIcon && hasNoChildren && buttonAttributes.includes('shouldFitContainer');
-		const isLinkIconButton = hasHref && hasIcon && hasNoChildren && !isFitContainerIconButton;
-		const isLinkButton = hasHref && !isLinkIconButton;
-		let isIconButton = !hasHref && hasIcon && hasNoChildren && !isFitContainerIconButton;
-		const isDefaultButton =
-			!isLinkButton && !isLinkIconButton && !isIconButton && !isFitContainerIconButton;
-		const isDefaultVariantWithAnIcon =
-			!isLinkIconButton && !isIconButton && !isFitContainerIconButton && hasIcon;
-
-		const isLoadingButton =
-			element.value.openingElement.name.type === 'JSXIdentifier' &&
-			element.value.openingElement.name.name === loadingButtonDirectImportName;
-
 		const linkAppearanceAttribute = attributes.find(
 			(node) =>
 				node.type === 'JSXAttribute' &&
@@ -150,7 +155,23 @@ const transformer = (file: FileInfo, api: API): string => {
 				(node?.value?.value === 'link' || node?.value?.value === 'subtle-link'),
 		);
 
-		if (isDefaultVariantWithAnIcon) {
+		const isLinkIconButton = hasHref && hasIcon && hasNoChildren && !isFitContainerIconButton;
+		const isLinkButton = hasHref && !isLinkIconButton && !hasNoChildren && hasSpacing;
+		const isLink =
+			hasHref && !isLinkIconButton && !hasNoChildren && hasSpacingNone && linkAppearanceAttribute;
+
+		let isIconButton = !hasHref && hasIcon && hasNoChildren && !isFitContainerIconButton && !isLink;
+		const isDefaultButton =
+			!isLinkButton && !isLinkIconButton && !isIconButton && !isFitContainerIconButton && !isLink;
+
+		const isDefaultVariantWithAnIcon =
+			!isLinkIconButton && !isIconButton && !isFitContainerIconButton && hasIcon && !isLink;
+
+		const isLoadingButton =
+			element.value.openingElement.name.type === 'JSXIdentifier' &&
+			element.value.openingElement.name.name === loadingButtonDirectImportName;
+
+		if (isDefaultVariantWithAnIcon && !isLink) {
 			handleIconAttributes(element.value, j);
 		}
 
@@ -177,6 +198,12 @@ const transformer = (file: FileInfo, api: API): string => {
 			hasVariant.linkButton = true;
 
 			j(element).replaceWith(generateNewElement(NEW_BUTTON_VARIANTS.link, element.value, j));
+		}
+
+		if (isLink && !isLoadingButton) {
+			hasVariant.link = true;
+
+			j(element).replaceWith(generateLinkComponent(element.node, j));
 		}
 
 		if (isDefaultButton && !isLoadingButton) {
@@ -346,7 +373,17 @@ const transformer = (file: FileInfo, api: API): string => {
 			renameDefaultButtonToLegacyButtonImport(oldButtonImports, oldButtonsWithUnsupportedProps, j);
 		}
 	}
+	if (hasVariant.link) {
+		const linkImport = j.importDeclaration(
+			[j.importDefaultSpecifier(j.identifier('Link'))],
+			j.stringLiteral('@atlaskit/link'),
+		);
+		oldButtonImports.at(0).insertBefore(linkImport);
 
+		if (!remainingDefaultButtons && !oldButtonsWithUnsupportedProps.length) {
+			oldButtonImports.at(0).remove();
+		}
+	}
 	if (specifiers.length) {
 		const existingNewButtonImports = fileSource
 			.find(j.ImportDeclaration)

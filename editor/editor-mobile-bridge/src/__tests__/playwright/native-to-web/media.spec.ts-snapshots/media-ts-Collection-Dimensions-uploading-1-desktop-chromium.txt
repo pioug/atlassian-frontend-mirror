@@ -2,6 +2,12 @@
   "type": "doc",
   "content": [
     {
+      "type": "paragraph",
+      "attrs": {
+        "localId": null
+      }
+    },
+    {
       "type": "mediaSingle",
       "attrs": {
         "width": null,

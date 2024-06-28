@@ -7,6 +7,7 @@ import Transition from 'react-transition-group/Transition';
 
 import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { ContextPanelConsumer, WidthContext } from '@atlaskit/editor-common/ui';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import type { WidthPluginState } from '@atlaskit/editor-plugins/width';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
@@ -25,7 +26,6 @@ import { token } from '@atlaskit/tokens';
 import type EditorActions from '../../actions';
 import { getChildBreakoutModes } from '../../utils/document';
 import WithEditorActions from '../WithEditorActions';
-import WithPluginState from '../WithPluginState';
 
 export type Props = {
 	visible: boolean;

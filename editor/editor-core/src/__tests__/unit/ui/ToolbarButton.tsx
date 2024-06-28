@@ -5,11 +5,9 @@ import { mount } from 'enzyme';
 
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import Tooltip from '@atlaskit/tooltip';
-
-import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
 
 const noop = () => {};
 
@@ -66,22 +64,6 @@ describe('@atlaskit/editor-core/ui/ToolbarButton', () => {
 		tooltip.simulate('mouseover');
 		expect(tooltip.prop('position')).toEqual('left');
 		toolbarButtonElem.unmount();
-	});
-
-	it('should pass testId down to the button', () => {
-		const toolbarButtonElem = mount(
-			<ToolbarButton
-				testId="some-test-id"
-				onClick={noop}
-				selected={false}
-				disabled={false}
-				title="tooltip text"
-				titlePosition="left"
-			/>,
-		);
-
-		const button = toolbarButtonElem.find(Button);
-		expect(button.props().testId).toEqual('some-test-id');
 	});
 
 	describe('when button id is not set', () => {

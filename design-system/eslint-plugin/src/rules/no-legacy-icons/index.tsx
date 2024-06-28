@@ -1,6 +1,11 @@
-import { isNodeOfType } from 'eslint-codemod-utils';
+import type { Rule } from 'eslint';
+import type { Identifier } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
+import { errorBoundary } from '../utils/error-boundary';
+
+import { createChecks } from './checks';
+import { createHelpers } from './helpers';
 
 const rule = createLintRule({
 	meta: {
@@ -11,179 +16,96 @@ const rule = createLintRule({
 			recommended: false,
 			severity: 'warn',
 		},
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					shouldErrorForManualMigration: {
+						type: 'boolean',
+					},
+					shouldErrorForAutoMigration: {
+						type: 'boolean',
+					},
+					quiet: {
+						type: 'boolean',
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 		messages: {
-			noLegacyIcons: `Legacy icon '{{iconName}}', is being rendered from import '{{importSource}}'. Migrate to an icon from '@atlaskit/icon/(core|utility)', or '@atlaskit/icon-labs/(core|utility)'.
-Learn more in our [code migration guide](https://hello.atlassian.net/wiki/spaces/DST/pages/3748692796/New+ADS+iconography+-+Code+migration+guide).`,
+			noLegacyIconsAutoMigration: `Auto Migration:\nLegacy icon '{{iconName}}' from '{{importSource}}' detected.\nAutomatic migration is possible to '{{newIcon}}' from '{{newPackage}}.\nAtlassians: See https://go.atlassian.com/icon-migration-guide for details.'`,
+			noLegacyIconsManualMigration: `Manual Migration:\nLegacy icon '{{iconName}}' from '{{importSource}}' detected.\nAutomatic migration not possible.{{quietModeGuidance}}.\nAtlassians: See https://go.atlassian.com/icon-migration-guide for details.`,
+			cantFindSuitableReplacement: `No suitable replacement found for '{{iconName}}' from '{{importSource}}' at the size listed. Please manually migrate this icon.`,
+			cantMigrateReExport: `'{{exportName}}' is a re-export of icon from '{{packageName}}' and cannot be automatically migrated. Please utilize the export from icons directly.`,
+			cantMigrateColor: `Primary Color prop has {{colorValue}} which cannot be automatically migrated to color prop in the new Icon API. Please use either an appropriate color.icon, color.link token, or currentColor (as a last resort).`,
+			cantMigrateSpreadProps: `This usage of Icon uses spread props in a way that can't be automatically migrated. Please explicitly define the following props after spread: '{{missingProps}}' `,
+			cantMigrateSizeUnknown: `This usage of Icon sets the size via a variable or function that can't be determined.`,
+			cantMigrateFunctionUnknown: `'{{iconName}}' from legacy '{{importSource}}' is used in unknown function/component. Please manually migrate this icon.`,
+			cantMigrateIdentifier: `This icon is passed to other components via a map or array, in a way that can't be automatically migrated. Please manually migrate wherever this expression is used and use the icon components directly.`,
+			cantMigrateUnsafeProp: `Property '{{propName}}' with value of '{{value}}' is unable to be auto-migrated to the new button. Please manually migrate this icon.`,
+			guidance: `Guidance:\n'{{guidance}}'`,
 		},
 	},
 
 	create(context) {
-		const legacyIconImports: { [key: string]: string } = {};
+		const { getConfigFlag } = createHelpers(context);
+		const failSilently = getConfigFlag('failSilently', false);
+		const {
+			checkImportDeclarations,
+			checkVariableDeclarations,
+			checkExportDefaultDeclaration,
+			checkExportNamedVariables,
+			checkArrayOrMap,
+			checkIconAsProp,
+			checkJSXElement,
+			checkCallExpression,
+			throwErrors,
+		} = createChecks(context);
 
 		return {
+			// Track imports of relevant components
 			ImportDeclaration(node) {
-				const moduleSource = node.source.value;
-				if (
-					typeof moduleSource === 'string' &&
-					['@atlaskit/icon/glyph/', '@atlaskit/icon-object/glyph/'].find((val) =>
-						moduleSource.startsWith(val),
-					) &&
-					node.specifiers.length
-				) {
-					const defaultImport = node.specifiers.find(
-						(spec) => spec.type === 'ImportDefaultSpecifier',
-					);
-					if (!defaultImport) {
-						return;
-					}
-
-					const defaultImportName = defaultImport.local.name;
-
-					legacyIconImports[defaultImportName] = moduleSource;
-				}
+				errorBoundary(() => checkImportDeclarations(node), { config: { failSilently } });
 			},
 
+			// Keep track of the relevant variable declarations and renames
 			VariableDeclaration(node) {
-				if (isNodeOfType(node, 'VariableDeclaration')) {
-					for (const decl of node.declarations) {
-						if (
-							isNodeOfType(decl, 'VariableDeclarator') &&
-							'init' in decl &&
-							'id' in decl &&
-							decl.init &&
-							decl.id &&
-							'name' in decl.id &&
-							decl.id.name &&
-							isNodeOfType(decl.init, 'Identifier') &&
-							decl.init.name in legacyIconImports
-						) {
-							legacyIconImports[decl.id.name] = legacyIconImports[decl.init.name];
-						}
-					}
-				}
+				errorBoundary(() => checkVariableDeclarations(node), { config: { failSilently } });
 			},
+
+			// Case: default re-exports. Can't be auto-migrated
 			ExportDefaultDeclaration(node) {
-				if (
-					'declaration' in node &&
-					node.declaration &&
-					isNodeOfType(node.declaration, 'Identifier') &&
-					node.declaration.name in legacyIconImports
-				) {
-					context.report({
-						node,
-						messageId: 'noLegacyIcons',
-						data: {
-							importSource: legacyIconImports[node.declaration.name],
-							iconName: node.declaration.name,
-						},
-					});
-				}
+				errorBoundary(() => checkExportDefaultDeclaration(node), { config: { failSilently } });
 			},
 			ExportNamedDeclaration(node) {
-				if (
-					'source' in node &&
-					node.source &&
-					isNodeOfType(node.source, 'Literal') &&
-					'value' in node.source
-				) {
-					const moduleSource = node.source.value;
-					if (
-						typeof moduleSource === 'string' &&
-						['@atlaskit/icon/glyph/', '@atlaskit/icon-object/glyph/'].find((val) =>
-							moduleSource.startsWith(val),
-						) &&
-						node.specifiers.length
-					) {
-						context.report({
-							node,
-							messageId: 'noLegacyIcons',
-							data: {
-								importSource: moduleSource,
-								iconName: node.specifiers[0].exported.name,
-							},
-						});
-					}
-				} else if (
-					'declaration' in node &&
-					node.declaration &&
-					isNodeOfType(node.declaration, 'VariableDeclaration')
-				) {
-					for (const decl of node.declaration.declarations) {
-						if (
-							isNodeOfType(decl, 'VariableDeclarator') &&
-							'init' in decl &&
-							decl.init &&
-							isNodeOfType(decl.init, 'Identifier') &&
-							decl.init.name in legacyIconImports
-						) {
-							context.report({
-								node,
-								messageId: 'noLegacyIcons',
-								data: {
-									importSource: legacyIconImports[decl.init.name],
-									iconName: decl.init.name,
-								},
-							});
-						}
-					}
-				}
+				errorBoundary(() => checkExportNamedVariables(node), { config: { failSilently } });
 			},
-			JSXAttribute(node: any) {
-				if (!isNodeOfType(node.value, 'JSXExpressionContainer')) {
-					return;
-				}
-				if (
-					isNodeOfType(node.value.expression, 'Identifier') &&
-					node.value.expression.name in legacyIconImports &&
-					isNodeOfType(node.name, 'JSXIdentifier') &&
-					!node.name.name.startsWith('LEGACY_')
-				) {
-					context.report({
-						node,
-						messageId: 'noLegacyIcons',
-						data: {
-							importSource: legacyIconImports[node.value.expression.name],
-							iconName: node.value.expression.name,
-						},
-					});
-				}
-			},
-			JSXElement(node: any) {
-				if (!isNodeOfType(node, 'JSXElement')) {
-					return;
-				}
-				if (!isNodeOfType(node.openingElement.name, 'JSXIdentifier')) {
-					return;
-				}
 
-				const name = node.openingElement.name.name;
-
-				if (name in legacyIconImports) {
-					context.report({
-						node,
-						messageId: 'noLegacyIcons',
-						data: {
-							importSource: legacyIconImports[name],
-							iconName: name,
-						},
-					});
-				}
+			// Legacy icons found in arrays/objects
+			'ObjectExpression > Property > Identifier, ArrayExpression > Identifier ': (
+				node: Identifier,
+			) => {
+				errorBoundary(() => checkArrayOrMap(node), { config: { failSilently } });
 			},
-			CallExpression(node) {
-				if ('arguments' in node && node.arguments.length) {
-					for (const arg of node.arguments) {
-						if (isNodeOfType(arg, 'Identifier') && arg.name in legacyIconImports) {
-							context.report({
-								node: arg,
-								messageId: 'noLegacyIcons',
-								data: {
-									importSource: legacyIconImports[arg.name],
-									iconName: arg.name,
-								},
-							});
-						}
-					}
-				}
+
+			// Legacy icons passed in via props, as JSX identifier (i.e. icon={AddIcon})
+			'JSXOpeningElement > JSXAttribute > JSXExpressionContainer > Identifier': (
+				node: Identifier,
+			) => {
+				errorBoundary(() => checkIconAsProp(node), { config: { failSilently } });
+			},
+			JSXElement(node: Rule.Node) {
+				errorBoundary(() => checkJSXElement(node), { config: { failSilently } });
+			},
+
+			// Icons called as an argument of a function (i.e. icon={DefaultIcon(AddIcon)})
+			CallExpression: (node) => {
+				errorBoundary(() => checkCallExpression(node), { config: { failSilently } });
+			},
+
+			'Program:exit': () => {
+				errorBoundary(() => throwErrors(), { config: { failSilently } });
 			},
 		};
 	},

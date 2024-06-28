@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "1.5.1",
+	"version": "1.5.3",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^38.0.0",
-		"@atlaskit/editor-common": "^83.3.0",
+		"@atlaskit/editor-common": "^83.4.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.5",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
@@ -98,7 +98,7 @@
 		"platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq": {
 			"type": "boolean"
 		},
-		"platform.editor.elements.drag-and-drop-ED-23868": {
+		"platform.editor.elements.drag-and-drop-ed-23868": {
 			"type": "boolean"
 		},
 		"platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2": {
@@ -107,6 +107,9 @@
 		"platform.editor.media.extended-resize-experience": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform.editor.elements.drag-and-drop-ed-23892": {
+			"type": "boolean"
 		}
 	}
 }

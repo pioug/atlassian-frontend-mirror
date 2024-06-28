@@ -8,8 +8,6 @@ import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 import { getBreakoutMode } from './node-width';
 
-export { isInEmptyLine } from '@atlaskit/editor-common/utils';
-
 export function processRawFragmentValue(
 	schema: Schema,
 	value?: ReplaceRawValue[],

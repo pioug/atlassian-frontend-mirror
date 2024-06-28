@@ -1,3 +1,4 @@
+import React from 'react';
 import { create, type ReactTestRenderer, type ReactTestInstance } from 'react-test-renderer';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -5,6 +6,7 @@ import { ReactSerializer } from '../../../index';
 import AnnotationComponent from '../../marks/annotation';
 import { AnnotationMark } from '../../../ui/annotations';
 import { simpleDocument as doc } from './__fixtures__/documents';
+import { IntlProvider } from 'react-intl-next';
 
 describe('Renderer - ReactSerializer - AnnotationMark', () => {
 	let docFromSchema: PMNode;
@@ -48,7 +50,13 @@ describe('Renderer - ReactSerializer - AnnotationMark', () => {
 				allowAnnotations: true,
 			});
 
-			reactRenderer = create(reactSerializer.serializeFragment(docFromSchema.content) as any);
+			const withIntl = () => (
+				<IntlProvider locale="en">
+					{reactSerializer.serializeFragment(docFromSchema.content)}
+				</IntlProvider>
+			);
+
+			reactRenderer = create(withIntl());
 		});
 
 		it('should render AnnotationMark', () => {

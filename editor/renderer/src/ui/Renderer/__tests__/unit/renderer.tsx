@@ -24,6 +24,7 @@ import RendererDefaultComponent, {
 import { Paragraph } from '../../../../react/nodes';
 import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
 import type { RendererAppearance } from '../../types';
+import { IntlProvider } from 'react-intl-next';
 
 let mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 
@@ -138,11 +139,13 @@ describe('Renderer', () => {
 	describe('annotationProvider', () => {
 		it('should call the provider with ids inside of the document', () => {
 			const wrapper = mount(
-				<RendererDefaultComponent
-					annotationProvider={annotationProvider}
-					document={adf}
-					allowAnnotations
-				/>,
+				<IntlProvider locale="en">
+					<RendererDefaultComponent
+						annotationProvider={annotationProvider}
+						document={adf}
+						allowAnnotations
+					/>
+				</IntlProvider>,
 			);
 
 			expect(getStateCallbackMock).toHaveBeenCalledWith(annotationsId);

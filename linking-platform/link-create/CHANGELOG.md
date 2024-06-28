@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 2.7.2
+
+### Patch Changes
+
+- [#115495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115495)
+  [`9e9f641dcdf29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e9f641dcdf29) -
+  if no user is passed in, then the owner picker will prompt the user to select from the dropdown.
+  this addresses the case of what happens where there is no valid id to the owner
+
 ## 2.7.1
 
 ### Patch Changes

@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 193.30.1
+
+### Patch Changes
+
+- [#115969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115969)
+  [`761dca055a7af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/761dca055a7af) -
+  Cleanup unused code in editor-core.
+
+## 193.30.0
+
+### Minor Changes
+
+- [`955949c077d4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/955949c077d4f) -
+  [ux] [ED-23627] Text highlighting UI review
+
+### Patch Changes
+
+- [#115817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115817)
+  [`d647eedc6ddd4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d647eedc6ddd4) -
+  [ux] [ED-23275] Feature flag cleanup for allow-extended-panel
+- Updated dependencies
+
+## 193.29.3
+
+### Patch Changes
+
+- [#115286](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115286)
+  [`cd387e8052aaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd387e8052aaa) -
+  Removed FF platform.editor.react-18-portal
+
 ## 193.29.0
 
 ### Minor Changes

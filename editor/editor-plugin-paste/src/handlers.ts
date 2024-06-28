@@ -241,9 +241,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 		// or the slice's first node is a paragraph,
 		// then we can replace the selection with our slice.
 		const pastingIntoExtendedPanel =
-			selectionIsPanel &&
-			getBooleanFF('platform.editor.allow-extended-panel') &&
-			panel.validContent(transformedSlice.content);
+			selectionIsPanel && panel.validContent(transformedSlice.content);
 		if (
 			((transformedSliceIsValidNode || selectionIsValidNode) &&
 				!pastingIntoExtendedPanel &&

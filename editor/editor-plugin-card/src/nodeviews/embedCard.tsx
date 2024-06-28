@@ -77,7 +77,10 @@ const CardInner = ({
 	cardProps,
 	dispatchAnalyticsEvent,
 }: CardInnerProps) => {
-	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	const { widthState, editorDisabledState } = useSharedPluginState(pluginInjectionApi, [
+		'width',
+		'editorDisabled',
+	]);
 
 	const widthStateLineLength = widthState?.lineLength || 0;
 	const widthStateWidth = widthState?.width || 0;
@@ -90,7 +93,7 @@ const CardInner = ({
 
 	const containerWidth = isRichMediaInsideOfBlockNode(view, pos) ? lineLength : widthStateWidth;
 
-	if (!allowResizing || !hasPreview) {
+	if (!allowResizing || !hasPreview || editorDisabledState?.editorDisabled) {
 		// There are two ways `width` and `height` can be defined here:
 		// 1) Either as `heightAlone` as height value and no width
 		// 2) or as `1` for height and aspectRation (defined or a default one) as a width

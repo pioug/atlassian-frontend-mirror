@@ -4,6 +4,7 @@ import { waitFor } from '@testing-library/react';
 import { mount } from 'enzyme';
 
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -15,7 +16,6 @@ import type { Dispatch } from '../../../event-dispatcher';
 import { createDispatch, EventDispatcher } from '../../../event-dispatcher';
 import type { EditorPlugin } from '../../../types/editor-plugin';
 import EditorContext from '../../../ui/EditorContext';
-import WithPluginState from '../../../ui/WithPluginState';
 import { name } from '../../../version-wrapper';
 
 describe(name, () => {

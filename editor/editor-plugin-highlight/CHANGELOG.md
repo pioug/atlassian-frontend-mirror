@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.11.1
+
+### Patch Changes
+
+- [#115380](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115380)
+  [`2ca8ba21bdbf1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ca8ba21bdbf1) -
+  [ux] [ED-23759] Fixed button sizing for highlight button in floating toolbar
+
+## 1.11.0
+
+### Minor Changes
+
+- [`955949c077d4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/955949c077d4f) -
+  [ux] [ED-23627] Text highlighting UI review
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.1
 
 ### Patch Changes

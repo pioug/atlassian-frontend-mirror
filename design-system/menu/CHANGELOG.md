@@ -1,5 +1,16 @@
 # @atlaskit/menu
 
+## 2.6.0
+
+### Minor Changes
+
+- [#115893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115893)
+  [`78d9ff4de5251`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78d9ff4de5251) -
+  Updated LinkItem to conditionally render a router link if a link component is set in the app
+  provider and the provided href prop is not an external link or a non-HTTP-based link (e.g. emails,
+  phone numbers, hash links etc.). These changes are behind a feature flag and will be available in
+  a later release if successful.
+
 ## 2.5.2
 
 ### Patch Changes

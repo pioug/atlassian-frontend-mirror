@@ -158,8 +158,9 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
 	const isTableFixedColumnWidthsOptionEnabled =
 		options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
-	const shouldUseIncreasedScalingPercent = options?.isTableScalingEnabled;
-	isTableFixedColumnWidthsOptionEnabled &&
+	const shouldUseIncreasedScalingPercent =
+		options?.isTableScalingEnabled &&
+		isTableFixedColumnWidthsOptionEnabled &&
 		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
 
 	const isCellBackgroundDuplicated =

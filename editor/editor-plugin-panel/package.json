@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^38.0.0",
-		"@atlaskit/editor-common": "^83.3.0",
+		"@atlaskit/editor-common": "^83.4.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-decorations": "^1.1.0",
@@ -94,9 +94,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.allow-extended-panel": {
-			"type": "boolean"
-		},
 		"platform.editor.allow-custom-cut-for-panel": {
 			"type": "boolean"
 		}

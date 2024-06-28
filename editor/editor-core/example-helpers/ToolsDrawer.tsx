@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
+import { toJSON } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -24,7 +25,6 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { MentionResource, TeamMentionResource } from '../src';
-import { toJSON } from '../src/utils';
 
 import { buttonGroup, content } from './styles';
 

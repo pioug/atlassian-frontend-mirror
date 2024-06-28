@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 2.2.2
+
+### Patch Changes
+
+- [#114993](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114993)
+  [`06ddfaec64a7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06ddfaec64a7d) -
+  Fix import - export ConfigModalProps between link-datasource and editor-plugin-card
+- Updated dependencies
+
+## 2.2.1
+
+### Patch Changes
+
+- [#115837](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115837)
+  [`370c68df9de67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/370c68df9de67) -
+  [ux] EmbedCard - resize handles will be hidden on view mode in live pages
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

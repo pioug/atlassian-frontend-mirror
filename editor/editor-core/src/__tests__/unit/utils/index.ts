@@ -1,13 +1,17 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
-import { closestElement, dedupe, shallowEqual } from '@atlaskit/editor-common/utils';
-import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
+import {
+	closestElement,
+	dedupe,
+	isEmptyNode,
+	isSelectionInsideLastNodeInDocument,
+	shallowEqual,
+} from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	blockquote,
-	code,
 	code_block,
 	decisionItem,
 	decisionList,
@@ -20,18 +24,11 @@ import {
 	ol,
 	p,
 	panel,
-	strong,
 	taskItem,
 	taskList,
 	ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
-
-import {
-	isEmptyNode,
-	isMarkTypeAllowedInCurrentSelection,
-	isSelectionInsideLastNodeInDocument,
-} from '../../../utils';
 
 describe('@atlaskit/editore-core/utils', () => {
 	const createEditor = createEditorFactory();
@@ -62,104 +59,6 @@ describe('@atlaskit/editore-core/utils', () => {
 			const result = closestElement(divSecondary, '#primary');
 			expect(result).toEqual(div);
 			div.remove();
-		});
-	});
-
-	describe('#isMarkTypeAllowedInCurrentSelection', () => {
-		describe('when the current node supports the given mark type', () => {
-			describe('and a stored mark is present', () => {
-				it('returns true if given mark type is not excluded', () => {
-					const { editorView } = editor(doc(p('{<>}')));
-					const { typeAheadQuery, strong } = editorView.state.schema.marks;
-					toggleMark(strong)(editorView.state, editorView.dispatch);
-
-					let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-					expect(result).toBe(true);
-				});
-
-				it('returns false if given mark type is excluded', () => {
-					const { editorView } = editor(doc(p('{<>}')));
-					const { typeAheadQuery, code } = editorView.state.schema.marks;
-					toggleMark(code)(editorView.state, editorView.dispatch);
-
-					let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-					expect(result).toBe(false);
-				});
-			});
-
-			describe('without a stored mark present', () => {
-				describe('and the selection is empty', () => {
-					it('returns true if given mark type not excluded', () => {
-						const { editorView } = editor(doc(p(strong('te{<>}xt'))));
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(true);
-					});
-
-					it('returns false if given mark type is excluded', () => {
-						const { editorView } = editor(doc(p(code('te{<>}xt'))));
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(false);
-					});
-				});
-
-				describe('and a non-empty selection', () => {
-					it('returns false if mark type is allowed at the start of the selection', () => {
-						const { editorView } = editor(doc(p(strong('t{<}e'), code('xt{>}'))));
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(false);
-					});
-
-					it('returns true if the selection starts at the end of an excluded mark type', () => {
-						const { editorView } = editor(doc(p(code('te{<}'), strong('xt{>}'))));
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(true);
-					});
-
-					it('returns false if mark type is excluded at the start of the selection', () => {
-						const { editorView } = editor(doc(p(code('t{<}e'), strong('xt{>}'))));
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(false);
-					});
-
-					it('returns true if the selection ends at the start of an excluded mark type', () => {
-						const { editorView } = editor(doc(p(strong('{<}te'), code('{>}xt'))));
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(true);
-					});
-
-					it('returns false if the selection includes an excluded node', () => {
-						const { editorView } = editor(
-							doc(p(strong('{<}text'), code('text'), strong('text{>}'))),
-						);
-						const { typeAheadQuery } = editorView.state.schema.marks;
-
-						let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-						expect(result).toBe(false);
-					});
-				});
-			});
-		});
-
-		describe('when the current node does not support the given mark type', () => {
-			it('returns false', () => {
-				const { editorView } = editor(doc(code_block()('te{<>}xt')));
-				const { typeAheadQuery } = editorView.state.schema.marks;
-
-				let result = isMarkTypeAllowedInCurrentSelection(typeAheadQuery, editorView.state);
-				expect(result).toBe(false);
-			});
 		});
 	});
 

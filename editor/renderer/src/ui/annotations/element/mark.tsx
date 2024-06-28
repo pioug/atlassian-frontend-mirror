@@ -10,6 +10,8 @@ import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import type { AnnotationId, AnnotationDataAttributes } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { useIntl } from 'react-intl-next';
+import { inlineCommentMessages } from '../../../messages';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState` is not object-safe
 const markStyles = () => css`
@@ -31,6 +33,27 @@ const markStyles = () => css`
 const isMobile = () => {
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
+
+const accessibilityStyles = (startMarker: string, endMarker: string) =>
+	css({
+		'&::before, &::after': {
+			clipPath: 'inset(100%)',
+			clip: 'rect(1px, 1px, 1px, 1px)',
+			height: '1px',
+			overflow: 'hidden',
+			position: 'absolute',
+			whiteSpace: 'nowrap',
+			width: '1px',
+		},
+		'&::before': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			content: `' [${startMarker}] '`,
+		},
+		'&::after': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			content: `' [${endMarker}] '`,
+		},
+	});
 
 type MarkComponentProps = {
 	id: AnnotationId;
@@ -55,10 +78,12 @@ export const MarkComponent = ({
 		'inline_comments_keyboard_accessible_renderer',
 	);
 
+	const intl = useIntl();
 	const annotationIds = useMemo(
 		() => [...new Set([...annotationParentIds, id])],
 		[id, annotationParentIds],
 	);
+
 	const onMarkClick = useCallback(
 		(event: MouseEvent | KeyboardEvent) => {
 			// prevent inline mark logic for media block marks
@@ -131,6 +156,23 @@ export const MarkComponent = ({
 					...desktopAccessibilityAttributes,
 				};
 
+	const getAccessibilityStyles = () => {
+		if (isMobile()) {
+			return {};
+		}
+		if (isInlineCommentsKbAccessible) {
+			const startMarker = intl.formatMessage(
+				inlineCommentMessages.contentRendererInlineCommentMarkerStart,
+			);
+			const endMarker = intl.formatMessage(
+				inlineCommentMessages.contentRendererInlineCommentMarkerEnd,
+			);
+			return accessibilityStyles(startMarker, endMarker);
+		} else {
+			return {};
+		}
+	};
+
 	return jsx(
 		useBlockLevel ? 'div' : 'mark',
 		{
@@ -140,7 +182,9 @@ export const MarkComponent = ({
 				: 'onClick']: onMarkClick,
 			...accessibility,
 			...overriddenData,
-			...(!useBlockLevel && { css: [markStyles] }),
+			...(!useBlockLevel && {
+				css: [markStyles, getAccessibilityStyles()],
+			}),
 		},
 		children,
 	);

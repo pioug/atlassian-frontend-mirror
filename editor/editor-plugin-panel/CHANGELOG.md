@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 1.4.1
+
+### Patch Changes
+
+- [#115817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115817)
+  [`d647eedc6ddd4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d647eedc6ddd4) -
+  [ux] [ED-23275] Feature flag cleanup for allow-extended-panel
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

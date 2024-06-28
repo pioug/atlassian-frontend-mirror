@@ -40,3 +40,18 @@ export const tableCellMessages = defineMessages({
 		description: 'this table column is sorted in descending order',
 	},
 });
+
+export const inlineCommentMessages = defineMessages({
+	contentRendererInlineCommentMarkerStart: {
+		id: 'fabric.editor.inlineComment.marker.start',
+		defaultMessage: 'inline comment start',
+		description:
+			'Starting marker to indicate that text is highlighted with an inline comment by a screen reader.',
+	},
+	contentRendererInlineCommentMarkerEnd: {
+		id: 'fabric.editor.inlineComment.marker.end',
+		defaultMessage: 'inline comment end',
+		description:
+			'Ending marker to indicate that text was highlighted with an inline comment by a screen reader.',
+	},
+});

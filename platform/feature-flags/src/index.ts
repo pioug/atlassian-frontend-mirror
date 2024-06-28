@@ -17,8 +17,18 @@ export function setBooleanFeatureFlagResolver(flagResolver: FeatureFlagResolverB
 /**
  * Returns the value of a feature flag. If the flag does not resolve, it returns the "false" as a default value.
  *
+ * @deprecated Use {@link fg} function instead.
  * @param name
  */
 export function getBooleanFF(name: string): boolean {
+	return resolveBooleanFlag(name);
+}
+
+/**
+ * Returns the value of a feature flag. If the flag does not resolve, it returns the "false" as a default value.
+ *
+ * @param name
+ */
+export function fg(name: string): boolean {
 	return resolveBooleanFlag(name);
 }

@@ -1,6 +1,7 @@
 jest.useFakeTimers();
 
 import type { DocNode } from '@atlaskit/adf-schema';
+import { IntlProvider } from 'react-intl-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema/schema';
 import userEvent from '@testing-library/user-event';
 import { mount } from 'enzyme';
@@ -83,32 +84,37 @@ describe('renderer bridge', () => {
 		if (process.env.IS_REACT_18 === 'true') {
 			act(() => {
 				root.render(
-					<MobileRenderer
-						document={adf}
-						cardClient={createCardClient()}
-						emojiProvider={createEmojiProvider(fetchProxy)}
-						mediaProvider={createMediaProvider()}
-						mentionProvider={createMentionProvider()}
-						allowAnnotations={allowAnnotations}
-						intl={intlMock}
-						rendererBridge={rendererBridge}
-					/>,
+					<IntlProvider locale="en">
+						<MobileRenderer
+							document={adf}
+							cardClient={createCardClient()}
+							emojiProvider={createEmojiProvider(fetchProxy)}
+							mediaProvider={createMediaProvider()}
+							mentionProvider={createMentionProvider()}
+							allowAnnotations={allowAnnotations}
+							intl={intlMock}
+							rendererBridge={rendererBridge}
+						/>
+						,
+					</IntlProvider>,
 				);
 				jest.runAllTimers();
 			});
 		} else {
 			act(() => {
 				render(
-					<MobileRenderer
-						document={adf}
-						cardClient={createCardClient()}
-						emojiProvider={createEmojiProvider(fetchProxy)}
-						mediaProvider={createMediaProvider()}
-						mentionProvider={createMentionProvider()}
-						allowAnnotations={allowAnnotations}
-						intl={intlMock}
-						rendererBridge={rendererBridge}
-					/>,
+					<IntlProvider locale="en">
+						<MobileRenderer
+							document={adf}
+							cardClient={createCardClient()}
+							emojiProvider={createEmojiProvider(fetchProxy)}
+							mediaProvider={createMediaProvider()}
+							mentionProvider={createMentionProvider()}
+							allowAnnotations={allowAnnotations}
+							intl={intlMock}
+							rendererBridge={rendererBridge}
+						/>
+					</IntlProvider>,
 					container,
 				);
 				jest.runAllTimers();

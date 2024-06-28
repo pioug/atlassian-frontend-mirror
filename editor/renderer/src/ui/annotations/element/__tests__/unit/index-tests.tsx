@@ -1,4 +1,5 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { MarkElement } from '../../';
@@ -26,14 +27,17 @@ describe('Annotations/Mark', () => {
 			HooksMock.useInlineCommentSubscriberContext.mockReturnValue(updateSubscriberFake);
 
 			const testRenderer = TestRenderer.create(
-				<MarkElement
-					id={fakeId}
-					dataAttributes={fakeDataAttributes}
-					annotationType={AnnotationTypes.INLINE_COMMENT}
-					annotationParentIds={annotationParentIds}
-				>
-					<small>some</small>
-				</MarkElement>,
+				<IntlProvider locale="en">
+					<MarkElement
+						id={fakeId}
+						dataAttributes={fakeDataAttributes}
+						annotationType={AnnotationTypes.INLINE_COMMENT}
+						annotationParentIds={annotationParentIds}
+					>
+						<small>some</small>
+					</MarkElement>
+					,
+				</IntlProvider>,
 			);
 			const testInstance = testRenderer.root;
 			const markComponent = testInstance.findByType(MarkComponent);

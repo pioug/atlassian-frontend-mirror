@@ -68,7 +68,7 @@ export const GlobalStylesWrapper = () => {
 				globalStyles,
 				getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') &&
 					extendedHoverZone,
-				getBooleanFF('platform.editor.elements.drag-and-drop-ED-23868')
+				getBooleanFF('platform.editor.elements.drag-and-drop-ed-23868')
 					? withInlineNodeStyleFix
 					: withoutInlineNodeStyleFix,
 			]}

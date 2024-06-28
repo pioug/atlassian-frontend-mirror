@@ -1,4 +1,7 @@
-import { type RuleConfig } from './types';
+type RuleConfig = {
+	failSilently?: boolean;
+	shouldEnforceFallbacks?: boolean;
+};
 
 /**
  * ESLint rules should NEVER throw exceptions, because that breaks the VSCode ESLint server

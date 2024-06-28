@@ -57,9 +57,6 @@
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../linking-platform/link-datasource/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../../media/media-card/afm-jira/tsconfig.json"
     },
     {

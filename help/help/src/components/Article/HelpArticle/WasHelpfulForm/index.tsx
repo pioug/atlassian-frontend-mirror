@@ -297,7 +297,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 					>
 						<CheckCircleIcon primaryColor={token('color.icon.success', colors.G400)} label="" />
 					</span>
-					<ArticleFeedbackText>
+					<ArticleFeedbackText role="alert" aria-live="polite">
 						{formatMessage(messages.help_article_rating_form_Success)}
 					</ArticleFeedbackText>
 				</ArticleFeedbackContainer>

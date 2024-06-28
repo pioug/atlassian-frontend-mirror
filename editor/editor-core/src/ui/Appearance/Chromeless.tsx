@@ -9,13 +9,13 @@ import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
 } from '@atlaskit/editor-plugins/max-content-size';
+import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { token } from '@atlaskit/tokens';
 
 import { usePresetContext } from '../../presets/context';
 import type { EditorAppearance, EditorAppearanceComponentProps } from '../../types';
 import { createEditorContentStyle } from '../ContentStyles';
 import PluginSlot from '../PluginSlot';
-import { scrollbarStyles } from '../styles';
 import WithFlash from '../WithFlash';
 
 const chromelessEditorStyles = css(

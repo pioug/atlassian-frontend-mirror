@@ -86,17 +86,13 @@ function insertNodesWithOptionalParagraph(
 			openEnd = 1;
 		}
 
-		if (getBooleanFF('platform.editor.allow-extended-panel')) {
-			if (state.selection.empty) {
-				tr.insert(state.selection.from, nodes);
-				// Set the cursor position at the end of the insertion
-				const endPos =
-					state.selection.from +
-					nodes.reduce((totalSize, currNode) => totalSize + currNode.nodeSize, 0);
-				tr.setSelection(new TextSelection(tr.doc.resolve(endPos), tr.doc.resolve(endPos)));
-			} else {
-				tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
-			}
+		if (state.selection.empty) {
+			tr.insert(state.selection.from, nodes);
+			// Set the cursor position at the end of the insertion
+			const endPos =
+				state.selection.from +
+				nodes.reduce((totalSize, currNode) => totalSize + currNode.nodeSize, 0);
+			tr.setSelection(new TextSelection(tr.doc.resolve(endPos), tr.doc.resolve(endPos)));
 		} else {
 			tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
 		}

@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.12.0
+
+### Minor Changes
+
+- [#113876](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113876)
+  [`265f6093bd22b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/265f6093bd22b) -
+  EDM-10049: add resolve ari batch endpoint to card client
+
 ## 1.11.0
 
 ### Minor Changes

@@ -8,18 +8,14 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { usePortalProvider } from '@atlaskit/editor-common/portal';
-import {
-	type LegacyPortalProviderAPI,
-	PortalProviderWithThemeProviders,
-	PortalRenderer,
-} from '@atlaskit/editor-common/portal-provider';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/preset';
+import type {
+	AllEditorPresetPluginTypes,
+	EditorPresetBuilder,
+} from '@atlaskit/editor-common/preset';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
-import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
+import { BaseTheme, IntlProviderIfMissingWrapper, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import { getUiComponent } from '../create-editor';
@@ -92,7 +88,7 @@ export const EditorInternal = memo(
 		const renderTracking = props.performanceTracking?.renderTracking?.editor;
 		const renderTrackingEnabled = renderTracking?.enabled;
 		const useShallow = renderTracking?.useShallow;
-		const [nextPortalProviderAPI, NextPortalRenderer] = usePortalProvider();
+		const [portalProviderAPI, PortalRenderer] = usePortalProvider();
 
 		// ED-16320: Check for explicit disable so that by default
 		// it will still be enabled as it currently is. Then we can
@@ -122,82 +118,70 @@ export const EditorInternal = memo(
 					<WidthProvider css={css({ height: '100%' })}>
 						<EditorContext editorActions={editorActions}>
 							<ContextAdapter>
-								<PortalProviderWithThemeProviders
-									onAnalyticsEvent={handleAnalyticsEvent}
-									useAnalyticsContext={props.UNSAFE_useAnalyticsContext}
-									render={(legacyPortalProviderAPI: LegacyPortalProviderAPI) => (
-										<Fragment>
-											<ReactEditorViewContextWrapper
-												editorProps={overriddenEditorProps}
-												createAnalyticsEvent={createAnalyticsEvent}
-												portalProviderAPI={
-													getBooleanFF('platform.editor.react-18-portal')
-														? nextPortalProviderAPI
-														: legacyPortalProviderAPI
-												}
-												providerFactory={providerFactory}
-												onEditorCreated={onEditorCreated}
-												onEditorDestroyed={onEditorDestroyed}
-												disabled={props.disabled}
-												preset={preset}
-												setEditorApi={setEditorApi}
-												render={({
-													editor,
-													view,
-													eventDispatcher,
-													config,
-													dispatchAnalyticsEvent,
-													editorRef,
-												}) => (
-													<BaseTheme baseFontSize={getBaseFontSize(props.appearance)}>
-														<Component
-															innerRef={editorRef}
-															appearance={props.appearance!}
-															disabled={props.disabled}
-															editorActions={editorActions}
-															editorDOMElement={editor}
-															editorView={view}
-															providerFactory={providerFactory}
-															eventDispatcher={eventDispatcher}
-															dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-															maxHeight={props.maxHeight}
-															minHeight={props.minHeight}
-															onSave={props.onSave ? handleSave : undefined}
-															onCancel={props.onCancel}
-															popupsMountPoint={props.popupsMountPoint}
-															popupsBoundariesElement={props.popupsBoundariesElement}
-															popupsScrollableElement={props.popupsScrollableElement}
-															contentComponents={config.contentComponents}
-															primaryToolbarComponents={config.primaryToolbarComponents}
-															primaryToolbarIconBefore={props.primaryToolbarIconBefore}
-															secondaryToolbarComponents={config.secondaryToolbarComponents}
-															customContentComponents={props.contentComponents}
-															customPrimaryToolbarComponents={props.primaryToolbarComponents}
-															customSecondaryToolbarComponents={props.secondaryToolbarComponents}
-															contextPanel={props.contextPanel}
-															collabEdit={props.collabEdit}
-															persistScrollGutter={props.persistScrollGutter}
-															enableToolbarMinWidth={
-																props.featureFlags?.toolbarMinWidthOverflow != null
-																	? !!props.featureFlags?.toolbarMinWidthOverflow
-																	: props.allowUndoRedoButtons
-															}
-															useStickyToolbar={props.useStickyToolbar}
-															featureFlags={featureFlags}
-															pluginHooks={config.pluginHooks}
-															hideAvatarGroup={props.hideAvatarGroup}
-														/>
-													</BaseTheme>
-												)}
-											/>
-											{getBooleanFF('platform.editor.react-18-portal') ? (
-												<NextPortalRenderer />
-											) : (
-												<PortalRenderer portalProviderAPI={legacyPortalProviderAPI} />
+								<IntlProviderIfMissingWrapper>
+									<Fragment>
+										<ReactEditorViewContextWrapper
+											editorProps={overriddenEditorProps}
+											createAnalyticsEvent={createAnalyticsEvent}
+											portalProviderAPI={portalProviderAPI}
+											providerFactory={providerFactory}
+											onEditorCreated={onEditorCreated}
+											onEditorDestroyed={onEditorDestroyed}
+											disabled={props.disabled}
+											preset={preset}
+											setEditorApi={setEditorApi}
+											render={({
+												editor,
+												view,
+												eventDispatcher,
+												config,
+												dispatchAnalyticsEvent,
+												editorRef,
+											}) => (
+												<BaseTheme baseFontSize={getBaseFontSize(props.appearance)}>
+													<Component
+														innerRef={editorRef}
+														appearance={props.appearance!}
+														disabled={props.disabled}
+														editorActions={editorActions}
+														editorDOMElement={editor}
+														editorView={view}
+														providerFactory={providerFactory}
+														eventDispatcher={eventDispatcher}
+														dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+														maxHeight={props.maxHeight}
+														minHeight={props.minHeight}
+														onSave={props.onSave ? handleSave : undefined}
+														onCancel={props.onCancel}
+														popupsMountPoint={props.popupsMountPoint}
+														popupsBoundariesElement={props.popupsBoundariesElement}
+														popupsScrollableElement={props.popupsScrollableElement}
+														contentComponents={config.contentComponents}
+														primaryToolbarComponents={config.primaryToolbarComponents}
+														primaryToolbarIconBefore={props.primaryToolbarIconBefore}
+														secondaryToolbarComponents={config.secondaryToolbarComponents}
+														customContentComponents={props.contentComponents}
+														customPrimaryToolbarComponents={props.primaryToolbarComponents}
+														customSecondaryToolbarComponents={props.secondaryToolbarComponents}
+														contextPanel={props.contextPanel}
+														collabEdit={props.collabEdit}
+														persistScrollGutter={props.persistScrollGutter}
+														enableToolbarMinWidth={
+															props.featureFlags?.toolbarMinWidthOverflow != null
+																? !!props.featureFlags?.toolbarMinWidthOverflow
+																: props.allowUndoRedoButtons
+														}
+														useStickyToolbar={props.useStickyToolbar}
+														featureFlags={featureFlags}
+														pluginHooks={config.pluginHooks}
+														hideAvatarGroup={props.hideAvatarGroup}
+													/>
+												</BaseTheme>
 											)}
-										</Fragment>
-									)}
-								/>
+										/>
+										<PortalRenderer />
+									</Fragment>
+								</IntlProviderIfMissingWrapper>
 							</ContextAdapter>
 						</EditorContext>
 					</WidthProvider>

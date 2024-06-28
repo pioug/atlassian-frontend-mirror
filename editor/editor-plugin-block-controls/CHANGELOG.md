@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.3
+
+### Patch Changes
+
+- [#115969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115969)
+  [`915746a1da4f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/915746a1da4f7) -
+  do not show mouse move wrapper for wrapping nodes
+
+## 1.5.2
+
+### Patch Changes
+
+- [#115190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115190)
+  [`6f60bbf5f97a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f60bbf5f97a7) -
+  Update ff case
+
 ## 1.5.1
 
 ### Patch Changes

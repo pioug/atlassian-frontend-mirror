@@ -12,11 +12,11 @@ import {
 	akLayoutGutterOffset,
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
+import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { createEditorContentStyle } from '../../ContentStyles';
-import { scrollbarStyles } from '../../styles';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;

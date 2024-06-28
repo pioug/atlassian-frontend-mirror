@@ -139,7 +139,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 							const { editorView, sel } = editor(doc(panel()(p('onetwo'), p('{<>}three'))));
 							insertText(editorView, '---', sel);
 							expect(editorView.state).toEqualDocumentAndSelection(
-								doc(panel()(p('onetwo')), hr(), '{<|gap>}', panel()(p('three'))),
+								doc(panel()(p('onetwo'), hr(), '{<|gap>}', p('three'))),
 							);
 						});
 
@@ -147,7 +147,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 							const { editorView, sel } = editor(doc(panel()(p('onetwo'), p('three'), p('{<>}'))));
 							insertText(editorView, '---', sel);
 							expect(editorView.state).toEqualDocumentAndSelection(
-								doc(panel()(p('onetwo'), p('three'), p()), hr()),
+								doc(panel()(p('onetwo'), p('three'), hr())),
 							);
 						});
 					});
@@ -188,7 +188,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 							const editorInstance = editor(doc(panel()(p('one{<>} two'), p('three'))));
 							insertFromToolbar(editorInstance);
 							expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-								doc(panel()(p('one two'), p('three')), hr()),
+								doc(panel()(p('one'), hr(), p(' two'), p('three'))),
 							);
 						});
 
@@ -196,11 +196,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 							const editorInstance = editor(doc(panel()(ul(li(code_block()('one{<>} two'))))));
 							insertFromToolbar(editorInstance);
 							expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-								doc(
-									panel()(ul(li(code_block()('one')))),
-									hr(),
-									panel()(ul(li(code_block()('{<>} two')))),
-								),
+								doc(panel()(ul(li(code_block()('one'))), hr(), ul(li(code_block()('{<>} two'))))),
 							);
 						});
 
@@ -238,7 +234,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 								const editorInstance = editor(doc(panel()(p('one {<>} two'), p('three'))));
 								await insertFromQuickInsert(editorInstance);
 								expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-									doc(panel()(p('one  two'), p('three')), hr()),
+									doc(panel()(p('one  two'), hr(), p('three'))),
 								);
 							});
 
@@ -315,7 +311,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 									const editorInstance = editor(doc(panel()(p('{<>}'), p('onetwo'), p('three'))));
 									await insertAction(editorInstance);
 									expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-										doc(hr(), '{<|gap>}', panel()(p(''), p('onetwo'), p('three'))),
+										doc(panel()(hr(), '{<|gap>}', p('onetwo'), p('three'))),
 									);
 								});
 
@@ -323,7 +319,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 									const editorInstance = editor(doc(panel()(p('onetwo {<>}'), p('three'))));
 									await insertAction(editorInstance);
 									expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-										doc(panel()(p('onetwo ')), hr(), '{<|gap>}', panel()(p('three'))),
+										doc(panel()(p('onetwo '), hr(), '{<|gap>}', p('three'))),
 									);
 								});
 
@@ -331,7 +327,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 									const editorInstance = editor(doc(panel()(p('onetwo'), p('{<>}three'))));
 									await insertAction(editorInstance);
 									expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-										doc(panel()(p('onetwo')), hr(), '{<|gap>}', panel()(p('three'))),
+										doc(panel()(p('onetwo'), hr(), '{<|gap>}', p('three'))),
 									);
 								});
 
@@ -347,7 +343,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 									const editorInstance = editor(doc(panel()(p('{<>}'))));
 									await insertAction(editorInstance);
 									expect(editorInstance.editorView.state).toEqualDocumentAndSelection(
-										doc(panel()(p('')), hr(), '{<|gap>}'),
+										doc(panel()(hr(), '{<|gap>}')),
 									);
 								});
 							});

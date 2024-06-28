@@ -16,6 +16,7 @@ export type {
 export { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from './ui/jira-issues-modal';
 export { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from './ui/assets-modal';
 export { CONFLUENCE_SEARCH_DATASOURCE_ID } from './ui/confluence-search-modal';
+export type { ConfigModalProps } from './common/types';
 export type {
 	DatasourceAdf,
 	DatasourceAdfView,

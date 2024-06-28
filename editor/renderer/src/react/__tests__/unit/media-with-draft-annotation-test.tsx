@@ -10,15 +10,7 @@ import {
 } from '@atlaskit/adf-schema';
 import { InlineCommentsStateContext } from '../../../ui/annotations/context';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
-
-jest.mock('react-intl-next', () => ({
-	injectIntl: jest
-		.fn()
-		.mockImplementation((Component) => (props: JSX.IntrinsicAttributes) => (
-			<Component {...props} />
-		)),
-	defineMessages: jest.fn(),
-}));
+import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/editor-common/media-single', () => ({
 	CommentBadge: () => <span data-testid="comment-badge">Comment Component</span>,
@@ -92,17 +84,20 @@ describe('MediaWithDraftAnnotation', () => {
 
 	it('should show CommentBadge when commentsOnMedia flag is true', () => {
 		const { queryByTestId } = render(
-			<InlineCommentsStateContext.Provider value={nextState}>
-				<MediaWithDraftAnnotation
-					{...createMockProps({
-						commentsOnMedia: true,
-						commentsOnMediaIncludePage: false,
-						commentsOnMediaInsertExcerpt: false,
-						includeNodeType: false,
-						excerptIncludeClass: false,
-					})}
-				/>
-			</InlineCommentsStateContext.Provider>,
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							commentsOnMedia: true,
+							commentsOnMediaIncludePage: false,
+							commentsOnMediaInsertExcerpt: false,
+							includeNodeType: false,
+							excerptIncludeClass: false,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
 		);
 
 		const commentBadge = queryByTestId('comment-badge');
@@ -111,17 +106,20 @@ describe('MediaWithDraftAnnotation', () => {
 
 	it('should not show CommentBadge when commentsOnMedia flag is false', () => {
 		const { queryByTestId } = render(
-			<InlineCommentsStateContext.Provider value={nextState}>
-				<MediaWithDraftAnnotation
-					{...createMockProps({
-						commentsOnMedia: false,
-						commentsOnMediaIncludePage: false,
-						commentsOnMediaInsertExcerpt: false,
-						includeNodeType: false,
-						excerptIncludeClass: false,
-					})}
-				/>
-			</InlineCommentsStateContext.Provider>,
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							commentsOnMedia: false,
+							commentsOnMediaIncludePage: false,
+							commentsOnMediaInsertExcerpt: false,
+							includeNodeType: false,
+							excerptIncludeClass: false,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
 		);
 
 		const commentBadge = queryByTestId('comment-badge');
@@ -130,17 +128,20 @@ describe('MediaWithDraftAnnotation', () => {
 
 	it('should show CommentBadge when commentsOnMediaIncludePage is false and closest nodeType is include', () => {
 		const { queryByTestId } = render(
-			<InlineCommentsStateContext.Provider value={nextState}>
-				<MediaWithDraftAnnotation
-					{...createMockProps({
-						commentsOnMedia: true,
-						commentsOnMediaIncludePage: false,
-						commentsOnMediaInsertExcerpt: false,
-						includeNodeType: true,
-						excerptIncludeClass: false,
-					})}
-				/>
-			</InlineCommentsStateContext.Provider>,
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							commentsOnMedia: true,
+							commentsOnMediaIncludePage: false,
+							commentsOnMediaInsertExcerpt: false,
+							includeNodeType: true,
+							excerptIncludeClass: false,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
 		);
 
 		const commentBadge = queryByTestId('comment-badge');
@@ -149,17 +150,20 @@ describe('MediaWithDraftAnnotation', () => {
 
 	it('should not show CommentBadge when commentsOnMediaIncludePage is true and closest nodeType is include', () => {
 		const { queryByTestId } = render(
-			<InlineCommentsStateContext.Provider value={nextState}>
-				<MediaWithDraftAnnotation
-					{...createMockProps({
-						commentsOnMedia: true,
-						commentsOnMediaIncludePage: true,
-						commentsOnMediaInsertExcerpt: false,
-						includeNodeType: true,
-						excerptIncludeClass: false,
-					})}
-				/>
-			</InlineCommentsStateContext.Provider>,
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							commentsOnMedia: true,
+							commentsOnMediaIncludePage: true,
+							commentsOnMediaInsertExcerpt: false,
+							includeNodeType: true,
+							excerptIncludeClass: false,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
 		);
 
 		const commentBadge = queryByTestId('comment-badge');
@@ -168,17 +172,20 @@ describe('MediaWithDraftAnnotation', () => {
 
 	it('should show CommentBadge when commentsOnMediaInsertExcerpt is false and closest className is ak-excerpt-include', () => {
 		const { queryByTestId } = render(
-			<InlineCommentsStateContext.Provider value={nextState}>
-				<MediaWithDraftAnnotation
-					{...createMockProps({
-						commentsOnMedia: true,
-						commentsOnMediaIncludePage: false,
-						commentsOnMediaInsertExcerpt: false,
-						includeNodeType: false,
-						excerptIncludeClass: true,
-					})}
-				/>
-			</InlineCommentsStateContext.Provider>,
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							commentsOnMedia: true,
+							commentsOnMediaIncludePage: false,
+							commentsOnMediaInsertExcerpt: false,
+							includeNodeType: false,
+							excerptIncludeClass: true,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
 		);
 
 		const commentBadge = queryByTestId('comment-badge');
@@ -187,17 +194,20 @@ describe('MediaWithDraftAnnotation', () => {
 
 	it('should not show CommentBadge when commentsOnMediaInsertExcerpt is true and closest className is ak-excerpt-include', () => {
 		const { queryByTestId } = render(
-			<InlineCommentsStateContext.Provider value={nextState}>
-				<MediaWithDraftAnnotation
-					{...createMockProps({
-						commentsOnMedia: true,
-						commentsOnMediaIncludePage: false,
-						commentsOnMediaInsertExcerpt: true,
-						includeNodeType: false,
-						excerptIncludeClass: true,
-					})}
-				/>
-			</InlineCommentsStateContext.Provider>,
+			<IntlProvider locale="en">
+				<InlineCommentsStateContext.Provider value={nextState}>
+					<MediaWithDraftAnnotation
+						{...createMockProps({
+							commentsOnMedia: true,
+							commentsOnMediaIncludePage: false,
+							commentsOnMediaInsertExcerpt: true,
+							includeNodeType: false,
+							excerptIncludeClass: true,
+						})}
+					/>
+				</InlineCommentsStateContext.Provider>
+				,
+			</IntlProvider>,
 		);
 
 		const commentBadge = queryByTestId('comment-badge');

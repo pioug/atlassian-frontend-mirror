@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getIndexMatch } from './matches-utils';
 import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
@@ -214,12 +215,32 @@ export default class RendererActions
 			return false;
 		}
 
+		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			if (this.isRendererWithinRange(range)) {
+				return false;
+			}
+		}
+
 		const pos = getPosFromRange(range);
 		if (!pos || !this.doc) {
 			return false;
 		}
 
 		return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
+	}
+
+	isRendererWithinRange(range: Range): boolean {
+		const { startContainer, endContainer } = range;
+
+		if (
+			(startContainer.parentElement &&
+				startContainer.parentElement.closest('.ak-renderer-extension')) ||
+			(endContainer.parentElement && endContainer.parentElement.closest('.ak-renderer-extension'))
+		) {
+			return true;
+		}
+
+		return false;
 	}
 
 	isValidAnnotationPosition(pos: Position) {

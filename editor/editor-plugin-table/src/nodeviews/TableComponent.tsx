@@ -10,6 +10,7 @@ import { injectIntl } from 'react-intl-next';
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getParentNodeWidth, getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
@@ -966,17 +967,23 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 			// If column has been inserted/deleted avoid multi dispatch
 			if (shouldScaleTable) {
-				this.scaleTable({
-					parentWidth,
-				});
+				this.scaleTable(
+					{
+						parentWidth,
+					},
+					hasNumberedColumnChanged,
+				);
 			}
 
 			// only when table resizing is enabled and toggle numbered column to run scaleTable
 			if (options?.isTableResizingEnabled && hasNumberedColumnChanged) {
 				if (!hasTableBeenResized(prevNode)) {
-					this.scaleTable({
-						parentWidth: node.attrs.width,
-					});
+					this.scaleTable(
+						{
+							parentWidth: node.attrs.width,
+						},
+						true,
+					);
 				}
 			}
 
@@ -989,7 +996,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	// Function gets called when table is nested.
-	private scaleTable = (scaleOptions: { parentWidth?: number }) => {
+	private scaleTable = (scaleOptions: { parentWidth?: number }, isUserTriggered = false) => {
 		const { view, getNode, getPos, containerWidth, options } = this.props;
 		const node = getNode();
 		const { state, dispatch } = view;
@@ -1018,6 +1025,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			false, // isTableScalingEnabled doesn't change the behavior of nested tables
 			false, // shouldUseIncreasedScalingPercent set to false for nested tables
 		)(state.tr);
+
+		if (!isUserTriggered) {
+			tintDirtyTransaction(tr);
+		}
 
 		dispatch(tr);
 	};

@@ -15,9 +15,11 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { FeedbackInfo, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { FeedbackInfo, OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
 import type { FeedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
@@ -27,9 +29,6 @@ import { createDispatch } from '../../event-dispatcher';
 import { usePresetContext } from '../../presets/context';
 import deprecationWarnings from '../../utils/deprecation-warnings';
 import type { DeprecationWarning } from '../../utils/deprecation-warnings';
-import ToolbarButton from '../ToolbarButton';
-import type { ToolbarButtonRef } from '../ToolbarButton';
-import withOuterListeners from '../with-outer-listeners';
 
 import {
 	buttonContent,

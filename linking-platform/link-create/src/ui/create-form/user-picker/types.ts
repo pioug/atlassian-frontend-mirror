@@ -21,7 +21,7 @@ export type UserPickerProps = {
 
 	testId?: string;
 
-	defaultValue: User;
+	defaultValue: User | undefined;
 };
 
 type User = {

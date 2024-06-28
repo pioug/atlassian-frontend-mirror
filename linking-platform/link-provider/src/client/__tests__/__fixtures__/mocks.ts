@@ -36,6 +36,7 @@ export const mocks = {
 				href: 'https://www.ilovecheese.com',
 			},
 			url: 'https://some.url',
+			'atlassian:ari': 'ari:cloud:confluence:test:page:1234',
 		},
 	} as JsonLd.Response,
 	searchSuccess: {
@@ -94,6 +95,7 @@ export const mocks = {
 			'@type': 'Object',
 			name: 'I love cheese',
 			url: 'https://some.url',
+			'atlassian:ari': 'ari:cloud:confluence:test:page:1234',
 		},
 	} as JsonLd.Response,
 	forbidden: {
@@ -144,6 +146,7 @@ export const mocks = {
 			'@type': 'Object',
 			name: 'I love cheese',
 			url: 'https://some.url',
+			'atlassian:ari': 'ari:cloud:confluence:test:page:1234',
 		},
 	} as JsonLd.Response,
 	notSupported: {

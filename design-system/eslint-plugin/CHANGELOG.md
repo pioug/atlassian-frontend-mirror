@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.8.2
+
+### Patch Changes
+
+- [#115815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115815)
+  [`0368d6009fc75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0368d6009fc75) -
+  Adds better suggestions to the no-legacy-icons lint rule to detect manual and automatic migration
+  opportunities.
+
 ## 10.8.1
 
 ### Patch Changes

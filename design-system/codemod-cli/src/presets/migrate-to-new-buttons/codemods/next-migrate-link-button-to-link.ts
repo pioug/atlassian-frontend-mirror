@@ -1,16 +1,11 @@
-import {
-	type JSXAttribute,
-	type API,
-	type FileInfo,
-	type JSXOpeningElement,
-	type JSXSpreadAttribute,
-	type ASTPath,
-	type ImportDeclaration,
-} from 'jscodeshift';
+import { type API, type FileInfo, type ASTPath, type ImportDeclaration } from 'jscodeshift';
 import { getImportDeclaration } from '@hypermod/utils';
 
 import { PRINT_SETTINGS, NEW_BUTTON_ENTRY_POINT, NEW_BUTTON_VARIANTS } from '../utils/constants';
 import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-value-from-link-button-to-link-children';
+import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
+import { modifyLinkAttributes } from '../utils/generate-link-element';
+
 export default function (file: FileInfo, api: API) {
 	const j = api.jscodeshift;
 	const source = j(file.source);
@@ -47,25 +42,6 @@ export default function (file: FileInfo, api: API) {
 		return source.toSource();
 	}
 
-	const findJSXAttributeWithValue = (
-		path: JSXOpeningElement | JSXSpreadAttribute | undefined,
-		attributeName: string,
-		attributeValue: string,
-	) => {
-		if (!path || path.type === 'JSXSpreadAttribute') {
-			return false;
-		}
-		const attribute = path?.attributes?.find(
-			(attribute: JSXAttribute | JSXSpreadAttribute) =>
-				attribute.type === 'JSXAttribute' &&
-				attribute.name.name === attributeName &&
-				attribute.value?.type === 'StringLiteral' &&
-				attribute.value.value === attributeValue,
-		);
-
-		return Boolean(attribute);
-	};
-
 	let hasLink = false;
 	const allLinkButtons = source
 		.find(j.JSXElement)
@@ -100,53 +76,9 @@ export default function (file: FileInfo, api: API) {
 			}
 
 			if (hasSpacingNone) {
-				j(path)
-					.find(j.JSXAttribute)
-					.filter(
-						(path) =>
-							(path.node.name.name === 'appearance' &&
-								path.node.value?.type === 'StringLiteral' &&
-								path.node.value.value === 'link') ||
-							(path.node.name.name === 'spacing' &&
-								path.node.value?.type === 'StringLiteral' &&
-								path.node.value.value === 'none'),
-					)
-					.remove();
-				j(path)
-					.find(j.JSXAttribute)
-					.filter(
-						(path) =>
-							path.node.name.name === 'appearance' &&
-							path.node.value?.type === 'StringLiteral' &&
-							path.node.value.value === 'subtle-link',
-					)
-					.replaceWith(j.jsxAttribute(j.jsxIdentifier('appearance'), j.stringLiteral('subtle')));
+				const { attributes } = path.node.openingElement;
 
-				j(path)
-					.find(j.JSXOpeningElement)
-					.filter(
-						(path) =>
-							path.node.name.type === 'JSXIdentifier' &&
-							path.node.name.name === linkButtonSpecifier,
-					)
-					.forEach((path) => {
-						hasLink = true;
-						if (path.node.name.type === 'JSXIdentifier') {
-							path.node.name.name = 'Link';
-						}
-					});
-				j(path)
-					.find(j.JSXClosingElement)
-					.filter(
-						(path) =>
-							path.node.name.type === 'JSXIdentifier' &&
-							path.node.name.name === linkButtonSpecifier,
-					)
-					.forEach((path) => {
-						if (path.node.name.type === 'JSXIdentifier') {
-							path.node.name.name = 'Link';
-						}
-					});
+				modifyLinkAttributes(path.node, j);
 
 				j(path)
 					.find(j.JSXAttribute)
@@ -164,6 +96,14 @@ export default function (file: FileInfo, api: API) {
 						return isIconAttribute;
 					})
 					.remove();
+				hasLink = true;
+				j(path).replaceWith(
+					j.jsxElement.from({
+						openingElement: j.jsxOpeningElement(j.jsxIdentifier('Link'), attributes, false),
+						closingElement: j.jsxClosingElement(j.jsxIdentifier('Link')),
+						children: path.node.children,
+					}),
+				);
 			}
 		});
 

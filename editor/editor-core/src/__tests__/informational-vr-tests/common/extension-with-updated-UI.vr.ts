@@ -32,9 +32,6 @@ snapshotInformational(BlockExtension, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(BlockExtension, {
@@ -50,9 +47,6 @@ snapshotInformational(BlockExtension, {
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(BlockExtension, {
@@ -64,9 +58,6 @@ snapshotInformational(BlockExtension, {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.hover();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -81,9 +72,6 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		await nodes.extension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -100,9 +88,6 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		await toolbarModel.waitForStable();
 		await toolbarModel.fullWidth();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(InlineExtension, {
@@ -116,9 +101,6 @@ snapshotInformational(InlineExtension, {
 		await nodes.inlineExtension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -135,9 +117,6 @@ snapshotInformational(InlineExtension, {
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(InlineExtension, {
@@ -149,9 +128,6 @@ snapshotInformational(InlineExtension, {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.hover();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -167,9 +143,6 @@ snapshotInformational(InlineExtensionWithSmartLink, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(InlineExtensionCenterAligned, {
@@ -183,9 +156,6 @@ snapshotInformational(InlineExtensionCenterAligned, {
 		await nodes.inlineExtension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -201,9 +171,6 @@ snapshotInformational(InlineExtensionRightAligned, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(BodiedExtension, {
@@ -217,9 +184,6 @@ snapshotInformational(BodiedExtension, {
 		await nodes.bodiedExtension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -236,9 +200,6 @@ snapshotInformational(BodiedExtension, {
 		await toolbarModel.waitForStable();
 		await toolbarModel.removeButton.hover();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(BodiedExtension, {
@@ -250,9 +211,6 @@ snapshotInformational(BodiedExtension, {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.hover();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -267,9 +225,6 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		await nodes.bodiedExtension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });
 
@@ -286,9 +241,6 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		await toolbarModel.waitForStable();
 		await toolbarModel.fullWidth();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(BodiedExtensionWithLayout, {
@@ -303,9 +255,6 @@ snapshotInformational(BodiedExtensionWithLayout, {
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
 	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
-	},
 });
 
 snapshotInformational(BlockExtensionWithLayout, {
@@ -319,8 +268,5 @@ snapshotInformational(BlockExtensionWithLayout, {
 		await nodes.extension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-	},
-	featureFlags: {
-		'platform.editor.react-18-portal': true,
 	},
 });

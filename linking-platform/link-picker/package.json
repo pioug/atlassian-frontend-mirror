@@ -95,7 +95,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/dropdown-menu": "^12.13.0",
-		"@atlaskit/link-provider": "^1.11.0",
+		"@atlaskit/link-provider": "^1.12.0",
 		"@atlaskit/link-test-helpers": "^7.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

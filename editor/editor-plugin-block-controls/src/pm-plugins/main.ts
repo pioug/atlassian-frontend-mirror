@@ -346,7 +346,19 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					// so we only need to check first child
 					const draggable = dragging?.slice.content.firstChild;
 					const activeNode = state.tr.doc.nodeAt(pluginState.activeNode.pos);
-					if (draggable === activeNode) {
+
+					let isSameNode = draggable === activeNode;
+					if (getBooleanFF('platform.editor.elements.drag-and-drop-ed-23892')) {
+						const nodeElement = event.target?.closest('[data-drag-handler-anchor-name]');
+						if (!nodeElement) {
+							return false;
+						}
+						const nodeTarget = state.doc.nodeAt(view.posAtDOM(nodeElement, 0) - 1);
+
+						isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
+					}
+
+					if (isSameNode) {
 						// Prevent the default drop behavior if the position is within the activeNode
 						event.preventDefault();
 						return true;

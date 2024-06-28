@@ -56,6 +56,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		const actions = {
 			doc: actionsDoc,
 			isValidAnnotationPosition: jest.fn(() => true),
+			isValidAnnotationRange: jest.fn(() => true),
 			getAnnotationsByPosition: jest.fn(() => []),
 		} as RendererActions;
 

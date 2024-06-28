@@ -146,8 +146,7 @@ test.describe('List inside a blockquote', () => {
 			});
 
 			await editor.keyboard.press('Backspace');
-
-			await expect(editor).toMatchDocument(doc(blockquote(ol()(li(p(''))))));
+			await expect(editor).toMatchDocument(doc(blockquote(ol()(li(p(''), p())))));
 		});
 	});
 });

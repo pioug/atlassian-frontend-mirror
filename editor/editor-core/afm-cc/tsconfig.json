@@ -35,9 +35,6 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugins/afm-cc/tsconfig.json"
         },
         {

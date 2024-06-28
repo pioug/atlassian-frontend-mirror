@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.2
+
+### Patch Changes
+
+- [#115086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115086)
+  [`e22c1261d6b17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e22c1261d6b17) -
+  Add a tint to table transactions that are not created by users to avoid issues for view only live
+  pages
+- Updated dependencies
+
 ## 7.19.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 2.5.1
+
+### Patch Changes
+
+- [#114993](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114993)
+  [`06ddfaec64a7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06ddfaec64a7d) -
+  Fix import - export ConfigModalProps between link-datasource and editor-plugin-card
+
 ## 2.5.0
 
 ### Minor Changes

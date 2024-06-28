@@ -59,6 +59,7 @@ async function mockRequestFn(_method: string, _url: string, data?: any) {
 }
 
 const expectedDefaultResolveBatchUrl = '/gateway/api/object-resolver/resolve/batch';
+const expectedDefaultResolveAriBatchUrl = '/gateway/api/object-resolver/resolve/ari/batch';
 
 beforeEach(() => {
 	mockRequest = jest.fn();
@@ -850,6 +851,137 @@ describe('Smart Card: Client', () => {
 			for (let i = 1; i <= 3; i++) {
 				expect(mockRequest).toHaveBeenNthCalledWith(i, ...expectedRequestParams);
 			}
+		});
+	});
+
+	describe('fetchDataAris', () => {
+		it('successfully makes request to batch ari endpoint with success resolves', async () => {
+			mockRequest.mockImplementationOnce(async () => [
+				successfulResponse,
+				successfulResponse,
+				successfulResponse,
+			]);
+			const client = new SmartCardClient();
+			const responses = await client.fetchDataAris([
+				`ari:cloud:confluence:abcd:page:1234`,
+				`ari:cloud:confluence:abcd:blogpost:5678`,
+				`ari:cloud:confluence:abcd:comment:9012`,
+			]);
+			expect(mockRequest).toBeCalledTimes(1);
+			expect(mockRequest).toBeCalledWith(
+				'post',
+				expectedDefaultResolveAriBatchUrl,
+				[
+					{
+						ari: `ari:cloud:confluence:abcd:page:1234`,
+					},
+					{
+						ari: `ari:cloud:confluence:abcd:blogpost:5678`,
+					},
+					{
+						ari: `ari:cloud:confluence:abcd:comment:9012`,
+					},
+				],
+				{},
+			);
+
+			expect(responses).toEqual([successfulResponse, successfulResponse, successfulResponse]);
+		});
+
+		it('successfully makes request to batch ari endpoint even with fail resolves', async () => {
+			mockRequest.mockImplementationOnce(async () => [
+				notFoundResponse,
+				unauthorizedResponse,
+				errorResponse,
+			]);
+			const client = new SmartCardClient();
+			const responses = await client.fetchDataAris([
+				`ari:cloud:confluence:abcd:page:1234`,
+				`ari:cloud:confluence:abcd:blogpost:5678`,
+				`ari:cloud:confluence:abcd:comment:9012`,
+			]);
+			expect(mockRequest).toBeCalledTimes(1);
+			expect(mockRequest).toBeCalledWith(
+				'post',
+				expectedDefaultResolveAriBatchUrl,
+				[
+					{
+						ari: `ari:cloud:confluence:abcd:page:1234`,
+					},
+					{
+						ari: `ari:cloud:confluence:abcd:blogpost:5678`,
+					},
+					{
+						ari: `ari:cloud:confluence:abcd:comment:9012`,
+					},
+				],
+				{},
+			);
+
+			expect(responses).toEqual([notFoundResponse, unauthorizedResponse, errorResponse]);
+		});
+
+		it('successfully deduplicates request to batch ari endpoint ', async () => {
+			mockRequest.mockImplementationOnce(async () => [successfulResponse, unauthorizedResponse]);
+			const client = new SmartCardClient();
+			const responses = await client.fetchDataAris([
+				`ari:cloud:confluence:abcd:page:1234`,
+				`ari:cloud:confluence:abcd:page:1234`,
+				`ari:cloud:confluence:abcd:comment:9012`,
+			]);
+			expect(mockRequest).toBeCalledTimes(1);
+			expect(mockRequest).toBeCalledWith(
+				'post',
+				expectedDefaultResolveAriBatchUrl,
+				[
+					{
+						ari: `ari:cloud:confluence:abcd:page:1234`,
+					},
+					{
+						ari: `ari:cloud:confluence:abcd:comment:9012`,
+					},
+				],
+				{},
+			);
+
+			// NOTE: we still expect all three responses to be the same
+			expect(responses).toEqual([successfulResponse, successfulResponse, unauthorizedResponse]);
+		});
+
+		it('successfully returns batch response when request to batch ari endpoint fails', async () => {
+			const error = {
+				status: 400,
+				error: 'some-error',
+				message: 'error-message',
+			};
+			const errorResponse = {
+				status: 400,
+				error: error,
+			};
+			mockRequest.mockImplementationOnce(async () => Promise.reject(error));
+			const client = new SmartCardClient();
+			const responses = await client.fetchDataAris([
+				`ari:cloud:confluence:abcd:page:1234`,
+				`ari:cloud:confluence:abcd:page:1234`,
+				`ari:cloud:confluence:abcd:comment:9012`,
+			]);
+			expect(mockRequest).toBeCalledTimes(1);
+			expect(mockRequest).toBeCalledWith(
+				'post',
+				expectedDefaultResolveAriBatchUrl,
+				[
+					{
+						ari: `ari:cloud:confluence:abcd:page:1234`,
+					},
+					{
+						ari: `ari:cloud:confluence:abcd:comment:9012`,
+					},
+				],
+				{},
+			);
+
+			// any endpoint failure will still map errors into a batch response
+			expect(responses).toEqual([errorResponse, errorResponse, errorResponse]);
 		});
 	});
 });

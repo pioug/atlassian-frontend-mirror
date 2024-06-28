@@ -56,11 +56,15 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const isCommentsOnMediaBugFixEnabled = !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
 	const inlineNodeTypes = useMemo(() => {
-		return getRendererRangeInlineNodeNames({
-			pos: documentPosition,
-			actions,
-		});
-	}, [documentPosition, actions]);
+		if (actions.isValidAnnotationRange(range)) {
+			return getRendererRangeInlineNodeNames({
+				pos: documentPosition,
+				actions,
+			});
+		} else {
+			return undefined;
+		}
+	}, [documentPosition, actions, range]);
 
 	const onCreateCallback = useCallback(
 		(annotationId: string) => {

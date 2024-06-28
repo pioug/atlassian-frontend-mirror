@@ -5,6 +5,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { toJSON } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -13,8 +14,6 @@ import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-
-import { toJSON } from '../src/utils';
 
 import { content } from './styles';
 

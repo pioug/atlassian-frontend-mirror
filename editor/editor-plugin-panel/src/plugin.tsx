@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { PanelAttributes } from '@atlaskit/adf-schema';
-import { extendedPanel, panel, PanelType } from '@atlaskit/adf-schema';
+import { extendedPanel, PanelType } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -31,7 +31,6 @@ import type {
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { T50 } from '@atlaskit/theme/colors';
 
 import { insertPanelWithAnalytics } from './actions';
@@ -55,9 +54,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 	name: 'panel',
 
 	nodes() {
-		const panelNode = getBooleanFF('platform.editor.allow-extended-panel')
-			? extendedPanel(!!options.allowCustomPanel)
-			: panel(!!options.allowCustomPanel);
+		const panelNode = extendedPanel(!!options.allowCustomPanel);
 
 		return [{ name: 'panel', node: panelNode }];
 	},

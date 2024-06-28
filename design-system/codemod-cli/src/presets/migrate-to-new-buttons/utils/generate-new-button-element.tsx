@@ -48,7 +48,6 @@ export const handleIconAttributes = (
 	iconRenamed: boolean = false,
 ) => {
 	const { attributes: buttonAttributes } = element.openingElement;
-
 	// Get iconBefore and iconAfter attributes
 	const buttonIconAttributes = buttonAttributes && getIconAttributes(buttonAttributes);
 
@@ -156,6 +155,18 @@ export const generateNewElement = (
 	const iconAttrs = attributes && getIconAttributes(attributes);
 	const isIconOrLinkIcon =
 		variant === NEW_BUTTON_VARIANTS.icon || variant === NEW_BUTTON_VARIANTS.linkIcon;
+
+	if (variant === NEW_BUTTON_VARIANTS.link) {
+		j(element)
+			.find(j.JSXAttribute)
+			.filter(
+				(path) =>
+					path.node.name.name === 'appearance' &&
+					path.node.value?.type === 'StringLiteral' &&
+					(path.node.value.value === 'subtle-link' || path.node.value.value === 'link'),
+			)
+			.replaceWith(j.jsxAttribute(j.jsxIdentifier('appearance'), j.stringLiteral('subtle')));
+	}
 
 	if (isIconOrLinkIcon && iconAttrs?.length) {
 		handleIconAttributes(element, j, true);

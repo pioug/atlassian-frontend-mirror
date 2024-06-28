@@ -13,6 +13,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -52,6 +53,7 @@ export type CardPlugin = NextEditorPlugin<
 			DecorationsPlugin,
 			GridPlugin,
 			FloatingToolbarPlugin,
+			OptionalPlugin<EditorDisabledPlugin>,
 		];
 		sharedState: CardPluginState | null;
 		actions: CardPluginActions;

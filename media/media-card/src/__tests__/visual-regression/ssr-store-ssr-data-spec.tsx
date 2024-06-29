@@ -4,12 +4,14 @@ import { imageFileId } from '@atlaskit/media-test-helpers';
 import { Card } from '../../card/card';
 import { tallImage, createMediaStoreError } from '@atlaskit/media-test-helpers';
 import { type MediaClient } from '@atlaskit/media-client';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 import {
 	type MediaCardSsrData,
 	GLOBAL_MEDIA_NAMESPACE,
 	GLOBAL_MEDIA_CARD_SSR,
 	getKey,
 } from '../../utils/globalScope';
+import { createMediaStore } from '@atlaskit/media-state';
 
 const createMediaClient = (error?: boolean) => {
 	return {
@@ -19,6 +21,7 @@ const createMediaClient = (error?: boolean) => {
 			}
 			throw createMediaStoreError();
 		},
+		__DO_NOT_USE__getMediaStore: () => createMediaStore(),
 	};
 };
 
@@ -35,15 +38,17 @@ const createHTMLTemplate = (content: string) => `<!DOCTYPE html>
 
 describe('Media Card SSR', () => {
 	it('should store image dataURI in global scope', async () => {
-		const mediaClient = createMediaClient();
+		const mediaClient = createMediaClient() as unknown as MediaClient;
 		const dimensions = { width: 300, height: 200 };
 		const html = ReactDOMServer.renderToString(
-			<Card
-				mediaClient={mediaClient as unknown as MediaClient}
-				identifier={imageFileId}
-				dimensions={dimensions}
-				ssr={'server'}
-			/>,
+			<MediaClientContext.Provider value={mediaClient}>
+				<Card
+					mediaClient={mediaClient as unknown as MediaClient}
+					identifier={imageFileId}
+					dimensions={dimensions}
+					ssr={'server'}
+				/>
+			</MediaClientContext.Provider>,
 		);
 		const { page } = global;
 		await page.setViewport({ width: 350, height: 250 });
@@ -56,7 +61,7 @@ describe('Media Card SSR', () => {
 			getKey(imageFileId),
 		);
 
-		expect(data.dataURI).toBe(mediaClient.getImageUrlSync());
+		expect(data.dataURI).toBe(mediaClient.getImageUrlSync(''));
 		expect(data.dimensions).toEqual(dimensions);
 
 		const image = await page.screenshot();
@@ -64,15 +69,17 @@ describe('Media Card SSR', () => {
 	});
 
 	it('should store error in global scope', async () => {
-		const mediaClient = createMediaClient(true);
+		const mediaClient = createMediaClient(true) as unknown as MediaClient;
 		const dimensions = { width: 300, height: 200 };
 		const html = ReactDOMServer.renderToString(
-			<Card
-				mediaClient={mediaClient as unknown as MediaClient}
-				identifier={imageFileId}
-				dimensions={dimensions}
-				ssr={'server'}
-			/>,
+			<MediaClientContext.Provider value={mediaClient}>
+				<Card
+					mediaClient={mediaClient as unknown as MediaClient}
+					identifier={imageFileId}
+					dimensions={dimensions}
+					ssr={'server'}
+				/>
+			</MediaClientContext.Provider>,
 		);
 		const { page } = global;
 		await page.setViewport({ width: 350, height: 250 });

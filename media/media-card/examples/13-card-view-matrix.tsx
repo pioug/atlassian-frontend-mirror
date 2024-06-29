@@ -12,7 +12,7 @@ import TrashIcon from '@atlaskit/icon/glyph/trash';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import { type CardAction, type CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
-import { CardViews } from '../src/card/v2/cardviews';
+import { CardViews } from '../src/card/cardviews';
 import { type FileDetails, type MediaType } from '@atlaskit/media-client';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { IntlProvider } from 'react-intl-next';

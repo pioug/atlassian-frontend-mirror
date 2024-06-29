@@ -26,6 +26,7 @@ import {
 	type SingleValueProps,
 	type ValueContainerProps as RSValueContainerProps,
 	type MultiValueRemoveProps,
+	type AriaOnFocusProps,
 } from 'react-select';
 import type BaseSelect from 'react-select/base';
 import { type AsyncProps } from 'react-select/async';
@@ -145,6 +146,7 @@ export type {
 	LoadingIndicatorProps,
 	NoticeProps,
 	MultiValueRemoveProps,
+	AriaOnFocusProps,
 };
 
 declare module 'react-select/base' {

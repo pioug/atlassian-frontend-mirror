@@ -28,6 +28,23 @@ async function setup(url: string) {
 		mediaHydrationSelector,
 	);
 
+	// wait for all images to fully load
+	// taken from: https://stackoverflow.com/a/49233383
+	await page.evaluate(() => {
+		const selectors = Array.from(document.querySelectorAll('img'));
+		return Promise.all(
+			selectors.map((img) => {
+				if (img.complete) {
+					return;
+				}
+				return new Promise((resolve, reject) => {
+					img.addEventListener('load', resolve);
+					img.addEventListener('error', reject);
+				});
+			}),
+		);
+	});
+
 	const image = await page.screenshot({
 		fullPage: true,
 		captureBeyondViewport: true,

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [#114832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114832)
+  [`a38ae4ff11746`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a38ae4ff11746) -
+  [ux] Add new configure overlay button to inline cards behind a feature flag.
+
 ## 2.2.2
 
 ### Patch Changes

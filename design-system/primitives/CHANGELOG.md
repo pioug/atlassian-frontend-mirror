@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 10.0.0
+
+### Major Changes
+
+- [#115948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115948)
+  [`1798755846b6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1798755846b6d) -
+  Released Anchor primitive to open beta.
+
 ## 9.0.0
 
 ### Major Changes

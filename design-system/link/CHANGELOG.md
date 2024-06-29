@@ -1,5 +1,17 @@
 # @atlaskit/link
 
+## 1.0.0
+
+### Major Changes
+
+- [#115948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115948)
+  [`1798755846b6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1798755846b6d) -
+  Released to open beta.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.3
 
 ### Patch Changes

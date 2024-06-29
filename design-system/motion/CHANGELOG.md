@@ -1,5 +1,11 @@
 # @atlaskit/motion
 
+## 1.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.2
 
 ### Patch Changes

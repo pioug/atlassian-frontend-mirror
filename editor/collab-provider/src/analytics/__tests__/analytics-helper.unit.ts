@@ -1,6 +1,7 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+// eslint-disable-next-line @atlaskit/platform/no-alias
 import * as ffPackage from '@atlaskit/platform-feature-flags';
 import AnalyticsHelper from '../analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';

@@ -1,107 +1,26 @@
-jest.mock('@atlaskit/media-ui', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-ui');
-	return {
-		...actualModule,
-		CustomMediaPlayer: jest.fn<
-			ReturnType<typeof actualModule.CustomMediaPlayer>,
-			Parameters<typeof actualModule.CustomMediaPlayer>
-		>(() => null),
-	};
-});
 import React from 'react';
-import { type ReactWrapper } from 'enzyme';
-import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,
-	type FileIdentifier,
 	type FileState,
-	type MediaFileArtifacts,
-	createMediaSubscribable,
 } from '@atlaskit/media-client';
-import {
-	asMockReturnValue,
-	expectFunctionToHaveBeenCalledWith,
-	expectToEqual,
-	fakeMediaClient,
-	mountWithIntlContext,
-	nextTick,
-} from '@atlaskit/media-test-helpers';
-import {
-	InlinePlayer,
-	type InlinePlayerProps,
-	getPreferredVideoArtifact,
-	type InlinePlayerState,
-	type InlinePlayerOwnProps,
-} from '../../inlinePlayer';
-import { CardLoading } from '../../../utils/lightCards/cardLoading';
-import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { type WrappedComponentProps } from 'react-intl-next';
+import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
+import { InlinePlayer, getPreferredVideoArtifact } from '../../inlinePlayer';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
+import { IntlProvider } from 'react-intl-next';
 
-const defaultFileState: FileState = {
-	status: 'processed',
-	id: '123',
-	name: 'file-name',
-	size: 10,
-	artifacts: {},
-	mediaType: 'image',
-	mimeType: 'image/png',
-	representations: { image: {} },
-};
+import {
+	createMockedMediaApi,
+	createProcessingFileItem,
+} from '@atlaskit/media-client/test-helpers';
+import { generateSampleFileItem } from '@atlaskit/media-test-data';
+import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
+import { createMockedMediaClientProvider } from '../../../__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 
 describe('<InlinePlayer />', () => {
-	const defaultArtifact: MediaFileArtifacts = {
-		'video_1280.mp4': { processingStatus: 'succeeded', url: '' },
-	};
-	const setup = (
-		props?: Partial<InlinePlayerProps>,
-		artifacts: MediaFileArtifacts = defaultArtifact,
-		InlinePlayerComponent: typeof InlinePlayer = InlinePlayer,
-		identifier?: FileIdentifier,
-	) => {
-		const mediaClient = fakeMediaClient();
-		asMockReturnValue(
-			mediaClient.file.getFileState,
-			createMediaSubscribable({
-				...defaultFileState,
-				artifacts,
-			}),
-		);
-		asMockReturnValue(mediaClient.file.getArtifactURL, Promise.resolve('some-url'));
-		asMockReturnValue(mediaClient.file.getFileBinaryURL, Promise.resolve('binary-url'));
-		const defaultIdentifier: FileIdentifier = {
-			id: 'some-id',
-			collectionName: 'some-collection',
-			mediaItemType: 'file',
-		};
-
-		const TheInlinePlayer = () => (
-			<InlinePlayerComponent
-				autoplay={true}
-				dimensions={{}}
-				mediaClient={mediaClient}
-				identifier={identifier || defaultIdentifier}
-				{...props}
-			/>
-		);
-
-		const component = mountWithIntlContext<InlinePlayerProps, InlinePlayerState>(
-			<TheInlinePlayer />,
-		);
-
-		return {
-			component,
-			mediaClient,
-			identifier: identifier || defaultIdentifier,
-		};
-	};
-	const update = async (
-		component: ReactWrapper<InlinePlayerProps & WrappedComponentProps, InlinePlayerState>,
-	) => {
-		await new Promise((resolve) => window.setTimeout(resolve));
-		component.update();
-	};
-
+	// Media Client Mock
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');
 	});
@@ -111,205 +30,231 @@ describe('<InlinePlayer />', () => {
 	});
 
 	it('should render loading component when the video src is not ready', () => {
-		const { component } = setup({
-			dimensions: {
-				width: 10,
-				height: '5%',
-			},
-		});
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
 
-		expect(component.find(CardLoading)).toHaveLength(1);
-		expect(component.find(CardLoading).prop('dimensions')).toEqual({
-			width: 10,
-			height: '5%',
-		});
-	});
-
-	it('should call getFileState with right properties', async () => {
-		const { component, mediaClient } = setup();
-
-		await update(component);
-		expect(mediaClient.file.getFileState).toBeCalledTimes(1);
-		expect(mediaClient.file.getFileState).toBeCalledWith('some-id', {
-			collectionName: 'some-collection',
-		});
-	});
-
-	describe('dimensions', () => {
-		const expectToHaveWidthHeight = (
-			component: ReactWrapper<
-				InlinePlayerOwnProps & WithAnalyticsEventsProps & WrappedComponentProps<'intl'>,
-				InlinePlayerState
-			>,
-			width: string,
-			height: string,
-		) => {
-			const wrapper = component.find('div#inlinePlayerWrapper');
-			const styles = getComputedStyle(wrapper.getDOMNode());
-
-			expect(styles.width).toBe(width);
-			expect(styles.height).toBe(height);
-		};
-
-		it('should set width/height according to dimensions in the wrapper element', async () => {
-			const { component } = setup({
-				dimensions: {
-					width: '80%',
-					height: '20px',
-				},
-			});
-
-			await update(component);
-			expectToHaveWidthHeight(component, '80%', '20px');
-		});
-
-		it('default to 100%/audo width/height if no dimensions given', async () => {
-			const { component } = setup();
-
-			await update(component);
-			expectToHaveWidthHeight(component, '100%', 'auto');
-		});
-	});
-
-	it('should use local preview if available', async () => {
-		const blob = new Blob([], { type: 'video/mp4' });
-		const mediaClient = fakeMediaClient();
-		const fileStateSubscribable = createMediaSubscribable({
-			status: 'uploading',
-			preview: {
-				value: blob,
-			},
-			id: '',
-			mediaType: 'image',
-			mimeType: '',
-			name: '',
-			progress: 0,
-			size: 0,
-		});
-
-		asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
-		const { component } = setup({ mediaClient });
-
-		await update(component);
-
-		expect(component.find(CustomMediaPlayer).prop('src')).toEqual(
-			'mock result of URL.createObjectURL()',
+		render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer
+						autoplay={true}
+						identifier={identifier}
+						dimensions={{
+							width: 10,
+							height: '5%',
+						}}
+					/>
+				</MockedMediaClientProvider>
+			</IntlProvider>,
 		);
+
+		expect(screen.queryByTestId(spinnerTestId)).toBeInTheDocument();
 	});
 
 	it('should pass poster to CustomMediaPlayer when cardPreview is available', async () => {
-		const cardPreview = { dataURI: 'some-data-uri', source: 'remote' } as const;
-		const { component } = setup({ cardPreview });
-		await update(component);
-		expect(component.find(CustomMediaPlayer).props().poster).toEqual(cardPreview.dataURI);
-	});
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
 
-	it('should keep existing local preview', async () => {
-		const createObjectURLSpy = jest.spyOn(URL, 'createObjectURL');
-		let createObjectURLCallTimes = 0;
-		createObjectURLSpy.mockImplementation(() => {
-			createObjectURLCallTimes++;
-			return `object-url-src-${createObjectURLCallTimes}`;
-		});
-		const blob = new Blob([], { type: 'video/mp4' });
-		const mediaClient = fakeMediaClient();
-		const baseState: FileState = {
-			status: 'uploading',
-			preview: {
-				value: blob,
-			},
-			id: '',
-			mediaType: 'image',
-			mimeType: '',
-			name: '',
-			progress: 0,
-			size: 0,
-		};
-		const fileStateSubscribable = createMediaSubscribable(baseState);
-
-		asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
-		const { component } = setup({ mediaClient });
-
-		await update(component);
-
-		expect(component.find(CustomMediaPlayer).prop('src')).toEqual('object-url-src-1');
-
-		asMockReturnValue(
-			mediaClient.file.getFileState,
-			createMediaSubscribable({
-				...baseState,
-				progress: 0.5,
-			}),
+		const user = userEvent.setup();
+		const { container } = render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer
+						autoplay={true}
+						identifier={identifier}
+						cardPreview={{ dataURI: 'some-data-uri', source: 'remote' }}
+					/>
+				</MockedMediaClientProvider>
+			</IntlProvider>,
 		);
+		fireEvent.load(await screen.findByTestId(inlinePlayerTestId));
 
-		await update(component);
+		// Confirm the existence of Custom Media Player
+		const playButton = await screen.findByLabelText('Play');
+		expect(playButton).toBeInTheDocument();
 
-		expect(createObjectURLSpy).toBeCalledTimes(1);
-		expect(component.find(CustomMediaPlayer).prop('src')).toEqual('object-url-src-1');
+		await user.hover(playButton);
+		expect(playButton).toBeVisible();
+
+		const videoElement = container.querySelector('video');
+		const videoSrc = videoElement?.getAttribute('poster');
+		expect(videoSrc).toEqual('some-data-uri');
 	});
 
-	it('should use right file artifact', async () => {
-		const { component, mediaClient } = setup();
+	describe('InlinePlayerWrapper', () => {
+		it('should set width/height according to dimensions in the wrapper element', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
 
-		await update(component);
-		expect(mediaClient.file.getArtifactURL).toBeCalledTimes(1);
-		expect(mediaClient.file.getArtifactURL).toBeCalledWith(
-			{
-				'video_1280.mp4': {
-					processingStatus: 'succeeded',
-					url: '',
-				},
-			},
-			'video_1280.mp4',
-			'some-collection',
-		);
-		expect(component.find(CustomMediaPlayer).prop('src')).toEqual('some-url');
-	});
+			const dimensions = {
+				width: '80%',
+				height: '20px',
+			};
 
-	it('should use sd artifact if hd one is not present', async () => {
-		const { component, mediaClient } = setup(undefined, {
-			'video_640.mp4': {
-				processingStatus: 'succeeded',
-				url: '',
-			},
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} dimensions={dimensions} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			const styles = getComputedStyle(inlinePlayer);
+
+			expect(styles.width).toBe(dimensions.width);
+			expect(styles.height).toBe(dimensions.height);
 		});
 
-		await update(component);
-		expect(mediaClient.file.getArtifactURL).toBeCalledTimes(1);
-		expect(mediaClient.file.getArtifactURL).toBeCalledWith(
-			{
-				'video_640.mp4': {
-					processingStatus: 'succeeded',
-					url: '',
-				},
-			},
-			'video_640.mp4',
-			'some-collection',
-		);
-		expect(component.find(CustomMediaPlayer).prop('src')).toEqual('some-url');
+		it('default to 100%/auto width/height if no dimensions given', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} dimensions={{}} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			const inlinePlayer = await screen.findByTestId(inlinePlayerTestId);
+			const styles = getComputedStyle(inlinePlayer);
+			expect(styles.width).toBe('100%');
+			expect(styles.height).toBe('auto');
+		});
 	});
 
-	it('should use binary artifact if file is processing and no other artifact is present', async () => {
-		const { component, mediaClient } = setup(undefined, {});
+	describe('fileState subscription', () => {
+		it('should use binary from local preview when available and render custom media player', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { MockedMediaClientProvider, uploadItem, getLocalPreview } =
+				createMockedMediaClientProvider({
+					initialItems: fileItem,
+				});
 
-		await update(component);
-		expect(mediaClient.file.getFileBinaryURL).toBeCalledTimes(1);
-		expect(mediaClient.file.getFileBinaryURL).toBeCalledWith('some-id', 'some-collection');
-		expect(component.find(CustomMediaPlayer).prop('src')).toEqual('binary-url');
+			uploadItem(fileItem, 0.5);
+
+			const localPreview = getLocalPreview(fileItem.id);
+
+			global.URL.createObjectURL = jest.fn(() => 'mock result of URL.createObjectURL()');
+
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			// Confirm the existence of Custom Media Player
+			const playButton = await screen.findByLabelText('Play');
+			expect(playButton).toBeInTheDocument();
+
+			// Check if the src is correct
+			const videoElement = container.querySelector('video');
+			const videoSrc = videoElement?.getAttribute('src');
+
+			expect(global.URL.createObjectURL).toBeCalledWith((await localPreview)?.value);
+			expect(videoSrc).toEqual('mock result of URL.createObjectURL()');
+		});
+
+		it('should fetch file binary if artifacts are not present and render custom media player', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			// Confirm the existence of Custom Media Player
+			const playButton = await screen.findByLabelText('Play');
+			expect(playButton).toBeInTheDocument();
+
+			// Check if the src is correct
+			const videoElement = container.querySelector('video');
+			const videoSrc = videoElement?.getAttribute('src');
+			expect(videoSrc).toEqual(`/file/${fileItem.id}/artifact/video_1280.mp4/binary`);
+		});
+
+		it('should use the file artifact if available and render custom media player', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+
+			fireEvent.load(await screen.findByTestId(inlinePlayerTestId));
+
+			// Confirm the existence of Custom Media Player
+			const playButton = await screen.findByLabelText('Play');
+			expect(playButton).toBeInTheDocument();
+
+			// Check if the src is correct
+			const videoElement = container.querySelector('video');
+			const videoSrc = videoElement?.getAttribute('src');
+			expect(videoSrc).toEqual(`/file/${fileItem.id}/artifact/video_1280.mp4/binary`);
+		});
 	});
 
 	it('should download video binary when download button is clicked', async () => {
-		const { component, mediaClient } = setup();
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
 
-		await update(component);
-		const { onDownloadClick } = component.find(CustomMediaPlayer).props();
-		if (!onDownloadClick) {
-			return expect(onDownloadClick).toBeDefined();
-		}
-		onDownloadClick();
-		await nextTick();
-		expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
-		expect(mediaClient.file.downloadBinary).toBeCalledWith('some-id', undefined, 'some-collection');
+		const user = userEvent.setup();
+		render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer autoplay={true} identifier={identifier} />
+				</MockedMediaClientProvider>
+			</IntlProvider>,
+		);
+
+		// Get the download button and click it
+		const downloadLabel = await screen.findByLabelText('download');
+		await user.click(downloadLabel);
+
+		// Expect that the emit function was called last with the correct arguments
+		expect(globalMediaEventEmitter.emit).toHaveBeenLastCalledWith('media-viewed', {
+			fileId: fileItem.id,
+			isUserCollection: false,
+			viewingLevel: 'download',
+		});
+	});
+
+	it('should use binary artifact if file is processing and no other artifact is present', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		const store: any = { files: {} };
+		store.files[fileItem.id] = {
+			status: 'processing',
+		};
+
+		const { container } = render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer autoplay={true} identifier={identifier} />
+				</MockedMediaClientProvider>
+			</IntlProvider>,
+		);
+
+		// Confirm the existence of Custom Media Player
+		const playButton = await screen.findByLabelText('Play');
+		expect(playButton).toBeInTheDocument();
+
+		// Check if the src is correct
+		const videoElement = container.querySelector('video');
+		const videoSrc = videoElement?.getAttribute('src');
+		expect(videoSrc).toEqual(`/file/${fileItem.id}/artifact/video_1280.mp4/binary`);
 	});
 
 	describe('getPreferredVideoArtifact()', () => {
@@ -350,110 +295,147 @@ describe('<InlinePlayer />', () => {
 	});
 
 	it('should trigger media-viewed when video is first played', async () => {
-		const { component } = setup();
-		await update(component);
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
 
-		const { onFirstPlay } = component.find(CustomMediaPlayer).props();
-		if (!onFirstPlay) {
-			return expect(onFirstPlay).toBeDefined();
-		}
-		onFirstPlay();
+		render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer autoplay={true} identifier={identifier} />
+				</MockedMediaClientProvider>
+			</IntlProvider>,
+		);
+
+		await screen.findByTestId(inlinePlayerTestId);
 
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
 		expectFunctionToHaveBeenCalledWith(globalMediaEventEmitter.emit, [
 			'media-viewed',
 			{
-				fileId: 'some-id',
+				fileId: fileItem.id,
 				viewingLevel: 'full',
 			} as MediaViewedEventPayload,
 		]);
 	});
 
-	it('should use last watch time feature', async () => {
-		const { component, identifier } = setup();
-		await update(component);
-		expectToEqual(component.find(CustomMediaPlayer).props().lastWatchTimeConfig, {
-			contentId: identifier.id,
-		});
-	});
+	it('should use mouse movement to show and hide video control area', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+		const { mediaApi } = createMockedMediaApi(fileItem);
 
-	it('should provide showControls to MediaPlayer', async () => {
-		const mediaClient = fakeMediaClient();
-		const fileStateSubscribable = createMediaSubscribable({
-			status: 'uploading',
-			preview: {
-				value: new Blob([], { type: 'video/mp4' }),
-			},
-			id: '',
-			mediaType: 'image',
-			mimeType: '',
-			name: '',
-			progress: 0,
-			size: 0,
-		});
-
-		asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
-		const { component } = setup({ mediaClient });
-
-		await update(component);
-
-		const inactivityDetector = component.find(InactivityDetector).instance();
-		expect(component.find(CustomMediaPlayer).prop('showControls')).toBe(
-			(inactivityDetector as any).checkMouseMovement,
+		const user = userEvent.setup();
+		render(
+			<IntlProvider locale="en">
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<InlinePlayer autoplay={true} identifier={identifier} />
+				</MockedMediaClientProvider>
+			</IntlProvider>,
 		);
+		fireEvent.load(await screen.findByTestId(inlinePlayerTestId));
+
+		// Confirm the existence of Custom Media Player
+		const playButton = await screen.findByLabelText('Play');
+		expect(playButton).toBeInTheDocument();
+
+		/*
+      After the component has completed its initial rendering process, it requires waiting period for at least 2000 milliseconds before the video control bars become hidden.
+
+      Reference: mouseMovementDelay variable in packages/media/media-ui/src/inactivityDetector/inactivityDetector.tsx
+    */
+
+		await waitFor(
+			() => {
+				expect(playButton).not.toBeVisible();
+			},
+			{ timeout: 2000 },
+		);
+
+		/*
+      Afterwards, the inline player area needs to detect any mouse movement in order to re-activate the video control bars.
+    */
+
+		await user.hover(playButton);
+
+		expect(playButton).toBeVisible();
 	});
 
 	describe('ProgressBar for video player', () => {
 		it('should render ProgressBar for а video that is being played when status is uploading', async () => {
-			const mediaClient = fakeMediaClient();
-			const fileStateSubscribable = createMediaSubscribable({
-				status: 'uploading',
-				preview: {
-					value: new Blob([], { type: 'video/mp4' }),
-				},
-				id: '',
-				mediaType: 'image',
-				mimeType: '',
-				name: '',
-				progress: 0,
-				size: 0,
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { MockedMediaClientProvider, uploadItem } = createMockedMediaClientProvider({
+				initialItems: fileItem,
 			});
 
-			asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
-			const { component } = setup({ mediaClient });
-			await update(component);
-			expect(component.find('ProgressBar').exists()).toBe(true);
+			uploadItem(fileItem, 0.5);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			expect(await screen.findByRole('progressbar')).toBeInTheDocument();
 		});
 
-		it.each([
-			'loading',
-			'processing',
-			'loading-preview',
-			'complete',
-			'error',
-			'failed-processing',
-		] as const)(
-			'should not render ProgressBar for а video that is being played when status is %s',
-			async (status: any) => {
-				const mediaClient = fakeMediaClient();
-				const fileStateSubscribable = createMediaSubscribable({
-					status,
-					preview: {
-						value: new Blob([], { type: 'video/mp4' }),
-					},
-					id: '',
-					mediaType: 'image',
-					mimeType: '',
-					name: '',
-					progress: 0,
-					size: 0,
-				});
+		it('should not render ProgressBar for а video that is being played when status is error', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
 
-				asMockReturnValue(mediaClient.file.getFileState, fileStateSubscribable);
-				const { component } = setup({ mediaClient });
-				await update(component);
-				expect(component.find('ProgressBar').exists()).toBe(false);
-			},
-		);
+			mediaApi.getItems = () => {
+				throw new Error('some error');
+			};
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+		});
+
+		it('should not render ProgressBar for а video that is being played when status is failed-processing', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.failedVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+		});
+
+		it('should not render ProgressBar for а video that is being played when status is processing', async () => {
+			const [baseFileItem, identifier] = generateSampleFileItem.failedVideo();
+			const fileItem = createProcessingFileItem(baseFileItem, 0);
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+		});
+
+		it('should not render ProgressBar for а video that is being played when status is processed', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<InlinePlayer autoplay={true} identifier={identifier} />
+					</MockedMediaClientProvider>
+				</IntlProvider>,
+			);
+			expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+		});
 	});
 });

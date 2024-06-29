@@ -1,4 +1,4 @@
-import MediaCardV2 from '../src/card/v2/cardV2Loader';
+import MediaCard from '../src/card/cardLoader';
 import React, { useEffect, useState, useMemo } from 'react';
 
 import Loadable from 'react-loadable';
@@ -69,7 +69,7 @@ const Page = ({
 	return (
 		<MockedMediaClientProvider>
 			<h3>{title}</h3>
-			<MediaCardV2
+			<MediaCard
 				mediaClientConfig={dummyMediaClientConfig}
 				identifier={identifier}
 				dimensions={{ width: 300, height: 200 }}

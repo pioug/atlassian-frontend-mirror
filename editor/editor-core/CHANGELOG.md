@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 193.30.5
+
+### Patch Changes
+
+- [#116178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116178)
+  [`f8e239e1bdf8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f8e239e1bdf8e) -
+  [ux] Remove small gapping in inline macros and update VR tests accordingly
+- Updated dependencies
+
+## 193.30.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.30.1
 
 ### Patch Changes

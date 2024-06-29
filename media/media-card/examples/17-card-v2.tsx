@@ -1,4 +1,4 @@
-import CardV2Loader from '../src/card/v2/cardV2Loader';
+import CardLoader from '../src/card/cardLoader';
 import React, { useState, useEffect, useMemo } from 'react';
 import { type MediaClientConfig } from '@atlaskit/media-client';
 import {
@@ -104,7 +104,7 @@ export default () => {
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<div style={{ display: 'flex', flexDirection: 'row' }}>
 					{allItems.map(([, identifier], i) => (
-						<CardV2Loader
+						<CardLoader
 							key={i}
 							mediaClientConfig={dummyMediaClientConfig}
 							identifier={identifier}

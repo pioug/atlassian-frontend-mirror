@@ -46,11 +46,6 @@ function setMatchMedia(matchesDark: boolean) {
 	matchMediaObject.matches = matchesDark;
 }
 
-// Mock Feature flags
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	getBooleanFF: jest.fn().mockImplementation(() => false),
-}));
-
 const UNSAFE_themeOptions: ThemeOptionsSchema = {
 	brandColor: '#ff0000',
 };

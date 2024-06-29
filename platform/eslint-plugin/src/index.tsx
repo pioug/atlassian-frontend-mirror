@@ -13,6 +13,13 @@ import ensureValidEmotionCssProp from './rules/ensure-valid-emotion-css-prop';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
+import noModuleLevelEval from './rules/no-module-level-eval';
+import staticFeatureFlags from './rules/static-feature-flags';
+import noPreconditioning from './rules/no-preconditioning';
+import inlineUsage from './rules/inline-usage';
+import preferFG from './rules/prefer-fg';
+import noAlias from './rules/no-alias';
+import useRecommendedUtils from './rules/use-recommended-utils';
 
 export const rules = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -28,6 +35,13 @@ export const rules = {
 	'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
 	'ensure-publish-valid': ensurePublishValid,
 	'ensure-native-and-af-exports-synced': ensureNativeAndAfExportsSynced,
+	'no-module-level-eval': noModuleLevelEval,
+	'static-feature-flags': staticFeatureFlags,
+	'no-preconditioning': noPreconditioning,
+	'inline-usage': inlineUsage,
+	'prefer-fg': preferFG,
+	'no-alias': noAlias,
+	'use-recommended-utils': useRecommendedUtils,
 };
 
 export const configs = {
@@ -44,6 +58,12 @@ export const configs = {
 			'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
 			'@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
 			'@atlaskit/platform/ensure-atlassian-team': 'error',
+			'@atlaskit/platform/no-module-level-eval': 'error',
+			'@atlaskit/platform/static-feature-flags': 'error',
+			'@atlaskit/platform/no-preconditioning': 'error',
+			'@atlaskit/platform/inline-usage': 'error',
+			'@atlaskit/platform/prefer-fg': 'error',
+			'@atlaskit/platform/no-alias': 'error',
 		},
 	},
 };

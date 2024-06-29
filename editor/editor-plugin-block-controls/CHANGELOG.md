@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.4
+
+### Patch Changes
+
+- [#114530](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114530)
+  [`fac9f4b0e5a45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fac9f4b0e5a45) -
+  [ED-23892] Fix action list duplicates itself when dropping on itself, update how dropping at node
+  itself is detected so it works when mouse move wrapper is removed
+
 ## 1.5.3
 
 ### Patch Changes

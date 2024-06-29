@@ -1,12 +1,9 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
-	type MediaClient,
 	type FileIdentifier,
 	type FileState,
 	type MediaFileArtifacts,
 	globalMediaEventEmitter,
-	type MediaSubscription,
 } from '@atlaskit/media-client';
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { CustomMediaPlayer, InactivityDetector } from '@atlaskit/media-ui';
@@ -16,15 +13,13 @@ import { CardLoading } from '../utils/lightCards/cardLoading';
 
 import { type WithAnalyticsEventsProps, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProgressBar } from './ui/progressBar/progressBar';
-import { type Breakpoint } from './ui/common';
-import { calcBreakpointSize } from './ui/styles';
-import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
-import { getElementDimension } from '../utils/getElementDimension';
 import type { CardPreview } from '../types';
 import { InlinePlayerWrapper } from './inlinePlayerWrapper';
+import { useBreakpoint } from './useBreakpoint';
+import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
+
 export interface InlinePlayerOwnProps {
 	identifier: FileIdentifier;
-	mediaClient: MediaClient;
 	dimensions?: CardDimensions;
 	originalDimensions?: NumericalCardDimensions;
 	autoplay: boolean;
@@ -43,13 +38,6 @@ export interface InlinePlayerOwnProps {
 }
 
 export type InlinePlayerProps = InlinePlayerOwnProps & WithAnalyticsEventsProps;
-
-export interface InlinePlayerState {
-	fileSrc?: string;
-	isUploading?: boolean;
-	progress?: number;
-	elementWidth?: number;
-}
 
 export const getPreferredVideoArtifact = (
 	fileState: FileState,
@@ -70,206 +58,146 @@ export const getPreferredVideoArtifact = (
 	return undefined;
 };
 
-export class InlinePlayerBase extends Component<InlinePlayerProps, InlinePlayerState> {
-	subscription?: MediaSubscription;
-	state: InlinePlayerState = {};
-	divRef: React.RefObject<HTMLDivElement> = React.createRef();
+export const InlinePlayerBase = ({
+	identifier,
+	onError,
+	onClick,
+	dimensions = defaultImageCardDimensions,
+	originalDimensions,
+	selected,
+	testId,
+	forwardRef,
+	autoplay,
+	cardPreview,
+	onFullscreenChange,
+	videoControlsWrapperRef,
+}: InlinePlayerProps) => {
+	// === States ===
+	const [fileSrc, setFileSrc] = useState<string>();
+	const [isUploading, setIsUploading] = useState<boolean>();
+	const [progress, setProgress] = useState<number>();
 
-	static defaultProps = {
-		dimensions: defaultImageCardDimensions,
-	};
+	// === Refs and Local Variables ===
+	const divRef = useRef<HTMLDivElement>(null);
+	const onErrorRef = useRef(onError);
+	onErrorRef.current = onError;
 
-	componentDidMount() {
-		this.saveElementWidth();
-		const { mediaClient, identifier } = this.props;
-		const { id, collectionName } = identifier;
+	const { id, collectionName, occurrenceKey } = identifier;
+	const breakpoint = useBreakpoint(dimensions?.width, divRef);
+	const mediaClient = useMediaClient();
+	const { fileState } = useFileState(id, { collectionName, occurrenceKey });
 
-		this.revoke();
-		this.unsubscribe();
-		this.subscription = mediaClient.file.getFileState(id, { collectionName }).subscribe({
-			next: async (fileState) => {
-				if (fileState.status === 'uploading') {
-					this.setState({ isUploading: true, progress: fileState.progress });
-				} else {
-					this.setState({ isUploading: false });
+	useEffect(() => {
+		const subscribeFileState = async (fileState: FileState) => {
+			if (fileState.status === 'uploading') {
+				setIsUploading(true);
+				setProgress(fileState.progress);
+			} else {
+				setIsUploading(false);
+			}
+
+			// We reuse the existing fileSrc to prevent re renders, therefore we only perform fileSrc updates when there isn't any
+			if (fileSrc) {
+				return;
+			}
+
+			if (fileState.status !== 'error' && fileState.preview) {
+				const { value } = await fileState.preview;
+
+				if (value instanceof Blob && value.type.indexOf('video/') === 0) {
+					const newFileSrc = URL.createObjectURL(value);
+					setFileSrc(newFileSrc);
+					return;
 				}
+			}
+			if (fileState.status === 'processed' || fileState.status === 'processing') {
+				const artifactName = getPreferredVideoArtifact(fileState);
+				const { artifacts } = fileState;
+				if (!artifactName || !artifacts) {
+					// Tries to use the binary artifact to provide something to play while the video is still processing
+					try {
+						const newFileSrc = await mediaClient.file.getFileBinaryURL(id, collectionName);
 
-				const { fileSrc: existingFileSrc } = this.state;
-				// we want to reuse the existing fileSrc to prevent re renders
-				if (existingFileSrc) {
+						setFileSrc(newFileSrc);
+					} catch (error) {
+						if (onErrorRef.current && error instanceof Error) {
+							onErrorRef.current(error);
+						}
+					}
 					return;
 				}
 
-				if (fileState.status !== 'error' && fileState.preview) {
-					const { value } = await fileState.preview;
-
-					if (value instanceof Blob && value.type.indexOf('video/') === 0) {
-						const fileSrc = URL.createObjectURL(value);
-						this.setFileSrc(fileSrc);
-						return;
+				try {
+					const newFileSrc = await mediaClient.file.getArtifactURL(
+						artifacts,
+						artifactName,
+						collectionName,
+					);
+					setFileSrc(newFileSrc);
+				} catch (error) {
+					if (onErrorRef.current && error instanceof Error) {
+						onErrorRef.current(error);
 					}
 				}
-
-				if (fileState.status === 'processed' || fileState.status === 'processing') {
-					const artifactName = getPreferredVideoArtifact(fileState);
-					const { artifacts } = fileState;
-					if (!artifactName || !artifacts) {
-						this.setBinaryURL();
-						return;
-					}
-
-					try {
-						const fileSrc = await mediaClient.file.getArtifactURL(
-							artifacts,
-							artifactName,
-							collectionName,
-						);
-
-						this.setFileSrc(fileSrc);
-					} catch (error) {
-						const { onError } = this.props;
-
-						if (onError && error instanceof Error) {
-							onError(error);
-						}
-					}
-				}
-			},
-		});
-	}
-
-	setFileSrc = (fileSrc: string) => {
-		this.setState({ fileSrc });
-	};
-
-	// Tries to use the binary artifact to provide something to play while the video is still processing
-	setBinaryURL = async () => {
-		const { mediaClient, identifier, onError } = this.props;
-		const { id, collectionName } = identifier;
-
-		try {
-			const fileSrc = await mediaClient.file.getFileBinaryURL(id, collectionName);
-
-			this.setFileSrc(fileSrc);
-		} catch (error) {
-			if (onError && error instanceof Error) {
-				onError(error);
 			}
+		};
+
+		if (fileState) {
+			subscribeFileState(fileState);
 		}
-	};
+	}, [fileState, collectionName, fileSrc, id, mediaClient]);
 
-	unsubscribe = () => {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
-		}
-	};
+	useEffect(() => {
+		return () => {
+			fileSrc && URL.revokeObjectURL(fileSrc);
+		};
+	}, [fileSrc]);
 
-	revoke = () => {
-		const { fileSrc } = this.state;
-		if (fileSrc) {
-			URL.revokeObjectURL(fileSrc);
-		}
-	};
-
-	componentWillUnmount() {
-		this.unsubscribe();
-		this.revoke();
-	}
-
-	onDownloadClick = () => {
-		const { mediaClient, identifier } = this.props;
-		const { id, collectionName } = identifier;
-
-		mediaClient.file.downloadBinary(id, undefined, collectionName);
-	};
-
-	onFirstPlay = () => {
-		const { identifier } = this.props;
-		globalMediaEventEmitter.emit('media-viewed', {
-			fileId: identifier.id,
-			viewingLevel: 'full',
-		});
-	};
-
-	private get breakpoint(): Breakpoint {
-		const width =
-			this.state.elementWidth ||
-			(this.props.dimensions ? this.props.dimensions.width : '') ||
-			defaultImageCardDimensions.width;
-
-		return calcBreakpointSize(parseInt(`${width}`, 10));
-	}
-
-	saveElementWidth = () => {
-		const { dimensions } = this.props;
-		if (!dimensions) {
-			return;
-		}
-
-		const { width } = dimensions;
-
-		if (width && isValidPercentageUnit(width) && !!this.divRef.current) {
-			const elementWidth = getElementDimension(this.divRef.current, 'width');
-			this.setState({ elementWidth });
-		}
-	};
-
-	render() {
-		const {
-			onClick,
-			dimensions,
-			originalDimensions,
-			selected,
-			testId,
-			identifier,
-			forwardRef,
-			autoplay,
-			cardPreview,
-			onFullscreenChange,
-			videoControlsWrapperRef,
-		} = this.props;
-		const { fileSrc, isUploading, progress } = this.state;
-
-		if (!fileSrc) {
-			return <CardLoading testId={testId} dimensions={dimensions} />;
-		}
-
-		return (
-			<InlinePlayerWrapper
-				testId={testId || 'media-card-inline-player'}
-				selected={{ selected }}
-				onClick={onClick}
-				innerRef={forwardRef || undefined}
-				dimensions={dimensions}
-			>
-				<InactivityDetector>
-					{(checkMouseMovement) => (
-						<CustomMediaPlayer
-							type="video"
-							src={fileSrc}
-							onFullscreenChange={onFullscreenChange}
-							fileId={identifier.id}
-							isAutoPlay={autoplay}
-							isHDAvailable={false}
-							onDownloadClick={this.onDownloadClick}
-							onFirstPlay={this.onFirstPlay}
-							lastWatchTimeConfig={{
-								contentId: identifier.id,
-							}}
-							originalDimensions={originalDimensions}
-							showControls={checkMouseMovement}
-							poster={cardPreview?.dataURI}
-							videoControlsWrapperRef={videoControlsWrapperRef}
-						/>
-					)}
-				</InactivityDetector>
-				{isUploading ? (
-					<ProgressBar progress={progress} breakpoint={this.breakpoint} positionBottom showOnTop />
-				) : null}
-			</InlinePlayerWrapper>
-		);
-	}
-}
+	// === Render ===
+	return fileSrc ? (
+		<InlinePlayerWrapper
+			testId={testId || 'media-card-inline-player'}
+			selected={{ selected }}
+			onClick={onClick}
+			innerRef={forwardRef || undefined}
+			dimensions={dimensions}
+		>
+			<InactivityDetector>
+				{(checkMouseMovement) => (
+					<CustomMediaPlayer
+						type="video"
+						src={fileSrc}
+						onFullscreenChange={onFullscreenChange}
+						fileId={id}
+						isAutoPlay={autoplay}
+						isHDAvailable={false}
+						onDownloadClick={() => {
+							mediaClient.file.downloadBinary(id, undefined, collectionName);
+						}}
+						onFirstPlay={() => {
+							globalMediaEventEmitter.emit('media-viewed', {
+								fileId: id,
+								viewingLevel: 'full',
+							});
+						}}
+						lastWatchTimeConfig={{
+							contentId: id,
+						}}
+						originalDimensions={originalDimensions}
+						showControls={checkMouseMovement}
+						poster={cardPreview?.dataURI}
+						videoControlsWrapperRef={videoControlsWrapperRef}
+					/>
+				)}
+			</InactivityDetector>
+			{isUploading && (
+				<ProgressBar progress={progress} breakpoint={breakpoint} positionBottom showOnTop />
+			)}
+		</InlinePlayerWrapper>
+	) : (
+		<CardLoading testId={testId} dimensions={dimensions} />
+	);
+};
 
 const InlinePlayerForwardRef = React.forwardRef<HTMLDivElement, InlinePlayerProps>((props, ref) => {
 	return <InlinePlayerBase {...props} forwardRef={ref} />;

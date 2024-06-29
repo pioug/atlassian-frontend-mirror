@@ -15,6 +15,7 @@ import {
 	ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload } from '../../../analytics/events';
+// eslint-disable-next-line @atlaskit/platform/no-alias
 import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
 
 const mockArg = {} as any;

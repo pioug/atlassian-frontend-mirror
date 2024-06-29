@@ -13,6 +13,7 @@ import {
 	docWithImage,
 	docWithImageInTable,
 } from './__fixtures__/documents';
+// eslint-disable-next-line @atlaskit/platform/no-alias
 import * as ffPackage from '@atlaskit/platform-feature-flags';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';

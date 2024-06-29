@@ -238,12 +238,11 @@ export const generateStoriesForEditableCards = () => {
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 								<div css={editableCardContentStyles} style={parentStyle}>
 									<CardView
-										appearance={appearance}
 										status={status}
 										mediaItemType="file"
 										metadata={metadata}
 										cardPreview={dataURI ? { dataURI, source: 'remote' } : undefined}
-										dimensions={useDimensions ? newDimensions : undefined}
+										dimensions={useDimensions ? newDimensions : {}}
 										actions={menuActions}
 										progress={progress}
 										selectable={selectable}

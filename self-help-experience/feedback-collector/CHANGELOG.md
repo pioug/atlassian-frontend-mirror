@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.7
 
 ### Patch Changes

@@ -18,7 +18,6 @@ export const wrapperStyle = css(wrapperDefault, {
 	'&::after, &::before': {
 		verticalAlign: 'text-top',
 		display: 'inline-block',
-		width: '1px',
 		content: "''",
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

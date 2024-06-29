@@ -9,6 +9,7 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+// eslint-disable-next-line @atlaskit/platform/no-alias
 import * as ffPackage from '@atlaskit/platform-feature-flags';
 import type { Provider } from '..';
 import { EVENT_STATUS } from '../../helpers/const';

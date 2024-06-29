@@ -7,6 +7,7 @@ import Fuse from 'fuse.js';
 export const getterIdentifierToFlagTypeMap = {
 	getBooleanFF: 'boolean' as const,
 	ffTest: 'boolean' as const,
+	fg: 'boolean' as const,
 } as const;
 
 export type PlatformFeatureFlagRegistrationSection = {

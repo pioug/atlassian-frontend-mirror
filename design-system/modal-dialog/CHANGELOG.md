@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.14.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.14.3
 
 ### Patch Changes

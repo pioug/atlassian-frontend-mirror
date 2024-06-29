@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/heading",
-	"version": "2.4.2",
+	"version": "2.4.3",
 	"description": "A heading is a typography component used to display text in different sizes and formats.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
 		"codegen": "ts-node ./scripts/codegen.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^9.0.0",
+		"@atlaskit/primitives": "^10.0.0",
 		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

@@ -16,7 +16,6 @@ snapshot(MediaImageInlineDefault, {
 	],
 	featureFlags: {
 		'platform.editor.media.inline-image.base-support': true,
-		'platform.media-experience.cardv2_7zann': true,
 	},
 });
 
@@ -41,7 +40,6 @@ snapshot(MediaImageInlineWithBorders, {
 	],
 	featureFlags: {
 		'platform.editor.media.inline-image.base-support': true,
-		'platform.media-experience.cardv2_7zann': true,
 	},
 });
 
@@ -55,7 +53,6 @@ snapshot.skip(MediaImageInlineWithLinks, {
 	],
 	featureFlags: {
 		'platform.editor.media.inline-image.base-support': true,
-		'platform.media-experience.cardv2_7zann': true,
 	},
 });
 
@@ -68,6 +65,5 @@ snapshot(MediaImageInlineWithLinksAndBorders, {
 	],
 	featureFlags: {
 		'platform.editor.media.inline-image.base-support': true,
-		'platform.media-experience.cardv2_7zann': true,
 	},
 });

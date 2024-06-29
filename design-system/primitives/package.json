@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "9.0.0",
+	"version": "10.0.0",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -112,7 +112,7 @@
 					"slug": "primitives/anchor",
 					"id": "@atlaskit/primitives/anchor",
 					"status": {
-						"type": "closed-beta"
+						"type": "beta"
 					}
 				}
 			]

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.19.3
+
+### Patch Changes
+
+- [#114530](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114530)
+  [`3b9fcf5e7a8bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b9fcf5e7a8bd) -
+  [ux] Fix increased scaling percent check
+
 ## 7.19.2
 
 ### Patch Changes

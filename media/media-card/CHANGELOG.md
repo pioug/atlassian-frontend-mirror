@@ -1,5 +1,20 @@
 # @atlaskit/media-card
 
+## 78.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.0.0
+
+### Major Changes
+
+- [#115862](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115862)
+  [`be4b79682f52b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be4b79682f52b) -
+  Removing mediacardV2 feature flag making the default experience the refactored one which may
+  result in tests failing where consumers test the internals of media components
+
 ## 77.12.4
 
 ### Patch Changes

@@ -4,9 +4,9 @@ import type { Props } from '../../../ui/Renderer';
 import Renderer from '../../../ui/Renderer';
 import { IntlProvider } from 'react-intl-next';
 import { render } from '@testing-library/react';
-import { exampleMediaFeatureFlags, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers';
 import initialDoc from '../../__fixtures__/event-handlers.adf.json';
-import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/src/media-client';
 
 jest.mock('react-lazily-render', () => {
 	let isOnRenderCalled = false;
@@ -37,9 +37,9 @@ describe('@atlaskit/renderer/event-handlers', () => {
 		};
 		return render(
 			<IntlProvider locale="en">
-				<MediaClientContext.Provider value={fakeMediaClient()}>
+				<MockMediaClientProvider>
 					<Renderer {...finalProps} />
-				</MediaClientContext.Provider>
+				</MockMediaClientProvider>
 			</IntlProvider>,
 		);
 	};

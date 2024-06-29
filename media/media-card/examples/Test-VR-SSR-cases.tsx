@@ -14,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 import { Card, type CardBaseProps } from '../src/card/card';
 import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 import { MainWrapper, SSRAnalyticsWrapper } from '../example-helpers';
 
 const dimensions = { width: 250, height: 150 };
@@ -63,20 +64,26 @@ const Page = ({
 	mode: 'single' | 'group';
 	throwError?: 'getImageUrlSync' | 'dataURI';
 	additionalProps?: Partial<CardBaseProps>;
-}) => (
-	<SSRAnalyticsWrapper>
-		<h3>{title}</h3>
-		<Card
-			mediaClient={createMediaClient({ throwError })}
-			identifier={imageFileId}
-			dimensions={mode === 'single' ? fullFitDimensions : dimensions}
-			ssr={ssr}
-			shouldOpenMediaViewer={true}
-			{...modes[mode]}
-			{...additionalProps}
-		/>
-	</SSRAnalyticsWrapper>
-);
+}) => {
+	const client = createMediaClient({ throwError });
+
+	return (
+		<SSRAnalyticsWrapper>
+			<h3>{title}</h3>
+			<MediaClientContext.Provider value={client}>
+				<Card
+					mediaClient={createMediaClient()}
+					identifier={imageFileId}
+					dimensions={mode === 'single' ? fullFitDimensions : dimensions}
+					ssr={ssr}
+					shouldOpenMediaViewer={true}
+					{...modes[mode]}
+					{...additionalProps}
+				/>
+			</MediaClientContext.Provider>
+		</SSRAnalyticsWrapper>
+	);
+};
 
 type RunSSRParams = {
 	containerId: string;

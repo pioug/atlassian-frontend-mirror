@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 109.40.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.40.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.40.1
+
+### Patch Changes
+
+- [#116104](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116104)
+  [`ed6b070c03e93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed6b070c03e93) -
+  [ED-23887] fix issue where invalid range calculations led to renderer crashes.
+
 ## 109.40.0
 
 ### Minor Changes

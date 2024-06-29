@@ -10,13 +10,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { EVENT_CHANNEL } from '../../analytics';
 import useErrorLogger from '../useErrorLogger';
 
-jest.mock('@atlaskit/platform-feature-flags', () => {
-	const originalModule = jest.requireActual('@atlaskit/platform-feature-flags');
-	return {
-		...originalModule,
-		getBooleanFF: jest.fn(),
-	};
-});
+jest.mock('@atlaskit/platform-feature-flags');
 
 jest.mock('@atlaskit/linking-common/sentry', () => {
 	const originalModule = jest.requireActual('@atlaskit/link-client-extension');

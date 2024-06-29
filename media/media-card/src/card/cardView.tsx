@@ -1,10 +1,10 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { type MouseEvent } from 'react';
+import React, { type MouseEvent, useEffect, useState, useRef } from 'react';
 import { type MessageDescriptor } from 'react-intl-next';
 
-import { type MediaItemType, type FileDetails } from '@atlaskit/media-client';
+import { type MediaItemType, type FileDetails, type ImageResizeMode } from '@atlaskit/media-client';
 import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
@@ -15,13 +15,16 @@ import SpinnerIcon from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 import { messages } from '@atlaskit/media-ui';
 
-import { type SharedCardProps, type CardStatus } from '../types';
-import { defaultImageCardDimensions } from '../utils/cardDimensions';
-import { isValidPercentageUnit } from '../utils/isValidPercentageUnit';
-import { getElementDimension } from '../utils/getElementDimension';
+import {
+	type CardStatus,
+	type CardPreview,
+	type MediaCardCursor,
+	type CardDimensions,
+	type TitleBoxIcon,
+} from '../types';
+import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { createAndFireMediaCardEvent } from '../utils/analytics';
-import { attachDetailsToActions } from './actions';
-import { calcBreakpointSize } from './ui/styles';
+import { type CardAction, attachDetailsToActions } from './actions';
 import { ImageRenderer } from './ui/imageRenderer/imageRenderer';
 import { TitleBox } from './ui/titleBox/titleBox';
 import { FailedTitleBox } from './ui/titleBox/failedTitleBox';
@@ -30,7 +33,6 @@ import { PlayButton } from './ui/playButton/playButton';
 import { TickBox } from './ui/tickBox/tickBox';
 import { Blanket } from './ui/blanket/blanket';
 import { ActionsBar } from './ui/actionsBar/actionsBar';
-import { type Breakpoint } from './ui/common';
 import { IconWrapper } from './ui/iconWrapper/iconWrapper';
 import {
 	PreviewUnavailable,
@@ -40,35 +42,44 @@ import {
 	FailedToLoad,
 } from './ui/iconMessage';
 import { isUploadError, isRateLimitedError, isPollingError, type MediaCardError } from '../errors';
-import { type CardPreview } from '../types';
-import { type MediaCardCursor } from '../types';
-import { ImageContainer, Wrapper } from './ui/wrapper';
+import { Wrapper, ImageContainer } from './ui/wrapper';
 import { fileCardImageViewSelector } from './classnames';
-
+import { useBreakpoint } from './useBreakpoint';
 import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
-export interface CardViewOwnProps extends SharedCardProps {
+
+export interface CardViewProps {
+	readonly disableOverlay?: boolean;
+	readonly resizeMode?: ImageResizeMode;
+	readonly dimensions: CardDimensions;
+	readonly actions?: Array<CardAction>;
+	readonly selectable?: boolean;
+	readonly selected?: boolean;
+	readonly alt?: string;
+	readonly testId?: string;
+	readonly titleBoxBgColor?: string;
+	readonly titleBoxIcon?: TitleBoxIcon;
 	readonly status: CardStatus;
 	readonly mediaItemType: MediaItemType;
 	readonly mediaCardCursor?: MediaCardCursor;
 	readonly metadata?: FileDetails;
 	readonly error?: MediaCardError;
-	readonly shouldOpenMediaViewer: boolean;
 	readonly onClick?: (
 		event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
 		analyticsEvent?: UIAnalyticsEvent,
 	) => void;
+	readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
+	readonly shouldOpenMediaViewer?: boolean;
 	readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
 	readonly onDisplayImage?: () => void;
 	// FileCardProps
-	readonly cardPreview?: CardPreview;
+	readonly cardPreview?: MediaFilePreview;
 	readonly progress?: number;
 	// CardView can't implement forwardRef as it needs to pass and at the same time
 	// handle the HTML element internally. There is no standard way to do this.
 	// Therefore, we restrict the use of refs to callbacks only, not RefObjects.
 	readonly innerRef?: (instance: HTMLDivElement | null) => void;
-	readonly openMediaViewerButtonRef?: React.Ref<HTMLButtonElement>;
-	readonly onImageLoad: (cardPreview: CardPreview) => void;
-	readonly onImageError: (cardPreview: CardPreview) => void;
+	readonly onImageLoad?: (cardPreview: MediaFilePreview) => void;
+	readonly onImageError?: (cardPreview: MediaFilePreview) => void;
 	readonly nativeLazyLoad?: boolean;
 	readonly forceSyncDisplay?: boolean;
 	// Used to disable animation for testing purposes
@@ -77,12 +88,7 @@ export interface CardViewOwnProps extends SharedCardProps {
 	overriddenCreationDate?: number;
 }
 
-export interface CardViewState {
-	elementWidth?: number;
-	didImageRender: boolean;
-}
-
-export type CardViewProps = CardViewOwnProps & WithAnalyticsEventsProps;
+export type CardViewBaseProps = CardViewProps & WithAnalyticsEventsProps;
 
 export interface RenderConfigByStatus {
 	renderTypeIcon?: boolean;
@@ -99,280 +105,87 @@ export interface RenderConfigByStatus {
 	customTitleMessage?: MessageDescriptor;
 }
 
-/**
- * This is classic vanilla CardView class. To create an instance of class one would need to supply
- * `createAnalyticsEvent` prop to satisfy it's Analytics Events needs.
- */
-export class CardViewBase extends React.Component<CardViewProps, CardViewState> {
-	state: CardViewState = { didImageRender: false };
-	divRef: React.RefObject<HTMLDivElement> = React.createRef();
+export const CardViewBase = ({
+	innerRef,
+	onImageLoad,
+	onImageError,
+	dimensions,
+	onClick,
+	onMouseEnter,
+	testId,
+	metadata,
+	status,
+	selected,
+	selectable,
+	cardPreview,
+	mediaCardCursor,
+	shouldHideTooltip,
+	progress,
+	alt,
+	resizeMode,
+	onDisplayImage,
+	nativeLazyLoad,
+	forceSyncDisplay,
+	actions,
+	disableOverlay,
+	titleBoxBgColor,
+	titleBoxIcon,
+	error,
+	disableAnimation,
+	openMediaViewerButtonRef = null,
+	shouldOpenMediaViewer,
+	overriddenCreationDate,
+}: CardViewBaseProps) => {
+	const [didImageRender, setDidImageRender] = useState<boolean>(false);
+	const divRef = useRef<HTMLDivElement>(null);
+	const prevCardPreviewRef = useRef<MediaFilePreview | undefined>();
+	const breakpoint = useBreakpoint(dimensions?.width, divRef);
 
-	static defaultProps: Partial<CardViewOwnProps> = {
-		appearance: 'auto',
-	};
+	useEffect(() => {
+		innerRef && !!divRef.current && innerRef(divRef.current);
+	}, [innerRef]);
 
-	componentDidMount() {
-		this.saveElementWidth();
-		const { innerRef } = this.props;
-		!!innerRef && !!this.divRef.current && innerRef(this.divRef.current);
-	}
+	useEffect(() => {
+		// We should only switch didImageRender to false when cardPreview goes undefined, not when it is changed. as this method could be triggered after onImageLoad callback, falling on a race condition
+		if (prevCardPreviewRef.current && !cardPreview) {
+			setDidImageRender(false);
+		}
+		prevCardPreviewRef.current = cardPreview;
+	}, [cardPreview]);
 
-	componentDidUpdate({ cardPreview: prevCardPreview }: CardViewProps) {
-		const { cardPreview } = this.props;
-		// We should only switch didImageRender to false
-		// when cardPreview goes undefined, not when it is updated.
-		// as this method could be triggered after onImageLoad callback,
-		// falling on a race condition
-		!!prevCardPreview && !cardPreview && this.setState({ didImageRender: false });
-	}
-
-	private onImageLoad = (prevCardPreview: CardPreview) => {
-		const { onImageLoad, cardPreview } = this.props;
+	const handleOnImageLoad = (prevCardPreview: CardPreview) => {
 		if (prevCardPreview.dataURI !== cardPreview?.dataURI) {
 			return;
 		}
-		// We render the icon & icon message always, even if there is cardPreview available.
-		// If the image fails to load/render, the icon will remain, i.e. the user won't see a change until
-		// the root card decides to chage status to error.
-		// If the image renders successfully, we switch this variable to hide the icon & icon message
-		// behind the thumbnail in case the image has transparency.
-		// It is less likely that root component replaces a suceeded cardPreview for a failed one
-		// than the opposite case. Therefore we prefer to hide the icon instead show when the image fails,
-		// for a smoother transition
-		this.setState({ didImageRender: true });
-		onImageLoad && onImageLoad(cardPreview);
+		/*
+      We render the icon & icon message always, even if there is cardPreview available.
+      If the image fails to load/render, the icon will remain, i.e. the user won't see a change until the root card decides to chage status to error.
+      If the image renders successfully, we switch this variable to hide the icon & icon message behind the thumbnail in case the image has transparency.
+      It is less likely that root component replaces a suceeded cardPreview for a failed one than the opposite case. Therefore we prefer to hide the icon instead show when the image fails, for a smoother transition
+    */
+		setDidImageRender(true);
+		onImageLoad?.(cardPreview);
 	};
 
-	private onImageError = (cardPreview: CardPreview) => {
-		const { onImageError } = this.props;
-		this.setState({ didImageRender: false });
-		onImageError && onImageError(cardPreview);
-	};
-
-	private get breakpoint(): Breakpoint {
-		const width =
-			this.state.elementWidth ||
-			(this.props.dimensions ? this.props.dimensions.width : '') ||
-			defaultImageCardDimensions.width;
-
-		return calcBreakpointSize(parseInt(`${width}`, 10));
-	}
-
-	// If the dimensions.width is a percentage, we need to transform it
-	// into a pixel value in order to get the right breakpoints applied.
-	private saveElementWidth = () => {
-		const { dimensions } = this.props;
-		if (!dimensions) {
+	const handleOnImageError = (prevCardPreview: CardPreview) => {
+		if (prevCardPreview.dataURI !== cardPreview?.dataURI) {
 			return;
 		}
-
-		const { width } = dimensions;
-
-		if (width && isValidPercentageUnit(width) && !!this.divRef.current) {
-			const elementWidth = getElementDimension(this.divRef.current, 'width');
-			this.setState({ elementWidth });
-		}
+		setDidImageRender(false);
+		onImageError?.(cardPreview);
 	};
 
-	private renderSpinner(hasTitleBox: boolean) {
-		return (
-			<IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-				<SpinnerIcon testId={'media-card-loading'} interactionName={'media-card-loading'} />
-			</IconWrapper>
-		);
-	}
-
-	private shouldRenderPlayButton() {
-		const { metadata, cardPreview } = this.props;
+	const shouldRenderPlayButton = () => {
 		const { mediaType } = metadata || {};
 		if (mediaType !== 'video' || !cardPreview) {
 			return false;
 		}
 		return true;
-	}
+	};
 
-	private renderPlayButton(hasTitleBox: boolean) {
-		return (
-			<IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-				<PlayButton />
-			</IconWrapper>
-		);
-	}
-
-	//This Blanket will provide a shadow backround for uploading status by
-	//setting isFixed.
-	private renderBlanket(isFixed: boolean) {
-		return <Blanket isFixed={isFixed} />;
-	}
-
-	private renderTitleBox() {
-		const { metadata, titleBoxBgColor, titleBoxIcon, overriddenCreationDate } = this.props;
-		const { name, createdAt } = metadata || {};
-
-		return (
-			!!name && (
-				<TitleBox
-					name={name}
-					createdAt={overriddenCreationDate ?? createdAt}
-					breakpoint={this.breakpoint}
-					titleBoxIcon={titleBoxIcon}
-					titleBoxBgColor={titleBoxBgColor}
-				/>
-			)
-		);
-	}
-
-	private renderFailedTitleBox(customMessage?: MessageDescriptor) {
-		return <FailedTitleBox breakpoint={this.breakpoint} customMessage={customMessage} />;
-	}
-
-	private renderProgressBar(positionBottom: boolean) {
-		const { progress } = this.props;
-		return (
-			<ProgressBar
-				progress={progress}
-				breakpoint={this.breakpoint}
-				positionBottom={positionBottom}
-			/>
-		);
-	}
-
-	private renderImageRenderer() {
-		const {
-			cardPreview,
-			metadata: { mediaType = 'unknown' } = {},
-			alt,
-			resizeMode,
-			onDisplayImage,
-			nativeLazyLoad,
-			forceSyncDisplay,
-		} = this.props;
-
-		const { name } = this.props.metadata || {};
-
-		const altText = alt || name;
-
-		return (
-			!!cardPreview && (
-				<ImageRenderer
-					cardPreview={cardPreview}
-					mediaType={mediaType}
-					alt={altText}
-					resizeMode={resizeMode}
-					onDisplayImage={onDisplayImage}
-					onImageLoad={this.onImageLoad}
-					onImageError={this.onImageError}
-					nativeLazyLoad={nativeLazyLoad}
-					forceSyncDisplay={forceSyncDisplay}
-				/>
-			)
-		);
-	}
-
-	private renderTickBox() {
-		const { selected } = this.props;
-		return <TickBox selected={selected} />;
-	}
-
-	private renderMediaTypeIcon(hasTitleBox: boolean, iconMessage: JSX.Element | undefined) {
-		const { metadata } = this.props;
-		const { mediaType, mimeType, name } = metadata || {};
-
-		return (
-			<IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-				<MimeTypeIcon
-					testId={'media-card-file-type-icon'}
-					mediaType={mediaType}
-					mimeType={mimeType}
-					name={name}
-				/>
-				{iconMessage}
-			</IconWrapper>
-		);
-	}
-
-	private renderActionsBar() {
-		const { disableOverlay, actions, metadata } = this.props;
-
-		const actionsWithDetails = metadata && actions ? attachDetailsToActions(actions, metadata) : [];
-
-		if (disableOverlay || !actions || actions.length === 0) {
-			return null;
-		}
-		return <ActionsBar filename={metadata?.name} actions={actionsWithDetails} />;
-	}
-
-	render() {
-		const {
-			dimensions,
-			appearance,
-			onClick,
-			onMouseEnter,
-			testId,
-			metadata,
-			status,
-			selected,
-			selectable,
-			disableOverlay,
-			cardPreview,
-			mediaCardCursor,
-			shouldHideTooltip,
-			openMediaViewerButtonRef = null,
-			shouldOpenMediaViewer,
-		} = this.props;
-
-		const { name } = metadata || {};
-		const shouldDisplayBackground =
-			!cardPreview || !disableOverlay || status === 'error' || status === 'failed-processing';
-		const isPlayButtonClickable = !!(this.shouldRenderPlayButton() && disableOverlay);
-		const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
-		// Disable tooltip for Media Single
-		const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
-
-		return (
-			<React.Fragment>
-				{shouldOpenMediaViewer && (
-					<OpenMediaViewerButton
-						fileName={name ?? ''}
-						innerRef={openMediaViewerButtonRef}
-						onClick={onClick}
-					/>
-				)}
-				<Wrapper
-					testId={testId || 'media-card-view'}
-					dimensions={dimensions}
-					appearance={appearance}
-					onClick={onClick}
-					onMouseEnter={onMouseEnter}
-					innerRef={this.divRef}
-					breakpoint={this.breakpoint}
-					mediaCardCursor={mediaCardCursor}
-					disableOverlay={!!disableOverlay}
-					selected={!!selected}
-					displayBackground={shouldDisplayBackground}
-					isPlayButtonClickable={isPlayButtonClickable}
-					isTickBoxSelectable={isTickBoxSelectable}
-					shouldDisplayTooltip={shouldDisplayTooltip}
-				>
-					{shouldDisplayTooltip ? (
-						<Tooltip content={name} position="bottom" tag={'div'}>
-							{this.renderContents()}
-						</Tooltip>
-					) : (
-						this.renderContents()
-					)}
-				</Wrapper>
-			</React.Fragment>
-		);
-	}
-
-	private getRenderConfigByStatus = (): RenderConfigByStatus => {
-		const { cardPreview, status, metadata, disableOverlay, error, selectable, disableAnimation } =
-			this.props;
-
+	const getRenderConfigByStatus = (): RenderConfigByStatus => {
 		const { name, mediaType } = metadata || {};
-		const { didImageRender } = this.state;
-		const isZeroSize = !!(metadata && metadata.size === 0);
+		const isZeroSize = metadata && metadata.size === 0;
 
 		const defaultConfig: RenderConfigByStatus = {
 			renderTypeIcon: !didImageRender,
@@ -451,50 +264,136 @@ export class CardViewBase extends React.Component<CardViewProps, CardViewState> 
 		}
 	};
 
-	private renderContents = () => {
-		const {
-			renderTypeIcon,
-			iconMessage,
-			renderImageRenderer,
-			renderSpinner,
-			renderPlayButton,
-			renderBlanket,
-			renderProgressBar,
-			renderTitleBox,
-			renderFailedTitleBox,
-			renderTickBox,
-			isFixedBlanket,
-			customTitleMessage,
-		} = this.getRenderConfigByStatus();
-		const { progress, selected, status, metadata } = this.props;
+	const {
+		renderTypeIcon,
+		iconMessage,
+		renderImageRenderer,
+		renderSpinner,
+		renderPlayButton,
+		renderBlanket,
+		renderProgressBar,
+		renderTitleBox,
+		renderFailedTitleBox,
+		renderTickBox,
+		isFixedBlanket,
+		customTitleMessage,
+	} = getRenderConfigByStatus();
+	const shouldDisplayBackground =
+		!cardPreview || !disableOverlay || status === 'error' || status === 'failed-processing';
+	const isPlayButtonClickable = shouldRenderPlayButton() && !!disableOverlay;
+	const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
+	// Disable tooltip for Media Single
+	const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
 
-		const { name } = metadata || {};
-		const hasTitleBox = !!renderTitleBox || !!renderFailedTitleBox;
+	const hasTitleBox = !!(renderTitleBox || renderFailedTitleBox);
 
-		return (
-			<React.Fragment>
-				<ImageContainer
-					testId={fileCardImageViewSelector}
-					mediaName={name}
-					status={status}
-					progress={progress}
-					selected={selected ? true : undefined}
-				>
-					{renderTypeIcon && this.renderMediaTypeIcon(hasTitleBox, iconMessage)}
-					{renderSpinner && this.renderSpinner(hasTitleBox)}
-					{renderImageRenderer && this.renderImageRenderer()}
-					{renderPlayButton && this.renderPlayButton(hasTitleBox)}
-					{renderBlanket && this.renderBlanket(!!isFixedBlanket)}
-					{renderTitleBox && this.renderTitleBox()}
-					{renderFailedTitleBox && this.renderFailedTitleBox(customTitleMessage)}
-					{renderProgressBar && this.renderProgressBar(!hasTitleBox)}
-					{renderTickBox && this.renderTickBox()}
-				</ImageContainer>
-				{this.renderActionsBar()}
-			</React.Fragment>
-		);
-	};
-}
+	const { mediaType, mimeType, name, createdAt } = metadata || {};
+
+	const actionsWithDetails = metadata && actions ? attachDetailsToActions(actions, metadata) : [];
+
+	const contents = (
+		<React.Fragment>
+			<ImageContainer
+				testId={fileCardImageViewSelector}
+				mediaName={name}
+				status={status}
+				progress={progress}
+				selected={selected}
+				source={cardPreview?.source}
+			>
+				{renderTypeIcon && (
+					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
+						<MimeTypeIcon
+							testId="media-card-file-type-icon"
+							mediaType={mediaType}
+							mimeType={mimeType}
+							name={name}
+						/>
+						{iconMessage}
+					</IconWrapper>
+				)}
+				{renderSpinner && (
+					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
+						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
+					</IconWrapper>
+				)}
+				{renderImageRenderer && !!cardPreview && (
+					<ImageRenderer
+						cardPreview={cardPreview}
+						mediaType={metadata?.mediaType || 'unknown'}
+						alt={alt || name}
+						resizeMode={resizeMode}
+						onDisplayImage={onDisplayImage}
+						onImageLoad={handleOnImageLoad}
+						onImageError={handleOnImageError}
+						nativeLazyLoad={nativeLazyLoad}
+						forceSyncDisplay={forceSyncDisplay}
+					/>
+				)}
+				{renderPlayButton && (
+					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
+						<PlayButton />
+					</IconWrapper>
+				)}
+				{renderBlanket && <Blanket isFixed={isFixedBlanket} />}
+				{renderTitleBox && name && (
+					<TitleBox
+						name={name}
+						createdAt={overriddenCreationDate ?? createdAt}
+						breakpoint={breakpoint}
+						titleBoxIcon={titleBoxIcon}
+						titleBoxBgColor={titleBoxBgColor}
+					/>
+				)}
+				{renderFailedTitleBox && (
+					<FailedTitleBox breakpoint={breakpoint} customMessage={customTitleMessage} />
+				)}
+				{renderProgressBar && (
+					<ProgressBar progress={progress} breakpoint={breakpoint} positionBottom={!hasTitleBox} />
+				)}
+				{renderTickBox && <TickBox selected={selected} />}
+			</ImageContainer>
+			{disableOverlay || !actions || actions.length === 0 ? null : (
+				<ActionsBar filename={name} actions={actionsWithDetails} />
+			)}
+		</React.Fragment>
+	);
+
+	return (
+		<React.Fragment>
+			{shouldOpenMediaViewer && (
+				<OpenMediaViewerButton
+					fileName={name ?? ''}
+					innerRef={openMediaViewerButtonRef}
+					onClick={onClick}
+				/>
+			)}
+			<Wrapper
+				testId={testId || 'media-card-view'}
+				dimensions={dimensions}
+				onClick={onClick}
+				onMouseEnter={onMouseEnter}
+				innerRef={divRef}
+				breakpoint={breakpoint}
+				mediaCardCursor={mediaCardCursor}
+				disableOverlay={!!disableOverlay}
+				selected={!!selected}
+				displayBackground={shouldDisplayBackground}
+				isPlayButtonClickable={isPlayButtonClickable}
+				isTickBoxSelectable={isTickBoxSelectable}
+				shouldDisplayTooltip={shouldDisplayTooltip}
+			>
+				{shouldDisplayTooltip ? (
+					<Tooltip content={name} position="bottom" tag="div">
+						{contents}
+					</Tooltip>
+				) : (
+					contents
+				)}
+			</Wrapper>
+		</React.Fragment>
+	);
+};
 
 export const CardView = withAnalyticsEvents({
 	onClick: createAndFireMediaCardEvent({

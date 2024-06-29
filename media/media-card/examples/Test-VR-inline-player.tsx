@@ -3,8 +3,8 @@
 import { css, jsx } from '@emotion/react';
 import { InlinePlayer } from '../src/card/inlinePlayer';
 import { createStorybookMediaClient, videoSquareFileId } from '@atlaskit/media-test-helpers';
-import { createMediaSubscribable } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
+import { MediaClientContext } from '@atlaskit/media-client-react';
 
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';
@@ -31,36 +31,39 @@ export default () => {
 
 	const mediaClient = createStorybookMediaClient();
 
-	mediaClient.file.getFileState = () => {
-		return createMediaSubscribable({
-			status: cardStatus,
-			preview: {
-				value: new Blob([], { type: 'video/mp4' }),
+	mediaClient.__DO_NOT_USE__getMediaStore().setState({
+		files: {
+			[videoSquareFileId.id]: {
+				status: cardStatus,
+				preview: {
+					value: new Blob([], { type: 'video/mp4' }),
+				},
+				id: '',
+				mediaType: 'image',
+				mimeType: '',
+				name: '',
+				progress: 0.5,
+				size: 0,
 			},
-			id: '',
-			mediaType: 'image',
-			mimeType: '',
-			name: '',
-			progress: 0.5,
-			size: 0,
-		});
-	};
+		},
+	});
 
 	return (
 		<MainWrapper disableFeatureFlagWrapper={true} developmentOnly>
-			<IntlProvider locale={'en'}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div css={inlinePlayerWrapperStyles({ ...wrapperDimensions })}>
-					<InlinePlayer
-						identifier={videoSquareFileId}
-						mediaClient={mediaClient}
-						dimensions={dimensions}
-						// needed for reliable snapshots
-						selected={true}
-						autoplay={false}
-					/>
-				</div>
-			</IntlProvider>
+			<MediaClientContext.Provider value={mediaClient}>
+				<IntlProvider locale={'en'}>
+					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+					<div css={inlinePlayerWrapperStyles({ ...wrapperDimensions })}>
+						<InlinePlayer
+							identifier={videoSquareFileId}
+							dimensions={dimensions}
+							// needed for reliable snapshots
+							selected={true}
+							autoplay={false}
+						/>
+					</div>
+				</IntlProvider>
+			</MediaClientContext.Provider>
 		</MainWrapper>
 	);
 };

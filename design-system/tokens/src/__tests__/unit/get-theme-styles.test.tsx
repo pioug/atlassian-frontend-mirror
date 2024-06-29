@@ -11,10 +11,6 @@ const UNSAFE_themeOptions: ThemeOptionsSchema = {
 
 const customStyleHashId = hash(JSON.stringify(UNSAFE_themeOptions));
 
-jest.mock('@atlaskit/platform-feature-flags', () => ({
-	getBooleanFF: jest.fn().mockImplementation(() => false),
-}));
-
 function getThemeData(themes: ThemeStyles[]) {
 	return themes.reduce((acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
 		acc.push({ ...rest });

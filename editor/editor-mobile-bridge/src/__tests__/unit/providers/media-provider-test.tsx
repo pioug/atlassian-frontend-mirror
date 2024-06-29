@@ -22,7 +22,12 @@ import type { Auth, AuthProvider, MediaClientConfig } from '@atlaskit/media-core
 import type { MediaClient, ProcessedFileState } from '@atlaskit/media-client';
 import { isFileIdentifier, createMediaSubscribable } from '@atlaskit/media-client';
 
-import { getMediaClient, withMediaClient } from '@atlaskit/media-client-react';
+import {
+	getMediaClient,
+	withMediaClient,
+	useFileState,
+	useMediaClient,
+} from '@atlaskit/media-client-react';
 import uuid from 'uuid/v4';
 import {
 	asMock,
@@ -102,6 +107,8 @@ describe('Mobile MediaProvider', () => {
 		);
 
 		asMockReturnValue(mediaClient.file.getFileState, createMediaSubscribable(testFileState));
+		asMockReturnValue(useFileState, { fileState: testFileState });
+		asMockReturnValue(useMediaClient, mediaClient);
 
 		promisedMediaProvider = Promise.resolve({
 			viewMediaClientConfig: mediaClientConfig,
@@ -171,9 +178,9 @@ describe('Mobile MediaProvider', () => {
 				// flushes promise resolution queue so that the async media API calls mockAuthProvider
 				await sleep(0);
 
-				expectFunctionToHaveBeenCalledWith(mediaClient.file.getFileState, [
+				expectFunctionToHaveBeenCalledWith(useFileState, [
 					testFileId,
-					{ collectionName: testCollectionName, occurrenceKey: undefined },
+					{ collectionName: testCollectionName, occurrenceKey: undefined, skipRemote: false },
 				]);
 			});
 		});
@@ -212,9 +219,9 @@ describe('Mobile MediaProvider', () => {
 				// flushes promise resolution queue so that the async media API calls mockAuthProvider
 				await sleep(0);
 
-				expectFunctionToHaveBeenCalledWith(mediaClient.file.getFileState, [
+				expectFunctionToHaveBeenCalledWith(useFileState, [
 					testFileId,
-					{ collectionName: emptyCollectionName, occurrenceKey: undefined },
+					{ collectionName: emptyCollectionName, occurrenceKey: undefined, skipRemote: false },
 				]);
 			});
 		});

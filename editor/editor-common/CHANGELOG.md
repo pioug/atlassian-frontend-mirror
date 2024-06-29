@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 83.4.3
+
+### Patch Changes
+
+- [#116178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116178)
+  [`f8e239e1bdf8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f8e239e1bdf8e) -
+  [ux] Remove small gapping in inline macros and update VR tests accordingly
+- Updated dependencies
+
+## 83.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 83.4.1
+
+### Patch Changes
+
+- [#114832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114832)
+  [`a38ae4ff11746`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a38ae4ff11746) -
+  Slight change to link overlay button CSS to fix some background colour edge case issues
+
 ## 83.4.0
 
 ### Minor Changes

@@ -1,5 +1,6 @@
 import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const getSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
@@ -19,21 +20,38 @@ export const getSelection = (tr: Transaction, start: number) => {
 		// Find the first inline node in the node
 		let inlineNodePos: number = start;
 		let foundInlineNode = false;
+		let inlineNodeEndPos = 0;
+
 		tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
-			if (foundInlineNode) {
-				return false;
-			}
-			if (n.isInline) {
-				inlineNodePos = pos;
-				foundInlineNode = true;
-				return false;
+			if (fg('platform.editor.elements.drag-and-drop-ed-23905')) {
+				if (n.isInline) {
+					inlineNodeEndPos = pos + n.nodeSize;
+				}
+
+				if (n.isInline && !foundInlineNode) {
+					inlineNodePos = pos;
+					foundInlineNode = true;
+				}
+			} else {
+				if (foundInlineNode) {
+					return false;
+				}
+				if (n.isInline) {
+					inlineNodePos = pos;
+					foundInlineNode = true;
+					return false;
+				}
 			}
 			return true;
 		});
 
 		const inlineNodeDepth = inlineNodePos - start;
 		return new TextSelection(
-			tr.doc.resolve(start + nodeSize - inlineNodeDepth),
+			tr.doc.resolve(
+				fg('platform.editor.elements.drag-and-drop-ed-23905')
+					? inlineNodeEndPos
+					: start + nodeSize - inlineNodeDepth,
+			),
 			tr.doc.resolve(inlineNodePos),
 		);
 	}

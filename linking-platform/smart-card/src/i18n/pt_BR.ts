@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Criar automação',
   'automation-menu.modal.footer.ok-button': 'Ok',
   'automation-menu.modal.header.icon.label': 'Ícone de cabeçalho modal de Automação',
+  'automation-menu.success-state.message': 'A automação está em andamento',
   'fabric.linking.access_exists_description': 'Solicite acesso para visualizar este conteúdo em {hostname}.',
   'fabric.linking.actions': 'Ações',
   'fabric.linking.add_account': 'Adicionar conta',
@@ -142,8 +143,15 @@ export default {
   'fabric.linking.related': 'Relacionado',
   'fabric.linking.related_links_found_in': 'Encontrado em',
   'fabric.linking.related_links_includes_links_to': 'Inclui links para',
+  'fabric.linking.related_links_modal_error_header': 'Algo deu errado',
+  'fabric.linking.related_links_modal_error_message':
+    'Ocorreu um erro ao carregar os links recentes. Verifique a conexão ou atualize a página para tentar de novo.',
   'fabric.linking.related_links_modal_title': 'Links recentes',
+  'fabric.linking.related_links_modal_unavailable_header': 'Sem links recentes',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'A gente não encontrou nenhum link para mostrar aqui. A gente está sempre analisando e adicionando links recentes para páginas atualizadas ou outros tipos de conteúdo.',
   'fabric.linking.related_links_not_found': 'A gente não encontrou nenhum link para mostrar aqui.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Ver links recentes...',
   'fabric.linking.related_work_items_not_found': 'Este link não está mencionado em nenhum outro lugar.',
   'fabric.linking.request_access': 'Solicitar acesso',
   'fabric.linking.request_access_description':

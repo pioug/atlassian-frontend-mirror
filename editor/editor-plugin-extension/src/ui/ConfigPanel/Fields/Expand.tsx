@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
@@ -67,18 +67,13 @@ function Expand({ field, children, isExpanded = false, intl }: Props) {
 			<div css={expandControlStyles}>
 				<div css={labelContainerStyles}>{field.label}</div>
 				<div css={chevronContainerStyles}>
-					<Button
+					<IconButton
 						onClick={() => {
 							setExpanded(!expanded);
 						}}
+						label={intl.formatMessage(expanded ? messages.collapse : messages.expand)}
 						testId="form-expand-toggle"
-						iconBefore={
-							expanded ? (
-								<ChevronDownIcon label={intl.formatMessage(messages.collapse)} />
-							) : (
-								<ChevronRightIcon label={intl.formatMessage(messages.expand)} />
-							)
-						}
+						icon={expanded ? ChevronDownIcon : ChevronRightIcon}
 					/>
 				</div>
 			</div>

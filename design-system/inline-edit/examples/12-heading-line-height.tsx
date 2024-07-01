@@ -33,7 +33,7 @@ const Message: FC<{ children: string }> = ({ children }) => (
 );
 
 const headingOneStyles = css({
-	fontSize: token('font.size.400', '24px'),
+	fontSize: '24px',
 	fontWeight: token('font.weight.medium', '500'),
 	lineHeight: 'inherit',
 });
@@ -48,7 +48,7 @@ const textFieldStyles = css({
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 		margin: '-11px -4px',
 		padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
-		fontSize: token('font.size.400', '24px'),
+		fontSize: '24px',
 	},
 });
 

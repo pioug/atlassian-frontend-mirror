@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 2.5.4
+
+### Patch Changes
+
+- [#116025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116025)
+  [`cd506a937e44f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd506a937e44f) -
+  Internal change to how typography is applied. There should be no visual change.
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
+## 2.5.3
+
+### Patch Changes
+
+- [#113477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113477)
+  [`2c509c4c06447`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c509c4c06447) -
+  Updated search count to be displayed from a common component with single i18n message string.
+
 ## 2.5.2
 
 ### Patch Changes

@@ -86,17 +86,12 @@ export default {
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Докладніше про смарт-посилання.',
   'linkDataSource.issue-line-table.unwrap-text': 'Розгорнути текст',
   'linkDataSource.issue-line-table.wrap-text': 'Згорнути текст',
-  'linkDataSource.jira-issues.accessInstructions': 'Щоб надіслати запит на доступ, зверніться до адміністратора сайту.',
-  'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього вмісту',
-  'linkDataSource.jira-issues.accessRequiredWithSite': 'У вас немає доступу до цього сайту:',
-  'linkDataSource.jira-issues.checkConnection': 'Перевірте з’єднання та оновіть сторінку або повторіть спробу пізніше.',
-  'linkDataSource.jira-issues.checkConnectionWithSource':
+  'linkDataSource.checkConnectionWithSource':
     'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей запит у Jira</a>.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Ви не можете перейти на базовий режим для цього запиту.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Простий',
-  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Пошук завдань за ключовим словом',
-  'linkDataSource.jira-issues.configmodal.chooseSite': 'Вибрати сайт',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Вибрати сайт',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставити завдання',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставте завдання Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставте завдання Jira з:',
@@ -108,35 +103,24 @@ export default {
   'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Відображення результатів пошуку у вигляді списку',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Список',
   'linkDataSource.jira-issues.learnMoreLink': 'Дізнайтеся, як виконувати пошук засобами JQL',
-  'linkDataSource.jira-issues.no.jira.sites.access.description': 'Щоб запитати доступ, зверніться до адміністратора.',
-  'linkDataSource.jira-issues.no.jira.sites.access.title': 'У вас немає доступу до жодного сайту Jira',
-  'linkDataSource.jira-issues.noResultsFound': 'Немає результатів',
-  'linkDataSource.jira-issues.refresh': 'Оновити',
-  'linkDataSource.jira-issues.searchDescription-basic':
-    'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
-  'linkDataSource.jira-issues.searchDescription-jql': 'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Пошук завдань Jira',
-  'linkDataSource.jira-issues.unableToLoadItems': 'Не вдалося завантажити елементи',
-  'linkDataSource.jira-issues.unableToLoadResults': 'Не вдалося завантажити результати',
-  'linkDataSource.modal-initial-state.beta': 'Бета-версія',
-  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Пошук сторінок Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук завдань Jira',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Дізнайтеся, як виконувати пошук засобами JQL',
-  'linkDataSource.modal-initial-state.searchDescription-basic':
-    'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
-  'linkDataSource.modal-initial-state.searchDescription-confluence':
-    'Шукайте сторінки, які потрібно вставити, за ключовим словом.',
-  'linkDataSource.modal-initial-state.searchDescription-jql':
-    'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
-  'linkDataSource.modal-initial-state.searchTitle': 'Пошук завдань Jira',
   'linkDataSource.no.jira.sites.access.description': 'Щоб запитати доступ, зверніться до адміністратора.',
   'linkDataSource.no.jira.sites.access.title': 'У вас немає доступу до жодного сайту Jira',
   'linkDataSource.noResultsFound': 'Немає результатів',
   'linkDataSource.refresh': 'Оновити',
+  'linkDataSource.jira-issues.searchDescription-basic':
+    'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
+  'linkDataSource.jira-issues.searchDescription-jql': 'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Пошук завдань Jira',
+  'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
+  'linkDataSource.unableToLoadResults': 'Не вдалося завантажити результати',
+  'linkDataSource.modal-initial-state.beta': 'Бета-версія',
+  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Пошук сторінок Confluence',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Пошук завдань Jira',
+  'linkDataSource.modal-initial-state.searchDescription-confluence':
+    'Шукайте сторінки, які потрібно вставити, за ключовим словом.',
   'linkDataSource.render-type.boolean.false': 'Ні',
   'linkDataSource.render-type.boolean.true': 'Так',
   'linkDataSource.render-type.user.default.display.name': 'Не призначено',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Вибрати сайт',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронізовано щойно',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронізація: {date}',
   'linkDataSource.table-footer.item':
@@ -144,6 +128,4 @@ export default {
   'linkDataSource.table-footer.loading': 'Завантаження…',
   'linkDataSource.table-footer.power-by-jsm': 'Розділ «Ресурси» в Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Оновити',
-  'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
-  'linkDataSource.unableToLoadResults': 'Не вдалося завантажити результати',
 };

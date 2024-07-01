@@ -344,7 +344,9 @@ export default class RendererActions
 				}),
 			);
 		} else {
-			targetNodeType = 'text';
+			const resolvedNode = this.doc.resolve(from).node();
+			// annotation is technically on text, but the context is caption
+			targetNodeType = resolvedNode.type.name === 'caption' ? 'caption' : 'text';
 			step = createAnnotationStep(from, to, {
 				annotationId,
 				annotationType,

@@ -191,6 +191,15 @@ assume that an element is a React component if its name starts with a capital le
 
 This is `false` by default.
 
+### shouldAlwaysCheckXcss
+
+Overrides `excludeReactComponents` specifically for the `xcss` prop.
+
+This means that even if `excludeReactComponents` is `true`, you can still lint the `xcss` prop by
+setting `shouldAlwaysCheckXcss` to `true`.
+
+This is `false` by default.
+
 ### autoFix
 
 When set to `true`, this rule will turn on the autofixer. Set this to `false` if you do not want the

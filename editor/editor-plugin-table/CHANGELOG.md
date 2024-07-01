@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.6
+
+### Patch Changes
+
+- [#113441](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113441)
+  [`8b819018560ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b819018560ea) -
+  [ux] Fixed a bug where when cell background color is updated via floating toolbar, the calor is
+  set on a wrong cell.
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
+## 7.19.5
+
+### Patch Changes
+
+- [#116281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116281)
+  [`62fb11ef85308`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62fb11ef85308) -
+  Cleanup table LD FF insert-last-column-btn-stays-in-place
+
 ## 7.19.4
 
 ### Patch Changes

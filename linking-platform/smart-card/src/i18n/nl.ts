@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Automatisering aanmaken',
   'automation-menu.modal.footer.ok-button': 'Oké',
   'automation-menu.modal.header.icon.label': 'Pictogram van koptekst van automatiseringsmodal',
+  'automation-menu.success-state.message': 'Je automatisering wordt uitgevoerd',
   'fabric.linking.access_exists_description': 'Vraag toegang aan om deze inhoud van {hostname} te bekijken.',
   'fabric.linking.actions': 'Acties',
   'fabric.linking.add_account': 'Account toevoegen',
@@ -143,8 +144,15 @@ export default {
   'fabric.linking.related': 'Gerelateerd',
   'fabric.linking.related_links_found_in': 'Gevonden in',
   'fabric.linking.related_links_includes_links_to': 'Inclusief links naar',
+  'fabric.linking.related_links_modal_error_header': 'Er is iets misgegaan',
+  'fabric.linking.related_links_modal_error_message':
+    'Er is iets misgegaan bij het laden van recente links. Controleer je verbinding of vernieuw om het opnieuw te proberen.',
   'fabric.linking.related_links_modal_title': 'Recente links',
+  'fabric.linking.related_links_modal_unavailable_header': 'Geen recente links',
+  'fabric.linking.related_links_modal_unavailable_message':
+    "We konden geen links vinden om hier weer te geven. We beoordelen links voortdurend en voegen regelmatig recente links toe voor bijgewerkte pagina's of andere inhoudstypes.",
   'fabric.linking.related_links_not_found': 'We konden geen links vinden om hier weer te geven.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Recente links bekijken ...',
   'fabric.linking.related_work_items_not_found': 'Deze link wordt nergens anders vermeld.',
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_description':

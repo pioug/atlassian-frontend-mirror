@@ -1,4 +1,4 @@
-import { B100, N0, N10, N20, N30, N40, N100, R50, R400 } from '@atlaskit/theme/colors';
+import { B100, N0, N10, N20, N30, N100, R50, R400, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import memoizeOne from 'memoize-one';
 import { mergeStyles, type StylesConfig } from '@atlaskit/select';
@@ -34,7 +34,7 @@ export const getStyles = memoizeOne(
 						? token('color.border.focused', css.borderColor)
 						: state.selectProps.subtle || state.selectProps.noBorder
 							? 'transparent'
-							: token('color.border.input', N40),
+							: token('color.border.input', N90),
 					backgroundColor: state.isFocused
 						? token('color.background.input', css['backgroundColor'])
 						: state.selectProps.subtle
@@ -51,7 +51,7 @@ export const getStyles = memoizeOne(
 								: token('color.border.focused', B100)
 							: state.selectProps.subtle
 								? 'transparent'
-								: token('color.border.input', N40),
+								: token('color.border.input', N90),
 						backgroundColor:
 							state.selectProps.subtle && state.selectProps.hoveringClearIndicator
 								? token('color.background.danger', R50)

@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 78.0.2
+
+### Patch Changes
+
+- [`fc2ed679e4540`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc2ed679e4540) -
+  Sanitise UGC from fileId in `media-card-render` UFO experience
+
 ## 78.0.1
 
 ### Patch Changes

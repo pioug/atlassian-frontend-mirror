@@ -161,7 +161,6 @@ export const setColorWithAnalytics =
 			| INPUT_METHOD.FLOATING_TB
 			| INPUT_METHOD.TABLE_CONTEXT_MENU,
 		cellColor: string,
-		targetCellPosition?: number,
 		editorView?: EditorView | null,
 	) =>
 		withEditorAnalyticsAPI(({ selection }) => {
@@ -185,9 +184,7 @@ export const setColorWithAnalytics =
 				},
 				eventType: EVENT_TYPE.TRACK,
 			};
-		})(editorAnalyticsAPI)(
-			setMultipleCellAttrs({ background: cellColor }, targetCellPosition, editorView),
-		);
+		})(editorAnalyticsAPI)(setMultipleCellAttrs({ background: cellColor }, editorView));
 
 export const addRowAroundSelection =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>

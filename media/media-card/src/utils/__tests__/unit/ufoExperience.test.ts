@@ -87,7 +87,7 @@ describe('ufoExperience', () => {
 		},
 	};
 	const fileAttributes = {
-		fileId: 'some-id',
+		fileId: '4c9e0226-6792-4a04-85a2-ebf89b6bb079',
 		fileMediatype: undefined,
 		fileMimetype: undefined,
 	};
@@ -120,6 +120,19 @@ describe('ufoExperience', () => {
 			expect(mockGetInstance).toBeCalledTimes(1);
 			expect(mockGetInstance).toBeCalledWith('some-id');
 			expect(mockAbort).toHaveBeenCalledTimes(1);
+		});
+
+		it('should sanitise UGC from fileAttributes', () => {
+			const fileAttributesWithUGC = {
+				fileId: 'some-id?someemail@gmail.com',
+				fileMediatype: undefined,
+				fileMimetype: undefined,
+			};
+			abortUfoExperience(id, { fileAttributes: fileAttributesWithUGC });
+
+			expect(mockAbort).toBeCalledWith({
+				metadata: expect.objectContaining({ fileAttributes: { fileId: 'INVALID_FILE_ID' } }),
+			});
 		});
 	});
 
@@ -236,6 +249,26 @@ describe('ufoExperience', () => {
 					mediaEnvironment: mockMediaEnvironment,
 					mediaRegion: mockMediaRegion,
 				},
+			});
+		});
+
+		it('should sanitise UGC from fileAttributes', () => {
+			const fileAttributesWithUGC = {
+				fileId: 'some-id?someemail@gmail.com',
+				fileMediatype: undefined,
+				fileMimetype: undefined,
+			};
+			completeUfoExperience(
+				id,
+				'complete',
+				fileAttributesWithUGC,
+				{ wasStatusUploading: true, wasStatusProcessing: true },
+				ssrReliability,
+				undefined,
+			);
+
+			expect(mockSuccess).toBeCalledWith({
+				metadata: expect.objectContaining({ fileAttributes: { fileId: 'INVALID_FILE_ID' } }),
 			});
 		});
 	});

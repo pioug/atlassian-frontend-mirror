@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Luo automaatio',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Automaation modaalisen ikkunan ylätunnisteen kuvake',
+  'automation-menu.success-state.message': 'Automaatio on käynnissä',
   'fabric.linking.access_exists_description': 'Pyydä oikeutta tarkastella tätä sisältöä kohteesta {hostname}.',
   'fabric.linking.actions': 'Toiminnot',
   'fabric.linking.add_account': 'Lisää tili',
@@ -143,8 +144,15 @@ export default {
   'fabric.linking.related': 'Liittyvät',
   'fabric.linking.related_links_found_in': 'Löydetty kohteesta',
   'fabric.linking.related_links_includes_links_to': 'Sisältää linkit kohteeseen',
+  'fabric.linking.related_links_modal_error_header': 'Jokin meni vikaan',
+  'fabric.linking.related_links_modal_error_message':
+    'Viimeaikaisten linkkien latauksen aikana ilmeni ongelma. Tarkista yhteys tai päivitä sivu ja yritä uudelleen.',
   'fabric.linking.related_links_modal_title': 'Viimeaikaiset linkit',
+  'fabric.linking.related_links_modal_unavailable_header': 'Ei viimeaikaisia linkkejä',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Täältä ei löytynyt näytettäviä linkkejä. Päivitettyjen sivujen tai muiden sisältötyyppien viimeaikaisia linkkejä tarkistetaan ja lisätään jatkuvasti.',
   'fabric.linking.related_links_not_found': 'Täältä ei löytynyt näytettäviä linkkejä.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Näytä viimeisimmät linkit...',
   'fabric.linking.related_work_items_not_found': 'Tätä linkkiä ei ole mainittu missään muualla.',
   'fabric.linking.request_access': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':

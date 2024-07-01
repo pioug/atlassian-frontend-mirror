@@ -141,7 +141,13 @@ export default {
   'fabric.linking.related': 'Souvisící',
   'fabric.linking.related_links_found_in': 'Nalezeno v:',
   'fabric.linking.related_links_includes_links_to': 'Zahrnuje odkazy na:',
+  'fabric.linking.related_links_modal_error_header': 'Něco se pokazilo',
+  'fabric.linking.related_links_modal_error_message':
+    'Při pokusu o načtení nedávných odkazů se vyskytl problém. Zkontrolujte připojení nebo obnovte stránku a zkuste to znovu.',
   'fabric.linking.related_links_modal_title': 'Nedávné odkazy',
+  'fabric.linking.related_links_modal_unavailable_header': 'Žádné nedávné odkazy',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit. Neustále kontrolujeme a přidáváme odkazy na nedávno aktualizované stránky nebo jiné typy obsahu.',
   'fabric.linking.related_links_not_found': 'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit.',
   'fabric.linking.related_links_view_related_urls.nonfinal': 'Zobrazit nedávné odkazy…',
   'fabric.linking.related_work_items_not_found': 'Tento odkaz není nikde jinde zmíněn.',

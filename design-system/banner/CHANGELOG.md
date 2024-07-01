@@ -1,5 +1,13 @@
 # @atlaskit/banner
 
+## 12.4.4
+
+### Patch Changes
+
+- [#116402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116402)
+  [`23e8fb2847948`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23e8fb2847948) -
+  Internal changes to typography, no visual changes.
+
 ## 12.4.3
 
 ### Patch Changes

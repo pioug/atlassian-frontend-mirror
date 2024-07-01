@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/preset';
 
@@ -80,7 +80,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
 
 	return (
 		<Button
-			appearance="link"
+			appearance="subtle"
 			onClick={() => {
 				editorApi?.core?.actions.execute(showLinkToolbarAction);
 			}}

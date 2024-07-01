@@ -23,11 +23,11 @@ const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
 			description: 'Disallow feature flag usage at module level',
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/ff/no-module-level-eval/README.md',
+			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/no-module-level-eval/README.md',
 		},
 		messages: {
 			noModuleLevelEval:
-				'Do not evaluate feature flags at module level, it will always resolve to false when server side rendered.',
+				'Do not evaluate feature flags in the module level, it will always resolve to false when server side rendered or when flags are loaded async.',
 		},
 	},
 	create(context) {

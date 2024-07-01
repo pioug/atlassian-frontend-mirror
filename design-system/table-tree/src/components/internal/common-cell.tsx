@@ -25,8 +25,8 @@ const commonStyles = css({
 	position: 'relative',
 	alignItems: 'center',
 	color: token('color.text', N800),
+	font: token('font.body'),
 	hyphens: 'auto',
-	lineHeight: token('font.lineHeight.200', '20px'),
 	wordBreak: 'break-word',
 });
 

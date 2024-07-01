@@ -196,6 +196,16 @@ typescriptEslintTester.run(
 				code: outdent`const ComponentTwo = () => <Item.Before css={{ color: 'blue' }} />;`,
 			},
 			{
+				name: 'excludes xcss when excludeReactComponents = true',
+				options: [{ excludeReactComponents: true }],
+				code: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const Component = () => {
+						return <Box xcss={{ color: 'red' }} />
+					}
+				`,
+			},
+			{
 				name: 'parses exported, hoisted css function calls correctly',
 				code: `
           export const wrapper: any = css({
@@ -1071,6 +1081,70 @@ typescriptEslintTester.run(
 				errors: [
 					{
 						messageId: 'cssAtBottomOfModule',
+					},
+				],
+			},
+			{
+				name: 'auto-fixes inlined xcss objects',
+				code: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const Component = () => {
+						return <Box xcss={{ color: 'red' }} />
+					}
+				`,
+				output: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const styles = xcss({ color: 'red' });
+					const Component = () => {
+						return <Box xcss={styles} />
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssAtTopOfModule',
+					},
+				],
+			},
+			{
+				name: 'auto-fixes inlined xcss functions',
+				code: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const Component = () => {
+						return <Box xcss={xcss({ color: 'red' })} />
+					}
+				`,
+				output: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const styles = xcss({ color: 'red' });
+					const Component = () => {
+						return <Box xcss={styles} />
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssAtTopOfModule',
+					},
+				],
+			},
+			{
+				name: 'auto-fixes xcss when excludeReactComponents = true && shouldAlwaysCheckXcss = true',
+				options: [{ excludeReactComponents: true, shouldAlwaysCheckXcss: true }],
+				code: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const Component = () => {
+						return <Box xcss={{ color: 'red' }} />
+					}
+				`,
+				output: outdent`
+					import { Box, xcss } from '@atlaskit/primitives';
+					const styles = xcss({ color: 'red' });
+					const Component = () => {
+						return <Box xcss={styles} />
+					}
+				`,
+				errors: [
+					{
+						messageId: 'cssAtTopOfModule',
 					},
 				],
 			},

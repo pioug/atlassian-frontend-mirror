@@ -143,7 +143,13 @@ export default {
   'fabric.linking.related': 'Beslektet',
   'fabric.linking.related_links_found_in': 'Funnet i',
   'fabric.linking.related_links_includes_links_to': 'Inkluderer koblinger til',
+  'fabric.linking.related_links_modal_error_header': 'Det oppstod en feil',
+  'fabric.linking.related_links_modal_error_message':
+    'Det oppstod et problem under innlasting av nylige koblinger. Sjekk tilkoblingen eller oppdater for å prøve igjen.',
   'fabric.linking.related_links_modal_title': 'Nylige koblinger',
+  'fabric.linking.related_links_modal_unavailable_header': 'Ingen nylige koblinger',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Vi finner ingen koblinger å vise her. Vi gjennomgår og legger stadig til nylige koblinger for oppdaterte sider eller andre innholdstyper.',
   'fabric.linking.related_links_not_found': 'Vi finner ingen koblinger å vise her.',
   'fabric.linking.related_links_view_related_urls.nonfinal': 'Vis nylige koblinger …',
   'fabric.linking.related_work_items_not_found': 'Denne koblingen er ikke omtalt andre steder.',

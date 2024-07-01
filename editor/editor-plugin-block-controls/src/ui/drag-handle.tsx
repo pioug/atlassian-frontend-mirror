@@ -122,6 +122,9 @@ export const DragHandle = ({
 			const resolvedMovingNode = tr.doc.resolve(start);
 			const maybeNode = resolvedMovingNode.nodeAfter;
 
+			getBooleanFF('platform.editor.elements.drag-and-drop-long-node-scroll') &&
+				tr.setMeta('scrollIntoView', false);
+
 			api?.analytics?.actions.attachAnalyticsEvent({
 				eventType: EVENT_TYPE.UI,
 				action: ACTION.CLICKED,
@@ -260,17 +263,25 @@ export const DragHandle = ({
 		}
 
 		if (supportsAnchor) {
-			return {
-				left:
-					hasResizer || isExtension || isBlockCard || isEmbedCard
-						? getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
-							? `calc(calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)}`
-							: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
-						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
-				top: anchorName.includes('table')
-					? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-					: `anchor(${anchorName} start)`,
-			};
+			return getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+				? {
+						left:
+							hasResizer || isExtension || isEmbedCard
+								? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
+								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
+						top: anchorName.includes('table')
+							? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+							: `anchor(${anchorName} start)`,
+					}
+				: {
+						left:
+							hasResizer || isExtension || isBlockCard || isEmbedCard
+								? getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
+								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
+						top: anchorName.includes('table')
+							? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+							: `anchor(${anchorName} start)`,
+					};
 		}
 		return {
 			left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),

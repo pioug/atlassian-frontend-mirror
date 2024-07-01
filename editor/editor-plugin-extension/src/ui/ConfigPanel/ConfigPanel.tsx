@@ -8,8 +8,8 @@ import { injectIntl } from 'react-intl-next';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import {
 	ACTION,
 	ACTION_SUBJECT,

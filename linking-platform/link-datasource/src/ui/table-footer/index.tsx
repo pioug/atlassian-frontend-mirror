@@ -5,16 +5,16 @@ import { Fragment, useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
-import Heading from '@atlaskit/heading';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
-import LinkUrl from '@atlaskit/smart-card/link-url';
-import { N0, N40, N800, N90 } from '@atlaskit/theme/colors';
+import { Flex } from '@atlaskit/primitives';
+import { N0, N40, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
+import TableSearchCount from '../common/modal/search-count';
 
 import { footerMessages } from './messages';
 import { PoweredByJSMAssets } from './powered-by-jsm-assets';
@@ -45,12 +45,6 @@ const TopBorderWrapper = styled.div({
 	boxSizing: 'border-box',
 	justifyContent: 'space-between',
 	padding: `${token('space.250', '20px')} ${token('space.0', '0px')}`,
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ItemCounterWrapper = styled.div({
-	display: 'flex',
-	alignSelf: 'center',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -89,25 +83,16 @@ export const TableFooter = ({
 	return onRefresh || showItemCount ? (
 		<FooterWrapper data-testid="table-footer">
 			<TopBorderWrapper>
-				<ItemCounterWrapper data-testid="item-count-wrapper">
-					{showItemCount && (
-						<LinkUrl
-							href={url}
-							target="_blank"
-							testId="item-count-url"
-							style={{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								color: token('color.text.accent.gray', N800),
-								textDecoration: !url ? 'none' : '',
-							}}
-						>
-							<Heading testId="item-count" level="h200">
-								<FormattedNumber value={itemCount as number} />{' '}
-								<FormattedMessage {...footerMessages.itemText} values={{ itemCount }} />
-							</Heading>
-						</LinkUrl>
-					)}
-				</ItemCounterWrapper>
+				{showItemCount && (
+					<Flex>
+						<TableSearchCount
+							searchCount={itemCount as number}
+							url={url}
+							prefixTextType="item"
+							testId="item-count"
+						/>
+					</Flex>
+				)}
 				{datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID ? (
 					<PoweredByJSMAssets text={intl.formatMessage(footerMessages.powerByJSM)} />
 				) : null}

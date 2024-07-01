@@ -6,3 +6,12 @@ snapshot(ConfluenceSearchConfigModalInitialResults, {
 	description: 'Confluence search config modal initial results view',
 	drawsOutsideBounds: true,
 });
+
+snapshot(ConfluenceSearchConfigModalInitialResults, {
+	description:
+		'Confluence search config modal initial results view with total count as asingle string',
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform.linking-platform.datasource.total-count-i18n-single-key': true,
+	},
+});

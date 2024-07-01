@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.5.2",
+	"version": "2.5.4",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^38.0.0",
+		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/avatar": "^21.10.0",
 		"@atlaskit/avatar-group": "^9.8.0",
@@ -62,7 +62,7 @@
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/outbound-auth-flow-client": "^3.4.5",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/popup": "^1.19.0",
+		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.1.0",
@@ -73,7 +73,7 @@
 		"@atlaskit/smart-user-picker": "6.9.3",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tag": "^12.3.0",
-		"@atlaskit/textfield": "6.4.0",
+		"@atlaskit/textfield": "6.4.1",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.53.0",
 		"@atlaskit/tooltip": "^18.5.0",
@@ -161,6 +161,9 @@
 			"referenceOnly": "true"
 		},
 		"platform.linking-platform.datasource-assets_add_version_parameter": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource.total-count-i18n-single-key": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-assets_update_refresh_button_dt3qk": {

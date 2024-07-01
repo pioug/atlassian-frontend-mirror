@@ -16,8 +16,8 @@ const CSS_VAR_TEXT_COLOR = '--banner-text-color';
 
 const textStyles = css({
   color: \`var(\${CSS_VAR_TEXT_COLOR})\`,
+	font: token('font.body'),
   fontWeight: token('font.weight.medium', '500'),
-  lineHeight: token('font.lineHeight.300', '24px'),
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

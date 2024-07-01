@@ -1,5 +1,21 @@
 # @atlaskit/table-tree
 
+## 9.10.3
+
+### Patch Changes
+
+- [#116402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116402)
+  [`2d5c40095cc96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d5c40095cc96) -
+  [ux] Internal changes to typography, minor visual change to table header letter spacing.
+
+## 9.10.2
+
+### Patch Changes
+
+- [#116025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116025)
+  [`cd506a937e44f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd506a937e44f) -
+  Internal change to how typography is applied. There should be no visual change.
+
 ## 9.10.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.40.4
+
+### Patch Changes
+
+- [#116344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116344)
+  [`12f4724969d35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/12f4724969d35) -
+  Use caption as targetNodeType instead of text for annotation event
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
 ## 109.40.3
 
 ### Patch Changes

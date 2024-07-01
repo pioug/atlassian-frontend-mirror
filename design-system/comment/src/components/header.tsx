@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import LockFilledIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { Inline, Text } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 interface HeaderProps {
 	author?: ReactNode;
@@ -28,10 +27,10 @@ interface HeaderProps {
 type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 const headingStyles = css({
-	fontSize: token('font.size.100', '14px'),
+	fontSize: '14px',
 	fontWeight: 'normal',
 	letterSpacing: '0',
-	lineHeight: token('font.lineHeight.200', '20px'),
+	lineHeight: '20px',
 	textTransform: 'none',
 });
 

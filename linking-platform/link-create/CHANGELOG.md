@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 2.7.4
+
+### Patch Changes
+
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`54819d8fde827`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/54819d8fde827) -
+  [ux] Improve accessibility of the link create create form component
+
 ## 2.7.3
 
 ### Patch Changes

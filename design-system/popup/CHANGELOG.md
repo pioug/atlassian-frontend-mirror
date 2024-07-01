@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 1.20.0
+
+### Minor Changes
+
+- [#116426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116426)
+  [`d6c9799d09e87`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6c9799d09e87) -
+  Updates compositional popup to take an optional prop for the popup content to expand to the full
+  width of the parent container
+
 ## 1.19.4
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 27.8.3
+
+### Patch Changes
+
+- [#116378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116378)
+  [`dce1ecf69d29c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dce1ecf69d29c) -
+  EDM-9894: update related links modal props from url to ARI
+- Updated dependencies
+
+## 27.8.2
+
+### Patch Changes
+
+- [#116025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116025)
+  [`a0290e046a16d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0290e046a16d) -
+  Bundle embed unresolved view images with smart-card
+- [#116341](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116341)
+  [`5f12809f43d24`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f12809f43d24) -
+  Remove feature flag to disable content editable on embeded card
+
 ## 27.8.1
 
 ### Patch Changes

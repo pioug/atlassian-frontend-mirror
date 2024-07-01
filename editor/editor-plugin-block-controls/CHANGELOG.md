@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.9
+
+### Patch Changes
+
+- [#116092](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116092)
+  [`2d7842663b057`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d7842663b057) -
+  ED-23905 Fix selection on click for nested lists and task lists
+
+## 1.5.8
+
+### Patch Changes
+
+- [#116058](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116058)
+  [`1a8435d9dbaf0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a8435d9dbaf0) -
+  fix position of drag handle on block card nodes
+
+## 1.5.7
+
+### Patch Changes
+
+- [`2f20977ad803d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f20977ad803d) -
+  Fix paragraph to blockquotes with refactor
+  platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2 FF off
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
+## 1.5.6
+
+### Patch Changes
+
+- [`e7c8b06889c5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7c8b06889c5a) -
+  [ux] Fix scroll issue for layout node when drap and drop
+
 ## 1.5.5
 
 ### Patch Changes

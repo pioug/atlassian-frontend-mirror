@@ -41,7 +41,7 @@ const contentStyles = xcss({
 });
 
 const baseContentStyles = xcss({
-	lineHeight: token('font.lineHeight.100', '16px'),
+	lineHeight: '16px',
 });
 
 const truncateStyles = css({
@@ -64,7 +64,7 @@ const descriptionStyles = css({
 });
 
 const baseDescriptionStyles = css({
-	fontSize: token('font.size.075', '12px'),
+	fontSize: '12px',
 	marginBlockStart: token('space.050', '4px'),
 });
 
@@ -101,7 +101,7 @@ const primitiveStyles = css({
 });
 
 const primitiveBaseStyles = css({
-	fontSize: token('font.size.100', '14px'),
+	fontSize: '14px',
 });
 
 const spacingMapStyles = {

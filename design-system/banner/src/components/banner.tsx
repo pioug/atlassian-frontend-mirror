@@ -18,7 +18,8 @@ const inlineStyles = xcss({ minWidth: '0' });
 
 const textStyles = css({
 	color: `var(${CSS_VAR_TEXT_COLOR})`,
-	fontWeight: token('font.weight.medium', '500'),
+	font: token('font.body'),
+	fontWeight: token('font.weight.medium'),
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',

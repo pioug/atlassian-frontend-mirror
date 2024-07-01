@@ -99,7 +99,7 @@ export default () => {
 									'3px',
 								)} 0 0`,
 								color: '#172b4d',
-								fontSize: token('font.size.400', '24px'),
+								fontSize: '24px',
 								marginBlockEnd: token('space.100', '8px'),
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 								':hover': {
@@ -119,7 +119,7 @@ export default () => {
 											css={css({
 												display: 'flex',
 												padding: token('space.200', '16px'),
-												fontSize: token('font.size.200', '16px'),
+												fontSize: '16px',
 												fontWeight: token('font.weight.medium', '500'),
 												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 												':hover': {

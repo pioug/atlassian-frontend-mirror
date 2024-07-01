@@ -1,13 +1,12 @@
 import Button from '@atlaskit/button';
 import React, { type FC, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { di } from 'react-magnetic-di';
 
 import { messages } from '../../../../messages';
 import { toMessage } from '../../../../utils/intl-utils';
 import UnresolvedView from '../unresolved-view';
 import { type ForbiddenViewProps } from './types';
-import { getUnresolvedEmbedCardImage } from '../../utils';
+import { ForbiddenSVG } from './forbidden-svg';
 
 const ForbiddenView: FC<ForbiddenViewProps> = ({
 	context,
@@ -25,7 +24,6 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
 		callToActionMessageKey,
 		action,
 	} = accessContext ?? {};
-	di(getUnresolvedEmbedCardImage);
 
 	const values = useMemo(() => {
 		const product = context?.text ?? '';
@@ -66,7 +64,7 @@ const ForbiddenView: FC<ForbiddenViewProps> = ({
 		<UnresolvedView
 			{...unresolvedViewProps}
 			icon={icon}
-			image={image ?? getUnresolvedEmbedCardImage('forbidden')}
+			image={image ?? <ForbiddenSVG />}
 			testId={testId}
 			text={text}
 			title={

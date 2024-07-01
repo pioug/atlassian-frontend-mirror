@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { SelectItemMode, TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { Command, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -322,15 +322,24 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 			}
 
 			if (newTriggerHandler && isANewHandler) {
-				api?.analytics?.actions?.fireAnalyticsEvent({
-					action: ACTION.INVOKED,
-					actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-					actionSubjectId: newTriggerHandler.id || 'not_set',
-					attributes: {
-						inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
-					},
-					eventType: EVENT_TYPE.UI,
-				});
+				// if the typeahead opens another typeahead via the quickInsert we do NOT want to fire this analytic event (mentions and emojis) as it is already being fired from editor-plugin-analytics
+				const isDuplicateInvokedEvent =
+					newPluginState.inputMethod === INPUT_METHOD.QUICK_INSERT &&
+					Object.values(TypeAheadAvailableNodes).includes(
+						newTriggerHandler.id as TypeAheadAvailableNodes,
+					);
+
+				if (!isDuplicateInvokedEvent) {
+					api?.analytics?.actions?.fireAnalyticsEvent({
+						action: ACTION.INVOKED,
+						actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+						actionSubjectId: newTriggerHandler.id || 'not_set',
+						attributes: {
+							inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
+						},
+						eventType: EVENT_TYPE.UI,
+					});
+				}
 			}
 		},
 	};

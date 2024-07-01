@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.7.2
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
 ## 1.7.1
 
 ### Patch Changes

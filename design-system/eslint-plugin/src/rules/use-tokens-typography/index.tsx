@@ -11,13 +11,10 @@ const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
 
 	return {
 		// const styles = css({ fontSize: '14px, ... }), styled.div({ fontSize: 14, ... })
-		ObjectExpression: (node: Rule.Node) =>
-			errorBoundary(
-				() => {
-					return StyleObject.lint(node, { context, config });
-				},
-				{ config },
-			),
+		ObjectExpression: errorBoundary(
+			(node: Rule.Node) => StyleObject.lint(node, { context, config }),
+			config,
+		),
 	};
 };
 

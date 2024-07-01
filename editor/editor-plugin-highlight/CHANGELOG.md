@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.11.3
+
+### Patch Changes
+
+- [#114293](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114293)
+  [`7bc5c84260d3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7bc5c84260d3d) -
+  [ux] [ED-23902] Moving dropdown caret of floating toolbar Highlight button to the right hand side
+  of the button
+
 ## 1.11.2
 
 ### Patch Changes

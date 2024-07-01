@@ -821,20 +821,41 @@ describe('JiraIssuesConfigModal', () => {
 			);
 		});
 
-		it('should display a count of all issues found with and link to the JQL link', async () => {
-			const hookState = getDefaultHookState();
-			const { getByTestId } = await setup({
-				hookState,
-			});
-			expect(getByTestId('jira-datasource-modal-total-issues-count').textContent).toEqual(
-				'3 issues',
-			);
+		describe('should display a count of all issues found with and link to the JQL link', async () => {
+			ffTest(
+				'platform.linking-platform.datasource.total-count-i18n-single-key',
+				async () => {
+					const hookState = getDefaultHookState();
+					const { getByTestId } = await setup({
+						hookState,
+					});
+					expect(getByTestId('jira-datasource-modal-total-issues-count').textContent).toEqual(
+						'3 issues',
+					);
 
-			const issueCountLink = getByTestId('item-count-url');
-			expect(issueCountLink).toHaveAttribute('target', '_blank');
-			expect(issueCountLink).toHaveAttribute(
-				'href',
-				'https://hello.atlassian.net/issues/?jql=some-query',
+					const issueCountLink = getByTestId('item-count-url');
+					expect(issueCountLink).toHaveAttribute('target', '_blank');
+					expect(issueCountLink).toHaveAttribute(
+						'href',
+						'https://hello.atlassian.net/issues/?jql=some-query',
+					);
+				},
+				async () => {
+					const hookState = getDefaultHookState();
+					const { getByTestId } = await setup({
+						hookState,
+					});
+					expect(getByTestId('jira-datasource-modal-total-issues-count').textContent).toEqual(
+						'3 issues',
+					);
+
+					const issueCountLink = getByTestId('item-count-url');
+					expect(issueCountLink).toHaveAttribute('target', '_blank');
+					expect(issueCountLink).toHaveAttribute(
+						'href',
+						'https://hello.atlassian.net/issues/?jql=some-query',
+					);
+				},
 			);
 		});
 

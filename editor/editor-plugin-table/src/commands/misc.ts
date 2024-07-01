@@ -387,10 +387,11 @@ export const moveCursorBackward: Command = (state, dispatch) => {
 };
 
 export const setMultipleCellAttrs =
-	(attrs: Object, targetCellPosition?: number, editorView?: EditorView | null): Command =>
+	(attrs: Object, editorView?: EditorView | null): Command =>
 	(state, dispatch) => {
 		let cursorPos: number | undefined;
 		let { tr } = state;
+		const { targetCellPosition } = getPluginState(state);
 
 		if (isSelectionType(tr.selection, 'cell')) {
 			const selection = tr.selection as any as CellSelection;

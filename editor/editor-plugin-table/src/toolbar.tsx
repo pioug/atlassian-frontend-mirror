@@ -630,6 +630,7 @@ export const getToolbarConfig =
 				scrollable: true,
 			};
 		}
+
 		return;
 	};
 
@@ -715,7 +716,6 @@ const getColumnSettingItems = (
 ): Array<FloatingToolbarItem<Command>> => {
 	const pluginState = getPluginState(editorState);
 	const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
-
 	if (!selectionOrTableRect || !editorView) {
 		return [];
 	}
@@ -794,7 +794,6 @@ const getColorPicker = (
 				setColorWithAnalytics(editorAnalyticsAPI)(
 					INPUT_METHOD.FLOATING_TB,
 					option.value,
-					targetCellPosition,
 					getEditorView(),
 				),
 		},

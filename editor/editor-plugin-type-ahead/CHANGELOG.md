@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.4.2
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
+## 1.4.1
+
+### Patch Changes
+
+- [#116224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116224)
+  [`ff938650963d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff938650963d9) -
+  ED-23775 This change prevents duplicated analytic events from firing when inserting mentions and
+  emojis via the quickInsert typeAhead menu.
+
 ## 1.4.0
 
 ### Minor Changes

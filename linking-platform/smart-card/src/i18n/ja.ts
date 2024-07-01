@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': '自動化を作成',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': '自動化モーダル ヘッダー アイコン',
+  'automation-menu.success-state.message': '自動化を実行中',
   'fabric.linking.access_exists_description':
     '{hostname} からこのコンテンツを閲覧するには、アクセス権をリクエストしてください。',
   'fabric.linking.actions': 'アクション',
@@ -141,8 +142,15 @@ export default {
   'fabric.linking.related': '関連',
   'fabric.linking.related_links_found_in': '次のリソース内に見つかりました。',
   'fabric.linking.related_links_includes_links_to': '次へのリンクが含まれています。',
+  'fabric.linking.related_links_modal_error_header': '問題が発生しました',
+  'fabric.linking.related_links_modal_error_message':
+    '最近のリンクを読み込もうとして問題が発生しました。接続を確認するか、更新してやり直してください。',
   'fabric.linking.related_links_modal_title': '最近閲覧したリンク',
+  'fabric.linking.related_links_modal_unavailable_header': '最近のリンクはありません',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'ここに表示するリンクが見つかりませんでした。更新されたページやその他のコンテンツ タイプについて継続的に確認し、最近のリンクを追加していきます。',
   'fabric.linking.related_links_not_found': 'ここに表示するリンクが見つかりませんでした。',
+  'fabric.linking.related_links_view_related_urls.nonfinal': '最近のリンクを表示...',
   'fabric.linking.related_work_items_not_found': 'このリンクは他のどこでも言及されていません。',
   'fabric.linking.request_access': 'アクセスをリクエスト',
   'fabric.linking.request_access_description':

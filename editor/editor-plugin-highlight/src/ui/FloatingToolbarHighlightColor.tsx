@@ -2,26 +2,33 @@
 import { useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
-import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { Flex } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import type { HighlightPlugin } from '../plugin';
 
 import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
 import { PaletteDropdown } from './shared/PaletteDropdown';
 import { useDropdownEvents } from './shared/useDropdownEvents';
+
+const expandIconContainerStyle = css({
+	margin: `0px ${token('space.negative.050', '-4px')}`,
+});
+
+const highlightIconContainerStyle = css({
+	marginTop: token('space.negative.050', '-4px'),
+});
 
 type FloatingToolbarHighlightColorProps = {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
@@ -66,45 +73,44 @@ const FloatingToolbarHighlightColor = ({
 			: hexToEditorTextBackgroundPaletteColor(highlightState.activeColor);
 
 	return (
-		<Flex alignItems="center">
-			<PaletteDropdown
-				isOpen={isDropdownOpen && !highlightState.disabled}
-				activeColor={highlightState.activeColor}
-				trigger={
-					<ToolbarButton
-						buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
-						spacing={'compact'}
-						disabled={highlightState.disabled}
-						selected={isDropdownOpen}
-						aria-label={toolbarButtonLabel}
-						aria-expanded={isDropdownOpen}
-						aria-haspopup
-						title={toolbarButtonLabel}
-						onClick={handleClick}
-						onKeyDown={handleKeyDown}
-						ref={toolbarItemRef}
-						iconBefore={
-							<Flex>
-								<EditorHighlightIcon
-									selectedColor={activeColorToken}
-									disabled={highlightState.disabled}
-								/>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<span css={expandIconWrapperStyle}>
-									<ExpandIcon label="" />
-								</span>
-							</Flex>
-						}
-					>
-						{formatMessage(messages.highlightFloatingToolbar)}
-					</ToolbarButton>
-				}
-				onColorChange={(color) => handleColorChange(color)}
-				isOpenedByKeyboard={isOpenedByKeyboard}
-				handleClickOutside={handleClickOutside}
-				handleEscapeKeydown={handleEscapeKeydown}
-			/>
-		</Flex>
+		<PaletteDropdown
+			isOpen={isDropdownOpen && !highlightState.disabled}
+			activeColor={highlightState.activeColor}
+			trigger={
+				<ToolbarButton
+					buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
+					spacing={'compact'}
+					disabled={highlightState.disabled}
+					selected={isDropdownOpen}
+					aria-label={toolbarButtonLabel}
+					aria-expanded={isDropdownOpen}
+					aria-haspopup
+					title={toolbarButtonLabel}
+					onClick={handleClick}
+					onKeyDown={handleKeyDown}
+					ref={toolbarItemRef}
+					iconBefore={
+						<span css={highlightIconContainerStyle}>
+							<EditorHighlightIcon
+								selectedColor={activeColorToken}
+								disabled={highlightState.disabled}
+							/>
+						</span>
+					}
+					iconAfter={
+						<span css={expandIconContainerStyle}>
+							<ExpandIcon label="" />
+						</span>
+					}
+				>
+					{formatMessage(messages.highlightFloatingToolbar)}
+				</ToolbarButton>
+			}
+			onColorChange={(color) => handleColorChange(color)}
+			isOpenedByKeyboard={isOpenedByKeyboard}
+			handleClickOutside={handleClickOutside}
+			handleEscapeKeydown={handleEscapeKeydown}
+		/>
 	);
 };
 

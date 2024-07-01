@@ -45,7 +45,7 @@ const rule: Rule.RuleModule = {
 	meta: {
 		type: 'problem',
 		docs: {
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/ff/static-feature-flags/README.md',
+			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/static-feature-flags/README.md',
 			description: 'Ensure feature flags or gates are static string literals',
 		},
 		fixable: 'code',

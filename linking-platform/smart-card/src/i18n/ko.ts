@@ -19,6 +19,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': '자동화 만들기',
   'automation-menu.modal.footer.ok-button': '확인',
   'automation-menu.modal.header.icon.label': '자동화 모달 헤더 아이콘',
+  'automation-menu.success-state.message': '자동화가 진행 중입니다',
   'fabric.linking.access_exists_description': '{hostname}에서 이 콘텐츠를 보려면 액세스 권한을 요청하세요.',
   'fabric.linking.actions': '작업',
   'fabric.linking.add_account': '계정 추가',
@@ -139,8 +140,15 @@ export default {
   'fabric.linking.related': '관련',
   'fabric.linking.related_links_found_in': '찾은 위치',
   'fabric.linking.related_links_includes_links_to': '다음에 대한 링크 포함',
+  'fabric.linking.related_links_modal_error_header': '문제가 발생했습니다',
+  'fabric.linking.related_links_modal_error_message':
+    '최근 링크를 로드하는 동안 문제가 발생했습니다. 연결 상태를 확인하거나 페이지를 새로 고쳐 다시 시도하세요.',
   'fabric.linking.related_links_modal_title': '최근 링크',
+  'fabric.linking.related_links_modal_unavailable_header': '최근 링크 없음',
+  'fabric.linking.related_links_modal_unavailable_message':
+    '여기에 표시할 링크를 찾지 못했습니다. Atlassian은 업데이트된 페이지 또는 기타 콘텐츠 유형의 최근 링크를 지속적으로 검토 및 추가합니다.',
   'fabric.linking.related_links_not_found': '여기에 표시할 링크를 찾지 못했습니다.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': '최근 링크 보기...',
   'fabric.linking.related_work_items_not_found': '이 링크는 다른 곳에서는 멘션되지 않았습니다.',
   'fabric.linking.request_access': '액세스 요청',
   'fabric.linking.request_access_description':

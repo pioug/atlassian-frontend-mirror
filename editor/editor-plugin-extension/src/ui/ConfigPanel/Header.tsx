@@ -7,7 +7,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import Loadable from 'react-loadable';
 
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import type { Icon } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
@@ -151,9 +151,11 @@ const Header = ({
 					)}
 				</div>
 				<div css={closeButtonWrapperStyles}>
-					<Button
+					<IconButton
 						appearance="subtle"
-						iconBefore={<CrossIcon label={intl.formatMessage(messages.close)} />}
+						testId="config-panel-header-close-button"
+						label={intl.formatMessage(messages.close)}
+						icon={CrossIcon}
 						onClick={onClose}
 					/>
 				</div>

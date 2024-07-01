@@ -85,19 +85,12 @@ export default {
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Mehr über intelligente Links erfahren',
   'linkDataSource.issue-line-table.unwrap-text': 'Textumbruch aufheben',
   'linkDataSource.issue-line-table.wrap-text': 'Textumbruch anwenden',
-  'linkDataSource.jira-issues.accessInstructions':
-    'Wenden Sie sich an Ihren Site-Administrator, um Zugriff zu beantragen.',
-  'linkDataSource.jira-issues.accessRequired': 'Sie haben keinen Zugriff auf diesen Inhalt',
-  'linkDataSource.jira-issues.accessRequiredWithSite': 'Sie haben auf folgende Site keinen Zugriff:',
-  'linkDataSource.jira-issues.checkConnection':
-    'Überprüfen Sie Ihre Verbindung und aktualisieren Sie dann die Seite oder versuchen Sie es später erneut.',
-  'linkDataSource.jira-issues.checkConnectionWithSource':
+  'linkDataSource.checkConnectionWithSource':
     'Überprüfen Sie Ihre Verbindung und aktualisieren Sie die Seite oder <a>öffnen Sie diese Abfrage in Jira</a>, um sie zu überprüfen.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Für diese Anfrage können Sie nicht in den Standardmodus wechseln.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Standard',
-  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Mit Stichwörtern nach Vorgängen suchen',
-  'linkDataSource.jira-issues.configmodal.chooseSite': 'Site wählen',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Site wählen',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
@@ -108,43 +101,29 @@ export default {
   'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Zeigen Sie Suchergebnisse als Liste an.',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Liste',
   'linkDataSource.jira-issues.learnMoreLink': 'Weitere Informationen zur Suche mit JQL',
-  'linkDataSource.jira-issues.no.jira.sites.access.description':
-    'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
-  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Sie haben keinen Zugriff auf Jira-Sites',
-  'linkDataSource.jira-issues.noResultsFound': 'Keine Ergebnisse gefunden',
-  'linkDataSource.jira-issues.refresh': 'Aktualisieren',
+  'linkDataSource.no.jira.sites.access.description': 'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
+  'linkDataSource.no.jira.sites.access.title': 'Sie haben keinen Zugriff auf Jira-Sites',
+  'linkDataSource.noResultsFound': 'Keine Ergebnisse gefunden',
+  'linkDataSource.refresh': 'Aktualisieren',
   'linkDataSource.jira-issues.searchDescription-basic':
     'Suchen Sie nach Vorgängen, indem Sie ein Schlüsselwort eingeben.',
   'linkDataSource.jira-issues.searchDescription-jql':
     'Suchen Sie mithilfe von JQL (Jira-Abfragesprache) nach Vorgängen.',
   'linkDataSource.jira-issues.searchJiraTitle': 'Nach Jira-Vorgängen suchen',
-  'linkDataSource.jira-issues.unableToLoadItems': 'Elemente konnten nicht geladen werden',
-  'linkDataSource.jira-issues.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
+  'linkDataSource.unableToLoadItems': 'Elemente konnten nicht geladen werden',
+  'linkDataSource.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
   'linkDataSource.modal-initial-state.beta': 'Beta',
   'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Nach Confluence-Seiten suchen',
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Nach Jira-Vorgängen suchen',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Weitere Informationen zur Suche mit JQL',
-  'linkDataSource.modal-initial-state.searchDescription-basic':
-    'Suchen Sie nach Vorgängen, indem Sie ein Schlüsselwort eingeben.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
     'Suchen Sie nach Seiten zum Einfügen, indem Sie ein Stichwort eingeben.',
-  'linkDataSource.modal-initial-state.searchDescription-jql':
-    'Suchen Sie mithilfe von JQL (Jira-Abfragesprache) nach Vorgängen.',
-  'linkDataSource.modal-initial-state.searchTitle': 'Nach Jira-Vorgängen suchen',
-  'linkDataSource.no.jira.sites.access.description': 'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
-  'linkDataSource.no.jira.sites.access.title': 'Sie haben keinen Zugriff auf Jira-Sites',
-  'linkDataSource.noResultsFound': 'Keine Ergebnisse gefunden',
-  'linkDataSource.refresh': 'Aktualisieren',
   'linkDataSource.render-type.boolean.false': 'Nein',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Nicht zugewiesen',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Site wählen',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Gerade synchronisiert',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisiert am {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {Element} other {Elemente}}',
   'linkDataSource.table-footer.loading': 'Wird geladen …',
   'linkDataSource.table-footer.power-by-jsm': 'Bereitgestellt von Assets in Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Aktualisieren',
-  'linkDataSource.unableToLoadItems': 'Elemente konnten nicht geladen werden',
-  'linkDataSource.unableToLoadResults': 'Ergebnisse konnten nicht geladen werden',
 };

@@ -3,7 +3,7 @@
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import { LinkButton } from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -33,7 +33,7 @@ export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element 
 					/>
 				</p>
 				<Box xcss={externalLinkWrapper}>
-					<Button
+					<LinkButton
 						appearance="primary"
 						target="_blank"
 						href="https://marketplace.atlassian.com/search?category=Macros&hosting=cloud&product=confluence"
@@ -44,7 +44,7 @@ export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element 
 							defaultMessage="Explore Atlassian Marketplace"
 							description="Empty state sub-heading external link"
 						/>
-					</Button>
+					</LinkButton>
 				</Box>
 			</div>
 		</div>

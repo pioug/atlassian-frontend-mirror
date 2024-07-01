@@ -1,5 +1,13 @@
 # @atlaskit/code
 
+## 15.3.1
+
+### Patch Changes
+
+- [#116025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116025)
+  [`cd506a937e44f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd506a937e44f) -
+  Internal change to how typography is applied. There should be no visual change.
+
 ## 15.3.0
 
 ### Minor Changes

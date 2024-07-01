@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.19.4",
+	"version": "7.19.6",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,10 +28,10 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^38.0.0",
+		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/custom-steps": "^0.4.0",
-		"@atlaskit/editor-common": "^83.4.0",
+		"@atlaskit/editor-common": "^83.5.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
@@ -111,9 +111,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.table.insert-last-column-btn-stays-in-place": {
-			"type": "boolean"
-		},
 		"platform.editor.table.drag-move-options-logic-update_fp7xw": {
 			"type": "boolean"
 		},

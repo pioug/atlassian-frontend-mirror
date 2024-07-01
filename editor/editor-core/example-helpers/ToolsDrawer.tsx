@@ -264,6 +264,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 										<span css={buttonGroup}>
 											<label>{providerKey}: </label>
 											{Object.keys(providers[providerKey]).map((providerStateName) => (
+												/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */
 												<Button
 													key={`${providerKey}-${providerStateName}`}
 													onClick={this.switchProvider.bind(this, providerKey, providerStateName)}

@@ -143,7 +143,13 @@ export default {
   'fabric.linking.related': 'Associé',
   'fabric.linking.related_links_found_in': 'Trouvé dans',
   'fabric.linking.related_links_includes_links_to': 'Inclut des liens vers',
+  'fabric.linking.related_links_modal_error_header': 'Une erreur est survenue',
+  'fabric.linking.related_links_modal_error_message':
+    'Nous avons rencontré un problème lors du chargement des liens récents. Vérifiez votre connexion ou actualisez, puis réessayez.',
   'fabric.linking.related_links_modal_title': 'Liens récents',
+  'fabric.linking.related_links_modal_unavailable_header': 'Aucun lien récent',
+  'fabric.linking.related_links_modal_unavailable_message':
+    "Nous n'avons trouvé aucun lien à afficher ici. Nous vérifions et ajoutons en permanence des liens récents pour les pages mises à jour ou d'autres types de contenu.",
   'fabric.linking.related_links_not_found': "Nous n'avons trouvé aucun lien à afficher ici.",
   'fabric.linking.related_links_view_related_urls.nonfinal': 'Afficher les liens récents…',
   'fabric.linking.related_work_items_not_found': "Ce lien n'est mentionné nulle part ailleurs.",

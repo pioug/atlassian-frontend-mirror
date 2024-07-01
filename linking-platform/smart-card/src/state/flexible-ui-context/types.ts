@@ -312,7 +312,7 @@ export type AutomationActionData = {
 };
 
 export type ViewRelatedLinksActionData = {
-	url: string;
+	ari: string;
 };
 
 export type FlexibleAnalyticsContextType = AnalyticsFacade & {

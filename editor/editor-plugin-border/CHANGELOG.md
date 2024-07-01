@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-border
 
+## 1.3.1
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

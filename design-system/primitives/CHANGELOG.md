@@ -74,43 +74,35 @@
 
   **Before migration**
 
-  ```
+  ```tsx
   import { Box, xcss } from '@atlaskit/primitives';
   import FocusRing from '@atlaskit/focus-ring';
 
   const buttonStyles = xcss({
   	cursor: 'pointer',
-  	backgroundColor: 'color.background.brand.bold'
+  	backgroundColor: 'color.background.brand.bold',
   });
-
 
   const MyApp = () => (
   	<FocusRing>
-  		<Box
-  			as="button"
-  			xcss={buttonStyles}
-  			disabled={isDisabled}
-  		>
+  		<Box as="button" xcss={buttonStyles} disabled={isDisabled}>
   			Hello
   		</Box>
   	</FocusRing>
-  )
+  );
   ```
 
   **After migration**
 
-  ```
+  ```tsx
   import { Pressable, xcss } from '@atlaskit/primitives';
 
   const buttonStyles = xcss({
-  	backgroundColor: 'color.background.brand.bold'
+  	backgroundColor: 'color.background.brand.bold',
   });
 
   const MyApp = () => (
-  	<Pressable
-  		xcss={buttonStyles}
-  		isDisabled={isDisabled}
-  	>
+  	<Pressable xcss={buttonStyles} isDisabled={isDisabled}>
   		Hello
   	</Pressable>
   );

@@ -21,18 +21,20 @@ const smallContainerStyles = xcss({
 
 export default () => {
 	return (
-		<Stack space="space.200">
-			<Box xcss={wrapperStyles}>
-				<Inline alignBlock="stretch" alignInline="center" grow="fill">
-					{/* this Badge should not stretch vertically */}
-					<Badge appearance="primary">{77}</Badge>
-				</Inline>
-			</Box>
+		<React.StrictMode>
+			<Stack space="space.200">
+				<Box xcss={wrapperStyles}>
+					<Inline alignBlock="stretch" alignInline="center" grow="fill">
+						{/* this Badge should not stretch vertically */}
+						<Badge appearance="primary">{77}</Badge>
+					</Inline>
+				</Box>
 
-			<Box xcss={smallContainerStyles}>
-				{/* this Badge should not break onto multiple lines */}
-				<Badge>x55</Badge>
-			</Box>
-		</Stack>
+				<Box xcss={smallContainerStyles}>
+					{/* this Badge should not break onto multiple lines */}
+					<Badge>x55</Badge>
+				</Box>
+			</Stack>
+		</React.StrictMode>
 	);
 };

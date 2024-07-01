@@ -143,7 +143,13 @@ export default {
   'fabric.linking.related': 'Связанное',
   'fabric.linking.related_links_found_in': 'Упоминается в:',
   'fabric.linking.related_links_includes_links_to': 'Содержит ссылки на:',
+  'fabric.linking.related_links_modal_error_header': 'Произошла ошибка',
+  'fabric.linking.related_links_modal_error_message':
+    'При попытке загрузить недавние ссылки произошла ошибка. Проверьте подключение или обновите страницу, чтобы повторить попытку.',
   'fabric.linking.related_links_modal_title': 'Недавние ссылки',
+  'fabric.linking.related_links_modal_unavailable_header': 'Недавних ссылок нет',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Ссылки для отображения не найдены. Мы постоянно проверяем и добавляем недавние ссылки на обновленные страницы и другие типы контента.',
   'fabric.linking.related_links_not_found': 'Ссылки для отображения не найдены.',
   'fabric.linking.related_links_view_related_urls.nonfinal': 'Просмотреть недавние ссылки…',
   'fabric.linking.related_work_items_not_found': 'Эта ссылка больше нигде не упоминается.',

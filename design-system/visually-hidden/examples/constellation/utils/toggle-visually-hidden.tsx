@@ -17,8 +17,7 @@ const toggleStyles = css({
 });
 
 const labelStyles = css({
-	fontSize: token('font.size.075', '12px'),
-	fontWeight: token('font.weight.semibold', '600'),
+	font: token('font.heading.xxsmall'),
 });
 
 const ToggleVisuallyHidden = ({

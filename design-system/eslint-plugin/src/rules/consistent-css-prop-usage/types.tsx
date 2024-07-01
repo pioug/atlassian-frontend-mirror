@@ -7,4 +7,5 @@ export type RuleConfig = {
 	xcssImportSource: ImportSource;
 	excludeReactComponents: boolean;
 	autoFix: boolean;
+	shouldAlwaysCheckXcss: boolean;
 };

@@ -103,9 +103,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
 			frameStyle={frameStyle}
 			// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
 			// See: HOT-107830
-			contentEditable={
-				getBooleanFF('platform.editor.card.fix-embed-card-select-all') ? 'false' : 'inherit'
-			}
+			contentEditable={'false'}
 			suppressContentEditableWarning={true}
 		>
 			{children}

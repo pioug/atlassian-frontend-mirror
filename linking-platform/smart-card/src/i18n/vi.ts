@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Tạo tự động hóa',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Biểu tượng tiêu đề phương thức tự động hóa',
+  'automation-menu.success-state.message': 'Quy tắc tự động hóa đang được tiến hành',
   'fabric.linking.access_exists_description': 'Yêu cầu quyền truy cập để xem nội dung này từ {hostname}.',
   'fabric.linking.actions': 'Hành động',
   'fabric.linking.add_account': 'Thêm tài khoản',
@@ -142,8 +143,15 @@ export default {
   'fabric.linking.related': 'Có liên quan',
   'fabric.linking.related_links_found_in': 'Tìm thấy trong',
   'fabric.linking.related_links_includes_links_to': 'Bao gồm liên kết trong',
+  'fabric.linking.related_links_modal_error_header': 'Có lỗi xảy ra',
+  'fabric.linking.related_links_modal_error_message':
+    'Chúng tôi đã gặp sự cố khi cố tải các liên kết gần đây. Hãy kiểm tra kết nối của bạn hoặc làm mới để thử lại.',
   'fabric.linking.related_links_modal_title': 'Liên kết gần đây',
+  'fabric.linking.related_links_modal_unavailable_header': 'Không có liên kết gần đây',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Chúng tôi không tìm được liên kết nào để hiển thị ở đây. Chúng tôi liên tục xem xét và thêm các liên kết gần đây cho các trang cập nhật hoặc các loại nội dung khác.',
   'fabric.linking.related_links_not_found': 'Chúng tôi không tìm được liên kết nào để hiển thị ở đây.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Xem các liên kết gần đây...',
   'fabric.linking.related_work_items_not_found': 'Liên kết này chưa được nhắc đến ở bất cứ đâu.',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description':

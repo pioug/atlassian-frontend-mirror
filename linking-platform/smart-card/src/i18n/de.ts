@@ -21,6 +21,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Automatisierung erstellen',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Symbol im Header des Automatisierungsfensters',
+  'automation-menu.success-state.message': 'Ihre Automatisierungsregel wird ausgeführt',
   'fabric.linking.access_exists_description':
     'Bitten Sie Ihren Administrator um Zugriffsrechte für die Anzeige dieses Inhalts von {hostname}.',
   'fabric.linking.actions': 'Aktionen',
@@ -146,8 +147,15 @@ export default {
   'fabric.linking.related': 'Zugehörig',
   'fabric.linking.related_links_found_in': 'Gefunden in',
   'fabric.linking.related_links_includes_links_to': 'Beinhaltet Links zu',
+  'fabric.linking.related_links_modal_error_header': 'Etwas ist schiefgelaufen',
+  'fabric.linking.related_links_modal_error_message':
+    'Beim Laden der zuletzt aufgerufenen Links ist ein Problem aufgetreten. Überprüfen Sie Ihre Verbindung oder aktualisieren Sie die Seite, um es erneut zu versuchen.',
   'fabric.linking.related_links_modal_title': 'Zuletzt aufgerufene Links',
+  'fabric.linking.related_links_modal_unavailable_header': 'Keine zuletzt aufgerufenen Links',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Es wurden keine Links zum Anzeigen gefunden. Die zuletzt aufgerufenen Links werden fortlaufend auf aktualisierte Seiten oder andere Inhaltstypen geprüft und ggf. hinzugefügt.',
   'fabric.linking.related_links_not_found': 'Es wurden keine Links zum Anzeigen gefunden.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Letzte Verknüpfungen anzeigen …',
   'fabric.linking.related_work_items_not_found': 'Dieser Link wird nirgendwo sonst erwähnt.',
   'fabric.linking.request_access': 'Zugriff anfordern',
   'fabric.linking.request_access_description':

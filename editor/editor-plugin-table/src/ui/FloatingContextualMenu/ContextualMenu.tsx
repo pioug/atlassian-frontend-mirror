@@ -42,7 +42,7 @@ import { splitCell } from '@atlaskit/editor-tables/utils';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearHoverSelection,
@@ -117,7 +117,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	private dropdownMenuRef = React.createRef<HTMLDivElement>();
 
 	componentDidMount() {
-		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 			// ArrowKeyNavigationProvider in DropdownMenu expects that menu handle will stay focused
 			// until user pressed ArrowDown.
 			// Behavior above fails the A11Y requirement about first item in menu should be focused immediately.
@@ -141,7 +141,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			: this.createOriginalContextMenuItems();
 		let isOpenAllowed = false;
 
-		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 			isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
 		} else {
 			isOpenAllowed = isOpen;
@@ -160,9 +160,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
 						disableArrowKeyNavigation:
-							getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c') &&
 							isCellMenuOpenByKeyboard &&
-							!this.state.isSubmenuOpen
+							!this.state.isSubmenuOpen &&
+							fg('platform.editor.a11y-table-context-menu_y4c9c')
 								? false
 								: true,
 					}}
@@ -177,7 +177,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
 					}
 					shouldFocusFirstItem={
-						getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
+						fg('platform.editor.a11y-table-context-menu_y4c9c')
 							? () => {
 									return Boolean(isCellMenuOpenByKeyboard);
 								}
@@ -187,9 +187,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					offset={offset}
 					section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
 					isAllowEnterDefaultBehavior={
-						getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
-							? this.state.isSubmenuOpen
-							: false
+						fg('platform.editor.a11y-table-context-menu_y4c9c') ? this.state.isSubmenuOpen : false
 					}
 				/>
 			</div>
@@ -229,7 +227,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			let selectedRowIndex;
 			let selectedColumnIndex;
 
-			if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+			if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 				const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
 					cellBackgroundColorPalette,
 					background!,
@@ -265,7 +263,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 									: ClassName.CONTEXTUAL_MENU_ICON
 							}
 						/>
-						{getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
+						{fg('platform.editor.a11y-table-context-menu_y4c9c')
 							? isSubmenuOpen && (
 									<div
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -320,7 +318,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 								)}
 					</div>
 				),
-				'aria-expanded': getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
+				'aria-expanded': fg('platform.editor.a11y-table-context-menu_y4c9c')
 					? isSubmenuOpen
 					: undefined,
 			} as MenuItem;
@@ -649,10 +647,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		// context menu opened by keyboard and any item except 'background' activated
 		// or color has been chosen from color palette
 		if (
-			getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c') &&
 			isCellMenuOpenByKeyboard &&
 			(item.value.name !== 'background' ||
-				(item.value.name === 'background' && this.state.isSubmenuOpen))
+				(item.value.name === 'background' && this.state.isSubmenuOpen)) &&
+			fg('platform.editor.a11y-table-context-menu_y4c9c')
 		) {
 			const { tr } = state;
 			tr.setMeta(tablePluginKey, {
@@ -668,7 +666,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingEnabled &&
 			tableWithFixedColumnWidthsOption &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+			fg('platform.editor.table.use-increased-scaling-percent');
 
 		switch (item.value.name) {
 			case 'sort_column_desc':
@@ -767,9 +765,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				// 2nd when color has been chosen from color palette.
 				// here we are handling the 1st call relying on the isSubmenuOpen state value
 				if (
-					getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c') &&
 					isCellMenuOpenByKeyboard &&
-					!this.state.isSubmenuOpen
+					!this.state.isSubmenuOpen &&
+					fg('platform.editor.a11y-table-context-menu_y4c9c')
 				) {
 					this.setState({ isSubmenuOpen: true });
 				}
@@ -800,7 +798,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isCellMenuOpenByKeyboard,
 		} = this.props;
 
-		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 			if (payload) {
 				const { event } = payload;
 				if (event && event instanceof KeyboardEvent) {
@@ -881,13 +879,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 	private setColor = (color: string) => {
 		const { editorView, editorAnalyticsAPI } = this.props;
-		// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
-		const { targetCellPosition } = getPluginState(editorView.state);
 		const { state, dispatch } = editorView;
-		setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color, targetCellPosition)(
-			state,
-			dispatch,
-		);
+		setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color)(state, dispatch);
 		this.toggleOpen();
 	};
 }

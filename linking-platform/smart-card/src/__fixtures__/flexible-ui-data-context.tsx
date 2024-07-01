@@ -42,7 +42,7 @@ const context: FlexibleUiDataContext = {
 			resourceType: 'page',
 		},
 		ViewRelatedLinksAction: {
-			url: 'https://www.link-url.com',
+			ari: 'ari:cloud:link:1234:example:abcd',
 		},
 	},
 	attachmentCount: 3,

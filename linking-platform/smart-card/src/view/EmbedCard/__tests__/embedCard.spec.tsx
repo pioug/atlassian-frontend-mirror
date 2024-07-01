@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen, within } from '@testing-library/react';
 import {
 	expectFunctionToHaveBeenCalledWith,
 	type JestFunction,
@@ -10,7 +10,6 @@ import { type EmbedCardProps } from '../types';
 import { mockAnalytics } from '../../../utils/mocks';
 import { type JsonLd } from 'json-ld-types';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { UnauthorisedImage } from '../constants';
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
@@ -237,6 +236,17 @@ describe('EmbedCard view component', () => {
 			},
 		});
 
+		it('renders forbidden view with default image', () => {
+			const cardState = getForbiddenCardState(undefined);
+			setup(cardState, expectedUrl);
+			const view = screen.getByTestId('embed-card-forbidden-view');
+			expect(view).toBeTruthy();
+
+			const image = screen.getByTestId('embed-card-forbidden-view-unresolved-image');
+			const svg = within(image).getByTestId('forbidden-svg');
+			expect(svg).toBeInTheDocument();
+		});
+
 		it('should render resolved view with preview', () => {
 			const cardState = getForbiddenCardState(expectedPreview);
 			const { getByTestId, iframeEl } = setup(cardState, expectedUrl);
@@ -314,14 +324,14 @@ describe('EmbedCard view component', () => {
 		});
 
 		it('renders unauthorised view with default image', () => {
-			const expectedImageUrl = UnauthorisedImage;
 			const cardState = getUnauthorizedCardState();
 			const { getByTestId } = setup(cardState, expectedUrl);
 			const unauthorizedView = getByTestId('embed-card-unauthorized-view');
 			expect(unauthorizedView).toBeTruthy();
 
-			const unauthorizedViewImage = getByTestId(imageTestId);
-			expect(unauthorizedViewImage.getAttribute('src')).toBe(expectedImageUrl);
+			const image = getByTestId(imageTestId);
+			const svg = within(image).getByTestId('unauthorized-svg');
+			expect(svg).toBeInTheDocument();
 		});
 
 		it('renders unauthorised view with provider image', () => {
@@ -416,7 +426,8 @@ describe('EmbedCard view component', () => {
 			});
 
 			const image = getByTestId(imageTestId);
-			expect(image.getAttribute('src')).toBe(UnauthorisedImage);
+			const svg = within(image).getByTestId('unauthorized-svg');
+			expect(svg).toBeInTheDocument();
 
 			const title = getByTestId(titleTestId);
 			expect(title.textContent).toBe("We can't display private pages from 3P");
@@ -437,7 +448,9 @@ describe('EmbedCard view component', () => {
 			});
 
 			const image = getByTestId(imageTestId);
-			expect(image.getAttribute('src')).toBe(UnauthorisedImage);
+			const svg = within(image).getByTestId('unauthorized-svg');
+			expect(svg).toBeInTheDocument();
+
 			const title = getByTestId(titleTestId);
 			expect(title.textContent).toBe("We can't display private pages");
 
@@ -448,6 +461,36 @@ describe('EmbedCard view component', () => {
 
 			const button = queryByTestId(buttonTestId);
 			expect(button).not.toBeInTheDocument();
+		});
+	});
+
+	describe('not found embed', () => {
+		const expectedUrl = 'https://trellis.coffee/b/gNwMppQL';
+
+		const getNotFoundCardState = (): CardState => ({
+			status: 'not_found',
+			details: {
+				meta: {
+					visibility: 'not_found',
+					access: 'forbidden',
+					auth: [],
+				},
+				data: {
+					...baseData,
+					url: expectedUrl,
+				},
+			},
+		});
+
+		it('renders not found view with default image', () => {
+			const cardState = getNotFoundCardState();
+			setup(cardState, expectedUrl);
+			const view = screen.getByTestId('embed-card-not-found-view');
+			expect(view).toBeTruthy();
+
+			const image = screen.getByTestId('embed-card-not-found-view-unresolved-image');
+			const svg = within(image).getByTestId('not-found-svg');
+			expect(svg).toBeInTheDocument();
 		});
 	});
 });

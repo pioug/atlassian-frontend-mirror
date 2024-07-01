@@ -184,7 +184,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 								setShouldShowWarning(isModified);
 							}}
 						/>
-						<p aria-hidden="true">
+						<p>
 							{intl.formatMessage(messages.requiredFieldInstruction)} <RequiredAsterisk />
 						</p>
 						<Box>{children}</Box>

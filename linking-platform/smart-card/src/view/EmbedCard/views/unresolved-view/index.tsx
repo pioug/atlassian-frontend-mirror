@@ -1,26 +1,56 @@
 /** @jsx jsx */
 import LinkGlyph from '@atlaskit/icon/glyph/link';
+import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import React, { type FC, useMemo } from 'react';
+import { gs } from '../../../common/utils';
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';
 
-import {
-	containerStyles,
-	contentStyles,
-	descriptionStyles,
-	imageStyles,
-	titleStyles,
-} from './styled';
 import type { UnresolvedViewProps } from './types';
+
+const containerStyles = css({
+	display: 'grid',
+	height: 'inherit',
+});
+
+const contentStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	justifyContent: 'center',
+	alignItems: 'center',
+	margin: 'auto',
+	padding: token('space.200', '16px'),
+	gap: token('space.250', '20px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	maxWidth: gs(50),
+});
+
+const descriptionStyles = css({
+	fontSize: '1em',
+	textAlign: 'center',
+});
+
+const imageStyles = css({
+	height: '120px',
+	width: '180px',
+	objectFit: 'contain',
+	objectPosition: 'center center',
+});
+
+const titleStyles = css({
+	textAlign: 'center',
+	margin: 0,
+	padding: 0,
+});
 
 const UnresolvedView: FC<UnresolvedViewProps> = ({
 	button,
 	description,
 	frameStyle,
 	icon: iconUrlOrElement,
-	image,
+	image: imageUrlOrElement,
 	inheritDimensions,
 	isSelected,
 	onClick,
@@ -41,6 +71,23 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
 		);
 	}, [iconUrlOrElement]);
 
+	const image = useMemo(() => {
+		if (!imageUrlOrElement) {
+			return null;
+		}
+
+		const imageTestId = `${testId}-unresolved-image`;
+		if (typeof imageUrlOrElement === 'string') {
+			return <img css={imageStyles} data-testid={imageTestId} src={imageUrlOrElement} />;
+		}
+
+		return (
+			<div css={imageStyles} data-testid={imageTestId}>
+				{imageUrlOrElement}
+			</div>
+		);
+	}, [imageUrlOrElement, testId]);
+
 	return (
 		<ExpandedFrame
 			allowScrollBar={true}
@@ -59,17 +106,12 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
 			testId={testId}
 			text={text}
 		>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={containerStyles} data-testid={`${testId}-unresolved-container`}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={contentStyles}>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<img css={imageStyles} data-testid={`${testId}-unresolved-image`} src={image} />
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+					{image}
 					<h2 css={titleStyles} data-testid={`${testId}-unresolved-title`}>
 						{title}
 					</h2>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<span css={descriptionStyles} data-testid={`${testId}-unresolved-description`}>
 						{description}
 					</span>

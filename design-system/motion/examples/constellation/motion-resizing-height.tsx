@@ -58,7 +58,7 @@ const centeredContainerStyles = css({
 const logoContainerStyles = css({
 	display: 'flex',
 	padding: token('space.200', '16px'),
-	fontSize: token('font.size.200', '16px'),
+	fontSize: '16px',
 	fontWeight: token('font.weight.medium', '500'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover': {

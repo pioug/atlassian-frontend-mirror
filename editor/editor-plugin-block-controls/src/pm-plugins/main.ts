@@ -139,6 +139,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					isPMDragging,
 				} = currentState;
 
+				let activeNodeWithNewNodeType = null;
 				const meta = tr.getMeta(key);
 				// when creating analytics during drag/drop events, PM thinks the doc has changed
 				// so tr.docChange is true and causes some decorations to not render
@@ -214,7 +215,6 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 						if (mappedPosisiton === prevMappedPos + 1) {
 							mappedPosisiton = prevMappedPos;
 						}
-
 						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
 
 						let nodeType = activeNode.nodeType;
@@ -223,6 +223,8 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 						if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
 							nodeType = newActiveNode.type.name;
 							anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
+
+							activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
 						}
 						const draghandleDec = dragHandleDecoration(activeNode.pos, anchorName, nodeType, api);
 
@@ -248,6 +250,24 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					decorations = decorations.add(newState.doc, [decs]);
 				}
 
+				if (getBooleanFF('platform.editor.elements.drag-and-drop-ed-23816')) {
+					// Remove previous drag handle widget and draw new drag handle widget when node type changes
+					if (
+						activeNodeWithNewNodeType &&
+						activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
+						api
+					) {
+						const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+						decorations = decorations.remove(oldHandle);
+						const decs = dragHandleDecoration(
+							activeNodeWithNewNodeType.pos,
+							activeNodeWithNewNodeType.anchorName,
+							activeNodeWithNewNodeType.nodeType,
+							api,
+						);
+						decorations = decorations.add(newState.doc, [decs]);
+					}
+				}
 				// Add drop targets when node is being dragged
 				// if the transaction is only for analytics and user is dragging, continue to draw drop targets
 				if (meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr)) && api) {
@@ -294,15 +314,26 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				}
 
 				// Map active node position when the document changes
-				const mappedActiveNodePos =
-					tr.docChanged && activeNode
-						? {
-								pos: tr.mapping.map(activeNode.pos),
-								anchorName: activeNode.anchorName,
-								nodeType: activeNode.nodeType,
-							}
-						: activeNode;
-
+				let mappedActiveNodePos;
+				if (getBooleanFF('platform.editor.elements.drag-and-drop-ed-23816')) {
+					mappedActiveNodePos =
+						tr.docChanged && activeNode
+							? activeNodeWithNewNodeType || {
+									pos: tr.mapping.map(activeNode.pos),
+									anchorName: activeNode.anchorName,
+									nodeType: activeNode.nodeType,
+								}
+							: activeNode;
+				} else {
+					mappedActiveNodePos =
+						tr.docChanged && activeNode
+							? {
+									pos: tr.mapping.map(activeNode.pos),
+									anchorName: activeNode.anchorName,
+									nodeType: activeNode.nodeType,
+								}
+							: activeNode;
+				}
 				return {
 					decorations,
 					decorationState,

@@ -4,7 +4,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -125,6 +125,7 @@ export const EmojiPickerButton = (props: {
 				<Button
 					appearance={'subtle'}
 					key={props.idx}
+					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						padding: 0,

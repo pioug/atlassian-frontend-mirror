@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 48.6.10
+
+### Patch Changes
+
+- [#116341](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116341)
+  [`d46cfd94ec3e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d46cfd94ec3e5) -
+  Fized SVG zooming for Firefox and Safari
+
 ## 48.6.9
 
 ### Patch Changes

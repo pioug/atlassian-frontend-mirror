@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 83.5.0
+
+### Minor Changes
+
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`2662cb99be36f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2662cb99be36f) -
+  [ux] ED-23706 - change disabled comment action text
+- [#113441](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113441)
+  [`ea57f8fd294f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea57f8fd294f9) -
+  Updates getLinkPreferencesURLFromENV utility to leverage `@atlaskit/atlassian-context` pkg in
+  order to control user preferences link based on environment/perimeter.
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`1c26d1ee6fb25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c26d1ee6fb25) -
+  Migrated to new atlaskit Buttons.
+- Updated dependencies
+
 ## 83.4.3
 
 ### Patch Changes

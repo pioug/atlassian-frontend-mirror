@@ -15,7 +15,7 @@ export type UnresolvedViewProps = UnresolvedViewCardProps & {
 	/** A link icon displayed on embed frame */
 	icon: string | ReactNode;
 	/** A provider or visual aids for the unresolved link */
-	image: string;
+	image: string | ReactNode;
 	/** A link text displayed on embed frame */
 	text?: string;
 	/** A title for the unresolved link */

@@ -39,7 +39,7 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
@@ -292,7 +292,7 @@ export const DragMenu = React.memo(
 
 		let shouldMoveDisabled;
 		let hasMergedCellsInTable;
-		if (getBooleanFF('platform.editor.table.drag-move-options-logic-update_fp7xw')) {
+		if (fg('platform.editor.table.drag-move-options-logic-update_fp7xw')) {
 			shouldMoveDisabled = false;
 			hasMergedCellsInTable = tableMap?.hasMergedCells() ?? false;
 		} else {
@@ -347,13 +347,8 @@ export const DragMenu = React.memo(
 		};
 
 		const setColor = (color: string) => {
-			const { targetCellPosition } = getTablePluginState(editorView.state);
 			const { state, dispatch } = editorView;
-			setColorWithAnalytics(editorAnalyticsAPI)(
-				INPUT_METHOD.CONTEXT_MENU,
-				color,
-				targetCellPosition,
-			)(state, dispatch);
+			setColorWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, color)(state, dispatch);
 			closeMenu();
 			setIsSubmenuOpen(false);
 		};

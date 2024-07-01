@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import { LinkIconButton } from '@atlaskit/button/new';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
@@ -13,12 +13,12 @@ export const EditorToolbarWithIconBefore = () => {
 			preset={preset}
 			appearance="full-page"
 			primaryToolbarIconBefore={
-				<Button
-					iconBefore={<AtlassianIcon />}
+				<LinkIconButton
+					icon={AtlassianIcon}
+					label="Atlassian Home"
 					appearance="subtle"
 					href="https://atlaskit.atlassian.com/"
-					shouldFitContainer
-				></Button>
+				/>
 			}
 		/>
 	);

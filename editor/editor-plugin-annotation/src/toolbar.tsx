@@ -24,6 +24,7 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { setInlineCommentDraftState } from './commands';
 import { AnnotationSelectionType, AnnotationTestIds } from './types';
@@ -48,7 +49,11 @@ export const buildToolbar =
 		}
 
 		const createCommentMessage = intl.formatMessage(annotationMessages.createComment);
-		const commentDisabledMessage = intl.formatMessage(annotationMessages.createCommentInvalid);
+		const commentDisabledMessage = intl.formatMessage(
+			getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+				? annotationMessages.createCommentDisabled
+				: annotationMessages.createCommentInvalid,
+		);
 
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',

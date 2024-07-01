@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.9.2
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`1c26d1ee6fb25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c26d1ee6fb25) -
+  Migrated to new atlaskit Buttons.
+- Updated dependencies
+
 ## 1.9.1
 
 ### Patch Changes

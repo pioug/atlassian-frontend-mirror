@@ -84,17 +84,12 @@ export default {
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Dowiedz się więcej o inteligentnych łączach.',
   'linkDataSource.issue-line-table.unwrap-text': 'Cofnij zawijanie tekstu',
   'linkDataSource.issue-line-table.wrap-text': 'Zawijaj tekst',
-  'linkDataSource.jira-issues.accessInstructions': 'Aby poprosić o dostęp, skontaktuj się z administratorem witryny.',
-  'linkDataSource.jira-issues.accessRequired': 'Nie masz dostępu do tej treści',
-  'linkDataSource.jira-issues.accessRequiredWithSite': 'Nie masz dostępu do następującej witryny:',
-  'linkDataSource.jira-issues.checkConnection': 'Sprawdź połączenie i odśwież stronę lub spróbuj ponownie później.',
-  'linkDataSource.jira-issues.checkConnectionWithSource':
+  'linkDataSource.checkConnectionWithSource':
     'Sprawdź i odśwież połączenie lub <a>otwórz to zapytanie w systemie Jira</a>, aby je przejrzeć.',
   'linkDataSource.jira-issues.configmodal.basicModeSwitchDisabledTooltipText':
     'Nie można przełączyć na tryb podstawowy w przypadku tego zapytania.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Podstawowe',
-  'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Wyszukaj zgłoszenia według słów kluczowych',
-  'linkDataSource.jira-issues.configmodal.chooseSite': 'Wybierz witrynę',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Wybierz witrynę',
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Wstaw zgłoszenia',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Wstaw zgłoszenia Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Wstaw zgłoszenia Jira z witryny',
@@ -106,36 +101,24 @@ export default {
   'linkDataSource.jira-issues.configmodal.viewModeListDescription': 'Wyświetl wyniki wyszukiwania w formie listy',
   'linkDataSource.jira-issues.configmodal.viewModeListLabel': 'Lista',
   'linkDataSource.jira-issues.learnMoreLink': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
-  'linkDataSource.jira-issues.no.jira.sites.access.description':
-    'Aby poprosić o dostęp, skontaktuj się z administratorem.',
-  'linkDataSource.jira-issues.no.jira.sites.access.title': 'Nie masz dostępu do żadnej witryny Jira',
-  'linkDataSource.jira-issues.noResultsFound': 'Nie znaleziono wyników',
-  'linkDataSource.jira-issues.refresh': 'Odśwież',
-  'linkDataSource.jira-issues.searchDescription-basic': 'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
-  'linkDataSource.jira-issues.searchDescription-jql':
-    'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
-  'linkDataSource.jira-issues.searchJiraTitle': 'Wyszukaj zgłoszenia Jira',
-  'linkDataSource.jira-issues.unableToLoadItems': 'Nie można załadować elementów',
-  'linkDataSource.jira-issues.unableToLoadResults': 'Nie można załadować wyników',
-  'linkDataSource.modal-initial-state.beta': 'Beta',
-  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Wyszukaj strony Confluence',
-  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Wyszukaj zgłoszenia Jira',
-  'linkDataSource.modal-initial-state.learnMoreLink': 'Dowiedz się, jak wyszukiwać przy użyciu zapytań JQL',
-  'linkDataSource.modal-initial-state.searchDescription-basic':
-    'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
-  'linkDataSource.modal-initial-state.searchDescription-confluence':
-    'Wyszukaj strony do wstawienia według słowa kluczowego.',
-  'linkDataSource.modal-initial-state.searchDescription-jql':
-    'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
-  'linkDataSource.modal-initial-state.searchTitle': 'Wyszukaj zgłoszenia Jira',
   'linkDataSource.no.jira.sites.access.description': 'Aby poprosić o dostęp, skontaktuj się z administratorem.',
   'linkDataSource.no.jira.sites.access.title': 'Nie masz dostępu do żadnej witryny Jira',
   'linkDataSource.noResultsFound': 'Nie znaleziono wyników',
   'linkDataSource.refresh': 'Odśwież',
+  'linkDataSource.jira-issues.searchDescription-basic': 'Wyszukaj zgłoszenia do wstawienia według słowa kluczowego.',
+  'linkDataSource.jira-issues.searchDescription-jql':
+    'Użyj zapytań w języku JQL (Jira Query Language), aby wyszukiwać zgłoszenia.',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Wyszukaj zgłoszenia Jira',
+  'linkDataSource.unableToLoadItems': 'Nie można załadować elementów',
+  'linkDataSource.unableToLoadResults': 'Nie można załadować wyników',
+  'linkDataSource.modal-initial-state.beta': 'Beta',
+  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Wyszukaj strony Confluence',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Wyszukaj zgłoszenia Jira',
+  'linkDataSource.modal-initial-state.searchDescription-confluence':
+    'Wyszukaj strony do wstawienia według słowa kluczowego.',
   'linkDataSource.render-type.boolean.false': 'Nie',
   'linkDataSource.render-type.boolean.true': 'Tak',
   'linkDataSource.render-type.user.default.display.name': 'Nieprzydzielone',
-  'linkDataSource.site-selector.configmodal.chooseSite': 'Wybierz witrynę',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Właśnie zsynchronizowano',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Zsynchronizowano {date}',
   'linkDataSource.table-footer.item':
@@ -143,6 +126,4 @@ export default {
   'linkDataSource.table-footer.loading': 'Ładowanie…',
   'linkDataSource.table-footer.power-by-jsm': 'Obsługiwane przez Zasoby w Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Odśwież',
-  'linkDataSource.unableToLoadItems': 'Nie można załadować elementów',
-  'linkDataSource.unableToLoadResults': 'Nie można załadować wyników',
 };

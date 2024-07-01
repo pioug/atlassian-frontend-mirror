@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugins
 
+## 3.3.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.29
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.28
+
+### Patch Changes
+
+- [#116281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116281)
+  [`62fb11ef85308`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62fb11ef85308) -
+  Cleanup table LD FF insert-last-column-btn-stays-in-place
+- Updated dependencies
+
+## 3.3.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.26
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.25
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/email-renderer
 
+## 8.10.1
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+
 ## 8.10.0
 
 ### Minor Changes

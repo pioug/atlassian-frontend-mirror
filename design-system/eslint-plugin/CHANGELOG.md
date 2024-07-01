@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.10.0
+
+### Minor Changes
+
+- [#116426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116426)
+  [`29d6c074c76ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29d6c074c76ea) -
+  Add lint rule to detect use of custom icons
+
+## 10.9.0
+
+### Minor Changes
+
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`2959497ccf910`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2959497ccf910) -
+  Adds `shouldAlwaysCheckXcss` config option to `consistent-css-prop-usage` to lint the `xcss` prop
+  even when `excludeReactComponents` is enabled.
+
 ## 10.8.2
 
 ### Patch Changes

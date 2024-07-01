@@ -1,7 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
 import { type ViewRelatedLinksActionData } from '../../../state/flexible-ui-context/types';
-import { extractLink } from '@atlaskit/link-extractors';
+import { extractAri } from '@atlaskit/link-extractors';
 
 export const extractViewRelatedLinksAction = (
 	response: JsonLd.Response,
@@ -9,13 +9,13 @@ export const extractViewRelatedLinksAction = (
 	if (!response?.meta?.supportedFeature?.includes('RelatedLinks')) {
 		return;
 	}
-	const url = extractLink(response.data as JsonLd.Data.BaseData);
+	const ari = extractAri(response.data as JsonLd.Data.BaseData);
 
-	if (!url) {
+	if (!ari) {
 		return;
 	}
 
 	return {
-		url,
+		ari,
 	};
 };

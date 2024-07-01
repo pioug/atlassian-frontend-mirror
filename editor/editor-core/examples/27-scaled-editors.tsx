@@ -4,55 +4,45 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import type { ButtonProps } from '@atlaskit/button/standard-button';
-import Button from '@atlaskit/button/standard-button';
-import { N40, N50A } from '@atlaskit/theme/colors';
+import Button from '@atlaskit/button/new';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { default as FullPageExample } from './5-full-page';
 
-const user = css({
+const user = xcss({
 	width: '100%',
-	padding: `${token('space.150', '12px')} 0px`,
 	display: 'flex',
 	alignItems: 'center',
 });
 
-const avatar = css({
+const avatar = xcss({
 	marginRight: token('space.050', '4px'),
 	borderRadius: '50%',
 	height: '24px',
 	width: '24px',
 });
 const Author = () => (
-	<div css={user}>
-		<img css={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></img>
-		<span>Philip J. Fry</span>
-	</div>
+	<Box xcss={user}>
+		<Box as="img" xcss={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></Box>
+		<Box as="span">Philip J. Fry</Box>
+	</Box>
 );
 
-const frame = css({
+const frame = xcss({
 	display: 'flex',
 	flexDirection: 'column',
 	width: '280px',
+	boxSizing: 'content-box',
 	maxWidth: '280px',
-	padding: `0px ${token('space.200', '16px')}`,
+	paddingInline: 'space.200',
+	paddingBlock: 'space.150',
 	border: `1px solid ${token('color.border', N40)}`,
-	borderRadius: '4px',
-	boxShadow: token('elevation.shadow.overlay', `0 8px 16px -4px ${N50A}`),
+	borderRadius: 'border.radius',
+	boxShadow: 'elevation.shadow.overlay',
+	justifyContent: 'space-between',
 });
-
-function ButtonHack(props: ButtonProps) {
-	return <Button {...props} />;
-}
-const paddedButton = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&&': {
-		margin: `${token('space.150', '12px')} 0px ${token('space.150', '12px')} auto`,
-	},
-});
-
-const PaddedButton = (props: ButtonProps) => <ButtonHack {...props} css={paddedButton} />;
 
 const editorWrapper = css({
 	padding: token('space.100', '8px'),
@@ -66,11 +56,13 @@ const editorWrapper = css({
 });
 
 const InlineCommentEditor = (props: { editor: React.ReactNode }) => (
-	<div css={frame}>
+	<Stack xcss={frame} space="space.150">
 		<Author />
 		<div css={editorWrapper}>{props.editor}</div>
-		<PaddedButton appearance="primary">Save</PaddedButton>
-	</div>
+		<Inline alignInline="end">
+			<Button appearance="primary">Save</Button>
+		</Inline>
+	</Stack>
 );
 
 const editor = (
@@ -86,9 +78,9 @@ const editor = (
 
 const ScaledEditorsExample = () => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-	<div style={{ padding: token('space.250', '20px') }}>
+	<Box padding="space.250">
 		<InlineCommentEditor editor={editor} />
-	</div>
+	</Box>
 );
 
 export default ScaledEditorsExample;

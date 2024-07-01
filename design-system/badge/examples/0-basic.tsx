@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -34,51 +36,53 @@ const invertedItemStyles = css({
 
 export default function Example() {
 	return (
-		<div data-testid="badge">
-			<div css={itemStyles}>
-				<p>Added</p>
-				<Badge appearance="added" max={99}>
-					{3000}
-				</Badge>
+		<React.StrictMode>
+			<div data-testid="badge">
+				<div css={itemStyles}>
+					<p>Added</p>
+					<Badge appearance="added" max={99}>
+						{3000}
+					</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Default</p>
+					<Badge testId="badge-default">{5}</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Default (∞)</p>
+					<Badge max={Infinity}>{Infinity}</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Important</p>
+					<Badge appearance="important">{25}</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Primary</p>
+					<Badge appearance="primary">{-5}</Badge>
+				</div>
+				<div css={[itemStyles, invertedItemStyles]}>
+					<p>Primary Inverted</p>
+					<Badge appearance="primaryInverted">{5}</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Removed</p>
+					<Badge appearance="removed">{100}</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Added code</p>
+					<Badge appearance="added">+100</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Removed code</p>
+					<Badge appearance="removed">-100</Badge>
+				</div>
+				<div css={itemStyles}>
+					<p>Added</p>
+					<Badge appearance="added" max={4000}>
+						{3000}
+					</Badge>
+				</div>
 			</div>
-			<div css={itemStyles}>
-				<p>Default</p>
-				<Badge testId="badge-default">{5}</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Default (∞)</p>
-				<Badge max={Infinity}>{Infinity}</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Important</p>
-				<Badge appearance="important">{25}</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Primary</p>
-				<Badge appearance="primary">{-5}</Badge>
-			</div>
-			<div css={[itemStyles, invertedItemStyles]}>
-				<p>Primary Inverted</p>
-				<Badge appearance="primaryInverted">{5}</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Removed</p>
-				<Badge appearance="removed">{100}</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Added code</p>
-				<Badge appearance="added">+100</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Removed code</p>
-				<Badge appearance="removed">-100</Badge>
-			</div>
-			<div css={itemStyles}>
-				<p>Added</p>
-				<Badge appearance="added" max={4000}>
-					{3000}
-				</Badge>
-			</div>
-		</div>
+		</React.StrictMode>
 	);
 }

@@ -6,6 +6,13 @@ import React from 'react';
 import Button, { type ButtonProps } from '@atlaskit/button/standard-button';
 
 export default React.forwardRef<HTMLElement, ButtonProps>((props, ref) => {
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-	return <Button ref={ref} {...props} style={{ alignItems: 'center' }} />;
+	return (
+		<Button
+			ref={ref}
+			{...props}
+			// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{ alignItems: 'center' }}
+		/>
+	);
 });

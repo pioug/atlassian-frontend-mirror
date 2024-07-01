@@ -22,7 +22,6 @@ import {
 	getSelectionRect,
 	removeTable,
 } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	addResizeHandleDecorations,
@@ -226,10 +225,6 @@ export const handleMouseOver = (view: EditorView, mouseEvent: Event): boolean =>
 };
 
 export const handleMouseUp = (view: EditorView, mouseEvent: Event): boolean => {
-	if (!getBooleanFF('platform.editor.table.insert-last-column-btn-stays-in-place')) {
-		return false;
-	}
-
 	if (!(mouseEvent instanceof MouseEvent)) {
 		return false;
 	}

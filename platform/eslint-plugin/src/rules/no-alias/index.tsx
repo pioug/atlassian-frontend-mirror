@@ -15,7 +15,7 @@ const IMPORT_SOURCES = new Set([
 const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/ff/no-alias/README.md',
+			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/no-alias/README.md',
 			description:
 				'Disallow aliasing of feature flag utils to ensure feature flag usage is statically analyzable',
 		},

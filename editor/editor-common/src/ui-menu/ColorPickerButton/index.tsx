@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/standard-button';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -262,6 +262,7 @@ const ColorPickerButton = (props: Props) => {
 							setIsOpenedByKeyboard(true);
 						}
 					}}
+					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
 					css={buttonStyle}
 					iconAfter={
 						<span css={colorPickerExpandContainer}>

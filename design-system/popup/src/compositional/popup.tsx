@@ -116,11 +116,10 @@ export const PopupTrigger = ({ children }: PopupTriggerProps) => {
 
 const defaultLayer = layers.layer();
 
-export type PopupContentProps = Pick<
+type CommonContentPopupProps = Pick<
 	LegacyPopupProps,
 	| 'boundary'
 	| 'offset'
-	| 'strategy'
 	| 'onClose'
 	| 'testId'
 	| 'placement'
@@ -129,9 +128,10 @@ export type PopupContentProps = Pick<
 	| 'shouldFlip'
 	| 'rootBoundary'
 	| 'autoFocus'
-	| 'shouldUseCaptureOnOutsideClick'
 	| 'shouldRenderToParent'
+	| 'shouldUseCaptureOnOutsideClick'
 	| 'shouldDisableFocusLock'
+	| 'strategy'
 	| 'zIndex'
 > & {
 	// This type has been kept the same as the Popup `content` prop for now.
@@ -139,6 +139,18 @@ export type PopupContentProps = Pick<
 	// so that consumers don't need to use a function when they are not using the props that are passed.
 	children: (props: ContentProps) => React.ReactNode;
 };
+
+type ShouldFitContainerContentPopupProps = CommonContentPopupProps & {
+	shouldFitContainer: true;
+	shouldRenderToParent?: true;
+	strategy?: 'absolute';
+};
+
+type StandardPopupContentProps = CommonContentPopupProps & {
+	shouldFitContainer?: false;
+};
+
+export type PopupContentProps = ShouldFitContainerContentPopupProps | StandardPopupContentProps;
 
 /**
  * __Popup content__
@@ -162,8 +174,9 @@ export const PopupContent = ({
 	autoFocus = true,
 	zIndex = defaultLayer,
 	shouldUseCaptureOnOutsideClick = false,
-	shouldRenderToParent = false,
+	shouldRenderToParent,
 	shouldDisableFocusLock = false,
+	shouldFitContainer,
 }: PopupContentProps) => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
@@ -190,6 +203,7 @@ export const PopupContent = ({
 				testId={testId}
 				onClose={onClose}
 				autoFocus={autoFocus}
+				shouldFitContainer={shouldFitContainer}
 				shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
 				shouldRenderToParent={shouldRenderToParent}
 				shouldDisableFocusLock={shouldDisableFocusLock}

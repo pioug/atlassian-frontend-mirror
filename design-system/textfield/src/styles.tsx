@@ -130,7 +130,7 @@ export const inputStyles = () =>
 		outline: 'none',
 		width: '100%',
 		'&[data-monospaced]': {
-			fontFamily: token('font.family.monospace'),
+			fontFamily: token('font.family.code'),
 		},
 		'&[data-compact]': {
 			padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,

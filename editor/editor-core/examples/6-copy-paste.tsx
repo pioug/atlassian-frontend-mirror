@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
 import type { DocNode } from '@atlaskit/adf-schema';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
@@ -40,6 +40,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives';
 import { ReactRenderer } from '@atlaskit/renderer';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
@@ -572,16 +573,12 @@ const ClipboardWidthPopup = ({ content }: { content: ReactNode }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<div>
-			<Button
-				appearance="primary"
-				isSelected={isOpen}
-				onClick={() => setIsOpen(!isOpen)}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ marginTop: token('space.200', '16px') }}
-			>
-				{isOpen ? 'Close' : 'Open'} pop with editor and clipboard{' '}
-			</Button>
+		<Box>
+			<Box paddingBlockStart="space.200">
+				<Button appearance="primary" isSelected={isOpen} onClick={() => setIsOpen(!isOpen)}>
+					{isOpen ? 'Close' : 'Open'} pop with editor and clipboard{' '}
+				</Button>
+			</Box>
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={() => setIsOpen(false)} width="large">
@@ -597,7 +594,7 @@ const ClipboardWidthPopup = ({ content }: { content: ReactNode }) => {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</Box>
 	);
 };
 
@@ -640,12 +637,7 @@ const ExampleExternalClipboard = () => {
 						onPreviewUpdate={onUploadPreviewUpdate}
 					/>
 					<br />
-					<Button
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className="close_button"
-						appearance="primary"
-						onClick={onReset}
-					>
+					<Button appearance="primary" onClick={onReset}>
 						Clear pasted media
 					</Button>
 					{pastedImgSrc && (

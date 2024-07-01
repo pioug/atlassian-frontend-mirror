@@ -36,6 +36,7 @@ export const getJsonLdResponse = (url: string, meta = {}, data = {}) =>
 			name: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			...data,
 			url,
+			'atlassian:ari': 'ari:cloud:platform:example',
 		},
 	}) as JsonLd.Response;
 

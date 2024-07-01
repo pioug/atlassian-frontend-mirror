@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render as rtlRender, screen } from '@testing-library/react';
+
+const render = (component: React.ReactNode) => {
+	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
+};
 
 import Badge from '../../index';
 

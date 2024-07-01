@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 193.30.7
+
+### Patch Changes
+
+- [#114548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/114548)
+  [`8b2d47bffb50e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2d47bffb50e) -
+  bump adf-schema version
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`1c26d1ee6fb25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c26d1ee6fb25) -
+  Migrated to new atlaskit Buttons.
+- Updated dependencies
+
+## 193.30.6
+
+### Patch Changes
+
+- [#116281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116281)
+  [`62fb11ef85308`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62fb11ef85308) -
+  Cleanup table LD FF insert-last-column-btn-stays-in-place
+
 ## 193.30.5
 
 ### Patch Changes

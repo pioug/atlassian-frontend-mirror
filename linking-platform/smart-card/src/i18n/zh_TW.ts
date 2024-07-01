@@ -133,7 +133,13 @@ export default {
   'fabric.linking.related': '相關',
   'fabric.linking.related_links_found_in': '找到的位置：',
   'fabric.linking.related_links_includes_links_to': '將連結納入',
+  'fabric.linking.related_links_modal_error_header': '發生錯誤',
+  'fabric.linking.related_links_modal_error_message':
+    '我們嘗試載入最近的連結時遇到問題。請檢查您的連線或重新整理，以再試一次。',
   'fabric.linking.related_links_modal_title': '最近的連結',
+  'fabric.linking.related_links_modal_unavailable_header': '沒有最近的連結',
+  'fabric.linking.related_links_modal_unavailable_message':
+    '我們沒有找到任何可在這裡顯示的連結。我們會持續檢閱更新的頁面或其他內容類型，並新增最近的連結。',
   'fabric.linking.related_links_not_found': '我們沒有找到任何可在這裡顯示的連結。',
   'fabric.linking.related_links_view_related_urls.nonfinal': '檢視最近的連結...',
   'fabric.linking.related_work_items_not_found': '這個連結並未在其他任何位置提及。',

@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': "Crea un'automazione",
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Icona di intestazione della finestra Automazione',
+  'automation-menu.success-state.message': "L'automazione è in corso",
   'fabric.linking.access_exists_description': "Richiedi l'accesso per visualizzare questo contenuto da {hostname}.",
   'fabric.linking.actions': 'Azioni',
   'fabric.linking.add_account': 'Aggiungi account',
@@ -32,7 +33,7 @@ export default {
   'fabric.linking.ai_summary_action': 'Riassumi con AI',
   'fabric.linking.ai_summary_action_description': 'Riassumi il contenuto di questo link con Atlassian Intelligence.',
   'fabric.linking.ai_summary_error_acceptable_use_violation':
-    'Non possiamo mostrare i risultati di questo riepilogo in quanto sono contrari ai <a>Termini di utilizzo accettabile di Atlassian</a>.',
+    'Non possiamo mostrare i risultati di questo riepilogo in quanto è contrario ai <a>Termini di utilizzo accettabile di Atlassian</a>.',
   'fabric.linking.ai_summary_error_exceeding_context_length_error':
     'Atlassian Intelligence non è in grado di generare un riepilogo in questo momento, poiché ci sono troppi contenuti da riepilogare.',
   'fabric.linking.ai_summary_error_generic':
@@ -142,8 +143,15 @@ export default {
   'fabric.linking.related': 'Correlate',
   'fabric.linking.related_links_found_in': 'Trovato in',
   'fabric.linking.related_links_includes_links_to': 'Include i link a',
+  'fabric.linking.related_links_modal_error_header': 'Si è verificato un problema',
+  'fabric.linking.related_links_modal_error_message':
+    'Si è verificato un problema durante il tentativo di caricare i link recenti. Verifica la connessione o aggiorna per riprovare.',
   'fabric.linking.related_links_modal_title': 'Link recenti',
+  'fabric.linking.related_links_modal_unavailable_header': 'Nessun link recente',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Non sono stati trovati link da mostrare qui. Esaminiamo e aggiungiamo continuamente i link recenti per le pagine aggiornate o altri tipi di contenuti.',
   'fabric.linking.related_links_not_found': 'Non sono stati trovati link da mostrare qui.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Visualizza i link recenti...',
   'fabric.linking.related_work_items_not_found': "Questo link non è menzionato da nessun'altra parte.",
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_description':

@@ -1,6 +1,3 @@
-import type { Rule } from 'eslint';
-import type { Identifier } from 'eslint-codemod-utils';
-
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
@@ -63,51 +60,34 @@ const rule = createLintRule({
 			throwErrors,
 		} = createChecks(context);
 
-		return {
-			// Track imports of relevant components
-			ImportDeclaration(node) {
-				errorBoundary(() => checkImportDeclarations(node), { config: { failSilently } });
-			},
+		return errorBoundary(
+			{
+				// Track imports of relevant components
+				ImportDeclaration: checkImportDeclarations,
 
-			// Keep track of the relevant variable declarations and renames
-			VariableDeclaration(node) {
-				errorBoundary(() => checkVariableDeclarations(node), { config: { failSilently } });
-			},
+				// Keep track of the relevant variable declarations and renames
+				VariableDeclaration: checkVariableDeclarations,
 
-			// Case: default re-exports. Can't be auto-migrated
-			ExportDefaultDeclaration(node) {
-				errorBoundary(() => checkExportDefaultDeclaration(node), { config: { failSilently } });
-			},
-			ExportNamedDeclaration(node) {
-				errorBoundary(() => checkExportNamedVariables(node), { config: { failSilently } });
-			},
+				// Case: default re-exports. Can't be auto-migrated
+				ExportDefaultDeclaration: checkExportDefaultDeclaration,
 
-			// Legacy icons found in arrays/objects
-			'ObjectExpression > Property > Identifier, ArrayExpression > Identifier ': (
-				node: Identifier,
-			) => {
-				errorBoundary(() => checkArrayOrMap(node), { config: { failSilently } });
-			},
+				ExportNamedDeclaration: checkExportNamedVariables,
 
-			// Legacy icons passed in via props, as JSX identifier (i.e. icon={AddIcon})
-			'JSXOpeningElement > JSXAttribute > JSXExpressionContainer > Identifier': (
-				node: Identifier,
-			) => {
-				errorBoundary(() => checkIconAsProp(node), { config: { failSilently } });
-			},
-			JSXElement(node: Rule.Node) {
-				errorBoundary(() => checkJSXElement(node), { config: { failSilently } });
-			},
+				// Legacy icons found in arrays/objects
+				'ObjectExpression > Property > Identifier, ArrayExpression > Identifier ': checkArrayOrMap,
 
-			// Icons called as an argument of a function (i.e. icon={DefaultIcon(AddIcon)})
-			CallExpression: (node) => {
-				errorBoundary(() => checkCallExpression(node), { config: { failSilently } });
-			},
+				// Legacy icons passed in via props, as JSX identifier (i.e. icon={AddIcon})
+				'JSXOpeningElement > JSXAttribute > JSXExpressionContainer > Identifier': checkIconAsProp,
 
-			'Program:exit': () => {
-				errorBoundary(() => throwErrors(), { config: { failSilently } });
+				JSXElement: checkJSXElement,
+
+				// Icons called as an argument of a function (i.e. icon={DefaultIcon(AddIcon)})
+				CallExpression: checkCallExpression,
+
+				'Program:exit': throwErrors,
 			},
-		};
+			failSilently,
+		);
 	},
 });
 

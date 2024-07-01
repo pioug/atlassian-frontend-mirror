@@ -6,8 +6,8 @@ import { jsx } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import { DevTools } from '@af/editor-examples-helpers/utils';
-import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/src/preset';
@@ -108,7 +108,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
 			<ListToolbar editorApi={editorApi} />
 
 			<Button
-				appearance="link"
+				appearance="subtle"
 				isDisabled={hyperlinkState?.activeLinkMark !== undefined}
 				onClick={() => {
 					editorApi?.core?.actions.execute(showLinkToolbarAction);

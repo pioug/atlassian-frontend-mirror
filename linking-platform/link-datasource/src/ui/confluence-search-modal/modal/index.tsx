@@ -3,7 +3,7 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { FormattedMessage, FormattedNumber } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
@@ -12,9 +12,6 @@ import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
-import LinkUrl from '@atlaskit/smart-card/link-url';
-import { N800 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -46,6 +43,7 @@ import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
+import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import { useColumnResize } from '../../issue-like-table/use-column-resize';
@@ -65,11 +63,6 @@ const inputContainerStyles = xcss({
 	alignItems: 'baseline',
 	display: 'flex',
 	minHeight: '72px',
-});
-
-const searchCountStyles = xcss({
-	flex: 1,
-	fontWeight: 600,
 });
 
 export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
@@ -573,24 +566,12 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 				</ModalBody>
 				<ModalFooter>
 					{shouldShowResultsCount && confluenceSearchUrl && (
-						<Box
+						<TableSearchCount
+							searchCount={totalCount}
+							url={confluenceSearchUrl}
+							prefixTextType="result"
 							testId="confluence-search-datasource-modal-total-results-count"
-							xcss={searchCountStyles}
-						>
-							<LinkUrl
-								href={confluenceSearchUrl}
-								target="_blank"
-								testId="item-count-url"
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-								style={{ color: token('color.text.accent.gray', N800) }}
-							>
-								<FormattedNumber value={totalCount} />{' '}
-								<FormattedMessage
-									{...confluenceSearchModalMessages.searchCountText}
-									values={{ totalCount }}
-								/>
-							</LinkUrl>
-						</Box>
+						/>
 					)}
 					<CancelButton
 						onCancel={onCancel}

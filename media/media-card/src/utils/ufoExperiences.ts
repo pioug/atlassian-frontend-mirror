@@ -1,6 +1,7 @@
 import { ConcurrentExperience, ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo';
 import { type CardStatus } from '../types';
 import { type FileAttributes, getFeatureFlagKeysAllProducts } from '@atlaskit/media-common';
+import isValidId from 'uuid-validate';
 import {
 	extractErrorInfo,
 	getRenderErrorRequestMetadata,
@@ -55,6 +56,22 @@ export const startUfoExperience = (id: string) => {
 	getExperience(id).start();
 };
 
+const sanitiseFileAttributes = (fileAttributes: FileAttributes) => {
+	/*
+		Allow external image mediaItemType as fileId
+		See ExternalImageIdentifier interface on platform/packages/media/media-client/src/identifier.ts
+	 */
+	let sanitisedFileId = 'INVALID_FILE_ID';
+	if (fileAttributes.fileId === 'external-image' || isValidId(fileAttributes.fileId)) {
+		sanitisedFileId = fileAttributes.fileId;
+	}
+
+	return {
+		...fileAttributes,
+		fileId: sanitisedFileId,
+	};
+};
+
 export const completeUfoExperience = (
 	id: string,
 	status: CardStatus,
@@ -99,6 +116,9 @@ const getBasePayloadAttributes = () => ({
 });
 
 const succeedUfoExperience = (id: string, properties?: SucceedUfoPayload) => {
+	if (properties?.fileAttributes) {
+		properties.fileAttributes = sanitiseFileAttributes(properties.fileAttributes);
+	}
 	getExperience(id).success({
 		metadata: {
 			...properties,
@@ -108,6 +128,9 @@ const succeedUfoExperience = (id: string, properties?: SucceedUfoPayload) => {
 };
 
 const failUfoExperience = (id: string, properties?: FailedUfoPayload) => {
+	if (properties?.fileAttributes) {
+		properties.fileAttributes = sanitiseFileAttributes(properties.fileAttributes);
+	}
 	getExperience(id).failure({
 		metadata: {
 			...properties,
@@ -118,6 +141,9 @@ const failUfoExperience = (id: string, properties?: FailedUfoPayload) => {
 
 export const abortUfoExperience = (id: string, properties?: Partial<SucceedUfoPayload>) => {
 	// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
+	if (properties?.fileAttributes) {
+		properties.fileAttributes = sanitiseFileAttributes(properties.fileAttributes);
+	}
 	getExperience(id).abort({
 		metadata: {
 			...properties,

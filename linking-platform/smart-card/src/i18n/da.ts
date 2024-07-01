@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Opret automatisering',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Ikon for overskrift for automatiseringsmodal',
+  'automation-menu.success-state.message': 'Din automatisering er i gang',
   'fabric.linking.access_exists_description': 'Anmod om adgang til at se dette indhold fra {hostname}.',
   'fabric.linking.actions': 'Handlinger',
   'fabric.linking.add_account': 'Tilføj konto',
@@ -143,8 +144,15 @@ export default {
   'fabric.linking.related': 'Relateret',
   'fabric.linking.related_links_found_in': 'Fundet i',
   'fabric.linking.related_links_includes_links_to': 'Omfatter links til',
+  'fabric.linking.related_links_modal_error_header': 'Noget gik galt',
+  'fabric.linking.related_links_modal_error_message':
+    'Vi løb ind i et problem, da vi forsøgte at indlæse nylige links. Kontrollér din forbindelse, eller genindlæs siden for at prøve igen.',
   'fabric.linking.related_links_modal_title': 'Seneste links',
+  'fabric.linking.related_links_modal_unavailable_header': 'Ingen nylige links',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Vi fandt ikke nogen links at vise her. Vi gennemgår løbende og tilføjer nylige links til opdaterede sider eller andre indholdstyper.',
   'fabric.linking.related_links_not_found': 'Vi fandt ikke nogen links.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Se nylige links ...',
   'fabric.linking.related_work_items_not_found': 'Dette link omtales ikke andre steder.',
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_description':

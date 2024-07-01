@@ -29,7 +29,7 @@ const decoration = css({
 		background: token('color.background.warning', Y75),
 		color: token('color.text.warning', '#7F5F01'),
 		content: '"<"attr(data-bidi-character-code)">"',
-		fontSize: token('font.size.100', '14px'),
+		fontSize: '14px',
 		fontStyle: 'normal',
 		lineHeight: '18px',
 		/**

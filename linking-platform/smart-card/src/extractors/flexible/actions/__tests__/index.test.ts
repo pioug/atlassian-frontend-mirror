@@ -9,6 +9,7 @@ import {
 	TEST_DOCUMENT_WITH_PREVIEW,
 	TEST_DOCUMENT,
 	TEST_RESOLVED_META_DATA,
+	TEST_DOCUMENT_WITH_ARI,
 } from '../../../common/__mocks__/jsonld';
 import { extractViewRelatedLinksAction } from '../extract-view-related-links-action';
 import extractActions from '..';
@@ -85,28 +86,28 @@ describe('extractors.viewRelatedLinks', () => {
 	it.each([
 		[[], undefined],
 		[['AiSummary'], undefined],
-		[['RelatedLinks'], TEST_DOCUMENT.url],
-		[['RelatedLinks', 'AISummary'], TEST_DOCUMENT.url],
-	])('when meta.supportedFeature is %s, url is %s', (supportedFeature, expectedUrl) => {
+		[['RelatedLinks'], TEST_DOCUMENT_WITH_ARI['atlassian:ari']],
+		[['RelatedLinks', 'AISummary'], TEST_DOCUMENT_WITH_ARI['atlassian:ari']],
+	])('when meta.supportedFeature is %s, ari is %s', (supportedFeature, expectedAri) => {
 		expect(
 			extractViewRelatedLinksAction({
-				data: TEST_DOCUMENT,
+				data: TEST_DOCUMENT_WITH_ARI,
 				meta: {
 					...TEST_RESOLVED_META_DATA,
 					supportedFeature,
 				},
 			}),
 		).toEqual(
-			expectedUrl && {
-				url: expectedUrl,
+			expectedAri && {
+				ari: expectedAri,
 			},
 		);
 	});
 
-	it('when data.url is undefined and supportedFeature has RelatedLinks, it should return undefined', () => {
+	it('when data.ari is undefined and supportedFeature has RelatedLinks, it should return undefined', () => {
 		expect(
 			extractViewRelatedLinksAction({
-				data: { ...TEST_DOCUMENT, url: undefined },
+				data: { ...TEST_DOCUMENT, 'atlassian:ari': undefined },
 				meta: {
 					...TEST_RESOLVED_META_DATA,
 					supportedFeature: ['RelatedLinks'],
@@ -125,13 +126,15 @@ describe('extractActions', () => {
 			'platform.linking-platform.smart-card.enable-view-related-urls-action',
 			/** Should return ViewRelatedLinksAction with url when FF is true*/
 			() => {
-				expect(extractActions({ data: TEST_DOCUMENT, meta })?.ViewRelatedLinksAction).toEqual({
-					url: TEST_DOCUMENT.url,
+				expect(
+					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
+				).toEqual({
+					ari: TEST_DOCUMENT_WITH_ARI['atlassian:ari'],
 				});
 			},
 			() => {
 				expect(
-					extractActions({ data: TEST_DOCUMENT, meta })?.ViewRelatedLinksAction,
+					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
 				).toBeUndefined();
 			},
 		);

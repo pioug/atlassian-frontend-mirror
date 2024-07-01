@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Skapa automatisering',
   'automation-menu.modal.footer.ok-button': 'Okej',
   'automation-menu.modal.header.icon.label': 'Rubriksymbol för automatiseringsmodal',
+  'automation-menu.success-state.message': 'Din automatisering pågår',
   'fabric.linking.access_exists_description': 'Begär åtkomst för att visa det här innehållet från {hostname}.',
   'fabric.linking.actions': 'Åtgärder',
   'fabric.linking.add_account': 'Lägg till konto',
@@ -141,8 +142,15 @@ export default {
   'fabric.linking.related': 'Relaterat',
   'fabric.linking.related_links_found_in': 'Hittades i',
   'fabric.linking.related_links_includes_links_to': 'Inkluderar länkar till',
+  'fabric.linking.related_links_modal_error_header': 'Något gick fel',
+  'fabric.linking.related_links_modal_error_message':
+    'Ett fel uppstod när vi försökte läsa in de senaste länkarna. Kontrollera din anslutning eller uppdatera för att försöka igen.',
   'fabric.linking.related_links_modal_title': 'Senaste länkar',
+  'fabric.linking.related_links_modal_unavailable_header': 'Inga senaste länkar',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Vi hittade inga länkar att visa här. Vi granskar kontinuerligt och lägger till de senaste länkarna för uppdaterade sidor eller andra innehållstyper.',
   'fabric.linking.related_links_not_found': 'Vi hittade inga länkar att visa här.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Visa senaste länkar ...',
   'fabric.linking.related_work_items_not_found': 'Länken nämns inte någon annanstans.',
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_description':

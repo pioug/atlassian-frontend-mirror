@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Utwórz automatyzację',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Ikona nagłówka okna modalnego automatyzacji',
+  'automation-menu.success-state.message': 'Automatyzacja jest w toku',
   'fabric.linking.access_exists_description': 'Poproś o dostęp, aby wyświetlić tę treść z witryny {hostname}.',
   'fabric.linking.actions': 'Akcje',
   'fabric.linking.add_account': 'Dodaj konto',
@@ -141,8 +142,15 @@ export default {
   'fabric.linking.related': 'Powiązane',
   'fabric.linking.related_links_found_in': 'Znaleziono w',
   'fabric.linking.related_links_includes_links_to': 'Obejmuje łącza do',
+  'fabric.linking.related_links_modal_error_header': 'Coś poszło nie tak',
+  'fabric.linking.related_links_modal_error_message':
+    'Podczas ładowania ostatnio używanych łączy wystąpił problem. Sprawdź połączenie lub odśwież stronę, aby spróbować ponownie.',
   'fabric.linking.related_links_modal_title': 'Ostatnio używane łącza',
+  'fabric.linking.related_links_modal_unavailable_header': 'Brak ostatnio używanych łączy',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Nie znaleziono żadnych łączy do wyświetlenia tutaj. Stale sprawdzamy i dodajemy najnowsze łącza do zaktualizowanych stron lub innych typów treści.',
   'fabric.linking.related_links_not_found': 'Nie znaleziono żadnych łączy do wyświetlenia tutaj.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Wyświetl ostatnio używane łącza…',
   'fabric.linking.related_work_items_not_found': 'To łącze nie jest wspomniane nigdzie indziej.',
   'fabric.linking.request_access': 'Poproś o dostęp',
   'fabric.linking.request_access_description':

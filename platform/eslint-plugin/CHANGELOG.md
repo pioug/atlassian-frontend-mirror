@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.7.1
+
+### Patch Changes
+
+- [#116062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116062)
+  [`c965047f03c61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c965047f03c61) -
+  Update rule docs link.
+
 ## 0.7.0
 
 ### Minor Changes

@@ -340,7 +340,7 @@ testRule({
 		},
 		{
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-			code: `line-height: ${token('font.lineHeight.300', '24px')};`,
+			code: `font: ${token('font.body')};`,
 			description: 'should accept spacing token values via calls to token()',
 		},
 		{

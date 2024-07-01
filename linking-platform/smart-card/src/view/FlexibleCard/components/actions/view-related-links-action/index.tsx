@@ -26,13 +26,13 @@ const ViewRelatedLinksAction = ({
 	const actionData = context?.actions?.ViewRelatedLinksAction;
 
 	const onClick = useCallback(() => {
-		const url = actionData?.url;
-		if (url) {
-			modal.open(<RelatedLinksModal url={url} showModal={true} onClose={() => modal.close()} />);
+		const ari = actionData?.ari;
+		if (ari) {
+			modal.open(<RelatedLinksModal ari={ari} showModal={true} onClose={() => modal.close()} />);
 		}
 
 		onClickCallback?.();
-	}, [actionData?.url, modal, onClickCallback]);
+	}, [actionData?.ari, modal, onClickCallback]);
 
 	return actionData ? (
 		<Action

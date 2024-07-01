@@ -246,6 +246,7 @@ function CategoryListItem({
 
 	return (
 		<div css={buttonWrapper} role="presentation">
+			{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 			<Button
 				appearance="subtle"
 				isSelected={selectedCategory === category.name}

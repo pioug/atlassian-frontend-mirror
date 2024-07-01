@@ -581,6 +581,7 @@ const defaultConfig: RuleConfig = {
 	xcssImportSource: CSS_IN_JS_IMPORTS.atlaskitPrimitives,
 	excludeReactComponents: false,
 	autoFix: true,
+	shouldAlwaysCheckXcss: false,
 };
 
 const rule = createLintRule({
@@ -627,6 +628,9 @@ const rule = createLintRule({
 					excludeReactComponents: {
 						type: 'boolean',
 					},
+					shouldAlwaysCheckXcss: {
+						type: 'boolean',
+					},
 					autoFix: {
 						type: 'boolean',
 					},
@@ -642,7 +646,29 @@ const rule = createLintRule({
 			JSXAttribute(nodeOriginal: any) {
 				const node = nodeOriginal as JSXAttributeWithParent;
 				const { name, value } = node;
-				if (mergedConfig.excludeReactComponents && node.parent.type === 'JSXOpeningElement') {
+
+				/**
+				 * We skip linting `xcss` attributes if:
+				 *
+				 * - excludeReactComponents === true
+				 * - shouldAlwaysCheckXcss === false
+				 *
+				 * In the future we may want to remove `shouldAlwaysCheckXcss`
+				 * and just always lint `xcss`, regardless of `excludeReactComponents`
+				 */
+				if (
+					mergedConfig.excludeReactComponents &&
+					name.name === 'xcss' &&
+					!mergedConfig.shouldAlwaysCheckXcss
+				) {
+					return;
+				}
+
+				if (
+					mergedConfig.excludeReactComponents &&
+					node.parent.type === 'JSXOpeningElement' &&
+					name.name === 'css'
+				) {
 					// e.g. <item.before />
 					if (node.parent.name.type === 'JSXMemberExpression') {
 						return;

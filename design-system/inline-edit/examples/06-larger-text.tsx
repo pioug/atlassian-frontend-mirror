@@ -37,9 +37,7 @@ const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
 
 const wrapperStyles = css({
 	padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
-	fontSize: token('font.size.400', '24px'),
-	fontWeight: token('font.weight.bold', '700'),
-	lineHeight: token('font.lineHeight.300', '24px'),
+	font: token('font.heading.large'),
 });
 
 const textFieldStyles = css({

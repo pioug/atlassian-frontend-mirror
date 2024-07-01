@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'Automatizálás létrehozása',
   'automation-menu.modal.footer.ok-button': 'OK',
   'automation-menu.modal.header.icon.label': 'Automatizálási párbeszédablak fejlécikonja',
+  'automation-menu.success-state.message': 'Az automatizálás folyamatban van',
   'fabric.linking.access_exists_description': 'Kérj hozzáférést, hogy megtekinthesd ezt a tartalmat innen: {hostname}.',
   'fabric.linking.actions': 'Műveletek',
   'fabric.linking.add_account': 'Fiók hozzáadása',
@@ -145,8 +146,15 @@ export default {
   'fabric.linking.related': 'Kapcsolódó',
   'fabric.linking.related_links_found_in': 'Itt található:',
   'fabric.linking.related_links_includes_links_to': 'A következőkre mutató linkeket tartalmaz:',
+  'fabric.linking.related_links_modal_error_header': 'Hiba történt',
+  'fabric.linking.related_links_modal_error_message':
+    'Hiba történt a legutóbbi linkek betöltése során. Ha szeretnéd újra megpróbálni, ellenőrizd a hálózati kapcsolatot vagy frissíts.',
   'fabric.linking.related_links_modal_title': 'Legutóbbi linkek',
+  'fabric.linking.related_links_modal_unavailable_header': 'Nincsenek nemrégiben megtekintett linkek',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Nem találtunk itt megjeleníthető linkeket. Folyamatosan ellenőrizzük és hozzáadjuk a legutóbbi linkeket, hogy frissített oldalakat és más tartalomtípusokat kapj.',
   'fabric.linking.related_links_not_found': 'Nem találtunk itt megjeleníthető linkeket.',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'Legutóbbi linkek megtekintése…',
   'fabric.linking.related_work_items_not_found': 'Ez a link sehol máshol nincs megemlítve.',
   'fabric.linking.request_access': 'Hozzáférés kérése',
   'fabric.linking.request_access_description':

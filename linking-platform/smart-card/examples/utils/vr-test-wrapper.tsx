@@ -5,8 +5,6 @@ import { DiProvider, injectable } from 'react-magnetic-di';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import { global } from './vr-test';
-import { imageForbidden, imageNotFound, imageUnauthorised } from '../images';
-import { getUnresolvedEmbedCardImage } from '../../src/view/EmbedCard/utils';
 import { IFrame } from '../../src/view/EmbedCard/components/IFrame';
 import HoverCardControl from '../../src/view/FlexibleCard/components/container/hover-card-control';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
@@ -17,20 +15,6 @@ const styles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	padding: '10px',
 });
-
-const mockGetEmbedCardImage = injectable(
-	getUnresolvedEmbedCardImage,
-	(status: 'forbidden' | 'unauthorized' | 'notFound') => {
-		switch (status) {
-			case 'forbidden':
-				return imageForbidden;
-			case 'notFound':
-				return imageNotFound;
-			case 'unauthorized':
-				return imageUnauthorised;
-		}
-	},
-);
 
 const iframeContent = `
 <html>
@@ -52,12 +36,7 @@ const mockHoverCardComponent = injectable(HoverCardComponent, (props) => (
 	<HoverCardComponent {...props} noFadeDelay={true} />
 ));
 
-const dependencies = [
-	mockGetEmbedCardImage,
-	MockIFrame,
-	mockHoverCardControl,
-	mockHoverCardComponent,
-];
+const dependencies = [MockIFrame, mockHoverCardControl, mockHoverCardComponent];
 
 export type VRTestWrapperProps = PropsWithChildren<{
 	overrideCss?: SerializedStyles;

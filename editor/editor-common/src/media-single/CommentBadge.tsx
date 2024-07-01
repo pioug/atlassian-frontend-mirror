@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
 import type { IntlShape } from 'react-intl-next';
 
-import { CustomThemeButton } from '@atlaskit/button';
+import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 import { layers } from '@atlaskit/theme/constants';
@@ -116,6 +116,7 @@ export const CommentBadge = ({
 			data-comment-badge="true"
 		>
 			<Tooltip position="top" content={title}>
+				{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 				<CustomThemeButton
 					style={{
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

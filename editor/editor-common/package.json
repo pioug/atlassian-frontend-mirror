@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "83.4.3",
+	"version": "83.5.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -162,12 +162,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^38.0.0",
+		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/adf-utils": "^19.4.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
+		"@atlaskit/atlassian-context": "^0.0.0",
 		"@atlaskit/button": "^18.0.0",
 		"@atlaskit/code": "^15.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
@@ -189,7 +190,7 @@
 		"@atlaskit/media-file-preview": "^0.5.0",
 		"@atlaskit/media-picker": "^66.4.0",
 		"@atlaskit/media-ui": "^25.10.0",
-		"@atlaskit/media-viewer": "48.6.9",
+		"@atlaskit/media-viewer": "48.6.10",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/menu": "^2.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -336,6 +337,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.review-text-highlighting-styling": {
+			"type": "boolean"
+		},
+		"platform.editor.linking-preferences-url-atlassian-context": {
 			"type": "boolean"
 		}
 	}

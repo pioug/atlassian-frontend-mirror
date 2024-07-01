@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import type {
 	ExtensionManifest,
 	FieldDefinition,
@@ -243,9 +243,13 @@ class FieldsetField extends React.Component<Props, State> {
 					<Button
 						testId="add-more"
 						appearance="subtle"
-						iconBefore={
-							<AddCircleIcon size="small" label={intl.formatMessage(messages.addField)} />
-						}
+						iconBefore={(iconProps) => (
+							<AddCircleIcon
+								{...iconProps}
+								size="small"
+								label={intl.formatMessage(messages.addField)}
+							/>
+						)}
 						onClick={() => this.setIsAdding(true)}
 					>
 						{intl.formatMessage(messages.addField)}

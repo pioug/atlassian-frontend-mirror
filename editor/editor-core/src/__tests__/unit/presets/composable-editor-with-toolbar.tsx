@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';

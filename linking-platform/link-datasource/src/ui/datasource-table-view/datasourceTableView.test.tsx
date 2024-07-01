@@ -603,6 +603,84 @@ describe('DatasourceTableView', () => {
 			await waitFor(() => expect(mockReset).toHaveBeenCalled());
 		});
 	});
+
+	describe('should display count text correctly when single row is present', () => {
+		ffTest(
+			'platform.linking-platform.datasource.total-count-i18n-single-key',
+			() => {
+				const { getByTestId } = setup({
+					visibleColumnKeys: ['title'],
+					responseItems: [
+						{
+							title: {
+								data: 'title1',
+							},
+						},
+					],
+				});
+
+				expect(getByTestId('item-count').textContent).toEqual('1 item');
+			},
+			() => {
+				const { getByTestId } = setup({
+					visibleColumnKeys: ['title'],
+					responseItems: [
+						{
+							title: {
+								data: 'title1',
+							},
+						},
+					],
+				});
+
+				expect(getByTestId('item-count').textContent).toEqual('1 item');
+			},
+		);
+	});
+
+	describe('should display count text correctly when multiple rows are present', () => {
+		ffTest(
+			'platform.linking-platform.datasource.total-count-i18n-single-key',
+			() => {
+				const { getByTestId } = setup({
+					visibleColumnKeys: ['title'],
+					responseItems: [
+						{
+							title: {
+								data: 'title1',
+							},
+						},
+						{
+							title: {
+								data: 'title1',
+							},
+						},
+					],
+				});
+
+				expect(getByTestId('item-count').textContent).toEqual('2 items');
+			},
+			() => {
+				const { getByTestId } = setup({
+					visibleColumnKeys: ['title'],
+					responseItems: [
+						{
+							title: {
+								data: 'title1',
+							},
+						},
+						{
+							title: {
+								data: 'title1',
+							},
+						},
+					],
+				});
+
+				expect(getByTestId('item-count').textContent).toEqual('2 items');
+			},
+		);
+	});
 });
 describe('Analytics: DatasourceTableView', () => {
 	beforeEach(() => {

@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 10.22.0
+
+### Minor Changes
+
+- [`36527d29b1c80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36527d29b1c80) -
+  [ux] Update UserPicker border colour to satisfy accessibility contrast standards
+
 ## 10.21.4
 
 ### Patch Changes

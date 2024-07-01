@@ -30,9 +30,8 @@ export interface SiteSelectorProps {
 }
 
 const selectStyles = css({
-	fontSize: token('font.size.100', '14px'),
+	font: token('font.body'),
 	fontWeight: token('font.weight.medium', '500'),
-	lineHeight: token('space.250', '20px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: siteSelectorIndex,
 });

@@ -20,6 +20,7 @@ export default {
   'automation-menu.modal.footer.get-started-button': 'สร้างระบบอัตโนมัติ',
   'automation-menu.modal.footer.ok-button': 'ตกลง',
   'automation-menu.modal.header.icon.label': 'ไอคอนส่วนหัววิถีระบบอัตโนมัติ',
+  'automation-menu.success-state.message': 'ระบบอัตโนมัติของคุณอยู่ในระหว่างการดำเนินการ',
   'fabric.linking.access_exists_description': 'ส่งคำขอการเข้าถึงเพื่อดูเนื้อหานี้จาก {hostname}',
   'fabric.linking.actions': 'การดำเนินการ',
   'fabric.linking.add_account': 'เพิ่มบัญชี',
@@ -141,8 +142,15 @@ export default {
   'fabric.linking.related': 'เกี่ยวข้อง',
   'fabric.linking.related_links_found_in': 'พบใน',
   'fabric.linking.related_links_includes_links_to': 'รวมลิงก์ไปยัง',
+  'fabric.linking.related_links_modal_error_header': 'เกิดข้อผิดพลาดบางอย่าง',
+  'fabric.linking.related_links_modal_error_message':
+    'เราพบปัญหาบางอย่างในขณะที่กำลังโหลดลิงก์ล่าสุด โปรดตรวจสอบการเชื่อมต่อของคุณ หรือรีเฟรชเพื่อลองอีกครั้ง',
   'fabric.linking.related_links_modal_title': 'ลิงก์ล่าสุด',
+  'fabric.linking.related_links_modal_unavailable_header': 'ไม่มีลิงก์ล่าสุด',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'เราไม่พบลิงก์ที่จะแสดงที่นี่ เราตรวจสอบอย่างต่อเนื่องและเพิ่มลิงก์ล่าสุดสำหรับหน้าข้อมูลที่อัปเดตหรือประเภทเนื้อหาอื่น ๆ',
   'fabric.linking.related_links_not_found': 'เราไม่พบลิงก์ที่จะแสดงที่นี่',
+  'fabric.linking.related_links_view_related_urls.nonfinal': 'ดูลิงก์ล่าสุด...',
   'fabric.linking.related_work_items_not_found': 'ลิงก์นี้ไม่ได้ถูกกล่าวถึงในที่อื่น',
   'fabric.linking.request_access': 'ส่งคำขอเพื่อเข้าถึง',
   'fabric.linking.request_access_description':

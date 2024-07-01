@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/visually-hidden",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

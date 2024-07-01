@@ -7,8 +7,10 @@ export const clientRectangle = (el: HTMLElement): Rectangle => {
 };
 
 export const naturalSizeRectangle = (el: HTMLImageElement): Rectangle => {
-	const { naturalWidth, naturalHeight } = el;
-	return new Rectangle(naturalWidth, naturalHeight);
+	// Firefox & Safari can't always read the "natural" dimensions correctly.
+	// When these are undefined or zero, we replace them with the rendered values
+	const { naturalWidth, naturalHeight, width, height } = el;
+	return new Rectangle(naturalWidth || width, naturalHeight || height);
 };
 
 export function zoomLevelAfterResize(

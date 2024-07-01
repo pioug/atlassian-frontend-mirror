@@ -2,8 +2,8 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import { FormattedMessage, FormattedNumber } from 'react-intl-next';
+import { jsx } from '@emotion/react';
+import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
@@ -18,9 +18,6 @@ import {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import LinkUrl from '@atlaskit/smart-card/link-url';
-import { N800 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -60,6 +57,7 @@ import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
+import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import { useColumnResize } from '../../issue-like-table/use-column-resize';
@@ -77,11 +75,6 @@ import type {
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
-
-const issueCountStyles = css({
-	flex: 1,
-	fontWeight: 600,
-});
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -678,18 +671,12 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 					</ModalBody>
 					<ModalFooter>
 						{shouldShowIssueCount && (
-							<div data-testid="jira-datasource-modal-total-issues-count" css={issueCountStyles}>
-								<LinkUrl
-									href={jqlUrl}
-									target="_blank"
-									testId="item-count-url"
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									style={{ color: token('color.text.accent.gray', N800) }}
-								>
-									<FormattedNumber value={totalCount} />{' '}
-									<FormattedMessage {...modalMessages.issueText} values={{ totalCount }} />
-								</LinkUrl>
-							</div>
+							<TableSearchCount
+								searchCount={totalCount}
+								url={jqlUrl}
+								prefixTextType="issue"
+								testId="jira-datasource-modal-total-issues-count"
+							/>
 						)}
 						<CancelButton
 							onCancel={onCancel}

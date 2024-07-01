@@ -144,7 +144,13 @@ export default {
   'fabric.linking.related': 'Пов’язані ресурси',
   'fabric.linking.related_links_found_in': 'Знайдено в:',
   'fabric.linking.related_links_includes_links_to': 'Містить посилання на:',
+  'fabric.linking.related_links_modal_error_header': 'Сталася помилка',
+  'fabric.linking.related_links_modal_error_message':
+    'Під час спроби завантажити останні посилання сталася помилка. Перевірте з’єднання або оновіть сторінку, щоб повторити спробу.',
   'fabric.linking.related_links_modal_title': 'Нещодавні посилання',
+  'fabric.linking.related_links_modal_unavailable_header': 'Немає нових посилань',
+  'fabric.linking.related_links_modal_unavailable_message':
+    'Немає посилань для відображення. Ми постійно переглядаємо й додаємо останні посилання на оновлені сторінки або інші типи вмісту.',
   'fabric.linking.related_links_not_found': 'Немає посилань для відображення.',
   'fabric.linking.related_links_view_related_urls.nonfinal': 'Переглянути нещодавні посилання…',
   'fabric.linking.related_work_items_not_found': 'Це посилання більше ніде не згадується.',

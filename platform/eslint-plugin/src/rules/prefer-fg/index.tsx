@@ -48,7 +48,7 @@ const validateUsage = (
 const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
-			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/ff/prefer-fg/README.md',
+			url: 'https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/platform/packages/platform/eslint-plugin/src/rules/prefer-fg/README.md',
 			description: 'Keep usages of boolean feature flags consistent',
 		},
 		fixable: 'code',

@@ -44,22 +44,40 @@ const sharedLabelStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline': {
-		marginLeft: token('space.150', '12px'),
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 		top: '-18px',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.bodied-background': {
+		background: token('elevation.surface', N0),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.bodied-border': {
+		boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
 	},
 });
 
 const buttonLabelStyles = css({
+	// Need this exact number since this is size with icon
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	minHeight: '26px',
 	alignItems: 'center',
 	borderRadius: token('border.radius', '3px'),
 	paddingLeft: token('space.050', '4px'),
 	paddingRight: token('space.050', '4px'),
 	color: token('color.text.subtle', N800),
 	backgroundColor: token('color.background.accent.gray.subtlest', N30),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-left-margin': {
+		marginLeft: token('space.negative.150', '-12px'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.remove-nested-left-margin': {
+		marginLeft: 0,
+	},
 });
 
-const placeholderStyles = css({
+const spacerStyles = css({
 	height: token('space.150', '12px'),
 });
 
@@ -70,19 +88,23 @@ const textStyles = css({
 });
 
 const originalLabelStyles = css({
+	background: token('color.background.accent.gray.subtle.pressed', N40),
 	borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.show-label': {
-		background: token('color.background.accent.gray.subtle.pressed', N40),
 		color: token('color.text.subtle', N500),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.bodied-background': {
-		background: token('elevation.surface', N0),
+	'&.inline': {
+		// need to add margin since we don't get it for free like block ones via the padding to make it flush with editor elements
+		marginLeft: token('space.150', '12px'),
 	},
+});
+
+const iconStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.bodied-border': {
-		boxShadow: `0 0 0 1px ${token('color.border', N30)}`,
+	'&.hide-icon': {
+		display: 'none',
 	},
 });
 
@@ -117,18 +139,29 @@ export const ExtensionLabel = ({
 }: ExtensionLabelProps) => {
 	const intl = useIntl();
 	const tooltipText = `${intl.formatMessage(i18n.configure)} ${text}`;
+	const isInlineExtension = extensionName === 'inlineExtension';
 
 	const containerClassNames = classnames({
 		bodied: isBodiedMacro,
 	});
 
-	const labelClassNames = classnames('extension-label', {
+	const sharedLabelClassNames = classnames('extension-label', {
 		nested: isNodeNested,
-		inline: extensionName === 'inlineExtension',
+		inline: isInlineExtension,
 		bodied: isBodiedMacro,
-		'bodied-border': isBodiedMacro && !isNodeHovered && !showMacroButtonUpdates,
-		'bodied-background': isBodiedMacro && !isNodeHovered && !showMacroButtonUpdates,
+		'bodied-border': isBodiedMacro && !isNodeHovered,
+		'bodied-background': isBodiedMacro && !isNodeHovered,
 		'show-label': isNodeHovered || isBodiedMacro,
+	});
+
+	const newButtonLabelClassNames = classnames({
+		// For new button design, non-bodied macros should have a flush label. Inline macros don't need this since they never had the margin-left applied.
+		'remove-left-margin': !isBodiedMacro && !isInlineExtension && !isNodeNested,
+		'remove-nested-left-margin': isNodeNested && !isBodiedMacro && !isInlineExtension,
+	});
+
+	const iconClassNames = classnames({
+		'hide-icon': isBodiedMacro && !isNodeHovered,
 	});
 
 	return (
@@ -156,21 +189,25 @@ export const ExtensionLabel = ({
 								{...tooltipProps}
 								css={[sharedLabelStyles, buttonLabelStyles]}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={labelClassNames}
+								className={`${sharedLabelClassNames} ${newButtonLabelClassNames}`}
 							>
-								{text} <PreferencesIcon label="" />
+								{text}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
+								<span css={iconStyles} className={iconClassNames} data-testid="config-icon">
+									<PreferencesIcon label="" />
+								</span>
 							</span>
 						)}
 					</Tooltip>
 					{/* This is needed since this creates the gap between the macro and button, also provides a seamless transition when mousing over the gap. */}
-					<div data-testid="placeholder" css={placeholderStyles} />
+					<div css={spacerStyles} />
 				</Fragment>
 			) : (
 				<span
 					data-testid="new-lozenge"
 					css={[sharedLabelStyles, originalLabelStyles]}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={labelClassNames}
+					className={sharedLabelClassNames}
 				>
 					<span css={textStyles}>{text}</span>
 				</span>

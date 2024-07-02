@@ -154,7 +154,9 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		}
 
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			<Box id="container" xcss={[containerStyles, containerDimensions]}>
+				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
 				<Box id="image-container" xcss={[imageContainerStyles, imageContainerDynamicStyles]}>
 					<MediaImage
 						crossOrigin={crossOrigin}

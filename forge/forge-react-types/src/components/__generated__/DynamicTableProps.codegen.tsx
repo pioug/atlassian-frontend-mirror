@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - DynamicTableProps
  *
- * @codegen <<SignedSource::03b327fd7b2b0d35bb11cad82c90e06e>>
+ * @codegen <<SignedSource::6d61cf70952e326ea26cccda4c754dfb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/dynamictable/__generated__/index.partial.tsx <<SignedSource::cf7412793fca67a33a30cac3c6cf9d55>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/dynamictable/__generated__/index.partial.tsx <<SignedSource::48b2b4eac0a51cd071bfa077e923eb3f>>
  */
 import type { RowType, StatefulProps } from '@atlaskit/dynamic-table/types';
 

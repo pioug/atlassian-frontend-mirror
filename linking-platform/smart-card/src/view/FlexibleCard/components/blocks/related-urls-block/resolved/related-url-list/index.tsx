@@ -27,7 +27,7 @@ const RelatedUrlList: React.FC<ResolvedResultProps> = ({
 	const intl = useIntl();
 
 	return resolvedResults.length > 0 ? (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<Stack testId={testId} xcss={xcss({ width: '100%' })}>
 			<Pressable
 				onClick={chevronClickHandler}

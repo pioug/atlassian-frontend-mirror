@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.12.0
+
+### Minor Changes
+
+- [#116586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116586)
+  [`3e6333e4a0fbd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e6333e4a0fbd) -
+  [ED-23761] Add analytics for floating toolbar text highlighting experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.3
 
 ### Patch Changes

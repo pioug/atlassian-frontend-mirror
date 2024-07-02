@@ -17,6 +17,9 @@ import {
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 // eslint-disable-next-line @atlaskit/platform/no-alias
 import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
+import * as steps from '../../../steps';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;
@@ -207,6 +210,89 @@ describe('RendererActions', () => {
 			expect(actions.applyAnnotation({ from: 18, to: 30 }, newAnnotation, true)).toEqual(
 				expect.objectContaining({ targetNodeType: 'text' }),
 			);
+		});
+	});
+
+	describe('isValidAnnotationRange', () => {
+		it('should return false when range is falsy', () => {
+			const actions = new RendererActions();
+			expect(actions.isValidAnnotationRange(null)).toBe(false);
+		});
+
+		describe('should return false when isRendererWithinRange is truthy', () => {
+			afterEach(() => {
+				jest.resetAllMocks();
+			});
+			const actions = new RendererActions();
+			ffTest(
+				'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+				() => {
+					const isRendererWithinRangeSpyFn = jest
+						.spyOn(actions, 'isRendererWithinRange')
+						.mockReturnValueOnce(true);
+					expect(actions.isValidAnnotationRange(new Range())).toBe(false);
+					expect(isRendererWithinRangeSpyFn).toBeCalledTimes(1);
+				},
+				() => {
+					const isRendererWithinRangeSpyFn = jest.spyOn(actions, 'isRendererWithinRange');
+					actions.isValidAnnotationRange(new Range());
+					expect(isRendererWithinRangeSpyFn).toBeCalledTimes(0);
+				},
+			);
+		});
+
+		it('should return false if doc is falsy', () => {
+			const actions = new RendererActions();
+
+			actions.doc = undefined;
+			expect(actions.isValidAnnotationRange(new Range())).toBe(false);
+		});
+
+		it('should return false if getPosFromRange returns a falsy pos', () => {
+			const actions = new RendererActions();
+			jest.spyOn(steps, 'getPosFromRange').mockReturnValueOnce(false);
+
+			expect(actions.isValidAnnotationRange(new Range())).toBe(false);
+		});
+
+		it('should call privateValidatePositionsForAnnotation with the pos details', () => {
+			jest.spyOn(steps, 'getPosFromRange').mockReturnValueOnce({ from: 0, to: 10 });
+
+			const actions = new RendererActions();
+
+			actions.doc = new Node();
+
+			const privateValidatePositionsForAnnotationSpyFn = jest.spyOn(
+				actions,
+				'_privateValidatePositionsForAnnotation',
+			);
+
+			actions.isValidAnnotationRange(new Range());
+
+			expect(privateValidatePositionsForAnnotationSpyFn).toBeCalledTimes(1);
+		});
+	});
+
+	describe('isRendererWithinRange', () => {
+		it('should return false when no renderer within range', () => {
+			const actions = new RendererActions();
+			const mockRange = new Range();
+
+			expect(actions.isRendererWithinRange(mockRange)).toBe(false);
+		});
+
+		it('should return true when renderer within range', () => {
+			const actions = new RendererActions();
+			const mockRange = new Range();
+			const mockNode = document.createElement('span');
+			const mockParentElement = document.createElement('div');
+			mockParentElement.classList.add('ak-renderer-extension');
+
+			Object.defineProperty(mockNode, 'parentElement', { value: mockParentElement });
+
+			Object.defineProperty(mockRange, 'startContainer', { value: mockNode });
+
+			expect(actions.isRendererWithinRange(mockRange)).toBe(true);
 		});
 	});
 });

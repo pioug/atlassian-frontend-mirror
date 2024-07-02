@@ -2,7 +2,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, Global, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const extendedHoverZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
@@ -60,17 +60,25 @@ const globalStyles = css({
 		marginTop: '0 !important',
 	},
 });
+const withDeleteLinesStyleFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`p[data-drag-handler-anchor-name] .ProseMirror-widget[data-blocks-drag-handle-container="true"]`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			display: 'none !important',
+		},
+});
 
 export const GlobalStylesWrapper = () => {
 	return (
 		<Global
 			styles={[
 				globalStyles,
-				getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') &&
-					extendedHoverZone,
-				getBooleanFF('platform.editor.elements.drag-and-drop-ed-23868')
+				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') && extendedHoverZone,
+				fg('platform.editor.elements.drag-and-drop-ed-23868')
 					? withInlineNodeStyleFix
 					: withoutInlineNodeStyleFix,
+				fg('platform.editor.elements.drag-and-drop-ed-23932') && withDeleteLinesStyleFix,
 			]}
 		/>
 	);

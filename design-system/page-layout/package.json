@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "3.4.3",
+	"version": "3.4.4",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -121,6 +121,9 @@
 			"type": "boolean"
 		},
 		"platform.atlassian.griffin-navigation-redesign": {
+			"type": "boolean"
+		},
+		"platform.remove-newline-in-style-tag-in-platform-page-layout_7gts1": {
 			"type": "boolean"
 		}
 	}

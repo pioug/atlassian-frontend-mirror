@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 2.3.3
+
+### Patch Changes
+
+- [#116712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116712)
+  [`1e3e81166600e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e3e81166600e) -
+  [ux] Bump for the previous fix of the import statement
+
 ## 2.3.2
 
 ### Patch Changes

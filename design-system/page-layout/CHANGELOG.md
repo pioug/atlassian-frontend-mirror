@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 3.4.4
+
+### Patch Changes
+
+- [`4709c6e8fcd8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4709c6e8fcd8a) -
+  Bump version to remove extra html comment in style tag in React SSR
+
 ## 3.4.3
 
 ### Patch Changes

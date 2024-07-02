@@ -2,9 +2,7 @@ import { expect, test } from '@af/integration-testing';
 
 test.describe('Button', () => {
 	test('works as a dropdown trigger when using an icon render prop', async ({ page }) => {
-		await page.visitExample('design-system', 'button', 'as-dropdown-trigger', {
-			featureFlag: 'platform.design-system-team.button-render-prop-fix_lyo55',
-		});
+		await page.visitExample('design-system', 'button', 'as-dropdown-trigger');
 
 		await page.getByTestId('button').click();
 

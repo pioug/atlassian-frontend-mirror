@@ -1,13 +1,15 @@
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
  * Extract component prop types from UIKit 2 components - SelectProps
  *
- * @codegen <<SignedSource::34b03877a8575c86c89dbc1a170d510f>>
+ * @codegen <<SignedSource::ab9916727dd913ba15f53678777541b5>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/select/__generated__/index.partial.tsx <<SignedSource::65ddf6ee7d476bf410047952e4cf6bf0>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/select/__generated__/index.partial.tsx <<SignedSource::ceb5be0793278911e531765848d15df9>>
  */
-import { SelectProps as PlatformSelectProps } from '@atlaskit/select';
+import type { SelectProps as PlatformSelectProps } from '@atlaskit/select';
 
 export type SelectProps = Pick<
 PlatformSelectProps<any, true | false>,

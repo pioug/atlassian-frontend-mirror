@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 193.30.9
+
+### Patch Changes
+
+- [#116194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116194)
+  [`a6ac14257c10a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6ac14257c10a) -
+  [ux] Update button interactions: non-bodied macros stay flush with macro, bodied macros show
+  config icon on hover/select, have default white background, and maintain the indentaion
+
 ## 193.30.7
 
 ### Patch Changes

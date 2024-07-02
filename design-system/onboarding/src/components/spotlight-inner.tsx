@@ -8,6 +8,7 @@ import scrollIntoView from 'scroll-into-view-if-needed';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
+import { type ScrollLogicalPosition } from '../types';
 import { type ElementBoundingBox, ElementBox } from '../utils/use-element-box';
 
 import { Fade } from './animation';
@@ -43,6 +44,10 @@ export interface SpotlightInnerProps extends SpotlightProps {
 	 * Same as `SpotlightProps` but required instead of optional.
 	 */
 	dialogWidth: number;
+	/**
+	 * passed to scrollIntoView as the block option, which determines the vertical alignment of the target node in the closest scrollable ancestor.
+	 */
+	scrollPositionBlock?: ScrollLogicalPosition;
 }
 
 interface State {
@@ -74,6 +79,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 		if (prevProps.targetNode !== this.props.targetNode) {
 			scrollIntoView(this.props.targetNode, {
 				scrollMode: 'if-needed',
+				block: this.props.scrollPositionBlock,
 			});
 		}
 	}
@@ -81,6 +87,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 	componentDidMount() {
 		scrollIntoView(this.props.targetNode, {
 			scrollMode: 'if-needed',
+			block: this.props.scrollPositionBlock,
 		});
 		this.props.onOpened();
 	}

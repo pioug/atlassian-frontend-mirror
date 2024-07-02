@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { type DispatchAnalyticsEvent, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
@@ -67,14 +67,17 @@ const ToolbarHighlightColor = ({
 
 	const { highlightState } = useSharedPluginState(pluginInjectionApi, ['highlight']);
 
-	const isDropdownOpen: boolean = !!highlightState?.isPaletteOpen;
-
 	const setDropdownOpen = (isOpen: boolean) => {
 		if (!highlightState?.disabled) {
 			const { state, dispatch } = editorView;
-			setPalette(pluginInjectionApi!, isOpen)(state, dispatch);
+			setPalette(pluginInjectionApi!)({ isPaletteOpen: isOpen, inputMethod: INPUT_METHOD.TOOLBAR })(
+				state,
+				dispatch,
+			);
 		}
 	};
+
+	const isDropdownOpen: boolean = !!highlightState?.isPaletteOpen;
 
 	const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
@@ -111,6 +114,7 @@ const ToolbarHighlightColor = ({
 		pluginInjectionApi?.core?.actions.execute(
 			changeColor(pluginInjectionApi?.analytics?.actions)({
 				color,
+				inputMethod: INPUT_METHOD.TOOLBAR,
 			}),
 		);
 		setDropdownOpen(false);

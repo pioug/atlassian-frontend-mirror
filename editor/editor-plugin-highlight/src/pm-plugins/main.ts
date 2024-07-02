@@ -17,7 +17,7 @@ export type HighlightPluginState = {
 
 export enum HighlightPluginAction {
 	CHANGE_COLOR,
-	TOGGLE_PALETTE,
+	SET_PALETTE,
 }
 
 export const createPlugin = ({
@@ -50,7 +50,7 @@ export const createPlugin = ({
 							activeColor: color,
 						};
 
-					case HighlightPluginAction.TOGGLE_PALETTE:
+					case HighlightPluginAction.SET_PALETTE:
 						const { isPaletteOpen } = tr.getMeta(highlightPluginKey);
 
 						return {

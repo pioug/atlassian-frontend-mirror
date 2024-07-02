@@ -30,6 +30,7 @@ const AIIndicatorTooltip: React.FC<AIIndicatorTooltipProps> = ({
 	return (
 		<Tooltip component={AIIndicatorTooltipPrimitive} content={content} tag="span">
 			{(tooltipProps) => (
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				<Box xcss={[triggerStyles, overrideXcss]} {...tooltipProps}>
 					{trigger}
 				</Box>

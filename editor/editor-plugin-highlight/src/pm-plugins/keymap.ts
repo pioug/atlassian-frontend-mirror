@@ -1,3 +1,4 @@
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	bindKeymapWithCommand,
 	keymap,
@@ -12,7 +13,11 @@ import type { HighlightPlugin } from '../plugin';
 export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin> | undefined }) {
 	const list = {};
 
-	bindKeymapWithCommand(toggleHighlightPalette.common!, togglePalette(api!), list);
+	bindKeymapWithCommand(
+		toggleHighlightPalette.common!,
+		togglePalette(api!)({ inputMethod: INPUT_METHOD.SHORTCUT }),
+		list,
+	);
 
 	return keymap(list) as SafePlugin;
 }

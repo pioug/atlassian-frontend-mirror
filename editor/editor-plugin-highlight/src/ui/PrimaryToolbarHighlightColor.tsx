@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	getAriaKeyshortcuts,
@@ -52,10 +53,13 @@ const PrimaryToolbarHighlightColor = ({
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
 	const { highlightState } = useSharedPluginState(pluginInjectionApi, ['highlight']);
 
-	const setDropdownOpen = (isOpen: boolean) => {
+	const setIsDropdownOpen = (isOpen: boolean) => {
 		if (!highlightState?.disabled) {
 			const { state, dispatch } = editorView;
-			setPalette(pluginInjectionApi!, isOpen)(state, dispatch);
+			setPalette(pluginInjectionApi!)({
+				isPaletteOpen: isOpen,
+				inputMethod: INPUT_METHOD.TOOLBAR,
+			})(state, dispatch);
 		}
 	};
 
@@ -70,7 +74,7 @@ const PrimaryToolbarHighlightColor = ({
 		isOpenedByKeyboard,
 	} = useDropdownEvents({
 		toolbarItemRef,
-		setIsDropdownOpen: setDropdownOpen,
+		setIsDropdownOpen,
 		isDropdownOpen,
 		pluginInjectionApi,
 	});
@@ -125,7 +129,7 @@ const PrimaryToolbarHighlightColor = ({
 						}
 					/>
 				}
-				onColorChange={(color) => handleColorChange(color)}
+				onColorChange={(color) => handleColorChange({ color, inputMethod: INPUT_METHOD.TOOLBAR })}
 				isOpenedByKeyboard={isOpenedByKeyboard}
 				handleClickOutside={handleClickOutside}
 				handleEscapeKeydown={handleEscapeKeydown}

@@ -32,6 +32,7 @@ const ExampleSizeBox = ({
 		insetBlockStart: scaleToken.includes('negative') ? token(absToken, fallback) : '0',
 	});
 
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 	return <Box xcss={boxStyles}></Box>;
 };
 

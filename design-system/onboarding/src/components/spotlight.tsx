@@ -1,6 +1,6 @@
 import React, { type ComponentType, type MouseEvent, type ReactNode } from 'react';
 
-import { type Actions } from '../types';
+import { type Actions, type ScrollLogicalPosition } from '../types';
 
 import SpotlightInner from './spotlight-inner';
 import { SpotlightConsumer } from './spotlight-manager';
@@ -99,6 +99,10 @@ export interface SpotlightProps {
    */
 	testId?: string;
 	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+	/**
+	 * Used set the 'block' attribute on scrollIntoView, which determines the vertical alignment of the target node to the nearest scrollable ancestor.
+	 */
+	scrollPositionBlock?: ScrollLogicalPosition;
 }
 
 /**

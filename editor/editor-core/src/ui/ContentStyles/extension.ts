@@ -28,6 +28,15 @@ const extensionLabelStyles = css`
 		opacity: 1;
 		box-shadow: none;
 	}
+
+	// Targets the icon for bodied macro styling in button label
+	&.danger > span > div > .extension-label > span {
+		display: inline;
+	}
+
+	&:not(.danger).${akEditorSelectedNodeClassName} > span > div .extension-label > span {
+		display: inline;
+	}
 `;
 
 const dangerOverlayStyles = css({

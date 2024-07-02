@@ -73,7 +73,11 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 			 * We need to set the intial top value to where the container is and zIndex so that it still
 			 * applies since we're creating a new stacking context. */
 			<Manager>
-				<ScrollLock />
+				{getBooleanFF(
+					'platform.design-system-team.remove-scroll-lock-on-datetime-picker_6h6oi',
+				) ? null : (
+					<ScrollLock />
+				)}
 				<Reference>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					{({ ref }) => <div ref={ref} data-layer-child style={divStyles} />}

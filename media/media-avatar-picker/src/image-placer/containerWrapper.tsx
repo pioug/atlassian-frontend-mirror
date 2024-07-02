@@ -36,6 +36,7 @@ export const ContainerWrapper = ({
 	return (
 		<Box
 			id={'container-wrapper'}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			xcss={[containerWrapperStyles, containerWrapperDimensions]}
 			{...props}
 		>

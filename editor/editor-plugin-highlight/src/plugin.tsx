@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	Command,
 	EditorCommand,
@@ -42,7 +43,7 @@ export type HighlightPlugin = NextEditorPlugin<
 		];
 		sharedState: HighlightPluginState | undefined;
 		commands: {
-			changeColor: ({ color }: { color: string }) => EditorCommand;
+			changeColor: ({ color }: { color: string; inputMethod: INPUT_METHOD }) => EditorCommand;
 		};
 	}
 >;

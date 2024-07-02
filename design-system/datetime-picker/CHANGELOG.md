@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 13.7.0
+
+### Minor Changes
+
+- [#116276](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116276)
+  [`7b251aa2db916`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b251aa2db916) -
+  Remove scroll locking behaviour to better support smaller screens.
+
 ## 13.6.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "193.30.7",
+	"version": "193.30.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,8 +44,8 @@
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^18.0.0",
-		"@atlaskit/editor-common": "^83.5.0",
+		"@atlaskit/button": "^18.1.0",
+		"@atlaskit/editor-common": "^83.6.0",
 		"@atlaskit/editor-plugins": "^3.3.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",

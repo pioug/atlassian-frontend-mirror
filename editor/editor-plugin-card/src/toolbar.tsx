@@ -49,11 +49,10 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAppearance, CardPlatform } from '@atlaskit/smart-card';
 
-import { changeSelectedCardToText } from '../src/pm-plugins/doc';
-
+import { changeSelectedCardToText } from './pm-plugins/doc';
 import { pluginKey } from './pm-plugins/main';
 import type { CardPluginOptions, CardPluginState } from './types';
 import { DatasourceAppearanceButton } from './ui/DatasourceAppearanceButton';
@@ -338,7 +337,7 @@ const generateToolbarItems =
 		const currentAppearance = appearanceForNodeType(node.type);
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
-		const isDatasource = getBooleanFF('platform.linking-platform.editor-datasource-typeguards')
+		const isDatasource = fg('platform.linking-platform.editor-datasource-typeguards')
 			? isDatasourceNode(node)
 			: currentAppearance === 'block' && node?.attrs?.datasource;
 
@@ -377,9 +376,9 @@ const generateToolbarItems =
 			const { inlineCard } = state.schema.nodes;
 
 			const isEditDropdownEnabled =
-				getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
 				platform !== 'mobile' &&
-				cardOptions.allowDatasource;
+				cardOptions.allowDatasource &&
+				fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
 			const editItems: Array<FloatingToolbarItem<Command>> = isEditDropdownEnabled
 				? [
@@ -476,9 +475,9 @@ const generateToolbarItems =
 			// For url appearance, please see HyperlinkToolbarAppearanceProps
 			if (currentAppearance) {
 				const showDatasourceAppearance =
-					getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar') &&
 					allowDatasource &&
-					url;
+					url &&
+					fg('platform.linking-platform.enable-datasource-appearance-toolbar');
 
 				toolbarItems.unshift(
 					...getToolbarViewedItem(url, currentAppearance),
@@ -528,7 +527,7 @@ const generateToolbarItems =
 			const shouldShowDatasourceEditButton =
 				platform !== 'mobile' &&
 				allowDatasource &&
-				!getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
+				!fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
 			if (shouldShowDatasourceEditButton) {
 				toolbarItems.unshift({
@@ -582,10 +581,10 @@ export const getHyperlinkToolbarSettingsButton = (
 		type: 'button',
 		icon: CogIcon,
 		title: intl.formatMessage(linkToolbarMessages.settingsLink),
-		onClick: getBooleanFF('platform.editor.card.inject-settings-button')
+		onClick: fg('platform.editor.card.inject-settings-button')
 			? openLinkSettings(editorAnalyticsApi, userPreferencesLink)
 			: openLinkSettings(editorAnalyticsApi, undefined),
-		href: getBooleanFF('platform.editor.card.inject-settings-button')
+		href: fg('platform.editor.card.inject-settings-button')
 			? userPreferencesLink || getLinkPreferencesURLFromENV()
 			: getLinkPreferencesURLFromENV(),
 		target: '_blank',
@@ -602,7 +601,7 @@ export const getSettingsButton = (
 		type: 'button',
 		icon: CogIcon,
 		title: intl.formatMessage(linkToolbarMessages.settingsLink),
-		onClick: getBooleanFF('platform.editor.card.inject-settings-button')
+		onClick: fg('platform.editor.card.inject-settings-button')
 			? openLinkSettings(editorAnalyticsApi, userPreferencesLink)
 			: openLinkSettings(editorAnalyticsApi, undefined),
 	};
@@ -632,7 +631,7 @@ const getDatasourceButtonGroup = (
 
 	if (
 		isDatasourceConfigEditable(datasourceId) &&
-		!getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')
+		!fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')
 	) {
 		toolbarItems.push(
 			{
@@ -657,15 +656,13 @@ const getDatasourceButtonGroup = (
 
 		if (
 			// FF that controls visibily of the additional toolbar buttons
-			!getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')
+			!fg('platform.linking-platform.enable-datasource-appearance-toolbar')
 		) {
 			return false;
 		}
 
 		// FF to enable additional toolbar buttons based on if the datasource is configurable or not
-		return getBooleanFF(
-			'platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources',
-		)
+		return fg('platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources')
 			? true
 			: !isDatasourceConfigEditable(datasourceId);
 	};
@@ -717,7 +714,7 @@ const getDatasourceButtonGroup = (
 		);
 	}
 
-	if (getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')) {
+	if (fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar')) {
 		toolbarItems.push({
 			type: 'custom',
 			fallback: [],
@@ -806,9 +803,9 @@ export const getStartingToolbarItems = (
 		metadata: { url: string; title: string },
 	): FloatingToolbarItem<Command>[] => {
 		const isEditDropdownEnabled =
-			getBooleanFF('platform.linking-platform.enable-datasource-edit-dropdown-toolbar') &&
 			options.platform !== 'mobile' &&
-			options.allowDatasource;
+			options.allowDatasource &&
+			fg('platform.linking-platform.enable-datasource-edit-dropdown-toolbar');
 
 		const editLinkItem: FloatingToolbarItem<Command>[] = isEditDropdownEnabled
 			? [
@@ -890,7 +887,7 @@ export const getStartingToolbarItems = (
 export const getEndingToolbarItems =
 	(options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
 	(intl: IntlShape, link: string): FloatingToolbarItem<Command>[] => {
-		if (getBooleanFF('platform.editor.card.inject-settings-button')) {
+		if (fg('platform.editor.card.inject-settings-button')) {
 			/**
 			 * Require either provider to be supplied (controls link preferences)
 			 * Or explicit user preferences config in order to enable button

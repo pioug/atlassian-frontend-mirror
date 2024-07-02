@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 83.6.0
+
+### Minor Changes
+
+- [#116586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116586)
+  [`3e6333e4a0fbd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e6333e4a0fbd) -
+  [ED-23761] Add analytics for floating toolbar text highlighting experiment
+
+## 83.5.1
+
+### Patch Changes
+
+- [#116194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116194)
+  [`a6ac14257c10a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6ac14257c10a) -
+  [ux] Update button interactions: non-bodied macros stay flush with macro, bodied macros show
+  config icon on hover/select, have default white background, and maintain the indentaion
+
 ## 83.5.0
 
 ### Minor Changes

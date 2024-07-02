@@ -162,7 +162,7 @@ const updatePackageJsonWithADSComponentDependencies = (componentOutputDir: strin
 		}, {});
 
 	packageJson.dependencies = updatedDependencies;
-	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, '\t'));
 };
 
 /**

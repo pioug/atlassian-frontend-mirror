@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.10
+
+### Patch Changes
+
+- [#116393](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116393)
+  [`30fa8a58b9dc8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30fa8a58b9dc8) -
+  Fix drag handle overlaps with the content when deleting text across lines
+
 ## 1.5.9
 
 ### Patch Changes

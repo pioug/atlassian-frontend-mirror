@@ -20,12 +20,14 @@ const markStyles = () => css`
 	-webkit-tap-highlight-color: transparent;
 
 	&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
-		${AnnotationSharedCSSByState().common};
-		${AnnotationSharedCSSByState().blur};
+		${getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+			? AnnotationSharedCSSByState().common
+			: ''}
+		${AnnotationSharedCSSByState().blur}
 
 		&:focus,
-		&[data-has-focus='true'] {
-			${AnnotationSharedCSSByState().focus};
+			&[data-has-focus='true'] {
+			${AnnotationSharedCSSByState().focus}
 		}
 	}
 `;

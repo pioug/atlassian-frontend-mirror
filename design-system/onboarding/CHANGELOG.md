@@ -1,5 +1,17 @@
 # @atlaskit/onboarding
 
+## 11.9.0
+
+### Minor Changes
+
+- [`393f732d5423f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/393f732d5423f) -
+  [ux] Adding an optional prop to Spotlight, so it can used for scrollIntoView 'block' parameter.
+  This is to fix the unnecessary scroll of the non-portalled popup targets.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.8.2
 
 ### Patch Changes

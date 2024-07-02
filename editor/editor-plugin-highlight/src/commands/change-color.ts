@@ -4,7 +4,11 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	EditorAnalyticsAPI,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { removeMark, toggleMark } from '@atlaskit/editor-common/mark';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import { highlightColorPalette, REMOVE_HIGHLIGHT_COLOR } from '@atlaskit/editor-common/ui-color';
@@ -15,7 +19,7 @@ import { getActiveColor } from '../utils/color';
 
 export const changeColor =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	({ color }: { color: string }): EditorCommand =>
+	({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }): EditorCommand =>
 	({ tr }) => {
 		const { backgroundColor } = tr.doc.type.schema.marks;
 
@@ -23,7 +27,7 @@ export const changeColor =
 			return null;
 		}
 
-		editorAnalyticsAPI?.attachAnalyticsEvent(createAnalyticsEvent(color, tr))(tr);
+		editorAnalyticsAPI?.attachAnalyticsEvent(createAnalyticsEvent(color, inputMethod, tr))(tr);
 
 		tr.scrollIntoView();
 
@@ -41,7 +45,11 @@ export const changeColor =
 		return tr;
 	};
 
-const createAnalyticsEvent = (color: string, tr: Transaction): AnalyticsEventPayload => {
+const createAnalyticsEvent = (
+	color: string,
+	inputMethod: INPUT_METHOD,
+	tr: Transaction,
+): AnalyticsEventPayload => {
 	const previousColor = getActiveColor(tr) ?? REMOVE_HIGHLIGHT_COLOR;
 	// get color names from palette
 	const newColorFromPalette = highlightColorPalette.find(({ value }) => value === color);
@@ -63,6 +71,7 @@ const createAnalyticsEvent = (color: string, tr: Transaction): AnalyticsEventPay
 		attributes: {
 			newColor: newColorLabel.toLowerCase(),
 			previousColor: previousColorLabel ? previousColorLabel.toLowerCase() : '',
+			inputMethod,
 		},
 	};
 };

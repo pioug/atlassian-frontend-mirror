@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/button",
-	"version": "18.0.2",
+	"version": "18.1.0",
 	"description": "A button triggers an event or action. They let users know what will happen next.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -214,9 +214,6 @@
 			"type": "boolean"
 		},
 		"platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw": {
-			"type": "boolean"
-		},
-		"platform.design-system-team.button-render-prop-fix_lyo55": {
 			"type": "boolean"
 		}
 	}

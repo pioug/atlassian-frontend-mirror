@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 7.12.4
+
+### Patch Changes
+
+- [#116209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116209)
+  [`0aa2af6a28226`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0aa2af6a28226) -
+  Only render escapeManager when open
+
 ## 7.12.3
 
 ### Patch Changes

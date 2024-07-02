@@ -6,7 +6,7 @@ export type HighlightToolbarToggleAEP = TrackAEP<
 	ACTION_SUBJECT.TOOLBAR,
 	ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
 	{
-		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT;
+		inputMethod: INPUT_METHOD;
 	},
 	undefined
 >;
@@ -15,7 +15,11 @@ export type HighlightTextAEP = TrackAEP<
 	ACTION.FORMATTED,
 	ACTION_SUBJECT.TEXT,
 	ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
-	{ newColor: string; previousColor: string },
+	{
+		newColor: string;
+		previousColor: string;
+		inputMethod: INPUT_METHOD;
+	},
 	undefined
 >;
 

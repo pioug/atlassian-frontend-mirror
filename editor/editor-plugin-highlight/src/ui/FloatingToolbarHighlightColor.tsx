@@ -6,7 +6,14 @@ import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	type DispatchAnalyticsEvent,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -40,9 +47,21 @@ const FloatingToolbarHighlightColor = ({
 	intl: { formatMessage },
 }: FloatingToolbarHighlightColorProps) => {
 	const toolbarItemRef = useRef<ToolbarButtonRef>(null);
+	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 	const { highlightState } = useSharedPluginState(pluginInjectionApi, ['highlight']);
 
-	const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+	const setDropdownOpen = (isOpen: boolean) => {
+		setIsDropdownOpen(isOpen);
+		pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent({
+			action: isOpen ? ACTION.OPENED : ACTION.CLOSED,
+			actionSubject: ACTION_SUBJECT.TOOLBAR,
+			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
+			eventType: EVENT_TYPE.TRACK,
+			attributes: {
+				inputMethod: INPUT_METHOD.FLOATING_TB,
+			},
+		});
+	};
 
 	const {
 		handleClick,
@@ -53,7 +72,7 @@ const FloatingToolbarHighlightColor = ({
 		isOpenedByKeyboard,
 	} = useDropdownEvents({
 		toolbarItemRef,
-		setIsDropdownOpen,
+		setIsDropdownOpen: setDropdownOpen,
 		isDropdownOpen,
 		pluginInjectionApi,
 	});
@@ -106,7 +125,7 @@ const FloatingToolbarHighlightColor = ({
 					{formatMessage(messages.highlightFloatingToolbar)}
 				</ToolbarButton>
 			}
-			onColorChange={(color) => handleColorChange(color)}
+			onColorChange={(color) => handleColorChange({ color, inputMethod: INPUT_METHOD.FLOATING_TB })}
 			isOpenedByKeyboard={isOpenedByKeyboard}
 			handleClickOutside={handleClickOutside}
 			handleEscapeKeydown={handleEscapeKeydown}

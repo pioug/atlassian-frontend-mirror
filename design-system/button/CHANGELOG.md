@@ -1,5 +1,12 @@
 # @atlaskit/button
 
+## 18.1.0
+
+### Minor Changes
+
+- [`aa0094627549a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa0094627549a) -
+  Removed feature flag for render prop fix introduced in 17.22.0.
+
 ## 18.0.2
 
 ### Patch Changes

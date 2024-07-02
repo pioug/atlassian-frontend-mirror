@@ -8,3 +8,4 @@ interface Action extends Omit<CustomThemeButtonProps, 'children'> {
 }
 
 export type Actions = Action[];
+export type { ScrollLogicalPosition } from 'scroll-into-view-if-needed/typings/types';

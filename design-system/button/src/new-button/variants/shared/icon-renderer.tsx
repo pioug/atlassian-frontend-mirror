@@ -1,7 +1,6 @@
 import React, { type ComponentClass, type FunctionComponent } from 'react';
 
 import { type IconProps, type UNSAFE_NewIconProps } from '@atlaskit/icon/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { type IconProp } from '../types';
 
@@ -33,8 +32,7 @@ const IconRenderer = ({
 }) => {
 	return (
 		<>
-			{getBooleanFF('platform.design-system-team.button-render-prop-fix_lyo55') &&
-			isIconRenderProp(Icon) ? (
+			{isIconRenderProp(Icon) ? (
 				Icon({ label: '', size: size, color: 'currentColor' })
 			) : (
 				<Icon label="" size={size} color={'currentColor'} />

@@ -42,10 +42,12 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		fakeDocumentPosition = { from: 0, to: 10 },
 		isAnnotationAllowed = true,
 		actionsDoc,
+		hasValidAnnotationRange = true,
 	}: {
 		fakeDocumentPosition?: Position | false;
 		isAnnotationAllowed?: boolean;
 		actionsDoc?: PMNode;
+		hasValidAnnotationRange?: boolean;
 	} = {}) => {
 		const wrapperDOM = {
 			current: container!,
@@ -56,7 +58,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		const actions = {
 			doc: actionsDoc,
 			isValidAnnotationPosition: jest.fn(() => true),
-			isValidAnnotationRange: jest.fn(() => true),
+			isValidAnnotationRange: jest.fn(() => hasValidAnnotationRange),
 			getAnnotationsByPosition: jest.fn(() => []),
 		} as RendererActions;
 
@@ -316,21 +318,30 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		});
 	});
 
-	describe('should provide inlineNodeTypes props to the component', () => {
-		const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
+	describe('inlineNodeTypes', () => {
+		describe('should provide inlineNodeTypes props to the component', () => {
+			const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
 
-		ffTest(
-			'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
-			() => {
-				renderMounter({ actionsDoc });
+			ffTest(
+				'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+				() => {
+					renderMounter({ actionsDoc });
 
-				expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('["status","text"]');
-			},
-			() => {
-				renderMounter({ actionsDoc });
+					expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('["status","text"]');
+				},
+				() => {
+					renderMounter({ actionsDoc });
 
-				expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
-			},
-		);
+					expect(screen.getByTestId(inlineNodeTypesTestId)).not.toHaveTextContent('text');
+				},
+			);
+		});
+		it('should provide empty inlineNodeTypes if the isValidAnnotationRange returns false', () => {
+			const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
+
+			renderMounter({ actionsDoc, hasValidAnnotationRange: false });
+
+			expect(screen.getByTestId(inlineNodeTypesTestId)).toHaveTextContent('');
+		});
 	});
 });

@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^18.0.0",
+		"@atlaskit/button": "^18.1.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.5.0",
@@ -56,7 +56,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/datetime-picker": "^13.6.0",
+		"@atlaskit/datetime-picker": "^13.7.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/section-message": "^6.5.0",

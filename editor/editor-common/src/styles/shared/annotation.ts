@@ -24,6 +24,11 @@ const Y200a = 'rgba(255, 196, 0, 0.82)';
 
 export const AnnotationSharedCSSByState = () => {
 	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		// NOTE: These styles are shared between renderer and editor. Sometimes they
+		// need different selectors and other times they apply the same attributes
+		// in a different way. For example in renderer the focus styles are an
+		// override, not a separate class. Be sure to check both usages of this
+		// before modifying.
 		return {
 			common: {
 				borderBottom: '2px solid transparent',

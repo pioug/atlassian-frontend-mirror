@@ -94,14 +94,14 @@ const BaseTokenEditor = ({
 	onChange: (baseTokens: BaseTokens) => void;
 }) => {
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<Box xcss={xcss({ overflow: 'auto' })}>
 			<Inline space="space.100" grow="fill" shouldWrap={true}>
 				{Object.entries(groupedBaseTokens).map(([group, originalBaseTokens]) => {
 					return (
 						<Box
 							key={group}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 							xcss={xcss({
 								overflow: 'hidden',
 								display: 'flex',
@@ -219,7 +219,7 @@ const PaletteBlock = ({
 								}
 							}}
 						/>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<Box xcss={xcss({ flexShrink: '0' })}>
 							<Inline space="space.025">
 								<IconButton

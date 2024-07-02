@@ -62,6 +62,7 @@ const ActionButton = ({
 		);
 
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		<Pressable xcss={[buttonStyles, xcss]} {...tooltipProps} onClick={onClick} testId={testId}>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}

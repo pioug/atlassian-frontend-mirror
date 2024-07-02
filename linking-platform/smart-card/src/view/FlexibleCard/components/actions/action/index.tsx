@@ -68,6 +68,7 @@ const Action: FC<ActionProps> = ({
 				size={size}
 				testId={testId}
 				tooltipMessage={tooltipMessage || content}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				xcss={xcss}
 				tooltipOnHide={tooltipOnHide}
 				hideTooltipOnMouseDown={hideTooltipOnMouseDown}

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { type ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 
 import { changeColor } from '../../commands';
 import type { HighlightPlugin } from '../../plugin';
@@ -44,10 +45,11 @@ export const useDropdownEvents = (args: UseDropdownEventArgs) => {
 				toolbarItemRef?.current?.focus();
 			}
 		},
-		handleColorChange: (color: string) => {
+		handleColorChange: ({ color, inputMethod }: { color: string; inputMethod: INPUT_METHOD }) => {
 			pluginInjectionApi?.core?.actions.execute(
 				changeColor(pluginInjectionApi?.analytics?.actions)({
 					color,
+					inputMethod,
 				}),
 			);
 			setIsDropdownOpen(false);

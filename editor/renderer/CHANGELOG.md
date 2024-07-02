@@ -1,5 +1,22 @@
 # @atlaskit/renderer
 
+## 109.40.6
+
+### Patch Changes
+
+- [#116251](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116251)
+  [`a1184c9108a20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1184c9108a20) -
+  ED-23648 fix feature flagging for renderer comments
+
+## 109.40.5
+
+### Patch Changes
+
+- [#116410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116410)
+  [`ce3834d457869`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce3834d457869) -
+  [ED-23887] Add unit tests for nested renderers invalid range bug fix.
+- Updated dependencies
+
 ## 109.40.4
 
 ### Patch Changes

@@ -113,7 +113,7 @@ const ImportPopup = ({ onImport }: { onImport: (theme: ThemeExportFormat) => voi
 			onClose={() => setIsOpen(false)}
 			placement="bottom-start"
 			content={() => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<Stack space="space.100" xcss={xcss({ padding: 'space.200', maxWidth: '400px' })}>
 					<Heading level="h600">Import a custom theme</Heading>
 					<p>
@@ -243,7 +243,7 @@ export default function ContrastChecker() {
 				<Box paddingBlockStart="space.500">
 					<Inline spread="space-between" shouldWrap={true} space="space.100">
 						<Heading level="h900">Contrast Checker</Heading>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<Box xcss={xcss({ flexBasis: 300, flexShrink: '1' })}>
 							<Stack space="space.100">
 								<ThemePicker value={baseThemeType} onChange={setBaseThemeType} />

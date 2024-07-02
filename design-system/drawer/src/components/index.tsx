@@ -10,7 +10,7 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 
 import { defaultFocusLockSettings } from '../constants';
@@ -49,9 +49,9 @@ const EscapeCloseManager = ({
 }) => {
 	const onClose: (e: KeyboardEvent) => void = React.useCallback(
 		(event) => {
-			const analyticsEvent =
-				createAnalyticsEvent && createAndFireOnClick(createAnalyticsEvent, 'escKey');
 			if (handleClose) {
+				const analyticsEvent =
+					createAnalyticsEvent && createAndFireOnClick(createAnalyticsEvent, 'escKey');
 				handleClose(event as unknown as React.KeyboardEvent, analyticsEvent);
 			}
 		},
@@ -59,7 +59,7 @@ const EscapeCloseManager = ({
 	);
 	useCloseOnEscapePress({ onClose: onClose });
 	// only create a dummy component for using ths hook in class component
-	return <></>;
+	return <span />;
 };
 
 export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }> {
@@ -119,7 +119,7 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 	handleKeyDown = (event: KeyboardEvent) => {
 		const { isOpen, onKeyDown } = this.props;
 
-		if (!getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p')) {
+		if (!fg('platform.design-system-team.inline-message-layering_wfp1p')) {
 			// when feature flag on, we will use the EscapeCloseManager instead
 			if (event.key === 'Escape' && isOpen) {
 				this.handleClose(event as unknown as React.KeyboardEvent, 'escKey');
@@ -154,47 +154,48 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 			titleId,
 		} = this.props;
 
+		const shouldHaveLayeringEnabled =
+			fg('platform.design-system-team.inline-message-layering_wfp1p') && isOpen;
+
 		return (
-			<UNSAFE_LAYERING
-				isDisabled={
-					getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') ? !isOpen : true
-				}
-			>
-				<Portal zIndex={zIndex}>
-					<Blanket
-						isOpen={isOpen}
-						onBlanketClicked={this.handleBlanketClick}
-						testId={testId && `${testId}--blanket`}
-					/>
-					<DrawerPrimitive
-						testId={testId}
-						icon={icon}
-						closeLabel={closeLabel}
-						in={isOpen}
-						onClose={this.handleBackButtonClick}
-						onCloseComplete={onCloseComplete}
-						onOpenComplete={onOpenComplete}
-						width={width}
-						label={label}
-						titleId={titleId}
-						shouldUnmountOnExit={shouldUnmountOnExit}
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-						overrides={overrides}
-						autoFocusFirstElem={autoFocusFirstElem}
-						isFocusLockEnabled={isFocusLockEnabled}
-						shouldReturnFocus={shouldReturnFocus}
-						scrollContentLabel={scrollContentLabel}
-					>
-						{children}
-						{getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') && (
+			<Portal zIndex={zIndex}>
+				<Blanket
+					isOpen={isOpen}
+					onBlanketClicked={this.handleBlanketClick}
+					testId={testId && `${testId}--blanket`}
+				/>
+				<DrawerPrimitive
+					testId={testId}
+					icon={icon}
+					closeLabel={closeLabel}
+					in={isOpen}
+					onClose={this.handleBackButtonClick}
+					onCloseComplete={onCloseComplete}
+					onOpenComplete={onOpenComplete}
+					width={width}
+					label={label}
+					titleId={titleId}
+					shouldUnmountOnExit={shouldUnmountOnExit}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					overrides={overrides}
+					autoFocusFirstElem={autoFocusFirstElem}
+					isFocusLockEnabled={isFocusLockEnabled}
+					shouldReturnFocus={shouldReturnFocus}
+					scrollContentLabel={scrollContentLabel}
+				>
+					{shouldHaveLayeringEnabled ? (
+						<UNSAFE_LAYERING isDisabled={false}>
+							{children}
 							<EscapeCloseManager
 								createAnalyticsEvent={this.props.createAnalyticsEvent}
 								handleClose={this.handleClose}
 							/>
-						)}
-					</DrawerPrimitive>
-				</Portal>
-			</UNSAFE_LAYERING>
+						</UNSAFE_LAYERING>
+					) : (
+						children
+					)}
+				</DrawerPrimitive>
+			</Portal>
 		);
 	}
 }

@@ -139,15 +139,18 @@ const defaultAppearanceContainerStyles = css({
 export const SplitButtonContainer = ({
 	appearance,
 	children,
+	isDisabled = false,
 }: {
 	appearance: SplitButtonAppearance;
 	children: ReactNode;
+	isDisabled?: boolean;
 }) => {
 	return (
 		<div
 			css={[
 				getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
 					appearance === 'default' &&
+					!isDisabled &&
 					defaultAppearanceContainerStyles,
 				splitButtonStyles,
 			]}
@@ -175,7 +178,7 @@ export const SplitButton = ({
 	const { PrimaryAction, SecondaryAction } = getActions(children);
 
 	return (
-		<SplitButtonContainer appearance={appearance}>
+		<SplitButtonContainer appearance={appearance} isDisabled={isDisabled}>
 			<SplitButtonContext.Provider
 				value={{
 					appearance,
@@ -211,7 +214,7 @@ export const SplitButtonWithSlots = ({
 	isDisabled = false,
 }: SplitButtonWithSlotsProps) => {
 	return (
-		<SplitButtonContainer appearance={appearance}>
+		<SplitButtonContainer appearance={appearance} isDisabled={isDisabled}>
 			<SplitButtonContext.Provider
 				value={{
 					appearance,

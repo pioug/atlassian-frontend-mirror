@@ -43,7 +43,7 @@ export default function ContrastCard({
 				paddingBlock="space.100"
 				paddingInline="space.150"
 				backgroundColor="color.background.neutral"
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				xcss={xcss({
 					flex: '1',
 					borderRadius: 'border.radius.200',
@@ -51,7 +51,7 @@ export default function ContrastCard({
 				})}
 			>
 				<Box
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					xcss={xcss({
 						minWidth: 'size.100',
 					})}

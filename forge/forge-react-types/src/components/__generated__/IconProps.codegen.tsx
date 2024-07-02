@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - IconProps
  *
- * @codegen <<SignedSource::4d0c52e2f5b493b2a69427f8d9c93290>>
+ * @codegen <<SignedSource::6e1a2b5a3aa17602aa7c41de75684a98>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/icon/index.tsx <<SignedSource::390ca92f2159c8c2eb1673e94d2d7711>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/icon/index.tsx <<SignedSource::2f230b37d348f80a985d8a7d529d7221>>
  */
 import type { ActiveTokens } from '@atlaskit/tokens';
 

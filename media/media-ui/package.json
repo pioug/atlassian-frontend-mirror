@@ -24,7 +24,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^18.0.0",
+		"@atlaskit/button": "^18.1.0",
 		"@atlaskit/code": "^15.3.0",
 		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/icon-file-type": "^6.4.0",

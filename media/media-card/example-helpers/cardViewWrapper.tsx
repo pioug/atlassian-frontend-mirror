@@ -35,8 +35,10 @@ const cardWrapperStyles = ({ small, displayInline }: CardViewWrapperProps) =>
 
 export const CardViewWrapper = (props: CardViewWrapperProps) => {
 	if (props.small) {
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		return <Box xcss={[cardWrapperStyles(props), smallStyles]}>{props.children}</Box>;
 	} else {
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 		return <Box xcss={[cardWrapperStyles(props), largeStyles]}>{props.children}</Box>;
 	}
 };

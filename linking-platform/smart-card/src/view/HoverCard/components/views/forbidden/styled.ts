@@ -4,14 +4,14 @@ import { css } from '@emotion/react';
 
 const titleFontWeight = '600';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBlockStyles = css({
 	justifyContent: 'center',
 	fontWeight: titleFontWeight,
 	marginTop: token('space.100', '8px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const mainTextStyles = css({
 	display: 'inline',
 	justifyContent: 'center',
@@ -20,7 +20,7 @@ export const mainTextStyles = css({
 	textAlign: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const connectButtonStyles = css({
 	justifyContent: 'center',
 	marginTop: token('space.100', '8px'),

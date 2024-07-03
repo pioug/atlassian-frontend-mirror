@@ -6,10 +6,10 @@ import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import {
 	DATASOURCE_INNER_CONTAINER_CLASSNAME,
 	SmartCardSharedCssClassName,
@@ -22,7 +22,7 @@ import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-
 import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/link-datasource';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
@@ -218,7 +218,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 								onColumnResize={this.handleColumnResize}
 								columnCustomSizes={columnCustomSizes}
 								onWrappedColumnChange={
-									getBooleanFF('platform.linking-platform.datasource-word_wrap')
+									fg('platform.linking-platform.datasource-word_wrap')
 										? this.handleWrappedColumnChange
 										: undefined
 								}
@@ -269,7 +269,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 	// If not, we return false so we can get the node to re-render properly as a block node instead.
 	// Otherwise, the node view will still consider the node as a Datasource and render a such.
 	validUpdate(currentNode: PMNode, newNode: PMNode) {
-		if (getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')) {
+		if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
 			return !!newNode.attrs?.datasource;
 		}
 		return true;
@@ -281,7 +281,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 		_innerDecorations?: DecorationSource,
 		validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
 	) {
-		if (getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')) {
+		if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
 			return super.update(node, decorations, _innerDecorations, this.validUpdate);
 		}
 		return super.update(node, decorations, _innerDecorations, validUpdate);

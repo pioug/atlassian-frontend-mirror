@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugins
 
+## 3.3.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.38
+
+### Patch Changes
+
+- [#116846](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116846)
+  [`b9c3dabe8ea72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9c3dabe8ea72) -
+  ECA11Y-66: Make video controls accessible for keyboard users, feature flag removal
+- Updated dependencies
+
+## 3.3.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.35
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.34
 
 ### Patch Changes

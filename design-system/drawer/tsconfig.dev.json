@@ -81,6 +81,9 @@
 			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../motion/tsconfig.app.json"
+		},
+		{
 			"path": "../portal/tsconfig.app.json"
 		},
 		{

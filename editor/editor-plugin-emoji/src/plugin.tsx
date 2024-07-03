@@ -253,9 +253,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					id: 'emoji',
 					title: formatMessage(messages.emoji),
 					description: formatMessage(messages.emojiDescription),
-					priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
-						? 700
-						: 500,
+					priority: 500,
 					keyshortcut: ':',
 					icon: () => <IconEmoji />,
 					action(insert, state) {

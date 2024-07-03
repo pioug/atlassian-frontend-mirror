@@ -75,14 +75,14 @@ export const titleBoxFooterStyles = ({ hasIconOverlap }: TitleBoxFooterProps) =>
 
 titleBoxFooterStyles.displayName = 'TitleBoxFooter';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBoxIconStyles = css({
 	position: 'absolute',
 	right: token('space.050', '4px'),
 	bottom: '0px',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const errorMessageWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',

@@ -8,10 +8,11 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { AutoDismissFlag } from '@atlaskit/flag';
 import { Field } from '@atlaskit/form';
 import Select from '@atlaskit/select';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import FeedbackCollector from '../../components/FeedbackCollector';
 import FeedbackFlag from '../../components/FeedbackFlag';
-import FeedbackForm from '../../components/FeedbackForm';
+import FeedbackForm, { type OptionType } from '../../components/FeedbackForm';
 import { type FormFields } from '../../types';
 
 import {
@@ -878,6 +879,53 @@ describe('Feedback Collector unit tests', () => {
 			const { title, description } = wrapper.find(AutoDismissFlag).props();
 			expect(title).toEqual('Feedback Title');
 			expect(description).toEqual('Feedback Description');
+		});
+	});
+	describe('Feedback Select Type', () => {
+		test('Feedback Select Options default behavior ', () => {
+			const wrapper = mount(<FeedbackForm onClose={() => {}} onSubmit={async () => {}} />);
+
+			const options = wrapper.find(Select).props().options;
+			expect(options).toHaveLength(4);
+		});
+		describe('Custom Feedback Select Options with FF true/false', () => {
+			const customFeedbackOptions: OptionType[] = [
+				{
+					label: 'Leave a comment',
+					value: 'comment',
+				},
+				{
+					label: 'Give a suggestion',
+					value: 'suggestion',
+				},
+			];
+			ffTest(
+				'platform.custom-select-feedback-options_c61l9',
+				() => {
+					const wrapper = mount(
+						<FeedbackForm
+							onClose={() => {}}
+							onSubmit={async () => {}}
+							customFeedbackOptions={customFeedbackOptions}
+						/>,
+					);
+
+					const options = wrapper.find(Select).props().options;
+					expect(options).toHaveLength(customFeedbackOptions.length);
+				},
+				() => {
+					const wrapper = mount(
+						<FeedbackForm
+							onClose={() => {}}
+							onSubmit={async () => {}}
+							customFeedbackOptions={customFeedbackOptions}
+						/>,
+					);
+
+					const options = wrapper.find(Select).props().options;
+					expect(options).not.toHaveLength(customFeedbackOptions.length);
+				},
+			);
 		});
 	});
 });

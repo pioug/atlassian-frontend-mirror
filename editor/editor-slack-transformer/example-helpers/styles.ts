@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N800 } from '@atlaskit/theme/colors';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const content = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& div.toolsDrawer': {

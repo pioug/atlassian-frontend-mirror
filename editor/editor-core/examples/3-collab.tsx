@@ -42,7 +42,7 @@ import EditorContext from '../src/ui/EditorContext';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const content = css({
 	padding: `0 ${token('space.250', '20px')}`,
 	height: '100vh',
@@ -63,13 +63,13 @@ export const content = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const columns = css({
 	display: 'flex',
 	flexDirection: 'row',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const column = css({
 	flex: '1 1 0',
 });

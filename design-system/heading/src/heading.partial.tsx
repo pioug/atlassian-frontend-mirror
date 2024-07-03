@@ -82,7 +82,7 @@ const Heading = ({ children, size, id, testId, as, color: colorProp }: NewHeadin
 	);
 };
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const headingColorStylesMap: Record<HeadingColor, SerializedStyles> = {
 	'color.text': css({
 		color: token('color.text'),

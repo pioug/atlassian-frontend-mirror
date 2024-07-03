@@ -46,7 +46,7 @@ import { filterUniqueItems, mapContentTypeToIcon, sha1, wordCount } from './util
  * Visible only to screenreaders. Use when there is a need
  * to provide more context to a non-sighted user.
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const visuallyHiddenStyles = css({
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	clipPath: 'inset(50%)',

@@ -1,8 +1,9 @@
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import { type getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import {
@@ -11,7 +12,7 @@ import {
 	JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { CardInfo, CardPluginState, DatasourceNode } from './types';
@@ -124,7 +125,7 @@ export const isDatasourceConfigEditable = (datasourceId: string) => {
 		JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 		ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	];
-	if (getBooleanFF('platform.linking-platform.datasource.enable-confluence-search-modal')) {
+	if (fg('platform.linking-platform.datasource.enable-confluence-search-modal')) {
 		datasourcesWithConfigModal.push(CONFLUENCE_SEARCH_DATASOURCE_ID);
 	}
 	return datasourcesWithConfigModal.includes(datasourceId);
@@ -185,4 +186,35 @@ export const focusEditorView = (editorView: EditorView) => {
 	if (!editorView.hasFocus()) {
 		editorView.focus();
 	}
+};
+
+export const getAwarenessProps = (
+	editorState: EditorState,
+	getPos: getPosHandler,
+	allowEmbeds?: boolean,
+	allowBlockCards?: boolean,
+) => {
+	const getPosFunction = typeof getPos !== 'boolean' ? getPos : undefined;
+	const linkPosition = getPosFunction?.();
+
+	const canBeUpgradedToEmbed =
+		!!linkPosition && allowEmbeds
+			? isEmbedSupportedAtPosition(linkPosition, editorState, 'inline')
+			: false;
+
+	const canBeUpgradedToBlock =
+		!!linkPosition && allowBlockCards
+			? isBlockSupportedAtPosition(linkPosition, editorState, 'inline')
+			: false;
+
+	const isSelected =
+		editorState.selection instanceof NodeSelection &&
+		editorState.selection?.node?.type === editorState.schema.nodes.inlineCard &&
+		editorState.selection?.from === getPosFunction?.();
+
+	return {
+		isPulseEnabled: canBeUpgradedToEmbed,
+		isOverlayEnabled: canBeUpgradedToEmbed || canBeUpgradedToBlock,
+		isSelected,
+	};
 };

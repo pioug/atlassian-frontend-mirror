@@ -10,7 +10,7 @@ const pulseKeyframes = keyframes({
 // Styling from atlassian-frontend/packages/design-system/onboarding/src/styled/target.tsx
 const pulseColor = 'rgb(101, 84, 192)';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-keyframes, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pulseStyles = css({
 	display: 'inline-flex',
 	borderRadius: '3px',

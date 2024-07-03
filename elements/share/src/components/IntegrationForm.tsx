@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type IntegrationContentProps } from '../types';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 export const formWrapperStyle = css`
 	[class^='FormHeader__FormHeaderWrapper'] {
 		h1:first-child {

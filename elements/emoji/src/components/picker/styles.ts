@@ -47,7 +47,7 @@ export const emojiPicker = (hasPreview?: boolean, size: PickerSize = defaultEmoj
 // Level 2
 
 /// Category Selector
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const categorySelector = css({
 	flex: '0 0 auto',
 	backgroundColor: token('elevation.surface.sunken', N30),
@@ -58,7 +58,7 @@ export const categorySelector = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const categorySelectorTablist = css({
 	padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 	display: 'flex',
@@ -69,7 +69,7 @@ export const categorySelectorTablist = css({
 
 /// EmojiPickerList
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiPickerList = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -79,7 +79,7 @@ export const emojiPickerList = css({
 });
 
 // focus style is enabled by default - turn it off
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const virtualList = css({
 	overflowX: 'hidden',
 	overflowY: 'auto',
@@ -91,12 +91,12 @@ export const virtualList = css({
 
 //// Search
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const searchIcon = css({
 	opacity: 0.5,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const input = css({
 	boxSizing: 'border-box',
 	color: 'inherit',
@@ -118,7 +118,7 @@ export const input = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pickerSearch = css({
 	boxSizing: 'border-box',
 	padding: token('space.150', '12px'),
@@ -127,7 +127,7 @@ export const pickerSearch = css({
 
 //// Loading/Spinner
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiPickerSpinner = css({
 	display: 'flex',
 	width: '100%',
@@ -142,12 +142,12 @@ export const emojiPickerSpinner = css({
 
 //// Category/Result
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiPickerRow = css({
 	marginLeft: token('space.100', '8px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiCategoryTitle = css({
 	boxSizing: 'border-box',
 	color: token('color.text', N900),
@@ -160,7 +160,7 @@ export const emojiCategoryTitle = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiItem = css({
 	display: 'inline-block',
 	textAlign: 'center',
@@ -205,18 +205,18 @@ export const emojiItem = css({
 });
 
 /// Footer
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiPickerFooter = css({
 	flex: '0 0 auto',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiPickerFooterWithTopShadow = css({
 	borderTop: `2px solid ${token('color.border', N30A)}`,
 	boxShadow: `0px -1px 1px 0px ${token('color.border', 'rgba(0, 0, 0, 0.1)')}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiActionsContainerWithBottomShadow = css({
 	borderBottom: `2px solid ${token('color.border', N30A)}`,
 	boxShadow: `0px 1px 1px 0px ${token('color.border', 'rgba(0, 0, 0, 0.1)')}`,

@@ -3,7 +3,6 @@ import { Component } from 'react';
 import {
 	TimeLine,
 	CurrentTimeLine,
-	Thumb,
 	BufferedTime,
 	CurrentTimeTooltip,
 	TimeRangeWrapper,
@@ -12,7 +11,6 @@ import {
 import { formatDuration, secondsToTime } from '../formatDuration';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface TimeRangeProps {
 	currentTime: number;
@@ -230,58 +228,40 @@ export class TimeRangeBase extends Component<
 				<TimeLine ref={this.wrapperElement}>
 					<BufferedTime style={{ width: `${bufferedTimePercentage}%` }} />
 					<CurrentTimeLine style={{ width: `${currentPosition}%` }}>
-						{getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh') ? (
-							<CurrentTimeLineThumb
-								role="slider"
-								ref={this.thumbElement}
-								onKeyDown={this.onTimeLineThumbKeydown}
-								tabIndex={0}
-								aria-orientation="horizontal"
-								aria-label={intl.formatMessage(messages.video_seeker_label_assistive_text)}
-								aria-valuemin={0}
-								aria-valuemax={Math.floor(duration)}
-								aria-valuenow={Math.floor(currentTime)}
-								aria-valuetext={intl.formatMessage(
-									messages.video_seeker_assistive_text_time_value,
-									{
-										currentTimeHours: currentTimeHours
-											? this.numberFormatterHours.format(currentTimeHours)
-											: '',
-										currentTimeMinutes: this.numberFormatterMinutes.format(currentTimeMinutes),
-										currentTimeSeconds: this.numberFormatterSeconds.format(currentTimeSeconds),
-										videoTotalHours: videoTotalHours
-											? this.numberFormatterHours.format(videoTotalHours)
-											: '',
-										videoTotalMinutes: this.numberFormatterMinutes.format(videoTotalMinutes),
-										videoTotalSeconds: this.numberFormatterSeconds.format(videoTotalSeconds),
-									},
-								)}
-							>
-								{disableThumbTooltip ? null : (
-									<CurrentTimeTooltip
-										draggable={false}
-										isDragging={isDragging}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-										className="current-time-tooltip"
-									>
-										{formatDuration(currentTime)}
-									</CurrentTimeTooltip>
-								)}
-							</CurrentTimeLineThumb>
-						) : (
-							<Thumb ref={this.thumbElement}>
-								{disableThumbTooltip ? null : (
-									<CurrentTimeTooltip
-										draggable={false}
-										isDragging={isDragging}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-										className="current-time-tooltip"
-									>
-										{formatDuration(currentTime)}
-									</CurrentTimeTooltip>
-								)}
-							</Thumb>
-						)}
+						<CurrentTimeLineThumb
+							role="slider"
+							ref={this.thumbElement}
+							onKeyDown={this.onTimeLineThumbKeydown}
+							tabIndex={0}
+							aria-orientation="horizontal"
+							aria-label={intl.formatMessage(messages.video_seeker_label_assistive_text)}
+							aria-valuemin={0}
+							aria-valuemax={Math.floor(duration)}
+							aria-valuenow={Math.floor(currentTime)}
+							aria-valuetext={intl.formatMessage(messages.video_seeker_assistive_text_time_value, {
+								currentTimeHours: currentTimeHours
+									? this.numberFormatterHours.format(currentTimeHours)
+									: '',
+								currentTimeMinutes: this.numberFormatterMinutes.format(currentTimeMinutes),
+								currentTimeSeconds: this.numberFormatterSeconds.format(currentTimeSeconds),
+								videoTotalHours: videoTotalHours
+									? this.numberFormatterHours.format(videoTotalHours)
+									: '',
+								videoTotalMinutes: this.numberFormatterMinutes.format(videoTotalMinutes),
+								videoTotalSeconds: this.numberFormatterSeconds.format(videoTotalSeconds),
+							})}
+						>
+							{disableThumbTooltip ? null : (
+								<CurrentTimeTooltip
+									draggable={false}
+									isDragging={isDragging}
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+									className="current-time-tooltip"
+								>
+									{formatDuration(currentTime)}
+								</CurrentTimeTooltip>
+							)}
+						</CurrentTimeLineThumb>
 					</CurrentTimeLine>
 				</TimeLine>
 			</TimeRangeWrapper>

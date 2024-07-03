@@ -8,9 +8,9 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 const containerStyles = xcss({
 	boxSizing: 'border-box',
-	borderColor: 'color.border.accent.orange',
-	borderStyle: 'solid',
-	borderWidth: 'border.width.indicator',
+	outlineColor: 'color.border.accent.orange',
+	outlineStyle: 'solid',
+	outlineWidth: 'border.width.indicator',
 	margin: 'auto',
 	marginTop: 'space.100',
 	backgroundColor: 'color.background.accent.green.subtler',

@@ -22,7 +22,7 @@ import { createEditorContentStyle } from '../../ContentStyles';
 const SWOOP_ANIMATION = `0.5s ${akEditorSwoopCubicBezier}`;
 const getTotalPadding = () => akEditorGutterPaddingDynamic() * 2;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const fullPageEditorWrapper = css({
 	minWidth: '340px',
 	height: '100%',
@@ -45,13 +45,13 @@ const scrollStyles = css(
 	scrollbarStyles,
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ScrollContainer = createEditorContentStyle(scrollStyles);
 ScrollContainer.displayName = 'ScrollContainer';
 
 // transition used to match scrollbar with config panel opening animation
 // only use animation when opening as there is a bug with floating toolbars.
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const positionedOverEditorStyle = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingRight: `${akEditorContextPanelWidth}px`,
@@ -66,7 +66,7 @@ export const positionedOverEditorStyle = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentArea = css({
 	display: 'flex',
 	flexDirection: 'row',
@@ -79,12 +79,12 @@ export const contentArea = css({
 	transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentAreaHeightNoToolbar = css({
 	height: '100%',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sidebarArea = css({
 	height: '100%',
 	boxSizing: 'border-box',
@@ -93,7 +93,7 @@ export const sidebarArea = css({
 
 // initially hide until we have a containerWidth and can properly size them,
 // otherwise they can cause the editor width to extend which is non-recoverable
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const editorContentAreaHideContainer = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.fabric-editor--full-width-mode': {
@@ -213,7 +213,7 @@ const editorContentArea = css(
 	},
 );
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const editorContentGutterStyle = css({
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

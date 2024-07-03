@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.22.4",
+	"version": "1.22.6",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,10 +41,10 @@
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^18.1.0",
-		"@atlaskit/editor-common": "^83.6.0",
+		"@atlaskit/editor-common": "^84.0.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
-		"@atlaskit/editor-plugin-annotation": "1.14.0",
+		"@atlaskit/editor-plugin-annotation": "1.14.1",
 		"@atlaskit/editor-plugin-decorations": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
@@ -135,9 +135,6 @@
 		"platform.media-experience.media-viewer-v2_hgsii": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.a11y_video_controls_keyboard_support_yhcxh": {
-			"type": "boolean"
 		},
 		"platform.editor.media.fix-copy-paste-excel_62g4s": {
 			"type": "boolean"

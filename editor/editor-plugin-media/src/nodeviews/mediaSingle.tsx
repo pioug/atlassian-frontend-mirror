@@ -636,18 +636,17 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	}
 
 	stopEvent(event: Event): boolean {
-		if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {
-			if (
-				this.isNodeSelected() &&
-				event instanceof KeyboardEvent &&
-				event?.target instanceof HTMLElement
-			) {
-				const targetType = (event.target as HTMLElement & { type?: string }).type;
-				if (event.key === 'Enter' && targetType === 'button') {
-					return true;
-				}
+		if (
+			this.isNodeSelected() &&
+			event instanceof KeyboardEvent &&
+			event?.target instanceof HTMLElement
+		) {
+			const targetType = (event.target as HTMLElement & { type?: string }).type;
+			if (event.key === 'Enter' && targetType === 'button') {
+				return true;
 			}
 		}
+
 		return false;
 	}
 

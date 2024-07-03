@@ -43,7 +43,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/avatar": "^21.10.0",
+		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/ssr": "*",

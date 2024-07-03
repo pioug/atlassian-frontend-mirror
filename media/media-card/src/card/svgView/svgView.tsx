@@ -1,14 +1,14 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { type MouseEvent, useState, useRef } from 'react';
+import React, { type MouseEvent, useState, useRef, useEffect, useCallback } from 'react';
 import { type FileIdentifier, type ImageResizeMode } from '@atlaskit/media-client';
 import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
 	type UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { type CardStatus, type MediaCardCursor, type CardDimensions } from '../../types';
+import { type CardDimensions, type CardStatus, type MediaCardCursor } from '../../types';
 import { type MediaFilePreview } from '@atlaskit/media-file-preview';
 import { createAndFireMediaCardEvent } from '../../utils/analytics';
 import { ImageRenderer } from '../ui/imageRenderer/imageRenderer';
@@ -18,27 +18,11 @@ import { Wrapper, ImageContainer } from '../ui/wrapper';
 import { fileCardImageViewSelector } from '../classnames';
 import { useBreakpoint } from '../useBreakpoint';
 
-import MediaSvg, { type MediaSvgProps, type MediaSVGError } from '@atlaskit/media-svg';
+import MediaSvg, { type MediaSVGError } from '@atlaskit/media-svg';
 import { calculateSvgDimensions } from './helpers';
 import OpenMediaViewerButton from '../ui/openMediaViewerButton/openMediaViewerButton';
 import { MediaCardError } from '../../errors';
 import { getErrorReason } from './errors';
-
-export const convertResizeMode = (
-	resizeMode?: ImageResizeMode,
-): React.CSSProperties['objectFit'] => {
-	switch (resizeMode) {
-		case 'crop':
-			return 'cover';
-		case 'fit':
-		case 'full-fit':
-			return 'scale-down';
-		case 'stretchy-fit':
-			return 'contain';
-		default:
-			return;
-	}
-};
 
 export type OnClickFn = (
 	event: React.MouseEvent<HTMLDivElement | HTMLButtonElement>,
@@ -49,7 +33,7 @@ export interface SvgViewBaseOwnProps {
 	readonly testId?: string;
 	identifier: FileIdentifier;
 	readonly status: CardStatus;
-	readonly dimensions: CardDimensions;
+	readonly cardDimensions: CardDimensions;
 	readonly onClick?: OnClickFn;
 	readonly onMouseEnter?: (event: MouseEvent<HTMLDivElement>) => void;
 	readonly selected?: boolean;
@@ -58,7 +42,7 @@ export interface SvgViewBaseOwnProps {
 	readonly mediaCardCursor?: MediaCardCursor;
 	readonly progress?: number;
 	readonly alt?: string;
-	readonly resizeMode?: ImageResizeMode;
+	readonly resizeMode: ImageResizeMode;
 	readonly onLoad: () => void;
 	readonly onError: (error: MediaCardError) => void;
 	readonly shouldOpenMediaViewer?: boolean;
@@ -69,7 +53,7 @@ export type SvgViewProps = SvgViewBaseOwnProps & WithAnalyticsEventsProps;
 
 export const SvgViewBase = ({
 	identifier,
-	dimensions,
+	cardDimensions,
 	onClick,
 	onMouseEnter,
 	testId,
@@ -88,12 +72,23 @@ export const SvgViewBase = ({
 }: SvgViewProps) => {
 	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [didPreviewRender, setDidPreviewRender] = useState<boolean>(false);
-	const [svgDimensions, setSvgDimensions] = useState<MediaSvgProps['dimensions']>();
-	const divRef = useRef<HTMLDivElement>(null);
-	const breakpoint = useBreakpoint(dimensions?.width, divRef);
+	const [svgDimensions, setSvgDimensions] = useState<React.CSSProperties>();
+	const imgRef = useRef<HTMLImageElement>(null);
+	const wrapperRef = useRef<HTMLDivElement>(null);
+	const breakpoint = useBreakpoint(cardDimensions.width, wrapperRef);
+
+	const calculateDimensions = useCallback(
+		(targetImgElem: HTMLImageElement) => {
+			if (!wrapperRef.current || !targetImgElem) {
+				return;
+			}
+			setSvgDimensions(calculateSvgDimensions(targetImgElem, wrapperRef.current, resizeMode));
+		},
+		[resizeMode],
+	);
 
 	const onSvgLoad = (evt: React.SyntheticEvent<HTMLImageElement, Event>) => {
-		setSvgDimensions(calculateSvgDimensions(evt.currentTarget, resizeMode));
+		calculateDimensions(evt.currentTarget);
 		setDidSvgRender(true);
 		onLoad();
 	};
@@ -107,6 +102,12 @@ export const SvgViewBase = ({
 		setDidPreviewRender(true);
 	};
 
+	useEffect(() => {
+		if (imgRef.current) {
+			calculateDimensions(imgRef.current);
+		}
+	}, [imgRef, calculateDimensions]);
+
 	return (
 		<React.Fragment>
 			{shouldOpenMediaViewer && (
@@ -118,10 +119,10 @@ export const SvgViewBase = ({
 			)}
 			<Wrapper
 				testId={testId || 'media-card-svg-wrapper'}
-				dimensions={dimensions}
+				dimensions={cardDimensions}
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
-				innerRef={divRef}
+				innerRef={wrapperRef}
 				mediaCardCursor={mediaCardCursor}
 				selected={!!selected}
 				breakpoint={breakpoint}
@@ -143,13 +144,14 @@ export const SvgViewBase = ({
 					<MediaSvg
 						testId="media-card-svg"
 						identifier={identifier}
-						dimensions={svgDimensions}
 						onLoad={onSvgLoad}
 						onError={onSvgError}
 						style={{
 							visibility: didSvgRender ? 'visible' : 'hidden',
-							objectFit: convertResizeMode(resizeMode),
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+							...svgDimensions,
 						}}
+						ref={imgRef}
 					/>
 					{!!cardPreview && !didSvgRender && (
 						<ImageRenderer

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "13.3.8",
+	"version": "13.4.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -68,6 +68,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"buffer": "^6.0.3",
@@ -96,6 +97,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.proforma-form-builder-feedback_hupaz": {
+			"type": "boolean"
+		},
+		"platform.custom-select-feedback-options_c61l9": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.18.0
+
+### Minor Changes
+
+- [#117005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117005)
+  [`af9ff1e4ec472`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af9ff1e4ec472) -
+  The recommended config now has `consistent-css-prop-usage` linting enabled for the `xcss` prop.
+
 ## 0.17.0
 
 ### Minor Changes

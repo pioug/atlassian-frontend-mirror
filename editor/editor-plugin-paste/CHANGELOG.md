@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.0
+
+### Minor Changes
+
+- [`0d2247352e10e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d2247352e10e) -
+  Adds mentionLocalIds to the pasted analytics event.
+
 ## 1.4.3
 
 ### Patch Changes

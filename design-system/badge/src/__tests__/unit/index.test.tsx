@@ -6,9 +6,11 @@ const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
 };
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import Badge from '../../index';
 
-describe('badge component', () => {
+ffTest.both('platform.design-system-team.component-visual-refresh_t8zbo', 'badge component', () => {
 	const testId = 'test';
 
 	it('should render 0 by default', () => {

@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 1.53.2
+
+### Patch Changes
+
+- [#116982](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116982)
+  [`a8a3ff480c6a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8a3ff480c6a1) -
+  Cleaned up feature flag
+  `platform.design-system-team.mutation-observer-performance-improvement_8usdg`.
+
 ## 1.53.1
 
 ### Patch Changes

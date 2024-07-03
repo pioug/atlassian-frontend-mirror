@@ -2,7 +2,7 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerButtonStyles = css({
 	all: 'unset',
 	backgroundColor: 'transparent',
@@ -26,7 +26,7 @@ export const triggerButtonStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerLozengeStyles = css({
 	alignItems: 'center',
 	display: 'flex',
@@ -39,7 +39,7 @@ export const triggerLozengeStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const dropdownItemGroupStyles = css({
 	maxHeight: '300px',
 	overflowY: 'auto',

@@ -21,7 +21,7 @@ export const menuItemDimensions = {
 // Recommendation: Replace directly with 4 due to itemSpacing being used in calculations
 export const itemSpacing = gridSize() / 2;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contextualMenuArrow = css`
 	display: flex;
 	&::after {
@@ -74,7 +74,7 @@ export const buttonStyle = (selected: boolean) => css`
 `;
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const buttonWrapperStyle = css`
 	border: 1px solid transparent;
 	margin: ${token('space.025', '2px')};

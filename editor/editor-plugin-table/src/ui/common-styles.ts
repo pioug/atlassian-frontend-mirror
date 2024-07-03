@@ -1082,7 +1082,7 @@ export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	${shadowSentinelStyles}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const tableFullPageEditorStyles = css`
 	.ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
 		margin-left: 0;
@@ -1092,7 +1092,7 @@ export const tableFullPageEditorStyles = css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const tableCommentEditorStyles = css`
 	.ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
 		margin-left: 0;

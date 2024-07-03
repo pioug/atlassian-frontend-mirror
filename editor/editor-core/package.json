@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "193.30.9",
+	"version": "194.0.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^18.1.0",
-		"@atlaskit/editor-common": "^83.6.0",
+		"@atlaskit/editor-common": "^84.0.0",
 		"@atlaskit/editor-plugins": "^3.3.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
@@ -80,18 +80,18 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.0.11",
+		"@af/editor-examples-helpers": "0.0.13",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.4.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
-		"@atlaskit/collab-provider": "9.32.2",
+		"@atlaskit/collab-provider": "9.32.3",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
-		"@atlaskit/editor-plugin-annotation": "1.14.0",
+		"@atlaskit/editor-plugin-annotation": "1.14.1",
 		"@atlaskit/editor-plugin-card": "^2.3.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-list": "^3.5.0",
-		"@atlaskit/editor-plugin-paste": "^1.4.0",
+		"@atlaskit/editor-plugin-paste": "^1.5.0",
 		"@atlaskit/editor-test-helpers": "*",
 		"@atlaskit/link-provider": "^1.12.0",
 		"@atlaskit/logo": "^14.1.0",
@@ -107,7 +107,7 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.88",
+		"@atlassian/search-provider": "2.4.89",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -215,9 +215,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.media.preview-in-full-page": {
-			"type": "boolean"
-		},
-		"platform.editor.media.alluploadsfinished-dispatch-update_ivtow": {
 			"type": "boolean"
 		},
 		"platform.editor.inline_extension.extended_lcqdn": {
@@ -350,6 +347,10 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
+		"platform_editor_tables_padding_increase": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
 		"platform.editor.elements.drag-and-drop-ed-23892": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -375,6 +376,7 @@
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
 		"./element-browser": "./src/element-browser.ts",
+		"./i18n": "./src/i18n/index.ts",
 		"./i18n-languages": "./src/i18n/languages.ts",
 		"./labs-next": "./src/labs-next.ts",
 		"./messages": "./src/messages.ts",
@@ -393,6 +395,7 @@
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
 		"./element-browser": "./src/element-browser.ts",
+		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": "./src/i18n/*.ts",
 		"./i18n-languages": "./src/i18n/languages.ts",
 		"./labs-next": "./src/labs-next.ts",

@@ -1,5 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import getGlobalTheme from './get-global-theme';
 import { type ActiveThemeState } from './theme-config';
@@ -27,53 +25,29 @@ export default class ThemeMutationObserver {
 
 	constructor(callback: ThemeCallback) {
 		this.callback = callback;
-		if (
-			getBooleanFF('platform.design-system-team.mutation-observer-performance-improvement_8usdg')
-		) {
-			ThemeMutationObserver.callbacks.add(callback);
-		}
+		ThemeMutationObserver.callbacks.add(callback);
 	}
 
 	observe() {
-		if (
-			getBooleanFF('platform.design-system-team.mutation-observer-performance-improvement_8usdg')
-		) {
-			if (!ThemeMutationObserver.observer) {
-				ThemeMutationObserver.observer = new MutationObserver(() => {
-					const theme = getGlobalTheme();
-					ThemeMutationObserver.callbacks.forEach((callback) => callback(theme));
-				});
-				// Observer only needs to be configured once
-				ThemeMutationObserver.observer.observe(document.documentElement, {
-					attributeFilter: [THEME_DATA_ATTRIBUTE, COLOR_MODE_ATTRIBUTE],
-				});
-			}
-		} else {
-			if (!this.legacyObserver) {
-				this.legacyObserver = new MutationObserver(() => {
-					this.callback(getGlobalTheme());
-				});
-			}
-
-			this.legacyObserver.observe(document.documentElement, {
+		if (!ThemeMutationObserver.observer) {
+			ThemeMutationObserver.observer = new MutationObserver(() => {
+				const theme = getGlobalTheme();
+				ThemeMutationObserver.callbacks.forEach((callback) => callback(theme));
+			});
+			// Observer only needs to be configured once
+			ThemeMutationObserver.observer.observe(document.documentElement, {
 				attributeFilter: [THEME_DATA_ATTRIBUTE, COLOR_MODE_ATTRIBUTE],
 			});
 		}
 	}
 
 	disconnect() {
-		if (
-			getBooleanFF('platform.design-system-team.mutation-observer-performance-improvement_8usdg')
-		) {
-			if (this.callback) {
-				ThemeMutationObserver.callbacks.delete(this.callback);
-			}
-			if (ThemeMutationObserver.callbacks.size === 0 && ThemeMutationObserver.observer) {
-				ThemeMutationObserver.observer.disconnect();
-				ThemeMutationObserver.observer = null;
-			}
-		} else {
-			this.legacyObserver && this.legacyObserver.disconnect();
+		if (this.callback) {
+			ThemeMutationObserver.callbacks.delete(this.callback);
+		}
+		if (ThemeMutationObserver.callbacks.size === 0 && ThemeMutationObserver.observer) {
+			ThemeMutationObserver.observer.disconnect();
+			ThemeMutationObserver.observer = null;
 		}
 	}
 }

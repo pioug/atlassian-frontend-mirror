@@ -8,8 +8,11 @@ import { type FC, useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import PersonIcon from '@atlaskit/icon/glyph/person';
+import PersonIcon from '@atlaskit/icon/core/person';
+import ReleaseIcon from '@atlaskit/icon/core/release';
+import PersonIconLegacy from '@atlaskit/icon/glyph/person';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -24,14 +27,18 @@ interface AvatarImageProps {
 	testId?: string;
 }
 
-export const ICON_BACKGROUND = token('color.icon.inverse', N0);
-export const ICON_COLOR = token('color.icon.subtle', N90);
-
 const avatarDefaultIconStyles = css({
 	display: 'block',
 	width: '100%',
 	height: '100%',
-	backgroundColor: ICON_COLOR,
+	backgroundColor: token('color.icon.subtle', N90),
+});
+
+const avatarDefaultIconVisualRefreshStyles = css({
+	display: 'block',
+	width: '100%',
+	height: '100%',
+	backgroundColor: token('color.background.accent.gray.subtler'),
 });
 
 const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
@@ -76,20 +83,43 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 
 	if (!src || hasImageErrored) {
 		return (
-			<span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
+			<span
+				css={[
+					fg('platform.design-system-team.component-visual-refresh_t8zbo')
+						? avatarDefaultIconVisualRefreshStyles
+						: avatarDefaultIconStyles,
+					nestedAvatarStyles[size],
+				]}
+			>
 				{appearance === 'circle' ? (
-					<PersonIcon
+					fg('platform.design-system-team.component-visual-refresh_t8zbo') ? (
+						<PersonIcon
+							label={alt}
+							color={token('color.icon.subtle')}
+							testId={testId && `${testId}--person`}
+							spacing="spacious"
+						/>
+					) : (
+						<PersonIconLegacy
+							label={alt}
+							primaryColor={token('color.icon.inverse', N0)}
+							secondaryColor={token('color.icon.subtle', N90)}
+							testId={testId && `${testId}--person`}
+							aria-hidden={isHidden}
+						/>
+					)
+				) : fg('platform.design-system-team.component-visual-refresh_t8zbo') ? (
+					<ReleaseIcon
 						label={alt}
-						primaryColor={ICON_BACKGROUND}
-						secondaryColor={ICON_COLOR}
-						testId={testId && `${testId}--person`}
-						aria-hidden={isHidden}
+						color={token('color.icon.subtle')}
+						testId={testId && `${testId}--ship`}
+						spacing="spacious"
 					/>
 				) : (
 					<ShipIcon
 						label={alt}
-						primaryColor={ICON_BACKGROUND}
-						secondaryColor={ICON_COLOR}
+						primaryColor={token('color.icon.inverse', N0)}
+						secondaryColor={token('color.icon.subtle', N90)}
 						testId={testId && `${testId}--ship`}
 						aria-hidden={isHidden}
 					/>

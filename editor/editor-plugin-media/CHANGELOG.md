@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-media
 
+## 1.22.6
+
+### Patch Changes
+
+- [#116846](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116846)
+  [`b9c3dabe8ea72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9c3dabe8ea72) -
+  ECA11Y-66: Make video controls accessible for keyboard users, feature flag removal
+
+## 1.22.5
+
+### Patch Changes
+
+- [`d9b562bd66f8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9b562bd66f8e) -
+  [ux] [ED-23947] restoring the original order of the typeahead menu so that actions, media,
+  mentions and emojis are above the fold (in the top 5 results). this change is a major because it
+  removes the `getEditorFeatureFlags prop` for plugins. if any consumers who have adopted these
+  changes to the public API, they should remove them on their side too.
+- Updated dependencies
+
 ## 1.22.4
 
 ### Patch Changes

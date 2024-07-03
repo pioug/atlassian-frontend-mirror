@@ -15,8 +15,8 @@ import {
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { UNSAFE_LAYERING, UNSAFE_useLayering } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_LAYERING, useCloseOnEscapePress } from '@atlaskit/layering';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, Reference } from '@atlaskit/popper';
 
 import type { InlineDialogProps } from '../types';
@@ -37,40 +37,13 @@ const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
 	);
 };
 
-const InlineDialogWithLayering: FC<InlineDialogProps> = ({
-	isOpen,
-	onContentBlur,
-	onContentClick,
-	onContentFocus,
-	onClose,
-	placement,
-	strategy,
-	testId,
-	content,
-	children,
-}) => {
-	return (
-		<UNSAFE_LAYERING
-			isDisabled={
-				getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') ? !isOpen : true
-			}
-		>
-			<InlineDialog
-				isOpen={isOpen}
-				onContentBlur={onContentBlur}
-				onContentClick={onContentClick}
-				onContentFocus={onContentFocus}
-				onClose={onClose}
-				placement={placement}
-				strategy={strategy}
-				testId={testId}
-				content={content}
-			>
-				{children}
-			</InlineDialog>
-		</UNSAFE_LAYERING>
-	);
+// escape close manager for layering
+const EscapeCloseManager = ({ handleClose }: { handleClose: (event: KeyboardEvent) => void }) => {
+	useCloseOnEscapePress({ onClose: handleClose });
+	// only create a dummy component for using ths hook in class component
+	return <span />;
 };
+
 const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
 	isOpen = false,
 	onContentBlur = noop,
@@ -88,15 +61,16 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	// we put this into a ref to avoid handleCloseRequest having this as a dependency
 	const onCloseRef = useRef<typeof onClose>(onClose);
 
+	const isLayeringEnabled =
+		fg('platform.design-system-team.inline-message-layering_wfp1p') && isOpen;
+
 	useEffect(() => {
 		onCloseRef.current = onClose;
 	});
-	const { isLayerDisabled } = UNSAFE_useLayering();
 
 	const handleCloseRequest = useCallback(
 		(event: MouseEvent | KeyboardEvent) => {
 			const { target } = event;
-
 			// checks for when target is not HTMLElement
 			if (!(target instanceof HTMLElement)) {
 				return;
@@ -109,23 +83,22 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 				return;
 			}
 
-			if (getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p')) {
-				if (!isLayerDisabled()) {
-					onCloseRef.current?.({ isOpen: false, event });
-				}
-			} else {
-				// handles the case where inline dialog opens portalled elements such as modal
-				if (checkIsChildOfPortal(target)) {
-					return;
-				}
+			if (isLayeringEnabled) {
+				onCloseRef.current?.({ isOpen: false, event });
+				return;
+			}
 
-				// call onClose if the click originated from outside the dialog
-				if (containerRef.current && !containerRef.current.contains(target)) {
-					onCloseRef.current?.({ isOpen: false, event });
-				}
+			// handles the case where inline dialog opens portalled elements such as modal
+			if (checkIsChildOfPortal(target)) {
+				return;
+			}
+
+			// call onClose if the click originated from outside the dialog
+			if (containerRef.current && !containerRef.current.contains(target)) {
+				onCloseRef.current?.({ isOpen: false, event });
 			}
 		},
-		[isLayerDisabled],
+		[isLayeringEnabled],
 	);
 
 	const handleClick = useCallback(
@@ -136,16 +109,13 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 			}
 
 			// if feature flag is enabled we won't file the close event when clicking inside dialog
-			if (
-				getBooleanFF('platform.design-system-team.inline-message-layering_wfp1p') &&
-				containerRef.current?.contains(event.target as Node)
-			) {
+			if (isLayeringEnabled && containerRef.current?.contains(event.target as Node)) {
 				return;
 			}
 
 			handleCloseRequest(event);
 		},
-		[handleCloseRequest],
+		[handleCloseRequest, isLayeringEnabled],
 	);
 
 	useEffect(() => {
@@ -153,13 +123,11 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 			return;
 		}
 
-		const unbind = bind(window, {
+		return bind(window, {
 			type: 'click',
 			listener: handleClick,
 			options: { capture: true },
 		});
-
-		return unbind;
 	}, [isOpen, handleClick]);
 
 	const handleKeyDown = useCallback(
@@ -172,7 +140,8 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	);
 
 	useEffect(() => {
-		if (!isOpen) {
+		// if layering is enabled, we will use useCloseOnEscapePress hook instead
+		if (!isOpen || isLayeringEnabled) {
 			return;
 		}
 
@@ -183,7 +152,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 		});
 
 		return unbind;
-	}, [isOpen, handleKeyDown]);
+	}, [isOpen, handleKeyDown, isLayeringEnabled]);
 
 	const popper = isOpen ? (
 		<Popper placement={placement} strategy={strategy}>
@@ -230,7 +199,14 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 					</NodeResolver>
 				)}
 			</Reference>
-			{popper}
+			{isLayeringEnabled ? (
+				<UNSAFE_LAYERING isDisabled={false}>
+					{popper}
+					<EscapeCloseManager handleClose={handleCloseRequest} />
+				</UNSAFE_LAYERING>
+			) : (
+				popper
+			)}
 		</Manager>
 	);
 });
@@ -256,5 +232,5 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(InlineDialogWithLayering),
+	})(InlineDialog),
 );

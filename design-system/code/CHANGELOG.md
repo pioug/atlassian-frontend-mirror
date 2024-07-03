@@ -1,5 +1,14 @@
 # @atlaskit/code
 
+## 15.4.0
+
+### Minor Changes
+
+- [#116950](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116950)
+  [`c3908db22d486`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3908db22d486) -
+  CodeBlock supports a new `firstLineNumber` prop, which allows the starting line number to be set
+  (defaulting to 1).
+
 ## 15.3.1
 
 ### Patch Changes

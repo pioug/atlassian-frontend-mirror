@@ -5,8 +5,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import useLinkUpgradeDiscoverability from '../../common/hooks/useLinkUpgradeDiscoverability';
 import {
@@ -18,7 +16,6 @@ import {
 } from '../../common/local-storage';
 import type { SmartCardProps } from '../../nodeviews/genericCard';
 import { getResolvedAttributesFromStore } from '../../utils';
-import OverlayWrapper from '../ConfigureOverlay';
 import InlineCardOverlay from '../InlineCardOverlay';
 import { DiscoveryPulse } from '../Pulse';
 
@@ -29,7 +26,9 @@ type AwarenessWrapperProps = {
 	markMostRecentlyInsertedLink: (isLinkMostRecentlyInserted: boolean) => void;
 	setOverlayHoveredStyles: (isHovered: boolean) => void;
 	url: string;
-	view: EditorView;
+	isOverlayEnabled?: boolean;
+	isPulseEnabled?: boolean;
+	isSelected?: boolean;
 } & Partial<SmartCardProps>;
 
 // editor adds a standard line-height that is bigger than an inline smart link
@@ -54,7 +53,6 @@ export const AwarenessWrapper = ({
 	pluginInjectionApi,
 	setOverlayHoveredStyles,
 	url,
-	view,
 }: AwarenessWrapperProps) => {
 	const [isHovered, setIsHovered] = useState(false);
 
@@ -106,13 +104,6 @@ export const AwarenessWrapper = ({
 	);
 
 	const cardWithOverlay = useMemo(() => {
-		if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
-			return (
-				<OverlayWrapper targetElementPos={linkPosition} view={view}>
-					{children}
-				</OverlayWrapper>
-			);
-		}
 		if (shouldShowLinkOverlay) {
 			return (
 				<InlineCardOverlay
@@ -135,8 +126,6 @@ export const AwarenessWrapper = ({
 		isInserted,
 		isHovered,
 		url,
-		view,
-		linkPosition,
 		handleOverlayChange,
 	]);
 

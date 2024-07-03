@@ -94,14 +94,14 @@ const extensionFrameContent = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const removeMarginsAndBorder = css({
 	marginLeft: 0,
 	marginRight: 0,
 	border: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sharedMultiBodiedExtensionStyles = {
 	mbeExtensionContainer,
 	mbeNavigation,

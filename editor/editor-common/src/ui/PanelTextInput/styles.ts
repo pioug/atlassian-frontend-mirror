@@ -6,7 +6,7 @@ import { B100, N100, N30, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // Normal .className gets overridden by input[type=text] hence this hack to produce input.className
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const panelTextInput = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'input&': {

@@ -10,6 +10,7 @@ import {
 import { type CSSObject } from '@emotion/react';
 
 import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type Direction } from '@atlaskit/motion';
 
 export type Widths = {
 	extended: { width: string };
@@ -46,6 +47,10 @@ export interface BaseProps {
 	 * Sets the width of the drawer.
 	 */
 	width?: DrawerWidth;
+	/**
+	 * Sets the direction the draw enters from. The default is "left".
+	 */
+	enterFrom?: Direction;
 	/**
 	 * A callback function that will be called when the drawer has finished its opening transition.
 	 */

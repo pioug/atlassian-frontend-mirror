@@ -17,7 +17,7 @@ export const fixedPlayButtonStyles = `
   }
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const playButtonWrapperStyles = css({
 	position: 'absolute',
 	top: 0,
@@ -34,7 +34,7 @@ export const playButtonWrapperStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const backgroundStyles = css({
 	transitionProperty: 'width, height',
 	transitionDuration: '0.1s',

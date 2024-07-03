@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 import { useRouterLink } from '@atlaskit/app-provider';
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { LinkItemProps } from '../types';
@@ -54,6 +54,7 @@ const LinkItem = memo(
 				// picked it out and supressed the expected type error.
 				// @ts-expect-error
 				className: UNSAFE_className,
+				UNSAFE_shouldDisableRouterLink,
 				...rest
 			} = props;
 			const onMouseDownHandler = onMouseDown;
@@ -74,10 +75,11 @@ const LinkItem = memo(
 			 * - it's not an external link (starting with `http://` or `https://`)
 			 * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.).
 			 */
-			const isRouterLink = RouterLink && !isExternal && !isNonHttpBased;
+			const isRouterLink =
+				!UNSAFE_shouldDisableRouterLink && RouterLink && !isExternal && !isNonHttpBased;
 
 			const Component =
-				getBooleanFF('platform.wanjel.use-router-links-for-the-linkitem-component') && isRouterLink
+				isRouterLink && fg('platform.wanjel.use-router-links-for-the-linkitem-component')
 					? RouterLink
 					: 'a';
 
@@ -93,7 +95,7 @@ const LinkItem = memo(
 					{...rest}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={
-						getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
+						fg('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
 							? undefined
 							: UNSAFE_className
 					}

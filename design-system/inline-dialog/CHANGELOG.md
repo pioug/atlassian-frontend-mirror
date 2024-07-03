@@ -1,5 +1,13 @@
 # @atlaskit/inline-dialog
 
+## 14.2.3
+
+### Patch Changes
+
+- [#116568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116568)
+  [`f8fef52dc49ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f8fef52dc49ff) -
+  Correct the usage of handling escape onClose request
+
 ## 14.2.2
 
 ### Patch Changes

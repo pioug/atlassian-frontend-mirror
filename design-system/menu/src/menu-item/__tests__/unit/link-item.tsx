@@ -248,6 +248,16 @@ describe('<LinkItem />', () => {
 				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
 			});
 
+			it('should render a standard <a> anchor when UNSAFE_shouldDisableRouterLink is true', () => {
+				render(
+					<LinkItem href="/home" testId="link-item" UNSAFE_shouldDisableRouterLink>
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
 			it('should render a standard <a> anchor for external links (http)', () => {
 				render(
 					<LinkItem href="http://www.atlassian.com" testId="link-item">
@@ -324,6 +334,18 @@ describe('<LinkItem />', () => {
 				render(
 					<AppProvider>
 						<LinkItem href="/home" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor when UNSAFE_shouldDisableRouterLink is true', () => {
+				render(
+					<AppProvider>
+						<LinkItem href="/home" testId="link-item" UNSAFE_shouldDisableRouterLink>
 							Link item
 						</LinkItem>
 					</AppProvider>,
@@ -428,6 +450,18 @@ describe('<LinkItem />', () => {
 				);
 
 				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'true');
+			});
+
+			it('should render a standard <a> anchor when UNSAFE_shouldDisableRouterLink is true', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<LinkItem href="/home" testId="link-item" UNSAFE_shouldDisableRouterLink>
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
 			});
 
 			it('should render a standard <a> anchor for external links (http)', () => {

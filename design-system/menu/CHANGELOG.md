@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 2.7.0
+
+### Minor Changes
+
+- [#117121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117121)
+  [`a3a6ca91979d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3a6ca91979d4) -
+  Adds a new optional `UNSAFE_shouldDisableRouterLink` prop, which when set to `true`, will opt out
+  of using a router link and instead use a regular anchor element.
+
 ## 2.6.2
 
 ### Patch Changes

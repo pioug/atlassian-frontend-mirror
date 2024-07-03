@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { TEXT_HIGHLIGHT_CLASS } from '../pm-plugins/constants';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const textHighlightStyle = css`
 	.${TEXT_HIGHLIGHT_CLASS} {
 		background-color: ${token('color.background.accent.blue.subtlest', '#E9F2FF')};

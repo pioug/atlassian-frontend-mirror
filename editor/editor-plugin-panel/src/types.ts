@@ -1,7 +1,4 @@
-import type {
-	GetEditorFeatureFlags,
-	LongPressSelectionPluginOptions,
-} from '@atlaskit/editor-common/types';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export const pluginKey = new PluginKey('panelPlugin');
@@ -11,7 +8,6 @@ export interface PanelPluginOptions extends LongPressSelectionPluginOptions, Pan
 export interface PanelPluginConfig {
 	allowCustomPanel?: boolean;
 	allowCustomPanelEdit?: boolean;
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export type DomPanelAtrrs = {

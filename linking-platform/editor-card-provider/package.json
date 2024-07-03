@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "3.4.2",
+	"version": "3.4.3",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-platform": "0.7.1",
+		"@atlaskit/eslint-plugin-platform": "0.7.2",
 		"@atlaskit/link-client-extension": "^1.9.0",
 		"@atlaskit/link-extractors": "^1.5.0",
 		"@atlaskit/linking-common": "^5.7.0",

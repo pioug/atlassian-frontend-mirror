@@ -66,9 +66,7 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 						title: formatMessage(messages.expand),
 						description: formatMessage(messages.expandDescription),
 						keywords: ['accordion', 'collapse'],
-						priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
-							? 700
-							: 600,
+						priority: 600,
 						icon: () => <IconExpand />,
 						action(insert, state) {
 							const node = createExpandNode(state);

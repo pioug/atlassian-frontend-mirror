@@ -4,8 +4,16 @@ import BadgeBasic from '../../../examples/0-basic';
 import BadgeCustomization from '../../../examples/4-customization';
 import BadgeContainers from '../../../examples/5-containers';
 
-snapshot(BadgeCustomization);
-snapshot(BadgeContainers);
+snapshot(BadgeCustomization, {
+	featureFlags: {
+		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+	},
+});
+snapshot(BadgeContainers, {
+	featureFlags: {
+		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+	},
+});
 
 snapshot(BadgeBasic, {
 	variants: [
@@ -28,4 +36,7 @@ snapshot(BadgeBasic, {
 			},
 		},
 	],
+	featureFlags: {
+		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+	},
 });

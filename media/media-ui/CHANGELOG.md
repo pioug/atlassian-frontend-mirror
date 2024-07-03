@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 25.10.9
+
+### Patch Changes
+
+- [#116846](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116846)
+  [`b9c3dabe8ea72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9c3dabe8ea72) -
+  ECA11Y-66: Make video controls accessible for keyboard users, feature flag removal
+
 ## 25.10.8
 
 ### Patch Changes

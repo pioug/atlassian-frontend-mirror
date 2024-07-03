@@ -113,6 +113,17 @@ describe('Highlight', () => {
 		expect(lineNumbers[0]).toHaveAttribute('data-ds--line-number', '1');
 	});
 
+	it('should render line number element if showLineNumbers flag is set to true based on value of firstLineNumber', () => {
+		const highlight = (
+			<Highlight {...props} showLineNumbers={true} firstLineNumber={333} text={javaCodeLine} />
+		);
+		const { container } = render(highlight);
+		const lineNumbers = container.getElementsByClassName('linenumber');
+
+		expect(lineNumbers.length).toBe(1);
+		expect(lineNumbers[0]).toHaveAttribute('data-ds--line-number', '333');
+	});
+
 	it('should render line numbers for each code line', () => {
 		const highlight = <Highlight {...props} showLineNumbers={true} text={javaCodeBlock} />;
 		const { container } = render(highlight);
@@ -120,6 +131,17 @@ describe('Highlight', () => {
 
 		expect(lineNumbers.length).toBe(5);
 		expect(lineNumbers[4]).toHaveAttribute('data-ds--line-number', '5');
+	});
+
+	it('should render line numbers for each code line based on value of firstLineNumber', () => {
+		const highlight = (
+			<Highlight {...props} showLineNumbers={true} firstLineNumber={333} text={javaCodeBlock} />
+		);
+		const { container } = render(highlight);
+		const lineNumbers = container.getElementsByClassName('linenumber');
+
+		expect(lineNumbers.length).toBe(5);
+		expect(lineNumbers[4]).toHaveAttribute('data-ds--line-number', '337');
 	});
 
 	it('should not render line number element if showLineNumbers flag is set to false', () => {

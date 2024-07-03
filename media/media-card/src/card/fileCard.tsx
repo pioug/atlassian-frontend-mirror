@@ -1,5 +1,5 @@
 import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
 	type FileDetails,
@@ -116,7 +116,7 @@ export interface FileCardProps extends CardEventProps {
 
 export type FileCardBaseProps = FileCardProps & WithAnalyticsEventsProps;
 
-const LoadedCardView = getBooleanFF('platform.media-experience.card-views-refactor_b91lr')
+const LoadedCardView = fg('platform.media-experience.card-views-refactor_b91lr')
 	? CardViews
 	: CardView;
 
@@ -433,10 +433,7 @@ export const FileCard = ({
 	};
 
 	const onImageError = (newCardPreview?: MediaFilePreview) => {
-		if (
-			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
-			metadata.mimeType === 'image/svg+xml'
-		) {
+		if (metadata.mimeType === 'image/svg+xml' && fg('platform.media-card-svg-rendering_6tdbv')) {
 			return;
 		}
 		onImageErrorBase(newCardPreview);
@@ -447,10 +444,7 @@ export const FileCard = ({
 	};
 
 	const onImageLoad = (newCardPreview?: MediaFilePreview) => {
-		if (
-			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
-			metadata.mimeType === 'image/svg+xml'
-		) {
+		if (metadata.mimeType === 'image/svg+xml' && fg('platform.media-card-svg-rendering_6tdbv')) {
 			return;
 		}
 		onImageLoadBase(newCardPreview);
@@ -618,7 +612,6 @@ export const FileCard = ({
 
 	useEffect(() => {
 		if (
-			getBooleanFF('platform.media-card-svg-rendering_6tdbv') &&
 			finalStatus !== 'error' &&
 			/**
 			 * We need to check that the card is visible before switching to SVG
@@ -627,7 +620,8 @@ export const FileCard = ({
 			 */
 			isCardVisible &&
 			metadata.mimeType === 'image/svg+xml' &&
-			disableOverlay // SVG won't be supported when overlay is on
+			disableOverlay && // SVG won't be supported when overlay is on
+			fg('platform.media-card-svg-rendering_6tdbv')
 		) {
 			setShouldRenderSVG(true);
 		}
@@ -856,7 +850,7 @@ export const FileCard = ({
 					cardPreview={preview}
 					alt={alt}
 					resizeMode={resizeMode}
-					dimensions={cardDimensions}
+					cardDimensions={cardDimensions}
 					selected={selected}
 					onClick={onCardViewClick}
 					onMouseEnter={onImageMouseEnter}

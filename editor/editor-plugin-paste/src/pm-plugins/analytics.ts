@@ -72,6 +72,7 @@ type PastePayloadAttributes = {
 	 * https://product-fabric.atlassian.net/browse/COMMENTS-913
 	 */
 	mentionIds: string[];
+	mentionLocalIds: string[];
 	/** Did this paste action split a list in half? */
 	pasteSplitList?: boolean;
 };
@@ -286,9 +287,11 @@ function createPasteAnalyticsPayloadBySelection(
 		const source = getPasteSource(event);
 
 		const mentionIds: string[] = [];
+		const mentionLocalIds: string[] = [];
 		slice.content.descendants((node) => {
 			if (node.type.name === 'mention') {
 				mentionIds.push(node.attrs.id);
+				mentionLocalIds.push(node.attrs.localId);
 			}
 		});
 
@@ -301,6 +304,7 @@ function createPasteAnalyticsPayloadBySelection(
 				hyperlinkPasteOnText: false,
 				linksInPasteCount: linkUrls.length,
 				mentionIds,
+				mentionLocalIds,
 				pasteSplitList: pasteContext.pasteSplitList,
 			});
 		}
@@ -317,6 +321,7 @@ function createPasteAnalyticsPayloadBySelection(
 				linksInPasteCount: linkUrls.length,
 				mediaTraceId,
 				mentionIds,
+				mentionLocalIds,
 				pasteSplitList: pasteContext.pasteSplitList,
 			},
 			linkDomains,

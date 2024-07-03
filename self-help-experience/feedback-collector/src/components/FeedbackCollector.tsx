@@ -2,13 +2,13 @@ import { Buffer } from 'buffer';
 
 import React, { Component } from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
 import { isApiGatewayUrl } from '../utils/is-api-gateway-url';
 import truncate from '../utils/Truncate';
 
-import FeedbackForm from './FeedbackForm';
+import FeedbackForm, { type OptionType } from './FeedbackForm';
 
 type FieldValueType = string | Object | Object[];
 
@@ -114,6 +114,8 @@ export interface Props {
 	selectLabel?: string;
 	/** Optional custom label for TextArea when showTypeField is false*/
 	customTextAreaLabel?: string;
+	/** Custom Select feedback options */
+	customFeedbackOptions?: OptionType[];
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -496,12 +498,13 @@ export default class FeedbackCollector extends Component<Props> {
 				onClose={this.props.onClose}
 				locale={this.props.locale}
 				anonymousFeedback={
-					getBooleanFF('platform.proforma-form-builder-feedback_hupaz')
+					fg('platform.proforma-form-builder-feedback_hupaz')
 						? this.state.anonymousFeedback
 						: anonymousFeedback
 				}
 				selectLabel={this.props.selectLabel}
 				customTextAreaLabel={this.props.customTextAreaLabel}
+				customFeedbackOptions={this.props.customFeedbackOptions}
 			/>
 		);
 	}

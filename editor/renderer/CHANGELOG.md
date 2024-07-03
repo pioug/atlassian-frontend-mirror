@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 109.40.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.40.7
+
+### Patch Changes
+
+- [`e114f7d115e72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e114f7d115e72) -
+  increase table cell padding under FF
+
 ## 109.40.6
 
 ### Patch Changes

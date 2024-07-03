@@ -36,6 +36,8 @@ export const externalRules: ExternalRuleMeta[] = [
 				// is Emotion or Compiled. Hence it is not safe to run autofixes like wrapping it in
 				// a `css` function call.
 				excludeReactComponents: true,
+				// Ensures that `xcss` prop is still linted even when `excludeReactComponents` is `true`.
+				shouldAlwaysCheckXcss: true,
 			},
 		},
 	},

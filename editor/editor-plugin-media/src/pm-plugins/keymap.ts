@@ -78,9 +78,8 @@ export function keymapPlugin(
 		);
 	}
 
-	if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {
-		bindKeymapWithCommand(activateVideoControls.common!, focusPlayButton, list);
-	}
+	bindKeymapWithCommand(activateVideoControls.common!, focusPlayButton, list);
+
 	return keymap(list) as SafePlugin;
 }
 

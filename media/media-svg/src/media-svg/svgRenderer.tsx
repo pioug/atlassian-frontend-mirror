@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { forwardRef } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -31,40 +33,45 @@ export type SvgRendererProps = {
 	style: MediaSvgProps['style'];
 };
 
-export const SvgRenderer = ({
-	identifier: { id, collectionName },
-	testId,
-	svgUrl,
-	source,
-	dimensions,
-	onError,
-	alt,
-	onLoad,
-	onMouseDown,
-	style,
-}: SvgRendererProps) => {
-	const { width, height } = dimensions || style || {};
-
-	return (
-		<img
-			data-testid={testId}
-			data-fileid={id}
-			data-filecollection={collectionName}
-			data-source={source}
-			src={svgUrl}
-			alt={alt}
-			css={[svgRendererStyles, !width && !height && svgRendererMaxDimensionStyles]}
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				...style,
-				width: dimensions?.width || style?.width,
-				height: dimensions?.height || style?.height,
-			}}
-			onLoad={onLoad}
-			onMouseDown={onMouseDown}
-			onError={() => {
-				onError && onError(new MediaSVGError('img-error'));
-			}}
-		/>
-	);
-};
+export const SvgRenderer = forwardRef<HTMLImageElement, SvgRendererProps>(
+	(
+		{
+			identifier: { id, collectionName },
+			testId,
+			svgUrl,
+			source,
+			dimensions,
+			onError,
+			alt,
+			onLoad,
+			onMouseDown,
+			style,
+		},
+		ref,
+	) => {
+		const { width, height } = dimensions || style || {};
+		return (
+			<img
+				data-testid={testId}
+				data-fileid={id}
+				data-filecollection={collectionName}
+				data-source={source}
+				src={svgUrl}
+				alt={alt}
+				css={[svgRendererStyles, !width && !height && svgRendererMaxDimensionStyles]}
+				style={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					...style,
+					width: dimensions?.width || style?.width,
+					height: dimensions?.height || style?.height,
+				}}
+				onLoad={onLoad}
+				onMouseDown={onMouseDown}
+				onError={() => {
+					onError && onError(new MediaSVGError('img-error'));
+				}}
+				ref={ref}
+			/>
+		);
+	},
+);

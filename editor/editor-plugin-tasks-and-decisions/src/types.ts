@@ -2,7 +2,6 @@ import type { DecisionItemDefinition, TaskItemDefinition } from '@atlaskit/adf-s
 import type { INPUT_METHOD, USER_CONTEXT } from '@atlaskit/editor-common/analytics';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type {
-	GetEditorFeatureFlags,
 	LongPressSelectionPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -48,7 +47,6 @@ export type AddItemTransactionCreator = (opts: {
 export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptions {
 	allowNestedTasks?: boolean;
 	consumeTabs?: boolean;
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export type TaskAndDecisionsSharedState = {

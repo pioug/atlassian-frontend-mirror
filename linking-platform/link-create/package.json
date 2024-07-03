@@ -72,7 +72,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/drawer": "^7.12.0",
+		"@atlaskit/drawer": "^7.13.0",
 		"@atlaskit/link-test-helpers": "^7.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

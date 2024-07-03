@@ -5,7 +5,7 @@ import {
 	CurrentTimeLine,
 	BufferedTime,
 	CurrentTimeTooltip,
-	Thumb,
+	CurrentTimeLineThumb,
 	TimeRangeWrapper,
 } from '../../customMediaPlayer/styled';
 import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
@@ -54,7 +54,7 @@ describe('<TimeRange />', () => {
 	it('should render the thumb element', () => {
 		const { component } = setup();
 
-		expect(component.find(Thumb)).toHaveLength(1);
+		expect(component.find(CurrentTimeLineThumb)).toHaveLength(1);
 	});
 
 	it('should render the current time with the right format', () => {
@@ -75,7 +75,7 @@ describe('<TimeRange />', () => {
 				disableThumbTooltip={false}
 				isAlwaysActive={false}
 				onChanged={onChanged}
-				intl={{ locale: 'en' } as IntlShape}
+				intl={{ locale: 'en', formatMessage: ({ defaultMessage }) => defaultMessage } as IntlShape}
 			/>,
 		);
 

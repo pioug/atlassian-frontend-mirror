@@ -6,7 +6,7 @@ import { N90, N800, N0 } from '@atlaskit/theme/colors';
 
 export const verticalMargin = 5;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const tooltipStyle = css({
 	maxWidth: '150px',
 	textOverflow: 'ellipsis',
@@ -29,20 +29,20 @@ export const tooltipStyle = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiNameStyle = css({
 	textTransform: 'capitalize',
 	color: token('color.text.inverse', N90),
 	fontWeight: 600,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const footerStyle = css({
 	color: token('color.text.inverse', N90),
 	fontWeight: 300,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const underlineStyle = css({
 	cursor: 'pointer',
 	textDecoration: 'underline',

@@ -26,7 +26,7 @@ const largeStyles = css(dimensions.large);
 const xlargeStyles = css(dimensions.xlarge);
 
 // pre-built css style-size map
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sizeStyleMap = {
 	small: smallStyles,
 	medium: mediumStyles,

@@ -25,6 +25,7 @@ const Highlight = memo(function Highlight({
 		className: `language-${language}`,
 	},
 	showLineNumbers = false,
+	firstLineNumber = 1,
 	shouldCreateParentElementForLines = false,
 	shouldWrapLongLines = false,
 	lineProps = {},
@@ -66,6 +67,7 @@ const Highlight = memo(function Highlight({
 		shouldCreateParentElementForLines: shouldCreateParentElementForLines || !!shouldWrapLongLines,
 		lineProps,
 		showLineNumbers,
+		firstLineNumber,
 	});
 
 	// Rows + logic into a renderer

@@ -7,7 +7,7 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 // For reasoning behind styles, see comments in:
 // ./getInlineNodeViewProducer -> portalChildren()
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const InlineNodeViewSharedStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`.${inlineNodeViewClassname}`]: {

@@ -38,7 +38,7 @@ const inlineImageHeight = (height: number | string, margin: number = 0) => css`
  * shift in top and bottom and size adjustments to make up for lack of 1to1 size
  * mapping
  */
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766, Nested and dynamic css calls are violations, needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Nested and dynamic css calls are violations, needs manual remediation
 export const mediaInlineImageStyles = css`
 	// p, h3, and action items
 	.${INLINE_IMAGE_WRAPPER_CLASS_NAME} {
@@ -71,7 +71,7 @@ export const mediaInlineImageStyles = css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperStyle = css({
 	display: 'inline-flex',
 	justifyContent: 'center',
@@ -84,19 +84,19 @@ export const wrapperStyle = css({
 	maxWidth: '100%',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const selectedStyle = css({
 	cursor: 'pointer',
 	boxShadow: `0 0 0 1px ${token('color.border.selected', B300)}`,
 	outline: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const interactiveStyle = css({
 	cursor: 'pointer',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const borderStyle = css({
 	borderColor: `var(${INLINE_IMAGE_BORDER_COLOR_CSS_VAR_KEY})`,
 	borderStyle: 'solid',

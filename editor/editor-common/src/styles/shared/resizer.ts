@@ -25,7 +25,7 @@ export const handleWrapperClass = 'resizer-handle-wrapper';
 
 export const resizerHandleZIndex = 1;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766, Seems perfectly safe to autofix, but comments would be lost…
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, Seems perfectly safe to autofix, but comments would be lost…
 export const resizerStyles = css`
 	.${resizerItemClassName} {
 		will-change: width;

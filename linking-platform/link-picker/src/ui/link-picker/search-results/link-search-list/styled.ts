@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 import { typography } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const listContainerStyles = css({
 	width: '100%',
 	paddingTop: 0,
@@ -18,14 +18,14 @@ export const listContainerStyles = css({
 	flexDirection: 'column',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const spinnerContainerStyles = css({
 	flexGrow: 1,
 	flexDirection: 'column',
 	alignItems: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const listStyles = css({
 	padding: token('space.0', '0px'),
 	marginTop: token('space.0', '0px'),
@@ -35,7 +35,7 @@ export const listStyles = css({
 	listStyle: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const listTitleStyles = css(typography.h100(), {
 	textTransform: 'uppercase',
 	marginTop: 0,

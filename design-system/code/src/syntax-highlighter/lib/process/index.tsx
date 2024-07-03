@@ -22,6 +22,7 @@ interface ProcessLines {
 	shouldCreateParentElementForLines: boolean;
 	lineProps: SyntaxHighlighterLineProps;
 	showLineNumbers: boolean;
+	firstLineNumber?: number;
 }
 
 /**
@@ -37,10 +38,11 @@ export default function processLines({
 	shouldCreateParentElementForLines,
 	lineProps,
 	showLineNumbers,
+	firstLineNumber = 1,
 }: ProcessLines): RefractorNode[] {
 	const codeTree = getCodeTree(language, code, astGenerator);
 
-	const startingLineNumber = 1;
+	const startingLineNumber = firstLineNumber > 0 ? firstLineNumber : 1;
 	const createLine = createLineGenerator(
 		lineProps,
 		shouldCreateParentElementForLines,

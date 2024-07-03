@@ -1,5 +1,14 @@
 # @atlaskit/badge
 
+## 16.3.0
+
+### Minor Changes
+
+- [#116976](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116976)
+  [`055c56ce4412b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/055c56ce4412b) -
+  [ux] DSP-19189 We are testing a new visual appearance behind a feature flag. If successful it will
+  be released at a later date.
+
 ## 16.2.3
 
 ### Patch Changes

@@ -19,7 +19,7 @@ const prosemirrorwidgetNotBlock =
 const wrapLeft = '[layout="wrap-left"]';
 const wrapRight = '[layout="wrap-right"]';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-keyframes, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766, This needs manual remediation, it autofixes seemingly safely, but the code style and readability is destroyed.
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766, This needs manual remediation, it autofixes seemingly safely, but the code style and readability is destroyed.
 export const gapCursorStyles = css`
 	/* =============== GAP CURSOR ================== */
 	.ProseMirror {

@@ -17,16 +17,16 @@ export interface TruncateStyleProps {
 	className?: string;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const truncationWidthStyles = css({ width: `var(${CSS_VAR_WIDTH})` });
 
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const fixedSizeTruncateStyles = css({
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const overflowTruncateStyles = css({
 	overflow: 'hidden',
 });
@@ -34,7 +34,7 @@ export const overflowTruncateStyles = css({
 export const getTruncationStyleVars = ({ width }: TruncateStyleProps) =>
 	typeof width !== 'undefined' ? { [CSS_VAR_WIDTH]: `${width}%` } : undefined;
 
-// eslint-disable-next-line @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const cellStyles = css({
 	padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 	border: 'none',

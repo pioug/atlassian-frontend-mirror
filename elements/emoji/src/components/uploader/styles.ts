@@ -5,7 +5,7 @@ import { emojiPickerWidth } from '../../util/constants';
 
 // Uploader
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiUploadWidget = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -23,7 +23,7 @@ export const emojiUploadWidget = css({
 });
 
 /// Footer
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiUploadFooter = css({
 	flex: '0 0 auto',
 });

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/no-exported-keyframes */
 /* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression */
 /** @jsx jsx */
 

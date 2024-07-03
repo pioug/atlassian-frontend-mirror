@@ -41,7 +41,6 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import * as helpers from '../commands/helpers';
 import { updateMediaNodeAttrs } from '../commands/helpers';
@@ -973,29 +972,28 @@ export const createPlugin = (
 			},
 			nodeViews: options.nodeViews,
 			handleTextInput(view: EditorView, from, to, text): boolean {
-				if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {
-					const { selection } = view.state;
-					if (
-						text === ' ' &&
-						selection instanceof NodeSelection &&
-						selection.node.type.name === 'mediaSingle'
-					) {
-						const videoControlsWrapperRef = stateKey.getState(view.state)?.element;
-						const videoControls = videoControlsWrapperRef?.querySelectorAll<HTMLButtonElement>(
-							'button, [tabindex]:not([tabindex="-1"])',
+				const { selection } = view.state;
+				if (
+					text === ' ' &&
+					selection instanceof NodeSelection &&
+					selection.node.type.name === 'mediaSingle'
+				) {
+					const videoControlsWrapperRef = stateKey.getState(view.state)?.element;
+					const videoControls = videoControlsWrapperRef?.querySelectorAll<HTMLButtonElement>(
+						'button, [tabindex]:not([tabindex="-1"])',
+					);
+					if (videoControls) {
+						const isVideoControl = Array.from(videoControls).some(
+							(videoControl: HTMLButtonElement) => {
+								return document.activeElement === videoControl;
+							},
 						);
-						if (videoControls) {
-							const isVideoControl = Array.from(videoControls).some(
-								(videoControl: HTMLButtonElement) => {
-									return document.activeElement === videoControl;
-								},
-							);
-							if (isVideoControl) {
-								return true;
-							}
+						if (isVideoControl) {
+							return true;
 						}
 					}
 				}
+
 				getMediaPluginState(view.state).splitMediaGroup();
 				return false;
 			},
@@ -1024,43 +1022,41 @@ export const createPlugin = (
 
 			handleDOMEvents: {
 				keydown: (view, event: KeyboardEvent) => {
-					if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {
-						const { selection } = view.state;
-						if (selection instanceof NodeSelection && selection.node.type.name === 'mediaSingle') {
-							// handle keydown events for video controls panel to prevent fire of rest prosemirror listeners;
-							if (event?.target instanceof HTMLElement) {
-								const a11yDefaultKeys = ['Tab', 'Space', 'Enter', 'Shift', 'Esc'];
-								const targetsAndButtons = {
-									button: a11yDefaultKeys,
-									range: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'],
-									combobox: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'Esc'],
-									slider: ['Tab', 'Shift', 'ArrowLeft', 'ArrowRight'],
-								};
+					const { selection } = view.state;
+					if (selection instanceof NodeSelection && selection.node.type.name === 'mediaSingle') {
+						// handle keydown events for video controls panel to prevent fire of rest prosemirror listeners;
+						if (event?.target instanceof HTMLElement) {
+							const a11yDefaultKeys = ['Tab', 'Space', 'Enter', 'Shift', 'Esc'];
+							const targetsAndButtons = {
+								button: a11yDefaultKeys,
+								range: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'],
+								combobox: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'Esc'],
+								slider: ['Tab', 'Shift', 'ArrowLeft', 'ArrowRight'],
+							};
 
-								const targetRole = event.target.role;
-								const targetType = (event.target as HTMLElement & { type?: string }).type;
+							const targetRole = event.target.role;
+							const targetType = (event.target as HTMLElement & { type?: string }).type;
 
-								const allowedTargets = targetRole || targetType;
+							const allowedTargets = targetRole || targetType;
 
-								// only if targeting interactive elements fe. button, slider, range, dropdown
-								if (allowedTargets && allowedTargets in targetsAndButtons) {
-									let targetRelatedA11YKeys: string[] =
-										targetsAndButtons[allowedTargets as keyof typeof targetsAndButtons];
-									const allowedKeys = new Set(targetRelatedA11YKeys);
+							// only if targeting interactive elements fe. button, slider, range, dropdown
+							if (allowedTargets && allowedTargets in targetsAndButtons) {
+								let targetRelatedA11YKeys: string[] =
+									targetsAndButtons[allowedTargets as keyof typeof targetsAndButtons];
+								const allowedKeys = new Set(targetRelatedA11YKeys);
 
-									if (allowedKeys.has(event.key) || allowedKeys.has(event.code)) {
-										// allow event to bubble to be handled by react handlers
-										return true;
-									} else {
-										// otherwise focus editor to allow setting gapCursor. (e.g.: arrowRightFromMediaSingle)
-										view.focus();
-									}
+								if (allowedKeys.has(event.key) || allowedKeys.has(event.code)) {
+									// allow event to bubble to be handled by react handlers
+									return true;
+								} else {
+									// otherwise focus editor to allow setting gapCursor. (e.g.: arrowRightFromMediaSingle)
+									view.focus();
 								}
 							}
 						}
-						// fire regular prosemirror listeners;
-						return false;
 					}
+					// fire regular prosemirror listeners;
+					return false;
 				},
 			},
 		},

@@ -22,7 +22,7 @@ const sourcesTooltipContainer = xcss({
 	paddingRight: 'space.050',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sourceWrapper = css({
 	paddingTop: token('space.050', '4px'),
 	display: 'flex',

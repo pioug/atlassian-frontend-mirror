@@ -294,9 +294,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					id: 'media',
 					title: formatMessage(messages.mediaFiles),
 					description: formatMessage(messages.mediaFilesDescription),
-					priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
-						? 600
-						: 400,
+					priority: 400,
 					keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video'],
 					icon: () => <IconImages />,
 					action(insert, state) {

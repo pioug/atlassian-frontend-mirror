@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.7.2
+
+### Patch Changes
+
+- [#116772](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116772)
+  [`46167815c5528`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46167815c5528) -
+  Update feature flag prefix rule to be warn and recommend prefix only for deprecated launch darkly
+  flags.
+
 ## 0.7.1
 
 ### Patch Changes

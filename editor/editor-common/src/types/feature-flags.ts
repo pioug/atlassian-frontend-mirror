@@ -346,15 +346,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Rearranges the top 5 items in the quick insert menu
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-23642
-	 * @default false
-	 */
-	platformEditorTypeaheadImprovedRelevancy?: boolean;
-
-	/**
-	 * @description
 	 * Enables fix for comment sidebar is not scrolled into view when adding/viewing a comment on media
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-23281

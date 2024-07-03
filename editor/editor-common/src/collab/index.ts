@@ -525,7 +525,7 @@ export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const telepointerStyle = css`
 	.ProseMirror .telepointer {
 		position: relative;

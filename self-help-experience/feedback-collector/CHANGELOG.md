@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.4.0
+
+### Minor Changes
+
+- [#115204](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/115204)
+  [`5e05d478b8261`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5e05d478b8261) -
+  Add customFeedbackoptions to feedback collector as a prop
+
 ## 13.3.8
 
 ### Patch Changes

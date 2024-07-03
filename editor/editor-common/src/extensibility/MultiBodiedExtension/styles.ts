@@ -7,7 +7,7 @@ import { token } from '@atlaskit/tokens';
 import { wrapperDefault } from '../Extension/styles';
 
 // Wrapper the extension title and extensionContainer
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
@@ -46,7 +46,7 @@ export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const overlayStyles = css({
 	borderRadius: token('border.radius', '3px'),
 	position: 'absolute',

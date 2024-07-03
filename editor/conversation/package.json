@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "16.2.26",
+	"version": "16.2.27",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,10 +35,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/avatar": "^21.10.0",
+		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/comment": "^10.11.0",
-		"@atlaskit/editor-common": "^83.6.0",
-		"@atlaskit/editor-core": "^193.30.0",
+		"@atlaskit/editor-common": "^84.0.0",
+		"@atlaskit/editor-core": "^194.0.0",
 		"@atlaskit/reactions": "^22.8.0",
 		"@atlaskit/renderer": "^109.40.0",
 		"@babel/runtime": "^7.0.0",

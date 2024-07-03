@@ -17,6 +17,13 @@ export interface CodeBlockProps {
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	showLineNumbers?: boolean;
+
+	/**
+	 * Sets the number of the first line, if showLineNumbers is set to true.
+	 * @default 1
+	 */
+	firstLineNumber?: number;
+
 	/**
 	 * Language reference designed to be populated from `SUPPORTED_LANGUAGES` in
 	 * `design-system/code`. Run against language grammars from PrismJS (full list

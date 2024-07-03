@@ -9,11 +9,12 @@ type RuleOptions = {
 const rule: Rule.RuleModule = {
 	meta: {
 		docs: {
+			url: 'http://go/pff-eslint',
 			recommended: false,
 		},
 		type: 'problem',
 		messages: {
-			featureFlagIncorrectPrefix: `Please change your flag "{{ featureFlag }}" to have a valid prefix, options are [{{ allowedPrefixes }}]. See http://go/pff-eslint for details`,
+			featureFlagIncorrectPrefix: `Is this a LaunchDarkly feature flag? It needs a prefix so Confluence picks it up: [{{ allowedPrefixes }}]. Statsig feature gates don't need a prefix.`,
 		},
 		hasSuggestions: true,
 		schema: [

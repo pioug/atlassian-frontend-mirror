@@ -6,6 +6,7 @@ order: 0
 
 import CodeBlock from '../../examples/constellation/code-block';
 import CodeBlockLineNumbers from '../../examples/constellation/code-block-line-numbers';
+import CodeBlockStartingLineNumber from '../../examples/constellation/code-block-starting-line-number';
 import CodeBlockLineHighlight from '../../examples/constellation/code-block-line-highlight';
 import CodeBlockShouldWrapLongLinesExample from '../../examples/constellation/code-block-should-wrap-long-lines';
 
@@ -20,6 +21,11 @@ A code block highlights an entire block of code and keeps the formatting.
 You can display a code block with or without line numbers. Line numbers are included by default.
 
 <Example Component={CodeBlockLineNumbers} packageName="@atlaskit/code" />
+
+You can also adjust the starting line of a code block. This can be useful when referencing specific
+lines from an existing codebase.
+
+<Example Component={CodeBlockStartingLineNumber} packageName="@atlaskit/code" />
 
 ## Line highlighting
 

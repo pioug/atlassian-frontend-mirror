@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-submit-editor
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

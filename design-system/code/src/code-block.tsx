@@ -24,6 +24,7 @@ import SyntaxHighlighter from './syntax-highlighter';
  */
 const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	showLineNumbers = true,
+	firstLineNumber = 1,
 	language: providedLanguage = 'text',
 	highlight = '',
 	highlightedStartText = 'Highlight start',
@@ -35,7 +36,8 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 	codeBidiWarningTooltipEnabled = true,
 	shouldWrapLongLines = false,
 }) {
-	const numLines = (text || '').split('\n').length;
+	const numLines =
+		(text || '').split('\n').length + (firstLineNumber > 0 ? firstLineNumber : 1) - 1;
 	const theme = useMemo(() => getCodeBlockTheme(numLines), [numLines]);
 
 	const getStyles = useMemo(() => getCodeBlockStyles(theme), [theme]);
@@ -71,6 +73,7 @@ const CodeBlock = memo<CodeBlockProps>(function CodeBlock({
 			language={languageToUse}
 			css={styles}
 			showLineNumbers={showLineNumbers}
+			firstLineNumber={firstLineNumber}
 			lineProps={getLineProps}
 			// shouldCreateParentElementForLines is needed to pass down props to each line.
 			// This is necessary for both line highlighting and testId's, as each of

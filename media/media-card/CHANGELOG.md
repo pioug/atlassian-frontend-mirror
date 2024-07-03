@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.0.3
+
+### Patch Changes
+
+- [#116684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116684)
+  [`72f1da4341a27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72f1da4341a27) -
+  Fixes sizing modes for SVG native rendering integration
+
 ## 78.0.2
 
 ### Patch Changes

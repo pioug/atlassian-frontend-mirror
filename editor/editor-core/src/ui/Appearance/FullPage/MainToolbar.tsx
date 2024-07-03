@@ -70,7 +70,7 @@ export const mainToolbarStyle = (showKeyline: boolean, twoLineEditorToolbar: boo
 	twoLineEditorToolbar && mainToolbarTwoLineStyle,
 ];
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const mainToolbarIconBeforeStyle = css({
 	margin: token('space.200', '16px'),
 	height: token('space.400', '32px'),
@@ -130,14 +130,14 @@ export const mainToolbarSecondChildStyle = (twoLineEditorToolbar: boolean) => [
 	twoLineEditorToolbar && mainToolbarSecondChildTwoLine,
 ];
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const nonCustomToolbarWrapperStyle = css({
 	alignItems: 'center',
 	display: 'flex',
 	flexGrow: 1,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const customToolbarWrapperStyle = css({
 	alignItems: 'center',
 	display: 'flex',

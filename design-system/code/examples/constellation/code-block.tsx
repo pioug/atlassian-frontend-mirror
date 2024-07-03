@@ -2,8 +2,7 @@ import React from 'react';
 
 import { CodeBlock } from '../../src';
 
-const exampleCodeBlock = `
-import { Box } from '@atlaskit/primitives
+const exampleCodeBlock = `import { Box } from '@atlaskit/primitives
 
 class HelloMessage extends React.Component {
   render() {

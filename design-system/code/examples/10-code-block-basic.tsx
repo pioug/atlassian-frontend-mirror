@@ -27,8 +27,16 @@ export default function Component() {
 			<h2>Showing code with line numbers</h2>
 			<CodeBlock language="jsx" text={exampleCodeBlock} />
 
+			<h2>Showing code with first line number equals 333 </h2>
+			<CodeBlock language="jsx" text={exampleCodeBlock} firstLineNumber={333} />
+
 			<h2>Highlighting specific lines</h2>
-			<CodeBlock language="jsx" text={exampleCodeBlock} highlight="2,5-7,12-15" />
+			<CodeBlock
+				language="jsx"
+				firstLineNumber={2}
+				text={exampleCodeBlock}
+				highlight="3,5-7,12-15"
+			/>
 		</div>
 	);
 }

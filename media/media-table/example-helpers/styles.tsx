@@ -8,7 +8,7 @@ import { colors } from '@atlaskit/theme';
 export const ROW_HIGHLIGHT_CLASSNAME = 'media-table-row-highlighted';
 export const ROW_CLASSNAME = 'media-table-row';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const exampleWrapperStyles = css`
 	display: flex;
 	flex-direction: column;
@@ -23,7 +23,7 @@ export const exampleWrapperStyles = css`
 	}
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const greenOnHoverStyles = css`
 	background-color: ${token('color.background.danger.bold', 'red')};
 	height: 8px;

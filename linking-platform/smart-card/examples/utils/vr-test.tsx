@@ -38,7 +38,7 @@ export type VRTestWrapperOptions = {
 // Mocking Date.now for tests to be consistent
 Date.now = () => new Date('2022-01-25T16:44:00.000+1000').getTime();
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const global = (
 	<Global
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

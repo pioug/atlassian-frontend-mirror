@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 7.13.0
+
+### Minor Changes
+
+- [#116848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116848)
+  [`9b4398682d67b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b4398682d67b) -
+  Drawer can be configured to enter from any direction
+
 ## 7.12.4
 
 ### Patch Changes

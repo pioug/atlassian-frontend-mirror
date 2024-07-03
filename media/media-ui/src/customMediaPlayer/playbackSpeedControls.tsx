@@ -18,7 +18,6 @@ import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';
 import { WidthObserver } from '@atlaskit/width-detector';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface PlaybackSpeedControlsProps {
 	playbackSpeed: number;
@@ -158,9 +157,7 @@ export class PlaybackSpeedControls extends Component<
 								isSelected={isOpen}
 								onClick={onClick}
 								onKeyDown={(event) => {
-									if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {
-										popupKeydown(event);
-									}
+									popupKeydown(event);
 								}}
 							>
 								{playbackSpeed}x

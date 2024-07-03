@@ -23,7 +23,6 @@ import type {
 import { Card, CardLoading } from '@atlaskit/media-card';
 import type { Identifier } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -104,11 +103,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	componentWillUnmount() {
 		const { node } = this.props;
 		this.mediaPluginState?.handleMediaNodeUnmount(node);
-		if (
-			getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh') &&
-			this.unbindKeyDown &&
-			typeof this.unbindKeyDown === 'function'
-		) {
+		if (this.unbindKeyDown && typeof this.unbindKeyDown === 'function') {
 			this.unbindKeyDown();
 		}
 	}
@@ -121,11 +116,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		this.mediaPluginState?.updateElement();
 		this.setViewMediaClientConfig();
 		// this.videoControlsWrapperRef is null on componentDidMount. We need to wait until it has value
-		if (
-			getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh') &&
-			this.videoControlsWrapperRef &&
-			this.videoControlsWrapperRef.current
-		) {
+		if (this.videoControlsWrapperRef && this.videoControlsWrapperRef.current) {
 			if (!this.mediaPluginState?.videoControlsWrapperRef) {
 				this.bindKeydown();
 				this.mediaPluginState?.updateAndDispatch({
@@ -136,37 +127,35 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 	}
 
 	bindKeydown() {
-		if (getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')) {
-			const onKeydown = (event: KeyboardEvent) => {
-				if (event.key === 'Tab') {
-					// Add focus trap for controls panel
-					let firstElement: HTMLElement;
-					let lastElement: HTMLElement;
-					const focusableElements = this.videoControlsWrapperRef?.current?.querySelectorAll(
-						'button, input, [tabindex]:not([tabindex="-1"])',
-					);
+		const onKeydown = (event: KeyboardEvent) => {
+			if (event.key === 'Tab') {
+				// Add focus trap for controls panel
+				let firstElement: HTMLElement;
+				let lastElement: HTMLElement;
+				const focusableElements = this.videoControlsWrapperRef?.current?.querySelectorAll(
+					'button, input, [tabindex]:not([tabindex="-1"])',
+				);
 
-					if (focusableElements && focusableElements.length) {
-						firstElement = focusableElements[0] as HTMLElement;
-						lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-						if (event.shiftKey && document.activeElement === firstElement) {
-							event.preventDefault();
-							lastElement.focus();
-						} else if (!event.shiftKey && document.activeElement === lastElement) {
-							event.preventDefault();
-							firstElement?.focus();
-						}
+				if (focusableElements && focusableElements.length) {
+					firstElement = focusableElements[0] as HTMLElement;
+					lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+					if (event.shiftKey && document.activeElement === firstElement) {
+						event.preventDefault();
+						lastElement.focus();
+					} else if (!event.shiftKey && document.activeElement === lastElement) {
+						event.preventDefault();
+						firstElement?.focus();
 					}
 				}
-			};
-
-			if (this.videoControlsWrapperRef?.current) {
-				this.unbindKeyDown = bind(this.videoControlsWrapperRef.current, {
-					type: 'keydown',
-					listener: onKeydown,
-					options: { capture: true, passive: false },
-				});
 			}
+		};
+
+		if (this.videoControlsWrapperRef?.current) {
+			this.unbindKeyDown = bind(this.videoControlsWrapperRef.current, {
+				type: 'keydown',
+				listener: onKeydown,
+				options: { capture: true, passive: false },
+			});
 		}
 	}
 

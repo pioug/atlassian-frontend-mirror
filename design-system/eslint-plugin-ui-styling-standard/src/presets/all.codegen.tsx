@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aa1d9d67dc9b6b0488df0b31ff142f30>>
+ * @codegen <<SignedSource::d6fe3ee209ccee89003da5d8fffba51e>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 export default {
@@ -25,7 +25,7 @@ export default {
 		'@atlaskit/ui-styling-standard/use-compiled': 'error',
 		'@atlaskit/design-system/consistent-css-prop-usage': [
 			'error',
-			{ excludeReactComponents: true },
+			{ excludeReactComponents: true, shouldAlwaysCheckXcss: true },
 		],
 		'@atlaskit/design-system/no-css-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',

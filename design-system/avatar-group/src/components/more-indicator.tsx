@@ -15,6 +15,7 @@ import Avatar, {
 	BORDER_WIDTH,
 	type SizeType,
 } from '@atlaskit/avatar';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B300, B400, B50, N0, N20, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -84,7 +85,9 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 	(
 		{
 			appearance = 'circle' as AppearanceType,
-			borderColor = token('color.border.inverse', N0),
+			borderColor = fg('platform.design-system-team.component-visual-refresh_t8zbo')
+				? token('elevation.surface')
+				: token('color.border.inverse', N0),
 			size = 'medium' as SizeType,
 			count = 0,
 			testId,

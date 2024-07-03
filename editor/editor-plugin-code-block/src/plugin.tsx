@@ -108,9 +108,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => ({
 				title: formatMessage(blockTypeMessages.codeblock),
 				description: formatMessage(blockTypeMessages.codeblockDescription),
 				keywords: ['code block'],
-				priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
-					? 400
-					: 700,
+				priority: 700,
 				keyshortcut: '```',
 				icon: () => <IconCode />,
 				action(_insert, state) {

@@ -4,7 +4,7 @@
 import type { Theme } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
@@ -281,7 +281,12 @@ const tableSortableColumnStyle = ({
 			.${RendererCssClassName.SORTABLE_COLUMN} {
 				width: 100%;
 				height: 100%;
-				padding: ${tableCellPadding}px;
+				padding: ${
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform_editor_tables_padding_increase')
+						? `${tableCellPadding}px ${token('space.250', '20px')}`
+						: `${tableCellPadding}px`
+				};
 				border-width: 1.5px;
 				border-style: solid;
 				border-color: transparent;
@@ -429,11 +434,11 @@ const getShadowOverrides = () => {
 };
 
 function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
-	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+	if (!fg('platform.editor.allow-inline-comments-for-inline-nodes')) {
 		return '';
 	}
 
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (fg('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
 		return '';
 	}
 

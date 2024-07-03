@@ -6,7 +6,7 @@ import { checkeredBg } from './images';
 
 import { AVATAR_DIALOG_WIDTH } from '../avatar-picker-dialog/layout-const';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const imageBgStyles = css({
 	position: 'absolute',
 	top: 0,
@@ -18,7 +18,7 @@ export const imageBgStyles = css({
 	borderRadius: token('border.radius', '3px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const containerStyles = css({
 	boxSizing: 'border-box',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -28,7 +28,7 @@ export const containerStyles = css({
 	position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sliderContainerStyles = css({
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -43,12 +43,12 @@ export const sliderContainerStyles = css({
 	backgroundColor: token('elevation.surface.overlay', '#fff'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const fileInputStyles = css({
 	display: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const imageUploaderStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
@@ -123,7 +123,7 @@ export const dragZoneStyles = (props: DragZoneProps) =>
 
 dragZoneStyles.displayName = 'DragZone';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const dragZoneImageStyles = css({
 	width: '100px',
 });
@@ -149,7 +149,7 @@ export const dragZoneTextStyles = (props: DragZoneTextProps) =>
 		getWidth(props.isFullSize),
 	);
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const selectionBlockerStyles = css({
 	position: 'fixed',
 	left: 0,
@@ -160,7 +160,7 @@ export const selectionBlockerStyles = css({
 	userSelect: 'none',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const paddedBreakStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	marginTop: `${token('space.100', '10px')} !important`,
@@ -168,7 +168,7 @@ export const paddedBreakStyles = css({
 	textAlign: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const sliderWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',

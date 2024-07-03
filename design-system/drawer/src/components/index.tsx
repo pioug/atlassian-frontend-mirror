@@ -152,6 +152,7 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 			zIndex = 'unset',
 			label,
 			titleId,
+			enterFrom,
 		} = this.props;
 
 		const shouldHaveLayeringEnabled =
@@ -173,6 +174,7 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 					onCloseComplete={onCloseComplete}
 					onOpenComplete={onOpenComplete}
 					width={width}
+					enterFrom={enterFrom}
 					label={label}
 					titleId={titleId}
 					shouldUnmountOnExit={shouldUnmountOnExit}

@@ -63,7 +63,6 @@ import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
 import { SkipTenBackwardIcon, SkipTenForwardIcon } from './icons';
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -334,31 +333,17 @@ export class CustomMediaPlayerBase extends Component<
 					aria-pressed={videoState.isMuted}
 				/>
 			</VolumeToggleWrapper>
-			{getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
-				? showSlider && (
-						<VolumeTimeRangeWrapper>
-							<VolumeRange
-								onChange={actions.setVolume}
-								currentVolume={videoState.volume}
-								isAlwaysActive={true}
-								onChanged={this.onVolumeChanged}
-								ariaLabel={this.props.intl.formatMessage(messages.volumeLevelControlAria)}
-							/>
-						</VolumeTimeRangeWrapper>
-					)
-				: showSlider && (
-						<VolumeTimeRangeWrapper>
-							<TimeRange
-								onChange={actions.setVolume}
-								duration={1}
-								currentTime={videoState.volume}
-								bufferedTime={videoState.volume}
-								disableThumbTooltip={true}
-								isAlwaysActive={true}
-								onChanged={this.onVolumeChanged}
-							/>
-						</VolumeTimeRangeWrapper>
-					)}
+			{showSlider && (
+				<VolumeTimeRangeWrapper>
+					<VolumeRange
+						onChange={actions.setVolume}
+						currentVolume={videoState.volume}
+						isAlwaysActive={true}
+						onChanged={this.onVolumeChanged}
+						ariaLabel={this.props.intl.formatMessage(messages.volumeLevelControlAria)}
+					/>
+				</VolumeTimeRangeWrapper>
+			)}
 		</VolumeWrapper>
 	);
 
@@ -772,29 +757,17 @@ export class CustomMediaPlayerBase extends Component<
 									className={getControlsWrapperClassName(this.wasPlayedOnce)}
 								>
 									<Box xcss={timeWrapperStyles}>
-										{getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh') ? (
-											<TimeRange
-												currentTime={currentTime}
-												bufferedTime={buffered}
-												duration={duration}
-												onChange={actions.navigate}
-												onChanged={this.onTimeChanged}
-												disableThumbTooltip={true}
-												skipBackward={skipBackward}
-												skipForward={skipForward}
-												isAlwaysActive={false}
-											/>
-										) : (
-											<TimeRange
-												disableThumbTooltip={false}
-												isAlwaysActive={false}
-												currentTime={currentTime}
-												bufferedTime={buffered}
-												duration={duration}
-												onChange={actions.navigate}
-												onChanged={this.onTimeChanged}
-											/>
-										)}
+										<TimeRange
+											currentTime={currentTime}
+											bufferedTime={buffered}
+											duration={duration}
+											onChange={actions.navigate}
+											onChanged={this.onTimeChanged}
+											disableThumbTooltip={true}
+											skipBackward={skipBackward}
+											skipForward={skipForward}
+											isAlwaysActive={false}
+										/>
 									</Box>
 									<Flex
 										alignItems="center"

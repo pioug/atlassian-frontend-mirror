@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { hideControlsClassName } from '../classNames';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface MutedIndicatorProps {
 	isMuted: boolean;
@@ -30,13 +29,8 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>(
 		props.showSlider
 			? `
     &:hover,
-    &:active
-    ${
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
-				? ', &:focus-within'
-				: ''
-		}
+    &:active,
+	&:focus-within
     {
       width: 150px;
       transition: width 0.3s ease-out;
@@ -260,10 +254,7 @@ export const TimeRangeWrapper = styled.div(
     ${showAsActive ? 'transform: translate(7px, -50%) scale(1);' : ''}
   }
 
-  ${
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
-			? `
+  ${`
     // a11y override default theme colors from '@atlaskit/range' to have better contrast with panel color
     input[type="range"] {
       width:100%;
@@ -299,8 +290,6 @@ export const TimeRangeWrapper = styled.div(
       width: 14px;
       height: 14px;
     }
-    `
-			: ''
-	}
+    `}
 `,
 );

@@ -1,12 +1,41 @@
 import { type ImageResizeMode } from '@atlaskit/media-client';
-import { type MediaSvgProps } from '@atlaskit/media-svg';
 
 export const calculateSvgDimensions = (
-	img: HTMLImageElement,
-	resizeMode?: ImageResizeMode,
-): MediaSvgProps['dimensions'] => {
-	const { naturalWidth, naturalHeight } = img;
-	const isLadscape = naturalWidth / naturalHeight > 1;
+	imgElement: HTMLImageElement,
+	parentElement: HTMLElement,
+	resizeMode: ImageResizeMode,
+): React.CSSProperties => {
+	const { naturalWidth, width, naturalHeight, height } = imgElement;
+	// Firefox & Safari can't always read the "natural" dimensions correctly.
+	// When these are undefined or zero, we replace them with the rendered values
+	const imgWidth = naturalWidth || width;
+	const imgHeight = naturalHeight || height;
 
-	return resizeMode === 'crop' ? (isLadscape ? { height: '100%' } : { width: '100%' }) : {};
+	const { width: parentWidth, height: parentHeight } = parentElement.getBoundingClientRect();
+
+	if (resizeMode === 'fit' || resizeMode === 'full-fit') {
+		return { maxWidth: `min(100%, ${imgWidth}px`, maxHeight: `min(100%, ${imgHeight}px` };
+	}
+
+	const imgRatio = imgWidth / imgHeight;
+	const cardRatio = parentWidth / parentHeight;
+	const isImageLandscapier = imgRatio > cardRatio;
+
+	if (resizeMode === 'stretchy-fit') {
+		if (isImageLandscapier) {
+			return { width: '100%', maxHeight: '100%' };
+		} else {
+			return { height: '100%', maxWidth: '100%' };
+		}
+	}
+
+	if (resizeMode === 'crop') {
+		if (isImageLandscapier) {
+			return { height: imgHeight, maxHeight: '100%' };
+		} else {
+			return { width: imgWidth, maxWidth: '100%' };
+		}
+	}
+
+	return {};
 };

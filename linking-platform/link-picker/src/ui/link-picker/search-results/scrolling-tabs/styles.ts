@@ -4,7 +4,7 @@ import { css, type SerializedStyles } from '@emotion/react';
 import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const scrollingContainerStyles: SerializedStyles = css({
 	overflowX: 'auto',
 	scrollBehavior: 'smooth',
@@ -28,7 +28,7 @@ export const scrollingContainerStyles: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const containerStyles: SerializedStyles = css({
 	position: 'relative',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -47,7 +47,7 @@ export const containerStyles: SerializedStyles = css({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const buttonContainerStyles: SerializedStyles = css({
 	position: 'absolute',
 	top: token('space.050', '4px'),
@@ -55,7 +55,7 @@ export const buttonContainerStyles: SerializedStyles = css({
 	backgroundColor: token('elevation.surface', N0),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const backButtonStyles: SerializedStyles = css([
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	buttonContainerStyles,
@@ -64,7 +64,7 @@ export const backButtonStyles: SerializedStyles = css([
 	},
 ]);
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-array-arguments, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const nextButtonStyles: SerializedStyles = css([
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	buttonContainerStyles,

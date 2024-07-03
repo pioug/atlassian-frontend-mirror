@@ -1,4 +1,3 @@
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Color as ColorType } from '@atlaskit/status/element';
 
 import type { closingMethods } from './ui/statusPicker';
@@ -18,7 +17,6 @@ export type StatusState = {
 export interface StatusPluginOptions {
 	menuDisabled: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
-	getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export type ClosingPayload = {

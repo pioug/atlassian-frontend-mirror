@@ -42,7 +42,11 @@ const defaults: DrawerPrimitiveDefaults = {
 /**
  * This wrapper is used to specify separate durations for enter and exit.
  */
-const CustomSlideIn = ({ children, onFinish }: Pick<SlideInProps, 'children' | 'onFinish'>) => {
+const CustomSlideIn = ({
+	children,
+	onFinish,
+	enterFrom,
+}: Pick<SlideInProps, 'children' | 'onFinish' | 'enterFrom'>) => {
 	const { isExiting } = useExitingPersistence();
 
 	/**
@@ -56,8 +60,8 @@ const CustomSlideIn = ({ children, onFinish }: Pick<SlideInProps, 'children' | '
 		<SlideIn
 			animationTimingFunction={animationTimingFunction}
 			duration={duration}
-			enterFrom="left"
-			exitTo="left"
+			enterFrom={enterFrom}
+			exitTo={enterFrom}
 			fade="none"
 			onFinish={onFinish}
 		>
@@ -83,6 +87,7 @@ const DrawerPrimitive = ({
 	width,
 	label,
 	titleId,
+	enterFrom = 'left',
 }: DrawerPrimitiveProps) => {
 	const getOverrides = createExtender<DrawerPrimitiveDefaults, DrawerPrimitiveOverrides>(
 		defaults,
@@ -111,7 +116,7 @@ const DrawerPrimitive = ({
 	return (
 		<ExitingPersistence appear>
 			{isOpen && (
-				<CustomSlideIn onFinish={onFinish}>
+				<CustomSlideIn onFinish={onFinish} enterFrom={enterFrom}>
 					{({ className }) => (
 						<FocusLock
 							autoFocusFirstElem={autoFocusFirstElem}

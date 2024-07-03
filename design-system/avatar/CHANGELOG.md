@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 21.11.0
+
+### Minor Changes
+
+- [#116644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116644)
+  [`40234970169dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40234970169dc) -
+  [ux] DSP-19190 We are testing a new visual appearance behind a feature flag. If successful it will
+  be released at a later date.
+
 ## 21.10.4
 
 ### Patch Changes

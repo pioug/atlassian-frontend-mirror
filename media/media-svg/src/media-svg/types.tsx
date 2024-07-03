@@ -26,6 +26,8 @@ export interface MediaSvgProps {
 	onMouseDown?: (ev: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
 	/* Override default styles */
 	style?: CSSProperties;
+	/* Reference to the rendered SVG image element */
+	innerRef?: React.Ref<HTMLImageElement>;
 }
 
 export type ContentSource = 'remote' | 'local';

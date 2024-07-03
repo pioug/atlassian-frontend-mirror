@@ -122,9 +122,7 @@ const decorateWithPluginOptions = (
 				id: 'status',
 				title: formatMessage(messages.status),
 				description: formatMessage(messages.statusDescription),
-				priority: options?.getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy
-					? 300
-					: 700,
+				priority: 700,
 				keywords: ['lozenge'],
 				icon: () => <IconStatus />,
 				action(insert, state) {

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.8.4
+
+### Patch Changes
+
+- [#117063](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117063)
+  [`5b862e8b58b77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b862e8b58b77) -
+  Fix AI summary icon partly showing blue colour when redesign feature flag is enabled
+
 ## 27.8.3
 
 ### Patch Changes

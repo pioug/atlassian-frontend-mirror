@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 194.0.1
+
+### Patch Changes
+
+- [#117063](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117063)
+  [`dbb832d0b1929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbb832d0b1929) -
+  clean up FF platform.editor.media.alluploadsfinished-dispatch-update_ivtow
+
+## 194.0.0
+
+### Major Changes
+
+- [`d9b562bd66f8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9b562bd66f8e) -
+  [ux] [ED-23947] restoring the original order of the typeahead menu so that actions, media,
+  mentions and emojis are above the fold (in the top 5 results). this change is a major because it
+  removes the `getEditorFeatureFlags prop` for plugins. if any consumers who have adopted these
+  changes to the public API, they should remove them on their side too.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.31.0
+
+### Minor Changes
+
+- [#107199](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107199)
+  [`94afc06c380b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94afc06c380b9) -
+  Introduce `i18n` entry point for accessing translation messages. It currently exposes only the
+  index for all languages. Individual locales will be exposed in a future update.
+
 ## 193.30.9
 
 ### Patch Changes

@@ -49,10 +49,7 @@ export const configs = {
 		plugins: ['@atlaskit/platform'],
 		rules: {
 			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
-			'@atlaskit/platform/ensure-feature-flag-prefix': [
-				'error',
-				{ allowedPrefixes: ['platform.'] },
-			],
+			'@atlaskit/platform/ensure-feature-flag-prefix': ['warn', { allowedPrefixes: ['platform.'] }],
 			'@atlaskit/platform/ensure-test-runner-arguments': 'error',
 			'@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
 			'@atlaskit/platform/no-invalid-feature-flag-usage': 'error',

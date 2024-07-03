@@ -1,17 +1,130 @@
-import React from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
+
+import rafSchedule from 'raf-schd';
 
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
-import { UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Card as SmartCard } from '@atlaskit/smart-card';
 
-import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from '../utils';
+import { registerCard } from '../pm-plugins/actions';
+import OverlayWrapper from '../ui/ConfigureOverlay';
+import { getAwarenessProps } from '../utils';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
-import { InlineCardWithAwareness } from './inlineCardWithAwareness';
+import {
+	InlineCardWithAwareness,
+	type InlineCardWithAwarenessProps,
+} from './inlineCardWithAwareness';
+
+export const InlineCard = memo(
+	({
+		node,
+		cardContext,
+		actionOptions,
+		showServerActions,
+		useAlternativePreloader,
+		view,
+		getPos,
+		onClick,
+		onResolve: onRes,
+		isHovered,
+	}: SmartCardProps) => {
+		const { url, data } = node.attrs;
+
+		const scrollContainer: HTMLElement | undefined = useMemo(
+			() => findOverflowScrollParent(view.dom as HTMLElement) || undefined,
+			[view.dom],
+		);
+
+		const onResolve = useCallback(
+			(data: { url?: string; title?: string }) => {
+				if (!getPos || typeof getPos === 'boolean') {
+					return;
+				}
+
+				const { title, url } = data;
+				// don't dispatch immediately since we might be in the middle of
+				// rendering a nodeview
+				rafSchedule(() => {
+					// prosemirror-bump-fix
+					const pos = getPos();
+
+					if (typeof pos !== 'number') {
+						return;
+					}
+
+					const tr = view.state.tr;
+
+					registerCard({
+						title,
+						url,
+						pos,
+					})(tr);
+
+					onRes?.(tr, title);
+
+					view.dispatch(tr);
+				})();
+			},
+			[getPos, view, onRes],
+		);
+
+		const onError = useCallback(
+			(data: { url?: string; err?: Error }) => {
+				const { url, err } = data;
+				if (err) {
+					throw err;
+				}
+				onResolve({ url });
+			},
+			[onResolve],
+		);
+
+		const card = useMemo(
+			() => (
+				<SmartCard
+					key={url}
+					url={url}
+					data={data}
+					appearance="inline"
+					onClick={onClick}
+					container={scrollContainer}
+					onResolve={onResolve}
+					onError={onError}
+					inlinePreloaderStyle={useAlternativePreloader ? 'on-right-without-skeleton' : undefined}
+					actionOptions={actionOptions}
+					showServerActions={showServerActions}
+					isHovered={isHovered}
+				/>
+			),
+			[
+				data,
+				isHovered,
+				onError,
+				onResolve,
+				scrollContainer,
+				url,
+				useAlternativePreloader,
+				actionOptions,
+				showServerActions,
+				onClick,
+			],
+		);
+
+		// [WS-2307]: we only render card wrapped into a Provider when the value is ready,
+		// otherwise if we got data, we can render the card directly since it doesn't need the Provider
+		return cardContext && cardContext.value ? (
+			<cardContext.Provider value={cardContext.value}>{card}</cardContext.Provider>
+		) : data ? (
+			card
+		) : null;
+	},
+);
 
 const WrappedInlineCardWithAwareness = Card(InlineCardWithAwareness, UnsupportedInline);
+const WrappedInlineCard = Card(InlineCard, UnsupportedInline);
 
 export type InlineCardNodeViewProps = Pick<
 	SmartCardProps,
@@ -24,12 +137,6 @@ export type InlineCardNodeViewProps = Pick<
 	| 'pluginInjectionApi'
 	| 'onClickCallback'
 >;
-
-type InlineCardWithAwarenessProps = {
-	allowEmbeds?: boolean;
-	allowBlockCards?: boolean;
-	enableInlineUpgradeFeatures: boolean;
-};
 
 export function InlineCardNodeView(
 	props: InlineNodeViewComponentProps & InlineCardNodeViewProps & InlineCardWithAwarenessProps,
@@ -48,6 +155,22 @@ export function InlineCardNodeView(
 		onClickCallback,
 	} = props;
 
+	if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+		return (
+			<OverlayWrapper targetElementPos={getPos()} view={view}>
+				<WrappedInlineCard
+					node={node}
+					view={view}
+					getPos={getPos}
+					actionOptions={actionOptions}
+					showServerActions={showServerActions}
+					useAlternativePreloader={useAlternativePreloader}
+					onClickCallback={onClickCallback}
+				/>
+			</OverlayWrapper>
+		);
+	}
+
 	return (
 		<WrappedInlineCardWithAwareness
 			node={node}
@@ -63,33 +186,3 @@ export function InlineCardNodeView(
 		/>
 	);
 }
-
-const getAwarenessProps = (
-	editorState: EditorState,
-	getPos: () => number | undefined,
-	allowEmbeds?: boolean,
-	allowBlockCards?: boolean,
-) => {
-	const linkPosition = getPos && typeof getPos() === 'number' ? getPos() : undefined;
-
-	const canBeUpgradedToEmbed =
-		!!linkPosition && allowEmbeds
-			? isEmbedSupportedAtPosition(linkPosition, editorState, 'inline')
-			: false;
-
-	const canBeUpgradedToBlock =
-		!!linkPosition && allowBlockCards
-			? isBlockSupportedAtPosition(linkPosition, editorState, 'inline')
-			: false;
-
-	const isSelected =
-		editorState.selection instanceof NodeSelection &&
-		editorState.selection?.node?.type === editorState.schema.nodes.inlineCard &&
-		editorState.selection?.from === getPos();
-
-	return {
-		isPulseEnabled: canBeUpgradedToEmbed,
-		isOverlayEnabled: canBeUpgradedToEmbed || canBeUpgradedToBlock,
-		isSelected,
-	};
-};

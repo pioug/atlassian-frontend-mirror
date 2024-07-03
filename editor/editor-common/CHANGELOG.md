@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 84.0.1
+
+### Patch Changes
+
+- [#117088](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117088)
+  [`2d9e303cfc237`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d9e303cfc237) -
+  [ux] Update padding between icon and also padding button to match designs better
+
+## 84.0.0
+
+### Major Changes
+
+- [`d9b562bd66f8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9b562bd66f8e) -
+  [ux] [ED-23947] restoring the original order of the typeahead menu so that actions, media,
+  mentions and emojis are above the fold (in the top 5 results). this change is a major because it
+  removes the `getEditorFeatureFlags prop` for plugins. if any consumers who have adopted these
+  changes to the public API, they should remove them on their side too.
+
+## 83.6.1
+
+### Patch Changes
+
+- [#116939](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116939)
+  [`4c39bb26a8450`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c39bb26a8450) -
+  Update i18n message string to help with translations.
+- [`e114f7d115e72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e114f7d115e72) -
+  increase table cell padding under FF
+
 ## 83.6.0
 
 ### Minor Changes

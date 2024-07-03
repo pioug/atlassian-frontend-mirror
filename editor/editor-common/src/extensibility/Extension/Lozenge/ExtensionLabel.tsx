@@ -5,7 +5,7 @@ import type { CSSProperties } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
-import { defineMessages, useIntl } from 'react-intl-next';
+import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
 import { N0, N30, N40, N500, N800 } from '@atlaskit/theme/colors';
@@ -58,13 +58,11 @@ const sharedLabelStyles = css({
 });
 
 const buttonLabelStyles = css({
-	// Need this exact number since this is size with icon
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-	minHeight: '26px',
+	minHeight: token('space.300', '24px'),
 	alignItems: 'center',
 	borderRadius: token('border.radius', '3px'),
-	paddingLeft: token('space.050', '4px'),
-	paddingRight: token('space.050', '4px'),
+	paddingLeft: token('space.100', '8px'),
+	paddingRight: token('space.100', '8px'),
 	color: token('color.text.subtle', N800),
 	backgroundColor: token('color.background.accent.gray.subtlest', N30),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -78,7 +76,8 @@ const buttonLabelStyles = css({
 });
 
 const spacerStyles = css({
-	height: token('space.150', '12px'),
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+	height: '10px',
 });
 
 const textStyles = css({
@@ -102,6 +101,7 @@ const originalLabelStyles = css({
 });
 
 const iconStyles = css({
+	marginLeft: token('space.050', '4px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.hide-icon': {
 		display: 'none',
@@ -111,7 +111,7 @@ const iconStyles = css({
 const i18n = defineMessages({
 	configure: {
 		id: 'editor-common-extensibility.macro.button.configure',
-		defaultMessage: 'Configure',
+		defaultMessage: 'Configure {macroName}',
 		description: 'Text in tooltip that tells user they can configure the specific macro.',
 	},
 });
@@ -137,9 +137,8 @@ export const ExtensionLabel = ({
 	isBodiedMacro,
 	showMacroButtonUpdates,
 }: ExtensionLabelProps) => {
-	const intl = useIntl();
-	const tooltipText = `${intl.formatMessage(i18n.configure)} ${text}`;
 	const isInlineExtension = extensionName === 'inlineExtension';
+	const showDefaultBodiedStyles = isBodiedMacro && !isNodeHovered;
 
 	const containerClassNames = classnames({
 		bodied: isBodiedMacro,
@@ -149,8 +148,8 @@ export const ExtensionLabel = ({
 		nested: isNodeNested,
 		inline: isInlineExtension,
 		bodied: isBodiedMacro,
-		'bodied-border': isBodiedMacro && !isNodeHovered,
-		'bodied-background': isBodiedMacro && !isNodeHovered,
+		'bodied-border': showDefaultBodiedStyles,
+		'bodied-background': showDefaultBodiedStyles,
 		'show-label': isNodeHovered || isBodiedMacro,
 	});
 
@@ -182,7 +181,10 @@ export const ExtensionLabel = ({
 		>
 			{showMacroButtonUpdates ? (
 				<Fragment>
-					<Tooltip content={tooltipText} position="top">
+					<Tooltip
+						content={<FormattedMessage {...i18n.configure} values={{ macroName: text }} />}
+						position="top"
+					>
 						{(tooltipProps) => (
 							<span
 								data-testid="new-lozenge-button"
@@ -192,7 +194,7 @@ export const ExtensionLabel = ({
 								className={`${sharedLabelClassNames} ${newButtonLabelClassNames}`}
 							>
 								{text}
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 								<span css={iconStyles} className={iconClassNames} data-testid="config-icon">
 									<PreferencesIcon label="" />
 								</span>

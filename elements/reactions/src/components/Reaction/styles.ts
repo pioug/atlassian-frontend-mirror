@@ -15,12 +15,12 @@ const akHeight = 24;
  * of FlashAnimation b/c it otherwise throws off the flash styling
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const containerStyle = css({
 	position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiStyle = css({
 	transformOrigin: 'center center 0',
 	lineHeight: '12px',
@@ -30,7 +30,7 @@ export const emojiStyle = css({
 	)} ${token('space.100', '8px')}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const reactionStyle = css({
 	display: 'flex',
 	flexDirection: 'row',
@@ -59,7 +59,7 @@ export const reactionStyle = css({
 	overflow: 'hidden',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const reactedStyle = css({
 	backgroundColor: token('color.background.selected', B50),
 	borderColor: token('color.border.selected', B300),
@@ -70,7 +70,7 @@ export const reactedStyle = css({
 
 export const flashHeight = akHeight - 2; // height without the 1px border
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const flashStyle = css({
 	display: 'flex',
 	flexDirection: 'row',
@@ -80,7 +80,7 @@ export const flashStyle = css({
 	height: `${flashHeight}px`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiNoReactionStyle = css({
 	padding: `${token('space.050', '4px')} ${token('space.025', '2px')} ${token('space.050', '4px')} 10px`,
 });

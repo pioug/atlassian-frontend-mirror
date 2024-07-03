@@ -1,5 +1,13 @@
 # @atlaskit/media-svg
 
+## 0.1.10
+
+### Patch Changes
+
+- [#116684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116684)
+  [`72f1da4341a27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72f1da4341a27) -
+  MediaSvg accepts ref object as a property to access the underlying img tag
+
 ## 0.1.9
 
 ### Patch Changes

@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-card
 
+## 2.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.6
+
+### Patch Changes
+
+- [#117151](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117151)
+  [`94ee9b09a23a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94ee9b09a23a0) -
+  Fix import statement to @atlaskit/editor-common to use entrypoint
+
+## 2.3.5
+
+### Patch Changes
+
+- [#117005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117005)
+  [`74f438b3abcff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74f438b3abcff) -
+  [ux] Fix for import statement in plugins.tsx
+- Updated dependencies
+
+## 2.3.4
+
+### Patch Changes
+
+- [#116819](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116819)
+  [`d80c008d6a32e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d80c008d6a32e) -
+  [ux] Seperate live page overlay logic from discoverability overlay and assosciated code refactor
+
 ## 2.3.3
 
 ### Patch Changes

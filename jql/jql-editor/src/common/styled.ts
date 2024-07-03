@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import { fontFamily } from '@atlaskit/theme/constants';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const hiddenMixin = css({
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	clipPath: 'inset(50%)',

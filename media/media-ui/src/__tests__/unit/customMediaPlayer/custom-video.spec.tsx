@@ -34,6 +34,7 @@ import { toggleFullscreen, getFullscreenElement } from '../../../customMediaPlay
 import simultaneousPlayManager from '../../../customMediaPlayer/simultaneousPlayManager';
 import { CurrentTime, VolumeTimeRangeWrapper } from '../../../customMediaPlayer/styled';
 import { TimeRange, type TimeRangeProps } from '../../../customMediaPlayer/timeRange';
+import VolumeRange from '../../../customMediaPlayer/volumeRange';
 import { PlaybackSpeedControls } from '../../../customMediaPlayer/playbackSpeedControls';
 import { type ReactWrapper } from 'enzyme';
 import * as getControlsWrapperClassNameModule from '../../../customMediaPlayer/getControlsWrapperClassName';
@@ -149,10 +150,10 @@ describe('<CustomMediaPlayer />', () => {
 
 		const blanket = component.find('[data-testid="play-pause-blanket"]').at(1);
 
-		const getTimeRange = () => component.find(TimeRange).at(0);
-		const getVolumeRange = () => component.find(TimeRange).at(1);
+		const getTimeRange = () => component.find(TimeRange);
+		const getVolumeRange = () => component.find(VolumeRange);
 		const getSliderTime = () => getTimeRange().prop('currentTime');
-		const getVolumeLevel = () => getVolumeRange().prop('currentTime');
+		const getVolumeLevel = () => getVolumeRange().prop('currentVolume');
 
 		const getVideoElement = () => component.find('video');
 

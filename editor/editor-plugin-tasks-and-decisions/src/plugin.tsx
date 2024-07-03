@@ -39,7 +39,7 @@ const addItem =
 	};
 
 export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
-	config: { allowNestedTasks, consumeTabs, useLongPressSelection, getEditorFeatureFlags } = {},
+	config: { allowNestedTasks, consumeTabs, useLongPressSelection } = {},
 	api,
 }) => {
 	const getIdentifierProvider = () =>
@@ -133,7 +133,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					id: 'action',
 					title: formatMessage(insertBlockMessages.action),
 					description: formatMessage(insertBlockMessages.actionDescription),
-					priority: getEditorFeatureFlags?.().platformEditorTypeaheadImprovedRelevancy ? 800 : 100,
+					priority: 100,
 					keywords: ['checkbox', 'task', 'todo'],
 					keyshortcut: '[]',
 					icon: () => <IconAction />,

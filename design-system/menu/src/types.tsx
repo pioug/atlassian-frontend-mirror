@@ -285,6 +285,12 @@ export interface LinkItemProps extends MenuItemProps {
 	 * Use this to override the accessibility role for the element.
 	 */
 	role?: string;
+
+	/**
+	 * Use this to opt out of using a router link and instead use a regular anchor element.
+	 * Marked as "unsafe" because ideally, router links should be used for all internal links.
+	 */
+	UNSAFE_shouldDisableRouterLink?: boolean;
 }
 
 export interface CustomItemComponentProps {

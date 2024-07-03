@@ -7,6 +7,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, RequiredAsterisk } from '@atlaskit/form';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
@@ -55,6 +56,8 @@ interface Props {
 	selectLabel?: string;
 	/** Optional custom label for TextArea when showTypeField is false*/
 	customTextAreaLabel?: string;
+	/** Custom Select feedback options */
+	customFeedbackOptions?: OptionType[];
 }
 
 export interface OptionType {
@@ -80,6 +83,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 	hasDescriptionDefaultValue,
 	selectLabel,
 	customTextAreaLabel,
+	customFeedbackOptions = [],
 }) => {
 	const [canBeContacted, setCanBeContacted] = useState<FormFields['canBeContacted']>(false);
 	const [description, setDescription] = useState<FormFields['description']>('');
@@ -132,6 +136,11 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 		record?.empty.selectOptionLabel || formatMessage(messages.selectionOptionDefaultPlaceholder);
 
 	const focusRef = useRef<HTMLElement>();
+
+	const selectOptions =
+		customFeedbackOptions.length > 0 && fg('platform.custom-select-feedback-options_c61l9')
+			? customFeedbackOptions
+			: getSelectOptions(feedbackGroupLabels);
 
 	return (
 		<Modal
@@ -210,7 +219,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 													zIndex: 9999,
 												}),
 											}}
-											options={getSelectOptions(feedbackGroupLabels)}
+											options={selectOptions}
 											// @ts-ignore
 											ref={focusRef}
 											placeholder={getDefaultPlaceholder(feedbackGroupLabels)}

@@ -14,9 +14,10 @@ import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type CardContext } from '@atlaskit/link-provider';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { APIError, CardProps as BaseCardProps, CardPlatform } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
@@ -52,10 +53,6 @@ export interface CardProps extends CardNodeViewProps {
 	showServerActions?: boolean;
 	actionOptions?: BaseCardProps['actionOptions'];
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
-	isOverlayEnabled?: boolean;
-	isPulseEnabled?: boolean;
-	linkPosition?: number;
-	isSelected?: boolean;
 	onClickCallback?: OnClickCallback;
 }
 
@@ -63,6 +60,11 @@ export interface SmartCardProps extends CardProps {
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	cardContext?: EditorContext<CardContext | undefined>;
 	onClick?: EventHandler<MouseEvent | KeyboardEvent> | undefined;
+	onResolve?: (tr: Transaction, title?: string) => void;
+	isHovered?: boolean;
+	allowEmbeds?: boolean;
+	allowBlockCards?: boolean;
+	enableInlineUpgradeFeatures?: boolean;
 }
 
 const WithClickHandler = ({
@@ -163,7 +165,7 @@ export function Card(
 						location: analyticsEditorAppearance,
 					}}
 				>
-					{getBooleanFF('platform.linking-platform.smart-card.on-click-callback') ? (
+					{fg('platform.linking-platform.smart-card.on-click-callback') ? (
 						<WithClickHandler
 							pluginInjectionApi={pluginInjectionApi}
 							onClickCallback={onClickCallback}

@@ -17,7 +17,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { TypeAheadItem, TypeAheadItemRenderProps } from '../types';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const itemIcon = css({
 	width: token('space.500', '40px'),
 	height: token('space.500', '40px'),

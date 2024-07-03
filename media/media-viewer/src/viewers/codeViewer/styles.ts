@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const codeViewWrapperStyles = css({
 	position: 'absolute',
 	left: 0,
@@ -18,14 +18,14 @@ export const codeViewWrapperStyles = css({
 });
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const codeViewerHeaderBarStyles = css({
 	height: '75px',
 	backgroundColor: '#1d2125',
 });
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const codeViewerHTMLStyles = css({
 	display: 'flex',
 	lineHeight: '20px',

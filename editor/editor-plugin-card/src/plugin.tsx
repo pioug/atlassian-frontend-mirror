@@ -23,13 +23,12 @@ import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	CONFLUENCE_SEARCH_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-import { queueCardsFromChangedTr } from '../src/pm-plugins/doc';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
+import { queueCardsFromChangedTr } from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -196,7 +195,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 				if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
 					quickInsertArray.push({
 						id: 'datasource',
-						title: getBooleanFF('platform.linking-platform.datasource-assets_objects_remove_beta')
+						title: fg('platform.linking-platform.datasource-assets_objects_remove_beta')
 							? formatMessage(messages.datasourceAssetsObjectsGeneralAvailability)
 							: formatMessage(messages.datasourceAssetsObjects),
 						description: formatMessage(messages.datasourceAssetsObjectsDescription),

@@ -22,6 +22,7 @@ import { type CSSInterpolation } from '@emotion/serialize';
 import { useUIDSeed } from 'react-uid';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B300, N0, N70A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -152,7 +153,9 @@ const getStyles = (
 		size,
 		radius,
 		appearance,
-		borderColor = token('elevation.surface.overlay', N0),
+		borderColor = fg('platform.design-system-team.component-visual-refresh_t8zbo')
+			? token('elevation.surface')
+			: token('elevation.surface.overlay', N0),
 		stackIndex,
 		isInteractive,
 		isDisabled,

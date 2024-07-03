@@ -53,6 +53,11 @@ export interface SyntaxHighlighterProps {
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	showLineNumbers?: boolean;
 	/**
+	 * Sets the number of the first line, if showLineNumbers is set to true.
+	 * @default 1
+	 */
+	firstLineNumber?: number;
+	/**
 	 * Determines whether or not each line of code should be wrapped in a parent
 	 * element.
 	 *

@@ -46,6 +46,15 @@ describe('CodeBlock', () => {
 		expect(container.querySelector('.linenumber')).not.toBeNull();
 	});
 
+	it('should have "firstLineNumber" equal 1 by default', () => {
+		const { container } = render(<CodeBlock text={code} />);
+		expect(
+			container
+				.querySelector('.linenumber[data-ds--line-number]')
+				?.getAttribute('data-ds--line-number'),
+		).toEqual('1');
+	});
+
 	it('should apply correct bg color', () => {
 		render(<CodeBlock text={code} testId="test" language="java" />);
 		expect(screen.getByTestId('test')).toHaveStyle(
@@ -75,6 +84,15 @@ describe('CodeBlock', () => {
 
 		longCode.split('\n').forEach((line, index) => {
 			const lineNum = index + 1;
+			expect(findCodeLine(lineNum).textContent?.trim()).toEqual(line);
+		});
+	});
+
+	it('should render the right thing on the right line when firstLineNumber is set', () => {
+		render(<CodeBlock text={longCode} testId={testId} firstLineNumber={333} />);
+
+		longCode.split('\n').forEach((line, index) => {
+			const lineNum = index + 333;
 			expect(findCodeLine(lineNum).textContent?.trim()).toEqual(line);
 		});
 	});

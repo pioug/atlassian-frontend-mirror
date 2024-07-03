@@ -7,14 +7,14 @@ export interface MutableCardContainerProps {
 	mutable: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const filmstripContainerStyles = css({
 	border: `1px dotted ${token('color.border', N50A)}`,
 	marginTop: '10px',
 	marginBottom: '10px',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const filmstripWrapperStyles = css({
 	border: `1px solid ${token('color.border', '#ccc')}`,
 	width: '800px',
@@ -22,25 +22,25 @@ export const filmstripWrapperStyles = css({
 });
 
 // 0-editable styles
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const storyWrapperStyles = css({
 	padding: '1em',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const separatorStyles = css({
 	margin: '1em 0',
 	border: `1px solid ${token('color.border', '#ccc')}`,
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const controlLabelStyles = css({
 	display: 'block',
 	marginTop: '1em',
 	fontWeight: 'bold',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const flexStyles = css({
 	display: 'flex',
 	alignItems: 'center',
@@ -58,7 +58,7 @@ export const editableBoxStyles = ({ grow }: BoxProps) => css`
 `;
 
 // 3-pure-component styles
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css -- Ignored via go/DSP-18766
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const pureComponentBoxStyles = css({
 	width: '250px',
 	height: '100px',

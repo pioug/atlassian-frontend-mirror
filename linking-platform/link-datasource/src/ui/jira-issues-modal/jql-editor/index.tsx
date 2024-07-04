@@ -15,9 +15,13 @@ export interface JiraJQLEditorProps {
 	query: string;
 }
 
-export const JiraJQLEditor: React.FC<JiraJQLEditorProps> = (props) => {
-	const { cloudId, isSearching, onChange, onSearch, query } = props;
-
+export const JiraJQLEditor = ({
+	cloudId,
+	isSearching,
+	onChange,
+	onSearch,
+	query,
+}: JiraJQLEditorProps) => {
 	const autocompleteProvider = useAutocompleteProvider(
 		'link-datasource',
 		makeGetJqlAutocompleteData(cloudId),

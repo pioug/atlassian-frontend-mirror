@@ -62,11 +62,15 @@ const validateBranchDeploy = (str: unknown) => {
 	}
 };
 
-const LoadLinkForm: React.FC<{
+const LoadLinkForm = ({
+	error: urlError,
+	onSubmit,
+	branchDeploy,
+}: {
 	error?: string;
 	onSubmit: (url: string, ari?: string, branchDeploy?: string) => void;
 	branchDeploy?: string;
-}> = ({ error: urlError, onSubmit, branchDeploy }) => {
+}) => {
 	const handleSubmit = useCallback(
 		(formState: { url: string; ari: string; branchDeploy: string }) => {
 			onSubmit(formState.url, formState.ari, formState.branchDeploy);

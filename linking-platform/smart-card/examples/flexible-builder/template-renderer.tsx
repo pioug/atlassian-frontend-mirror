@@ -69,10 +69,7 @@ const renderBlock = ({ name, ...props }: BlockTemplate, key: string) => {
 	return Block ? <Block key={key} {...props} /> : null;
 };
 
-const TemplateRenderer: React.FC<{
-	template: FlexibleTemplate;
-	url?: string;
-}> = ({ template, url }) => {
+const TemplateRenderer = ({ template, url }: { template: FlexibleTemplate; url?: string }) => {
 	const [width, setWidth] = useState(60);
 	const handleOnChange = useCallback((width: number) => setWidth(width), []);
 

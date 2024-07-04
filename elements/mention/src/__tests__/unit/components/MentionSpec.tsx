@@ -205,7 +205,7 @@ describe('<Mention />', () => {
 				.findWhere((component) => component.prop('mentionType'))
 				.find('span')
 				.simulate('mouseenter');
-			jest.runTimersToTime(ANALYTICS_HOVER_DELAY);
+			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY);
 
 			expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
 				expect.objectContaining(createPayload('mention', 'hovered')),
@@ -224,14 +224,14 @@ describe('<Mention />', () => {
 				.findWhere((component) => component.prop('mentionType'))
 				.find('span')
 				.simulate('mouseenter');
-			jest.runTimersToTime(ANALYTICS_HOVER_DELAY / 5);
+			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY / 5);
 			mention
 				.findWhere((component) => component.prop('mentionType'))
 				.find('span')
 				.simulate('mouseleave');
 
 			// to make sure the clearTimeout removed the scheduled task
-			jest.runTimersToTime(ANALYTICS_HOVER_DELAY);
+			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY);
 
 			expect(analyticsNextHandlerSpy).not.toBeCalled();
 		});

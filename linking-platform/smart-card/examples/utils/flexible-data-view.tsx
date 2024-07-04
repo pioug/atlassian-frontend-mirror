@@ -1,7 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React from 'react';
 import { token } from '@atlaskit/tokens';
 import {
 	Card,
@@ -106,7 +105,7 @@ export const flexStyles = css`
 	}
 `;
 
-const FlexibleDataView: React.FC<{ url?: string }> = ({ url }) => (
+const FlexibleDataView = ({ url }: { url?: string }) => (
 	<div css={flexStyles}>
 		<Card appearance="block" url={url}>
 			<TitleBlock />

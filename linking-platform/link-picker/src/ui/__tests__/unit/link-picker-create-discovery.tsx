@@ -1,10 +1,11 @@
 /* eslint-disable */
 import React from 'react';
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 
 import '@atlaskit/link-test-helpers/jest';
 import { screen } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -40,6 +41,8 @@ jest.mock('use-debounce', () => ({
 	...jest.requireActual<Object>('use-debounce'),
 	useDebounce: <T extends unknown>(val: T) => [val],
 }));
+
+expect.extend(jestExtendedMatchers);
 
 interface LinkPickerTestProps extends Partial<LinkPickerProps> {
 	spy: jest.Mock<any, any>;
@@ -90,7 +93,7 @@ describe('Link Picker Jira Create Discovery (pulse)', () => {
 		const spy = jest.fn();
 		const onSubmit = jest.fn();
 
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 
 		/** Date spy to be able to "see" the feature discovery pulse for a given amount of time */
 		const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => now);

@@ -1,4 +1,4 @@
-jest.useFakeTimers();
+jest.useFakeTimers({ legacyFakeTimers: true });
 
 jest.mock('@atlaskit/prosemirror-collab', () => {
 	return {
@@ -169,7 +169,7 @@ describe('Provider', () => {
 				isBufferingEnabled: true,
 			};
 
-			it('catchupv2 : should successfully initialize provider and call catchupv2 when channel connects', async (done) => {
+			it('catchupv2 : should successfully initialize provider and call catchupv2 when channel connects', async () => {
 				expect.assertions(4);
 				const sid = 'expected-sid-123';
 				const provider = createSocketIOCollabProvider({
@@ -192,7 +192,6 @@ describe('Provider', () => {
 				expect((provider as any).isProviderInitialized).toEqual(true);
 				expect((provider as any).isBuffered).toEqual(true);
 				expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
-				done();
 			});
 
 			it('should start document setup and channel connection when editor state is defined', (done) => {
@@ -216,7 +215,7 @@ describe('Provider', () => {
 				done();
 			});
 
-			it('should fire an analytics event for provider initialization and unconfirmed step count when buffering is successful', async (done) => {
+			it('should fire an analytics event for provider initialization and unconfirmed step count when buffering is successful', async () => {
 				expect.assertions(3);
 				const sid = 'expected-sid-123';
 				const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
@@ -236,7 +235,6 @@ describe('Provider', () => {
 				expect(sendActionEventSpy).toHaveBeenCalledWith('hasUnconfirmedSteps', 'INFO', {
 					numUnconfirmedSteps: 0,
 				});
-				done();
 			});
 		});
 	});
@@ -274,18 +272,17 @@ describe('Provider', () => {
 				provider.initialize(() => editorState);
 			});
 
-			it("'connected' when the connection is successfully established", async (done) => {
+			it("'connected' when the connection is successfully established", async () => {
 				const provider = createSocketIOCollabProvider(testProviderConfig);
 				provider.on('connected', ({ sid, initial }) => {
 					expect(sid).toBe('sid-123');
 					expect(initial).toBe(true);
-					done();
 				});
 				provider.initialize(() => editorState);
 				channel.emit('connected', { sid: 'sid-123' });
 			});
 
-			it("'init' with the initialisation data from the collab service", async (done) => {
+			it("'init' with the initialisation data from the collab service", async () => {
 				let expectedSid: any;
 				const sid = 'expected-sid-123';
 				const userId = 'user-123';
@@ -300,7 +297,6 @@ describe('Provider', () => {
 					expect(metadata).toEqual({
 						title: 'some-random-title',
 					});
-					done();
 				});
 				provider.initialize(() => editorState);
 				channel.emit('connected', { sid });
@@ -315,7 +311,7 @@ describe('Provider', () => {
 			});
 		});
 
-		it("'init' with the initial draft data from the provider config", async (done) => {
+		it("'init' with the initial draft data from the provider config", async () => {
 			const testProviderConfigWithDraft = {
 				initialDraft: {
 					document: 'test-document' as any,
@@ -332,7 +328,6 @@ describe('Provider', () => {
 					version: 1,
 					metadata: { title: 'random-title' },
 				});
-				done();
 			});
 			provider.initialize(() => editorState);
 			channel.emit('connected', { sid, initialized: true });
@@ -397,13 +392,12 @@ describe('Provider', () => {
 	});
 
 	describe('Emit metadata cases', () => {
-		it('should emit metadata when title is changed', async (done) => {
+		it('should emit metadata when title is changed', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
 					title: 'some-random-title',
 				});
-				done();
 			});
 			provider.initialize(() => editorState);
 			channel.emit('metadata:changed', {
@@ -411,13 +405,12 @@ describe('Provider', () => {
 			});
 		});
 
-		it('should emit metadata when title has changed to empty string', async (done) => {
+		it('should emit metadata when title has changed to empty string', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
 					title: '',
 				});
-				done();
 			});
 			provider.initialize(() => editorState);
 			channel.emit('metadata:changed', {
@@ -425,14 +418,13 @@ describe('Provider', () => {
 			});
 		});
 
-		it('should emit metadata with editorWidth', async (done) => {
+		it('should emit metadata with editorWidth', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
 					editorWidth: 'full-page',
 					version: 1,
 				});
-				done();
 			});
 			provider.initialize(() => editorState);
 			channel.emit('metadata:changed', {
@@ -441,13 +433,12 @@ describe('Provider', () => {
 			});
 		});
 
-		it('should emit metadata when editor width is changed to empty string', async (done) => {
+		it('should emit metadata when editor width is changed to empty string', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
 				expect(metadata).toEqual({
 					editorWidth: '',
 				});
-				done();
 			});
 			provider.initialize(() => editorState);
 			channel.emit('metadata:changed', {
@@ -455,7 +446,7 @@ describe('Provider', () => {
 			});
 		});
 
-		it('should emit metadata during init', async (done) => {
+		it('should emit metadata during init', async () => {
 			const userId = 'user-123';
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('init', ({ metadata }: any) => {
@@ -468,7 +459,6 @@ describe('Provider', () => {
 						title: 'some-random-title',
 						editorWidth: 'some-random-width',
 					});
-					done();
 				});
 			});
 			provider.initialize(() => editorState);

@@ -110,7 +110,7 @@ describe('Tooltip', () => {
 			// Trigger showing tooltip
 			fireEvent.mouseOver(trigger);
 			act(() => {
-				jest.runTimersToTime(299);
+				jest.advanceTimersByTime(299);
 			});
 			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
 			expect(onShow).not.toHaveBeenCalled();
@@ -214,7 +214,7 @@ describe('Tooltip', () => {
 			fireEvent.mouseOut(trigger);
 			// don't quite finish delay
 			act(() => {
-				jest.runTimersToTime(299);
+				jest.advanceTimersByTime(299);
 			});
 			expect(queryByTestId('tooltip')).toBeInTheDocument();
 
@@ -274,7 +274,7 @@ describe('Tooltip', () => {
 			});
 			// go partially through the motion
 			act(() => {
-				jest.runTimersToTime(1);
+				jest.advanceTimersByTime(1);
 			});
 			// tooltip is visible but fading out
 			expect(queryByTestId('tooltip')).toBeInTheDocument();
@@ -606,12 +606,12 @@ describe('Tooltip', () => {
 
 			// Delay not completed yet
 			act(() => {
-				jest.runTimersToTime(299);
+				jest.advanceTimersByTime(299);
 			});
 			expect(onShow).toHaveBeenCalledTimes(0);
 			// Delay completed
 			act(() => {
-				jest.runTimersToTime(1);
+				jest.advanceTimersByTime(1);
 			});
 
 			expect(onShow).toHaveBeenCalledTimes(1);
@@ -646,13 +646,13 @@ describe('Tooltip', () => {
 			fireEvent.mouseOver(trigger);
 
 			act(() => {
-				jest.runTimersToTime(999);
+				jest.advanceTimersByTime(999);
 			});
 			expect(onShow).toHaveBeenCalledTimes(0);
 			expect(queryByTestId('tooltip')).not.toBeInTheDocument();
 
 			act(() => {
-				jest.runTimersToTime(1);
+				jest.advanceTimersByTime(1);
 			});
 			expect(onShow).toHaveBeenCalledTimes(1);
 			expect(queryByTestId('tooltip')).toBeInTheDocument();
@@ -692,14 +692,14 @@ describe('Tooltip', () => {
 			// start hiding
 			fireEvent.mouseOut(trigger);
 			act(() => {
-				jest.runTimersToTime(299);
+				jest.advanceTimersByTime(299);
 			});
 			// haven't waited long enough
 			expect(queryByTestId('tooltip')).toBeInTheDocument();
 
 			// finish delay
 			act(() => {
-				jest.runTimersToTime(1);
+				jest.advanceTimersByTime(1);
 			});
 
 			// Still present because we haven't flushed motion
@@ -744,7 +744,7 @@ describe('Tooltip', () => {
 
 			act(() => {
 				fireEvent.mouseOut(trigger);
-				jest.runTimersToTime(999);
+				jest.advanceTimersByTime(999);
 			});
 
 			rerender(jsx);
@@ -752,7 +752,7 @@ describe('Tooltip', () => {
 			expect(queryByTestId('tooltip')).toBeInTheDocument();
 
 			act(() => {
-				jest.runTimersToTime(1);
+				jest.advanceTimersByTime(1);
 			});
 
 			rerender(jsx);

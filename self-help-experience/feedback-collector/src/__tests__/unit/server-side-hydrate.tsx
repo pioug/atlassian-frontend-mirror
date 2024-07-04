@@ -1,3 +1,5 @@
+import { screen, waitFor } from '@testing-library/react';
+
 import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
@@ -17,6 +19,9 @@ test('should ssr then hydrate feedback-collector correctly', async () => {
 
 	elem.innerHTML = html;
 	hydrate(examplePath, elem, styles);
+
+	// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
+	await waitFor(() => screen.getByRole('button'));
 
 	// No other errors from e.g. hydrate
 	// eslint-disable-next-line no-console

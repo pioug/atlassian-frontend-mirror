@@ -1,7 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React from 'react';
 import { type BlockBuilderProps } from '../types';
 import MetadataOption from './inputs/metadata-option';
 import MaxLinesOption from './inputs/max-lines-option';
@@ -10,11 +9,11 @@ import EnumOption from './inputs/enum-option';
 
 const DEFAULT_MAX_LINES = 2;
 
-const MetadataBlockBuilder: React.FC<BlockBuilderProps> = ({
+const MetadataBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}) => {
+}: BlockBuilderProps) => {
 	return (
 		<div>
 			<MaxLinesOption

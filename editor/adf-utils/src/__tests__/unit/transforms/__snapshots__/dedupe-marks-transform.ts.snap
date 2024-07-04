@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`transformDedupeMarks should remove duplicate marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
+{
+  "content": [
+    {
+      "content": [
+        {
           "text": "other ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -21,14 +21,14 @@ Object {
           "text": "more",
           "type": "text",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
@@ -37,17 +37,17 @@ Object {
           "text": "things",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "annotationType": "inlineComment",
                 "id": "123",
               },
               "type": "annotation",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "annotationType": "inlineComment",
                 "id": "456",
               },
@@ -57,22 +57,22 @@ Object {
           "text": "annotated-text",
           "type": "text",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "id": "1f642",
             "shortName": ":slight_smile:",
             "text": "🙂",
           },
           "type": "emoji",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "annotationType": "inlineComment",
                 "id": "789",
               },
@@ -82,70 +82,70 @@ Object {
           "text": "more-annotated-text",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
-            Object {
+            {
               "type": "underline",
             },
           ],
           "text": "between",
           "type": "text",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
-            Object {
+            {
               "type": "underline",
             },
           ],
           "text": "more",
           "type": "text",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "some",
           "type": "text",
         },
-        Object {
+        {
           "text": " text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
-            Object {
+            {
               "type": "strike",
             },
           ],
           "text": "other",
           "type": "text",
         },
-        Object {
+        {
           "text": " text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],

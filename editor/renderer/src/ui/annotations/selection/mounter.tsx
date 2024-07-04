@@ -1,5 +1,6 @@
 import React, { useCallback, useState, useContext, useMemo } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	AnnotationByMatches,
 	InlineCommentSelectionComponentProps,
@@ -56,6 +57,10 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const isCommentsOnMediaBugFixEnabled = !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
 	const inlineNodeTypes = useMemo(() => {
+		if (!fg('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			return undefined;
+		}
+
 		if (actions.isValidAnnotationRange(range)) {
 			return getRendererRangeInlineNodeNames({
 				pos: documentPosition,

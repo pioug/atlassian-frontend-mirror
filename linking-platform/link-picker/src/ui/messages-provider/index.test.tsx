@@ -4,7 +4,6 @@ import { act, render, screen } from '@testing-library/react';
 import { defineMessages, IntlProvider, useIntl } from 'react-intl-next';
 
 import { ManualPromise } from '@atlaskit/link-test-helpers';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { fetchMessagesForLocale } from './lazy-messages-provider/utils/fetch-messages-for-locale';
 
@@ -17,9 +16,7 @@ describe('MessagesProvider', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		jest.isolateModules(() => {
-			MessagesProvider = require('./index').MessagesProvider;
-		});
+		MessagesProvider = require('./index').MessagesProvider;
 	});
 
 	type SetupProps = { locale: string; children?: React.ReactNode };
@@ -63,7 +60,7 @@ describe('MessagesProvider', () => {
 	it('should automatically load translations', async () => {
 		jest.spyOn(console, 'error').mockImplementation(() => {});
 		const promise = new ManualPromise(translated);
-		asMock(fetchMessagesForLocale).mockReturnValue(promise);
+		jest.mocked(fetchMessagesForLocale).mockReturnValue(promise);
 
 		setup(props);
 

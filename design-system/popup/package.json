@@ -75,7 +75,7 @@
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
 		"ast-types": "^0.13.3",

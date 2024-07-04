@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Like clause 🟥 description ! ~ empty 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input '!' expecting {'<', '>', '>=', '<=', '=', '!=', '~', '!~', IN, IS, NOT, WAS, CHANGED}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -13,7 +13,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       21,
     ],
@@ -24,48 +24,48 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "keyword",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           16,
           21,
         ],
         "type": "operand",
         "value": "empty",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -73,11 +73,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         21,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -90,12 +90,12 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ (a, b) 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input '(' expecting {EMPTY, POSNUMBER, NEGNUMBER, STRING, QUOTE_STRING, SQUOTE_STRING}],
     [JQLSyntaxError: mismatched input ',' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -103,7 +103,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       21,
     ],
@@ -114,35 +114,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           16,
           17,
         ],
@@ -150,13 +150,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -164,11 +164,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         17,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -181,11 +181,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {EMPTY, POSNUMBER, NEGNUMBER, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -193,7 +193,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -204,35 +204,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
       "operand": undefined,
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -240,11 +240,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         14,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -257,11 +257,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a after -1w 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'after' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -269,7 +269,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       26,
     ],
@@ -280,35 +280,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -316,13 +316,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -330,11 +330,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -347,11 +347,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a before -1w 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'before' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -359,7 +359,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       27,
     ],
@@ -370,35 +370,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -406,13 +406,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -420,11 +420,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -437,11 +437,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a by b 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'by' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -449,7 +449,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       21,
     ],
@@ -460,35 +460,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -496,13 +496,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -510,11 +510,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -527,11 +527,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a during (-1w, now()) 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'during' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -539,7 +539,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       36,
     ],
@@ -550,35 +550,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -586,13 +586,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -600,11 +600,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -617,11 +617,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a from b 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'from' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -629,7 +629,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       23,
     ],
@@ -640,35 +640,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -676,13 +676,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -690,11 +690,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -707,11 +707,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a on -1w 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'on' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -719,7 +719,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       23,
     ],
@@ -730,35 +730,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -766,13 +766,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -780,11 +780,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -797,11 +797,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description !~ a to b 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'to' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -809,7 +809,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       21,
     ],
@@ -820,35 +820,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -856,13 +856,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -870,11 +870,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -887,12 +887,12 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ (a, b) 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input '(' expecting {EMPTY, POSNUMBER, NEGNUMBER, STRING, QUOTE_STRING, SQUOTE_STRING}],
     [JQLSyntaxError: mismatched input ',' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -900,7 +900,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       20,
     ],
@@ -911,35 +911,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -947,13 +947,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -961,11 +961,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -978,11 +978,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {EMPTY, POSNUMBER, NEGNUMBER, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -990,7 +990,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -1001,35 +1001,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
       "operand": undefined,
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1037,11 +1037,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         13,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1054,11 +1054,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a after -1w 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'after' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1066,7 +1066,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       25,
     ],
@@ -1077,35 +1077,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1113,13 +1113,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1127,11 +1127,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1144,11 +1144,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a before -1w 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'before' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1156,7 +1156,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       26,
     ],
@@ -1167,35 +1167,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1203,13 +1203,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1217,11 +1217,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1234,11 +1234,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a by b 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'by' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1246,7 +1246,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       20,
     ],
@@ -1257,35 +1257,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1293,13 +1293,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1307,11 +1307,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1324,11 +1324,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a during (-1w, now()) 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'during' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1336,7 +1336,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       35,
     ],
@@ -1347,35 +1347,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1383,13 +1383,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1397,11 +1397,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1414,11 +1414,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a from b 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'from' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1426,7 +1426,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       22,
     ],
@@ -1437,35 +1437,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1473,13 +1473,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1487,11 +1487,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1504,11 +1504,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a on -1w 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'on' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1516,7 +1516,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       22,
     ],
@@ -1527,35 +1527,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1563,13 +1563,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1577,11 +1577,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1594,11 +1594,11 @@ Object {
 `;
 
 exports[`Like clause 🟥 description ~ a to b 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'to' expecting {<EOF>, ORDER}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1606,7 +1606,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       20,
     ],
@@ -1617,35 +1617,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -1653,13 +1653,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -1667,11 +1667,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1684,9 +1684,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 comment !~ currentUser() 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1694,7 +1694,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       24,
     ],
@@ -1705,39 +1705,39 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           7,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "comment",
         "value": "comment",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
-        "arguments": Array [],
+        "arguments": [],
         "enterNode": [Function],
         "exitNode": [Function],
-        "function": Object {
+        "function": {
           "accept": [Function],
           "enterNode": [Function],
           "exitNode": [Function],
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             11,
             22,
           ],
@@ -1747,19 +1747,19 @@ Object {
         "getChildren": [Function],
         "operandType": "function",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           11,
           24,
         ],
         "type": "operand",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           8,
           10,
         ],
@@ -1767,11 +1767,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         24,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1784,9 +1784,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 comment ~ currentUser() 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1794,7 +1794,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       23,
     ],
@@ -1805,39 +1805,39 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           7,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "comment",
         "value": "comment",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
-        "arguments": Array [],
+        "arguments": [],
         "enterNode": [Function],
         "exitNode": [Function],
-        "function": Object {
+        "function": {
           "accept": [Function],
           "enterNode": [Function],
           "exitNode": [Function],
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             10,
             21,
           ],
@@ -1847,19 +1847,19 @@ Object {
         "getChildren": [Function],
         "operandType": "function",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           23,
         ],
         "type": "operand",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           8,
           9,
         ],
@@ -1867,11 +1867,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         23,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1884,9 +1884,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description !~ "a*" 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1894,7 +1894,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -1905,49 +1905,49 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           19,
         ],
-        "text": "\\"a*\\"",
+        "text": ""a*"",
         "type": "operand",
         "value": "a*",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -1955,11 +1955,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         19,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -1967,14 +1967,14 @@ Object {
       "type": "clause",
     },
   },
-  "represents": "description !~ \\"a*\\"",
+  "represents": "description !~ "a*"",
 }
 `;
 
 exports[`Like clause 🟩 description !~ -5 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1982,7 +1982,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -1993,35 +1993,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           17,
         ],
@@ -2029,13 +2029,13 @@ Object {
         "type": "operand",
         "value": "-5",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -2043,11 +2043,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         17,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2060,9 +2060,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description !~ 0 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2070,7 +2070,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -2081,35 +2081,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -2117,13 +2117,13 @@ Object {
         "type": "operand",
         "value": "0",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -2131,11 +2131,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2148,9 +2148,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description !~ a 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2158,7 +2158,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -2169,35 +2169,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           16,
         ],
@@ -2205,13 +2205,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -2219,11 +2219,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2236,9 +2236,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description !~ empty 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2246,7 +2246,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       20,
     ],
@@ -2257,48 +2257,48 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "keyword",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           20,
         ],
         "type": "operand",
         "value": "empty",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -2306,11 +2306,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         20,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2323,9 +2323,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description !~ null 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2333,7 +2333,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -2344,48 +2344,48 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "keyword",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           19,
         ],
         "type": "operand",
         "value": "empty",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           14,
         ],
@@ -2393,11 +2393,11 @@ Object {
         "value": "!~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         19,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2410,9 +2410,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description ~ "a*" 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2420,7 +2420,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -2431,49 +2431,49 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           18,
         ],
-        "text": "\\"a*\\"",
+        "text": ""a*"",
         "type": "operand",
         "value": "a*",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -2481,11 +2481,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         18,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2493,14 +2493,14 @@ Object {
       "type": "clause",
     },
   },
-  "represents": "description ~ \\"a*\\"",
+  "represents": "description ~ "a*"",
 }
 `;
 
 exports[`Like clause 🟩 description ~ -5 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2508,7 +2508,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -2519,35 +2519,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           16,
         ],
@@ -2555,13 +2555,13 @@ Object {
         "type": "operand",
         "value": "-5",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -2569,11 +2569,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2586,9 +2586,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description ~ 0 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2596,7 +2596,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2607,35 +2607,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -2643,13 +2643,13 @@ Object {
         "type": "operand",
         "value": "0",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -2657,11 +2657,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2674,9 +2674,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description ~ a 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2684,7 +2684,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2695,35 +2695,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -2731,13 +2731,13 @@ Object {
         "type": "operand",
         "value": "a",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -2745,11 +2745,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2762,9 +2762,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description ~ empty 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2772,7 +2772,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -2783,48 +2783,48 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "keyword",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           19,
         ],
         "type": "operand",
         "value": "empty",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -2832,11 +2832,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         19,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -2849,9 +2849,9 @@ Object {
 `;
 
 exports[`Like clause 🟩 description ~ null 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2859,7 +2859,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -2870,48 +2870,48 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           11,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "description",
         "value": "description",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "keyword",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           18,
         ],
         "type": "operand",
         "value": "empty",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           13,
         ],
@@ -2919,11 +2919,11 @@ Object {
         "value": "~",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         18,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],

@@ -6,6 +6,7 @@ import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import { type LozengeProps } from '../../../types';
 import { HoverCard } from '../../HoverCard/index';
 import type { CardActionOptions } from '../../Card/types';
+import { type HoverPreviewOptions } from '../../HoverCard/types';
 export interface InlineCardResolvedViewProps {
 	/** A unique ID for a Smart Link. */
 	id?: string;
@@ -31,6 +32,7 @@ export interface InlineCardResolvedViewProps {
 	titlePrefix?: React.ReactNode;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
+	hoverPreviewOptions?: HoverPreviewOptions;
 	/** Configure visibility of server and client actions */
 	actionOptions?: CardActionOptions;
 }
@@ -70,6 +72,7 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			titleTextColor,
 			titlePrefix,
 			showHoverPreview = false,
+			hoverPreviewOptions,
 			actionOptions,
 		} = this.props;
 
@@ -93,7 +96,12 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 
 		if (showHoverPreview && link) {
 			return (
-				<HoverCard id={id} url={link} actionOptions={actionOptions}>
+				<HoverCard
+					id={id}
+					url={link}
+					actionOptions={actionOptions}
+					hoverPreviewOptions={hoverPreviewOptions}
+				>
 					{inlineCardResolvedView}
 				</HoverCard>
 			);

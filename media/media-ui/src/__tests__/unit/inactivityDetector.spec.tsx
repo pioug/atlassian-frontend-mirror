@@ -95,9 +95,11 @@ describe('InactivityDetector', () => {
 
 	it('should clear the timeout when component gets unmounted', () => {
 		const { component } = setup();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 		const callsNumber = asMock(clearTimeout).mock.calls.length;
 		jest.runOnlyPendingTimers();
 		component.unmount();
 		expect(clearTimeout).toHaveBeenCalledTimes(callsNumber + 1);
+		jest.useRealTimers();
 	});
 });

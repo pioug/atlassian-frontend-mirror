@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WikiMarkup => ADF Formatters - Strong should be a strong mark and not a table if the character is a pipe 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -26,27 +26,27 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark and ignoring the invalid closing symbol 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong*strong",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -59,23 +59,23 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark at beginning of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -88,20 +88,20 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark at end of the input 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -117,30 +117,30 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark at end of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "another line",
           "type": "text",
         },
@@ -153,27 +153,27 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark at in between of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -186,27 +186,27 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should detect strong mark surrounded by non alphanumeric characters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a (",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong",
           "type": "text",
         },
-        Object {
+        {
           "text": ") text",
           "type": "text",
         },
@@ -219,14 +219,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should not be a strong mark if it is escaped 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a *strong* text",
           "type": "text",
         },
@@ -239,14 +239,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should not be a strong mark if surrounded by non-latin characters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a 牛*strong*牛 text",
           "type": "text",
         },
@@ -259,14 +259,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should not be a strong mark if there is a space after opening * 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a * strong* text",
           "type": "text",
         },
@@ -279,14 +279,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should not be a strong mark if there is a space before closing * 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a *strong * text",
           "type": "text",
         },
@@ -299,14 +299,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should not be a strong mark if there is no space before * 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a*strong* text",
           "type": "text",
         },
@@ -319,14 +319,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Strong should not be a strong mark if there is not a space after closing * 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a *strong*text",
           "type": "text",
         },

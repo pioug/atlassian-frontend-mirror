@@ -8,6 +8,7 @@ import { commonSelectedStyles } from '../../../../components/common/styles';
 import browserSupport from '../../../../util/browser-support';
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 
+import '@testing-library/jest-dom';
 import { renderWithIntl } from '../../_testing-library';
 
 // Add matcher provided by 'jest-axe'

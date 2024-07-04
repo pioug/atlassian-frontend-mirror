@@ -1,6 +1,7 @@
 import React from 'react';
 import Emoji from '../../../../components/common/Emoji';
 import { imageEmoji } from '../../_test-data';
+import '@testing-library/jest-dom';
 
 import browserSupport from '../../../../util/browser-support';
 import { renderWithIntl } from '../../_testing-library';

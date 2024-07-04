@@ -30,6 +30,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
 	renderers,
 	showAuthTooltip,
 	showHoverPreview,
+	hoverPreviewOptions,
 	actionOptions,
 	testId,
 	ui,
@@ -97,6 +98,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
 						onClick={onClick}
 						retry={retry}
 						showHoverPreview={showHoverPreview}
+						hoverPreviewOptions={hoverPreviewOptions}
 						actionOptions={actionOptions}
 						showAuthTooltip={showAuthTooltip}
 						status={status}

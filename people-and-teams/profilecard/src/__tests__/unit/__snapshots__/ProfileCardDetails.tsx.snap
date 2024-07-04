@@ -56,7 +56,7 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
   />
   <ReportingLinesDetails
     fireAnalyticsWithDuration={[MockFunction]}
-    reportingLines={Object {}}
+    reportingLines={{}}
   />
 </Styled(div)>
 `;
@@ -88,9 +88,9 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
   <ReportingLinesDetails
     fireAnalyticsWithDuration={[MockFunction]}
     reportingLines={
-      Object {
-        "managers": Array [],
-        "reports": Array [],
+      {
+        "managers": [],
+        "reports": [],
       }
     }
   />
@@ -124,30 +124,30 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when r
   <ReportingLinesDetails
     fireAnalyticsWithDuration={[MockFunction]}
     reportingLines={
-      Object {
-        "managers": Array [
-          Object {
+      {
+        "managers": [
+          {
             "accountIdentifier": "abcd",
             "identifierType": "ATLASSIAN_ID",
-            "pii": Object {
+            "pii": {
               "name": "name",
               "picture": "picture",
             },
           },
         ],
-        "reports": Array [
-          Object {
+        "reports": [
+          {
             "accountIdentifier": "abcd",
             "identifierType": "ATLASSIAN_ID",
-            "pii": Object {
+            "pii": {
               "name": "name",
               "picture": "picture",
             },
           },
-          Object {
+          {
             "accountIdentifier": "abcd",
             "identifierType": "ATLASSIAN_ID",
-            "pii": Object {
+            "pii": {
               "name": "name",
               "picture": "picture",
             },

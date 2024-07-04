@@ -50,7 +50,7 @@
 		"@jest/globals": "^26.4.2",
 		"@testing-library/react": "^12.1.5",
 		"fetch-mock": "^8.0.0",
-		"jest-diff": "^26.4.2",
+		"jest-diff": "^29.7.0",
 		"json-ld-types": "^4.1.0",
 		"lodash": "^4.17.21",
 		"react-intl-next": "npm:react-intl@^5.18.1"

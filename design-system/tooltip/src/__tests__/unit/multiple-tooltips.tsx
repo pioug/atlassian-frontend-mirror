@@ -61,7 +61,7 @@ describe('Multiple tooltips', () => {
 		act(() => {
 			fireEvent.mouseOver(triggerA);
 			// Takes 300ms to change to 'shown' from 'waiting-to-show'
-			jest.runTimersToTime(290);
+			jest.advanceTimersByTime(290);
 		});
 		expect(queryByTestId('tooltip-A')).not.toBeInTheDocument();
 
@@ -89,7 +89,7 @@ describe('Multiple tooltips', () => {
 		act(() => {
 			fireEvent.mouseOver(triggerA);
 			// Takes 300ms to change to 'shown' from 'waiting-to-show'
-			jest.runTimersToTime(400);
+			jest.advanceTimersByTime(400);
 		});
 		expect(queryByTestId('tooltip-A')).toBeInTheDocument();
 
@@ -128,7 +128,7 @@ describe('Multiple tooltips', () => {
 		fireEvent.mouseOut(triggerA);
 		// Takes 300ms to change to 'waiting-to-hide' from 'hide-animating'
 		act(() => {
-			jest.runTimersToTime(290);
+			jest.advanceTimersByTime(290);
 		});
 		expect(queryByTestId('tooltip-A')).toBeInTheDocument();
 
@@ -169,7 +169,7 @@ describe('Multiple tooltips', () => {
 			fireEvent.mouseOut(triggerA);
 			// Takes 300ms to change to 'waiting-to-hide' from 'hide-animating'
 			// 10ms is not enough to finish the fadeout
-			jest.runTimersToTime(310);
+			jest.advanceTimersByTime(310);
 		});
 		expect(queryByTestId('tooltip-A')).toBeInTheDocument();
 

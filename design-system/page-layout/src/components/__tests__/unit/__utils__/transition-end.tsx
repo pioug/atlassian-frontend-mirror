@@ -1,9 +1,6 @@
 import { act, fireEvent } from '@testing-library/react';
 
-import * as raf from './raf';
-
 export const completeAnimations = () => {
-	act(() => raf.flush());
 	act(() => {
 		jest.runAllTimers();
 	});

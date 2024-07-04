@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark and ignoring the invalid closing symbol 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "monospace}}monospace",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -34,23 +34,23 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark at beginning of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "monospace",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -63,20 +63,20 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark at end of the input 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -92,30 +92,30 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark at end of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "monospace",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "another line",
           "type": "text",
         },
@@ -128,27 +128,27 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark at in between of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "monospace",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -161,27 +161,27 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark surrounded by non alphanumeric characters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a (",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "monospace",
           "type": "text",
         },
-        Object {
+        {
           "text": ") text",
           "type": "text",
         },
@@ -194,16 +194,16 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should detect monospace mark with a table inside, but not render as a table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -219,14 +219,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark if it is escaped 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a {{monospace}} text",
           "type": "text",
         },
@@ -239,14 +239,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark if surrounded by non-latin characters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a 牛{{monospace}}牛 text",
           "type": "text",
         },
@@ -259,14 +259,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark if there is a space after opening {{ 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a {{ monospace}} text",
           "type": "text",
         },
@@ -279,14 +279,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark if there is a space before closing }} 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a {{monospace }} text",
           "type": "text",
         },
@@ -299,14 +299,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark if there is no space before {{ 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a{{monospace}} text",
           "type": "text",
         },
@@ -319,14 +319,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - monospace should not be a monospace mark if there is not a space after closing }} 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a {{monospace}}text",
           "type": "text",
         },

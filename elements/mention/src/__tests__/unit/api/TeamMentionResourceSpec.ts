@@ -173,7 +173,7 @@ describe('TeamMentionResourceSpec', () => {
 			});
 
 			resource.filter('craig', FULL_CONTEXT);
-			jest.runTimersToTime(REQUEST_DELAY);
+			jest.advanceTimersByTime(REQUEST_DELAY);
 		});
 
 		it('should receive 1 update when team request comes first and then from user request', (done) => {
@@ -183,7 +183,7 @@ describe('TeamMentionResourceSpec', () => {
 			});
 
 			resource.filter('team-faster-user', FULL_CONTEXT);
-			jest.runTimersToTime(REQUEST_DELAY);
+			jest.advanceTimersByTime(REQUEST_DELAY);
 		});
 
 		it('should receive updates with credentials omitted', (done) => {
@@ -253,7 +253,7 @@ describe('TeamMentionResourceSpec', () => {
 			resource.subscribe(
 				'test1',
 				() => {
-					jest.runTimersToTime(REQUEST_DELAY);
+					jest.advanceTimersByTime(REQUEST_DELAY);
 				},
 				() => {
 					throw new Error('listener should not be called');
@@ -293,7 +293,7 @@ describe('TeamMentionResourceSpec', () => {
 				'test1',
 				() => {},
 				() => {
-					jest.runTimersToTime(REQUEST_DELAY);
+					jest.advanceTimersByTime(REQUEST_DELAY);
 				},
 				undefined,
 				undefined,
@@ -330,7 +330,7 @@ describe('TeamMentionResourceSpec', () => {
 			resource.unsubscribe('test123');
 			resource.filter('craig', FULL_CONTEXT);
 
-			jest.runTimersToTime(REQUEST_DELAY);
+			jest.advanceTimersByTime(REQUEST_DELAY);
 			expect(listener).toHaveBeenCalledTimes(0);
 		});
 	});

@@ -67,7 +67,7 @@
 		"@atlaskit/textarea": "^5.5.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"ast-types": "^0.13.3",
 		"jscodeshift": "^0.13.0",

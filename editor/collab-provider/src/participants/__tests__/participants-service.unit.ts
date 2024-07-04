@@ -53,7 +53,7 @@ const participantsServiceConstructor = (deps: {
 describe('removeInactiveParticipants', () => {
 	it('Should not throw when filterInactive throws an error', () => {
 		const participantsService = participantsServiceConstructor({});
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 		expect(setTimeout).not.toBeCalled();
 		// @ts-ignore
 		participantsService.filterInactive = jest.fn().mockImplementation(() => {

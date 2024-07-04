@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { type BlockTemplate } from '../../types';
 import SelectOption from './select-option';
 
-const MaxLinesOption: React.FC<{
+const MaxLinesOption = (props: {
 	defaultValue: number;
 	label?: string;
 	name: string;
@@ -10,7 +10,7 @@ const MaxLinesOption: React.FC<{
 	propName: string;
 	max: number;
 	template: BlockTemplate;
-}> = (props) => {
+}) => {
 	const { defaultValue, max } = props;
 	const options = useMemo(
 		() =>

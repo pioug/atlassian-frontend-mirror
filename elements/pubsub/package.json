@@ -61,7 +61,7 @@
 	"devDependencies": {
 		"es6-promise": "^4.0.5",
 		"fetch-mock": "^8.0.0",
-		"jest-extended": "^0.11.2",
+		"jest-extended": "^4.0.2",
 		"sinon": "^2.2.0",
 		"typescript": "~5.4.2"
 	}

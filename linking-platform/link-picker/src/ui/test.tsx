@@ -4,6 +4,7 @@ import { screen } from '@testing-library/dom';
 import { waitForElementToBeRemoved } from '@testing-library/react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+import '@testing-library/jest-dom';
 
 import { type LinkPickerProps, type LinkPicker as LinkPickerType } from './link-picker';
 

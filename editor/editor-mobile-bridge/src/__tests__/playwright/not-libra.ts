@@ -3,7 +3,7 @@ import { defaultSchema as sampleSchema } from '@atlaskit/editor-test-helpers/sch
 import { test as base, expect as baseExpect, fixTest } from '@af/integration-testing';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import isEqual from 'lodash/isEqual';
-import diffDefault from 'jest-diff';
+import { diff } from 'jest-diff';
 
 import type { Expect, Page, Locator } from '@af/integration-testing';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
@@ -211,7 +211,7 @@ const toEqualProsemirrorDocument =
 			};
 		}
 
-		const diffString = diffDefault(expected, received, {
+		const diffString = diff(expected, received, {
 			expand: true,
 		});
 		return {

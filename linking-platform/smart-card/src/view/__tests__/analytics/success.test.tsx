@@ -14,7 +14,7 @@ import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import * as analytics from '../../../utils/analytics';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 import { type JestFunction, asMock } from '@atlaskit/media-test-helpers';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
@@ -27,6 +27,8 @@ mockSimpleIntersectionObserver();
 jest.mock('@atlaskit/link-provider', () => ({
 	useFeatureFlag: () => true,
 }));
+
+expect.extend(jestExtendedMatchers);
 
 describe('smart-card: success analytics', () => {
 	let mockClient: CardClient;

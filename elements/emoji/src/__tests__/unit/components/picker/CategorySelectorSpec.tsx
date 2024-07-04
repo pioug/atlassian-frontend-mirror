@@ -11,6 +11,7 @@ import type { CategoryId } from '../../../../types';
 import { renderWithIntl } from '../../_testing-library';
 import { fireEvent, screen } from '@testing-library/dom';
 import { expectTabIndexFromList } from './_emoji-picker-test-helpers';
+import { act } from 'react-test-renderer';
 
 describe('<CategorySelector />', () => {
 	const setupComponent = (props?: Props) => renderWithIntl(<CategorySelector {...props} />);
@@ -116,32 +117,44 @@ describe('<CategorySelector />', () => {
 		expect(categoryButtons[0]).toHaveFocus();
 
 		// press key left on first category, should move focus to last category
-		fireEvent.keyDown(categoryButtons[0], { key: 'ArrowLeft' });
+		act(() => {
+			fireEvent.keyDown(categoryButtons[0], { key: 'ArrowLeft' });
+		});
 		expect(customCategoryButton).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, lastCategoryIndex);
 
 		// press key right on last category, should move focus to first category
-		fireEvent.keyDown(customCategoryButton, { key: 'ArrowRight' });
+		act(() => {
+			fireEvent.keyDown(customCategoryButton, { key: 'ArrowRight' });
+		});
 		expect(categoryButtons[0]).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, 0);
 
 		// press key right on first category, should move focus to next one on the right hand side
-		fireEvent.keyDown(categoryButtons[0], { key: 'ArrowRight' });
+		act(() => {
+			fireEvent.keyDown(categoryButtons[0], { key: 'ArrowRight' });
+		});
 		expect(categoryButtons[1]).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, 1);
 
 		// press key left on 2nd category, should move focus to next one on the left hand side
-		fireEvent.keyDown(categoryButtons[1], { key: 'ArrowLeft' });
+		act(() => {
+			fireEvent.keyDown(categoryButtons[1], { key: 'ArrowLeft' });
+		});
 		expect(categoryButtons[0]).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, 0);
 
 		// press key end should move focus to last category
-		fireEvent.keyDown(categoryButtons[0], { key: 'End' });
+		act(() => {
+			fireEvent.keyDown(categoryButtons[0], { key: 'End' });
+		});
 		expect(customCategoryButton).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, lastCategoryIndex);
 
 		// press key home should move focus to first category
-		fireEvent.keyDown(customCategoryButton, { key: 'Home' });
+		act(() => {
+			fireEvent.keyDown(customCategoryButton, { key: 'Home' });
+		});
 		expect(categoryButtons[0]).toHaveFocus();
 		expectTabIndexFromList(categoryButtons, 0);
 	});

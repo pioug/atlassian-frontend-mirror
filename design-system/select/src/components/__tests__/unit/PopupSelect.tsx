@@ -138,7 +138,7 @@ describe('Popup Select', () => {
 
 		const selectTrigger = screen.getByText('Target');
 
-		await user.click(selectTrigger);
+		await fireEvent.click(selectTrigger);
 
 		const escapeKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
 			key: 'Escape',

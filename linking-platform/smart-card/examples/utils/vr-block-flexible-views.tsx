@@ -15,7 +15,7 @@ export const renderCard = (client: CardClient, appearance: CardAppearance) => (
  * Unresolved view used with deprecated vr tests (puppeteer)
  * @deprecated
  */
-const UnresolvedViewTest: React.FC<{ appearance: CardAppearance }> = ({ appearance }) => {
+const UnresolvedViewTest = ({ appearance }: { appearance: CardAppearance }) => {
 	return (
 		<React.Fragment>
 			<h4>Error</h4>

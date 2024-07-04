@@ -115,6 +115,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Nej',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Ej tilldelad',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} ärende} other {{searchCount,number} ärenden}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} uppgift} other {{searchCount,number} uppgifter}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} resultat} other {{searchCount,number} resultat}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synkroniserades just nu',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synkroniserades {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {objekt} other {objekt}}',

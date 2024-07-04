@@ -12,7 +12,6 @@ import { SidebarResizeContext } from '../sidebar-resize-context';
 import { expectThatFlyoutIsOpenAndValid } from './__utils__/flyout';
 
 const completeAnimations = () => {
-	act(() => raf.flush());
 	act(() => {
 		jest.runAllTimers();
 	});

@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Reserved words 🟥 abort = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'abort' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -13,7 +13,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -31,11 +31,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 access = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'access' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -43,7 +43,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -61,11 +61,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 add = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'add' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -73,7 +73,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -91,11 +91,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 after = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'after' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -103,7 +103,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -121,11 +121,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 alias = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'alias' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -133,7 +133,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -151,11 +151,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 alter = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'alter' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -163,7 +163,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -181,11 +181,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 and = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'and' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -193,7 +193,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -211,11 +211,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 any = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'any' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -223,7 +223,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -241,11 +241,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 as = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'as' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -253,7 +253,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -271,11 +271,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 asc = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'asc' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -283,7 +283,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -301,11 +301,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 assignee = abort 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'abort' expecting {EMPTY, POSNUMBER, NEGNUMBER, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -313,7 +313,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -324,35 +324,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "assignee",
         "value": "assignee",
       },
       "getChildren": [Function],
       "operand": undefined,
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           9,
           10,
         ],
@@ -360,11 +360,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         16,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -377,11 +377,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 assignee abort 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'abort' expecting {'<', '>', '>=', '<=', '=', '!=', '~', '!~', IN, IS, NOT, WAS, CHANGED}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -389,7 +389,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -400,23 +400,23 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "assignee",
         "value": "assignee",
       },
@@ -424,11 +424,11 @@ Object {
       "operand": undefined,
       "operator": undefined,
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         14,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -441,11 +441,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 audit = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'audit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -453,7 +453,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -471,11 +471,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 avg = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'avg' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -483,7 +483,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -501,11 +501,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 before = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'before' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -513,7 +513,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -531,11 +531,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 begin = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'begin' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -543,7 +543,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -561,11 +561,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 between = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'between' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -573,7 +573,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -591,11 +591,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 boolean = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'boolean' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -603,7 +603,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -621,11 +621,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 break = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'break' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -633,7 +633,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -651,11 +651,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 by = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'by' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -663,7 +663,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -681,11 +681,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 byte = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'byte' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -693,7 +693,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -711,11 +711,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 catch = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'catch' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -723,7 +723,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -741,11 +741,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 cf = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '=' expecting '['],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -753,7 +753,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -764,35 +764,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           2,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "cf",
         "value": "cf",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           5,
           10,
         ],
@@ -800,13 +800,13 @@ Object {
         "type": "operand",
         "value": "value",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           3,
           4,
         ],
@@ -814,11 +814,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         10,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -831,11 +831,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 changed = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'changed' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -843,7 +843,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -861,11 +861,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 char = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'char' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -873,7 +873,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -891,11 +891,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 character = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'character' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -903,7 +903,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -921,11 +921,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 check = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'check' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -933,7 +933,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -951,11 +951,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 checkpoint = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'checkpoint' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -963,7 +963,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -981,11 +981,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 collate = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'collate' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -993,7 +993,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -1011,11 +1011,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 collation = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'collation' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1023,7 +1023,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -1041,11 +1041,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 column = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'column' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1053,7 +1053,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1071,11 +1071,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 commit = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'commit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1083,7 +1083,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1101,11 +1101,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 connect = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'connect' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1113,7 +1113,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -1131,11 +1131,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 continue = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'continue' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1143,7 +1143,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -1161,11 +1161,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 count = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'count' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1173,7 +1173,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -1191,11 +1191,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 create = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'create' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1203,7 +1203,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1221,11 +1221,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 current = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'current' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1233,7 +1233,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -1251,11 +1251,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 date = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'date' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1263,7 +1263,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -1281,11 +1281,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 decimal = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'decimal' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1293,7 +1293,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -1311,11 +1311,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 declare = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'declare' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1323,7 +1323,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -1341,11 +1341,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 decrement = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'decrement' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1353,7 +1353,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -1371,11 +1371,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 default = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'default' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1383,7 +1383,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -1401,11 +1401,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 defaults = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'defaults' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1413,7 +1413,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -1431,11 +1431,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 define = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'define' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1443,7 +1443,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1461,11 +1461,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 delete = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'delete' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1473,7 +1473,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1491,11 +1491,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 delimiter = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'delimiter' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1503,7 +1503,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -1521,11 +1521,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 desc = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'desc' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1533,7 +1533,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -1551,11 +1551,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 difference = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'difference' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1563,7 +1563,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -1581,11 +1581,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 distinct = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'distinct' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1593,7 +1593,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -1611,11 +1611,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 divide = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'divide' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1623,7 +1623,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1641,11 +1641,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 do = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'do' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1653,7 +1653,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -1671,11 +1671,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 double = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'double' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1683,7 +1683,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1701,11 +1701,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 drop = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'drop' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1713,7 +1713,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -1731,11 +1731,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 else = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'else' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1743,7 +1743,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -1761,11 +1761,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 empty = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'empty' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1773,7 +1773,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -1791,11 +1791,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 encoding = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'encoding' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1803,7 +1803,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -1821,11 +1821,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 end = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'end' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1833,7 +1833,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -1851,11 +1851,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 equals = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'equals' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1863,7 +1863,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1881,11 +1881,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 escape = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'escape' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1893,7 +1893,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -1911,11 +1911,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 exclusive = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'exclusive' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1923,7 +1923,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -1941,11 +1941,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 exec = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'exec' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1953,7 +1953,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -1971,11 +1971,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 execute = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'execute' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1983,7 +1983,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2001,11 +2001,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 exists = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'exists' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2013,7 +2013,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -2031,11 +2031,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 explain = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'explain' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2043,7 +2043,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2061,11 +2061,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 false = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'false' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2073,7 +2073,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2091,11 +2091,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 fetch = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'fetch' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2103,7 +2103,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2121,11 +2121,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 field = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'field' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2133,7 +2133,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2151,11 +2151,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 file = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'file' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2163,7 +2163,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -2181,11 +2181,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 first = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'first' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2193,7 +2193,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2211,11 +2211,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 float = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'float' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2223,7 +2223,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2241,11 +2241,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 for = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'for' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2253,7 +2253,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -2271,11 +2271,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 from = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'from' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2283,7 +2283,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -2301,11 +2301,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 function = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'function' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2313,7 +2313,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -2331,11 +2331,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 go = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'go' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2343,7 +2343,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -2361,11 +2361,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 goto = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'goto' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2373,7 +2373,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -2391,11 +2391,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 grant = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'grant' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2403,7 +2403,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2421,11 +2421,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 greater = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'greater' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2433,7 +2433,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2451,11 +2451,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 group = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'group' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2463,7 +2463,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2481,11 +2481,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 having = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'having' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2493,7 +2493,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -2511,11 +2511,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 identified = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'identified' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2523,7 +2523,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -2541,11 +2541,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 if = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'if' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2553,7 +2553,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -2571,11 +2571,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 immediate = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'immediate' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2583,7 +2583,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -2601,11 +2601,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 in = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'in' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2613,7 +2613,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -2631,11 +2631,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 increment = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'increment' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2643,7 +2643,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -2661,11 +2661,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 index = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'index' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2673,7 +2673,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2691,11 +2691,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 initial = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'initial' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2703,7 +2703,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2721,11 +2721,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 inner = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'inner' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2733,7 +2733,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2751,11 +2751,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 inout = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'inout' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2763,7 +2763,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2781,11 +2781,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 input = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'input' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2793,7 +2793,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -2811,11 +2811,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 insert = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'insert' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2823,7 +2823,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -2841,11 +2841,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 int = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'int' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2853,7 +2853,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -2871,11 +2871,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 integer = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'integer' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2883,7 +2883,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -2901,11 +2901,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 intersect = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'intersect' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2913,7 +2913,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -2931,11 +2931,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 intersection = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'intersection' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2943,7 +2943,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       20,
     ],
@@ -2961,11 +2961,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 into = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'into' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2973,7 +2973,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -2991,11 +2991,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 is = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'is' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3003,7 +3003,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -3021,11 +3021,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 isempty = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'isempty' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3033,7 +3033,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -3051,11 +3051,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 isnull = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'isnull' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3063,7 +3063,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3081,11 +3081,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 join = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'join' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3093,7 +3093,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3111,11 +3111,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 last = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'last' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3123,7 +3123,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3141,11 +3141,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 left = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'left' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3153,7 +3153,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3171,11 +3171,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 less = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'less' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3183,7 +3183,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3201,11 +3201,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 like = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'like' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3213,7 +3213,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3231,11 +3231,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 limit = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'limit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3243,7 +3243,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -3261,11 +3261,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 lock = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'lock' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3273,7 +3273,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3291,11 +3291,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 long = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'long' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3303,7 +3303,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3321,11 +3321,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 max = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'max' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3333,7 +3333,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -3351,11 +3351,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 min = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'min' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3363,7 +3363,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -3381,11 +3381,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 minus = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'minus' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3393,7 +3393,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -3411,11 +3411,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 mode = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'mode' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3423,7 +3423,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3441,11 +3441,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 modify = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'modify' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3453,7 +3453,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3471,11 +3471,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 modulo = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'modulo' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3483,7 +3483,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3501,11 +3501,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 more = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'more' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3513,7 +3513,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3531,11 +3531,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 multiply = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'multiply' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3543,7 +3543,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -3561,11 +3561,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 next = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'next' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3573,7 +3573,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3591,11 +3591,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 noaudit = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'noaudit' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3603,7 +3603,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -3621,12 +3621,12 @@ Object {
 `;
 
 exports[`Reserved words 🟥 not = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input '=' expecting {'(', '!', NOT, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
     [JQLSyntaxError: mismatched input '<EOF>' expecting {'<', '>', '>=', '<=', '=', '!=', '~', '!~', IN, IS, NOT, WAS, CHANGED}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3634,7 +3634,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -3645,25 +3645,25 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
-      "clause": Object {
+      "clause": {
         "accept": [Function],
         "appendOperand": [Function],
         "clauseType": "terminal",
         "enterNode": [Function],
         "exitNode": [Function],
-        "field": Object {
+        "field": {
           "accept": [Function],
           "enterNode": [Function],
           "exitNode": [Function],
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             6,
             11,
           ],
-          "properties": Array [],
+          "properties": [],
           "text": "value",
           "value": "value",
         },
@@ -3671,11 +3671,11 @@ Object {
         "operand": undefined,
         "operator": undefined,
         "parent": [Circular],
-        "position": Array [
+        "position": [
           6,
           11,
         ],
-        "predicates": Array [],
+        "predicates": [],
         "remove": [Function],
         "replace": [Function],
         "setOperand": [Function],
@@ -3686,20 +3686,20 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           3,
         ],
         "value": "not",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         11,
       ],
@@ -3715,11 +3715,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 notin = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'notin' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3727,7 +3727,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -3745,11 +3745,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 nowait = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'nowait' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3757,7 +3757,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3775,11 +3775,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 null = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'null' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3787,7 +3787,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -3805,11 +3805,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 number = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'number' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3817,7 +3817,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3835,11 +3835,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 object = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'object' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3847,7 +3847,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3865,11 +3865,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 of = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'of' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3877,7 +3877,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -3895,11 +3895,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 on = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'on' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3907,7 +3907,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -3925,11 +3925,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 option = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'option' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3937,7 +3937,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -3955,11 +3955,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 or = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'or' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3967,7 +3967,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -3985,11 +3985,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 order = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '=' expecting BY],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -3997,7 +3997,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4015,11 +4015,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 outer = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'outer' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4027,7 +4027,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4045,11 +4045,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 output = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'output' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4057,7 +4057,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4075,11 +4075,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 power = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'power' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4087,7 +4087,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4105,11 +4105,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 previous = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'previous' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4117,7 +4117,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -4135,11 +4135,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 prior = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'prior' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4147,7 +4147,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4165,11 +4165,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 privileges = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'privileges' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4177,7 +4177,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -4195,11 +4195,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 public = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'public' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4207,7 +4207,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4225,11 +4225,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 raise = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'raise' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4237,7 +4237,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4255,11 +4255,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 raw = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'raw' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4267,7 +4267,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -4285,11 +4285,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 remainder = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'remainder' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4297,7 +4297,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       17,
     ],
@@ -4315,11 +4315,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 rename = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'rename' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4327,7 +4327,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4345,11 +4345,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 resource = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'resource' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4357,7 +4357,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -4375,11 +4375,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 return = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'return' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4387,7 +4387,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4405,11 +4405,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 returns = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'returns' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4417,7 +4417,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -4435,11 +4435,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 revoke = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'revoke' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4447,7 +4447,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4465,11 +4465,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 right = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'right' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4477,7 +4477,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4495,11 +4495,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 row = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'row' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4507,7 +4507,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -4525,11 +4525,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 rowid = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'rowid' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4537,7 +4537,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4555,11 +4555,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 rownum = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'rownum' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4567,7 +4567,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4585,11 +4585,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 rows = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'rows' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4597,7 +4597,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -4615,11 +4615,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 select = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'select' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4627,7 +4627,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4645,11 +4645,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 session = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'session' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4657,7 +4657,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -4675,11 +4675,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 set = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'set' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4687,7 +4687,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -4705,11 +4705,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 share = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'share' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4717,7 +4717,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4735,11 +4735,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 size = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'size' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4747,7 +4747,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -4765,11 +4765,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 sqrt = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'sqrt' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4777,7 +4777,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -4795,11 +4795,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 start = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'start' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4807,7 +4807,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -4825,11 +4825,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 strict = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'strict' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4837,7 +4837,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4855,11 +4855,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 string = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'string' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4867,7 +4867,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -4885,11 +4885,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 subtract = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'subtract' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4897,7 +4897,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -4915,11 +4915,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 sum = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'sum' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4927,7 +4927,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -4945,11 +4945,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 synonym = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'synonym' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4957,7 +4957,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -4975,11 +4975,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 table = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'table' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -4987,7 +4987,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -5005,11 +5005,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 then = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'then' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5017,7 +5017,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -5035,11 +5035,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 to = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'to' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5047,7 +5047,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       10,
     ],
@@ -5065,11 +5065,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 trans = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'trans' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5077,7 +5077,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -5095,11 +5095,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 transaction = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'transaction' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5107,7 +5107,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -5125,11 +5125,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 trigger = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'trigger' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5137,7 +5137,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -5155,11 +5155,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 true = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'true' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5167,7 +5167,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -5185,11 +5185,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 uid = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'uid' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5197,7 +5197,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -5215,11 +5215,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 union = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'union' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5227,7 +5227,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -5245,11 +5245,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 unique = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'unique' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5257,7 +5257,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -5275,11 +5275,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 update = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'update' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5287,7 +5287,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -5305,11 +5305,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 user = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'user' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5317,7 +5317,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -5335,11 +5335,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 validate = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'validate' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5347,7 +5347,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -5365,11 +5365,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 values = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'values' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5377,7 +5377,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -5395,11 +5395,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 view = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'view' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5407,7 +5407,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -5425,11 +5425,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 was = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'was' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5437,7 +5437,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -5455,11 +5455,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 when = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'when' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5467,7 +5467,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -5485,11 +5485,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 whenever = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'whenever' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5497,7 +5497,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       16,
     ],
@@ -5515,11 +5515,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 where = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'where' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5527,7 +5527,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -5545,11 +5545,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 while = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'while' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5557,7 +5557,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -5575,11 +5575,11 @@ Object {
 `;
 
 exports[`Reserved words 🟥 with = value 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'with' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5587,7 +5587,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -5605,9 +5605,9 @@ Object {
 `;
 
 exports[`Reserved words 🟩 "abort" = value 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5615,7 +5615,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -5626,35 +5626,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           7,
         ],
-        "properties": Array [],
-        "text": "\\"abort\\"",
+        "properties": [],
+        "text": ""abort"",
         "value": "abort",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           15,
         ],
@@ -5662,13 +5662,13 @@ Object {
         "type": "operand",
         "value": "value",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           8,
           9,
         ],
@@ -5676,11 +5676,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -5688,14 +5688,14 @@ Object {
       "type": "clause",
     },
   },
-  "represents": "\\"abort\\" = value",
+  "represents": ""abort" = value",
 }
 `;
 
 exports[`Reserved words 🟩 'abort' = value 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5703,7 +5703,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -5714,35 +5714,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           7,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "'abort'",
         "value": "abort",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           15,
         ],
@@ -5750,13 +5750,13 @@ Object {
         "type": "operand",
         "value": "value",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           8,
           9,
         ],
@@ -5764,11 +5764,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -5781,9 +5781,9 @@ Object {
 `;
 
 exports[`Reserved words 🟩 issuetype = "abort" 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5791,7 +5791,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -5802,49 +5802,49 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           9,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           19,
         ],
-        "text": "\\"abort\\"",
+        "text": ""abort"",
         "type": "operand",
         "value": "abort",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           11,
         ],
@@ -5852,11 +5852,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         19,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -5864,14 +5864,14 @@ Object {
       "type": "clause",
     },
   },
-  "represents": "issuetype = \\"abort\\"",
+  "represents": "issuetype = "abort"",
 }
 `;
 
 exports[`Reserved words 🟩 issuetype = 'abort' 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -5879,7 +5879,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -5890,35 +5890,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           9,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           19,
         ],
@@ -5926,13 +5926,13 @@ Object {
         "type": "operand",
         "value": "abort",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           11,
         ],
@@ -5940,11 +5940,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         19,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],

@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/dropdown-menu": "^12.13.0",
+		"@atlaskit/dropdown-menu": "^12.14.0",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/icon": "^22.5.0",
 		"@atlaskit/media-client": "^27.3.0",
@@ -92,7 +92,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@atlassian/ufo": "^0.3.0",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",

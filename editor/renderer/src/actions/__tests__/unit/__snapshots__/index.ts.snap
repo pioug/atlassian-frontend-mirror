@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RendererActions applyAnnotation should apply annotation to caption of top level media 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "some plain text",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
+      {
+        "content": [
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
             ],
@@ -33,15 +33,15 @@ Object {
         ],
         "type": "paragraph",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "layout": "center",
           "width": 426,
           "widthType": "pixel",
         },
-        "content": Array [
-          Object {
-            "attrs": Object {
+        "content": [
+          {
+            "attrs": {
               "alt": "568c02f0-5949-4465-8f43-e7f9b1f7ead5.png",
               "collection": "MediaServicesSample",
               "height": 500,
@@ -51,12 +51,12 @@ Object {
             },
             "type": "media",
           },
-          Object {
-            "content": Array [
-              Object {
-                "marks": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "marks": [
+                  {
+                    "attrs": {
                       "annotationType": "inlineComment",
                       "id": "<<<ANNOTATION-ID>>>",
                     },
@@ -66,7 +66,7 @@ Object {
                 "text": "cute",
                 "type": "text",
               },
-              Object {
+              {
                 "text": " dog",
                 "type": "text",
               },
@@ -76,21 +76,21 @@ Object {
         ],
         "type": "mediaSingle",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "isNumberColumnEnabled": false,
           "layout": "default",
           "localId": "709775b2-c4ad-4b47-bb63-023bfc655bb4",
           "width": 760,
         },
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -99,20 +99,20 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "attrs": {
                       "layout": "center",
                       "width": 426,
                       "widthType": "pixel",
                     },
-                    "content": Array [
-                      Object {
-                        "attrs": Object {
+                    "content": [
+                      {
+                        "attrs": {
                           "alt": "catt.jpeg",
                           "collection": "MediaServicesSample",
                           "height": 1194,
@@ -122,9 +122,9 @@ Object {
                         },
                         "type": "media",
                       },
-                      Object {
-                        "content": Array [
-                          Object {
+                      {
+                        "content": [
+                          {
                             "text": "cute cat",
                             "type": "text",
                           },
@@ -134,8 +134,8 @@ Object {
                     ],
                     "type": "mediaSingle",
                   },
-                  Object {
-                    "content": Array [],
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -144,13 +144,13 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -171,10 +171,10 @@ Object {
   "numMatches": 4,
   "originalSelection": "cute",
   "pos": undefined,
-  "step": Object {
+  "step": {
     "from": 41,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -187,15 +187,15 @@ Object {
 `;
 
 exports[`RendererActions applyAnnotation should apply annotation to text with inline nodes 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -205,15 +205,15 @@ Object {
             "text": "leading text",
             "type": "text",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "id": "1f642",
               "shortName": ":slight_smile:",
               "text": "🙂",
             },
-            "marks": Array [
-              Object {
-                "attrs": Object {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -222,16 +222,16 @@ Object {
             ],
             "type": "emoji",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "color": "neutral",
               "localId": "48059fb1-aaf9-4838-9a25-e7c6315caf69",
               "style": "",
               "text": "status",
             },
-            "marks": Array [
-              Object {
-                "attrs": Object {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -240,13 +240,13 @@ Object {
             ],
             "type": "status",
           },
-          Object {
-            "attrs": Object {
+          {
+            "attrs": {
               "timestamp": "1572480000000",
             },
-            "marks": Array [
-              Object {
-                "attrs": Object {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -255,10 +255,10 @@ Object {
             ],
             "type": "date",
           },
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+          {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -275,7 +275,7 @@ Object {
     "type": "doc",
     "version": 1,
   },
-  "inlineNodeTypes": Array [
+  "inlineNodeTypes": [
     "date",
     "emoji",
     "status",
@@ -285,10 +285,10 @@ Object {
   "numMatches": 1,
   "originalSelection": "leading texttailing text",
   "pos": undefined,
-  "step": Object {
+  "step": {
     "from": 0,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -301,29 +301,29 @@ Object {
 `;
 
 exports[`RendererActions applyAnnotation should apply annotation to the caption of nested media 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "some plain text",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
+      {
+        "content": [
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
             ],
@@ -333,15 +333,15 @@ Object {
         ],
         "type": "paragraph",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "layout": "center",
           "width": 426,
           "widthType": "pixel",
         },
-        "content": Array [
-          Object {
-            "attrs": Object {
+        "content": [
+          {
+            "attrs": {
               "alt": "568c02f0-5949-4465-8f43-e7f9b1f7ead5.png",
               "collection": "MediaServicesSample",
               "height": 500,
@@ -351,9 +351,9 @@ Object {
             },
             "type": "media",
           },
-          Object {
-            "content": Array [
-              Object {
+          {
+            "content": [
+              {
                 "text": "cute dog",
                 "type": "text",
               },
@@ -363,21 +363,21 @@ Object {
         ],
         "type": "mediaSingle",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "isNumberColumnEnabled": false,
           "layout": "default",
           "localId": "709775b2-c4ad-4b47-bb63-023bfc655bb4",
           "width": 760,
         },
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -386,20 +386,20 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "attrs": {
                       "layout": "center",
                       "width": 426,
                       "widthType": "pixel",
                     },
-                    "content": Array [
-                      Object {
-                        "attrs": Object {
+                    "content": [
+                      {
+                        "attrs": {
                           "alt": "catt.jpeg",
                           "collection": "MediaServicesSample",
                           "height": 1194,
@@ -409,16 +409,16 @@ Object {
                         },
                         "type": "media",
                       },
-                      Object {
-                        "content": Array [
-                          Object {
+                      {
+                        "content": [
+                          {
                             "text": "cute ",
                             "type": "text",
                           },
-                          Object {
-                            "marks": Array [
-                              Object {
-                                "attrs": Object {
+                          {
+                            "marks": [
+                              {
+                                "attrs": {
                                   "annotationType": "inlineComment",
                                   "id": "<<<ANNOTATION-ID>>>",
                                 },
@@ -434,8 +434,8 @@ Object {
                     ],
                     "type": "mediaSingle",
                   },
-                  Object {
-                    "content": Array [],
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -444,13 +444,13 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -471,10 +471,10 @@ Object {
   "numMatches": 2,
   "originalSelection": "cat",
   "pos": undefined,
-  "step": Object {
+  "step": {
     "from": 68,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -487,33 +487,33 @@ Object {
 `;
 
 exports[`RendererActions applyAnnotation should apply annotation to the formatted text 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "some plain text",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
+      {
+        "content": [
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -523,15 +523,15 @@ Object {
             "text": "more formatt",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
             ],
@@ -541,15 +541,15 @@ Object {
         ],
         "type": "paragraph",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "layout": "center",
           "width": 426,
           "widthType": "pixel",
         },
-        "content": Array [
-          Object {
-            "attrs": Object {
+        "content": [
+          {
+            "attrs": {
               "alt": "568c02f0-5949-4465-8f43-e7f9b1f7ead5.png",
               "collection": "MediaServicesSample",
               "height": 500,
@@ -559,9 +559,9 @@ Object {
             },
             "type": "media",
           },
-          Object {
-            "content": Array [
-              Object {
+          {
+            "content": [
+              {
                 "text": "cute dog",
                 "type": "text",
               },
@@ -571,21 +571,21 @@ Object {
         ],
         "type": "mediaSingle",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "isNumberColumnEnabled": false,
           "layout": "default",
           "localId": "709775b2-c4ad-4b47-bb63-023bfc655bb4",
           "width": 760,
         },
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -594,20 +594,20 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "attrs": {
                       "layout": "center",
                       "width": 426,
                       "widthType": "pixel",
                     },
-                    "content": Array [
-                      Object {
-                        "attrs": Object {
+                    "content": [
+                      {
+                        "attrs": {
                           "alt": "catt.jpeg",
                           "collection": "MediaServicesSample",
                           "height": 1194,
@@ -617,9 +617,9 @@ Object {
                         },
                         "type": "media",
                       },
-                      Object {
-                        "content": Array [
-                          Object {
+                      {
+                        "content": [
+                          {
                             "text": "cute cat",
                             "type": "text",
                           },
@@ -629,8 +629,8 @@ Object {
                     ],
                     "type": "mediaSingle",
                   },
-                  Object {
-                    "content": Array [],
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -639,13 +639,13 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -666,10 +666,10 @@ Object {
   "numMatches": 1,
   "originalSelection": "more formatt",
   "pos": undefined,
-  "step": Object {
+  "step": {
     "from": 18,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -682,29 +682,29 @@ Object {
 `;
 
 exports[`RendererActions applyAnnotation should apply annotation to the nested media 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "some plain text",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
+      {
+        "content": [
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
             ],
@@ -714,15 +714,15 @@ Object {
         ],
         "type": "paragraph",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "layout": "center",
           "width": 426,
           "widthType": "pixel",
         },
-        "content": Array [
-          Object {
-            "attrs": Object {
+        "content": [
+          {
+            "attrs": {
               "alt": "568c02f0-5949-4465-8f43-e7f9b1f7ead5.png",
               "collection": "MediaServicesSample",
               "height": 500,
@@ -732,9 +732,9 @@ Object {
             },
             "type": "media",
           },
-          Object {
-            "content": Array [
-              Object {
+          {
+            "content": [
+              {
                 "text": "cute dog",
                 "type": "text",
               },
@@ -744,21 +744,21 @@ Object {
         ],
         "type": "mediaSingle",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "isNumberColumnEnabled": false,
           "layout": "default",
           "localId": "709775b2-c4ad-4b47-bb63-023bfc655bb4",
           "width": 760,
         },
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -767,20 +767,20 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "attrs": {
                       "layout": "center",
                       "width": 426,
                       "widthType": "pixel",
                     },
-                    "content": Array [
-                      Object {
-                        "attrs": Object {
+                    "content": [
+                      {
+                        "attrs": {
                           "alt": "catt.jpeg",
                           "collection": "MediaServicesSample",
                           "height": 1194,
@@ -788,9 +788,9 @@ Object {
                           "type": "file",
                           "width": 2121,
                         },
-                        "marks": Array [
-                          Object {
-                            "attrs": Object {
+                        "marks": [
+                          {
+                            "attrs": {
                               "annotationType": "inlineComment",
                               "id": "<<<ANNOTATION-ID>>>",
                             },
@@ -799,9 +799,9 @@ Object {
                         ],
                         "type": "media",
                       },
-                      Object {
-                        "content": Array [
-                          Object {
+                      {
+                        "content": [
+                          {
                             "text": "cute cat",
                             "type": "text",
                           },
@@ -811,8 +811,8 @@ Object {
                     ],
                     "type": "mediaSingle",
                   },
-                  Object {
-                    "content": Array [],
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -821,13 +821,13 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -848,9 +848,9 @@ Object {
   "numMatches": 0,
   "originalSelection": "",
   "pos": 61,
-  "step": Object {
-    "mark": Object {
-      "attrs": Object {
+  "step": {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -863,15 +863,15 @@ Object {
 `;
 
 exports[`RendererActions applyAnnotation should apply annotation to the plain text 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -881,24 +881,24 @@ Object {
             "text": "some pla",
             "type": "text",
           },
-          Object {
+          {
             "text": "in text",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
+      {
+        "content": [
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
             ],
@@ -908,15 +908,15 @@ Object {
         ],
         "type": "paragraph",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "layout": "center",
           "width": 426,
           "widthType": "pixel",
         },
-        "content": Array [
-          Object {
-            "attrs": Object {
+        "content": [
+          {
+            "attrs": {
               "alt": "568c02f0-5949-4465-8f43-e7f9b1f7ead5.png",
               "collection": "MediaServicesSample",
               "height": 500,
@@ -926,9 +926,9 @@ Object {
             },
             "type": "media",
           },
-          Object {
-            "content": Array [
-              Object {
+          {
+            "content": [
+              {
                 "text": "cute dog",
                 "type": "text",
               },
@@ -938,21 +938,21 @@ Object {
         ],
         "type": "mediaSingle",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "isNumberColumnEnabled": false,
           "layout": "default",
           "localId": "709775b2-c4ad-4b47-bb63-023bfc655bb4",
           "width": 760,
         },
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -961,20 +961,20 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "attrs": {
                       "layout": "center",
                       "width": 426,
                       "widthType": "pixel",
                     },
-                    "content": Array [
-                      Object {
-                        "attrs": Object {
+                    "content": [
+                      {
+                        "attrs": {
                           "alt": "catt.jpeg",
                           "collection": "MediaServicesSample",
                           "height": 1194,
@@ -984,9 +984,9 @@ Object {
                         },
                         "type": "media",
                       },
-                      Object {
-                        "content": Array [
-                          Object {
+                      {
+                        "content": [
+                          {
                             "text": "cute cat",
                             "type": "text",
                           },
@@ -996,8 +996,8 @@ Object {
                     ],
                     "type": "mediaSingle",
                   },
-                  Object {
-                    "content": Array [],
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -1006,13 +1006,13 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -1033,10 +1033,10 @@ Object {
   "numMatches": 1,
   "originalSelection": "some pla",
   "pos": undefined,
-  "step": Object {
+  "step": {
     "from": 0,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -1049,29 +1049,29 @@ Object {
 `;
 
 exports[`RendererActions applyAnnotation should apply annotation to the top-level media 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "some plain text",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
+      {
+        "content": [
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
             ],
@@ -1081,15 +1081,15 @@ Object {
         ],
         "type": "paragraph",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "layout": "center",
           "width": 426,
           "widthType": "pixel",
         },
-        "content": Array [
-          Object {
-            "attrs": Object {
+        "content": [
+          {
+            "attrs": {
               "alt": "568c02f0-5949-4465-8f43-e7f9b1f7ead5.png",
               "collection": "MediaServicesSample",
               "height": 500,
@@ -1097,9 +1097,9 @@ Object {
               "type": "file",
               "width": 500,
             },
-            "marks": Array [
-              Object {
-                "attrs": Object {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "<<<ANNOTATION-ID>>>",
                 },
@@ -1108,9 +1108,9 @@ Object {
             ],
             "type": "media",
           },
-          Object {
-            "content": Array [
-              Object {
+          {
+            "content": [
+              {
                 "text": "cute dog",
                 "type": "text",
               },
@@ -1120,21 +1120,21 @@ Object {
         ],
         "type": "mediaSingle",
       },
-      Object {
-        "attrs": Object {
+      {
+        "attrs": {
           "isNumberColumnEnabled": false,
           "layout": "default",
           "localId": "709775b2-c4ad-4b47-bb63-023bfc655bb4",
           "width": 760,
         },
-        "content": Array [
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+        "content": [
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -1143,20 +1143,20 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "attrs": Object {
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "attrs": {
                       "layout": "center",
                       "width": 426,
                       "widthType": "pixel",
                     },
-                    "content": Array [
-                      Object {
-                        "attrs": Object {
+                    "content": [
+                      {
+                        "attrs": {
                           "alt": "catt.jpeg",
                           "collection": "MediaServicesSample",
                           "height": 1194,
@@ -1166,9 +1166,9 @@ Object {
                         },
                         "type": "media",
                       },
-                      Object {
-                        "content": Array [
-                          Object {
+                      {
+                        "content": [
+                          {
                             "text": "cute cat",
                             "type": "text",
                           },
@@ -1178,8 +1178,8 @@ Object {
                     ],
                     "type": "mediaSingle",
                   },
-                  Object {
-                    "content": Array [],
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -1188,13 +1188,13 @@ Object {
             ],
             "type": "tableRow",
           },
-          Object {
-            "content": Array [
-              Object {
-                "attrs": Object {},
-                "content": Array [
-                  Object {
-                    "content": Array [],
+          {
+            "content": [
+              {
+                "attrs": {},
+                "content": [
+                  {
+                    "content": [],
                     "type": "paragraph",
                   },
                 ],
@@ -1215,9 +1215,9 @@ Object {
   "numMatches": 0,
   "originalSelection": "",
   "pos": 39,
-  "step": Object {
-    "mark": Object {
-      "attrs": Object {
+  "step": {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -1230,11 +1230,11 @@ Object {
 `;
 
 exports[`RendererActions deleteAnnotation should delete the annotation on media with provided ID 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "attrs": Object {
+{
+  "doc": {
+    "content": [
+      {
+        "attrs": {
           "alt": "dog-puppy.jpeg",
           "collection": "contentId-3533084563",
           "height": 1197,
@@ -1248,9 +1248,9 @@ Object {
     "type": "doc",
     "version": 1,
   },
-  "step": Object {
-    "mark": Object {
-      "attrs": Object {
+  "step": {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -1263,21 +1263,21 @@ Object {
 `;
 
 exports[`RendererActions deleteAnnotation should delete the annotation when spanning multiple nodes 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "Hello!",
             "type": "text",
           },
         ],
         "type": "paragraph",
       },
-      Object {
-        "content": Array [
-          Object {
+      {
+        "content": [
+          {
             "text": "Hello!",
             "type": "text",
           },
@@ -1288,10 +1288,10 @@ Object {
     "type": "doc",
     "version": 1,
   },
-  "step": Object {
+  "step": {
     "from": 1,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -1304,12 +1304,12 @@ Object {
 `;
 
 exports[`RendererActions deleteAnnotation should delete the annotation with provided ID 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
             "text": "Hello!",
             "type": "text",
           },
@@ -1320,10 +1320,10 @@ Object {
     "type": "doc",
     "version": 1,
   },
-  "step": Object {
+  "step": {
     "from": 1,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },
@@ -1336,21 +1336,21 @@ Object {
 `;
 
 exports[`RendererActions deleteAnnotation should delete the annotation with provided ID without touching overlapping marks 1`] = `
-Object {
-  "doc": Object {
-    "content": Array [
-      Object {
-        "content": Array [
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+{
+  "doc": {
+    "content": [
+      {
+        "content": [
+          {
+            "marks": [
+              {
+                "attrs": {
                   "href": "https://www.atlassian.com",
                 },
                 "type": "link",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1360,26 +1360,26 @@ Object {
             "text": "Hello, ",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+          {
+            "marks": [
+              {
+                "attrs": {
                   "href": "https://www.atlassian.com",
                 },
                 "type": "link",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "3bac13b6-b121-457e-adbc-a447ad21b7bd",
                 },
                 "type": "annotation",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1389,17 +1389,17 @@ Object {
             "text": "World!",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+          {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "3bac13b6-b121-457e-adbc-a447ad21b7bd",
                 },
                 "type": "annotation",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1409,20 +1409,20 @@ Object {
             "text": " Look I can do ",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "3bac13b6-b121-457e-adbc-a447ad21b7bd",
                 },
                 "type": "annotation",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1432,13 +1432,13 @@ Object {
             "text": "italic",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1448,16 +1448,16 @@ Object {
             "text": " ",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1467,19 +1467,19 @@ Object {
             "text": ", strong ",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
+          {
+            "marks": [
+              {
                 "type": "em",
               },
-              Object {
+              {
                 "type": "strong",
               },
-              Object {
+              {
                 "type": "underline",
               },
-              Object {
-                "attrs": Object {
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1489,10 +1489,10 @@ Object {
             "text": "and underlined text!",
             "type": "text",
           },
-          Object {
-            "marks": Array [
-              Object {
-                "attrs": Object {
+          {
+            "marks": [
+              {
+                "attrs": {
                   "annotationType": "inlineComment",
                   "id": "0f8c5903-d571-4f55-97cb-a9bb986fcede",
                 },
@@ -1502,11 +1502,11 @@ Object {
             "text": " and",
             "type": "text",
           },
-          Object {
+          {
             "text": " action mark",
             "type": "text",
           },
-          Object {
+          {
             "text": " and invalid action mark",
             "type": "text",
           },
@@ -1517,10 +1517,10 @@ Object {
     "type": "doc",
     "version": 1,
   },
-  "step": Object {
+  "step": {
     "from": 15,
-    "mark": Object {
-      "attrs": Object {
+    "mark": {
+      "attrs": {
         "annotationType": "inlineComment",
         "id": "<<<ANNOTATION-ID>>>",
       },

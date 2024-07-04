@@ -20,6 +20,7 @@ import {
 	type Custom,
 } from '../../../types';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
+import { act } from '@testing-library/react';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme
 jest.mock('react', () => {
@@ -117,7 +118,9 @@ describe('Option', () => {
 			component.find(AvatarItemOption);
 
 			// wait for lazy load to resolve
-			await new Promise(setImmediate);
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			component.update();
 
 			const option = component.find(components.Option);
@@ -157,7 +160,9 @@ describe('Option', () => {
 			component.find(AvatarItemOption);
 
 			// wait for lazy load to resolve
-			await new Promise(setImmediate);
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			component.update();
 
 			const option = component.find(components.Option);
@@ -196,7 +201,9 @@ describe('Option', () => {
 			component.find(AvatarItemOption);
 
 			// wait for lazy load to resolve
-			await new Promise(setImmediate);
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			component.update();
 
 			const option = component.find(components.Option);
@@ -233,7 +240,9 @@ describe('Option', () => {
 			component.find(AvatarItemOption);
 
 			// wait for lazy load to resolve
-			await new Promise(setImmediate);
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			component.update();
 
 			const option = component.find(components.Option);
@@ -268,7 +277,10 @@ describe('Option', () => {
 
 			component.find(AvatarItemOption);
 
-			await new Promise(setImmediate);
+			// wait for lazy load to resolve
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			component.update();
 
 			const option = component.find(components.Option);

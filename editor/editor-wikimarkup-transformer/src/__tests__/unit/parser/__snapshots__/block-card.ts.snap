@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Block Card should create Block Card between lines of text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line 1 ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,
@@ -25,12 +25,12 @@ Object {
       },
       "type": "blockCard",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line 2 ",
           "type": "text",
         },
@@ -43,22 +43,22 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create Block Card for old representation between lines of text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line 1 ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,
@@ -67,12 +67,12 @@ Object {
       },
       "type": "blockCard",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line 2 ",
           "type": "text",
         },
@@ -85,22 +85,22 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create Block Card if preceded and followed by text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "abc ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,
@@ -109,12 +109,12 @@ Object {
       },
       "type": "blockCard",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": " def",
           "type": "text",
         },
@@ -127,10 +127,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create Block Card with nothing else in the document 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,
@@ -145,10 +145,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create Block Card with whitespace on the same line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,
@@ -157,20 +157,20 @@ Object {
       },
       "type": "blockCard",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": " ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,
@@ -185,10 +185,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create Block Cards in panel 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -196,32 +196,32 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
                     "panelIconText": null,
                     "panelType": "info",
                   },
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                  "content": [
+                    {
+                      "attrs": {
                         "localId": null,
                       },
-                      "content": Array [
-                        Object {
+                      "content": [
+                        {
                           "text": "test ",
                           "type": "text",
                         },
@@ -231,8 +231,8 @@ Object {
                   ],
                   "type": "panel",
                 },
-                Object {
-                  "attrs": Object {
+                {
+                  "attrs": {
                     "data": null,
                     "datasource": null,
                     "layout": null,
@@ -241,21 +241,21 @@ Object {
                   },
                   "type": "blockCard",
                 },
-                Object {
-                  "attrs": Object {
+                {
+                  "attrs": {
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
                     "panelIconText": null,
                     "panelType": "info",
                   },
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                  "content": [
+                    {
+                      "attrs": {
                         "localId": null,
                       },
-                      "content": Array [
-                        Object {
+                      "content": [
+                        {
                           "text": " test",
                           "type": "text",
                         },
@@ -280,10 +280,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create Block Cards in table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -291,19 +291,19 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "data": null,
                     "datasource": null,
                     "layout": null,
@@ -327,22 +327,22 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create embedCard (it is a block node so all content should move to other lines 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "hello ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "layout": "center",
         "originalHeight": null,
         "originalWidth": null,
@@ -351,12 +351,12 @@ Object {
       },
       "type": "embedCard",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": " world!",
           "type": "text",
         },
@@ -369,10 +369,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should create embedCard inside table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -380,19 +380,19 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "layout": "center",
                     "originalHeight": null,
                     "originalWidth": null,
@@ -416,10 +416,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Block Card should recover existing Block Cards 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -427,19 +427,19 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "data": null,
                     "datasource": null,
                     "layout": null,
@@ -451,16 +451,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "data": null,
                     "datasource": null,
                     "layout": null,
@@ -478,20 +478,20 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "      ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "data": null,
         "datasource": null,
         "layout": null,

@@ -3,14 +3,14 @@
 exports[`Mention Description Byline should render Team Mention description if a team is provided 1`] = `
 <TeamMentionDescriptionByline
   mention={
-    Object {
+    {
       "accessLevel": "CONTAINER",
       "avatarUrl": "www.example.com/image.png",
-      "context": Object {
+      "context": {
         "includesYou": true,
         "memberCount": 5,
-        "members": Array [
-          Object {
+        "members": [
+          {
             "id": "user-1234",
             "name": "Test User",
           },
@@ -28,7 +28,7 @@ exports[`Mention Description Byline should render Team Mention description if a 
 exports[`Mention Description Byline should render User Mention description if a user is provided 1`] = `
 <UserMentionDescriptionByline
   mention={
-    Object {
+    {
       "accessLevel": "CONTAINER",
       "avatarUrl": "www.example.com/image.png",
       "id": "12345",

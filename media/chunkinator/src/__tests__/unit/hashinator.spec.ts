@@ -3,7 +3,7 @@ import { of } from 'rxjs/observable/of';
 import { type HashedBlob } from '../../domain';
 import { hashinator, blobToHashedBlob } from '../../hashinator';
 
-(global as any).window.crypto = {
+const crypto = {
 	subtle: {
 		digest: jest.fn(),
 	},

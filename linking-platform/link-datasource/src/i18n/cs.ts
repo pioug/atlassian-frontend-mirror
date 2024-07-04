@@ -118,6 +118,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Ne',
   'linkDataSource.render-type.boolean.true': 'Ano',
   'linkDataSource.render-type.user.default.display.name': 'Nepřiřazeno',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} požadavek} few {{searchCount,number} požadavky} many {{searchCount,number} požadavku} other {{searchCount,number} požadavků}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} položka} few {{searchCount,number} položky} many {{searchCount,number} položky} other {{searchCount,number} položek}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} výsledek} few {{searchCount,number} výsledky} many {{searchCount,number} výsledku} other {{searchCount,number} výsledků}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synchronizováno právě teď',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronizováno {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {položka} few {položky} many {položky} other {položek}}',

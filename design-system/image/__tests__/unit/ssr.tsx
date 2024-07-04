@@ -1,3 +1,5 @@
+import { screen } from '@testing-library/react';
+
 import __noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
@@ -17,6 +19,9 @@ it('should ssr then hydrate basic example correctly', async () => {
 	elem.innerHTML = html;
 	await hydrateWithAct(examplePath, elem, styles, true);
 
+	// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
+	await screen.findByRole('img');
+
 	// No other errors from e.g. hydrate
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;
@@ -31,6 +36,9 @@ it('should ssr then hydrate themed example correctly', async () => {
 
 	elem.innerHTML = html;
 	await hydrateWithAct(examplePath, elem, styles, true);
+
+	// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
+	await screen.findAllByRole('img');
 
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;

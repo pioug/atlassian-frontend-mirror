@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Actualiza la página o ponte en contacto con el <a>soporte de Atlassian</a> si sigue ocurriendo.',
   'link-create.unknown-error.heading': 'Algo ha ido mal.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Sitio',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Volver',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Descartar',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'No podremos guardar tu información si sales de esta página.',

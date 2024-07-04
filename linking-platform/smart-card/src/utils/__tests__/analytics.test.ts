@@ -42,10 +42,10 @@ describe('resolvedEvent', () => {
 		});
 
 		expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "action": "resolved",
         "actionSubject": "smartLink",
-        "attributes": Object {
+        "attributes": {
           "componentName": "smart-cards",
           "definitionId": "definition-id",
           "extensionKey": "extension-key",
@@ -73,13 +73,13 @@ describe('unresolvedEvent', () => {
 		});
 
 		expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "action": "unresolved",
         "actionSubject": "smartLink",
-        "attributes": Object {
+        "attributes": {
           "componentName": "smart-cards",
           "definitionId": "definition-id",
-          "error": Object {
+          "error": {
             "kind": "error",
             "message": "something wrong",
             "type": "ResolveFailedError",
@@ -122,14 +122,14 @@ describe('instrumentEvent', () => {
 			error,
 		});
 		expect(event).toMatchInlineSnapshot(`
-      Object {
+      {
         "action": "unresolved",
         "actionSubject": "smartLink",
-        "attributes": Object {
+        "attributes": {
           "componentName": "smart-cards",
           "definitionId": "definition-id",
           "duration": undefined,
-          "error": Object {
+          "error": {
             "kind": "error",
             "message": "something wrong",
             "type": "ResolveFailedError",

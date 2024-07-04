@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import EnumOption from './inputs/enum-option';
 import { SmartLinkSize, SmartLinkTheme } from '../../../src';
 import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
@@ -9,10 +9,13 @@ import CheckboxOption from './inputs/checkbox-option';
 import { type FlexibleTemplate } from '../types';
 import Fieldset from './fieldset';
 
-const UiBuilder: React.FC<{
+const UiBuilder = ({
+	onChange,
+	template = {},
+}: {
 	onChange: (ui: FlexibleUiOptions) => void;
 	template?: FlexibleTemplate;
-}> = ({ onChange, template = {} }) => {
+}) => {
 	const { ui = {} } = template;
 	const showHoverPreview = useMemo(
 		() => template.cardProps?.showHoverPreview,

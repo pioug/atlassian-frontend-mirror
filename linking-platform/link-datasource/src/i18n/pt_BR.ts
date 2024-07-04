@@ -118,6 +118,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Não',
   'linkDataSource.render-type.boolean.true': 'Sim',
   'linkDataSource.render-type.user.default.display.name': 'Sem responsável',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} item} other {{searchCount,number} itens}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} item} other {{searchCount,number} itens}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} resultado} other {{searchCount,number} resultados}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sincronizado agora',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sincronizado em {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {item} other {itens}}',

@@ -59,7 +59,7 @@ describe('MediaEmojiCache', () => {
 	});
 
 	describe('#getCache', () => {
-		it('init - use BrowserCacheStrategy', () => {
+		it('init - use BrowserCacheStrategy', async () => {
 			sinon.stub(BrowserCacheStrategy, 'supported').returns(Promise.resolve(true));
 			const cache = new TestMediaEmojiCache();
 			const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
@@ -72,7 +72,7 @@ describe('MediaEmojiCache', () => {
 			return;
 		});
 
-		it('init - use MemoryCacheStrategy', () => {
+		it('init - use MemoryCacheStrategy', async () => {
 			sinon.stub(BrowserCacheStrategy, 'supported').returns(Promise.resolve(false));
 			const cache = new TestMediaEmojiCache();
 			const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
@@ -85,7 +85,7 @@ describe('MediaEmojiCache', () => {
 			return;
 		});
 
-		it('cache initialised - returns cache not promise', () => {
+		it('cache initialised - returns cache not promise', async () => {
 			sinon.stub(BrowserCacheStrategy, 'supported').returns(Promise.resolve(true));
 			const cache = new TestMediaEmojiCache();
 			const cacheStrategy = cache.callGetCache(mediaEmojiImagePath);
@@ -100,7 +100,7 @@ describe('MediaEmojiCache', () => {
 			return;
 		});
 
-		it('init - first url is bad, good second', () => {
+		it('init - first url is bad, good second', async () => {
 			const supportedError = 'damn it';
 			const supportedStub = sinon.stub(BrowserCacheStrategy, 'supported');
 			supportedStub.onFirstCall().returns(Promise.reject(supportedError));
@@ -136,7 +136,7 @@ describe('MediaEmojiCache', () => {
 			expect(loadedEmoji).toEqual(imageEmoji);
 		});
 
-		it('media emoji - before and after cache ready', () => {
+		it('media emoji - before and after cache ready', async () => {
 			sinon.stub(BrowserCacheStrategy.prototype, 'loadEmoji').returns(loadedMediaEmoji);
 			sinon.stub(BrowserCacheStrategy, 'supported').returns(Promise.resolve(true));
 			const cache = new TestMediaEmojiCache();
@@ -156,7 +156,7 @@ describe('MediaEmojiCache', () => {
 			return;
 		});
 
-		it('media emoji - cache failed to load', () => {
+		it('media emoji - cache failed to load', async () => {
 			sinon.stub(BrowserCacheStrategy, 'supported').returns(Promise.reject('fail'));
 			const cache = new TestMediaEmojiCache();
 			const emojiPromise = cache.loadEmoji(mediaEmoji);
@@ -171,7 +171,7 @@ describe('MediaEmojiCache', () => {
 	});
 
 	describe('#optimisticRendering', () => {
-		it('delegates to cache strategy', () => {
+		it('delegates to cache strategy', async () => {
 			const optimisticRenderingStub = sinon.stub(
 				BrowserCacheStrategy.prototype,
 				'optimisticRendering',
@@ -197,7 +197,7 @@ describe('MediaEmojiCache', () => {
 			return;
 		});
 
-		it('returns false if no cache strategy', () => {
+		it('returns false if no cache strategy', async () => {
 			sinon.stub(BrowserCacheStrategy, 'supported').returns(Promise.reject('fail'));
 			const cache = new TestMediaEmojiCache();
 			const renderingPromise = cache.optimisticRendering(mediaEmojiImagePath);
@@ -287,7 +287,7 @@ describe('BrowserCacheStrategy', () => {
 			expect(emoji).toEqual(imageEmoji);
 		});
 
-		it('returns Promise if uncached, Emoji when not', () => {
+		it('returns Promise if uncached, Emoji when not', async () => {
 			const emojiPromise = browserCacheStrategy.loadEmoji(mediaEmoji);
 			expect(isPromise(emojiPromise)).toEqual(true);
 			if (isPromise(emojiPromise)) {
@@ -301,7 +301,7 @@ describe('BrowserCacheStrategy', () => {
 			return;
 		});
 
-		it('returns undefined via Promise if uncached and error', () => {
+		it('returns undefined via Promise if uncached and error', async () => {
 			mockMediaImageLoader.reject = true;
 			const emojiPromise = browserCacheStrategy.loadEmoji(mediaEmoji);
 			expect(isPromise(emojiPromise)).toEqual(true);
@@ -313,7 +313,7 @@ describe('BrowserCacheStrategy', () => {
 			return;
 		});
 
-		it('returns different emoji if two different EmojiDescription have same mediaPath', () => {
+		it('returns different emoji if two different EmojiDescription have same mediaPath', async () => {
 			const frequentEmoji: EmojiDescriptionWithVariations = {
 				...mediaEmoji,
 				category: frequentCategory,
@@ -349,7 +349,7 @@ describe('MemoryCacheStrategy', () => {
 			expect(emoji).toEqual(imageEmoji);
 		});
 
-		it('returns Promise if uncached, Emoji when not', () => {
+		it('returns Promise if uncached, Emoji when not', async () => {
 			const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji);
 			expect(isPromise(emojiPromise)).toEqual(true);
 			if (isPromise(emojiPromise)) {
@@ -363,7 +363,7 @@ describe('MemoryCacheStrategy', () => {
 			return;
 		});
 
-		it('returns undefined via Promise if uncached and error, Emoji once cached', () => {
+		it('returns undefined via Promise if uncached and error, Emoji once cached', async () => {
 			mockMediaImageLoader.reject = true;
 			const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji);
 			expect(isPromise(emojiPromise)).toEqual(true);
@@ -375,7 +375,7 @@ describe('MemoryCacheStrategy', () => {
 			return;
 		});
 
-		it('returns dataURL for altRepresentation.imgPath when useAlt is passed in', () => {
+		it('returns dataURL for altRepresentation.imgPath when useAlt is passed in', async () => {
 			const useAlt = true;
 			const emojiPromise = memoryCacheStrategy.loadEmoji(mediaEmoji, useAlt);
 			expect(isPromise(emojiPromise)).toEqual(true);
@@ -392,7 +392,7 @@ describe('MemoryCacheStrategy', () => {
 			return;
 		});
 
-		it('returns different emoji if two different EmojiDescription have same mediaPath', () => {
+		it('returns different emoji if two different EmojiDescription have same mediaPath', async () => {
 			const frequentEmoji: EmojiDescriptionWithVariations = {
 				...mediaEmoji,
 				category: frequentCategory,

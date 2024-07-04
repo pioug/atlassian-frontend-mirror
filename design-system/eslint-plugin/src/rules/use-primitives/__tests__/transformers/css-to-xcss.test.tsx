@@ -1,7 +1,6 @@
 import { type Rule } from 'eslint';
 import * as eslintCodemodUtils from 'eslint-codemod-utils';
 import j from 'jscodeshift';
-import { mocked } from 'ts-jest/utils';
 
 import { cssToXcssTransformer, styledObjectToXcssTokens } from '../../transformers/css-to-xcss';
 import * as utils from '../../utils';
@@ -27,7 +26,7 @@ const mockFixer = {
 describe('cssToXcssTransformer', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
-		mocked(eslintCodemodUtils.getIdentifierInParentScope).mockReturnValue(null);
+		jest.mocked(eslintCodemodUtils.getIdentifierInParentScope).mockReturnValue(null);
 	});
 
 	it('transforms a simple example', () => {
@@ -39,7 +38,7 @@ describe('cssToXcssTransformer', () => {
       <div css={paddingStyles}></div>
       `,
 		);
-		mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
 		} as ReturnType<typeof utils.getVariableDefinitionValue>);
 
@@ -77,7 +76,7 @@ describe('cssToXcssTransformer', () => {
       <div css={marginStyles}></div>
       `,
 		);
-		mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
 		} as ReturnType<typeof utils.getVariableDefinitionValue>);
 
@@ -115,7 +114,7 @@ describe('cssToXcssTransformer', () => {
       <div css={paddingStyles}></div>
       `,
 		);
-		mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
 		} as ReturnType<typeof utils.getVariableDefinitionValue>);
 
@@ -159,7 +158,7 @@ describe('styledObjectToXcssTokens', () => {
       <div css={paddingStyles}></div>
       `,
 		);
-		mocked(utils.getVariableDefinitionValue).mockReturnValue({
+		jest.mocked(utils.getVariableDefinitionValue).mockReturnValue({
 			node: root.find(j.VariableDeclarator).get().value,
 		} as ReturnType<typeof utils.getVariableDefinitionValue>);
 

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActivityResource search recent should perform case-insensitive prefix search on name property 1`] = `
-Array [
-  Object {
+[
+  {
     "container": "Editor Media",
     "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
     "name": "recent item 1",
@@ -11,7 +11,7 @@ Array [
     "url": "https://product-fabric.atlassian.net/browse/EDM-642",
     "viewedTimestamp": "2020-06-24T01:15:39.680Z",
   },
-  Object {
+  {
     "container": "",
     "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
     "name": "recent item 2",
@@ -24,8 +24,8 @@ Array [
 `;
 
 exports[`ActivityResource should resolve recent items 1`] = `
-Array [
-  Object {
+[
+  {
     "container": "Editor Media",
     "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
     "name": "recent item 1",
@@ -34,7 +34,7 @@ Array [
     "url": "https://product-fabric.atlassian.net/browse/EDM-642",
     "viewedTimestamp": "2020-06-24T01:15:39.680Z",
   },
-  Object {
+  {
     "container": "",
     "iconUrl": "https://product-fabric.atlassian.net/secure/viewavatar?size=medium&avatarId=10318&avatarType=issuetype",
     "name": "recent item 2",

@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-status
 
+## 2.1.0
+
+### Minor Changes
+
+- [#117356](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117356)
+  [`9d772a51e5663`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d772a51e5663) -
+  [ux] Fix inserting status from insert block dropdown.
+
+  Introduces new command on status plugin "insertStatus" which can be used by toolbars to insert a
+  status node.
+
+  Example:
+
+  ```ts
+  return pluginInjectionApi?.core?.actions.execute(
+  	pluginInjectionApi?.status?.commands?.insertStatus(inputMethod),
+  );
+  ```
+
 ## 2.0.0
 
 ### Major Changes

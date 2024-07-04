@@ -34,6 +34,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 			shouldTitleWrap = true,
 			target,
 			testId,
+			UNSAFE_shouldDisableRouterLink,
 			...rest
 		}: DropdownItemProps,
 		ref,
@@ -82,6 +83,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 					shouldTitleWrap={shouldTitleWrap}
 					target={target}
 					testId={testId}
+					UNSAFE_shouldDisableRouterLink={UNSAFE_shouldDisableRouterLink}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
 				>

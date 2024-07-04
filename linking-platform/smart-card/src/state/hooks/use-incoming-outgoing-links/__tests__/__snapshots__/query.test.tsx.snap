@@ -3,15 +3,15 @@
 exports[`query snapshot 1`] = `
 "
   query SmartCard_ContentReferencedEntityBatchQuery_V1($ids: [ID!]!, $firstIncoming: Int = 50, $firstOutgoing: Int = 50) {
-    graphStore @optIn(to: \\"GraphStore\\") {
-      incoming: contentReferencedEntityInverseBatch(ids: $ids, first: $firstIncoming) @optIn(to: \\"GraphStoreContentReferencedEntity\\") {
+    graphStore @optIn(to: "GraphStore") {
+      incoming: contentReferencedEntityInverseBatch(ids: $ids, first: $firstIncoming) @optIn(to: "GraphStoreContentReferencedEntity") {
         nodes {
           from {
             id
           }
         }
       }
-      outgoing: contentReferencedEntityBatch(ids: $ids, first: $firstOutgoing) @optIn(to: \\"GraphStoreContentReferencedEntity\\") {
+      outgoing: contentReferencedEntityBatch(ids: $ids, first: $firstOutgoing) @optIn(to: "GraphStoreContentReferencedEntity") {
         nodes {
           to {
             id

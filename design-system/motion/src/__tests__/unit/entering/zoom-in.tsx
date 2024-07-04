@@ -54,34 +54,34 @@ describe('<ZoomIn />', () => {
 		const keyframes = zoomInAnimation();
 
 		expect(keyframes).toMatchInlineSnapshot(`
-        Object {
-          "0%": Object {
-            "opacity": 0,
-            "transform": "scale(0.5)",
-          },
-          "100%": Object {
-            "transform": "scale(1)",
-          },
-          "50%": Object {
-            "opacity": 1,
-          },
-          "75%": Object {
-            "transform": "scale(1.25)",
-          },
-        }
-    `);
+		{
+		  "0%": {
+		    "opacity": 0,
+		    "transform": "scale(0.5)",
+		  },
+		  "100%": {
+		    "transform": "scale(1)",
+		  },
+		  "50%": {
+		    "opacity": 1,
+		  },
+		  "75%": {
+		    "transform": "scale(1.25)",
+		  },
+		}
+	`);
 	});
 
 	it('should generate zoom away keyframes', () => {
 		const keyframes = shrinkOutAnimation();
 
 		expect(keyframes).toMatchInlineSnapshot(`
-      Object {
-        "to": Object {
-          "opacity": 0,
-          "transform": "scale(0.75)",
-        },
-      }
-    `);
+		{
+		  "to": {
+		    "opacity": 0,
+		    "transform": "scale(0.75)",
+		  },
+		}
+	`);
 	});
 });

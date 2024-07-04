@@ -3,11 +3,11 @@ import { SmartLinkSize } from '../../../src/constants';
 import type { BlockBuilderProps } from '../types';
 import EnumOption from './inputs/enum-option';
 
-const ActionBlockBuilder: React.FC<BlockBuilderProps> = ({
+const ActionBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}) => {
+}: BlockBuilderProps) => {
 	return (
 		<div>
 			<EnumOption

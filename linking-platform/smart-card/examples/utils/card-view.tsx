@@ -11,14 +11,14 @@ export type CardViewProps = {
 	useLegacyBlockCard?: boolean;
 };
 
-const CardView: React.FC<CardViewProps> = ({
+const CardView = ({
 	appearance,
 	client,
 	frameStyle,
 	isSelected,
 	url = 'https://some.url',
 	useLegacyBlockCard = false,
-}) => (
+}: CardViewProps) => (
 	<SmartCardProvider client={client} featureFlags={{ enableFlexibleBlockCard: true }}>
 		<Card
 			appearance={appearance}

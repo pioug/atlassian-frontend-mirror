@@ -42,7 +42,7 @@ describe('HoverCard', () => {
 	let mockFetch: jest.Mock;
 
 	beforeEach(() => {
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 		mockIntersectionObserver();
 	});
 
@@ -190,7 +190,7 @@ describe('HoverCard', () => {
 				const element = await findByTestId('inline-card-resolved-view');
 				expect(element.textContent).toBe('I am a fan of cheese');
 
-				jest.useFakeTimers();
+				jest.useFakeTimers({ legacyFakeTimers: true });
 				const event = userEvent.setup({ delay: null });
 				await event.hover(element);
 				jest.runAllTimers();

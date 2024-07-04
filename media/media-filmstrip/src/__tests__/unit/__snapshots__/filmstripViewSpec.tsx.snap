@@ -158,7 +158,7 @@ exports[`FilmstripView .render() styles 1`] = `
         >
           <ForwardRef
             style={
-              Object {
+              {
                 "transform": "translateX(0px)",
                 "transitionDuration": "0s",
                 "transitionProperty": "none",
@@ -169,7 +169,7 @@ exports[`FilmstripView .render() styles 1`] = `
 <ul
               className="emotion-3"
               style={
-                Object {
+                {
                   "transform": "translateX(0px)",
                   "transitionDuration": "0s",
                   "transitionProperty": "none",
@@ -236,7 +236,7 @@ exports[`FilmstripView .render() styles 1`] = `
                   label="right"
                 >
                   <Memo(Icon)
-                    dangerouslySetGlyph="<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.793 5.793a.999.999 0 000 1.414L15.586 11H6a1 1 0 000 2h9.586l-3.793 3.793a.999.999 0 000 1.414c.39.39 1.024.39 1.415 0l5.499-5.5a.997.997 0 00.293-.679v-.057a.996.996 0 00-.293-.678l-5.499-5.5a1 1 0 00-1.415 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>"
+                    dangerouslySetGlyph="<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path d="M11.793 5.793a.999.999 0 000 1.414L15.586 11H6a1 1 0 000 2h9.586l-3.793 3.793a.999.999 0 000 1.414c.39.39 1.024.39 1.415 0l5.499-5.5a.997.997 0 00.293-.679v-.057a.996.996 0 00-.293-.678l-5.499-5.5a1 1 0 00-1.415 0z" fill="currentColor" fill-rule="evenodd"/></svg>"
                     label="right"
                   >
                     <Noop />
@@ -244,13 +244,13 @@ exports[`FilmstripView .render() styles 1`] = `
                       aria-label="right"
                       className="emotion-5"
                       dangerouslySetInnerHTML={
-                        Object {
-                          "__html": "<svg width=\\"24\\" height=\\"24\\" viewBox=\\"0 0 24 24\\" role=\\"presentation\\"><path d=\\"M11.793 5.793a.999.999 0 000 1.414L15.586 11H6a1 1 0 000 2h9.586l-3.793 3.793a.999.999 0 000 1.414c.39.39 1.024.39 1.415 0l5.499-5.5a.997.997 0 00.293-.679v-.057a.996.996 0 00-.293-.678l-5.499-5.5a1 1 0 00-1.415 0z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>",
+                        {
+                          "__html": "<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path d="M11.793 5.793a.999.999 0 000 1.414L15.586 11H6a1 1 0 000 2h9.586l-3.793 3.793a.999.999 0 000 1.414c.39.39 1.024.39 1.415 0l5.499-5.5a.997.997 0 00.293-.679v-.057a.996.996 0 00-.293-.678l-5.499-5.5a1 1 0 00-1.415 0z" fill="currentColor" fill-rule="evenodd"/></svg>",
                         }
                       }
                       role="img"
                       style={
-                        Object {
+                        {
                           "--icon-primary-color": "currentColor",
                           "--icon-secondary-color": "var(--ds-surface, #FFFFFF)",
                         }

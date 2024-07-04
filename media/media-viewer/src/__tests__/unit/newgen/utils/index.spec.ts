@@ -162,7 +162,7 @@ describe('utils', () => {
 			});
 		});
 		describe('rejectAfter', () => {
-			beforeEach(() => jest.useFakeTimers());
+			beforeEach(() => jest.useFakeTimers({ legacyFakeTimers: true }));
 			it('should reject after given delay', async () => {
 				try {
 					await rejectAfter(jest.fn(), 1);

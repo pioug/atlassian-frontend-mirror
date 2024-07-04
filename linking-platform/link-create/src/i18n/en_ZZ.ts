@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     '⁣⁢Refresh the page, or contact <a>Atlassian Support</a> if this keeps happening.⁠⁮⁫‌⁭؜⁡⁯‍⁮⁫⁭‌⁮⁯⁡؜⁠‌؜⁠⁯⁣⁤',
   'link-create.unknown-error.heading': '⁣⁢Something went wrong.⁪⁠⁪⁬⁯⁮‌⁡⁮‍‌؜⁡⁬⁮⁠⁠⁣⁤',
+  'linkCreate.CreateConfluencePage.form.site.label': '⁣⁢Site‌‌⁪⁪‍؜‍⁭⁯⁯⁪؜‌⁫⁡⁮⁯⁯‍⁠⁬⁣⁤',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': '⁣⁢Go back⁫⁬‌⁫؜؜⁫⁠؜‌⁡⁠⁪⁫⁪؜‍⁭⁫⁬⁡⁮⁣⁤',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': '⁣⁢Discard⁡⁡⁫⁡⁭⁯‍؜‍؜⁬‍⁡⁬⁡‍⁡⁠⁫⁯‌⁣⁤',
   'linkCreate.confirm-dismiss-dialog.modal.description':

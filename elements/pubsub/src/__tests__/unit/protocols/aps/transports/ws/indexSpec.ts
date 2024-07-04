@@ -1,4 +1,4 @@
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 import WebsocketClient, {
 	type WebsocketClientParams,
 } from '../../../../../../protocols/aps/transports/ws/websocketClient';
@@ -25,6 +25,8 @@ jest.mock('../../../../../../protocols/aps/utils', () => {
 		})),
 	};
 });
+
+expect.extend(jestExtendedMatchers);
 
 const wait = (time: number = 100) => {
 	return new Promise((resolve) => {

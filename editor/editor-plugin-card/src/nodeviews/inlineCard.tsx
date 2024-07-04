@@ -2,6 +2,7 @@ import React, { memo, useCallback, useMemo } from 'react';
 
 import rafSchedule from 'raf-schd';
 
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -30,6 +31,8 @@ export const InlineCard = memo(
 		onClick,
 		onResolve: onRes,
 		isHovered,
+		showHoverPreview,
+		hoverPreviewOptions,
 	}: SmartCardProps) => {
 		const { url, data } = node.attrs;
 
@@ -97,19 +100,23 @@ export const InlineCard = memo(
 					actionOptions={actionOptions}
 					showServerActions={showServerActions}
 					isHovered={isHovered}
+					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={hoverPreviewOptions}
 				/>
 			),
 			[
-				data,
-				isHovered,
-				onError,
-				onResolve,
-				scrollContainer,
 				url,
+				data,
+				onClick,
+				scrollContainer,
+				onResolve,
+				onError,
 				useAlternativePreloader,
 				actionOptions,
 				showServerActions,
-				onClick,
+				isHovered,
+				showHoverPreview,
+				hoverPreviewOptions,
 			],
 		);
 
@@ -155,7 +162,13 @@ export function InlineCardNodeView(
 		onClickCallback,
 	} = props;
 
+	const floatingToolbarNode = useSharedPluginState(pluginInjectionApi, ['floatingToolbar'])
+		.floatingToolbarState?.configWithNodeInfo?.node;
+
 	if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+		const showHoverPreview = floatingToolbarNode !== node;
+		const livePagesHoverCardFadeInDelay = 800;
+
 		return (
 			<OverlayWrapper targetElementPos={getPos()} view={view}>
 				<WrappedInlineCard
@@ -166,6 +179,8 @@ export function InlineCardNodeView(
 					showServerActions={showServerActions}
 					useAlternativePreloader={useAlternativePreloader}
 					onClickCallback={onClickCallback}
+					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={{ fadeInDelay: livePagesHoverCardFadeInDelay }}
 				/>
 			</OverlayWrapper>
 		);

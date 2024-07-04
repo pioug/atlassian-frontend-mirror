@@ -717,24 +717,24 @@ describe('Channel unit tests', () => {
 			channel.on('error', (e) => {
 				try {
 					expect(e).toMatchInlineSnapshot(`
-            Object {
-              "data": Object {
-                "code": "TOKEN_PERMISSION_ERROR",
-                "meta": Object {
-                  "originalError": Object {
-                    "data": Object {
-                      "meta": Object {
-                        "reason": "test",
-                      },
-                    },
-                  },
-                  "reason": "test",
-                },
-                "status": 403,
-              },
-              "message": "Insufficient editing permissions",
-            }
-          `);
+				{
+				  "data": {
+				    "code": "TOKEN_PERMISSION_ERROR",
+				    "meta": {
+				      "originalError": {
+				        "data": {
+				          "meta": {
+				            "reason": "test",
+				          },
+				        },
+				      },
+				      "reason": "test",
+				    },
+				    "status": 403,
+				  },
+				  "message": "Insufficient editing permissions",
+				}
+			`);
 				} catch (e) {
 					done(e);
 				}
@@ -1055,6 +1055,7 @@ describe('Channel unit tests', () => {
 			});
 			// Just check the last emit
 			expect(emitSpy).toHaveBeenNthCalledWith(
+				// @ts-ignore UTEST-1630
 				emitSpy.mock.calls.length,
 				'broadcast',
 				{

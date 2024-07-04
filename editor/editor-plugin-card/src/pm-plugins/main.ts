@@ -11,7 +11,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg, getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { eventsFromTransaction } from '../analytics/events-from-tr';
 import { isLocalStorageKeyDiscovered } from '../common/local-storage';
@@ -199,7 +199,11 @@ export const createPlugin =
 				const domAtPos = view.domAtPos.bind(view);
 				const rafCancellationCallbacks: Function[] = [];
 
-				pmPluginFactoryParams.providerFactory.subscribe('cardProvider', subscriptionHandler);
+				if (options.provider && fg('platform_editor_get_card_provider_from_config')) {
+					handleProvider('cardProvider', options.provider, view);
+				} else {
+					pmPluginFactoryParams.providerFactory.subscribe('cardProvider', subscriptionHandler);
+				}
 
 				return {
 					update(view: EditorView, prevState: EditorState) {
@@ -300,7 +304,12 @@ export const createPlugin =
 						// Cancel any outstanding raf callbacks.
 						rafCancellationCallbacks.forEach((cancellationCallback) => cancellationCallback());
 
-						pmPluginFactoryParams.providerFactory.unsubscribe('cardProvider', subscriptionHandler);
+						if (!fg('platform_editor_get_card_provider_from_config')) {
+							pmPluginFactoryParams.providerFactory.unsubscribe(
+								'cardProvider',
+								subscriptionHandler,
+							);
+						}
 					},
 				};
 			},

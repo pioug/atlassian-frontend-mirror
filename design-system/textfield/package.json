@@ -45,7 +45,7 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",

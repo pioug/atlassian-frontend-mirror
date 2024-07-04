@@ -21,11 +21,11 @@ const targetOptions = [
 	{ label: '_top', value: '_top' },
 ];
 
-const TitleBlockBuilder: React.FC<BlockBuilderProps> = ({
+const TitleBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}) => (
+}: BlockBuilderProps) => (
 	<React.Fragment>
 		<MaxLinesOption
 			defaultValue={DEFAULT_MAX_LINES}

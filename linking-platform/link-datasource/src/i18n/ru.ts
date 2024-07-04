@@ -119,6 +119,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Нет',
   'linkDataSource.render-type.boolean.true': 'Да',
   'linkDataSource.render-type.user.default.display.name': 'Не назначено',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} задача} few {{searchCount,number} задачи} many {{searchCount,number} задач} other {{searchCount,number} задачи}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} элемент} few {{searchCount,number} элемента} many {{searchCount,number} элементов} other {{searchCount,number} элемента}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} результат} few {{searchCount,number} результата} many {{searchCount,number} результатов} other {{searchCount,number} результата}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронизировано только что',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронизировано {date}',
   'linkDataSource.table-footer.item':

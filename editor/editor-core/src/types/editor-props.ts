@@ -261,11 +261,6 @@ export interface EditorSharedPropsWithPlugins {
 	// Enable undo/redo buttons within the editor.
 	allowUndoRedoButtons?: boolean;
 
-	/**
-	 *  Configure and extend editor linking behaviour
-	 */
-	linking?: LinkingOptions;
-
 	// Hide avatar group in editor toolbar
 	hideAvatarGroup?: boolean;
 }
@@ -305,6 +300,17 @@ export interface EditorNextProps
 	 * Configuration of this parameter should be done via `editor-plugin-placeholder` or the `default` preset.
 	 */
 	placeholderBracketHint?: string;
+
+	/**
+	 * @deprecated
+	 * This prop does nothing and will be removed soon.
+	 * Configuration of this parameter should be done via `editor-plugin-card` or the `universal` preset.
+	 *
+	 * Example:
+	 * // In preset creation you can pass the props passed to the editor like this:
+	 * preset.add([cardPlugin, { ...linking.smartLinks, linkPicker: linking.linkPicker }])
+	 */
+	linking?: LinkingOptions;
 }
 
 export interface EditorProviderProps {
@@ -500,4 +506,9 @@ export interface EditorPluginFeatureProps {
 
 	// Default placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
 	placeholderBracketHint?: string;
+
+	/**
+	 *  Configure and extend editor linking behaviour
+	 */
+	linking?: LinkingOptions;
 }

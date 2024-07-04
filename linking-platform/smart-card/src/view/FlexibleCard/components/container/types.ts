@@ -3,7 +3,10 @@ import { type SmartLinkStatus } from '../../../../constants';
 import { type FlexibleCardProps, type FlexibleUiOptions, type RetryOptions } from '../../types';
 
 export type ContainerProps = PropsWithChildren<
-	Pick<FlexibleCardProps, 'onClick' | 'showHoverPreview' | 'actionOptions' | 'showAuthTooltip'> &
+	Pick<
+		FlexibleCardProps,
+		'onClick' | 'showHoverPreview' | 'hoverPreviewOptions' | 'actionOptions' | 'showAuthTooltip'
+	> &
 		FlexibleUiOptions & {
 			/**
 			 * The options that determine the retry behaviour when a Smart Link errors.

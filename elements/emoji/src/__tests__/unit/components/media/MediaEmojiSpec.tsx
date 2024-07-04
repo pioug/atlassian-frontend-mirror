@@ -1,5 +1,5 @@
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { screen, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
@@ -77,6 +77,8 @@ describe('Media Emoji Handling across components', () => {
 
 			const emojiPreview = await findEmojiPreview();
 			expect(emojiPreview).toBeVisible();
+
+			await waitFor(() => expect(within(emojiPreview).getAllByRole('img')[0]));
 
 			const previewEmojiDescription = within(emojiPreview).getAllByRole('img')[0];
 			expect(previewEmojiDescription).toHaveAttribute('aria-label', ':media:');

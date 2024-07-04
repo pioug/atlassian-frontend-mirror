@@ -126,7 +126,7 @@ describe('useFileState', () => {
 				}),
 		});
 
-		spyOn(mediaClient.mediaStore, 'getItems');
+		jest.spyOn(mediaClient.mediaStore, 'getItems');
 
 		const testState = {
 			id: testFileId,
@@ -440,7 +440,7 @@ describe('useFileState', () => {
 					}),
 			});
 
-			spyOn(mediaClient.mediaStore, 'getItems');
+			jest.spyOn(mediaClient.mediaStore, 'getItems');
 			const wrapper = ({ children }: any) => (
 				<MediaClientContext.Provider value={mediaClient}>{children}</MediaClientContext.Provider>
 			);

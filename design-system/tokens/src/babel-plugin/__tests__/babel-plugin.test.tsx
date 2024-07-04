@@ -136,7 +136,7 @@ describe('Tokens Babel Plugin', () => {
       token('test-token');
     `;
 
-		expect(actual).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
+		expect(actual).toMatchInlineSnapshot(`""var(--test-token)";"`);
 	});
 
 	it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
@@ -145,7 +145,7 @@ describe('Tokens Babel Plugin', () => {
         token('test-token');
       `;
 
-		expect(actual).toMatchInlineSnapshot('"\\"var(--test-token, #ffffff)\\";"');
+		expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
 	});
 
 	it('converts 1-argument usage correctly when shouldUseAutoFallback set to true AND fallback is legacy-light', () => {
@@ -154,7 +154,7 @@ describe('Tokens Babel Plugin', () => {
         token('test-token');
       `;
 
-		expect(actual).toMatchInlineSnapshot('"\\"var(--test-token, #cccccc)\\";"');
+		expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
 	});
 
 	it('converts StringLiteral second argument', () => {
@@ -163,7 +163,7 @@ describe('Tokens Babel Plugin', () => {
         token('test-token', 'blue');
       `;
 
-		expect(actual).toMatchInlineSnapshot('"\\"var(--test-token, blue)\\";"');
+		expect(actual).toMatchInlineSnapshot(`""var(--test-token, blue)";"`);
 	});
 
 	it('removes empty StringLiteral second argument', () => {
@@ -178,8 +178,8 @@ describe('Tokens Babel Plugin', () => {
         token('test-token', '');
       `;
 
-		expect(noAutoFallback).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
-		expect(autoFallback).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
+		expect(noAutoFallback).toMatchInlineSnapshot(`""var(--test-token)";"`);
+		expect(autoFallback).toMatchInlineSnapshot(`""var(--test-token)";"`);
 	});
 
 	it('handles aliased imports', () => {
@@ -188,7 +188,7 @@ describe('Tokens Babel Plugin', () => {
         getToken('test-token');
       `;
 
-		expect(actual).toMatchInlineSnapshot('"\\"var(--test-token)\\";"');
+		expect(actual).toMatchInlineSnapshot(`""var(--test-token)";"`);
 	});
 
 	it("does nothing if there's no import of @atlaskit/tokens", () => {
@@ -205,10 +205,10 @@ describe('Tokens Babel Plugin', () => {
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-            "import { token } from '@atlaskit/tokens';
-            a = token;
-            \\"var(--test-token, blue)\\";"
-          `);
+		"import { token } from '@atlaskit/tokens';
+		a = token;
+		"var(--test-token, blue)";"
+	`);
 	});
 
 	it('converts expression second arguments', () => {
@@ -221,11 +221,11 @@ describe('Tokens Babel Plugin', () => {
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "\`var(--test-token, \${\`\${color.blue}\`})\`;
-        \`var(--test-token, \${color.blue})\`;
-        \`var(--test-token, \${condition ? \\"blue\\" : color.red})\`;
-        \`var(--test-token, \${getColor()})\`;"
-      `);
+		"\`var(--test-token, \${\`\${color.blue}\`})\`;
+		\`var(--test-token, \${color.blue})\`;
+		\`var(--test-token, \${condition ? "blue" : color.red})\`;
+		\`var(--test-token, \${getColor()})\`;"
+	`);
 	});
 
 	it('converts escape characters correctly', () => {
@@ -236,9 +236,9 @@ describe('Tokens Babel Plugin', () => {
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "\`var(--test-token \\\\\\\\u{54} \\\\\${ \\\\\` ' \\" T, \${color.blue})\`;
-        \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T)\\";"
-      `);
+		"\`var(--test-token \\\\u{54} \\\${ \\\` ' " T, \${color.blue})\`;
+		"var(--test-token \\\\u{54} \${ \` ' \\" T)";"
+	`);
 	});
 
 	// If the token name has escape characters they should make it into the final result
@@ -254,13 +254,13 @@ describe('Tokens Babel Plugin', () => {
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "\\"var(--test-token, \\".concat(\\"\\".concat(color.blue), \\")\\");
-        \\"var(--test-token, \\".concat(color.blue, \\")\\");
-        \\"var(--test-token, \\".concat(condition ? \\"blue\\" : color.red, \\")\\");
-        \\"var(--test-token, \\".concat(getColor(), \\")\\");
-        \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T, \\".concat(color.blue, \\")\\");
-        \\"var(--test-token \\\\\\\\u{54} \${ \` ' \\\\\\" T)\\";"
-      `);
+		""var(--test-token, ".concat("".concat(color.blue), ")");
+		"var(--test-token, ".concat(color.blue, ")");
+		"var(--test-token, ".concat(condition ? "blue" : color.red, ")");
+		"var(--test-token, ".concat(getColor(), ")");
+		"var(--test-token \\\\u{54} \${ \` ' \\" T, ".concat(color.blue, ")");
+		"var(--test-token \\\\u{54} \${ \` ' \\" T)";"
+	`);
 	});
 
 	it('throws if token does not exist', () => {
@@ -309,11 +309,11 @@ describe('Tokens Babel Plugin', () => {
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "componentStyles = css({
-          color: \\"var(--test-token)\\",
-          color: \`\${\\"var(--test-token)\\"}\`
-        });"
-      `);
+		"componentStyles = css({
+		  color: "var(--test-token)",
+		  color: \`\${"var(--test-token)"}\`
+		});"
+	`);
 	});
 
 	it('correctly handles nested scopes', () => {
@@ -325,10 +325,10 @@ const getStyles = css => css\`
     `;
 
 		expect(actual).toMatchInlineSnapshot(`
-          "const getStyles = css => css\`
-            \${true && \`color: \${\\"var(--test-token)\\"}\`}
-          \`;"
-      `);
+		"const getStyles = css => css\`
+		  \${true && \`color: \${"var(--test-token)"}\`}
+		\`;"
+	`);
 	});
 
 	it('Ignores token functions from other packages', () => {
@@ -338,9 +338,9 @@ const getStyles = css => css\`
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "import { token } from 'foobar';
-        token('test-token');"
-      `);
+		        "import { token } from 'foobar';
+		        token('test-token');"
+	      `);
 	});
 
 	it('Ignores token functions in node_modules directories', () => {
@@ -352,9 +352,9 @@ const getStyles = css => css\`
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "import { token } from '@atlaskit/tokens';
-        token('test-token');"
-      `);
+		        "import { token } from '@atlaskit/tokens';
+		        token('test-token');"
+	      `);
 	});
 
 	it('Ignores token functions in nested node_modules directories', () => {
@@ -366,9 +366,9 @@ const getStyles = css => css\`
       `;
 
 		expect(actual).toMatchInlineSnapshot(`
-        "import { token } from '@atlaskit/tokens';
-        token('test-token');"
-      `);
+		        "import { token } from '@atlaskit/tokens';
+		        token('test-token');"
+	      `);
 	});
 
 	it('formats box shadow fallback styles correctly when opacity is included in hex value', () => {
@@ -378,7 +378,7 @@ const getStyles = css => css\`
       `;
 
 		expect(actual).toMatchInlineSnapshot(
-			'"\\"var(--test-token-shadow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)\\";"',
+			`""var(--test-token-shadow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)";"`,
 		);
 	});
 
@@ -389,7 +389,7 @@ const getStyles = css => css\`
       `;
 
 		expect(actual).toMatchInlineSnapshot(
-			'"\\"var(--test-token-shadow-no-opacity, 0px 0px 8px #091e4240, 0px 0px 1px #091e424f)\\";"',
+			`""var(--test-token-shadow-no-opacity, 0px 0px 8px #091e4240, 0px 0px 1px #091e424f)";"`,
 		);
 	});
 
@@ -400,7 +400,7 @@ const getStyles = css => css\`
       token('space.075');
     `;
 
-			expect(actual).toMatchInlineSnapshot(`"\\"var(--ds-space-075)\\";"`);
+			expect(actual).toMatchInlineSnapshot(`""var(--ds-space-075)";"`);
 		});
 
 		it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
@@ -413,11 +413,11 @@ const getStyles = css => css\`
       `;
 
 			expect(actual).toMatchInlineSnapshot(`
-        "\\"var(--ds-space-075, 6px)\\";
-        \\"var(--ds-space-100, 8px)\\";
-        \\"var(--ds-border-radius-050, 2px)\\";
-        \\"var(--ds-font-heading-xlarge, \\\\\\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\\\\\"Segoe UI\\\\\\", Ubuntu, system-ui, \\\\\\"Helvetica Neue\\\\\\", sans-serif\\\\\\")\\";"
-      `);
+			""var(--ds-space-075, 6px)";
+			"var(--ds-space-100, 8px)";
+			"var(--ds-border-radius-050, 2px)";
+			"var(--ds-font-heading-xlarge, \\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\"Segoe UI\\", Ubuntu, system-ui, \\"Helvetica Neue\\", sans-serif\\")";"
+		`);
 		});
 	});
 });

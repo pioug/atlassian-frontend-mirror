@@ -11,19 +11,27 @@ const extendedHoverZone = css({
 		display: 'none !important',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-drag-handler-anchor-name]::after': {
-		content: '""',
-		position: 'absolute',
-		top: 0,
-		left: '-100%',
-		width: '100%',
-		height: '100%',
-		background: 'transparent',
-		cursor: 'default',
-		zIndex: -1,
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& [data-drag-handler-anchor-name]::after': {
+			content: '""',
+			position: 'absolute',
+			top: 0,
+			left: '-100%',
+			width: '100%',
+			height: '100%',
+			background: 'transparent',
+			cursor: 'default',
+			zIndex: -1,
+		},
+	},
+	// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'hr[data-drag-handler-anchor-name]': {
+		overflow: 'visible',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	'[data-blocks-decoration-container="true"] + *::after': {
+	'[data-blocks-drag-handle-container="true"] + *::after': {
 		display: 'none',
 	},
 });

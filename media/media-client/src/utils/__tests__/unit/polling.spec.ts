@@ -71,16 +71,15 @@ describe('Polling Function', () => {
 		expect(poll.getIntervalMsForIteration(100000)).toBe(options.poll_maxIntervalMs);
 	});
 
-	it('should not iterate unless .next() called', async (done) => {
+	it('should not iterate unless .next() called', async () => {
 		const poll = new PollingFunction(options);
 		const executor = jest.fn().mockResolvedValue(undefined);
 		poll.execute(executor);
 		await simulateTimeout(poll.poll_intervalMs);
 		expect(executor).toBeCalledTimes(1);
-		done();
 	});
 
-	it('should iterate when .next() called', async (done) => {
+	it('should iterate when .next() called', async () => {
 		const poll = new PollingFunction(options);
 		const executor = jest.fn().mockImplementation(() => {
 			poll.next();
@@ -89,10 +88,9 @@ describe('Polling Function', () => {
 		await simulateTimeout(poll.getIntervalMsForIteration(1));
 		await simulateTimeout(poll.getIntervalMsForIteration(2));
 		expect(executor).toBeCalledTimes(2);
-		done();
 	});
 
-	it('should call onError when max iterations reached', async (done) => {
+	it('should call onError when max iterations reached', async () => {
 		const poll = new PollingFunction({
 			...options,
 			poll_maxAttempts: 1,
@@ -111,10 +109,9 @@ describe('Polling Function', () => {
 
 		expect(errorThrown.attributes.reason).toEqual('pollingMaxAttemptsExceeded');
 		expect(errorThrown.attributes.attempts).toBe(1);
-		done();
 	});
 
-	it('should call onError if executor has exception', async (done) => {
+	it('should call onError if executor has exception', async () => {
 		const err = new Error('some-error');
 		const poll = new PollingFunction({
 			...options,
@@ -129,10 +126,9 @@ describe('Polling Function', () => {
 		expect(mockOnError).toHaveBeenCalledTimes(1);
 		const errorThrown = mockOnError.mock.calls[0][0] as Error;
 		expect(errorThrown).toEqual(err);
-		done();
 	});
 
-	it('should not call executor if poll_maxAttempts is set to zero (hard kill)', async (done) => {
+	it('should not call executor if poll_maxAttempts is set to zero (hard kill)', async () => {
 		const poll = new PollingFunction({
 			...options,
 			poll_maxAttempts: 0,
@@ -143,10 +139,9 @@ describe('Polling Function', () => {
 		await poll.execute(executor);
 		expect(executor).not.toHaveBeenCalled();
 		expect(mockOnError).toHaveBeenCalledTimes(1);
-		done();
 	});
 
-	it('should clear timeout if cancel() called', async (done) => {
+	it('should clear timeout if cancel() called', async () => {
 		const originalFn = window.clearTimeout;
 		const mockClearTimeout = jest.fn();
 		window.clearTimeout = mockClearTimeout;
@@ -164,7 +159,6 @@ describe('Polling Function', () => {
 		expect(mockClearTimeout).toHaveBeenCalled();
 		expect(poll.timeoutId).toBe(0);
 		window.clearTimeout = originalFn;
-		done();
 	});
 
 	it('should detect a polling error', () => {

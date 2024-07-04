@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { withErrorBoundary } from 'react-error-boundary';
 import { CodeBlock } from '@atlaskit/code';
 import { type BlockTemplate, type FlexibleTemplate } from './types';
@@ -18,7 +18,7 @@ const toBlockCode = (blockTemplate: BlockTemplate): string => {
 	return `<${name}${str} />`;
 };
 
-const Code: React.FC<{ template: FlexibleTemplate }> = ({ template }) => {
+const Code = ({ template }: { template: FlexibleTemplate }) => {
 	const text = useMemo(() => {
 		const { appearance, ...optionalCardProps } = template.cardProps || {};
 		const propCode = toComponentProps(optionalCardProps || {});

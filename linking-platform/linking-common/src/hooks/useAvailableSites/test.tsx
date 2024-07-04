@@ -21,8 +21,8 @@ describe('useAvailableSites', () => {
 		const { result, waitForNextUpdate } = renderHook(() => useAvailableSites());
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
-        "data": Array [],
+      {
+        "data": [],
         "loading": true,
       }
     `);
@@ -45,8 +45,8 @@ describe('useAvailableSites', () => {
 		});
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
-        "data": Array [],
+      {
+        "data": [],
         "loading": true,
       }
     `);
@@ -69,8 +69,8 @@ describe('useAvailableSites', () => {
 			},
 		});
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
-        "data": Array [],
+      {
+        "data": [],
         "error": [Error: unknown error],
         "loading": false,
       }
@@ -88,8 +88,8 @@ describe('useAvailableSitesV2', () => {
 		const { result, waitForNextUpdate } = renderHook(() => useAvailableSitesV2({}));
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
-        "data": Array [],
+      {
+        "data": [],
         "loading": true,
       }
     `);
@@ -112,8 +112,8 @@ describe('useAvailableSitesV2', () => {
 		});
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
-        "data": Array [],
+      {
+        "data": [],
         "loading": true,
       }
     `);
@@ -121,13 +121,13 @@ describe('useAvailableSitesV2', () => {
 		await waitForNextUpdate();
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
-        "data": Array [],
+      {
+        "data": [],
         "error": Response {
           "_bodyInit": undefined,
           "_bodyText": "",
           "headers": Headers {
-            "map": Object {},
+            "map": {},
           },
           "ok": false,
           "status": 503,

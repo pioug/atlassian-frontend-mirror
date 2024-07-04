@@ -54,6 +54,7 @@ function Component({
 	ui,
 	children,
 	showHoverPreview,
+	hoverPreviewOptions,
 	showAuthTooltip,
 	analyticsEvents,
 	useLegacyBlockCard,
@@ -274,6 +275,7 @@ function Component({
 				renderers={renderers}
 				ui={ui}
 				showHoverPreview={showHoverPreview}
+				hoverPreviewOptions={hoverPreviewOptions}
 				showAuthTooltip={showAuthTooltip}
 				actionOptions={actionOptions}
 				url={url}
@@ -310,6 +312,7 @@ function Component({
 					testId={testId}
 					inlinePreloaderStyle={inlinePreloaderStyle}
 					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={hoverPreviewOptions}
 					showAuthTooltip={showAuthTooltip}
 					actionOptions={actionOptions}
 				/>

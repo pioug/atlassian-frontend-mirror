@@ -197,14 +197,3 @@ describe('Progress Indicator', () => {
 		expect(screen.getByTestId(`progress-dots-ind-2`)).not.toHaveAttribute('tabIndex');
 	});
 });
-
-describe('ProgressDotsWithAnalytics', () => {
-	beforeEach(() => {
-		jest.spyOn(global.console, 'warn');
-		jest.spyOn(global.console, 'error');
-	});
-	afterEach(() => {
-		(global.console.warn as jest.Mock).mockRestore();
-		(global.console.error as jest.Mock).mockRestore();
-	});
-});

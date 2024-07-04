@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { fireEvent, render, waitFor } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import Container from '../index';
 import { SmartLinkSize, SmartLinkStatus, SmartLinkTheme } from '../../../../../constants';

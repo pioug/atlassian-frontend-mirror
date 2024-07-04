@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 2.3.8
+
+### Patch Changes
+
+- [#117409](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117409)
+  [`bf7f33f08064a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf7f33f08064a) -
+  Use the card provider passed directly to the card plugin to decouple it from editor-core.
+
 ## 2.3.7
 
 ### Patch Changes

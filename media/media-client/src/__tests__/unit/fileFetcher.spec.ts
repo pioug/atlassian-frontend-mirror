@@ -481,7 +481,7 @@ describe('FileFetcher', () => {
 			});
 		});
 
-		it('should handle failures when fetching items', async (done) => {
+		it('should handle failures when fetching items', (done) => {
 			const { fileFetcher, mediaStore, items } = setup();
 			const next = jest.fn();
 			const error = jest.fn();
@@ -530,7 +530,7 @@ describe('FileFetcher', () => {
 			});
 		});
 
-		it('should create emptyItems error when no item returned', async (done) => {
+		it('should create emptyItems error when no item returned', (done) => {
 			const { fileFetcher, mediaStore, items } = setup();
 
 			mediaStore.getItems.mockImplementation(() =>
@@ -571,7 +571,7 @@ describe('FileFetcher', () => {
 			});
 		});
 
-		it('should return processing file state for empty files', async (done) => {
+		it('should return processing file state for empty files', (done) => {
 			const { fileFetcher, mediaStore, items } = setup();
 			const next = jest.fn();
 			const error = jest.fn();

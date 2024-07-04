@@ -4,6 +4,7 @@ import { type CardState } from '../../state/types';
 import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 import { type AnalyticsFacade } from '../../state/analytics';
 import type { CardActionOptions } from '../Card/types';
+import { type HoverPreviewOptions } from '../HoverCard/types';
 
 export type InlineCardProps = {
 	id: string;
@@ -19,6 +20,7 @@ export type InlineCardProps = {
 	inlinePreloaderStyle?: InlinePreloaderStyle;
 	renderers?: CardProviderRenderers;
 	showHoverPreview?: boolean;
+	hoverPreviewOptions?: HoverPreviewOptions;
 	showAuthTooltip?: boolean;
 	actionOptions?: CardActionOptions;
 	analytics: AnalyticsFacade;

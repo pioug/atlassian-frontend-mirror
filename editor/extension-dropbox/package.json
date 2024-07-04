@@ -41,7 +41,7 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "Editor: Scarlet",
+		"team": "Editor: Core Experiences",
 		"inPublicMirror": true,
 		"releaseModel": "continuous",
 		"website": {

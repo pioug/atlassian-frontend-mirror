@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 12.14.0
+
+### Minor Changes
+
+- [#116502](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116502)
+  [`9796cf77195b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9796cf77195b6) -
+  Adds a new optional `UNSAFE_shouldDisableRouterLink` prop to the `DropdownItem` component, which
+  when set to `true`, will opt out of using a router link and instead use a regular anchor element
+  when used alongside the `href` prop.
+
 ## 12.13.4
 
 ### Patch Changes

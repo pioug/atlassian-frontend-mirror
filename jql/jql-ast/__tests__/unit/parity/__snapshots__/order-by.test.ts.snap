@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Order by 🟥 order 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting BY],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -13,7 +13,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       5,
     ],
@@ -31,36 +31,36 @@ Object {
 `;
 
 exports[`Order by 🟥 order by 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [],
+      "fields": [],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         8,
       ],
@@ -73,7 +73,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       8,
     ],
@@ -91,36 +91,36 @@ Object {
 `;
 
 exports[`Order by 🟥 order by asc 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'asc' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [],
+      "fields": [],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         12,
       ],
@@ -133,7 +133,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       12,
     ],
@@ -151,36 +151,36 @@ Object {
 `;
 
 exports[`Order by 🟥 order by by 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'by' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [],
+      "fields": [],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         11,
       ],
@@ -193,7 +193,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       11,
     ],
@@ -211,36 +211,36 @@ Object {
 `;
 
 exports[`Order by 🟥 order by desc 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'desc' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [],
+      "fields": [],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         13,
       ],
@@ -253,7 +253,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       13,
     ],
@@ -271,30 +271,30 @@ Object {
 `;
 
 exports[`Order by 🟥 order by issuetype asc desc 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input 'desc' expecting <EOF>],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               22,
             ],
@@ -302,23 +302,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             22,
           ],
@@ -328,20 +328,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         22,
       ],
@@ -354,7 +354,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       27,
     ],
@@ -372,30 +372,30 @@ Object {
 `;
 
 exports[`Order by 🟥 order by issuetype asc, 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               22,
             ],
@@ -403,23 +403,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             22,
           ],
@@ -429,20 +429,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         23,
       ],
@@ -455,7 +455,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       23,
     ],
@@ -473,43 +473,43 @@ Object {
 `;
 
 exports[`Order by 🟥 order by issuetype, 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
           "direction": undefined,
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             18,
           ],
@@ -519,20 +519,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         19,
       ],
@@ -545,7 +545,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -563,36 +563,36 @@ Object {
 `;
 
 exports[`Order by 🟥 order by order 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'order' expecting {POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [],
+      "fields": [],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         14,
       ],
@@ -605,7 +605,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       14,
     ],
@@ -623,43 +623,43 @@ Object {
 `;
 
 exports[`Order by 🟥 order issuetype 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: missing BY at 'issuetype'],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
           "direction": undefined,
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               6,
               15,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             6,
             15,
           ],
@@ -669,20 +669,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           0,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
@@ -695,7 +695,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       15,
     ],
@@ -713,28 +713,28 @@ Object {
 `;
 
 exports[`Order by 🟩 order by "field with \\"escaped characters\\"" asc 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               45,
               48,
             ],
@@ -742,23 +742,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               44,
             ],
-            "properties": Array [],
-            "text": "\\"field with \\\\\\"escaped characters\\\\\\"\\"",
-            "value": "field with \\"escaped characters\\"",
+            "properties": [],
+            "text": ""field with \\"escaped characters\\""",
+            "value": "field with "escaped characters"",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             48,
           ],
@@ -768,20 +768,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         48,
       ],
@@ -794,7 +794,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       48,
     ],
@@ -807,33 +807,33 @@ Object {
     "type": "query",
     "where": undefined,
   },
-  "represents": "order by \\"field with \\\\\\"escaped characters\\\\\\"\\" asc",
+  "represents": "order by "field with \\"escaped characters\\"" asc",
 }
 `;
 
 exports[`Order by 🟩 order by "field with spaces" asc 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               29,
               32,
             ],
@@ -841,23 +841,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               28,
             ],
-            "properties": Array [],
-            "text": "\\"field with spaces\\"",
+            "properties": [],
+            "text": ""field with spaces"",
             "value": "field with spaces",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             32,
           ],
@@ -867,20 +867,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         32,
       ],
@@ -893,7 +893,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       32,
     ],
@@ -906,46 +906,46 @@ Object {
     "type": "query",
     "where": undefined,
   },
-  "represents": "order by \\"field with spaces\\" asc",
+  "represents": "order by "field with spaces" asc",
 }
 `;
 
 exports[`Order by 🟩 order by issuetype 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
           "direction": undefined,
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             18,
           ],
@@ -955,20 +955,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         18,
       ],
@@ -981,7 +981,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -999,28 +999,28 @@ Object {
 `;
 
 exports[`Order by 🟩 order by issuetype asc 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               22,
             ],
@@ -1028,23 +1028,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             22,
           ],
@@ -1054,20 +1054,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         22,
       ],
@@ -1080,7 +1080,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       22,
     ],
@@ -1098,28 +1098,28 @@ Object {
 `;
 
 exports[`Order by 🟩 order by issuetype asc, another desc 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               22,
             ],
@@ -1127,23 +1127,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             22,
           ],
@@ -1151,15 +1151,15 @@ Object {
           "replace": [Function],
           "setOrderDirection": [Function],
         },
-        Object {
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               32,
               36,
             ],
@@ -1167,23 +1167,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               24,
               31,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "another",
             "value": "another",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             24,
             36,
           ],
@@ -1193,20 +1193,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         36,
       ],
@@ -1219,7 +1219,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       36,
     ],
@@ -1237,28 +1237,28 @@ Object {
 `;
 
 exports[`Order by 🟩 order by issuetype desc 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               23,
             ],
@@ -1266,23 +1266,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             23,
           ],
@@ -1292,20 +1292,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         23,
       ],
@@ -1318,7 +1318,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       23,
     ],
@@ -1336,41 +1336,41 @@ Object {
 `;
 
 exports[`Order by 🟩 order by issuetype, another 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
           "direction": undefined,
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             18,
           ],
@@ -1378,28 +1378,28 @@ Object {
           "replace": [Function],
           "setOrderDirection": [Function],
         },
-        Object {
+        {
           "accept": [Function],
           "direction": undefined,
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               20,
               27,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "another",
             "value": "another",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             20,
             27,
           ],
@@ -1409,20 +1409,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         27,
       ],
@@ -1435,7 +1435,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       27,
     ],
@@ -1453,41 +1453,41 @@ Object {
 `;
 
 exports[`Order by 🟩 order by issuetype, another asc 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
     "exitNode": [Function],
     "getChildren": [Function],
-    "orderBy": Object {
+    "orderBy": {
       "accept": [Function],
       "enterNode": [Function],
       "exitNode": [Function],
-      "fields": Array [
-        Object {
+      "fields": [
+        {
           "accept": [Function],
           "direction": undefined,
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               9,
               18,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             9,
             18,
           ],
@@ -1495,15 +1495,15 @@ Object {
           "replace": [Function],
           "setOrderDirection": [Function],
         },
-        Object {
+        {
           "accept": [Function],
-          "direction": Object {
+          "direction": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               28,
               31,
             ],
@@ -1511,23 +1511,23 @@ Object {
           },
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               20,
               27,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "another",
             "value": "another",
           },
           "getChildren": [Function],
           "parent": [Circular],
-          "position": Array [
+          "position": [
             20,
             31,
           ],
@@ -1537,20 +1537,20 @@ Object {
         },
       ],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           8,
         ],
         "value": "ORDER BY",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         31,
       ],
@@ -1563,7 +1563,7 @@ Object {
       "type": "order_by",
     },
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       31,
     ],

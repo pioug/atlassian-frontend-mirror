@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "194.0.1",
+	"version": "194.0.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -344,8 +344,7 @@
 			"type": "boolean"
 		},
 		"platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2": {
-			"type": "boolean",
-			"referenceOnly": "true"
+			"type": "boolean"
 		},
 		"platform_editor_tables_padding_increase": {
 			"type": "boolean",
@@ -360,6 +359,10 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.linking-preferences-url-atlassian-context": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_get_card_provider_from_config": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

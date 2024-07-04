@@ -1,42 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`transformIndentationMarks should remove indentation marks from headings (mutiple content) inside table cells 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "heading",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
                   ],
-                  "marks": Array [],
+                  "marks": [],
                   "type": "heading",
                 },
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "content": Array [],
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "content": [],
                           "type": "paragraph",
                         },
                       ],
@@ -48,23 +48,23 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "attrs": Object {
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "another-heading",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
                   ],
-                  "marks": Array [],
+                  "marks": [],
                   "type": "heading",
                 },
               ],
@@ -83,42 +83,42 @@ Object {
 `;
 
 exports[`transformIndentationMarks should remove indentation marks from headings (mutiple content) inside table headers 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "heading",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
                   ],
-                  "marks": Array [],
+                  "marks": [],
                   "type": "heading",
                 },
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "content": Array [],
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "content": [],
                           "type": "paragraph",
                         },
                       ],
@@ -130,23 +130,23 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "attrs": Object {
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "another-heading",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
                   ],
-                  "marks": Array [],
+                  "marks": [],
                   "type": "heading",
                 },
               ],
@@ -165,31 +165,31 @@ Object {
 `;
 
 exports[`transformIndentationMarks should remove indentation marks from headings inside table cells 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "text",
                       "type": "text",
                     },
                   ],
-                  "marks": Array [],
+                  "marks": [],
                   "type": "heading",
                 },
               ],
@@ -208,31 +208,31 @@ Object {
 `;
 
 exports[`transformIndentationMarks should remove indentation marks from headings inside table headers 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "text",
                       "type": "text",
                     },
                   ],
-                  "marks": Array [],
+                  "marks": [],
                   "type": "heading",
                 },
               ],

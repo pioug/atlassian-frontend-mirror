@@ -1,4 +1,4 @@
-import { act, waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
@@ -17,7 +17,7 @@ test('should ssr then hydrate table-tree correctly', async () => {
 
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;
-	await waitFor(async () => await hydrateWithAct(examplePath, elem, styles, true));
+	await hydrateWithAct(examplePath, elem, styles, true);
 
 	await act(async () => {
 		// No other errors from e.g. hydrate

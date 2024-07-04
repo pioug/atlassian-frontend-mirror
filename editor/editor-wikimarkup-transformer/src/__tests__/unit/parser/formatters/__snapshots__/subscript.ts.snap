@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WikiMarkup => ADF Formatters - Subscript should be a subscript mark and not a table if the character is a pipe 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -29,21 +29,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark and ignoring the invalid closing symbol 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -52,7 +52,7 @@ Object {
           "text": "subscript~subscript",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -65,17 +65,17 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark at beginning of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -84,7 +84,7 @@ Object {
           "text": "subscript",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -97,21 +97,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark at end of the input 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -129,21 +129,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark at end of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -152,10 +152,10 @@ Object {
           "text": "subscript",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "another line",
           "type": "text",
         },
@@ -168,21 +168,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark at in between of the line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -191,7 +191,7 @@ Object {
           "text": "subscript",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -204,21 +204,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should detect subscript mark surrounded by non alphanumeric characters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a (",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -227,7 +227,7 @@ Object {
           "text": "subscript",
           "type": "text",
         },
-        Object {
+        {
           "text": ") text",
           "type": "text",
         },
@@ -240,14 +240,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark if it is escaped 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a ~subscript~ text",
           "type": "text",
         },
@@ -260,14 +260,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark if surrounded by non-latin characters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a 牛~subscript~牛 text",
           "type": "text",
         },
@@ -280,14 +280,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark if there is a space after opening ~ 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a ~ subscript~ text",
           "type": "text",
         },
@@ -300,14 +300,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark if there is a space before closing ~ 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a ~subscript ~ text",
           "type": "text",
         },
@@ -320,14 +320,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark if there is no space before ~ 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a~subscript~ text",
           "type": "text",
         },
@@ -340,14 +340,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - Subscript should not be a subscript mark if there is not a space after closing ~ 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is not a ~subscript~text",
           "type": "text",
         },

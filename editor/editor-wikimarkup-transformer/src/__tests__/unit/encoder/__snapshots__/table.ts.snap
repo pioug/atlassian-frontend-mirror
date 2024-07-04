@@ -73,7 +73,7 @@ exports[`ADF => WikiMarkup - Table should convert advanced Table node by droppin
 
 exports[`ADF => WikiMarkup - Table should convert advanced Table node with merged cells into {adf} macro 1`] = `
 "{adf:display=block}
-{\\"type\\":\\"table\\",\\"attrs\\":{\\"isNumberColumnEnabled\\":false,\\"layout\\":\\"default\\"},\\"content\\":[{\\"type\\":\\"tableRow\\",\\"content\\":[{\\"type\\":\\"tableCell\\",\\"attrs\\":{\\"colspan\\":2},\\"content\\":[{\\"type\\":\\"codeBlock\\",\\"attrs\\":{\\"language\\":\\"javascript\\"},\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"const i = 0;\\"}]}]}]},{\\"type\\":\\"tableRow\\",\\"content\\":[{\\"type\\":\\"tableCell\\",\\"attrs\\":{},\\"content\\":[{\\"type\\":\\"codeBlock\\",\\"attrs\\":{\\"language\\":\\"javascript\\"},\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"const i = 0;\\"}]}]},{\\"type\\":\\"tableCell\\",\\"attrs\\":{},\\"content\\":[{\\"type\\":\\"codeBlock\\",\\"attrs\\":{\\"language\\":\\"javascript\\"},\\"content\\":[{\\"type\\":\\"text\\",\\"text\\":\\"const i = 0;\\"}]}]}]}]}
+{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default"},"content":[{"type":"tableRow","content":[{"type":"tableCell","attrs":{"colspan":2},"content":[{"type":"codeBlock","attrs":{"language":"javascript"},"content":[{"type":"text","text":"const i = 0;"}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"codeBlock","attrs":{"language":"javascript"},"content":[{"type":"text","text":"const i = 0;"}]}]},{"type":"tableCell","attrs":{},"content":[{"type":"codeBlock","attrs":{"language":"javascript"},"content":[{"type":"text","text":"const i = 0;"}]}]}]}]}
 {adf}"
 `;
 

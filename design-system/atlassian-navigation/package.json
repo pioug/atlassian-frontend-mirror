@@ -74,7 +74,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/dropdown-menu": "^12.13.0",
+		"@atlaskit/dropdown-menu": "^12.14.0",
 		"@atlaskit/notification-indicator": "*",
 		"@atlaskit/notification-log-client": "*",
 		"@atlaskit/visual-regression": "*",

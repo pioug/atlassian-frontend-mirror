@@ -10,7 +10,7 @@ const placementOptions = [
 	{ label: 'Right', value: MediaPlacement.Right },
 ];
 
-const PreviewBlockBuilder: React.FC<BlockBuilderProps> = ({ onChange, template }) => {
+const PreviewBlockBuilder = ({ onChange, template }: BlockBuilderProps) => {
 	return (
 		<div>
 			<SelectOption

@@ -14,10 +14,13 @@ import type { BlockTemplate, FlexibleTemplate } from '../types';
 import type { CardProps } from '../../../src';
 import { type FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 
-const TemplateBuilder: React.FC<{
+const TemplateBuilder = ({
+	template,
+	onChange,
+}: {
 	template: FlexibleTemplate;
 	onChange: (template: FlexibleTemplate) => void;
-}> = ({ template, onChange }) => {
+}) => {
 	const display = useMemo(
 		() =>
 			template?.blocks?.some((block) => block.name === BlockName.TitleBlock)

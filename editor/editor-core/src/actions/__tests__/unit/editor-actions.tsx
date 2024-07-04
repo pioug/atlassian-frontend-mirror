@@ -74,22 +74,22 @@ describe('Editor Actions', () => {
 			const value = await editorActions?.getValue();
 
 			expect(value).toMatchInlineSnapshot(`
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "text": ":smile",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-  ],
-  "type": "doc",
-  "version": 1,
-}
-`);
+			{
+			  "content": [
+			    {
+			      "content": [
+			        {
+			          "text": ":smile",
+			          "type": "text",
+			        },
+			      ],
+			      "type": "paragraph",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
 		});
 	});
 

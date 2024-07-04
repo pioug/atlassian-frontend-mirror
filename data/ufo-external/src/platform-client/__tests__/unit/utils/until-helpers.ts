@@ -6,7 +6,7 @@ import {
 } from '../../../core';
 import { untilAll } from '../../../utils/until-helpers';
 
-describe('untilAll helper', async () => {
+describe('untilAll helper', () => {
 	beforeAll(() => {});
 
 	test('untilAll with 1 success experience', async () => {

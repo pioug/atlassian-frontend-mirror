@@ -49,8 +49,8 @@ const JsonldEditorProvider = ({
 };
 
 const withJsonldEditorProvider =
-	<P extends object>(Component: React.ComponentType<P>): React.FC<P & Props> =>
-	(props) => {
+	<P extends object>(Component: React.ComponentType<P>) =>
+	(props: P & Props) => {
 		const { ari, branchDeploy, json, onError, onResolve, url } = props;
 		const onFetch = useCallback(() => json, [json]);
 

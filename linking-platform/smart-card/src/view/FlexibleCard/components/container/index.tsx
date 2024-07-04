@@ -224,6 +224,7 @@ const Container = ({
 	retry,
 	showAuthTooltip = false,
 	showHoverPreview = false,
+	hoverPreviewOptions,
 	actionOptions,
 	size = SmartLinkSize.Medium,
 	status,
@@ -267,6 +268,7 @@ const Container = ({
 				actionOptions={actionOptions}
 				testId={testId}
 				url={context.url}
+				hoverPreviewOptions={hoverPreviewOptions}
 			>
 				{container}
 			</HoverCardControl>

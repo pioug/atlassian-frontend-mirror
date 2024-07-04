@@ -39,6 +39,7 @@ export const InlineCard: FC<InlineCardProps> = ({
 	testId,
 	inlinePreloaderStyle,
 	showHoverPreview,
+	hoverPreviewOptions,
 	showAuthTooltip,
 	actionOptions,
 }) => {
@@ -98,6 +99,7 @@ export const InlineCard: FC<InlineCardProps> = ({
 					{...resolvedProps}
 					id={id}
 					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={hoverPreviewOptions}
 					actionOptions={actionOptions}
 					link={url}
 					isSelected={isSelected}

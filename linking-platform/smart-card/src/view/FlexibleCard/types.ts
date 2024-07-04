@@ -7,6 +7,7 @@ import type { CardInnerAppearance, OnResolveCallback, CardActionOptions } from '
 import { type OnErrorCallback } from '../types';
 import { type AnalyticsFacade } from '../../state/analytics';
 import { type AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
+import { type HoverPreviewOptions } from '../HoverCard/types';
 
 export type FlexibleCardProps = {
 	/**
@@ -95,6 +96,11 @@ export type FlexibleCardProps = {
 	 * over the smartlink. Default value is false.
 	 */
 	showHoverPreview?: boolean;
+
+	/**
+	 * Configuration options for hover preview
+	 */
+	hoverPreviewOptions?: HoverPreviewOptions;
 
 	/**
 	 * Determines whether to show an unauthorised view of the hover card

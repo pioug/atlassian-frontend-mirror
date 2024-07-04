@@ -37,7 +37,7 @@ const smartCardClient = new ConfluenceCardClient('stg');
 const createPreset = () =>
 	createDefaultPreset({ featureFlags: {}, paste: {} })
 		.add(gridPlugin)
-		.add([cardPlugin, { platform: 'web' }])
+		.add([cardPlugin, { platform: 'web', provider: Promise.resolve(cardProviderStaging) }])
 		.add(listPlugin);
 
 interface ListToolbarProps {
@@ -161,14 +161,7 @@ export function ComposableEditorWithToolbar() {
 			<DevTools editorView={editorView} />
 			<Box xcss={editorStyles}>
 				<Toolbar editorApi={editorApi} />
-				<ComposableEditor
-					onEditorReady={onReady}
-					appearance="chromeless"
-					preset={preset}
-					linking={{
-						smartLinks: { provider: Promise.resolve(cardProviderStaging) },
-					}}
-				/>
+				<ComposableEditor onEditorReady={onReady} appearance="chromeless" preset={preset} />
 			</Box>
 		</React.Fragment>
 	);

@@ -11,6 +11,7 @@ import type { FollowActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),
+	useFlexibleUiAnalyticsContext: jest.fn(),
 	useFlexibleUiContext: jest.fn().mockReturnValue({
 		actions: {
 			FollowAction: {
@@ -29,11 +30,6 @@ jest.mock('../../../../../../state/flexible-ui-context', () => ({
 }));
 
 jest.mock('../../../../../../state/hooks/use-invoke', () => jest.fn().mockReturnValue(jest.fn()));
-
-jest.mock('../../../../../../state/flexible-ui-context', () => ({
-	...jest.requireActual('../../../../../../state/flexible-ui-context'),
-	useFlexibleUiAnalyticsContext: jest.fn(),
-}));
 
 describe('Follow Project Action', () => {
 	const testId = 'smart-action-follow-action';

@@ -110,7 +110,7 @@ describe('<Rating />', () => {
 		);
 
 		fireEvent.mouseOver(getByTestId('item--icon-container'));
-		jest.runTimersToTime(11);
+		jest.advanceTimersByTime(11);
 		jest.useRealTimers();
 
 		expect(getByTestId('item--tooltip').textContent).toEqual('GREAT');

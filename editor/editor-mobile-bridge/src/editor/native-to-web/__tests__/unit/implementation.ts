@@ -462,6 +462,7 @@ describe('replaceContent', () => {
 		({ toNativeBridge } = (await import('../../../web-to-native')) as any as {
 			toNativeBridge: jest.Mocked<NativeBridge>;
 		});
+		// @ts-ignore UTEST-1630
 		jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
 			cb(1);
 			return 1;
@@ -718,6 +719,8 @@ describe('fetchPayload', () => {
 });
 
 describe('insert node', () => {
+	const createEditor = createProsemirrorEditorFactory();
+
 	it('should insert a status node', () => {
 		let bridge: WebBridgeImpl = new WebBridgeImpl();
 		const editorView = {} as EditorViewWithComposition;
@@ -760,7 +763,6 @@ describe('insert node', () => {
 	});
 
 	it('should shift the cursor', () => {
-		const createEditor = createProsemirrorEditorFactory();
 		const editor = (doc: DocBuilder) => {
 			const { editorView } = createEditor({
 				doc,
@@ -776,6 +778,10 @@ describe('insert node', () => {
 		expect(editorView.state.selection.to).toEqual(1);
 		bridge.shiftSelectionToNextPosition();
 		expect(editorView.state.selection.to).toEqual(2);
+
+		if (editorView) {
+			editorView.destroy();
+		}
 	});
 });
 

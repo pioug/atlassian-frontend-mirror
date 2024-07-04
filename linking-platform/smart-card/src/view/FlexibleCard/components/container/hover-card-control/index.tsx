@@ -15,6 +15,7 @@ const HoverCardControl = ({
 	testId,
 	url,
 	delay = FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY,
+	hoverPreviewOptions,
 }: HoverCardDelayProps) => {
 	const [canOpen, setCanOpen] = useState(true);
 	const mouseStopTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -75,6 +76,7 @@ const HoverCardControl = ({
 			hidePreviewButton={hideHoverCardPreviewButton}
 			actionOptions={actionOptions}
 			url={url}
+			hoverPreviewOptions={hoverPreviewOptions}
 		>
 			<span
 				onMouseLeave={onMouseLeave}

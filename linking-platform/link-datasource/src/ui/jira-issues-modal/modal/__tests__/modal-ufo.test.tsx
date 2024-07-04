@@ -122,7 +122,7 @@ describe('UFO metrics: JiraIssuesConfigModal', () => {
 		expect(mockUfoSuccess).not.toHaveBeenCalled();
 	});
 
-	describe('ColumnPickerRendered', async () => {
+	describe('ColumnPickerRendered', () => {
 		it('should not mark as a failed experience when status is OK', async () => {
 			await setup();
 

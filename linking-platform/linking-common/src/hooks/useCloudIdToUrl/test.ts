@@ -20,7 +20,7 @@ describe('useCloudIdToUrl', () => {
 		);
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
+      {
         "data": undefined,
         "error": undefined,
         "loading": true,
@@ -30,7 +30,7 @@ describe('useCloudIdToUrl', () => {
 		await waitForNextUpdate();
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
+      {
         "data": "https://customdomains.jira-dev.com",
         "error": undefined,
         "loading": false,
@@ -45,7 +45,7 @@ describe('useCloudIdToUrl', () => {
 		);
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
+      {
         "data": undefined,
         "error": undefined,
         "loading": true,
@@ -55,7 +55,7 @@ describe('useCloudIdToUrl', () => {
 		await waitForNextUpdate();
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
+      {
         "data": "https://custom-domain-for-custom-baseurl.jira-dev.com",
         "error": undefined,
         "loading": false,
@@ -70,7 +70,7 @@ describe('useCloudIdToUrl', () => {
 		await waitForNextUpdate();
 
 		expect(result.current).toMatchInlineSnapshot(`
-      Object {
+      {
         "data": undefined,
         "error": undefined,
         "loading": false,

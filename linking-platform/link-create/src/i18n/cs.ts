@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Obnovte stránku nebo, pokud problém přetrvává, kontaktujte <a>podporu Atlassian</a>.',
   'link-create.unknown-error.heading': 'Něco se pokazilo.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Web',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Přejít zpět',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Zahodit',
   'linkCreate.confirm-dismiss-dialog.modal.description':

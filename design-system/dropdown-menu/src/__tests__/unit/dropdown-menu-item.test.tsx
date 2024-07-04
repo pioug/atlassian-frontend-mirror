@@ -1,10 +1,46 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
 import CheckIcon from '@atlaskit/icon/glyph/check';
 
 import { DropdownItem } from '../../index';
+
+type MyRouterLinkConfig = {
+	to: string;
+	customProp?: string;
+};
+
+const MyRouterLinkComponent = forwardRef(
+	(
+		{ href, children, ...rest }: RouterLinkComponentProps<MyRouterLinkConfig>,
+		ref: Ref<HTMLAnchorElement>,
+	) => {
+		const label = <>{children} (Router link)</>;
+
+		if (typeof href === 'string') {
+			return (
+				<a ref={ref} data-test-link-type="simple" href={href} {...rest}>
+					{label}
+				</a>
+			);
+		}
+
+		return (
+			<a
+				ref={ref}
+				data-test-link-type="advanced"
+				data-custom-attribute={href.customProp}
+				href={href.to}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+			>
+				{label}
+			</a>
+		);
+	},
+);
 
 describe('DropdownMenu Item', () => {
 	describe('default menu - button', () => {
@@ -112,6 +148,30 @@ describe('DropdownMenu Item', () => {
 			expect(link.tagName.toLowerCase()).toBe('a');
 			expect(link).toHaveAttribute('href', href);
 			expect(screen.getByText(desc)).toBeInTheDocument();
+		});
+
+		describe('when link items are used inside an AppProvider, with a routerLinkComponent defined', () => {
+			it('should render a router link for internal links', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<DropdownItem href={href} testId="link-item">
+							Menu
+						</DropdownItem>
+					</AppProvider>,
+				);
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'true');
+			});
+
+			it('should render a standard <a> anchor when UNSAFE_shouldDisableRouterLink is true', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						<DropdownItem href={href} testId="link-item" UNSAFE_shouldDisableRouterLink={true}>
+							Menu
+						</DropdownItem>
+					</AppProvider>,
+				);
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
 		});
 	});
 });

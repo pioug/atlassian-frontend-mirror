@@ -18,7 +18,7 @@ exports[`DeactivateUserOverviewScreen 1`] = `
     />
     <UserInfo
       user={
-        Object {
+        {
           "avatarUrl": "",
           "email": "catherine.hirons@acme.com",
           "fullName": "Catherine Hirons",
@@ -38,7 +38,7 @@ exports[`DeactivateUserOverviewScreen 1`] = `
           id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.admin"
           tagName="p"
           values={
-            Object {
+            {
               "b": [Function],
               "fullName": "Catherine Hirons",
             }
@@ -47,7 +47,7 @@ exports[`DeactivateUserOverviewScreen 1`] = `
         <Styled(div)>
           <DropdownList
             accessibleSites={
-              Array [
+              [
                 "hello.atlassian.net",
                 "acme.atlassian.net",
                 "test.atlassian.net",
@@ -101,7 +101,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
     />
     <UserInfo
       user={
-        Object {
+        {
           "avatarUrl": "",
           "email": "catherine.hirons@acme.com",
           "fullName": "Catherine Hirons",
@@ -120,7 +120,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           description="A paragraph explaining that upon deactivation the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deactivated can currently access. {fullName} is filled in by the web app."
           id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.admin.noSites"
           values={
-            Object {
+            {
               "b": [Function],
               "fullName": "Catherine Hirons",
             }
@@ -170,7 +170,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
     />
     <UserInfo
       user={
-        Object {
+        {
           "avatarUrl": "",
           "email": "catherine.hirons@acme.com",
           "fullName": "Catherine Hirons",
@@ -189,7 +189,7 @@ exports[`accessibleSites display text displayed is different when no accessibleS
           description="A paragraph explaining that upon deactivation the user will lose access to certain services. The second sentence is to begin a list of services the user-to-be-deactivated can currently access."
           id="focused-task-close-account.deactivate-account.overview.paragraph.loseAccess.self.noSites"
           values={
-            Object {
+            {
               "b": [Function],
               "fullName": "Catherine Hirons",
             }

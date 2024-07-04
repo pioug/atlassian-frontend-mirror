@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WikiMarkup => ADF - force line break ESS-2359 returns empty paragraph if it contains only force-line-breaks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
       "type": "paragraph",
@@ -15,40 +15,40 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF - force line break ESS-2359 should detect hardbreaks in the beginning and end of paragraph 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " foo ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " bar",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "foo ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
       ],
@@ -60,15 +60,15 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF - force line break should detect invalid force line break 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "text": "this is not a line break \\\\\\\\\\\\ not on second line",
+      "content": [
+        {
+          "text": "this is not a line break \\\\\\ not on second line",
           "type": "text",
         },
       ],
@@ -80,21 +80,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF - force line break should detect the correct force line break 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "text": "this-is-not-line-break\\\\\\\\but-this-one-is-line-break",
+      "content": [
+        {
+          "text": "this-is-not-line-break\\\\but-this-one-is-line-break",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "second-line",
           "type": "text",
         },
@@ -107,28 +107,28 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF - force line break should detect the correct force line break on same line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this-is-line-break",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " and-this-one-is-also-line-break",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "second-line",
           "type": "text",
         },
@@ -141,21 +141,21 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF - force line break should detect the force line break correctly 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a line break ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " second line",
           "type": "text",
         },

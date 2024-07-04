@@ -1374,7 +1374,7 @@ describe('Card ', () => {
 
 			it('when successfully being processed after uploading without a local preview', async () => {
 				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers('modern');
+				jest.useFakeTimers();
 
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { MockedMediaClientProvider, uploadItem, processItem } =
@@ -1479,7 +1479,7 @@ describe('Card ', () => {
 
 			it('when successfully being processed after uploading with a local preview', async () => {
 				// using Jest's Fake Timer to accelerate the polling function
-				jest.useFakeTimers('modern');
+				jest.useFakeTimers();
 
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, uploadItem, processItem } =
@@ -2329,7 +2329,7 @@ describe('Card ', () => {
 
 			it('when successfully being processed after uploading with a local preview', async () => {
 				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers('modern');
+				jest.useFakeTimers();
 
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, uploadItem, processItem } =
@@ -3248,7 +3248,7 @@ describe('Card ', () => {
 		describe('should attach the correct file status flags when completing the UFO experience', () => {
 			it('should attach an uploading file status flag with value as true', async () => {
 				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers('modern');
+				jest.useFakeTimers();
 
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { uploadItem, processItem, MockedMediaClientProvider } =
@@ -3303,7 +3303,7 @@ describe('Card ', () => {
 
 			it('should attach a processing file status flag with value as true', async () => {
 				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers('modern');
+				jest.useFakeTimers();
 
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { processItem, MockedMediaClientProvider } = createMockedMediaClientProvider({
@@ -3584,7 +3584,7 @@ describe('Card ', () => {
 		describe('should fire an operational event', () => {
 			it('when the card status changes (file identifier)', async () => {
 				// using Jest's useFakeTimers to accelerate the polling function
-				jest.useFakeTimers('modern');
+				jest.useFakeTimers();
 
 				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { MockedMediaClientProvider, processItem } = createMockedMediaClientProvider({

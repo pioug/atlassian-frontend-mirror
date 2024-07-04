@@ -48,7 +48,7 @@ describe('Unmounting tooltip', () => {
 		fireEvent.mouseOver(trigger);
 		act(() => {
 			// Takes 300ms to change to 'shown' from 'waiting-to-show'
-			jest.runTimersToTime(290);
+			jest.advanceTimersByTime(290);
 		});
 		unmount();
 
@@ -71,7 +71,7 @@ describe('Unmounting tooltip', () => {
 		fireEvent.mouseOver(trigger);
 		act(() => {
 			// Takes 300ms to change to 'shown' from 'waiting-to-show'
-			jest.runTimersToTime(400);
+			jest.advanceTimersByTime(400);
 		});
 		unmount();
 
@@ -101,7 +101,7 @@ describe('Unmounting tooltip', () => {
 		act(() => {
 			fireEvent.mouseOut(trigger);
 			// Takes 300ms to change to 'waiting-to-hide' from 'hide-animating'
-			jest.runTimersToTime(290);
+			jest.advanceTimersByTime(290);
 			unmount();
 		});
 

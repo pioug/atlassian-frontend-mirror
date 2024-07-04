@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`validate should be able to wrap invalid nodes - 2 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
-                "originalNode": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
+                "originalNode": {
                   "type": "code",
                 },
               },
               "type": "unknown",
             },
-            Object {
+            {
               "type": "underline",
             },
           ],
@@ -32,16 +32,16 @@ Object {
 `;
 
 exports[`validate should be able to wrap invalid nodes - 2 2`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
-            Object {
+            {
               "type": "underline",
             },
           ],
@@ -58,31 +58,31 @@ Object {
 `;
 
 exports[`validate should be able to wrap invalid nodes 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "Hello",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
-            "originalNode": Object {
+        {
+          "attrs": {
+            "originalNode": {
               "text": " world!",
               "type": "tet",
             },
           },
           "type": "unknown",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -99,26 +99,26 @@ Object {
 `;
 
 exports[`validate should be able to wrap invalid nodes 2`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "Hello",
           "type": "text",
         },
-        Object {
+        {
           "text": " world!",
           "type": "tet",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -135,13 +135,13 @@ Object {
 `;
 
 exports[`validate should not remove valid marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -158,13 +158,13 @@ Object {
 `;
 
 exports[`validate should not remove valid marks 2`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -181,12 +181,12 @@ Object {
 `;
 
 exports[`validator should take custom list of nodes 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
-        "originalNode": Object {
-          "content": Array [],
+{
+  "content": [
+    {
+      "attrs": {
+        "originalNode": {
+          "content": [],
           "type": "paragraph",
         },
       },

@@ -770,17 +770,19 @@ describe('smart-card: card states, block', () => {
 							description: 'Contact your admin to request access to site.atlassian.net.',
 						},
 					],
-				])('%s', (name: string, context: ContextProp, expected: ContentProps) => async () => {
-					const { container, findByText, queryByTestId } = await setup(mockResponse(context));
+				])('%s', (name: string, context: ContextProp, expected: ContentProps) => {
+					async () => {
+						const { container, findByText, queryByTestId } = await setup(mockResponse(context));
 
-					if (expected!.title) {
-						expect(await findByText(expected.title)).toBeVisible();
-					}
-					expect(container).toHaveTextContent(expected.description);
-					if (expected.button) {
-						expect(await findByText(expected.button)).toBeVisible();
-					}
-					expect(queryByTestId('smart-element-icon')).not.toBeInTheDocument();
+						if (expected!.title) {
+							expect(await findByText(expected.title)).toBeVisible();
+						}
+						expect(container).toHaveTextContent(expected.description);
+						if (expected.button) {
+							expect(await findByText(expected.button)).toBeVisible();
+						}
+						expect(queryByTestId('smart-element-icon')).not.toBeInTheDocument();
+					};
 				});
 			});
 		});

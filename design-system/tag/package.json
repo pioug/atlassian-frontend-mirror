@@ -67,7 +67,7 @@
 		"@atlaskit/tag-group": "^10.4.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@types/jscodeshift": "^0.11.0",
 		"exenv": "^1.2.2",

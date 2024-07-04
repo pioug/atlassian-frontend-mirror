@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 84.0.2
+
+### Patch Changes
+
+- [#116502](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116502)
+  [`1933f2ba43919`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1933f2ba43919) -
+  [EDF-950] Deprecating AtlassianIntelligenceToolbarButton within generative-ai-modal, it now lives
+  within editor-plugin-ai, removed duplicated code from editor-common, and use the export instead
+
 ## 84.0.1
 
 ### Patch Changes

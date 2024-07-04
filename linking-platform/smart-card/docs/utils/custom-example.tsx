@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { Example } from '@atlaskit/docs';
@@ -41,11 +40,7 @@ type FlexibleUiExampleProps = {
 	background?: boolean;
 } & typeof Example;
 
-const CustomExample: React.FC<FlexibleUiExampleProps> = ({
-	background,
-	sourceVisible,
-	...props
-}) => (
+const CustomExample = ({ background, sourceVisible, ...props }: FlexibleUiExampleProps) => (
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	<div css={getStyles(sourceVisible, background)}>
 		<Example packageName="@atlaskit/smart-card" sourceVisible={sourceVisible} {...props} />

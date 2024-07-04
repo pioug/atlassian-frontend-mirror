@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import {
@@ -68,11 +68,15 @@ const isRemovable = (blockTemplates: BlockTemplate[], name: BlockName) => {
 	return true;
 };
 
-const BlockBuilder: React.FC<{
+const BlockBuilder = ({
+	blocks = [],
+	onChange,
+	size,
+}: {
 	blocks?: BlockTemplate[];
 	onChange: (blocks: BlockTemplate[]) => void;
 	size?: SmartLinkSize; // block inherit size from ui options
-}> = ({ blocks = [], onChange, size }) => {
+}) => {
 	const handleOnBlockChange = useCallback(
 		(position: number, t: BlockTemplate) => {
 			const updatedBlocks = blocks.map((blockTemplate, idx) =>

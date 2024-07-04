@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Uppdatera sidan eller kontakta <a>Atlassians support</a> om problemet kvarstår.',
   'link-create.unknown-error.heading': 'Något gick fel.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Webbplats',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tillbaka',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Kassera',
   'linkCreate.confirm-dismiss-dialog.modal.description':

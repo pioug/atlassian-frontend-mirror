@@ -1,4 +1,4 @@
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import React, { useEffect } from 'react';
 import { IntlProvider } from 'react-intl-next';
@@ -25,6 +25,8 @@ jest.mock('@atlaskit/link-provider', () => ({
 		store: { getState: () => ({ 'test-url': mocks.analytics }) },
 	}),
 }));
+
+expect.extend(jestExtendedMatchers);
 
 const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';
 

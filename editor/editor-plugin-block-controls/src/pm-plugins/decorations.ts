@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../types';
 import { DragHandle } from '../ui/drag-handle';
@@ -104,7 +104,7 @@ export const nodeDecorations = (newState: EditorState) => {
 	newState.doc.descendants((node, pos, _parent, index) => {
 		const anchorName = `--node-anchor-${node.type.name}-${index}`;
 		let style;
-		if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+		if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 			style = `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}; position: relative; z-index: 1;`;
 		} else {
 			style = `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}`;
@@ -195,7 +195,7 @@ export const dragHandleDecoration = (
 			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
-			if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+			if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 				// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
 				// due to margins applied to other nodes eg. Headings
 				element.style.clear = 'unset';

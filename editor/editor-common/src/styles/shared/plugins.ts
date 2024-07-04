@@ -14,7 +14,6 @@ export const buttonGroupStyle = css({
 	},
 });
 
-// This style is copied to packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/styles.tsx
 // If you make change here, change in above file as well.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const separatorStyles = css({
@@ -26,7 +25,6 @@ export const separatorStyles = css({
 	userSelect: 'none',
 });
 
-// This style is copied to packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/styles.tsx
 // If you make change here, change in above file as well.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperStyle = css({

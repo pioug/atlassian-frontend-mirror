@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Compound clause 🟥 and issuetype = bug 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input 'and' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -13,7 +13,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -24,35 +24,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           4,
           13,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           16,
           19,
         ],
@@ -60,13 +60,13 @@ Object {
         "type": "operand",
         "value": "bug",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           14,
           15,
         ],
@@ -74,11 +74,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         4,
         19,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -91,11 +91,11 @@ Object {
 `;
 
 exports[`Compound clause 🟥 issuetype = bug and () 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input ')' expecting {'(', '!', NOT, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -103,7 +103,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       22,
     ],
@@ -114,35 +114,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           9,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           15,
         ],
@@ -150,13 +150,13 @@ Object {
         "type": "operand",
         "value": "bug",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           11,
         ],
@@ -164,11 +164,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -181,11 +181,11 @@ Object {
 `;
 
 exports[`Compound clause 🟥 issuetype = bug and 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {'(', '!', NOT, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -193,7 +193,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       19,
     ],
@@ -204,35 +204,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           9,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           15,
         ],
@@ -240,13 +240,13 @@ Object {
         "type": "operand",
         "value": "bug",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           11,
         ],
@@ -254,11 +254,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -271,11 +271,11 @@ Object {
 `;
 
 exports[`Compound clause 🟥 issuetype = bug and and component = jql 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input 'and' expecting {'(', '!', NOT, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -283,7 +283,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       39,
     ],
@@ -294,40 +294,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -335,13 +335,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -349,46 +349,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               24,
               33,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               36,
               39,
             ],
@@ -396,13 +396,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               34,
               35,
             ],
@@ -410,11 +410,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             24,
             39,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -425,15 +425,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             19,
           ],
@@ -441,7 +441,7 @@ Object {
         "value": "and",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         39,
       ],
@@ -457,11 +457,11 @@ Object {
 `;
 
 exports[`Compound clause 🟥 issuetype = bug or 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input '<EOF>' expecting {'(', '!', NOT, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -469,7 +469,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -480,35 +480,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           0,
           9,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           12,
           15,
         ],
@@ -516,13 +516,13 @@ Object {
         "type": "operand",
         "value": "bug",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           10,
           11,
         ],
@@ -530,11 +530,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         15,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -547,11 +547,11 @@ Object {
 `;
 
 exports[`Compound clause 🟥 issuetype = bug or component or component = jql 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: mismatched input 'or' expecting {'<', '>', '>=', '<=', '=', '!=', '~', '!~', IN, IS, NOT, WAS, CHANGED}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -559,7 +559,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       47,
     ],
@@ -570,40 +570,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -611,13 +611,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -625,34 +625,34 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               28,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
@@ -660,46 +660,46 @@ Object {
           "operand": undefined,
           "operator": undefined,
           "parent": [Circular],
-          "position": Array [
+          "position": [
             19,
             28,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               32,
               41,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               44,
               47,
             ],
@@ -707,13 +707,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               42,
               43,
             ],
@@ -721,11 +721,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             32,
             47,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -736,19 +736,19 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             18,
           ],
-          Array [
+          [
             29,
             31,
           ],
@@ -756,7 +756,7 @@ Object {
         "value": "or",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         47,
       ],
@@ -772,11 +772,11 @@ Object {
 `;
 
 exports[`Compound clause 🟥 or issuetype = bug 1`] = `
-Object {
-  "errors": Array [
+{
+  "errors": [
     [JQLSyntaxError: extraneous input 'or' expecting {<EOF>, '(', '!', NOT, ORDER, POSNUMBER, NEGNUMBER, CUSTOMFIELD, STRING, QUOTE_STRING, SQUOTE_STRING}],
   ],
-  "query": Object {
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -784,7 +784,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       18,
     ],
@@ -795,35 +795,35 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendOperand": [Function],
       "clauseType": "terminal",
       "enterNode": [Function],
       "exitNode": [Function],
-      "field": Object {
+      "field": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           3,
           12,
         ],
-        "properties": Array [],
+        "properties": [],
         "text": "issuetype",
         "value": "issuetype",
       },
       "getChildren": [Function],
-      "operand": Object {
+      "operand": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "operandType": "value",
         "parent": [Circular],
-        "position": Array [
+        "position": [
           15,
           18,
         ],
@@ -831,13 +831,13 @@ Object {
         "type": "operand",
         "value": "bug",
       },
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
-        "position": Array [
+        "position": [
           13,
           14,
         ],
@@ -845,11 +845,11 @@ Object {
         "value": "=",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         3,
         18,
       ],
-      "predicates": Array [],
+      "predicates": [],
       "remove": [Function],
       "replace": [Function],
       "setOperand": [Function],
@@ -862,9 +862,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug & component = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -872,7 +872,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       33,
     ],
@@ -883,40 +883,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -924,13 +924,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -938,46 +938,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               18,
               27,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               30,
               33,
             ],
@@ -985,13 +985,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               28,
               29,
             ],
@@ -999,11 +999,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             18,
             33,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -1014,15 +1014,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             17,
           ],
@@ -1030,7 +1030,7 @@ Object {
         "value": "and",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         33,
       ],
@@ -1046,9 +1046,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug && component = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1056,7 +1056,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       34,
     ],
@@ -1067,40 +1067,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -1108,13 +1108,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -1122,46 +1122,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               28,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               31,
               34,
             ],
@@ -1169,13 +1169,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               29,
               30,
             ],
@@ -1183,11 +1183,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             19,
             34,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -1198,15 +1198,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             18,
           ],
@@ -1214,7 +1214,7 @@ Object {
         "value": "and",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         34,
       ],
@@ -1230,9 +1230,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug | component = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1240,7 +1240,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       33,
     ],
@@ -1251,40 +1251,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -1292,13 +1292,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -1306,46 +1306,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               18,
               27,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               30,
               33,
             ],
@@ -1353,13 +1353,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               28,
               29,
             ],
@@ -1367,11 +1367,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             18,
             33,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -1382,15 +1382,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             17,
           ],
@@ -1398,7 +1398,7 @@ Object {
         "value": "or",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         33,
       ],
@@ -1414,9 +1414,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug || component = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1424,7 +1424,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       34,
     ],
@@ -1435,40 +1435,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -1476,13 +1476,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -1490,46 +1490,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               28,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               31,
               34,
             ],
@@ -1537,13 +1537,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               29,
               30,
             ],
@@ -1551,11 +1551,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             19,
             34,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -1566,15 +1566,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             18,
           ],
@@ -1582,7 +1582,7 @@ Object {
         "value": "or",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         34,
       ],
@@ -1598,9 +1598,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug and component = jql && label = jql & tag = jql AND url ~ jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1608,7 +1608,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       76,
     ],
@@ -1619,40 +1619,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -1660,13 +1660,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -1674,46 +1674,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               20,
               29,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               32,
               35,
             ],
@@ -1721,13 +1721,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               30,
               31,
             ],
@@ -1735,46 +1735,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             20,
             35,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               39,
               44,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "label",
             "value": "label",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               47,
               50,
             ],
@@ -1782,13 +1782,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               45,
               46,
             ],
@@ -1796,46 +1796,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             39,
             50,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               53,
               56,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "tag",
             "value": "tag",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               59,
               62,
             ],
@@ -1843,13 +1843,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               57,
               58,
             ],
@@ -1857,46 +1857,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             53,
             62,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               67,
               70,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "url",
             "value": "url",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               73,
               76,
             ],
@@ -1904,13 +1904,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               71,
               72,
             ],
@@ -1918,11 +1918,11 @@ Object {
             "value": "~",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             67,
             76,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -1933,27 +1933,27 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             19,
           ],
-          Array [
+          [
             36,
             38,
           ],
-          Array [
+          [
             51,
             52,
           ],
-          Array [
+          [
             63,
             66,
           ],
@@ -1961,7 +1961,7 @@ Object {
         "value": "and",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         76,
       ],
@@ -1977,9 +1977,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug and component = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -1987,7 +1987,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       35,
     ],
@@ -1998,40 +1998,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -2039,13 +2039,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -2053,46 +2053,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               20,
               29,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               32,
               35,
             ],
@@ -2100,13 +2100,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               30,
               31,
             ],
@@ -2114,11 +2114,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             20,
             35,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -2129,15 +2129,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             19,
           ],
@@ -2145,7 +2145,7 @@ Object {
         "value": "and",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         35,
       ],
@@ -2161,9 +2161,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug and component = jql and label = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2171,7 +2171,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       51,
     ],
@@ -2182,40 +2182,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -2223,13 +2223,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -2237,46 +2237,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               20,
               29,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               32,
               35,
             ],
@@ -2284,13 +2284,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               30,
               31,
             ],
@@ -2298,46 +2298,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             20,
             35,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               40,
               45,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "label",
             "value": "label",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               48,
               51,
             ],
@@ -2345,13 +2345,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               46,
               47,
             ],
@@ -2359,11 +2359,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             40,
             51,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -2374,19 +2374,19 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             19,
           ],
-          Array [
+          [
             36,
             39,
           ],
@@ -2394,7 +2394,7 @@ Object {
         "value": "and",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         51,
       ],
@@ -2410,9 +2410,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug or component = jql || label = jql | tag = jql OR url ~ jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2420,7 +2420,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       74,
     ],
@@ -2431,40 +2431,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -2472,13 +2472,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -2486,46 +2486,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               28,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               31,
               34,
             ],
@@ -2533,13 +2533,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               29,
               30,
             ],
@@ -2547,46 +2547,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             19,
             34,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               38,
               43,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "label",
             "value": "label",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               46,
               49,
             ],
@@ -2594,13 +2594,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               44,
               45,
             ],
@@ -2608,46 +2608,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             38,
             49,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               52,
               55,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "tag",
             "value": "tag",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               58,
               61,
             ],
@@ -2655,13 +2655,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               56,
               57,
             ],
@@ -2669,46 +2669,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             52,
             61,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               65,
               68,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "url",
             "value": "url",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               71,
               74,
             ],
@@ -2716,13 +2716,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               69,
               70,
             ],
@@ -2730,11 +2730,11 @@ Object {
             "value": "~",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             65,
             74,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -2745,27 +2745,27 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             18,
           ],
-          Array [
+          [
             35,
             37,
           ],
-          Array [
+          [
             50,
             51,
           ],
-          Array [
+          [
             62,
             64,
           ],
@@ -2773,7 +2773,7 @@ Object {
         "value": "or",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         74,
       ],
@@ -2789,9 +2789,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug or component = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2799,7 +2799,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       34,
     ],
@@ -2810,40 +2810,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -2851,13 +2851,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -2865,46 +2865,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               28,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               31,
               34,
             ],
@@ -2912,13 +2912,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               29,
               30,
             ],
@@ -2926,11 +2926,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             19,
             34,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -2941,15 +2941,15 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             18,
           ],
@@ -2957,7 +2957,7 @@ Object {
         "value": "or",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         34,
       ],
@@ -2973,9 +2973,9 @@ Object {
 `;
 
 exports[`Compound clause 🟩 issuetype = bug or component = jql or label = jql 1`] = `
-Object {
-  "errors": Array [],
-  "query": Object {
+{
+  "errors": [],
+  "query": {
     "accept": [Function],
     "appendClause": [Function],
     "enterNode": [Function],
@@ -2983,7 +2983,7 @@ Object {
     "getChildren": [Function],
     "orderBy": undefined,
     "parent": null,
-    "position": Array [
+    "position": [
       0,
       49,
     ],
@@ -2994,40 +2994,40 @@ Object {
     "replaceOrderBy": [Function],
     "setOrderDirection": [Function],
     "type": "query",
-    "where": Object {
+    "where": {
       "accept": [Function],
       "appendClause": [Function],
       "clauseType": "compound",
-      "clauses": Array [
-        Object {
+      "clauses": [
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               0,
               9,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "issuetype",
             "value": "issuetype",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               12,
               15,
             ],
@@ -3035,13 +3035,13 @@ Object {
             "type": "operand",
             "value": "bug",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               10,
               11,
             ],
@@ -3049,46 +3049,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             0,
             15,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               19,
               28,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "component",
             "value": "component",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               31,
               34,
             ],
@@ -3096,13 +3096,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               29,
               30,
             ],
@@ -3110,46 +3110,46 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             19,
             34,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
           "setOperator": [Function],
           "type": "clause",
         },
-        Object {
+        {
           "accept": [Function],
           "appendOperand": [Function],
           "clauseType": "terminal",
           "enterNode": [Function],
           "exitNode": [Function],
-          "field": Object {
+          "field": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               38,
               43,
             ],
-            "properties": Array [],
+            "properties": [],
             "text": "label",
             "value": "label",
           },
           "getChildren": [Function],
-          "operand": Object {
+          "operand": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "operandType": "value",
             "parent": [Circular],
-            "position": Array [
+            "position": [
               46,
               49,
             ],
@@ -3157,13 +3157,13 @@ Object {
             "type": "operand",
             "value": "jql",
           },
-          "operator": Object {
+          "operator": {
             "accept": [Function],
             "enterNode": [Function],
             "exitNode": [Function],
             "getChildren": [Function],
             "parent": [Circular],
-            "position": Array [
+            "position": [
               44,
               45,
             ],
@@ -3171,11 +3171,11 @@ Object {
             "value": "=",
           },
           "parent": [Circular],
-          "position": Array [
+          "position": [
             38,
             49,
           ],
-          "predicates": Array [],
+          "predicates": [],
           "remove": [Function],
           "replace": [Function],
           "setOperand": [Function],
@@ -3186,19 +3186,19 @@ Object {
       "enterNode": [Function],
       "exitNode": [Function],
       "getChildren": [Function],
-      "operator": Object {
+      "operator": {
         "accept": [Function],
         "enterNode": [Function],
         "exitNode": [Function],
         "getChildren": [Function],
         "parent": [Circular],
         "position": null,
-        "positions": Array [
-          Array [
+        "positions": [
+          [
             16,
             18,
           ],
-          Array [
+          [
             35,
             37,
           ],
@@ -3206,7 +3206,7 @@ Object {
         "value": "or",
       },
       "parent": [Circular],
-      "position": Array [
+      "position": [
         0,
         49,
       ],

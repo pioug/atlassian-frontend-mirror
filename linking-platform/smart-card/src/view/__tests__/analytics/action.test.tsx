@@ -1,4 +1,4 @@
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 import React from 'react';
 import { type JsonLd } from 'json-ld-types';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
@@ -33,6 +33,8 @@ jest.mock('@atlaskit/linking-common/user-agent', () => ({
 		safari: false,
 	})),
 }));
+
+expect.extend(jestExtendedMatchers);
 
 const TEST_ID = 'some-id';
 const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';

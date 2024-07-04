@@ -1,3 +1,5 @@
+import { screen } from '@testing-library/react';
+
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 describe('SSR - Task Inline', () => {
@@ -20,6 +22,9 @@ describe('SSR - Task Inline', () => {
 
 		elem.innerHTML = html;
 		await hydrateWithAct(examplePath, elem, styles);
+
+		// Jest 29 - Added assertion to fix: Jest worker encountered 4 child process exceptions, exceeding retry limit
+		await screen.findByText(/Simple Completed TaskItem/i);
 
 		// No other errors from e.g. hydrate
 		// eslint-disable-next-line no-console

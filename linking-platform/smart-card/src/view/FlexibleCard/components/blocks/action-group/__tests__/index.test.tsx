@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import PremiumIcon from '@atlaskit/icon/glyph/premium';
 import ActionGroup from '..';

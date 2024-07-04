@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Field } from '@atlaskit/form';
 import Select from '@atlaskit/select/Select';
 import { BlockName } from '../../constants';
@@ -22,7 +22,7 @@ const blockOptions = Object.values(BlockName).map((value) => ({
 	value,
 }));
 
-const BlockOption: React.FC<{ onClick: (name: BlockName) => void }> = ({ onClick }) => {
+const BlockOption = ({ onClick }: { onClick: (name: BlockName) => void }) => {
 	const handleOnChange = useCallback(
 		(option: any) => {
 			onClick(option.value);

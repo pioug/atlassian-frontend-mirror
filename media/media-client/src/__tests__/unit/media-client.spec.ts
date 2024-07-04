@@ -337,7 +337,7 @@ describe('MediaClient', () => {
 			});
 		});
 
-		it.skip('should return file state regardless of the state', async (done) => {
+		it.skip('should return file state regardless of the state', async () => {
 			const {
 				controller,
 				id,
@@ -396,8 +396,6 @@ describe('MediaClient', () => {
 			};
 
 			expect(next.mock.calls[0][0]).toEqual(expect.objectContaining(expectedState));
-
-			done();
 		});
 	});
 

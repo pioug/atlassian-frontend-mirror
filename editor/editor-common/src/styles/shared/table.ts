@@ -133,12 +133,9 @@ const tableSharedStyle = () => css`
 				border-right-width: 0;
 				border-bottom-width: 0;
 
-				padding: ${
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform_editor_tables_padding_increase')
-						? `${token('space.100', '8px')} ${token('space.250', '20px')}`
-						: token('space.100', '8px')
-				};
+				padding: ${fg('platform_editor_tables_padding_increase')
+					? `${token('space.100', '8px')} ${token('space.250', '20px')}`
+					: token('space.100', '8px')};
 				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
 				${browser.gecko || browser.ie || (browser.mac && browser.chrome)
 					? 'background-clip: padding-box;'

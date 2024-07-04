@@ -106,7 +106,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
         description="Button text displaying number of available sites greater than 3 on expand"
         id="focused-task-close-account.delete-account.drop-down-expand-button"
         values={
-          Object {
+          {
             "num": 1,
           }
         }
@@ -146,7 +146,7 @@ exports[`Dropdown list button renders sites list with expand button for more tha
         description="Button text displaying number of available sites greater than 3 on expand"
         id="focused-task-close-account.delete-account.drop-down-expand-button"
         values={
-          Object {
+          {
             "num": 1,
           }
         }

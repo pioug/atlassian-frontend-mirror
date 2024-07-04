@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Text [ADFS-725] should strip null chars 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hello  World!",
           "type": "text",
         },
@@ -21,26 +21,26 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text [ESS-2539] shoudld create new paragraph after two consecutive new lines 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line 1 ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line 2",
           "type": "text",
         },
@@ -53,27 +53,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text [ESS-2539] shoudld keep text after multiple force line breaks in same paragraph 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "line1",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "line2",
           "type": "text",
         },
@@ -86,15 +86,15 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text [EX-500] should handle escape correctly 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "text": "* \\\\m",
+      "content": [
+        {
+          "text": "* \\m",
           "type": "text",
         },
       ],
@@ -106,14 +106,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text leading double dashes is not list 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "– This is not a list",
           "type": "text",
         },
@@ -126,14 +126,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text leading triple dashes is not list 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "— This is not a list",
           "type": "text",
         },
@@ -146,14 +146,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text multiple - should be rendered as plain text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "------------- ---------------- ------------------",
           "type": "text",
         },
@@ -166,21 +166,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should ignore leading spaces on each line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "foo",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "bar",
           "type": "text",
         },
@@ -193,10 +193,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should render empty paragraph if no content 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
       "type": "paragraph",
@@ -207,14 +207,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should render simple text as a paragraph 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "foo bar",
           "type": "text",
         },
@@ -227,29 +227,29 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should replace four dashes with a ruler + ignore four dashes in a line of text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a text with ---- in it",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
+    {
       "type": "rule",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a text",
           "type": "text",
         },
@@ -262,21 +262,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should respect \\ as a line break 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "foo ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " bar",
           "type": "text",
         },
@@ -289,21 +289,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should respect \\\\ as a line break 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "foo ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " bar",
           "type": "text",
         },
@@ -316,15 +316,15 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should treat \\ as a charater if it's not applied with any keyword 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "text": "\\\\foobar",
+      "content": [
+        {
+          "text": "\\foobar",
           "type": "text",
         },
       ],
@@ -336,14 +336,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text should treat ignored keyword as plantext 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "{ foobar",
           "type": "text",
         },

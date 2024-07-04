@@ -3,7 +3,7 @@
 exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all listeners 1`] = `
 <AVPAnalyticsListener
   client={
-    Object {
+    {
       "sendOperationalEvent": [MockFunction],
       "sendScreenEvent": [MockFunction],
       "sendTrackEvent": [MockFunction],
@@ -18,7 +18,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
 >
   <AIMateAnalyticsListener
     client={
-      Object {
+      {
         "sendOperationalEvent": [MockFunction],
         "sendScreenEvent": [MockFunction],
         "sendTrackEvent": [MockFunction],
@@ -33,7 +33,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
   >
     <PostOfficeAnalyticsListener
       client={
-        Object {
+        {
           "sendOperationalEvent": [MockFunction],
           "sendScreenEvent": [MockFunction],
           "sendTrackEvent": [MockFunction],
@@ -48,7 +48,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
     >
       <LinkingPlatformAnalyticsListener
         client={
-          Object {
+          {
             "sendOperationalEvent": [MockFunction],
             "sendScreenEvent": [MockFunction],
             "sendTrackEvent": [MockFunction],
@@ -63,7 +63,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
       >
         <CrossFlowAnalyticsListener
           client={
-            Object {
+            {
               "sendOperationalEvent": [MockFunction],
               "sendScreenEvent": [MockFunction],
               "sendTrackEvent": [MockFunction],
@@ -78,7 +78,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
         >
           <AtlasAnalyticsListener
             client={
-              Object {
+              {
                 "sendOperationalEvent": [MockFunction],
                 "sendScreenEvent": [MockFunction],
                 "sendTrackEvent": [MockFunction],
@@ -93,7 +93,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
           >
             <RecentWorkAnalyticsListener
               client={
-                Object {
+                {
                   "sendOperationalEvent": [MockFunction],
                   "sendScreenEvent": [MockFunction],
                   "sendTrackEvent": [MockFunction],
@@ -108,7 +108,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
             >
               <NotificationsAnalyticsListener
                 client={
-                  Object {
+                  {
                     "sendOperationalEvent": [MockFunction],
                     "sendScreenEvent": [MockFunction],
                     "sendTrackEvent": [MockFunction],
@@ -123,7 +123,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
               >
                 <PeopleTeamsAnalyticsListener
                   client={
-                    Object {
+                    {
                       "sendOperationalEvent": [MockFunction],
                       "sendScreenEvent": [MockFunction],
                       "sendTrackEvent": [MockFunction],
@@ -138,7 +138,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                 >
                   <MediaAnalyticsListener
                     client={
-                      Object {
+                      {
                         "sendOperationalEvent": [MockFunction],
                         "sendScreenEvent": [MockFunction],
                         "sendTrackEvent": [MockFunction],
@@ -153,7 +153,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                   >
                     <NavigationListener
                       client={
-                        Object {
+                        {
                           "sendOperationalEvent": [MockFunction],
                           "sendScreenEvent": [MockFunction],
                           "sendTrackEvent": [MockFunction],
@@ -168,7 +168,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                     >
                       <AtlaskitListener
                         client={
-                          Object {
+                          {
                             "sendOperationalEvent": [MockFunction],
                             "sendScreenEvent": [MockFunction],
                             "sendTrackEvent": [MockFunction],
@@ -183,7 +183,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                       >
                         <FabricEditorListener
                           client={
-                            Object {
+                            {
                               "sendOperationalEvent": [MockFunction],
                               "sendScreenEvent": [MockFunction],
                               "sendTrackEvent": [MockFunction],
@@ -198,7 +198,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render all 
                         >
                           <FabricElementsListener
                             client={
-                              Object {
+                              {
                                 "sendOperationalEvent": [MockFunction],
                                 "sendScreenEvent": [MockFunction],
                                 "sendTrackEvent": [MockFunction],

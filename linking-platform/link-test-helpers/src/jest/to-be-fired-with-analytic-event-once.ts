@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { expect } from '@jest/globals';
-import diff from 'jest-diff';
+import { diff } from 'jest-diff';
 import matches from 'lodash/matches';
 
 const isObject = (x: unknown): x is {} => {

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/glyph/more';
@@ -10,7 +9,7 @@ import { type IconProps } from '@atlaskit/icon/types';
 import { IconButton } from '../../../new';
 
 async function assertDropdownIsVisible(icon: HTMLElement) {
-	await userEvent.click(icon);
+	await fireEvent.click(icon);
 	const dropdownMenu = screen.getByTestId('dropdown--content');
 	expect(dropdownMenu).toBeVisible();
 }

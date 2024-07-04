@@ -8,11 +8,15 @@ import AceEditor from 'react-ace';
 import InlineMessage from '@atlaskit/inline-message';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-const JsonldEditorInput: React.FC<{
+const JsonldEditorInput = ({
+	error,
+	onChange,
+	value,
+}: {
 	error?: string;
 	onChange: (str: string) => void;
 	value?: string;
-}> = ({ error, onChange, value }) => {
+}) => {
 	const { colorMode } = useThemeObserver();
 	const editorTheme = colorMode === 'dark' ? 'twilight' : 'tomorrow';
 

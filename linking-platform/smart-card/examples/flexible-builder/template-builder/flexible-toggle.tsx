@@ -21,10 +21,13 @@ const containerStyles = css({
 	},
 });
 
-const FlexibleToggle: React.FC<{
+const FlexibleToggle = ({
+	display,
+	onChange,
+}: {
 	display?: TemplateDisplay;
 	onChange: (e: React.SyntheticEvent<HTMLInputElement>) => void;
-}> = ({ display, onChange }) => {
+}) => {
 	return (
 		<div css={containerStyles}>
 			<Toggle

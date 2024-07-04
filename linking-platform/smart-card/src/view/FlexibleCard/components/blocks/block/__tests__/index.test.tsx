@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, waitFor, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Block from '../index';
 import { ActionName, SmartLinkDirection, SmartLinkSize } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';

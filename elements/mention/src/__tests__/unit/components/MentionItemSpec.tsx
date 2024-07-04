@@ -8,6 +8,7 @@ import MentionItem from '../../../components/MentionItem';
 import { type Props, type State } from '../../../components/MentionList';
 import { type MentionDescription, type LozengeProps } from '../../../types';
 import Lozenge from '@atlaskit/lozenge';
+import { act } from '@testing-library/react';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme
 jest.mock('react', () => {
@@ -81,7 +82,9 @@ describe('MentionItem', () => {
 		});
 
 		// await for LockCircle async import
-		await new Promise(setImmediate);
+		await act(async () => {
+			await new Promise((resolve) => setTimeout(resolve, 0));
+		});
 		component.update();
 
 		var icon = component.find(LockCircleIcon);

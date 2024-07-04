@@ -21,9 +21,11 @@ import {
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 import uuid from 'uuid';
 import { type JestFunction } from '@atlaskit/media-test-helpers';
+
+expect.extend(jestExtendedMatchers);
 
 describe('smart-card: prefetching of content', () => {
 	let mockClient: CardClient;

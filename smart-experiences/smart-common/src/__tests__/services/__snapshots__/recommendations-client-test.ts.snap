@@ -3,18 +3,18 @@
 exports[`default-value-hydration-client should reject promise on network error: URS error 1`] = `"error calling smart service, statusCode=504, statusText=Gateway Timeout"`;
 
 exports[`default-value-hydration-client should translate given context to correct fetch request: URS query 1`] = `
-Object {
-  "context": Object {
+{
+  "context": {
     "childObjectId": "childObjectId",
     "containerId": "containerId",
     "contextType": "fieldId",
     "objectId": "objectId",
     "principalId": "principalId",
-    "productAttributes": Object {
+    "productAttributes": {
       "emailDomain": "Context",
       "isPublicRepo": false,
       "pullRequestId": 18056,
-      "workspaceIds": Array [
+      "workspaceIds": [
         "02b941e3-cfaa-40f9-9a58-cec53e20bdc3",
       ],
     },
@@ -26,8 +26,8 @@ Object {
   "includeTeams": true,
   "includeUsers": true,
   "maxNumberOfResults": 50,
-  "searchQuery": Object {
-    "cpusQueryHighlights": Object {
+  "searchQuery": {
+    "cpusQueryHighlights": {
       "field": "field",
       "query": "query",
     },
@@ -36,12 +36,12 @@ Object {
     "filter": "(NOT not_mentionable:true) AND (account_status:active)",
     "minimumAccessLevel": "APPLICATION",
     "queryString": "query",
-    "restrictTo": Object {
-      "groupIds": Array [
+    "restrictTo": {
+      "groupIds": [
         "user1",
         "user2",
       ],
-      "userIds": Array [
+      "userIds": [
         "user1",
         "user2",
       ],
@@ -52,8 +52,8 @@ Object {
 `;
 
 exports[`default-value-hydration-client should translate given context to correct fetch request: URS users 1`] = `
-Array [
-  Object {
+[
+  {
     "accessLevel": "CONTAINER",
     "accountStatus": "ACTIVE",
     "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
@@ -61,14 +61,14 @@ Array [
     "entityType": "USER",
     "id": "5ee0adc79583380ab0afec31",
     "locale": "en-GB",
-    "matchPositions": Object {},
+    "matchPositions": {},
     "name": "John Smith",
     "nickname": "John Smith",
     "notMentionable": false,
     "title": "Development Manager",
     "userType": "DEFAULT",
   },
-  Object {
+  {
     "accessLevel": "CONTAINER",
     "accountStatus": "ACTIVE",
     "avatarUrl": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net",
@@ -76,7 +76,7 @@ Array [
     "entityType": "USER",
     "id": "5ee0adc79583380ab0afec32",
     "locale": "en-GB",
-    "matchPositions": Object {},
+    "matchPositions": {},
     "name": "John Doe",
     "nickname": "John Doe",
     "notMentionable": false,

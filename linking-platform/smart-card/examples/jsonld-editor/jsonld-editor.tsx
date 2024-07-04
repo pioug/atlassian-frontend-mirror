@@ -27,9 +27,7 @@ type JsonldEditorOpts = {
 	url: string;
 	urlError?: string;
 };
-const JsonldEditor: React.FC<{
-	children: (opts: JsonldEditorOpts) => React.ReactNode;
-}> = ({ children }) => {
+const JsonldEditor = ({ children }: { children: (opts: JsonldEditorOpts) => React.ReactNode }) => {
 	const [json, setJson] = useState<JsonLd.Response | undefined>(initialJson);
 	const [jsonError, setJsonError] = useState<string | undefined>();
 	const [text, setText] = useState<string>(initialText);

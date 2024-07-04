@@ -479,7 +479,7 @@ describe('TitleBlock', () => {
 
 	describe('renders with tooltip on title', () => {
 		beforeEach(() => {
-			jest.useFakeTimers();
+			jest.useFakeTimers({ legacyFakeTimers: true });
 		});
 
 		afterEach(() => {

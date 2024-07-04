@@ -1,4 +1,4 @@
-import { act, waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
@@ -9,7 +9,7 @@ test('should ssr then hydrate correctly', async () => {
 	const elem = document.createElement('div');
 	const { html, styles } = await ssr(examplePath);
 	elem.innerHTML = html;
-	await waitFor(async () => await hydrateWithAct(examplePath, elem, styles, true));
+	await hydrateWithAct(examplePath, elem, styles, true);
 
 	await act(async () => {
 		// eslint-disable-next-line no-console

@@ -305,6 +305,13 @@ export interface DropdownItemProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * Use this to opt out of using a router link and instead use a regular anchor element when
+	 * using the `href` prop.
+	 * Marked as "unsafe" because ideally, router links should be used for all internal links.
+	 */
+	UNSAFE_shouldDisableRouterLink?: boolean;
 }
 
 export interface DropdownItemCheckboxProps {

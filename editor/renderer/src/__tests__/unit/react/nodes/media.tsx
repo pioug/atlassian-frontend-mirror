@@ -765,14 +765,14 @@ describe('Media', () => {
 				const mediaFileCard = await mountFileCard(fileIdentifier);
 
 				await act(async () => {
-					await new Promise(process.nextTick);
+					await jest.runAllTicks();
 				});
 				mediaFileCard.update();
 				expect(mediaFileCard.find(Card).at(0).props().mediaViewerItems).toEqual([fileIdentifier]);
 
 				const mediaExternalCard = mountExternalCard(externalIdentifier);
 				await act(async () => {
-					await new Promise(process.nextTick);
+					await jest.runAllTicks();
 				});
 				mediaExternalCard.update();
 				expect(mediaExternalCard.find(Card).at(0).props().mediaViewerItems).toEqual([

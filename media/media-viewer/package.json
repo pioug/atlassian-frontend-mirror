@@ -89,7 +89,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@atlassian/ufo": "^0.3.0",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/deep-equal": "^1.0.1",

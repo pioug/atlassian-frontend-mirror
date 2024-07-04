@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 194.0.4
+
+### Patch Changes
+
+- [#117148](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117148)
+  [`e90581362187a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e90581362187a) -
+  remove overflow hidden from expand node
+
 ## 194.0.1
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import Link from '../index';
@@ -113,7 +114,7 @@ describe('Element: Link', () => {
 
 	describe('renders with tooltip', () => {
 		beforeEach(() => {
-			jest.useFakeTimers();
+			jest.useFakeTimers({ legacyFakeTimers: true });
 		});
 
 		afterEach(() => {

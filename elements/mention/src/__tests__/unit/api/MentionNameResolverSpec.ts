@@ -22,7 +22,7 @@ describe('MentionNameResolver', () => {
 		};
 		mentionNameResolver = new DefaultMentionNameResolver(mentionNameClientMock);
 
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 	});
 
 	afterEach(() => {
@@ -439,9 +439,9 @@ describe('MentionNameResolver', () => {
 			]),
 		);
 		const namePromise = mentionNameResolver.lookupName('cheese');
-		jest.runTimersToTime(DefaultMentionNameResolver.waitForBatch - 1);
+		jest.advanceTimersByTime(DefaultMentionNameResolver.waitForBatch - 1);
 		expect(lookupMentionNames).toHaveBeenCalledTimes(0);
-		jest.runTimersToTime(2);
+		jest.advanceTimersByTime(2);
 		expect(lookupMentionNames).toHaveBeenCalledTimes(1);
 
 		if (isPromise(namePromise)) {

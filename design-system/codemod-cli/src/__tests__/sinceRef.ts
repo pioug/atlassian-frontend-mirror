@@ -51,7 +51,7 @@ describe('sinceRef', () => {
 				}),
 			};
 			await expect(getPackagesSinceRef('foo')).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"Invalid git ref \\"foo\\""`,
+				`"Invalid git ref "foo""`,
 			);
 		});
 		it('should not return packages that have been deleted', async () => {

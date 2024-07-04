@@ -1,7 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -15,7 +14,7 @@ const wrapperStyles = css({
 	padding: token('space.250', '20px'),
 });
 
-const VREmbedFrame: React.FC<Partial<ExpandedFrameProps>> = (props) => (
+const VREmbedFrame = (props: Partial<ExpandedFrameProps>) => (
 	<VRTestWrapper overrideCss={wrapperStyles}>
 		<ExpandedFrame text="frame text" testId="vr-embed-card-frame" {...props}>
 			<div></div>

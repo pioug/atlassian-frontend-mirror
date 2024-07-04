@@ -1,7 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import { type JsonLd } from 'json-ld-types';
 import { type RenderOptions, fireEvent, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';

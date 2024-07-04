@@ -1,9 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { mocked } from 'ts-jest/utils';
 import { useSmartLinkClientExtension } from '@atlaskit/link-client-extension';
 import type { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 
 import useInvoke from '../index';
 
@@ -16,6 +15,8 @@ jest.mock('@atlaskit/link-provider', () => ({
 jest.mock('@atlaskit/link-client-extension', () => ({
 	useSmartLinkClientExtension: jest.fn(),
 }));
+
+expect.extend(jestExtendedMatchers);
 
 describe('useInvoke', () => {
 	const request: InvokeRequest = {
@@ -31,7 +32,7 @@ describe('useInvoke', () => {
 
 	it('makes request to client extension', async () => {
 		const mockInvoke = jest.fn();
-		mocked(useSmartLinkClientExtension).mockReturnValue({
+		jest.mocked(useSmartLinkClientExtension).mockReturnValue({
 			invoke: mockInvoke,
 			relatedUrls: jest.fn(),
 		});
@@ -47,7 +48,7 @@ describe('useInvoke', () => {
 	it('returns response', async () => {
 		const expectedResponse = { a: 'invoke-response' };
 		const mockInvoke = jest.fn().mockResolvedValueOnce(expectedResponse);
-		mocked(useSmartLinkClientExtension).mockReturnValue({
+		jest.mocked(useSmartLinkClientExtension).mockReturnValue({
 			invoke: mockInvoke,
 			relatedUrls: jest.fn(),
 		});
@@ -62,7 +63,7 @@ describe('useInvoke', () => {
 	it('executes callback function', async () => {
 		const expectedResponse = { b: 'transform-response' };
 		const callback = jest.fn().mockReturnValue(expectedResponse);
-		mocked(useSmartLinkClientExtension).mockReturnValue({
+		jest.mocked(useSmartLinkClientExtension).mockReturnValue({
 			invoke: jest.fn().mockResolvedValueOnce({ a: 'invoke-response' }),
 			relatedUrls: jest.fn(),
 		});

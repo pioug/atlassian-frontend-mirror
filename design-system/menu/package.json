@@ -64,7 +64,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@emotion/jest": "^11.8.0",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@types/react-router-dom": "^4.3.1",
 		"ast-types": "^0.13.3",

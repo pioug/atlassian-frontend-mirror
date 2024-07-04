@@ -1,22 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Builders should be able to generate correct ADF for example #0 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
+{
+  "content": [
+    {
+      "content": [
+        {
           "text": "My favourite emoji is ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "shortName": ":man_facepalming:",
             "text": "🤦‍♂️",
           },
           "type": "emoji",
         },
-        Object {
+        {
           "text": " . What is yours?",
           "type": "text",
         },
@@ -30,14 +30,14 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #1 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "href": "https://www.atlassian.com",
               },
               "type": "link",
@@ -46,47 +46,47 @@ Object {
           "text": "Hello, World!",
           "type": "text",
         },
-        Object {
+        {
           "text": " Look I can do",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "italic",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
-            Object {
+            {
               "type": "em",
             },
           ],
           "text": ", strong ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "underline",
             },
-            Object {
+            {
               "type": "strong",
             },
-            Object {
+            {
               "type": "em",
             },
           ],
           "text": "and underlined text!",
           "type": "text",
         },
-        Object {
+        {
           "text": " and action mark and invalid action mark.",
           "type": "text",
         },
@@ -100,49 +100,49 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #2 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
+{
+  "content": [
+    {
+      "content": [
+        {
           "text": "Hi, my name is... My name is... My name is... My name is ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "",
             "id": "1",
             "text": "@Oscar Wallhult",
           },
           "type": "mention",
         },
-        Object {
+        {
           "text": " :D",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
+    {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "",
             "id": "2",
             "text": "@mention",
           },
           "type": "mention",
         },
-        Object {
+        {
           "text": ". And this is a broken ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "",
             "id": "mention",
             "text": "@unknown",
@@ -152,26 +152,26 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
+    {
+      "content": [
+        {
           "text": "Mentions with generic ids ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "CONTAINER",
             "id": "here",
             "text": "@here",
           },
           "type": "mention",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "CONTAINER",
             "id": "all",
             "text": "@all",
@@ -188,66 +188,66 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #3 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "shortName": ":grinning:",
             "text": "😀",
           },
           "type": "emoji",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "shortName": ":man_facepalming:",
             "text": "🤦‍♂️",
           },
           "type": "emoji",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "shortName": ":flag_ru:",
             "text": "🇷🇺",
           },
           "type": "emoji",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "shortName": ":wtf:",
             "text": ":wtf:",
           },
           "type": "emoji",
         },
-        Object {
+        {
           "text": " ",
           "type": "text",
         },
@@ -261,19 +261,19 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #4 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {},
-      "content": Array [
-        Object {
+{
+  "content": [
+    {
+      "attrs": {},
+      "content": [
+        {
           "text": "some code",
           "type": "text",
         },
       ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
+      "marks": [
+        {
+          "attrs": {
             "mode": "wide",
           },
           "type": "breakout",
@@ -288,18 +288,18 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #5 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
+{
+  "content": [
+    {
+      "content": [
+        {
           "text": "hello",
           "type": "text",
         },
       ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
+      "marks": [
+        {
+          "attrs": {
             "align": "end",
           },
           "type": "alignment",
@@ -307,19 +307,19 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "level": 2,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "world!",
           "type": "text",
         },
       ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
+      "marks": [
+        {
+          "attrs": {
             "align": "end",
           },
           "type": "alignment",
@@ -334,18 +334,18 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #6 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
+{
+  "content": [
+    {
+      "content": [
+        {
           "text": "hello",
           "type": "text",
         },
       ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
+      "marks": [
+        {
+          "attrs": {
             "level": 1,
           },
           "type": "indentation",
@@ -353,19 +353,19 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "level": 2,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "world!",
           "type": "text",
         },
       ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
+      "marks": [
+        {
+          "attrs": {
             "level": 2,
           },
           "type": "indentation",
@@ -380,15 +380,15 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #7 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "layout": "center",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "collection": "SampleCollection",
             "id": "1234",
             "type": "file",
@@ -405,15 +405,15 @@ Object {
 `;
 
 exports[`Builders should be able to generate correct ADF for example #8 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "layout": "center",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "collection": "SampleCollection",
             "id": "1234",
             "type": "file",
@@ -421,9 +421,9 @@ Object {
           "type": "media",
         },
       ],
-      "marks": Array [
-        Object {
-          "attrs": Object {
+      "marks": [
+        {
+          "attrs": {
             "href": "https://www.atlassian.com",
           },
           "type": "link",

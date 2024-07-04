@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import selectEvent from 'react-select-event';
 
 import AtlaskitSelect from '../../..';
+import { act } from 'react-test-renderer';
 
 jest.mock('../../../utils/grouped-options-announcement', () => {
 	const originalModule = jest.requireActual<
@@ -42,7 +43,9 @@ describe('Select', () => {
 		// Menu closed by default
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'false');
 
-		selectEvent.openMenu(screen.getByText('Select...'));
+		act(() => {
+			selectEvent.openMenu(screen.getByText('Select...'));
+		});
 
 		// Menu to open
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
@@ -259,7 +262,9 @@ describe('Select', () => {
 			/>,
 		);
 
-		selectEvent.openMenu(screen.getByText('Select...'));
+		act(() => {
+			selectEvent.openMenu(screen.getByText('Select...'));
+		});
 
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
 		expect(screen.getByText('1')).toBeInTheDocument();

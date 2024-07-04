@@ -35,7 +35,9 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 	allowEventPropagation = false,
 	zIndex = HOVER_CARD_Z_INDEX,
 	noFadeDelay = false,
+	hoverPreviewOptions,
 }) => {
+	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
 	const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
 	const fadeInTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -156,11 +158,11 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 				} else {
 					fadeInTimeoutId.current = setTimeout(() => {
 						setIsOpen(true);
-					}, FADE_IN_DELAY);
+					}, fadeInDelay);
 				}
 			}
 		},
-		[initResolve, isOpen, setMousePosition, noFadeDelay],
+		[initResolve, isOpen, setMousePosition, noFadeDelay, fadeInDelay],
 	);
 
 	const linkActions = useSmartLinkActions({

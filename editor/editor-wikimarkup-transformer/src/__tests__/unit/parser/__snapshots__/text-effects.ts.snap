@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Text effects [CS-576] should allow {color} macro in formatters 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "color": "#ff0000",
               },
               "type": "textColor",
             },
-            Object {
+            {
               "type": "em",
             },
           ],
@@ -39,29 +39,29 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ADFEXP-38 bullet items should not contain code-block marks with others. 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "localId": null,
               },
-              "content": Array [
-                Object {
-                  "marks": Array [
-                    Object {
+              "content": [
+                {
+                  "marks": [
+                    {
                       "type": "strong",
                     },
                   ],
                   "text": "UNE FOIS QUE LE SERVICE ",
                   "type": "text",
                 },
-                Object {
-                  "marks": Array [
-                    Object {
+                {
+                  "marks": [
+                    {
                       "type": "code",
                     },
                   ],
@@ -83,32 +83,32 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ADFEXP-38 ordered list should not contain code-block marks with others. 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "order": 1,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "localId": null,
               },
-              "content": Array [
-                Object {
-                  "marks": Array [
-                    Object {
+              "content": [
+                {
+                  "marks": [
+                    {
                       "type": "strong",
                     },
                   ],
                   "text": "UNE FOIS QUE LE SERVICE ",
                   "type": "text",
                 },
-                Object {
-                  "marks": Array [
-                    Object {
+                {
+                  "marks": [
+                    {
                       "type": "code",
                     },
                   ],
@@ -130,27 +130,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every * and after every * surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -163,27 +163,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every + and after every + surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "underline",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -196,27 +196,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every ?? and after every ?? surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "— symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -229,21 +229,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every ^ and after every ^ surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
@@ -252,7 +252,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -265,27 +265,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every _ and after every _ surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -298,27 +298,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every {{ and after every }} surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -331,21 +331,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every ~ and after every ~ surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -354,7 +354,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -367,27 +367,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-1402 tests text between every - and after every - surrounded by non-breaking space 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strike",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " .",
           "type": "text",
         },
@@ -400,27 +400,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between * and * surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -433,27 +433,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between * and * where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -466,27 +466,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between * and * where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -499,27 +499,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between + and + surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "underline",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -532,27 +532,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between + and + where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "underline",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -565,27 +565,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between + and + where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "underline",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -598,27 +598,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ?? and ?? surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "— symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -631,27 +631,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ?? and ?? where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "— symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -664,27 +664,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ?? and ?? where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "— symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -697,21 +697,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ^ and ^ surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
@@ -720,7 +720,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -733,21 +733,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ^ and ^ where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
@@ -756,7 +756,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -769,21 +769,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ^ and ^ where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
@@ -792,7 +792,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -805,27 +805,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between _ and _ surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -838,27 +838,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between _ and _ where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -871,27 +871,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between _ and _ where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -904,27 +904,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between {{ and }} surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -937,27 +937,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between {{ and }} where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -970,27 +970,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between {{ and }} where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -1003,21 +1003,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ~ and ~ surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -1026,7 +1026,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -1039,21 +1039,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ~ and ~ where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -1062,7 +1062,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -1075,21 +1075,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between ~ and ~ where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -1098,7 +1098,7 @@ Object {
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -1111,27 +1111,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between - and - surrounded by curly braces 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strike",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " surrounded by curly braces.",
           "type": "text",
         },
@@ -1144,27 +1144,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between - and - where curly braces is only at end 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strike",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the closing symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -1177,27 +1177,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2375 tests text between - and - where curly braces is only at starting 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This string tests the ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strike",
             },
           ],
           "text": "symbol",
           "type": "text",
         },
-        Object {
+        {
           "text": " where only the starting symbol is surrounded by the curly braces",
           "type": "text",
         },
@@ -1210,21 +1210,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2439 should not let auto-links end with parenthesis 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/abc",
               },
@@ -1234,7 +1234,7 @@ Object {
           "text": "https://example.com/abc",
           "type": "text",
         },
-        Object {
+        {
           "text": ") text suffix",
           "type": "text",
         },
@@ -1247,21 +1247,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2439 should not let auto-links end with parenthesis in url hash segment 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/abc#abc",
               },
@@ -1271,7 +1271,7 @@ Object {
           "text": "https://example.com/abc#abc",
           "type": "text",
         },
-        Object {
+        {
           "text": ") text suffix",
           "type": "text",
         },
@@ -1284,21 +1284,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects ESS-2439 should remove the last closing parenthesis from the link 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/(",
               },
@@ -1308,7 +1308,7 @@ Object {
           "text": "https://example.com/(",
           "type": "text",
         },
-        Object {
+        {
           "text": ")) text suffix",
           "type": "text",
         },
@@ -1321,16 +1321,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should NOT auto-linkify monospace formatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -1346,21 +1346,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should auto-link ftp urls 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "ftp://example.com/~abc/",
               },
@@ -1370,7 +1370,7 @@ Object {
           "text": "ftp://example.com/~abc/",
           "type": "text",
         },
-        Object {
+        {
           "text": " text suffix",
           "type": "text",
         },
@@ -1383,21 +1383,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should auto-linkify text links with tilde character in it 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/~abc/def/^xyz!bang$.#!.bang",
               },
@@ -1407,7 +1407,7 @@ Object {
           "text": "https://example.com/~abc/def/^xyz!bang$.#!.bang",
           "type": "text",
         },
-        Object {
+        {
           "text": " text suffix",
           "type": "text",
         },
@@ -1420,21 +1420,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should convert double baskslash to a hardBreak node 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a text with a",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "new line in it",
           "type": "text",
         },
@@ -1447,21 +1447,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should default unknown color to black #000000 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a unknown ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "color": "#000000",
               },
               "type": "textColor",
@@ -1479,21 +1479,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should differentiate raw comma from url-encoded comma 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/test%2C,%20space",
               },
@@ -1503,7 +1503,7 @@ Object {
           "text": "https://example.com/test%2C,%20space",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -1516,21 +1516,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should differentiate raw comma from url-encoded comma in a mailto: 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "mailto:test%2C,%20space@example.com",
               },
@@ -1540,7 +1540,7 @@ Object {
           "text": "test%2C,%20space@example.com",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -1553,21 +1553,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should divide marks intervals into combination of marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a *string with a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "color": "#ff0000",
               },
               "type": "textColor",
@@ -1576,7 +1576,7 @@ Object {
           "text": "bold red* text",
           "type": "text",
         },
-        Object {
+        {
           "text": ".",
           "type": "text",
         },
@@ -1589,20 +1589,20 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should find monospace text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a string with ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -1618,27 +1618,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should find strong marks in the text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a string with a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -1651,21 +1651,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not apply marks on separate lines 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a line with an *asterisk",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "another one is here and it should* not be applied",
           "type": "text",
         },
@@ -1678,14 +1678,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not apply strong when ending line is two strong symbols 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "*not valid strong **",
           "type": "text",
         },
@@ -1698,21 +1698,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not double url-encode text links 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://example.com/query=some%20text%20with%20encoded%20space",
               },
@@ -1722,7 +1722,7 @@ Object {
           "text": "http://example.com/query=some%20text%20with%20encoded%20space",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -1735,21 +1735,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not double url-encode text links with a url-encoded comma 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/test%2C%20space",
               },
@@ -1759,7 +1759,7 @@ Object {
           "text": "https://example.com/test%2C%20space",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -1772,21 +1772,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not double url-encode text links with raw comma 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/test,%20space",
               },
@@ -1796,7 +1796,7 @@ Object {
           "text": "https://example.com/test,%20space",
           "type": "text",
         },
-        Object {
+        {
           "text": " text",
           "type": "text",
         },
@@ -1809,39 +1809,39 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not fail while applying marks to a string containing double backslash 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a text ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "with a",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "new",
           "type": "text",
         },
-        Object {
+        {
           "text": " line in it",
           "type": "text",
         },
@@ -1854,21 +1854,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not let auto-links end with a bang 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/",
               },
@@ -1878,7 +1878,7 @@ Object {
           "text": "https://example.com",
           "type": "text",
         },
-        Object {
+        {
           "text": "! text suffix",
           "type": "text",
         },
@@ -1891,21 +1891,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not let auto-links end with a period 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "text prefix ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://example.com/",
               },
@@ -1915,7 +1915,7 @@ Object {
           "text": "https://example.com",
           "type": "text",
         },
-        Object {
+        {
           "text": ". text suffix",
           "type": "text",
         },
@@ -1928,17 +1928,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not replace marks in the middle of the word 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://app.datadoghq.com/screen/220506/product-fabric-content-service?tv_mode=true",
               },
@@ -1951,15 +1951,15 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://app.datadoghq.com/screen/282018/product-fabric-adf-service?tv_mode=true#close",
               },
@@ -1978,27 +1978,27 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should not search for monospace text inside code macro 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a string with ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "language": "java",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "mono {{space}} text",
           "type": "text",
         },
@@ -2011,20 +2011,20 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process citation 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
@@ -2040,20 +2040,20 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process deleted 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strike",
             },
           ],
@@ -2069,20 +2069,20 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process emphasis 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "em",
             },
           ],
@@ -2098,20 +2098,20 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process inserted 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "underline",
             },
           ],
@@ -2127,34 +2127,34 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process string with a wrong order of effects 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "strong ^string",
           "type": "text",
         },
-        Object {
+        {
           "text": " with a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -2163,7 +2163,7 @@ Object {
           "text": "^ bla*",
           "type": "text",
         },
-        Object {
+        {
           "text": "~",
           "type": "text",
         },
@@ -2176,21 +2176,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process subscript 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
@@ -2208,21 +2208,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should process superscript 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
@@ -2240,38 +2240,38 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Text effects should use code mark first if it's the inner mark 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
           "text": "bold ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
           "text": "monospace",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],

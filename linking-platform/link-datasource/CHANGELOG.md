@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.5.5
+
+### Patch Changes
+
+- [#117036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117036)
+  [`12be11351ef3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/12be11351ef3d) -
+  Updates typing of JiraJQLEditor component to be compatible for React18
+- Updated dependencies
+
 ## 2.5.4
 
 ### Patch Changes

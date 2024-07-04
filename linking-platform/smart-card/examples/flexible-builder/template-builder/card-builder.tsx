@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import CheckboxOption from './inputs/checkbox-option';
 import { type CardProps } from '@atlaskit/smart-card';
 import SelectOption from './inputs/select-option';
@@ -26,11 +26,15 @@ const frameOptions = [
 	{ label: 'showOnHover', value: 'showOnHover' },
 ];
 
-const CardBuilder: React.FC<{
+const CardBuilder = ({
+	display,
+	onChange,
+	template = {},
+}: {
 	display?: TemplateDisplay;
 	onChange: (template: Partial<CardProps>) => void;
 	template?: Partial<CardProps>;
-}> = ({ display, onChange, template = {} }) => {
+}) => {
 	const isInline = useMemo(() => display === 'inline', [display]);
 	const isBlock = useMemo(() => display === 'block', [display]);
 	const isEmbed = useMemo(() => display === 'embed', [display]);

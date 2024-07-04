@@ -91,6 +91,7 @@
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
 		"react-select-event": "^5.5.0",
+		"react-test-renderer": "^16.8.0",
 		"react-value": "^0.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

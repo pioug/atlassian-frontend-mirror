@@ -57,7 +57,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 		expect(firstButton).toBeInTheDocument();
 		fireEvent.click(firstButton);
 
-		jest.runTimersToTime(500); // Skip the animation
+		jest.advanceTimersByTime(500); // Skip the animation
 
 		expect(onSelection).toHaveBeenCalled();
 	});

@@ -50,7 +50,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"jest-in-case": "^1.0.2",
 		"jscodeshift": "^0.13.0",

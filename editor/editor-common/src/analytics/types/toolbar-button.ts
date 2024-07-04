@@ -19,6 +19,7 @@ export enum TOOLBAR_ACTION_SUBJECT_ID {
 	INDENT = 'indent',
 	OUTDENT = 'outdent',
 	RECORD_VIDEO = 'recordVideo',
+	AI = 'atlassian-intelligence',
 }
 
 type ToolbarButtonClickedAEP = UIAEP<

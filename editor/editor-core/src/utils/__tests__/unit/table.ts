@@ -17,8 +17,9 @@ import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-pro
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, table, td, tdEmpty, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 
+const createEditor = createProsemirrorEditorFactory();
 const editorFactory = (doc: DocBuilder) => {
-	const editor = createProsemirrorEditorFactory()({
+	const editor = createEditor({
 		doc,
 		preset: new Preset<LightEditorPlugin>()
 			.add([featureFlagsPlugin, {}])
@@ -84,14 +85,16 @@ describe('isPositionNearTableRow()', () => {
 		const actual = isPositionNearTableRow(pos, schema, 'before');
 		expect(actual).toBe(false);
 	});
-	it('return false when tableRow is not in the schema', () => {
+	describe('tableRow not in schema', () => {
 		const editor = createProsemirrorEditorFactory()({
 			doc: doc(p('{<>}')),
 			preset: new Preset<LightEditorPlugin>(),
 		});
-		const { state } = editor.editorView;
-		const pos = state.doc.resolve(editor.refs['<>']);
-		const actual = isPositionNearTableRow(pos, state.schema, 'before');
-		expect(actual).toBe(false);
+		it('return false when tableRow is not in the schema', () => {
+			const { state } = editor.editorView;
+			const pos = state.doc.resolve(editor.refs['<>']);
+			const actual = isPositionNearTableRow(pos, state.schema, 'before');
+			expect(actual).toBe(false);
+		});
 	});
 });

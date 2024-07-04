@@ -20,12 +20,12 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "margin": "8px",
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "margin": "8px",
+		  },
+		}
+	`);
 	});
 
 	it('transforms token styles', () => {
@@ -41,18 +41,18 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "boxShadow": "var(--ds-shadow-overflow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)",
-          "color": "var(--ds-text, #172B4D)",
-          "insetBlock": "var(--ds-space-negative-150, -12px)",
-          "margin": "var(--ds-space-negative-200, -16px)",
-          "padding": "var(--ds-space-100, 8px)",
-          "top": "var(--ds-space-negative-050, -4px)",
-          "zIndex": 500,
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "boxShadow": "var(--ds-shadow-overflow, 0px 0px 8px #091e423f, 0px 0px 1px #091e424f)",
+		    "color": "var(--ds-text, #172B4D)",
+		    "insetBlock": "var(--ds-space-negative-150, -12px)",
+		    "margin": "var(--ds-space-negative-200, -16px)",
+		    "padding": "var(--ds-space-100, 8px)",
+		    "top": "var(--ds-space-negative-050, -4px)",
+		    "zIndex": 500,
+		  },
+		}
+	`);
 	});
 
 	it('does not transform non-transformable properties', () => {
@@ -61,12 +61,12 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "margin": "8px",
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "margin": "8px",
+		  },
+		}
+	`);
 	});
 
 	it('handles CSSObjects with both token styles and non-token styles', () => {
@@ -76,13 +76,13 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "borderColor": "var(--ds-border, #091e4221)",
-          "justifyContent": "center",
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "borderColor": "var(--ds-border, #091e4221)",
+		    "justifyContent": "center",
+		  },
+		}
+	`);
 	});
 
 	it('transforms pseudo classes', () => {
@@ -97,18 +97,18 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          ":hover": Object {
-            "borderWidth": "var(--ds-border-width-outline, 2px)",
-            "display": "flex",
-          },
-          ":visited": Object {
-            "borderWidth": "var(--ds-border-width, 1px)",
-          },
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    ":hover": {
+		      "borderWidth": "var(--ds-border-width-outline, 2px)",
+		      "display": "flex",
+		    },
+		    ":visited": {
+		      "borderWidth": "var(--ds-border-width, 1px)",
+		    },
+		  },
+		}
+	`);
 	});
 
 	it('allows CSS transitions', () => {
@@ -117,12 +117,12 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "transition": "all 0.3s",
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "transition": "all 0.3s",
+		  },
+		}
+	`);
 	});
 
 	it('allows pseudo elements', () => {
@@ -139,19 +139,19 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "::before": Object {
-            "content": ">",
-          },
-          "@media (min-width: 110.5rem)": Object {
-            ":hover": Object {
-              "color": "var(--ds-text, #172B4D)",
-            },
-          },
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "::before": {
+		      "content": ">",
+		    },
+		    "@media (min-width: 110.5rem)": {
+		      ":hover": {
+		        "color": "var(--ds-text, #172B4D)",
+		      },
+		    },
+		  },
+		}
+	`);
 	});
 
 	it('allows @supports elements', () => {
@@ -162,14 +162,14 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "@supports not selector(*:focus-visible)": Object {
-            "padding": "var(--ds-space-100, 8px)",
-          },
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "@supports not selector(*:focus-visible)": {
+		      "padding": "var(--ds-space-100, 8px)",
+		    },
+		  },
+		}
+	`);
 	});
 
 	it('allows valid interpolated keys', () => {
@@ -183,14 +183,14 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          ":hover": Object {
-            "gap": "var(--ds-space-200, 16px)",
-          },
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    ":hover": {
+		      "gap": "var(--ds-space-200, 16px)",
+		    },
+		  },
+		}
+	`);
 	});
 
 	it('allows non-token values to be passed through for tokenisable properties', () => {
@@ -205,14 +205,14 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "color": "#F0F0F0",
-          "padding": "10px",
-          "top": 0,
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "color": "#F0F0F0",
+		    "padding": "10px",
+		    "top": 0,
+		  },
+		}
+	`);
 	});
 
 	it('allows non-token values to be passed through for tokenisable properties', () => {
@@ -231,17 +231,17 @@ describe('xcss()', () => {
 		});
 
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "@media (min-width: 100px)": Object {
-            "padding": "var(--ds-space-100, 8px)",
-          },
-          "color": "#F0F0F0",
-          "padding": "10px",
-          "top": 0,
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "@media (min-width: 100px)": {
+		      "padding": "var(--ds-space-100, 8px)",
+		    },
+		    "color": "#F0F0F0",
+		    "padding": "10px",
+		    "top": 0,
+		  },
+		}
+	`);
 	});
 
 	it('should not throw warning on flexShrink: 0', () => {
@@ -252,12 +252,12 @@ describe('xcss()', () => {
 		// eslint-disable-next-line no-console
 		expect(console.warn).not.toHaveBeenCalled();
 		expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Object {
-          "flexShrink": "0",
-        },
-      }
-    `);
+		{
+		  Symbol(UNSAFE_INTERNAL_styles): {
+		    "flexShrink": "0",
+		  },
+		}
+	`);
 	});
 
 	it('throws on unsupported selectors', () => {

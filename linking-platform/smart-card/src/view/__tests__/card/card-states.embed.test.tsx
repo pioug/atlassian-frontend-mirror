@@ -338,14 +338,16 @@ describe('smart-card: card states, embed', () => {
 							description: 'Contact your admin to request access to site.atlassian.net.',
 						},
 					],
-				])('%s', (name: string, context: ContextProp, expected: ContentProps) => async () => {
-					const { container, findByText } = await setup(mockResponse(context));
+				])('%s', (name: string, context: ContextProp, expected: ContentProps) => {
+					async () => {
+						const { container, findByText } = await setup(mockResponse(context));
 
-					expect(await findByText(expected.title)).toBeVisible();
-					expect(container).toHaveTextContent(expected.description);
-					if (expected.button) {
-						expect(await findByText(expected.button)).toBeVisible();
-					}
+						expect(await findByText(expected.title)).toBeVisible();
+						expect(container).toHaveTextContent(expected.description);
+						if (expected.button) {
+							expect(await findByText(expected.button)).toBeVisible();
+						}
+					};
 				});
 			});
 		});
@@ -512,14 +514,16 @@ describe('smart-card: card states, embed', () => {
 							"You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
 					},
 				],
-			])('%s', (name: string, response: JsonLd.Response, expected: ContentProps) => async () => {
-				const { container, findByText } = await setup(response);
+			])('%s', (name: string, response: JsonLd.Response, expected: ContentProps) => {
+				async () => {
+					const { container, findByText } = await setup(response);
 
-				expect(await findByText(expected.title)).toBeVisible();
-				expect(container).toHaveTextContent(expected.description);
-				if (expected.button) {
-					expect(await findByText(expected.button)).toBeVisible();
-				}
+					expect(await findByText(expected.title)).toBeVisible();
+					expect(container).toHaveTextContent(expected.description);
+					if (expected.button) {
+						expect(await findByText(expected.button)).toBeVisible();
+					}
+				};
 			});
 		});
 

@@ -9,6 +9,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N100A, N40A, N50A, R300, R50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -35,7 +36,8 @@ export const expandStyles = () => css`
 
 	.${expandClassNames.prefix} {
 		${sharedExpandStyles.containerStyles({ expanded: false, focused: false })()}
-		overflow: hidden;
+		${!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') && `overflow: hidden;`}
+
 		cursor: pointer;
 		box-sizing: border-box;
 
@@ -70,6 +72,7 @@ export const expandStyles = () => css`
 		${sharedExpandStyles.contentStyles({ expanded: false, focused: false })()}
 		cursor: text;
 		padding-top: 0px;
+		${fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') && `overflow-x: clip;`}
 	}
 
 	.${expandClassNames.titleInput} {

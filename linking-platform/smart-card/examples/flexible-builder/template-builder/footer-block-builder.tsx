@@ -4,11 +4,11 @@ import { SmartLinkSize } from '../../../src';
 import EnumOption from './inputs/enum-option';
 import ActionOption from './inputs/action-option';
 
-const FooterBlockBuilder: React.FC<BlockBuilderProps> = ({
+const FooterBlockBuilder = ({
 	onChange,
 	size = SmartLinkSize.Medium,
 	template,
-}) => {
+}: BlockBuilderProps) => {
 	return (
 		<div>
 			<EnumOption

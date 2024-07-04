@@ -19,19 +19,19 @@ describe('UsageFrequencyTracker', () => {
 			expect(() => new Gateway(0)).toThrow(RangeError);
 		});
 
-		it('should allow work when none in-flight', async (done) => {
+		it('should allow work when none in-flight', (done) => {
 			const gateway = new Gateway(1);
 			expect(
 				gateway.submit(async () => {
 					// Gateway internally invokes the submit callback via a setTimeout which runs on the next tick in the event loop.
 					// To avoid an Invariation Violation in React we use async/await to ensure the test suit hasn't dismounted
 					// before the callback is triggered.
-					await done();
+					done();
 				}),
 			).toEqual(true);
 		});
 
-		it('should prevent work when too much in flight', async (done) => {
+		it('should prevent work when too much in flight', (done) => {
 			const queueSize = 2;
 			let doneCounter = 0;
 			const doneCollector = async () => {
@@ -40,7 +40,7 @@ describe('UsageFrequencyTracker', () => {
 					// Gateway internally invokes the submit callback via a setTimeout which runs on the next tick in the event loop.
 					// To avoid an Invariation Violation in React we use async/await to ensure the test suit hasn't dismounted
 					// before the callback is triggered.
-					await done();
+					done();
 				} else {
 					await Promise.resolve();
 				}
@@ -65,7 +65,7 @@ describe('UsageFrequencyTracker', () => {
 			).toEqual(false);
 		});
 
-		it('should allow more work once in-flight work completes', async (done) => {
+		it('should allow more work once in-flight work completes', async () => {
 			const queueSize = 2;
 			let completedCounter = 0;
 
@@ -108,7 +108,7 @@ describe('UsageFrequencyTracker', () => {
 				// Gateway internally invokes the submit callback via a setTimeout which runs on the next tick in the event loop.
 				// To avoid an Invariation Violation in React we use async/await to ensure the test suit hasn't dismounted
 				// before the callback is triggered.
-			}).then(async () => await done());
+			});
 		});
 	});
 

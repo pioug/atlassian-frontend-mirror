@@ -46,12 +46,17 @@ const options = Object.values(ActionName)
 		value: name,
 	}));
 
-const ActionOption: React.FC<{
+const ActionOption = ({
+	name,
+	onChange,
+	propName,
+	template,
+}: {
 	name: string;
 	onChange: (template: BlockTemplate) => void;
 	propName: keyof BlockTemplate;
 	template: BlockTemplate;
-}> = ({ name, onChange, propName, template }) => {
+}) => {
 	const [actionName, setActionName] = useState<ActionName>();
 	const [hideIcon, setHideIcon] = useState<boolean>(false);
 	const [hideContent, setHideContent] = useState<boolean>(false);

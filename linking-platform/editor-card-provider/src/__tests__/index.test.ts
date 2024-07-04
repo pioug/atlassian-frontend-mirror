@@ -385,7 +385,7 @@ describe('providers > editor', () => {
 		['Youtube.ch link', 'https://www.youtube.ch/watch?v=w7ejDZ8SWv8'],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
+		(_, url) => {
 			ffTest(
 				'platform.linking-platform.embed-youtube-by-default',
 				async () => {
@@ -1558,7 +1558,7 @@ describe('providers > editor', () => {
 		],
 	])(
 		'returns embedCard when %s link is inserted, calling /providers and /resolve/batch endpoint',
-		async (_, url) => {
+		(_, url) => {
 			ffTest(
 				'platform.linking-platform.jira-dashboard-embed_ycjcj',
 				async () => {

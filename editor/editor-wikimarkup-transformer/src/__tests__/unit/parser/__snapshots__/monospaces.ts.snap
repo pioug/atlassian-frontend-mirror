@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert attachment links inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -26,16 +26,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert bold formatting inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -51,16 +51,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert citation inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -76,16 +76,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert italic formatting inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -101,16 +101,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert rulers inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -126,16 +126,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert strikethrough inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -151,16 +151,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert subscript inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -176,16 +176,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert superscript inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -201,16 +201,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should NOT convert wiki-links inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -226,16 +226,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should convert raw link text inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -251,16 +251,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should not convert color macro inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -276,16 +276,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1470] should not convert raw text around links inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -301,16 +301,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text [CS-1553] should NOT convert bullet lists inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],
@@ -326,16 +326,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Preformatted text should NOT convert media inside preformatted text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "code",
             },
           ],

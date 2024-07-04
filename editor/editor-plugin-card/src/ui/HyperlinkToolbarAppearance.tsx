@@ -9,7 +9,7 @@ import type { CardProvider, ProviderFactory } from '@atlaskit/editor-common/prov
 import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg, getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import type { CardPlatform } from '@atlaskit/smart-card';
 
@@ -43,6 +43,10 @@ export class HyperlinkToolbarAppearance extends Component<
 	cardProvider?: CardProvider;
 
 	private getProvider = async (): Promise<CardProvider> => {
+		if (this.props.cardOptions?.provider && fg('platform_editor_get_card_provider_from_config')) {
+			return this.props.cardOptions?.provider;
+		}
+
 		if (this.cardProvider) {
 			return this.cardProvider;
 		}
@@ -69,7 +73,7 @@ export class HyperlinkToolbarAppearance extends Component<
 		let isUrlSupported = false;
 		try {
 			const provider = await this.getProvider();
-			isUrlSupported = await provider.findPattern(url);
+			isUrlSupported = (await provider?.findPattern(url)) ?? false;
 		} catch (error) {
 			isUrlSupported = false;
 		}

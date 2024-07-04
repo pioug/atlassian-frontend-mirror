@@ -1,4 +1,3 @@
-// This file is copied to `packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/ToolbarButton/index.tsx`
 // If you make any change here, copy it to above file as well
 // and notify about the change in #team-fc-editor-ai-dev channel.
 /** @jsx jsx */

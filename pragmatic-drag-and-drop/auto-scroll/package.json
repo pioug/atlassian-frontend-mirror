@@ -61,7 +61,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"bind-event-listener": "^3.0.0",
 		"raf-stub": "^2.0.1",
 		"tiny-invariant": "^1.2.0",

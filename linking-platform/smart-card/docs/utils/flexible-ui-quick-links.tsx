@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import customMd from './custom-md';
@@ -21,6 +20,6 @@ const links = customMd`
 • [ActionItem](./action-item)
 `;
 
-const FlexibleUiQuickLinks: React.FC = () => <section css={styles}>{links}</section>;
+const FlexibleUiQuickLinks = () => <section css={styles}>{links}</section>;
 
 export default FlexibleUiQuickLinks;

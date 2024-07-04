@@ -57,7 +57,7 @@ describe('document-service', () => {
 			let service: DocumentService;
 			let analyticsMock: AnalyticsHelper;
 			beforeEach(() => {
-				jest.useFakeTimers();
+				jest.useFakeTimers({ legacyFakeTimers: true });
 				const mocks = createMockService();
 				analyticsMock = mocks.analyticsHelperMock;
 				service = mocks.service;
@@ -226,7 +226,7 @@ describe('document-service', () => {
 		});
 		describe('getFinalAcknowledgedState', () => {
 			beforeEach(() => {
-				jest.useFakeTimers();
+				jest.useFakeTimers({ legacyFakeTimers: true });
 			});
 
 			it('Returns current document state after trying to commit all steps', async () => {
@@ -448,7 +448,7 @@ describe('document-service', () => {
 			});
 
 			it('If no steps originate from (i.e. no confirmations on steps we added), try to save our steps again', () => {
-				jest.useFakeTimers();
+				jest.useFakeTimers({ legacyFakeTimers: true });
 				const { service } = createMockService();
 				jest.spyOn(service, 'sendStepsFromCurrentState');
 				const THIS_CLIENT = 'THIS_CLIENT';
@@ -467,7 +467,9 @@ describe('document-service', () => {
 			});
 
 			it('catchupv2 : Handles errors thrown', () => {
-				const { service, providerEmitCallbackMock, analyticsHelperMock } = createMockService();
+				const { service, providerEmitCallbackMock, analyticsHelperMock } = createMockService({
+					featureFlags: { reconcileOnRecovery: false },
+				});
 
 				jest.spyOn(service, 'throttledCatchupv2').mockImplementation();
 				const mockError = new Error('MyMockError');
@@ -592,7 +594,7 @@ describe('document-service', () => {
 
 			it('catchupv2 : Processes all the steps in the queue after catchupv2', async () => {
 				const mocks = createMockService({
-					featureFlags: { enableCatchupv2: true },
+					featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
 				});
 				service = mocks.service;
 				// @ts-ignore - processSteps is private function
@@ -748,7 +750,7 @@ describe('document-service', () => {
 			});
 
 			it('Try to re-send steps on step commit errors', () => {
-				jest.useFakeTimers();
+				jest.useFakeTimers({ legacyFakeTimers: true });
 				const { service } = createMockService();
 				jest.spyOn(service, 'sendStepsFromCurrentState');
 				service.onStepRejectedError();
@@ -758,7 +760,9 @@ describe('document-service', () => {
 			});
 
 			it('catchupv2 : Calls catchupv2 after trying "MAX_STEP_REJECTED_ERROR" times', () => {
-				const { service } = createMockService();
+				const { service } = createMockService({
+					featureFlags: { reconcileOnRecovery: false },
+				});
 				jest.spyOn(service, 'throttledCatchupv2');
 
 				for (let i = 0; i < MAX_STEP_REJECTED_ERROR; i++) {

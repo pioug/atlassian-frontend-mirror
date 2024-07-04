@@ -1,13 +1,12 @@
 jest.mock('@atlaskit/link-provider', () => {
 	return {
-		...jest.requireActual<Object>('@atlaskit/link-provider'),
+		...jest.requireActual<NonNullable<unknown>>('@atlaskit/link-provider'),
 		useFeatureFlag: jest.fn(),
 	};
 });
 
 import { renderHook } from '@testing-library/react-hooks';
 import { type JsonLd } from 'json-ld-types';
-import { mocked } from 'ts-jest/utils';
 
 import { mocks } from '../../../utils/mocks';
 import { useSmartCardState } from '../../store';
@@ -40,8 +39,8 @@ const mockNoActions = () => {
 	const state: CardState = { details, status: 'resolved' };
 	const props = { icon: {}, actions: [] };
 
-	mocked(useSmartCardState).mockReturnValueOnce(state);
-	mocked(extractBlockProps).mockReturnValueOnce(props);
+	jest.mocked(useSmartCardState).mockReturnValueOnce(state);
+	jest.mocked(extractBlockProps).mockReturnValueOnce(props);
 };
 
 const mockWithActions = () => {
@@ -56,8 +55,8 @@ const mockWithActions = () => {
 		],
 	};
 
-	mocked(useSmartCardState).mockImplementation(() => state);
-	mocked(extractBlockProps).mockImplementation(() => props);
+	jest.mocked(useSmartCardState).mockImplementation(() => state);
+	jest.mocked(extractBlockProps).mockImplementation(() => props);
 
 	return handler;
 };
@@ -72,7 +71,8 @@ const mockLifecycle = () => {
 		status: 'resolved',
 	};
 
-	mocked(useSmartCardState)
+	jest
+		.mocked(useSmartCardState)
 		.mockImplementationOnce(() => pendingState)
 		.mockImplementationOnce(() => resolvingState)
 		.mockImplementationOnce(() => resolvedState);
@@ -85,7 +85,7 @@ const mockLifecycle = () => {
 		],
 	};
 
-	mocked(extractBlockProps).mockImplementation(() => props);
+	jest.mocked(extractBlockProps).mockImplementation(() => props);
 };
 
 describe(useSmartLinkActions.name, () => {

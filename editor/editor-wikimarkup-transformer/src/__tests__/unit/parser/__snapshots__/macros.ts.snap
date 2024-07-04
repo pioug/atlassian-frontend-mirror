@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Macros [CS-602] macro keyword is case insensitive 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "error",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "red",
               "type": "text",
             },
@@ -33,17 +33,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros [CS-1470] code macro converts to code node with java language 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "language": "java",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "public static main(String test) {
-        System.out.print(\\"test\\");
+        System.out.print("test");
      }",
           "type": "text",
         },
@@ -56,15 +56,15 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros [CS-1470] code macro converts to code node with xml language 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "language": "xml",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "<test attr='value'><nested/></test>",
           "type": "text",
         },
@@ -77,15 +77,15 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros [CS-1470] noformat macro converts to code node with no language 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "language": null,
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "preformatted
 text
 with
@@ -101,32 +101,32 @@ linebreaks",
 `;
 
 exports[`JIRA wiki markup - Macros [CS-3139] code macro accepts C++ as language 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
-          "text": "\\"This is a plus + sign\\"",
+          "text": ""This is a plus + sign"",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "language": "c++",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "const a = 3 + 7",
           "type": "text",
         },
@@ -139,34 +139,34 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly inside list - fewer newlines 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "order": 1,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "localId": null,
               },
-              "content": Array [
-                Object {
+              "content": [
+                {
                   "text": "a ",
                   "type": "text",
                 },
               ],
               "type": "paragraph",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "language": "java",
                 "uniqueId": null,
               },
-              "content": Array [
-                Object {
+              "content": [
+                {
                   "text": "b 
 zz c 
 d",
@@ -187,34 +187,34 @@ d",
 `;
 
 exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly inside list - ignore list inside codeblock 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "order": 1,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "localId": null,
               },
-              "content": Array [
-                Object {
+              "content": [
+                {
                   "text": "a ",
                   "type": "text",
                 },
               ],
               "type": "paragraph",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "language": "java",
                 "uniqueId": null,
               },
-              "content": Array [
-                Object {
+              "content": [
+                {
                   "text": "b 
 ** c 
 d",
@@ -235,34 +235,34 @@ d",
 `;
 
 exports[`JIRA wiki markup - Macros ADFEXP-492: Code block renders correctly inside list 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "order": 1,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "localId": null,
               },
-              "content": Array [
-                Object {
+              "content": [
+                {
                   "text": "a ",
                   "type": "text",
                 },
               ],
               "type": "paragraph",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "language": "java",
                 "uniqueId": null,
               },
-              "content": Array [
-                Object {
+              "content": [
+                {
                   "text": "b 
 zz c 
 d",
@@ -283,17 +283,17 @@ d",
 `;
 
 exports[`JIRA wiki markup - Macros ADFS-277 should not blow up when default color is passed 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "color": "#000000",
               },
               "type": "textColor",
@@ -311,10 +311,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros ADFS-719 should not blow up when a valid adf macro is passed in 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
       "type": "paragraph",
@@ -325,16 +325,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros ADFS-719 should place invalid adf macro inside a code block w/err msg 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "language": null,
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
-          "text": "Invalid ADF Macro: {\\"invalid\\": \\"foobar\\"}",
+      "content": [
+        {
+          "text": "Invalid ADF Macro: {"invalid": "foobar"}",
           "type": "text",
         },
       ],
@@ -346,14 +346,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros ESS-2539 should ignore the newline right before an empty node 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is sample text ",
           "type": "text",
         },
@@ -366,21 +366,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros ESS-2539 should not ignore the newline if there is text after empty node 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is sample text ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": " some text",
           "type": "text",
         },
@@ -393,32 +393,32 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros Should take only first occurrence of attribute into account 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
-          "text": "\\"the real title\\"",
+          "text": ""the real title"",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "language": "java",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "const a = 3 + 7",
           "type": "text",
         },
@@ -431,16 +431,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros Should work with multiple equal signs in a single attribute 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -450,13 +450,13 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "language": "java",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "const a = 3 + 7",
           "type": "text",
         },
@@ -469,17 +469,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should allow pipes within colour macro, and not render as a table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "color": "#6554c0",
               },
               "type": "textColor",
@@ -497,25 +497,25 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should collapse and join outer macros 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -525,12 +525,12 @@ Object {
           ],
           "type": "paragraph",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "This text is inside panel",
               "type": "text",
             },
@@ -540,10 +540,10 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
           "type": "paragraph",
@@ -551,21 +551,21 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "quote",
               "type": "text",
             },
@@ -575,22 +575,22 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "only quote",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
           "type": "paragraph",
@@ -604,25 +604,25 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should collapse outer macros 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -635,14 +635,14 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "Panel with nested quote here",
               "type": "text",
             },
@@ -652,12 +652,12 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": ".",
           "type": "text",
         },
@@ -670,28 +670,28 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should convert multiple quotes containing string 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "quote1",
               "type": "text",
             },
@@ -701,14 +701,14 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "quote2",
               "type": "text",
             },
@@ -724,25 +724,25 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should convert panels 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -752,12 +752,12 @@ Object {
           ],
           "type": "paragraph",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "Panel with nested quote here",
               "type": "text",
             },
@@ -773,16 +773,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should convert simple quotes into a top level node 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "simple quote",
               "type": "text",
             },
@@ -798,28 +798,28 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should convert string with quote into paragraph and quote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a string with a ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "quote",
               "type": "text",
             },
@@ -835,23 +835,23 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should lift attachment node when it is inside macro 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "this is a text",
               "type": "text",
             },
@@ -861,10 +861,10 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -883,8 +883,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -903,8 +903,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -926,17 +926,17 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
           "type": "paragraph",
@@ -944,10 +944,10 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -966,8 +966,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -986,8 +986,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1006,8 +1006,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1026,8 +1026,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1046,8 +1046,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1069,21 +1069,21 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "text",
               "type": "text",
             },
@@ -1093,10 +1093,10 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1115,8 +1115,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1135,8 +1135,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1158,21 +1158,21 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "this is a text as well",
               "type": "text",
             },
@@ -1188,16 +1188,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should lift attachment node when it is inside quote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "this is text inside a quote",
               "type": "text",
             },
@@ -1207,10 +1207,10 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1229,8 +1229,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1249,8 +1249,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1272,10 +1272,10 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1294,8 +1294,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1314,8 +1314,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1334,8 +1334,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1354,8 +1354,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1374,8 +1374,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1397,14 +1397,14 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "text",
               "type": "text",
             },
@@ -1414,10 +1414,10 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1436,8 +1436,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1456,8 +1456,8 @@ Object {
           },
           "type": "media",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -1479,14 +1479,14 @@ Object {
       ],
       "type": "mediaGroup",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "this is text at end of a quote",
               "type": "text",
             },
@@ -1502,23 +1502,23 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should lift rule node when it is inside macro 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "this is a text",
               "type": "text",
             },
@@ -1528,24 +1528,24 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
+    {
       "type": "rule",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "this is a text as well",
               "type": "text",
             },
@@ -1561,25 +1561,25 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should map panel bgColor in colorName to panel type 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "error",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -1589,12 +1589,12 @@ Object {
           ],
           "type": "paragraph",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "Panel with nested quote here",
               "type": "text",
             },
@@ -1610,25 +1610,25 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should map panel bgColor in hex value to panel type 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "success",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -1638,12 +1638,12 @@ Object {
           ],
           "type": "paragraph",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "Panel with nested quote here",
               "type": "text",
             },
@@ -1659,25 +1659,25 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should map panel bgColor in hex value to panel type 2`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -1687,12 +1687,12 @@ Object {
           ],
           "type": "paragraph",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "Panel with nested quote here",
               "type": "text",
             },
@@ -1708,15 +1708,15 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should not process code contents 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "language": "xml",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a {color:red}colored text{color}{noformat}",
           "type": "text",
         },
@@ -1729,15 +1729,15 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should not process noformat contents 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "language": null,
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "{code}code inside noformat{code}",
           "type": "text",
         },
@@ -1750,16 +1750,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should process code with title 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -1769,13 +1769,13 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "language": "java",
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "const i = 0;",
           "type": "text",
         },
@@ -1788,14 +1788,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render {anchor} as empty string 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "You cannot see this ",
           "type": "text",
         },
@@ -1808,14 +1808,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render {loremipsum} as plain text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is plain text {loremipsum}",
           "type": "text",
         },
@@ -1828,23 +1828,23 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render green success panel 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "success",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "green",
               "type": "text",
             },
@@ -1860,32 +1860,32 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render list in a blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "something",
               "type": "text",
             },
           ],
           "type": "paragraph",
         },
-        Object {
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
-                  "attrs": Object {
+        {
+          "content": [
+            {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "list item",
                       "type": "text",
                     },
@@ -1907,14 +1907,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render macro likes {macrolike} as plain text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is plain text {macrolike}",
           "type": "text",
         },
@@ -1927,23 +1927,23 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render red error panel 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "error",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "red",
               "type": "text",
             },
@@ -1959,29 +1959,29 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should render rule node if it is on the top level 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a text",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
+    {
       "type": "rule",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a text as well",
           "type": "text",
         },
@@ -1994,28 +1994,28 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should split nodes if there is more than one level of depth 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "quote with a ",
               "type": "text",
             },
@@ -2025,21 +2025,21 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "panel",
               "type": "text",
             },
@@ -2049,14 +2049,14 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": " inside",
               "type": "text",
             },
@@ -2066,12 +2066,12 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": ".",
           "type": "text",
         },
@@ -2084,35 +2084,35 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should support strings with a wrong order of macros 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "panel with a ",
               "type": "text",
             },
@@ -2122,10 +2122,10 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
           "type": "paragraph",
@@ -2133,21 +2133,21 @@ Object {
       ],
       "type": "blockquote",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "panelColor": null,
         "panelIcon": null,
         "panelIconId": null,
         "panelIconText": null,
         "panelType": "info",
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
+          "content": [
+            {
               "text": "quote inside",
               "type": "text",
             },
@@ -2157,22 +2157,22 @@ Object {
       ],
       "type": "panel",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": " but it is broken",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
           "type": "paragraph",
@@ -2186,16 +2186,16 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should title of noformat 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
+      "content": [
+        {
+          "marks": [
+            {
               "type": "strong",
             },
           ],
@@ -2205,13 +2205,13 @@ Object {
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "language": null,
         "uniqueId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "code inside noformat",
           "type": "text",
         },
@@ -2224,18 +2224,18 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should transform h1 to Bold and Uppercase under blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -2254,21 +2254,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should transform h2 to Bold and Italic under blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
-                Object {
+                {
                   "type": "em",
                 },
               ],
@@ -2287,18 +2287,18 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should transform h3 to Bold under blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
               ],
@@ -2317,22 +2317,22 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should transform h4 to Bold and Gray under blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "strong",
                 },
-                Object {
-                  "attrs": Object {
+                {
+                  "attrs": {
                     "color": "#97a0af",
                   },
                   "type": "textColor",
@@ -2353,22 +2353,22 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should transform h5 to Italic and Gray under blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
+          "content": [
+            {
+              "marks": [
+                {
                   "type": "em",
                 },
-                Object {
-                  "attrs": Object {
+                {
+                  "attrs": {
                     "color": "#97a0af",
                   },
                   "type": "textColor",
@@ -2389,19 +2389,19 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Macros should transform h6 to Gray under blockquote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "attrs": Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "attrs": {
             "localId": null,
           },
-          "content": Array [
-            Object {
-              "marks": Array [
-                Object {
-                  "attrs": Object {
+          "content": [
+            {
+              "marks": [
+                {
+                  "attrs": {
                     "color": "#97a0af",
                   },
                   "type": "textColor",

@@ -14,7 +14,7 @@
 	"types": "dist/types/index.d.ts",
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "Editor: Scarlet",
+		"team": "Editor: Core Experiences",
 		"releaseModel": "continuous",
 		"website": {
 			"name": "Status"

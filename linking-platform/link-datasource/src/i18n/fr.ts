@@ -117,6 +117,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Non',
   'linkDataSource.render-type.boolean.true': 'Oui',
   'linkDataSource.render-type.user.default.display.name': 'Non assigné',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} ticket} other {{searchCount,number} tickets}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} tâche} other {{searchCount,number} tâches}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} résultat} other {{searchCount,number} résultats}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': "Synchronisé à l'instant",
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisé le {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {élément} other {éléments}}',

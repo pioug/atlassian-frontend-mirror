@@ -1,6 +1,6 @@
 import DelayedFunction from '../../delayed-function';
 
-jest.useFakeTimers();
+jest.useFakeTimers({ legacyFakeTimers: true });
 const mockCallback = jest.fn();
 
 describe('@atlaskit/tree - utils/delayed-function', () => {

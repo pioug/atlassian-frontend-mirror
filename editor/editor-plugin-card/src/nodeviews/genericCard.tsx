@@ -54,6 +54,8 @@ export interface CardProps extends CardNodeViewProps {
 	actionOptions?: BaseCardProps['actionOptions'];
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
 	onClickCallback?: OnClickCallback;
+	showHoverPreview?: BaseCardProps['showHoverPreview'];
+	hoverPreviewOptions?: BaseCardProps['hoverPreviewOptions'];
 }
 
 export interface SmartCardProps extends CardProps {

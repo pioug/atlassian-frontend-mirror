@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Links [ADFS-80] should render color in links 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "asdasd[",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "color": "#ff0000",
               },
               "type": "textColor",
@@ -24,7 +24,7 @@ Object {
           "text": "test",
           "type": "text",
         },
-        Object {
+        {
           "text": "|test]asdasdasd",
           "type": "text",
         },
@@ -37,17 +37,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-240] should handle links with titles 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://www.google.com",
               },
@@ -57,7 +57,7 @@ Object {
           "text": "Link Description",
           "type": "text",
         },
-        Object {
+        {
           "text": " boy I hope this doesn't go all the way to here] that would be bad.",
           "type": "text",
         },
@@ -70,17 +70,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-240] should know where to end the link 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://www.google.com",
               },
@@ -90,7 +90,7 @@ Object {
           "text": "Link Title",
           "type": "text",
         },
-        Object {
+        {
           "text": " boy I hope this doesn't go all the way to here] that would be bad.",
           "type": "text",
         },
@@ -103,17 +103,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-385] should link text in link format 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://www.google.com",
               },
@@ -132,17 +132,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-478] should resolve link with | in the url 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://hello.atlassian.net/wiki/spaces/Engage/pages/296780133/EP+Chrome+Extension#Set-test-metadata-without-having-to-create-a-message-in-targeting--",
               },
@@ -161,23 +161,23 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-542] should correctly style superscript links 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sup",
               },
               "type": "subsup",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://example.com",
               },
@@ -196,23 +196,23 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-542] should correctly style superscript links 2`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "type": "sub",
               },
               "type": "subsup",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://example.com",
               },
@@ -231,21 +231,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-542] should not parse nested links 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "[test",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://example.com",
               },
@@ -264,28 +264,28 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-676] should trim escape in href 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a link ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://extranet.atlassian.com/display/JPLAT/Atlaskit+components+needed+for+Bento",
               },
               "type": "link",
             },
           ],
-          "text": "https://extranet.atlassian.com/display/JPLAT/Atlaskit\\\\+components\\\\+needed\\\\+for\\\\+Bento",
+          "text": "https://extranet.atlassian.com/display/JPLAT/Atlaskit\\+components\\+needed\\+for\\+Bento",
           "type": "text",
         },
       ],
@@ -297,19 +297,19 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [CS-787] should convert back to inline card 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a smart link ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "data": null,
             "url": "https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0",
           },
@@ -324,21 +324,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [ESS-2439] should ignore the ending brackets as part of the link 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a (",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://www.atlassian.com/",
               },
@@ -348,7 +348,7 @@ Object {
           "text": "https://www.atlassian.com",
           "type": "text",
         },
-        Object {
+        {
           "text": ") link",
           "type": "text",
         },
@@ -361,28 +361,28 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links [EX-500] should jump over the link if it is invalid 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This ",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "[waves hands around",
           "type": "text",
         },
-        Object {
+        {
           "type": "hardBreak",
         },
-        Object {
+        {
           "text": "]. Be",
           "type": "text",
         },
@@ -395,21 +395,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should accept anchor-links starting with # 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is an ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "#anchor",
               },
@@ -419,7 +419,7 @@ Object {
           "text": "#anchor",
           "type": "text",
         },
-        Object {
+        {
           "text": " link",
           "type": "text",
         },
@@ -432,21 +432,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert IRC address text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "An IRC address: ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "irc://atlassian.com/confluence",
               },
@@ -465,21 +465,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert file links to link marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a local file ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "file:///c:/temp/foo.txt",
               },
@@ -489,7 +489,7 @@ Object {
           "text": "file:///c:/temp/foo.txt",
           "type": "text",
         },
-        Object {
+        {
           "text": " link",
           "type": "text",
         },
@@ -502,21 +502,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert links with port to link marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Link with port ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://localhost:8080",
               },
@@ -526,7 +526,7 @@ Object {
           "text": "http://localhost:8080",
           "type": "text",
         },
-        Object {
+        {
           "text": " here",
           "type": "text",
         },
@@ -539,21 +539,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert links with text to link marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is an ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://www.atlassian.com",
               },
@@ -563,7 +563,7 @@ Object {
           "text": "Atlassian",
           "type": "text",
         },
-        Object {
+        {
           "text": " link",
           "type": "text",
         },
@@ -576,21 +576,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert mailto address text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "An IRC address: ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "mailto:example@email.com",
               },
@@ -609,21 +609,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert mailto: links to link marks + remove mailto: prefix 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "mailto:legendaryservice@atlassian.com",
               },
@@ -633,7 +633,7 @@ Object {
           "text": "legendaryservice@atlassian.com",
           "type": "text",
         },
-        Object {
+        {
           "text": " link",
           "type": "text",
         },
@@ -646,21 +646,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert normal url text to link marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hey, checkout atlassian=",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "http://www.atlassian.com/",
               },
@@ -679,21 +679,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert simple links to link marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a ",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://www.atlassian.com",
               },
@@ -703,7 +703,7 @@ Object {
           "text": "https://www.atlassian.com",
           "type": "text",
         },
-        Object {
+        {
           "text": " link",
           "type": "text",
         },
@@ -716,21 +716,21 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should convert url text inside <> to link marks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hey, this is amazing <",
           "type": "text",
         },
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://www.atlassian.com/",
               },
@@ -740,7 +740,7 @@ Object {
           "text": "https://www.atlassian.com",
           "type": "text",
         },
-        Object {
+        {
           "text": ">",
           "type": "text",
         },
@@ -753,29 +753,29 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should create Media Image and Link from linkable-image 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "This is a linkable image ",
           "type": "text",
         },
       ],
       "type": "paragraph",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "layout": "center",
         "width": null,
         "widthType": null,
       },
-      "content": Array [
-        Object {
-          "attrs": Object {
+      "content": [
+        {
+          "attrs": {
             "__contextId": null,
             "__displayType": null,
             "__external": false,
@@ -797,15 +797,15 @@ Object {
       ],
       "type": "mediaSingle",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "https://www.atlassian.com",
               },
@@ -824,17 +824,17 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should handle anchors with text and title 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
-          "marks": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "marks": [
+            {
+              "attrs": {
                 "__confluenceMetadata": null,
                 "href": "#anchor-text",
               },
@@ -853,14 +853,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should ignore anchors 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Anchor  here",
           "type": "text",
         },
@@ -873,14 +873,14 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Links should ignore invalid protocal 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "An invalid URL: invalid://nowhere.com/hello",
           "type": "text",
         },

@@ -32,6 +32,7 @@ describe('Analytics helper function', () => {
 	});
 
 	beforeEach(() => {
+		// @ts-ignore UTEST-1630
 		jest.spyOn(window, 'requestAnimationFrame').mockImplementationOnce((cb) => (cb as Function)());
 
 		analyticsHelper = new AnalyticsHelper(fakeDocumentAri, fakeAnalyticsWebClient);

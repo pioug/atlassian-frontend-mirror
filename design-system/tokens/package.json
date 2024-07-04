@@ -59,7 +59,7 @@
 		"@babel/core": "^7.20.0",
 		"@emotion/react": "^11.7.1",
 		"@hypermod/utils": "^0.4.2",
-		"@testing-library/dom": "^8.17.1",
+		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",

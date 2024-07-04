@@ -305,6 +305,7 @@ describe('mobile editor element', () => {
 
 	describe('Mobile Editor on change content', () => {
 		beforeEach(() => {
+			// @ts-ignore UTEST-1630
 			jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
 				cb(1);
 				return 1;

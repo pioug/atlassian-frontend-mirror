@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SlideIn /> should animate entering from bottom with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(0, 100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -14,12 +14,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from bottom with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(0, 100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -27,12 +27,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from bottom with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(0, 100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -40,12 +40,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from bottom with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(0, 100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -53,12 +53,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from left with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(-100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -66,12 +66,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from left with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(-100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -79,12 +79,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from left with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(-100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -92,12 +92,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from left with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(-100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -105,12 +105,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from right with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -118,12 +118,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from right with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -131,12 +131,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from right with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -144,12 +144,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from right with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(100%, 0, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -157,12 +157,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from top with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(0, -100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -170,12 +170,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from top with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 0,
     "transform": "translate3d(0, -100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -183,12 +183,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from top with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(0, -100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -196,12 +196,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate entering from top with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "translate3d(0, -100%, 0)",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "none",
   },
@@ -209,12 +209,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from bottom with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(0, 100%, 0)",
   },
@@ -222,12 +222,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from bottom with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(0, 100%, 0)",
   },
@@ -235,12 +235,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from bottom with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(0, 100%, 0)",
   },
@@ -248,12 +248,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from bottom with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(0, 100%, 0)",
   },
@@ -261,12 +261,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from left with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(-100%, 0, 0)",
   },
@@ -274,12 +274,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from left with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(-100%, 0, 0)",
   },
@@ -287,12 +287,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from left with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(-100%, 0, 0)",
   },
@@ -300,12 +300,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from left with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(-100%, 0, 0)",
   },
@@ -313,12 +313,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from right with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(100%, 0, 0)",
   },
@@ -326,12 +326,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from right with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(100%, 0, 0)",
   },
@@ -339,12 +339,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from right with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(100%, 0, 0)",
   },
@@ -352,12 +352,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from right with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(100%, 0, 0)",
   },
@@ -365,12 +365,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from top with fade in 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(0, -100%, 0)",
   },
@@ -378,12 +378,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from top with fade inout 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(0, -100%, 0)",
   },
@@ -391,12 +391,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from top with fade none 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 1,
     "transform": "translate3d(0, -100%, 0)",
   },
@@ -404,12 +404,12 @@ Object {
 `;
 
 exports[`<SlideIn /> should animate exiting from top with fade out 1`] = `
-Object {
-  "0%": Object {
+{
+  "0%": {
     "opacity": 1,
     "transform": "none",
   },
-  "100%": Object {
+  "100%": {
     "opacity": 0,
     "transform": "translate3d(0, -100%, 0)",
   },

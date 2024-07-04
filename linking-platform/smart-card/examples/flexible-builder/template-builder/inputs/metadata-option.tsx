@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import Select from '@atlaskit/select/Select';
 import { type ElementItem, type ElementName } from '../../../../src';
 import { type OptionsType, type ValueType as Value } from '@atlaskit/select';
@@ -15,13 +15,19 @@ const options = metadataElements.map((name) => ({
 	value: name,
 }));
 
-const MetadataOption: React.FC<{
+const MetadataOption = ({
+	label,
+	name,
+	onChange,
+	propName,
+	template,
+}: {
 	label?: string;
 	name: string;
 	onChange: (template: BlockTemplate) => void;
 	propName: keyof BlockTemplate;
 	template: BlockTemplate;
-}> = ({ label, name, onChange, propName, template }) => {
+}) => {
 	const handleOnMetadataChange = useCallback(
 		(...params: ChangeParams<BlockTemplate>) =>
 			(values: OptionsType<{ label: string; value: ElementName }>) => {

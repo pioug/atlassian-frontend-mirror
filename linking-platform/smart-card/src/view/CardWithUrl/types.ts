@@ -11,6 +11,7 @@ import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 import { type AnalyticsFacade } from '../../state/analytics';
 import { type FrameStyle } from '../EmbedCard/types';
+import { type HoverPreviewOptions } from '../HoverCard/types';
 
 export type CardWithUrlContentProps = {
 	id: string;
@@ -51,6 +52,7 @@ export type CardWithUrlContentProps = {
 	ui?: FlexibleUiOptions;
 	children?: React.ReactNode;
 	showHoverPreview?: boolean;
+	hoverPreviewOptions?: HoverPreviewOptions;
 	showAuthTooltip?: boolean;
 	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;

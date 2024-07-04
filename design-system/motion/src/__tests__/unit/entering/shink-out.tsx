@@ -1,16 +1,18 @@
 import React from 'react';
 
 import { act, render } from '@testing-library/react';
+import { replaceRaf } from 'raf-stub';
 
 import ExitingPersistence from '../../../entering/exiting-persistence';
 import ShrinkOut from '../../../entering/shrink-out';
 import { easeIn } from '../../../utils/curves';
 import { smallDurationMs } from '../../../utils/durations';
 import { ComponentStub } from '../../__utils__/component-stub';
-import * as raf from '../../__utils__/raf';
 
 jest.mock('../../../utils/accessibility');
-raf.replace();
+
+replaceRaf();
+const raf = window.requestAnimationFrame as any;
 
 describe('<ShrinkOut />', () => {
 	beforeEach(() => {
@@ -189,7 +191,8 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 		raf.step();
 		act(() => {
-			jest.advanceTimersByTime(smallDurationMs);
+			// jest.advanceTimersByTime(smallDurationMs);
+			jest.runAllTimers();
 		});
 
 		expect(callback).toHaveBeenCalledWith('exiting');
@@ -217,7 +220,8 @@ describe('<ShrinkOut />', () => {
 		raf.step();
 		raf.step();
 		act(() => {
-			jest.advanceTimersByTime(smallDurationMs);
+			// jest.advanceTimersByTime(smallDurationMs);
+			jest.runAllTimers();
 		});
 
 		expect(baseElement.querySelector('[data-testid="target"]')).toEqual(null);

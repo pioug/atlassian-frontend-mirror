@@ -13,13 +13,11 @@ import {
 import { ResizeControlledConsumer } from '../../../../controllers/__tests__/sidebar-resize-controller';
 import { Content, LeftSidebar, Main, PageLayout } from '../../../../index';
 import { getDimension } from '../__utils__/get-dimension';
-import * as raf from '../__utils__/raf';
 import { triggerTransitionEnd } from '../__utils__/transition-end';
 
 describe('Left sidebar', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
-		raf.replace();
 
 		// a11y audits fail due to old axe rules that need to be updated
 		// See https://product-fabric.atlassian.net/browse/DSP-17790 for info
@@ -32,7 +30,6 @@ describe('Left sidebar', () => {
 	});
 
 	const completeAnimations = () => {
-		act(() => raf.flush());
 		act(() => {
 			jest.runAllTimers();
 		});
@@ -1662,7 +1659,6 @@ describe('Left sidebar', () => {
 	describe('Accessibility features', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
-			raf.replace();
 		});
 
 		afterEach(() => {
@@ -1932,7 +1928,6 @@ describe('Left sidebar', () => {
 			jest.useFakeTimers();
 		});
 		const completeAnimations = () => {
-			act(() => raf.flush());
 			act(() => {
 				jest.runAllTimers();
 			});

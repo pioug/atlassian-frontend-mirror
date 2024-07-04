@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WikiMarkup => ADF Formatters - citation [CS-491] should detect mention in the following pattern 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hi ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "",
             "id": "78032763-2feb-4f5b-88c0-99b50613d53a",
             "localId": null,
@@ -22,7 +22,7 @@ Object {
           },
           "type": "mention",
         },
-        Object {
+        {
           "text": ",",
           "type": "text",
         },
@@ -35,14 +35,14 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - citation [CS-1896] Should convert empty mention to plaintext 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hi [~accountid:], your text is so plain, almost as plain as [~]",
           "type": "text",
         },
@@ -55,19 +55,19 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - citation Should convert mention without context 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hi ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "",
             "id": "accountid:78032763-2feb-4f5b-88c0-99b50613d53a",
             "localId": null,
@@ -76,7 +76,7 @@ Object {
           },
           "type": "mention",
         },
-        Object {
+        {
           "text": ",",
           "type": "text",
         },
@@ -89,19 +89,19 @@ Object {
 `;
 
 exports[`WikiMarkup => ADF Formatters - citation should convert mention with context case-insensitively 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "Hi ",
           "type": "text",
         },
-        Object {
-          "attrs": Object {
+        {
+          "attrs": {
             "accessLevel": "",
             "id": "aAaAaA",
             "localId": null,
@@ -110,7 +110,7 @@ Object {
           },
           "type": "mention",
         },
-        Object {
+        {
           "text": ",",
           "type": "text",
         },

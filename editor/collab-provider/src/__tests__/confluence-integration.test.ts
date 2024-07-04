@@ -315,26 +315,26 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			provider.initialize(getStateMock);
 			const currentDocumentState = await provider.getCurrentState();
 			expect(currentDocumentState).toMatchInlineSnapshot(`
-        Object {
-          "content": Object {
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "text": "lol",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "type": "doc",
-            "version": 1,
-          },
-          "stepVersion": 0,
-          "title": undefined,
-        }
-      `);
+			{
+			  "content": {
+			    "content": [
+			      {
+			        "content": [
+			          {
+			            "text": "lol",
+			            "type": "text",
+			          },
+			        ],
+			        "type": "paragraph",
+			      },
+			    ],
+			    "type": "doc",
+			    "version": 1,
+			  },
+			  "stepVersion": 0,
+			  "title": undefined,
+			}
+		`);
 		});
 
 		it('should throw an error if there is a problem when calling getCurrentState()', async () => {
@@ -364,26 +364,26 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			provider.initialize(getStateMock);
 			const finalDocumentState = await provider.getFinalAcknowledgedState();
 			expect(finalDocumentState).toMatchInlineSnapshot(`
-        Object {
-          "content": Object {
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "text": "lol",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "type": "doc",
-            "version": 1,
-          },
-          "stepVersion": 0,
-          "title": undefined,
-        }
-      `);
+			{
+			  "content": {
+			    "content": [
+			      {
+			        "content": [
+			          {
+			            "text": "lol",
+			            "type": "text",
+			          },
+			        ],
+			        "type": "paragraph",
+			      },
+			    ],
+			    "type": "doc",
+			    "version": 1,
+			  },
+			  "stepVersion": 0,
+			  "title": undefined,
+			}
+		`);
 		});
 
 		it('should throw an error if there is a problem when calling getFinalAcknowledgedState()', async () => {
@@ -503,26 +503,26 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			// @ts-ignore accessing private property for testing purposes
 			expect(provider.metadataService.getTitle()).toEqual('abc');
 			expect(currentDocumentState).toMatchInlineSnapshot(`
-        Object {
-          "content": Object {
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "text": "lol",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "type": "doc",
-            "version": 1,
-          },
-          "stepVersion": 0,
-          "title": "abc",
-        }
-      `);
+			{
+			  "content": {
+			    "content": [
+			      {
+			        "content": [
+			          {
+			            "text": "lol",
+			            "type": "text",
+			          },
+			        ],
+			        "type": "paragraph",
+			      },
+			    ],
+			    "type": "doc",
+			    "version": 1,
+			  },
+			  "stepVersion": 0,
+			  "title": "abc",
+			}
+		`);
 		});
 
 		it('should be unusable before calling initialize, and usable after', async () => {
@@ -539,26 +539,26 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			// @ts-ignore accessing private property for testing purposes
 			expect(provider.metadataService.getTitle()).toEqual('abc');
 			expect(currentDocumentState).toMatchInlineSnapshot(`
-        Object {
-          "content": Object {
-            "content": Array [
-              Object {
-                "content": Array [
-                  Object {
-                    "text": "lol",
-                    "type": "text",
-                  },
-                ],
-                "type": "paragraph",
-              },
-            ],
-            "type": "doc",
-            "version": 1,
-          },
-          "stepVersion": 0,
-          "title": "abc",
-        }
-      `);
+			{
+			  "content": {
+			    "content": [
+			      {
+			        "content": [
+			          {
+			            "text": "lol",
+			            "type": "text",
+			          },
+			        ],
+			        "type": "paragraph",
+			      },
+			    ],
+			    "type": "doc",
+			    "version": 1,
+			  },
+			  "stepVersion": 0,
+			  "title": "abc",
+			}
+		`);
 		});
 
 		it('should fail to set up the provider if getState is missing the collab plugin when calling initialize()', async () => {

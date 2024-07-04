@@ -281,12 +281,9 @@ const tableSortableColumnStyle = ({
 			.${RendererCssClassName.SORTABLE_COLUMN} {
 				width: 100%;
 				height: 100%;
-				padding: ${
-					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('platform_editor_tables_padding_increase')
-						? `${tableCellPadding}px ${token('space.250', '20px')}`
-						: `${tableCellPadding}px`
-				};
+				padding: ${fg('platform_editor_tables_padding_increase')
+					? `${tableCellPadding}px ${token('space.250', '20px')}`
+					: `${tableCellPadding}px`};
 				border-width: 1.5px;
 				border-style: solid;
 				border-color: transparent;

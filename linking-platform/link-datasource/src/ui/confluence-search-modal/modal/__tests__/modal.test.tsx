@@ -36,7 +36,7 @@ import { ConfluenceSearchConfigModal } from '../index';
 jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
 jest.mock('../../basic-filters/hooks/useRecommendation');
 jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
-jest.useFakeTimers();
+jest.useFakeTimers({ legacyFakeTimers: true });
 
 describe('ConfluenceSearchConfigModal', () => {
 	const prevWindowLocation = window.location;

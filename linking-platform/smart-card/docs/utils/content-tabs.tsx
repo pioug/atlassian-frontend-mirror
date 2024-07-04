@@ -39,7 +39,7 @@ type DocsWrapperProps = {
 	tabs: TabItems[];
 };
 
-const ContentTabs: React.FC<DocsWrapperProps> = ({ tabs = [] }: DocsWrapperProps) => (
+const ContentTabs = ({ tabs = [] }: DocsWrapperProps) => (
 	<div css={styles}>
 		<Tabs id="default">
 			<TabList>

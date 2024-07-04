@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JIRA wiki markup - Tables [CS-1404] should parse multiple attachments separated by non-whitespace characters inside tables as separate media groups 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -12,33 +12,33 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "colum 1 ",
                       "type": "text",
                     },
                   ],
                   "type": "paragraph",
                 },
-                Object {
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                {
+                  "content": [
+                    {
+                      "attrs": {
                         "__contextId": null,
                         "__displayType": null,
                         "__external": false,
@@ -57,8 +57,8 @@ Object {
                       },
                       "type": "media",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "__contextId": null,
                         "__displayType": null,
                         "__external": false,
@@ -80,22 +80,22 @@ Object {
                   ],
                   "type": "mediaGroup",
                 },
-                Object {
-                  "attrs": Object {
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": " abc ",
                       "type": "text",
                     },
                   ],
                   "type": "paragraph",
                 },
-                Object {
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                {
+                  "content": [
+                    {
+                      "attrs": {
                         "__contextId": null,
                         "__displayType": null,
                         "__external": false,
@@ -114,8 +114,8 @@ Object {
                       },
                       "type": "media",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "__contextId": null,
                         "__displayType": null,
                         "__external": false,
@@ -140,20 +140,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "column 2",
                       "type": "text",
                     },
@@ -175,10 +175,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to table header  1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -186,25 +186,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -217,22 +217,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -245,22 +245,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -276,24 +276,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -306,20 +306,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 1",
                       "type": "text",
                     },
@@ -329,20 +329,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 2",
                       "type": "text",
                     },
@@ -355,24 +355,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -385,20 +385,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 3",
                       "type": "text",
                     },
@@ -408,20 +408,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 4",
                       "type": "text",
                     },
@@ -443,10 +443,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to table header if it is list 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -454,29 +454,29 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -495,22 +495,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -523,22 +523,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -554,31 +554,31 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "order": 1,
                   },
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -597,20 +597,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 1",
                       "type": "text",
                     },
@@ -620,20 +620,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 2",
                       "type": "text",
                     },
@@ -646,28 +646,28 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -686,20 +686,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 3",
                       "type": "text",
                     },
@@ -709,20 +709,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 4",
                       "type": "text",
                     },
@@ -744,10 +744,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-102 Should add the strong marks to table header if it is list with multiple items 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -755,29 +755,29 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -790,16 +790,16 @@ Object {
                       ],
                       "type": "listItem",
                     },
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -812,16 +812,16 @@ Object {
                       ],
                       "type": "listItem",
                     },
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -834,16 +834,16 @@ Object {
                       ],
                       "type": "listItem",
                     },
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -874,10 +874,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-102 Should not add the strong marks to table header if they are codeblocks 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -885,25 +885,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "code",
                         },
                       ],
@@ -916,22 +916,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -944,22 +944,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -975,24 +975,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1005,20 +1005,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 1",
                       "type": "text",
                     },
@@ -1028,20 +1028,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 2",
                       "type": "text",
                     },
@@ -1054,24 +1054,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1084,20 +1084,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 3",
                       "type": "text",
                     },
@@ -1107,20 +1107,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 4",
                       "type": "text",
                     },
@@ -1142,10 +1142,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to table header if they are JavaScript Code  1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1153,25 +1153,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "language": "java",
                     "uniqueId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "text": "let example = \\"value\\"",
+                  "content": [
+                    {
+                      "text": "let example = "value"",
                       "type": "text",
                     },
                   ],
@@ -1192,10 +1192,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to table header if they are code:json  1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1203,25 +1203,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "language": "json",
                     "uniqueId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "text": "{\\"key\\":\\"value\\"}",
+                  "content": [
+                    {
+                      "text": "{"key":"value"}",
                       "type": "text",
                     },
                   ],
@@ -1242,10 +1242,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to table header if they are noformat  1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1253,24 +1253,24 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "language": null,
                     "uniqueId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Hello World.",
                       "type": "text",
                     },
@@ -1280,22 +1280,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1308,22 +1308,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1339,24 +1339,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1369,20 +1369,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 1",
                       "type": "text",
                     },
@@ -1392,20 +1392,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 2",
                       "type": "text",
                     },
@@ -1418,24 +1418,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1448,20 +1448,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 3",
                       "type": "text",
                     },
@@ -1471,20 +1471,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 4",
                       "type": "text",
                     },
@@ -1506,10 +1506,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFEXP-191 Should not add the strong marks to text in any codeBlock node 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1517,29 +1517,29 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
-                              "marks": Array [
-                                Object {
+                          "content": [
+                            {
+                              "marks": [
+                                {
                                   "type": "strong",
                                 },
                               ],
@@ -1549,13 +1549,13 @@ Object {
                           ],
                           "type": "paragraph",
                         },
-                        Object {
-                          "attrs": Object {
+                        {
+                          "attrs": {
                             "language": null,
                             "uniqueId": null,
                           },
-                          "content": Array [
-                            Object {
+                          "content": [
+                            {
                               "text": "bar",
                               "type": "text",
                             },
@@ -1583,10 +1583,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFS-80 Pipes inside invalid links do not close a table cell 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1594,23 +1594,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "test",
                       "type": "text",
                     },
@@ -1623,22 +1623,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "test",
                       "type": "text",
                     },
@@ -1651,29 +1651,29 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "asdasd[",
                       "type": "text",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
-                          "attrs": Object {
+                    {
+                      "marks": [
+                        {
+                          "attrs": {
                             "color": "#ff0000",
                           },
                           "type": "textColor",
@@ -1682,7 +1682,7 @@ Object {
                       "text": "test",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "text": "|test]asdasdasd",
                       "type": "text",
                     },
@@ -1695,22 +1695,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "test",
                       "type": "text",
                     },
@@ -1732,10 +1732,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables ADFS-700 Should not consider trailing spaces as a cell at the end of row 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1743,23 +1743,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "a",
                       "type": "text",
                     },
@@ -1772,22 +1772,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "b",
                       "type": "text",
                     },
@@ -1809,10 +1809,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables CS-916 should respect empty columns 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1820,25 +1820,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1851,22 +1851,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -1882,22 +1882,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -1907,16 +1907,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -1930,8 +1930,8 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -1939,23 +1939,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -1965,16 +1965,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -1985,22 +1985,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Col A1",
                       "type": "text",
                     },
@@ -2010,20 +2010,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Col A2",
                       "type": "text",
                     },
@@ -2039,8 +2039,8 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -2048,23 +2048,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -2074,16 +2074,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2094,22 +2094,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -2119,16 +2119,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2142,8 +2142,8 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -2151,23 +2151,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Heading 1",
                       "type": "text",
                     },
@@ -2177,20 +2177,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -2200,16 +2200,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2220,22 +2220,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Two empty cells on the right ->",
                       "type": "text",
                     },
@@ -2245,16 +2245,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2262,16 +2262,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2285,8 +2285,8 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -2294,23 +2294,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -2320,16 +2320,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2337,20 +2337,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "<- Empty cell on the left",
                       "type": "text",
                     },
@@ -2363,22 +2363,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Empty cell on the right ->",
                       "type": "text",
                     },
@@ -2388,16 +2388,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
                   "type": "paragraph",
@@ -2405,20 +2405,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "<- Empty cell on the left",
                       "type": "text",
                     },
@@ -2440,10 +2440,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table content 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -2451,25 +2451,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -2482,39 +2482,39 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": "Mon ",
                       "type": "text",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "id": "atlassian-warning",
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
                       "type": "emoji",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -2527,39 +2527,39 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": "Tue ",
                       "type": "text",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "id": "atlassian-warning",
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
                       "type": "emoji",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -2572,39 +2572,39 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": "Wed ",
                       "type": "text",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "id": "atlassian-warning",
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
                       "type": "emoji",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -2617,39 +2617,39 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": "Thu ",
                       "type": "text",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "id": "atlassian-warning",
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
                       "type": "emoji",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -2662,39 +2662,39 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": "Fri ",
                       "type": "text",
                     },
-                    Object {
-                      "attrs": Object {
+                    {
+                      "attrs": {
                         "id": "atlassian-warning",
                         "shortName": ":warning:",
                         "text": ":warning:",
                       },
                       "type": "emoji",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -2710,22 +2710,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Queue Size ",
                       "type": "text",
                     },
@@ -2735,20 +2735,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "4 ",
                       "type": "text",
                     },
@@ -2758,20 +2758,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "4 ",
                       "type": "text",
                     },
@@ -2781,20 +2781,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "4 ",
                       "type": "text",
                     },
@@ -2804,20 +2804,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "2 ",
                       "type": "text",
                     },
@@ -2827,20 +2827,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "5 ",
                       "type": "text",
                     },
@@ -2862,10 +2862,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros ADFEXP-227 Should keep nestedExpand inside a table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -2873,23 +2873,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "test table",
                       "type": "text",
                     },
@@ -2899,16 +2899,16 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "__expanded": true,
                     "title": "title",
                   },
@@ -2929,10 +2929,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros ADFEXP-227 Should wrap nestedExpand inside a table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -2940,23 +2940,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "test table",
                       "type": "text",
                     },
@@ -2966,20 +2966,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "test table",
                       "type": "text",
                     },
@@ -2995,8 +2995,8 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3004,19 +3004,19 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "__expanded": true,
                     "title": "title",
                   },
@@ -3031,12 +3031,12 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "sample text",
           "type": "text",
         },
@@ -3049,10 +3049,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros should parse anchor 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3060,23 +3060,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
@@ -3098,10 +3098,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros should parse code 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3109,24 +3109,24 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "language": "javascript",
                     "uniqueId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
@@ -3148,10 +3148,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros should parse color 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3159,40 +3159,40 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
                   ],
                   "type": "paragraph",
                 },
-                Object {
-                  "attrs": Object {
+                {
+                  "attrs": {
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
                     "panelIconText": null,
                     "panelType": "info",
                   },
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                  "content": [
+                    {
+                      "attrs": {
                         "localId": null,
                       },
                       "type": "paragraph",
@@ -3215,10 +3215,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros should parse noformat 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3226,24 +3226,24 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "language": null,
                     "uniqueId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
@@ -3265,10 +3265,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros should parse panel 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3276,32 +3276,32 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "panelColor": null,
                     "panelIcon": null,
                     "panelIconId": null,
                     "panelIconText": null,
                     "panelType": "info",
                   },
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                  "content": [
+                    {
+                      "attrs": {
                         "localId": null,
                       },
-                      "content": Array [
-                        Object {
+                      "content": [
+                        {
                           "text": "foo",
                           "type": "text",
                         },
@@ -3326,10 +3326,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables macros should parse quote 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3337,25 +3337,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "attrs": {
                         "localId": null,
                       },
-                      "content": Array [
-                        Object {
+                      "content": [
+                        {
                           "text": "foo",
                           "type": "text",
                         },
@@ -3380,10 +3380,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should convert table with header column 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3391,25 +3391,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3422,22 +3422,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3450,22 +3450,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3481,24 +3481,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3511,20 +3511,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 1",
                       "type": "text",
                     },
@@ -3534,20 +3534,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 2",
                       "type": "text",
                     },
@@ -3560,24 +3560,24 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3590,20 +3590,20 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 3",
                       "type": "text",
                     },
@@ -3613,20 +3613,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Cell 4",
                       "type": "text",
                     },
@@ -3648,10 +3648,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should find and convert tables 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3659,25 +3659,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3690,22 +3690,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3718,22 +3718,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3749,22 +3749,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "col A1",
                       "type": "text",
                     },
@@ -3774,20 +3774,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "col A2",
                       "type": "text",
                     },
@@ -3797,20 +3797,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "col A3",
                       "type": "text",
                     },
@@ -3823,22 +3823,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "col B1",
                       "type": "text",
                     },
@@ -3848,20 +3848,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "col B2",
                       "type": "text",
                     },
@@ -3871,21 +3871,21 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "level": 1,
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "heading",
                       "type": "text",
                     },
@@ -3907,10 +3907,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should find text nodes at the end of the table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -3918,25 +3918,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3949,22 +3949,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -3980,22 +3980,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "baz ",
                       "type": "text",
                     },
@@ -4005,41 +4005,41 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "multiline",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
-                    Object {
+                    {
                       "text": "yep",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
-                    Object {
+                    {
                       "text": "still going",
                       "type": "text",
                     },
-                    Object {
+                    {
                       "type": "hardBreak",
                     },
-                    Object {
+                    {
                       "text": "yeah good luck closing this",
                       "type": "text",
                     },
@@ -4061,10 +4061,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should not include new line text in table 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4072,25 +4072,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4103,22 +4103,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4137,12 +4137,12 @@ Object {
       ],
       "type": "table",
     },
-    Object {
-      "attrs": Object {
+    {
+      "attrs": {
         "localId": null,
       },
-      "content": Array [
-        Object {
+      "content": [
+        {
           "text": "this is a new line text, not in the table",
           "type": "text",
         },
@@ -4155,10 +4155,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should not render trailing space into a new cell 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4166,23 +4166,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "cell 1",
                       "type": "text",
                     },
@@ -4192,20 +4192,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "cell 2",
                       "type": "text",
                     },
@@ -4227,10 +4227,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should not terminate non-empty cell on whitespace at end of line 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4238,25 +4238,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4269,22 +4269,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4297,22 +4297,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4328,38 +4328,38 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Trailing space on this line ",
                       "type": "text",
                     },
                   ],
                   "type": "paragraph",
                 },
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
+                          "content": [
+                            {
                               "text": "Dot point",
                               "type": "text",
                             },
@@ -4375,20 +4375,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
@@ -4398,20 +4398,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
@@ -4433,10 +4433,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should parse properly links inside a cell 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4444,25 +4444,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4475,22 +4475,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4503,23 +4503,23 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
-                          "attrs": Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
+                          "attrs": {
                             "__confluenceMetadata": null,
                             "href": "http://atlassian.com",
                           },
@@ -4535,54 +4535,54 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
-                          "attrs": Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
+                          "attrs": {
                             "__confluenceMetadata": null,
                             "href": "https://atlassian.com",
                           },
                           "type": "link",
                         },
-                        Object {
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": "link 1",
                       "type": "text",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
                       "text": ", ",
                       "type": "text",
                     },
-                    Object {
-                      "marks": Array [
-                        Object {
-                          "attrs": Object {
+                    {
+                      "marks": [
+                        {
+                          "attrs": {
                             "__confluenceMetadata": null,
                             "href": "https://atlassian.com",
                           },
                           "type": "link",
                         },
-                        Object {
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4607,10 +4607,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should parse properly medias inside a cell 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4618,26 +4618,26 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "layout": "center",
                     "width": null,
                     "widthType": null,
                   },
-                  "content": Array [
-                    Object {
-                      "attrs": Object {
+                  "content": [
+                    {
+                      "attrs": {
                         "__contextId": null,
                         "__displayType": null,
                         "__external": false,
@@ -4674,10 +4674,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should process \\r\\n correctly 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4685,25 +4685,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4716,22 +4716,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4747,22 +4747,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Col A1",
                       "type": "text",
                     },
@@ -4772,20 +4772,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "Col A2",
                       "type": "text",
                     },
@@ -4807,10 +4807,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should remove trailing space before and after cell open and close 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4818,23 +4818,23 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "cell 1",
                       "type": "text",
                     },
@@ -4844,20 +4844,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "cell 2",
                       "type": "text",
                     },
@@ -4870,22 +4870,22 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "cell 3",
                       "type": "text",
                     },
@@ -4895,20 +4895,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "cell 4 ",
                       "type": "text",
                     },
@@ -4930,10 +4930,10 @@ Object {
 `;
 
 exports[`JIRA wiki markup - Tables should remove whole row if no content is present 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "__autoSize": false,
         "displayMode": null,
         "isNumberColumnEnabled": false,
@@ -4941,25 +4941,25 @@ Object {
         "localId": "",
         "width": null,
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -4972,22 +4972,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -5000,22 +5000,22 @@ Object {
               ],
               "type": "tableHeader",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
-                      "marks": Array [
-                        Object {
+                  "content": [
+                    {
+                      "marks": [
+                        {
                           "type": "strong",
                         },
                       ],
@@ -5031,26 +5031,26 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
+        {
+          "content": [
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
-                      "content": Array [
-                        Object {
-                          "attrs": Object {
+              "content": [
+                {
+                  "content": [
+                    {
+                      "content": [
+                        {
+                          "attrs": {
                             "localId": null,
                           },
-                          "content": Array [
-                            Object {
+                          "content": [
+                            {
                               "text": "Dot point",
                               "type": "text",
                             },
@@ -5066,20 +5066,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },
@@ -5089,20 +5089,20 @@ Object {
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
+            {
+              "attrs": {
                 "background": null,
                 "colspan": 1,
                 "colwidth": null,
                 "rowspan": 1,
               },
-              "content": Array [
-                Object {
-                  "attrs": Object {
+              "content": [
+                {
+                  "attrs": {
                     "localId": null,
                   },
-                  "content": Array [
-                    Object {
+                  "content": [
+                    {
                       "text": "foo",
                       "type": "text",
                     },

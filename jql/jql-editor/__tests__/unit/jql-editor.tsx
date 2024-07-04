@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import '@testing-library/jest-dom';
 import * as pmView from '@atlaskit/editor-prosemirror/view';
 
 import { mockCreateRange } from '../../mocks';

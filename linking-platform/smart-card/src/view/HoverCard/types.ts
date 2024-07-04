@@ -65,6 +65,8 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	 * This is passed to the portal component.
 	 */
 	zIndex?: number;
+
+	hoverPreviewOptions?: HoverPreviewOptions;
 }
 
 /**
@@ -119,3 +121,9 @@ export type ImagePreviewProps = {
 	data: JsonLd.Data.BaseData;
 	fallbackElementHeight: number;
 };
+export interface HoverPreviewOptions {
+	/**
+	 * Delay (in milliseconds) between hovering over the trigger element and the hover card opening. Defaults to 500ms.
+	 */
+	fadeInDelay?: number;
+}

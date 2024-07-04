@@ -15,16 +15,7 @@ const buttonGroupStyles = css({
 	textAlign: 'right',
 });
 
-const EditLink: React.FC<{
-	initialJson: JsonLd.Response;
-	jsonError?: string;
-	onJsonChange: (json: JsonLd.Response) => void;
-	onSubmitUrl: (url: string, ari?: string) => void;
-	onTextChange: (str: string) => void;
-	template: FlexibleTemplate;
-	text: string;
-	urlError?: string;
-}> = ({
+const EditLink = ({
 	initialJson,
 	jsonError,
 	onJsonChange,
@@ -33,6 +24,15 @@ const EditLink: React.FC<{
 	template,
 	text,
 	urlError,
+}: {
+	initialJson: JsonLd.Response;
+	jsonError?: string;
+	onJsonChange: (json: JsonLd.Response) => void;
+	onSubmitUrl: (url: string, ari?: string) => void;
+	onTextChange: (str: string) => void;
+	template: FlexibleTemplate;
+	text: string;
+	urlError?: string;
 }) => {
 	const [showCode, setShowCode] = useState<boolean>(true);
 	const [showEditLink, setShowEditLink] = useState<boolean>(false);

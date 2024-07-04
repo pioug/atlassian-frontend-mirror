@@ -7,6 +7,7 @@ import { type AnalyticsFacade } from '../../state/analytics';
 import { type FlexibleUiOptions } from '../FlexibleCard/types';
 import { type ErrorCardType, type InlinePreloaderStyle, type OnErrorCallback } from '../types';
 import { type FrameStyle } from '../EmbedCard/types';
+import { type HoverPreviewOptions } from '../HoverCard/types';
 
 export type { CardAppearance, CardPlatform };
 export type CardInnerAppearance = CardAppearance | 'embedPreview' | 'flexible' | 'hoverCardPreview';
@@ -102,6 +103,7 @@ export interface CardProps extends WithAnalyticsEventsProps {
 	ui?: FlexibleUiOptions;
 	children?: React.ReactNode;
 	showHoverPreview?: boolean;
+	hoverPreviewOptions?: HoverPreviewOptions;
 	showAuthTooltip?: boolean;
 	/**
 	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-2681 Internal documentation for deprecation (no external access)}

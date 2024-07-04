@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
 import Button from '@atlaskit/button/new';
 import { getJsonLdResponse } from '../utils/flexible-ui';
@@ -14,10 +14,13 @@ const jsonldExampleStyles = css({
 	margin: '0.75rem 0',
 });
 
-const JsonldExample: React.FC<{
+const JsonldExample = ({
+	defaultValue,
+	onSelect,
+}: {
 	defaultValue: ResolveResponse;
 	onSelect: (response: ResolveResponse) => void;
-}> = ({ defaultValue, onSelect }) => {
+}) => {
 	const handleOnClick = useCallback(
 		({ data, meta }: any) => {
 			const response = getJsonLdResponse(data.url, meta, data);

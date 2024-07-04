@@ -41,7 +41,7 @@ describe('DocumentService onRestore', () => {
 	afterEach(() => jest.clearAllMocks());
 
 	describe('reinitialise the document', () => {
-		it('sends correct initial metadata and reserveCursor to provider', async (done) => {
+		it('sends correct initial metadata and reserveCursor to provider', async () => {
 			expect.assertions(4);
 			getUnconfirmedStepsSpy.mockReturnValue([]);
 			getCurrentStateSpy.mockReturnValue({ content: 'something' });
@@ -54,7 +54,6 @@ describe('DocumentService onRestore', () => {
 			});
 			provider.on('metadata:changed', (data: any) => {
 				expect(data).toEqual(dummyPayload.metadata);
-				done();
 			});
 			await provider.documentService.onRestore(dummyPayload);
 			expect(updateDoc).toBeCalledTimes(1);
@@ -102,10 +101,9 @@ describe('DocumentService onRestore', () => {
 				});
 			});
 
-			it('calls applyLocalSteps with steps to apply', async (done) => {
+			it('calls applyLocalSteps with steps to apply', async () => {
 				provider.on('local-steps', ({ steps }: any) => {
 					expect(steps).toEqual(['test', 'test']);
-					done();
 				});
 				await provider.documentService.onRestore(dummyPayload);
 				expect(applyLocalStepsSpy).toBeCalledTimes(1);
@@ -150,7 +148,7 @@ describe('DocumentService onRestore', () => {
 			fetchReconcileSpy.mockReturnValue({});
 		});
 
-		it('when updateDocument throws', async (done) => {
+		it('when updateDocument throws', async () => {
 			jest.spyOn(provider.documentService, 'updateDocument').mockImplementation(() => {
 				throw testError;
 			});
@@ -162,9 +160,7 @@ describe('DocumentService onRestore', () => {
 						message: 'Collab service unable to restore document',
 						status: 500,
 					});
-				} catch (e) {
-					done(e);
-				}
+				} catch (e) {}
 			});
 			await provider.documentService.onRestore(dummyPayload);
 			expect(sendActionEventSpy).toBeCalledTimes(1);
@@ -187,7 +183,6 @@ describe('DocumentService onRestore', () => {
 					code: 'DOCUMENT_RESTORE_ERROR',
 				},
 			});
-			done();
 			expect.assertions(8);
 		});
 

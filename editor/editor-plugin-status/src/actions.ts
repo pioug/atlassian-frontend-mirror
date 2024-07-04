@@ -5,6 +5,7 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import type {
@@ -28,9 +29,8 @@ export const DEFAULT_STATUS: StatusType = {
 	color: 'neutral',
 };
 
-export const verifyAndInsertStatus = (statusNode: Node, state: EditorState): Transaction => {
-	const fragment = Fragment.fromArray([statusNode, state.schema.text(' ')]);
-	const tr = state.tr;
+export const verifyAndInsertStatus = (statusNode: Node, tr: Transaction): Transaction => {
+	const fragment = Fragment.fromArray([statusNode, tr.doc.type.schema.text(' ')]);
 	const insertable = canInsert(tr.selection.$from, fragment);
 	if (!insertable) {
 		const parentSelection = NodeSelection.create(
@@ -53,13 +53,35 @@ export const verifyAndInsertStatus = (statusNode: Node, state: EditorState): Tra
 		.scrollIntoView();
 };
 
-export const createStatus = (state: EditorState): Transaction => {
-	const statusNode = state.schema.nodes.status.createChecked({
+export const createStatus = (tr: Transaction): Transaction => {
+	const statusNode = tr.doc.type.schema.nodes.status.createChecked({
 		...DEFAULT_STATUS,
 		localId: uuid.generate(),
 	});
-	return verifyAndInsertStatus(statusNode, state);
+	return verifyAndInsertStatus(statusNode, tr);
 };
+
+export const insertStatus =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(
+		inputMethod:
+			| INPUT_METHOD.INSERT_MENU
+			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.TOOLBAR = INPUT_METHOD.TOOLBAR,
+	): EditorCommand =>
+	({ tr }) => {
+		const statusTr = createStatus(tr);
+		editorAnalyticsAPI?.attachAnalyticsEvent({
+			action: ACTION.INSERTED,
+			actionSubject: ACTION_SUBJECT.DOCUMENT,
+			actionSubjectId: ACTION_SUBJECT_ID.STATUS,
+			attributes: {
+				inputMethod,
+			},
+			eventType: EVENT_TYPE.TRACK,
+		})(statusTr);
+		return statusTr;
+	};
 
 export const updateStatus =
 	(status?: StatusType): Command =>
@@ -84,7 +106,7 @@ export const updateStatus =
 		if (!showStatusPickerAt) {
 			// Same behaviour as quick insert (used in createStatus)
 			const statusNode = schema.nodes.status.createChecked(statusProps);
-			tr = verifyAndInsertStatus(statusNode, state);
+			tr = verifyAndInsertStatus(statusNode, state.tr);
 			if (dispatch) {
 				dispatch(tr);
 			}

@@ -235,6 +235,23 @@ export const runCommonHoverCardTests = (
 			expect(queryByTestId('hover-card')).not.toBeNull();
 		});
 
+		it('should wait a custom delay before showing if provided', async () => {
+			const { queryByTestId } = await setup({
+				userEventOptions: userEventOptionsWithAdvanceTimers,
+				extraCardProps: { hoverPreviewOptions: { fadeInDelay: 1000 } },
+			});
+
+			// Delay not completed yet
+			jest.advanceTimersByTime(999);
+
+			expect(queryByTestId('hover-card')).toBeNull();
+
+			// Delay completed
+			jest.advanceTimersByTime(1);
+
+			expect(queryByTestId('hover-card')).not.toBeNull();
+		});
+
 		it('should wait a default delay before hiding', async () => {
 			const { queryByTestId, element, event } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,

@@ -634,12 +634,11 @@ export class ToolbarInsertBlock extends React.PureComponent<
 	};
 
 	private createStatus = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-		const { pluginInjectionApi, editorView } = this.props;
-		return (
-			pluginInjectionApi?.status?.actions?.updateStatus(inputMethod)(
-				editorView.state,
-				editorView.dispatch,
-			) ?? false
+		const { pluginInjectionApi } = this.props;
+		return Boolean(
+			pluginInjectionApi?.core?.actions.execute(
+				pluginInjectionApi?.status?.commands?.insertStatus(inputMethod),
+			),
 		);
 	};
 

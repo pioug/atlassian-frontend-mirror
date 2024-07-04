@@ -71,7 +71,6 @@ const createTestHelpers = () => {
 };
 
 describe('commitStepQueue', () => {
-	jest.useFakeTimers();
 	const {
 		presetCommitStepQueue,
 		broadcastSpy,
@@ -82,10 +81,12 @@ describe('commitStepQueue', () => {
 	} = createTestHelpers();
 
 	beforeEach(() => {
+		jest.useFakeTimers({ legacyFakeTimers: true });
 		provider.initialize(() => editorState);
 		jest.runOnlyPendingTimers(); // running pending timers will set `readyToCommit` flag to true
 	});
 	afterEach(() => {
+		jest.useRealTimers();
 		jest.clearAllMocks();
 	});
 
@@ -241,23 +242,23 @@ describe('commitStepQueue', () => {
 			it('commit attempt & success event emitted', () => {
 				expect(emitMock).toBeCalledTimes(2);
 				expect(emitMock.mock.calls).toMatchInlineSnapshot(`
-          Array [
-            Array [
-              "commit-status",
-              Object {
-                "status": "attempt",
-                "version": 1,
-              },
-            ],
-            Array [
-              "commit-status",
-              Object {
-                "status": "success",
-                "version": 2,
-              },
-            ],
-          ]
-        `);
+			[
+			  [
+			    "commit-status",
+			    {
+			      "status": "attempt",
+			      "version": 1,
+			    },
+			  ],
+			  [
+			    "commit-status",
+			    {
+			      "status": "success",
+			      "version": 2,
+			    },
+			  ],
+			]
+		`);
 			});
 		});
 
@@ -289,23 +290,23 @@ describe('commitStepQueue', () => {
 
 				expect(emitMock).toBeCalledTimes(2);
 				expect(emitMock.mock.calls).toMatchInlineSnapshot(`
-          Array [
-            Array [
-              "commit-status",
-              Object {
-                "status": "attempt",
-                "version": 1,
-              },
-            ],
-            Array [
-              "commit-status",
-              Object {
-                "status": "failure",
-                "version": 1,
-              },
-            ],
-          ]
-        `);
+			[
+			  [
+			    "commit-status",
+			    {
+			      "status": "attempt",
+			      "version": 1,
+			    },
+			  ],
+			  [
+			    "commit-status",
+			    {
+			      "status": "failure",
+			      "version": 1,
+			    },
+			  ],
+			]
+		`);
 			});
 
 			describe('analytics action event send with', () => {

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import '@testing-library/jest-dom';
 import { DeleteAction, EditAction } from '../index';
 import { SmartLinkSize } from '../../../../../constants';
 import CrossIcon from '@atlaskit/icon/glyph/cross';

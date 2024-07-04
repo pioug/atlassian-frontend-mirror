@@ -20,7 +20,7 @@ const flushPromises = () => Promise.resolve();
 describe('onStartAutocompleteEvent', function () {
 	beforeEach(() => {
 		jest.clearAllMocks();
-		jest.useFakeTimers('legacy');
+		jest.useFakeTimers({ legacyFakeTimers: true });
 		performance.mark = jest.fn();
 		performance.measure = jest.fn();
 		performance.clearMarks = jest.fn();

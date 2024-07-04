@@ -53,7 +53,11 @@ const mockResourceClient: unknown = {
 describe('ProfileCardTrigger', () => {
 	beforeEach(() => {
 		createAnalyticsEvent.mockClear();
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
 	});
 
 	it('should open "click" trigger after click', () => {

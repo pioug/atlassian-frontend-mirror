@@ -61,6 +61,7 @@
 	"devDependencies": {
 		"@atlaskit/elements-test-helpers": "^0.7.0",
 		"@atlaskit/visual-regression": "*",
+		"@testing-library/react": "^12.1.5",
 		"@types/query-string": "^4.3.1",
 		"@types/serialize-javascript": "^5.0.0",
 		"enzyme": "^3.10.0",

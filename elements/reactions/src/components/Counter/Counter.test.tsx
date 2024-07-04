@@ -93,7 +93,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 
 			// in the middle of animation
 			act(() => {
-				jest.runTimersToTime(animationDuration * 2);
+				jest.advanceTimersByTime(animationDuration * 2);
 			});
 
 			expect(animatedContainer).toHaveStyle('animation-duration: 150ms');
@@ -113,7 +113,7 @@ describe('@atlaskit/reactions/components/Counter', () => {
 
 			// in the middle of animation
 			act(() => {
-				jest.runTimersToTime(animationDuration * 2);
+				jest.advanceTimersByTime(animationDuration * 2);
 			});
 
 			expect(animatedContainer).toHaveStyle('animation-duration: 150ms');

@@ -110,7 +110,7 @@ describe('hover card over flexible smart links', () => {
 	};
 
 	beforeEach(() => {
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 		mockIntersectionObserver();
 	});
 

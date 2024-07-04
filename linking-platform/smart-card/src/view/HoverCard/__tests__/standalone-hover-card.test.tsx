@@ -57,7 +57,7 @@ const TestCanOpenComponent = ({
 
 describe('standalone hover card', () => {
 	beforeEach(() => {
-		jest.useFakeTimers();
+		jest.useFakeTimers({ legacyFakeTimers: true });
 	});
 
 	afterEach(() => {

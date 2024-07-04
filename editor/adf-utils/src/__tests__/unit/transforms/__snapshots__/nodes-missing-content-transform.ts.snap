@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`transformNodesMissingContent lists when list nodes have invalid children should create valid listItem nodes for bulletList with text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
                   "text": "text",
                   "type": "text",
                 },
@@ -29,15 +29,15 @@ Object {
 `;
 
 exports[`transformNodesMissingContent lists when list nodes have invalid children should create valid listItem nodes for orderedList with text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "content": Array [
-                Object {
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [
+                {
                   "text": "text",
                   "type": "text",
                 },
@@ -57,14 +57,14 @@ Object {
 `;
 
 exports[`transformNodesMissingContent lists when nodes are invalidly empty should create valid filler content for bulletList 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "content": Array [],
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [],
               "type": "paragraph",
             },
           ],
@@ -80,14 +80,14 @@ Object {
 `;
 
 exports[`transformNodesMissingContent lists when nodes are invalidly empty should create valid filler content for orderedList 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "content": Array [],
+{
+  "content": [
+    {
+      "content": [
+        {
+          "content": [
+            {
+              "content": [],
               "type": "paragraph",
             },
           ],
@@ -103,56 +103,56 @@ Object {
 `;
 
 exports[`transformNodesMissingContent mediaSingle is removed when has no children when content is an empty array 1`] = `
-Object {
-  "content": Array [],
+{
+  "content": [],
   "type": "doc",
   "version": 1,
 }
 `;
 
 exports[`transformNodesMissingContent mediaSingle is removed when has no children when content is null 1`] = `
-Object {
-  "content": Array [],
+{
+  "content": [],
   "type": "doc",
   "version": 1,
 }
 `;
 
 exports[`transformNodesMissingContent tables when nodes are invalidly empty should create valid filler content for tableCell (with attributes) 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {
-                "colwidth": Array [
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
+                "colwidth": [
                   502,
                 ],
               },
-              "content": Array [
-                Object {
-                  "content": Array [],
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {
-                "colwidth": Array [
+            {
+              "attrs": {
+                "colwidth": [
                   258,
                 ],
               },
-              "content": Array [
-                Object {
-                  "content": Array [],
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
@@ -170,22 +170,22 @@ Object {
 `;
 
 exports[`transformNodesMissingContent tables when nodes are invalidly empty should create valid filler content for tableCell 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [],
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
@@ -204,32 +204,32 @@ Object {
 `;
 
 exports[`transformNodesMissingContent tables when nodes are invalidly empty should create valid filler content for tableRow (while alongside valid non-empty tableRows) 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [],
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [],
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
@@ -238,23 +238,23 @@ Object {
           ],
           "type": "tableRow",
         },
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [],
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
               "type": "tableCell",
             },
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [],
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
@@ -273,22 +273,22 @@ Object {
 `;
 
 exports[`transformNodesMissingContent tables when nodes are invalidly empty should create valid filler content for tableRow 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [],
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [],
                   "type": "paragraph",
                 },
               ],
@@ -307,23 +307,23 @@ Object {
 `;
 
 exports[`transformNodesMissingContent tables when table nodes have invalid children should create valid tableRow nodes for table with text 1`] = `
-Object {
-  "content": Array [
-    Object {
-      "attrs": Object {
+{
+  "content": [
+    {
+      "attrs": {
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "123",
       },
-      "content": Array [
-        Object {
-          "content": Array [
-            Object {
-              "attrs": Object {},
-              "content": Array [
-                Object {
-                  "content": Array [
-                    Object {
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {},
+              "content": [
+                {
+                  "content": [
+                    {
                       "text": "text",
                       "type": "text",
                     },

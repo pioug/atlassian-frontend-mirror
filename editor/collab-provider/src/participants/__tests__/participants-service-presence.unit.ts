@@ -91,12 +91,11 @@ describe('participants-service-presence', () => {
 
 		it('should send analytics on error', () => {
 			const fakeError = new Error('batman');
-			jest
-				// @ts-expect-error don't care about type issues for a mock
-				.spyOn(participantsService, 'sendPresence')
-				.mockImplementationOnce(() => {
-					throw fakeError;
-				});
+			// @ts-expect-error don't care about type issues for a mock
+			const sendPresenceSpy = jest.spyOn(participantsService, 'sendPresence') as jest.Mock;
+			sendPresenceSpy.mockImplementationOnce(() => {
+				throw fakeError;
+			});
 			participantsService.onPresenceJoined(payload);
 
 			expect(analyticsSpy).toBeCalledTimes(1);

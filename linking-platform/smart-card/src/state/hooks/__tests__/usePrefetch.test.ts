@@ -1,3 +1,5 @@
+import { renderHook } from '@testing-library/react-hooks';
+
 import { usePrefetch } from '../usePrefetch';
 import { mocks } from '../../../utils/mocks';
 
@@ -60,7 +62,8 @@ describe('usePrefetch', () => {
 	});
 
 	it('triggers client.prefetchData() when new prefetch request is made', async () => {
-		const prefetcher = usePrefetch(mockUrl);
+		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const prefetcher = result.current;
 		await prefetcher();
 
 		expect(mockPrefetchStore[mockUrl]).toBe(true);
@@ -84,7 +87,8 @@ describe('usePrefetch', () => {
 	});
 
 	it('does not trigger client.prefetchData() when duplicate prefetch requests are made', async () => {
-		const prefetcher = usePrefetch(mockUrl);
+		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const prefetcher = result.current;
 		await prefetcher();
 		await prefetcher();
 
@@ -116,7 +120,8 @@ describe('usePrefetch', () => {
 			},
 		}));
 
-		const prefetcher = usePrefetch(mockUrl);
+		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const prefetcher = result.current;
 		await prefetcher();
 
 		expect(mockPrefetchStore[mockUrl]).toBeUndefined();
@@ -130,7 +135,8 @@ describe('usePrefetch', () => {
 			throw new Error();
 		});
 
-		const prefetcher = usePrefetch(mockUrl);
+		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const prefetcher = result.current;
 		await prefetcher();
 
 		expect(mockConnections.client.prefetchData).toBeCalled();
@@ -145,7 +151,8 @@ describe('usePrefetch', () => {
 			connections: undefined,
 		}));
 
-		const prefetcher = usePrefetch(mockUrl);
+		const { result } = renderHook(() => usePrefetch(mockUrl));
+		const prefetcher = result.current;
 		await prefetcher();
 
 		expect(mockConnections.client.prefetchData).not.toBeCalled();

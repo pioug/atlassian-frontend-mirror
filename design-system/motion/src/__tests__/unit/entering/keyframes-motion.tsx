@@ -105,7 +105,7 @@ describe('<KeyframesMotion />', () => {
 				</KeyframesMotion>,
 			);
 			act(() => {
-				jest.runTimersToTime(duration);
+				jest.advanceTimersByTime(duration);
 			});
 
 			expect(callback).toHaveBeenCalledWith('entering');
@@ -137,7 +137,7 @@ describe('<KeyframesMotion />', () => {
 
 			// Step is actually logarithmic so we add a little on to make sure it hits the timeout.
 			act(() => {
-				jest.runTimersToTime(duration + step + 2);
+				jest.advanceTimersByTime(duration + step + 2);
 			});
 			expect(callback).toHaveBeenCalledWith('entering');
 		});
@@ -239,7 +239,7 @@ describe('<KeyframesMotion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 			act(() => {
-				jest.runTimersToTime(duration * 0.5);
+				jest.advanceTimersByTime(duration * 0.5);
 			});
 
 			expect(callback).toHaveBeenCalledWith('exiting');

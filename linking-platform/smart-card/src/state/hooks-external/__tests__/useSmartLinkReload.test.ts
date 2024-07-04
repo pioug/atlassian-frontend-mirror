@@ -1,5 +1,4 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { mocked } from 'ts-jest/utils';
 
 import { useSmartLinkReload } from '../useSmartLinkReload';
 import { useSmartCardActions } from '../../actions';
@@ -23,7 +22,7 @@ describe(useSmartLinkReload.name, () => {
 			reload: jest.fn(),
 			loadMetadata: jest.fn(),
 		};
-		mocked(useSmartCardActions).mockReturnValue(mockedActions);
+		jest.mocked(useSmartCardActions).mockReturnValue(mockedActions);
 
 		const { result } = renderHook(() => useSmartLinkReload({ url, analyticsHandler: analytics }));
 

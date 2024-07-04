@@ -174,7 +174,7 @@ const container = document.createElement('div');
 			done();
 		});
 
-		it('should emit drag-leave for dragleave event', async (done) => {
+		it('should emit drag-leave for dragleave event', (done) => {
 			component = mount(
 				<Dropzone
 					mediaClient={mediaClient}

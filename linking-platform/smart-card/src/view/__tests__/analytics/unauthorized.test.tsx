@@ -11,11 +11,13 @@ import { Provider } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, waitFor, fireEvent, cleanup } from '@testing-library/react';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
-import 'jest-extended';
+import * as jestExtendedMatchers from 'jest-extended';
 import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 
 mockSimpleIntersectionObserver();
+
+expect.extend(jestExtendedMatchers);
 
 describe('smart-card: unauthorized analytics', () => {
 	let mockClient: CardClient;

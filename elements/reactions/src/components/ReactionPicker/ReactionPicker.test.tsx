@@ -3,21 +3,18 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import {
-	mockReactDomWarningGlobal,
-	renderWithIntl,
-	useFakeTimers,
-} from '../../__tests__/_testing-library';
+import { mockReactDomWarningGlobal, renderWithIntl } from '../../__tests__/_testing-library';
 import { DefaultReactions } from '../../shared/constants';
 import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_BUTTON_TESTID } from '../EmojiButton';
 import { RENDER_TRIGGER_BUTTON_TESTID } from '../Trigger/Trigger';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
 import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
-import { replaceRaf } from 'raf-stub';
+import { type Stub, replaceRaf } from 'raf-stub';
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as unknown as Stub;
 
 // TODO: fix warnings of this test
 // the focus involve requestAnimationFrame, better to be stubbed
@@ -55,9 +52,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 			window.cancelAnimationFrame = animStub;
 		},
 	);
-	useFakeTimers(() => {
-		onSelectionSpy.mockClear();
-	});
 
 	it('should render a trigger button', async () => {
 		renderWithIntl(renderPicker());

@@ -15,7 +15,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
@@ -31,6 +31,7 @@ import {
 	DRAG_HANDLE_WIDTH,
 	DRAG_HANDLE_ZINDEX,
 	dragHandleGap,
+	topPositionAdjustment,
 } from './consts';
 import { dragPreview } from './drag-preview';
 
@@ -122,7 +123,7 @@ export const DragHandle = ({
 			const resolvedMovingNode = tr.doc.resolve(start);
 			const maybeNode = resolvedMovingNode.nodeAfter;
 
-			getBooleanFF('platform.editor.elements.drag-and-drop-long-node-scroll') &&
+			fg('platform.editor.elements.drag-and-drop-long-node-scroll') &&
 				tr.setMeta('scrollIntoView', false);
 
 			api?.analytics?.actions.attachAnalyticsEvent({
@@ -263,29 +264,36 @@ export const DragHandle = ({
 		}
 
 		if (supportsAnchor) {
-			return getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+			return fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
 				? {
 						left:
 							hasResizer || isExtension || isEmbedCard
 								? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
 								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
-						top: anchorName.includes('table')
-							? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-							: `anchor(${anchorName} start)`,
+
+						top: fg('platform_editor_elements_dnd_ed_23674')
+							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
+							: anchorName.includes('table')
+								? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+								: `anchor(${anchorName} start)`,
 					}
 				: {
 						left:
 							hasResizer || isExtension || isBlockCard || isEmbedCard
 								? getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
 								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
-						top: anchorName.includes('table')
-							? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-							: `anchor(${anchorName} start)`,
+						top: fg('platform_editor_elements_dnd_ed_23674')
+							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
+							: anchorName.includes('table')
+								? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+								: `anchor(${anchorName} start)`,
 					};
 		}
 		return {
 			left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
-			top: getTopPosition(dom),
+			top: fg('platform_editor_elements_dnd_ed_23674')
+				? getTopPosition(dom, nodeType)
+				: getTopPosition(dom),
 		};
 	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
 
@@ -298,7 +306,7 @@ export const DragHandle = ({
 			style={positionStyles}
 			onClick={handleOnClick}
 			onMouseDown={
-				getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
 					? handleMouseDownWrapperRemoved
 					: handleMouseDown
 			}

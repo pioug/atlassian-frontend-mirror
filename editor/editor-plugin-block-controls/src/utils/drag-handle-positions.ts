@@ -1,12 +1,14 @@
-import { DRAG_HANDLE_WIDTH, dragHandleGap } from '../ui/consts';
+import { DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT, DRAG_HANDLE_WIDTH, dragHandleGap } from '../ui/consts';
 
-export const getTopPosition = (dom: HTMLElement | null) => {
+export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 	if (!dom) {
 		return 'auto';
 	}
 	const table = dom.querySelector('table');
 	if (table) {
 		return `${dom.offsetTop + (table?.offsetTop || 0)}px`;
+	} else if (type === 'rule') {
+		return `${dom.offsetTop - DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT}px`;
 	} else {
 		return `${dom.offsetTop}px`;
 	}

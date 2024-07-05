@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import React, { PureComponent, type ReactElement } from 'react';
+import React, { type ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -25,7 +25,7 @@ export interface Props {
 	decorator?: ReactElement;
 }
 
-function FunctionalComponentColor(props: Props) {
+const Color = (props: Props) => {
 	const {
 		autoFocus,
 		tabIndex,
@@ -77,7 +77,7 @@ function FunctionalComponentColor(props: Props) {
 					style={{
 						backgroundColor:
 							colorStyle ||
-							(getBooleanFF('platform.editor.dynamic-palette-borders')
+							(fg('platform.editor.dynamic-palette-borders')
 								? token('color.background.input', '#FFFFFF')
 								: 'transparent'),
 						border: `1px solid ${borderColor}`,
@@ -90,79 +90,6 @@ function FunctionalComponentColor(props: Props) {
 			</span>
 		</Tooltip>
 	);
-}
-
-class ClassComponentColor extends PureComponent<Props> {
-	render() {
-		const {
-			autoFocus,
-			tabIndex,
-			value,
-			label,
-			isSelected,
-			borderColor,
-
-			/** this is not new usage - old code extracted from editor-core */
-			/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-			checkMarkColor = N0,
-			/**
-			 * When hexToPaletteColor prop is set,
-			 * it will be used to get background color style based on
-			 * value (which will be hexcode) prop
-			 */
-			hexToPaletteColor,
-		} = this.props;
-
-		const colorStyle = hexToPaletteColor ? hexToPaletteColor(value) : value;
-		return (
-			<Tooltip content={label}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<span css={buttonWrapperStyle}>
-					<button
-						type="button"
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={buttonStyle}
-						aria-label={label}
-						role="radio"
-						aria-checked={isSelected}
-						onClick={this.onClick}
-						onMouseDown={this.onMouseDown}
-						tabIndex={tabIndex}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={`${isSelected ? 'selected' : ''}`}
-						style={{
-							backgroundColor:
-								colorStyle ||
-								(getBooleanFF('platform.editor.dynamic-palette-borders')
-									? token('color.background.input', '#FFFFFF')
-									: 'transparent'),
-							border: `1px solid ${borderColor}`,
-						}}
-						autoFocus={autoFocus}
-					>
-						{isSelected && <EditorDoneIcon primaryColor={checkMarkColor} label="" />}
-					</button>
-				</span>
-			</Tooltip>
-		);
-	}
-
-	onMouseDown = (e: React.MouseEvent<{}>) => {
-		e.preventDefault();
-	};
-
-	onClick = (e: React.MouseEvent<{}>) => {
-		const { onClick, value, label } = this.props;
-		e.preventDefault();
-		onClick(value, label);
-	};
-}
-
-const Color = (props: Props) => {
-	if (getBooleanFF('platform.editor.transparent-diagonal-decorator')) {
-		return <FunctionalComponentColor {...props} />;
-	}
-	return <ClassComponentColor {...props} />;
 };
 
 export default Color;

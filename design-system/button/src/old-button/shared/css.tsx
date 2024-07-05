@@ -1,6 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 	gridSize as getGridSize,
@@ -13,6 +14,7 @@ import { type Appearance, type Spacing } from '../types';
 import colors, { type ColorGroup, type ColorRule } from './colors';
 
 const gridSize: number = getGridSize();
+const HAS_DISABLED_BACKGROUND = ['default', 'primary', 'danger', 'warning'];
 
 // ## Button layout
 //
@@ -58,6 +60,136 @@ const verticalAlign: { [key in Spacing]: string } = {
 const innerMargin = {
 	content: `0 ${gridSize / 4}px`,
 	icon: `0 ${gridSize / 4}px`,
+};
+
+const defaultAfterStyles: CSSObject = {
+	borderRadius: 'inherit',
+	inset: token('space.0'),
+	borderStyle: 'solid',
+	borderWidth: token('border.width'),
+	pointerEvents: 'none',
+	position: 'absolute',
+};
+
+const defaultStyles: CSSObject = {
+	background: token('color.background.neutral.subtle'),
+	color: token('color.text'),
+
+	'&:not([disabled])::after': {
+		...defaultAfterStyles,
+		content: '""',
+		borderColor: token('color.border'),
+	},
+
+	'&:hover': {
+		background: token('color.background.neutral.hovered'),
+	},
+
+	'&:active': {
+		background: token('color.background.neutral.pressed'),
+	},
+};
+
+const primaryStyles: CSSObject = {
+	background: token('color.background.brand.bold'),
+	color: token('color.text.inverse'),
+
+	'&:hover': {
+		background: token('color.background.brand.bold.hovered'),
+	},
+
+	'&:active': {
+		background: token('color.background.brand.bold.pressed'),
+	},
+};
+
+const linkStyles: CSSObject = {
+	background: 'transparent',
+	color: token('color.link'),
+
+	'&:hover': {
+		color: token('color.link'),
+		textDecoration: 'underline',
+	},
+
+	'&:active': {
+		color: token('color.link.pressed'),
+		textDecoration: 'underline',
+	},
+};
+
+const subtleStyles: CSSObject = {
+	background: 'transparent',
+	color: token('color.text.subtle'),
+
+	'&:hover': {
+		background: token('color.background.neutral.subtle.hovered'),
+	},
+
+	'&:active': {
+		background: token('color.background.neutral.subtle.pressed'),
+	},
+};
+
+const subtleLinkStyles: CSSObject = {
+	background: 'transparent',
+	color: token('color.text.subtle'),
+
+	'&:hover': {
+		background: 'transparent',
+		color: token('color.text.subtle'),
+		textDecoration: 'underline',
+	},
+
+	'&:active': {
+		background: 'transparent',
+		color: token('color.text'),
+		textDecoration: 'underline',
+	},
+};
+
+const warningStyles: CSSObject = {
+	background: token('color.background.warning.bold'),
+	color: token('color.text.warning.inverse'),
+
+	'&:hover': {
+		background: token('color.background.warning.bold.hovered'),
+	},
+
+	'&:active': {
+		background: token('color.background.warning.bold.pressed'),
+	},
+};
+
+const dangerStyles: CSSObject = {
+	background: token('color.background.danger.bold'),
+	color: token('color.text.inverse'),
+
+	'&:hover': {
+		background: token('color.background.danger.bold.hovered'),
+	},
+
+	'&:active': {
+		background: token('color.background.danger.bold.pressed'),
+	},
+};
+
+const selectedStyles: CSSObject = {
+	background: token('color.background.selected'),
+	color: token('color.text.selected'),
+
+	'&:not([disabled])::after': {
+		...defaultAfterStyles,
+		content: '""',
+		borderColor: token('color.border.selected'),
+	},
+};
+
+const hasOverlayStyles: CSSObject = {
+	'&[data-has-overlay="true"]': {
+		cursor: 'default',
+		textDecoration: 'none',
+	},
 };
 
 function getColor({
@@ -142,7 +274,7 @@ export function getCss({
 		whiteSpace: 'nowrap',
 
 		// dynamic styles
-		...baseColors,
+		...(!fg('platform.design-system-team.component-visual-refresh_t8zbo') && baseColors),
 
 		cursor: 'pointer',
 		height: heights[spacing],
@@ -156,72 +288,114 @@ export function getCss({
 		// Note: we cannot disable pointer events when there is an overlay.
 		// That would be easy for styling, but it would start letting events through on disabled buttons
 
-		// Disabling visited styles (just using the base colors)
-		'&:visited': {
-			...baseColors,
-		},
+		...(!fg('platform.design-system-team.component-visual-refresh_t8zbo') && {
+			// Disabling visited styles (just using the base colors)
+			'&:visited': {
+				...baseColors,
+			},
 
-		'&:hover': {
-			...getColors({
-				appearance,
-				key: isSelected ? 'selected' : 'hover',
-				mode,
-			}),
-			textDecoration:
-				!isSelected && (appearance === 'link' || appearance === 'subtle-link')
-					? 'underline'
-					: 'inherit',
-			// background, box-shadow
-			transitionDuration: '0s, 0.15s',
-		},
-
-		// giving active styles preference by listing them after focus
-		'&:active': {
-			...getColors({
-				appearance,
-				key: isSelected ? 'selected' : 'active',
-				mode,
-			}),
-			// background, box-shadow
-			transitionDuration: '0s, 0s',
-		},
-
-		// preventDefault prevents regular active styles from applying in Firefox
-		'&[data-firefox-is-active="true"]': {
-			...getColors({
-				appearance,
-				key: isSelected ? 'selected' : 'active',
-				mode,
-			}),
-			// background, box-shadow
-			transitionDuration: '0s, 0s',
-		},
-
-		// Giving disabled styles preference over active by listing them after.
-		// Not using '&:disabled' because :disabled is not a valid state for all element types
-		// so we are targeting the attribute
-		// Attributes have the same specificity a pseudo classes so we are overriding :disabled here
-		'&[disabled]': {
-			// always using 'disabled' even when selected
-			...getColors({ appearance, key: 'disabled', mode }),
-			cursor: 'not-allowed',
-			textDecoration: 'none',
-		},
-
-		'&[data-has-overlay="true"]': {
-			cursor: 'default',
-			textDecoration: 'none',
-		},
-
-		// disabling hover and active color changes when there is an overlay, but the button is not disabled
-		'&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active':
-			{
+			'&:hover': {
 				...getColors({
 					appearance,
-					key: isSelected ? 'selected' : 'default',
+					key: isSelected ? 'selected' : 'hover',
 					mode,
 				}),
+				textDecoration:
+					!isSelected && (appearance === 'link' || appearance === 'subtle-link')
+						? 'underline'
+						: 'inherit',
+				// background, box-shadow
+				transitionDuration: '0s, 0.15s',
 			},
+
+			// giving active styles preference by listing them after focus
+			'&:active': {
+				...getColors({
+					appearance,
+					key: isSelected ? 'selected' : 'active',
+					mode,
+				}),
+				// background, box-shadow
+				transitionDuration: '0s, 0s',
+			},
+
+			// preventDefault prevents regular active styles from applying in Firefox
+			'&[data-firefox-is-active="true"]': {
+				...getColors({
+					appearance,
+					key: isSelected ? 'selected' : 'active',
+					mode,
+				}),
+				// background, box-shadow
+				transitionDuration: '0s, 0s',
+			},
+
+			// Giving disabled styles preference over active by listing them after.
+			// Not using '&:disabled' because :disabled is not a valid state for all element types
+			// so we are targeting the attribute
+			// Attributes have the same specificity a pseudo classes so we are overriding :disabled here
+			'&[disabled]': {
+				// always using 'disabled' even when selected
+				...getColors({ appearance, key: 'disabled', mode }),
+				cursor: 'not-allowed',
+				textDecoration: 'none',
+			},
+
+			...hasOverlayStyles,
+
+			// disabling hover and active color changes when there is an overlay, but the button is not disabled
+			'&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active':
+				{
+					...getColors({
+						appearance,
+						key: isSelected ? 'selected' : 'default',
+						mode,
+					}),
+				},
+		}),
+
+		// dynamic colours for visual refresh:
+		...(fg('platform.design-system-team.component-visual-refresh_t8zbo') &&
+			(isSelected
+				? selectedStyles
+				: {
+						...(appearance === 'default' && defaultStyles),
+						...(appearance === 'primary' && primaryStyles),
+						...(appearance === 'link' && linkStyles),
+						...(appearance === 'subtle' && subtleStyles),
+						...(appearance === 'subtle-link' && subtleLinkStyles),
+						...(appearance === 'warning' && warningStyles),
+						...(appearance === 'danger' && dangerStyles),
+
+						'&[disabled]': {
+							color: token('color.text.disabled'),
+							backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
+								? token('color.background.disabled')
+								: 'transparent',
+							cursor: 'not-allowed',
+							textDecoration: 'none',
+
+							'&:hovered': {
+								backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
+									? token('color.background.disabled')
+									: 'transparent',
+							},
+
+							'&:active': {
+								backgroundColor: HAS_DISABLED_BACKGROUND.includes(appearance)
+									? token('color.background.disabled')
+									: 'transparent',
+							},
+						},
+
+						...hasOverlayStyles,
+
+						// disabling hover and active color changes when there is an overlay, but the button is not disabled
+						'&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active':
+							{
+								background: 'inherit',
+							},
+					})),
 
 		'&::-moz-focus-inner': {
 			border: 0,

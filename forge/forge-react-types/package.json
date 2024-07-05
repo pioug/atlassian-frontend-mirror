@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@atlaskit/badge": "^16.3.0",
 		"@atlaskit/banner": "^12.4.0",
-		"@atlaskit/button": "^18.1.0",
+		"@atlaskit/button": "^18.2.0",
 		"@atlaskit/calendar": "^14.3.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/code": "^15.4.0",

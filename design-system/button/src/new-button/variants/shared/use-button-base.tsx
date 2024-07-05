@@ -4,7 +4,7 @@ import { uid } from 'react-uid';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -396,6 +396,13 @@ const selectedRefreshedStyles = xcss({
 	},
 });
 
+const selectedInsideSplitButtonStyles = xcss({
+	// This is 2 so it appears above the split button divider when selected.
+	// See split-button.tsx.
+	// @ts-expect-error — We need a local zindex just for button.
+	zIndex: 2,
+});
+
 const selectedInteractiveStyles = xcss({
 	':hover': {
 		// @ts-expect-error
@@ -596,8 +603,8 @@ const useButtonBase = <TagName extends HTMLElement>({
 
 	const isDefaultAppearanceSplitButton = splitButtonContext?.appearance === 'default';
 	const appearance =
-		getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
-		isDefaultAppearanceSplitButton
+		isDefaultAppearanceSplitButton &&
+		fg('platform.design-system-team.component-visual-refresh_t8zbo')
 			? 'subtle'
 			: splitButtonContext?.appearance || propAppearance;
 	const spacing = splitButtonContext?.spacing || propSpacing;
@@ -612,17 +619,17 @@ const useButtonBase = <TagName extends HTMLElement>({
 	return {
 		ref: mergeRefs([localRef, ref]),
 		xcss: [
-			getBooleanFF('platform.design-system-team.button-tokenised-typography-styles')
+			fg('platform.design-system-team.button-tokenised-typography-styles')
 				? tokenizedButtonStyles
 				: hardCodedButtonStyles,
 			buttonStyles,
 			appearance === 'default' &&
-				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
 					? defaultRefreshedStyles
 					: defaultStyles),
 			appearance === 'default' &&
 				isInteractive &&
-				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
 					? defaultInteractiveRefreshedStyles
 					: defaultInteractiveStyles),
 			appearance === 'primary' && primaryStyles,
@@ -634,12 +641,12 @@ const useButtonBase = <TagName extends HTMLElement>({
 			appearance === 'discovery' && discoveryStyles,
 			appearance === 'discovery' && isInteractive && discoveryInteractiveStyles,
 			appearance === 'subtle' &&
-				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
 					? subtleRefreshedStyles
 					: subtleStyles),
 			appearance === 'subtle' &&
 				isInteractive &&
-				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
 					? subtleInteractiveRefreshedStyles
 					: subtleInteractiveStyles),
 			appearance === 'link' && linkStyles,
@@ -648,9 +655,10 @@ const useButtonBase = <TagName extends HTMLElement>({
 				? linkDecorationStyles
 				: linkDecorationUnsetStyles,
 			isSelected &&
-				(getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
 					? selectedRefreshedStyles
 					: selectedStyles),
+			isSelected && isSplitButton && selectedInsideSplitButtonStyles,
 			isSelected && isInteractive && selectedInteractiveStyles,
 			// TODO: remove me once we kill color fallbacks
 			isSelected && appearance === 'danger' && selectedDangerStyles,
@@ -662,12 +670,12 @@ const useButtonBase = <TagName extends HTMLElement>({
 			isCircle && !isSplitButton && circleStyles,
 			spacing === 'compact' && spacingCompactStyles,
 			spacing === 'compact' &&
-				(getBooleanFF('platform.design-system-team.button-tokenised-typography-styles')
+				(fg('platform.design-system-team.button-tokenised-typography-styles')
 					? tokenizedSpacingCompactStyles
 					: baseSpacingCompactStyles),
 			spacing === 'none' && spacingNoneStyles,
 			spacing === 'none' &&
-				getBooleanFF('platform.design-system-team.button-tokenised-typography-styles') &&
+				fg('platform.design-system-team.button-tokenised-typography-styles') &&
 				tokenizedSpacingNoneStyles,
 			spacing !== 'none' && hasIconBefore && buttonIconBeforeStyles,
 			spacing !== 'none' && hasIconAfter && buttonIconAfterStyles,

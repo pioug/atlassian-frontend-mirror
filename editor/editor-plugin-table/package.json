@@ -29,9 +29,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^39.0.3",
-		"@atlaskit/button": "^18.1.0",
+		"@atlaskit/button": "^18.2.0",
 		"@atlaskit/custom-steps": "^0.4.0",
-		"@atlaskit/editor-common": "^84.0.0",
+		"@atlaskit/editor-common": "^84.1.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "194.0.4",
+	"version": "194.0.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,9 +44,9 @@
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^18.1.0",
-		"@atlaskit/editor-common": "^84.0.0",
-		"@atlaskit/editor-plugins": "^3.3.0",
+		"@atlaskit/button": "^18.2.0",
+		"@atlaskit/editor-common": "^84.1.0",
+		"@atlaskit/editor-plugins": "^3.4.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/emoji": "^67.6.0",
@@ -88,7 +88,7 @@
 		"@atlaskit/collab-provider": "9.32.3",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-plugin-annotation": "1.14.1",
-		"@atlaskit/editor-plugin-card": "^2.3.0",
+		"@atlaskit/editor-plugin-card": "^2.4.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-list": "^3.5.0",
 		"@atlaskit/editor-plugin-paste": "^1.5.0",
@@ -101,13 +101,13 @@
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^10.0.0",
 		"@atlaskit/renderer": "^109.40.0",
-		"@atlaskit/smart-card": "^27.8.0",
+		"@atlaskit/smart-card": "^27.9.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.89",
+		"@atlassian/search-provider": "2.4.91",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -323,10 +323,6 @@
 		},
 		"platform.editor.core.increase-full-page-guttering": {
 			"type": "boolean"
-		},
-		"platform.editor.transparent-diagonal-decorator": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		},
 		"platform.editor.dynamic-palette-borders": {
 			"type": "boolean",

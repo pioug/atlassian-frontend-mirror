@@ -1,5 +1,20 @@
 # @atlaskit/button
 
+## 18.2.0
+
+### Minor Changes
+
+- [#117552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117552)
+  [`89ed46b28e349`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89ed46b28e349) -
+  [ux] Updates the old-button component behind a feature flag with new visual changes as per the
+  JIRA visual refresh project.
+
+### Patch Changes
+
+- [#117552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117552)
+  [`6eabeed917202`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6eabeed917202) -
+  Fix dividers being under selected button when the new visual appearance feature gate is enabled.
+
 ## 18.1.0
 
 ### Minor Changes

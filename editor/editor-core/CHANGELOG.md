@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 194.0.6
+
+### Patch Changes
+
+- [`c905706a6f207`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c905706a6f207) -
+  [ux] [ED-23712] Clean up feature flag 'platform.editor.transparent-diagonal-decorator'
+
 ## 194.0.4
 
 ### Patch Changes

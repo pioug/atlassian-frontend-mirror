@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { CustomItemComponentProps, CustomItemProps } from '../types';
@@ -82,7 +82,7 @@ const CustomItem = memo(
 				<MenuItemPrimitive
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={
-						getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
+						fg('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
 							? undefined
 							: UNSAFE_className
 					}
@@ -114,8 +114,9 @@ const CustomItem = memo(
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className}
 							ref={ref}
-							draggable={false}
-							onDragStart={preventEvent}
+							{...(fg('platform.wanjel.remove-drag-override-in-menu-items_l1dib')
+								? {}
+								: { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
 							onClick={isDisabled ? preventEvent : onClick}
 							tabIndex={isDisabled ? -1 : undefined}

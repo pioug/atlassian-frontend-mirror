@@ -44,7 +44,7 @@
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/avatar": "^21.11.0",
-		"@atlaskit/button": "^18.1.0",
+		"@atlaskit/button": "^18.2.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.5.0",

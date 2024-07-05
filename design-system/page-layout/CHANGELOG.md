@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 3.4.5
+
+### Patch Changes
+
+- [#116999](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116999)
+  [`797e07674ed7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/797e07674ed7c) -
+  Remove it has been rolled out platform.remove-newline-in-style-tag-in-platform-page-layout_7gts1
+
 ## 3.4.4
 
 ### Patch Changes

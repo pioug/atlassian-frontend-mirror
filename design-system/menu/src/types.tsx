@@ -331,7 +331,7 @@ export interface CustomItemComponentProps {
 	 */
 	// This needs to be the raw DOM attribute so we can't name it isXyz.
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-	draggable: boolean;
+	draggable?: boolean;
 
 	/**
 	 * React ref for the raw DOM element,

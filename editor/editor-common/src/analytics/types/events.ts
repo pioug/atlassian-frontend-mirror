@@ -10,6 +10,7 @@ import type {
 
 import type { AvatarEventPayload } from './avatar';
 import type { ConfigPanelEventPayload } from './config-panel-events';
+import type { ContextMenuEventPayload } from './context-menu-events';
 import type { CutCopyEventPayload } from './cut-copy-events';
 import type { DatasourceClickedPayload } from './datasource-clicked-events';
 import type { DateEventPayload } from './date-events';
@@ -97,7 +98,8 @@ export type AnalyticsEventPayload<T = void> =
 	| MBEEventPayload
 	| HighlightEventPayload
 	| DatasourceClickedPayload
-	| ElementEventPayload;
+	| ElementEventPayload
+	| ContextMenuEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

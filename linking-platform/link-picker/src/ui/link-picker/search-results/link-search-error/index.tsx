@@ -3,12 +3,15 @@
 import { jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import Button from '@atlaskit/button';
 
 import { GenericErrorSVG } from '../../../../common/generic-error-svg';
 import { EmptyState } from '../../../../common/ui/empty-state';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
+export const CONTACT_SUPPORT_LINK_FEDRAMP =
+	'https://gcs.atlassian-us-gov-mod.net/servicedesk/customer/portals';
 
 export const messages = defineMessages({
 	searchErrorHeader: {
@@ -43,7 +46,7 @@ export const LinkSearchError = () => {
 							<Button
 								appearance="link"
 								spacing="none"
-								href={CONTACT_SUPPORT_LINK}
+								href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
 								target="_blank"
 								rel="noopener noreferrer"
 							>

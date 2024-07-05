@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 84.1.0
+
+### Minor Changes
+
+- [#117489](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117489)
+  [`6a9147dd7b5bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a9147dd7b5bf) -
+  NO-ISSUE Added context menu editor plugin to capture right-click customer behaviour in analytics
+
+### Patch Changes
+
+- Updated dependencies
+
+## 84.0.4
+
+### Patch Changes
+
+- [#116612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116612)
+  [`51b4df656c8d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51b4df656c8d0) -
+  Floating toolbar radiogroup markup, feature flag removal
+
+## 84.0.3
+
+### Patch Changes
+
+- [`c905706a6f207`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c905706a6f207) -
+  [ux] [ED-23712] Clean up feature flag 'platform.editor.transparent-diagonal-decorator'
+- Updated dependencies
+
 ## 84.0.2
 
 ### Patch Changes

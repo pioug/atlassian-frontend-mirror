@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 109.40.9
+
+### Patch Changes
+
+- [#117398](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117398)
+  [`ff47bec4e7b6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff47bec4e7b6e) -
+  [ux] Fix issue where inline node calculation would crash renderer
+- Updated dependencies
+
 ## 109.40.8
 
 ### Patch Changes

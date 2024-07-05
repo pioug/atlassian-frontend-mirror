@@ -2,6 +2,7 @@ import React from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
+import { isFedRamp } from '@atlaskit/atlassian-context';
 import Button from '@atlaskit/button';
 import EmptyState from '@atlaskit/empty-state';
 
@@ -11,6 +12,8 @@ import ErrorSVG from './error-svg';
 import messages from './messages';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
+export const CONTACT_SUPPORT_LINK_FEDRAMP =
+	'https://gcs.atlassian-us-gov-mod.net/servicedesk/customer/portals';
 
 export const ErrorBoundaryUI = () => {
 	const intl = useIntl();
@@ -28,7 +31,7 @@ export const ErrorBoundaryUI = () => {
 							<Button
 								appearance="link"
 								spacing="none"
-								href={CONTACT_SUPPORT_LINK}
+								href={isFedRamp() ? CONTACT_SUPPORT_LINK_FEDRAMP : CONTACT_SUPPORT_LINK}
 								target="_blank"
 								rel="noopener noreferrer"
 							>

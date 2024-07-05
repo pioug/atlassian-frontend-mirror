@@ -127,9 +127,9 @@ const LinkItem = memo(
 							className={className}
 							// @ts-expect-error
 							href={isDisabled ? undefined : href}
-							draggable={false}
-							// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
-							onDragStart={preventEvent}
+							{...(fg('platform.wanjel.remove-drag-override-in-menu-items_l1dib')
+								? {}
+								: { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
 							onClick={isDisabled ? preventEvent : onClick}
 							aria-current={isSelected ? 'page' : undefined}

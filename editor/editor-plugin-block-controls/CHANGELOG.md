@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.12
+
+### Patch Changes
+
+- [#117568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117568)
+  [`b07c3e0b8dbf8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b07c3e0b8dbf8) -
+  Update drag handle position on divider node
+- Updated dependencies
+
 ## 1.5.11
 
 ### Patch Changes

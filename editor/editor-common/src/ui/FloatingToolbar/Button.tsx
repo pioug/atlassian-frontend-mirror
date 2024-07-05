@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
@@ -69,13 +68,7 @@ export default ({
 	const customSpacing = iconOnly ? iconOnlySpacing : {};
 	const isButtonPressed = ariaHasPopup ? undefined : selected;
 	const ariaChecked = isRadioButton ? isButtonPressed : undefined;
-	const ariaCheckedWithFF = getBooleanFF('platform.editor.a11y-floating-toolbar-markup_vexmo')
-		? ariaChecked
-		: undefined;
 	const ariaPressed = isRadioButton ? undefined : isButtonPressed;
-	const ariaPressedWithFF = getBooleanFF('platform.editor.a11y-floating-toolbar-markup_vexmo')
-		? ariaPressed
-		: isButtonPressed;
 
 	return (
 		<Tooltip
@@ -107,8 +100,8 @@ export default ({
 						};
 					}}
 					aria-label={ariaLabel || title}
-					aria-pressed={ariaPressedWithFF}
-					aria-checked={ariaCheckedWithFF}
+					aria-pressed={ariaPressed}
+					aria-checked={ariaChecked}
 					role={isRadioButton ? 'radio' : undefined}
 					aria-expanded={ariaHasPopup ? selected : undefined}
 					aria-controls={ariaHasPopup ? areaControls : undefined}

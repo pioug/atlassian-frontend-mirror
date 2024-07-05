@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.7.1
+
+### Patch Changes
+
+- [`89377ac3c7f25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89377ac3c7f25) -
+  Removed internal props from link item and custom item that prevent drag and drop functionality
+  from being applied
+
 ## 2.7.0
 
 ### Minor Changes

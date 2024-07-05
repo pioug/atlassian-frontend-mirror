@@ -7,7 +7,7 @@ import { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type Spacing } from '../../variants/types';
@@ -28,10 +28,12 @@ import type {
 import { getActions } from './utils';
 
 const baseDividerStyles = css({
-	display: 'inline-flex',
 	width: token('border.width'),
 	position: 'relative',
-	zIndex: 2,
+	// This is 1 so it appears above buttons by default.
+	// When buttons are selected they have a zIndex of 2 applied.
+	// See use-button-base.tsx.
+	zIndex: 1,
 });
 
 const defaultDividerStyles = css({
@@ -47,13 +49,12 @@ const compactDividerStyles = css({
 const dividerDisabledStyles = css({
 	backgroundColor: token('color.text.disabled', '#091E4224'),
 	cursor: 'not-allowed',
+	opacity: 0.51,
 });
 
-const navigationDividerStyles = css({
-	height: '16px',
-	margin: `${token('space.100', '8px')} -0.5px`,
-	backgroundColor: token('color.text.subtle', '#0052cc'),
-	opacity: 0.62,
+const dividerDisabledRefreshedStyles = css({
+	backgroundColor: token('color.border.disabled', '#091E4224'),
+	cursor: 'not-allowed',
 });
 
 const dividerAppearance: Record<SplitButtonContextAppearance, SerializedStyles> = {
@@ -65,7 +66,12 @@ const dividerAppearance: Record<SplitButtonContextAppearance, SerializedStyles> 
 		backgroundColor: token('color.text.inverse', '#FFF'),
 		opacity: 0.64,
 	}),
-	navigation: navigationDividerStyles,
+	navigation: css({
+		height: '16px',
+		margin: `${token('space.100', '8px')} -0.5px`,
+		backgroundColor: token('color.text.subtle', '#0052cc'),
+		opacity: 0.62,
+	}),
 };
 
 const dividerRefreshedOffsetStyles = css({
@@ -93,9 +99,12 @@ export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProp
 			css={[
 				baseDividerStyles,
 				dividerHeight[spacing],
-				dividerAppearance[appearance],
-				isDisabled ? dividerDisabledStyles : undefined,
-				getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
+				isDisabled &&
+					(fg('platform.design-system-team.component-visual-refresh_t8zbo')
+						? dividerDisabledRefreshedStyles
+						: dividerDisabledStyles),
+				!isDisabled && dividerAppearance[appearance],
+				fg('platform.design-system-team.component-visual-refresh_t8zbo') &&
 					dividerRefreshedOffsetStyles,
 			]}
 		/>
@@ -148,9 +157,9 @@ export const SplitButtonContainer = ({
 	return (
 		<div
 			css={[
-				getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo') &&
-					appearance === 'default' &&
+				appearance === 'default' &&
 					!isDisabled &&
+					fg('platform.design-system-team.component-visual-refresh_t8zbo') &&
 					defaultAppearanceContainerStyles,
 				splitButtonStyles,
 			]}

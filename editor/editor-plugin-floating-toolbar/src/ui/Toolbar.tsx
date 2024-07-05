@@ -25,7 +25,6 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { checkShouldForceFocusAndApply, forceFocusSelector } from '../pm-plugins/force-focus';
@@ -314,44 +313,34 @@ const ToolbarItems = React.memo(
 			}
 		};
 
-		if (getBooleanFF('platform.editor.a11y-floating-toolbar-markup_vexmo')) {
-			const groupedItems = groupItems(items.filter((item) => !item.hidden));
+		const groupedItems = groupItems(items.filter((item) => !item.hidden));
 
-			return (
-				<ButtonGroup>
-					{groupedItems.map((element, index) => {
-						const isGroup = Array.isArray(element);
+		return (
+			<ButtonGroup>
+				{groupedItems.map((element, index) => {
+					const isGroup = Array.isArray(element);
 
-						if (isGroup) {
-							return (
-								<div
-									key={index}
-									css={buttonGroupStyles}
-									role="radiogroup"
-									aria-label={groupLabel ?? undefined}
-								>
-									{element.map((item, idx) => {
-										return renderItem(item, idx);
-									})}
-								</div>
-							);
-						} else {
-							return renderItem(element, index);
-						}
-					})}
-				</ButtonGroup>
-			);
-		} else {
-			return (
-				<ButtonGroup>
-					{items
-						.filter((item) => !item.hidden)
-						.map((item, index) => {
-							return renderItem(item, index);
-						})}
-				</ButtonGroup>
-			);
-		}
+					if (isGroup) {
+						return (
+							<div
+								key={index}
+								css={buttonGroupStyles}
+								role="radiogroup"
+								aria-label={groupLabel ?? undefined}
+							>
+								{element.map((element) => {
+									const indexInAllItems = items.findIndex((item) => item === element);
+									return renderItem(element, indexInAllItems);
+								})}
+							</div>
+						);
+					} else {
+						const indexInAllItems = items.findIndex((item) => item === element);
+						return renderItem(element, indexInAllItems);
+					}
+				})}
+			</ButtonGroup>
+		);
 	},
 	(prevProps, nextProps) => {
 		if (!nextProps.node) {

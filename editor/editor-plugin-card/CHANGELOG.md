@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 2.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.0
+
+### Minor Changes
+
+- [#117451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117451)
+  [`0ecc0082a92e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ecc0082a92e6) -
+  [ux] Enable hover cards for inline links in live pages behind ff
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.8
 
 ### Patch Changes

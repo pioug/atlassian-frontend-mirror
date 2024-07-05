@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 1.39.0
+
+### Minor Changes
+
+- [`862ad2995ac6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/862ad2995ac6f) -
+  Update support form URL within error component for fedRAMP compliance
+
 ## 1.38.2
 
 ### Patch Changes

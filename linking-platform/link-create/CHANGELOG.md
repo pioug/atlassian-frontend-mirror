@@ -1,5 +1,12 @@
 # @atlaskit/link-create
 
+## 2.8.0
+
+### Minor Changes
+
+- [`862ad2995ac6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/862ad2995ac6f) -
+  Update support form URL within error component for fedRAMP compliance
+
 ## 2.7.4
 
 ### Patch Changes

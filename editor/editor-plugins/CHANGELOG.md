@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 3.4.0
+
+### Minor Changes
+
+- [#117489](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117489)
+  [`6a9147dd7b5bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a9147dd7b5bf) -
+  NO-ISSUE Added context menu editor plugin to capture right-click customer behaviour in analytics
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.3.42
+
+### Patch Changes
+
+- [#116612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116612)
+  [`51b4df656c8d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51b4df656c8d0) -
+  Floating toolbar radiogroup markup, feature flag removal
+- Updated dependencies
+
+## 3.3.41
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.40
 
 ### Patch Changes

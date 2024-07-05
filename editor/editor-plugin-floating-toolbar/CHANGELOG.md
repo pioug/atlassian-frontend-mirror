@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.7.8
+
+### Patch Changes
+
+- [#116612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116612)
+  [`51b4df656c8d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51b4df656c8d0) -
+  Floating toolbar radiogroup markup, feature flag removal
+
 ## 1.7.7
 
 ### Patch Changes

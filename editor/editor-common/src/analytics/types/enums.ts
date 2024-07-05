@@ -240,6 +240,7 @@ export enum ACTION_SUBJECT {
 	DROP_TARGET = 'dropTarget',
 	DRAG = 'drag',
 	ELEMENT = 'element',
+	CONTEXT_MENU = 'contextMenu',
 }
 
 export enum ACTION_SUBJECT_ID {

@@ -37,7 +37,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/button": "^18.1.0",
+		"@atlaskit/button": "^18.2.0",
 		"@atlaskit/flag": "^15.6.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.5.0",

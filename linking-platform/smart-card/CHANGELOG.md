@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.9.0
+
+### Minor Changes
+
+- [#117451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117451)
+  [`0ecc0082a92e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ecc0082a92e6) -
+  Add hover card configs prop, with an option to control fade in delay
+
 ## 27.8.4
 
 ### Patch Changes

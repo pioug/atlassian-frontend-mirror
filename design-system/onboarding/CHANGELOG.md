@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 11.10.0
+
+### Minor Changes
+
+- [#117762](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117762)
+  [`e7423e403d743`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7423e403d743) -
+  [ux] Add `onBlanketClicked` prop to `SpotlightManager`.
+
 ## 11.9.0
 
 ### Minor Changes

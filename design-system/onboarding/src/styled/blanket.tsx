@@ -21,6 +21,7 @@ const blanketStyles = css({
 type BlanketProps = {
 	isTinted?: boolean;
 	style?: React.CSSProperties;
+	onBlanketClicked?: () => void;
 };
 
 /**
@@ -35,8 +36,10 @@ type BlanketProps = {
  * @internal
  */
 const Blanket = (props: BlanketProps) => {
+	const { onBlanketClicked } = props;
 	return (
 		<div
+			role="presentation"
 			css={blanketStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
@@ -45,6 +48,7 @@ const Blanket = (props: BlanketProps) => {
 					backgroundColor: props.isTinted ? token('color.blanket', N100A) : 'transparent',
 				} as React.CSSProperties
 			}
+			onClick={onBlanketClicked}
 		/>
 	);
 };

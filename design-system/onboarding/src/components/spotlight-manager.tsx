@@ -40,12 +40,17 @@ interface SpotlightManagerProps {
 	 * Typically the app, or a section of the app.
 	 */
 	children: ReactNode;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required
 	/**
 	 * @deprecated
 	 * Component is deprecated and will be removed in the future.
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?: ElementType;
+	/**
+	 * Handler function to be called when the blanket is clicked.
+	 */
+	onBlanketClicked?: () => void;
 }
 
 const Container = ({
@@ -120,7 +125,7 @@ export default class SpotlightManager extends PureComponent<
 	}));
 
 	render() {
-		const { blanketIsTinted, children, component: Tag } = this.props;
+		const { blanketIsTinted, children, component: Tag, onBlanketClicked } = this.props;
 		return (
 			<SpotlightStateProvider value={this.getStateProviderValue(this.state.targets)}>
 				<TargetProvider value={this.targetRef}>
@@ -128,8 +133,12 @@ export default class SpotlightManager extends PureComponent<
 						<Fade hasEntered={this.state.spotlightCount > 0}>
 							{(animationStyles) => (
 								<Portal zIndex={layers.spotlight()}>
-									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-									<Blanket style={animationStyles} isTinted={blanketIsTinted} />
+									<Blanket
+										/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */
+										style={animationStyles}
+										isTinted={blanketIsTinted}
+										onBlanketClicked={onBlanketClicked}
+									/>
 								</Portal>
 							)}
 						</Fade>

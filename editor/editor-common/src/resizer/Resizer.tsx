@@ -12,7 +12,6 @@ import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
@@ -294,65 +293,24 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 				};
 			}
 
-			if (getBooleanFF('platform.editor.resizer.prevent-contenteditable')) {
-				const thumbWithTrack = (
-					//It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
-					<>
-						{thumb}
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={classnames(resizerHandleTrackClassName, handleHighlight)}
-							data-testid={`resizer-handle-${position}-track`}
-						/>
-					</>
-				);
+			const thumbWithTrack = (
+				//It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
+				<>
+					{thumb}
+					<div
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={classnames(resizerHandleTrackClassName, handleHighlight)}
+						data-testid={`resizer-handle-${position}-track`}
+					/>
+				</>
+			);
 
-				if (!!handleTooltipContent) {
-					return {
-						...result,
-						[position]: (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							<div contentEditable={false} style={inheritedCSS}>
-								<Tooltip
-									content={handleTooltipContent}
-									hideTooltipOnClick
-									position="mouse"
-									mousePosition="auto-start"
-									testId={`resizer-handle-${position}-tooltip`}
-								>
-									{thumbWithTrack}
-								</Tooltip>
-							</div>
-						),
-					};
-				}
-
+			if (!!handleTooltipContent) {
 				return {
 					...result,
 					[position]: (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						<div contentEditable={false} style={inheritedCSS}>
-							{thumbWithTrack}
-						</div>
-					),
-				};
-			} else {
-				const thumbWithTrack = (
-					//It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
-					<>
-						{thumb}
-						<div
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={classnames(resizerHandleTrackClassName, handleHighlight)}
-							data-testid={`resizer-handle-${position}-track`}
-						/>
-					</>
-				);
-
-				if (!!handleTooltipContent) {
-					return {
-						...result,
-						[position]: (
 							<Tooltip
 								content={handleTooltipContent}
 								hideTooltipOnClick
@@ -362,15 +320,20 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 							>
 								{thumbWithTrack}
 							</Tooltip>
-						),
-					};
-				}
-
-				return {
-					...result,
-					[position]: thumbWithTrack,
+						</div>
+					),
 				};
 			}
+
+			return {
+				...result,
+				[position]: (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					<div contentEditable={false} style={inheritedCSS}>
+						{thumbWithTrack}
+					</div>
+				),
+			};
 		}, {});
 	}, [handleHighlight, handleTooltipContent]);
 

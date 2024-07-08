@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.9
+
+### Patch Changes
+
+- [#117916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117916)
+  [`49fc126d779b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49fc126d779b0) -
+  ECA11Y-111: A11y table resizing feature flag removal
+- Updated dependencies
+
+## 7.19.8
+
+### Patch Changes
+
+- [`7c716627bd4f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c716627bd4f4) -
+  Table Drag move column/row logic FF cleanup
+- Updated dependencies
+
 ## 7.19.7
 
 ### Patch Changes

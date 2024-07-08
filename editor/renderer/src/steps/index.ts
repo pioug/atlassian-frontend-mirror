@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
@@ -101,7 +101,7 @@ function isNodeInlineTextMark(node: ChildNode | Node | HTMLElement | null) {
  */
 function hasInlineNodeDescendant(node: Node): boolean {
 	if (isElementNode(node)) {
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			if (node.dataset.annotationInlineNode === 'true') {
 				return true;
 			}
@@ -124,7 +124,7 @@ function resolveNodePos(node: Node) {
 		if (prev && (isTextNode(prev) || isHighlightTextNode(prev))) {
 			resolvedPos += (prev.textContent || '').length;
 		} else if (prev) {
-			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+			if (fg('editor_inline_comments_on_inline_nodes')) {
 				if (isNodeInlineTextMark(prev) && prev.textContent) {
 					resolvedPos += prev.textContent.length;
 				} else {
@@ -155,11 +155,9 @@ export function resolvePos(node: Node | null, offset: number, findEnd = false) {
 		return false;
 	}
 
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+	if (fg('editor_inline_comments_on_inline_nodes')) {
 		const startPosAncestor = node.parentElement?.closest('[data-renderer-start-pos');
-		const potentialParent = getBooleanFF(
-			'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
-		)
+		const potentialParent = fg('editor_inline_comments_on_inline_nodes')
 			? 'data-annotation-mark'
 			: 'data-inline-card';
 		if (startPosAncestor?.hasAttribute(potentialParent)) {
@@ -192,7 +190,7 @@ export function resolvePos(node: Node | null, offset: number, findEnd = false) {
 		// If our range is inside an inline node
 		// We need to move our pointers to parent element
 		// since we don't want to count text inside inline nodes at all
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			if (!(isNodeInlineTextMark(preParentPointer) || isHighlightTextNode(preParentPointer))) {
 				current = current.parentElement;
 				offset = 0;

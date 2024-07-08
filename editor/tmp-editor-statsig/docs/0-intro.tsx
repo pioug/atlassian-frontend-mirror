@@ -16,7 +16,7 @@ Temp plugin to ease use of statsig feature flags until platform feature flags ar
 
 import EditorFeatureGates from '@atlaskit/editor-statsig-tmp/feature-gate-js-client';
 
-if (EditorFeatureGates.checkGate('platform_editor_inline_comments_on_inline_nodes')) {
+if (EditorFeatureGates.checkGate('editor_inline_comments_on_inline_nodes')) {
 	// do something
 }
 	`}
@@ -30,7 +30,7 @@ ${code`
 import { EditorFeatureGatesInitialization } from '@atlaskit/editor-statsig-tmp/feature-gates-react';
 
 <EditorFeatureGatesInitialization
-	overrides={{ gates: { platform_editor_inline_comments_on_inline_nodes: true } }}
+	overrides={{ gates: { editor_inline_comments_on_inline_nodes: true } }}
 >
 	<YourExampleCode />
 </EditorFeatureGatesInitialization>;

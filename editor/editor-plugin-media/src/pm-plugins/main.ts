@@ -41,6 +41,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import * as helpers from '../commands/helpers';
 import { updateMediaNodeAttrs } from '../commands/helpers';
@@ -170,10 +171,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			'Editor: unable to init media plugin - media or mediaGroup/mediaSingle node absent in schema',
 		);
 
-		options.providerFactory.subscribe(
-			'mediaProvider',
-			(_name: string, provider?: Promise<MediaProvider>) => this.setMediaProvider(provider),
-		);
+		if (mediaOptions?.provider && fg('platform_editor_media_provider_from_plugin_config')) {
+			this.setMediaProvider(mediaOptions?.provider);
+		} else {
+			options.providerFactory.subscribe(
+				'mediaProvider',
+				(_name: string, provider?: Promise<MediaProvider>) => this.setMediaProvider(provider),
+			);
+		}
 
 		if (
 			mediaInlineImagesEnabled(

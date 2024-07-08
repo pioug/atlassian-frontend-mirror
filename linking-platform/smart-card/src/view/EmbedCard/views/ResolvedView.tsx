@@ -93,6 +93,7 @@ export const EmbedCardResolvedView = React.forwardRef<
 				text={text}
 				onClick={onClick}
 				inheritDimensions={inheritDimensions}
+				setOverflow={false}
 			>
 				<Frame
 					url={previewUrl}

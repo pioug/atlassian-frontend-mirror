@@ -250,10 +250,6 @@ export interface EditorSharedPropsWithPlugins {
 	// Flag to remove private content such as mention names
 	sanitizePrivateContent?: boolean;
 
-	// Set to configure media features. Media single refers to the embedded version of media,
-	// which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
-	media?: MediaOptions;
-
 	collabEdit?: CollabEditOptions;
 
 	primaryToolbarComponents?: PrimaryToolbarComponents;
@@ -311,6 +307,17 @@ export interface EditorNextProps
 	 * preset.add([cardPlugin, { ...linking.smartLinks, linkPicker: linking.linkPicker }])
 	 */
 	linking?: LinkingOptions;
+
+	/**
+	 * @deprecated
+	 * This prop is no longer required and will be removed soon.
+	 * Configuration of this parameter should be done via `editor-plugin-media` or the `universal` preset.
+	 *
+	 * Example:
+	 * // In preset creation you can pass the props passed to the editor like this:
+	 * preset.add([mediaPlugin, mediaOptions])
+	 */
+	media?: MediaOptions;
 }
 
 export interface EditorProviderProps {
@@ -511,4 +518,8 @@ export interface EditorPluginFeatureProps {
 	 *  Configure and extend editor linking behaviour
 	 */
 	linking?: LinkingOptions;
+
+	// Set to configure media features. Media single refers to the embedded version of media,
+	// which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
+	media?: MediaOptions;
 }

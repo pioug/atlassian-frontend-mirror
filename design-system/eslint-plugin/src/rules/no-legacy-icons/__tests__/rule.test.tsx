@@ -155,9 +155,6 @@ describe('no-legacy-icons', () => {
 					{
 						messageId: 'noLegacyIconsAutoMigration',
 					},
-					{
-						messageId: 'guidance',
-					},
 				],
 			},
 			{
@@ -170,9 +167,6 @@ describe('no-legacy-icons', () => {
 				errors: [
 					{
 						messageId: 'noLegacyIconsAutoMigration',
-					},
-					{
-						messageId: 'guidance',
 					},
 				],
 			},
@@ -191,13 +185,7 @@ describe('no-legacy-icons', () => {
 						messageId: 'noLegacyIconsAutoMigration',
 					},
 					{
-						messageId: 'guidance',
-					},
-					{
 						messageId: 'noLegacyIconsAutoMigration',
-					},
-					{
-						messageId: 'guidance',
 					},
 				],
 			},
@@ -216,9 +204,6 @@ describe('no-legacy-icons', () => {
 					{
 						messageId: 'cantFindSuitableReplacement',
 					},
-					{
-						messageId: 'guidance',
-					},
 				],
 			},
 			{
@@ -233,9 +218,6 @@ describe('no-legacy-icons', () => {
 				errors: [
 					{
 						messageId: 'noLegacyIconsAutoMigration',
-					},
-					{
-						messageId: 'guidance',
 					},
 				],
 			},
@@ -255,9 +237,6 @@ describe('no-legacy-icons', () => {
 					},
 					{
 						messageId: 'cantMigrateFunctionUnknown',
-					},
-					{
-						messageId: 'guidance',
 					},
 				],
 			},

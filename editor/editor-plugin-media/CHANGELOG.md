@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 1.22.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.22.7
+
+### Patch Changes
+
+- [`666ab2fb8703d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/666ab2fb8703d) -
+  Accept the media provider from the plugin rather than only from editor-core
+- Updated dependencies
+
 ## 1.22.6
 
 ### Patch Changes

@@ -7,7 +7,6 @@ import { backgroundColorPalette } from '@atlaskit/adf-schema';
 import Icon from '@atlaskit/icon';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
-import { DEFAULT_BORDER_COLOR } from './common';
 import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';
 import { mapPaletteColor } from './textColorPalette';
@@ -41,7 +40,7 @@ export const highlightColorPalette: Array<PaletteColor> = [
 	{
 		value: REMOVE_HIGHLIGHT_COLOR,
 		label: 'No color', // Mostly informative, only used for analytics
-		border: DEFAULT_BORDER_COLOR,
+		border: token('color.border', '#091E4224'),
 		message: getColorMessage(paletteMessages, 'no-color'),
 		decorator: <EditorDiagonalLineIcon />,
 	},
@@ -50,10 +49,3 @@ export const highlightColorPalette: Array<PaletteColor> = [
 backgroundColorPalette.forEach((label, color) => {
 	highlightColorPalette.push(mapPaletteColor(label, color));
 });
-
-export const highlightColorPaletteWithTokenBorders: Array<PaletteColor> = highlightColorPalette.map(
-	(paletteColor) => ({
-		...paletteColor,
-		border: token('color.border', '#091E4224'),
-	}),
-);

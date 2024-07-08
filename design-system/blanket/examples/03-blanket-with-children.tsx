@@ -12,13 +12,13 @@ import Button from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
 import { Stack, Text, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
 
 const blanketChildStyles = xcss({
 	width: '50%',
-	margin: `${token('space.800', '64px')} auto`,
+	marginBlock: 'space.800',
+	marginInline: 'auto',
 	padding: 'space.500',
 	backgroundColor: 'elevation.surface',
 });

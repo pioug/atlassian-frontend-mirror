@@ -431,11 +431,7 @@ const getShadowOverrides = () => {
 };
 
 function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
-	if (!fg('platform.editor.allow-inline-comments-for-inline-nodes')) {
-		return '';
-	}
-
-	if (fg('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return '';
 	}
 

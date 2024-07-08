@@ -164,9 +164,9 @@ describe('steps', () => {
 			});
 
 			describe.each([[true], [false]])(`ssr enabled: %o`, (ssrEnabled) => {
-				const getBooleanFF = jest.spyOn(ffPackage, 'getBooleanFF');
-				const ffDeps = ['platform.editor.allow-inline-comments-for-inline-nodes'];
-				(getBooleanFF as jest.Mock).mockImplementation((ff: string) => ffDeps.includes(ff));
+				const fg = jest.spyOn(ffPackage, 'fg');
+				const ffDeps = ['editor_inline_comments_on_inline_nodes'];
+				(fg as jest.Mock).mockImplementation((ff: string) => ffDeps.includes(ff));
 
 				// helper util to get the text node from a nested element -- this could break if the
 				// structure of inlineCards change

@@ -16,13 +16,9 @@ export {
 	lightModeStatusColorPalette,
 	darkModeStatusColorPalette,
 } from './ColorPalette/Palettes/statusColorPalette';
-export {
-	textColorPalette,
-	textColorPaletteWithTokenBorders,
-} from './ColorPalette/Palettes/textColorPalette';
+export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
 	highlightColorPalette,
-	highlightColorPaletteWithTokenBorders,
 	REMOVE_HIGHLIGHT_COLOR,
 } from './ColorPalette/Palettes/highlightColorPalette';
 export {

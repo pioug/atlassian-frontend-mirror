@@ -21,7 +21,7 @@ describe('getRendererRangeInlineNodeNames', () => {
 		],
 	])(`%s`, (_, actions, pos) => {
 		ffTest(
-			'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+			'editor_inline_comments_on_inline_nodes',
 			() => {
 				expect(getRendererRangeInlineNodeNames({ actions, pos })).toEqual(undefined);
 			},

@@ -1045,7 +1045,7 @@ export type TokenisedProps = {
 	minWidth?: Dimension | string;
 	opacity?: AutoComplete<Opacity> | number;
 	outlineColor?: BorderColor;
-	outlineOffset?: Space;
+	outlineOffset?: AllSpace;
 	outlineWidth?: BorderWidth | string;
 	padding?: Space;
 	paddingBlock?: Space;

@@ -1,5 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { browser, isTextSelection, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
+import { browser, isTextSelection } from '@atlaskit/editor-common/utils';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';

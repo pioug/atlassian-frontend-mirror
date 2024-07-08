@@ -2,7 +2,6 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 type EmptyStateProps = {
 	header: string;
@@ -23,8 +22,8 @@ const emptyStateStyles = xcss({
 	textAlign: 'center',
 });
 const descriptionStyles = xcss({
-	marginTop: token('space.0', '0px'),
-	marginBottom: token('space.300', '24px'),
+	marginTop: 'space.0',
+	marginBottom: 'space.300',
 	color: 'color.text',
 });
 

@@ -43,7 +43,8 @@ const submitButtonWrapperStyles = css({
 const centerAlignedIconWrapperStyles = css({
 	display: 'flex',
 	alignSelf: 'center',
-	padding: `${token('space.0', '0px')} ${token('space.150', '12px')}`,
+	paddingBlock: token('space.0'),
+	paddingInline: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
 		lineHeight: 1,
@@ -92,7 +93,8 @@ const menuGroupContainerStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 	alignItems: 'flex-start',
 	width: '150px',
-	margin: `${token('space.negative.100')} ${token('space.negative.300')}`,
+	marginBlock: 'space.negative.100',
+	marginInline: 'space.negative.300',
 });
 
 const integrationTabText = (integrationName: string) => (

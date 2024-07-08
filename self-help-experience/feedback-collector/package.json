@@ -51,7 +51,7 @@
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/flag": "^15.6.0",
 		"@atlaskit/form": "^10.4.0",
-		"@atlaskit/icon": "^22.5.0",
+		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/section-message": "^6.5.0",

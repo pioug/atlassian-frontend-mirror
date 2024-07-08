@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 194.0.11
+
+### Patch Changes
+
+- [#113218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113218)
+  [`d1b428ec29d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1b428ec29d68) -
+  [ED-23765] migrate inline node commenting feature flags to statsig feature gate
+- [#117973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117973)
+  [`6e37bac62083f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e37bac62083f) -
+  moved one const, added new entry point for other and deprecated
+- Updated dependencies
+
+## 194.0.10
+
+### Patch Changes
+
+- [#116760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116760)
+  [`2e309117f02c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e309117f02c6) -
+  [ED-23062] Clean up feature flag for highlight palette dark mode improvements
+- [#117916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117916)
+  [`49fc126d779b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49fc126d779b0) -
+  ECA11Y-111: A11y table resizing feature flag removal
+- [#117920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117920)
+  [`b3da4fa9c20d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3da4fa9c20d9) -
+  Cleanup of table FF
+- Updated dependencies
+
+## 194.0.9
+
+### Patch Changes
+
+- [`666ab2fb8703d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/666ab2fb8703d) -
+  Mark media prop as deprecated on ComposableEditor as it is no longer required.
+- [`7c716627bd4f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c716627bd4f4) -
+  Table Drag move column/row logic FF cleanup
+- [#117111](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117111)
+  [`6f06e433f9724`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f06e433f9724) -
+  Remove option for "appearance" from `editor-plugin-code-block`. This configuration is completely
+  unused and has no effect. It is safe to remove if you are currently using this prop for
+  configuration.
+- Updated dependencies
+
 ## 194.0.6
 
 ### Patch Changes

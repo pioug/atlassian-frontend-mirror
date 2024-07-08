@@ -39,10 +39,10 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^18.2.0",
-		"@atlaskit/icon": "^22.5.0",
+		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",
-		"@atlaskit/primitives": "^10.0.0",
+		"@atlaskit/primitives": "^10.1.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.11.0",

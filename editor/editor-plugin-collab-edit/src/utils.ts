@@ -1,7 +1,7 @@
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
-import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
+import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';

@@ -20,7 +20,6 @@ import {
 	ColorPalette,
 	getSelectedRowAndColumnFromPalette,
 	highlightColorPalette,
-	highlightColorPaletteWithTokenBorders,
 } from '@atlaskit/editor-common/ui-color';
 import {
 	ArrowKeyNavigationType,
@@ -33,7 +32,6 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette'
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
 import { changeColor, setPalette } from '../commands';
@@ -138,12 +136,8 @@ const ToolbarHighlightColor = ({
 	// this should reflect the width of the dropdown when fully populated with colors, including translations due to layering
 	const fitWidth = 242;
 
-	const palette = getBooleanFF('platform.editor.dynamic-palette-borders')
-		? highlightColorPaletteWithTokenBorders
-		: highlightColorPalette;
-
 	const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
-		palette,
+		highlightColorPalette,
 		highlightState.activeColor,
 	);
 
@@ -200,7 +194,7 @@ const ToolbarHighlightColor = ({
 						onClick={(color) => handleColorChange(color)}
 						selectedColor={highlightState.activeColor}
 						paletteOptions={{
-							palette,
+							palette: highlightColorPalette,
 							hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
 						}}
 					/>

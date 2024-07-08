@@ -36,7 +36,7 @@ export const getMigrationMapObject = (iconPackage: string) => {
  * @param iconPackage The name of the legacy icon package
  * @returns The unique identifier for the icon (the part after "@atlaskit/icon/glyph")
  */
-export const getIconKey = (iconPackage: string) => {
+const getIconKey = (iconPackage: string) => {
 	const key = iconPackage.replace(/^@atlaskit\/icon\/glyph\//, '');
 	return key;
 };
@@ -56,36 +56,52 @@ export const canAutoMigrateNewIconBasedOnSize = (guidance?: string) => {
 /**
  * Creates the written guidance for migrating a legacy icon to a new icon
  */
-export const createGuidance = (iconPackage: string, size?: Size) => {
+export const createGuidance = (
+	iconPackage: string,
+	insideNewButton: boolean = false,
+	size?: Size,
+) => {
 	const migrationMapObject = getMigrationMapObject(iconPackage);
 	if (migrationMapObject) {
 		const newIcon = migrationMapObject.newIcon;
 		if (!newIcon) {
 			return 'No equivalent icon in new set. An option is to contribute a custom icon into icon-labs package instead.\n';
 		}
+		const buttonGuidanceStr =
+			"Please set 'spacing' property of the new icon to 'none', to ensure appropriate spacing inside `@atlaskit/button`.\n";
+		let guidance = '';
 		if (size) {
-			let guidance = `Fix: Use ${newIcon.name} from @atlaskit/${newIcon.library}/${newIcon.type}/${newIcon.name} instead.`;
-			if (migrationMapObject.sizeGuidance[size] in outcomeDescriptionMap) {
-				guidance += ` Please: ${outcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}\n`;
+			if (
+				migrationMapObject.sizeGuidance[size] &&
+				canAutoMigrateNewIconBasedOnSize(migrationMapObject.sizeGuidance[size])
+			) {
+				guidance += `Fix: Use ${newIcon.name} from @atlaskit/${newIcon.library}/${newIcon.type}/${newIcon.name} instead.`;
 			} else {
-				guidance += ' No migration advice given.\n';
+				guidance += `No equivalent icon for this size, ${size}, in new set.`;
 			}
-			return guidance;
+			guidance += `${migrationMapObject.sizeGuidance[size] in outcomeDescriptionMap ? ` Please: ${outcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
 		} else {
-			let guidance = `Use ${newIcon.name} from @atlaskit/${newIcon.library}/${newIcon.type}/${newIcon.name} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
+			guidance = `Use ${newIcon.name} from @atlaskit/${newIcon.library}/${newIcon.type}/${newIcon.name} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
 			for (const [size, value] of Object.entries(migrationMapObject.sizeGuidance)) {
 				guidance += `\t- ${size}: `;
 				if (!(value in outcomeDescriptionMap)) {
 					guidance += 'No migration advice given.\n';
 				} else {
-					guidance += `${outcomeDescriptionMap[value]}\n`;
+					guidance += `${outcomeDescriptionMap[value]}.\n`;
 				}
-				guidance;
 			}
-			return guidance;
 		}
+		if (insideNewButton) {
+			guidance += buttonGuidanceStr;
+		} else if (size && size === 'medium') {
+			guidance +=
+				"Setting the spacing property to 'spacious' will maintain the icon's box dimensions - but consider setting spacing='none' as it allows for easier control of spacing by parent elements.\n";
+		} else if (size) {
+			guidance += "In the new icon, please use spacing='none'.\n";
+		}
+		return guidance;
 	} else {
-		return 'Migration suggestions not found\n';
+		return `Migration suggestions not found for "${iconPackage}".\n`;
 	}
 };
 
@@ -206,6 +222,7 @@ export const createCantFindSuitableReplacementError = (
 	importSource: string,
 	iconName: string,
 	errors: errorsListManual,
+	sizeIssue?: boolean,
 ) => {
 	const myError: iconMigrationError = {
 		node,
@@ -213,6 +230,7 @@ export const createCantFindSuitableReplacementError = (
 		data: {
 			importSource,
 			iconName,
+			sizeGuidance: sizeIssue ? ' at the current size' : '',
 		},
 	};
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
@@ -282,23 +300,14 @@ export const createAutoMigrationError = (
 	node: Node,
 	importSource: string,
 	iconName: string,
-	newIcon: { name: string; type: string; library: string },
-	oldIconName: string,
 	errors: errorsListAuto,
 ) => {
-	const migrationKey =
-		newIcon.name === oldIconName ? newIcon.name : `${newIcon.name}--${oldIconName}`;
-	const newMigrationIconPackage = `@atlaskit/${newIcon.library}/${newIcon.type}/migration/${migrationKey}`;
-
 	const myError: iconMigrationError = {
 		node,
 		messageId: 'noLegacyIconsAutoMigration',
 		data: {
 			importSource,
 			iconName,
-			newIcon: newIcon.name,
-			//TODO: provide size guidance
-			newPackage: newMigrationIconPackage,
 		},
 	};
 	errors[locToString(node)] = myError;

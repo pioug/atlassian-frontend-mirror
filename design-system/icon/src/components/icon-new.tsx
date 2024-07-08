@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import type { NewIconProps } from '../types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * We are hiding this props from consumers as it's reserved
@@ -108,6 +108,7 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		spacing: providedSpacing = 'none',
 		testId,
 		label,
+		LEGACY_primaryColor,
 		LEGACY_secondaryColor,
 		LEGACY_size,
 		LEGACY_fallbackIcon: FallbackIcon,
@@ -126,11 +127,11 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		: undefined;
 
 	// Fall back to old icon
-	if (FallbackIcon && !getBooleanFF('platform.design-system-team.enable-new-icons')) {
+	if (FallbackIcon && !fg('platform.design-system-team.enable-new-icons')) {
 		// parse out unnecessary props
 		return (
 			<FallbackIcon
-				primaryColor={color}
+				primaryColor={LEGACY_primaryColor ?? color}
 				secondaryColor={LEGACY_secondaryColor}
 				size={LEGACY_size}
 				label={label}

@@ -6,7 +6,7 @@ import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -43,12 +43,12 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 		location: 'renderer',
 	};
 
-	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: true });
+	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
 	if (ssr && url) {
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
-			getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+			fg('editor_inline_comments_on_inline_nodes')
 		) {
 			return (
 				<span

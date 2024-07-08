@@ -34,7 +34,7 @@ import {
 	TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InlineCommentPluginState } from './pm-plugins/types';
 import type { AnnotationInfo, DraftBookmark, InlineCommentInputMethod, TargetType } from './types';
@@ -192,7 +192,7 @@ export const findAnnotationsInSelection = (
 	const { empty, $anchor, anchor } = selection;
 	// Only detect annotations on caret selection
 	if (!empty || !doc) {
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			if (
 				selection instanceof NodeSelection &&
 				['inlineCard', 'emoji', 'date', 'mention', 'status'].includes(selection.node.type.name)
@@ -331,7 +331,7 @@ export const getDraftCommandAnalyticsPayload = (
 			} as AnnotationDraftAEPAttributes;
 		}
 
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			const { bookmark } = getPluginState(state) || {};
 			attributes.inlineNodeNames = getRangeInlineNodeNames({
 				doc: state.doc,
@@ -445,7 +445,7 @@ export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection
 	let hasCommentableInlineNodeDescendants = false;
 	let hasCommentableTextNodeDescendants = false;
 	content.descendants((node) => {
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
 				node.type.name,
 			);
@@ -454,14 +454,11 @@ export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection
 				return false;
 			}
 		}
-		if (
-			getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes') &&
-			node.type === schema.nodes.inlineCard
-		) {
+		if (node.type === schema.nodes.inlineCard && fg('editor_inline_comments_on_inline_nodes')) {
 			return false;
 		}
 		if (isText(node, schema)) {
-			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+			if (fg('editor_inline_comments_on_inline_nodes')) {
 				if (node.textContent.trim() !== '') {
 					hasCommentableTextNodeDescendants = true;
 				}
@@ -469,7 +466,7 @@ export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection
 			return false;
 		}
 
-		if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (!fg('editor_inline_comments_on_inline_nodes')) {
 			if (node.textContent.trim() === '') {
 				// Trailing new lines do not result in the annotation spanning into
 				// the trailing new line so can be ignored when looking for invalid
@@ -490,7 +487,7 @@ export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection
 
 		return !foundInvalidWhitespace;
 	});
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (fg('editor_inline_comments_on_inline_nodes')) {
 		if (hasCommentableInlineNodeDescendants) {
 			return false;
 		}

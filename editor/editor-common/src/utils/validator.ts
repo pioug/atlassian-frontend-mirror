@@ -2,7 +2,7 @@ import type { CellAttributes } from '@atlaskit/adf-schema';
 import { inlineNodes, isSafeUrl, PanelType, generateUuid as uuid } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Mark as PMMark, Schema } from '@atlaskit/editor-prosemirror/model';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const ADFStages = {
 	FINAL: 'final',
@@ -294,9 +294,7 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
-						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
-							? { marks }
-							: {}),
+						...(fg('editor_inline_comments_on_inline_nodes') ? { marks } : {}),
 					};
 				}
 				break;
@@ -306,9 +304,7 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
-						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
-							? { marks }
-							: {}),
+						...(fg('editor_inline_comments_on_inline_nodes') ? { marks } : {}),
 					};
 				}
 				break;
@@ -318,9 +314,7 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
-						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
-							? { marks }
-							: {}),
+						...(fg('editor_inline_comments_on_inline_nodes') ? { marks } : {}),
 					};
 				}
 				break;
@@ -345,9 +339,7 @@ export const getValidNode = (
 					return {
 						type,
 						attrs,
-						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
-							? { marks }
-							: {}),
+						...(fg('editor_inline_comments_on_inline_nodes') ? { marks } : {}),
 					};
 				}
 				break;
@@ -564,9 +556,7 @@ export const getValidNode = (
 							text: mentionText,
 							accessLevel: '',
 						},
-						...(getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
-							? { marks }
-							: {}),
+						...(fg('editor_inline_comments_on_inline_nodes') ? { marks } : {}),
 					};
 					if (mentionAccess) {
 						mentionNode.attrs.accessLevel = mentionAccess;

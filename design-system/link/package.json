@@ -41,7 +41,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^10.0.0",
+		"@atlaskit/primitives": "^10.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.17.2"
 	},

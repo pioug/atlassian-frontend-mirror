@@ -8,7 +8,7 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40 } from '@atlaskit/theme/colors';
 import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -25,7 +25,7 @@ export const smartCardStyles = css`
 		max-width: calc(100% - 20px);
 		vertical-align: top;
 		word-break: break-all;
-		${getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+		${fg('editor_inline_comments_on_inline_nodes')
 			? `.card-with-comment {
           background: ${token('color.background.accent.yellow.subtler', Y75)};
           border-bottom: 2px solid ${token('color.border.accent.yellow', Y300)};

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.2.13
+
+### Patch Changes
+
+- [#117916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117916)
+  [`49fc126d779b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49fc126d779b0) -
+  ECA11Y-111: A11y table resizing feature flag removal
+- Updated dependencies
+
 ## 1.2.12
 
 ### Patch Changes

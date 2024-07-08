@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 84.3.1
+
+### Patch Changes
+
+- [#118071](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118071)
+  [`8001b542d9e11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8001b542d9e11) -
+  [ED-24018] removes the feature flag
+  'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1'
+
+## 84.3.0
+
+### Minor Changes
+
+- [#117973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117973)
+  [`6e37bac62083f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e37bac62083f) -
+  moved one const, added new entry point for other and deprecated
+
+### Patch Changes
+
+- [#113218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113218)
+  [`d1b428ec29d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1b428ec29d68) -
+  [ED-23765] migrate inline node commenting feature flags to statsig feature gate
+
+## 84.2.0
+
+### Minor Changes
+
+- [#117916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117916)
+  [`cd1905bf5112d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd1905bf5112d) -
+  [ux] Link configuration overlay shows chevron down icon on small links based on a 50px width
+  threshold. On click the overlay opens a dropdown with open link and configure link options.
+
+### Patch Changes
+
+- [#116760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116760)
+  [`2e309117f02c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e309117f02c6) -
+  [ED-23062] Clean up feature flag for highlight palette dark mode improvements
+- [#117920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117920)
+  [`b3da4fa9c20d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3da4fa9c20d9) -
+  Cleanup of table FF
+
 ## 84.1.0
 
 ### Minor Changes

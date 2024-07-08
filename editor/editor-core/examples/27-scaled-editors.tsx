@@ -18,7 +18,7 @@ const user = xcss({
 });
 
 const avatar = xcss({
-	marginRight: token('space.050', '4px'),
+	marginRight: 'space.050',
 	borderRadius: '50%',
 	height: '24px',
 	width: '24px',

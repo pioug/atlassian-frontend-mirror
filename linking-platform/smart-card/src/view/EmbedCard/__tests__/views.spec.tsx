@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import { type EmbedCardResolvedViewProps, EmbedCardResolvedView } from '../views/ResolvedView';
+import UnresolvedView from '../views/unresolved-view';
 import { BlockCardResolvingView } from '../../BlockCard';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
@@ -171,6 +172,22 @@ describe('EmbedCard Views', () => {
 					);
 					const view = getByTestId('embed-content-wrapper');
 					expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('');
+				});
+
+				it(`doesn't remove overflow attribute for Unresolved embeds`, () => {
+					const props = getResolvedProps({ isTrusted: true });
+					const { getByTestId } = render(
+						<UnresolvedView
+							testId="embed-card-unresolved-view"
+							{...props}
+							description="description"
+							title="title"
+							icon={null}
+							image={null}
+						/>,
+					);
+					const view = getByTestId('embed-content-wrapper');
+					expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('auto');
 				});
 			},
 		);

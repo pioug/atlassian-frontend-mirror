@@ -1,6 +1,6 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
-export type EditorFeatureGateKeys = 'platform_editor_inline_comments_on_inline_nodes';
+export type EditorFeatureGateKeys = 'editor_inline_comments_on_inline_nodes';
 
 const EditorFeatureGates = {
 	checkGate: (key: EditorFeatureGateKeys): boolean => {

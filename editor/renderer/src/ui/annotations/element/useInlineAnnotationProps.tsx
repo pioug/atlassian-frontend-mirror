@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { AnnotationsDraftContext } from '../context';
 
@@ -9,19 +9,9 @@ export type MarkDataAttributes = {
 	};
 };
 
-export function useInlineAnnotationProps(
-	props: MarkDataAttributes,
-	{ isInlineCard }: { isInlineCard: boolean },
-) {
+export function useInlineAnnotationProps(props: MarkDataAttributes) {
 	const draftPosition = useContext(AnnotationsDraftContext);
-	if (
-		!isInlineCard &&
-		!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
-	) {
-		return {};
-	}
-
-	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return {};
 	}
 

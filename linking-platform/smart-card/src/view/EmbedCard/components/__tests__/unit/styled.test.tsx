@@ -70,6 +70,52 @@ describe('Content', () => {
 			expect(await screen.findByTestId('content')).toHaveStyleRule('overflow', 'auto');
 		});
 	});
+	describe('should not set set overflow styles when removeOverflow is true', () => {
+		it('and allowScrollBar is true and isInteractive is true', async () => {
+			render(
+				<Content
+					isInteractive={true}
+					allowScrollBar={true}
+					removeOverflow={true}
+					data-testid="content"
+				/>,
+			);
+			expect(await screen.findByTestId('content')).toHaveStyle('overflow:');
+		});
+		it('and allowScrollBar is false and isInteractive is true', async () => {
+			render(
+				<Content
+					isInteractive={true}
+					allowScrollBar={false}
+					removeOverflow={true}
+					data-testid="content"
+				/>,
+			);
+			expect(await screen.findByTestId('content')).toHaveStyle('overflow:');
+		});
+		it('and allowScrollBar is true and isInteractive is false', async () => {
+			render(
+				<Content
+					isInteractive={false}
+					allowScrollBar={true}
+					removeOverflow={true}
+					data-testid="content"
+				/>,
+			);
+			expect(await screen.findByTestId('content')).toHaveStyle('overflow:');
+		});
+		it('and allowScrollBar is false and isInteractive is false', async () => {
+			render(
+				<Content
+					isInteractive={false}
+					allowScrollBar={false}
+					removeOverflow={true}
+					data-testid="content"
+				/>,
+			);
+			expect(await screen.findByTestId('content')).toHaveStyle('overflow:');
+		});
+	});
 });
 
 describe('IconWrapper', () => {

@@ -7,7 +7,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../analytics';
@@ -163,21 +162,19 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 
 	let selectedCategoryIndex: number | undefined;
 	let isFocusSearch;
-	if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-		selectedCategoryIndex = props.categories?.findIndex((category) => {
-			return category.name === selectedCategory;
-		});
+	selectedCategoryIndex = props.categories?.findIndex((category) => {
+		return category.name === selectedCategory;
+	});
 
-		if (showCategories) {
-			const isEmptySearchTerm = !searchTerm || searchTerm?.length === 0;
-			if (!isEmptySearchTerm) {
-				// clear the flag if the search happens after a user has chosen the category
-				categoryBeenChosen.current = false;
-			}
-			// A11Y: if categories exists, on the initial render search element should receive focus.
-			// After user pick some category the category should stay focused.
-			isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
+	if (showCategories) {
+		const isEmptySearchTerm = !searchTerm || searchTerm?.length === 0;
+		if (!isEmptySearchTerm) {
+			// clear the flag if the search happens after a user has chosen the category
+			categoryBeenChosen.current = false;
 		}
+		// A11Y: if categories exists, on the initial render search element should receive focus.
+		// After user pick some category the category should stay focused.
+		isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
 	}
 
 	const {
@@ -229,23 +226,15 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	const selectedItem = selectedItemIndex !== undefined ? items[selectedItemIndex] : null;
 	const onItemsEnterTabKeyPress = useCallback(
 		(e: React.KeyboardEvent) => {
-			if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-				if (e.key !== 'Enter' && (e.key !== 'Tab' || !showCategories)) {
-					return;
-				}
-			} else {
-				if (e.key !== 'Enter') {
-					return;
-				}
+			if (e.key !== 'Enter' && (e.key !== 'Tab' || !showCategories)) {
+				return;
 			}
 
-			if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-				if (showCategories && e.key === 'Tab' && selectedCategoryIndex !== undefined) {
-					// A11Y: Set focus on first category if tab pressed on search
-					setFocusedCategoryIndex(selectedCategoryIndex);
-					e.preventDefault();
-					return;
-				}
+			if (showCategories && e.key === 'Tab' && selectedCategoryIndex !== undefined) {
+				// A11Y: Set focus on first category if tab pressed on search
+				setFocusedCategoryIndex(selectedCategoryIndex);
+				e.preventDefault();
+				return;
 			}
 
 			if (onInsertItem && selectedItem != null) {
@@ -309,11 +298,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 					focusedCategoryIndex={focusedCategoryIndex}
 					setFocusedCategoryIndex={setFocusedCategoryIndex}
 					selectedCategoryIndex={selectedCategoryIndex}
-					onSelectCategory={
-						getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')
-							? onSelectCategoryCB
-							: onSelectCategory
-					}
+					onSelectCategory={onSelectCategoryCB}
 				/>
 			)}
 		</div>

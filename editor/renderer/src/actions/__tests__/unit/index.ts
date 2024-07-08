@@ -176,10 +176,8 @@ describe('RendererActions', () => {
 
 		it('should apply annotation to text with inline nodes', () => {
 			jest
-				.spyOn(platformFeatureFlags, 'getBooleanFF')
-				.mockImplementation(
-					(flag) => flag === 'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
-				);
+				.spyOn(platformFeatureFlags, 'fg')
+				.mockImplementation((flag) => flag === 'editor_inline_comments_on_inline_nodes');
 
 			const actions = initActions(docWithInlineNodes);
 			const pos = { from: 0, to: 29 };
@@ -225,7 +223,7 @@ describe('RendererActions', () => {
 			});
 			const actions = new RendererActions();
 			ffTest(
-				'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+				'editor_inline_comments_on_inline_nodes',
 				() => {
 					const isRendererWithinRangeSpyFn = jest
 						.spyOn(actions, 'isRendererWithinRange')

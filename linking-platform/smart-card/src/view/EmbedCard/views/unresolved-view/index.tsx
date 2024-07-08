@@ -90,7 +90,9 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
 
 	return (
 		<ExpandedFrame
+			// Scroll bar must be shown for unresolved views to display the connect account button
 			allowScrollBar={true}
+			setOverflow={true}
 			// EDM-9259: Fix embed frame showing on unresolved views when frameStyle is set to hide.
 			// Set fallback to 'show' here to maintain the current behaviour when platform.editor.show-embed-card-frame-renderer is OFF.
 			// Remove 'show' on platform.editor.show-embed-card-frame-renderer cleanup as frameStyle will be set to 'show' both in renderer and editor.

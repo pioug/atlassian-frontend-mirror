@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^10.0.0",
+		"@atlaskit/primitives": "^10.1.0",
 		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

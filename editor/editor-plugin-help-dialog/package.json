@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "1.2.12",
+	"version": "1.2.13",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,12 +35,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^84.1.0",
+		"@atlaskit/editor-common": "^84.3.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
-		"@atlaskit/icon": "^22.5.0",
+		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/theme": "^12.11.0",
@@ -87,9 +87,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.a11y-table-resizing_uapcv": {
-			"type": "boolean"
-		},
 		"platform.editor.text-alignment-keyboard-shortcuts": {
 			"type": "boolean"
 		},

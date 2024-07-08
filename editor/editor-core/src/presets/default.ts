@@ -152,7 +152,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 		.add(copyButtonPlugin)
 		.add(floatingToolbarPlugin)
 		.add([selectionPlugin, { ...options.selection, __livePage: options.__livePage }])
-		.add([codeBlockPlugin, options.codeBlock || { appearance: 'full-page' }]);
+		.add([codeBlockPlugin, options.codeBlock]);
 
 	return preset;
 }

@@ -3,7 +3,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line no-duplicate-imports
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorCommand } from '../types';
 
@@ -158,15 +158,14 @@ export const applyMarkOnRange = (
 ) => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
-	const { inlineCard } = schema.nodes;
 	if (mark.type === code) {
-		getBooleanFF('platform.editor.simplify-inline-cards-in-code-blocks_jw6t1')
+		fg('platform.editor.simplify-inline-cards-in-code-blocks_jw6t1')
 			? transformNonTextNodesToText(from, to, tr)
 			: transformSmartCharsMentionsAndEmojis(from, to, tr);
 	}
 
 	tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			if (!node.isText) {
 				const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
 					node.type.name,
@@ -174,10 +173,6 @@ export const applyMarkOnRange = (
 				if (!isAllowedInlineNode) {
 					return true;
 				}
-			}
-		} else if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-			if (!node.isText && node.type !== inlineCard) {
-				return true;
 			}
 		} else {
 			if (!node.isText) {

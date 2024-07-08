@@ -6,6 +6,7 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { BrowserConfig, ClipboardConfig, DropzoneConfig } from '@atlaskit/media-picker/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import PickerFacade from '../../picker-facade';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -99,10 +100,15 @@ export default class PickerFacadeProvider extends React.Component<Props, State> 
 	};
 
 	componentDidMount() {
-		this.props.mediaState.options.providerFactory.subscribe(
-			'mediaProvider',
-			this.handleMediaProvider,
-		);
+		const { mediaProvider } = this.props.mediaState;
+		if (mediaProvider && fg('platform_editor_media_provider_from_plugin_config')) {
+			this.handleMediaProvider('mediaProvider', Promise.resolve(mediaProvider));
+		} else {
+			this.props.mediaState.options.providerFactory.subscribe(
+				'mediaProvider',
+				this.handleMediaProvider,
+			);
+		}
 	}
 
 	componentWillUnmount() {

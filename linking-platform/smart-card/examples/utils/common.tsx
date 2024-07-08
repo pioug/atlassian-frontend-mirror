@@ -11,12 +11,6 @@ interface VRTestCaseOpts {
 	children: () => JSX.Element;
 }
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const embedWrapperStyles = css({
-	width: '640px',
-	margin: `${token('space.150', '12px')} auto`,
-});
-
 const subHeaderCSS = css({
 	// We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
 	// to be thoroughly checked with a designer so that we do not miss an unintended visual change

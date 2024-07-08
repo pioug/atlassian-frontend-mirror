@@ -14,7 +14,7 @@ import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -150,31 +150,27 @@ function ElementList({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className="element-item-wrapper"
 						css={elementItemWrapper}
-						onKeyDown={
-							getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')
-								? (e) => {
-										if (e.key === 'Tab') {
-											if (e.shiftKey && index === 0) {
-												if (setFocusedCategoryIndex) {
-													if (!!selectedCategoryIndex) {
-														setFocusedCategoryIndex(selectedCategoryIndex);
-													} else {
-														setFocusedCategoryIndex(0);
-													}
-													e.preventDefault();
-												}
-											}
-											// before focus jumps from elements list we need to rerender react-virtualized collection.
-											// Otherwise on the next render 'scrollToCell' will have same cached value
-											// and collection will not be scrolled to top.
-											// So Tab press on category will not work anymore due to invisible 1-t element.
-											else if (index === items.length - 2) {
-												setFocusedItemIndex(items.length - 1);
-											}
+						onKeyDown={(e) => {
+							if (e.key === 'Tab') {
+								if (e.shiftKey && index === 0) {
+									if (setFocusedCategoryIndex) {
+										if (!!selectedCategoryIndex) {
+											setFocusedCategoryIndex(selectedCategoryIndex);
+										} else {
+											setFocusedCategoryIndex(0);
 										}
+										e.preventDefault();
 									}
-								: undefined
-						}
+								}
+								// before focus jumps from elements list we need to rerender react-virtualized collection.
+								// Otherwise on the next render 'scrollToCell' will have same cached value
+								// and collection will not be scrolled to top.
+								// So Tab press on category will not work anymore due to invisible 1-t element.
+								else if (index === items.length - 2) {
+									setFocusedItemIndex(items.length - 1);
+								}
+							}
+						}}
 					>
 						<MemoizedElementItem
 							inlineMode={!fullMode}
@@ -235,33 +231,27 @@ function ElementList({
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
 							className="element-item-wrapper"
 							css={elementItemWrapper}
-							onKeyDown={
-								getBooleanFF(
-									'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
-								)
-									? (e) => {
-											if (e.key === 'Tab') {
-												if (e.shiftKey && index === 0) {
-													if (setFocusedCategoryIndex) {
-														if (!!selectedCategoryIndex) {
-															setFocusedCategoryIndex(selectedCategoryIndex);
-														} else {
-															setFocusedCategoryIndex(0);
-														}
-														e.preventDefault();
-													}
-												}
-												// before focus jumps from elements list we need to rerender react-virtualized collection.
-												// Otherwise on the next render 'scrollToCell' will have same cached value
-												// and collection will not be scrolled to top.
-												// So Tab press on category will not work anymore due to invisible 1-t element.
-												else if (index === items.length - 2) {
-													setFocusedItemIndex(items.length - 1);
-												}
+							onKeyDown={(e) => {
+								if (e.key === 'Tab') {
+									if (e.shiftKey && index === 0) {
+										if (setFocusedCategoryIndex) {
+											if (!!selectedCategoryIndex) {
+												setFocusedCategoryIndex(selectedCategoryIndex);
+											} else {
+												setFocusedCategoryIndex(0);
 											}
+											e.preventDefault();
 										}
-									: undefined
-							}
+									}
+									// before focus jumps from elements list we need to rerender react-virtualized collection.
+									// Otherwise on the next render 'scrollToCell' will have same cached value
+									// and collection will not be scrolled to top.
+									// So Tab press on category will not work anymore due to invisible 1-t element.
+									else if (index === items.length - 2) {
+										setFocusedItemIndex(items.length - 1);
+									}
+								}
+							}}
 						>
 							<MemoizedElementItem
 								inlineMode={!fullMode}
@@ -320,7 +310,7 @@ function ElementList({
 						{containerWidth > 0 && (
 							<AutoSizer disableWidth>
 								{({ height }: Size) =>
-									getBooleanFF('platform.editor.a11y-element-browser') ? (
+									fg('platform.editor.a11y-element-browser') ? (
 										<Grid
 											cellRenderer={gridCellRenderer}
 											height={height}

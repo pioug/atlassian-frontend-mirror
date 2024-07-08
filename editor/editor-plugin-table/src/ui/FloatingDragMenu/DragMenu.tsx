@@ -39,7 +39,6 @@ import {
 	isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Toggle from '@atlaskit/toggle';
 
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
@@ -58,11 +57,8 @@ import {
 	checkIfHeaderColumnEnabled,
 	checkIfHeaderRowEnabled,
 	checkIfNumberColumnEnabled,
-	getMergedCellsPositions,
 	getSelectedColumnIndexes,
 	getSelectedRowIndexes,
-	hasMergedCellsInColumn,
-	hasMergedCellsInRow,
 } from '../../utils';
 import type { DragMenuConfig, DragMenuOptionIdType } from '../../utils/drag-menu';
 import { getDragMenuConfig } from '../../utils/drag-menu';
@@ -290,25 +286,12 @@ export const DragMenu = React.memo(
 			? getSelectionRect(selection)!
 			: findCellRectClosestToPos(selection.$from);
 
-		let shouldMoveDisabled;
-		let hasMergedCellsInTable;
-		if (fg('platform.editor.table.drag-move-options-logic-update_fp7xw')) {
-			shouldMoveDisabled = false;
-			hasMergedCellsInTable = tableMap?.hasMergedCells() ?? false;
-		} else {
-			const hasMergedCells = direction === 'row' ? hasMergedCellsInRow : hasMergedCellsInColumn;
-
-			shouldMoveDisabled = index !== undefined && hasMergedCells(index)(selection);
-
-			hasMergedCellsInTable = getMergedCellsPositions(state.tr).length > 0;
-		}
-
+		const hasMergedCellsInTable = tableMap?.hasMergedCells() ?? false;
 		const allowBackgroundColor = pluginConfig?.allowBackgroundColor ?? false;
 
 		const dragMenuConfig = getDragMenuConfig(
 			direction,
 			getEditorContainerWidth,
-			!shouldMoveDisabled,
 			hasMergedCellsInTable,
 			editorView,
 			tableMap,

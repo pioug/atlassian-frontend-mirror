@@ -24,7 +24,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
@@ -560,20 +559,18 @@ export const TableResizer = ({
 			displayGapCursor(true);
 			dispatch(tr);
 
-			if (getBooleanFF('platform.editor.a11y-table-resizing_uapcv')) {
-				if (delta.width < 0) {
-					pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
-						formatMessage(messages.tableSizeDecreaseScreenReaderInformation, {
-							newWidth: newWidth,
-						}),
-					);
-				} else if (delta.width > 0) {
-					pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
-						formatMessage(messages.tableSizeIncreaseScreenReaderInformation, {
-							newWidth: newWidth,
-						}),
-					);
-				}
+			if (delta.width < 0) {
+				pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
+					formatMessage(messages.tableSizeDecreaseScreenReaderInformation, {
+						newWidth: newWidth,
+					}),
+				);
+			} else if (delta.width > 0) {
+				pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
+					formatMessage(messages.tableSizeIncreaseScreenReaderInformation, {
+						newWidth: newWidth,
+					}),
+				);
 			}
 
 			// Hide guidelines when resizing stops
@@ -658,49 +655,45 @@ export const TableResizer = ({
 	);
 
 	useLayoutEffect(() => {
-		if (getBooleanFF('platform.editor.a11y-table-resizing_uapcv')) {
-			if (!resizerRef.current) {
+		if (!resizerRef.current) {
+			return;
+		}
+		const resizeHandleThumbEl = resizerRef.current.getResizerThumbEl();
+
+		const globalKeyDownHandler = (event: KeyboardEvent): void => {
+			const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
+
+			if (!isTableSelected) {
 				return;
 			}
-			const resizeHandleThumbEl = resizerRef.current.getResizerThumbEl();
+			if (event.altKey && event.shiftKey && metaKey && event.code === 'KeyR') {
+				event.preventDefault();
 
-			const globalKeyDownHandler = (event: KeyboardEvent): void => {
-				const metaKey = browser.mac ? event.metaKey : event.ctrlKey;
-
-				if (!isTableSelected) {
+				if (!resizeHandleThumbEl) {
 					return;
 				}
-				if (event.altKey && event.shiftKey && metaKey && event.code === 'KeyR') {
-					event.preventDefault();
+				resizeHandleThumbEl.focus();
+				resizeHandleThumbEl.scrollIntoView({
+					behavior: 'smooth',
+					block: 'center',
+					inline: 'nearest',
+				});
+			}
+		};
 
-					if (!resizeHandleThumbEl) {
-						return;
-					}
-					resizeHandleThumbEl.focus();
-					resizeHandleThumbEl.scrollIntoView({
-						behavior: 'smooth',
-						block: 'center',
-						inline: 'nearest',
-					});
-				}
-			};
-
-			const editorViewDom = editorView?.dom as HTMLElement | undefined;
-			editorViewDom?.addEventListener('keydown', globalKeyDownHandler);
-			resizeHandleThumbEl?.addEventListener('keydown', handleKeyDown);
-			resizeHandleThumbEl?.addEventListener('keyup', handleKeyUp);
-			return () => {
-				editorViewDom?.removeEventListener('keydown', globalKeyDownHandler);
-				resizeHandleThumbEl?.removeEventListener('keydown', handleKeyDown);
-				resizeHandleThumbEl?.removeEventListener('keyup', handleKeyUp);
-			};
-		}
+		const editorViewDom = editorView?.dom as HTMLElement | undefined;
+		editorViewDom?.addEventListener('keydown', globalKeyDownHandler);
+		resizeHandleThumbEl?.addEventListener('keydown', handleKeyDown);
+		resizeHandleThumbEl?.addEventListener('keyup', handleKeyUp);
+		return () => {
+			editorViewDom?.removeEventListener('keydown', globalKeyDownHandler);
+			resizeHandleThumbEl?.removeEventListener('keydown', handleKeyDown);
+			resizeHandleThumbEl?.removeEventListener('keyup', handleKeyUp);
+		};
 	}, [resizerRef, editorView, handleResizeStop, isTableSelected, handleKeyDown, handleKeyUp]);
 
 	useLayoutEffect(() => {
-		if (getBooleanFF('platform.editor.a11y-table-resizing_uapcv')) {
-			updateTooltip.current?.();
-		}
+		updateTooltip.current?.();
 	}, [width]);
 
 	const resizeRatio =
@@ -731,19 +724,15 @@ export const TableResizer = ({
 				needExtendedResizeZone={!isTableSelected}
 				appearance={isTableSelected && isWholeTableInDanger ? 'danger' : undefined}
 				handleHighlight="shadow"
-				handleTooltipContent={
-					getBooleanFF('platform.editor.a11y-table-resizing_uapcv')
-						? ({ update }) => {
-								updateTooltip.current = update;
-								return (
-									<ToolTipContent
-										description={formatMessage(messages.resizeTable)}
-										keymap={focusTableResizer}
-									/>
-								);
-							}
-						: formatMessage(messages.resizeTable)
-				}
+				handleTooltipContent={({ update }) => {
+					updateTooltip.current = update;
+					return (
+						<ToolTipContent
+							description={formatMessage(messages.resizeTable)}
+							keymap={focusTableResizer}
+						/>
+					);
+				}}
 			>
 				{children}
 			</ResizerNext>

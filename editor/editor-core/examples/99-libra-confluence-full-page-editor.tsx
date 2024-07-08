@@ -293,7 +293,6 @@ const editorProps: EditorProps = {
 	allowAnalyticsGASV3: true,
 	codeBlock: {
 		allowCopyToClipboard: true,
-		appearance: 'full-page',
 	},
 
 	emojiProvider: getEmojiProvider({

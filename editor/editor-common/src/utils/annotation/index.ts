@@ -1,7 +1,7 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { Mark, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 type Range = {
 	from: number;
 	to: number;
@@ -17,7 +17,6 @@ export const canApplyAnnotationOnRange = (
 		return false;
 	}
 
-	const { inlineCard } = schema.nodes;
 	let foundInvalid = false;
 
 	doc.nodesBetween(rangeSelection.from, rangeSelection.to, (node, _pos, parent) => {
@@ -25,33 +24,22 @@ export const canApplyAnnotationOnRange = (
 		if (schema.nodes.hardBreak === node.type) {
 			return false;
 		}
+
 		// For block elements or text nodes, we want to check
 		// if annotations are allowed inside this tree
 		// or if we're leaf and not text
+		if (fg('editor_inline_comments_on_inline_nodes')) {
+			const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
+				node.type.name,
+			);
 
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
-				const isAllowedInlineNode = ['emoji', 'status', 'date', 'mention', 'inlineCard'].includes(
-					node.type.name,
-				);
-
-				if (
-					(node.isInline && !node.isText && !isAllowedInlineNode) ||
-					(node.isLeaf && !node.isText && !isAllowedInlineNode) ||
-					(node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
-				) {
-					foundInvalid = true;
-					return false;
-				}
-			} else {
-				if (
-					(node.isInline && !node.isText && node.type !== inlineCard) ||
-					(node.isLeaf && !node.isText && node.type !== inlineCard) ||
-					(node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
-				) {
-					foundInvalid = true;
-					return false;
-				}
+			if (
+				(node.isInline && !node.isText && !isAllowedInlineNode) ||
+				(node.isLeaf && !node.isText && !isAllowedInlineNode) ||
+				(node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
+			) {
+				foundInvalid = true;
+				return false;
 			}
 		} else {
 			if (
@@ -140,7 +128,7 @@ export function getRangeInlineNodeNames({
 	doc: PMNode;
 	pos: { from: number; to: number };
 }) {
-	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return undefined;
 	}
 
@@ -160,16 +148,16 @@ export function getRangeInlineNodeNames({
 /**
  * This function returns a list of node types that are wrapped by an annotation mark.
  *
- * The `undefined` will be returned if `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is off.
+ * The `undefined` will be returned if `editor_inline_comments_on_inline_nodes` is off.
  *
  * @todo: Do not forget to remove `undefined` when the
- *        `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is removed.
+ *        `editor_inline_comments_on_inline_nodes` is removed.
  */
 export function getAnnotationInlineNodeTypes(
 	state: { doc: PMNode; schema: Schema },
 	annotationId: string,
 ): string[] | undefined {
-	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return undefined;
 	}
 

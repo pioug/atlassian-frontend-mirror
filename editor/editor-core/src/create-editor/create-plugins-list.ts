@@ -1,6 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { GUTTER_SIZE_MOBILE_IN_PX } from '@atlaskit/editor-common/utils';
 import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugins/base';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 
@@ -10,6 +9,8 @@ import type { EditorPluginFeatureProps } from '../types/editor-props';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
+
+const GUTTER_SIZE_MOBILE_IN_PX = 36; // Gutter size for Mobile
 
 const isCodeBlockAllowed = (options?: Pick<BlockTypePluginOptions, 'allowBlockType'>) => {
 	const exclude =
@@ -103,7 +104,6 @@ export function getDefaultPresetOptionsFromEditorProps(
 		codeBlock: {
 			...props.codeBlock,
 			useLongPressSelection: false,
-			appearance: props.appearance,
 			allowCompositionInputOverride: isMobile,
 		},
 	};

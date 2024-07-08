@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 3.4.3
+
+### Patch Changes
+
+- [#113218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113218)
+  [`d1b428ec29d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1b428ec29d68) -
+  [ED-23765] migrate inline node commenting feature flags to statsig feature gate
+- Updated dependencies
+
+## 3.4.2
+
+### Patch Changes
+
+- [#117916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117916)
+  [`49fc126d779b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49fc126d779b0) -
+  ECA11Y-111: A11y table resizing feature flag removal
+- Updated dependencies
+
+## 3.4.1
+
+### Patch Changes
+
+- [`7c716627bd4f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c716627bd4f4) -
+  Table Drag move column/row logic FF cleanup
+- Updated dependencies
+
 ## 3.4.0
 
 ### Minor Changes

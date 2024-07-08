@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.5.6
+
+### Patch Changes
+
+- [#117026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117026)
+  [`dbba7a8f78916`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbba7a8f78916) -
+  Refactored confluence config modal so that the 1p makers don't need to worry about column resizing
+  and line wraps
+
 ## 2.5.5
 
 ### Patch Changes

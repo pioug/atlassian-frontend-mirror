@@ -5,7 +5,6 @@ import {
 	ColorPalette,
 	getSelectedRowAndColumnFromPalette,
 	highlightColorPalette,
-	highlightColorPaletteWithTokenBorders,
 } from '@atlaskit/editor-common/ui-color';
 import {
 	ArrowKeyNavigationType,
@@ -13,7 +12,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 type PaletteDropdownProps = {
 	popupsMountPoint?: HTMLElement;
@@ -44,12 +42,8 @@ export const PaletteDropdown = (props: PaletteDropdownProps) => {
 	// this should reflect the width of the dropdown when fully populated with colors, including translations due to layering
 	const fitWidth = 242;
 
-	const palette = getBooleanFF('platform.editor.dynamic-palette-borders')
-		? highlightColorPaletteWithTokenBorders
-		: highlightColorPalette;
-
 	const { selectedRowIndex, selectedColumnIndex } = getSelectedRowAndColumnFromPalette(
-		palette,
+		highlightColorPalette,
 		activeColor,
 	);
 
@@ -78,7 +72,7 @@ export const PaletteDropdown = (props: PaletteDropdownProps) => {
 					onClick={onColorChange}
 					selectedColor={activeColor}
 					paletteOptions={{
-						palette,
+						palette: highlightColorPalette,
 						hexToPaletteColor: hexToEditorTextBackgroundPaletteColor,
 					}}
 				/>

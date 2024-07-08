@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { Mention } from '@atlaskit/editor-common/mention';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	useInlineAnnotationProps,
 	type MarkDataAttributes,
@@ -20,9 +20,9 @@ export interface Props extends MarkDataAttributes {
 
 export default memo(function MentionItem(props: Props) {
 	const { eventHandlers, id, providers, text, accessLevel, localId } = props;
-	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: false });
+	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (fg('editor_inline_comments_on_inline_nodes')) {
 		return (
 			<span {...inlineAnnotationProps}>
 				<Mention

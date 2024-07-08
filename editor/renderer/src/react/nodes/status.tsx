@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Status as AkStatus, type Color } from '@atlaskit/status/element';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	useInlineAnnotationProps,
 	type MarkDataAttributes,
@@ -15,9 +15,9 @@ export interface Props extends MarkDataAttributes {
 
 export default memo(function Status(props: Props) {
 	const { text, color, localId } = props;
-	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: false });
+	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (fg('editor_inline_comments_on_inline_nodes')) {
 		return (
 			<span {...inlineAnnotationProps}>
 				<FabricElementsAnalyticsContext

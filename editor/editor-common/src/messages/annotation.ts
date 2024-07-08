@@ -6,7 +6,7 @@ export const annotationMessages = defineMessages({
 		defaultMessage: 'Comment',
 		description: 'Create/add an inline comment based on the users selection',
 	},
-	// TODO: Remove this message when the platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz FF is removed
+	// TODO: Remove this message when the editor_inline_comments_on_inline_nodes FF is removed
 	createCommentInvalid: {
 		id: 'fabric.editor.createCommentInvalid',
 		defaultMessage: 'You can only comment on text and headings',

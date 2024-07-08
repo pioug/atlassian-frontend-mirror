@@ -34,7 +34,6 @@ import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import HipchatChevronDoubleDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-down';
 import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-up';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	deleteColumnsWithAnalytics,
@@ -52,8 +51,6 @@ import type { DraggableData, DraggableType, TableDirection } from '../types';
 import { AddColLeftIcon, AddColRightIcon, AddRowAboveIcon, AddRowBelowIcon } from '../ui/icons';
 
 import {
-	hasMergedCellsInColumn,
-	hasMergedCellsInRow,
 	hasMergedCellsInSelection,
 	hasMergedCellsWithColumnNextToColumnIndex,
 	hasMergedCellsWithRowNextToRowIndex,
@@ -94,20 +91,9 @@ export const canMove = (
 		return false;
 	}
 
-	if (getBooleanFF('platform.editor.table.drag-move-options-logic-update_fp7xw')) {
-		// We can't move if selection in the source is not a rectangle
-		if (hasMergedCellsInSelection(selectedIndexes, isRow ? 'row' : 'column')(selection)) {
-			return false;
-		}
-	} else {
-		// Currently we can't move in any direction if there are merged cells in the source
-		const hasMergedCellsInSource = isRow
-			? hasMergedCellsInRow(selectedIndexes)(selection)
-			: hasMergedCellsInColumn(selectedIndexes)(selection);
-
-		if (hasMergedCellsInSource) {
-			return false;
-		}
+	// We can't move if selection in the source is not a rectangle
+	if (hasMergedCellsInSelection(selectedIndexes, isRow ? 'row' : 'column')(selection)) {
+		return false;
 	}
 
 	return true;
@@ -149,7 +135,6 @@ const defaultSelectionRect = { left: 0, top: 0, right: 0, bottom: 0 };
 export const getDragMenuConfig = (
 	direction: TableDirection,
 	getEditorContainerWidth: GetEditorContainerWidth,
-	canDrag: boolean,
 	hasMergedCellsInTable: boolean,
 	editorView: EditorView,
 	tableMap?: TableMap,
@@ -202,8 +187,7 @@ export const getDragMenuConfig = (
 						label: 'up',
 						icon: ArrowUpIcon,
 						keymap: moveRowUp,
-						canMove:
-							canDrag && canMove('table-row', -1, tableMap?.height ?? 0, selection, selectionRect),
+						canMove: canMove('table-row', -1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.top - 1,
 					},
@@ -211,8 +195,7 @@ export const getDragMenuConfig = (
 						label: 'down',
 						icon: ArrowDownIcon,
 						keymap: moveRowDown,
-						canMove:
-							canDrag && canMove('table-row', 1, tableMap?.height ?? 0, selection, selectionRect),
+						canMove: canMove('table-row', 1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.bottom,
 					},
@@ -222,9 +205,7 @@ export const getDragMenuConfig = (
 						label: 'left',
 						icon: ArrowLeftIcon,
 						keymap: moveColumnLeft,
-						canMove:
-							canDrag &&
-							canMove('table-column', -1, tableMap?.width ?? 0, selection, selectionRect),
+						canMove: canMove('table-column', -1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.left - 1,
 					},
@@ -232,8 +213,7 @@ export const getDragMenuConfig = (
 						label: 'right',
 						icon: ArrowRightIcon,
 						keymap: moveColumnRight,
-						canMove:
-							canDrag && canMove('table-column', 1, tableMap?.width ?? 0, selection, selectionRect),
+						canMove: canMove('table-column', 1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.right,
 					},

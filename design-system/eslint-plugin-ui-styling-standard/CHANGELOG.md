@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.18.1
+
+### Patch Changes
+
+- [#117847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117847)
+  [`5795b7b47ceac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5795b7b47ceac) -
+  Removes redundant files from NPM deployment
+
 ## 0.18.0
 
 ### Minor Changes

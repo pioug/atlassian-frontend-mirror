@@ -16,9 +16,6 @@ export const exportedIconTests = [
 			{
 				messageId: 'cantMigrateReExport',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -35,9 +32,6 @@ export const exportedIconTests = [
 			{
 				messageId: 'cantMigrateReExport',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -51,9 +45,6 @@ export const exportedIconTests = [
 			},
 			{
 				messageId: 'cantMigrateReExport',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -74,16 +65,10 @@ export const exportedIconTests = [
 				messageId: 'cantMigrateReExport',
 			},
 			{
-				messageId: 'guidance',
-			},
-			{
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
 				messageId: 'cantMigrateReExport',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -106,25 +91,16 @@ export const exportedIconTests = [
 				messageId: 'cantMigrateReExport',
 			},
 			{
-				messageId: 'guidance',
-			},
-			{
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
 				messageId: 'cantMigrateReExport',
 			},
 			{
-				messageId: 'guidance',
-			},
-			{
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
 				messageId: 'cantMigrateReExport',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -159,16 +135,10 @@ export const iconMapOrArray = [
 				messageId: 'cantMigrateIdentifier',
 			},
 			{
-				messageId: 'guidance',
-			},
-			{
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
 				messageId: 'cantMigrateIdentifier',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -185,9 +155,6 @@ export const iconMapOrArray = [
 			},
 			{
 				messageId: 'cantMigrateIdentifier',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -209,9 +176,6 @@ export const iconMapOrArray = [
 			{
 				messageId: 'cantMigrateIdentifier',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 ];
@@ -232,9 +196,6 @@ export const iconsInCustomComponent = [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -251,9 +212,6 @@ export const iconsInCustomComponent = [
 			},
 			{
 				messageId: 'cantMigrateFunctionUnknown',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -278,9 +236,6 @@ export const newButtonTests = [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -298,9 +253,6 @@ export const newButtonTests = [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -317,13 +269,7 @@ export const newButtonTests = [
 				messageId: 'noLegacyIconsAutoMigration',
 			},
 			{
-				messageId: 'guidance',
-			},
-			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -340,9 +286,6 @@ export const newButtonTests = [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -357,9 +300,6 @@ export const newButtonTests = [
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -379,9 +319,6 @@ export const newButtonTests = [
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -405,9 +342,6 @@ export const newButtonTests = [
 			{
 				messageId: 'cantMigrateUnsafeProp',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -429,9 +363,6 @@ export const newButtonTests = [
 			},
 			{
 				messageId: 'cantMigrateUnsafeProp',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -455,16 +386,10 @@ export const newButtonTests = [
 				messageId: 'noLegacyIconsAutoMigration',
 			},
 			{
-				messageId: 'guidance',
-			},
-			{
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
 				messageId: 'cantMigrateUnsafeProp',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -488,9 +413,6 @@ export const newButtonTests = [
 			{
 				messageId: 'cantMigrateUnsafeProp',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -509,9 +431,6 @@ export const newButtonTests = [
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -535,9 +454,6 @@ export const newButtonTests = [
 			{
 				messageId: 'cantMigrateUnsafeProp',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -560,9 +476,6 @@ export const newButtonTests = [
 			{
 				messageId: 'cantMigrateUnsafeProp',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -577,9 +490,6 @@ export const newButtonTests = [
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -600,9 +510,6 @@ export const oldButtonTests = [
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -625,9 +532,6 @@ export const spreadPropsTests = [
 			},
 			{
 				messageId: 'cantMigrateSpreadProps',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -656,9 +560,6 @@ export const spreadPropsTests = [
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -694,9 +595,6 @@ export const spreadPropsTests = [
 			{
 				messageId: 'cantMigrateSpreadProps',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 ];
@@ -720,9 +618,6 @@ export const sizeTests = [
 			{
 				messageId: 'cantMigrateSizeUnknown',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -741,9 +636,6 @@ export const sizeTests = [
 			},
 			{
 				messageId: 'cantMigrateSizeUnknown',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -768,9 +660,6 @@ export const colorTests = [
 			{
 				messageId: 'cantMigrateColor',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -788,9 +677,6 @@ export const colorTests = [
 			},
 			{
 				messageId: 'cantMigrateColor',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -811,9 +697,6 @@ export const colorTests = [
 			{
 				messageId: 'cantMigrateColor',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -830,9 +713,6 @@ export const colorTests = [
 			},
 			{
 				messageId: 'cantMigrateColor',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},
@@ -852,9 +732,6 @@ export const colorTests = [
 			{
 				messageId: 'cantMigrateColor',
 			},
-			{
-				messageId: 'guidance',
-			},
 		],
 	},
 	{
@@ -872,9 +749,6 @@ export const colorTests = [
 			},
 			{
 				messageId: 'cantMigrateColor',
-			},
-			{
-				messageId: 'guidance',
 			},
 		],
 	},

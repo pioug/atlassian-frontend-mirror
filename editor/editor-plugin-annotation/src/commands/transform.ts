@@ -17,7 +17,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnnotationPlugin, InlineCommentInputMethod } from '../types';
 import { getDraftCommandAnalyticsPayload, getPluginState, resolveDraftBookmark } from '../utils';
@@ -118,7 +118,7 @@ const addInsertAnalytics =
 			attributes: {},
 		};
 
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			const { bookmark } = getPluginState(state) || {};
 
 			// When this FF is removed we can move the analytics event creation inside of the

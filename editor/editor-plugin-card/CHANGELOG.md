@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 2.4.2
+
+### Patch Changes
+
+- [#117973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117973)
+  [`6e37bac62083f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e37bac62083f) -
+  moved one const, added new entry point for other and deprecated
+- Updated dependencies
+
 ## 2.4.1
 
 ### Patch Changes

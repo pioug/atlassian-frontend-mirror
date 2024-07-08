@@ -1,6 +1,7 @@
 src/
 examples-utils/
 examples/
+constellation/
 index.ts
 docs/
 build/

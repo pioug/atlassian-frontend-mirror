@@ -13,7 +13,7 @@ import { handleClickCommon } from '../../BlockCard/utils/handlers';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { type FrameStyle } from '../types';
 import Tooltip from '@atlaskit/tooltip';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface ExpandedFrameProps {
 	isPlaceholder?: boolean;
@@ -33,8 +33,24 @@ export interface ExpandedFrameProps {
 	testId?: string;
 	/** If dimensions of the card are to be inherited from the parent */
 	inheritDimensions?: boolean;
-	/** To enable scrolling in use cases where the content will not have it's own scrollbar */
+	/**
+	 * To enable scrolling in use cases where the content will not have it's own scrollbar.
+	 *
+	 * Requires `setOverflow` to be set to true.
+	 *
+	 * Always enable this when when the card is not resolved so the connect account button is not hiddden.
+	 */
 	allowScrollBar?: boolean;
+	/**
+	 * Should the CSS `overflow` property be set to hidden or auto (clipping or
+	 * supporting a scroll bar), or left out altogether.
+	 *
+	 * Set to true when embed is unresolved to prevent account connection button being unreachable.
+	 *
+	 * Set to false when the card is resolved to mitigate blurry embed card issue (EDM-7188).
+	 * @default true
+	 */
+	setOverflow?: boolean;
 }
 
 export const ExpandedFrame: FC<ExpandedFrameProps> = ({
@@ -51,16 +67,11 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
 	testId = 'expanded-frame',
 	inheritDimensions,
 	allowScrollBar = false,
+	setOverflow = true,
 }) => {
 	const isInteractive = () => !isPlaceholder && (Boolean(href) || Boolean(onClick));
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();
-
-	const isFixEmbedCardBlurEnabled = getBooleanFF(
-		'platform.linking-platform.smart-card.fix-embed-card-blurring',
-	)
-		? true
-		: false;
 
 	const renderHeaderOld = () => (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -98,7 +109,9 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
 		<Content
 			data-testid="embed-content-wrapper"
 			allowScrollBar={allowScrollBar}
-			removeOverflow={isFixEmbedCardBlurEnabled}
+			removeOverflow={
+				fg('platform.linking-platform.smart-card.fix-embed-card-blurring') && !setOverflow
+			}
 			isInteractive={isInteractive()}
 			frameStyle={frameStyle}
 			// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
@@ -125,7 +138,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
 				data-is-selected={isSelected}
 				inheritDimensions={inheritDimensions}
 			>
-				{getBooleanFF('platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw')
+				{fg('platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw')
 					? renderHeader()
 					: renderHeaderOld()}
 				{renderContent()}
@@ -147,7 +160,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
 				data-wrapper-type="default"
 				data-is-interactive={isInteractive()}
 			>
-				{getBooleanFF('platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw')
+				{fg('platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw')
 					? renderHeader()
 					: renderHeaderOld()}
 				{renderContent()}

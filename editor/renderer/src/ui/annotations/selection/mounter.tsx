@@ -57,7 +57,7 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 	const isCommentsOnMediaBugFixEnabled = !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
 	const inlineNodeTypes = useMemo(() => {
-		if (!fg('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (!fg('editor_inline_comments_on_inline_nodes')) {
 			return undefined;
 		}
 

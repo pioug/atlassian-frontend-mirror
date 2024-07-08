@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.8.4
+
+### Patch Changes
+
+- [#116760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116760)
+  [`2e309117f02c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e309117f02c6) -
+  [ED-23062] Clean up feature flag for highlight palette dark mode improvements
+- Updated dependencies
+
 ## 1.8.3
 
 ### Patch Changes

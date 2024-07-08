@@ -26,7 +26,6 @@ import {
 	type errorsListAuto,
 	type errorsListManual,
 	findUNSAFEProp,
-	getIconKey,
 	getMigrationMapObject,
 	type guidanceList,
 	locToString,
@@ -175,13 +174,10 @@ export const createChecks = (context: Rule.RuleContext) => {
 				) &&
 				node.specifiers.length
 			) {
-				createCantMigrateReExportError(
-					node,
-					moduleSource,
-					node.specifiers[0].exported.name,
-					errorsManual,
-				);
-				guidance[locToString(node)] = createGuidance(moduleSource);
+				for (const spec of node.specifiers) {
+					createCantMigrateReExportError(spec, moduleSource, spec.exported.name, errorsManual);
+					guidance[locToString(spec)] = createGuidance(moduleSource);
+				}
 			}
 		} else if (node.declaration && isNodeOfType(node.declaration, 'VariableDeclaration')) {
 			// export const Icon = AddIcon;
@@ -200,7 +196,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 						errorsManual,
 					);
 					guidance[locToString(node)] = createGuidance(
-						createGuidance(legacyIconImports[decl.init.name].packageName),
+						legacyIconImports[decl.init.name].packageName,
 					);
 				}
 			}
@@ -301,17 +297,15 @@ export const createChecks = (context: Rule.RuleContext) => {
 				UNSAFE_size !== 'large' &&
 				UNSAFE_size !== 'xlarge'
 			) {
-				const iconKey = getIconKey(legacyIconImports[node.name].packageName);
 				createAutoMigrationError(
 					node,
 					legacyIconImports[node.name].packageName,
 					node.name,
-					newIcon,
-					iconKey,
 					errorsAuto,
 				);
 				guidance[locToString(node)] = createGuidance(
 					legacyIconImports[node.name].packageName,
+					isInNewButton,
 					'medium',
 				);
 			} else if ((!newIcon || !isNewIconMigratable) && !UNSAFE_size) {
@@ -321,7 +315,10 @@ export const createChecks = (context: Rule.RuleContext) => {
 					node.name,
 					errorsManual,
 				);
-				guidance[locToString(node)] = createGuidance(legacyIconImports[node.name].packageName);
+				guidance[locToString(node)] = createGuidance(
+					legacyIconImports[node.name].packageName,
+					isInNewButton,
+				);
 			} else if ((UNSAFE_size === 'large' || UNSAFE_size === 'xlarge') && UNSAFE_propName) {
 				createCantMigrateUnsafeProp(
 					node,
@@ -333,6 +330,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 				);
 				guidance[locToString(node)] = createGuidance(
 					legacyIconImports[node.name].packageName,
+					isInNewButton,
 					UNSAFE_size,
 				);
 			} else if (!isInNewButton) {
@@ -342,7 +340,10 @@ export const createChecks = (context: Rule.RuleContext) => {
 					node.name,
 					errorsManual,
 				);
-				guidance[locToString(node)] = createGuidance(legacyIconImports[node.name].packageName);
+				guidance[locToString(node)] = createGuidance(
+					legacyIconImports[node.name].packageName,
+					isInNewButton,
+				);
 			}
 		}
 	};
@@ -469,10 +470,6 @@ export const createChecks = (context: Rule.RuleContext) => {
 				createCantMigrateSizeUnknown(node, errorsManual, legacyIconImports[name].packageName, name);
 				hasManualMigration = true;
 			}
-			guidance[locToString(node)] = createGuidance(
-				legacyIconImports[name].packageName,
-				size ? size : undefined,
-			);
 			// Check for unsafe size
 			if (
 				(UNSAFE_size === 'large' || UNSAFE_size === 'xlarge') &&
@@ -519,28 +516,26 @@ export const createChecks = (context: Rule.RuleContext) => {
 				hasManualMigration = true;
 			}
 			const migrationMapObject = getMigrationMapObject(legacyIconImports[name].packageName);
-			const iconKey = getIconKey(legacyIconImports[name].packageName);
 			const newIcon = migrationMapObject?.newIcon;
 			const isNewIconMigratable = canAutoMigrateNewIconBasedOnSize(
 				migrationMapObject?.sizeGuidance[size ?? 'medium'],
 			);
 			if (!hasManualMigration && newIcon && isNewIconMigratable) {
-				createAutoMigrationError(
-					node,
-					legacyIconImports[name].packageName,
-					name,
-					newIcon,
-					iconKey,
-					errorsAuto,
-				);
+				createAutoMigrationError(node, legacyIconImports[name].packageName, name, errorsAuto);
 			} else if ((!newIcon || !isNewIconMigratable) && size) {
 				createCantFindSuitableReplacementError(
 					node,
 					legacyIconImports[name].packageName,
 					name,
 					errorsManual,
+					migrationMapObject ? true : false,
 				);
 			}
+			guidance[locToString(node)] = createGuidance(
+				legacyIconImports[name].packageName,
+				insideNewButton,
+				size && isSize(size) ? size : undefined,
+			);
 		}
 	};
 
@@ -576,27 +571,21 @@ export const createChecks = (context: Rule.RuleContext) => {
 			for (const [key, errorList] of Object.entries(errorsManual)) {
 				const node = 'node' in errorList.errors[0] ? errorList.errors[0].node : null;
 				if (node) {
+					const guidanceMessage = key in guidance ? guidance[key] : '';
 					context.report({
 						node,
 						messageId: 'noLegacyIconsManualMigration',
 						data: {
 							iconName: errorList.iconName,
 							importSource: errorList.importSource,
-							quietModeGuidance: isQuietMode ? 'For more information see the below errors:' : '',
+							guidance: isQuietMode
+								? guidanceMessage
+								: `${guidanceMessage}For more information see the below errors.\n`,
 						},
 					});
 					if (!isQuietMode) {
 						for (const error of errorList.errors) {
 							context.report(error);
-						}
-						if (key in guidance) {
-							context.report({
-								node,
-								messageId: 'guidance',
-								data: {
-									guidance: guidance[key],
-								},
-							});
 						}
 					}
 				}
@@ -612,16 +601,11 @@ export const createChecks = (context: Rule.RuleContext) => {
 				}
 				const node = 'node' in error ? error.node : null;
 				if (node) {
-					context.report(error);
-					if (key in guidance && !isQuietMode) {
-						context.report({
-							node,
-							messageId: 'guidance',
-							data: {
-								guidance: guidance[key],
-							},
-						});
+					const guidanceMessage = key in guidance ? guidance[key] : '';
+					if ('data' in error && error.data) {
+						error.data.guidance = guidanceMessage;
 					}
+					context.report(error);
 				}
 			}
 		}

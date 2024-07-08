@@ -25,7 +25,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { getIndexMatch } from './matches-utils';
 import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
@@ -215,7 +215,7 @@ export default class RendererActions
 			return false;
 		}
 
-		if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+		if (fg('editor_inline_comments_on_inline_nodes')) {
 			if (this.isRendererWithinRange(range)) {
 				return false;
 			}
@@ -405,7 +405,7 @@ export default class RendererActions
 	}
 
 	// TODO: Do not forget to remove `undefined` when the
-	//       `platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz` is removed.
+	//       `editor_inline_comments_on_inline_nodes` is removed.
 	getInlineNodeTypes(annotationId: string): string[] | undefined {
 		if (!this.doc || !this.schema) {
 			return [];

@@ -5,7 +5,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 
-import { ZERO_WIDTH_SPACE } from '../utils';
+import { ZERO_WIDTH_SPACE } from '../whitespace';
 
 import type { MacroInteractionDesignFeatureFlags } from './types';
 

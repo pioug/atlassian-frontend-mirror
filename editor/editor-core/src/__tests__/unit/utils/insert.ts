@@ -74,7 +74,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
 				.add(listPlugin)
 				.add([quickInsertPlugin, {}])
 				.add(captionPlugin)
-				.add([codeBlockPlugin, { appearance: 'full-page' }]),
+				.add(codeBlockPlugin),
 		});
 	};
 

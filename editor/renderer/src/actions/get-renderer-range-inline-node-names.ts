@@ -1,6 +1,6 @@
 import { getRangeInlineNodeNames } from '@atlaskit/editor-common/utils';
 import type RendererActions from './index';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export function getRendererRangeInlineNodeNames({
 	actions,
@@ -13,7 +13,7 @@ export function getRendererRangeInlineNodeNames({
 	 */
 	pos?: { from: number; to: number } | false;
 }) {
-	if (!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (!fg('editor_inline_comments_on_inline_nodes')) {
 		return undefined;
 	}
 

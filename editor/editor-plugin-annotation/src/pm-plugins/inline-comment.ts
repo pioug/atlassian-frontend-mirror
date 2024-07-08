@@ -8,7 +8,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	clearDirtyMark,
@@ -283,11 +283,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 										),
 									);
 								} else {
-									if (
-										getBooleanFF(
-											'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
-										)
-									) {
+									if (fg('editor_inline_comments_on_inline_nodes')) {
 										if (node.isText) {
 											focusDecorations.push(
 												Decoration.inline(pos, pos + node.nodeSize, {

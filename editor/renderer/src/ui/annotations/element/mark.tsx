@@ -9,7 +9,7 @@ import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import type { AnnotationId, AnnotationDataAttributes } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useIntl } from 'react-intl-next';
 import { inlineCommentMessages } from '../../../messages';
 
@@ -20,9 +20,7 @@ const markStyles = () => css`
 	-webkit-tap-highlight-color: transparent;
 
 	&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}'] {
-		${getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
-			? AnnotationSharedCSSByState().common
-			: ''}
+		${fg('editor_inline_comments_on_inline_nodes') ? AnnotationSharedCSSByState().common : ''}
 		${AnnotationSharedCSSByState().blur}
 
 		&:focus,
@@ -101,7 +99,7 @@ export const MarkComponent = ({
 				return;
 			}
 
-			if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
+			if (fg('editor_inline_comments_on_inline_nodes')) {
 				// We only want to interfere with click events if the click is on some ui inside the renderer document
 				// This is to prevent the click events from portaled content (such as link previews and mention profiles)
 				if (event.target instanceof HTMLElement && event.target.closest('.ak-renderer-document')) {
@@ -179,9 +177,7 @@ export const MarkComponent = ({
 		useBlockLevel ? 'div' : 'mark',
 		{
 			id,
-			[getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
-				? 'onClickCapture'
-				: 'onClick']: onMarkClick,
+			[fg('editor_inline_comments_on_inline_nodes') ? 'onClickCapture' : 'onClick']: onMarkClick,
 			...accessibility,
 			...overriddenData,
 			...(!useBlockLevel && {

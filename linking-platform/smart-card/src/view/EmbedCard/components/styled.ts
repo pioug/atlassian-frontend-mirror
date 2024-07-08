@@ -261,7 +261,14 @@ export const TooltipWrapper = styled.div({
 
 export interface ContentProps {
 	isInteractive: boolean;
+	/**
+	 * Whether to show a scroll bar (use overflow: auto) or hide overflow (overflow:hidden).
+	 * Always set to true for unresolved embeds, otherwise the connect account button may be hidden and unreachable.
+	 */
 	allowScrollBar: boolean;
+	/**
+	 * Remove the overflow: ... CSS property altogether.
+	 */
 	removeOverflow?: boolean;
 	frameStyle?: FrameStyle;
 }

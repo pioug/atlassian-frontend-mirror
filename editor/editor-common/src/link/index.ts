@@ -31,5 +31,5 @@ export type { HyperlinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar'
 export { sha1 } from './LinkPicker/HyperlinkAddToolbar/utils';
 export { isLinkAtPos, isTextAtPos, getLinkPreferencesURLFromENV } from './utils';
 export { stagingLinkPreferencesUrl, productionLinkPreferencesUrl } from './constants';
-export { OverlayButton } from './ConfigureLinkOverlay/OverlayButton';
-export type { OverlayButtonProps } from './ConfigureLinkOverlay/OverlayButton';
+export { OverlayButton } from './ConfigureLinkOverlay';
+export type { OverlayButtonProps } from './ConfigureLinkOverlay';

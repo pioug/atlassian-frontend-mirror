@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -23,7 +23,7 @@ const Yellow100 = 'rgb(255, 247, 214)';
 const Y200a = 'rgba(255, 196, 0, 0.82)';
 
 export const AnnotationSharedCSSByState = () => {
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (fg('editor_inline_comments_on_inline_nodes')) {
 		// NOTE: These styles are shared between renderer and editor. Sometimes they
 		// need different selectors and other times they apply the same attributes
 		// in a different way. For example in renderer the focus styles are an
@@ -53,38 +53,6 @@ export const AnnotationSharedCSSByState = () => {
 				borderBottomColor: token('color.border.accent.yellow', Y200a),
 			}),
 		};
-	} else if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')) {
-		return {
-			focus: css({
-				background: token('color.background.accent.yellow.subtler', Y75),
-				borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
-				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
-				cursor: 'pointer',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'&:has(.card)': {
-					fontSize: '1.5rem',
-					lineHeight: '1.2rem',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-					'& > *': {
-						fontSize: '16px',
-					},
-				},
-			}),
-			blur: css({
-				background: token('color.background.accent.yellow.subtlest', Yellow100),
-				borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
-				cursor: 'pointer',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'&:has(.card)': {
-					fontSize: '1.5rem',
-					lineHeight: '1.2rem',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-					'& > *': {
-						fontSize: '16px',
-					},
-				},
-			}),
-		};
 	} else {
 		return {
 			focus: css({
@@ -106,7 +74,7 @@ export const AnnotationSharedCSSByState = () => {
 };
 
 export const annotationSharedStyles = () =>
-	getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')
+	fg('editor_inline_comments_on_inline_nodes')
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState()` is not safe in object syntax
 			css`
 				.ProseMirror {

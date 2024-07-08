@@ -435,7 +435,6 @@ describe('createPluginsList', () => {
 			expect(codeBlockPlugin).toHaveBeenCalledWith({
 				config: {
 					allowCompositionInputOverride: true,
-					appearance: 'mobile',
 					useLongPressSelection: false,
 				},
 			});
@@ -446,7 +445,6 @@ describe('createPluginsList', () => {
 			expect(codeBlockPlugin).toHaveBeenCalledWith({
 				config: {
 					allowCompositionInputOverride: false,
-					appearance: 'full-page',
 					useLongPressSelection: false,
 				},
 			});

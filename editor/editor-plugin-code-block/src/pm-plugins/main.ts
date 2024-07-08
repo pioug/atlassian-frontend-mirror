@@ -3,7 +3,7 @@ import type { IntlShape } from 'react-intl-next';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
-import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -22,13 +22,11 @@ import type { CodeBlockState } from './main-state';
 export const createPlugin = ({
 	useLongPressSelection = false,
 	getIntl,
-	appearance,
 	allowCompositionInputOverride = false,
 	api,
 }: {
 	useLongPressSelection?: boolean;
 	getIntl: () => IntlShape;
-	appearance: EditorAppearance;
 	// We only want this DOM event on mobile as composition only happens on mobile
 	// Don't want to add an uneccessary listener to web
 	allowCompositionInputOverride?: boolean;

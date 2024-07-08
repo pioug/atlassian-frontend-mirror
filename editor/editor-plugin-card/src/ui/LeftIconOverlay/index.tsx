@@ -9,7 +9,7 @@ import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
 
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
-import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
+import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
 import { N0, N30A, N40A, N60A, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

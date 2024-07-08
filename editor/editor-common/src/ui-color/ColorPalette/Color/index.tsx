@@ -5,7 +5,6 @@ import React, { type ReactElement } from 'react';
 import { jsx } from '@emotion/react';
 
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -75,11 +74,7 @@ const Color = (props: Props) => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={`${isSelected ? 'selected' : ''}`}
 					style={{
-						backgroundColor:
-							colorStyle ||
-							(fg('platform.editor.dynamic-palette-borders')
-								? token('color.background.input', '#FFFFFF')
-								: 'transparent'),
+						backgroundColor: colorStyle || token('color.background.input', '#FFFFFF'),
 						border: `1px solid ${borderColor}`,
 					}}
 					autoFocus={autoFocus}

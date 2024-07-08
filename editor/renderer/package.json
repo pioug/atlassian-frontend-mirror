@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "109.40.9",
+	"version": "109.40.10",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,14 +31,14 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^18.2.0",
 		"@atlaskit/code": "^15.4.0",
-		"@atlaskit/editor-common": "^84.1.0",
+		"@atlaskit/editor-common": "^84.3.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/emoji": "^67.6.0",
 		"@atlaskit/feature-gate-js-client": "^4.18.0",
-		"@atlaskit/icon": "^22.5.0",
+		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/link-datasource": "^2.5.0",
 		"@atlaskit/media-card": "^78.0.0",
 		"@atlaskit/media-client": "^27.3.0",
@@ -131,10 +131,7 @@
 		"platform_editor_tables_padding_increase": {
 			"type": "boolean"
 		},
-		"platform.editor.allow-inline-comments-for-inline-nodes": {
-			"type": "boolean"
-		},
-		"platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz": {
+		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		},
 		"platform.editor.renderer-error-boundary-for-dom-errors": {

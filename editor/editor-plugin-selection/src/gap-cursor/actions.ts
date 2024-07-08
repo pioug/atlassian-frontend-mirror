@@ -4,8 +4,8 @@ import {
 	isMediaNode,
 	isNodeBeforeMediaNode,
 	isPositionNearTableRow,
-	ZERO_WIDTH_SPACE,
 } from '@atlaskit/editor-common/utils';
+import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';

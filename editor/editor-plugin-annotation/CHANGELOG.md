@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.14.2
+
+### Patch Changes
+
+- [#113218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/113218)
+  [`d1b428ec29d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1b428ec29d68) -
+  [ED-23765] migrate inline node commenting feature flags to statsig feature gate
+- Updated dependencies
+
 ## 1.14.1
 
 ### Patch Changes

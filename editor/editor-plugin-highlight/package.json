@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "1.12.1",
+	"version": "1.12.3",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^84.1.0",
+		"@atlaskit/editor-common": "^84.3.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-background-color": "^1.3.0",
@@ -50,9 +50,9 @@
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.12.0",
 		"@atlaskit/editor-tables": "^2.7.4",
-		"@atlaskit/icon": "^22.5.0",
+		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^10.0.0",
+		"@atlaskit/primitives": "^10.1.0",
 		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -108,16 +108,13 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.dynamic-palette-borders": {
-			"type": "boolean"
-		},
 		"platform.editor.refactor-highlight-toolbar_mo0pj": {
 			"type": "boolean"
 		},
 		"platform.editor.enable-selection-toolbar_ucdwd": {
 			"type": "boolean"
 		},
-		"platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz": {
+		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

@@ -1,8 +1,6 @@
 import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
@@ -87,7 +85,6 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
 		case ACTIONS.MOVE:
 			return moveReducer(state, action);
 	}
-	return state;
 };
 
 const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState => {
@@ -257,13 +254,11 @@ function useSelectAndFocusOnArrowNavigation(
 				...initialState,
 				listSize,
 			};
-			if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-				// A11Y: if categories exist ,on the initial render search element should receive focus.
-				// After user pick some category the category should stay focused.
-				payload = Object.assign(payload, {
-					focusOnSearch: isFocusSearch ?? initialState.focusOnSearch,
-				});
-			}
+			// A11Y: if categories exist ,on the initial render search element should receive focus.
+			// After user pick some category the category should stay focused.
+			payload = Object.assign(payload, {
+				focusOnSearch: isFocusSearch ?? initialState.focusOnSearch,
+			});
 
 			dispatch({
 				type: ACTIONS.UPDATE_STATE,
@@ -281,11 +276,9 @@ function useSelectAndFocusOnArrowNavigation(
 				focusOnSearch: false,
 				focusOnViewMore: false,
 			};
-			if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-				payload = Object.assign(payload, {
-					focusedCategoryIndex: undefined,
-				});
-			}
+			payload = Object.assign(payload, {
+				focusedCategoryIndex: undefined,
+			});
 
 			dispatch({
 				type: ACTIONS.UPDATE_STATE,
@@ -297,9 +290,6 @@ function useSelectAndFocusOnArrowNavigation(
 
 	const setFocusedCategoryIndex = useCallback(
 		(index?: number) => {
-			if (!getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-				return;
-			}
 			const payload: Partial<ReducerState> = {
 				focusOnSearch: false,
 				focusOnViewMore: false,

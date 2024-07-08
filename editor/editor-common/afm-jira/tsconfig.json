@@ -48,6 +48,9 @@
       "path": "../../custom-steps/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/dropdown-menu/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-json-transformer/afm-jira/tsconfig.json"
     },
     {

@@ -110,6 +110,11 @@ export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
 	 */
 	LEGACY_fallbackIcon?: ComponentType<IconProps>;
 	/**
+	 * Optional custom primary color to be rendered by the fallback icon, only to be use when a different color than the `color` prop is required.
+	 * @default Use the `color` prop value.
+	 */
+	LEGACY_primaryColor?: string;
+	/**
 	 * Secondary color to be rendered by the legacy fallback icon
 	 */
 	LEGACY_secondaryColor?: string;

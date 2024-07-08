@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 27.9.1
+
+### Patch Changes
+
+- [#117751](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117751)
+  [`b3f950d2332ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3f950d2332ed) -
+  EDM-10151 Fix embed overflow when embed blur fix enabled
+- Updated dependencies
+
 ## 27.9.0
 
 ### Minor Changes

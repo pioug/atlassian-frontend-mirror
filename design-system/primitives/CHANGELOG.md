@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 10.1.0
+
+### Minor Changes
+
+- [`b78fad249a1e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b78fad249a1e7) -
+  Allow Negative Spaces in OutlineOffset
+
 ## 10.0.0
 
 ### Major Changes

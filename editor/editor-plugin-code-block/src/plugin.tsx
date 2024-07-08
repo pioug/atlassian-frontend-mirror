@@ -62,7 +62,6 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => ({
 					createPlugin({
 						...options,
 						getIntl,
-						appearance: options?.appearance ?? 'comment',
 						api,
 					}),
 			},

@@ -41,7 +41,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^10.0.0",
+		"@atlaskit/primitives": "^10.1.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",
@@ -55,7 +55,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/icon": "^22.5.0",
+		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/react-test-renderer": "^16.8.1",

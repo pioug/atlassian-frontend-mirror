@@ -2,7 +2,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type EmojiAttributes } from '@atlaskit/adf-schema';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type EmojiResourceConfig } from '@atlaskit/emoji/resource';
 import { memo } from 'react';
 import { type ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -21,9 +21,9 @@ export interface EmojiProps extends EmojiAttributes, MarkDataAttributes {
 function EmojiItem(props: EmojiProps) {
 	const { id, providers, shortName, text, fitToHeight, resourceConfig } = props;
 
-	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: false });
+	const inlineAnnotationProps = useInlineAnnotationProps(props);
 
-	if (getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz')) {
+	if (fg('editor_inline_comments_on_inline_nodes')) {
 		return (
 			<span {...inlineAnnotationProps}>
 				<Emoji

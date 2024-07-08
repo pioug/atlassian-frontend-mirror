@@ -17,8 +17,8 @@ import {
 	getPerformanceOptions,
 	startMeasureReactNodeViewRendered,
 	stopMeasureReactNodeViewRendered,
-	ZERO_WIDTH_SPACE,
 } from '../utils';
+import { ZERO_WIDTH_SPACE } from '../whitespace';
 
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
 

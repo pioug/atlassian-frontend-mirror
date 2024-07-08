@@ -31,9 +31,9 @@ const rule = createLintRule({
 			},
 		],
 		messages: {
-			noLegacyIconsAutoMigration: `Auto Migration:\nLegacy icon '{{iconName}}' from '{{importSource}}' detected.\nAutomatic migration is possible to '{{newIcon}}' from '{{newPackage}}.\nAtlassians: See https://go.atlassian.com/icon-migration-guide for details.'`,
-			noLegacyIconsManualMigration: `Manual Migration:\nLegacy icon '{{iconName}}' from '{{importSource}}' detected.\nAutomatic migration not possible.{{quietModeGuidance}}.\nAtlassians: See https://go.atlassian.com/icon-migration-guide for details.`,
-			cantFindSuitableReplacement: `No suitable replacement found for '{{iconName}}' from '{{importSource}}' at the size listed. Please manually migrate this icon.`,
+			noLegacyIconsAutoMigration: `Auto Migration:\nLegacy icon '{{iconName}}' from '{{importSource}}' detected.\nAutomatic migration is possible.\n\n{{guidance}}\nAtlassians: See https://go.atlassian.com/icon-migration-guide for details.'`,
+			noLegacyIconsManualMigration: `Manual Migration:\nLegacy icon '{{iconName}}' from '{{importSource}}' detected.\nAutomatic migration not possible.\n\n{{guidance}}\nAtlassians: See https://go.atlassian.com/icon-migration-guide for details.`,
+			cantFindSuitableReplacement: `No suitable replacement found for '{{iconName}}' from '{{importSource}}'{{sizeGuidance}}. Please manually migrate this icon.`,
 			cantMigrateReExport: `'{{exportName}}' is a re-export of icon from '{{packageName}}' and cannot be automatically migrated. Please utilize the export from icons directly.`,
 			cantMigrateColor: `Primary Color prop has {{colorValue}} which cannot be automatically migrated to color prop in the new Icon API. Please use either an appropriate color.icon, color.link token, or currentColor (as a last resort).`,
 			cantMigrateSpreadProps: `This usage of Icon uses spread props in a way that can't be automatically migrated. Please explicitly define the following props after spread: '{{missingProps}}' `,
@@ -41,7 +41,6 @@ const rule = createLintRule({
 			cantMigrateFunctionUnknown: `'{{iconName}}' from legacy '{{importSource}}' is used in unknown function/component. Please manually migrate this icon.`,
 			cantMigrateIdentifier: `This icon is passed to other components via a map or array, in a way that can't be automatically migrated. Please manually migrate wherever this expression is used and use the icon components directly.`,
 			cantMigrateUnsafeProp: `Property '{{propName}}' with value of '{{value}}' is unable to be auto-migrated to the new button. Please manually migrate this icon.`,
-			guidance: `Guidance:\n'{{guidance}}'`,
 		},
 	},
 

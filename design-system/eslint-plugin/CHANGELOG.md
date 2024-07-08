@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.10.1
+
+### Patch Changes
+
+- [#117847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117847)
+  [`5795b7b47ceac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5795b7b47ceac) -
+  Removes redundant files from NPM deployment
+- [#117920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117920)
+  [`57088349e6e38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57088349e6e38) -
+  Updated guidance on no-legacy-icons lint rule to be more descriptive.
+
 ## 10.10.0
 
 ### Minor Changes

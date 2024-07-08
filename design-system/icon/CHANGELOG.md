@@ -1,5 +1,12 @@
 # @atlaskit/icon
 
+## 22.6.0
+
+### Minor Changes
+
+- [`c1a3f0e0f18e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1a3f0e0f18e2) -
+  Adds LEGACY_primaryColor to the icon API, to assist with user migration.
+
 ## 22.5.1
 
 ### Patch Changes

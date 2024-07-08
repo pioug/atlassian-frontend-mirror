@@ -44,7 +44,8 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "pubsub"
-		}
+		},
+		"runReact18": true
 	},
 	"config": {
 		"access": "public"
@@ -56,7 +57,7 @@
 		"exponential-backoff": "^3.1.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"es6-promise": "^4.0.5",

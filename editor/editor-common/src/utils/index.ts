@@ -136,8 +136,10 @@ export {
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
 export { isTextInput } from './is-text-input';
-export { ZERO_WIDTH_SPACE, ZERO_WIDTH_JOINER } from './whitespace';
-
+/**
+ * @deprecated - [ED-23844] moving to own entry point @atlaskit/editor-common/whitespace
+ */
+export { ZERO_WIDTH_SPACE, ZERO_WIDTH_JOINER } from '../whitespace';
 export type { Diff } from './types';
 export { shouldForceTracking } from './should-force-tracking';
 export { getModeFromTheme } from './getModeFromTheme';

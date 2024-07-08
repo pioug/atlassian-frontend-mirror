@@ -6,19 +6,19 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { type InlineCardAdf } from '@atlaskit/linking-common/types';
+import type { InlineCardAdf } from '@atlaskit/linking-common';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
-import type {
-	AnalyticsContextAttributesType,
-	AnalyticsContextType,
-	ComponentMetaDataType,
+import {
+	type AnalyticsContextAttributesType,
+	type AnalyticsContextType,
+	type ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
 import {
 	DatasourceAction,
@@ -41,13 +41,14 @@ import { InitialStateView } from '../../common/initial-state-view';
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
+import { useDatasourceContext } from '../../common/modal/datasource-context/DatasourceContext';
+import { DatasourceContextProvider } from '../../common/modal/datasource-context/DatasourceContextProvider';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
-import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import { useColumnResize } from '../../issue-like-table/use-column-resize';
-import { useColumnWrapping } from '../../issue-like-table/use-column-wrapping';
+import DatasourcesTableUsingContext from '../../datasources-table-in-modal-preview';
+import { EmptyState } from '../../issue-like-table';
 import { getColumnAction } from '../../issue-like-table/utils';
 import { type SelectedOptionsMap } from '../basic-filters/types';
 import ConfluenceSearchContainer from '../confluence-search-container';
@@ -58,6 +59,7 @@ import {
 
 import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
 import { confluenceSearchModalMessages } from './messages';
+import { PlainConfluenceSearchConfigModal as PlainConfluenceSearchConfigModalOld } from './ModalOld';
 
 const inputContainerStyles = xcss({
 	alignItems: 'baseline',
@@ -68,8 +70,6 @@ const inputContainerStyles = xcss({
 export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
 	const {
 		datasourceId,
-		columnCustomSizes: initialColumnCustomSizes,
-		wrappedColumnKeys: initialWrappedColumnKeys,
 		onCancel,
 		onInsert,
 		viewMode = 'table',
@@ -200,10 +200,6 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 			? confluenceSearchModalMessages.insertIssuesTitleManySites
 			: confluenceSearchModalMessages.insertIssuesTitle;
 
-	const { columnCustomSizes, onColumnResize } = useColumnResize(initialColumnCustomSizes);
-
-	const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping(initialWrappedColumnKeys);
-
 	// TODO: common functionality of all modals refactor in EDM-9573
 	const handleVisibleColumnKeysChange = useCallback(
 		(newVisibleColumnKeys: string[] = []) => {
@@ -216,12 +212,10 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 		[visibleColumnKeys, userInteractions],
 	);
 
-	// TODO: further refactoring in EDM-9573
-	// https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6798258
-	const confluenceSearchTable = useMemo(
-		() => (
+	const confluenceSearchTable = useMemo(() => {
+		return (
 			<ContentContainer withTableBorder>
-				<IssueLikeDataTableView
+				<DatasourcesTableUsingContext
 					testId="confluence-search-datasource-table"
 					status={status}
 					columns={columns}
@@ -232,34 +226,21 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 					onLoadDatasourceDetails={loadDatasourceDetails}
 					onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
 					extensionKey={extensionKey}
-					columnCustomSizes={columnCustomSizes}
-					onColumnResize={onColumnResize}
-					wrappedColumnKeys={wrappedColumnKeys}
-					onWrappedColumnChange={
-						getBooleanFF('platform.linking-platform.datasource-word_wrap')
-							? onWrappedColumnChange
-							: undefined
-					}
 				/>
 			</ContentContainer>
-		),
-		[
-			status,
-			columns,
-			responseItems,
-			hasNextPage,
-			visibleColumnKeys,
-			defaultVisibleColumnKeys,
-			onNextPage,
-			loadDatasourceDetails,
-			handleVisibleColumnKeysChange,
-			extensionKey,
-			columnCustomSizes,
-			onColumnResize,
-			wrappedColumnKeys,
-			onWrappedColumnChange,
-		],
-	);
+		);
+	}, [
+		status,
+		columns,
+		responseItems,
+		hasNextPage,
+		visibleColumnKeys,
+		defaultVisibleColumnKeys,
+		onNextPage,
+		loadDatasourceDetails,
+		handleVisibleColumnKeysChange,
+		extensionKey,
+	]);
 
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 
@@ -388,6 +369,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 
 	const shouldShowResultsCount = !!totalCount && currentViewMode === 'table';
 
+	const { columnCustomSizes, wrappedColumnKeys } = useDatasourceContext();
 	const onInsertPressed = useCallback(
 		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
 			if (!isParametersSet || !cloudId || !confluenceSearchUrl) {
@@ -614,7 +596,17 @@ export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
 	(props: ConfluenceSearchConfigModalProps) => (
 		<DatasourceExperienceIdProvider>
 			<UserInteractionsProvider>
-				<PlainConfluenceSearchConfigModal {...props} />
+				{fg('platform.linking-platform.datasources.use-refactored-config-modal') ? (
+					<DatasourceContextProvider
+						initialColumnCustomSizes={props.columnCustomSizes}
+						initialWrappedColumnKeys={props.wrappedColumnKeys}
+					>
+						<PlainConfluenceSearchConfigModal {...props} />
+					</DatasourceContextProvider>
+				) : (
+					// TODO on cleanup 'use-refactored-config-modal' ff, delete `ModalOld.tsx` as well
+					<PlainConfluenceSearchConfigModalOld {...props} />
+				)}
 			</UserInteractionsProvider>
 		</DatasourceExperienceIdProvider>
 	),

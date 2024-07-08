@@ -18,7 +18,7 @@ export interface Props extends MarkDataAttributes {
 }
 
 const Date = memo(function Date(props: Props & WrappedComponentProps) {
-	const inlineAnnotationProps = useInlineAnnotationProps(props, { isInlineCard: false });
+	const inlineAnnotationProps = useInlineAnnotationProps(props);
 	const { timestamp, parentIsIncompleteTask, intl } = props;
 	const className =
 		!!parentIsIncompleteTask && isPastDate(timestamp)

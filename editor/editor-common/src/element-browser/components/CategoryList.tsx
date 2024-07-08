@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/react';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button, { type ThemeProps, type ThemeTokens } from '@atlaskit/button/custom-theme-button';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B400, B50, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -37,25 +36,7 @@ function CategoryList({
 	categories = [],
 	...props
 }: Props & WithAnalyticsEventsProps): JSX.Element {
-	const [focusedCategoryIndexState, setFocusedCategoryIndexState] = React.useState<number | null>(
-		null,
-	);
-	const {
-		focusedCategoryIndex: focusedCategoryIndexProp,
-		setFocusedCategoryIndex: setFocusedCategoryIndexProp,
-		onSelectCategory,
-	} = props;
-
-	const focusedCategoryIndex = getBooleanFF(
-		'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
-	)
-		? focusedCategoryIndexProp
-		: focusedCategoryIndexState;
-	const setFocusedCategoryIndex = getBooleanFF(
-		'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
-	)
-		? setFocusedCategoryIndexProp
-		: setFocusedCategoryIndexState;
+	const { focusedCategoryIndex, setFocusedCategoryIndex, onSelectCategory } = props;
 
 	return (
 		<Fragment>
@@ -63,10 +44,7 @@ function CategoryList({
 				const categoriesLength = categories?.length;
 				let selectNextCategory;
 				let selectPreviousCategory;
-				if (
-					getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1') &&
-					categoriesLength > 1
-				) {
+				if (categoriesLength > 1) {
 					selectNextCategory = () => {
 						if (index !== categoriesLength - 1) {
 							setFocusedCategoryIndex(index + 1);
@@ -135,9 +113,6 @@ function CategoryListItem({
 }: CategoryListItemProps & WithAnalyticsEventsProps) {
 	const ref = useFocus(focus);
 	const onClick = useCallback(() => {
-		if (!getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-			onSelectCategory(category);
-		}
 		/**
 		 * When user double clicks on same category, focus on first item.
 		 */
@@ -147,9 +122,7 @@ function CategoryListItem({
 			setFocusedCategoryIndex(index);
 		}
 
-		if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')) {
-			onSelectCategory(category);
-		}
+		onSelectCategory(category);
 		fireAnalyticsEvent(createAnalyticsEvent)({
 			payload: {
 				action: ACTION.CLICKED,
@@ -252,11 +225,7 @@ function CategoryListItem({
 				isSelected={selectedCategory === category.name}
 				onClick={onClick}
 				onFocus={onFocus}
-				onKeyDown={
-					getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')
-						? onKeyDown
-						: undefined
-				}
+				onKeyDown={onKeyDown}
 				theme={getTheme}
 				role="tab"
 				aria-selected={selectedCategory === category.name ? 'true' : 'false'}

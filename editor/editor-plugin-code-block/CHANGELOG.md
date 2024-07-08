@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.0.0
+
+### Major Changes
+
+- [#117111](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117111)
+  [`6f06e433f9724`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f06e433f9724) -
+  Remove option for "appearance" from `editor-plugin-code-block`. This configuration is completely
+  unused and has no effect. It is safe to remove if you are currently using this prop for
+  configuration.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

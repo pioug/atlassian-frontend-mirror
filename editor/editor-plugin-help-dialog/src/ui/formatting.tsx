@@ -657,9 +657,7 @@ export const getSupportedFormatting = (
 		...supportedBySchema,
 		...(imageEnabled ? [imageAutoFormat] : []),
 		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
-		...(getBooleanFF('platform.editor.a11y-table-resizing_uapcv')
-			? focusTableResizeHandleFormatting(intl)
-			: []),
+		...focusTableResizeHandleFormatting(intl),
 		...resizeInformationFormatting(intl),
 	];
 };

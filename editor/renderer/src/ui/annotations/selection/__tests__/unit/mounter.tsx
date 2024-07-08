@@ -323,7 +323,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			const actionsDoc = PMNode.fromJSON(defaultSchema, doc(p('start', status(), 'end')));
 
 			ffTest(
-				'platform.editor.allow-inline-comments-for-inline-nodes-round-2_ctuxz',
+				'editor_inline_comments_on_inline_nodes',
 				() => {
 					renderMounter({ actionsDoc });
 

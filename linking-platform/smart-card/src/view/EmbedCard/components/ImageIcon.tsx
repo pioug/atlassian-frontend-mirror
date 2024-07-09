@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React from 'react';
 import ImageLoader from 'react-render-image';
 import { Image } from './styled';
 
@@ -10,13 +10,13 @@ export interface ImageIconProps {
 	default?: React.ReactElement;
 }
 
-export const ImageIcon: FC<ImageIconProps> = ({
+export const ImageIcon = ({
 	alt = '',
 	src,
 	size = 16,
 	title,
 	default: defaultIcon,
-}) => {
+}: ImageIconProps) => {
 	// TODO: do we need this?
 	if (!src) {
 		return defaultIcon || null;

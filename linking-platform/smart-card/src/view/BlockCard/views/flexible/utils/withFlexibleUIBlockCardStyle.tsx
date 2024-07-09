@@ -5,7 +5,8 @@ import { flexibleBlockCardStyle } from '../styled';
 import { type FlexibleBlockCardProps } from '../types';
 
 export const withFlexibleUIBlockCardStyle =
-	(FlexibleBlockCardView: React.FC<FlexibleBlockCardProps>) => (props: FlexibleBlockCardProps) => {
+	(FlexibleBlockCardView: React.ComponentType<FlexibleBlockCardProps>) =>
+	(props: FlexibleBlockCardProps) => {
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={flexibleBlockCardStyle}>

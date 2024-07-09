@@ -24,12 +24,12 @@ export type RelatedUrlBlockProps = {
 /**
  * Represents a block to display related resources of a url
  */
-const RelatedUrlsBlock: React.FC<RelatedUrlBlockProps> = ({
+const RelatedUrlsBlock = ({
 	testId = 'smart-block-related-urls',
 	url,
 	renderers,
 	...blockProps
-}) => {
+}: RelatedUrlBlockProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	di(useRelatedUrls);

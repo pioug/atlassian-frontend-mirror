@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
@@ -8,7 +8,7 @@ import Media from '../media';
 import { type Media as MediaData } from '../../../../../state/flexible-ui-context/types';
 import { type PreviewProps } from './types';
 
-const Preview: React.FC<PreviewProps> = (props) => {
+const Preview = (props: PreviewProps) => {
 	const { overrideUrl, ...rest } = props ?? {};
 	const context = useContext(FlexibleUiContext);
 	const data: MediaData | undefined = overrideUrl

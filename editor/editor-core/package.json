@@ -107,7 +107,7 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.91",
+		"@atlassian/search-provider": "2.4.92",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -217,10 +217,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.table.cmd-a-select-table": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform.editor.table.use-shared-state-hook": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -230,10 +226,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.transform-slice-for-nested-expand": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.table.copy-paste-in-bodied-extension": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
@@ -254,10 +246,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.table.use-increased-scaling-percent": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.table-width-diff-in-renderer_x5s3z": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

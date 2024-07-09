@@ -63,13 +63,13 @@ const renderActionItems = (
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const ActionGroup: React.FC<ActionGroupProps> = ({
+const ActionGroup = ({
 	items = [],
 	size = SmartLinkSize.Medium,
 	appearance,
 	visibleButtonsNum = 2,
 	onDropdownOpenChange,
-}) => {
+}: ActionGroupProps) => {
 	di(DropdownMenu);
 
 	const context = useFlexibleUiContext();

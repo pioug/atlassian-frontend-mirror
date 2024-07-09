@@ -10,7 +10,7 @@ import Link from '../../../../../elements/link';
 import { type ResolvedResultItemProps } from './types';
 import { fireLinkClickedEvent } from '../../../../../../../../utils/analytics/click';
 
-const RelatedUrlItem: React.FC<ResolvedResultItemProps> = ({ results, renderers, testId }) => {
+const RelatedUrlItem = ({ results, renderers, testId }: ResolvedResultItemProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const flexibleDataContext = useMemo(
 		() =>

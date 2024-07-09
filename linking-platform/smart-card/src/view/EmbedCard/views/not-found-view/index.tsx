@@ -1,4 +1,4 @@
-import React, { type FC, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { messages } from '../../../../messages';
@@ -7,12 +7,12 @@ import UnresolvedView from '../unresolved-view';
 import type { NotFoundViewProps } from './types';
 import { NotFoundSVG } from './not-found-svg';
 
-const NotFoundView: FC<NotFoundViewProps> = ({
+const NotFoundView = ({
 	context,
 	accessContext,
 	testId = 'embed-card-not-found-view',
 	...unresolvedViewProps
-}) => {
+}: NotFoundViewProps) => {
 	const { icon, image, text = '' } = context ?? {};
 	const { titleMessageKey, descriptiveMessageKey } = accessContext ?? {};
 	const values = useMemo(() => ({ product: text }), [text]);

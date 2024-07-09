@@ -25,7 +25,7 @@ const FormattedErrorMessage = ({ message, url }: { message: MessageDescriptor; u
 	/>
 );
 
-const AIStateError: React.FC<Partial<AIStateIndicatorProps>> = ({ appearance, testId, error }) => {
+const AIStateError = ({ appearance, testId, error }: Partial<AIStateIndicatorProps>) => {
 	const { message, url } = getAISummaryErrorMessage(error);
 
 	switch (appearance) {

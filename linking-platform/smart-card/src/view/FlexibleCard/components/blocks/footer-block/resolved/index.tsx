@@ -13,7 +13,7 @@ import ElementGroup from '../../element-group';
 import { filterActionItems, getActionGroupStyles } from '../../utils';
 import type { FooterBlockProps } from '../types';
 
-const FooterBlockResolvedView: React.FC<FooterBlockProps> = (props) => {
+const FooterBlockResolvedView = (props: FooterBlockProps) => {
 	const {
 		actions,
 		testId,

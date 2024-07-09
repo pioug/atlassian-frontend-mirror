@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import AtlaskitLozenge from '@atlaskit/lozenge';
@@ -18,7 +17,7 @@ const styles = css({
  * @param {LozengeProps} LozengeProps - The props necessary for the Lozenge element.
  * @see State
  */
-const Lozenge: React.FC<LozengeProps> = ({
+const Lozenge = ({
 	action,
 	appearance = 'default',
 	name,
@@ -26,7 +25,7 @@ const Lozenge: React.FC<LozengeProps> = ({
 	style,
 	text,
 	testId = 'smart-element-lozenge',
-}) => {
+}: LozengeProps) => {
 	const ui = useFlexibleUiOptionContext();
 	if (!text) {
 		return null;

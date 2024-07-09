@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 
-import type { FC } from 'react';
 import type { LozengeActionErrorProps } from './types';
 import { token } from '@atlaskit/tokens';
 import { R50, R500 } from '@atlaskit/theme/colors';
@@ -19,13 +18,13 @@ import useResolve from '../../../../../../../state/hooks/use-resolve';
 
 const MAX_LINE_NUMBER = 8;
 
-const LozengeActionError: FC<LozengeActionErrorProps> = ({
+const LozengeActionError = ({
 	errorMessage,
 	testId,
 	maxLineNumber = MAX_LINE_NUMBER,
 	url,
 	previewData,
-}) => {
+}: LozengeActionErrorProps) => {
 	const reload = useResolve();
 	const analytics = useFlexibleUiAnalyticsContext();
 	const isPreviewAvailable = previewData && previewData.src !== undefined;

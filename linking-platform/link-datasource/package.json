@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.5.6",
+	"version": "2.5.7",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -185,6 +185,9 @@
 			"type": "boolean"
 		},
 		"platform.editor-update-tag-link-and-color_x6hcf": {
+			"type": "boolean"
+		},
+		"platform.linking-platform.datasource.limit-total-results_8wqcd": {
 			"type": "boolean"
 		}
 	}

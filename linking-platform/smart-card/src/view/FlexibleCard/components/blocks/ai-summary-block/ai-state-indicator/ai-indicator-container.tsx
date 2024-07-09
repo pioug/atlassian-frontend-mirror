@@ -9,7 +9,7 @@ const contentStyles = xcss({
 	lineHeight: '16px',
 });
 
-const AIIndicatorContainer: React.FC<AIIndicatorContainerProps> = ({ icon, content, testId }) => {
+const AIIndicatorContainer = ({ icon, content, testId }: AIIndicatorContainerProps) => {
 	return (
 		<Inline
 			alignBlock="start"

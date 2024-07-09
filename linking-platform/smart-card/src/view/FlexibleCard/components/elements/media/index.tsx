@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -53,7 +52,7 @@ const styles = css({
  * @param {MediaProps} MediaProps - The props necessary for the Media element.
  * @see Preview
  */
-const Media: React.FC<MediaProps> = ({
+const Media = ({
 	name,
 	overrideCss,
 	testId = 'smart-element-media',
@@ -61,7 +60,7 @@ const Media: React.FC<MediaProps> = ({
 	url,
 	onLoad,
 	onError,
-}) => {
+}: MediaProps) => {
 	if (!type || !url) {
 		return null;
 	}

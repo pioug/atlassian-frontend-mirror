@@ -1,7 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import DropdownMenu from '@atlaskit/dropdown-menu';
@@ -33,13 +32,13 @@ const validateItems = (items: LozengeItem[] = [], text?: string): LozengeItem[] 
 	return items.filter((item) => item.text !== text);
 };
 
-const LozengeAction: FC<LozengeActionProps> = ({
+const LozengeAction = ({
 	action,
 	appearance,
 	testId = 'smart-element-lozenge-action',
 	text,
 	zIndex,
-}) => {
+}: LozengeActionProps) => {
 	const [selected, setSelected] = useState<Partial<LozengeActionTriggerProps>>({
 		appearance,
 		text,

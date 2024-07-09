@@ -22,7 +22,7 @@ import AtlaskitBadge from './atlaskit-badge';
 import { type AtlaskitBadgeProps } from './atlaskit-badge/types';
 
 const elementMappings: {
-	[key in ElementName]?: { component: React.FC<any> | undefined; props?: any };
+	[key in ElementName]?: { component: React.ComponentType<any> | undefined; props?: any };
 } = {
 	[ElementName.AttachmentCount]: {
 		component: Badge,
@@ -214,7 +214,7 @@ const toTextProps = (content?: string): Partial<TextProps> | undefined => {
 	return content ? { content } : undefined;
 };
 
-export const createElement = <P extends {}>(name: ElementName): React.FC<P> => {
+export const createElement = <P extends {}>(name: ElementName): React.ComponentType<P> => {
 	const { component: BaseElement, props } = elementMappings[name] || {};
 	const contextKey = getContextKey(name);
 

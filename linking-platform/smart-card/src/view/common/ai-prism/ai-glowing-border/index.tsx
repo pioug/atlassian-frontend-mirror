@@ -1,7 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React from 'react';
 import { token } from '@atlaskit/tokens';
 
 import AnimatedSvgContainer from './animated-svg-container';
@@ -28,14 +27,14 @@ export const borderContentStyles = css({
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications.
  */
-const AIGlowingBorder: React.FC<AIGlowingBorderProps> = ({
+const AIGlowingBorder = ({
 	children,
 	palette,
 	isMoving = true,
 	isGlowing,
 	testId,
 	additionalCss,
-}) => (
+}: AIGlowingBorderProps) => (
 	<div css={[borderContainerStyles, additionalCss?.container]} data-testid={testId}>
 		<AnimatedSvgContainer
 			palette={palette}

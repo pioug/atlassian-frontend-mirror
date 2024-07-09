@@ -131,9 +131,6 @@
 		"platform.editor.multi-bodied-extension_0rygg": {
 			"type": "boolean"
 		},
-		"platform.editor.table.copy-paste-in-bodied-extension": {
-			"type": "boolean"
-		},
 		"platform.editor.paste-markdown-table-in-a-table": {
 			"type": "boolean"
 		},

@@ -11,7 +11,6 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	arrowLeftFromTable,
@@ -38,9 +37,7 @@ export function tableSelectionKeymapPlugin(
 
 	bindKeymapWithCommand(shiftArrowUp.common!, shiftArrowUpFromTable(editorSelectionAPI)(), list);
 
-	if (getBooleanFF('platform.editor.table.cmd-a-select-table')) {
-		bindKeymapWithCommand(selectTable.common!, modASelectTable(editorSelectionAPI)(), list);
-	}
+	bindKeymapWithCommand(selectTable.common!, modASelectTable(editorSelectionAPI)(), list);
 
 	return keymap(list) as SafePlugin;
 }

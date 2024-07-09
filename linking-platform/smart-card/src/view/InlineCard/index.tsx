@@ -1,4 +1,4 @@
-import React, { type FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { type InlineCardProps } from './types';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { extractInlineProps } from '../../extractors/inline';
@@ -24,7 +24,7 @@ export {
 	InlineCardUnauthorizedView,
 };
 
-export const InlineCard: FC<InlineCardProps> = ({
+export const InlineCard = ({
 	analytics,
 	id,
 	url,
@@ -42,7 +42,7 @@ export const InlineCard: FC<InlineCardProps> = ({
 	hoverPreviewOptions,
 	showAuthTooltip,
 	actionOptions,
-}) => {
+}: InlineCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const { status, details } = cardState;

@@ -1,10 +1,10 @@
-import React, { type FC } from 'react';
+import React from 'react';
 import { type CardWithUrlContentProps } from '../types';
 import { CardLinkView } from '../../../view/LinkView';
 
 import { loadingPlaceholderClassName } from './LazyFallback';
 
-export const LoadingCardLink: FC<CardWithUrlContentProps> = ({ isSelected, url, placeholder }) => {
+export const LoadingCardLink = ({ isSelected, url, placeholder }: CardWithUrlContentProps) => {
 	return (
 		<CardLinkView
 			key={'lazy-render-key'}

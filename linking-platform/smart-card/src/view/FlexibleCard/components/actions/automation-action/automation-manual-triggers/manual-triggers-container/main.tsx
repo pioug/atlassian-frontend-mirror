@@ -115,9 +115,7 @@ export interface ManualRulesContainerProps {
  *
  * @param props - cloudId, projectId, children
  */
-export const ManualRulesContainer: React.FC<ManualRulesContainerProps> = (
-	props: ManualRulesContainerProps,
-) => {
+export const ManualRulesContainer = (props: ManualRulesContainerProps) => {
 	di(
 		ModalTransition,
 		UserInputForm,

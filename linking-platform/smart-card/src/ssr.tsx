@@ -1,5 +1,5 @@
 import React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import uuid from 'uuid';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -15,7 +15,7 @@ export type CardSSRProps = CardProps & { url: string };
 // SSR friendly version of smart-card
 // simplifies the logic around rendering and loading placeholders and
 // only contains whats necessary to render the card on SSR mode
-export const CardSSR: FC<CardSSRProps> = (props) => {
+export const CardSSR = (props: CardSSRProps) => {
 	const [id] = useState(() => props.id ?? uuid());
 	const cardProps = {
 		...props,

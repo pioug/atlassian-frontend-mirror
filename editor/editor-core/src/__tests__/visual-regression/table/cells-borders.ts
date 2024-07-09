@@ -3,10 +3,8 @@ import { clickFirstCell, tableSelectors } from '@atlaskit/editor-test-helpers/pa
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	Appearance,
-	emulateSelectAll,
 	initEditorWithAdf,
 	initFullPageEditorWithAdf,
-	pmSelector,
 	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
@@ -39,18 +37,6 @@ describe('Table cells are above content', () => {
 			adf: tableWithTrelloCardNarrowColumnsAdf,
 			appearance: Appearance.fullPage,
 		});
-
-		await snapshot(page);
-	});
-
-	it('should display cell borders when selected', async () => {
-		await initEditorWithAdf(page, {
-			adf: tableWithTrelloCardNarrowColumnsAdf,
-			appearance: Appearance.fullPage,
-		});
-
-		await page.focus(pmSelector);
-		await emulateSelectAll(page);
 
 		await snapshot(page);
 	});

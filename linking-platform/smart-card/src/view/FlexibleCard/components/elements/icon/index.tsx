@@ -78,7 +78,7 @@ const renderImageIcon = (
  * @param {IconProps} IconProps - The props necessary for the Icon element.
  * @see LinkIcon
  */
-const Icon: React.FC<IconProps> = ({
+const Icon = ({
 	icon,
 	overrideIcon,
 	label = 'Link',
@@ -89,7 +89,7 @@ const Icon: React.FC<IconProps> = ({
 	size = SmartLinkSize.Medium,
 	testId = 'smart-element-icon',
 	url,
-}) => {
+}: IconProps) => {
 	const element = useMemo(() => {
 		const defaultIcon = renderDefaultIcon(label, testId);
 		return (

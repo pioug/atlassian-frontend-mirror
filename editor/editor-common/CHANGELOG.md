@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 84.3.2
+
+### Patch Changes
+
+- [#117769](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117769)
+  [`a59c5cd45160c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a59c5cd45160c) -
+  [No Issue] Track how many steps a editorSession is creating
+
 ## 84.3.1
 
 ### Patch Changes

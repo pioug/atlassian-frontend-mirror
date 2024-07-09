@@ -60,6 +60,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^18.2.0",
 		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/portal": "^4.6.0",

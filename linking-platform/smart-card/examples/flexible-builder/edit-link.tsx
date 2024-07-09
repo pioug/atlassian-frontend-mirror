@@ -47,14 +47,14 @@ const EditLink = ({
 	return (
 		<React.Fragment>
 			<div css={buttonGroupStyles}>
-				<ButtonGroup appearance="subtle-link">
-					<Button onClick={onShowCodeClick} spacing="compact">
+				<ButtonGroup>
+					<Button appearance="subtle" onClick={onShowCodeClick} spacing="compact">
 						Code
 					</Button>
-					<Button onClick={onShowEditLinkClick} spacing="compact">
+					<Button appearance="subtle" onClick={onShowEditLinkClick} spacing="compact">
 						Change link
 					</Button>
-					<Button onClick={onShowJsonldClick} spacing="compact">
+					<Button appearance="subtle" onClick={onShowJsonldClick} spacing="compact">
 						Edit JSON-LD
 					</Button>
 				</ButtonGroup>

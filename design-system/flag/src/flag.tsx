@@ -7,8 +7,9 @@ import { type FC, useCallback, useEffect, useState, type CSSProperties } from 'r
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 
-import { Inline, Stack, Box, xcss, Text } from '@atlaskit/primitives';
+import { Inline, Stack, Box, xcss } from '@atlaskit/primitives';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import Heading from '@atlaskit/heading';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 
@@ -92,6 +93,7 @@ const Flag: FC<FlagProps> = (props) => {
 		id,
 		analyticsContext,
 		delayAnnouncement,
+		headingLevel = 2,
 	} = props;
 
 	const [isDelayToAnnounce, setIsDelayToAnnounce] = useState(false);
@@ -199,10 +201,14 @@ const Flag: FC<FlagProps> = (props) => {
 							{/* if isDelayToAnnounce is true, we will use the hidden content for screen reader to announce */}
 							{isDelayToAnnounce && delayedAnnouncement}
 							<Inline alignBlock="stretch" space="space.100" spread="space-between">
-								<Box paddingBlockStart="space.025" xcss={overflowWrapStyles}>
-									<Text color={textColor} weight="semibold">
+								<Box
+									paddingBlockStart="space.050"
+									paddingBlockEnd="space.025"
+									xcss={overflowWrapStyles}
+								>
+									<Heading as={`h${headingLevel}`} size="xsmall" color={textColor}>
 										{title}
-									</Text>
+									</Heading>
 								</Box>
 								{isDismissable
 									? !(isBold && !description && !actions.length) && (

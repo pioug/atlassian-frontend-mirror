@@ -1,3 +1,4 @@
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -14,6 +15,7 @@ import {
 	createPlugin as createTrackNCSInitializationPlugin,
 	trackNCSInitializationPluginKey,
 } from './pm-plugins/track-ncs-initialization';
+import { track } from './track-steps';
 import type { CollabEditPlugin, ProviderBuilder, ProviderCallback } from './types';
 import { getAvatarColor } from './utils';
 
@@ -168,6 +170,20 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				}),
 				addErrorAnalytics,
 			);
+
+			track({
+				...props,
+				onTrackDataProcessed: (steps) => {
+					api?.analytics?.actions?.fireAnalyticsEvent({
+						action: ACTION.STEPS_TRACKED,
+						actionSubject: ACTION_SUBJECT.COLLAB,
+						attributes: {
+							steps,
+						},
+						eventType: EVENT_TYPE.OPERATIONAL,
+					});
+				},
+			});
 		},
 	};
 };

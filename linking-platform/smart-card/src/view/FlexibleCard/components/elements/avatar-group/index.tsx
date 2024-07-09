@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { token } from '@atlaskit/tokens';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -69,7 +69,7 @@ const getPersonNameWithPrefix = (
  * @see AuthorGroup
  * @see CollaboratorGroup
  */
-const AvatarGroup: React.FC<AvatarGroupProps> = ({
+const AvatarGroup = ({
 	items = [],
 	maxCount = MAX_COUNT,
 	name,
@@ -78,7 +78,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
 	testId = 'smart-element-avatar-group',
 	showNamePrefix = false,
 	showFallbackAvatar = true,
-}) => {
+}: AvatarGroupProps) => {
 	const intl = useIntl();
 
 	const data = useMemo(() => {

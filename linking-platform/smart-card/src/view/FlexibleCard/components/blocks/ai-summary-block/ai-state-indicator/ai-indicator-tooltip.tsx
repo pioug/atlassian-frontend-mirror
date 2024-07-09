@@ -22,11 +22,7 @@ const AIIndicatorTooltipPrimitive = styled(TooltipPrimitive)({
 
 const triggerStyles = xcss({ display: 'inline-flex' });
 
-const AIIndicatorTooltip: React.FC<AIIndicatorTooltipProps> = ({
-	content,
-	trigger,
-	xcss: overrideXcss,
-}) => {
+const AIIndicatorTooltip = ({ content, trigger, xcss: overrideXcss }: AIIndicatorTooltipProps) => {
 	return (
 		<Tooltip component={AIIndicatorTooltipPrimitive} content={content} tag="span">
 			{(tooltipProps) => (

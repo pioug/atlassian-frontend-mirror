@@ -1,9 +1,9 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { type BackgroundColor, type TextProps } from '@atlaskit/primitives';
-import { B400, N0, N30A, N500, N700 } from '@atlaskit/theme/colors';
+import { type BackgroundColor } from '@atlaskit/primitives';
+import { B400, N0, N30A, N500, N700, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { type AppearanceTypes } from './types';
+import { type AppearanceTypes, type HeadingColor } from './types';
 
 export const flagBackgroundColor: Record<AppearanceTypes, BackgroundColor> = {
 	error: 'color.background.danger.bold',
@@ -22,10 +22,10 @@ export const flagIconColor: Record<AppearanceTypes, string> = {
 };
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-export const flagTextColor: Record<AppearanceTypes, TextProps['color']> = {
+export const flagTextColor: Record<AppearanceTypes, HeadingColor> = {
 	error: 'color.text.inverse',
 	info: 'color.text.inverse',
-	normal: 'color.text.subtle',
+	normal: 'color.text',
 	success: 'color.text.inverse',
 	warning: 'color.text.warning.inverse',
 };
@@ -33,7 +33,7 @@ export const flagTextColor: Record<AppearanceTypes, TextProps['color']> = {
 export const flagTextColorToken = {
 	error: token('color.text.inverse', N0),
 	info: token('color.text.inverse', N0),
-	normal: token('color.text.subtle', N500),
+	normal: token('color.text', N800),
 	success: token('color.text.inverse', N0),
 	warning: token('color.text.warning.inverse', N700),
 };

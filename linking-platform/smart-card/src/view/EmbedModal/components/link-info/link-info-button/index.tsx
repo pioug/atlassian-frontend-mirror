@@ -4,14 +4,7 @@ import Button from '@atlaskit/button';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { type LinkInfoButtonProps } from './types';
 
-const LinkInfoButton: React.FC<LinkInfoButtonProps> = ({
-	content,
-	href,
-	icon,
-	onClick,
-	target,
-	testId,
-}) => {
+const LinkInfoButton = ({ content, href, icon, onClick, target, testId }: LinkInfoButtonProps) => {
 	const onMouseDown = useMouseDownEvent();
 
 	return (

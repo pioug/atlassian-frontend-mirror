@@ -42,6 +42,9 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
 			"path": "../icon/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.9.2
+
+### Patch Changes
+
+- [#118129](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118129)
+  [`7f0398113bc08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f0398113bc08) -
+  Remove React.FC types to align with @typescript-eslint/ban-types for React 18
+
 ## 27.9.1
 
 ### Patch Changes

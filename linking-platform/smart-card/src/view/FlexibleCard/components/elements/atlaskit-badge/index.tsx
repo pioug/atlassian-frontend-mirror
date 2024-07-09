@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import AKBadge from '@atlaskit/badge';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -16,12 +15,12 @@ const badgeStyles = css({
  * @see StoryPoints
  * */
 
-const AtlaskitBadge: React.FC<AtlaskitBadgeProps> = ({
+const AtlaskitBadge = ({
 	value,
 	name,
 	overrideCss,
 	testId = 'smart-element-atlaskit-badge',
-}) => {
+}: AtlaskitBadgeProps) => {
 	if (!value) {
 		return null;
 	}

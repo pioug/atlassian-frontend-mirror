@@ -13,10 +13,10 @@ import { extractRequestAccessContextImproved } from '../../../../../extractors/c
 import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-const HoverCardForbiddenView: React.FC<HoverCardForbiddenProps> = ({
+const HoverCardForbiddenView = ({
 	flexibleCardProps,
 	testId = 'hover-card-forbidden-view',
-}) => {
+}: HoverCardForbiddenProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { cardState, url } = flexibleCardProps;
 	const data = cardState.details?.data as JsonLd.Data.BaseData;

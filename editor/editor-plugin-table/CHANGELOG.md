@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.10
+
+### Patch Changes
+
+- [#118104](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118104)
+  [`700333187f53a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/700333187f53a) -
+  Remove feature flag where cmd+A selects the table rather than the document.
+
 ## 7.19.9
 
 ### Patch Changes

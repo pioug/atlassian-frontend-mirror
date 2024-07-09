@@ -41,10 +41,10 @@ const CustomComponent = (props: { label?: string }) => {
 export default () => (
 	<Row>
 		<Row>
-			<ButtonGroup appearance="primary">
-				<Button>First Button</Button>
-				<Button>Second Button</Button>
-				<Button>Third Button</Button>
+			<ButtonGroup>
+				<Button appearance="primary">First Button</Button>
+				<Button appearance="primary">Second Button</Button>
+				<Button appearance="primary">Third Button</Button>
 			</ButtonGroup>
 		</Row>
 		<Row>

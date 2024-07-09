@@ -13,16 +13,16 @@ const MINIMUM_MAX_LINES = 1;
 /**
  * Represents a SnippetBlock, which is used to display longer form text content, like descriptions.
  * @public
- * @param {SnippetBlock} SnippetBlock
+ * @param {SnippetBlockProps} SnippetBlockProps
  * @see Block
  */
-const SnippetBlock: React.FC<SnippetBlockProps> = ({
+const SnippetBlock = ({
 	maxLines = DEFAULT_MAX_LINES,
 	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-snippet',
 	text,
 	...blockProps
-}) => {
+}: SnippetBlockProps) => {
 	if (status !== SmartLinkStatus.Resolved && !text) {
 		return null;
 	}

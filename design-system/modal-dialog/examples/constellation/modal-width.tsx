@@ -20,11 +20,19 @@ export default function Example() {
 
 	return (
 		<>
-			<ButtonGroup appearance="primary" label="Choose modal width">
-				<Button onClick={() => setWidthAndOpen('small')}>small</Button>
-				<Button onClick={() => setWidthAndOpen('medium')}>medium</Button>
-				<Button onClick={() => setWidthAndOpen('large')}>large</Button>
-				<Button onClick={() => setWidthAndOpen('x-large')}>x-large</Button>
+			<ButtonGroup label="Choose modal width">
+				<Button appearance="primary" onClick={() => setWidthAndOpen('small')}>
+					small
+				</Button>
+				<Button appearance="primary" onClick={() => setWidthAndOpen('medium')}>
+					medium
+				</Button>
+				<Button appearance="primary" onClick={() => setWidthAndOpen('large')}>
+					large
+				</Button>
+				<Button appearance="primary" onClick={() => setWidthAndOpen('x-large')}>
+					x-large
+				</Button>
 			</ButtonGroup>
 
 			<ModalTransition>

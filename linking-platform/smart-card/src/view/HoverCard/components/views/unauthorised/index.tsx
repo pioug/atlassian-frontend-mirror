@@ -18,14 +18,14 @@ import { ActionName, CardDisplay } from '../../../../../constants';
 import { useSmartCardActions } from '../../../../../state/actions';
 import { hasAuthScopeOverrides } from '../../../../../state/helpers';
 
-const HoverCardUnauthorisedView: React.FC<HoverCardUnauthorisedProps> = ({
+const HoverCardUnauthorisedView = ({
 	analytics,
 	extensionKey,
 	id = '',
 	flexibleCardProps,
 	testId = 'hover-card-unauthorised-view',
 	url,
-}) => {
+}: HoverCardUnauthorisedProps) => {
 	const { cardState } = flexibleCardProps;
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const providerName = extractProvider(data)?.text;

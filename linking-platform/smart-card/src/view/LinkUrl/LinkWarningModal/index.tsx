@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Modal, {
 	ModalBody,
@@ -26,7 +25,7 @@ interface LinkWarningModalProps {
 	url: string | null;
 }
 
-const WarningModal: React.FC<LinkWarningModalProps & WrappedComponentProps> = (props) => {
+const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 	const { isOpen, unsafeLinkText, url, onClose, onContinue, intl } = props;
 
 	const content = (

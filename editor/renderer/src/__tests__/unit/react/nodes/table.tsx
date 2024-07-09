@@ -1160,30 +1160,6 @@ describe('Renderer - React/Nodes/Table', () => {
 			wrap.unmount();
 		});
 
-		ffTest(
-			'platform.editor.table-width-diff-in-renderer_x5s3z',
-			() => {
-				const tableNode = createTable(1200, 'default');
-				const rendererWidth = 1100;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-page');
-
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-				expect(tableContainer.prop('style')!.width).toBe(1100);
-				wrap.unmount();
-			},
-			() => {
-				const tableNode = createTable(1200, 'default');
-				const rendererWidth = 1100;
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'full-page');
-
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-				expect(tableContainer.prop('style')!.width).toBe(1100);
-				wrap.unmount();
-			},
-		);
-
 		it('table width responsively scales down', () => {
 			const tableNode = createTable(700, 'wide');
 			const rendererWidth = 600;
@@ -1441,27 +1417,5 @@ describe('Renderer - React/Nodes/Table', () => {
 			expect(tableContainer.prop('style')!.width).toBe(1800);
 			wrap.unmount();
 		});
-
-		ffTest(
-			'platform.editor.table-width-diff-in-renderer_x5s3z',
-			() => {
-				const tableNode = createTable(1200, 'default');
-				const wrap = mountTable(tableNode, undefined, 'full-page');
-
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-				expect(tableContainer.prop('style')!.width).toBe(31);
-				wrap.unmount();
-			},
-			() => {
-				const tableNode = createTable(600, 'default');
-				const wrap = mountTable(tableNode, undefined, 'full-page');
-
-				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
-
-				expect(tableContainer.prop('style')!.width).toBe(600);
-				wrap.unmount();
-			},
-		);
 	});
 });

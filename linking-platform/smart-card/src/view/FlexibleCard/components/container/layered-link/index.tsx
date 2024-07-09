@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css } from '@emotion/react';
 
@@ -49,7 +48,7 @@ const styles = css({
  * @internal
  * @see `clickableContainer`
  */
-const LayeredLink: React.FC<LayeredLinkProps> = ({ onClick, target, testId, text, url }) => {
+const LayeredLink = ({ onClick, target, testId, text, url }: LayeredLinkProps) => {
 	const onMouseDown = useMouseDownEvent();
 
 	return (

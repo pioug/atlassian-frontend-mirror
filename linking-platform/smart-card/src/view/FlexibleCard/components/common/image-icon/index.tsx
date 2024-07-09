@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -8,7 +7,7 @@ import ImageLoader from 'react-render-image';
 import { type ImageIconProps } from './types';
 import LoadingSkeleton from '../loading-skeleton';
 
-const ImageIcon: React.FC<ImageIconProps> = ({ defaultIcon, testId, url, onError, onLoad }) => (
+const ImageIcon = ({ defaultIcon, testId, url, onError, onLoad }: ImageIconProps) => (
 	<ImageLoader
 		src={url}
 		loading={<LoadingSkeleton testId={`${testId}-loading`} />}

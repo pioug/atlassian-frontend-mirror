@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { type FC } from 'react';
 import { di } from 'react-magnetic-di';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -12,7 +11,7 @@ const iframeCss = css({
 	height: 'calc(100vh - 208px)',
 });
 
-const EmbedContent: FC<EmbedProps> = ({ isTrusted, name, src, testId }) => {
+const EmbedContent = ({ isTrusted, name, src, testId }: EmbedProps) => {
 	di(IFrame);
 	const sandbox = getIframeSandboxAttribute(isTrusted);
 	const props = {

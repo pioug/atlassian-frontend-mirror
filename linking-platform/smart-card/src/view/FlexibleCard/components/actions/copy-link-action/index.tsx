@@ -11,7 +11,7 @@ import {
 import { ActionName } from '../../../../../constants';
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 
-const CopyLinkAction: React.FC<CopyLinkActionProps> = ({ onClick: onClickCallback, ...props }) => {
+const CopyLinkAction = ({ onClick: onClickCallback, ...props }: CopyLinkActionProps) => {
 	const context = useFlexibleUiContext();
 	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvokeClientAction({ analytics });

@@ -1,5 +1,5 @@
 import Button from '@atlaskit/button';
-import React, { type FC, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { messages } from '../../../../messages';
@@ -8,7 +8,7 @@ import UnresolvedView from '../unresolved-view';
 import { type UnauthorizedViewProps } from './types';
 import { UnauthorizedSVG } from './unauthorized-svg';
 
-const UnauthorizedView: FC<UnauthorizedViewProps> = ({
+const UnauthorizedView = ({
 	analytics,
 	context,
 	extensionKey,
@@ -16,7 +16,7 @@ const UnauthorizedView: FC<UnauthorizedViewProps> = ({
 	onAuthorize,
 	testId = 'embed-card-unauthorized-view',
 	...unresolvedViewProps
-}) => {
+}: UnauthorizedViewProps) => {
 	const handleOnAuthorizeClick = useCallback(() => {
 		if (onAuthorize) {
 			analytics.track.appAccountAuthStarted({

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import { useIntl, FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -45,14 +44,14 @@ const typeToDescriptorMap: Record<DateTimeType, Record<DateTypeVariation, Messag
  * @see ModifiedOn
  * @see SentOn
  */
-const DateTime: React.FC<DateTimeProps> = ({
+const DateTime = ({
 	date,
 	name,
 	overrideCss,
 	type,
 	testId = 'smart-element-date-time',
 	text,
-}) => {
+}: DateTimeProps) => {
 	const { formatRelativeTime, formatDate } = useIntl();
 	if (!type || !date) {
 		return null;

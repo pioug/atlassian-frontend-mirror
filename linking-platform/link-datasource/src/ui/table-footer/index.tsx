@@ -9,12 +9,13 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import RefreshIcon from '@atlaskit/icon/glyph/refresh';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import { N0, N40, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
-import TableSearchCount from '../common/modal/search-count';
+import TableSearchCount, { AssetsItemCount } from '../common/modal/search-count';
 
 import { footerMessages } from './messages';
 import { PoweredByJSMAssets } from './powered-by-jsm-assets';
@@ -85,12 +86,17 @@ export const TableFooter = ({
 			<TopBorderWrapper>
 				{showItemCount && (
 					<Flex>
-						<TableSearchCount
-							searchCount={itemCount as number}
-							url={url}
-							prefixTextType="item"
-							testId="item-count"
-						/>
+						{datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID &&
+						fg('platform.linking-platform.datasource.limit-total-results_8wqcd') ? (
+							<AssetsItemCount searchCount={itemCount as number} url={url} testId="item-count" />
+						) : (
+							<TableSearchCount
+								searchCount={itemCount as number}
+								url={url}
+								prefixTextType="item"
+								testId="item-count"
+							/>
+						)}
 					</Flex>
 				)}
 				{datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID ? (

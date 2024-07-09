@@ -7,7 +7,7 @@ import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../../../../messages';
 import AIIcon from '../../../../../common/ai-icon';
@@ -56,10 +56,10 @@ const iconTooltipTriggerStyles = xcss({
 	verticalAlign: 'bottom',
 });
 
-const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({ appearance, testId }) => {
+const AIStateDone = ({ appearance, testId }: Partial<AIStateIndicatorProps>) => {
 	const icon = <AIIcon label="AI" size="small" testId={`${testId}-done-icon`} />;
 
-	const title = getBooleanFF(
+	const title = fg(
 		'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
 	) ? (
 		<Box testId={`${testId}-done-message`}>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.19.9",
+	"version": "7.19.10",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -115,9 +115,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.transform-slice-for-nested-expand": {
-			"type": "boolean"
-		},
-		"platform.editor.table.cmd-a-select-table": {
 			"type": "boolean"
 		},
 		"platform.editor.table.use-shared-state-hook": {

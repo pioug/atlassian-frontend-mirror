@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
@@ -71,7 +71,7 @@ const getPreviewBlockStyles = (
  * @param {PreviewBlock} PreviewBlock
  * @see Block
  */
-const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
+const PreviewBlockResolvedView = ({
 	ignoreContainerPadding = false,
 	onError,
 	overrideCss,
@@ -79,7 +79,7 @@ const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
 	testId,
 	overrideUrl,
 	...blockProps
-}) => {
+}: PreviewBlockProps) => {
 	const [styles, setStyles] = useState<SerializedStyles | undefined>(overrideCss);
 
 	const updateStyles = useCallback(() => {

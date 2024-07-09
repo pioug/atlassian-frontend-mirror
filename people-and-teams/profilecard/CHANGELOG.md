@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.15.9
+
+### Patch Changes
+
+- [#118197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118197)
+  [`974cd9838830e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/974cd9838830e) -
+  Clean up platform.profilecard-disable-team-central-client-in-fedramp_ilnm7
+
 ## 19.15.8
 
 ### Patch Changes

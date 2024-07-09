@@ -9,7 +9,7 @@ import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import context from '../../../../../__fixtures__/flexible-ui-data-context';
 
 const renderComponent = (
-	Component: React.FC<any>,
+	Component: React.ComponentType<any>,
 	context: FlexibleUiDataContext,
 	testId?: string,
 	props?: any,

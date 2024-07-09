@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 12.2.5
+
+### Patch Changes
+
+- [#118185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118185)
+  [`599d65e418cf7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/599d65e418cf7) -
+  Remove `extract-react-types` remnants.
+
 ## 12.2.4
 
 ### Patch Changes

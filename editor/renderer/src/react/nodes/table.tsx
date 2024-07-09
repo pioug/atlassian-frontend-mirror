@@ -19,7 +19,7 @@ import {
 	akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { RendererAppearance, StickyHeaderConfig } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
@@ -387,11 +387,11 @@ export class TableContainer extends React.Component<
 
 		// Logic for table alignment in renderer
 		const isTableAlignStart =
-			getBooleanFF('platform.editor.table.allow-table-alignment') &&
 			isFullWidthOrFullPageAppearance(rendererAppearance) &&
 			tableNode &&
 			tableNode.attrs &&
-			tableNode.attrs.layout === 'align-start';
+			tableNode.attrs.layout === 'align-start' &&
+			fg('platform.editor.table.allow-table-alignment');
 
 		const fullWidthLineLength = isRenderWidthValid
 			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
@@ -596,13 +596,8 @@ const TableWithWidth = (
 	return (
 		<WidthConsumer>
 			{({ width }) => {
-				// we are adding full page padding before but now it cause difference between editor and renderer so we need to remove it, and 1px also for matching exact width.
 				const renderWidth =
-					props.rendererAppearance === 'full-page'
-						? getBooleanFF('platform.editor.table-width-diff-in-renderer_x5s3z')
-							? width + FullPagePadding - 1
-							: width - FullPagePadding * 2
-						: width;
+					props.rendererAppearance === 'full-page' ? width - FullPagePadding * 2 : width;
 				const colWidthsSum = props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
 
 				if (colWidthsSum || isTableResizingEnabled(props.rendererAppearance)) {

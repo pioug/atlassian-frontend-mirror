@@ -2,7 +2,7 @@
 import Popup from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { type FC, useCallback, useMemo, useRef, useEffect } from 'react';
+import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkActions';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
@@ -22,7 +22,7 @@ const FADE_IN_DELAY = 500;
 const FADE_OUT_DELAY = 300;
 const RESOLVE_DELAY = 100;
 
-export const HoverCardComponent: FC<HoverCardComponentProps> = ({
+export const HoverCardComponent = ({
 	children,
 	url,
 	id = '',
@@ -36,7 +36,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 	zIndex = HOVER_CARD_Z_INDEX,
 	noFadeDelay = false,
 	hoverPreviewOptions,
-}) => {
+}: HoverCardComponentProps) => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
 	const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();

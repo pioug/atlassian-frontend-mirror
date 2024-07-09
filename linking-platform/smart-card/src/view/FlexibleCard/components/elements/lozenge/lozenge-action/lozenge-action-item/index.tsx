@@ -3,16 +3,9 @@ import React, { useCallback } from 'react';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import Lozenge from '@atlaskit/lozenge';
 
-import type { FC } from 'react';
 import type { LozengeActionItemProps } from './types';
 
-const LozengeActionItem: FC<LozengeActionItemProps> = ({
-	appearance,
-	id,
-	onClick,
-	testId,
-	text,
-}) => {
+const LozengeActionItem = ({ appearance, id, onClick, testId, text }: LozengeActionItemProps) => {
 	const handleClick = useCallback(
 		(e: any) => {
 			// Prevent dropdown to close on select item.

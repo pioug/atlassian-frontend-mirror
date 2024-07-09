@@ -2,7 +2,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import Text from '../text';
 import { type TextProps } from '../text/types';
@@ -22,12 +22,12 @@ const getSnippetStyles = (overrideCss?: SerializedStyles) =>
 		overrideCss,
 	);
 
-const SnippetElement: React.FC<TextProps> = ({
+const SnippetElement = ({
 	content: overrideContent,
 	maxLines = SNIPPET_DEFAULT_MAX_LINES,
 	overrideCss,
 	...props
-} = {}) => {
+}: TextProps = {}) => {
 	const context = useContext(FlexibleUiContext);
 
 	return (

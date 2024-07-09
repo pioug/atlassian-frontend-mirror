@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "3.4.3",
+	"version": "3.4.5",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -240,7 +240,7 @@
 		"@atlaskit/editor-plugin-clipboard": "1.1.7",
 		"@atlaskit/editor-plugin-code-bidi-warning": "1.1.7",
 		"@atlaskit/editor-plugin-code-block": "3.0.0",
-		"@atlaskit/editor-plugin-collab-edit": "1.8.4",
+		"@atlaskit/editor-plugin-collab-edit": "1.8.5",
 		"@atlaskit/editor-plugin-composition": "1.1.8",
 		"@atlaskit/editor-plugin-content-insertion": "1.4.2",
 		"@atlaskit/editor-plugin-context-identifier": "1.1.7",
@@ -293,7 +293,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.1.12",
 		"@atlaskit/editor-plugin-status": "2.1.0",
 		"@atlaskit/editor-plugin-submit-editor": "1.1.7",
-		"@atlaskit/editor-plugin-table": "7.19.9",
+		"@atlaskit/editor-plugin-table": "7.19.10",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "2.0.0",
 		"@atlaskit/editor-plugin-text-color": "1.8.4",
 		"@atlaskit/editor-plugin-text-formatting": "1.9.3",
@@ -471,10 +471,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform.editor.table.copy-paste-in-bodied-extension": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform.editor.paste-markdown-table-in-a-table": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -492,10 +488,6 @@
 			"referenceOnly": true
 		},
 		"platform.editor.transform-slice-for-nested-expand": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform.editor.table.cmd-a-select-table": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

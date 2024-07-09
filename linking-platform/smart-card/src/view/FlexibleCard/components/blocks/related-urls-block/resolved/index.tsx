@@ -5,13 +5,13 @@ import Block from '../../block';
 import RelatedUrlsList from './related-url-list';
 import { type RelatedUrlsProps } from './types';
 
-export const RelatedUrlsResolvedView: React.FC<RelatedUrlsProps> = ({
+export const RelatedUrlsResolvedView = ({
 	relatedUrlsResponse: { resolvedResults },
 	renderers,
 	testId,
 	initializeOpened,
 	...blockProps
-}) => {
+}: RelatedUrlsProps) => {
 	return (
 		<Block {...blockProps} testId={testId}>
 			{resolvedResults && (

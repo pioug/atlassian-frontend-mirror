@@ -11,7 +11,7 @@ import { type ActionProps } from '../action/types';
 
 interface Options {
 	name: string;
-	NamedAction: React.FC<ActionProps>;
+	NamedAction: React.ComponentType<ActionProps>;
 }
 
 export const testNamedAction = ({ name, NamedAction }: Options) => {

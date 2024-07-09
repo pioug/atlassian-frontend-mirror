@@ -416,6 +416,15 @@ type InvalidMediaContentTransformedAEP = OperationalAEP<
 	undefined
 >;
 
+type CollabStepsTrackerPayloadAEP = OperationalAEP<
+	ACTION.STEPS_TRACKED,
+	ACTION_SUBJECT.COLLAB,
+	undefined,
+	{
+		steps: unknown[];
+	}
+>;
+
 type HeadingAnchorLinkButtonAEP = ButtonAEP<ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK, undefined>;
 
 export type GeneralEventPayload<T = void> =
@@ -457,4 +466,5 @@ export type GeneralEventPayload<T = void> =
 	| InvalidProsemirrorDocumentErrorAEP
 	| DocumentProcessingErrorAEP
 	| InvalidMediaContentTransformedAEP
-	| HeadingAnchorLinkButtonAEP;
+	| HeadingAnchorLinkButtonAEP
+	| CollabStepsTrackerPayloadAEP;

@@ -1,7 +1,7 @@
 import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import MediaServicesActualSizeIcon from '@atlaskit/icon/glyph/media-services/actual-size';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import React, { type FC, useCallback } from 'react';
+import { fg } from '@atlaskit/platform-feature-flags';
+import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -15,15 +15,15 @@ import Action from '../action';
 import type { PreviewActionProps } from './types';
 
 const getIconFF = () => {
-	if (getBooleanFF('platform.linking-platform.smart-card.hover-card-action-redesign')) {
-		if (getBooleanFF('platform.linking-platform.smart-card.action-icon-redesign')) {
+	if (fg('platform.linking-platform.smart-card.hover-card-action-redesign')) {
+		if (fg('platform.linking-platform.smart-card.action-icon-redesign')) {
 			return MediaServicesActualSizeIcon;
 		}
 	}
 	return VidFullScreenOnIcon;
 };
 
-const PreviewAction: FC<PreviewActionProps> = ({ onClick: onClickCallback, ...props }) => {
+const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProps) => {
 	const context = useFlexibleUiContext();
 	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvokeClientAction({ analytics });

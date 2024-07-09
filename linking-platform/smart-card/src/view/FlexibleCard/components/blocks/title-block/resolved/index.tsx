@@ -19,7 +19,7 @@ import { renderElementItems } from '../../utils';
  * This should render when a Smart Link returns a valid response.
  * @see TitleBlock
  */
-const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
+const TitleBlockResolvedView = ({
 	actionGroup,
 	metadata = [],
 	position,
@@ -31,7 +31,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
 	metadataPosition,
 	hideIcon,
 	...blockProps
-}) => {
+}: TitleBlockViewProps) => {
 	const metadataElements = renderElementItems(metadata);
 	const subtitleElements = renderElementItems(subtitle);
 	return (

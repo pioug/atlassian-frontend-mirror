@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import Lozenge from '@atlaskit/lozenge';
-import type { ComponentType, FC } from 'react';
+import type { ComponentType } from 'react';
 import type { LozengeActionProps } from '../types';
 
 const withErrorBoundary =
-	(Component: ComponentType<LozengeActionProps>): FC<LozengeActionProps> =>
-	(props) => {
+	(Component: ComponentType<LozengeActionProps>) => (props: LozengeActionProps) => {
 		const fallback = useMemo(
 			() => (
 				<Lozenge

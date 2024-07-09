@@ -6,17 +6,16 @@ import Lozenge from '@atlaskit/lozenge';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
 
-import type { FC } from 'react';
 import { type LozengeActionTriggerProps } from './type';
 
-const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
+const LozengeActionTrigger = ({
 	appearance,
 	isOpen,
 	testId,
 	text,
 	triggerRef,
 	...props
-}) => {
+}: LozengeActionTriggerProps) => {
 	const [isBold, setIsBold] = useState(false);
 	const onMouseEnter = useCallback(() => setIsBold(true), []);
 	const onMouseLeave = useCallback(() => setIsBold(false), []);

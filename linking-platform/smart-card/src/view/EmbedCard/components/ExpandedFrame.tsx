@@ -1,4 +1,4 @@
-import React, { type FC, type MouseEvent } from 'react';
+import React, { type MouseEvent } from 'react';
 import {
 	className,
 	LinkWrapper,
@@ -53,7 +53,7 @@ export interface ExpandedFrameProps {
 	setOverflow?: boolean;
 }
 
-export const ExpandedFrame: FC<ExpandedFrameProps> = ({
+export const ExpandedFrame = ({
 	isPlaceholder = false,
 	children,
 	onClick,
@@ -68,7 +68,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
 	inheritDimensions,
 	allowScrollBar = false,
 	setOverflow = true,
-}) => {
+}: ExpandedFrameProps) => {
 	const isInteractive = () => !isPlaceholder && (Boolean(href) || Boolean(onClick));
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();

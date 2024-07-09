@@ -10,12 +10,12 @@ import { SmartLinkStatus } from '../../../../../constants';
  * @param {FooterBlockProps} FooterBlockProps
  * @see Block
  */
-const FooterBlock: React.FC<FooterBlockProps> = ({
+const FooterBlock = ({
 	status,
 	testId = 'smart-footer-block',
 	alwaysShow,
 	...props
-}) => {
+}: FooterBlockProps) => {
 	if (status !== SmartLinkStatus.Resolved && !alwaysShow) {
 		return null;
 	}

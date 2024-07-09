@@ -125,9 +125,6 @@
 		"platform.editor.inline_extension.extended_lcqdn": {
 			"type": "boolean"
 		},
-		"platform.editor.table-width-diff-in-renderer_x5s3z": {
-			"type": "boolean"
-		},
 		"platform_editor_tables_padding_increase": {
 			"type": "boolean"
 		},

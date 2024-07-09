@@ -17,7 +17,7 @@ import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
  * Note: TitleBlock is mandatory for a Flexible Card to render.
  * @see Container
  */
-const FlexibleCard: React.FC<FlexibleCardProps> = ({
+const FlexibleCard = ({
 	analytics,
 	appearance = 'flexible',
 	cardState,
@@ -35,7 +35,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
 	testId,
 	ui,
 	url,
-}: React.PropsWithChildren<FlexibleCardProps>) => {
+}: FlexibleCardProps) => {
 	const aiSummaryConfig = useAISummaryConfig();
 
 	const { status: cardType, details } = cardState;

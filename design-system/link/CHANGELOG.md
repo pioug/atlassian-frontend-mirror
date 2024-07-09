@@ -1,5 +1,13 @@
 # @atlaskit/link
 
+## 1.0.1
+
+### Patch Changes
+
+- [#118234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118234)
+  [`4eac6a5f04a14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4eac6a5f04a14) -
+  Changed styling to use Emotion instead of Compiled.
+
 ## 1.0.0
 
 ### Major Changes

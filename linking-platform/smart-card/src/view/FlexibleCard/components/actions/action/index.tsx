@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { type FC } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../constants';
@@ -14,7 +13,7 @@ import ActionIcon from './action-icon';
  * @internal
  * @param {ActionProps} ActionProps - The props necessary for the Action.
  */
-const Action: FC<ActionProps> = ({
+const Action = ({
 	as,
 	appearance = 'subtle',
 	content,

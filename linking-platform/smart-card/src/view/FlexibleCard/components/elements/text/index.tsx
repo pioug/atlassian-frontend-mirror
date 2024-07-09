@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
@@ -25,14 +24,14 @@ const getStyles = (maxLines: number) =>
  * @param {TextProps} TextProps - The props necessary for the Text element.
  * @see Title
  */
-const Text: React.FC<TextProps> = ({
+const Text = ({
 	content,
 	maxLines = 1,
 	message,
 	name,
 	overrideCss,
 	testId = 'smart-element-text',
-}) => {
+}: TextProps) => {
 	if (!message && !content) {
 		return null;
 	}

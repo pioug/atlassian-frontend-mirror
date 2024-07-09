@@ -209,11 +209,18 @@ type SplitButtonWithSlotsProps = {
 	appearance?: SplitButtonAppearance;
 	spacing?: SplitButtonSpacing;
 	isDisabled?: boolean;
-	isSelected?: boolean;
 };
 
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
 /**
- * TODO: Decide on API
+ * __Split button with slots__
+ *
+ * A split button with slots {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 export const SplitButtonWithSlots = ({
 	primaryAction,

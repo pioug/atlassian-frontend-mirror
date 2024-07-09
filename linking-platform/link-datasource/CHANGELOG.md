@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 2.5.7
+
+### Patch Changes
+
+- [#117343](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117343)
+  [`d5fc4325dc0e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5fc4325dc0e4) -
+  [ux] Limit total results count to 1000 for Assets LoL. Show 1000+ if total is >= 1000
+
 ## 2.5.6
 
 ### Patch Changes

@@ -17,7 +17,7 @@ const toSize = (width: string) =>
 const toWidth = (size: EmbedModalSize) =>
 	size === EmbedModalSize.Large ? MAX_MODAL_SIZE : MIN_MODAL_SIZE;
 
-const EmbedModal: React.FC<EmbedModalProps> = ({
+const EmbedModal = ({
 	analytics,
 	download,
 	extensionKey,
@@ -35,7 +35,7 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
 	testId = 'smart-embed-preview-modal',
 	title,
 	url,
-}) => {
+}: EmbedModalProps) => {
 	const defaultWidth = toWidth(size);
 	const [isOpen, setIsOpen] = useState(showModal);
 	const [width, setWidth] = useState(defaultWidth);

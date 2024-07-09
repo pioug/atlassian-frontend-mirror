@@ -26,10 +26,10 @@ export default function ButtonGroupExample() {
 				<Button appearance="danger">Error</Button>
 			</ButtonGroup>
 			<h2 id="heading-options">Item options</h2>
-			<ButtonGroup appearance="primary" titleId="heading-options">
-				<Button>Save</Button>
-				<Button>Edit</Button>
-				<Button>Delete</Button>
+			<ButtonGroup titleId="heading-options">
+				<Button appearance="primary">Save</Button>
+				<Button appearance="primary">Edit</Button>
+				<Button appearance="primary">Delete</Button>
 			</ButtonGroup>
 			<h2 id="heading-links">Link buttons</h2>
 			<ButtonGroup titleId="heading-links">

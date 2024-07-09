@@ -1,7 +1,7 @@
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import React, { type FC } from 'react';
+import React from 'react';
 import { type ActionMessageAppearance } from '../../../actions/action/types';
 import MotionWrapper from '../../../common/motion-wrapper';
 import { type ActionFooterProps } from './types';
@@ -48,7 +48,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 	}
 };
 
-export const ActionFooter: FC<ActionFooterProps> = ({ message, testId }) => {
+export const ActionFooter = ({ message, testId }: ActionFooterProps) => {
 	if (!message) {
 		return null;
 	}

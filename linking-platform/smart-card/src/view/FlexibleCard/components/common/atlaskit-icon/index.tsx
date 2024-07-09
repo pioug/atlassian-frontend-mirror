@@ -104,7 +104,7 @@ const importIcon = (importFn: () => Promise<any>): any => {
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
-const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
+const AtlaskitIcon = ({ icon, label, testId }: AtlaskitIconProps) => {
 	// Check for synchonously loaded icons first for SSR purposes
 	switch (icon) {
 		case IconType.Document:

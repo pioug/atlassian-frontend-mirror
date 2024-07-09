@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 13.5.2
+
+### Patch Changes
+
+- [#118186](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118186)
+  [`14393c5775a1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14393c5775a1c) -
+  Remove unused `extract-react-types` files.
+
 ## 13.5.1
 
 ### Patch Changes

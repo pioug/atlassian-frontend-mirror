@@ -3,7 +3,7 @@ import LinkGlyph from '@atlaskit/icon/glyph/link';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { type FC, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { gs } from '../../../common/utils';
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';
@@ -45,7 +45,7 @@ const titleStyles = css({
 	padding: 0,
 });
 
-const UnresolvedView: FC<UnresolvedViewProps> = ({
+const UnresolvedView = ({
 	button,
 	description,
 	frameStyle,
@@ -58,7 +58,7 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
 	text,
 	title,
 	url,
-}) => {
+}: UnresolvedViewProps) => {
 	const icon = useMemo(() => {
 		if (React.isValidElement(iconUrlOrElement)) {
 			return iconUrlOrElement;

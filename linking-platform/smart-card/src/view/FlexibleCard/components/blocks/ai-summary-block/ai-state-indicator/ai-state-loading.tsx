@@ -7,7 +7,7 @@ import AIIconLoading from '../../../../../common/ai-icon-loading';
 import AIIndicatorContainer from './ai-indicator-container';
 import { type AIStateIndicatorProps } from './types';
 
-const AIStateLoading: React.FC<Partial<AIStateIndicatorProps>> = ({ appearance, testId }) => {
+const AIStateLoading = ({ appearance, testId }: Partial<AIStateIndicatorProps>) => {
 	switch (appearance) {
 		case 'icon-only':
 			return null;

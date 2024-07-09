@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "19.15.8",
+	"version": "19.15.9",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,9 +124,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.profile-card-trigger-next": {
-			"type": "boolean"
-		},
-		"platform.profilecard-disable-team-central-client-in-fedramp_ilnm7": {
 			"type": "boolean"
 		}
 	}

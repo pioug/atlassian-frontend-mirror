@@ -1,4 +1,4 @@
-import React, { type FC, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { downloadUrl as download } from '../../../../../utils';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
@@ -12,7 +12,7 @@ import {
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 
-const DownloadAction: FC<DownloadActionProps> = ({ onClick: onClickCallback, ...props }) => {
+const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionProps) => {
 	const context = useFlexibleUiContext();
 	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvokeClientAction({ analytics });

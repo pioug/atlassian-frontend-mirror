@@ -116,7 +116,7 @@ const withTooltip = (trigger: React.ReactNode, content: string, testId: string) 
  * @param {LinkProps} LinkProps - The props necessary for the Link element.
  * @see LinkIcon
  */
-const Link: React.FC<LinkProps> = ({
+const Link = ({
 	hideTooltip,
 	maxLines = DEFAULT_MAX_LINES,
 	name,
@@ -128,7 +128,7 @@ const Link: React.FC<LinkProps> = ({
 	url,
 	onClick,
 	target = '_blank',
-}) => {
+}: LinkProps) => {
 	const onMouseDown = useMouseDownEvent();
 
 	const hasSpace = useMemo(() => (text ? hasWhiteSpace(text) : false), [text]);

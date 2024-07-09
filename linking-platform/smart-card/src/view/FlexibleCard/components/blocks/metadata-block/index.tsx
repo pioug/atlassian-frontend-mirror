@@ -54,14 +54,14 @@ const getMaxLines = (maxLines: number) => {
  * @param {MetadataBlockProps} MetadataBlockProps
  * @see Block
  */
-const MetadataBlock: React.FC<MetadataBlockProps> = ({
+const MetadataBlock = ({
 	maxLines = DEFAULT_MAX_LINES,
 	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-metadata',
 	primary = [],
 	secondary = [],
 	...blockProps
-}) => {
+}: MetadataBlockProps) => {
 	if ((primary.length === 0 && secondary.length === 0) || status !== SmartLinkStatus.Resolved) {
 		return null;
 	}

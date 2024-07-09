@@ -16,6 +16,8 @@ export type ActionsType = Array<ActionType>;
 
 export type AppearanceTypes = 'error' | 'info' | 'success' | 'warning' | 'normal';
 
+export type HeadingColor = 'color.text' | 'color.text.inverse' | 'color.text.warning.inverse';
+
 // exported for testing - keep in sync from `type AppearanceTypes`
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const AppearanceArray: AppearanceTypes[] = ['error', 'info', 'normal', 'success', 'warning'];
@@ -86,6 +88,11 @@ type AutoDismissFlagPropsWithoutId = {
 	 * Additional information to be included in the `context` of analytics events that come from flag.
 	 */
 	analyticsContext?: Record<string, any>;
+	/**
+	 * Specifies the heading level in the document structure.
+	 * If not specified, the default is `2`.
+	 */
+	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 
 // Normal AutoDismissFlagProps should include the id

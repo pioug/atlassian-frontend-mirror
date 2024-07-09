@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../../constants';
@@ -37,13 +36,7 @@ const stackItemIconStyles = css(stackItemIconSizeStyles, {
 	},
 });
 
-const ActionIcon: React.FC<ActionIconProps> = ({
-	size,
-	testId,
-	icon,
-	isDisabled,
-	asStackItemIcon,
-}) => (
+const ActionIcon = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => (
 	<span
 		css={[
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

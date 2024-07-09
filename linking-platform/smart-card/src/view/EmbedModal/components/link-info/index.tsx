@@ -16,7 +16,7 @@ import { type LinkInfoProps } from './types';
 import LinkInfoButton from './link-info-button';
 import { actionCss, containerStyles, iconCss, titleCss } from './styled';
 
-const LinkInfo: React.FC<LinkInfoProps> = ({
+const LinkInfo = ({
 	icon,
 	providerName,
 	onDownloadButtonClick,
@@ -25,7 +25,7 @@ const LinkInfo: React.FC<LinkInfoProps> = ({
 	size,
 	testId,
 	title,
-}) => {
+}: LinkInfoProps) => {
 	const { onClose } = useModal();
 
 	const downloadButton = useMemo(() => {

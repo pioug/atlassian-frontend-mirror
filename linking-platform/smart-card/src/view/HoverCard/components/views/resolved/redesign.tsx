@@ -1,5 +1,5 @@
 import { type JsonLd } from 'json-ld-types';
-import React, { type FC, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
 	CardDisplay,
 	SmartLinkPosition,
@@ -21,7 +21,7 @@ import ImagePreview from '../../ImagePreview';
 import { hiddenSnippetStyles, metadataBlockCss } from './styled';
 import { type HoverCardResolvedProps } from './types';
 
-const HoverCardResolvedView: FC<HoverCardResolvedProps> = ({
+const HoverCardResolvedView = ({
 	analytics,
 	cardState,
 	extensionKey,
@@ -29,7 +29,7 @@ const HoverCardResolvedView: FC<HoverCardResolvedProps> = ({
 	isAISummaryEnabled,
 	onActionClick,
 	titleBlockProps,
-}) => {
+}: HoverCardResolvedProps) => {
 	const canBeDatasource = getCanBeDatasource(cardState.details);
 	useEffect(() => {
 		// Since this hover view is only rendered on resolved status,

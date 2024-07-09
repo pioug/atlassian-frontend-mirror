@@ -15,14 +15,14 @@ const PACKAGE_DATA: PackageDataType = {
 
 const Link = withLinkClickedEvent('a');
 
-const LinkUrl: React.FC<LinkUrlProps> = ({
+const LinkUrl = ({
 	href,
 	children,
 	checkSafety = true,
 	onClick,
 	testId = 'link-with-safety',
 	...props
-}) => {
+}: LinkUrlProps) => {
 	const { isLinkSafe, showSafetyWarningModal, ...linkWarningModalProps } = useLinkWarningModal();
 
 	return (

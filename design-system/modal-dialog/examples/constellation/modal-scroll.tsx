@@ -20,9 +20,11 @@ export default function Example() {
 
 	return (
 		<>
-			<ButtonGroup appearance="primary" label="Choose scroll option">
-				<Button onClick={() => setShouldScrollInViewportAndOpen(false)}>Scroll inside body</Button>
-				<Button onClick={() => setShouldScrollInViewportAndOpen(true)}>
+			<ButtonGroup label="Choose scroll option">
+				<Button appearance="primary" onClick={() => setShouldScrollInViewportAndOpen(false)}>
+					Scroll inside body
+				</Button>
+				<Button appearance="primary" onClick={() => setShouldScrollInViewportAndOpen(true)}>
 					Scroll inside viewport
 				</Button>
 			</ButtonGroup>

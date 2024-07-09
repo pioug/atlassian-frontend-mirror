@@ -28,6 +28,9 @@
             "path": "../../ds-lib/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../heading/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../icon/afm-cc/tsconfig.json"
         },
         {

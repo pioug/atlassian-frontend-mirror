@@ -4,7 +4,8 @@
 /** @jsx jsx */
 import { type AnchorHTMLAttributes, forwardRef, type Ref } from 'react';
 
-import { css, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { Box, xcss } from '@atlaskit/primitives';

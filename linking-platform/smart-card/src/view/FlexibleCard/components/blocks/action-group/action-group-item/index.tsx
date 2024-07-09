@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { type Appearance } from '@atlaskit/button';
 
@@ -10,13 +10,19 @@ import { type ActionProps } from '../../../actions/action/types';
 import * as Actions from '../../../actions';
 import { type ActionItem } from '../../types';
 
-const ActionGroupItem: React.FC<{
+const ActionGroupItem = ({
+	item,
+	size,
+	appearance,
+	asDropDownItems,
+	onActionItemClick,
+}: {
 	item: ActionItem;
 	size: SmartLinkSize;
 	appearance?: Appearance;
 	asDropDownItems?: boolean;
 	onActionItemClick?: () => void;
-}> = ({ item, size, appearance, asDropDownItems, onActionItemClick }) => {
+}) => {
 	const { name, hideContent, hideIcon, onClick, isDisabled, ...props } = item;
 	const handleOnClick = useCallback(() => {
 		if (onActionItemClick) {

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -16,13 +15,13 @@ import { getIconSizeStyles, getIconWidth } from '../../../utils';
  * This should render when a Smart Link has sent a request.
  * @see TitleBlock
  */
-const TitleBlockResolvingView: React.FC<TitleBlockViewProps> = ({
+const TitleBlockResolvingView = ({
 	actionGroup,
 	testId,
 	title,
 	hideIcon,
 	...blockProps
-}) => {
+}: TitleBlockViewProps) => {
 	const { size = SmartLinkSize.Medium } = blockProps;
 	const iconWidth = getIconWidth(size);
 	const iconStyles = getIconSizeStyles(iconWidth);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.8.5
+
+### Patch Changes
+
+- [#117769](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117769)
+  [`a59c5cd45160c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a59c5cd45160c) -
+  [No Issue] Track how many steps a editorSession is creating
+
 ## 1.8.4
 
 ### Patch Changes

@@ -50,7 +50,7 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 	}
 };
 
-const ActionButton: React.FC<ActionButtonProps> = ({
+const ActionButton = ({
 	appearance,
 	content,
 	iconAfter,
@@ -64,7 +64,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
 	isDisabled,
 	href,
 	ariaLabel,
-}) => {
+}: ActionButtonProps) => {
 	const iconOnly = !content;
 
 	const onButtonClick = useCallback(

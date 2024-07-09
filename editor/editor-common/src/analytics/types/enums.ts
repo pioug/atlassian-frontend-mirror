@@ -133,6 +133,7 @@ export enum ACTION {
 	SELECT_ALL_ESCAPED = 'selectAllEscaped',
 	SORT_COLUMN = 'sortedColumn',
 	SORT_COLUMN_NOT_ALLOWED = 'sortColumnNotAllowed',
+	STEPS_TRACKED = 'stepsTracked',
 	CREATE_NOT_ALLOWED = 'createNotAllowed',
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_SUCCEEDED = 'unsupportedContentLevelsTrackingSucceeded',
 	UNSUPPORTED_CONTENT_LEVELS_TRACKING_ERRORED = 'unsupportedContentLevelsTrackingErrored',
@@ -188,6 +189,7 @@ export enum TRIGGER_METHOD {
 }
 
 export enum ACTION_SUBJECT {
+	COLLAB = 'collab',
 	TOOLBAR_BUTTON = 'toolbarButton',
 	BUTTON = 'button',
 	CONFIG_PANEL = 'configPanel',

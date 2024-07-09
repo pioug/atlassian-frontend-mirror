@@ -1,7 +1,6 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import React from 'react';
 import LoadingSkeleton from '../../../../FlexibleCard/components/common/loading-skeleton';
 import { type HoverCardLoadingViewProps } from './types';
 import { CARD_WIDTH_REM } from '../../../styled';
@@ -15,7 +14,7 @@ import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import Icon from '../../../../FlexibleCard/components/elements/icon';
 
-const HoverCardLoadingView: React.FC<HoverCardLoadingViewProps> = ({ titleBlockProps }) => {
+const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
 	const testId = 'hover-card-loading-view';
 	const lineHeightRem = 1.25;
 	const skeletonWidth = CARD_WIDTH_REM - 2;

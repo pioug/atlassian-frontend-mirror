@@ -55,7 +55,7 @@ const getTitleBlockViewComponent = (status: SmartLinkStatus) => {
  * @see TitleBlockResolvedView
  * @see TitleBlockErroredView
  */
-const TitleBlock: React.FC<TitleBlockProps> = ({
+const TitleBlock = ({
 	actions = [],
 	anchorTarget,
 	hideTitleTooltip,
@@ -73,7 +73,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
 	metadataPosition,
 	hideIcon = false,
 	...props
-}) => {
+}: TitleBlockProps) => {
 	if (hideRetry && props.retry) {
 		delete props.retry;
 	}

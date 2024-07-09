@@ -2,8 +2,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, keyframes } from '@emotion/react';
 
-import { type FunctionComponent } from 'react';
-
 import SVG from '@atlaskit/icon/svg';
 import { type SVGProps } from '@atlaskit/icon/types';
 import { aiThemeTokens } from '../ai-prism/constants';
@@ -45,7 +43,7 @@ const thirdDelayStyles = css({
 /**
  * this icon is theme agnostic, no need for tokens
  */
-const AIIconLoading: FunctionComponent<SVGProps> = (props) => (
+const AIIconLoading = (props: SVGProps) => (
 	<SVG {...props}>
 		<circle
 			css={[animationStyles, firstDelayStyles]}

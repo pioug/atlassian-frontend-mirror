@@ -6,7 +6,7 @@ import { PreviewBlock } from '../../FlexibleCard/components/blocks';
 import { getTransitionStyles, getPreviewBlockStyles } from '../styled';
 import { type ImagePreviewProps } from '../types';
 
-const ImagePreview: React.FC<ImagePreviewProps> = ({ data, fallbackElementHeight }) => {
+const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
 	const transitionStarted = useRef<boolean>(false);
 	const previewBlockRef = useRef<HTMLDivElement>(null);
 	const [showPreview, setShowPreview] = useState<boolean>(true);

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { type FC } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type BlockCardProps } from './types';
 import { type JsonLd } from 'json-ld-types';
@@ -41,7 +40,7 @@ export {
 	BlockCardNotFoundView,
 };
 
-export const BlockCard: FC<BlockCardProps> = ({
+export const BlockCard = ({
 	id,
 	url,
 	cardState,
@@ -59,7 +58,7 @@ export const BlockCard: FC<BlockCardProps> = ({
 	analytics,
 	enableFlexibleBlockCard,
 	actionOptions,
-}) => {
+}: BlockCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { status, details } = cardState;
 	const data = ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();

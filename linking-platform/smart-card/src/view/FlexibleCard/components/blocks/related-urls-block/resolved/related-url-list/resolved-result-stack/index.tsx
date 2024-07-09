@@ -6,11 +6,11 @@ import { type ResolvedResultsStackProps } from './types';
 import RelatedUrlItem from '../related-url-item';
 import { RelatedUrlItemAnalyticsContext, fireRelatedLinksViewedEvent } from './analytics';
 
-const ResolvedResultsStack: React.FC<ResolvedResultsStackProps> = ({
+const ResolvedResultsStack = ({
 	resolvedResults,
 	testId,
 	renderers,
-}) => {
+}: ResolvedResultsStackProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	useEffect(() => {

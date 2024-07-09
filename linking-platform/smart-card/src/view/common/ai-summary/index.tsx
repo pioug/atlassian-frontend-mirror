@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles, css, jsx } from '@emotion/react';
@@ -48,14 +47,14 @@ type AISummaryProps = {
  * @param {AISummaryProps} AISummaryProps
  */
 
-const AISummary: React.FC<AISummaryProps> = ({
+const AISummary = ({
 	content = '',
 	showIcon = false,
 	iconComponent,
 	overrideCss,
 	testId = 'ai-summary',
 	minHeight = 0,
-}) => {
+}: AISummaryProps) => {
 	if (!content && minHeight === 0) {
 		return null;
 	}

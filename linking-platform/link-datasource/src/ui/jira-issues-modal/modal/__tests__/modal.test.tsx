@@ -821,7 +821,7 @@ describe('JiraIssuesConfigModal', () => {
 			);
 		});
 
-		describe('should display a count of all issues found with and link to the JQL link', async () => {
+		describe('should display a count of all issues found with and link to the JQL link', () => {
 			ffTest(
 				'platform.linking-platform.datasource.total-count-i18n-single-key',
 				async () => {

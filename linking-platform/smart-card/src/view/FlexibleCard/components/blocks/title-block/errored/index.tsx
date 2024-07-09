@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
@@ -51,7 +50,7 @@ const getMessageStyles = (size: SmartLinkSize, hasAction: boolean): SerializedSt
  * or the backend response was errored or malformed.
  * @see TitleBlock
  */
-const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
+const TitleBlockErroredView = ({
 	actionGroup,
 	retry,
 	position,
@@ -60,7 +59,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
 	icon,
 	hideIcon,
 	...blockProps
-}) => {
+}: TitleBlockViewProps) => {
 	const { descriptor, onClick, values } = retry || {};
 	const { size = SmartLinkSize.Medium } = blockProps;
 	const hasAction = onClick !== undefined;

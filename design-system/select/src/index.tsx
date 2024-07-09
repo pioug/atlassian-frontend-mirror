@@ -51,6 +51,7 @@ export type {
 	GroupProps,
 	AsyncSelectProps,
 	PlaceholderProps,
+	AriaOnFocusProps,
 } from './types';
 
 /**

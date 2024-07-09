@@ -1,7 +1,7 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import type { AnimatedSvgContainerProps } from './types';
 import { OUTER_BORDER_RADIUS } from '../constants';
@@ -39,12 +39,12 @@ const notBlurredStyles = css({
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications.
  */
-const AnimatedSvgContainer: React.FC<AnimatedSvgContainerProps> = ({
+const AnimatedSvgContainer = ({
 	palette,
 	isMoving,
 	isGlowing,
 	additionalCss,
-}) => {
+}: AnimatedSvgContainerProps) => {
 	const svgRef = useRef<SVGSVGElement>(null);
 	const namespaceId = useRef<number>();
 

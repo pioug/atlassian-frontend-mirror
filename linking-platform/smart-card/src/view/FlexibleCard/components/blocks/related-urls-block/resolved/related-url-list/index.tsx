@@ -14,13 +14,13 @@ import Text from '../../../../elements/text';
 import { type ResolvedResultProps } from './types';
 import ResolvedResultsStack from './resolved-result-stack';
 
-const RelatedUrlList: React.FC<ResolvedResultProps> = ({
+const RelatedUrlList = ({
 	resolvedResults,
 	title,
 	renderers,
 	testId,
 	initializeOpened,
-}) => {
+}: ResolvedResultProps) => {
 	const [isOpen, setIsOpen] = useState(initializeOpened);
 	const chevronClickHandler = useCallback(() => setIsOpen(!isOpen), [isOpen]);
 	const ChevronComponent = isOpen ? ChevronUpIcon : ChevronDownIcon;

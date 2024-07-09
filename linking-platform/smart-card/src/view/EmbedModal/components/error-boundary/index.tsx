@@ -6,8 +6,7 @@ import { type EmbedModalProps } from '../../types';
 const FallbackComponent = () => <span />;
 
 const withErrorBoundary =
-	(Component: React.ComponentType<EmbedModalProps>): React.FC<EmbedModalProps> =>
-	(props) => {
+	(Component: React.ComponentType<EmbedModalProps>) => (props: EmbedModalProps) => {
 		const { onOpenFailed } = props;
 
 		const onError = useCallback(

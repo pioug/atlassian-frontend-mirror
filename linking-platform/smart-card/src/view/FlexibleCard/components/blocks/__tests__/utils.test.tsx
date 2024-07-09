@@ -20,10 +20,13 @@ import { MetadataBlock } from '../index';
 import Block from '../block';
 import { type ElementItem } from '../../blocks/types';
 
-const TestRenderElementItemBlock: React.FC<{
+const TestRenderElementItemBlock = ({
+	display,
+	metadata = [],
+}: {
 	display: ElementDisplaySchemaType;
 	metadata: ElementItem[];
-}> = ({ display, metadata = [] }) => {
+}) => {
 	return <Block>{renderElementItems(metadata, display)}</Block>;
 };
 

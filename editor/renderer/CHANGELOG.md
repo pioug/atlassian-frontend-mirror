@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 109.41.0
+
+### Minor Changes
+
+- [#118748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118748)
+  [`10bb9e2def098`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10bb9e2def098) -
+  [ux] Reduce media single max width padding for all editors except full page
+
+### Patch Changes
+
+- [#118372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118372)
+  [`9f3d530e68972`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f3d530e68972) -
+  Cleanup of table ff, when table is resized and num column is enabled, the table is not in
+  overflow.
+- Updated dependencies
+
+## 109.40.11
+
+### Patch Changes
+
+- [#118361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118361)
+  [`5dc690bcdd97a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5dc690bcdd97a) -
+  Table FF cleanup
+- Updated dependencies
+
 ## 109.40.10
 
 ### Patch Changes

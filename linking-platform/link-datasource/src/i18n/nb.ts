@@ -116,6 +116,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Nei',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Ikke tilordnet',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} sak} other {{searchCount,number} saker}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} element} other {{searchCount,number} elementer}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} resultat} other {{searchCount,number} resultater}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synkronisert akkurat nå',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synkronisert {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {element} other {elementer}}',

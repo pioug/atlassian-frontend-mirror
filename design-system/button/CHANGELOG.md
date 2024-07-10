@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 18.3.0
+
+### Minor Changes
+
+- [#118362](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118362)
+  [`743ff30e960c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/743ff30e960c1) -
+  Remove unused prop `isSelected` from Split button.
+
 ## 18.2.0
 
 ### Minor Changes

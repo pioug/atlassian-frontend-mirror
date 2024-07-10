@@ -972,7 +972,10 @@ export type FontFamily = keyof typeof fontFamilyMap;
  * @codegenEnd
  */
 
-type MarginSpace = AllSpace | 'auto';
+// Margin needs some bespoke types: https://atlassian.slack.com/archives/CKRHB23K8/p1712623192772909
+type MarginSpace = AllSpace | 'auto' | '0';
+type PaddingSpace = Space | '0';
+type GlobalValue = 'inherit' | 'initial' | 'revert' | 'revert-layer' | 'unset';
 type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {
@@ -1024,17 +1027,17 @@ export type TokenisedProps = {
 	insetInlineEnd?: AutoComplete<AllSpace>;
 	insetInlineStart?: AutoComplete<AllSpace>;
 	left?: AutoComplete<AllSpace>;
-	margin?: AutoComplete<MarginSpace>;
-	marginBlock?: AutoComplete<MarginSpace>;
-	marginBlockEnd?: AutoComplete<MarginSpace>;
-	marginBlockStart?: AutoComplete<MarginSpace>;
-	marginBottom?: AutoComplete<MarginSpace>;
-	marginInline?: AutoComplete<MarginSpace>;
-	marginInlineEnd?: AutoComplete<MarginSpace>;
-	marginInlineStart?: AutoComplete<MarginSpace>;
-	marginLeft?: AutoComplete<MarginSpace>;
-	marginRight?: AutoComplete<MarginSpace>;
-	marginTop?: AutoComplete<MarginSpace>;
+	margin?: MarginSpace | '0 auto' | GlobalValue;
+	marginBlock?: MarginSpace | GlobalValue;
+	marginInline?: MarginSpace | GlobalValue;
+	marginBlockEnd?: MarginSpace | GlobalValue;
+	marginBlockStart?: MarginSpace | GlobalValue;
+	marginBottom?: MarginSpace | GlobalValue;
+	marginInlineEnd?: MarginSpace | GlobalValue;
+	marginInlineStart?: MarginSpace | GlobalValue;
+	marginLeft?: MarginSpace | GlobalValue;
+	marginRight?: MarginSpace | GlobalValue;
+	marginTop?: MarginSpace | GlobalValue;
 	maxBlockSize?: Dimension | string;
 	maxHeight?: Dimension | string;
 	maxInlineSize?: Dimension | string;
@@ -1047,17 +1050,17 @@ export type TokenisedProps = {
 	outlineColor?: BorderColor;
 	outlineOffset?: AllSpace;
 	outlineWidth?: BorderWidth | string;
-	padding?: Space;
-	paddingBlock?: Space;
-	paddingBlockEnd?: Space;
-	paddingBlockStart?: Space;
-	paddingBottom?: AutoComplete<Space>;
-	paddingInline?: Space;
-	paddingInlineEnd?: Space;
-	paddingInlineStart?: Space;
-	paddingLeft?: AutoComplete<Space>;
-	paddingRight?: AutoComplete<Space>;
-	paddingTop?: AutoComplete<Space>;
+	padding?: PaddingSpace | GlobalValue;
+	paddingBlock?: PaddingSpace | GlobalValue;
+	paddingBlockEnd?: PaddingSpace | GlobalValue;
+	paddingBlockStart?: PaddingSpace | GlobalValue;
+	paddingBottom?: PaddingSpace | GlobalValue;
+	paddingInline?: PaddingSpace | GlobalValue;
+	paddingInlineEnd?: PaddingSpace | GlobalValue;
+	paddingInlineStart?: PaddingSpace | GlobalValue;
+	paddingLeft?: PaddingSpace | GlobalValue;
+	paddingRight?: PaddingSpace | GlobalValue;
+	paddingTop?: PaddingSpace | GlobalValue;
 	right?: AutoComplete<AllSpace>;
 	rowGap?: Space;
 	top?: AutoComplete<AllSpace>;

@@ -117,6 +117,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Nem',
   'linkDataSource.render-type.boolean.true': 'Igen',
   'linkDataSource.render-type.user.default.display.name': 'Nincs hozzárendelve',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} ügy} other {{searchCount,number} ügy}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} tétel} other {{searchCount,number} tétel}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} találat} other {{searchCount,number} találat}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Most lett szinkronizálva',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Szinkronizálás ideje: {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {tétel} other {tétel}}',

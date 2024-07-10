@@ -5,7 +5,7 @@ import type {
 	MediaProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -34,6 +34,7 @@ export interface MediaSingleNodeProps {
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	editorViewMode?: boolean;
 	editorDisabled?: boolean;
+	editorAppearance?: EditorAppearance;
 }
 
 export interface MediaSingleNodeViewProps {
@@ -44,6 +45,7 @@ export interface MediaSingleNodeViewProps {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	isCopyPasteEnabled?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	editorAppearance?: EditorAppearance;
 }
 
 export interface MediaNodeViewProps {

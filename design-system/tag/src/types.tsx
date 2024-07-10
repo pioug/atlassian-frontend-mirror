@@ -10,6 +10,8 @@ export type TagColor =
 	| 'teal'
 	| 'orange'
 	| 'yellow'
+	| undefined
+	// All colors below to be removed with platform-component-visual-refresh (BLU-2992)
 	| 'limeLight'
 	| 'orangeLight'
 	| 'magentaLight'
@@ -19,8 +21,8 @@ export type TagColor =
 	| 'purpleLight'
 	| 'greyLight'
 	| 'tealLight'
-	| 'yellowLight'
-	| undefined;
+	| 'yellowLight';
 
+// To be removed with platform-component-visual-refresh (BLU-2992)
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 export type AppearanceType = 'default' | 'rounded';

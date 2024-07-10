@@ -1,5 +1,13 @@
 # @atlaskit/grid
 
+## 0.13.4
+
+### Patch Changes
+
+- [#118735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118735)
+  [`ad71dcb74e32d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad71dcb74e32d) -
+  Remove remnants of `extract-react-types`.
+
 ## 0.13.3
 
 ### Patch Changes

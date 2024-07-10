@@ -119,6 +119,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Nie',
   'linkDataSource.render-type.boolean.true': 'Tak',
   'linkDataSource.render-type.user.default.display.name': 'Nieprzydzielone',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} zgłoszenie} few {{searchCount,number} zgłoszenia} many {{searchCount,number} zgłoszeń} other {{searchCount,number} zgłoszenia}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} element} few {{searchCount,number} elementy} many {{searchCount,number} elementów} other {{searchCount,number} elementu}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} wynik} few {{searchCount,number} wyniki} many {{searchCount,number} wyników} other {{searchCount,number} wyniku}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Właśnie zsynchronizowano',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Zsynchronizowano {date}',
   'linkDataSource.table-footer.item':

@@ -11,6 +11,8 @@ import { useCallbackWithAnalytics, type WithAnalyticsEventsProps } from '@atlask
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { cssVar } from '../../../constants';
 import * as styles from '../../../styles';
@@ -152,16 +154,29 @@ const RemovableTag = forwardRef<any, RemovableTagProps>(
 		);
 
 		const hoverCloseButtonColors = {
+			backgroundColor: fg('platform-component-visual-refresh')
+				? token('color.background.neutral.subtle')
+				: undefined,
 			// Tag background color on hover
-			[cssVar.color.background.hover]: styles.removalHoverBackgroundColors,
+			[cssVar.color.background.hover]: fg('platform-component-visual-refresh')
+				? undefined
+				: styles.removalHoverBackgroundColors,
 			// Tag background color on press
-			[cssVar.color.background.active]: styles.removalActiveBackgroundColors,
+			[cssVar.color.background.active]: fg('platform-component-visual-refresh')
+				? undefined
+				: styles.removalActiveBackgroundColors,
 			// The tag text on hover of remove button
-			[cssVar.color.text.default]: styles.removalTextColors,
+			[cssVar.color.text.default]: fg('platform-component-visual-refresh')
+				? undefined
+				: styles.removalTextColors,
 			// 'elemBefore' text on press of remove button
-			[cssVar.color.text.active]: styles.removalTextColors,
+			[cssVar.color.text.active]: fg('platform-component-visual-refresh')
+				? undefined
+				: styles.removalTextColors,
 			// The tag link text on hover of remove button
-			[cssVar.color.text.link]: styles.removalTextColors,
+			[cssVar.color.text.link]: fg('platform-component-visual-refresh')
+				? undefined
+				: styles.removalTextColors,
 		};
 
 		return (

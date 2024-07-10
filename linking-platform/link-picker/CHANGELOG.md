@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.39.1
+
+### Patch Changes
+
+- [#118372](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118372)
+  [`e25de82c2de31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e25de82c2de31) -
+  Cleans up ff platform.linking-platform.link-picker.translations-map. Internally changes
+  translation imports to use an import map instead of dynamic imports.
+
 ## 1.39.0
 
 ### Minor Changes

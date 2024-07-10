@@ -8,6 +8,7 @@ import { injectIntl } from 'react-intl-next';
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { MediaSingle as UIMediaSingle, WidthContext } from '@atlaskit/editor-common/ui';
 import type { EventHandlers, MediaSingleWidthType } from '@atlaskit/editor-common/ui';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
@@ -37,6 +38,7 @@ export interface Props {
 	allowCaptions?: boolean;
 	isInsideOfInlineExtension?: boolean;
 	dataAttributes?: Record<string, any>;
+	editorAppearance?: EditorAppearance;
 }
 
 interface ChildElements {
@@ -104,6 +106,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		dataAttributes,
 		media,
 		caption,
+		editorAppearance,
 	} = props;
 
 	const [externalImageDimensions, setExternalImageDimensions] = React.useState({
@@ -251,6 +254,7 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 				fullWidthMode={isFullWidth}
 				isInsideOfInlineExtension={isInsideOfInlineExtension}
 				dataAttributes={dataAttributes}
+				editorAppearance={editorAppearance}
 			>
 				<Fragment>{mediaComponent}</Fragment>
 				{allowCaptions && caption}

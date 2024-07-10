@@ -11,10 +11,16 @@ export const getSelection = (tr: Transaction, start: number) => {
 	// decisionList node is not selectable, but we want to select the whole node not just text
 	if (isNodeSelection || node?.type.name === 'decisionList') {
 		return new NodeSelection($startPos);
-		// TODO: support multiple nodes selection
 	} else if (node?.type.name === 'mediaGroup' && node.childCount === 1) {
 		const $mediaStartPos = tr.doc.resolve(start + 1);
 		return new NodeSelection($mediaStartPos);
+	} else if (
+		// Even though mediaGroup is not selectable,
+		// we need a quick way to make all child media nodes appear as selected without the need for a custom selection
+		node?.type.name === 'mediaGroup' &&
+		fg('platform_editor_element_drag_and_drop_ed_23842')
+	) {
+		return new NodeSelection($startPos);
 	} else {
 		// To trigger the annotation floating toolbar for non-selectable node, we need to select inline nodes
 		// Find the first inline node in the node

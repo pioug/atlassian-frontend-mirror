@@ -14,20 +14,6 @@ describe('xcss()', () => {
 		jest.resetAllMocks();
 	});
 
-	it('does not transform non-token styles', () => {
-		const styles = xcss({
-			margin: '8px',
-		});
-
-		expect(styles).toMatchInlineSnapshot(`
-		{
-		  Symbol(UNSAFE_INTERNAL_styles): {
-		    "margin": "8px",
-		  },
-		}
-	`);
-	});
-
 	it('transforms token styles', () => {
 		const styles = xcss({
 			padding: 'space.100',
@@ -55,26 +41,11 @@ describe('xcss()', () => {
 	`);
 	});
 
-	it('does not transform non-transformable properties', () => {
-		const styles = xcss({
-			margin: '8px',
-		});
-
-		expect(styles).toMatchInlineSnapshot(`
-		{
-		  Symbol(UNSAFE_INTERNAL_styles): {
-		    "margin": "8px",
-		  },
-		}
-	`);
-	});
-
 	it('handles CSSObjects with both token styles and non-token styles', () => {
 		const styles = xcss({
 			borderColor: 'color.border',
 			justifyContent: 'center',
 		});
-
 		expect(styles).toMatchInlineSnapshot(`
 		{
 		  Symbol(UNSAFE_INTERNAL_styles): {

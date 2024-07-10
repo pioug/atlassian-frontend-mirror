@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'ページを更新してください。問題が解決しない場合は、<a>アトラシアン サポート</a>にお問い合わせください。',
   'link-create.unknown-error.heading': '問題が発生しました。',
+  'linkCreate.CreateConfluencePage.form.site.label': 'サイト',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': '戻る',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': '破棄',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'このページから離れると、情報を保存できません。',

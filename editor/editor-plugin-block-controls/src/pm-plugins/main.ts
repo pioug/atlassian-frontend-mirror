@@ -14,7 +14,7 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -115,7 +115,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				newState: EditorState,
 			) {
 				if (initialState.isDocSizeLimitEnabled === null) {
-					if (getBooleanFF('platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq')) {
+					if (fg('platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq')) {
 						initialState.isDocSizeLimitEnabled = true;
 					} else {
 						initialState.isDocSizeLimitEnabled = false;
@@ -158,7 +158,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 				let isDecsMissing = false;
 				let isHandleMissing = false;
-				if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+				if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 					// Ensure decorations stay in sync when nodes are added or removed from the doc
 					isHandleMissing =
 						!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
@@ -197,7 +197,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 				if (redrawDecorations && !isResizerResizing && api) {
 					decorations = DecorationSet.create(newState.doc, []);
 					const nodeDecs = nodeDecorations(newState);
-					if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+					if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 						decorations = decorations.add(newState.doc, [...nodeDecs]);
 					} else {
 						const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
@@ -250,7 +250,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					decorations = decorations.add(newState.doc, [decs]);
 				}
 
-				if (getBooleanFF('platform.editor.elements.drag-and-drop-ed-23816')) {
+				if (fg('platform.editor.elements.drag-and-drop-ed-23816')) {
 					// Remove previous drag handle widget and draw new drag handle widget when node type changes
 					if (
 						activeNodeWithNewNodeType &&
@@ -315,7 +315,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 				// Map active node position when the document changes
 				let mappedActiveNodePos;
-				if (getBooleanFF('platform.editor.elements.drag-and-drop-ed-23816')) {
+				if (fg('platform.editor.elements.drag-and-drop-ed-23816')) {
 					mappedActiveNodePos =
 						tr.docChanged && activeNode
 							? activeNodeWithNewNodeType || {
@@ -379,7 +379,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					const activeNode = state.tr.doc.nodeAt(pluginState.activeNode.pos);
 
 					let isSameNode = draggable === activeNode;
-					if (getBooleanFF('platform.editor.elements.drag-and-drop-ed-23892')) {
+					if (fg('platform.editor.elements.drag-and-drop-ed-23892')) {
 						const nodeElement = event.target?.closest('[data-drag-handler-anchor-name]');
 						if (!nodeElement) {
 							return false;
@@ -407,7 +407,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 					}
 				},
 				mouseover: (view: EditorView, event: Event) => {
-					if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+					if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 						handleMouseOver(view, event, api);
 					}
 					return false;
@@ -432,7 +432,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 			const dom = editorView.dom;
 			let resizeObserver: ResizeObserver;
 
-			if (!getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+			if (!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 				// Use ResizeObserver to observe height changes
 				resizeObserver = new ResizeObserver(
 					rafSchedule((entries) => {
@@ -465,7 +465,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 			return {
 				destroy() {
-					if (!getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+					if (!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 						resizeObserver.unobserve(dom);
 					}
 					pragmaticCleanup();

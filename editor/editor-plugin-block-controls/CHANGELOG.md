@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.13
+
+### Patch Changes
+
+- [#118724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118724)
+  [`6faf03a7723f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6faf03a7723f3) -
+  [ED-23842] When clicking the drag handle, select mediaGroup if there are multiple child nodes
+
 ## 1.5.12
 
 ### Patch Changes

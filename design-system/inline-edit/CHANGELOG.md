@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 13.5.8
+
+### Patch Changes
+
+- [#118737](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118737)
+  [`4797a41954499`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4797a41954499) -
+  Remove remnants of `extract-react-types`.
+
 ## 13.5.7
 
 ### Patch Changes

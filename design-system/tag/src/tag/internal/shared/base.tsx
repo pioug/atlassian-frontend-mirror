@@ -7,6 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { cssVar, defaultMargin, tagHeight } from '../../../constants';
@@ -18,11 +19,15 @@ type BaseProps = React.AllHTMLAttributes<HTMLElement> & {
 	contentElement: JSX.Element;
 	after?: JSX.Element;
 	testId?: string;
+	/**
+	 * To be removed with platform-component-visual-refresh (BLU-2992)
+	 */
 	appearance?: AppearanceType;
 	color?: TagColor;
 };
 
-const baseStyles = css({
+// To be removed with platform-component-visual-refresh (BLU-2992)
+const baseStylesOld = css({
 	display: 'inline-flex',
 	minWidth: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -40,7 +45,30 @@ const baseStyles = css({
 	cursor: 'default',
 });
 
-const interactiveStyles = css({
+const baseStyles = css({
+	display: 'inline-flex',
+	boxSizing: 'border-box',
+	minWidth: 0,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	height: tagHeight,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	margin: defaultMargin,
+	position: 'relative',
+	alignItems: 'center',
+	gap: token('space.050', '4px'),
+	backgroundColor: token('color.background.neutral.subtle'),
+	border: 'solid',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderColor: `var(${cssVar.color.borderColor})`,
+	borderRadius: token('border.radius', '3px'),
+	borderWidth: token('border.width', '1px'),
+	color: token('color.text'),
+	cursor: 'default',
+	paddingInline: token('space.050', '4px'),
+});
+
+// To be removed with platform-component-visual-refresh (BLU-2992)
+const interactiveStylesOld = css({
 	'&:hover': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		backgroundColor: `var(${cssVar.color.background.hover})`,
@@ -51,7 +79,17 @@ const interactiveStyles = css({
 	},
 });
 
-const focusRingStyles = css({
+const interactiveStyles = css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.neutral.subtle.pressed'),
+	},
+});
+
+// To be removed with platform-component-visual-refresh (BLU-2992)
+const focusRingStylesOld = css({
 	'&:focus-within': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		boxShadow: `0 0 0 2px var(${cssVar.color.focusRing})`,
@@ -59,6 +97,15 @@ const focusRingStyles = css({
 	},
 });
 
+const focusRingStyles = css({
+	'&:focus-within': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		outline: `2px solid ${styles.focusRingColors}`,
+		outlineOffset: '2px ',
+	},
+});
+
+// To be removed with platform-component-visual-refresh (BLU-2992)
 const nonStandardLinkStyles = css({
 	'&:active': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -106,12 +153,19 @@ const BaseTag = React.forwardRef<HTMLDivElement, BaseProps>(function BaseTag(
 			{...other}
 			ref={ref}
 			css={[
-				baseStyles,
-				(isRemovable || isLink) && focusRingStyles,
-				isLink && !isStandardLink && nonStandardLinkStyles,
-				isInteractive && interactiveStyles,
+				fg('platform-component-visual-refresh') ? baseStyles : baseStylesOld,
+				isInteractive &&
+					(fg('platform-component-visual-refresh') ? focusRingStyles : focusRingStylesOld),
+				fg('platform-component-visual-refresh') ? isLink && interactiveStyles : undefined,
+				!fg('platform-component-visual-refresh') &&
+					isLink &&
+					!isStandardLink &&
+					nonStandardLinkStyles,
+				!fg('platform-component-visual-refresh') && isInteractive && interactiveStylesOld,
 			]}
 			style={{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+				[cssVar.color.borderColor]: styles.borderColors[color],
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				[cssVar.color.text.default]: styles.textColors[color],
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

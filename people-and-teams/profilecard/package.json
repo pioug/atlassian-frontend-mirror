@@ -67,7 +67,7 @@
 		"@atlaskit/atlassian-context": "^0.0.0",
 		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/avatar-group": "^9.9.0",
-		"@atlaskit/button": "^18.2.0",
+		"@atlaskit/button": "^18.3.0",
 		"@atlaskit/dropdown-menu": "^12.14.0",
 		"@atlaskit/empty-state": "^7.9.0",
 		"@atlaskit/focus-ring": "^1.5.0",

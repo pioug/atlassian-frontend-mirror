@@ -1,7 +1,7 @@
 import type { MediaADFAttrs, MediaInlineAttributes } from '@atlaskit/adf-schema';
 import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FileIdentifier } from '@atlaskit/media-client';
@@ -63,6 +63,7 @@ export interface MediaOptions {
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	allowCaptions?: boolean;
 	allowCommentsOnMedia?: boolean;
+	editorAppearance?: EditorAppearance;
 }
 
 export interface MediaSingleOptions {

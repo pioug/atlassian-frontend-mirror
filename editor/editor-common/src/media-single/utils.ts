@@ -6,10 +6,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorDefaultLayoutWidth,
 	akEditorFullWidthLayoutWidth,
+	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
 	breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
+import type { EditorAppearance } from '../types';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '../utils/rich-media-utils';
 
 import {
@@ -126,8 +128,14 @@ const calcLegacyWideWidth = (containerWidth: number, origWidth: number, contentW
  * Calculate maximum width allowed for media single node in fix-width editor in new experience
  * @param containerWidth width of editor container
  */
-export const calcMediaSingleMaxWidth = (containerWidth: number) => {
-	const fullWidthPadding = akEditorGutterPaddingDynamic() * 2;
+export const calcMediaSingleMaxWidth = (
+	containerWidth: number,
+	editorAppearance?: EditorAppearance,
+) => {
+	const fullWidthPadding =
+		editorAppearance === 'full-page'
+			? akEditorGutterPaddingDynamic() * 2
+			: akEditorGutterPadding * 2;
 	return Math.min(containerWidth - fullWidthPadding, akEditorFullWidthLayoutWidth);
 };
 

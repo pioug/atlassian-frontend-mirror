@@ -1,31 +1,48 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { B200 } from '@atlaskit/theme/colors';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { B200, N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const previewStyle = {
-	borderColor: token('color.border.focused', B200),
+	borderColor: fg('platform_editor_elements_drag_and_drop_ed_23189')
+		? token('color.border', N30)
+		: token('color.border.focused', B200),
 	borderStyle: 'solid',
 	borderRadius: token('border.radius.100', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
-	backgroundColor: token('color.blanket.selected', '#388BFF14'),
+	backgroundColor: fg('platform_editor_elements_drag_and_drop_ed_23189')
+		? token('color.skeleton.subtle', N20)
+		: token('color.blanket.selected', '#388BFF14'),
 };
 
 export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: string) => {
-	const rect = dom.getBoundingClientRect();
-	container.style.width = `${rect.width}px`;
-	container.style.height = `${rect.height}px`;
+	let nodeContainer = dom;
 	container.style.pointerEvents = 'none';
 	const parent = document.createElement('div');
 	// ProseMirror class is required to make sure the cloned dom is styled correctly
 	parent.classList.add('ProseMirror');
-	if (getBooleanFF('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+	if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 		parent.classList.add('block-ctrl-drag-preview');
 	}
 
-	const shouldBeGenericPreview = nodeType === 'embedCard' || nodeType === 'extension';
 	const embedCard: HTMLElement | null = dom.querySelector('.embedCardView-content-wrap');
+	let shouldBeGenericPreview = nodeType === 'embedCard' || nodeType === 'extension' || !!embedCard;
 
-	if (shouldBeGenericPreview || embedCard) {
+	if (fg('platform_editor_elements_drag_and_drop_ed_23189')) {
+		const iframeContainer = dom.querySelector('iframe');
+		if (nodeType === 'embedCard') {
+			nodeContainer = dom.querySelector('.rich-media-item') || dom;
+		} else if (nodeType === 'extension' && iframeContainer) {
+			nodeContainer = iframeContainer;
+		}
+		shouldBeGenericPreview =
+			nodeType === 'embedCard' || !!embedCard || (nodeType === 'extension' && !!iframeContainer);
+	}
+
+	const nodeContainerRect = nodeContainer.getBoundingClientRect();
+	container.style.width = `${nodeContainerRect.width}px`;
+	container.style.height = `${nodeContainerRect.height}px`;
+
+	if (shouldBeGenericPreview) {
 		parent.style.border = `${previewStyle.borderWidth} ${previewStyle.borderStyle} ${previewStyle.borderColor}`;
 		parent.style.borderRadius = previewStyle.borderRadius;
 		parent.style.backgroundColor = previewStyle.backgroundColor;
@@ -43,8 +60,11 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 		clonedDom.style.marginTop = '0';
 		clonedDom.style.marginRight = '0';
 		clonedDom.style.marginBottom = '0';
-		clonedDom.style.opacity = '0.4';
 		clonedDom.style.boxShadow = 'none';
+		clonedDom.style.opacity = fg('platform_editor_elements_drag_and_drop_ed_23189')
+			? '0.31'
+			: '0.4';
+
 		parent.appendChild(clonedDom);
 	}
 	container.appendChild(parent);

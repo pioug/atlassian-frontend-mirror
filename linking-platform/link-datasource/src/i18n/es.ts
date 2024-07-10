@@ -121,6 +121,8 @@ export default {
     '{searchCount, plural, one {{searchCount,number} incidencia} other {{searchCount,number} incidencias}}',
   'linkDataSource.search.configmodal.itemCountText':
     '{searchCount, plural, one {{searchCount,number} elemento} other {{searchCount,number} elementos}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} resultado} other {{searchCount,number} resultados}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sincronización hace un momento',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Última sincronización: {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {elemento} other {elementos}}',

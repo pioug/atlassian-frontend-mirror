@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 13.7.1
+
+### Patch Changes
+
+- [#118692](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118692)
+  [`754f67840e782`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/754f67840e782) -
+  Remove remnants of `extract-react-types`.
+
 ## 13.7.0
 
 ### Minor Changes

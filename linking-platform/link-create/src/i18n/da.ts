@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Opdater siden, eller kontakt <a>Atlassian-support</a>, hvis det bliver ved med at ske.',
   'link-create.unknown-error.heading': 'Noget gik galt.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Website',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tilbage',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Kassér',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'Vi kan ikke gemme dine oplysninger, hvis du forlader siden.',

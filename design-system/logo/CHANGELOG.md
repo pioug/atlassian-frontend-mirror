@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 14.1.1
+
+### Patch Changes
+
+- [#118742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118742)
+  [`b4588e60d187b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4588e60d187b) -
+  Remove remnants of `extract-react-types`.
+
 ## 14.1.0
 
 ### Minor Changes

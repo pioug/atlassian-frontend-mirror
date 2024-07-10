@@ -114,6 +114,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Hayır',
   'linkDataSource.render-type.boolean.true': 'Evet',
   'linkDataSource.render-type.user.default.display.name': 'Atanmamış',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} konu} other {{searchCount,number} konu}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} öğe} other {{searchCount,number} öğe}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} sonuç} other {{searchCount,number} sonuç}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Az önce senkronize edildi',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Son senkronizasyon: {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {öğe} other {öğe}}',

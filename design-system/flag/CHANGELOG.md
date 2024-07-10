@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 15.7.0
+
+### Minor Changes
+
+- [#118560](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118560)
+  [`cca5dee6530a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cca5dee6530a8) -
+  Accessibility improvements. Add `headingLevel` prop.
+
 ## 15.6.5
 
 ### Patch Changes

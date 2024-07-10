@@ -115,6 +115,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Ei',
   'linkDataSource.render-type.boolean.true': 'Kyllä',
   'linkDataSource.render-type.user.default.display.name': 'Määräämätön',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} asia} other {{searchCount,number} asiaa}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} kohde} other {{searchCount,number} kohdetta}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} tulos} other {{searchCount,number} tulosta}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synkronoitu juuri nyt',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synkronoitu {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {kohde} other {kohdetta}}',

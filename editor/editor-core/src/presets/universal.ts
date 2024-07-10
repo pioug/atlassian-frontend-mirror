@@ -45,7 +45,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorProps } from '../types';
 import type {
@@ -169,9 +169,9 @@ export default function createUniversalPreset(
 					allowMediaSingleEditable: !isMobile,
 					allowRemoteDimensionsFetch: !isMobile,
 					allowMarkingUploadsAsIncomplete: isMobile,
-					allowImagePreview:
-						isFullPage && getBooleanFF('platform.editor.media.preview-in-full-page'),
+					allowImagePreview: isFullPage && fg('platform.editor.media.preview-in-full-page'),
 					fullWidthEnabled: appearance === 'full-width',
+					editorAppearance: appearance,
 					uploadErrorHandler: props.uploadErrorHandler,
 					waitForMediaUpload: props.waitForMediaUpload,
 					isCopyPasteEnabled: !isMobile,
@@ -212,8 +212,7 @@ export default function createUniversalPreset(
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',
 					getEditorFeatureFlags,
-					isTableAlignmentEnabled:
-						getBooleanFF('platform.editor.table.allow-table-alignment') && isFullPage,
+					isTableAlignmentEnabled: fg('platform.editor.table.allow-table-alignment') && isFullPage,
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 				},
 			],

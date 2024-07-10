@@ -10,6 +10,7 @@ import {
 	akEditorMediaResizeHandlerPadding,
 	akEditorMediaResizeHandlerPaddingWide,
 	akEditorSelectedBorderBoldSize,
+	akEditorSelectedBoxShadow,
 	akEditorSelectedNodeClassName,
 } from '@atlaskit/editor-shared-styles';
 import {
@@ -204,6 +205,11 @@ export const mediaStyles = css`
 		.resizer-handle-thumb {
 			background: ${token('color.icon.warning', Y500)} !important;
 		}
+	}
+
+	/* When clicking drag handle, mediaGroup node will be selected. Hence we need to apply selected style to each media node */
+	.mediaGroupView-content-wrap.${akEditorSelectedNodeClassName} #newFileExperienceWrapper {
+		box-shadow: ${akEditorSelectedBoxShadow};
 	}
 `;
 

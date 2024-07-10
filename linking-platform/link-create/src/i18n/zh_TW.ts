@@ -9,6 +9,7 @@
 export default {
   'link-create.unknown-error.description': '請重新整理頁面，如果持續發生錯誤，請連絡 <a>Atlassian 支援人員</a>。',
   'link-create.unknown-error.heading': '發生錯誤。',
+  'linkCreate.CreateConfluencePage.form.site.label': '網站',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': '返回',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': '捨棄',
   'linkCreate.confirm-dismiss-dialog.modal.description': '如果您離開此頁面，我們將無法儲存您的資訊。',

@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Laden Sie die Seite erneut oder wenden Sie sich an den <a>Atlassian Support</a>, falls das Problem weiterhin besteht.',
   'link-create.unknown-error.heading': 'Irgendetwas ist schiefgelaufen.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Site',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Zurück',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Verwerfen',
   'linkCreate.confirm-dismiss-dialog.modal.description':

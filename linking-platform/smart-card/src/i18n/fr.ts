@@ -145,7 +145,7 @@ export default {
   'fabric.linking.related_links_includes_links_to': 'Inclut des liens vers',
   'fabric.linking.related_links_modal_error_header': 'Une erreur est survenue',
   'fabric.linking.related_links_modal_error_message':
-    'Nous avons rencontré un problème lors du chargement des liens récents. Vérifiez votre connexion ou actualisez, puis réessayez.',
+    'Nous avons rencontré un problème lors du chargement des liens récents. Vérifiez votre connexion ou actualisez la page, puis réessayez.',
   'fabric.linking.related_links_modal_title': 'Liens récents',
   'fabric.linking.related_links_modal_unavailable_header': 'Aucun lien récent',
   'fabric.linking.related_links_modal_unavailable_message':

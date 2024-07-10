@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 84.4.0
+
+### Minor Changes
+
+- [#118748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118748)
+  [`10bb9e2def098`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10bb9e2def098) -
+  [ux] Reduce media single max width padding for all editors except full page
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 84.3.2
 
 ### Patch Changes

@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Sayfayı yenileyin veya sorun devam ederse <a>Atlassian Destek</a> ekibiyle iletişime geçin.',
   'link-create.unknown-error.heading': 'Bir hata oluştu.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Site',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Geri dön',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Vazgeç',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'Bu sayfadan ayrılırsanız bilgileriniz kaydedilemez.',

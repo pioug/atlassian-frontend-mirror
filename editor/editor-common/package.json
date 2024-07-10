@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "84.3.2",
+	"version": "84.4.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -171,7 +171,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/atlassian-context": "^0.0.0",
-		"@atlaskit/button": "^18.2.0",
+		"@atlaskit/button": "^18.3.0",
 		"@atlaskit/code": "^15.4.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/custom-steps": "^0.4.0",
@@ -179,7 +179,7 @@
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
-		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.7.0",
 		"@atlaskit/emoji": "^67.6.0",
 		"@atlaskit/icon": "^22.6.0",

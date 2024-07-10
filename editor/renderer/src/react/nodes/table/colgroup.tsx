@@ -9,7 +9,7 @@ import {
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
 import { isTableResizingEnabled } from '../table';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useFeatureFlags } from '../../../use-feature-flags';
 import type { RendererContextProps } from '../../../renderer-context';
 
@@ -114,12 +114,7 @@ const renderScaleDownColgroup = (
 	// this causes issues with num column scaling as we add a new table column in renderer
 	const isTableSmallerThanContainer = sumOfColumns < tableContainerWidth - 1;
 
-	const forceScaleForNumColumn =
-		getBooleanFF('platform.editor.scale-table-when-number-column-in-table-resized_y4qh2') &&
-		isTableScalingEnabled &&
-		isNumberColumnEnabled &&
-		tableResized;
-
+	const forceScaleForNumColumn = isTableScalingEnabled && isNumberColumnEnabled && tableResized;
 	// when table resized and number column is enabled, we need to scale down the table in render
 	if (forceScaleForNumColumn) {
 		const scalePercentage = +(
@@ -181,8 +176,8 @@ const renderScaleDownColgroup = (
 		isTableScalingWithFixedColumnWidthsOptionEnabled &&
 		props.tableNode?.attrs.displayMode === 'fixed';
 	const maxScalingPercent =
-		getBooleanFF('platform.editor.table.use-increased-scaling-percent') &&
-		isTableScalingWithFixedColumnWidthsOptionEnabled
+		isTableScalingWithFixedColumnWidthsOptionEnabled &&
+		fg('platform.editor.table.use-increased-scaling-percent')
 			? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
 			: MAX_SCALING_PERCENT;
 

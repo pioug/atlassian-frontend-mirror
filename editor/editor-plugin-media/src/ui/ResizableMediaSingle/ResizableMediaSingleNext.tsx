@@ -328,7 +328,7 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 				return contentWidth;
 			}
 
-			return calcMediaSingleMaxWidth(containerWidth);
+			return calcMediaSingleMaxWidth(containerWidth, this.props.editorAppearance);
 		},
 	);
 

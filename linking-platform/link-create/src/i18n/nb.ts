@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Oppdater siden, eller kontakt <a>Atlassian-støtte</a> hvis problemet vedvarer.',
   'link-create.unknown-error.heading': 'Det oppstod en feil.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Nettsted',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Gå tilbake',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Forkast',
   'linkCreate.confirm-dismiss-dialog.modal.description':

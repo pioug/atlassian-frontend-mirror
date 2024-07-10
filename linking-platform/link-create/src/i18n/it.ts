@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     "Aggiorna la pagina o, se il problema persiste, contatta l'<a>Assistenza Atlassian</a>.",
   'link-create.unknown-error.heading': 'Si è verificato un errore.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Sito',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Torna indietro',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Ignora',
   'linkCreate.confirm-dismiss-dialog.modal.description':

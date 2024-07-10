@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 10.4.6
+
+### Patch Changes
+
+- [#118734](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118734)
+  [`f9641d1cfa4bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9641d1cfa4bd) -
+  Remove remnants of `extract-react-types`.
+
 ## 10.4.5
 
 ### Patch Changes

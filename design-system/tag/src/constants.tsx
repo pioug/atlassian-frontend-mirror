@@ -17,6 +17,7 @@ export const maxTextWidth = `${maxTextWidthUnitless}px`;
 export const defaultBorderRadius = `${borderRadiusValue}px`;
 export const defaultRoundedBorderRadius = `${buttonWidthUnitless / 2}px`;
 export const defaultMargin = token('space.050', `${gridSizeValue / 2}px`);
+// To be removed with platform-component-visual-refresh (BLU-2992)
 export const defaultTextPadding = token('space.050', `${gridSizeValue / 2}px`);
 export const textPaddingRight = token('space.200', `${2 * gridSizeValue}px`);
 export const textMarginLeft = tagHeight;
@@ -28,6 +29,7 @@ export const cssVar = {
 			hover: '--ds-cbh',
 			active: '--ds-cba',
 		},
+		borderColor: '--ds-bc',
 		focusRing: '--ds-cfr',
 		text: {
 			default: '--ds-ct',

@@ -45,7 +45,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { CardEvent } from '@atlaskit/media-card';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -295,6 +295,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			editorViewMode,
 			editorDisabled,
 			annotationPluginState,
+			editorAppearance,
 		} = this.props;
 		const { commentsOnMedia = false } = mediaOptions?.getEditorFeatureFlags?.() || {};
 
@@ -363,6 +364,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
 			}),
 			allowCaptions: mediaOptions.allowCaptions,
+			editorAppearance,
 		};
 
 		const resizableMediaSingleProps = {
@@ -409,7 +411,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			isSelected &&
 			state.selection instanceof NodeSelection;
 
-		if (getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
+		if (fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
 			shouldShowPlaceholder = !editorDisabled && shouldShowPlaceholder;
 		}
 
@@ -448,7 +450,7 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		return (
 			<Fragment>
 				{canResize ? (
-					getBooleanFF('platform.editor.media.extended-resize-experience') ? (
+					fg('platform.editor.media.extended-resize-experience') ? (
 						<ResizableMediaSingleNext
 							{...resizableMediaSingleProps}
 							showLegacyNotification={widthType !== 'pixel'}
@@ -504,6 +506,7 @@ const MediaSingleNodeWrapper = ({
 	eventDispatcher,
 	dispatchAnalyticsEvent,
 	forwardRef,
+	editorAppearance,
 }: Omit<
 	MediaSingleNodeProps,
 	| 'width'
@@ -542,6 +545,7 @@ const MediaSingleNodeWrapper = ({
 			pluginInjectionApi={pluginInjectionApi}
 			editorDisabled={editorDisabledState?.editorDisabled}
 			editorViewMode={editorViewModeState?.mode === 'view'}
+			editorAppearance={editorAppearance}
 		/>
 	);
 };
@@ -562,7 +566,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			domRef.contentEditable = 'true';
 		}
 
-		if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
+		if (fg('platform.editor.media.extended-resize-experience')) {
 			domRef.classList.add('media-extended-resize-experience');
 		}
 		return domRef;
@@ -671,6 +675,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 			mediaOptions,
 			dispatchAnalyticsEvent,
 			pluginInjectionApi,
+			editorAppearance,
 		} = this.reactComponentProps;
 
 		// getPos is a boolean for marks, since this is a node we know it must be a function
@@ -695,6 +700,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 							eventDispatcher={eventDispatcher}
 							dispatchAnalyticsEvent={dispatchAnalyticsEvent!}
 							forwardRef={forwardRef!}
+							editorAppearance={editorAppearance}
 						/>
 					);
 				}}
@@ -744,6 +750,7 @@ export const ReactMediaSingleNode =
 				dispatchAnalyticsEvent,
 				isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
 				pluginInjectionApi,
+				editorAppearance: mediaOptions.editorAppearance,
 			},
 			undefined,
 			undefined,

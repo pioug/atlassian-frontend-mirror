@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 2.13.0
+
+### Minor Changes
+
+- [#118748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118748)
+  [`10bb9e2def098`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10bb9e2def098) -
+  [ux] Reduce media single max width padding for all editors except full page
+
 ## 2.12.1
 
 ### Patch Changes

@@ -43,7 +43,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/dropdown-menu": "^12.14.0",
-		"@atlaskit/editor-shared-styles": "^2.12.0",
+		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",

@@ -13,6 +13,7 @@ import {
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import { getMediaSinglePixelWidth } from '../../media-single/utils';
+import type { EditorAppearance } from '../../types';
 import { shouldAddDefaultWrappedWidth } from '../../utils/rich-media-utils';
 
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
@@ -39,6 +40,7 @@ export interface Props {
 	handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
 	isInsideOfInlineExtension?: boolean;
 	dataAttributes?: Record<string, any>;
+	editorAppearance?: EditorAppearance;
 }
 
 export type { MediaSingleWidthType, MediaSingleSize };

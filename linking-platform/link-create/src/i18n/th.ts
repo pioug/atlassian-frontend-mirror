@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'รีเฟรชหน้าข้อมูล หรือติดต่อฝ่าย <a>สนับสนุน Atlassian</a> หากยังคงมีปัญหานี้เกิดขึ้น',
   'link-create.unknown-error.heading': 'เกิดข้อผิดพลาดบางอย่าง',
+  'linkCreate.CreateConfluencePage.form.site.label': 'ไซต์',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'ย้อนกลับ',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'ละทิ้ง',
   'linkCreate.confirm-dismiss-dialog.modal.description':

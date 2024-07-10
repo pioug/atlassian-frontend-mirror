@@ -125,7 +125,6 @@ export const DragHandle = ({
 
 			fg('platform.editor.elements.drag-and-drop-long-node-scroll') &&
 				tr.setMeta('scrollIntoView', false);
-
 			api?.analytics?.actions.attachAnalyticsEvent({
 				eventType: EVENT_TYPE.UI,
 				action: ACTION.CLICKED,
@@ -226,7 +225,6 @@ export const DragHandle = ({
 							nodeType: maybeNode?.type.name || '',
 						},
 					})(tr);
-
 					return tr;
 				});
 

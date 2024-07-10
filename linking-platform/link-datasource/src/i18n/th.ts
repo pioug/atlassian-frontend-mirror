@@ -112,6 +112,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'ไม่ใช่',
   'linkDataSource.render-type.boolean.true': 'ใช่',
   'linkDataSource.render-type.user.default.display.name': 'ยังไม่ได้มอบหมาย',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, other {ปัญหา {searchCount,number} รายการ}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, other {รายการในผลลัพธ์ {searchCount,number} รายการ}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, other {ผลลัพธ์ {searchCount,number} รายการ}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'เพิ่งซิงค์',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'ซิงค์เมื่อ {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, other {รายการ}}',

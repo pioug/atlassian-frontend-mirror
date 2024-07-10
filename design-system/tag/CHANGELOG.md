@@ -1,5 +1,14 @@
 # @atlaskit/tag
 
+## 12.4.0
+
+### Minor Changes
+
+- [#118261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118261)
+  [`1d7ac70801120`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1d7ac70801120) -
+  [ux] Testing a new visual appearance behind a feature flag. If successful it'll be released at a
+  later date.
+
 ## 12.3.3
 
 ### Patch Changes

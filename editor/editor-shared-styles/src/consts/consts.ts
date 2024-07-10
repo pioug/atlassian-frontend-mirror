@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import {
 	B100,
@@ -129,7 +129,7 @@ export const akEditorTableNumberColumnWidth = 42;
 export const akEditorBreakoutPadding = 96;
 export const akEditorGutterPadding = 32;
 export const akEditorGutterPaddingDynamic = () =>
-	getBooleanFF('platform.editor.core.increase-full-page-guttering') ? 52 : 32;
+	fg('platform.editor.core.increase-full-page-guttering') ? 52 : 32;
 export const akEditorMobileBreakoutPoint = 720;
 export const akEditorTableCellMinWidth = 48;
 export const akEditorTableLegacyCellMinWidth = 128;
@@ -161,7 +161,7 @@ export const MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
-	getBooleanFF('platform.confluence.frontend.narrow-full-page-editor-toolbar')
+	fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
 		? token('space.500', '40px')
 		: '56px';
 

@@ -116,6 +116,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Nee',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Niet-toegewezen',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} issue} other {{searchCount,number} issues}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} item} other {{searchCount,number} items}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} resultaat} other {{searchCount,number} resultaten}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Zojuist gesynchroniseerd',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Gesynchroniseerd op {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {item} other {items}}',

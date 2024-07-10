@@ -173,49 +173,13 @@ describe('Renderer - React/Nodes/Table', () => {
 			});
 		});
 
-		describe('should have the correct width for numbered column when columnWidths is set and is equal to table container minus 1', () => {
-			ffTest(
-				'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
-				() => {
-					const table = mountWithIntl(
-						<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
-							<Table
-								layout="default"
-								columnWidths={[300, 459]}
-								isNumberColumnEnabled={true}
-								renderWidth={renderWidth}
-								rendererAppearance="full-page"
-							>
-								<TableRow>
-									<TableCell />
-									<TableCell />
-								</TableRow>
-								<TableRow>
-									<TableCell />
-									<TableCell />
-								</TableRow>
-							</Table>
-						</RendererContextProvider>,
-					);
-
-					// equals 43px (number column = 42px)
-					const resultingColumnWidths = [284, 432];
-					expect(table.find('col')).toHaveLength(3);
-
-					table.find('col').forEach((col, index) => {
-						if (index === 0) {
-							expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
-						} else {
-							expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
-						}
-					});
-					table.unmount();
-				},
-				() => {
-					const table = mountWithIntl(
+		describe('when columnWidths is set and is equal to table container minus 1', () => {
+			it('should have the correct width for numbered column', () => {
+				const table = mountWithIntl(
+					<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
 						<Table
 							layout="default"
-							columnWidths={[300, 428]}
+							columnWidths={[300, 459]}
 							isNumberColumnEnabled={true}
 							renderWidth={renderWidth}
 							rendererAppearance="full-page"
@@ -228,67 +192,32 @@ describe('Renderer - React/Nodes/Table', () => {
 								<TableCell />
 								<TableCell />
 							</TableRow>
-						</Table>,
-					);
+						</Table>
+					</RendererContextProvider>,
+				);
 
-					const resultingColumnWidths = [296, 422];
-					expect(table.find('col')).toHaveLength(3);
+				// equals 43px (number column = 42px)
+				const resultingColumnWidths = [284, 432];
+				expect(table.find('col')).toHaveLength(3);
 
-					table.find('col').forEach((col, index) => {
-						if (index === 0) {
-							expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
-						} else {
-							expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
-						}
-					});
-					table.unmount();
-				},
-			);
+				table.find('col').forEach((col, index) => {
+					if (index === 0) {
+						expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
+					} else {
+						expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
+					}
+				});
+				table.unmount();
+			});
 		});
 
-		describe('should have the correct width for numbered column when columnWidths is set and smaller than table container', () => {
-			ffTest(
-				'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
-				() => {
-					const table = mountWithIntl(
-						<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
-							<Table
-								layout="default"
-								columnWidths={[300, 380]}
-								isNumberColumnEnabled={true}
-								renderWidth={renderWidth}
-								rendererAppearance="full-page"
-							>
-								<TableRow>
-									<TableCell />
-									<TableCell />
-								</TableRow>
-								<TableRow>
-									<TableCell />
-									<TableCell />
-								</TableRow>
-							</Table>
-						</RendererContextProvider>,
-					);
-
-					// col widths get scaled up when num cols is enabled
-					const resultingColumnWidths = [317, 399];
-					expect(table.find('col')).toHaveLength(3);
-
-					table.find('col').forEach((col, index) => {
-						if (index === 0) {
-							expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
-						} else {
-							expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
-						}
-					});
-					table.unmount();
-				},
-				() => {
-					const table = mountWithIntl(
+		describe('when columnWidths is set and smaller than table container', () => {
+			it('should have the correct width for numbered column ', () => {
+				const table = mountWithIntl(
+					<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
 						<Table
 							layout="default"
-							columnWidths={[300, 428]}
+							columnWidths={[300, 380]}
 							isNumberColumnEnabled={true}
 							renderWidth={renderWidth}
 							rendererAppearance="full-page"
@@ -301,22 +230,23 @@ describe('Renderer - React/Nodes/Table', () => {
 								<TableCell />
 								<TableCell />
 							</TableRow>
-						</Table>,
-					);
+						</Table>
+					</RendererContextProvider>,
+				);
 
-					const resultingColumnWidths = [296, 422];
-					expect(table.find('col')).toHaveLength(3);
+				// col widths get scaled up when num cols is enabled
+				const resultingColumnWidths = [317, 399];
+				expect(table.find('col')).toHaveLength(3);
 
-					table.find('col').forEach((col, index) => {
-						if (index === 0) {
-							expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
-						} else {
-							expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
-						}
-					});
-					table.unmount();
-				},
-			);
+				table.find('col').forEach((col, index) => {
+					if (index === 0) {
+						expect(col.prop('style')!.width).toEqual(akEditorTableNumberColumnWidth);
+					} else {
+						expect(col.prop('style')!.width).toEqual(`${resultingColumnWidths[index - 1]}px`);
+					}
+				});
+				table.unmount();
+			});
 		});
 
 		it('should have the correct width for numbered column when no columnWidths', () => {

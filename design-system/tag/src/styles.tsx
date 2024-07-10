@@ -30,6 +30,32 @@ export const textColors = {
 	greyLight: token('color.text.accent.gray', colors.N500),
 };
 
+// Border colors - Hardcoded for Visual Refresh
+export const borderColors = {
+	standard: '#B7B9BE',
+	blue: '#669DF1',
+	red: '#F87168',
+	yellow: '#DDB30E',
+	green: '#4BCE97',
+	teal: '#6CC3E0',
+	purple: '#C97CF4',
+	lime: '#94C748',
+	magenta: '#E774BB',
+	orange: '#FCA700',
+	grey: '#B7B9BE',
+	standardLink: '#B7B9BE',
+	blueLight: '#669DF1',
+	redLight: '#F87168',
+	yellowLight: '#DDB30E',
+	greenLight: '#4BCE97',
+	tealLight: '#6CC3E0',
+	purpleLight: '#C97CF4',
+	limeLight: '#94C748',
+	magentaLight: '#E774BB',
+	orangeLight: '#FCA700',
+	greyLight: '#B7B9BE',
+};
+
 /**
  * With design tokens, hover colors do not change
  * compared to resting state. These are only here

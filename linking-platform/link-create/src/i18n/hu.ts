@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Frissítsd az oldalt, vagy vedd fel a kapcsolatot az <a>Atlassian Támogatással</a>, ha ez a későbbiekben is megtörténik.',
   'link-create.unknown-error.heading': 'Hiba történt.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Webhely',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Vissza',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Elvetés',
   'linkCreate.confirm-dismiss-dialog.modal.description': 'Ha elhagyod az oldalt, nem tudjuk menteni az információkat.',

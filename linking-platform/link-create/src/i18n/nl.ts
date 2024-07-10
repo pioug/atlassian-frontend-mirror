@@ -10,6 +10,7 @@ export default {
   'link-create.unknown-error.description':
     'Vernieuw de pagina of neem contact op met <a>Atlassian-support</a> als dit blijft gebeuren.',
   'link-create.unknown-error.heading': 'Er is iets misgegaan.',
+  'linkCreate.CreateConfluencePage.form.site.label': 'Website',
   'linkCreate.confirm-dismiss-dialog.modal.cancel-button-label': 'Teruggaan',
   'linkCreate.confirm-dismiss-dialog.modal.confirm-button-label': 'Wissen',
   'linkCreate.confirm-dismiss-dialog.modal.description':

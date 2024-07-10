@@ -26,7 +26,7 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	insertAndSelectCaptionFromMediaSinglePos,
@@ -65,7 +65,7 @@ export function keymapPlugin(
 	bindKeymapWithCommand(insertNewLine.common!, splitMediaGroup, list);
 	bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
-	if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
+	if (fg('platform.editor.media.extended-resize-experience')) {
 		bindKeymapWithCommand(
 			increaseMediaSize.common!,
 			handleMediaIncrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
@@ -191,7 +191,7 @@ const handleMediaSizeChange =
 		if (maxWidth === undefined && maxWidthForNestedNode === undefined) {
 			maxWidth = options?.fullWidthEnabled
 				? widthPlugin?.sharedState.currentState()?.lineLength
-				: calcMediaSingleMaxWidth(currentMaxWidth);
+				: calcMediaSingleMaxWidth(currentMaxWidth, options?.editorAppearance);
 		}
 
 		let validation: PixelEntryValidation = 'valid';
@@ -200,7 +200,7 @@ const handleMediaSizeChange =
 		if (options?.fullWidthEnabled) {
 			maxWidth = widthPlugin?.sharedState.currentState()?.lineLength;
 		} else if (maxWidthForNestedNode === undefined) {
-			maxWidth = calcMediaSingleMaxWidth(currentMaxWidth);
+			maxWidth = calcMediaSingleMaxWidth(currentMaxWidth, options?.editorAppearance);
 		}
 
 		const { newWidthValidated, validation: validationResult } = validationMaxMin(

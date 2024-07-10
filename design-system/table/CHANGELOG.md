@@ -1,5 +1,13 @@
 # @atlaskit/table
 
+## 0.6.5
+
+### Patch Changes
+
+- [#118748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118748)
+  [`9bd29fa60203d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9bd29fa60203d) -
+  Remove remnants of `extract-react-types`.
+
 ## 0.6.4
 
 ### Patch Changes

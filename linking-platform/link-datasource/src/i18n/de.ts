@@ -120,6 +120,12 @@ export default {
   'linkDataSource.render-type.boolean.false': 'Nein',
   'linkDataSource.render-type.boolean.true': 'Ja',
   'linkDataSource.render-type.user.default.display.name': 'Nicht zugewiesen',
+  'linkDataSource.search.configmodal.issueCountText':
+    '{searchCount, plural, one {{searchCount,number} Vorgang} other {{searchCount,number} Vorgänge}}',
+  'linkDataSource.search.configmodal.itemCountText':
+    '{searchCount, plural, one {{searchCount,number} Element} other {{searchCount,number} Elemente}}',
+  'linkDataSource.search.configmodal.resultCountText':
+    '{searchCount, plural, one {{searchCount,number} Ergebnis} other {{searchCount,number} Ergebnisse}}',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Gerade synchronisiert',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisiert am {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {Element} other {Elemente}}',

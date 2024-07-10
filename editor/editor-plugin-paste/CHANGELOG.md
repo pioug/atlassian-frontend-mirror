@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.5.3
+
+### Patch Changes
+
+- [#118497](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118497)
+  [`5b4bfa8be2106`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b4bfa8be2106) -
+  Cleanup FF that improves paste behaviour of markdown tables in tables.
+- Updated dependencies
+
+## 1.5.2
+
+### Patch Changes
+
+- [#117897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117897)
+  [`0856aa2920fe2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0856aa2920fe2) -
+  Remove feature flag for bug fix: Copying table content in a multi bodied extension and then
+  pasting creates a new table
+
 ## 1.5.1
 
 ### Patch Changes

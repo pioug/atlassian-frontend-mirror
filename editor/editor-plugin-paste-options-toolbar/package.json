@@ -38,7 +38,7 @@
 		"./styles": "./src/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^84.4.0",
+		"@atlaskit/editor-common": "^84.5.0",
 		"@atlaskit/editor-markdown-transformer": "^5.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-paste": "^1.5.0",

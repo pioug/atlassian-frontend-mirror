@@ -1,5 +1,19 @@
 # @atlaskit/select
 
+## 17.11.6
+
+### Patch Changes
+
+- [#118744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118744)
+  [`998268697de7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/998268697de7d) -
+  Remove remnants of `extract-react-types`.
+
+## 17.11.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.11.4
 
 ### Patch Changes

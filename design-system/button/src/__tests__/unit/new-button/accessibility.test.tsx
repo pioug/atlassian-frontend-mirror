@@ -92,12 +92,7 @@ describe('SplitButton: Accessibility', () => {
 			const view = render(
 				<SplitButton appearance={appearance}>
 					<Button>Primary action</Button>
-					<IconButton
-						onClick={jest.fn()}
-						icon={SettingsIcon}
-						label="Secondary action"
-						UNSAFE_size="small"
-					/>
+					<IconButton onClick={jest.fn()} icon={SettingsIcon} label="Secondary action" />
 				</SplitButton>,
 			);
 
@@ -109,12 +104,7 @@ describe('SplitButton: Accessibility', () => {
 		const view = render(
 			<SplitButton isDisabled>
 				<Button>Primary action</Button>
-				<IconButton
-					onClick={jest.fn()}
-					icon={SettingsIcon}
-					label="Secondary action"
-					UNSAFE_size="small"
-				/>
+				<IconButton onClick={jest.fn()} icon={SettingsIcon} label="Secondary action" />
 			</SplitButton>,
 		);
 

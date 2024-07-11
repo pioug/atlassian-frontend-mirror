@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 12.2.6
+
+### Patch Changes
+
+- [#119154](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119154)
+  [`3ce915501ea5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ce915501ea5c) -
+  Remove remnants of `extract-react-types` from tsconfig file.
+
 ## 12.2.5
 
 ### Patch Changes

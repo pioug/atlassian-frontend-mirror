@@ -165,9 +165,6 @@ const style = { height: '100%', width: '100%' };
 const urlParams = new URLSearchParams(window.location.search);
 export default function EditorExampleForIntegrationTests() {
 	setBooleanFeatureFlagResolver((flagKey) => {
-		if (flagKey === 'platform.linking-platform.smart-card.on-click-callback') {
-			return true;
-		}
 		if (flagKey === 'platform.linking-platform.smart-links-in-live-pages') {
 			return true;
 		}

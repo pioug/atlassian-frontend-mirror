@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.8.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.8.4
 
 ### Patch Changes

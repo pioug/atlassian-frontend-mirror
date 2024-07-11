@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 11.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.10.0
 
 ### Minor Changes

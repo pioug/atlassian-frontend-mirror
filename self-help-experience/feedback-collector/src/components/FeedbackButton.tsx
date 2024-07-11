@@ -31,8 +31,7 @@ const FeedbackButton = (props: Props) => {
 		<>
 			<Button
 				onClick={() => setIsOpen(true)}
-				iconBefore={FeedbackIcon}
-				UNSAFE_iconBefore_size="small"
+				iconBefore={(iconProps) => <FeedbackIcon {...iconProps} size="small" />}
 			>
 				{formatMessage(messages.giveFeedback)}
 			</Button>

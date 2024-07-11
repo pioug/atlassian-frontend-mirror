@@ -27,7 +27,7 @@ export const isAudioMimeTypeSupportedByBrowser = (mimeType: string) =>
 	].indexOf(mimeType.toLowerCase()) > -1;
 
 /**
- * For backward compatilbity, we assume MP4/MOV is natively supported.
+ * For backward compatibility, we assume MP4/MOV is natively supported.
  * TODO: Improve detection of supported video formats by the browser.
  *
  * See related tickets:

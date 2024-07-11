@@ -1,21 +1,14 @@
 import React from 'react';
 
-import { Example, md, Props } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-
-  A skeleton acts as a placeholder for content, usually while the content loads.
-
-  ## Usage
-
-  ${(
-		<Example
-			packageName="@atlaskit/skeleton"
-			Component={require('../examples/constellation/skeleton-basic').default}
-			title="Basic example"
-			source={require('!!raw-loader!../examples/all')}
-		/>
-	)}
-
-  ${(<Props heading="Skeleton Props" props={require('!!extract-react-types-loader!../src')} />)}
+${(
+	<SectionMessage appearance="information">
+		This component is now documented on{' '}
+		<Link href="https://atlassian.design/components/skeleton">atlassian.design</Link>
+	</SectionMessage>
+)}
 `;

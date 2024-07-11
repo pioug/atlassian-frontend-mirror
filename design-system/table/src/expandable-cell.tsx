@@ -27,14 +27,15 @@ const ExpandableCell = memo(() => {
 		toggleExpanded();
 	}, [toggleExpanded]);
 
+	const Icon = isExpanded ? ChevronUpIcon : ChevronDownIcon;
+
 	return (
 		<ExpandableCellPrimitive as="td">
 			<IconButton
 				spacing="compact"
 				appearance="subtle"
-				icon={isExpanded ? ChevronUpIcon : ChevronDownIcon}
+				icon={(iconProps) => <Icon {...iconProps} size="small" />}
 				label="Expand row"
-				UNSAFE_size="small"
 				onClick={handleClick}
 				aria-pressed={isExpanded}
 			/>

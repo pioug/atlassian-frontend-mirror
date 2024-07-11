@@ -6,11 +6,11 @@ import Checkbox from '@atlaskit/checkbox';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Box, Stack } from '@atlaskit/primitives';
 
-import { type CommonIconButtonProps } from '../src/new-button/variants/icon/types';
+import { type IconSize } from '../src/new-button/variants/types';
 import LegacyButton from '../src/old-button/button';
 import { iconButtonVariants } from '../src/utils/variants';
 
-const iconSizes: CommonIconButtonProps['UNSAFE_size'][] = ['small', 'large', 'xlarge'];
+const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
 
 export default function IconButtonExample() {
 	const [showLegacyButton, setShowLegacyButton] = useState(false);

@@ -106,16 +106,14 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		</Modal>
 	);
 
-	const ExampleIcon = () => <Icon label={componentName} />;
 	return (
 		<Box padding="space.050">
 			<Tooltip content={componentName}>
 				<IconButton
-					icon={ExampleIcon}
-					label="example icon"
+					icon={(iconProps) => <Icon {...iconProps} size="large" />}
+					label={componentName}
 					onClick={openModal}
 					appearance="subtle"
-					UNSAFE_size="large"
 				/>
 			</Tooltip>
 			<ModalTransition>{isModalOpen ? modal : null}</ModalTransition>

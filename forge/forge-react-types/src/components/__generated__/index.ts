@@ -23,6 +23,7 @@ export type { HeadingProps } from './HeadingProps.codegen';
 export type { HelperMessageProps } from './HelperMessageProps.codegen';
 export type { IconProps } from './IconProps.codegen';
 export type { InlineProps } from './InlineProps.codegen';
+export type { InlineEditProps } from './InlineEditProps.codegen';
 export type { LabelProps } from './LabelProps.codegen';
 export type { LinkButtonProps } from './LinkButtonProps.codegen';
 export type { ListProps } from './ListProps.codegen';

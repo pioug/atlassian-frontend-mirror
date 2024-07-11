@@ -38,6 +38,14 @@ export type {
 } from './datasource-types';
 
 export type {
+	AtomicActionInterface,
+	ActionsDiscoveryResponse,
+	PermissionInterface,
+	PermissionTypes,
+	ActionsDiscoveryRequest,
+} from './datasource-action-types';
+
+export type {
 	InvokeRequest,
 	InvokeRequestAction,
 	StatusUpdateActionPayload,

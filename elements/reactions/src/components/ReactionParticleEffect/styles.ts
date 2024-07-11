@@ -34,6 +34,10 @@ export const containerStyle = css({
 
 	// Ensure the effect displays above tooltips
 	zIndex: layers.tooltip() + 1,
+
+	'@media (prefers-reduced-motion: reduce)': {
+		opacity: 0,
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

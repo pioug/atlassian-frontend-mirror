@@ -57,10 +57,16 @@
 			"path": "../form/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../locale/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
 		},
 		{
 			"path": "../select/tsconfig.app.json"

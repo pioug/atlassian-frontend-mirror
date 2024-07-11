@@ -40,7 +40,6 @@ export default function IconButtonExample() {
 			/>
 			<IconButton
 				label="Overrides"
-				UNSAFE_size="xlarge"
 				icon={(iconProps) => <StarFilledIcon {...iconProps} size="small" />}
 				testId="deprecation"
 			/>

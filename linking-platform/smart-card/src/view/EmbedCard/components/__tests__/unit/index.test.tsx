@@ -111,63 +111,35 @@ describe('ExpandedFrame', () => {
 		expect(frameStyle.opacity).toBe('0');
 	});
 
-	describe('No tooltip is rendered by default', () => {
-		ffTest(
-			'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
-			// Test passes whether FF is on or off
-			() => {
-				render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
-
-				expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-			},
-		);
+	it('No tooltip is rendered by default', () => {
+		render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+		expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 	});
 
-	describe('Tooltip is rendered when hovered', () => {
-		ffTest(
-			'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
-			// FF is on
-			async () => {
-				render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
-				const header = await screen.getByText('foobar');
+	it('Tooltip is rendered when hovered', async () => {
+		render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+		const header = await screen.getByText('foobar');
 
-				await userEvent.hover(header);
+		await userEvent.hover(header);
 
-				const tooltip = await waitFor(
-					() =>
-						screen.findByRole('tooltip', {
-							name: 'foobar',
-						}),
-					{ timeout: 2000 },
-				);
-
-				expect(tooltip).toBeVisible();
-			},
-			// FF is off
-			async () => {
-				render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
-				const header = await screen.getByText('foobar');
-
-				await userEvent.hover(header);
-
-				expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-			},
+		const tooltip = await waitFor(
+			() =>
+				screen.findByRole('tooltip', {
+					name: 'foobar',
+				}),
+			{ timeout: 2000 },
 		);
+
+		expect(tooltip).toBeVisible();
 	});
 
-	describe('Tooltip is not rendered when not hovered', () => {
-		ffTest(
-			'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
-			// Test passes whether FF is on or off
-			async () => {
-				render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
-				const header = await screen.getByText('foobar');
+	it('Tooltip is not rendered when not hovered', async () => {
+		render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+		const header = await screen.getByText('foobar');
 
-				await userEvent.hover(header);
-				await userEvent.unhover(header);
+		await userEvent.hover(header);
+		await userEvent.unhover(header);
 
-				expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
-			},
-		);
+		expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
 	});
 });

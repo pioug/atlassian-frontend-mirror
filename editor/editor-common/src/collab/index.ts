@@ -346,6 +346,7 @@ export type Activity = 'VIEWING' | 'EDITING';
 
 export type CollabActivityData = {
 	activity: Activity;
+	sessionId: string;
 	userId?: string;
 };
 

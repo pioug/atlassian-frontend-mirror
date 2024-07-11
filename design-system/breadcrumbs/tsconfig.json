@@ -12,7 +12,6 @@
     "./examples/**/*.tsx",
     "./example-helpers/**/*.ts",
     "./example-helpers/**/*.tsx",
-    "extract-react-types/breadcrumbs-props.tsx"
   ],
   "compilerOptions": {
     "baseUrl": "./"

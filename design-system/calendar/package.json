@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/calendar",
-	"version": "14.3.4",
+	"version": "14.3.5",
 	"description": "An interactive calendar for date selection experiences.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/locale": "^2.7.0",
-		"@atlaskit/primitives": "^10.1.0",
+		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.53.0",
 		"@babel/runtime": "^7.0.0",

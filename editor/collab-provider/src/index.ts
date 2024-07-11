@@ -10,6 +10,7 @@ export type {
 	CollabConnectedPayload,
 	CollabDisconnectedPayload,
 	CollabDataPayload,
+	CollabActivityData,
 	CollabTelepointerPayload,
 	CollabPresencePayload,
 	CollabLocalStepsPayload,

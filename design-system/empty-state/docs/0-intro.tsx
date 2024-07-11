@@ -1,29 +1,14 @@
 import React from 'react';
 
-import { code, Example, md, Props } from '@atlaskit/docs';
+import { md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
-  Empty State is used for various scenarios, for example: empty search,
-  no items, broken link, general error message, welcome screen etc.
-  (usually it takes the whole page).
-
-  ## Usage
-
-  ${code`import EmptyState from '@atlaskit/empty-state';`}
-
-  ${(
-		<Example
-			packageName="@atlaskit/empty-state"
-			Component={require('../examples/0-basic').default}
-			title="Basic"
-			source={require('!!raw-loader!../examples/0-basic')}
-		/>
-	)}
-
-  ${(
-		<Props
-			heading="EmptyState Props"
-			props={require('!!extract-react-types-loader!../src/empty-state')}
-		/>
-	)}
+${(
+	<SectionMessage appearance="information">
+		This component is now documented on{' '}
+		<Link href="https://atlassian.design/components/emptpy-state">atlassian.design</Link>
+	</SectionMessage>
+)}
 `;

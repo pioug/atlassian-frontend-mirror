@@ -98,6 +98,25 @@ const WithClickHandler = ({
 		[url, onClickCallback],
 	);
 
+	if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+		/**
+		 * @todo: Add a check to determine if we're currently in a live page once ED-23920 and plugin
+		 * is complete. The logic for which should allow navigation if we're in a live page and no callback
+		 * has been provided. E.g.
+		 *
+		 * const allowNavigation = isLivePage && !onClickCallback;
+		 */
+		const allowNavigation = !onClickCallback;
+
+		return (
+			<>
+				{children({
+					onClick: allowNavigation ? undefined : onClick,
+				})}
+			</>
+		);
+	}
+
 	// Setting `onClick` to `undefined` ensures clicks on smartcards navigate to the URL.
 	// If in view mode and not overriding with onClickCallback option, then allow smartlinks to navigate on click.
 	const allowNavigation = editorViewModeState?.mode === 'view' && !onClickCallback;
@@ -125,8 +144,6 @@ export function Card(
 		state = {
 			isError: false,
 		};
-
-		private onClick = () => {};
 
 		render() {
 			const { pluginInjectionApi, onClickCallback } = this.props;
@@ -167,29 +184,20 @@ export function Card(
 						location: analyticsEditorAppearance,
 					}}
 				>
-					{fg('platform.linking-platform.smart-card.on-click-callback') ? (
-						<WithClickHandler
-							pluginInjectionApi={pluginInjectionApi}
-							onClickCallback={onClickCallback}
-							url={url}
-						>
-							{({ onClick }) => (
-								<SmartCardComponent
-									key={url}
-									cardContext={cardContext}
-									{...this.props}
-									onClick={onClick}
-								/>
-							)}
-						</WithClickHandler>
-					) : (
-						<SmartCardComponent
-							key={url}
-							cardContext={cardContext}
-							{...this.props}
-							onClick={this.onClick}
-						/>
-					)}
+					<WithClickHandler
+						pluginInjectionApi={pluginInjectionApi}
+						onClickCallback={onClickCallback}
+						url={url}
+					>
+						{({ onClick }) => (
+							<SmartCardComponent
+								key={url}
+								cardContext={cardContext}
+								{...this.props}
+								onClick={onClick}
+							/>
+						)}
+					</WithClickHandler>
 				</AnalyticsContext>
 			);
 		}

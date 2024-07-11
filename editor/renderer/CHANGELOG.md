@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.42.0
+
+### Minor Changes
+
+- [#118585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118585)
+  [`88aa7acfd24eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88aa7acfd24eb) -
+  refactor: remove all UNSAFE\_ react APIs from @atlaskit/renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.41.0
 
 ### Minor Changes

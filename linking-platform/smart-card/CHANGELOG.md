@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 27.9.4
+
+### Patch Changes
+
+- [#119173](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119173)
+  [`c63a434cb60e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c63a434cb60e2) -
+  [ux] Remove FF platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw
+
+## 27.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.9.2
 
 ### Patch Changes

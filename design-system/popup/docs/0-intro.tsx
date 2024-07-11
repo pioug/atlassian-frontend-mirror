@@ -8,7 +8,7 @@ export default md`
 ${(
 	<SectionMessage appearance="information">
 		This component is now documented on{' '}
-		<Link href="https://atlassian.design/components">atlassian.design</Link>
+		<Link href="https://atlassian.design/components/popup">atlassian.design</Link>
 	</SectionMessage>
 )}
 `;

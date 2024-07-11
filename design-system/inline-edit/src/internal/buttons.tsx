@@ -73,8 +73,7 @@ const Buttons = ({
 			<div css={buttonWrapperBaseStyles}>
 				<IconButton
 					type="submit"
-					icon={ConfirmIcon}
-					UNSAFE_size="small"
+					icon={(iconProps) => <ConfirmIcon {...iconProps} size="small" />}
 					onMouseDown={onMouseDown}
 					label={confirmButtonLabel}
 					testId={testId && `${testId}--confirm`}
@@ -82,8 +81,7 @@ const Buttons = ({
 			</div>
 			<div css={buttonWrapperBaseStyles}>
 				<IconButton
-					icon={CancelIcon}
-					UNSAFE_size="small"
+					icon={(iconProps) => <CancelIcon {...iconProps} size="small" />}
 					label={cancelButtonLabel}
 					onClick={onCancelClick}
 					onMouseDown={onMouseDown}

@@ -21,7 +21,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		return [
 			{
 				name: 'blockControlsPmPlugin',
-				plugin: () => createPlugin(api),
+				plugin: ({ getIntl }) => createPlugin(api, getIntl),
 			},
 		];
 	},

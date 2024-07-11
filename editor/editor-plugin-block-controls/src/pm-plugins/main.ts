@@ -1,4 +1,5 @@
 import rafSchedule from 'raf-schd';
+import { type IntlShape } from 'react-intl-next';
 
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import {
@@ -101,7 +102,10 @@ const initialState: PluginState = {
 
 const DRAG_AND_DROP_DOC_SIZE_LIMIT = 50;
 
-export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+export const createPlugin = (
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
+	getIntl: () => IntlShape,
+) => {
 	return new SafePlugin({
 		key,
 		state: {
@@ -226,7 +230,13 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 
 							activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
 						}
-						const draghandleDec = dragHandleDecoration(activeNode.pos, anchorName, nodeType, api);
+						const draghandleDec = dragHandleDecoration(
+							activeNode.pos,
+							anchorName,
+							nodeType,
+							api,
+							getIntl,
+						);
 
 						decorations = decorations.add(newState.doc, [draghandleDec]);
 					}
@@ -246,6 +256,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 						meta.activeNode.anchorName,
 						meta.activeNode.nodeType,
 						api,
+						getIntl,
 					);
 					decorations = decorations.add(newState.doc, [decs]);
 				}
@@ -264,6 +275,7 @@ export const createPlugin = (api: ExtractInjectionAPI<BlockControlsPlugin> | und
 							activeNodeWithNewNodeType.anchorName,
 							activeNodeWithNewNodeType.nodeType,
 							api,
+							getIntl,
 						);
 						decorations = decorations.add(newState.doc, [decs]);
 					}

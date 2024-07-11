@@ -1,5 +1,28 @@
 # @atlaskit/menu
 
+## 2.7.4
+
+### Patch Changes
+
+- [#119132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119132)
+  [`68ee7be8867d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/68ee7be8867d0) -
+  Remove remnants of `extract-react-types` from tsconfig file.
+
+## 2.7.3
+
+### Patch Changes
+
+- [#119110](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119110)
+  [`cb28fa67e9a16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb28fa67e9a16) -
+  Update Atlaskit docs so that they point to current ADS site. Remove remnants of
+  `extract-react-types`.
+
+## 2.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.1
 
 ### Patch Changes

@@ -61,7 +61,11 @@ const CustomHeader = () => {
 					top: token('space.050', '4px'),
 				}}
 			>
-				<IconButton onClick={onClose} icon={CrossIcon} label="Close Modal" UNSAFE_size="small" />
+				<IconButton
+					onClick={onClose}
+					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+					label="Close Modal"
+				/>
 			</span>
 		</div>
 	);
@@ -142,9 +146,8 @@ export default function ModalDemo() {
 								<ModalTitle>Modal: {variant}</ModalTitle>
 								<IconButton
 									onClick={close}
-									icon={CrossIcon}
+									icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
 									label="Close Modal"
-									UNSAFE_size="small"
 								/>
 							</ModalHeader>
 						)}

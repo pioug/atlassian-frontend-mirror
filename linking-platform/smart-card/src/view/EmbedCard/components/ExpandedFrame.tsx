@@ -73,20 +73,6 @@ export const ExpandedFrame = ({
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();
 
-	const renderHeaderOld = () => (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<Header className="embed-header" frameStyle={frameStyle}>
-			<IconWrapper isPlaceholder={isPlaceholder}>{!isPlaceholder && icon}</IconWrapper>
-			<TextWrapper isPlaceholder={isPlaceholder}>
-				{!isPlaceholder && (
-					<a href={href} onClick={handleClick} onMouseDown={handleMouseDown}>
-						{text}
-					</a>
-				)}
-			</TextWrapper>
-		</Header>
-	);
-
 	const renderHeader = () => (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		<Header className="embed-header" frameStyle={frameStyle}>
@@ -138,9 +124,7 @@ export const ExpandedFrame = ({
 				data-is-selected={isSelected}
 				inheritDimensions={inheritDimensions}
 			>
-				{fg('platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw')
-					? renderHeader()
-					: renderHeaderOld()}
+				{renderHeader()}
 				{renderContent()}
 			</LinkWrapper>
 		);
@@ -160,9 +144,7 @@ export const ExpandedFrame = ({
 				data-wrapper-type="default"
 				data-is-interactive={isInteractive()}
 			>
-				{fg('platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw')
-					? renderHeader()
-					: renderHeaderOld()}
+				{renderHeader()}
 				{renderContent()}
 			</Wrapper>
 		);

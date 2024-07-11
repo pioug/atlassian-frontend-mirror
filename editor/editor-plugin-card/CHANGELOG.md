@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-card
 
+## 2.5.1
+
+### Patch Changes
+
+- [#119163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119163)
+  [`45ae1b9a97c16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45ae1b9a97c16) -
+  [ux] Added onDropdownChange prop to overlay in editor-common. Used this prop to keep link
+  configure overlay open when dropdown is open, and hide overlay when dropdown is hidden.
+- Updated dependencies
+
+## 2.5.0
+
+### Minor Changes
+
+- [#119135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119135)
+  [`a4a41c5e54071`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4a41c5e54071) -
+  Allow smart links to navigate in live pages edit view
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.2
 
 ### Patch Changes

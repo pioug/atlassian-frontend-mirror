@@ -44,7 +44,6 @@ describe('SplitButton', () => {
 					onClick={secondaryActionClickMock}
 					icon={SettingsIcon}
 					label="Secondary action"
-					UNSAFE_size="small"
 				/>
 			</SplitButton>,
 		);

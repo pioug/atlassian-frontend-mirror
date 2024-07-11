@@ -1,5 +1,14 @@
 # @atlaskit/textfield
 
+## 6.4.2
+
+### Patch Changes
+
+- [#119154](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119154)
+  [`0733b41bad0b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0733b41bad0b4) -
+  Remove remnants of `extract-react-types` from textfield. Previously had a workaround so that API
+  could be properly documented, but is no longer necessary.
+
 ## 6.4.1
 
 ### Patch Changes

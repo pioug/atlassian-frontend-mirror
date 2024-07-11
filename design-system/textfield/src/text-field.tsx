@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import React, { forwardRef, memo, useCallback, useMemo, useRef } from 'react';
+import React, { forwardRef, useCallback, useMemo, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -18,7 +18,16 @@ const analyticsParams = {
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const TextfieldComponent = forwardRef((props: TextfieldProps, ref) => {
+/**
+ * __Textfield__
+ *
+ * A text field is an input that allows a user to write or edit text.
+ *
+ * - [Examples](https://atlassian.design/components/textfield/examples)
+ * - [Code](https://atlassian.design/components/textfield/code)
+ * - [Usage](https://atlassian.design/components/textfield/usage)
+ */
+const Textfield = forwardRef((props: TextfieldProps, ref) => {
 	const {
 		appearance = 'standard',
 		className,
@@ -151,20 +160,5 @@ const TextfieldComponent = forwardRef((props: TextfieldProps, ref) => {
 		</div>
 	);
 });
-
-TextfieldComponent.displayName = 'Textfield';
-
-/**
- * __Textfield__
- *
- * A text field is an input that allows a user to write or edit text.
- *
- * - [Examples](https://atlassian.design/components/textfield/examples)
- * - [Code](https://atlassian.design/components/textfield/code)
- * - [Usage](https://atlassian.design/components/textfield/usage)
- */
-const Textfield = memo<TextfieldProps & React.RefAttributes<unknown>>(TextfieldComponent);
-// The above generic is used to let ERTC know what props to extract.
-// See: https://github.com/atlassian/extract-react-types/issues/201
 
 export default Textfield;

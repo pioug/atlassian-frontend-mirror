@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component, type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import {
 	type ContentRef,
@@ -26,40 +25,34 @@ export interface State {
 	resolvedContextProvider?: ContextIdentifierProvider;
 }
 
-export default class TaskItemWithProviders extends Component<Props, State> {
-	state: State = { resolvedContextProvider: undefined };
+export default function TaskItemWithProviders(props: Props) {
+	const { contextIdentifierProvider, objectAri, isRenderer, ...otherProps } = props;
 
-	UNSAFE_componentWillMount() {
-		this.updateContextIdentifierProvider(this.props);
-	}
+	const [resolvedContextProvider, setResolvedContextProvider] = React.useState<
+		ContextIdentifierProvider | undefined
+	>(undefined);
 
-	UNSAFE_componentWillReceiveProps(nextProps: Props) {
-		if (nextProps.contextIdentifierProvider !== this.props.contextIdentifierProvider) {
-			this.updateContextIdentifierProvider(nextProps);
-		}
-	}
-
-	private async updateContextIdentifierProvider(props: Props) {
-		if (props.contextIdentifierProvider) {
-			try {
-				const resolvedContextProvider = await props.contextIdentifierProvider;
-				this.setState({ resolvedContextProvider });
-			} catch (err) {
-				this.setState({ resolvedContextProvider: undefined });
+	const updateContextIdentifierProvider = React.useCallback(
+		async (contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined) => {
+			if (contextIdentifierProvider) {
+				try {
+					const resolvedContextProvider = await contextIdentifierProvider;
+					setResolvedContextProvider(resolvedContextProvider);
+					return;
+				} catch (err) {}
 			}
-		} else {
-			this.setState({ resolvedContextProvider: undefined });
-		}
-	}
 
-	render() {
-		const { contextIdentifierProvider, objectAri, isRenderer, ...otherProps } = this.props;
-		const resolvedObjectId =
-			(this.state.resolvedContextProvider && this.state.resolvedContextProvider.objectId) ||
-			objectAri;
+			setResolvedContextProvider(undefined);
+		},
+		[],
+	);
 
-		return (
-			<ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />
-		);
-	}
+	React.useMemo(() => {
+		updateContextIdentifierProvider(props.contextIdentifierProvider);
+	}, [props.contextIdentifierProvider, updateContextIdentifierProvider]);
+
+	const resolvedObjectId =
+		(resolvedContextProvider && resolvedContextProvider.objectId) || objectAri;
+
+	return <ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />;
 }

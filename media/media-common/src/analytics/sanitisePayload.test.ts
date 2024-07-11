@@ -2,11 +2,11 @@ import { sanitiseAnalyticsPayload } from './sanitisePayload';
 
 describe('sanitiseAnalyticsPayload', () => {
 	it('should sanitise the file id', () => {
-		const ivalidId = 'this is an invalid file id';
+		const invalidId = 'this is an invalid file id';
 		const payload = {
 			attributes: {
 				fileAttributes: {
-					fileId: ivalidId,
+					fileId: invalidId,
 					anotherAttr: 'some value',
 				},
 			},
@@ -25,7 +25,7 @@ describe('sanitiseAnalyticsPayload', () => {
 			anotherAttr2: 'some value 2',
 		});
 
-		expect(payload.attributes.fileAttributes.fileId).toBe(ivalidId);
+		expect(payload.attributes.fileAttributes.fileId).toBe(invalidId);
 	});
 
 	it('should preserve a valid file id', () => {

@@ -49,7 +49,11 @@ const CustomHeader = () => {
 					top: token('space.050', '4px'),
 				}}
 			>
-				<IconButton onClick={onClose} label="Close Modal" icon={CrossIcon} UNSAFE_size="small" />
+				<IconButton
+					onClick={onClose}
+					label="Close Modal"
+					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+				/>
 			</span>
 		</div>
 	);

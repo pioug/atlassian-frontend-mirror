@@ -77,16 +77,14 @@ const AvatarGroupExample: FC = () => {
 						<Button
 							isDisabled={avatarSize === 'small'}
 							onClick={() => decrement('sizeIndex')}
-							iconBefore={ArrowDown}
-							UNSAFE_iconBefore_size="small"
+							iconBefore={(iconProps) => <ArrowDown {...iconProps} size="small" />}
 						>
 							Smaller
 						</Button>
 						<Button
 							isDisabled={avatarSize === 'xlarge'}
 							onClick={() => increment('sizeIndex')}
-							iconBefore={ArrowUp}
-							UNSAFE_iconBefore_size="small"
+							iconBefore={(iconProps) => <ArrowUp {...iconProps} size="small" />}
 						>
 							Larger
 						</Button>
@@ -102,16 +100,14 @@ const AvatarGroupExample: FC = () => {
 						<Button
 							isDisabled={avatarCount <= 1}
 							onClick={() => decrement('avatarCount')}
-							iconBefore={ArrowDown}
-							UNSAFE_iconBefore_size="small"
+							iconBefore={(iconProps) => <ArrowDown {...iconProps} size="small" />}
 						>
 							Less
 						</Button>
 						<Button
 							isDisabled={avatarCount >= 30}
 							onClick={() => increment('avatarCount')}
-							iconBefore={ArrowUp}
-							UNSAFE_iconBefore_size="small"
+							iconBefore={(iconProps) => <ArrowUp {...iconProps} size="small" />}
 						>
 							More
 						</Button>
@@ -127,16 +123,14 @@ const AvatarGroupExample: FC = () => {
 						<Button
 							isDisabled={avatarCountMax <= 1}
 							onClick={() => decrement('avatarCountMax')}
-							iconBefore={ArrowDown}
-							UNSAFE_iconBefore_size="small"
+							iconBefore={(iconProps) => <ArrowDown {...iconProps} size="small" />}
 						>
 							Less
 						</Button>
 						<Button
 							isDisabled={avatarCountMax >= 30}
 							onClick={() => increment('avatarCountMax')}
-							iconBefore={ArrowUp}
-							UNSAFE_iconBefore_size="small"
+							iconBefore={(iconProps) => <ArrowUp {...iconProps} size="small" />}
 						>
 							More
 						</Button>

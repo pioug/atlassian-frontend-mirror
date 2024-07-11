@@ -17,7 +17,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ButtonWrapper } from './decorations';
 
@@ -225,7 +225,9 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 								timesViewed: state.timesViewed,
 								searchSessionId: state.searchSessionId,
 							};
+
 					state = {
+						...(fg('platform.linking-platform.smart-links-in-live-pages') && state),
 						activeText: state.activeText,
 						canInsertLink: state.canInsertLink,
 						inputMethod,
@@ -234,14 +236,25 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 						...stateForAnalytics,
 					};
 
-					if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+					if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+						if (action === LinkAction.SET_CONFIGURE_DROPDOWN_OPEN) {
+							const configureDropdownOpen = tr.getMeta(stateKey).isOpen;
+							// Hide overlay when the dropdown is closed (state is updated to false)
+							const decorations = configureDropdownOpen ? {} : { decorations: DecorationSet.empty };
+
+							state = {
+								...state,
+								...decorations,
+								configureDropdownOpen,
+							};
+						}
 						if (action === LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS) {
 							const configureButtonTargetPos = tr.getMeta(stateKey).pos;
-
 							const targetPosHasChanged =
 								pluginState.configureButtonTargetPos !== configureButtonTargetPos;
 							let decorations = pluginState.decorations;
-							if (targetPosHasChanged) {
+
+							if (targetPosHasChanged && state.configureDropdownOpen !== true) {
 								if (configureButtonTargetPos === undefined) {
 									decorations = DecorationSet.empty;
 								} else {
@@ -249,6 +262,7 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 										return ButtonWrapper({
 											editorView: view,
 											pos: configureButtonTargetPos,
+											stateKey,
 											intl,
 										});
 									});
@@ -293,7 +307,7 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 		key: stateKey,
 		props: {
 			decorations: (state: EditorState) => {
-				if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+				if (fg('platform.linking-platform.smart-links-in-live-pages')) {
 					const { decorations } = stateKey.getState(state) ?? {};
 					return decorations;
 				} else {
@@ -334,7 +348,7 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 					return false;
 				},
 			},
-			...(getBooleanFF('platform.linking-platform.smart-links-in-live-pages') && {
+			...(fg('platform.linking-platform.smart-links-in-live-pages') && {
 				markViews: {
 					link: (mark, view, inline) => {
 						const toDOM = mark.type.spec.toDOM;

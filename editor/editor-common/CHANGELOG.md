@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 84.5.0
+
+### Minor Changes
+
+- [#119314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119314)
+  [`e7b05702b37eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7b05702b37eb) -
+  Include session id in the activity join/ack data
+- [#119163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119163)
+  [`45ae1b9a97c16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45ae1b9a97c16) -
+  [ux] Added onDropdownChange prop to overlay in editor-common. Used this prop to keep link
+  configure overlay open when dropdown is open, and hide overlay when dropdown is hidden.
+
+## 84.4.2
+
+### Patch Changes
+
+- [#118866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118866)
+  [`77bd34b00632f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77bd34b00632f) -
+  [ux] [ED-23873] Add tooltip to drag handle
+
+## 84.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 84.4.0
 
 ### Minor Changes

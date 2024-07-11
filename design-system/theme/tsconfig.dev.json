@@ -57,9 +57,6 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
-			"path": "../lozenge/tsconfig.app.json"
-		},
-		{
 			"path": "../section-message/tsconfig.app.json"
 		},
 		{

@@ -15,7 +15,7 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { cardMessages } from '../../messages';
 
-import Dropdown from './Dropdown';
+import Dropdown, { type OnDropdownChange } from './Dropdown';
 import { StyledButton } from './StyledButton';
 
 const buttonWrapperStyles = css({
@@ -32,6 +32,10 @@ export interface OverlayButtonProps {
 	editorView: EditorView;
 	testId?: string;
 	targetElementPos?: number;
+	/**
+	 * Called when the dropdown is open/closed with isOpen state as true and false respectively.
+	 */
+	onDropdownChange?: OnDropdownChange;
 }
 
 const showDropdownThresholdPx = 50;
@@ -40,6 +44,7 @@ export const OverlayButton = ({
 	editorView,
 	testId = 'link-configure-overlay-button',
 	targetElementPos = 0,
+	onDropdownChange,
 }: OverlayButtonProps) => {
 	const { formatMessage } = useIntl();
 	const configureLinkLabel = formatMessage(cardMessages.inlineConfigureLink);
@@ -85,7 +90,7 @@ export const OverlayButton = ({
 	return (
 		<span css={buttonWrapperStyles} data-testid={testId}>
 			{showDropdown ? (
-				<Dropdown testId={testId} />
+				<Dropdown testId={testId} onDropdownChange={onDropdownChange} />
 			) : (
 				<Tooltip
 					content={configureLinkLabel}

@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 22.8.5
+
+### Patch Changes
+
+- [#118651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118651)
+  [`cd0076681b737`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd0076681b737) -
+  hide floating reactions effect when user opts for reduced motion
+
+## 22.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.8.3
 
 ### Patch Changes

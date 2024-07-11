@@ -30,8 +30,15 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
 	};
 
 	render() {
-		const { title, icon, iconSize, keymapDescription, disabled, isPressed, appearance } =
-			this.props;
+		const {
+			title,
+			icon: Icon,
+			iconSize,
+			keymapDescription,
+			disabled,
+			isPressed,
+			appearance,
+		} = this.props;
 		const pressedProps = {
 			...(typeof isPressed === 'boolean' && { 'aria-pressed': isPressed }),
 		};
@@ -49,8 +56,7 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
 					appearance={appearance}
 					testId={title}
 					ref={this.buttonRef}
-					icon={icon}
-					UNSAFE_size={iconSize}
+					icon={(iconProps) => <Icon {...iconProps} size={iconSize} />}
 					isDisabled={disabled}
 					onClick={this.handleClick}
 					isSelected={isPressed}

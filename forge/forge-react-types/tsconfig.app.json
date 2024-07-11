@@ -62,6 +62,9 @@
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/inline-edit/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/lozenge/tsconfig.app.json"
 		},
 		{

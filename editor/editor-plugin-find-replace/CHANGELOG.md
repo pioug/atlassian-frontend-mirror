@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.3.9
+
+### Patch Changes
+
+- [#119140](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119140)
+  [`dbda45aec4c30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbda45aec4c30) -
+  Migrated usages of deprecated button `UNSAFE` icon size props to new render prop.
+- Updated dependencies
+
+## 1.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.7
 
 ### Patch Changes

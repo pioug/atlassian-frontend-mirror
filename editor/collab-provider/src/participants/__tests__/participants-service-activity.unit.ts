@@ -13,8 +13,9 @@ describe('participants-service-activity', () => {
 	let analyticsHelper: AnalyticsHelper;
 	let analyticsSpy: any;
 	let participantsService: ParticipantsService;
-	let payload: ActivityPayload;
-	let activityData: CollabActivityData;
+	let activityPayload: ActivityPayload;
+	let presenceData: Pick<CollabActivityData, 'sessionId' | 'userId'>;
+	let activityAckData: CollabActivityData;
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -23,12 +24,13 @@ describe('participants-service-activity', () => {
 		getUser = jest.fn();
 		sendPresenceJoined = jest.fn();
 		setUserId = jest.fn();
-		getPresenceData = jest.fn().mockReturnValue(payload);
+		getPresenceData = jest.fn().mockReturnValue(presenceData);
 		analyticsHelper = new AnalyticsHelper('nope');
 		analyticsSpy = jest.spyOn(analyticsHelper, 'sendErrorEvent');
-		payload = {
-			userId: '456',
+		activityPayload = {
+			userId: '123',
 			activity: 'VIEWING',
+			sessionId: 'xyz321',
 		};
 		participantsService = new ParticipantsService(
 			analyticsHelper,
@@ -41,21 +43,25 @@ describe('participants-service-activity', () => {
 			getPresenceData,
 			setUserId,
 		);
-		activityData = {
+		presenceData = {
 			userId: '456',
+			sessionId: 'abc654',
+		};
+		activityAckData = {
 			activity: 'VIEWING',
+			...presenceData,
 		};
 	});
 
 	describe('onParticipantActivityJoin', () => {
 		describe('on success', () => {
 			beforeEach(() => {
-				participantsService.onParticipantActivityJoin(payload);
+				participantsService.onParticipantActivityJoin(activityPayload);
 			});
 
 			it('should emit presence', () => {
 				expect(emit).toHaveBeenCalledTimes(1);
-				expect(emit).toHaveBeenCalledWith('activity:join', activityData);
+				expect(emit).toHaveBeenCalledWith('activity:join', activityPayload);
 			});
 		});
 
@@ -65,7 +71,7 @@ describe('participants-service-activity', () => {
 				emit.mockImplementation(() => {
 					throw error;
 				});
-				participantsService.onParticipantActivityJoin(payload);
+				participantsService.onParticipantActivityJoin(activityPayload);
 			});
 
 			it('should catch error and send analytics', () => {
@@ -78,12 +84,12 @@ describe('participants-service-activity', () => {
 	describe('onParticipantActivityAck', () => {
 		describe('on success', () => {
 			beforeEach(() => {
-				participantsService.onParticipantActivityAck(payload);
+				participantsService.onParticipantActivityAck(activityPayload);
 			});
 
 			it('should broadcast presence', () => {
 				expect(emit).toHaveBeenCalledTimes(1);
-				expect(emit).toHaveBeenCalledWith('activity:ack', payload);
+				expect(emit).toHaveBeenCalledWith('activity:ack', activityAckData);
 			});
 		});
 
@@ -93,7 +99,7 @@ describe('participants-service-activity', () => {
 				emit.mockImplementation(() => {
 					throw error;
 				});
-				participantsService.onParticipantActivityAck(payload);
+				participantsService.onParticipantActivityAck(activityPayload);
 			});
 
 			it('should catch error and send analytics', () => {

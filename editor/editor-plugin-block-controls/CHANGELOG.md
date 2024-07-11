@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.15
+
+### Patch Changes
+
+- [#118866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118866)
+  [`77bd34b00632f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77bd34b00632f) -
+  [ux] [ED-23873] Add tooltip to drag handle
+
+## 1.5.14
+
+### Patch Changes
+
+- [#119010](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119010)
+  [`9853843dd0dc9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9853843dd0dc9) -
+  [ux] ED-23189 Update generic preview to match node dimensions
+
 ## 1.5.13
 
 ### Patch Changes

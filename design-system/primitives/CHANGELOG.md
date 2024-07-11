@@ -1,5 +1,68 @@
 # @atlaskit/primitives
 
+## 11.0.0
+
+### Major Changes
+
+- [#119014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119014)
+  [`80c46fcb18957`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80c46fcb18957) -
+  Increased type safety for `xcss`. In general, non-token values for the following properties are no
+  longer allowed:
+
+  - `margin`
+  - `marginBlock`
+  - `marginBlockEnd`
+  - `marginBlockStart`
+  - `marginBottom`
+  - `marginInline`
+  - `marginInlineEnd`
+  - `marginInlineStart`
+  - `marginLeft`
+  - `marginRight`
+  - `marginTop`
+  - `paddingBottom`
+  - `paddingLeft`
+  - `paddingRight`
+  - `paddingTop`
+
+  Note: Logical properties for `padding`, e.g. `paddingInline`, already prohibit non-token values.
+
+  For example:
+
+  ```typescript
+  const styles = xcss({
+    padding: '8px', //  <-- Type Error
+             ^^^^^
+  });
+  ```
+
+  A few additional non-token values are still accepted:
+
+  - `margin`: `'0 auto'` | `'auto'` | `'0'`
+  - `marginBlock`: `'auto'` | `'0'`
+  - `marginBlockEnd`: `'auto'` | `'0'`
+  - `marginBlockStart`: `'auto'` | `'0'`
+  - `marginBottom`: `'auto'` | `'0'`
+  - `marginInline`: `'auto'` | `'0'`
+  - `marginInlineEnd`: `'auto'` | `'0'`
+  - `marginInlineStart`: `'auto'` | `'0'`
+  - `marginLeft`: `'auto'` | `'0'`
+  - `marginRight`: `'auto'` | `'0'`
+  - `marginTop`: `'auto'` | `'0'`
+  - `paddingBlock`: `'0'`
+  - `paddingBlockEnd`: `'0'`
+  - `paddingBlockStart`: `'0'`
+  - `paddingBottom`: `'0'`
+  - `paddingInline`: `'0'`
+  - `paddingInlineEnd`: `'0'`
+  - `paddingInlineStart`: `'0'`
+  - `paddingLeft`: `'0'`
+  - `paddingRight`: `'0'`
+  - `paddingTop`: `'0'`
+
+  as well as global CSS properties: `'inherit'` | `'initial'` | `'revert'` | `'revert-layer'` |
+  `'unset'`
+
 ## 10.1.0
 
 ### Minor Changes

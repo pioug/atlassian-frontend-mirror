@@ -1,6 +1,7 @@
 import { createElement } from 'react';
 
 import ReactDOM from 'react-dom';
+import { type IntlShape, RawIntlProvider } from 'react-intl-next';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -186,6 +187,7 @@ export const dragHandleDecoration = (
 	anchorName: string,
 	nodeType: string,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
+	getIntl: () => IntlShape,
 ) => {
 	return Decoration.widget(
 		pos,
@@ -201,13 +203,17 @@ export const dragHandleDecoration = (
 				element.style.clear = 'unset';
 			}
 			ReactDOM.render(
-				createElement(DragHandle, {
-					view,
-					api,
-					getPos,
-					anchorName,
-					nodeType,
-				}),
+				createElement(
+					RawIntlProvider,
+					{ value: getIntl() },
+					createElement(DragHandle, {
+						view,
+						api,
+						getPos,
+						anchorName,
+						nodeType,
+					}),
+				),
 				element,
 			);
 			return element;

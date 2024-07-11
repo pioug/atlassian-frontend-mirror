@@ -7,7 +7,7 @@ export default md`
 ${(
 	<SectionMessage appearance="information">
 		This component is now documented on{' '}
-		<a href="https://atlassian.design/components">atlassian.design</a>
+		<a href="https://atlassian.design/components/dropdown-menu">atlassian.design</a>
 	</SectionMessage>
 )}
 `;

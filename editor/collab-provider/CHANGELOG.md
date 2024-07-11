@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.33.0
+
+### Minor Changes
+
+- [#119314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119314)
+  [`e7b05702b37eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7b05702b37eb) -
+  Include session id in the activity join/ack data
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.32.3
 
 ### Patch Changes

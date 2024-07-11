@@ -139,10 +139,10 @@ export class MediaCardView extends Component<
 		}
 	}
 
-	UNSAFE_componentWillReceiveProps(newProps: MediaCardProps) {
-		const { id: newId } = newProps;
-		if (newId && newId !== this.props.id) {
-			this.saveFileState(newId);
+	componentDidUpdate(prevProps: MediaCardProps) {
+		const { id: oldId } = prevProps;
+		if (this.props.id && oldId !== this.props.id) {
+			this.saveFileState(this.props.id);
 		}
 	}
 

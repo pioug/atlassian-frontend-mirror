@@ -130,6 +130,15 @@ export const focusToContextMenuTrigger = makeKeyMapWithCommon(
 	'Shift-F10',
 );
 
+export const dragToMoveUp = makeKeyMapWithCommon(
+	'Move node up in the document',
+	'Ctrl-Alt-Shift-ArrowUp',
+);
+export const dragToMoveDown = makeKeyMapWithCommon(
+	'Move node down in the document',
+	'Ctrl-Alt-Shift-ArrowDown',
+);
+
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 	ARROWLEFT: '\u2190',
@@ -196,6 +205,25 @@ export const ToolTipContent = React.memo(
 				{shortcut && <span css={tooltipShortcutStyle}>{shortcut}</span>}
 			</Fragment>
 		) : null;
+	},
+);
+
+export const TooltipContentWithMultipleShortcuts = React.memo(
+	({
+		helpDescriptors,
+	}: {
+		helpDescriptors: { description?: string | React.ReactNode; keymap?: Keymap }[];
+	}) => {
+		const keymapCount = helpDescriptors.length;
+		return (
+			<Fragment>
+				{helpDescriptors.map((descriptor, index) => (
+					<Fragment key={index}>
+						<ToolTipContent {...descriptor} /> {index < keymapCount - 1 && <br />}
+					</Fragment>
+				))}
+			</Fragment>
+		);
 	},
 );
 

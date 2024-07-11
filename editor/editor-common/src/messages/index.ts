@@ -30,6 +30,7 @@ export { panelMessages } from './panel';
 export { mentionMessages } from './mentions';
 export { helpDialogMessages } from './help-dialog';
 export { highlightMessages } from './highlight';
+export { messages as blockControlsMessages } from './block-controls';
 
 export default defineMessages({
 	layoutFixedWidth: {

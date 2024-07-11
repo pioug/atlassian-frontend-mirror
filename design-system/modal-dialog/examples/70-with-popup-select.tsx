@@ -34,9 +34,8 @@ export default function ModalWithPopupSelect() {
 							<ModalTitle>Modal with popup select</ModalTitle>
 							<IconButton
 								onClick={close}
-								icon={CrossIcon}
+								icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
 								label="Close Modal"
-								UNSAFE_size="small"
 							/>
 						</ModalHeader>
 						<ModalBody>

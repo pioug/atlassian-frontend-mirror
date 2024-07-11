@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 194.1.1
+
+### Patch Changes
+
+- [#118699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118699)
+  [`9ac8b82ec8dc7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ac8b82ec8dc7) -
+  Add VR tests for new macro button UI
+
 ## 194.1.0
 
 ### Minor Changes

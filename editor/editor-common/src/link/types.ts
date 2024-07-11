@@ -11,6 +11,7 @@ export enum LinkAction {
 	INSERT_LINK_TOOLBAR = 'INSERT',
 	EDIT_INSERTED_TOOLBAR = 'EDIT_INSERTED_TOOLBAR',
 	SET_CONFIGURE_BUTTON_TARGET_POS = 'SET_CONFIGURE_BUTTON_TARGET_POS',
+	SET_CONFIGURE_DROPDOWN_OPEN = 'SET_CONFIGURE_DROPDOWN_OPEN',
 }
 
 export enum InsertStatus {
@@ -49,4 +50,5 @@ export interface HyperlinkState {
 	editorAppearance?: EditorAppearance;
 	configureButtonTargetPos?: number;
 	decorations?: DecorationSet;
+	configureDropdownOpen?: boolean;
 }

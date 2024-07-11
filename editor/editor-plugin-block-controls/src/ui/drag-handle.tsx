@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import {
 	ACTION,
@@ -11,6 +12,12 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import {
+	dragToMoveDown,
+	dragToMoveUp,
+	TooltipContentWithMultipleShortcuts,
+} from '@atlaskit/editor-common/keymaps';
+import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -19,6 +26,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
@@ -70,19 +78,20 @@ const selectedStyles = css({
 	color: token('color.icon.selected', '#0C66E4'),
 });
 
-export const DragHandle = ({
+const DragHandleInternal = ({
 	view,
 	api,
 	getPos,
 	anchorName,
 	nodeType,
+	intl: { formatMessage },
 }: {
 	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 	getPos: () => number | undefined;
 	anchorName: string;
 	nodeType: string;
-}) => {
+} & WrappedComponentProps) => {
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -295,7 +304,20 @@ export const DragHandle = ({
 		};
 	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
 
-	return (
+	const helpDescriptors = [
+		{
+			description: formatMessage(blockControlsMessages.dragToMove),
+		},
+		{
+			description: formatMessage(blockControlsMessages.moveUp),
+			keymap: dragToMoveUp,
+		},
+		{
+			description: formatMessage(blockControlsMessages.moveDown),
+			keymap: dragToMoveDown,
+		},
+	];
+	const renderButton = () => (
 		<button
 			type="button"
 			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
@@ -313,4 +335,13 @@ export const DragHandle = ({
 			<DragHandlerIcon label="" size="medium" />
 		</button>
 	);
+	return fg('platform_editor_element_drag_and_drop_ed_23873') ? (
+		<Tooltip content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}>
+			{renderButton()}
+		</Tooltip>
+	) : (
+		renderButton()
+	);
 };
+
+export const DragHandle = injectIntl(DragHandleInternal);

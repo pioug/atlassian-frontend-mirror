@@ -198,6 +198,7 @@ export type PresencePayload = PresenceData & {
 export type ActivityPayload = {
 	userId: string | undefined;
 	activity: Activity;
+	sessionId: string;
 };
 
 export type TelepointerPayload = PresencePayload & {

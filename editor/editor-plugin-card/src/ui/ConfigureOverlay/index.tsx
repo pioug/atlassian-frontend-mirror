@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 // not permitted to migrate atlaskit packages to compiled yet, see https://hello.atlassian.net/wiki/spaces/UAF/pages/3006969423/Migrating+AFM+platform+components+to+Compiled+a+guide
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
@@ -24,16 +24,32 @@ const OverlayWrapper = ({
 	children: JSX.Element;
 }) => {
 	const [showConfigureButton, setShowConfigureButton] = useState(false);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+
+	const onDropdownChange = useCallback((isOpen: boolean) => {
+		setDropdownOpen(isOpen);
+		if (!isOpen) {
+			setShowConfigureButton(false);
+		}
+	}, []);
 
 	return (
 		<span
 			onMouseEnter={() => setShowConfigureButton(true)}
-			onMouseLeave={() => setShowConfigureButton(false)}
+			onMouseLeave={() => {
+				if (!dropdownOpen) {
+					setShowConfigureButton(false);
+				}
+			}}
 			data-testid="inline-card-overlay-wrapper"
 		>
 			<span css={ConfigureOverlayWrapperStyles}>
 				{showConfigureButton && (
-					<OverlayButton editorView={view} targetElementPos={targetElementPos} />
+					<OverlayButton
+						editorView={view}
+						targetElementPos={targetElementPos}
+						onDropdownChange={onDropdownChange}
+					/>
 				)}
 			</span>
 			{children}

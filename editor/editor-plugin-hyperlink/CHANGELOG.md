@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.3.18
+
+### Patch Changes
+
+- [#119163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119163)
+  [`45ae1b9a97c16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45ae1b9a97c16) -
+  [ux] Added onDropdownChange prop to overlay in editor-common. Used this prop to keep link
+  configure overlay open when dropdown is open, and hide overlay when dropdown is hidden.
+- Updated dependencies
+
+## 2.3.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.14
 
 ### Patch Changes

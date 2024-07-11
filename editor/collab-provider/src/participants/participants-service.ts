@@ -282,11 +282,7 @@ export class ParticipantsService {
 	onParticipantActivityJoin = (payload: ActivityPayload) => {
 		try {
 			logger('New participant joined: ', payload.activity);
-			const data: CollabActivityData = {
-				userId: payload.userId,
-				activity: payload.activity,
-			};
-			this.emit('activity:join', data);
+			this.emit('activity:join', payload);
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
 			this.analyticsHelper?.sendErrorEvent(error, `Error while sending 'activity:join'`);
@@ -302,6 +298,7 @@ export class ParticipantsService {
 			const data: CollabActivityData = {
 				activity: payload.activity,
 				userId: this.getPresenceData().userId,
+				sessionId: this.getPresenceData().sessionId,
 			};
 			this.emit('activity:ack', data);
 		} catch (error) {

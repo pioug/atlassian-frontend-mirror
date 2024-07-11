@@ -45,7 +45,13 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../section-message/tsconfig.app.json"
 		}
 	]
 }

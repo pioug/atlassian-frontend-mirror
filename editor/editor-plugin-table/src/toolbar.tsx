@@ -521,6 +521,7 @@ export const getToolbarConfig =
 							getDomRef,
 							editorView,
 							shouldUseIncreasedScalingPercent,
+							options?.fullWidthEnabled,
 						)
 					: [];
 
@@ -852,6 +853,7 @@ export const getAlignmentOptionsConfig = (
 	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
+	isFullWidthEditor?: boolean,
 ): Array<FloatingToolbarDropdown<Command>> => {
 	const tableObject = findTable(editorState.selection);
 
@@ -900,6 +902,7 @@ export const getAlignmentOptionsConfig = (
 				getDomRef,
 				editorView,
 				shouldUseIncreasedScalingPercent,
+				isFullWidthEditor,
 			) && {
 				disabled: value !== 'center',
 			}),
@@ -942,6 +945,7 @@ export const isLayoutOptionDisabled = (
 	getDomRef: (editorView: EditorView) => HTMLElement | undefined,
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
+	isFullWidthEditor: boolean | undefined,
 ) => {
 	const { lineLength } = getEditorContainerWidth();
 	let tableContainerWidth = getTableContainerWidth(selectedNode);
@@ -958,7 +962,9 @@ export const isLayoutOptionDisabled = (
 		tableContainerWidth = tableContainerWidth * scalePercent;
 	}
 
-	if (selectedNode && lineLength && tableContainerWidth > lineLength) {
+	// If fixed-width editor, we disable 'left-alignment' when table width is 760px.
+	// tableContainerWidth +1 here because tableContainerWidth is 759 in fixed-width editor
+	if (selectedNode && !isFullWidthEditor && lineLength && tableContainerWidth + 1 >= lineLength) {
 		return true;
 	}
 

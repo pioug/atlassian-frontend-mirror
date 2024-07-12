@@ -1,16 +1,11 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
 import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button, { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import Button from '@atlaskit/button/new';
+import __noop from '@atlaskit/ds-lib/noop';
+import Heading from '@atlaskit/heading';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -24,6 +19,8 @@ import ModalDialog, {
 	useModal,
 } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 const defaults = ['header', 'footer', 'both', 'neither'];
 const custom = ['custom header', 'custom body', 'custom footer'];
 
@@ -31,43 +28,27 @@ const containerStyles = xcss({
 	padding: 'space.200',
 });
 
-const titleStyles = css({
-	marginBlockEnd: token('space.200', '16px'),
+const titleStyles = xcss({
+	marginBlockEnd: 'space.200',
 });
 
-const headerStyles: React.CSSProperties = {
+const headerStyles = xcss({
 	background:
 		'url(https://atlassian.design/react_assets/images/cards/personality.png) center top no-repeat',
 	backgroundSize: 'cover',
 	borderRadius: '4px 4px 0 0',
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	paddingTop: 170,
-	position: 'relative',
-};
+});
 
 const CustomHeader = () => {
 	const { onClose } = useModal();
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={headerStyles}>
-			<span
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					position: 'absolute',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					right: 0,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					top: token('space.050', '4px'),
-				}}
-			>
-				<IconButton
-					onClick={onClose}
-					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-					label="Close Modal"
-				/>
-			</span>
-		</div>
+		<Box>
+			<ModalTitleWithClose onClose={onClose}>
+				<Box xcss={headerStyles}></Box>
+			</ModalTitleWithClose>
+		</Box>
 	);
 };
 
@@ -82,9 +63,9 @@ const bodyStyles: React.CSSProperties = {
 const CustomBody = React.forwardRef<HTMLDivElement, React.AllHTMLAttributes<HTMLDivElement>>(
 	(props, ref) => (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div ref={ref} style={bodyStyles}>
+		<Box ref={ref} style={bodyStyles}>
 			{props.children}
-		</div>
+		</Box>
 	),
 );
 
@@ -111,21 +92,21 @@ export default function ModalDemo() {
 	const close = useCallback(() => setVariant(null), []);
 
 	const btn = (name: string) => (
-		<Button key={name} onClick={() => open(name)}>
+		<Button aria-haspopup="dialog" key={name} onClick={() => open(name)}>
 			{name}
 		</Button>
 	);
 
 	return (
 		<Box xcss={containerStyles}>
-			<h2 id="default-header-footer" css={titleStyles}>
-				Default Header/Footer
-			</h2>
+			<Heading size="large" as="h2" id="default-header-footer">
+				<Inline xcss={titleStyles}>Default Header/Footer</Inline>
+			</Heading>
 			<ButtonGroup titleId="default-header-footer">{defaults.map(btn)}</ButtonGroup>
 
-			<h2 id="custom-components" css={titleStyles}>
-				Custom Components
-			</h2>
+			<Heading size="large" as="h2" id="custom-components">
+				<Inline xcss={titleStyles}>Custom Components</Inline>
+			</Heading>
 			<ButtonGroup titleId="custom-components">{custom.map(btn)}</ButtonGroup>
 
 			<ModalTransition>
@@ -138,17 +119,16 @@ export default function ModalDemo() {
 						{variant === 'custom header' && <CustomHeader />}
 						{variant === 'header' && (
 							<ModalHeader>
-								<ModalTitle>Modal: {variant}</ModalTitle>
+								<ModalTitleWithClose onClose={close}>
+									<ModalTitle>Modal: {variant}</ModalTitle>
+								</ModalTitleWithClose>
 							</ModalHeader>
 						)}
 						{['both', 'custom footer', 'footer'].includes(variant) && (
 							<ModalHeader>
-								<ModalTitle>Modal: {variant}</ModalTitle>
-								<IconButton
-									onClick={close}
-									icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-									label="Close Modal"
-								/>
+								<ModalTitleWithClose onClose={close}>
+									<ModalTitle>Modal: {variant}</ModalTitle>
+								</ModalTitleWithClose>
 							</ModalHeader>
 						)}
 

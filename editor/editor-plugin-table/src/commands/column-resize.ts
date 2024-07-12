@@ -15,7 +15,7 @@ import {
 	isSelectionType,
 	nextCell,
 } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getDecorations } from '../pm-plugins/decorations/plugin';
 import {
@@ -320,7 +320,7 @@ export const changeColumnWidthByStep =
 		}
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+			fg('platform.editor.table.use-increased-scaling-percent');
 
 		const initialResizeState = getResizeState({
 			minWidth: tableCellMinWidth,

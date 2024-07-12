@@ -22,6 +22,7 @@ import type {
 	GetEditorContainerWidth,
 	IconProps,
 } from '@atlaskit/editor-common/types';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
@@ -45,6 +46,7 @@ import {
 	sortColumnWithAnalytics,
 } from '../commands-with-analytics';
 import { moveSourceWithAnalytics } from '../pm-plugins/drag-and-drop/commands-with-analytics';
+import { getPluginState as getTablePluginState } from '../pm-plugins/plugin-factory';
 import { getNewResizeStateFromSelectedColumns } from '../pm-plugins/table-resizing/utils/resize-state';
 import { getClosestSelectionRect } from '../toolbar';
 import type { DraggableData, DraggableType, TableDirection } from '../types';
@@ -148,8 +150,13 @@ export const getDragMenuConfig = (
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	tableSortColumnReorder = false,
+	ariaNotifyPlugin?: (
+		message: string,
+		ariaLiveElementAttributes?: AriaLiveElementAttributes,
+	) => void,
 ): DragMenuConfig[] => {
 	const { selection } = editorView.state;
+	const { getIntl } = getTablePluginState(editorView.state);
 	const addOptions =
 		direction === 'row'
 			? [
@@ -358,7 +365,7 @@ export const getDragMenuConfig = (
 			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
 				if (canMove) {
 					requestAnimationFrame(() => {
-						moveSourceWithAnalytics(editorAnalyticsAPI)(
+						moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(
 							INPUT_METHOD.TABLE_CONTEXT_MENU,
 							`table-${direction}`,
 							getOriginIndexes(selectionRect!),

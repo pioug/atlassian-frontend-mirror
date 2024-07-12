@@ -310,7 +310,7 @@ describe('Card ', () => {
 	});
 
 	describe('should render an accessible preview (i.e. <img>)', () => {
-		it('should render preview without alternative text by default', async () => {
+		it('should render preview with name as the alternative text by default', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -334,6 +334,33 @@ describe('Card ', () => {
 			);
 
 			expect((img as HTMLImageElement).alt).toBe('name.pdf');
+		});
+
+		it('should render preview without the alternative text if an empty string is provided', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { container } = render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						alt=""
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId);
+			fireEvent.load(img);
+
+			// card should completely process the file
+			await waitFor(() =>
+				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			);
+
+			expect((img as HTMLImageElement).alt).toBe('');
 		});
 
 		it('should render preview with alternative text when "alt" is provided', async () => {

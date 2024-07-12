@@ -8,6 +8,8 @@ import Button from '@atlaskit/button/new';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 import { type Appearance } from '../src/types';
 
+import ModalTitleWithClose from './common/modal-title';
+
 const appearances: Appearance[] = ['warning', 'danger'];
 
 export default function ExampleAppearance() {
@@ -16,10 +18,15 @@ export default function ExampleAppearance() {
 	const close = useCallback(() => setAppearance(null), []);
 
 	return (
-		<div>
+		<>
 			<ButtonGroup label="Choose modal appearance">
 				{appearances.map((name) => (
-					<Button key={`${name}-trigger`} testId={name} onClick={() => open(name)}>
+					<Button
+						aria-haspopup="dialog"
+						key={`${name}-trigger`}
+						testId={name}
+						onClick={() => open(name)}
+					>
 						Open: {name}
 					</Button>
 				))}
@@ -29,7 +36,9 @@ export default function ExampleAppearance() {
 				{appearance && (
 					<Modal key="active-modal" onClose={close} testId="modal">
 						<ModalHeader>
-							<ModalTitle appearance={appearance}>Modal: {appearance}</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle appearance={appearance}>Modal: {appearance}</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={2} />
@@ -45,6 +54,6 @@ export default function ExampleAppearance() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

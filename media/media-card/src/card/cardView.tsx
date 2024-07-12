@@ -321,7 +321,7 @@ export const CardViewBase = ({
 					<ImageRenderer
 						cardPreview={cardPreview}
 						mediaType={metadata?.mediaType || 'unknown'}
-						alt={alt || name}
+						alt={alt ?? name}
 						resizeMode={resizeMode}
 						onDisplayImage={onDisplayImage}
 						onImageLoad={handleOnImageLoad}

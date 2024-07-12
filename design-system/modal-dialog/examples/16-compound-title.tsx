@@ -5,6 +5,7 @@ import Lorem from 'react-lorem-component';
 import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import ModalDialog, { ModalBody, ModalFooter, ModalTransition, useModal } from '../src';
@@ -27,35 +28,28 @@ const titleStyles: React.CSSProperties = {
 	textTransform: 'uppercase',
 };
 
+const customCloseStyles = xcss({
+	position: 'absolute',
+	insetInlineEnd: token('space.0', '0'),
+	insetBlockStart: token('space.050', '4px'),
+});
+
 const CustomHeader = () => {
 	const { titleId, onClose } = useModal();
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={headerStyles}>
+		<Box style={headerStyles}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-			<div style={titleStyles}>
-				<Heading id={titleId} level="h600" as="h1">
+			<Box style={titleStyles}>
+				<Heading id={titleId} size="large" as="h1">
 					A customised header
 				</Heading>
-			</div>
-			<span
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					position: 'absolute',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					right: 0,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					top: token('space.050', '4px'),
-				}}
-			>
-				<IconButton
-					onClick={onClose}
-					label="Close Modal"
-					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-				/>
-			</span>
-		</div>
+			</Box>
+			<Inline xcss={customCloseStyles}>
+				<IconButton onClick={onClose} label="Close Modal" icon={CrossIcon} UNSAFE_size="small" />
+			</Inline>
+		</Box>
 	);
 };
 
@@ -68,8 +62,8 @@ export default function CompoundTitleModal() {
 	const secondaryAction = useCallback(({ target }: any) => console.log(target.innerText), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open}>
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open}>
 				Open Modal
 			</Button>
 
@@ -91,6 +85,6 @@ export default function CompoundTitleModal() {
 					</ModalDialog>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

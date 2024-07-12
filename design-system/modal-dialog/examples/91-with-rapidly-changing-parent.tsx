@@ -1,17 +1,13 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
+
+import ModalTitleWithClose from './common/modal-title';
 
 const containerStyles = xcss({
 	height: '100%',
@@ -45,14 +41,16 @@ function Child() {
 				even when its parent's render cycle is quicker than its own.
 			</p>
 			<br />
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
 						<ModalHeader>
-							<ModalTitle>Modal Title</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal Title</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 
 						<ModalBody>

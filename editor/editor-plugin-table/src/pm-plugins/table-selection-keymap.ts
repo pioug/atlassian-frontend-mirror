@@ -1,3 +1,5 @@
+import { type IntlShape } from 'react-intl-next/src/types';
+
 import {
 	bindKeymapArrayWithCommand,
 	bindKeymapWithCommand,
@@ -9,7 +11,6 @@ import {
 	shiftArrowUp,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import {
@@ -20,20 +21,31 @@ import {
 	selectRows,
 	shiftArrowUpFromTable,
 } from '../commands/selection';
-import type tablePlugin from '../plugin';
+import { type PluginInjectionAPI } from '../types';
 
 export function tableSelectionKeymapPlugin(
-	editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined,
+	pluginInjectionApi?: PluginInjectionAPI,
+	getIntl?: () => IntlShape,
 ): SafePlugin {
 	const list = {};
+	const editorSelectionAPI = pluginInjectionApi?.selection;
+	const ariaNotifyPlugin = pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify;
 
 	bindKeymapWithCommand(moveRight.common!, arrowRightFromTable(editorSelectionAPI)(), list);
 
 	bindKeymapWithCommand(moveLeft.common!, arrowLeftFromTable(editorSelectionAPI)(), list);
 
-	bindKeymapArrayWithCommand(selectColumn, selectColumns(editorSelectionAPI)(true), list);
+	bindKeymapArrayWithCommand(
+		selectColumn,
+		selectColumns(editorSelectionAPI, ariaNotifyPlugin, getIntl)(true),
+		list,
+	);
 
-	bindKeymapArrayWithCommand(selectRow, selectRows(editorSelectionAPI)(true), list);
+	bindKeymapArrayWithCommand(
+		selectRow,
+		selectRows(editorSelectionAPI, ariaNotifyPlugin, getIntl)(true),
+		list,
+	);
 
 	bindKeymapWithCommand(shiftArrowUp.common!, shiftArrowUpFromTable(editorSelectionAPI)(), list);
 

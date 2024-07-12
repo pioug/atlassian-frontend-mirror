@@ -95,6 +95,8 @@ const initialState: PluginState = {
 	isDragging: false,
 	isMenuOpen: false,
 	editorHeight: 0,
+	editorWidthLeft: 0,
+	editorWidthRight: 0,
 	isResizerResizing: false,
 	isDocSizeLimitEnabled: null,
 	isPMDragging: false,
@@ -138,6 +140,8 @@ export const createPlugin = (
 					isMenuOpen,
 					decorationState,
 					editorHeight,
+					editorWidthLeft,
+					editorWidthRight,
 					isResizerResizing,
 					isDragging,
 					isPMDragging,
@@ -190,6 +194,8 @@ export const createPlugin = (
 				const redrawDecorations =
 					decorations === DecorationSet.empty ||
 					(meta?.editorHeight !== undefined && meta?.editorHeight !== editorHeight) ||
+					(meta?.editorWidthLeft !== undefined && meta?.editorWidthLeft !== editorWidthLeft) ||
+					(meta?.editorWidthRight !== undefined && meta?.editorWidthRight !== editorWidthRight) ||
 					maybeWidthUpdated ||
 					nodeCountChanged ||
 					maybeNodeWidthUpdated ||
@@ -354,6 +360,8 @@ export const createPlugin = (
 					isDragging: meta?.isDragging ?? isDragging,
 					isMenuOpen: meta?.toggleMenu ? !isMenuOpen : isMenuOpen,
 					editorHeight: meta?.editorHeight ?? currentState.editorHeight,
+					editorWidthLeft: meta?.editorWidthLeft ?? currentState.editorWidthLeft,
+					editorWidthRight: meta?.editorWidthRight ?? currentState.editorWidthRight,
 					isResizerResizing: isResizerResizing,
 					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 					isPMDragging: meta?.isPMDragging ?? isPMDragging,
@@ -442,11 +450,15 @@ export const createPlugin = (
 		},
 		view: (editorView: EditorView) => {
 			const dom = editorView.dom;
-			let resizeObserver: ResizeObserver;
+			const editorContentArea: HTMLElement | null = editorView.dom.closest(
+				'.fabric-editor-popup-scroll-parent',
+			);
+			let resizeObserverHeight: ResizeObserver;
+			let resizeObserverWidth: ResizeObserver;
 
 			if (!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 				// Use ResizeObserver to observe height changes
-				resizeObserver = new ResizeObserver(
+				resizeObserverHeight = new ResizeObserver(
 					rafSchedule((entries) => {
 						const editorHeight = entries[0].contentBoxSize[0].blockSize;
 
@@ -464,12 +476,48 @@ export const createPlugin = (
 							if (!isResizerResizing) {
 								transaction.setMeta(key, { editorHeight });
 							}
+
 							editorView.dispatch(transaction);
 						}
 					}),
 				);
+
 				// Start observing the editor DOM element
-				resizeObserver.observe(dom);
+				resizeObserverHeight.observe(dom);
+			}
+
+			if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
+				// Use ResizeObserver to observe width changes
+				resizeObserverWidth = new ResizeObserver(
+					rafSchedule((entries) => {
+						const editorContentArea = entries[0].target;
+						const editorWidthRight = editorContentArea!.getBoundingClientRect().right;
+						const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
+
+						// Update the plugin state when the height changes
+						const pluginState = key.getState(editorView.state);
+						if (!pluginState?.isDragging) {
+							const isResizerResizing = !!dom.querySelector('.is-resizing');
+
+							const transaction = editorView.state.tr;
+
+							if (pluginState?.isResizerResizing !== isResizerResizing) {
+								transaction.setMeta('is-resizer-resizing', isResizerResizing);
+							}
+
+							if (!isResizerResizing) {
+								if (fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+									transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
+								}
+							}
+							editorView.dispatch(transaction);
+						}
+					}),
+				);
+
+				if (editorContentArea && fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+					resizeObserverWidth.observe(editorContentArea);
+				}
 			}
 
 			// Start pragmatic monitors
@@ -478,7 +526,15 @@ export const createPlugin = (
 			return {
 				destroy() {
 					if (!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-						resizeObserver.unobserve(dom);
+						resizeObserverHeight.unobserve(dom);
+					}
+
+					if (
+						editorContentArea &&
+						fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+					) {
+						fg('platform_editor_elements_drag_and_drop_ed_23394') &&
+							resizeObserverWidth.unobserve(editorContentArea);
 					}
 					pragmaticCleanup();
 				},

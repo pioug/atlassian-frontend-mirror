@@ -18,10 +18,13 @@ const OverlayWrapper = ({
 	view,
 	targetElementPos,
 	children,
+	isHoveredCallback: hoverCallback,
 }: {
 	view: EditorView;
 	targetElementPos: number | undefined;
 	children: JSX.Element;
+	/** Fired when the mouse enters or leaves the overlay button */
+	isHoveredCallback: (isHovered: boolean) => void;
 }) => {
 	const [showConfigureButton, setShowConfigureButton] = useState(false);
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -35,10 +38,14 @@ const OverlayWrapper = ({
 
 	return (
 		<span
-			onMouseEnter={() => setShowConfigureButton(true)}
+			onMouseEnter={() => {
+				setShowConfigureButton(true);
+				hoverCallback(true);
+			}}
 			onMouseLeave={() => {
 				if (!dropdownOpen) {
 					setShowConfigureButton(false);
+					hoverCallback(false);
 				}
 			}}
 			data-testid="inline-card-overlay-wrapper"

@@ -1,17 +1,11 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import ModalDialog, {
 	ModalBody,
@@ -21,10 +15,11 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
-const containerStyles = css({
+import ModalTitleWithClose from './common/modal-title';
+
+const containerStyles = xcss({
 	display: 'grid',
 	width: '250%',
-	padding: token('space.200', '16px'),
 	gridTemplateColumns: 'repeat(2, 1fr)',
 });
 
@@ -42,17 +37,17 @@ export default function ExampleScroll() {
 	);
 
 	return (
-		<div css={containerStyles}>
-			<div>
+		<Box xcss={containerStyles} padding="space.200">
+			<Box>
 				<p>The width of body is greater than viewport width (horizontally scrollable).</p>
 
 				<br />
 				<Button appearance="primary" onClick={scrollTriggerIntoView} testId="scroll-into-view">
 					Scroll trigger into view
 				</Button>
-			</div>
+			</Box>
 
-			<div ref={triggerRef}>
+			<Box ref={triggerRef}>
 				<Field name="sb" label="Scrolling behavior">
 					{() => (
 						<Checkbox
@@ -66,10 +61,10 @@ export default function ExampleScroll() {
 				</Field>
 
 				<br />
-				<Button onClick={open} testId="modal-trigger">
+				<Button aria-haspopup="dialog" onClick={open} testId="modal-trigger">
 					Open modal
 				</Button>
-			</div>
+			</Box>
 
 			<ModalTransition>
 				{isOpen && (
@@ -79,7 +74,9 @@ export default function ExampleScroll() {
 						testId="modal"
 					>
 						<ModalHeader>
-							<ModalTitle>Modal Title</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal Title</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={10} />
@@ -95,6 +92,6 @@ export default function ExampleScroll() {
 					</ModalDialog>
 				)}
 			</ModalTransition>
-		</div>
+		</Box>
 	);
 }

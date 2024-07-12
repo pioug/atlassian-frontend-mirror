@@ -40,6 +40,7 @@ export default function ProfilecardTriggerNext({
 	prepopulatedData,
 	disabledAriaAttributes,
 	onVisibilityChange,
+	offset,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -364,6 +365,7 @@ export default function ProfilecardTriggerNext({
 				zIndex={layers.modal()}
 				shouldUseCaptureOnOutsideClick
 				autoFocus={autoFocus ?? trigger === 'click'}
+				offset={offset ?? [0, 8]}
 			/>
 			{shouldShowGiveKudos && (
 				<Suspense fallback={null}>

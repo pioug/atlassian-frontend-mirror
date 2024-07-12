@@ -27,6 +27,7 @@ import {
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -93,6 +94,10 @@ type DragMenuProps = {
 	shouldUseIncreasedScalingPercent?: boolean;
 	isTableFixedColumnWidthsOptionEnabled?: boolean;
 	tableSortColumnReorder?: boolean;
+	ariaNotifyPlugin?: (
+		message: string,
+		ariaLiveElementAttributes?: AriaLiveElementAttributes,
+	) => void;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -275,6 +280,7 @@ export const DragMenu = React.memo(
 		shouldUseIncreasedScalingPercent,
 		isTableFixedColumnWidthsOptionEnabled,
 		tableSortColumnReorder,
+		ariaNotifyPlugin,
 	}: DragMenuProps & WrappedComponentProps) => {
 		const { state, dispatch } = editorView;
 		const { selection } = state;
@@ -305,6 +311,7 @@ export const DragMenu = React.memo(
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 			tableSortColumnReorder,
+			ariaNotifyPlugin,
 		);
 
 		const { menuItems, menuCallback } = convertToDropdownItems(

@@ -4,7 +4,6 @@ import { PureComponent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -121,9 +120,7 @@ class ToolbarFeedbackInternal extends PureComponent<ToolbarFeedbackInternalProps
 
 	private handleRef = (ref: ToolbarButtonRef) => {
 		if (ref) {
-			this.setState({
-				target: ReactDOM.findDOMNode(ref || null) as HTMLElement,
-			});
+			this.setState({ target: ref });
 		}
 	};
 

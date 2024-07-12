@@ -1,9 +1,12 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Box } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
+
+import ModalTitleWithClose from './common/modal-title';
 
 const SingleExample = () => (
 	<Select
@@ -43,25 +46,27 @@ export default function DefaultModal() {
 	};
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
 						<ModalHeader>
-							<ModalTitle>Modal Title</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal Title</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
-							<div data-testid="dialog-body">
+							<Box testId="dialog-body">
 								<SingleExample />
-							</div>
+							</Box>
 						</ModalBody>
 						<Footer />
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

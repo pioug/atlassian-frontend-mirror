@@ -72,6 +72,9 @@
       "path": "../../../design-system/icon-object/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../linking-platform/link-datasource/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../linking-platform/link-picker/afm-jira/tsconfig.json"
     },
     {

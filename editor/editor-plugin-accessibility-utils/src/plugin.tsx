@@ -122,7 +122,11 @@ function ContentComponent({
 	const key = accessibilityUtilsState?.key;
 
 	return (
-		<VisuallyHidden role={role} {...(role === 'alert' && { key })}>
+		<VisuallyHidden
+			testId={'accessibility-message-wrapper'}
+			role={role}
+			{...(role === 'alert' && { key })}
+		>
 			{accessibilityUtilsState?.message}
 		</VisuallyHidden>
 	);

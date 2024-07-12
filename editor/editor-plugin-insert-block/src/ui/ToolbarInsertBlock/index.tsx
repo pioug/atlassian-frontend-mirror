@@ -3,7 +3,6 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -299,22 +298,19 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		);
 	}
 
-	private handleEmojiButtonRef = (button: ToolbarButtonRef): void => {
-		const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
+	private handleEmojiButtonRef = (ref: ToolbarButtonRef): void => {
 		if (ref) {
 			this.emojiButtonRef = ref;
 		}
 	};
 
-	private handlePlusButtonRef = (button: ToolbarButtonRef): void => {
-		const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
+	private handlePlusButtonRef = (ref: ToolbarButtonRef): void => {
 		if (ref) {
 			this.plusButtonRef = ref;
 		}
 	};
 
-	private handleDropDownButtonRef = (button: ToolbarButtonRef) => {
-		const ref = ReactDOM.findDOMNode(button) as HTMLElement | null;
+	private handleDropDownButtonRef = (ref: ToolbarButtonRef) => {
 		if (ref) {
 			this.dropdownButtonRef = ref;
 		}

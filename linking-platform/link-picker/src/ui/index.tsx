@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { COMPONENT_NAME, LINK_PICKER_WIDTH_IN_PX } from '../common/constants';
@@ -57,12 +57,12 @@ const ComposedLinkPicker = memo((props: LinkPickerProps) => {
 	 * When ff disabled: component + loader + error boundary each providing their own width
 	 * Cannot make this change easier at risk of regression as external adopters may have css override on the form element
 	 */
-	const RootFixedWidthContainer = getBooleanFF(
+	const RootFixedWidthContainer = fg(
 		'platform.linking-platform.link-picker.fixed-height-search-results',
 	)
 		? FixedWidthContainer
 		: Fragment;
-	const LoaderFallbackContainer = getBooleanFF(
+	const LoaderFallbackContainer = fg(
 		'platform.linking-platform.link-picker.fixed-height-search-results',
 	)
 		? Fragment
@@ -94,6 +94,7 @@ const ComposedLinkPicker = memo((props: LinkPickerProps) => {
 									fallback={
 										<LoaderFallbackContainer>
 											<LoaderFallback
+												url={props.url}
 												hideDisplayText={props.hideDisplayText}
 												isLoadingPlugins={props.isLoadingPlugins}
 												plugins={props.plugins}

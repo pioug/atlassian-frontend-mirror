@@ -326,6 +326,7 @@ class ProfilecardTrigger extends React.PureComponent<
 					zIndex={layers.modal()}
 					shouldUseCaptureOnOutsideClick
 					autoFocus={this.props.autoFocus ?? this.props.trigger === 'click'}
+					offset={this.props.offset ?? [0, 8]}
 				/>
 				{this.state.shouldShowGiveKudos && (
 					<Suspense fallback={null}>

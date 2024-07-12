@@ -1,8 +1,22 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
+
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +25,7 @@ export default function Example() {
 
 	return (
 		<>
-			<Button appearance="primary" onClick={openModal}>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -19,7 +33,21 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal}>
 						<ModalHeader>
-							<ModalTitle appearance="warning">Move your page to the Design team space</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle appearance="warning">
+										Move your page to the Design team space
+									</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
 							If you move this page to the Design system space, your access permissions will change

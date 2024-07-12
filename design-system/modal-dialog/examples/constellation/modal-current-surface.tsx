@@ -1,37 +1,37 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
-import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
+import Button, { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Box, Flex, Grid, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
 
-const containerStyles = css({
+const containerStyles = xcss({
 	position: 'relative',
 });
 
-const stickyStyles = css({
+const stickyStyles = xcss({
 	position: 'sticky',
-	insetBlockStart: 0,
-	insetInlineStart: 0,
 });
 
-const currentSurfaceStyles = css({
-	padding: 20,
-	backgroundColor: token('utility.elevation.surface.current', '#FFFFFF'),
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
 });
 
 function SurfaceAwareBox() {
 	return (
-		<div css={currentSurfaceStyles}>
+		<Box padding="space.250" backgroundColor="utility.elevation.surface.current">
 			A surface aware box. The background color depends on the surface it's placed on.
-		</div>
+		</Box>
 	);
 }
 
@@ -41,7 +41,7 @@ export default function Example() {
 
 	return (
 		<Fragment>
-			<Button appearance="primary" onClick={() => setIsOpen(true)}>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={() => setIsOpen(true)}>
 				Open modal
 			</Button>
 			<SurfaceAwareBox />
@@ -49,14 +49,28 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal} height={600}>
 						<ModalHeader>
-							<ModalTitle>Our voice and tone</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle>Our voice and tone</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
-							<div css={containerStyles}>
-								<div css={stickyStyles}>
+							<Box xcss={containerStyles}>
+								<Box xcss={stickyStyles} paddingBlockStart="space.0" paddingBlockEnd="space.0">
 									<SurfaceAwareBox />
-								</div>
-								<h3>Be bold</h3>
+								</Box>
+								<Heading as="h3" size="medium">
+									Be bold
+								</Heading>
 								<p>
 									Motivate teams to do their best work. Offer best practices to get users going in
 									the right direction. Be bold and offer just enough help to get the work started,
@@ -65,7 +79,9 @@ export default function Example() {
 									information to let them get where they need to go.
 								</p>
 
-								<h3>Be optimistic</h3>
+								<Heading as="h3" size="medium">
+									Be optimistic
+								</Heading>
 
 								<p>
 									Focusing on the details gives people confidence in our products. Weave a
@@ -79,7 +95,9 @@ export default function Example() {
 									attention on the important bits first.
 								</p>
 
-								<h3>Be practical, with a wink</h3>
+								<Heading as="h3" size="medium">
+									Be practical, with a wink
+								</Heading>
 
 								<p>
 									Keep our own story short and give teams just enough to get moving. Get to the
@@ -92,7 +110,7 @@ export default function Example() {
 									that is understandable by anyone, anywhere, regardless of their culture or
 									language so that everyone feels they are part of the team.
 								</p>
-							</div>
+							</Box>
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="primary" onClick={closeModal}>

@@ -6,7 +6,7 @@ export type SelectedOptionsMap = {
 	[key in BasicFilterFieldType]?: SelectOption[];
 };
 
-// these types have been taken from jira-frontend to ensure the colour data return gets mapped correctly for the lozenge
+// These types have been taken from jira-frontend to ensure the colour data return gets mapped correctly for the lozenge
 export const appearanceMap = {
 	BLUE_GRAY: 'default',
 	MEDIUM_GRAY: 'default',

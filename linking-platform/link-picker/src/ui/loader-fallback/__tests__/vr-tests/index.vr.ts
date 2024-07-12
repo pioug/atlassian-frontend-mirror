@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
+	LazyLoadingEditModeWithDisplayTextWithPluginsExample,
 	LazyLoadingWithDisplayTextExample,
 	LazyLoadingWithDisplayTextWithOnePluginExample,
 	LazyLoadingWithDisplayTextWithPluginsExample,
@@ -36,6 +37,11 @@ snapshot(LazyLoadingWithoutDisplayTextWithOnePluginExample, {
 	},
 });
 snapshot(LazyLoadingWithoutDisplayTextWithPluginsExample, {
+	featureFlags: {
+		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
+	},
+});
+snapshot(LazyLoadingEditModeWithDisplayTextWithPluginsExample, {
 	featureFlags: {
 		'platform.linking-platform.link-picker.fixed-height-search-results': [true, false],
 	},

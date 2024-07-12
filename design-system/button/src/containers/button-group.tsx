@@ -14,6 +14,8 @@ import { type Appearance } from '../old-button/types';
 export type ButtonGroupProps = {
 	/**
 	 * The appearance to apply to all buttons.
+	 *
+	 * @deprecated This prop is deprecated and will be removed in an upcoming major version. Apply the `appearance` prop on each button instead.
 	 */
 	appearance?: Appearance;
 	/**

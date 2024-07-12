@@ -1,21 +1,11 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useRef, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { Inline } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box, Inline } from '@atlaskit/primitives';
 
 import ModalDialog, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '../src';
 
-const containerStyles = css({
-	padding: token('space.200', '16px'),
-});
+import ModalTitleWithClose from './common/modal-title';
 
 export default function ReturnFocusToElement() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +14,9 @@ export default function ReturnFocusToElement() {
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);
 	return (
-		<div data-testid="return-focus-container" css={containerStyles}>
+		<Box testId="return-focus-container" padding="space.200">
 			<Inline space="space.200">
-				<Button appearance="primary" onClick={open} testId="open-modal">
+				<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="open-modal">
 					Open trigger
 				</Button>
 				<Button appearance="primary" ref={returnFocusRef} testId="return-focus-element">
@@ -36,7 +26,9 @@ export default function ReturnFocusToElement() {
 			{isOpen && (
 				<ModalDialog shouldReturnFocus={returnFocusRef}>
 					<ModalHeader>
-						<ModalTitle>Returning focus to custom element</ModalTitle>
+						<ModalTitleWithClose onClose={close}>
+							<ModalTitle>Returning focus to custom element</ModalTitle>
+						</ModalTitleWithClose>
 					</ModalHeader>
 					<ModalBody>
 						<p>Modal content</p>
@@ -48,6 +40,6 @@ export default function ReturnFocusToElement() {
 					</ModalFooter>
 				</ModalDialog>
 			)}
-		</div>
+		</Box>
 	);
 }

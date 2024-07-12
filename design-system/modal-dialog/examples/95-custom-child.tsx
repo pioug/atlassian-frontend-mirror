@@ -15,6 +15,8 @@ import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalHeader, ModalTitle, ModalTransition } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 const childStyles = css({
 	height: '400px',
 	backgroundColor: token('color.background.accent.magenta.subtler'),
@@ -87,7 +89,9 @@ export default function ModalWithCustomChild() {
 					<Modal onClose={close} testId="modal">
 						<div css={[childStyles, borderRadiusMap[selectedBorderRadius]]}>
 							<ModalHeader>
-								<ModalTitle>Modal Title</ModalTitle>
+								<ModalTitleWithClose onClose={close}>
+									<ModalTitle>Modal Title</ModalTitle>
+								</ModalTitleWithClose>
 							</ModalHeader>
 						</div>
 					</Modal>

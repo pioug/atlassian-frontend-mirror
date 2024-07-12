@@ -11,11 +11,11 @@ export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
 	const openModal = useCallback(() => setIsOpen(true), []);
 	const closeModal = useCallback(() => setIsOpen(false), []);
-	const focusRef = useRef<HTMLElement>();
+	const focusRef = useRef<HTMLSpanElement>(null);
 
 	return (
 		<>
-			<Button appearance="primary" onClick={openModal}>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -23,7 +23,11 @@ export default function Example() {
 				{isOpen && (
 					<Modal autoFocus={focusRef} onClose={closeModal}>
 						<ModalHeader>
-							<ModalTitle>Sign up</ModalTitle>
+							<ModalTitle>
+								<span tabIndex={-1} ref={focusRef}>
+									Sign up
+								</span>
+							</ModalTitle>
 							<Breadcrumbs>
 								<BreadcrumbsItem href="https://atlassian.design/" text="Projects" />
 								<BreadcrumbsItem href="https://atlassian.design/" text="Design System Team" />
@@ -31,14 +35,7 @@ export default function Example() {
 						</ModalHeader>
 						<ModalBody>
 							<Field label="Email" name="my-email" defaultValue="">
-								{({ fieldProps }) => (
-									<Textfield
-										ref={focusRef}
-										autoComplete="off"
-										placeholder="ian@atlas.com"
-										{...fieldProps}
-									/>
-								)}
+								{({ fieldProps }) => <Textfield autoComplete="off" {...fieldProps} />}
 							</Field>
 						</ModalBody>
 						<ModalFooter>

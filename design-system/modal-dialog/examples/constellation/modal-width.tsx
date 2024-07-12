@@ -1,9 +1,23 @@
 import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
+
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -21,16 +35,32 @@ export default function Example() {
 	return (
 		<>
 			<ButtonGroup label="Choose modal width">
-				<Button appearance="primary" onClick={() => setWidthAndOpen('small')}>
+				<Button
+					aria-haspopup="dialog"
+					appearance="primary"
+					onClick={() => setWidthAndOpen('small')}
+				>
 					small
 				</Button>
-				<Button appearance="primary" onClick={() => setWidthAndOpen('medium')}>
+				<Button
+					aria-haspopup="dialog"
+					appearance="primary"
+					onClick={() => setWidthAndOpen('medium')}
+				>
 					medium
 				</Button>
-				<Button appearance="primary" onClick={() => setWidthAndOpen('large')}>
+				<Button
+					aria-haspopup="dialog"
+					appearance="primary"
+					onClick={() => setWidthAndOpen('large')}
+				>
 					large
 				</Button>
-				<Button appearance="primary" onClick={() => setWidthAndOpen('x-large')}>
+				<Button
+					aria-haspopup="dialog"
+					appearance="primary"
+					onClick={() => setWidthAndOpen('x-large')}
+				>
 					x-large
 				</Button>
 			</ButtonGroup>
@@ -39,7 +69,19 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal} width={width}>
 						<ModalHeader>
-							<ModalTitle>Set up your own projects</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle>Set up your own projects</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
 							We simplified the way you set up issue types, workflows, fields, and screens. Check

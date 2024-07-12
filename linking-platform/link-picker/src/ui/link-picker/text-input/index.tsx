@@ -9,7 +9,7 @@ import {
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { ErrorMessage, Field } from '@atlaskit/form';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
@@ -22,8 +22,23 @@ import {
 	ConditionalSpotlightTargetWrapper,
 	type ConditionalSpotlightTargetWrapperProps,
 } from './conditional-spotlight-target-wrapper';
-import { fieldStyles } from './styled';
 import { isRedoEvent, isUndoEvent } from './utils';
+
+/**
+ * Overidding text input margin top which design system provides as a default spacer
+ * but it gets in the way of our layout
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+const fieldStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'> div': {
+		marginTop: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'& + &': {
+		marginTop: token('space.200', '16px'),
+	},
+});
 
 export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
 	Pick<ConditionalSpotlightTargetWrapperProps, 'spotlightTargetName'> & {
@@ -118,7 +133,6 @@ export const TextInput = ({
 	);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={fieldStyles}>
 			<Field label={label} name={name}>
 				{({ fieldProps }) => {

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import rafSchedule from 'raf-schd';
 
@@ -162,6 +162,8 @@ export function InlineCardNodeView(
 		onClickCallback,
 	} = props;
 
+	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
+
 	const floatingToolbarNode = useSharedPluginState(pluginInjectionApi, ['floatingToolbar'])
 		.floatingToolbarState?.configWithNodeInfo?.node;
 
@@ -170,8 +172,13 @@ export function InlineCardNodeView(
 		const livePagesHoverCardFadeInDelay = 800;
 
 		return (
-			<OverlayWrapper targetElementPos={getPos()} view={view}>
+			<OverlayWrapper
+				targetElementPos={getPos()}
+				view={view}
+				isHoveredCallback={setIsOverlayHovered}
+			>
 				<WrappedInlineCard
+					isHovered={isOverlayHovered}
 					node={node}
 					view={view}
 					getPos={getPos}

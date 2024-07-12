@@ -129,6 +129,21 @@ export const messages = defineMessages({
 			'{count, plural, one {The row has been} other {{count} rows have been}} removed',
 		description: 'Assistive message following the removal of row(s)',
 	},
+	rowSelected: {
+		id: 'fabric.editor.rowSelected',
+		defaultMessage: 'Row {index} of {total} selected',
+		description: 'Assistive message following the selection of a row',
+	},
+	rowMovedUp: {
+		id: 'fabric.editor.rowMovedUp',
+		defaultMessage: 'Row moved up to {index} of {total}',
+		description: 'Assistive message following the upward movement of a row',
+	},
+	rowMovedDown: {
+		id: 'fabric.editor.rowMovedDown',
+		defaultMessage: 'Row moved down to {index} of {total}',
+		description: 'Assistive message following the downward movement of a row',
+	},
 	columnsAreInserted: {
 		id: 'fabric.editor.columnsAreInserted',
 		defaultMessage:
@@ -140,6 +155,21 @@ export const messages = defineMessages({
 		defaultMessage:
 			'{count, plural, one {The column has been} other {{count} columns have been}} removed',
 		description: 'Assistive message following the removal of column(s)',
+	},
+	columnSelected: {
+		id: 'fabric.editor.columnSelected',
+		defaultMessage: 'Column {index} of {total} selected',
+		description: 'Assistive message following the selection of a column',
+	},
+	columnMovedLeft: {
+		id: 'fabric.editor.columnMovedLeft',
+		defaultMessage: 'Column moved left to {index} of {total}',
+		description: 'Assistive message following the left movement of a column',
+	},
+	columnMovedRight: {
+		id: 'fabric.editor.columnMovedRight',
+		defaultMessage: 'Column moved right to {index} of {total}',
+		description: 'Assistive message following the right movement of a column',
 	},
 	cellOptions: {
 		id: 'fabric.editor.cellOptions',

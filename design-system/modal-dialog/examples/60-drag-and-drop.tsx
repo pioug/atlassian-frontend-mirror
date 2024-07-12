@@ -30,6 +30,8 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 interface CardProps {
 	isActive?: boolean;
 	isDraggable?: boolean;
@@ -276,7 +278,7 @@ export default function Example() {
 
 	return (
 		<div>
-			<Button appearance="primary" testId={'open-modal'} onClick={open}>
+			<Button aria-haspopup="dialog" appearance="primary" testId={'open-modal'} onClick={open}>
 				Open Modal
 			</Button>
 			<p>
@@ -288,7 +290,9 @@ export default function Example() {
 				{isOpen && (
 					<ModalDialog onClose={close} testId={'my-modal'}>
 						<ModalHeader>
-							<ModalTitle>Drag and drop</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Drag and drop</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Box paddingBlockEnd="space.300">

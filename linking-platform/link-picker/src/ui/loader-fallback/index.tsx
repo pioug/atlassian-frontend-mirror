@@ -1,15 +1,18 @@
 /** @jsx jsx */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 
 import { MinHeightContainer } from '../../common/ui/min-height-container';
 
-import { styles } from './styled';
+const styles = css({
+	alignItems: 'center',
+});
 
 export type LoaderFallbackProps = {
+	url?: string;
 	hideDisplayText?: boolean;
 	isLoadingPlugins?: boolean;
 	plugins?: unknown[];
@@ -29,22 +32,37 @@ const getEstimatedMinHeight = ({
 	hideDisplayText,
 	isLoadingPlugins,
 	plugins,
+	url,
 }: LoaderFallbackProps) => {
-	if (getBooleanFF('platform.linking-platform.link-picker.fixed-height-search-results')) {
-		if ((plugins && plugins.length > 1) || isLoadingPlugins) {
-			return hideDisplayText
-				? LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITHOUT_DISPLAYTEXT
-				: LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITH_DISPLAYTEXT;
+	if (fg('platform.linking-platform.link-picker.fixed-height-search-results')) {
+		/**
+		 * "Insert mode" (search results shown initially)
+		 */
+		if (!url) {
+			/**
+			 * With tabs
+			 */
+			if ((plugins && plugins.length > 1) || isLoadingPlugins) {
+				return hideDisplayText
+					? LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITHOUT_DISPLAYTEXT
+					: LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_TABS_WITH_DISPLAYTEXT;
+			}
+
+			/**
+			 * Without tabs
+			 */
+			if (plugins?.length === 1) {
+				return hideDisplayText
+					? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITHOUT_DISPLAYTEXT
+					: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITH_DISPLAYTEXT;
+			}
 		}
-		if (plugins?.length === 1) {
-			return hideDisplayText
-				? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITHOUT_DISPLAYTEXT
-				: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_PLUGIN_WITH_DISPLAYTEXT;
-		}
+
 		return hideDisplayText
 			? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITHOUT_DISPLAYTEXT
 			: LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_TABS_WITH_DISPLAYTEXT;
 	}
+
 	return hideDisplayText
 		? LINK_PICKER_MIN_HEIGHT_IN_PX_WITHOUT_DISPLAYTEXT
 		: LINK_PICKER_MIN_HEIGHT_IN_PX_WITH_DISPLAYTEXT;

@@ -26,7 +26,7 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { addBoldInEmptyHeaderCells, clearHoverSelection, setTableRef } from '../commands';
 import { stopKeyboardColumnResizing } from '../commands/column-resize';
@@ -292,7 +292,7 @@ export const createPlugin = (
 				}
 
 				//  If a partial paste of nested expand, paste only nested-expand's content */
-				if (getBooleanFF('platform.editor.transform-slice-for-nested-expand')) {
+				if (fg('platform.editor.transform-slice-for-nested-expand')) {
 					slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
 				}
 

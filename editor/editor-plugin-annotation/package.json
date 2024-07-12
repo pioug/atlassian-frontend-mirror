@@ -98,9 +98,6 @@
 		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
-		},
-		"platform.editor.comments-on-media.bug.preserve-draft_i3vqb": {
-			"type": "boolean"
 		}
 	}
 }

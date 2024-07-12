@@ -1,38 +1,35 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 
-const modalBodyStyles = css({
+import ModalTitleWithClose from './common/modal-title';
+
+const modalBodyStyles = xcss({
 	display: 'flex',
 	height: '100%',
-	padding: `${token('space.0', '0px')} ${token('space.300', '24px')}`,
 	flexDirection: 'column',
 	overflowY: 'auto',
 });
 
-const columnNonFlexWrapperStyles = css({
+const columnNonFlexWrapperStyles = xcss({
 	height: 'calc(100% - 80px)',
 });
 
-const columnContainerStyles = css({
+const columnContainerStyles = xcss({
 	display: 'flex',
 	height: '100%',
 	flexGrow: 1,
 	background: token('color.background.neutral'),
 });
 
-const columnStyles = css({
+const columnStyles = xcss({
 	flex: '1 0 50%',
 	overflowY: 'auto',
 });
@@ -51,8 +48,13 @@ export default function Example() {
 	const scrollToBottom = useCallback(() => bottomRef.current?.scrollIntoView(true), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={openModal} testId="modal-trigger">
+		<>
+			<Button
+				aria-haspopup="dialog"
+				appearance="primary"
+				onClick={openModal}
+				testId="modal-trigger"
+			>
 				Open modal
 			</Button>
 
@@ -60,43 +62,53 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal} testId="modal">
 						<ModalHeader>
-							<ModalTitle>Two-column layout</ModalTitle>
+							<ModalTitleWithClose onClose={closeModal}>
+								<ModalTitle>Two-column layout</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
-						<div css={modalBodyStyles}>
+						<Box xcss={modalBodyStyles} paddingBlockStart="space.0" paddingBlockEnd="space.300">
 							<p>These columns should scroll independently</p>
 							<Button onClick={toggleContentLength}>Toggle short/long content</Button>
-							<div css={columnNonFlexWrapperStyles}>
-								<div css={columnContainerStyles}>
-									<div
-										css={columnStyles}
+							<Box xcss={columnNonFlexWrapperStyles}>
+								<Box xcss={columnContainerStyles}>
+									<Box
+										xcss={columnStyles}
 										style={{
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 											background: token('color.background.accent.yellow.subtler'),
 										}}
 									>
-										<h2> Column 1 </h2>
+										<Heading as="h2" size="large">
+											Column 1
+										</Heading>
 										<Button testId="scrollDown" onClick={scrollToBottom}>
 											Scroll to bottom
 										</Button>
 										<Lorem count={2 * contentLength} />
-										<h2> Bottom of column 1 </h2>
+										<Heading as="h2" size="large">
+											Bottom of column 1
+										</Heading>
 										<div ref={bottomRef} />
-									</div>
+									</Box>
 
-									<div
-										css={columnStyles}
+									<Box
+										xcss={columnStyles}
 										style={{
 											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 											background: token('color.background.accent.teal.subtler'),
 										}}
 									>
-										<h2> Column 2 </h2>
+										<Heading as="h2" size="large">
+											Column 2
+										</Heading>
 										<Lorem count={contentLength} />
-										<h2> Bottom of column 2 </h2>
-									</div>
-								</div>
-							</div>
-						</div>
+										<Heading as="h2" size="large">
+											Bottom of column 2
+										</Heading>
+									</Box>
+								</Box>
+							</Box>
+						</Box>
 						<ModalFooter>
 							<Button appearance="subtle" onClick={closeModal}>
 								Cancel
@@ -108,6 +120,6 @@ export default function Example() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

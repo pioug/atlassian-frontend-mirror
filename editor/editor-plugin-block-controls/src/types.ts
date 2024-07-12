@@ -15,6 +15,8 @@ export interface PluginState {
 	isDragging: boolean;
 	isMenuOpen?: boolean;
 	editorHeight: number;
+	editorWidthLeft: number;
+	editorWidthRight: number;
 	activeNode: {
 		pos: number;
 		anchorName: string;

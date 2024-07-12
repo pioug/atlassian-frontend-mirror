@@ -1,10 +1,24 @@
 import React, { Fragment, useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
 import { Field, HelperMessage } from '@atlaskit/form';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
+
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
 
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +43,7 @@ export default function Example() {
 
 	return (
 		<>
-			<Button appearance="primary" onClick={openModal}>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -38,7 +52,19 @@ export default function Example() {
 					<Modal onClose={closeModal}>
 						<form onSubmit={onSubmit}>
 							<ModalHeader>
-								<ModalTitle>Create a user</ModalTitle>
+								<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+									<Flex xcss={closeContainerStyles} justifyContent="end">
+										<IconButton
+											appearance="subtle"
+											icon={CrossIcon}
+											label="Close Modal"
+											onClick={closeModal}
+										/>
+									</Flex>
+									<Flex xcss={titleContainerStyles} justifyContent="start">
+										<ModalTitle>Create a user</ModalTitle>
+									</Flex>
+								</Grid>
 							</ModalHeader>
 							<ModalBody>
 								<Field id="name" name="name" label="Type your name to continue">

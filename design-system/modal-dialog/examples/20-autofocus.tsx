@@ -1,14 +1,8 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useRef, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import ModalDialog, {
@@ -18,6 +12,8 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '../src';
+
+import ModalTitleWithClose from './common/modal-title';
 
 const containerStyles = xcss({
 	padding: 'space.200',
@@ -39,14 +35,16 @@ export default function ModalDemo() {
 
 	return (
 		<Box xcss={containerStyles}>
-			<h2>Variants</h2>
+			<Heading as="h2" size="large">
+				Variants
+			</Heading>
 			<p>Using ModalDialog autoFocus prop, not to be confused with the HTML autofocus attribute.</p>
 			<ButtonGroup label="Auto focus options">
-				<Button testId="boolean-trigger" onClick={openRoot}>
+				<Button aria-haspopup="dialog" testId="boolean-trigger" onClick={openRoot}>
 					Boolean on dialog
 				</Button>
 
-				<Button testId="autofocus-trigger" onClick={openAutoFocus}>
+				<Button aria-haspopup="dialog" testId="autofocus-trigger" onClick={openAutoFocus}>
 					using autoFocus prop
 				</Button>
 			</ButtonGroup>
@@ -61,12 +59,14 @@ export default function ModalDemo() {
 				{isOpen === 'root' && (
 					<ModalDialog {...modalProps}>
 						<ModalHeader>
-							<ModalTitle>Boolean on dialog</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Boolean on dialog</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<p>The first {'"tabbable"'} element will be focused.</p>
-							<button type="button">I am focused!</button>
-							<button type="button">I am NOT focused</button>
+							<Button>I am focused!</Button>
+							<Button>I am NOT focused</Button>
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="primary" onClick={close}>
@@ -82,7 +82,9 @@ export default function ModalDemo() {
 				{isOpen === 'autoFocus' && (
 					<ModalDialog autoFocus={focusRef} {...modalProps}>
 						<ModalHeader>
-							<ModalTitle>input is automatically focused</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>input is automatically focused</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<p>
@@ -90,18 +92,18 @@ export default function ModalDemo() {
 								of the dialog, should be focused initially. This test deviates only to properly test
 								the autofocus prop.
 							</p>
-							<div>
+							<Box>
 								<label htmlFor="not">
 									This textbox should not be focused
 									<input id="not" type="text" value="" />
 								</label>
-							</div>
-							<div>
+							</Box>
+							<Box>
 								<label htmlFor="should">
 									This textbox should be focused
 									<input id="should" ref={focusRef} type="text" value="" />
 								</label>
-							</div>
+							</Box>
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="subtle">Secondary Action</Button>

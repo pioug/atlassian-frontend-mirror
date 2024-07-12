@@ -136,6 +136,9 @@
 		},
 		"platform_editor_element_drag_and_drop_ed_23842": {
 			"type": "boolean"
+		},
+		"platform_editor_elements_drag_and_drop_ed_23394": {
+			"type": "boolean"
 		}
 	}
 }

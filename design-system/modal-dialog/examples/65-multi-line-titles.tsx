@@ -5,8 +5,8 @@ import Lorem from 'react-lorem-component';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
-import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
 	type Appearance,
@@ -16,6 +16,8 @@ import ModalDialog, {
 	ModalTitle,
 	ModalTransition,
 } from '../src';
+
+import ModalTitleWithClose from './common/modal-title';
 
 const longNonBreakableTitle = `ThisIs${'long'.repeat(20)}NonBreakableTitle`;
 const longBreakableTitle = `This is ${'long '.repeat(20)} breakable title`;
@@ -46,9 +48,8 @@ export default function MultiLineTitles() {
 	const [appearance, setAppearance] = useState<Appearance | undefined>('warning');
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ padding: token('space.200', '16px') }}>
-			<Button appearance="primary" testId="modal-trigger" onClick={open}>
+		<Box padding="space.200">
+			<Button aria-haspopup="dialog" appearance="primary" testId="modal-trigger" onClick={open}>
 				Open modal
 			</Button>
 
@@ -56,9 +57,11 @@ export default function MultiLineTitles() {
 				{isOpen && (
 					<ModalDialog onClose={close} testId="modal" width="medium">
 						<ModalHeader>
-							<ModalTitle appearance={appearance} isMultiline={isTitleMultiline}>
-								{title}
-							</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle appearance={appearance} isMultiline={isTitleMultiline}>
+									{title}
+								</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Field name="hd" label="Title">
@@ -107,6 +110,6 @@ export default function MultiLineTitles() {
 					</ModalDialog>
 				)}
 			</ModalTransition>
-		</div>
+		</Box>
 	);
 }

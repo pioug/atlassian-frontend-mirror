@@ -2,17 +2,31 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
 
 const boldStyles = css({
 	fontWeight: 'bold',
+});
+
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
 });
 
 export default function Example() {
@@ -21,8 +35,8 @@ export default function Example() {
 	const closeModal = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={openModal}>
+		<Fragment>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -30,7 +44,19 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal}>
 						<ModalHeader>
-							<ModalTitle>Duplicate this page</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle>Duplicate this page</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
 							Duplicating this page will make it a child page of{' '}
@@ -48,6 +74,6 @@ export default function Example() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</Fragment>
 	);
 }

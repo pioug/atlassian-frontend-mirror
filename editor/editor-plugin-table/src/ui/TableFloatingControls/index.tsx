@@ -7,13 +7,15 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../commands';
 import type { TablePlugin } from '../../plugin';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
+import { isTableNested } from '../../utils/nodes';
 
 import {
 	CornerControls,
@@ -127,6 +129,12 @@ export const TableFloatingControls = ({
 		? ClassName.DRAG_ROW_CONTROLS_WRAPPER
 		: ClassName.ROW_CONTROLS_WRAPPER;
 
+	const tablePos = findTable(editorView.state.selection)?.pos;
+	const isNested = tablePos !== undefined && isTableNested(editorView.state, tablePos!);
+	const shouldShowCornerControls = fg('platform_editor_element_drag_and_drop_ed_24041')
+		? !featureFlagsState?.elementDragAndDrop || isNested
+		: !featureFlagsState?.elementDragAndDrop;
+
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		<div className={wrapperClassName}>
@@ -152,8 +160,8 @@ export const TableFloatingControls = ({
 					<>
 						{isDragAndDropEnabled ? (
 							<>
-								{!featureFlagsState?.elementDragAndDrop &&
-									(getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
+								{shouldShowCornerControls &&
+									(fg('platform.editor.table.use-shared-state-hook') ? (
 										<DragCornerControlsWithSelection
 											editorView={editorView}
 											tableRef={tableRef}
@@ -185,7 +193,7 @@ export const TableFloatingControls = ({
 									updateCellHoverLocation={updateCellHoverLocation}
 								/>
 							</>
-						) : getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
+						) : fg('platform.editor.table.use-shared-state-hook') ? (
 							<FloatingControlsWithSelection
 								editorView={editorView}
 								tableRef={tableRef}

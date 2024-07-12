@@ -1,17 +1,11 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import Heading from '@atlaskit/heading';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import ModalDialog, {
 	ModalBody,
@@ -21,14 +15,15 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 const containerStyles = xcss({
 	padding: 'space.200',
 });
 
-const titleStyles = css({
-	marginBlockEnd: token('space.200', '16px'),
+const titleStyles = xcss({
+	marginBlockEnd: 'space.200',
 });
-
 const units = [420, '42em', '100%'];
 
 export default function ModalDemo() {
@@ -36,23 +31,25 @@ export default function ModalDemo() {
 	const close = useCallback(() => setHeight(null), []);
 
 	const btn = (name: string | number) => (
-		<Button key={name} onClick={() => setHeight(name)}>
+		<Button aria-haspopup="dialog" key={name} onClick={() => setHeight(name)}>
 			{name}
 		</Button>
 	);
 
 	return (
 		<Box xcss={containerStyles}>
-			<h2 id="units-title" css={titleStyles}>
-				Units
-			</h2>
+			<Heading id="units-title" as="h2" size="large">
+				<Inline xcss={titleStyles}>Units</Inline>
+			</Heading>
 			<ButtonGroup titleId="units-title">{units.map(btn)}</ButtonGroup>
 
 			<ModalTransition>
 				{height && (
 					<ModalDialog key={height} onClose={close} height={height}>
 						<ModalHeader>
-							<ModalTitle>Modal: {height}</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal: {height}</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count="1" />

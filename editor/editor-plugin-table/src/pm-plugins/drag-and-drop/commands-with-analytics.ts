@@ -1,3 +1,5 @@
+import { type IntlShape } from 'react-intl-next/src/types';
+
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
@@ -6,7 +8,9 @@ import {
 	TABLE_STATUS,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Command } from '@atlaskit/editor-common/types';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findCellRectClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
@@ -52,7 +56,11 @@ export const clearDropTargetWithAnalytics =
 	};
 
 export const moveSourceWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void,
+		getIntl?: () => IntlShape,
+	) =>
 	(
 		inputMethod:
 			| INPUT_METHOD.TABLE_CONTEXT_MENU
@@ -88,13 +96,45 @@ export const moveSourceWithAnalytics =
 		})(editorAnalyticsAPI)((state, dispatch) => {
 			if (dispatch) {
 				moveSource(sourceType, sourceIndexes, targetIndex, tr)(state, dispatch);
+				// Only considering single row/column movement for screen reader as only single row/column selection is supported via keyboard atm.
+				if (
+					(inputMethod === INPUT_METHOD.TABLE_CONTEXT_MENU || INPUT_METHOD.SHORTCUT) &&
+					sourceIndexes.length === 1 &&
+					ariaNotify &&
+					getIntl
+				) {
+					const direction = sourceIndexes[0] > targetIndex ? -1 : 1; // -1 for left/up , 1 for right/down
+					const { totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
+					ariaNotify(
+						getIntl().formatMessage(
+							sourceType === 'table-row'
+								? direction > 0
+									? messages.rowMovedDown
+									: messages.rowMovedUp
+								: direction > 0
+									? messages.columnMovedRight
+									: messages.columnMovedLeft,
+							{
+								index: targetIndex + 1,
+								total: sourceType === 'table-row' ? totalRowCount : totalColumnCount,
+							},
+						),
+						{
+							priority: 'important',
+						},
+					);
+				}
 			}
 			return true;
 		});
 	};
 
 export const moveSourceWithAnalyticsViaShortcut =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void,
+		getIntl?: () => IntlShape,
+	) =>
 	(sourceType: DraggableType, direction: DraggableData['direction']): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
@@ -130,7 +170,7 @@ export const moveSourceWithAnalyticsViaShortcut =
 
 		const targetIndex = getTargetIndex(selectedIndexes, direction);
 
-		return moveSourceWithAnalytics(editorAnalyticsAPI)(
+		return moveSourceWithAnalytics(editorAnalyticsAPI, ariaNotify, getIntl)(
 			INPUT_METHOD.SHORTCUT,
 			sourceType,
 			selectedIndexes,

@@ -7,7 +7,6 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	decorationKey,
@@ -41,12 +40,6 @@ export const shouldClearBookMarkCheck = (
 	editorState: EditorState,
 	bookmark?: SelectionBookmark,
 ): boolean => {
-	// https://switcheroo.atlassian.com/changes/confluence/platform.editor.comments-on-media.bug.preserve-draft_i3vqb
-	// the existing log will always clear bookmark
-	if (!getBooleanFF('platform.editor.comments-on-media.bug.preserve-draft_i3vqb')) {
-		return true;
-	}
-
 	if (editorState.selection.empty || !bookmark) {
 		return true;
 	} else if (editorState.selection instanceof NodeSelection) {

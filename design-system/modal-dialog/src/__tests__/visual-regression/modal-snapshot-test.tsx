@@ -191,12 +191,14 @@ describe('Snapshot test', () => {
 
 		//open second stacked modal
 		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
 		await page.keyboard.press('Enter');
 		await page.waitForTimeout(1000);
 		const image2 = await page.screenshot();
 		expect(image2).toMatchProdImageSnapshot();
 
 		//open third stacked modal
+		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Enter');
 		await page.waitForTimeout(1000);
@@ -223,12 +225,14 @@ describe('Snapshot test', () => {
 
 		//open second stacked modal
 		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
 		await page.keyboard.press('Enter');
 		await page.waitForTimeout(1000);
 		const image2 = await page.screenshot();
 		expect(image2).toMatchProdImageSnapshot();
 
 		//open third stacked modal
+		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Enter');
 		await page.waitForTimeout(1000);

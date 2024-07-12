@@ -4,14 +4,16 @@ import Button from '@atlaskit/button/new';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 export default function DefaultModal() {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 
@@ -19,7 +21,9 @@ export default function DefaultModal() {
 				{isOpen && (
 					<Modal onClose={close} testId="modal" label="Modal Label">
 						<ModalHeader>
-							<ModalTitle>Modal Title</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal Title</ModalTitle>
+							</ModalTitleWithClose>{' '}
 						</ModalHeader>
 						<ModalBody>
 							This modal has an <code>aria-label</code> for users of assistive technology.
@@ -35,6 +39,6 @@ export default function DefaultModal() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

@@ -1,22 +1,14 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalTransition, useModal } from '../../src';
 
-const headerStyles = css({
+const headerStyles = xcss({
 	display: 'flex',
-	padding: token('space.300', '24px'),
 	alignItems: 'center',
 	justifyContent: 'space-between',
 });
@@ -24,12 +16,12 @@ const headerStyles = css({
 const CustomHeader = () => {
 	const { onClose, titleId } = useModal();
 	return (
-		<div css={headerStyles}>
+		<Box xcss={headerStyles} padding="space.300">
 			<Heading as="h1" size="medium" id={titleId}>
 				Custom modal header
 			</Heading>
 			<IconButton appearance="subtle" icon={CrossIcon} label="Close modal" onClick={onClose} />
-		</div>
+		</Box>
 	);
 };
 
@@ -39,8 +31,8 @@ export default function Example() {
 	const closeModal = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={openModal}>
+		<Fragment>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -74,6 +66,6 @@ export default function Example() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</Fragment>
 	);
 }

@@ -38,7 +38,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertTableWithSize } from './commands/insert';
 import { pluginConfig } from './create-plugin-config';
@@ -155,13 +155,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 		);
 	};
 	const editorAnalyticsAPI = api?.analytics?.actions;
+	const ariaNotifyPlugin = api?.accessibilityUtils?.actions.ariaNotify;
 
 	const isTableFixedColumnWidthsOptionEnabled =
 		options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
 	const shouldUseIncreasedScalingPercent =
 		options?.isTableScalingEnabled &&
 		isTableFixedColumnWidthsOptionEnabled &&
-		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+		fg('platform.editor.table.use-increased-scaling-percent');
 
 	const isCellBackgroundDuplicated =
 		options?.getEditorFeatureFlags?.().tableDuplicateCellColouring || false;
@@ -353,7 +354,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'tableSelectionKeymap',
-					plugin: () => tableSelectionKeymapPlugin(api?.selection),
+					plugin: ({ getIntl }) => tableSelectionKeymapPlugin(api, getIntl),
 				},
 				{
 					name: 'tableEditing',
@@ -399,8 +400,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tableViewModeSort',
 					plugin: () => {
-						return getBooleanFF('platform.editor.table.live-pages-sorting_4malx') &&
-							api?.editorViewMode
+						return api?.editorViewMode && fg('platform.editor.table.live-pages-sorting_4malx')
 							? createViewModeSortPlugin(api.editorViewMode)
 							: undefined;
 					},
@@ -530,8 +530,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 								<>
 									{targetCellPosition &&
 										(tableRef ||
-											(getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c') &&
-												isCellMenuOpenByKeyboard)) &&
+											(isCellMenuOpenByKeyboard &&
+												fg('platform.editor.a11y-table-context-menu_y4c9c'))) &&
 										!isResizing &&
 										options &&
 										options.allowContextualMenu && (
@@ -607,6 +607,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											getEditorFeatureFlags={
 												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
 											}
+											ariaNotifyPlugin={ariaNotifyPlugin}
 										/>
 									)}
 									{allowControls && !isDragAndDropEnabled && !isResizing && (

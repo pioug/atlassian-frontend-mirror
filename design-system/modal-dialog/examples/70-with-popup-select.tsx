@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
 
-import Button, { IconButton } from '@atlaskit/button/new';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import Button from '@atlaskit/button/new';
 import { PopupSelect } from '@atlaskit/select';
 
 import ModalDialog, { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '../src';
+
+import ModalTitleWithClose from './common/modal-title';
 
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },
@@ -24,19 +25,16 @@ export default function ModalWithPopupSelect() {
 
 	return (
 		<>
-			<Button appearance="primary" onClick={open}>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open}>
 				Open Modal
 			</Button>
 			<ModalTransition>
 				{isOpen && (
 					<ModalDialog onClose={close}>
 						<ModalHeader>
-							<ModalTitle>Modal with popup select</ModalTitle>
-							<IconButton
-								onClick={close}
-								icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
-								label="Close Modal"
-							/>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal with popup select</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<PopupSelect

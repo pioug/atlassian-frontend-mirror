@@ -14,6 +14,8 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 export default function FormAsContainer() {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = useCallback(() => setIsOpen(true), []);
@@ -21,8 +23,8 @@ export default function FormAsContainer() {
 	const onFormSubmit = useCallback((data: Object) => alert(JSON.stringify(data, null, 4)), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 
@@ -33,7 +35,9 @@ export default function FormAsContainer() {
 							{({ formProps }) => (
 								<form {...formProps} id="modal-form">
 									<ModalHeader>
-										<ModalTitle>Form as Container Demo</ModalTitle>
+										<ModalTitleWithClose onClose={close}>
+											<ModalTitle>Form as Container Demo</ModalTitle>
+										</ModalTitleWithClose>
 									</ModalHeader>
 									<ModalBody>
 										<p>
@@ -86,6 +90,6 @@ export default function FormAsContainer() {
 					</ModalDialog>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

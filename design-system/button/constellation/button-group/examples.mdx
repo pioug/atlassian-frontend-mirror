@@ -4,6 +4,8 @@ description: A button group gives users access to frequently performed, related 
 order: 0
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 import ButtonGroupDefault from '../../examples/constellation/legacy-button/button-group-default';
 import ButtonGroupAppearance from '../../examples/constellation/legacy-button/button-group-appearance';
 
@@ -16,5 +18,10 @@ Use the button group to display multiple buttons together.
 ## Appearance
 
 Use `appearance` to apply a visual appearance to all buttons.
+
+<SectionMessage title="Deprecated" appearance="warning">
+	This feature is deprecated and will be removed in an upcoming major version. Apply the
+	`appearance` prop on each button instead.
+</SectionMessage>
 
 <Example Component={ButtonGroupAppearance} packageName="@atlaskit/button" />

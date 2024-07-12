@@ -34,7 +34,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from '../commands';
 import {
@@ -139,7 +139,7 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (getBooleanFF('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')) {
+	if (fg('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')) {
 		bindKeymapWithCommand(
 			addRowBeforeVO.common!,
 			addRowAroundSelection(editorAnalyticsAPI)('TOP'),
@@ -186,25 +186,41 @@ export function keymapPlugin(
 
 		bindKeymapWithCommand(
 			moveRowDown.common!,
-			moveSourceWithAnalyticsViaShortcut(editorAnalyticsAPI)('table-row', 1),
+			moveSourceWithAnalyticsViaShortcut(
+				editorAnalyticsAPI,
+				ariaNotifyPlugin,
+				getIntl,
+			)('table-row', 1),
 			list,
 		);
 
 		bindKeymapWithCommand(
 			moveRowUp.common!,
-			moveSourceWithAnalyticsViaShortcut(editorAnalyticsAPI)('table-row', -1),
+			moveSourceWithAnalyticsViaShortcut(
+				editorAnalyticsAPI,
+				ariaNotifyPlugin,
+				getIntl,
+			)('table-row', -1),
 			list,
 		);
 
 		bindKeymapWithCommand(
 			moveColumnLeft.common!,
-			moveSourceWithAnalyticsViaShortcut(editorAnalyticsAPI)('table-column', -1),
+			moveSourceWithAnalyticsViaShortcut(
+				editorAnalyticsAPI,
+				ariaNotifyPlugin,
+				getIntl,
+			)('table-column', -1),
 			list,
 		);
 
 		bindKeymapWithCommand(
 			moveColumnRight.common!,
-			moveSourceWithAnalyticsViaShortcut(editorAnalyticsAPI)('table-column', 1),
+			moveSourceWithAnalyticsViaShortcut(
+				editorAnalyticsAPI,
+				ariaNotifyPlugin,
+				getIntl,
+			)('table-column', 1),
 			list,
 		);
 
@@ -297,7 +313,7 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+	if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 		bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);
 	}
 

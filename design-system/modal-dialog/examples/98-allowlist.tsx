@@ -1,21 +1,21 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { Label } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
 import ModalDialog, {
 	ModalBody,
 	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 } from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives';
+import TextField from '@atlaskit/textfield';
+
+import ModalTitleWithClose from './common/modal-title';
 
 const allowlistElement = (element: HTMLElement) => {
 	if (element.closest('[data-allowlist-container="true"]')) {
@@ -33,11 +33,13 @@ export default function Allowlist() {
 	const closeInner = useCallback(() => setIsOpenInner(false), []);
 
 	return (
-		<div>
-			<div>
-				<h2>Allowlist behaviour</h2>
+		<>
+			<Box>
+				<Heading as="h2" size="large">
+					Allowlist behaviour
+				</Heading>
 				<ButtonGroup label="Modal controls">
-					<Button appearance="primary" onClick={open} testId="modal-trigger">
+					<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 						Open Modal
 					</Button>
 				</ButtonGroup>
@@ -49,19 +51,22 @@ export default function Allowlist() {
 					Focus lock ignores specified areas. Pass the <code>focusLockAllowlist</code> prop a
 					function which returns <code>false</code> for node which should ignored by focus lock.
 				</p>
-			</div>
+			</Box>
 			{isOpen && (
 				<ModalDialog testId="modal-focus-lock" width="large" onClose={close}>
 					<ModalHeader>
-						<ModalTitle>Modal container</ModalTitle>
+						<ModalTitleWithClose onClose={close}>
+							<ModalTitle>Modal container</ModalTitle>
+						</ModalTitleWithClose>
 					</ModalHeader>
-					<div data-allowlist-container="true">
+					<Box data-allowlist-container="true">
 						<ModalBody>
 							<p>
 								All elements of this modal are accessible through focus lock due to allowlisted
 								container.
 							</p>
-							<input type="text" placeholder="first" id="allowlist-input" />
+							<Label htmlFor="allowlist-input">Allow List Input</Label>
+							<TextField placeholder="first" id="allowlist-input" />
 						</ModalBody>
 						<ModalFooter>
 							<ButtonGroup label="Modal Controls">
@@ -73,7 +78,7 @@ export default function Allowlist() {
 								</Button>
 							</ButtonGroup>
 						</ModalFooter>
-					</div>
+					</Box>
 					{isOpenInner && (
 						<ModalDialog
 							testId="modal-focus-lock-inner"
@@ -98,6 +103,6 @@ export default function Allowlist() {
 					)}
 				</ModalDialog>
 			)}
-		</div>
+		</>
 	);
 }

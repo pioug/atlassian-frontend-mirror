@@ -8,14 +8,16 @@ import { Fragment, useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Box, Grid, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalTransition, useModal } from '../../src';
 import welcomeImage from '../images/this-is-new-jira.png';
 
 const containerStyles = css({
-	padding: token('space.500', '40px'),
 	textAlign: 'center',
 });
 
@@ -23,13 +25,28 @@ const imageStyles = css({
 	borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
 });
 
-const headerStyles = css({
-	font: token('font.heading.medium'),
-	marginBlockEnd: token('space.100', '8px'),
+const headerStyles = xcss({
+	marginBlockEnd: 'space.100',
 });
 
 const marginBottomStyles = css({
 	marginBlockEnd: token('space.500', '40px'),
+});
+
+const gridStyles = xcss({
+	gridTemplateColumns: '1fr',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+	gridRowStart: '1',
+	gridColumnStart: '1',
+});
+
+const imageContainerStyles = xcss({
+	gridArea: 'image',
+	gridRowStart: '1',
+	gridColumnStart: '1',
 });
 
 const CustomModalContent = () => {
@@ -37,11 +54,23 @@ const CustomModalContent = () => {
 
 	return (
 		<Fragment>
-			<img alt="Graphic showing users working on a project" src={welcomeImage} css={imageStyles} />
-			<div css={containerStyles}>
-				<h1 css={headerStyles} id={titleId}>
-					Experience your new Jira
-				</h1>
+			<Grid gap="space.0" templateAreas={['image close']} xcss={gridStyles}>
+				<Grid xcss={closeContainerStyles} justifyContent="end">
+					<IconButton appearance="subtle" icon={CrossIcon} label="Close Modal" onClick={onClose} />
+				</Grid>
+				<Grid xcss={imageContainerStyles} justifyContent="start">
+					<img
+						alt="Graphic showing users working on a project"
+						src={welcomeImage}
+						css={imageStyles}
+					/>
+				</Grid>
+			</Grid>
+
+			<Box padding="space.500" xcss={containerStyles}>
+				<Heading as="h1" size="medium" id={titleId}>
+					<Inline xcss={headerStyles}>Experience your new Jira</Inline>
+				</Heading>
 				<p>
 					Switch context, jump between projects, and get back to work quickly with our new look and
 					feel.
@@ -53,7 +82,7 @@ const CustomModalContent = () => {
 						Switch to the new Jira
 					</Button>
 				</ButtonGroup>
-			</div>
+			</Box>
 		</Fragment>
 	);
 };
@@ -64,8 +93,8 @@ export default function Example() {
 	const closeModal = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={openModal}>
+		<Box>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -76,6 +105,6 @@ export default function Example() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</Box>
 	);
 }

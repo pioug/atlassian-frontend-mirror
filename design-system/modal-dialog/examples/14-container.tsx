@@ -1,19 +1,16 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 
-const customContainerStyles = css({
+import ModalTitleWithClose from './common/modal-title';
+
+const customContainerStyles = xcss({
 	display: 'flex',
 	height: '700px',
 	flex: '1 1 auto',
@@ -28,17 +25,19 @@ export default function DefaultModal() {
 	const secondaryAction = useCallback(() => alert('Secondary button has been clicked!'), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 
 			<ModalTransition>
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
-						<div css={customContainerStyles} data-testid="custom-container">
+						<Box xcss={customContainerStyles} testId="custom-container">
 							<ModalHeader>
-								<ModalTitle>Modal Title</ModalTitle>
+								<ModalTitleWithClose onClose={close}>
+									<ModalTitle>Modal Title</ModalTitle>
+								</ModalTitleWithClose>
 							</ModalHeader>
 							<ModalBody>
 								<Lorem count={2} />
@@ -51,10 +50,10 @@ export default function DefaultModal() {
 									Close
 								</Button>
 							</ModalFooter>
-						</div>
+						</Box>
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

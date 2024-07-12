@@ -1,3 +1,3 @@
 # LinkDatasource
 
-UI Components to support linking platform dataset feature
+UI Components to support linking platform dataset feature.

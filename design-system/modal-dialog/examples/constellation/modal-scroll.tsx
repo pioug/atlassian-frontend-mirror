@@ -1,9 +1,24 @@
 import React, { useCallback, useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
+
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
 
 export default function Example() {
 	const [shouldScrollInViewport, setShouldScrollInViewport] = useState(false);
@@ -21,10 +36,14 @@ export default function Example() {
 	return (
 		<>
 			<ButtonGroup label="Choose scroll option">
-				<Button appearance="primary" onClick={() => setShouldScrollInViewportAndOpen(false)}>
+				<Button
+					aria-haspopup="dialog"
+					appearance="primary"
+					onClick={() => setShouldScrollInViewportAndOpen(false)}
+				>
 					Scroll inside body
 				</Button>
-				<Button appearance="primary" onClick={() => setShouldScrollInViewportAndOpen(true)}>
+				<Button aria-haspopup="dialog" onClick={() => setShouldScrollInViewportAndOpen(true)}>
 					Scroll inside viewport
 				</Button>
 			</ButtonGroup>
@@ -33,10 +52,24 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal} shouldScrollInViewport={shouldScrollInViewport} height={600}>
 						<ModalHeader>
-							<ModalTitle>Our voice and tone</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle>Our voice and tone</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
-							<h3>Be bold</h3>
+							<Heading as="h3" size="medium">
+								Be bold
+							</Heading>
 							<p>
 								Motivate teams to do their best work. Offer best practices to get users going in the
 								right direction. Be bold and offer just enough help to get the work started, and
@@ -45,7 +78,9 @@ export default function Example() {
 								information to let them get where they need to go.
 							</p>
 
-							<h3>Be optimistic</h3>
+							<Heading as="h3" size="medium">
+								Be optimistic
+							</Heading>
 
 							<p>
 								Focusing on the details gives people confidence in our products. Weave a consistent
@@ -59,7 +94,9 @@ export default function Example() {
 								bits first.
 							</p>
 
-							<h3>Be practical, with a wink</h3>
+							<Heading as="h3" size="medium">
+								Be practical, with a wink
+							</Heading>
 
 							<p>
 								Keep our own story short and give teams just enough to get moving. Get to the point

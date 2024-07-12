@@ -134,6 +134,7 @@ export interface ProfileCardTriggerProps {
 	disabledAriaAttributes?: boolean;
 	onVisibilityChange?: (isVisible: boolean) => void;
 	isVisible?: boolean;
+	offset?: [number, number];
 }
 
 export interface ProfileCardTriggerState {

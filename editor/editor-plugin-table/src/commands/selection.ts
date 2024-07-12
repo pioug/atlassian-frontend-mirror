@@ -1,3 +1,6 @@
+import { type IntlShape } from 'react-intl-next/src/types';
+
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
 import {
 	GapCursorSelection,
@@ -7,6 +10,7 @@ import {
 	Side,
 } from '@atlaskit/editor-common/selection';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -106,7 +110,11 @@ const arrowRightFromCellSelection =
 	};
 
 export const selectColumns =
-	(editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined) =>
+	(
+		editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined,
+		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void,
+		getIntl?: () => IntlShape,
+	) =>
 	(triggeredByKeyboard = false): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
@@ -120,13 +128,36 @@ export const selectColumns =
 			})(state, dispatch);
 		}
 		if (table && rect) {
-			return selectColumn(rect.left, undefined, triggeredByKeyboard)(state, dispatch);
+			const selectColumnCommand = selectColumn(
+				rect.left,
+				undefined,
+				triggeredByKeyboard,
+			)(state, dispatch);
+			const map = TableMap.get(table.node);
+
+			if (ariaNotify && getIntl) {
+				ariaNotify(
+					getIntl().formatMessage(messages.columnSelected, {
+						index: rect.left + 1,
+						total: map.width,
+					}),
+					{
+						priority: 'important',
+					},
+				);
+			}
+
+			return selectColumnCommand;
 		}
 		return false;
 	};
 
 export const selectRows =
-	(editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined) =>
+	(
+		editorSelectionAPI: ExtractInjectionAPI<typeof tablePlugin>['selection'] | undefined,
+		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void,
+		getIntl?: () => IntlShape,
+	) =>
 	(triggeredByKeyboard = false): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
@@ -140,7 +171,21 @@ export const selectRows =
 			})(state, dispatch);
 		}
 		if (table && rect) {
-			return selectRow(rect.top, undefined, triggeredByKeyboard)(state, dispatch);
+			const selectRowCommand = selectRow(rect.top, undefined, triggeredByKeyboard)(state, dispatch);
+			const map = TableMap.get(table.node);
+
+			if (ariaNotify && getIntl) {
+				ariaNotify(
+					getIntl().formatMessage(messages.rowSelected, {
+						index: rect.top + 1,
+						total: map.height,
+					}),
+					{
+						priority: 'important',
+					},
+				);
+			}
+			return selectRowCommand;
 		}
 		return false;
 	};

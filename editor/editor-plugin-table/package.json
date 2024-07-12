@@ -131,6 +131,9 @@
 		},
 		"platform.editor.a11y-table-context-menu_y4c9c": {
 			"type": "boolean"
+		},
+		"platform_editor_element_drag_and_drop_ed_24041": {
+			"type": "boolean"
 		}
 	}
 }

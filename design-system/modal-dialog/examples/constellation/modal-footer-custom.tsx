@@ -2,21 +2,22 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
+import { Box, Flex, Grid, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalBody, ModalHeader, ModalTitle, ModalTransition, useModal } from '../../src';
 
-const footerStyles = css({
+const footerStyles = xcss({
 	display: 'flex',
-	padding: token('space.300', '24px'),
 	alignItems: 'center',
 	justifyContent: 'space-between',
 });
@@ -30,6 +31,18 @@ const wrapperStyles = css({
 
 const marginLeftStyles = css({ marginInlineStart: token('space.200', '16px') });
 
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
+
 const CustomFooter = () => {
 	const [isHintOpen, setIsHintOpen] = useState(false);
 	const openHint = useCallback(() => setIsHintOpen(true), []);
@@ -38,7 +51,7 @@ const CustomFooter = () => {
 	const { onClose } = useModal();
 
 	return (
-		<div css={footerStyles}>
+		<Box xcss={footerStyles} padding="space.300">
 			<InlineDialog content="Some hint text?" isOpen={isHintOpen} placement="top-start">
 				<span
 					role="presentation"
@@ -53,7 +66,7 @@ const CustomFooter = () => {
 			<Button appearance="primary" onClick={onClose}>
 				Close
 			</Button>
-		</div>
+		</Box>
 	);
 };
 
@@ -63,8 +76,8 @@ export default function Example() {
 	const closeModal = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={openModal}>
+		<Fragment>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -72,7 +85,19 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal}>
 						<ModalHeader>
-							<ModalTitle>Custom modal footer</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle>Custom modal footer</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
 							<p>
@@ -95,6 +120,6 @@ export default function Example() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</Fragment>
 	);
 }

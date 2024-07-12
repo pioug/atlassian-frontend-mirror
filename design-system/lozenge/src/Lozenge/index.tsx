@@ -7,16 +7,61 @@ import { type CSSProperties, memo, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type BackgroundColor, Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-const baseStyles = xcss({
+const baseStylesOld = xcss({
 	display: 'inline-flex',
 	borderRadius: 'border.radius',
 	blockSize: 'min-content',
 	position: 'static',
 	overflow: 'hidden',
 });
+
+const styles = {
+	container: css({
+		display: 'inline-flex',
+		boxSizing: 'border-box',
+		position: 'static',
+		blockSize: 'min-content',
+		borderRadius: '3px',
+		overflow: 'hidden',
+		paddingInline: token('space.050'),
+	}),
+	background: {
+		bold: {
+			default: css({ backgroundColor: '#DDDEE1' }),
+			inprogress: css({ backgroundColor: '#8FB8F6' }),
+			moved: css({ backgroundColor: '#F9C84E' }),
+			new: css({ backgroundColor: '#D8A0F7' }),
+			removed: css({ backgroundColor: '#FD9891' }),
+			success: css({ backgroundColor: '#B3DF72' }),
+		},
+		subtle: {
+			default: css({ backgroundColor: token('color.background.neutral.subtle') }),
+			inprogress: css({ backgroundColor: token('color.background.neutral.subtle') }),
+			moved: css({ backgroundColor: token('color.background.neutral.subtle') }),
+			new: css({ backgroundColor: token('color.background.neutral.subtle') }),
+			removed: css({ backgroundColor: token('color.background.neutral.subtle') }),
+			success: css({ backgroundColor: token('color.background.neutral.subtle') }),
+		},
+	},
+	border: {
+		subtle: {
+			default: css({ border: `1px solid #B7B9BE` }),
+			inprogress: css({ border: `1px solid #669DF1` }),
+			moved: css({ border: `1px solid #FCA700` }),
+			new: css({ border: `1px solid #C97CF4` }),
+			removed: css({ border: `1px solid #F87168` }),
+			success: css({ border: `1px solid #94C748` }),
+		},
+	},
+	text: {
+		subtle: css({ color: token('color.text') }),
+		bold: css({ color: '#292A2E' }),
+	},
+};
 
 const textStyles = css({
 	fontFamily:
@@ -86,24 +131,59 @@ const Lozenge = memo(
 		style,
 	}: LozengeProps) => {
 		const appearanceStyle = isBold ? 'bold' : 'subtle';
-		const appearanceType = appearance in backgroundColors[appearanceStyle] ? appearance : 'default';
+		const appearanceType =
+			appearance in styles.background[appearanceStyle] ? appearance : 'default';
 
 		const maxWidthValue = typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
 		const maxWidthIsPc = typeof maxWidth === 'string' && /%$/.test(maxWidth);
+
+		if (fg('platform-component-visual-refresh')) {
+			return (
+				<span
+					style={{
+						backgroundColor: style?.backgroundColor,
+						maxWidth: maxWidthIsPc ? maxWidth : '100%',
+					}}
+					css={[
+						styles.container,
+						styles.background[appearanceStyle][appearanceType],
+						appearanceStyle === 'subtle' && styles.border.subtle[appearanceType],
+					]}
+					data-testid={testId}
+				>
+					<span
+						css={[textStyles, styles.text[appearanceStyle]]}
+						style={{
+							color: style?.color,
+							// to negate paddingInline specified on Box above
+							maxWidth: maxWidthIsPc
+								? '100%'
+								: `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
+						}}
+						data-testid={testId && `${testId}--text`}
+					>
+						{children}
+					</span>
+				</span>
+			);
+		}
+
+		const appearanceTypeOld =
+			appearance in backgroundColorsOld[appearanceStyle] ? appearance : 'default';
 		return (
 			<Box
 				as="span"
-				backgroundColor={backgroundColors[appearanceStyle][appearanceType]}
+				backgroundColor={backgroundColorsOld[appearanceStyle][appearanceTypeOld]}
 				style={{
 					backgroundColor: style?.backgroundColor,
 					maxWidth: maxWidthIsPc ? maxWidth : '100%',
 				}}
 				paddingInline="space.050"
-				xcss={baseStyles}
+				xcss={baseStylesOld}
 				testId={testId}
 			>
 				<span
-					css={[textStyles, textColors[appearanceStyle][appearanceType]]}
+					css={[textStyles, textColorsOld[appearanceStyle][appearanceType]]}
 					style={{
 						color: style?.color,
 						// to negate paddingInline specified on Box above
@@ -124,7 +204,7 @@ Lozenge.displayName = 'Lozenge';
 
 export default Lozenge;
 
-const backgroundColors: Record<'bold' | 'subtle', Record<ThemeAppearance, BackgroundColor>> = {
+const backgroundColorsOld: Record<'bold' | 'subtle', Record<ThemeAppearance, BackgroundColor>> = {
 	bold: {
 		default: 'color.background.neutral.bold',
 		inprogress: 'color.background.information.bold',
@@ -143,7 +223,7 @@ const backgroundColors: Record<'bold' | 'subtle', Record<ThemeAppearance, Backgr
 	},
 };
 
-const textColors: Record<'bold' | 'subtle', Record<ThemeAppearance, SerializedStyles>> = {
+const textColorsOld: Record<'bold' | 'subtle', Record<ThemeAppearance, SerializedStyles>> = {
 	bold: {
 		default: css({ color: token('color.text.inverse', '#FFFFFF') }),
 		inprogress: css({ color: token('color.text.inverse', '#FFFFFF') }),

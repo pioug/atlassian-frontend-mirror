@@ -38,11 +38,16 @@ export type {
 } from './datasource-types';
 
 export type {
-	AtomicActionInterface,
-	ActionsDiscoveryResponse,
-	PermissionInterface,
-	PermissionTypes,
 	ActionsDiscoveryRequest,
+	PermissionTypes,
+	PermissionInterface,
+	AtomicActionInterface,
+	ActionsServiceDiscoveryResponse,
+	ActionsDiscoveryResponse,
+	AtomicActionExecuteRequest,
+	ActionOperationStatus,
+	AtomicActionExecuteResponse,
+	ActionsServiceError,
 } from './datasource-action-types';
 
 export type {

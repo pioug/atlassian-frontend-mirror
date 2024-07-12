@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
+import React, { Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import AvatarGroup from '@atlaskit/avatar-group';
@@ -19,6 +13,7 @@ import { Field } from '@atlaskit/form';
 import Info from '@atlaskit/icon/glyph/info';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
+import { Box, xcss } from '@atlaskit/primitives';
 import Select, { PopupSelect } from '@atlaskit/select';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -32,11 +27,9 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
-const Break = () => <br />;
+import ModalTitleWithClose from './common/modal-title';
 
-const containerStyles = css({
-	padding: token('space.200', '16px'),
-});
+const Break = () => <br />;
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +52,7 @@ export default () => {
 	);
 
 	return (
-		<div css={containerStyles} data-testid="container">
+		<Box padding="space.200" testId="container">
 			<Field name="sb" label="Scrolling behavior">
 				{() => (
 					<Checkbox
@@ -73,7 +66,7 @@ export default () => {
 			</Field>
 
 			<Break />
-			<Button appearance="primary" onClick={open} testId="open-modal">
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="open-modal">
 				Open modal
 			</Button>
 
@@ -83,10 +76,11 @@ export default () => {
 						onClose={close}
 						shouldScrollInViewport={shouldScrollInViewport}
 						testId="modal"
-						autoFocus={false}
 					>
 						<ModalHeader>
-							<ModalTitle>Modal Title</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal Title</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Lorem count={4} />
@@ -99,7 +93,7 @@ export default () => {
 								zIndex={layers.modal()}
 								content={() => (
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									<div style={{ padding: '5px' }}>I'm a little popup!</div>
+									<Box style={{ padding: '5px' }}>I'm a little popup!</Box>
 								)}
 								trigger={(triggerProps) => (
 									<Fragment>
@@ -221,7 +215,7 @@ export default () => {
 					</ModalDialog>
 				)}
 			</ModalTransition>
-		</div>
+		</Box>
 	);
 };
 
@@ -258,7 +252,7 @@ type FlagData = {
 	title: string;
 };
 
-const flagGroupContainerStyles = css({
+const flagGroupContainerStyles = xcss({
 	width: '100%',
 	textAlign: 'right',
 });
@@ -278,7 +272,7 @@ const FlagGroupExample = () => {
 	);
 
 	return (
-		<div css={flagGroupContainerStyles}>
+		<Box xcss={flagGroupContainerStyles}>
 			<Button testId="flag-trigger" appearance="primary" onClick={addFlag}>
 				Add flag
 			</Button>
@@ -294,7 +288,7 @@ const FlagGroupExample = () => {
 					/>
 				))}
 			</FlagGroup>
-		</div>
+		</Box>
 	);
 };
 

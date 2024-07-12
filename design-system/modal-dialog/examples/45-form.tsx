@@ -15,6 +15,8 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 export default function ModalDialogForm() {
 	const [isOpen, setIsOpen] = useState(false);
 	const open = () => setIsOpen(true);
@@ -34,8 +36,8 @@ export default function ModalDialogForm() {
 	};
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 
@@ -43,7 +45,9 @@ export default function ModalDialogForm() {
 				{isOpen && (
 					<ModalDialog onClose={close} testId="modal">
 						<ModalHeader>
-							<ModalTitle>Form Demo</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Form Demo</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
 							<Form onSubmit={onFormSubmit}>
@@ -101,6 +105,6 @@ export default function ModalDialogForm() {
 				<Box as="span">{data.checkbox && `Checkbox: ${data.checkbox}`}</Box>
 				<Box as="span">{data.radiogroup && `Radio Group: ${data.radiogroup}`}</Box>
 			</Stack>
-		</div>
+		</>
 	);
 }

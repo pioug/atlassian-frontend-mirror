@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/new';
+import Button, { IconButton } from '@atlaskit/button/new';
+import CrossIcon from '@atlaskit/icon/glyph/cross';
 import InlineDialog from '@atlaskit/inline-dialog';
+import { Flex, Grid, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../../src';
@@ -24,6 +26,18 @@ const wrapperStyles = css({
 
 const marginLeftStyles = css({ marginInlineStart: token('space.200', '16px') });
 
+const gridStyles = xcss({
+	width: '100%',
+});
+
+const closeContainerStyles = xcss({
+	gridArea: 'close',
+});
+
+const titleContainerStyles = xcss({
+	gridArea: 'title',
+});
+
 export default function Example() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isHintOpen, setIsHintOpen] = useState(false);
@@ -35,8 +49,8 @@ export default function Example() {
 	const closeHint = useCallback(() => setIsHintOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={openModal}>
+		<Fragment>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={openModal}>
 				Open modal
 			</Button>
 
@@ -44,7 +58,19 @@ export default function Example() {
 				{isOpen && (
 					<Modal onClose={closeModal}>
 						<ModalHeader>
-							<ModalTitle>Custom modal footer</ModalTitle>
+							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
+								<Flex xcss={closeContainerStyles} justifyContent="end">
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label="Close Modal"
+										onClick={closeModal}
+									/>
+								</Flex>
+								<Flex xcss={titleContainerStyles} justifyContent="start">
+									<ModalTitle>Custom modal footer</ModalTitle>
+								</Flex>
+							</Grid>
 						</ModalHeader>
 						<ModalBody>
 							<p>
@@ -82,6 +108,6 @@ export default function Example() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</Fragment>
 	);
 }

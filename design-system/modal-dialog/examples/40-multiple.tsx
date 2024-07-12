@@ -6,7 +6,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import ModalDialog, {
 	ModalBody,
@@ -16,7 +16,13 @@ import ModalDialog, {
 	ModalTransition,
 } from '../src';
 
+import ModalTitleWithClose from './common/modal-title';
+
 const sizes = ['large', 'medium', 'small'];
+
+const multipleContainerStyles = xcss({
+	maxWidth: '400',
+});
 
 export default function NestedDemo() {
 	const [shouldScrollInViewport, setShouldScrollInViewPort] = useState(false);
@@ -45,8 +51,7 @@ export default function NestedDemo() {
 	};
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ maxWidth: 400, padding: token('space.200', '16px') }}>
+		<Box xcss={multipleContainerStyles} padding="space.200">
 			<Field name="sb" label="Scrolling behavior">
 				{() => (
 					<Checkbox
@@ -60,7 +65,12 @@ export default function NestedDemo() {
 			</Field>
 
 			<ButtonGroup label="Modal options">
-				<Button appearance="primary" testId="large" onClick={() => open('large')}>
+				<Button
+					aria-haspopup="dialog"
+					appearance="primary"
+					testId="large"
+					onClick={() => open('large')}
+				>
 					Open
 				</Button>
 			</ButtonGroup>
@@ -89,7 +99,9 @@ export default function NestedDemo() {
 								testId="modal"
 							>
 								<ModalHeader>
-									<ModalTitle>Modal: {name}</ModalTitle>
+									<ModalTitleWithClose onClose={() => close(name)}>
+										<ModalTitle>Modal: {name}</ModalTitle>
+									</ModalTitleWithClose>
 								</ModalHeader>
 								<ModalBody>
 									<Lorem count={2} />
@@ -99,7 +111,11 @@ export default function NestedDemo() {
 										Close
 									</Button>
 									{nextModal && (
-										<Button appearance="primary" onClick={() => open(nextModal)}>
+										<Button
+											aria-haspopup="dialog"
+											appearance="primary"
+											onClick={() => open(nextModal)}
+										>
 											Open: {nextModal}
 										</Button>
 									)}
@@ -109,6 +125,6 @@ export default function NestedDemo() {
 					</ModalTransition>
 				);
 			})}
-		</div>
+		</Box>
 	);
 }

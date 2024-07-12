@@ -3,6 +3,7 @@ import React from 'react';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -10,7 +11,7 @@ import {
 	akEditorFloatingOverlapPanelZIndex,
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { PluginConfig, TableDirection } from '../../types';
@@ -35,6 +36,10 @@ export interface Props {
 	pluginConfig?: PluginConfig;
 	isTableScalingEnabled?: boolean;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
+	ariaNotifyPlugin?: (
+		message: string,
+		ariaLiveElementAttributes?: AriaLiveElementAttributes,
+	) => void;
 }
 
 const FloatingDragMenu = ({
@@ -53,6 +58,7 @@ const FloatingDragMenu = ({
 	pluginConfig,
 	isTableScalingEnabled,
 	getEditorFeatureFlags,
+	ariaNotifyPlugin,
 }: Props) => {
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
@@ -79,7 +85,7 @@ const FloatingDragMenu = ({
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled &&
 		tableWithFixedColumnWidthsOption &&
-		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+		fg('platform.editor.table.use-increased-scaling-percent');
 
 	return (
 		<Popup
@@ -120,6 +126,7 @@ const FloatingDragMenu = ({
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 				isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				tableSortColumnReorder={tableSortColumnReorder}
+				ariaNotifyPlugin={ariaNotifyPlugin}
 			/>
 		</Popup>
 	);

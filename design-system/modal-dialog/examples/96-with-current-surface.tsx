@@ -1,26 +1,13 @@
-/**
- * @jsxRuntime classic
- */
-/** @jsx jsx */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle, ModalTransition } from '../src';
 
-const textContainerStyles = css({
-	padding: 20,
-	backgroundColor: token('elevation.surface.sunken'),
-});
-
-const currentSurfaceStyles = css({
-	backgroundColor: token('utility.elevation.surface.current'),
-});
+import ModalTitleWithClose from './common/modal-title';
 
 export default function DefaultModal() {
 	const [isOpen, setIsOpen] = useState(true);
@@ -28,8 +15,8 @@ export default function DefaultModal() {
 	const close = useCallback(() => setIsOpen(false), []);
 
 	return (
-		<div>
-			<Button appearance="primary" onClick={open} testId="modal-trigger">
+		<>
+			<Button aria-haspopup="dialog" appearance="primary" onClick={open} testId="modal-trigger">
 				Open Modal
 			</Button>
 
@@ -37,14 +24,16 @@ export default function DefaultModal() {
 				{isOpen && (
 					<Modal onClose={close} testId="modal">
 						<ModalHeader>
-							<ModalTitle>Modal Title</ModalTitle>
+							<ModalTitleWithClose onClose={close}>
+								<ModalTitle>Modal Title</ModalTitle>
+							</ModalTitleWithClose>
 						</ModalHeader>
 						<ModalBody>
-							<div css={textContainerStyles}>
-								<div css={currentSurfaceStyles}>
+							<Box padding="space.250" backgroundColor="elevation.surface.sunken">
+								<Box backgroundColor="utility.elevation.surface.current">
 									<Lorem count={2} />
-								</div>
-							</div>
+								</Box>
+							</Box>
 						</ModalBody>
 						<ModalFooter>
 							<Button testId="secondary" appearance="subtle" onClick={close}>
@@ -57,6 +46,6 @@ export default function DefaultModal() {
 					</Modal>
 				)}
 			</ModalTransition>
-		</div>
+		</>
 	);
 }

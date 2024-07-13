@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import Link from '@atlaskit/link';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited, CommentTime } from '../src';
 
@@ -17,7 +18,7 @@ export default () => (
 		time={<CommentTime>30 August, 2016</CommentTime>}
 		content={
 			<p>
-				Content goes here. This can include <a href="/link">links</a> and other content.
+				Content goes here. This can include <Link href="/link">links</Link> and other content.
 			</p>
 		}
 		actions={[

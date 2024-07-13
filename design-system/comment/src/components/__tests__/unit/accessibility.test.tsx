@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import Avatar from '@atlaskit/avatar';
+import Link from '@atlaskit/link';
 
 import avatarImg from '../../../../examples/images/avatar_400x400.jpg';
 import CommentAction from '../../../../src/components/action-item';
@@ -31,7 +32,7 @@ it('Basic Comment should not fail aXe audit', async () => {
 			time={<CommentTime>30 August, 2023</CommentTime>}
 			content={
 				<p>
-					Content goes here. This can include <a href="/link">links</a> and other content.
+					Content goes here. This can include <Link href="/link">links</Link> and other content.
 				</p>
 			}
 			actions={actions}

@@ -7,14 +7,12 @@ import { Grid } from 'react-virtualized';
 import type { Size } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { AutoSizer } from 'react-virtualized/dist/commonjs/AutoSizer';
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer';
-import { Collection } from 'react-virtualized/dist/commonjs/Collection';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -35,7 +33,6 @@ import useFocus from '../../hooks/use-focus';
 import type { SelectedItemProps } from '../../types';
 import { Modes } from '../../types';
 
-import cellSizeAndPositionGetter from './cellSizeAndPositionGetter';
 import EmptyState from './EmptyState';
 import { getColumnCount, getScrollbarWidth } from './utils';
 
@@ -137,67 +134,6 @@ function ElementList({
 
 	const cellRenderer = useMemo(
 		() =>
-			({ index, key, style }: { index: number; key: string | number; style: object }) => {
-				if (items[index] == null) {
-					return;
-				}
-
-				return (
-					<div
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={style}
-						key={key}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className="element-item-wrapper"
-						css={elementItemWrapper}
-						onKeyDown={(e) => {
-							if (e.key === 'Tab') {
-								if (e.shiftKey && index === 0) {
-									if (setFocusedCategoryIndex) {
-										if (!!selectedCategoryIndex) {
-											setFocusedCategoryIndex(selectedCategoryIndex);
-										} else {
-											setFocusedCategoryIndex(0);
-										}
-										e.preventDefault();
-									}
-								}
-								// before focus jumps from elements list we need to rerender react-virtualized collection.
-								// Otherwise on the next render 'scrollToCell' will have same cached value
-								// and collection will not be scrolled to top.
-								// So Tab press on category will not work anymore due to invisible 1-t element.
-								else if (index === items.length - 2) {
-									setFocusedItemIndex(items.length - 1);
-								}
-							}
-						}}
-					>
-						<MemoizedElementItem
-							inlineMode={!fullMode}
-							index={index}
-							item={items[index]}
-							selected={selectedItemIndex === index}
-							focus={focusedItemIndex === index}
-							setFocusedItemIndex={setFocusedItemIndex}
-							{...props}
-						/>
-					</div>
-				);
-			},
-		[
-			items,
-			fullMode,
-			selectedItemIndex,
-			focusedItemIndex,
-			selectedCategoryIndex,
-			setFocusedCategoryIndex,
-			setFocusedItemIndex,
-			props,
-		],
-	);
-
-	const gridCellRenderer = useMemo(
-		() =>
 			({
 				columnIndex,
 				key,
@@ -243,9 +179,9 @@ function ElementList({
 											e.preventDefault();
 										}
 									}
-									// before focus jumps from elements list we need to rerender react-virtualized collection.
+									// before focus jumps from elements list we need to rerender react-virtualized grid.
 									// Otherwise on the next render 'scrollToCell' will have same cached value
-									// and collection will not be scrolled to top.
+									// and grid will not be scrolled to top.
 									// So Tab press on category will not work anymore due to invisible 1-t element.
 									else if (index === items.length - 2) {
 										setFocusedItemIndex(items.length - 1);
@@ -309,49 +245,28 @@ function ElementList({
 					<Fragment>
 						{containerWidth > 0 && (
 							<AutoSizer disableWidth>
-								{({ height }: Size) =>
-									fg('platform.editor.a11y-element-browser') ? (
-										<Grid
-											cellRenderer={gridCellRenderer}
-											height={height}
-											width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
-											/**
-											 * Refresh Grid on WidthObserver value change.
-											 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
-											 * scroll position after updating the data. If new data has different number of cells, a re-render
-											 * is forced to prevent the scroll position render bug.
-											 */
-											key={containerWidth + items.length}
-											rowHeight={rowHeight}
-											rowCount={rowCount}
-											columnCount={columnCount}
-											columnWidth={columnWidth}
-											deferredMeasurementCache={cache}
-											{...(selectedItemIndex !== undefined && {
-												scrollToRow: Math.floor(selectedItemIndex / columnCount),
-											})}
-										/>
-									) : (
-										<Collection
-											cellCount={items.length}
-											cellRenderer={cellRenderer}
-											cellSizeAndPositionGetter={cellSizeAndPositionGetter(
-												containerWidth - ELEMENT_LIST_PADDING * 2,
-												scrollbarWidth,
-											)}
-											height={height}
-											width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
-											/**
-											 * Refresh Collection on WidthObserver value change.
-											 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
-											 * scroll position after updating the data. If new data has different number of cells, a re-render
-											 * is forced to prevent the scroll position render bug.
-											 */
-											key={containerWidth + items.length}
-											scrollToCell={selectedItemIndex}
-										/>
-									)
-								}
+								{({ height }: Size) => (
+									<Grid
+										cellRenderer={cellRenderer}
+										height={height}
+										width={containerWidth - ELEMENT_LIST_PADDING * 2} // containerWidth - padding on Left/Right (for focus outline)
+										/**
+										 * Refresh Grid on WidthObserver value change.
+										 * Length of the items used to force re-render to solve Firefox bug with react-virtualized retaining
+										 * scroll position after updating the data. If new data has different number of cells, a re-render
+										 * is forced to prevent the scroll position render bug.
+										 */
+										key={containerWidth + items.length}
+										rowHeight={rowHeight}
+										rowCount={rowCount}
+										columnCount={columnCount}
+										columnWidth={columnWidth}
+										deferredMeasurementCache={cache}
+										{...(selectedItemIndex !== undefined && {
+											scrollToRow: Math.floor(selectedItemIndex / columnCount),
+										})}
+									/>
+								)}
 							</AutoSizer>
 						)}
 					</Fragment>
@@ -475,7 +390,7 @@ const elementItemsWrapper = css({
 	overflow: 'hidden',
 	padding: token('space.025', '2px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.ReactVirtualized__Collection, .ReactVirtualized__Grid': {
+	'.ReactVirtualized__Grid': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		borderRadius: '3px',
 		outline: 'none',
@@ -485,13 +400,12 @@ const elementItemsWrapper = css({
 		},
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.ReactVirtualized__Collection__innerScrollContainer, .ReactVirtualized__Grid__innerScrollContainer':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-			"div[class='element-item-wrapper']:last-child": {
-				paddingBottom: token('space.050', '4px'),
-			},
+	'.ReactVirtualized__Grid__innerScrollContainer': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		"div[class='element-item-wrapper']:last-child": {
+			paddingBottom: token('space.050', '4px'),
 		},
+	},
 });
 
 const elementItemWrapper = css({

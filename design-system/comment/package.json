@@ -46,6 +46,7 @@
 		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/link": "1.0.2",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",

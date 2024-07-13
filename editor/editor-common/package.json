@@ -309,9 +309,6 @@
 		"platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
 			"type": "boolean"
 		},
-		"platform.editor.a11y-element-browser": {
-			"type": "boolean"
-		},
 		"platform_editor_tables_padding_increase": {
 			"type": "boolean"
 		},

@@ -103,7 +103,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	}
 
 	const source = format(
-		`export type BackgroundColor = ${mapToCssVar(backgroundColor)};
+		`export type BackgroundColor = 'transparent' | 'currentcolor' | ${mapToCssVar(backgroundColor)};
 
 export type BackgroundColorHovered = ${mapToCssVar(backgroundColorHovered)};
 
@@ -127,7 +127,7 @@ export type SpaceMargin = Space | 'auto' | '0 auto' | '0';
 
 export type Shadow = ${mapToCssVar(shadow)};
 
-export type TextColor = ${mapToCssVar(textColor)};
+export type TextColor = 'transparent' | ${mapToCssVar(textColor)};
 
 export type TextColorPressed = ${mapToCssVar(textColorPressed)};
 

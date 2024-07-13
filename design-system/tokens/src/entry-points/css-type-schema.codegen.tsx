@@ -3,10 +3,12 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::9a6f7080318b265d2bc48dc19e3f60c7>>
+ * @codegen <<SignedSource::fc20499c828e2cbac9abd2ee9b806c07>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColor =
+	| 'transparent'
+	| 'currentcolor'
 	| 'var(--ds-background-accent-lime-subtlest)'
 	| 'var(--ds-background-accent-lime-subtler)'
 	| 'var(--ds-background-accent-lime-subtle)'
@@ -310,6 +312,7 @@ export type Shadow =
 	| 'var(--ds-shadow-raised)';
 
 export type TextColor =
+	| 'transparent'
 	| 'var(--ds-text)'
 	| 'var(--ds-text-accent-lime)'
 	| 'var(--ds-text-accent-lime-bolder)'

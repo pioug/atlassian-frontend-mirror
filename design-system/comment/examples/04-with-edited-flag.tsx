@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import Link from '@atlaskit/link';
 import { Text } from '@atlaskit/primitives';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited } from '../src';
@@ -18,7 +19,7 @@ export default () => (
 		edited={<CommentEdited>Edited {getCommentEditTime()}</CommentEdited>}
 		content={
 			<Text as="p">
-				Content goes here. This can include <a href="/link">links</a> and other content.
+				Content goes here. This can include <Link href="/link">links</Link> and other content.
 			</Text>
 		}
 		actions={[

@@ -3,7 +3,7 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import {
+import React, {
 	Children,
 	type ElementType,
 	type FC,
@@ -69,7 +69,7 @@ export type InlineProps<T extends ElementType = 'div'> = {
 	/**
 	 * Renders a separator string between each child.
 	 */
-	separator?: string;
+	separator?: React.ReactNode;
 
 	/**
 	 * Elements to be rendered inside the Inline.

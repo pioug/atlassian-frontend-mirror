@@ -96,6 +96,9 @@
 			"path": "../inline-message/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../popup/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 2.5.2
+
+### Patch Changes
+
+- [#119704](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119704)
+  [`2308f93f42b1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2308f93f42b1a) -
+  EDM-10361 Show highlighted border on hover of inline card configure overlay
+- Updated dependencies
+
 ## 2.5.1
 
 ### Patch Changes

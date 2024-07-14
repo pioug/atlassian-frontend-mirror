@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@atlaskit/badge": "^16.3.0",
 		"@atlaskit/banner": "^12.4.0",
-		"@atlaskit/button": "^18.3.0",
+		"@atlaskit/button": "^18.4.0",
 		"@atlaskit/calendar": "^14.3.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/code": "^15.4.0",
@@ -39,7 +39,7 @@
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/inline-edit": "^13.4.1",
-		"@atlaskit/lozenge": "^11.8.0",
+		"@atlaskit/lozenge": "^11.9.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/progress-bar": "2.2.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/textarea": "^5.5.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/toggle": "^13.2.0",
-		"@atlaskit/tokens": "^1.53.0",
+		"@atlaskit/tokens": "^1.54.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0"
 	},

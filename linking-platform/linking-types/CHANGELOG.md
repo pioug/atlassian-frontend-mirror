@@ -1,5 +1,14 @@
 # @atlaskit/linking-types
 
+## 8.11.0
+
+### Minor Changes
+
+- [#119546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119546)
+  [`cbe8dcaa80703`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbe8dcaa80703) -
+  New Datasource Action Types: `ActionsServiceDiscoveryResponse`, `AtomicActionExecuteRequest`,
+  `ActionOperationStatus`, `AtomicActionExecuteResponse`, `ActionsServiceError`
+
 ## 8.10.0
 
 ### Minor Changes

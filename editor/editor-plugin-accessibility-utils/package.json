@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-accessibility-utils",
-	"version": "1.1.8",
+	"version": "1.1.9",
 	"description": "Accessibility utils for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

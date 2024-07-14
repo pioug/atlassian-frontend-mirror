@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.4.0
+
+### Minor Changes
+
+- [#119608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119608)
+  [`ecb9286aa6ae8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecb9286aa6ae8) -
+  refactor: remove some usages of findDOMNode in editor-core and editor-plugin-insert-block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.14
 
 ### Patch Changes

@@ -37,7 +37,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/button": "^18.3.0",
+		"@atlaskit/button": "^18.4.0",
 		"@atlaskit/flag": "^15.7.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/icon": "^22.6.0",
@@ -48,7 +48,7 @@
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.53.0",
+		"@atlaskit/tokens": "^1.54.0",
 		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",
 		"exenv": "^1.2.2"

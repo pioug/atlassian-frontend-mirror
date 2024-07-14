@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 7.19.12
+
+### Patch Changes
+
+- [#119559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119559)
+  [`7c1b0299f4fba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c1b0299f4fba) -
+  ED-22510:Screen reader support for column/row selection and up/down movements
+- [#119748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119748)
+  [`643da12b73454`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/643da12b73454) -
+  [ED-24041] When element drag and drop is enabled, allow table corner control with selection for
+  nested nodes
+- [#119589](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119589)
+  [`f1c2a87bd1e67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1c2a87bd1e67) -
+  [ux] Left alignment option should be disabled for default tables in fixed-width editor.
+- Updated dependencies
+
 ## 7.19.11
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.39.3
+
+### Patch Changes
+
+- [#119779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119779)
+  [`1915b904e58c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1915b904e58c6) -
+  Improves the height of the suspense fallback when mounting the picker with a url prop (behind ff).
+- Updated dependencies
+
 ## 1.39.2
 
 ### Patch Changes

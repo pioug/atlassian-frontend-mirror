@@ -1,5 +1,18 @@
 # @atlaskit/button
 
+## 18.4.0
+
+### Minor Changes
+
+- [#119272](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119272)
+  [`0efaab9cca145`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0efaab9cca145) -
+  ButtonGroup's `appearance` prop has been deprecated and will be removed in a future release. Apply
+  the `appearance` prop on each button instead.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.3.1
 
 ### Patch Changes

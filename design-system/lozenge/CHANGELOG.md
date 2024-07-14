@@ -1,5 +1,17 @@
 # @atlaskit/lozenge
 
+## 11.9.0
+
+### Minor Changes
+
+- [#119259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119259)
+  [`2fac9118d33bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2fac9118d33bd) -
+  modify styling behind a feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.8.5
 
 ### Patch Changes

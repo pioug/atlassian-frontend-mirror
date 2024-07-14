@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "194.1.1",
+	"version": "194.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^18.3.0",
+		"@atlaskit/button": "^18.4.0",
 		"@atlaskit/editor-common": "^84.5.0",
 		"@atlaskit/editor-plugins": "^3.4.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
@@ -57,7 +57,7 @@
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.53.0",
+		"@atlaskit/tokens": "^1.54.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/width-detector": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -87,7 +87,7 @@
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/collab-provider": "9.33.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
-		"@atlaskit/editor-plugin-annotation": "1.14.2",
+		"@atlaskit/editor-plugin-annotation": "1.14.3",
 		"@atlaskit/editor-plugin-card": "^2.5.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-list": "^3.5.0",
@@ -107,7 +107,7 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.92",
+		"@atlassian/search-provider": "2.4.93",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",

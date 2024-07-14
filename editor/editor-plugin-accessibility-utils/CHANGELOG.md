@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 1.1.9
+
+### Patch Changes
+
+- [#119559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119559)
+  [`7c1b0299f4fba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c1b0299f4fba) -
+  ED-22510:Screen reader support for column/row selection and up/down movements
+
 ## 1.1.8
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 1.54.0
+
+### Minor Changes
+
+- [#119869](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119869)
+  [`c9fbedbef614e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9fbedbef614e) -
+  The DesignTokenStyles type now allows transparent and currentcolor for backgrounds, and
+  transparent for text colors.
+
 ## 1.53.2
 
 ### Patch Changes

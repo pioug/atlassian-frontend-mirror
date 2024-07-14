@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 78.0.5
+
+### Patch Changes
+
+- [#119322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119322)
+  [`2f435f37f33e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f435f37f33e0) -
+  Allow alt text on image to be empty on decorative images to improve accessibility
+- Updated dependencies
+
 ## 78.0.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.16
+
+### Patch Changes
+
+- [#119383](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119383)
+  [`2db50d6540e1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2db50d6540e1b) -
+  [ux] fix drag handles to respond to viewport narrowing
+- Updated dependencies
+
 ## 1.5.15
 
 ### Patch Changes

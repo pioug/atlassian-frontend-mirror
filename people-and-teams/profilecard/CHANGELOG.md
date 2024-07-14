@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 19.16.0
+
+### Minor Changes
+
+- [#119587](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119587)
+  [`add3a324590a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/add3a324590a5) -
+  exposed offset prop to adjust offset of profile card popup from trigger
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.15.10
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 84.5.1
+
+### Patch Changes
+
+- [#119559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119559)
+  [`7c1b0299f4fba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c1b0299f4fba) -
+  ED-22510:Screen reader support for column/row selection and up/down movements
+- [#119860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119860)
+  [`2f8a2041b5477`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f8a2041b5477) -
+  [ECA11Y-185] Removed platform.editor.a11y-element-browser FF
+- Updated dependencies
+
 ## 84.5.0
 
 ### Minor Changes

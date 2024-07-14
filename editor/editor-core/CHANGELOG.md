@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 194.2.0
+
+### Minor Changes
+
+- [#119608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119608)
+  [`ecb9286aa6ae8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecb9286aa6ae8) -
+  refactor: remove some usages of findDOMNode in editor-core and editor-plugin-insert-block
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 194.1.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.14.3
+
+### Patch Changes
+
+- [#118402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118402)
+  [`efc9db93eefe8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efc9db93eefe8) -
+  Cleanup flag to fix comments on media draft bug
+
 ## 1.14.2
 
 ### Patch Changes

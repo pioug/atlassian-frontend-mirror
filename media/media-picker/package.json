@@ -46,7 +46,7 @@
 		"@atlaskit/media-common": "^11.3.0",
 		"@atlaskit/media-ui": "^25.10.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.53.0",
+		"@atlaskit/tokens": "^1.54.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
@@ -65,7 +65,7 @@
 	"devDependencies": {
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
-		"@atlaskit/button": "^18.3.0",
+		"@atlaskit/button": "^18.4.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-test-helpers": "^33.0.0",
 		"@atlaskit/ssr": "*",

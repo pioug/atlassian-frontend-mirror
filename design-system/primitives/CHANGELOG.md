@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 11.0.1
+
+### Patch Changes
+
+- [#119548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119548)
+  [`c99cce707b5cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c99cce707b5cb) -
+  The separator prop in the inline component has had its type expanded to `ReactNode`.
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

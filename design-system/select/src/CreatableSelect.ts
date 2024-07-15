@@ -1,4 +1,6 @@
-import CreatableSelect from 'react-select/creatable';
+import CreatableReactSelect from 'react-select/creatable';
 import createSelect from './createSelect';
 
-export default createSelect(CreatableSelect);
+const CreatableSelect = createSelect(CreatableReactSelect);
+
+export default CreatableSelect;

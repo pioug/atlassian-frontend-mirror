@@ -22,7 +22,12 @@ const analyticsAttributes = {
 
 const noop = __noop;
 
-export default React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
+/**
+ * __Step__
+ *
+ * A button that represents a single step in a breadcrumbs component.
+ */
+const Step = React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
 	(
 		{
 			hasOverflow = true,
@@ -56,3 +61,5 @@ export default React.forwardRef<HTMLButtonElement, BreadcrumbsButtonProps>(
 		);
 	},
 );
+
+export default Step;

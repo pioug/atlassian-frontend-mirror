@@ -1,7 +1,6 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler, GapCursorSelection } from '@atlaskit/editor-common/selection';
@@ -46,7 +45,7 @@ function nodesBetweenChanged(
 }
 
 export function createPlugin(
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	dispatch: Dispatch,

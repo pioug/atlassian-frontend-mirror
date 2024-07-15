@@ -47,6 +47,9 @@ exports[`default-value-hydration-client should translate given context to correc
       ],
     },
     "searchUserbase": true,
+    "teamSearchFields": [
+      "name",
+    ],
   },
 }
 `;

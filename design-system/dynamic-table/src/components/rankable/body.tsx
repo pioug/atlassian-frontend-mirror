@@ -144,6 +144,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
 	}
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default withSortedPageRows<RankableBodyProps>(
 	React.forwardRef<HTMLTableSectionElement, RankableBodyProps>((props, ref) => {
 		return <RankableBody {...props} forwardedRef={ref} />;

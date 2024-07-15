@@ -4,6 +4,11 @@ export enum EntityType {
 	GROUP = 'GROUP',
 }
 
+export enum TeamSearchField {
+	NAME = 'name',
+	DESCRIPTION = 'description',
+}
+
 export interface UserSearchBitbucketAttributes {
 	/**
 	 * Identifies whether this is a public repository or not.
@@ -87,6 +92,12 @@ export interface UserSearchQuery {
 	 * just require site access without product access.
 	 */
 	searchUserbase?: boolean;
+
+	/**
+	 * Control which field to search for team results. Only valid values are: name and description
+	 * URS searches both if it's empty or undefined.
+	 */
+	teamSearchFields?: TeamSearchField[];
 }
 
 export interface UserSearchRequest {

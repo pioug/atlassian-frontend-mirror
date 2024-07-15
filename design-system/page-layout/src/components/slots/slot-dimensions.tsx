@@ -8,7 +8,10 @@ interface SlotDimensionsProps {
 	mobileValue?: number;
 }
 
-export default ({ variableName, value, mobileValue }: SlotDimensionsProps) => {
+/**
+ * Hoists slot dimension styles to the root element.
+ */
+const SlotDimensions = ({ variableName, value, mobileValue }: SlotDimensionsProps) => {
 	/**
 	 * Note don't put multiple variables in multiple lines. eg
 	 * <style>
@@ -29,3 +32,5 @@ export default ({ variableName, value, mobileValue }: SlotDimensionsProps) => {
 		<style>{style}</style>
 	);
 };
+
+export default SlotDimensions;

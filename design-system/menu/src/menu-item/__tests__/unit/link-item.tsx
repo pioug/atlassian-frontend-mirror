@@ -13,7 +13,6 @@ import { css, jsx } from '@emotion/react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type { CSSFn } from '../../../types';
 import LinkItem from '../../link-item';
@@ -208,30 +207,41 @@ describe('<LinkItem />', () => {
 		expect(container.firstChild).toHaveStyleRule('border', '1px solid');
 	});
 
-	ffTest.off(
-		'platform.wanjel.remove-drag-override-in-menu-items_l1dib',
-		'with drag behaviour cleanup off',
-		() => {
-			it('should prevent dragging so the transparent artefact isnt shown', () => {
-				// Return if default was prevented which we will then assert later
-				const dragStartEvent = jest.fn((e) => e.defaultPrevented);
-				const { getByTestId } = render(
-					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
-					<div onDragStart={dragStartEvent}>
-						<LinkItem href="http://www.atlassian.com" testId="target">
-							Atlassian
-						</LinkItem>
-					</div>,
-				);
+	it('should prevent dragging so the transparent artefact isnt shown', () => {
+		// Return if default was prevented which we will then assert later
+		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
+		const { getByTestId } = render(
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			<div onDragStart={dragStartEvent}>
+				<LinkItem href="http://www.atlassian.com" testId="target">
+					Atlassian
+				</LinkItem>
+			</div>,
+		);
 
-				fireEvent.dragStart(getByTestId('target'));
+		fireEvent.dragStart(getByTestId('target'));
 
-				expect(getByTestId('target')).toHaveAttribute('draggable', 'false');
-				//  Default was prevented?
-				expect(dragStartEvent.mock.results[0].value).toEqual(true);
-			});
-		},
-	);
+		expect(getByTestId('target')).toHaveAttribute('draggable', 'false');
+		//  Default was prevented?
+		expect(dragStartEvent.mock.results[0].value).toEqual(true);
+	});
+
+	it('should not prevent dragging when UNSAFE_isDraggable is true', () => {
+		// Return if default was prevented which we will then assert later
+		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
+		const { getByTestId } = render(
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			<div onDragStart={dragStartEvent}>
+				<LinkItem href="http://www.atlassian.com" testId="target" UNSAFE_isDraggable>
+					Atlassian
+				</LinkItem>
+			</div>,
+		);
+
+		fireEvent.dragStart(getByTestId('target'));
+
+		expect(dragStartEvent.mock.results[0].value).toEqual(false);
+	});
 
 	it('should have "aria-current=page" when link item is selected', () => {
 		const { getByTestId } = render(

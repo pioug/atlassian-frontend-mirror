@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { getPosHandler, ReactComponentProps } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import {
@@ -43,9 +42,8 @@ export interface DatasourceProps extends ReactComponentProps {
 	node: PMNode;
 	view: EditorView;
 	getPos: getPosHandler;
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
+	portalProviderAPI: PortalProviderAPI;
 	eventDispatcher: EventDispatcher;
-	hasIntlContext: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	isNodeNested?: boolean;
 }
@@ -246,10 +244,6 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 			props.portalProviderAPI,
 			props.eventDispatcher,
 			props,
-			undefined,
-			true,
-			undefined,
-			props.hasIntlContext,
 		);
 
 		const sharedState = props?.pluginInjectionApi?.width?.sharedState;

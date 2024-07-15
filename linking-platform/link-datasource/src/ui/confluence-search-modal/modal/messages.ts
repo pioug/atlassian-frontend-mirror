@@ -11,11 +11,6 @@ export const confluenceSearchModalMessages = defineMessages({
 		description: 'Button text to insert the displayed content',
 		defaultMessage: 'Insert results',
 	},
-	searchCountText: {
-		id: 'linkDataSource.confluence-search.configmodal.resultsCountText',
-		description: 'Text that appears after search count number.',
-		defaultMessage: '{totalCount, plural, one {result} other {results}}',
-	},
 	insertIssuesTitle: {
 		id: 'linkDataSource.confluence-search.configmodal.insertConfluenceTitle',
 		description: 'Title for the Confluence Search Datasource Confluence Search config modal',

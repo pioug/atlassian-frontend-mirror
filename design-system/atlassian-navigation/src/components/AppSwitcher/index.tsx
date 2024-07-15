@@ -29,5 +29,5 @@ export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) =
 });
 
 // exists only to extract props
-// eslint-disable-next-line @repo/internal/react/use-noop
+// eslint-disable-next-line @repo/internal/react/use-noop, import/no-anonymous-default-export
 export default (props: AppSwitcherProps) => {};

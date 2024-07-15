@@ -16,7 +16,7 @@ export default md`
   ## Usage
 
   Smart User Picker can accept all User Picker props. Please refer to [@atlaskit/user-picker](https://statlas.prod.atl-paas.net/atlassian-frontend/master#packages/elements/user-picker)
-   for styling.
+   for styling or accessibility settings.
 
   Import the component in your React app as follows:
 

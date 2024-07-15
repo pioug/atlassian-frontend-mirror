@@ -21,7 +21,6 @@ import { UnsupportedInlineNodeView } from './unsupported-inline-node-view';
 const pluginKey = new PluginKey('unsupportedContentPlugin');
 
 const createPlugin: PMPluginFactory = (pmPluginFactoryParams: PMPluginFactoryParams) => {
-	const hasIntlContext = true;
 	const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
 	return new SafePlugin({
 		key: pluginKey,
@@ -33,7 +32,6 @@ const createPlugin: PMPluginFactory = (pmPluginFactoryParams: PMPluginFactoryPar
 					eventDispatcher,
 					{ dispatchAnalyticsEvent },
 					undefined,
-					hasIntlContext,
 				),
 				confluenceUnsupportedInline: getInlineNodeViewProducer({
 					pmPluginFactoryParams,
@@ -46,7 +44,6 @@ const createPlugin: PMPluginFactory = (pmPluginFactoryParams: PMPluginFactoryPar
 					eventDispatcher,
 					{ dispatchAnalyticsEvent },
 					undefined,
-					hasIntlContext,
 				),
 				unsupportedInline: getInlineNodeViewProducer({
 					pmPluginFactoryParams,

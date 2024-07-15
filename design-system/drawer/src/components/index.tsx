@@ -202,8 +202,19 @@ export class DrawerBase extends Component<DrawerProps, { renderPortal: boolean }
 	}
 }
 
-export default withAnalyticsContext({
+/**
+ * __Drawer__
+ *
+ * A drawer is a panel that slides in from the left side of the screen.
+ *
+ * - [Examples](https://atlassian.design/components/drawer/examples)
+ * - [Code](https://atlassian.design/components/drawer/code)
+ * - [Usage](https://atlassian.design/components/drawer/usage)
+ */
+const Drawer = withAnalyticsContext({
 	componentName: 'drawer',
 	packageName,
 	packageVersion,
 })(withAnalyticsEvents()(DrawerBase));
+
+export default Drawer;

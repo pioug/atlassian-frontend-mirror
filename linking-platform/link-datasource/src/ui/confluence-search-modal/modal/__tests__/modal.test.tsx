@@ -864,36 +864,15 @@ describe('ConfluenceSearchConfigModal', () => {
 					);
 				});
 
-				ffTest.on(
-					'platform.linking-platform.datasource.total-count-i18n-single-key',
-					'when i18n single key is on',
-					() => {
-						it('should display a count of all search results found', async () => {
-							const hookState = getDefaultHookState();
-							const { getByTestId } = await setup({
-								hookState,
-							});
-							expect(
-								getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
-							).toEqual('3 results');
-						});
-					},
-				);
-				ffTest.off(
-					'platform.linking-platform.datasource.total-count-i18n-single-key',
-					'when i18n single key is off',
-					() => {
-						it('should display a count of all search results found', async () => {
-							const hookState = getDefaultHookState();
-							const { getByTestId } = await setup({
-								hookState,
-							});
-							expect(
-								getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
-							).toEqual('3 results');
-						});
-					},
-				);
+				it('should display a count of all search results found', async () => {
+					const hookState = getDefaultHookState();
+					const { getByTestId } = await setup({
+						hookState,
+					});
+					expect(
+						getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
+					).toEqual('3 results');
+				});
 
 				it('should display a link to the confluence search link', async () => {
 					const hookState = getDefaultHookState();

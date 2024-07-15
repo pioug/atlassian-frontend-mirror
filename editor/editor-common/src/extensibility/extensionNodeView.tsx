@@ -10,7 +10,6 @@ import type { ProviderFactory } from '../provider-factory';
 import type { ForwardRef, getPosHandler, ProsemirrorGetPosHandler } from '../react-node-view';
 import ReactNodeView from '../react-node-view';
 import type { EditorAppearance } from '../types';
-import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
@@ -87,7 +86,7 @@ export class ExtensionNode extends ReactNodeView {
 }
 
 export default function ExtensionNodeView(
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	extensionHandlers: ExtensionHandlers,
@@ -96,24 +95,12 @@ export default function ExtensionNodeView(
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		const hasIntlContext = true;
-		return new ExtensionNode(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-			{
-				providerFactory,
-				extensionHandlers,
-				extensionNodeViewOptions,
-				pluginInjectionApi,
-				macroInteractionDesignFeatureFlags,
-			},
-			undefined,
-			undefined,
-			undefined,
-			hasIntlContext,
-		).init();
+		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
+			providerFactory,
+			extensionHandlers,
+			extensionNodeViewOptions,
+			pluginInjectionApi,
+			macroInteractionDesignFeatureFlags,
+		}).init();
 	};
 }

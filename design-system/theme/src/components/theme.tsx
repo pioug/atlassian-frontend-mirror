@@ -8,4 +8,6 @@ const { Provider, Consumer, useTheme } = createTheme<GlobalThemeTokens, void>(()
 
 export { useTheme as useGlobalTheme };
 
-export default { Provider, Consumer };
+const Theme = { Provider, Consumer };
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Theme;

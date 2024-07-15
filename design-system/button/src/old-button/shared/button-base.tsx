@@ -77,7 +77,7 @@ const getChildren = (children: ReactNode, childrenStyles: SerializedStyles[]) =>
 	return children ? <span css={childrenStyles}>{children}</span> : null;
 };
 
-export default React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBase(
+const ButtonBase = React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBase(
 	props: ButtonBaseProps,
 	ref: React.Ref<HTMLElement>,
 ) {
@@ -252,3 +252,6 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(function ButtonBas
 		</FocusRing>
 	);
 });
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default ButtonBase;

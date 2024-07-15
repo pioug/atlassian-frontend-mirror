@@ -52,7 +52,12 @@ Author.displayName = 'CommentAuthor';
 export { Author as CommentAuthorWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Comment author__
+ *
+ * The author of the comment.
+ */
+const CommentAuthor = withAnalyticsContext({
 	componentName: 'commentAuthor',
 	packageName,
 	packageVersion,
@@ -69,3 +74,5 @@ export default withAnalyticsContext({
 		}),
 	})(Author),
 );
+
+export default CommentAuthor;

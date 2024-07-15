@@ -225,6 +225,26 @@ typescriptEslintTester.run(
 					);
 				`,
 			},
+			{
+				name: 'Using cx for xcss prop',
+				code: `
+					import { cssMap, cx } from '@atlaskit/css';
+					import { Box } from '@atlaskit/primitives';
+
+					const styles = cssMap({
+						root: {
+							padding: 8,
+						},
+						selected: {
+							color: 'red',
+						}
+					});
+
+					const Component = (props) => (
+						<Box xcss={cx(styles.root, styles.selected)} />
+					);
+				`,
+			},
 		],
 		invalid: [
 			{
@@ -485,6 +505,61 @@ typescriptEslintTester.run(
 					{ messageId: 'no-imported-style-values' },
 					{ messageId: 'no-imported-style-values' },
 				],
+			},
+			{
+				name: 'Using cx for css prop',
+				code: `
+					import { cssMap, cx } from '@atlaskit/css';
+
+					const styles = cssMap({
+						root: {
+							padding: 8,
+						},
+						selected: {
+							color: 'red',
+						}
+					});
+
+					const Component = (props) => (
+						<div css={cx(styles.root, styles.selected)} />
+					);
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			},
+			{
+				name: 'Using cx not at the top level',
+				code: `
+					import { cssMap, cx } from '@atlaskit/css';
+					import { Box } from '@atlaskit/primitives';
+
+					const styles = cssMap({
+						root: {
+							padding: 8,
+						},
+						selected: {
+							color: 'red',
+						}
+					});
+
+					const Component = (props) => (
+						<Box xcss={[...cx(styles.root, styles.selected)]} />
+					);
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			},
+			{
+				name: 'Imported value inside of cx',
+				code: `
+					import { cssMap, cx } from '@atlaskit/css';
+					import { Box } from '@atlaskit/primitives';
+
+					import styles from './styles';
+
+					const Component = (props) => (
+						<Box xcss={cx(styles)} />
+					);
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
 			},
 		],
 	},

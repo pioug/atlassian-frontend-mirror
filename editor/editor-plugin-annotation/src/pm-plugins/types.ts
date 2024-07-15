@@ -1,6 +1,5 @@
 import type { EditorAnalyticsAPI, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorState, SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
@@ -22,7 +21,7 @@ export enum ACTIONS {
 export interface InlineCommentPluginOptions {
 	dispatch: Dispatch;
 	eventDispatcher: EventDispatcher;
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
+	portalProviderAPI: PortalProviderAPI;
 	provider: InlineCommentAnnotationProvider;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	featureFlagsPluginState?: FeatureFlags;

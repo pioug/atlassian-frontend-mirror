@@ -55,6 +55,7 @@ const LinkItem = memo(
 				// @ts-expect-error
 				className: UNSAFE_className,
 				UNSAFE_shouldDisableRouterLink,
+				UNSAFE_isDraggable,
 				...rest
 			} = props;
 			const onMouseDownHandler = onMouseDown;
@@ -127,9 +128,7 @@ const LinkItem = memo(
 							className={className}
 							// @ts-expect-error
 							href={isDisabled ? undefined : href}
-							{...(fg('platform.wanjel.remove-drag-override-in-menu-items_l1dib')
-								? {}
-								: { draggable: false, onDragStart: preventEvent })}
+							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
 							onClick={isDisabled ? preventEvent : onClick}
 							aria-current={isSelected ? 'page' : undefined}

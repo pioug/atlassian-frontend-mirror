@@ -60,6 +60,7 @@ const CustomItem = memo(
 				// picked it out and supressed the expected type error.
 				// @ts-expect-error
 				className: UNSAFE_className,
+				UNSAFE_isDraggable,
 				...rest
 			}: // Type needed on props to extract types with extract react types.
 			CustomItemProps,
@@ -114,9 +115,7 @@ const CustomItem = memo(
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className}
 							ref={ref}
-							{...(fg('platform.wanjel.remove-drag-override-in-menu-items_l1dib')
-								? {}
-								: { draggable: false, onDragStart: preventEvent })}
+							{...(UNSAFE_isDraggable ? {} : { draggable: false, onDragStart: preventEvent })}
 							onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
 							onClick={isDisabled ? preventEvent : onClick}
 							tabIndex={isDisabled ? -1 : undefined}

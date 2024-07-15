@@ -7,11 +7,12 @@ import { Children, createRef, type KeyboardEvent, type ReactNode, useCallback } 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useTabList } from '../hooks';
 import { TabContext } from '../internal/context';
-import { getTabListStyles } from '../internal/styles';
+import { getTabListStyles, getTabListStylesOld } from '../internal/styles';
 import { type TabListProps } from '../types';
 
 const baseStyles = css({
@@ -22,6 +23,8 @@ const baseStyles = css({
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const tabListStyles = getTabListStyles();
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const tabListStylesOld = getTabListStylesOld();
 
 /**
  * __TabList__
@@ -121,7 +124,7 @@ const TabList = ({ children }: TabListProps) => {
 			role="tablist"
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[baseStyles, tabListStyles]}
+			css={[baseStyles, fg('platform-component-visual-refresh') ? tabListStyles : tabListStylesOld]}
 		>
 			{childrenArray.map((child, index) =>
 				getTabWithContext({

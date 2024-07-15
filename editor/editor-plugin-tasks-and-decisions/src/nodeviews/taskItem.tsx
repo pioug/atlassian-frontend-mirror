@@ -5,7 +5,6 @@ import type { AnalyticsEventPayload, UIAnalyticsEvent } from '@atlaskit/analytic
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
@@ -206,26 +205,14 @@ class Task extends ReactNodeView<Props> {
 }
 
 export function taskItemNodeViewFactory(
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 ) {
 	return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		const hasIntlContext = true;
-		return new Task(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-			{
-				providerFactory,
-			},
-			undefined,
-			undefined,
-			undefined,
-			hasIntlContext,
-		).initWithAPI(api);
+		return new Task(node, view, getPos, portalProviderAPI, eventDispatcher, {
+			providerFactory,
+		}).initWithAPI(api);
 	};
 }

@@ -52,7 +52,7 @@ import {
 } from '@atlaskit/editor-common/messages';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { Format } from './Format';
 import { codeLg, codeMd, codeSm, shortcutsArray } from './styles';
@@ -326,20 +326,17 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		type: 'alignment',
 		keymap: () => alignLeft,
 	},
-	...(getBooleanFF('platform.editor.text-alignment-keyboard-shortcuts')
-		? [
-				{
-					name: formatMessage(alignmentMessages.alignCenter),
-					type: 'alignment',
-					keymap: () => alignCenter,
-				},
-				{
-					name: formatMessage(alignmentMessages.alignRight),
-					type: 'alignment',
-					keymap: () => alignRight,
-				},
-			]
-		: []),
+
+	{
+		name: formatMessage(alignmentMessages.alignCenter),
+		type: 'alignment',
+		keymap: () => alignCenter,
+	},
+	{
+		name: formatMessage(alignmentMessages.alignRight),
+		type: 'alignment',
+		keymap: () => alignRight,
+	},
 ];
 
 const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
@@ -443,7 +440,7 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
 			</span>
 		),
 	},
-	...(getBooleanFF('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')
+	...(fg('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')
 		? [
 				{
 					name: formatMessage(messages.InsertTableColumn),

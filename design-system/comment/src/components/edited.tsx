@@ -51,7 +51,12 @@ Edited.displayName = 'Edited';
 export { Edited as CommentEditedWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Comment edited__
+ *
+ * Mark a comment as edited by passing a `CommentEdited` component to the the edited prop of `Comment`
+ */
+const CommentEdited = withAnalyticsContext({
 	componentName: 'commentEdited',
 	packageName,
 	packageVersion,
@@ -69,3 +74,5 @@ export default withAnalyticsContext({
 		}),
 	})(Edited),
 );
+
+export default CommentEdited;

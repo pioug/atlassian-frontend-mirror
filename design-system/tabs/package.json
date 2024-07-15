@@ -38,6 +38,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/focus-ring": "^1.5.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.54.0",
@@ -50,6 +51,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tooltip": "^18.5.0",
@@ -94,6 +96,11 @@
 		".": "./src/index.tsx",
 		"./types": "./src/types.tsx",
 		"./hooks": "./src/hooks.tsx"
+	},
+	"platform-feature-flags": {
+		"platform-component-visual-refresh": {
+			"type": "boolean"
+		}
 	},
 	"homepage": "https://atlassian.design/components/tabs/"
 }

@@ -14,7 +14,7 @@ import { useSelection } from './hooks/selection-provider';
 import { useRowId } from './hooks/use-row-id';
 import { SelectableCell as SelectableCellPrimitive } from './ui';
 
-const SelectableCell: FC = () => {
+const SelectableCellComponent: FC = () => {
 	const [{ allChecked, checked }, { toggleSelection }] = useSelection();
 	const idx = useRowId()!;
 
@@ -36,4 +36,7 @@ const SelectableCell: FC = () => {
 	);
 };
 
-export default memo(SelectableCell);
+const SelectableCell = memo(SelectableCellComponent);
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default SelectableCell;

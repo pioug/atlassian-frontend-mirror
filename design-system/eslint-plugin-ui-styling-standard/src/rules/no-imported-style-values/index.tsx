@@ -1,21 +1,24 @@
-import { createLintRule } from '../utils/create-rule';
-import {
-	getImportSources,
-	hasStyleObjectArguments,
-} from '@atlaskit/eslint-utils/is-supported-import';
-import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import type { AST_NODE_TYPES } from '@typescript-eslint/typescript-estree/dist/ts-estree';
-import { findVariable } from '@atlaskit/eslint-utils/find-variable';
+import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import type { Rule } from 'eslint';
+import type * as ESTree from 'eslint-codemod-utils';
+import esquery from 'esquery';
+import estraverse from 'estraverse';
+
 import {
 	type AllowList,
 	getAllowedDynamicKeys,
 	getAllowedFunctionCalls,
 	isAllowListedVariable,
 } from '@atlaskit/eslint-utils/allowed-function-calls';
-import type * as ESTree from 'eslint-codemod-utils';
-import esquery from 'esquery';
-import estraverse from 'estraverse';
+import { findVariable } from '@atlaskit/eslint-utils/find-variable';
+import {
+	getImportSources,
+	hasStyleObjectArguments,
+	isCxFunction,
+} from '@atlaskit/eslint-utils/is-supported-import';
+
+import { createLintRule } from '../utils/create-rule';
 
 const schema: JSONSchema4 = [
 	{
@@ -137,6 +140,35 @@ export const rule = createLintRule({
 			}
 		};
 
+		const isValidCx = (jsxAttribute: ESTree.JSXAttribute, identifier: ESTree.Identifier) => {
+			/**
+			 * We don't want to allow `cx` for `css` (or `style`)
+			 */
+			if (jsxAttribute.name.name !== 'xcss') {
+				return false;
+			}
+
+			/**
+			 * Check we have the exact form of `xcss={cx(...)}` otherwise it isn't valid.
+			 */
+
+			const jsxExpression = jsxAttribute.value;
+			if (jsxExpression?.type !== 'JSXExpressionContainer') {
+				return false;
+			}
+
+			const callExpression = jsxExpression.expression;
+			if (callExpression?.type !== 'CallExpression') {
+				return false;
+			}
+
+			if (callExpression.callee !== identifier) {
+				return false;
+			}
+
+			return isCxFunction(identifier, context.getScope().references, importSources);
+		};
+
 		return {
 			// Checking css/cssMap/keyframes/styled/xcss calls
 			CallExpression(node) {
@@ -147,7 +179,11 @@ export const rule = createLintRule({
 				}
 				node.arguments.forEach(checkForIdentifiers);
 			},
-			'JSXAttribute[name.name=/^style|css$/]'(jsxAttribute: ESTree.Node) {
+			'JSXAttribute[name.name=/^(style|css|xcss)$/]'(jsxAttribute: ESTree.Node) {
+				if (jsxAttribute.type !== 'JSXAttribute') {
+					return;
+				}
+
 				estraverse.traverse(jsxAttribute, {
 					fallback(node) {
 						// estraverse does not know about nodes not in the ESTree standard.
@@ -174,6 +210,10 @@ export const rule = createLintRule({
 						}
 
 						if (node.type !== 'Identifier') {
+							return;
+						}
+
+						if (isValidCx(jsxAttribute, node)) {
 							return;
 						}
 

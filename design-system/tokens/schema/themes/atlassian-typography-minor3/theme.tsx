@@ -156,7 +156,9 @@ const typography: ValueSchema<
 	},
 };
 
-export default {
+const theme = {
 	font: typography.font,
 	utility,
 };
+
+export default theme;

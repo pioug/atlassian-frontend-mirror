@@ -7,7 +7,7 @@ import Avatar, { type AppearanceType } from '../src';
 
 import { Block, Code, Note } from './helpers';
 
-export default ({ appearance, src }: { appearance: AppearanceType; src: string }) => (
+const FullAvatarExample = ({ appearance, src }: { appearance: AppearanceType; src: string }) => (
 	<div>
 		<h2>Default appearance</h2>
 		<Note>
@@ -71,3 +71,5 @@ export default ({ appearance, src }: { appearance: AppearanceType; src: string }
 		</Block>
 	</div>
 );
+
+export default FullAvatarExample;

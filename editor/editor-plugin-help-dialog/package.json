@@ -87,9 +87,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.text-alignment-keyboard-shortcuts": {
-			"type": "boolean"
-		},
 		"platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg": {
 			"type": "boolean"
 		}

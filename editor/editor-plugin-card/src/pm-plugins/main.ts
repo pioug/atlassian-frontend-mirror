@@ -11,7 +11,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
-import { fg, getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { eventsFromTransaction } from '../analytics/events-from-tr';
 import { isLocalStorageKeyDiscovered } from '../common/local-storage';
@@ -42,7 +42,7 @@ const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
 export const ALLOW_EVENTS_CLASSNAME = 'card-plugin-element-allow-events';
 
 export const stopEvent = (event: Event): boolean => {
-	if (!getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+	if (!fg('platform.linking-platform.smart-links-in-live-pages')) {
 		return false;
 	}
 
@@ -138,10 +138,7 @@ export const createPlugin =
 						cardPluginEvents.push(...events);
 					}
 
-					if (
-						getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar') &&
-						!meta
-					) {
+					if (!meta && fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
 						if (pluginState.datasourceTableRef) {
 							if (!(tr.selection instanceof NodeSelection) || !tr.selection.node.attrs.datasource) {
 								// disable resize button when switching from datasource to block card
@@ -236,9 +233,7 @@ export const createPlugin =
 								};
 
 								// since we use the plugin state, which is a shared state, we need to update the datasourceTableRef, layout on each selection
-								const layout = getBooleanFF(
-									'platform.linking-platform.editor-datasource-typeguards',
-								)
+								const layout = fg('platform.linking-platform.editor-datasource-typeguards')
 									? getLayout()
 									: node?.attrs?.layout || DATASOURCE_DEFAULT_LAYOUT;
 
@@ -326,10 +321,7 @@ export const createPlugin =
 							pluginInjectionApi,
 							onClickCallback: options.onClickCallback,
 						};
-						const hasIntlContext = true;
-						const isDatasource = getBooleanFF(
-							'platform.linking-platform.editor-datasource-typeguards',
-						)
+						const isDatasource = fg('platform.linking-platform.editor-datasource-typeguards')
 							? isDatasourceNode(node)
 							: !!node?.attrs?.datasource;
 
@@ -354,7 +346,6 @@ export const createPlugin =
 									getPos,
 									portalProviderAPI,
 									eventDispatcher,
-									hasIntlContext,
 									pluginInjectionApi,
 									isNodeNested,
 								}).init();
@@ -371,9 +362,6 @@ export const createPlugin =
 							eventDispatcher,
 							reactComponentProps,
 							undefined,
-							true,
-							undefined,
-							hasIntlContext,
 						).init();
 					},
 					embedCard: (node, view, getPos) => {
@@ -390,7 +378,6 @@ export const createPlugin =
 							showServerActions,
 							onClickCallback: options.onClickCallback,
 						};
-						const hasIntlContext = true;
 						return new EmbedCard(
 							node,
 							view,
@@ -399,9 +386,6 @@ export const createPlugin =
 							eventDispatcher,
 							reactComponentProps,
 							undefined,
-							true,
-							undefined,
-							hasIntlContext,
 						).init();
 					},
 				},

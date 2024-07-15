@@ -1,7 +1,6 @@
 import { base, keyName } from 'w3c-keyname';
 
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { SafePlugin } from '../safe-plugin';
 
@@ -16,57 +15,37 @@ export function keymap(bindings: { [key: string]: any }) {
 	return new SafePlugin({
 		props: {
 			handleKeyDown(view, event) {
-				if (getBooleanFF('platform.editor.text-alignment-keyboard-shortcuts')) {
-					const name = keyName(event);
-					let keyboardEvent = event;
+				const name = keyName(event);
+				let keyboardEvent = event;
 
-					// We will try to bypass the keycode only if any of mod keys are pressed,
-					// to allow users to use non-latin and Dead characters.
-					const isModKeyPressed = event.ctrlKey || event.metaKey;
+				// We will try to bypass the keycode only if any of mod keys are pressed,
+				// to allow users to use non-latin and Dead characters.
+				const isModKeyPressed = event.ctrlKey || event.metaKey;
 
-					// Check the unicode of the character to assert that it's not an ASCII character.
-					// These are characters outside latin's range.
-					const isNonLatinKey = name.length === 1 && /[^\u0000-\u007f]/.test(name);
+				// Check the unicode of the character to assert that it's not an ASCII character.
+				// These are characters outside latin's range.
+				const isNonLatinKey = name.length === 1 && /[^\u0000-\u007f]/.test(name);
 
-					// The `Dead` key is a key that combines with a following key to produce a combined character.
-					// It will have `even.key === 'Dead'` in some browsers but the `keyCode` will be the same as in a qwerty-keyboard.
-					// See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key and https://en.wikipedia.org/wiki/Dead_key
-					const isDeadKey = name === 'Dead';
+				// The `Dead` key is a key that combines with a following key to produce a combined character.
+				// It will have `even.key === 'Dead'` in some browsers but the `keyCode` will be the same as in a qwerty-keyboard.
+				// See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key and https://en.wikipedia.org/wiki/Dead_key
+				const isDeadKey = name === 'Dead';
 
-					if (isModKeyPressed && (isNonLatinKey || isDeadKey)) {
-						keyboardEvent = new KeyboardEvent(event.type, {
-							// FIXME: The event.keyCode is deprecated (see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode),
-							//        and could be removed in any time, but the w3c-keyname library doesn't provide a way to get
-							//        a key by event.code.
-							key: base[event.keyCode],
-							code: event.code,
-							ctrlKey: event.ctrlKey,
-							altKey: event.altKey,
-							metaKey: event.metaKey,
-							shiftKey: event.shiftKey,
-						});
-					}
-
-					return keydownHandler(bindings)(view, keyboardEvent);
-				} else {
-					const name = keyName(event);
-					let keyboardEvent = event;
-					if (
-						event.ctrlKey &&
-						name.length === 1 &&
-						// Check the unicode of the character to
-						// assert that its not an ASCII character.
-						// These are characters outside Latin's range.
-						/[^\u0000-\u007f]/.test(name)
-					) {
-						keyboardEvent = new KeyboardEvent('keydown', {
-							key: base[event.keyCode],
-							code: event.code,
-							ctrlKey: true,
-						});
-					}
-					return keydownHandler(bindings)(view, keyboardEvent);
+				if (isModKeyPressed && (isNonLatinKey || isDeadKey)) {
+					keyboardEvent = new KeyboardEvent(event.type, {
+						// FIXME: The event.keyCode is deprecated (see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode),
+						//        and could be removed in any time, but the w3c-keyname library doesn't provide a way to get
+						//        a key by event.code.
+						key: base[event.keyCode],
+						code: event.code,
+						ctrlKey: event.ctrlKey,
+						altKey: event.altKey,
+						metaKey: event.metaKey,
+						shiftKey: event.shiftKey,
+					});
 				}
+
+				return keydownHandler(bindings)(view, keyboardEvent);
 			},
 		},
 	});

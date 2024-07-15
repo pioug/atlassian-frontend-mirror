@@ -66,7 +66,7 @@ const removingStyles = css({
 	},
 });
 
-const RemovableTag = forwardRef<any, RemovableTagProps>(
+const RemovableTagComponent = forwardRef<any, RemovableTagProps>(
 	(
 		{
 			appearance,
@@ -210,4 +210,14 @@ const RemovableTag = forwardRef<any, RemovableTagProps>(
 	},
 );
 
-export default memo(RemovableTag);
+/**
+ * __Removable tag__
+ *
+ * A tag labels UI objects for quick recognition and navigation.
+ *
+ * Once a tag has been removed, it cannot be re-rendered. Removable tags are visible in "edit" mode or in multi-select controls.
+ *
+ */
+const RemovableTag = memo(RemovableTagComponent);
+
+export default RemovableTag;

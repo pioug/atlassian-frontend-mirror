@@ -291,6 +291,12 @@ export interface LinkItemProps extends MenuItemProps {
 	 * Marked as "unsafe" because ideally, router links should be used for all internal links.
 	 */
 	UNSAFE_shouldDisableRouterLink?: boolean;
+
+	/**
+	 * Use this to prevent disable of drag functionality on the menu item.
+	 * Marked as "unsafe" as this may break existing instances of drag handling.
+	 */
+	UNSAFE_isDraggable?: boolean;
 }
 
 export interface CustomItemComponentProps {
@@ -368,6 +374,12 @@ export interface CustomItemProps<TCustomComponentProps = CustomItemComponentProp
 	 */
 	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	component?: React.ComponentType<PropsWithChildren<TCustomComponentProps>>;
+
+	/**
+	 * Use this to prevent disable of drag functionality on the menu item.
+	 * Marked as "unsafe" as this may break existing instances of drag handling.
+	 */
+	UNSAFE_isDraggable?: boolean;
 }
 
 export interface SkeletonItemProps {

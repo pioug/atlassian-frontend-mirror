@@ -22,11 +22,6 @@ export const modalMessages = defineMessages({
 		description: 'Placeholder text that will be placed next to a count of jira issues',
 		defaultMessage: '### Issues',
 	},
-	issueText: {
-		id: 'linkDataSource.jira-issues.configmodal.issue',
-		description: 'Text that appears after issue count number.',
-		defaultMessage: '{totalCount, plural, one {issue} other {issues}}',
-	},
 	searchJiraTitleDuplicate: {
 		id: 'linkDataSource.jira-issues.searchJiraTitle',
 		description:

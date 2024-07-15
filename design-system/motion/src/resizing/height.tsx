@@ -136,4 +136,5 @@ export const ResizingHeight = ({
 /**
  * This exists only to be able to extract opts.
  */
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (_opts: ResizingHeightOpts) => {};

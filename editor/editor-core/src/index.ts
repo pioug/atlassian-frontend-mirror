@@ -59,11 +59,6 @@ export type {
 	ExtensionType,
 	CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
-export {
-	PortalProvider,
-	LegacyPortalProviderAPI,
-	PortalRenderer,
-} from '@atlaskit/editor-common/portal-provider';
 
 /**
  * @deprecated

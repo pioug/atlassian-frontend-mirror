@@ -1,4 +1,4 @@
-export default {
+const supported = {
 	values: {
 		ignore: [
 			'auto',
@@ -36,3 +36,5 @@ export default {
 		],
 	},
 };
+
+export default supported;

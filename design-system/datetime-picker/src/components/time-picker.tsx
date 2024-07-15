@@ -87,7 +87,7 @@ const timePickerDefaultProps = {
 	// Not including a default prop for value as it will
 	// Make the component a controlled component
 };
-class TimePicker extends React.Component<TimePickerProps, State> {
+class TimePickerComponent extends React.Component<TimePickerProps, State> {
 	containerRef: HTMLElement | null = null;
 
 	static defaultProps = timePickerDefaultProps;
@@ -346,9 +346,18 @@ class TimePicker extends React.Component<TimePickerProps, State> {
 	}
 }
 
-export { TimePicker as TimePickerWithoutAnalytics };
+export { TimePickerComponent as TimePickerWithoutAnalytics };
 
-export default withAnalyticsContext({
+/**
+ * __Time picker__
+ *
+ * A time picker allows the user to select a specific time.
+ *
+ * - [Examples](https://atlassian.design/components/datetime-picker/time-picker/examples)
+ * - [Code](https://atlassian.design/components/datetime-picker/time-picker/code)
+ * - [Usage](https://atlassian.design/components/datetime-picker/time-picker/usage)
+ */
+const TimePicker = withAnalyticsContext({
 	componentName: 'timePicker',
 	packageName,
 	packageVersion,
@@ -364,5 +373,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(TimePicker),
+	})(TimePickerComponent),
 );
+
+export default TimePicker;

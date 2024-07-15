@@ -5,7 +5,6 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type {
 	GetEditorContainerWidth,
@@ -20,7 +19,7 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop';
@@ -102,10 +101,6 @@ export default class TableView extends ReactNodeView<Props> {
 			props.portalProviderAPI,
 			props.eventDispatcher,
 			props,
-			undefined,
-			undefined,
-			undefined,
-			props.hasIntlContext,
 		);
 		this.getPos = props.getPos;
 		this.eventDispatcher = props.eventDispatcher;
@@ -183,7 +178,7 @@ export default class TableView extends ReactNodeView<Props> {
 	};
 
 	render(props: Props, forwardRef: ForwardRef) {
-		if (getBooleanFF('platform.editor.table.use-shared-state-hook')) {
+		if (fg('platform.editor.table.use-shared-state-hook')) {
 			return (
 				<TableComponentWithSharedState
 					forwardRef={forwardRef}
@@ -358,7 +353,7 @@ export const createTableView = (
 	node: PmNode,
 	view: EditorView,
 	getPos: getPosHandler,
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getEditorFeatureFlags: GetEditorFeatureFlags,
@@ -375,7 +370,6 @@ export const createTableView = (
 		isTableScalingEnabled, // same as options.isTableScalingEnabled
 	} = getPluginState(view.state);
 	const { allowColumnResizing, allowControls } = getPluginConfig(pluginConfig);
-	const hasIntlContext = true;
 
 	return new TableView({
 		node,
@@ -396,7 +390,6 @@ export const createTableView = (
 		getEditorContainerWidth,
 		getEditorFeatureFlags,
 		dispatchAnalyticsEvent,
-		hasIntlContext,
 		pluginInjectionApi,
 	}).init();
 };

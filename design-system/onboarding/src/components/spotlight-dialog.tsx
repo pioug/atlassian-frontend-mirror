@@ -93,7 +93,7 @@ interface State {
 	focusLockDisabled: boolean;
 }
 
-class SpotlightDialog extends Component<SpotlightDialogProps, State> {
+class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 	state = {
 		focusLockDisabled: true,
 	};
@@ -198,7 +198,16 @@ class SpotlightDialog extends Component<SpotlightDialogProps, State> {
 
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Spotlight dialog__
+ *
+ * An onboarding spotlight introduces new features to users through focused messages or multi-step tours.
+ *
+ * - [Examples](https://atlassian.design/components/onboarding/examples)
+ * - [Code](https://atlassian.design/components/onboarding/code)
+ * - [Usage](https://atlassian.design/components/onboarding/usage)
+ */
+const SpotlightDialog = withAnalyticsContext({
 	componentName: 'spotlight',
 	packageName,
 	packageVersion,
@@ -213,5 +222,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(SpotlightDialog),
+	})(SpotlightDialogComponent),
 );
+
+export default SpotlightDialog;

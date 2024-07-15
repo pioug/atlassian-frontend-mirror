@@ -163,9 +163,6 @@
 		"platform.linking-platform.datasource-assets_add_version_parameter": {
 			"type": "boolean"
 		},
-		"platform.linking-platform.datasource.total-count-i18n-single-key": {
-			"type": "boolean"
-		},
 		"platform.linking-platform.datasource-assets_update_refresh_button_dt3qk": {
 			"type": "boolean"
 		},

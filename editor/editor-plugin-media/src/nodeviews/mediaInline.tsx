@@ -8,7 +8,6 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
@@ -281,7 +280,7 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 
 export const ReactMediaInlineNode =
 	(
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		providerFactory: ProviderFactory,
 		api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,

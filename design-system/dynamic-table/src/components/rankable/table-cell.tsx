@@ -38,4 +38,5 @@ export class RankableTableCell extends React.Component<RankableTableCellProps, {
 	}
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default withDimensions<RankableTableCellProps>(RankableTableCell);

@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/no-unsafe-spread-props */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
@@ -11,7 +12,7 @@ interface WithAllAvatarSizesProps {
 	appearance?: AppearanceType;
 }
 
-export default (props: WithAllAvatarSizesProps) => {
+const WithAllAvatarSizes = (props: WithAllAvatarSizesProps) => {
 	const { presence, ...rest } = props;
 
 	return (
@@ -25,3 +26,5 @@ export default (props: WithAllAvatarSizesProps) => {
 		</Block>
 	);
 };
+
+export default WithAllAvatarSizes;

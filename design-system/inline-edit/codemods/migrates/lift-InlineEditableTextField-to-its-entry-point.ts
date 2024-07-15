@@ -33,6 +33,7 @@ const elevateComponentToNewEntryPoint =
 		});
 	};
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default elevateComponentToNewEntryPoint(
 	'@atlaskit/inline-edit',
 	'@atlaskit/inline-edit/inline-editable-textfield',

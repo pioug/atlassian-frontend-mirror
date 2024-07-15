@@ -19,7 +19,7 @@ const headerStyles = css({
 	fontWeight: token('font.weight.bold'),
 });
 
-class Header extends Component<any> {
+class HeaderComponent extends Component<any> {
 	render() {
 		const { props } = this;
 		return (
@@ -32,4 +32,7 @@ class Header extends Component<any> {
 	}
 }
 
-export default withColumnWidth(Header);
+const Header = withColumnWidth(HeaderComponent);
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Header;

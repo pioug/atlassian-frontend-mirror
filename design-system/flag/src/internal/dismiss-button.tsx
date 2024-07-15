@@ -30,7 +30,13 @@ interface DismissButtonProps {
 	testId?: string;
 }
 
-const DismissButton = ({ appearance, onClick, isBold, isExpanded, testId }: DismissButtonProps) => {
+const DismissButtonComponent = ({
+	appearance,
+	onClick,
+	isBold,
+	isExpanded,
+	testId,
+}: DismissButtonProps) => {
 	let ButtonIcon = CrossIcon;
 	let buttonLabel = 'Dismiss';
 
@@ -56,4 +62,7 @@ const DismissButton = ({ appearance, onClick, isBold, isExpanded, testId }: Dism
 	);
 };
 
-export default memo(DismissButton);
+const DismissButton = memo(DismissButtonComponent);
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default DismissButton;

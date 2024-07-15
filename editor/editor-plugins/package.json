@@ -355,10 +355,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.text-alignment-keyboard-shortcuts": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform.editor.enable-selection-toolbar_ucdwd": {
 			"type": "boolean",
 			"referenceOnly": true

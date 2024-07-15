@@ -129,7 +129,7 @@ export function assignToDate(time: TimeObject): Date {
 	return dateTime;
 }
 
-export default function (time: string): string | Date {
+export default function parseTime(time: string): string | Date {
 	const trimmedTime = time.toString().trim();
 	if (!isValid(trimmedTime)) {
 		throw RangeError('invalid time format');

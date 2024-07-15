@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type {
 	ForwardRef,
 	ReactComponentProps,
@@ -17,7 +16,7 @@ import type {
 import { Caption } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CaptionPlugin } from '../types';
 
@@ -30,13 +29,11 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		node: PMNode,
 		view: EditorView,
 		getPos: getPosHandler,
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		reactComponentProps: ReactComponentProps,
 		reactComponent?: React.ComponentType<React.PropsWithChildren<unknown>>,
-		hasContext: boolean = false,
 		viewShouldUpdate?: shouldUpdate,
-		hasIntlContext: boolean = false,
 		pluginInjectionApi?: ExtractInjectionAPI<CaptionPlugin>,
 	) {
 		super(
@@ -47,12 +44,10 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 			eventDispatcher,
 			reactComponentProps,
 			reactComponent,
-			hasContext,
 			viewShouldUpdate,
-			hasIntlContext,
 		);
 		this.pluginInjectionApi = pluginInjectionApi;
-		if (getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
+		if (fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
 			this.handleEditorDisabledChanged();
 		}
 	}
@@ -68,7 +63,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		// setting a className prevents PM/Chrome mutation observer from
 		// incorrectly deleting nodes
 		dom.className = 'caption-wrapper';
-		if (getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
+		if (fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')) {
 			dom.setAttribute(
 				'contenteditable',
 				this.pluginInjectionApi?.editorDisabled?.sharedState.currentState()?.editorDisabled
@@ -122,12 +117,11 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 }
 
 export default function captionNodeView(
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	pluginInjectionApi: ExtractInjectionAPI<CaptionPlugin> | undefined,
 ) {
 	return (node: PMNode, view: EditorView, getPos: getPosHandler) => {
-		const hasIntlContext = true;
 		return new CaptionNodeView(
 			node,
 			view,
@@ -137,8 +131,6 @@ export default function captionNodeView(
 			{},
 			undefined,
 			undefined,
-			undefined,
-			hasIntlContext,
 			pluginInjectionApi,
 		).init();
 	};

@@ -953,28 +953,14 @@ ffTest(
 					);
 				});
 
-				describe('should display a count of all search results found', () => {
-					ffTest(
-						'platform.linking-platform.datasource.total-count-i18n-single-key',
-						async () => {
-							const hookState = getDefaultHookState();
-							const { getByTestId } = await setup({
-								hookState,
-							});
-							expect(
-								getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
-							).toEqual('3 results');
-						},
-						async () => {
-							const hookState = getDefaultHookState();
-							const { getByTestId } = await setup({
-								hookState,
-							});
-							expect(
-								getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
-							).toEqual('3 results');
-						},
-					);
+				it('should display a count of all search results found', async () => {
+					const hookState = getDefaultHookState();
+					const { getByTestId } = await setup({
+						hookState,
+					});
+					expect(
+						getByTestId('confluence-search-datasource-modal-total-results-count').textContent,
+					).toEqual('3 results');
 				});
 
 				it('should display a link to the confluence search link', async () => {

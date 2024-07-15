@@ -4,7 +4,6 @@ import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { DEFAULT_IMAGE_HEIGHT, DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
@@ -198,29 +197,17 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 export const ReactMediaNode =
 	(
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		providerFactory: ProviderFactory,
 		mediaOptions: MediaOptions = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
-		const hasIntlContext = true;
-		return new MediaNodeView(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
+		return new MediaNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			eventDispatcher,
-			{
-				eventDispatcher,
-				providerFactory,
-				mediaOptions,
-				pluginInjectionApi,
-			},
-			undefined,
-			undefined,
-			undefined,
-			hasIntlContext,
-		).init();
+			providerFactory,
+			mediaOptions,
+			pluginInjectionApi,
+		}).init();
 	};

@@ -32,5 +32,5 @@ export const Profile = forwardRef<HTMLElement, ProfileProps>(
 );
 
 // This exists only to extract props.
-// eslint-disable-next-line @repo/internal/react/use-noop
+// eslint-disable-next-line @repo/internal/react/use-noop, import/no-anonymous-default-export
 export default (props: ProfileProps) => {};

@@ -12,7 +12,7 @@ import Before from '../shared/before';
 import Content from '../shared/content';
 import { type SimpleTagProps } from '../shared/types';
 
-const SimpleTag = forwardRef(
+const SimpleTagComponent = forwardRef(
 	(
 		{
 			appearance,
@@ -50,4 +50,17 @@ const SimpleTag = forwardRef(
 	},
 );
 
-export default memo(SimpleTag);
+/**
+ * __Simple tag__
+ *
+ * A tag labels UI objects for quick recognition and navigation.
+ *
+ * `SimpleTag` is the default form of a tag, where text is required. Tags with static text can be used as a flag or as a reference to an object or attribute.
+ *
+ * - [Examples](https://atlassian.design/components/tag/examples)
+ * - [Code](https://atlassian.design/components/tag/code)
+ * - [Usage](https://atlassian.design/components/tag/usage)
+ */
+const SimpleTag = memo(SimpleTagComponent);
+
+export default SimpleTag;

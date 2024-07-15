@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -105,22 +104,12 @@ class Decision extends ReactNodeView {
 
 export const decisionItemNodeView =
 	(
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		const hasIntlContext = true;
-		return new Decision(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-			{},
-			undefined,
-			undefined,
-			undefined,
-			hasIntlContext,
-		).initWithAPI(api);
+		return new Decision(node, view, getPos, portalProviderAPI, eventDispatcher, {}).initWithAPI(
+			api,
+		);
 	};

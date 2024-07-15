@@ -25,7 +25,6 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
@@ -64,7 +63,7 @@ import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
@@ -111,7 +110,7 @@ export interface EditorViewProps {
 	};
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
 	providerFactory: ProviderFactory;
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
+	portalProviderAPI: PortalProviderAPI;
 	disabled?: boolean;
 	experienceStore?: ExperienceStore;
 	setEditorApi?: SetEditorAPI;
@@ -602,7 +601,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 		let selection: Selection | undefined;
 
-		if (getBooleanFF('platform.editor.live-view.no-editor-selection-in-view-mode')) {
+		if (fg('platform.editor.live-view.no-editor-selection-in-view-mode')) {
 			if (doc) {
 				if (isViewMode) {
 					const emptySelection = new TextSelection(doc.resolve(0));

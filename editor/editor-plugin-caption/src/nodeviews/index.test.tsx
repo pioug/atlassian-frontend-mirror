@@ -4,7 +4,6 @@ import { screen } from '@testing-library/react';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { RefsNode } from '@atlaskit/editor-common/types';
 import { setNodeSelection, setTextSelection } from '@atlaskit/editor-common/utils';
@@ -86,7 +85,7 @@ describe('nodeview updating based on child count', () => {
 			component();
 		},
 		remove() {},
-	} as unknown as LegacyPortalProviderAPI | PortalProviderAPI;
+	} as unknown as PortalProviderAPI;
 	const eventDispatcher = {} as EventDispatcher;
 	const node = caption('hi')(getSchemaBasedOnStage('stage0'));
 	const view = {

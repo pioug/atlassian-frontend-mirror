@@ -26,7 +26,7 @@ const treeRowClickableStyles = css({
 const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;
 
-class Row extends Component<any, any> {
+class RowComponent extends Component<any, any> {
 	state = { isExpanded: this.props.isDefaultExpanded || false };
 
 	componentDidUpdate(prevProps: any) {
@@ -162,10 +162,10 @@ class Row extends Component<any, any> {
 	}
 }
 
-export { Row as RowWithoutAnalytics };
+export { RowComponent as RowWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+const Row = withAnalyticsContext({
 	componentName: 'row',
 	packageName,
 	packageVersion,
@@ -192,5 +192,8 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(Row),
+	})(RowComponent),
 );
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Row;

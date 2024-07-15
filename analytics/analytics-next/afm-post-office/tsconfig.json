@@ -1,0 +1,25 @@
+{
+  "extends": "../../../../tsconfig.entry-points.post-office.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__analytics-next/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/performance/examples.tsx"
+  ],
+  "references": [
+    {
+      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+    }
+  ]
+}

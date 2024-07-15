@@ -56,7 +56,9 @@ const Content = ({ cssFn, scrollContentLabel = 'Scrollable content', ...props }:
 	);
 };
 
-export default {
+const contentDefaults = {
 	component: Content,
 	cssFn: contentCSS,
 };
+
+export default contentDefaults;

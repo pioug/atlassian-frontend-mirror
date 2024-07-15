@@ -4,12 +4,19 @@ import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensi
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import HeadCell, { type TableHeadCellProps } from '../table-head-cell';
 
-class RankableTableHeadCell extends React.Component<WithDimensionsProps & TableHeadCellProps, {}> {
+class RankableTableHeadCellComponent extends React.Component<
+	WithDimensionsProps & TableHeadCellProps,
+	{}
+> {
 	render() {
 		const { isRanking, refHeight, refWidth, ...restProps } = this.props;
 		const inlineStyles = inlineStylesIfRanking(isRanking, refWidth);
 		return <HeadCell inlineStyles={inlineStyles} {...restProps} />;
 	}
 }
+const RankableTableHeadCell = withDimensions<WithDimensionsProps & TableHeadCellProps>(
+	RankableTableHeadCellComponent,
+);
 
-export default withDimensions<WithDimensionsProps & TableHeadCellProps>(RankableTableHeadCell);
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default RankableTableHeadCell;

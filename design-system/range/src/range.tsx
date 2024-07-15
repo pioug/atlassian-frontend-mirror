@@ -71,7 +71,16 @@ const getRoundedPercentValue = (value: number, min: number, max: number, step: n
 
 const noop = __noop;
 
-export default forwardRef(function Range(props: RangeProps, ref: React.Ref<HTMLInputElement>) {
+/**
+ * __Range__
+ *
+ * A range lets users choose an approximate value on a slider.
+ *
+ * - [Examples](https://atlassian.design/components/range/examples)
+ * - [Code](https://atlassian.design/components/range/code)
+ * - [Usage](https://atlassian.design/components/range/usage)
+ */
+const Range = forwardRef(function Range(props: RangeProps, ref: React.Ref<HTMLInputElement>) {
 	const {
 		isDisabled = false,
 		defaultValue = 50,
@@ -113,3 +122,5 @@ export default forwardRef(function Range(props: RangeProps, ref: React.Ref<HTMLI
 		/>
 	);
 });
+
+export default Range;

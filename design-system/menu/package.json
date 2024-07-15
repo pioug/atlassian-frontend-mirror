@@ -145,9 +145,6 @@
 		},
 		"platform.wanjel.use-router-links-for-the-linkitem-component": {
 			"type": "boolean"
-		},
-		"platform.wanjel.remove-drag-override-in-menu-items_l1dib": {
-			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/menu/"

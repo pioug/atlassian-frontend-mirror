@@ -10,7 +10,6 @@ import ReactNodeView, {
 	type ReactComponentProps,
 	type shouldUpdate,
 } from '../react-node-view';
-import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 
 /**
  * A ReactNodeView that handles React components sensitive
@@ -46,13 +45,11 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		node: PMNode,
 		view: EditorView,
 		getPos: getPosHandler,
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		reactComponentProps: P,
 		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
-		hasContext: boolean = false,
 		viewShouldUpdate?: shouldUpdate,
-		hasIntlContext: boolean = false,
 	) {
 		super(
 			node,
@@ -62,9 +59,7 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 			eventDispatcher,
 			reactComponentProps,
 			reactComponent,
-			hasContext,
 			viewShouldUpdate,
-			hasIntlContext,
 		);
 
 		this.updatePos();

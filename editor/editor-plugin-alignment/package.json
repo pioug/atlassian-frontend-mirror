@@ -96,9 +96,6 @@
 		".": "./src/index.ts"
 	},
 	"platform-feature-flags": {
-		"platform.editor.text-alignment-keyboard-shortcuts": {
-			"type": "boolean"
-		},
 		"platform.editor.a11y-main-toolbar-navigation_osrty": {
 			"type": "boolean"
 		}

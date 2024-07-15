@@ -6,7 +6,6 @@ import { injectIntl } from 'react-intl-next';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { nodeViewsMessages as messages } from '@atlaskit/editor-common/media';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
@@ -414,28 +413,16 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 
 export const ReactMediaGroupNode =
 	(
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		providerFactory: ProviderFactory,
 		mediaOptions: MediaOptions = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-		const hasIntlContext = true;
-		return new MediaGroupNodeView(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
-			eventDispatcher,
-			{
-				providerFactory,
-				mediaOptions,
-				pluginInjectionApi,
-			},
-			undefined,
-			undefined,
-			undefined,
-			hasIntlContext,
-		).init();
+		return new MediaGroupNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
+			providerFactory,
+			mediaOptions,
+			pluginInjectionApi,
+		}).init();
 	};

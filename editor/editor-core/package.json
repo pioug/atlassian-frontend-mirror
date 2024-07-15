@@ -213,10 +213,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.text-alignment-keyboard-shortcuts": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"platform.editor.table.use-shared-state-hook": {
 			"type": "boolean",
 			"referenceOnly": true

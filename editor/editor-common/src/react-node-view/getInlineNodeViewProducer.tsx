@@ -96,9 +96,6 @@ function createNodeView<ExtraComponentProps>({
 			}),
 			domRef,
 			key,
-			false,
-			// node views should be rendered with intl context
-			true,
 		);
 	}
 
@@ -159,7 +156,7 @@ function createNodeView<ExtraComponentProps>({
 			// When prosemirror destroys the node view, we need to clean up
 			// what we have previously rendered using the editor portal
 			// provider api.
-			pmPluginFactoryParams.portalProviderAPI.remove(key, domRef);
+			pmPluginFactoryParams.portalProviderAPI.remove(key);
 			// @ts-expect-error Expect an error as domRef is expected to be
 			// of HTMLSpanElement type however once the node view has
 			// been destroyed no other consumers should still be using it.

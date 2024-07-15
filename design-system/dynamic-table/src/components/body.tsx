@@ -13,7 +13,7 @@ interface BodyProps extends WithSortedPageRowsProps {
 	testId?: string;
 }
 
-class Body extends React.Component<BodyProps, {}> {
+class BodyComponent extends React.Component<BodyProps, {}> {
 	render() {
 		const { pageRows, head, isFixedSize, highlightedRowIndex, testId, forwardedRef } = this.props;
 
@@ -40,8 +40,11 @@ class Body extends React.Component<BodyProps, {}> {
 	}
 }
 
-export default withSortedPageRows<BodyProps>(
+const Body = withSortedPageRows<BodyProps>(
 	React.forwardRef<HTMLTableSectionElement, BodyProps>((props, ref) => {
-		return <Body {...props} forwardedRef={ref} />;
+		return <BodyComponent {...props} forwardedRef={ref} />;
 	}),
 );
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Body;

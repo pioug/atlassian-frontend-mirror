@@ -6,7 +6,7 @@ import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-v
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { modifyLinkAttributes } from '../utils/generate-link-element';
 
-export default function (file: FileInfo, api: API) {
+function transformer(file: FileInfo, api: API) {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 
@@ -137,3 +137,5 @@ export default function (file: FileInfo, api: API) {
 
 	return source.toSource(PRINT_SETTINGS);
 }
+
+export default transformer;

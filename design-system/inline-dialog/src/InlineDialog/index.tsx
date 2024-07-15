@@ -44,7 +44,7 @@ const EscapeCloseManager = ({ handleClose }: { handleClose: (event: KeyboardEven
 	return <span />;
 };
 
-const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
+const InlineDialogComponent: FC<InlineDialogProps> = memo<InlineDialogProps>(function InlineDialog({
 	isOpen = false,
 	onContentBlur = noop,
 	onContentClick = noop,
@@ -211,12 +211,23 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	);
 });
 
-InlineDialog.displayName = 'InlineDialog';
+InlineDialogComponent.displayName = 'InlineDialog';
 
-export { InlineDialog as InlineDialogWithoutAnalytics };
+export { InlineDialogComponent as InlineDialogWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Inline dialog__
+ *
+ * _We are planning on deprecating Inline dialog. We recommend using the Popup component instead._
+ *
+ * An inline dialog is a pop-up container for small amounts of information. It can also contain controls.
+ *
+ * - [Examples](https://atlassian.design/components/inline-dialog/examples)
+ * - [Code](https://atlassian.design/components/inline-dialog/code)
+ * - [Usage](https://atlassian.design/components/inline-dialog/usage)
+ */
+const InlineDialog = withAnalyticsContext({
 	componentName: 'inlineDialog',
 	packageName,
 	packageVersion,
@@ -232,5 +243,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(InlineDialog),
+	})(InlineDialogComponent),
 );
+
+export default InlineDialog;

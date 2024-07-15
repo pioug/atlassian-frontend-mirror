@@ -14,7 +14,6 @@ import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
 import type { PortalProviderAPI } from '../portal';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 import {
 	getPerformanceOptions,
 	startMeasureReactNodeViewRendered,
@@ -45,11 +44,9 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	private domRef?: HTMLElement;
 	private contentDOMWrapper?: Node;
 	private reactComponent?: React.ComponentType<React.PropsWithChildren<any>>;
-	private portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
-	private hasAnalyticsContext: boolean;
+	private portalProviderAPI: PortalProviderAPI;
 	private _viewShouldUpdate?: shouldUpdate;
 	protected eventDispatcher?: EventDispatcher;
-	private hasIntlContext: boolean;
 	protected decorations: ReadonlyArray<Decoration> = [];
 
 	reactComponentProps: P;
@@ -64,13 +61,11 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		node: PMNode,
 		view: EditorView,
 		getPos: getPosHandler,
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		reactComponentProps?: P,
 		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
-		hasAnalyticsContext: boolean = false,
 		viewShouldUpdate?: shouldUpdate,
-		hasIntlContext: boolean = false,
 	) {
 		this.node = node;
 		this.view = view;
@@ -78,10 +73,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		this.portalProviderAPI = portalProviderAPI;
 		this.reactComponentProps = reactComponentProps || ({} as P);
 		this.reactComponent = reactComponent;
-		this.hasAnalyticsContext = hasAnalyticsContext;
 		this._viewShouldUpdate = viewShouldUpdate;
 		this.eventDispatcher = eventDispatcher;
-		this.hasIntlContext = hasIntlContext;
 		this.key = generateUniqueNodeKey();
 	}
 
@@ -149,13 +142,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			</ErrorBoundary>
 		);
 
-		this.portalProviderAPI.render(
-			componentWithErrorBoundary,
-			this.domRef!,
-			this.key,
-			this.hasAnalyticsContext,
-			this.hasIntlContext,
-		);
+		this.portalProviderAPI.render(componentWithErrorBoundary, this.domRef!, this.key);
 	}
 
 	createDomRef(): HTMLElement {
@@ -255,7 +242,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			return;
 		}
 
-		this.portalProviderAPI.remove(this.key, this.domRef);
+		this.portalProviderAPI.remove(this.key);
 		this.domRef = undefined;
 		this.contentDOM = undefined;
 	}
@@ -271,11 +258,10 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 	static fromComponent(
 		component: React.ComponentType<React.PropsWithChildren<any>>,
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		props?: ReactComponentProps,
 		viewShouldUpdate?: (nextNode: PMNode) => boolean,
-		hasIntlContext: boolean = false,
 	) {
 		return (node: PMNode, view: EditorView, getPos: getPosHandler) =>
 			new ReactNodeView(
@@ -286,9 +272,7 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 				eventDispatcher,
 				props,
 				component,
-				false,
 				viewShouldUpdate,
-				hasIntlContext,
 			).init();
 	}
 }

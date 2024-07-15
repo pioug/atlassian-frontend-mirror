@@ -3,7 +3,7 @@ import { getImportDeclaration, hasJSXAttributes } from '@hypermod/utils';
 
 import { PRINT_SETTINGS, NEW_BUTTON_ENTRY_POINT, UNSAFE_SIZE_PROPS_MAP } from '../utils/constants';
 
-export default function (file: FileInfo, api: API) {
+function transformer(file: FileInfo, api: API) {
 	const j = api.jscodeshift;
 	const source = j(file.source);
 
@@ -132,3 +132,5 @@ export default function (file: FileInfo, api: API) {
 
 	return source.toSource(PRINT_SETTINGS);
 }
+
+export default transformer;

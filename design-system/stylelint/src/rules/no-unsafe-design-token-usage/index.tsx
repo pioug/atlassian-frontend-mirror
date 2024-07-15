@@ -162,4 +162,6 @@ const rule: Rule<any, any> = Object.assign(ruleBase, {
 	messages: messages,
 });
 
-export default stylelint.createPlugin(ruleName, rule);
+const plugin = stylelint.createPlugin(ruleName, rule);
+
+export default plugin;

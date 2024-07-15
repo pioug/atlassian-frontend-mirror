@@ -4,10 +4,12 @@ import resetStyles from './reset';
 import tableStyles from './tables';
 import utilStyles from './utils';
 
-export default `
+const styleSheet = `
 ${resetStyles}
 ${baseStyles}
 ${tableStyles}
 ${browserFixesStyles}
 ${utilStyles}
 `;
+
+export default styleSheet;

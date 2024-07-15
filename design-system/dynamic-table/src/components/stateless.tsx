@@ -351,7 +351,15 @@ const TableBody = forwardRef<HTMLTableSectionElement, TableBodyProps>(function T
 export { DynamicTable as DynamicTableWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Dynamic table stateless__
+ *
+ * A stateless table that requires consumers to manage the sorting, drag and drop, and pagination.
+ *
+ * - [Examples](https://atlaskit.atlassian.com/packages/design-system/dynamic-table)
+ * - [Code](https://bitbucket.org/atlassian/atlassian-frontend/packages/design-system/dynamic-table)
+ */
+const DynamicTableStateless = withAnalyticsContext({
 	componentName: 'dynamicTable',
 	packageName,
 	packageVersion,
@@ -377,3 +385,5 @@ export default withAnalyticsContext({
 		}),
 	})(DynamicTable),
 );
+
+export default DynamicTableStateless;

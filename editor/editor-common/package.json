@@ -56,7 +56,6 @@
 		"./panel": "./src/panel.ts",
 		"./analytics": "./src/analytics/index.ts",
 		"./error-boundary": "./src/ui/ErrorBoundary/index.tsx",
-		"./portal-provider": "./src/ui/PortalProvider/index.tsx",
 		"./react-node-view": "./src/react-node-view/index.tsx",
 		"./with-plugin-state": "./src/with-plugin-state/index.tsx",
 		"./node-width": "./src/node-width/index.ts",
@@ -122,7 +121,6 @@
 		"./portal": "./src/portal/index.ts",
 		"./analytics": "./src/analytics/index.ts",
 		"./error-boundary": "./src/ui/ErrorBoundary/index.tsx",
-		"./portal-provider": "./src/ui/PortalProvider/index.tsx",
 		"./react-node-view": "./src/react-node-view/index.tsx",
 		"./with-plugin-state": "./src/with-plugin-state/index.tsx",
 		"./node-width": "./src/node-width/index.ts",
@@ -169,7 +167,6 @@
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/atlassian-context": "^0.0.0",
 		"@atlaskit/button": "^18.4.0",
 		"@atlaskit/code": "^15.4.0",
@@ -310,9 +307,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_tables_padding_increase": {
-			"type": "boolean"
-		},
-		"platform.editor.text-alignment-keyboard-shortcuts": {
 			"type": "boolean"
 		},
 		"platform.editor.a11y-table-context-menu_y4c9c": {

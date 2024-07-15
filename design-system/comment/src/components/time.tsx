@@ -39,7 +39,13 @@ export interface CommentTimeProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const Time: FC<CommentTimeProps> = ({ children, href, onClick, onFocus, onMouseOver }) => {
+const CommentTimeComponent: FC<CommentTimeProps> = ({
+	children,
+	href,
+	onClick,
+	onFocus,
+	onMouseOver,
+}) => {
 	return (
 		<Field href={href} onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
 			{children}
@@ -47,12 +53,17 @@ const Time: FC<CommentTimeProps> = ({ children, href, onClick, onFocus, onMouseO
 	);
 };
 
-Time.displayName = 'CommentTime';
+CommentTimeComponent.displayName = 'CommentTime';
 
-export { Time as CommentTimeWithoutAnalytics };
+export { CommentTimeComponent as CommentTimeWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Comment time__
+ *
+ * The time the comment was made.
+ */
+const CommentTime = withAnalyticsContext({
 	componentName: 'commentTime',
 	packageName,
 	packageVersion,
@@ -68,5 +79,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(Time),
+	})(CommentTimeComponent),
 );
+
+export default CommentTime;

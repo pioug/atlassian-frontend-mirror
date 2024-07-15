@@ -17,7 +17,7 @@ import {
 import { type CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -85,7 +85,7 @@ const datePickerDefaultProps = {
 	// Make the component a controlled component
 };
 
-class DatePicker extends Component<DatePickerProps, State> {
+class DatePickerComponent extends Component<DatePickerProps, State> {
 	static defaultProps = datePickerDefaultProps;
 	calendarRef: CalendarRef | null = null;
 	containerRef: HTMLElement | null = null;
@@ -261,9 +261,7 @@ class DatePicker extends Component<DatePickerProps, State> {
 				break;
 			case 'backspace':
 			case 'delete': {
-				const inputCount = getBooleanFF(
-					'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-				)
+				const inputCount = fg('platform.design-system-team.date-picker-input-a11y-fix_cbbxs')
 					? 1
 					: 0;
 
@@ -429,7 +427,7 @@ class DatePicker extends Component<DatePickerProps, State> {
 
 		let actualSelectInputValue;
 
-		if (getBooleanFF('platform.design-system-team.date-picker-input-a11y-fix_cbbxs')) {
+		if (fg('platform.design-system-team.date-picker-input-a11y-fix_cbbxs')) {
 			actualSelectInputValue = selectInputValue || (value ? this.formatDate(value) : undefined);
 		} else {
 			actualSelectInputValue = selectInputValue;
@@ -535,9 +533,18 @@ class DatePicker extends Component<DatePickerProps, State> {
 	}
 }
 
-export { DatePicker as DatePickerWithoutAnalytics };
+export { DatePickerComponent as DatePickerWithoutAnalytics };
 
-export default withAnalyticsContext({
+/**
+ * __Date picker__
+ *
+ * A date picker allows the user to select a particular date.
+ *
+ * - [Examples](https://atlassian.design/components/datetime-picker/date-picker/examples)
+ * - [Code](https://atlassian.design/components/datetime-picker/date-picker/code)
+ * - [Usage](https://atlassian.design/components/datetime-picker/date-picker/usage)
+ */
+const DatePicker = withAnalyticsContext({
 	componentName: 'datePicker',
 	packageName,
 	packageVersion,
@@ -552,5 +559,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(DatePicker),
+	})(DatePickerComponent),
 );
+
+export default DatePicker;

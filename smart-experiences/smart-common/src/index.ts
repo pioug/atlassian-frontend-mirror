@@ -1,5 +1,5 @@
 export { default as fetchUserRecommendations } from './services/recommendations-client';
-export { EntityType } from './types';
+export { EntityType, TeamSearchField } from './types';
 export type {
 	UserSearchBitbucketAttributes,
 	UserSearchConfluenceAttributes,

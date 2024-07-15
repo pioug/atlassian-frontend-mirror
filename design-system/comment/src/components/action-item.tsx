@@ -38,7 +38,7 @@ export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const ActionItem: FC<CommentActionItemProps> = ({
+const ActionItemComponent: FC<CommentActionItemProps> = ({
 	children,
 	onClick,
 	onFocus,
@@ -61,10 +61,15 @@ const ActionItem: FC<CommentActionItemProps> = ({
 	);
 };
 
-export { ActionItem as CommentActionWithoutAnalytics };
+export { ActionItemComponent as CommentActionWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+/**
+ * __Action item__
+ *
+ * An action item button for a comment. For example Reply or Like.
+ */
+const ActionItem = withAnalyticsContext({
 	componentName: 'commentAction',
 	packageName,
 	packageVersion,
@@ -79,5 +84,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(ActionItem),
+	})(ActionItemComponent),
 );
+
+export default ActionItem;

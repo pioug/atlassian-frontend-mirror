@@ -406,7 +406,7 @@ const SmartUserPickerCustomizableExample = () => {
 				</Fragment>
 			)}
 			<hr />
-			<label htmlFor="user-picker">User Picker</label>
+			<label htmlFor="smart-user-picker-example">User Picker</label>
 			<AnalyticsListener onEvent={onEvent} channel="fabric-elements">
 				<IntlProvider locale={state.locale}>
 					<SmartUserPicker
@@ -435,6 +435,7 @@ const SmartUserPickerCustomizableExample = () => {
 							console.error(e);
 						}}
 						overrideByline={overrideByline}
+						inputId="smart-user-picker-example"
 					/>
 				</IntlProvider>
 			</AnalyticsListener>

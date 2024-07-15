@@ -7,7 +7,6 @@ import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import { alignCenter, alignLeft, alignRight } from '@atlaskit/editor-common/keymaps';
 import { alignmentMessages } from '@atlaskit/editor-common/messages';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { AlignmentState } from '../../pm-plugins/types';
 import { IconMap } from '../ToolbarAlignment/icon-map';
@@ -23,10 +22,9 @@ export interface Props {
 
 let alignCenterKeyboardShortcut;
 let alignRightKeyboardShortcut;
-if (getBooleanFF('platform.editor.text-alignment-keyboard-shortcuts')) {
-	alignCenterKeyboardShortcut = alignCenter;
-	alignRightKeyboardShortcut = alignRight;
-}
+
+alignCenterKeyboardShortcut = alignCenter;
+alignRightKeyboardShortcut = alignRight;
 
 const alignmentOptions: Array<{
 	title: MessageDescriptor;

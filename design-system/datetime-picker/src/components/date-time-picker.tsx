@@ -117,7 +117,7 @@ const dateTimePickerDefaultProps = {
 export const datePickerDefaultAriaLabel = 'Date';
 export const timePickerDefaultAriaLabel = 'Time';
 
-class DateTimePicker extends React.Component<DateTimePickerProps, State> {
+class DateTimePickerComponent extends React.Component<DateTimePickerProps, State> {
 	static defaultProps: DateTimePickerProps = dateTimePickerDefaultProps;
 
 	state: State = {
@@ -321,9 +321,18 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
 	}
 }
 
-export { DateTimePicker as DateTimePickerWithoutAnalytics };
+export { DateTimePickerComponent as DateTimePickerWithoutAnalytics };
 
-export default withAnalyticsContext({
+/**
+ * __Date time picker__
+ *
+ * A date time picker allows the user to select an associated date and time.
+ *
+ * - [Examples](https://atlassian.design/components/datetime-picker/examples)
+ * - [Code](https://atlassian.design/components/datetime-picker/code)
+ * - [Usage](https://atlassian.design/components/datetime-picker/usage)
+ */
+const DateTimePicker = withAnalyticsContext({
 	componentName: 'dateTimePicker',
 	packageName,
 	packageVersion,
@@ -339,5 +348,7 @@ export default withAnalyticsContext({
 				packageVersion,
 			},
 		}),
-	})(DateTimePicker),
+	})(DateTimePickerComponent),
 );
+
+export default DateTimePicker;

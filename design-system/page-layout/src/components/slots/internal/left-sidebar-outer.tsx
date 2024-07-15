@@ -110,7 +110,7 @@ const flyoutFixedStyles = css({
 
 const selector = getPageLayoutSlotSelector('left-sidebar');
 
-const LeftSidebarOuter = (
+const LeftSidebarOuterComponent = (
 	{
 		children,
 		isFixed = false, // NOTE: We explicitly require this via props because of `LeftSidebarWithoutResize`
@@ -172,4 +172,7 @@ const LeftSidebarOuter = (
 	);
 };
 
-export default forwardRef(LeftSidebarOuter);
+const LeftSidebarOuter = forwardRef(LeftSidebarOuterComponent);
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default LeftSidebarOuter;

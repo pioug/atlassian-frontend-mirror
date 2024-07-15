@@ -99,4 +99,5 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
 	}
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default withDimensions<RankableTableRowProps>(RankableTableRow);

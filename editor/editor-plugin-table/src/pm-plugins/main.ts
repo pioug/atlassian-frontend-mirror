@@ -10,7 +10,6 @@ import type { DispatchAnalyticsEvent, EditorAnalyticsAPI } from '@atlaskit/edito
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
 	transformSliceToRemoveOpenBodiedExtension,
@@ -79,7 +78,7 @@ import { pluginKey } from './plugin-key';
 export const createPlugin = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	dispatch: Dispatch,
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	pluginConfig: PluginConfig,
 	getEditorContainerWidth: GetEditorContainerWidth,

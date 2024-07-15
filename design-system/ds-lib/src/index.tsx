@@ -4,4 +4,5 @@
 // Please use individual entry points in order to always
 // obtain minimum kbs.
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {};

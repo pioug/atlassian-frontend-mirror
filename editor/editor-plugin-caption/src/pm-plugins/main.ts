@@ -6,7 +6,6 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
@@ -33,7 +32,7 @@ const fireAnalytics = (
 };
 
 export default (
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	dispatch: Dispatch,

@@ -35,6 +35,7 @@ const fetchUserRecommendations = (
 					groupIds: request.searchQuery?.restrictTo?.userIds ?? [],
 				},
 				searchUserbase: request.searchQuery?.searchUserbase ?? false,
+				teamSearchFields: request.searchQuery?.teamSearchFields ?? [],
 			},
 		}),
 	})

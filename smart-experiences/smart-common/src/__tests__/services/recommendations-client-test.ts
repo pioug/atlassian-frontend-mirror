@@ -1,7 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import fetchUserRecommendations from '../../services/recommendations-client';
-import { type UserSearchQuery, type UserSearchRequest } from '../../types';
+import { TeamSearchField, type UserSearchQuery, type UserSearchRequest } from '../../types';
 
 const URS_URL = '/gateway/api/v1/recommendations';
 
@@ -36,6 +36,7 @@ const exampleCpusSearchQuery: UserSearchQuery = {
 		groupIds: ['group1', 'group2'],
 	},
 	searchUserbase: true,
+	teamSearchFields: [TeamSearchField.NAME],
 };
 
 const exampleRequest: UserSearchRequest = {

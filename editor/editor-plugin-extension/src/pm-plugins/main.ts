@@ -8,7 +8,6 @@ import type {
 	UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
@@ -30,7 +29,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearEditingContext, updateState } from '../commands';
 import { createCommand, createPluginState, getPluginState } from '../plugin-factory';
@@ -174,7 +173,7 @@ const createPlugin = (
 	dispatch: Dispatch,
 	providerFactory: ProviderFactory,
 	extensionHandlers: ExtensionHandlers,
-	portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
 	pluginInjectionApi: ExtractInjectionAPI<ExtensionPlugin> | undefined,
 	useLongPressSelection: boolean = false,
@@ -373,7 +372,7 @@ const createPlugin = (
 				),
 			},
 			createSelectionBetween: function (view, anchor, head) {
-				if (!getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+				if (!fg('platform.editor.multi-bodied-extension_0rygg')) {
 					return null;
 				}
 				const { schema, doc } = view.state;

@@ -29,7 +29,7 @@ export interface CellProps {
 	children?: ReactNode;
 }
 
-class Cell extends Component<CellProps> {
+class CellComponent extends Component<CellProps> {
 	render() {
 		const { children, singleLine, indentLevel, width, className, ...props } = this.props;
 		return (
@@ -46,4 +46,7 @@ class Cell extends Component<CellProps> {
 	}
 }
 
-export default withColumnWidth(Cell);
+const Cell = withColumnWidth(CellComponent);
+
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Cell;

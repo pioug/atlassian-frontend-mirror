@@ -33,7 +33,9 @@ const Sidebar: FC<SidebarProps> = ({ cssFn, ...props }) => {
 	return <div css={css(cssFn(defaultStyle))} {...props} />;
 };
 
-export default {
+const sidebarDefaults = {
 	component: Sidebar,
 	cssFn: sidebarCSS,
 };
+
+export default sidebarDefaults;

@@ -21,7 +21,6 @@ import {
 	getMaxWidthForNestedNode,
 	MEDIA_SINGLE_GUTTER_SIZE,
 } from '@atlaskit/editor-common/media-single';
-import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
 	ContextIdentifierProvider,
@@ -727,7 +726,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
 export const ReactMediaSingleNode =
 	(
-		portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
+		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		providerFactory: ProviderFactory,
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
@@ -735,26 +734,14 @@ export const ReactMediaSingleNode =
 		mediaOptions: MediaOptions = {},
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
-		const hasIntlContext = true;
-		return new MediaSingleNodeView(
-			node,
-			view,
-			getPos,
-			portalProviderAPI,
+		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			eventDispatcher,
-			{
-				eventDispatcher,
-				fullWidthMode: mediaOptions.fullWidthEnabled,
-				providerFactory,
-				mediaOptions,
-				dispatchAnalyticsEvent,
-				isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
-				pluginInjectionApi,
-				editorAppearance: mediaOptions.editorAppearance,
-			},
-			undefined,
-			undefined,
-			undefined,
-			hasIntlContext,
-		).init();
+			fullWidthMode: mediaOptions.fullWidthEnabled,
+			providerFactory,
+			mediaOptions,
+			dispatchAnalyticsEvent,
+			isCopyPasteEnabled: mediaOptions.isCopyPasteEnabled,
+			pluginInjectionApi,
+			editorAppearance: mediaOptions.editorAppearance,
+		}).init();
 	};

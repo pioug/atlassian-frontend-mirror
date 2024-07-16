@@ -6,8 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-
-import token from '../../src/get-token';
+import { token } from '@atlaskit/tokens';
 
 export const TokenModalCodeBlock = `
 import { N0, N30A, N60A, N800 } from '@atlaskit/theme/colors';
@@ -26,11 +25,8 @@ const dialogStyles = css({
 	minHeight: 0,
 	flex: '1 1 auto',
 	flexDirection: 'column',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: token('elevation.surface.overlay'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('border.radius.100', '3px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.overlay'),
 	pointerEvents: 'auto',
 });

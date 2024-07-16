@@ -28,6 +28,9 @@
             "path": "../../editor-plugin-hyperlink/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-width/afm-cc/tsconfig.json"
         },
         {

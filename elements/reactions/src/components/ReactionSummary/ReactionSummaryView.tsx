@@ -59,7 +59,10 @@ export const ReactionSummaryView = ({
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
 	const handlePopupClose = useCallback(() => setSummaryPopupOpen(false), []);
-	const handleSummaryClick = useCallback(() => setSummaryPopupOpen(true), []);
+	const handleSummaryClick = useCallback(
+		() => setSummaryPopupOpen(!isSummaryPopupOpen),
+		[isSummaryPopupOpen],
+	);
 
 	return (
 		<Popup

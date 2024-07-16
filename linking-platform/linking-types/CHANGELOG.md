@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 8.11.1
+
+### Patch Changes
+
+- [#120008](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120008)
+  [`33da3e6a6cdef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33da3e6a6cdef) -
+  Exports ActionOperationStatus correctly
+
 ## 8.11.0
 
 ### Minor Changes

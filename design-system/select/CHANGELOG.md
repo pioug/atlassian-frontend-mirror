@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 17.11.7
+
+### Patch Changes
+
+- [#120049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120049)
+  [`77504ff274f72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77504ff274f72) -
+  DSP-19576: Assign names to anonymous default exports
+
 ## 17.11.6
 
 ### Patch Changes

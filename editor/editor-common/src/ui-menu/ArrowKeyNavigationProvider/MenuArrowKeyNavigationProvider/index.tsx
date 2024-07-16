@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
@@ -20,11 +20,12 @@ export const MenuArrowKeyNavigationProvider = ({
 	onSelection,
 	editorRef,
 	popupsMountPoint,
+	disableCloseOnArrowClick,
 }: React.PropsWithChildren<Omit<MenuArrowKeyNavigationProviderProps, 'type'>>) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
 	const element =
-		getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') && popupsMountPoint
+		popupsMountPoint && fg('platform.editor.a11y-main-toolbar-navigation_osrty')
 			? [popupsMountPoint, editorRef.current]
 			: [editorRef.current];
 	const [listenerTargetElement] = useState<(HTMLElement | null)[]>(element);
@@ -137,7 +138,13 @@ export const MenuArrowKeyNavigationProvider = ({
 					) {
 						return;
 					}
-					handleClose!(event);
+					if (fg('platform-editor-a11y-image-border-options-dropdown')) {
+						if (!disableCloseOnArrowClick) {
+							handleClose!(event);
+						}
+					} else {
+						handleClose!(event);
+					}
 					if (
 						targetElement instanceof HTMLElement &&
 						!targetElement.closest('[data-testid="editor-floating-toolbar"]')
@@ -153,7 +160,13 @@ export const MenuArrowKeyNavigationProvider = ({
 					) {
 						return;
 					}
-					handleClose!(event);
+					if (fg('platform-editor-a11y-image-border-options-dropdown')) {
+						if (!disableCloseOnArrowClick) {
+							handleClose!(event);
+						}
+					} else {
+						handleClose!(event);
+					}
 					if (
 						targetElement instanceof HTMLElement &&
 						!targetElement.closest('[data-testid="editor-floating-toolbar"]')
@@ -198,6 +211,7 @@ export const MenuArrowKeyNavigationProvider = ({
 		incrementIndex,
 		decrementIndex,
 		listenerTargetElement,
+		disableCloseOnArrowClick,
 	]);
 
 	return (

@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 2.8.0
+
+### Minor Changes
+
+- [#120033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120033)
+  [`89fdaa528833e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89fdaa528833e) -
+  Added an UNSAFE_isDraggable prop to LinkItem and menu item that disable drag overrides within the
+  components
+
 ## 2.7.4
 
 ### Patch Changes

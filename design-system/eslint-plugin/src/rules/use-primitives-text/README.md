@@ -31,3 +31,8 @@ components.
 Currently, the rule is extremely defensive, only reporting on `span`, `p`, `strong` and `em`
 elements that don't have any props outside of `key`, `id` and `data-testid`. For `span` elements
 we're only targeting instances that almost certainly only have text as children.
+
+## Options
+
+`enableUnsafeAutofix`: Rule creates errors with autofixes instead of suggestions. Defaults to
+`false`.

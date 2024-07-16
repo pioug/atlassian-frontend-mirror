@@ -1,8 +1,9 @@
 import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 export type RuleConfig = {
-	failSilently?: boolean;
-	shouldEnforceFallbacks?: boolean;
+	failSilently: boolean;
+	shouldEnforceFallbacks: boolean;
+	enableUnsafeAutofix: boolean;
 };
 
 export const ruleSchema: JSONSchema4 = {
@@ -23,11 +24,9 @@ export const ruleSchema: JSONSchema4 = {
 const defaultConfig: RuleConfig = {
 	failSilently: false,
 	shouldEnforceFallbacks: true,
+	enableUnsafeAutofix: false,
 };
 
-export const getConfig = (overrides: RuleConfig): RuleConfig => {
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-	// start with an empty object, then merge in the defaults, then merge in overrides.
-	// The empty object is returned, as well as modified in place
+export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {
 	return Object.assign({}, defaultConfig, overrides);
 };

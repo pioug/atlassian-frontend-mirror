@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-loom
 
+## 2.3.0
+
+### Minor Changes
+
+- [#120426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120426)
+  [`1cb3869ab1a96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cb3869ab1a96) -
+  [ED-23436] Use editor primary toolbar plugin to structure the primary toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.14
 
 ### Patch Changes

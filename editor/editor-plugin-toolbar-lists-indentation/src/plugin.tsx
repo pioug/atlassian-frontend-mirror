@@ -7,12 +7,14 @@ import type {
 	FeatureFlags,
 	NextEditorPlugin,
 	OptionalPlugin,
+	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
 
 import { getIndentationButtonsState } from './pm-plugins/indentation-buttons';
@@ -33,6 +35,7 @@ export type ToolbarListsIndentationPlugin = NextEditorPlugin<
 			OptionalPlugin<IndentationPlugin>,
 			OptionalPlugin<TasksAndDecisionsPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
 		];
 	}
 >;
@@ -41,37 +44,47 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 	const { showIndentationButtons = false, allowHeadingAndParagraphIndentation = false } =
 		config ?? {};
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
+		editorView,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		toolbarSize,
+		disabled,
+		isToolbarReducedSpacing,
+	}) => {
+		const isSmall = toolbarSize < ToolbarSize.L;
+
+		return (
+			<PrimaryToolbarComponent
+				featureFlags={featureFlags}
+				popupsMountPoint={popupsMountPoint}
+				popupsBoundariesElement={popupsBoundariesElement}
+				popupsScrollableElement={popupsScrollableElement}
+				isSmall={isSmall}
+				isToolbarReducedSpacing={isToolbarReducedSpacing}
+				disabled={disabled}
+				editorView={editorView}
+				showIndentationButtons={showIndentationButtons}
+				pluginInjectionApi={api}
+				allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
+			/>
+		);
+	};
 
 	return {
 		name: 'toolbarListsIndentation',
 
-		primaryToolbarComponent({
-			editorView,
-			popupsMountPoint,
-			popupsBoundariesElement,
-			popupsScrollableElement,
-			toolbarSize,
-			disabled,
-			isToolbarReducedSpacing,
-		}) {
-			const isSmall = toolbarSize < ToolbarSize.L;
-
-			return (
-				<PrimaryToolbarComponent
-					featureFlags={featureFlags}
-					popupsMountPoint={popupsMountPoint}
-					popupsBoundariesElement={popupsBoundariesElement}
-					popupsScrollableElement={popupsScrollableElement}
-					isSmall={isSmall}
-					isToolbarReducedSpacing={isToolbarReducedSpacing}
-					disabled={disabled}
-					editorView={editorView}
-					showIndentationButtons={showIndentationButtons}
-					pluginInjectionApi={api}
-					allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
-				/>
+		usePluginHook: () => {
+			api?.core?.actions.execute(
+				api?.primaryToolbar?.commands.registerComponent({
+					name: 'toolbarListsIndentation',
+					component: primaryToolbarComponent,
+				}),
 			);
 		},
+
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };
 

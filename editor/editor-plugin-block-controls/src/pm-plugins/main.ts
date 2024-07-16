@@ -31,6 +31,7 @@ import {
 	nodeDecorations,
 } from './decorations';
 import { handleMouseOver } from './handle-mouse-over';
+import { boundKeydownHandler } from './keymap';
 
 export const key = new PluginKey<PluginState>('blockControls');
 
@@ -157,9 +158,15 @@ export const createPlugin = (
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
 				const nodeCountChanged = oldState.doc.childCount !== newState.doc.childCount;
+				let shouldRemoveHandle = true;
+				if (fg('platform_editor_elements_drag_and_drop_ed_24000')) {
+					shouldRemoveHandle = !tr.getMeta('isRemote');
+				}
 
-				// During resize, remove the drag handle widget
-				if (isResizerResizing || nodeCountChanged || meta?.nodeMoved) {
+				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
+				// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
+				// Don't remove the handle if remote changes are changing the node count, its prosemirror position can be mapped instead
+				if (isResizerResizing || (nodeCountChanged && shouldRemoveHandle) || meta?.nodeMoved) {
 					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
 					decorations = decorations.remove(oldHandle);
 				}
@@ -205,7 +212,14 @@ export const createPlugin = (
 
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				if (redrawDecorations && !isResizerResizing && api) {
-					decorations = DecorationSet.create(newState.doc, []);
+					if (fg('platform_editor_elements_drag_and_drop_ed_24000')) {
+						const oldNodeDecs = decorations
+							.find()
+							.filter(({ spec }) => spec.type !== 'drop-target-decoration');
+						decorations = decorations.remove(oldNodeDecs);
+					} else {
+						decorations = DecorationSet.create(newState.doc, []);
+					}
 					const nodeDecs = nodeDecorations(newState);
 					if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 						decorations = decorations.add(newState.doc, [...nodeDecs]);
@@ -222,7 +236,11 @@ export const createPlugin = (
 
 						// When a node type changed to be nested inside another node, the position of the active node is off by 1
 						// This is a workaround to fix the position of the active node when it is nested
-						if (mappedPosisiton === prevMappedPos + 1) {
+
+						const shouldUpdateNestedPosition = fg('platform_editor_element_drag_and_drop_ed_24049')
+							? tr.docChanged && !nodeCountChanged
+							: true;
+						if (shouldUpdateNestedPosition && mappedPosisiton === prevMappedPos + 1) {
 							mappedPosisiton = prevMappedPos;
 						}
 						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
@@ -237,11 +255,11 @@ export const createPlugin = (
 							activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
 						}
 						const draghandleDec = dragHandleDecoration(
+							api,
+							getIntl,
 							activeNode.pos,
 							anchorName,
 							nodeType,
-							api,
-							getIntl,
 						);
 
 						decorations = decorations.add(newState.doc, [draghandleDec]);
@@ -250,19 +268,21 @@ export const createPlugin = (
 
 				// Remove previous drag handle widget and draw new drag handle widget when activeNode changes
 				if (
+					api &&
 					meta?.activeNode &&
-					meta?.activeNode.pos !== activeNode?.pos &&
-					meta?.activeNode.anchorName !== activeNode?.anchorName &&
-					api
+					((meta?.activeNode.pos !== activeNode?.pos &&
+						meta?.activeNode.anchorName !== activeNode?.anchorName) ||
+						meta?.activeNode.handleOptions?.isFocused)
 				) {
 					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
 					decorations = decorations.remove(oldHandle);
 					const decs = dragHandleDecoration(
+						api,
+						getIntl,
 						meta.activeNode.pos,
 						meta.activeNode.anchorName,
 						meta.activeNode.nodeType,
-						api,
-						getIntl,
+						meta.activeNode.handleOptions,
 					);
 					decorations = decorations.add(newState.doc, [decs]);
 				}
@@ -277,11 +297,11 @@ export const createPlugin = (
 						const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
 						decorations = decorations.remove(oldHandle);
 						const decs = dragHandleDecoration(
+							api,
+							getIntl,
 							activeNodeWithNewNodeType.pos,
 							activeNodeWithNewNodeType.anchorName,
 							activeNodeWithNewNodeType.nodeType,
-							api,
-							getIntl,
 						);
 						decorations = decorations.add(newState.doc, [decs]);
 					}
@@ -444,6 +464,20 @@ export const createPlugin = (
 							return true;
 						}
 					}
+
+					//NOTE: altKey === 'option' on MacOS
+					if (
+						event.altKey &&
+						event.shiftKey &&
+						event.ctrlKey &&
+						fg('platform_editor_element_drag_and_drop_ed_23873')
+					) {
+						//prevent holding down key combo from firing repeatedly
+						if (!event.repeat && boundKeydownHandler(api)(view, event)) {
+							event.preventDefault();
+							return true;
+						}
+					}
 					return false;
 				},
 			},
@@ -460,7 +494,7 @@ export const createPlugin = (
 				// Use ResizeObserver to observe height changes
 				resizeObserverHeight = new ResizeObserver(
 					rafSchedule((entries) => {
-						const editorHeight = entries[0].contentBoxSize[0].blockSize;
+						const editorHeight = entries[0]?.contentBoxSize[0]?.blockSize;
 
 						// Update the plugin state when the height changes
 						const pluginState = key.getState(editorView.state);
@@ -473,7 +507,7 @@ export const createPlugin = (
 								transaction.setMeta('is-resizer-resizing', isResizerResizing);
 							}
 
-							if (!isResizerResizing) {
+							if (!isResizerResizing && editorHeight) {
 								transaction.setMeta(key, { editorHeight });
 							}
 

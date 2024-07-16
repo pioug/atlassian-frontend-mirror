@@ -37,6 +37,9 @@
             "path": "../../editor-plugin-list/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-tasks-and-decisions/afm-cc/tsconfig.json"
         },
         {

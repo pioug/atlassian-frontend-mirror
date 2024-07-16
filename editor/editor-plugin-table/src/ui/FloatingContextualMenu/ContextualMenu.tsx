@@ -186,7 +186,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					boundariesElement={boundariesElement}
 					offset={offset}
 					section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
-					isAllowEnterDefaultBehavior={
+					allowEnterDefaultBehavior={
 						fg('platform.editor.a11y-table-context-menu_y4c9c') ? this.state.isSubmenuOpen : false
 					}
 				/>

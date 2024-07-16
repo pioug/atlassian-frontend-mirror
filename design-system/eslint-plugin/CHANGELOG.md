@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.11.0
+
+### Minor Changes
+
+- [#120359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120359)
+  [`44b7939afb571`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44b7939afb571) -
+  New rule config option `enableUnsafeAutofix` to switch between error or suggest autofixes for
+  `use-tokens-typography`, `use-primitives-text` and `use-heading`.
+
+## 10.10.2
+
+### Patch Changes
+
+- [#120049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120049)
+  [`77504ff274f72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77504ff274f72) -
+  DSP-19576: Assign names to anonymous default exports
+
 ## 10.10.1
 
 ### Patch Changes

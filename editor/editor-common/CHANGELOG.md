@@ -1,5 +1,51 @@
 # @atlaskit/editor-common
 
+## 85.2.0
+
+### Minor Changes
+
+- [#119849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119849)
+  [`8160c4683046e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8160c4683046e) -
+  EDM-10391 Configure button in smart link in live pages on narrow links now selects link
+
+## 85.1.0
+
+### Minor Changes
+
+- [#119419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119419)
+  [`a8b716b766200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8b716b766200) -
+  [ux] Add keymap for showing drag handle on selected element"
+
+### Patch Changes
+
+- [#120417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120417)
+  [`26e76bb38b63f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26e76bb38b63f) -
+  [ux] ECA11Y-175: This changes improves the floating toolbar a11y by making the image border
+  options menu accessible for keyboard-only users, and is behind the feature gate
+  `platform-editor-a11y-image-border-options-dropdown`.
+
+## 85.0.0
+
+### Major Changes
+
+- [#119966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119966)
+  [`596ad24e38929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/596ad24e38929) -
+  Clean up typescript references to LegacyPortalProviderAPI
+
+### Minor Changes
+
+- [#120060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120060)
+  [`932c75860b5c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/932c75860b5c2) -
+  Add card plugin analytics for live pages
+
+### Patch Changes
+
+- [#119412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119412)
+  [`a714be7c47d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a714be7c47d68) -
+  [ux] [ED-23047] Remove FF platform.editor.text-alignment-keyboard-shortcuts and make feature
+  flagged functionality default
+- Updated dependencies
+
 ## 84.5.1
 
 ### Patch Changes

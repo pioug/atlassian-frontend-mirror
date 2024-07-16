@@ -16,7 +16,7 @@ import Popup, { type PopupComponentProps } from '../../src';
 const containerStyles = xcss({
 	padding: 'space.200',
 	backgroundColor: 'color.background.brand.bold',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	color: 'color.text.inverse',
 });
 

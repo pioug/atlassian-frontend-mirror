@@ -17,6 +17,7 @@ export interface Props {
 	tabIndex?: number;
 	isSelected?: boolean;
 	onClick: (value: string, label: string) => void;
+	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
 	borderColor: string;
 	checkMarkColor?: string;
 	autoFocus?: boolean;
@@ -57,6 +58,15 @@ const Color = (props: Props) => {
 		onClick(value, label);
 	};
 
+	const onKeyDown = (e: React.KeyboardEvent) => {
+		const { onKeyDown, value, label } = props;
+		if (!onKeyDown) {
+			return undefined;
+		}
+		e.preventDefault();
+		onKeyDown(value, label, e);
+	};
+
 	return (
 		<Tooltip content={label}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
@@ -69,6 +79,7 @@ const Color = (props: Props) => {
 					role="radio"
 					aria-checked={isSelected}
 					onClick={onClick}
+					onKeyDown={onKeyDown}
 					onMouseDown={onMouseDown}
 					tabIndex={tabIndex}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

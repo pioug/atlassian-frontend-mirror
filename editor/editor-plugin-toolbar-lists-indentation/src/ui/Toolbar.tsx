@@ -41,6 +41,7 @@ export function Toolbar(props: ToolbarProps) {
 		indentDisabled,
 		outdentDisabled,
 		onItemActivated,
+		pluginInjectionApi,
 	} = props;
 	const labelUnorderedList = formatMessage(messages.unorderedList);
 	const labelOrderedList = formatMessage(messages.orderedList);
@@ -130,8 +131,11 @@ export function Toolbar(props: ToolbarProps) {
 					/>
 				)}
 			</div>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<span css={separatorStyles} />
+			{!pluginInjectionApi?.primaryToolbar && (
+				/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<span css={separatorStyles} />
+			)}
 		</span>
 	);
 }

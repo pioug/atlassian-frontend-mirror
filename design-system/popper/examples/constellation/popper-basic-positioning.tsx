@@ -14,7 +14,7 @@ const popupStyles = css({
 	maxWidth: '160px',
 	padding: token('space.100', '8px'),
 	background: token('elevation.surface.overlay'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.raised'),
 });
 

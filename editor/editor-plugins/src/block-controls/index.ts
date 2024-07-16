@@ -4,4 +4,5 @@ export type {
 	BlockControlsPlugin,
 	DecorationState,
 	BlockControlsSharedState,
+	HandleOptions,
 } from '@atlaskit/editor-plugin-block-controls';

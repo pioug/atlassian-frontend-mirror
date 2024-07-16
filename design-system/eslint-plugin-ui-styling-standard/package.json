@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/eslint-plugin-ui-styling-standard",
-	"version": "0.18.1",
+	"version": "0.18.2",
 	"author": "Atlassian Pty Ltd",
 	"description": "The eslint plugin to enforce and educate on Atlassian's UI Styling Standard",
 	"license": "Apache-2.0",
@@ -57,7 +57,7 @@
 	"devDependencies": {
 		"@af/formatting": "*",
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/eslint-plugin-design-system": "^10.10.0",
+		"@atlaskit/eslint-plugin-design-system": "^10.11.0",
 		"@atlassian/codegen": "*",
 		"@compiled/eslint-plugin": "^0.13.6",
 		"@types/eslint": "^8.56.6",

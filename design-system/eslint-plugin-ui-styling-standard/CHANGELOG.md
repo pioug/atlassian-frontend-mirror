@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.18.2
+
+### Patch Changes
+
+- [#120040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120040)
+  [`5d9c0285bcb91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d9c0285bcb91) -
+  The `no-imported-style-values` rule will now allow using `cx()` inside the `xcss` prop.
+
 ## 0.18.1
 
 ### Patch Changes

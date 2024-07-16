@@ -45,10 +45,11 @@ export type {
 	ActionsServiceDiscoveryResponse,
 	ActionsDiscoveryResponse,
 	AtomicActionExecuteRequest,
-	ActionOperationStatus,
 	AtomicActionExecuteResponse,
 	ActionsServiceError,
 } from './datasource-action-types';
+
+export { ActionOperationStatus } from './datasource-action-types';
 
 export type {
 	InvokeRequest,

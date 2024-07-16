@@ -13,7 +13,7 @@ const anchorStyles = xcss({
 	borderWidth: 'border.width',
 	borderStyle: 'solid',
 	borderColor: 'color.border',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	display: 'inline-flex',
 	alignItems: 'center',
 	gap: 'space.100',

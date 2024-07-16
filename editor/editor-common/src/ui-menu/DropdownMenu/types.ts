@@ -27,7 +27,8 @@ export interface Props {
 	section?: SectionOptions;
 	children?: React.ReactNode;
 	// disabled by default to prevent new row insertion if enter pressed
-	isAllowEnterDefaultBehavior?: boolean;
+	allowEnterDefaultBehavior?: boolean;
+	handleEscapeKeydown?: (e: KeyboardEvent) => void;
 }
 
 export interface MenuItem {
@@ -48,8 +49,10 @@ export interface MenuItem {
 	'aria-label'?: React.AriaAttributes['aria-label'];
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 	'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
+	'data-testid'?: string;
 	onClick?: (editorActions: EditorActions) => void;
 	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
+	wrapperTabIndex?: number | null;
 }
 
 export interface State {

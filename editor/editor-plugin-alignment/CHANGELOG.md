@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.7.4
+
+### Patch Changes
+
+- [#119412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119412)
+  [`a714be7c47d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a714be7c47d68) -
+  [ux] [ED-23047] Remove FF platform.editor.text-alignment-keyboard-shortcuts and make feature
+  flagged functionality default
+- Updated dependencies
+
 ## 1.7.3
 
 ### Patch Changes

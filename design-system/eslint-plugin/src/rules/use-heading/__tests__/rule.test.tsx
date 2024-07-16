@@ -268,5 +268,39 @@ ruleTester.run('use-heading', rule, {
 				},
 			],
 		},
+		// Errors and applies auto fixes when option is enabled
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`
+				import Heading from '@atlaskit/heading';
+				<div>
+					<div><h1>heading 1</h1></div>
+					<div><h2>heading 2</h2></div>
+					<div><h3>heading 3</h3></div>
+					<div><h4>heading 4</h4></div>
+					<div><h5>heading 5</h5></div>
+					<div><h6>heading 6</h6></div>
+				</div>
+				`,
+			errors: [
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+			],
+			output: outdent`
+				import Heading from '@atlaskit/heading';
+				<div>
+					<div><Heading size='xlarge'>heading 1</Heading></div>
+					<div><Heading size='large'>heading 2</Heading></div>
+					<div><Heading size='medium'>heading 3</Heading></div>
+					<div><Heading size='small'>heading 4</Heading></div>
+					<div><Heading size='xsmall'>heading 5</Heading></div>
+					<div><Heading size='xxsmall'>heading 6</Heading></div>
+				</div>
+			`,
+		},
 	],
 });

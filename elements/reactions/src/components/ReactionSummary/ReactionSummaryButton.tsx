@@ -76,6 +76,17 @@ export const ReactionSummaryButton = forwardRef(
 					onClick={onClick}
 					testId={RENDER_SUMMARY_BUTTON_TESTID}
 					ariaLabel={intl.formatMessage(messages.summary)}
+					additionalStyles={[
+						xcss({
+							backgroundColor: 'elevation.surface',
+							':hover': {
+								backgroundColor: 'elevation.surface.hovered',
+							},
+							':active': {
+								backgroundColor: 'elevation.surface.pressed',
+							},
+						}),
+					]}
 				>
 					<Inline space="space.050" xcss={buttonStyle}>
 						{topReactions.map((reaction) => (

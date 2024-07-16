@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "1.9.4",
+	"version": "1.10.0",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		"@atlaskit/button": "^18.4.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/datetime-picker": "^13.7.0",
-		"@atlaskit/editor-common": "^84.5.0",
+		"@atlaskit/editor-common": "^85.2.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-context-identifier": "^1.1.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/select": "^17.11.0",
 		"@atlaskit/smart-user-picker": "^6.9.0",
 		"@atlaskit/spinner": "^16.2.0",
-		"@atlaskit/tabs": "^16.2.0",
+		"@atlaskit/tabs": "^16.3.0",
 		"@atlaskit/textarea": "^5.5.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.11.0",
@@ -74,7 +74,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^18.25.0",
+		"@atlaskit/editor-test-helpers": "^18.26.0",
 		"react-select": "^5.4.0",
 		"typescript": "~5.4.2"
 	},

@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import type { KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { bind } from 'bind-event-listener';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 
 import {
@@ -29,7 +31,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { key } from '../pm-plugins/main';
-import type { BlockControlsPlugin } from '../types';
+import type { BlockControlsPlugin, HandleOptions } from '../types';
 import { selectNode } from '../utils';
 import { getLeftPosition, getTopPosition } from '../utils/drag-handle-positions';
 
@@ -63,6 +65,7 @@ const dragHandleButtonStyles = css({
 	cursor: 'grab',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: DRAG_HANDLE_ZINDEX,
+	outline: 'none',
 
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
@@ -70,6 +73,10 @@ const dragHandleButtonStyles = css({
 
 	'&:active': {
 		backgroundColor: token('color.background.neutral.subtle.pressed', '#091E4224'),
+	},
+
+	'&:focus': {
+		outline: `2px solid ${token('color.border.focused', '#388BFF')}`,
 	},
 });
 
@@ -85,12 +92,14 @@ const DragHandleInternal = ({
 	anchorName,
 	nodeType,
 	intl: { formatMessage },
+	handleOptions,
 }: {
 	view: EditorView;
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 	getPos: () => number | undefined;
 	anchorName: string;
 	nodeType: string;
+	handleOptions?: HandleOptions;
 } & WrappedComponentProps) => {
 	const start = getPos();
 	const buttonRef = useRef<HTMLButtonElement>(null);
@@ -188,6 +197,35 @@ const DragHandleInternal = ({
 		});
 	}, [start, api]);
 
+	const handleKeyDown = useCallback(
+		(e: KeyboardEvent<HTMLButtonElement>) => {
+			if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
+				// allow user to use spacebar to select the node
+				if (!e.repeat && e.key === ' ') {
+					api?.core?.actions.execute(({ tr }) => {
+						if (start === undefined) {
+							return tr;
+						}
+
+						const node = tr.doc.nodeAt(start);
+						if (!node) {
+							return tr;
+						}
+						const $startPos = tr.doc.resolve(start + node.nodeSize);
+						const selection = new TextSelection($startPos);
+						tr.setSelection(selection);
+						tr.setMeta(key, { pos: start });
+						return tr;
+					});
+				} else {
+					// return focus to editor to resume editing from caret positon
+					view.focus();
+				}
+			}
+		},
+		[start, api, view],
+	);
+
 	useEffect(() => {
 		const element = buttonRef.current;
 		if (!element) {
@@ -243,7 +281,8 @@ const DragHandleInternal = ({
 	}, [anchorName, api, nodeType, view, start]);
 
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
-	const positionStyles = useMemo(() => {
+
+	const calculatePosition = useCallback(() => {
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
@@ -274,7 +313,7 @@ const DragHandleInternal = ({
 			return fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
 				? {
 						left:
-							hasResizer || isExtension || isEmbedCard
+							hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
 								? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
 								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
 
@@ -296,13 +335,78 @@ const DragHandleInternal = ({
 								: `anchor(${anchorName} start)`,
 					};
 		}
-		return {
-			left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
-			top: fg('platform_editor_elements_dnd_ed_23674')
-				? getTopPosition(dom, nodeType)
-				: getTopPosition(dom),
-		};
+		return fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+			? {
+					left:
+						hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
+							? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
+							: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
+					top: fg('platform_editor_elements_dnd_ed_23674')
+						? getTopPosition(dom, nodeType)
+						: getTopPosition(dom),
+				}
+			: {
+					left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
+					top: fg('platform_editor_elements_dnd_ed_23674')
+						? getTopPosition(dom, nodeType)
+						: getTopPosition(dom),
+				};
 	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
+
+	const [newPositionStyles, setNewPositionStyles] = useState<CSSProperties>({ display: 'none' });
+
+	useEffect(() => {
+		if (!fg('platform_editor_element_drag_and_drop_ed_23896')) {
+			return;
+		}
+		let cleanUpTransitionListener: () => void;
+
+		if (nodeType === 'extension' || nodeType === 'embedCard') {
+			const dom: HTMLElement | null = view.dom.querySelector(
+				`[data-drag-handler-anchor-name="${anchorName}"]`,
+			);
+			if (!dom) {
+				return;
+			}
+			cleanUpTransitionListener = bind(dom, {
+				type: 'transitionend',
+				listener: () => {
+					setNewPositionStyles(calculatePosition());
+				},
+			});
+		}
+		const calcPos = requestAnimationFrame(() => {
+			setNewPositionStyles(calculatePosition());
+		});
+		return () => {
+			cancelAnimationFrame(calcPos);
+			cleanUpTransitionListener?.();
+		};
+	}, [calculatePosition, view.dom, anchorName, nodeType]);
+
+	const positionStyles = useMemo(() => {
+		if (fg('platform_editor_element_drag_and_drop_ed_23896')) {
+			return newPositionStyles;
+		}
+
+		return calculatePosition();
+	}, [calculatePosition, newPositionStyles]);
+
+	useEffect(() => {
+		if (
+			handleOptions?.isFocused &&
+			buttonRef.current &&
+			fg('platform_editor_element_drag_and_drop_ed_23873')
+		) {
+			const id = requestAnimationFrame(() => {
+				buttonRef.current?.focus();
+			});
+			return () => {
+				cancelAnimationFrame(id);
+				view.focus();
+			};
+		}
+	}, [buttonRef, handleOptions?.isFocused, view]);
 
 	const helpDescriptors = [
 		{
@@ -323,13 +427,16 @@ const DragHandleInternal = ({
 			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={positionStyles}
+			style={
+				fg('platform_editor_element_drag_and_drop_ed_23896') ? newPositionStyles : positionStyles
+			}
 			onClick={handleOnClick}
 			onMouseDown={
 				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
 					? handleMouseDownWrapperRemoved
 					: handleMouseDown
 			}
+			onKeyDown={handleKeyDown}
 			data-testid="block-ctrl-drag-handle"
 		>
 			<DragHandlerIcon label="" size="medium" />

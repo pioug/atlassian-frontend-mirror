@@ -147,3 +147,26 @@ export const toolbarButtonWrapper = ({
 	${!enabled && getHoverStyles('.image-border-toolbar-btn')}
 	${!isOpen && !enabled && getHoverStyles('.image-border-toolbar-dropdown')}
 `;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const dropdownOptionButton = css`
+	background: transparent;
+	border: 2px solid transparent;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 16px;
+
+	&:focus {
+		background-color: ${token('color.background.neutral.subtle.hovered', 'rgb(244, 245, 247)')};
+		border: 2px solid ${token('color.border.focused', '#2684FF')};
+	}
+`;
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const dropdownWrapper = css`
+	span[role='menuitem'] {
+		padding: 0;
+	}
+`;

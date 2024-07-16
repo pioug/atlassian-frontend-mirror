@@ -74,7 +74,7 @@
 		"@atlaskit/give-kudos": "^2.1.1",
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/lozenge": "^11.9.0",
-		"@atlaskit/menu": "^2.7.0",
+		"@atlaskit/menu": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/primitives": "^11.0.0",

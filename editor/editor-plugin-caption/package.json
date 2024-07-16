@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-caption",
-	"version": "1.5.3",
+	"version": "1.6.0",
 	"description": "Caption plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^39.0.3",
-		"@atlaskit/editor-common": "^84.5.0",
+		"@atlaskit/editor-common": "^85.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",

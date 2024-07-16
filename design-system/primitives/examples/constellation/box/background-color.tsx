@@ -5,7 +5,7 @@ import { type BackgroundColor, Box, Inline, Stack, xcss } from '@atlaskit/primit
 
 const boxStyles = xcss({
 	borderStyle: 'solid',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	borderWidth: 'border.width',
 });
 

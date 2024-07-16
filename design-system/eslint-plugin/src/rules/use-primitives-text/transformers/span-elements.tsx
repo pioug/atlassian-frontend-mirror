@@ -23,15 +23,11 @@ export const SpanElements = {
 			return;
 		}
 
+		const fix = SpanElements._fix(node, { context, config });
 		context.report({
 			node: node.openingElement,
 			messageId: 'preferPrimitivesText',
-			suggest: [
-				{
-					desc: `Convert to Text`,
-					fix: SpanElements._fix(node, { context, config }),
-				},
-			],
+			...(config.enableUnsafeAutofix ? { fix } : { suggest: [{ desc: `Convert to Text`, fix }] }),
 		});
 	},
 

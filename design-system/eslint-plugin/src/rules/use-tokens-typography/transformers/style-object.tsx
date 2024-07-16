@@ -251,18 +251,16 @@ export const StyleObject = {
 				fontStyleReplacement,
 			};
 
+			const fix = StyleObject._fix(fixerRefs, context);
 			context.report({
 				node: fontSizeNode,
 				messageId: 'noRawTypographyValues',
 				data: {
 					payload: `fontSize:${fontSizeRaw}`,
 				},
-				suggest: [
-					{
-						desc: `Convert to font token`,
-						fix: StyleObject._fix(fixerRefs, context),
-					},
-				],
+				...(config.enableUnsafeAutofix
+					? { fix }
+					: { suggest: [{ desc: `Convert to font token`, fix }] }),
 			});
 		} else if (!matchingTokens.length) {
 			context.report({

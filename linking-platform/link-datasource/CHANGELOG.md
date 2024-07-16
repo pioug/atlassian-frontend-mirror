@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 2.5.10
+
+### Patch Changes
+
+- [#120040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120040)
+  [`6451e5b79f070`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6451e5b79f070) -
+  The change here removes `platform.linking-platform.datasource.total-count-i18n-single-key` that
+  controlled single string usage for total count display in the table.
+- Updated dependencies
+
 ## 2.5.9
 
 ### Patch Changes

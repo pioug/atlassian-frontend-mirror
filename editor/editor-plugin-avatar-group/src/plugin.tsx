@@ -1,10 +1,15 @@
 import React from 'react';
 
 import type { CollabEditOptions, CollabInviteToEditProps } from '@atlaskit/editor-common/collab';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type {
+	NextEditorPlugin,
+	OptionalPlugin,
+	ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugin-collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';
@@ -24,6 +29,7 @@ export type AvatarGroupPlugin = NextEditorPlugin<
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<CollabEditPlugin>,
+			OptionalPlugin<PrimaryToolbarPlugin>,
 		];
 		actions: {
 			getToolbarItem: ({
@@ -40,34 +46,42 @@ export type AvatarGroupPlugin = NextEditorPlugin<
 
 export const avatarGroupPlugin: AvatarGroupPlugin = ({ config: props, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
+		editorView,
+		eventDispatcher,
+		dispatchAnalyticsEvent,
+	}) => {
+		return (
+			<AvatarGroupPluginWrapper
+				dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+				editorView={editorView}
+				eventDispatcher={eventDispatcher}
+				collabEdit={props?.collabEdit}
+				takeFullWidth={props?.takeFullWidth}
+				featureFlags={featureFlags}
+				editorAnalyticsAPI={api?.analytics?.actions}
+				editorAPI={api}
+			/>
+		);
+	};
+
 	return {
 		name: 'avatarGroup',
 
-		primaryToolbarComponent: props.showAvatarGroup
-			? ({
-					editorView,
-					popupsMountPoint,
-					popupsBoundariesElement,
-					popupsScrollableElement,
-					disabled,
-					isToolbarReducedSpacing,
-					eventDispatcher,
-					dispatchAnalyticsEvent,
-				}) => {
-					return (
-						<AvatarGroupPluginWrapper
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							editorView={editorView}
-							eventDispatcher={eventDispatcher}
-							collabEdit={props?.collabEdit}
-							takeFullWidth={props?.takeFullWidth}
-							featureFlags={featureFlags}
-							editorAnalyticsAPI={api?.analytics?.actions}
-							editorAPI={api}
-						/>
-					);
-				}
-			: undefined,
+		usePluginHook: () => {
+			if (props.showAvatarGroup) {
+				api?.core?.actions.execute(
+					api?.primaryToolbar?.commands.registerComponent({
+						name: 'avatarGroup',
+						component: primaryToolbarComponent,
+					}),
+				);
+			}
+		},
+
+		primaryToolbarComponent:
+			!api?.primaryToolbar && props.showAvatarGroup ? primaryToolbarComponent : undefined,
+
 		actions: {
 			getToolbarItem: ({
 				editorView,

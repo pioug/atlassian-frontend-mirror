@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ufo-interaction-ignore",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Ignoring any holds under this component tree",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,7 +44,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@testing-library/react": "^12.1.5",
@@ -52,6 +52,7 @@
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},
+	"runReact18": true,
 	"techstack": {
 		"@atlassian/frontend": {
 			"import-structure": [

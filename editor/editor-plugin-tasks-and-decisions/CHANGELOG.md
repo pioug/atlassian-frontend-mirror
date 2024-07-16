@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.1.1
+
+### Patch Changes
+
+- [#120417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120417)
+  [`f0b8c2371f9a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0b8c2371f9a2) -
+  [ux] Fixing tasks and decisions to stop them infinitely re-rendering in React 18 when using
+  createRoot.
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [#119966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119966)
+  [`596ad24e38929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/596ad24e38929) -
+  Clean up typescript references to LegacyPortalProviderAPI
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

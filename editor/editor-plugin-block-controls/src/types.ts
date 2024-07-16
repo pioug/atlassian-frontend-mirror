@@ -42,6 +42,8 @@ export type BlockControlsSharedState =
 	  }
 	| undefined;
 
+export type HandleOptions = { isFocused: boolean } | undefined;
+
 export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
@@ -54,7 +56,12 @@ export type BlockControlsPlugin = NextEditorPlugin<
 		sharedState: BlockControlsSharedState;
 		commands: {
 			moveNode: (start: number, to: number) => EditorCommand;
-			showDragHandleAt: (pos: number, anchorName: string, nodeType: string) => EditorCommand;
+			showDragHandleAt: (
+				pos: number,
+				anchorName: string,
+				nodeType: string,
+				handleOptions?: HandleOptions,
+			) => EditorCommand;
 			setNodeDragged: (posNumber: number, anchorName: string, nodeType: string) => EditorCommand;
 		};
 	}

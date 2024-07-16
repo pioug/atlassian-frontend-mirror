@@ -4,7 +4,7 @@ import { type BackgroundColor, Box, type Space, xcss } from '@atlaskit/primitive
 
 const blockStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	minWidth: '2rem',
 	minHeight: '2rem',
 	borderStyle: 'solid',

@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
 import Tooltip from '@atlaskit/tooltip';
+import { type Placement } from '@atlaskit/popper';
 
 import {
 	createAndFireSafe,
@@ -150,6 +151,10 @@ export interface ReactionsProps
 	 * The minimum number of reactions required to switch to the summary view when summaryViewEnabled is true. Defaults to 3 if not specified.
 	 */
 	summaryViewThreshold?: number;
+	/**
+	 * Optional prop to change the placement of the summary popup reaction list
+	 */
+	summaryViewPlacement?: Placement;
 }
 
 /**
@@ -197,6 +202,7 @@ export const Reactions = React.memo(
 		miniMode = false,
 		summaryViewEnabled = false,
 		summaryViewThreshold = 3,
+		summaryViewPlacement,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -397,6 +403,7 @@ export const Reactions = React.memo(
 							onReactionClick={onReactionClick}
 							onReactionFocused={handleReactionFocused}
 							onReactionMouseEnter={handleReactionMouseEnter}
+							placement={summaryViewPlacement}
 						/>
 					</div>
 				) : (

@@ -14,7 +14,7 @@ const pressableStyles = xcss({
 	borderWidth: 'border.width',
 	borderStyle: 'solid',
 	borderColor: 'color.border',
-	borderRadius: 'border.radius.400',
+	borderRadius: '8px',
 	paddingInline: 'space.100',
 	height: '27px',
 	display: 'flex',

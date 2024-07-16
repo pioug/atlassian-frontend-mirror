@@ -22,7 +22,7 @@ const panelStyles = css({
 	flexDirection: 'column',
 	flexGrow: 1,
 	backgroundColor: token('color.background.neutral'),
-	borderRadius: token('border.radius', '3px'),
+	borderRadius: '3px',
 	color: token('color.text.subtlest'),
 	font: token('font.heading.xxlarge'),
 	marginBlockEnd: token('space.100', '8px'),

@@ -25,7 +25,7 @@ export default () => {
 };
 
 const cardStyles = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	boxShadow: 'elevation.shadow.overlay',
 	width: '400px',
 });

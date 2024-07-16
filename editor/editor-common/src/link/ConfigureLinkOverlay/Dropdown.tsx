@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import DropdownMenu, {
 	DropdownItem,
 	DropdownItemGroup,
@@ -17,43 +18,80 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { cardMessages as messages } from '../../messages';
 
 import { StyledButton } from './StyledButton';
+import { useLinkOverlayAnalyticsEvents } from './useLinkOverlayAnalyticsEvents';
+
+const SMALL_LINK_TOOLBAR_ANALYTICS_SOURCE = 'smallLinkToolbar';
 
 export type OnDropdownChange = (isOpen: boolean) => void;
 
 export type DropdownProps = {
-	testId: string;
+	/** Callback fired when the Configure dropdown item is clicked */
+	onConfigureClick: () => void;
+	/** Callback fired when the dropdown is open or close */
 	onDropdownChange?: OnDropdownChange;
+	testId: string;
 };
 
-const Dropdown = ({ testId, onDropdownChange }: DropdownProps) => {
+const Dropdown = ({
+	onConfigureClick: onConfigureClickCallback,
+	onDropdownChange,
+	testId,
+}: DropdownProps) => {
 	const { formatMessage } = useIntl();
 	const configureLinkLabel: string = formatMessage(messages.inlineConfigureLink);
 	const goToLinkLabel: string = formatMessage(messages.inlineGoToLink);
 
+	const { fireActionClickEvent, fireLinkClickEvent, fireToolbarViewEvent } =
+		useLinkOverlayAnalyticsEvents();
+
 	const onOpenChange: (args: OnOpenChangeArgs) => void = useCallback(
 		({ isOpen }) => {
 			onDropdownChange?.(isOpen);
+
+			if (isOpen) {
+				fireToolbarViewEvent();
+			}
 		},
-		[onDropdownChange],
+		[fireToolbarViewEvent, onDropdownChange],
 	);
+
+	const onGoToLinkClick = useCallback(() => {
+		fireActionClickEvent('goToLink');
+	}, [fireActionClickEvent]);
+
+	const onConfigureClick = useCallback(() => {
+		fireActionClickEvent('configureLink');
+		onConfigureClickCallback?.();
+	}, [fireActionClickEvent, onConfigureClickCallback]);
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
-			trigger={({ triggerRef, ...props }) => (
+			trigger={({ onClick, triggerRef, ...props }) => (
 				<StyledButton
 					innerRef={triggerRef}
 					{...props}
 					iconBefore={<ChevronDownIcon label={configureLinkLabel} size={'small'} />}
+					onClick={(e) => {
+						onClick?.(e);
+						fireLinkClickEvent();
+					}}
 				/>
 			)}
 			testId={`${testId}-dropdown`}
 			onOpenChange={onOpenChange}
 		>
 			<DropdownItemGroup>
-				<DropdownItem elemBefore={<ShortcutIcon label={goToLinkLabel} size={'medium'} />}>
+				<DropdownItem
+					elemBefore={<ShortcutIcon label={goToLinkLabel} size={'medium'} />}
+					onClick={onGoToLinkClick}
+				>
 					{goToLinkLabel}
 				</DropdownItem>
-				<DropdownItem elemBefore={<PreferencesIcon label={configureLinkLabel} size={'medium'} />}>
+				<DropdownItem
+					elemBefore={<PreferencesIcon label={configureLinkLabel} size={'medium'} />}
+					onClick={onConfigureClick}
+					testId={`${testId}-dropdown-item-configure`}
+				>
 					{configureLinkLabel}
 				</DropdownItem>
 			</DropdownItemGroup>
@@ -61,4 +99,4 @@ const Dropdown = ({ testId, onDropdownChange }: DropdownProps) => {
 	);
 };
 
-export default Dropdown;
+export default withAnalyticsContext({ source: SMALL_LINK_TOOLBAR_ANALYTICS_SOURCE })(Dropdown);

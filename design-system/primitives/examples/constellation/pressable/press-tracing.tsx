@@ -16,7 +16,7 @@ const baseStyles = xcss({
 	borderWidth: 'border.width',
 	borderStyle: 'solid',
 	borderColor: 'color.border',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	height: '44px',
 	width: '44px',
 	display: 'flex',

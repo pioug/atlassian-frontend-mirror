@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "9.33.0",
+	"version": "9.33.1",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
-		"@atlaskit/editor-common": "^84.5.0",
+		"@atlaskit/editor-common": "^85.2.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

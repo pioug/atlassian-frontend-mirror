@@ -22,7 +22,7 @@ const containerStyles = css({
 });
 
 const imageStyles = css({
-	borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
+	borderRadius: '3px 3px 0 0',
 });
 
 const headerStyles = xcss({

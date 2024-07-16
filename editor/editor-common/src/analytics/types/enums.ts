@@ -243,6 +243,7 @@ export enum ACTION_SUBJECT {
 	DRAG = 'drag',
 	ELEMENT = 'element',
 	CONTEXT_MENU = 'contextMenu',
+	INLINE_DIALOG = 'inlineDialog',
 }
 
 export enum ACTION_SUBJECT_ID {
@@ -357,6 +358,7 @@ export enum ACTION_SUBJECT_ID {
 	SAVE = 'save',
 	SECTION = 'section',
 	SMART_LINK = 'smartLink',
+	SMART_LINK_TOOLBAR = 'smartLinkToolbar',
 	STATUS = 'status',
 	SYMBOL = 'symbol',
 	TABLE = 'table',

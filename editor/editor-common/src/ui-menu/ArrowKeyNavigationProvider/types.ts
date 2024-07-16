@@ -32,6 +32,7 @@ export type MenuArrowKeyNavigationOptions = {
 	type: ArrowKeyNavigationType.MENU;
 	disableArrowKeyNavigation?: boolean;
 	keyDownHandlerContext?: KeyDownHandlerContext;
+	disableCloseOnArrowClick?: boolean;
 	children?: React.ReactNode;
 };
 

@@ -8,7 +8,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { BlockControlsPlugin } from '../types';
+import type { BlockControlsPlugin, HandleOptions } from '../types';
 import { DragHandle } from '../ui/drag-handle';
 import { DropTarget } from '../ui/drop-target';
 import { MouseMoveWrapper } from '../ui/mouse-move-wrapper';
@@ -183,11 +183,12 @@ export const mouseMoveWrapperDecorations = (
 };
 
 export const dragHandleDecoration = (
+	api: ExtractInjectionAPI<BlockControlsPlugin>,
+	getIntl: () => IntlShape,
 	pos: number,
 	anchorName: string,
 	nodeType: string,
-	api: ExtractInjectionAPI<BlockControlsPlugin>,
-	getIntl: () => IntlShape,
+	handleOptions?: HandleOptions,
 ) => {
 	return Decoration.widget(
 		pos,
@@ -197,6 +198,11 @@ export const dragHandleDecoration = (
 			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
+
+			if (fg('platform_editor_element_drag_and_drop_ed_23896')) {
+				unmountDecorations('data-blocks-drag-handle-container');
+			}
+
 			if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 				// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
 				// due to margins applied to other nodes eg. Headings
@@ -212,6 +218,7 @@ export const dragHandleDecoration = (
 						getPos,
 						anchorName,
 						nodeType,
+						handleOptions,
 					}),
 				),
 				element,
@@ -222,7 +229,9 @@ export const dragHandleDecoration = (
 			side: -1,
 			id: 'drag-handle',
 			destroy: (node) => {
-				ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
+				if (!fg('platform_editor_element_drag_and_drop_ed_23896')) {
+					ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
+				}
 			},
 		},
 	);

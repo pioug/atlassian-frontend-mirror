@@ -104,6 +104,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 			[varTransitionEasing]: transitionEasing,
 			[varMarkerColor]: this.state.oldMarkerColor,
 			[varBackgroundColor]: getMarkerColor(item.status),
+			listStyleType: 'none',
 		} as CSSProperties;
 
 		return (

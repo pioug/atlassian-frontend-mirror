@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.10.0
+
+### Minor Changes
+
+- [#119966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119966)
+  [`596ad24e38929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/596ad24e38929) -
+  Clean up typescript references to LegacyPortalProviderAPI
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.4
 
 ### Patch Changes

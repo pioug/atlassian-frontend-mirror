@@ -8,7 +8,7 @@ import { css, jsx } from '@emotion/react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import type { CustomItemComponentProps } from '@atlaskit/menu';
 import { CustomItem, MenuGroup, Section } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, N70, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import type { PositionType } from '@atlaskit/tooltip';
@@ -115,7 +115,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 
 	private handleCloseAndFocus = (event: PointerEvent | KeyboardEvent) => {
 		this.state.target?.querySelector('button')?.focus();
-		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 			this.handleClose(event);
 		} else {
 			this.handleClose();
@@ -125,7 +125,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 	private handleClose = (event?: PointerEvent | KeyboardEvent) => {
 		const { onOpenChange } = this.props;
 		if (onOpenChange) {
-			if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+			if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
 				onOpenChange({ isOpen: false, event: event });
 			} else {
 				onOpenChange({ isOpen: false });
@@ -149,7 +149,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 			onItemActivated,
 			arrowKeyNavigationProviderOptions,
 			section,
-			isAllowEnterDefaultBehavior,
+			allowEnterDefaultBehavior,
+			handleEscapeKeydown,
 		} = this.props;
 		// Note that this onSelection function can't be refactored to useMemo for
 		// performance gains as it is being used as a dependency in a useEffect in
@@ -199,10 +200,17 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						shouldFitContainer={true}
 						isTriggerNotTabbable={true}
 						handleClickOutside={this.handleClose}
-						handleEscapeKeydown={this.handleCloseAndFocus}
+						handleEscapeKeydown={
+							fg('platform-editor-a11y-image-border-options-dropdown')
+								? handleEscapeKeydown || this.handleCloseAndFocus
+								: this.handleCloseAndFocus
+						}
 						handleEnterKeydown={(e: KeyboardEvent) => {
-							if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
-								if (!isAllowEnterDefaultBehavior) {
+							if (
+								fg('platform.editor.a11y-table-context-menu_y4c9c') ||
+								fg('platform-editor-a11y-image-border-options-dropdown')
+							) {
+								if (!allowEnterDefaultBehavior) {
 									e.preventDefault();
 								}
 							} else {
@@ -268,7 +276,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 					bubbles: true,
 				});
 
-				if (mountTo && getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty')) {
+				if (mountTo && fg('platform.editor.a11y-main-toolbar-navigation_osrty')) {
 					mountTo.dispatchEvent(keyboardEvent);
 					return;
 				}
@@ -334,23 +342,47 @@ export function DropdownMenuItem({
 		);
 	};
 
+	let ariaLabel;
+
+	if (fg('platform-editor-a11y-image-border-options-dropdown')) {
+		ariaLabel = item['aria-label'] === '' ? undefined : item['aria-label'] || String(item.content);
+	} else {
+		ariaLabel = item['aria-label'] || String(item.content);
+	}
+
+	let testId;
+	if (fg('platform-editor-a11y-image-border-options-dropdown')) {
+		testId = item['data-testid'] || `dropdown-item__${item.content}`;
+	} else {
+		testId = `dropdown-item__${String(item.content)}`;
+	}
+
+	// From time to time we don't want to have any tabIndex on item wrapper
+	// especially when we pass any interactive element as a item.content
+	let tabIndex;
+	if (fg('platform-editor-a11y-image-border-options-dropdown')) {
+		tabIndex = item.wrapperTabIndex === null ? undefined : item.wrapperTabIndex || -1;
+	} else {
+		tabIndex = -1;
+	}
+
 	const dropListItem = (
 		<div
 			css={() => buttonStyles(item.isActive, submenuActive)}
-			tabIndex={-1}
+			tabIndex={tabIndex}
 			aria-disabled={item.isDisabled ? 'true' : 'false'}
 			onMouseDown={_handleSubmenuActive}
 		>
 			<CustomItem
 				item={item}
 				key={item.key ?? String(item.content)}
-				testId={`dropdown-item__${String(item.content)}`}
+				testId={testId}
 				role={shouldUseDefaultRole ? 'button' : 'menuitem'}
 				iconBefore={item.elemBefore}
 				iconAfter={item.elemAfter}
 				isDisabled={item.isDisabled}
 				onClick={() => onItemActivated && onItemActivated({ item })}
-				aria-label={item['aria-label'] || String(item.content)}
+				aria-label={ariaLabel}
 				aria-pressed={shouldUseDefaultRole ? item.isActive : undefined}
 				aria-keyshortcuts={item['aria-keyshortcuts']}
 				onMouseDown={(e) => {
@@ -360,9 +392,7 @@ export function DropdownMenuItem({
 				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
 				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
 				aria-expanded={
-					getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
-						? item['aria-expanded']
-						: undefined
+					fg('platform.editor.a11y-table-context-menu_y4c9c') ? item['aria-expanded'] : undefined
 				}
 			>
 				{item.content}

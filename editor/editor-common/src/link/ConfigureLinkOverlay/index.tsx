@@ -5,6 +5,7 @@ import { useCallback, useLayoutEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
@@ -17,6 +18,7 @@ import { cardMessages } from '../../messages';
 
 import Dropdown, { type OnDropdownChange } from './Dropdown';
 import { StyledButton } from './StyledButton';
+import { useLinkOverlayAnalyticsEvents } from './useLinkOverlayAnalyticsEvents';
 
 const buttonWrapperStyles = css({
 	position: 'absolute',
@@ -40,7 +42,7 @@ export interface OverlayButtonProps {
 
 const showDropdownThresholdPx = 50;
 
-export const OverlayButton = ({
+export const OverlayButton = withAnalyticsContext()(({
 	editorView,
 	testId = 'link-configure-overlay-button',
 	targetElementPos = 0,
@@ -49,6 +51,8 @@ export const OverlayButton = ({
 	const { formatMessage } = useIntl();
 	const configureLinkLabel = formatMessage(cardMessages.inlineConfigureLink);
 	const [showDropdown, setShowDropdown] = useState(false);
+
+	const { fireLinkClickEvent, fireActionClickEvent } = useLinkOverlayAnalyticsEvents();
 
 	useLayoutEffect(() => {
 		let domNode = editorView.nodeDOM(targetElementPos);
@@ -68,7 +72,7 @@ export const OverlayButton = ({
 	const nodeEnd = targetElementPos + (docNode?.nodeSize ?? 0);
 	const isText = docNode?.isText;
 
-	const handleClick = useCallback(() => {
+	const handleConfigureClick = useCallback(() => {
 		const tr = editorView.state.tr;
 		if (isText) {
 			tr.setSelection(
@@ -78,7 +82,13 @@ export const OverlayButton = ({
 			tr.setSelection(NodeSelection.create(tr.doc, targetElementPos));
 		}
 		editorView.dispatch(tr);
-	}, [isText, editorView, nodeEnd, targetElementPos]);
+	}, [editorView, isText, targetElementPos, nodeEnd]);
+
+	const handleConfigureClickWithAnalytics = useCallback(() => {
+		fireLinkClickEvent();
+		fireActionClickEvent('configureLink');
+		handleConfigureClick();
+	}, [fireActionClickEvent, fireLinkClickEvent, handleConfigureClick]);
 
 	const { from, to } = editorView.state.selection;
 	const isSelected = from === targetElementPos && to === nodeEnd;
@@ -90,7 +100,11 @@ export const OverlayButton = ({
 	return (
 		<span css={buttonWrapperStyles} data-testid={testId}>
 			{showDropdown ? (
-				<Dropdown testId={testId} onDropdownChange={onDropdownChange} />
+				<Dropdown
+					testId={testId}
+					onConfigureClick={handleConfigureClick}
+					onDropdownChange={onDropdownChange}
+				/>
 			) : (
 				<Tooltip
 					content={configureLinkLabel}
@@ -98,7 +112,7 @@ export const OverlayButton = ({
 					testId={`${testId}-tooltip`}
 				>
 					<StyledButton
-						onClick={handleClick}
+						onClick={handleConfigureClickWithAnalytics}
 						iconBefore={
 							<PreferencesIcon
 								label={configureLinkLabel}
@@ -111,4 +125,4 @@ export const OverlayButton = ({
 			)}
 		</span>
 	);
-};
+});

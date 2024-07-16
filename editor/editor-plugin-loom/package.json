@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-loom",
-	"version": "2.2.14",
+	"version": "2.3.0",
 	"description": "Loom plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,9 +39,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^84.5.0",
+		"@atlaskit/editor-common": "^85.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-hyperlink": "^2.3.0",
+		"@atlaskit/editor-plugin-primary-toolbar": "^1.2.0",
 		"@atlaskit/editor-plugin-width": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/logo": "^14.1.0",
@@ -61,7 +62,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-plugin-base": "^1.7.0",
-		"@atlaskit/editor-plugin-card": "^2.5.0",
+		"@atlaskit/editor-plugin-card": "^2.6.0",
 		"@atlaskit/editor-plugin-copy-button": "^1.1.0",
 		"@atlaskit/editor-plugin-decorations": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",

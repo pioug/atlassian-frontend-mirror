@@ -6,7 +6,7 @@ import ExampleBox from '../shared/example-box';
 
 const flexContainerStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	height: 'size.600',
 });
 

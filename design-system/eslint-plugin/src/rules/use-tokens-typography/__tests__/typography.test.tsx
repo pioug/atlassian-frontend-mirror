@@ -138,11 +138,11 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-					import { token } from '@atlaskit/tokens';
-					const styles = css({
-						font: token('font.heading.xsmall'),
-						padding: '8px'
-					})`,
+								import { token } from '@atlaskit/tokens';
+								const styles = css({
+									font: token('font.heading.xsmall'),
+									padding: '8px'
+								})`,
 						},
 					],
 				},
@@ -783,6 +783,22 @@ export const typographyTests: Tests = {
 					],
 				},
 			],
+		},
+		// Errors and applies auto fixes when option is enabled
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`
+				const styles = css({
+					fontSize: '14px',
+					fontWeight: 600,
+				})`,
+			errors: [{ messageId: 'noRawTypographyValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				import { fontFallback } from '@atlaskit/theme/typography';
+				const styles = css({
+					font: token('font.heading.xsmall', fontFallback.heading.xsmall),
+				})`,
 		},
 	],
 };

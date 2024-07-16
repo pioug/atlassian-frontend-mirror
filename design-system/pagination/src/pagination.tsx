@@ -154,6 +154,15 @@ function InnerPagination<T extends React.ReactNode>(
 	);
 }
 
-const Pagination = forwardRef(InnerPagination);
+/**
+ * __Pagination__
+ *
+ * Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.
+ *
+ * - [Examples](https://atlassian.design/components/pagination/examples)
+ * - [Code](https://atlassian.design/components/pagination/code)
+ * - [Usage](https://atlassian.design/components/pagination/usage)
+ */
+const Pagination = memo(forwardRef(InnerPagination)) as typeof InnerPagination;
 
-export default memo(Pagination) as typeof InnerPagination;
+export default Pagination;

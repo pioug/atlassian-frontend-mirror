@@ -1,5 +1,13 @@
 # @atlaskit/pagination
 
+## 14.7.8
+
+### Patch Changes
+
+- [#119565](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119565)
+  [`16045b926e115`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16045b926e115) -
+  Refactor export of pagination component for better Typescript typing recognition.
+
 ## 14.7.7
 
 ### Patch Changes

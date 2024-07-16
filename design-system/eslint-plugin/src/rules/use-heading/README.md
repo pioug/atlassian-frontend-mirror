@@ -27,3 +27,8 @@ This rule marks code as violations when it can be replaced 1:1 with a heading co
 Currently, the rule is extremely defensive, only reporting on `h1`, `h2`, `h3`, `h4`, `h5` and `h6`
 elements that don't have any props outside of `key`, `id` and `data-testid`. We're only targeting
 instances that are the first child of their siblings.
+
+## Options
+
+`enableUnsafeAutofix`: Rule creates errors with autofixes instead of suggestions. Defaults to
+`false`.

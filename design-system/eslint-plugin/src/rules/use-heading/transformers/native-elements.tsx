@@ -36,15 +36,13 @@ export const NativeElements = {
 			return;
 		}
 
+		const fix = NativeElements._fix(node, { context, config });
 		context.report({
 			node,
 			messageId: 'preferHeading',
-			suggest: [
-				{
-					desc: 'Convert to Heading',
-					fix: NativeElements._fix(node, { context, config }),
-				},
-			],
+			...(config.enableUnsafeAutofix
+				? { fix }
+				: { suggest: [{ desc: `Convert to Heading`, fix }] }),
 		});
 	},
 

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 194.3.0
+
+### Minor Changes
+
+- [#119966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119966)
+  [`596ad24e38929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/596ad24e38929) -
+  Clean up typescript references to LegacyPortalProviderAPI
+
+### Patch Changes
+
+- [#119412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119412)
+  [`a714be7c47d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a714be7c47d68) -
+  [ux] [ED-23047] Remove FF platform.editor.text-alignment-keyboard-shortcuts and make feature
+  flagged functionality default
+- Updated dependencies
+
 ## 194.2.0
 
 ### Minor Changes

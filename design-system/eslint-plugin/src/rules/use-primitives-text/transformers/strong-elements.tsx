@@ -22,15 +22,11 @@ export const StrongElements = {
 			return;
 		}
 
+		const fix = StrongElements._fix(node, { context, config });
 		context.report({
 			node: node.openingElement,
 			messageId: 'preferPrimitivesText',
-			suggest: [
-				{
-					desc: `Convert to Text`,
-					fix: StrongElements._fix(node, { context, config }),
-				},
-			],
+			...(config.enableUnsafeAutofix ? { fix } : { suggest: [{ desc: `Convert to Text`, fix }] }),
 		});
 	},
 

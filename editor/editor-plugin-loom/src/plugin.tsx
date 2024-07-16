@@ -8,9 +8,11 @@ import type {
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
+	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { LoomIcon } from '@atlaskit/logo';
 
@@ -29,6 +31,7 @@ export type LoomPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			WidthPlugin,
 			HyperlinkPlugin,
+			OptionalPlugin<PrimaryToolbarPlugin>,
 		];
 		sharedState: LoomPluginState | undefined;
 		actions: {
@@ -45,6 +48,12 @@ export type LoomPlugin = NextEditorPlugin<
 
 export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
+	const primaryToolbarComponent: ToolbarUIComponentFactory = ({ disabled, appearance }) => {
+		if (!config.shouldShowToolbarButton) {
+			return null;
+		}
+		return <LoomToolbarButton disabled={disabled} api={api} appearance={appearance} />;
+	};
 
 	return {
 		name: 'loom',
@@ -111,11 +120,15 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		},
 
 		// Enable inserting Loom recordings through main toolbar
-		primaryToolbarComponent({ disabled, appearance }) {
-			if (!config.shouldShowToolbarButton) {
-				return null;
-			}
-			return <LoomToolbarButton disabled={disabled} api={api} appearance={appearance} />;
+		usePluginHook: () => {
+			api?.core?.actions.execute(
+				api?.primaryToolbar?.commands.registerComponent({
+					name: 'loom',
+					component: primaryToolbarComponent,
+				}),
+			);
 		},
+
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };

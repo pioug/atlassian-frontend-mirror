@@ -6,6 +6,7 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TasksAndDecisionsPlugin } from '../types';
 import DecisionItem from '../ui/Decision';
@@ -99,6 +100,16 @@ class Decision extends ReactNodeView {
 			// Toggle the placeholder based on whether user input exists.
 			(_currentNode, _newNode) => !this.isContentEmpty(_newNode),
 		);
+	}
+
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+		if (!fg('react_18_tasks_and_decisions_concurrent_mode')) {
+			return false;
+		}
+		if (!this.contentDOM) {
+			return true;
+		}
+		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 }
 

@@ -9,7 +9,7 @@ import {
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { createPlugin, key } from './pm-plugins/main';
-import type { BlockControlsPlugin } from './types';
+import type { BlockControlsPlugin, HandleOptions } from './types';
 import { DragHandleMenu } from './ui/drag-handle-menu';
 import { GlobalStylesWrapper } from './ui/global-styles';
 import { selectNode } from './utils';
@@ -60,9 +60,9 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 				return tr;
 			},
 		showDragHandleAt:
-			(pos: number, anchorName: string, nodeType: string) =>
+			(pos: number, anchorName: string, nodeType: string, handleOptions?: HandleOptions) =>
 			({ tr }: { tr: Transaction }) => {
-				tr.setMeta(key, { activeNode: { pos, anchorName, nodeType } });
+				tr.setMeta(key, { activeNode: { pos, anchorName, nodeType, handleOptions } });
 				return tr;
 			},
 		setNodeDragged:

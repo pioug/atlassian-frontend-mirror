@@ -1,5 +1,13 @@
 # @atlaskit/tabs
 
+## 16.3.0
+
+### Minor Changes
+
+- [#119832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119832)
+  [`0ed60e0ebfbeb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ed60e0ebfbeb) -
+  apply styling to tabs behind a ff
+
 ## 16.2.4
 
 ### Patch Changes

@@ -1,35 +1,37 @@
 ---
 order: 1
+props:
+  packageName: '@atlaskit/modal-dialog'
+  exports:
+    - default
+    - ModalBody
+    - ModalHeader
+    - ModalTitle
+    - ModalFooter
+    - ModalAttributes
 ---
-
-import ModalDialogProps from '!!extract-react-types-loader!../../src/modal-wrapper';
-import ModalBodyProps from '!!extract-react-types-loader!../../src/modal-body';
-import ModalHeaderProps from '!!extract-react-types-loader!../../src/modal-header';
-import ModalTitleProps from '!!extract-react-types-loader!../../src/modal-title';
-import ModalFooterProps from '!!extract-react-types-loader!../../src/modal-footer';
-import ModalAttributes from '!!extract-react-types-loader!../../extract-react-types/modal-attributes';
 
 ## Props
 
 ### Modal dialog props
 
-<PropsTable heading="" props={ModalDialogProps} />
+<TSMorphProps exportName="default" packageName="@atlaskit/modal-dialog" />
 
 ### Modal body props
 
-<PropsTable heading="" props={ModalBodyProps} />
+<TSMorphProps exportName="ModalBody" packageName="@atlaskit/modal-dialog" />
 
 ### Modal header props
 
-<PropsTable heading="" props={ModalHeaderProps} />
+<TSMorphProps exportName="ModalHeader" packageName="@atlaskit/modal-dialog" />
 
 ### Modal title props
 
-<PropsTable heading="" props={ModalTitleProps} />
+<TSMorphProps exportName="ModalTitle" packageName="@atlaskit/modal-dialog" />
 
 ### Modal footer props
 
-<PropsTable heading="" props={ModalFooterProps} />
+<TSMorphProps exportName="ModalFooter" packageName="@atlaskit/modal-dialog" />
 
 ## Hooks
 
@@ -37,4 +39,4 @@ import ModalAttributes from '!!extract-react-types-loader!../../extract-react-ty
 
 `useModal` will return an object of type `ModalAttributes`.
 
-<PropsTable heading="" props={ModalAttributes} />
+<TSMorphProps exportName="ModalAttributes" packageName="@atlaskit/modal-dialog" />

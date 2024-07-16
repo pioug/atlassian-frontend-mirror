@@ -1,5 +1,14 @@
 # @atlaskit/media-card
 
+## 78.0.6
+
+### Patch Changes
+
+- [#118216](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/118216)
+  [`b2f8064faf92d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2f8064faf92d) -
+  Fixed logging of error events from file preview hook
+- Updated dependencies
+
 ## 78.0.5
 
 ### Patch Changes

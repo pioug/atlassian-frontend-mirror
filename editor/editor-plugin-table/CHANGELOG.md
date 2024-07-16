@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-table
 
+## 7.20.1
+
+### Patch Changes
+
+- [#120417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120417)
+  [`26e76bb38b63f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26e76bb38b63f) -
+  [ux] ECA11Y-175: This changes improves the floating toolbar a11y by making the image border
+  options menu accessible for keyboard-only users, and is behind the feature gate
+  `platform-editor-a11y-image-border-options-dropdown`.
+- [#120475](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120475)
+  [`f1755b740ebba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1755b740ebba) -
+  [ux] When narrow Main Toolber is enabled, remove margin top from sticky table header.
+- Updated dependencies
+
+## 7.20.0
+
+### Minor Changes
+
+- [#119966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119966)
+  [`596ad24e38929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/596ad24e38929) -
+  Clean up typescript references to LegacyPortalProviderAPI
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.19.12
 
 ### Patch Changes

@@ -26,7 +26,7 @@ import {
 
 import { type CreateUIAnalyticsEvent, createAndFireEvent } from '@atlaskit/analytics-next';
 import {
-	isMediaCardError,
+	isKnownErrorType,
 	type MediaCardError,
 	type MediaCardErrorPrimaryReason,
 	getFileStateErrorReason,
@@ -304,7 +304,7 @@ export const getRenderFailedExternalUriPayload = (
 });
 
 export const getRenderErrorFailReason = (error: MediaCardError): FailedErrorFailReason => {
-	if (isMediaCardError(error)) {
+	if (isKnownErrorType(error)) {
 		return error.primaryReason;
 	} else {
 		return 'nativeError';
@@ -314,7 +314,7 @@ export const getRenderErrorFailReason = (error: MediaCardError): FailedErrorFail
 export const getRenderErrorErrorReason = (
 	error: MediaCardError,
 ): MediaClientErrorReason | 'nativeError' => {
-	if (isMediaCardError(error) && error.secondaryError) {
+	if (isKnownErrorType(error) && error.secondaryError) {
 		const mediaClientReason = isMediaFileStateError(error.secondaryError)
 			? getFileStateErrorReason(error.secondaryError)
 			: getMediaClientErrorReason(error.secondaryError);
@@ -326,7 +326,7 @@ export const getRenderErrorErrorReason = (
 };
 
 export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
-	if (isMediaCardError(error) && error.secondaryError) {
+	if (isKnownErrorType(error) && error.secondaryError) {
 		return error.secondaryError.message;
 	} else {
 		return error.message;
@@ -334,7 +334,7 @@ export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
 };
 
 export const getErrorTraceContext = (error: MediaCardError): MediaTraceContext | undefined => {
-	if (isMediaCardError(error) && !!error.secondaryError) {
+	if (isKnownErrorType(error) && !!error.secondaryError) {
 		if (isRequestError(error.secondaryError)) {
 			return error.secondaryError.metadata?.traceContext;
 		} else if (isMediaFileStateError(error.secondaryError)) {
@@ -346,7 +346,7 @@ export const getErrorTraceContext = (error: MediaCardError): MediaTraceContext |
 export const getRenderErrorRequestMetadata = (
 	error: MediaCardError,
 ): RequestMetadata | undefined => {
-	if (isMediaCardError(error) && !!error.secondaryError) {
+	if (isKnownErrorType(error) && !!error.secondaryError) {
 		if (isRequestError(error.secondaryError)) {
 			return error.secondaryError.metadata;
 		} else if (isMediaFileStateError(error.secondaryError)) {

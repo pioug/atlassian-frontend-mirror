@@ -23,6 +23,7 @@ import {
 interface Props {
 	selectedColor: string | null;
 	onClick: (value: string, label: string) => void;
+	onKeyDown?: (value: string, label: string, event: React.KeyboardEvent) => void;
 	cols?: number;
 	className?: string;
 	/**
@@ -83,6 +84,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 	const {
 		cols = DEFAULT_COLOR_PICKER_COLUMNS,
 		onClick,
+		onKeyDown,
 		selectedColor,
 		className,
 		intl: { formatMessage },
@@ -124,6 +126,7 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 								borderColor={border}
 								label={message ? formatMessage(message) : label}
 								onClick={onClick}
+								onKeyDown={onKeyDown}
 								isSelected={value === selectedColor}
 								checkMarkColor={getCheckMarkColor(value, useIconToken)}
 								hexToPaletteColor={hexToPaletteColor}

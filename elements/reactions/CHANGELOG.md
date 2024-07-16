@@ -1,5 +1,18 @@
 # @atlaskit/reactions
 
+## 22.9.0
+
+### Minor Changes
+
+- [#120256](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120256)
+  [`2cbfadca64339`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2cbfadca64339) -
+  Added ability to adjust placement of Summarized Reactions Pop-up. Made the Summarized Reactions
+  button toggleable
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.8.5
 
 ### Patch Changes

@@ -139,6 +139,11 @@ export const dragToMoveDown = makeKeyMapWithCommon(
 	'Ctrl-Alt-Shift-ArrowDown',
 );
 
+export const showElementDragHandle = makeKeyMapWithCommon(
+	'Show drag handle for editor element',
+	'Ctrl-Alt-Shift-a',
+);
+
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 	ARROWLEFT: '\u2190',

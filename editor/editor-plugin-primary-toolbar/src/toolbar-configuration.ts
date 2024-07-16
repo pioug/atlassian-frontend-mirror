@@ -71,6 +71,49 @@ const textColorGroup: ToolbarElementConfig[] = [
 			componentRegistry.has('textColor') || componentRegistry.has('highlight'),
 	},
 ];
+const listFormatting: ToolbarElementConfig[] = [
+	{
+		name: 'toolbarListsIndentation',
+	},
+	{
+		name: 'separator',
+		enabled: (componentRegistry) => componentRegistry.has('toolbarListsIndentation'),
+	},
+];
+const insertBlockGroup: ToolbarElementConfig[] = [
+	{
+		name: 'insertBlock',
+	},
+	{
+		name: 'separator',
+		enabled: (componentRegistry) =>
+			componentRegistry.has('insertBlock') &&
+			// is last group in the toolbar
+			!componentRegistry.has('beforePrimaryToolbar') &&
+			!componentRegistry.has('avatarGroup') &&
+			!componentRegistry.has('findReplace') &&
+			!componentRegistry.has('aiExperience') &&
+			!componentRegistry.has('loom'),
+	},
+];
+const others: ToolbarElementConfig[] = [
+	{
+		name: 'beforePrimaryToolbar',
+	},
+	{
+		name: 'avatarGroup',
+	},
+	{
+		name: 'findReplace',
+	},
+	{
+		// TODO: Should likely be split into three: spelling & grammar, separator, and AI trigger
+		name: 'aiExperience',
+	},
+	{
+		name: 'loom',
+	},
+];
 
 const toolbarConfiguration: ToolbarElementConfig[] = [
 	...undoRedoGroup,
@@ -78,4 +121,7 @@ const toolbarConfiguration: ToolbarElementConfig[] = [
 	...textFormattingGroup,
 	...alignmentGroup,
 	...textColorGroup,
+	...listFormatting,
+	...insertBlockGroup,
+	...others,
 ];

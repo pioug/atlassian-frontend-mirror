@@ -33,6 +33,9 @@
       "path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-plugin-primary-toolbar/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
     },
     {

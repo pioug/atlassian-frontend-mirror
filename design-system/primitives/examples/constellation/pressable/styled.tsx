@@ -8,7 +8,7 @@ import Text from '@atlaskit/primitives/text';
 import { token } from '@atlaskit/tokens';
 
 const pressableStyles = xcss({
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	borderColor: 'color.border',
 	borderWidth: 'border.width',
 	borderStyle: 'solid',

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 1.24.1
+
+### Patch Changes
+
+- [#120417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120417)
+  [`26e76bb38b63f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26e76bb38b63f) -
+  [ux] ECA11Y-175: This changes improves the floating toolbar a11y by making the image border
+  options menu accessible for keyboard-only users, and is behind the feature gate
+  `platform-editor-a11y-image-border-options-dropdown`.
+- Updated dependencies
+
+## 1.24.0
+
+### Minor Changes
+
+- [#119966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119966)
+  [`596ad24e38929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/596ad24e38929) -
+  Clean up typescript references to LegacyPortalProviderAPI
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.23.2
 
 ### Patch Changes

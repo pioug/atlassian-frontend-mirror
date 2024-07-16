@@ -49,7 +49,7 @@ const containerStyles = css({
 const centeredContainerStyles = css({
 	width: '100%',
 	maxWidth: '500px',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.overlay'),
 	marginBlockEnd: token('space.800', '56px'),
 	paddingBlockEnd: token('space.100', '8px'),

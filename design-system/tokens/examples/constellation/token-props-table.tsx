@@ -6,18 +6,15 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
-
-import token from '../../src/get-token';
+import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	margin: `${gridSize() * 4}px -${gridSize() * 2}px 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: `${gridSize()}px ${gridSize() * 2}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: `${gridSize()}px`,
+	borderRadius: '8px',
+	marginBlockEnd: token('space.0'),
+	marginBlockStart: token('space.400'),
+	marginInline: token('space.negative.200'),
+	paddingBlock: token('space.100'),
+	paddingInline: token('space.200'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'h3 + &': {
 		marginBlockStart: '0px',
@@ -30,8 +27,10 @@ const tableStyles = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	th: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		padding: `${gridSize() / 2}px ${gridSize() * 2}px ${gridSize() / 2}px ${gridSize()}px`,
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineEnd: token('space.200'),
+		paddingInlineStart: token('space.100'),
 		textAlign: 'left',
 		verticalAlign: 'top',
 		whiteSpace: 'nowrap',
@@ -40,8 +39,9 @@ const tableStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	td: {
 		width: '100%',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		padding: `${gridSize() / 2}px 0 ${gridSize() / 2}px ${gridSize()}px`,
+		paddingBlockEnd: token('space.050'),
+		paddingBlockStart: token('space.050'),
+		paddingInlineStart: token('space.100'),
 	},
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -51,30 +51,22 @@ const tableStyles = css({
 });
 
 const headerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	margin: `0 0 ${gridSize() / 2}px 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderBlockEnd: `1px solid ${token('color.border')}`,
 	fontSize: '1em',
 	fontWeight: 'normal',
 	lineHeight: '1.4',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	paddingBlockEnd: `${gridSize()}px`,
+	marginBlockEnd: token('space.050'),
+	paddingBlockEnd: token('space.100'),
 });
 
 const codeStyles = css({
 	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.neutral'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: token('border.radius.100', '3px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: `${token('color.text')}`,
+	borderRadius: '3px',
+	color: token('color.text'),
 	fontSize: '1em',
 	lineHeight: '20px',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingBlock: token('space.050', '4px'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	paddingInline: token('space.100', '8px'),
 });
 
@@ -105,7 +97,6 @@ const TokenPropsTable = ({
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={{
 									marginLeft: '1em',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									color: `${token('color.text.danger')}`,
 								}}
 							>
@@ -117,7 +108,6 @@ const TokenPropsTable = ({
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={{
 									marginLeft: '1em',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									color: `${token('color.text.disabled')}`,
 								}}
 							>
@@ -138,7 +128,6 @@ const TokenPropsTable = ({
 								<code
 									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 										color: `${token('color.text.subtle')}`,
 									}}
 								>
@@ -155,12 +144,9 @@ const TokenPropsTable = ({
 								<code
 									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									css={{
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										background: `${token('color.background.neutral')}`,
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										color: `${token('color.text.subtle')}`,
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-										borderRadius: token('border.radius.100', '3px'),
+										background: token('color.background.neutral'),
+										color: token('color.text.subtle'),
+										borderRadius: '3px',
 										display: 'inline-block',
 										padding: '0 0.2em',
 										whiteSpace: 'pre-wrap',

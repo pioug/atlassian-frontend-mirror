@@ -46,6 +46,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		onItemActivated,
+		pluginInjectionApi,
 	} = props;
 	const [isDropdownOpen, setIsDropdownOpen] = React.useState(false);
 	const [isOpenedByKeyboard, setOpenedByKeyboard] = React.useState(false);
@@ -127,8 +128,11 @@ export function ToolbarDropdown(props: DropdownProps) {
 					}
 				/>
 			</DropdownMenu>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<span css={separatorStyles} />
+			{!pluginInjectionApi?.primaryToolbar && (
+				/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<span css={separatorStyles} />
+			)}
 		</span>
 	);
 }

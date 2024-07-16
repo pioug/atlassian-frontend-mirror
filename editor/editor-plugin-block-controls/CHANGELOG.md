@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.5.19
+
+### Patch Changes
+
+- [#119849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119849)
+  [`5178d3ebdd7db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5178d3ebdd7db) -
+  ED-23896 Fix responsiveness of extensions, macros, table alignment
+- Updated dependencies
+
+## 1.5.18
+
+### Patch Changes
+
+- [#119419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119419)
+  [`a8b716b766200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8b716b766200) -
+  [ux] Add shortcut to show and focus drag handle at selection"
+- [#120359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120359)
+  [`f18f6e6b7f52c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f18f6e6b7f52c) -
+  fix drop targets hiding while dragging
+- [#120426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120426)
+  [`0aface5be4428`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0aface5be4428) -
+  Fix RangeErrors thrown by blocks plugin in prod
+- Updated dependencies
+
+## 1.5.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.16
 
 ### Patch Changes

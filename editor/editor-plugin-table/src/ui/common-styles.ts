@@ -21,7 +21,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -196,8 +196,21 @@ const breakoutWidthStyling = () => {
 	`;
 };
 
+const stickyHeaderMarginTop = () => {
+	// Exceptional case: can't add this FF to package.json as a new ratcheting rule was added to prevent new LD flags.
+	// This LD flag existed in other packages before the rule was introduced.
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+	if (!fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')) {
+		return css`
+			margin-top: 2px;
+		`;
+	}
+
+	return css``;
+};
+
 const viewModeSortStyles = () => {
-	if (getBooleanFF('platform.editor.table.live-pages-sorting_4malx')) {
+	if (fg('platform.editor.table.live-pages-sorting_4malx')) {
 		return css`
 			th {
 				.${SORTING_ICON_CLASS_NAME} {
@@ -230,7 +243,7 @@ const viewModeSortStyles = () => {
 };
 
 const numberColumnFix = () => {
-	if (getBooleanFF('platform.editor.table.editor-num-col-style-changes')) {
+	if (fg('platform.editor.table.editor-num-col-style-changes')) {
 		return '';
 	}
 
@@ -407,7 +420,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		background: ${token('elevation.surface', 'white')};
 		box-sizing: content-box;
 
-		margin-top: 2px;
+		${stickyHeaderMarginTop()}
 
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
 		margin-left: -1px;

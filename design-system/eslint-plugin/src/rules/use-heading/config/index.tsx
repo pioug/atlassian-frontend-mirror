@@ -4,15 +4,14 @@ type Pattern =
 
 export interface RuleConfig {
 	patterns: Pattern[];
+	enableUnsafeAutofix: false;
 }
 
 const defaults: RuleConfig = {
 	patterns: ['native-elements'],
+	enableUnsafeAutofix: false,
 };
 
-export const getConfig = (overrides: Partial<RuleConfig>): Required<RuleConfig> => {
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-	// start with an empty object, then merge in the defaults, then merge in overrides.
-	// The empty object is returned, as well as modified in place
+export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {
 	return Object.assign({}, defaults, overrides);
 };

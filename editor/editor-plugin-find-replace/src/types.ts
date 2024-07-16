@@ -5,6 +5,7 @@ import type {
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export interface FindReplacePluginState {
@@ -56,7 +57,7 @@ export type FindReplacePlugin = NextEditorPlugin<
 	{
 		pluginConfiguration: Config;
 		sharedState: FindReplacePluginState | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
 		actions: {
 			getToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
 		};

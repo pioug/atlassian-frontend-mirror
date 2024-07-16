@@ -281,5 +281,60 @@ ruleTester.run('use-primitives-text', rule, {
 				},
 			],
 		},
+		// Errors and applies auto fixes when option is enabled
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`<span>content</span>`,
+			errors: [{ messageId: 'preferPrimitivesText' }],
+			output: outdent`
+				import { Text } from '@atlaskit/primitives';
+				<Text>content</Text>`,
+		},
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`
+				<div>
+					<p>text</p>
+				</div>`,
+			errors: [{ messageId: 'preferPrimitivesText' }],
+			output: outdent`
+				import { Text } from '@atlaskit/primitives';
+				<div>
+					<Text as='p'>text</Text>
+				</div>`,
+		},
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`<strong>content</strong>`,
+			errors: [{ messageId: 'preferPrimitivesText' }],
+			output: outdent`
+				import { Text } from '@atlaskit/primitives';
+				<Text as='strong'>content</Text>`,
+		},
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`<em>content</em>`,
+			errors: [{ messageId: 'preferPrimitivesText' }],
+			output: outdent`
+				import { Text } from '@atlaskit/primitives';
+				<Text as='em'>content</Text>`,
+		},
+		{
+			options: [{ enableUnsafeAutofix: true }],
+			code: outdent`
+				<div>
+					<p>text 1</p>
+					<p data-testid='contentTestId'>text 2</p>
+					<p>text 3</p>
+				</div>`,
+			errors: [{ messageId: 'preferPrimitivesStackedText' }],
+			output: outdent`
+				import { Text, Stack } from '@atlaskit/primitives';
+				<div><Stack space='space.150'>
+					<Text as='p'>text 1</Text>
+					<Text testId='contentTestId' as='p'>text 2</Text>
+					<Text as='p'>text 3</Text>
+				</Stack></div>`,
+		},
 	],
 });

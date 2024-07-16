@@ -35,7 +35,7 @@
 		"@atlaskit/media-common": "^11.3.0",
 		"@atlaskit/media-ui": "^25.10.0",
 		"@atlaskit/popup": "^1.20.0",
-		"@atlaskit/tabs": "^16.2.0",
+		"@atlaskit/tabs": "^16.3.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/tokens": "^1.54.0",
 		"@atlaskit/tooltip": "^18.5.0",

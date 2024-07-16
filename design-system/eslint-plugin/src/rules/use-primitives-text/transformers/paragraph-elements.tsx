@@ -39,31 +39,25 @@ export const ParagraphElements = {
 			 */
 			const startLoc = refs.siblings[0].loc?.start;
 			const endLoc = refs.siblings[refs.siblings.length - 1].loc?.end;
+			const fix = ParagraphElements._fixMultiple(node, {
+				context,
+				config,
+				refs,
+			});
 			context.report({
 				loc: startLoc && endLoc && { start: startLoc, end: endLoc },
 				node: node.openingElement,
 				messageId: 'preferPrimitivesStackedText',
-				suggest: [
-					{
-						desc: 'Convert to Text and Stack',
-						fix: ParagraphElements._fixMultiple(node, {
-							context,
-							config,
-							refs,
-						}),
-					},
-				],
+				...(config.enableUnsafeAutofix
+					? { fix }
+					: { suggest: [{ desc: `Convert to Text and Stack`, fix }] }),
 			});
 		} else {
+			const fix = ParagraphElements._fixSingle(node, { context, config });
 			context.report({
 				node,
 				messageId: 'preferPrimitivesText',
-				suggest: [
-					{
-						desc: 'Convert to Text',
-						fix: ParagraphElements._fixSingle(node, { context, config }),
-					},
-				],
+				...(config.enableUnsafeAutofix ? { fix } : { suggest: [{ desc: `Convert to Text`, fix }] }),
 			});
 		}
 	},

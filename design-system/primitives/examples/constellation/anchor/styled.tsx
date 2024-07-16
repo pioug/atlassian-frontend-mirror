@@ -16,7 +16,7 @@ const anchorStyles = xcss({
 	borderColor: 'color.border',
 	borderStyle: 'solid',
 	borderWidth: 'border.width',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 
 	':hover': {
 		backgroundColor: 'elevation.surface.hovered',

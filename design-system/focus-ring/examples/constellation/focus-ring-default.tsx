@@ -17,7 +17,7 @@ const buttonStyles = css({
 	margin: `${token('space.150', '12px')} 0`,
 	padding: token('space.100', '8px'),
 	border: 'none',
-	borderRadius: token('border.radius.100', '3px'),
+	borderRadius: '3px',
 });
 
 const spacerStyles = xcss({

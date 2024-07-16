@@ -13,7 +13,7 @@ const flexStyles = xcss({
 
 const visualContainerStyles = xcss({
 	display: 'flex',
-	borderRadius: 'border.radius.050',
+	borderRadius: '2px',
 	height: 'size.600',
 });
 

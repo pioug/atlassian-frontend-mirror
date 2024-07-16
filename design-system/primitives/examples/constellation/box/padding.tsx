@@ -10,7 +10,7 @@ const boxStyles = xcss({
 	color: 'color.text',
 	borderColor: 'color.border.discovery',
 	borderStyle: 'solid',
-	borderRadius: 'border.radius',
+	borderRadius: '3px',
 	borderWidth: 'border.width',
 });
 

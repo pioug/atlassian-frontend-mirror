@@ -70,6 +70,7 @@ export default function ToolbarListsIndentation(props: Props) {
 				disabled={disabled}
 				onItemActivated={onItemActivated(pluginInjectionApi, indentationStateNode)}
 				featureFlags={featureFlags}
+				pluginInjectionApi={pluginInjectionApi}
 			/>
 		);
 	}
@@ -88,6 +89,7 @@ export default function ToolbarListsIndentation(props: Props) {
 			disabled={disabled}
 			onItemActivated={onItemActivated(pluginInjectionApi, indentationStateNode)}
 			featureFlags={featureFlags}
+			pluginInjectionApi={pluginInjectionApi}
 		/>
 	);
 }

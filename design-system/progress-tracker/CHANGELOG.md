@@ -1,5 +1,14 @@
 # @atlaskit/progress-tracker
 
+## 8.7.5
+
+### Patch Changes
+
+- [#119932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119932)
+  [`798a9f4b8913d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/798a9f4b8913d) -
+  Updated styling to ensure bullet point styles aren't added when rendered in certain UI Kit
+  extensions points.
+
 ## 8.7.4
 
 ### Patch Changes

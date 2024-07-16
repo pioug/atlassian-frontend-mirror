@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugins
 
+## 3.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.15
+
+### Patch Changes
+
+- [#119419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119419)
+  [`a8b716b766200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8b716b766200) -
+  [ux] Add HandleOptions to editor-plugin-block-controls types
+- Updated dependencies
+
+## 3.4.14
+
+### Patch Changes
+
+- [#119412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119412)
+  [`a714be7c47d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a714be7c47d68) -
+  [ux] [ED-23047] Remove FF platform.editor.text-alignment-keyboard-shortcuts and make feature
+  flagged functionality default
+- Updated dependencies
+
 ## 3.4.13
 
 ### Patch Changes

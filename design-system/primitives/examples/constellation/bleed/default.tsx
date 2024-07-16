@@ -6,7 +6,7 @@ import { Bleed, Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 const buttonStyles = xcss({
 	padding: 'space.0',
 	color: 'color.text.inverse',
-	borderRadius: 'border.radius.circle',
+	borderRadius: '9999px',
 	borderWidth: 'border.width.outline',
 	borderColor: 'color.border.bold',
 	borderStyle: 'solid',

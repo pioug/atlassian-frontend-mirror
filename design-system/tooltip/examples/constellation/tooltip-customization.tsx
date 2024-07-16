@@ -11,7 +11,7 @@ import Tooltip, { TooltipPrimitive } from '../../src';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InlineDialog = styled(TooltipPrimitive)({
 	background: 'white',
-	borderRadius: token('border.radius', '4px'),
+	borderRadius: '3px',
 	boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
 	boxSizing: 'content-box',
 	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,

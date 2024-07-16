@@ -10,6 +10,7 @@ import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
+import { breakoutPlugin } from '@atlaskit/editor-plugins/breakout';
 import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
 import { compositionPlugin } from '@atlaskit/editor-plugins/composition';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
@@ -79,6 +80,7 @@ export default function Editor() {
 			.add(compositionPlugin)
 			.add(codeBlockPlugin)
 			.add(blockControlsPlugin)
+			.add(breakoutPlugin)
 			.add(gridPlugin)
 			.add(floatingToolbarPlugin)
 			.add([selectionToolbarPlugin, { preferenceToolbarAboveSelection: true }])

@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.24.0
+
+### Minor Changes
+
+- [#119932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119932)
+  [`798a9f4b8913d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/798a9f4b8913d) -
+  Add TimePicker component and types. Update DatePicker type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.23.0
 
 ### Minor Changes

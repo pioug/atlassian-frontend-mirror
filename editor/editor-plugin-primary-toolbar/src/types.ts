@@ -29,7 +29,14 @@ export type ToolbarElementNames =
 	| 'textFormatting'
 	| 'alignment'
 	| 'textColor'
-	| 'highlight';
+	| 'highlight'
+	| 'toolbarListsIndentation'
+	| 'insertBlock'
+	| 'beforePrimaryToolbar'
+	| 'avatarGroup'
+	| 'findReplace'
+	| 'aiExperience'
+	| 'loom';
 
 export type ToolbarElementConfig = {
 	name: ToolbarElementNames;

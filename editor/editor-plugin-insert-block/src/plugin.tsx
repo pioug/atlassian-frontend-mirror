@@ -9,6 +9,7 @@ import type {
 	Command,
 	ExtractInjectionAPI,
 	NextEditorPlugin,
+	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
@@ -90,6 +91,49 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			toggleDropdownMenuOptionsRef.current = null;
 		};
 	};
+	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
+		editorView,
+		editorActions,
+		dispatchAnalyticsEvent,
+		providerFactory,
+		popupsMountPoint,
+		popupsBoundariesElement,
+		popupsScrollableElement,
+		toolbarSize,
+		disabled,
+		isToolbarReducedSpacing,
+		isLastItem,
+	}) => {
+		const renderNode = (providers: Providers) => {
+			return (
+				<ToolbarInsertBlockWithInjectionApi
+					pluginInjectionApi={api}
+					editorView={editorView}
+					editorActions={editorActions}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					providerFactory={providerFactory}
+					popupsMountPoint={popupsMountPoint}
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsScrollableElement={popupsScrollableElement}
+					toolbarSize={toolbarSize}
+					disabled={disabled}
+					isToolbarReducedSpacing={isToolbarReducedSpacing}
+					isLastItem={isLastItem}
+					providers={providers}
+					options={options}
+					registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
+				/>
+			);
+		};
+
+		return (
+			<WithProviders
+				providerFactory={providerFactory}
+				providers={['emojiProvider']}
+				renderNode={renderNode}
+			/>
+		);
+	};
 
 	return {
 		name: 'insertBlock',
@@ -112,51 +156,15 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					toggleDropdownMenuOptionsRef.current = null;
 				};
 			}, []);
-		},
-
-		primaryToolbarComponent({
-			editorView,
-			editorActions,
-			dispatchAnalyticsEvent,
-			providerFactory,
-			popupsMountPoint,
-			popupsBoundariesElement,
-			popupsScrollableElement,
-			toolbarSize,
-			disabled,
-			isToolbarReducedSpacing,
-			isLastItem,
-		}) {
-			const renderNode = (providers: Providers) => {
-				return (
-					<ToolbarInsertBlockWithInjectionApi
-						pluginInjectionApi={api}
-						editorView={editorView}
-						editorActions={editorActions}
-						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-						providerFactory={providerFactory}
-						popupsMountPoint={popupsMountPoint}
-						popupsBoundariesElement={popupsBoundariesElement}
-						popupsScrollableElement={popupsScrollableElement}
-						toolbarSize={toolbarSize}
-						disabled={disabled}
-						isToolbarReducedSpacing={isToolbarReducedSpacing}
-						isLastItem={isLastItem}
-						providers={providers}
-						options={options}
-						registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
-					/>
-				);
-			};
-
-			return (
-				<WithProviders
-					providerFactory={providerFactory}
-					providers={['emojiProvider']}
-					renderNode={renderNode}
-				/>
+			api?.core?.actions.execute(
+				api?.primaryToolbar?.commands.registerComponent({
+					name: 'insertBlock',
+					component: primaryToolbarComponent,
+				}),
 			);
 		},
+
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };
 

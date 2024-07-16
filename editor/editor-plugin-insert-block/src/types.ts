@@ -13,6 +13,7 @@ import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
 import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { PanelPlugin } from '@atlaskit/editor-plugin-panel';
 import type { PlaceholderTextPlugin } from '@atlaskit/editor-plugin-placeholder-text';
+import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert';
 import type { RulePlugin } from '@atlaskit/editor-plugin-rule';
 import type { StatusPlugin } from '@atlaskit/editor-plugin-status';
@@ -41,4 +42,5 @@ export type InsertBlockPluginDependencies = [
 	OptionalPlugin<PlaceholderTextPlugin>,
 	OptionalPlugin<ExtensionPlugin>,
 	OptionalPlugin<TasksAndDecisionsPlugin>,
+	OptionalPlugin<PrimaryToolbarPlugin>,
 ];

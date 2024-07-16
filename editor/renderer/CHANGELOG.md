@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 109.42.2
+
+### Patch Changes
+
+- [#120575](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120575)
+  [`3ec789f43cde4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ec789f43cde4) -
+  Add null check for media node before attempting to create range
+- Updated dependencies
+
+## 109.42.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.42.0
 
 ### Minor Changes

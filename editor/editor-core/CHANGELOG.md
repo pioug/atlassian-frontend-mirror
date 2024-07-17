@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 194.3.4
+
+### Patch Changes
+
+- [#120904](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120904)
+  [`93e8faa4a5d09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93e8faa4a5d09) -
+  [ux] Enables table resizing in comments editor under a new feature gate.
+- [#120665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120665)
+  [`a4ee6908e0e2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4ee6908e0e2c) -
+  [ED-23943] Milestone: Initial LazyNodeViewLoading implementation for Table
+- Updated dependencies
+
+## 194.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 194.3.0
 
 ### Minor Changes

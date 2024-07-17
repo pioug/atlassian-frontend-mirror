@@ -71,8 +71,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Вставка списку Confluence з',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Вставити результати',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### результ.',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {результат} few {результати} many {результатів} other {результатів}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Введіть ключові слова, щоб знайти сторінки, вкладення тощо',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -95,8 +93,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставити завдання',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставте завдання Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставте завдання Jira з:',
-  'linkDataSource.jira-issues.configmodal.issue':
-    '{totalCount, plural, one {завдання} few {завдання} many {завдань} other {завдання}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Відображення кількості результатів пошуку у вигляді вбудованого смарт-посилання',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Вбудоване посилання',

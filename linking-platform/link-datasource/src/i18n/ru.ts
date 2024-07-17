@@ -72,8 +72,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Вставить список Confluence с сайта',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Вставить результаты',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': 'Найдено: ###',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {результат} few {результата} many {результатов} other {результата}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Введите ключевые слова для поиска страниц, вложений и другого содержимого',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -95,8 +93,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставить задачи',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставка задач Jira с сайта',
-  'linkDataSource.jira-issues.configmodal.issue':
-    '{totalCount, plural, one {задача} few {задачи} many {задач} other {задачи}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Отображение количества результатов поиска в виде встроенной интеллектуальной ссылки',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Встроенная ссылка',

@@ -205,7 +205,8 @@ export default function createUniversalPreset(
 				{
 					tableOptions:
 						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
-					tableResizingEnabled: isFullPage,
+					tableResizingEnabled:
+						isFullPage || (isComment && fg('platform_editor_table_support_in_comment')),
 					dragAndDropEnabled: featureFlags?.tableDragAndDrop && isFullPage,
 					isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
 					allowContextualMenu: !isMobile,

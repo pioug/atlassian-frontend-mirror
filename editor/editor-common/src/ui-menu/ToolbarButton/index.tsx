@@ -9,10 +9,12 @@ import { css, jsx } from '@emotion/react';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ButtonProps } from '@atlaskit/button/types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { PositionType } from '@atlaskit/tooltip';
 import Tooltip from '@atlaskit/tooltip';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, TOOLBAR_ACTION_SUBJECT_ID } from '../../analytics';
+import { type Keymap, ToolTipContent } from '../../keymaps';
 import type { MenuItem } from '../DropdownMenu';
 
 import Button from './styles';
@@ -37,6 +39,7 @@ export type Props = {
 	titlePosition?: PositionType;
 	item?: MenuItem;
 	testId?: string;
+	keymap?: Keymap;
 	'aria-label'?: React.AriaAttributes['aria-label'];
 	'aria-expanded'?: React.AriaAttributes['aria-expanded'];
 	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
@@ -65,6 +68,7 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 		children,
 		hideTooltip,
 		title,
+		keymap,
 		titlePosition = 'top',
 		item,
 		'aria-label': ariaLabel,
@@ -140,7 +144,11 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 		return button;
 	}
 
-	const tooltipContent = !hideTooltip ? title : null;
+	const tooltipContent = hideTooltip ? null : fg('platform_editor_a11y_table_context_menu') ? (
+		<ToolTipContent description={title} keymap={keymap} />
+	) : (
+		title
+	);
 
 	return (
 		<Tooltip content={tooltipContent} hideTooltipOnClick={true} position={titlePosition}>

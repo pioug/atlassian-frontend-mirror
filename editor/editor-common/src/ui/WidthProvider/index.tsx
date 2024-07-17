@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import memoizeOne from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -51,15 +52,29 @@ type WidthProviderProps = {
 	children?: React.ReactNode;
 };
 
+/**
+ * 🧱 Internal function: Editor FE Platform
+ *
+ * Returns the width of the document body.
+ *
+ * This function is memoized to avoid forcing a layout reflow multiple times.
+ * It uses `document.body.offsetWidth` as the source of the width, which can lead to
+ * a layout reflow if accessed repeatedly. To mitigate performance issues, the result
+ * is cached using `memoizeOne`.
+ *
+ * @returns {number} The width of the document body or 0 if the document is undefined.
+ */
+const getBodyWidth = memoizeOne(() => {
+	return typeof document !== 'undefined' ? document.body?.offsetWidth ?? 0 : 0;
+});
+
 export const WidthProvider = ({
 	className,
 	shouldCheckExistingValue,
 	children,
 }: WidthProviderProps) => {
 	const existingContextValue: WidthConsumerContext = React.useContext(WidthContext);
-	const [width, setWidth] = React.useState(
-		typeof document !== 'undefined' ? document.body?.offsetWidth ?? 0 : 0,
-	);
+	const [width, setWidth] = React.useState(getBodyWidth);
 	const widthRef = React.useRef(width);
 	const isMountedRef = React.useRef(true);
 	const providerValue = React.useMemo(() => createWidthContext(width), [width]);

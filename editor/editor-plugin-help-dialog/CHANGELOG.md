@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.3.0
+
+### Minor Changes
+
+- [#120893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120893)
+  [`67a22e5eb05a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67a22e5eb05a2) -
+  [ux] [ECA11Y-113] This change adds the keyboard shortcut (Shift+F10) to the Cell Options Tooltip
+  and to the Editor Help dialog. This change is behind the `platform_editor_a11y_table_context_menu`
+  feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.14
 
 ### Patch Changes

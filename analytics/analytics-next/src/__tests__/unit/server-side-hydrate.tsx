@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ReactDOM from 'react-dom';
+import { hydrateRoot } from 'react-dom-18/client';
 
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
@@ -17,7 +17,8 @@ test('should ssr then hydrate analytics-next correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(example.filePath);
 
-	ReactDOM.hydrate(<Example />, elem);
+	hydrateRoot(elem, <Example />);
+
 	// ignore warnings caused by emotion's server-side rendering approach
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls.filter(

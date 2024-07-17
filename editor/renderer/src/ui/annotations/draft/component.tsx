@@ -25,6 +25,8 @@ const markStyles = () =>
 			WebkitTapHighlightColor: 'transparent',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		AnnotationSharedCSSByState().common,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		AnnotationSharedCSSByState().focus,
 	);
 

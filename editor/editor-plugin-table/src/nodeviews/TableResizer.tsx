@@ -15,6 +15,7 @@ import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { focusTableResizer, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { logException } from '@atlaskit/editor-common/monitoring';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import { browser } from '@atlaskit/editor-common/utils';
@@ -217,7 +218,31 @@ export const TableResizer = ({
 
 	const { formatMessage } = useIntl();
 
-	const isTableSelected = findTable(editorView.state?.selection)?.pos === getPos();
+	const currentSelection = editorView.state?.selection;
+	const tableFromSelection = useMemo(() => {
+		return findTable(currentSelection);
+	}, [currentSelection]);
+	const tableFromSelectionPosition = tableFromSelection?.pos;
+	const isTableSelected = useMemo(() => {
+		// Avoid call getPos if there is no table in the current selection,
+		if (typeof tableFromSelectionPosition !== 'number') {
+			return false;
+		}
+
+		let currentNodePosition: number | undefined;
+		try {
+			// The React Table and the ProseMirror can endup out-of-sync
+			// ProseMirror always assume the DOM is not managed by other framework
+			currentNodePosition = getPos();
+		} catch (e) {
+			logException(e as Error, {
+				location: 'editor-plugin-table/table-resizer',
+			});
+			return false;
+		}
+
+		return tableFromSelectionPosition === currentNodePosition;
+	}, [tableFromSelectionPosition, getPos]);
 
 	const resizerMinWidth = getResizerMinWidth(node);
 	const handleSize = getResizerHandleHeight(tableRef);

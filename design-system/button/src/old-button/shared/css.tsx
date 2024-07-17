@@ -274,7 +274,7 @@ export function getCss({
 		whiteSpace: 'nowrap',
 
 		// dynamic styles
-		...(!fg('platform.design-system-team.component-visual-refresh_t8zbo') && baseColors),
+		...(!fg('platform-component-visual-refresh') && baseColors),
 
 		cursor: 'pointer',
 		height: heights[spacing],
@@ -288,7 +288,7 @@ export function getCss({
 		// Note: we cannot disable pointer events when there is an overlay.
 		// That would be easy for styling, but it would start letting events through on disabled buttons
 
-		...(!fg('platform.design-system-team.component-visual-refresh_t8zbo') && {
+		...(!fg('platform-component-visual-refresh') && {
 			// Disabling visited styles (just using the base colors)
 			'&:visited': {
 				...baseColors,
@@ -355,7 +355,7 @@ export function getCss({
 		}),
 
 		// dynamic colours for visual refresh:
-		...(fg('platform.design-system-team.component-visual-refresh_t8zbo') &&
+		...(fg('platform-component-visual-refresh') &&
 			(isSelected
 				? selectedStyles
 				: {

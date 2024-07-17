@@ -49,8 +49,9 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
+	"runReact18": true,
 	"devDependencies": {
 		"@testing-library/react": "^12.1.5",
 		"typescript": "~5.4.2",

@@ -69,8 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Vložit seznam Confluence z:',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Vložit výsledky',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### Výsledky',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {výsledek} few {výsledky} many {výsledku} other {výsledků}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Zadejte klíčová slova k vyhledání stránek, příloh a dalších položek.',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -92,8 +90,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vložit požadavky',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Vložit požadavky Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Vložit požadavky Jira z:',
-  'linkDataSource.jira-issues.configmodal.issue':
-    '{totalCount, plural, one {požadavek} few {požadavky} many {požadavku} other {požadavků}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Zobrazit počet výsledků vyhledávání jako vložený chytrý odkaz',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Vložený odkaz',

@@ -313,7 +313,7 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+	if (fg('platform_editor_a11y_table_context_menu')) {
 		bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);
 	}
 

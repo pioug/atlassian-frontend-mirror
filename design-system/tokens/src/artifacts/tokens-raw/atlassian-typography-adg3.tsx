@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f7c730817ba1e1c9992dce2fbc46dc93>>
+ * @codegen <<SignedSource::4e47e59f97f2e7d43911658468035bca>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -181,8 +181,7 @@ const tokens = [
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.",
-      "responsiveSmallerVariant": "font.heading.xlarge"
+      "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
     },
     "value": "normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -192,8 +191,7 @@ const tokens = [
         "group": "typography",
         "state": "active",
         "introduced": "1.14.0",
-        "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.",
-        "responsiveSmallerVariant": "font.heading.xlarge"
+        "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
       },
       "value": {
         "fontWeight": "FontWeight500",
@@ -217,8 +215,7 @@ const tokens = [
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL.",
-      "responsiveSmallerVariant": "font.heading.large"
+      "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
     },
     "value": "normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -228,8 +225,7 @@ const tokens = [
         "group": "typography",
         "state": "active",
         "introduced": "1.14.0",
-        "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL.",
-        "responsiveSmallerVariant": "font.heading.large"
+        "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
       },
       "value": {
         "fontWeight": "FontWeight600",
@@ -253,8 +249,7 @@ const tokens = [
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L.",
-      "responsiveSmallerVariant": "font.heading.medium"
+      "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L."
     },
     "value": "normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -264,8 +259,7 @@ const tokens = [
         "group": "typography",
         "state": "active",
         "introduced": "1.14.0",
-        "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L.",
-        "responsiveSmallerVariant": "font.heading.medium"
+        "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L."
       },
       "value": {
         "fontWeight": "FontWeight500",
@@ -289,8 +283,7 @@ const tokens = [
       "group": "typography",
       "state": "active",
       "introduced": "1.14.0",
-      "description": "Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M.",
-      "responsiveSmallerVariant": "font.heading.small"
+      "description": "Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M."
     },
     "value": "normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/theme.tsx",
@@ -300,8 +293,7 @@ const tokens = [
         "group": "typography",
         "state": "active",
         "introduced": "1.14.0",
-        "description": "Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M.",
-        "responsiveSmallerVariant": "font.heading.small"
+        "description": "Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M."
       },
       "value": {
         "fontWeight": "FontWeight500",

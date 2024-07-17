@@ -53,10 +53,11 @@
 		"lodash": "^4.17.21"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
+	"runReact18": true,
 	"devDependencies": {
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"enzyme": "^3.10.0",
 		"jest-in-case": "^1.0.2",
 		"react": "^16.8.0",

@@ -386,7 +386,7 @@ export const Reactions = React.memo(
 		const shouldShowSummaryView =
 			summaryViewEnabled &&
 			memorizedReactions.length >= summaryViewThreshold &&
-			memorizedReactions.length > 0;
+			reactions.length > 0;
 
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

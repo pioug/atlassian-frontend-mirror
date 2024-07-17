@@ -4027,49 +4027,25 @@ describe('Card ', () => {
 		});
 	});
 
-	describe('SVG', () => {
-		describe('should render SVG natively when the overlay is disbled', () => {
-			ffTest(
-				'platform.media-card-svg-rendering_6tdbv',
-				async () => {
-					const [fileItem, identifier] = generateSampleFileItem.svg();
-					const { mediaApi } = createMockedMediaApi(fileItem);
+	ffTest.on('platform.media-card-svg-rendering_6tdbv', 'SVG', () => {
+		it('should render SVG natively when the overlay is disbled', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.svg();
+			const { mediaApi } = createMockedMediaApi(fileItem);
 
-					const { findAllByTestId } = render(
-						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-							<CardLoader
-								mediaClientConfig={dummyMediaClientConfig}
-								identifier={identifier}
-								isLazy={false}
-								disableOverlay
-							/>
-						</MockedMediaClientProvider>,
-					);
-
-					const elem = await findAllByTestId('media-card-svg');
-					expect(elem).toBeDefined();
-					expect(elem[0].nodeName.toLowerCase()).toBe('img');
-				},
-				async () => {
-					const [fileItem, identifier] = generateSampleFileItem.svg();
-					const { mediaApi } = createMockedMediaApi(fileItem);
-
-					const { findAllByTestId } = render(
-						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-							<CardLoader
-								mediaClientConfig={dummyMediaClientConfig}
-								identifier={identifier}
-								isLazy={false}
-								disableOverlay
-							/>
-						</MockedMediaClientProvider>,
-					);
-
-					const elem = await findAllByTestId('media-image');
-					expect(elem).toBeDefined();
-					expect(elem[0].nodeName.toLowerCase()).toBe('img');
-				},
+			const { findAllByTestId } = render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						disableOverlay
+					/>
+				</MockedMediaClientProvider>,
 			);
+
+			const elem = await findAllByTestId('media-card-svg');
+			expect(elem).toBeDefined();
+			expect(elem[0].nodeName.toLowerCase()).toBe('img');
 		});
 
 		describe('should render SVG with correct resizing styles', () => {
@@ -4103,102 +4079,89 @@ describe('Card ', () => {
 				return elem[0];
 			}
 
-			ffTest.on(
-				'platform.media-card-svg-rendering_6tdbv',
-				'Image is same aspect ratio or more landscape than parent wrapper',
-				() => {
-					const imgElement = {
-						naturalWidth: 1600,
-						width: 1600,
-						naturalHeight: 800,
-						height: 800,
-					} as HTMLImageElement; // 2:1 aspect ratio
+			describe('Image is same aspect ratio or more landscape than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 1600,
+					width: 1600,
+					naturalHeight: 800,
+					height: 800,
+				} as HTMLImageElement; // 2:1 aspect ratio
 
-					it.each([
-						['fit', { maxWidth: 'min(100%, 1600px', maxHeight: 'min(100%, 800px' }],
-						['full-fit', { maxWidth: 'min(100%, 1600px', maxHeight: 'min(100%, 800px' }],
-						['crop', { height: '800px', maxHeight: '100%' }],
-						['stretchy-fit', { width: '100%', maxHeight: '100%' }],
-					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-						const imgElem = await renderSvgCard(imgElement, resizeMode);
-						expect(imgElem.nodeName.toLowerCase()).toBe('img');
-						fireEvent.load(imgElem);
-						expect(imgElem).toHaveStyle(expectedStyle);
-					});
-				},
-			);
+				it.each([
+					['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['crop', { height: '800px', maxHeight: '100%' }],
+					['stretchy-fit', { width: '100%', maxHeight: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					const imgElem = await renderSvgCard(imgElement, resizeMode);
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
 
-			ffTest.on(
-				'platform.media-card-svg-rendering_6tdbv',
-				'Image is more portrait than parent wrapper',
-				() => {
-					const imgElement = {
-						naturalWidth: 800,
-						width: 800,
-						naturalHeight: 1600,
-						height: 1600,
-					} as HTMLImageElement; // 1:2 aspect ratio
-					it.each([
-						['fit', { maxWidth: 'min(100%, 800px', maxHeight: 'min(100%, 1600px' }],
-						['full-fit', { maxWidth: 'min(100%, 800px', maxHeight: 'min(100%, 1600px' }],
-						['crop', { width: '800px', maxWidth: '100%' }],
-						['stretchy-fit', { height: '100%', maxWidth: '100%' }],
-					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-						const imgElem = await renderSvgCard(imgElement, resizeMode);
-						expect(imgElem.nodeName.toLowerCase()).toBe('img');
-						fireEvent.load(imgElem);
-						expect(imgElem).toHaveStyle(expectedStyle);
-					});
-				},
-			);
+			describe('Image is more portrait than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 800,
+					width: 800,
+					naturalHeight: 1600,
+					height: 1600,
+				} as HTMLImageElement; // 1:2 aspect ratio
 
-			ffTest.on(
-				'platform.media-card-svg-rendering_6tdbv',
-				'Image natural dimensions are 0 and is more landscape than parent wrapper',
-				() => {
-					const imgElement = {
-						naturalWidth: 0,
-						width: 1600,
-						naturalHeight: 0,
-						height: 800,
-					} as HTMLImageElement; // 2:1 aspect ratio
-					it.each([
-						['fit', { maxWidth: 'min(100%, 1600px', maxHeight: 'min(100%, 800px' }],
-						['full-fit', { maxWidth: 'min(100%, 1600px', maxHeight: 'min(100%, 800px' }],
-						['crop', { height: '800px', maxHeight: '100%' }],
-						['stretchy-fit', { width: '100%', maxHeight: '100%' }],
-					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-						const imgElem = await renderSvgCard(imgElement, resizeMode);
-						expect(imgElem.nodeName.toLowerCase()).toBe('img');
-						fireEvent.load(imgElem);
-						expect(imgElem).toHaveStyle(expectedStyle);
-					});
-				},
-			);
+				it.each([
+					['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['crop', { width: '800px', maxWidth: '100%' }],
+					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					const imgElem = await renderSvgCard(imgElement, resizeMode);
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
 
-			ffTest.on(
-				'platform.media-card-svg-rendering_6tdbv',
-				'Image natural dimensions are 0 and is more portrait than parent wrapper',
-				() => {
-					const imgElement = {
-						naturalWidth: 0,
-						width: 800,
-						naturalHeight: 0,
-						height: 1600,
-					} as HTMLImageElement; // 1:2 aspect ratio
-					it.each([
-						['fit', { maxWidth: 'min(100%, 800px', maxHeight: 'min(100%, 1600px' }],
-						['full-fit', { maxWidth: 'min(100%, 800px', maxHeight: 'min(100%, 1600px' }],
-						['crop', { width: '800px', maxWidth: '100%' }],
-						['stretchy-fit', { height: '100%', maxWidth: '100%' }],
-					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-						const imgElem = await renderSvgCard(imgElement, resizeMode);
-						expect(imgElem.nodeName.toLowerCase()).toBe('img');
-						fireEvent.load(imgElem);
-						expect(imgElem).toHaveStyle(expectedStyle);
-					});
-				},
-			);
+			describe('Image natural dimensions are 0 and is more landscape than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 0,
+					width: 1600,
+					naturalHeight: 0,
+					height: 800,
+				} as HTMLImageElement; // 2:1 aspect ratio
+
+				it.each([
+					['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+					['crop', { height: '800px', maxHeight: '100%' }],
+					['stretchy-fit', { width: '100%', maxHeight: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					const imgElem = await renderSvgCard(imgElement, resizeMode);
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
+
+			describe('Image natural dimensions are 0 and is more portrait than parent wrapper', () => {
+				const imgElement = {
+					naturalWidth: 0,
+					width: 800,
+					naturalHeight: 0,
+					height: 1600,
+				} as HTMLImageElement; // 1:2 aspect ratio
+
+				it.each([
+					['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+					['crop', { width: '800px', maxWidth: '100%' }],
+					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
+				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+					const imgElem = await renderSvgCard(imgElement, resizeMode);
+					expect(imgElem.nodeName.toLowerCase()).toBe('img');
+					fireEvent.load(imgElem);
+					expect(imgElem).toHaveStyle(expectedStyle);
+				});
+			});
 		});
 	});
 });

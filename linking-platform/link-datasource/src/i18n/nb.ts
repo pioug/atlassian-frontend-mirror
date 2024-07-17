@@ -69,8 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Sett inn Confluence-liste fra',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Sett inn resultatene',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### resultater',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {resultat} other {resultater}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': 'Angi nøkkelord for å finne sider, vedlegg og mer',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     'Kontakt administratoren for å be om tilgang.',
@@ -92,7 +90,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Sett inn saker',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Sett inn Jira-saker',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Sett inn Jira-saker fra',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {sak} other {saker}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Vis antall søkeresultater som en innebygd smartkobling',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Innebygd kobling',

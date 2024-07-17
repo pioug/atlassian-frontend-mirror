@@ -56,8 +56,9 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
+	"runReact18": true,
 	"devDependencies": {
 		"@testing-library/react": "^12.1.5",
 		"react": "^16.8.0",

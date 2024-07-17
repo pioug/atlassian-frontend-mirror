@@ -69,8 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Confluence-lijst invoegen van',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Resultaten invoegen',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### resultaten',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {resultaat} other {resultaten}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Voer zoektermen in om pagina’s, bijlagen en meer te vinden',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -92,7 +90,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Issues invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-issues invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-issues invoegen van',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {issue} other {issues}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Het aantal zoekresultaten weergeven als een inline Smart Link',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-link',

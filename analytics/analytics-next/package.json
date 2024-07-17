@@ -73,14 +73,15 @@
 		"use-memo-one": "^1.1.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
+	"runReact18": true,
 	"devDependencies": {
 		"@atlaskit/ssr": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",
 		"enzyme": "^3.10.0",
-		"react-dom": "^16.8.0",
+		"react-dom-18": "npm:react-dom@^18.2.0",
 		"redux": "^3.7.2",
 		"storybook-addon-performance": "^0.16.0",
 		"typescript": "~5.4.2"

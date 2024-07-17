@@ -73,6 +73,11 @@ export const helpDialogMessages = defineMessages({
 		description:
 			'The text is shown as an shortcut description in help dialog modal, when the user uses the described shortcut, he is able to decrease the width of the selected element. Optimal characters less than 21.',
 	},
+	openCellOptions: {
+		id: 'fabric.editor.openCellOptions',
+		defaultMessage: 'Open cell options',
+		description: 'Keyboard shortcut to open cell options.',
+	},
 	focusTableResizeHandle: {
 		id: 'fabric.editor.focusTableResizeHandle',
 		defaultMessage: 'Focus table resize handle',

@@ -85,14 +85,14 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 		return (
 			<span
 				css={[
-					fg('platform.design-system-team.component-visual-refresh_t8zbo')
+					fg('platform-component-visual-refresh')
 						? avatarDefaultIconVisualRefreshStyles
 						: avatarDefaultIconStyles,
 					nestedAvatarStyles[size],
 				]}
 			>
 				{appearance === 'circle' ? (
-					fg('platform.design-system-team.component-visual-refresh_t8zbo') ? (
+					fg('platform-component-visual-refresh') ? (
 						<PersonIcon
 							label={alt}
 							color={token('color.icon.subtle')}
@@ -108,7 +108,7 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 							aria-hidden={isHidden}
 						/>
 					)
-				) : fg('platform.design-system-team.component-visual-refresh_t8zbo') ? (
+				) : fg('platform-component-visual-refresh') ? (
 					<ReleaseIcon
 						label={alt}
 						color={token('color.icon.subtle')}

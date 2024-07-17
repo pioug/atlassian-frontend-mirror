@@ -69,7 +69,6 @@ export default {
     'Lisää Confluence-luettelo osoitteesta',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Lisää tuloksia',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### tulosta',
-  'linkDataSource.confluence-search.configmodal.resultsCountText': '{totalCount, plural, one {tulos} other {tulosta}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Etsi muun muassa sivuja ja liitteitä kirjoittamalla avainsanoja',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -92,7 +91,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Lisää asiat',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Lisää Jira-asioita',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Lisää Jira-asioita sivulta',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {asia} other {asiaa}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Näytä hakutulosten lukumäärä tekstiin sitoutuvana Smart Linkinä',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Tekstiin sitoutuva linkki',

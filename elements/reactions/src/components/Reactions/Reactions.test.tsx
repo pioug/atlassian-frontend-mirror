@@ -577,5 +577,14 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			fireEvent.click(reactionButtons[0]);
 			expect(mockOnReactionsClick).toHaveBeenCalled();
 		});
+
+		it('should not show summary view when shown quick reactions exceed threshold', async () => {
+			const reactions: ReactionSummary[] = [];
+			renderReactionsWithSummary({ quickReactionEmojis, reactions, summaryViewThreshold: 1 });
+			const reactionButtons = await screen.findAllByTestId(RENDER_REACTION_TESTID);
+			expect(reactionButtons.length).toEqual(quickReactionEmojis.emojiIds.length);
+			const summaryView = screen.queryByTestId('reaction-summary-view');
+			expect(summaryView).not.toBeInTheDocument();
+		});
 	});
 });

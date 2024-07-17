@@ -40,7 +40,7 @@
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/radio": "^6.4.0",
 		"@atlaskit/spinner": "^16.2.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0"
 	},

@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.3.0
+
+### Minor Changes
+
+- [#120020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120020)
+  [`0704ecd9a56c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0704ecd9a56c0) -
+  Add exports for skeleton props. Removes extract react types remnants from documentation.
+
 ## 4.2.2
 
 ### Patch Changes

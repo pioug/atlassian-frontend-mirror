@@ -85,7 +85,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 	(
 		{
 			appearance = 'circle' as AppearanceType,
-			borderColor = fg('platform.design-system-team.component-visual-refresh_t8zbo')
+			borderColor = fg('platform-component-visual-refresh')
 				? token('elevation.surface')
 				: token('color.border.inverse', N0),
 			size = 'medium' as SizeType,

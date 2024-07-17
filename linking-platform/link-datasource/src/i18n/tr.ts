@@ -69,7 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Şuradan Confluence listesi ekleyin:',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Sonuçları ekle',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### Sonuç',
-  'linkDataSource.confluence-search.configmodal.resultsCountText': '{totalCount, plural, one {sonuç} other {sonuç}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Sayfaları, ekleri ve daha fazlasını bulmak için anahtar kelimeler girin',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -90,7 +89,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Konu ekle',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira konuları ekleyin',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Şuradan Jira konuları ekleyin:',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {konu} other {konu}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Arama sonucu sayısını satır içi bir Akıllı Bağlantı olarak gösterin',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Satır içi bağlantı',

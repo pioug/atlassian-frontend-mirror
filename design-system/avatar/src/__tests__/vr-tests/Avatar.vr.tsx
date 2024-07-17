@@ -6,7 +6,7 @@ import BasicAvatar from '../../../examples/01-basicAvatar';
 snapshot(BasicAvatar, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 	variants: [
 		{

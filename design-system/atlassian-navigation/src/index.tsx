@@ -54,3 +54,9 @@ export type {
 	SearchCSS,
 	SkeletonCSS,
 } from './theme';
+
+export type { NavigationSkeletonProps } from './components/AtlassianNavigation/types';
+export type { SkeletonCreateButtonProps } from './components/SkeletonCreateButton/types';
+export type { SkeletonIconButtonProps } from './components/SkeletonIconButton/types';
+export type { SkeletonPrimaryButtonProps } from './components/SkeletonPrimaryButton/types';
+export type { SkeletonSwitcherButtonProps } from './skeleton-switcher-button';

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.25.0
+
+### Minor Changes
+
+- [#121002](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121002)
+  [`bbb23b698c493`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bbb23b698c493) -
+  Add Popup component
+
 ## 0.24.0
 
 ### Minor Changes

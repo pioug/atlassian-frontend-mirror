@@ -67,7 +67,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': '다음에서 Confluence 목록 삽입',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': '결과 삽입',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '결과 ###개',
-  'linkDataSource.confluence-search.configmodal.resultsCountText': '{totalCount, plural, other {결과}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': '키워드를 입력하여 페이지, 첨부 파일 등을 찾으세요',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     '액세스를 요청하려면 관리자에게 문의하세요.',
@@ -88,7 +87,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '이슈 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 이슈 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '다음의 Jira 이슈 삽입',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {이슈}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     '검색 결과 수를 인라인 스마트 링크로 표시합니다',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': '인라인 링크',

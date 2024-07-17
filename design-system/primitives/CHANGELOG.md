@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 11.0.2
+
+### Patch Changes
+
+- [#120336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120336)
+  [`62381baf0d2e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62381baf0d2e1) -
+  Update 'opens new window' for anchor and link with a nicer AT announcement
+
 ## 11.0.1
 
 ### Patch Changes

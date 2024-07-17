@@ -10,7 +10,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Badge from '../../index';
 
-ffTest.both('platform.design-system-team.component-visual-refresh_t8zbo', 'badge component', () => {
+ffTest.both('platform-component-visual-refresh', 'badge component', () => {
 	const testId = 'test';
 
 	it('should render 0 by default', () => {

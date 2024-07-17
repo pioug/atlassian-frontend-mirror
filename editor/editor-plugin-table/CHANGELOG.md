@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 7.21.0
+
+### Minor Changes
+
+- [#120893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120893)
+  [`67a22e5eb05a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67a22e5eb05a2) -
+  [ux] [ECA11Y-113] This change adds the keyboard shortcut (Shift+F10) to the Cell Options Tooltip
+  and to the Editor Help dialog. This change is behind the `platform_editor_a11y_table_context_menu`
+  feature flag.
+
+### Patch Changes
+
+- [#120665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120665)
+  [`a4ee6908e0e2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4ee6908e0e2c) -
+  [ED-23943] Milestone: Initial LazyNodeViewLoading implementation for Table
+- Updated dependencies
+
+## 7.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.20.1
 
 ### Patch Changes

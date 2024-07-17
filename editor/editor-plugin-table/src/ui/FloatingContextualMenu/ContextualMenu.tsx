@@ -117,7 +117,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	private dropdownMenuRef = React.createRef<HTMLDivElement>();
 
 	componentDidMount() {
-		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform_editor_a11y_table_context_menu')) {
 			// ArrowKeyNavigationProvider in DropdownMenu expects that menu handle will stay focused
 			// until user pressed ArrowDown.
 			// Behavior above fails the A11Y requirement about first item in menu should be focused immediately.
@@ -141,7 +141,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			: this.createOriginalContextMenuItems();
 		let isOpenAllowed = false;
 
-		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform_editor_a11y_table_context_menu')) {
 			isOpenAllowed = isCellMenuOpenByKeyboard ? this.state.isOpenAllowed : isOpen;
 		} else {
 			isOpenAllowed = isOpen;
@@ -162,7 +162,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						disableArrowKeyNavigation:
 							isCellMenuOpenByKeyboard &&
 							!this.state.isSubmenuOpen &&
-							fg('platform.editor.a11y-table-context-menu_y4c9c')
+							fg('platform_editor_a11y_table_context_menu')
 								? false
 								: true,
 					}}
@@ -177,7 +177,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 						isDragAndDropEnabled ? contextualMenuDropdownWidthDnD : contextualMenuDropdownWidth
 					}
 					shouldFocusFirstItem={
-						fg('platform.editor.a11y-table-context-menu_y4c9c')
+						fg('platform_editor_a11y_table_context_menu')
 							? () => {
 									return Boolean(isCellMenuOpenByKeyboard);
 								}
@@ -187,7 +187,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					offset={offset}
 					section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
 					allowEnterDefaultBehavior={
-						fg('platform.editor.a11y-table-context-menu_y4c9c') ? this.state.isSubmenuOpen : false
+						fg('platform_editor_a11y_table_context_menu') ? this.state.isSubmenuOpen : false
 					}
 				/>
 			</div>
@@ -227,7 +227,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			let selectedRowIndex;
 			let selectedColumnIndex;
 
-			if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+			if (fg('platform_editor_a11y_table_context_menu')) {
 				const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
 					cellBackgroundColorPalette,
 					background!,
@@ -263,7 +263,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 									: ClassName.CONTEXTUAL_MENU_ICON
 							}
 						/>
-						{fg('platform.editor.a11y-table-context-menu_y4c9c')
+						{fg('platform_editor_a11y_table_context_menu')
 							? isSubmenuOpen && (
 									<div
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -318,9 +318,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 								)}
 					</div>
 				),
-				'aria-expanded': fg('platform.editor.a11y-table-context-menu_y4c9c')
-					? isSubmenuOpen
-					: undefined,
+				'aria-expanded': fg('platform_editor_a11y_table_context_menu') ? isSubmenuOpen : undefined,
 			} as MenuItem;
 		}
 	};
@@ -650,7 +648,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isCellMenuOpenByKeyboard &&
 			(item.value.name !== 'background' ||
 				(item.value.name === 'background' && this.state.isSubmenuOpen)) &&
-			fg('platform.editor.a11y-table-context-menu_y4c9c')
+			fg('platform_editor_a11y_table_context_menu')
 		) {
 			const { tr } = state;
 			tr.setMeta(tablePluginKey, {
@@ -767,7 +765,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				if (
 					isCellMenuOpenByKeyboard &&
 					!this.state.isSubmenuOpen &&
-					fg('platform.editor.a11y-table-context-menu_y4c9c')
+					fg('platform_editor_a11y_table_context_menu')
 				) {
 					this.setState({ isSubmenuOpen: true });
 				}
@@ -798,7 +796,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			isCellMenuOpenByKeyboard,
 		} = this.props;
 
-		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform_editor_a11y_table_context_menu')) {
 			if (payload) {
 				const { event } = payload;
 				if (event && event instanceof KeyboardEvent) {

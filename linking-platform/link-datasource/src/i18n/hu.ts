@@ -69,8 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Confluence-lista beszúrása innen:',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Találatok beszúrása',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### találat',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {találat} other {találat}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Adj meg kulcsszavakat oldalak, csatolmányok és egyebek kereséséhez',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -93,7 +91,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-ügyek beszúrása innen:',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ügy} other {ügy}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Keresési találatok számának beágyazott okoslinkként való megjelenítése',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Beágyazott link',

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-better-type-history",
-	"version": "1.4.3",
+	"version": "1.4.4",
 	"description": "Better Type History plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^85.2.0",
+		"@atlaskit/editor-common": "^86.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@babel/runtime": "^7.0.0"
 	},

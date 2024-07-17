@@ -49,7 +49,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
@@ -62,7 +62,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/atlassian-navigation": "^4.2.0",
+		"@atlaskit/atlassian-navigation": "^4.3.0",
 		"@atlaskit/atlassian-notifications": "^0.4.0",
 		"@atlaskit/drawer": "^7.13.0",
 		"@atlaskit/logo": "^14.1.0",

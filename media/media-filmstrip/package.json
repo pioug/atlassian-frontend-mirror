@@ -44,7 +44,7 @@
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-common": "^11.3.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"debounce": "^1.0.0"
 	},

@@ -68,7 +68,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'แทรกรายการ Confluence จาก',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'แทรกผลลัพธ์',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': 'ผลลัพธ์ ### รายการ',
-  'linkDataSource.confluence-search.configmodal.resultsCountText': '{totalCount, plural, other {ผลลัพธ์}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': 'ป้อนคำสำคัญเพื่อค้นหาหน้าข้อมูล ไฟล์แนบ และอื่น ๆ',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     'หากต้องการส่งคำขอการเข้าถึง โปรดติดต่อผู้ดูแลของคุณ',
@@ -89,7 +88,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'แทรกปัญหา',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'แทรกปัญหา Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'แทรกปัญหา Jira จาก',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {ปัญหา}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'แสดงจำนวนผลการค้นหาเป็นสมาร์ทลิงก์ (ลิงก์อัจฉริยะ) แบบบรรทัดเดียว',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'ลิงก์บรรทัดเดียว',

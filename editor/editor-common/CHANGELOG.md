@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 86.1.0
+
+### Minor Changes
+
+- [#120893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120893)
+  [`67a22e5eb05a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67a22e5eb05a2) -
+  [ux] [ECA11Y-113] This change adds the keyboard shortcut (Shift+F10) to the Cell Options Tooltip
+  and to the Editor Help dialog. This change is behind the `platform_editor_a11y_table_context_menu`
+  feature flag.
+- [#120665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120665)
+  [`a4ee6908e0e2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4ee6908e0e2c) -
+  [ED-23943] Milestone: Initial LazyNodeViewLoading implementation for Table
+
+### Patch Changes
+
+- [#120665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120665)
+  [`3f142b915c0a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f142b915c0a2) -
+  Return focus to editor after clicking link overlay dropdown options
+
+## 86.0.0
+
+### Major Changes
+
+- [#120553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120553)
+  [`259bed51cbd99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/259bed51cbd99) -
+  Updates getLinkPreferencesURLFromENV to leverage @atlaskit/atlassian-context rather than env
+  variables (ff cleanup). Removes link preferences constants exports.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 85.2.0
 
 ### Minor Changes

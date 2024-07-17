@@ -6,12 +6,12 @@ import BadgeContainers from '../../../examples/5-containers';
 
 snapshot(BadgeCustomization, {
 	featureFlags: {
-		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 });
 snapshot(BadgeContainers, {
 	featureFlags: {
-		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 });
 
@@ -37,6 +37,6 @@ snapshot(BadgeBasic, {
 		},
 	],
 	featureFlags: {
-		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 });

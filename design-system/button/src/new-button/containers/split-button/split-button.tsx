@@ -100,12 +100,11 @@ export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProp
 				baseDividerStyles,
 				dividerHeight[spacing],
 				isDisabled &&
-					(fg('platform.design-system-team.component-visual-refresh_t8zbo')
+					(fg('platform-component-visual-refresh')
 						? dividerDisabledRefreshedStyles
 						: dividerDisabledStyles),
 				!isDisabled && dividerAppearance[appearance],
-				fg('platform.design-system-team.component-visual-refresh_t8zbo') &&
-					dividerRefreshedOffsetStyles,
+				fg('platform-component-visual-refresh') && dividerRefreshedOffsetStyles,
 			]}
 		/>
 	);
@@ -159,7 +158,7 @@ export const SplitButtonContainer = ({
 			css={[
 				appearance === 'default' &&
 					!isDisabled &&
-					fg('platform.design-system-team.component-visual-refresh_t8zbo') &&
+					fg('platform-component-visual-refresh') &&
 					defaultAppearanceContainerStyles,
 				splitButtonStyles,
 			]}

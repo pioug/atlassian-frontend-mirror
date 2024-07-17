@@ -12,6 +12,19 @@ import {
 	UnsupportedBlock,
 	WidthProvider,
 } from '@atlaskit/editor-common/ui';
+
+jest.mock('memoize-one', () => {
+	const originalModule = jest.requireActual('@atlaskit/width-detector');
+
+	//Mock the default export and named export 'foo'
+	return {
+		__esModule: true,
+		...originalModule,
+		default: (cb: unknown) => {
+			return cb;
+		},
+	};
+});
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import type { ReactWrapper } from 'enzyme';

@@ -13,6 +13,7 @@ import {
 	clearFormatting,
 	decreaseMediaSize,
 	focusTableResizer,
+	focusToContextMenuTrigger,
 	increaseMediaSize,
 	insertRule,
 	navToEditorToolbar,
@@ -613,6 +614,14 @@ const focusTableResizeHandleFormatting: (intl: IntlShape) => Format[] = ({ forma
 	},
 ];
 
+const openCellOptionsFormattingtoFormat: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
+	{
+		name: formatMessage(messages.openCellOptions),
+		type: 'image',
+		keymap: () => focusToContextMenuTrigger,
+	},
+];
+
 const imageAutoFormat: Format = {
 	name: 'Image',
 	type: 'image',
@@ -648,13 +657,25 @@ export const getSupportedFormatting = (
 	const supportedBySchema = formatting(intl).filter(
 		(format) => schema.nodes[format.type] || schema.marks[format.type],
 	);
-	return [
-		...navigationKeymaps(intl),
-		...otherFormatting(intl),
-		...supportedBySchema,
-		...(imageEnabled ? [imageAutoFormat] : []),
-		...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
-		...focusTableResizeHandleFormatting(intl),
-		...resizeInformationFormatting(intl),
-	];
+
+	return fg('platform_editor_a11y_table_context_menu')
+		? [
+				...navigationKeymaps(intl),
+				...otherFormatting(intl),
+				...supportedBySchema,
+				...(imageEnabled ? [imageAutoFormat] : []),
+				...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
+				...focusTableResizeHandleFormatting(intl),
+				...resizeInformationFormatting(intl),
+				...openCellOptionsFormattingtoFormat(intl),
+			]
+		: [
+				...navigationKeymaps(intl),
+				...otherFormatting(intl),
+				...supportedBySchema,
+				...(imageEnabled ? [imageAutoFormat] : []),
+				...(quickInsertEnabled ? [quickInsertAutoFormat(intl)] : []),
+				...focusTableResizeHandleFormatting(intl),
+				...resizeInformationFormatting(intl),
+			];
 };

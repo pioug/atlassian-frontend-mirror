@@ -71,8 +71,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Confluence-Liste einfügen von',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Ergebnisse einfügen',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### Ergebnisse',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {Ergebnis} other {Ergebnisse}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Geben Sie Stichwörter ein, um nach Seiten, Anhängen und mehr zu suchen.',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -94,7 +92,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von folgender Site einfügen:',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {Vorgang} other {Vorgänge}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Zeigen Sie die Anzahl der Suchergebnisse als intelligenten Inline-Link an.',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-Link',

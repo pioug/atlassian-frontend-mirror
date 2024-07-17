@@ -104,6 +104,7 @@ export const OverlayButton = withAnalyticsContext()(({
 					testId={testId}
 					onConfigureClick={handleConfigureClick}
 					onDropdownChange={onDropdownChange}
+					editorView={editorView}
 				/>
 			) : (
 				<Tooltip

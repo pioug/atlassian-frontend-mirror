@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 22.10.0
+
+### Minor Changes
+
+- [#120418](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120418)
+  [`a0121db0d5a1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0121db0d5a1c) -
+  [ux] Add support for quick reactions to summary view
+
 ## 22.9.0
 
 ### Minor Changes

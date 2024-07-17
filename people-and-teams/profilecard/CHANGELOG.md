@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.16.1
+
+### Patch Changes
+
+- [#120020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120020)
+  [`a047cf9d11d9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a047cf9d11d9a) -
+  PTC-6012 implement localTime in FE, get ready for cloudUser migration
+
 ## 19.16.0
 
 ### Minor Changes

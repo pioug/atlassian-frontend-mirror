@@ -8,98 +8,90 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import AvatarImage from '../../AvatarImage';
 
 describe('AvatarImage', () => {
-	ffTest.both(
-		'platform.design-system-team.component-visual-refresh_t8zbo',
-		'displaying default avatar',
-		() => {
-			it('should display the default avatar if no image is provided', () => {
-				render(
-					<AvatarImage appearance="circle" size="large" alt="Carole Baskin" testId="avatar" />,
-				);
+	ffTest.both('platform-component-visual-refresh', 'displaying default avatar', () => {
+		it('should display the default avatar if no image is provided', () => {
+			render(<AvatarImage appearance="circle" size="large" alt="Carole Baskin" testId="avatar" />);
 
+			const svgElement = screen.getByTestId('avatar--person');
+
+			expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
+		});
+
+		it('should display the default square avatar if appearance is square and no image is provided', () => {
+			render(<AvatarImage appearance="square" size="large" alt="Carole Baskin" testId="avatar" />);
+
+			const svgElement = screen.getByTestId('avatar--ship');
+
+			expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
+		});
+
+		it('should display the default avatar if image is provided and fails to load', () => {
+			render(
+				<AvatarImage
+					appearance="circle"
+					size="large"
+					alt="Carole Baskin"
+					testId="avatar"
+					src="thisisnotanimage"
+				/>,
+			);
+
+			fireEvent.error(screen.getByTestId('avatar--image'));
+			const svgElement = screen.getByTestId('avatar--person');
+			expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
+		});
+
+		it('should display the default square avatar if image is provided and fails to load', () => {
+			render(
+				<AvatarImage
+					appearance="square"
+					size="large"
+					alt="Carole Baskin"
+					testId="avatar"
+					src="thisisnotanimage"
+				/>,
+			);
+
+			fireEvent.error(screen.getByTestId('avatar--image'));
+			const svgElement = screen.getByTestId('avatar--ship');
+			expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
+		});
+
+		it('should reset error state if `src` prop is updated', () => {
+			const { rerender } = render(
+				<AvatarImage
+					appearance="circle"
+					size="large"
+					alt="Carole Baskin"
+					testId="avatar"
+					src="thisisnotanimage"
+				/>,
+			);
+
+			fireEvent.error(screen.getByTestId('avatar--image'));
+			const svgElement = screen.getByTestId('avatar--person');
+			expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
+
+			rerender(
+				<AvatarImage
+					appearance="circle"
+					size="large"
+					alt="Carole Baskin"
+					testId="avatar"
+					src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
+				/>,
+			);
+
+			// After rerender on prop change we should no longer get the default SVG with aria-label
+			expect(() => {
 				const svgElement = screen.getByTestId('avatar--person');
-
 				expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
-			});
-
-			it('should display the default square avatar if appearance is square and no image is provided', () => {
-				render(
-					<AvatarImage appearance="square" size="large" alt="Carole Baskin" testId="avatar" />,
-				);
-
-				const svgElement = screen.getByTestId('avatar--ship');
-
-				expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
-			});
-
-			it('should display the default avatar if image is provided and fails to load', () => {
-				render(
-					<AvatarImage
-						appearance="circle"
-						size="large"
-						alt="Carole Baskin"
-						testId="avatar"
-						src="thisisnotanimage"
-					/>,
-				);
-
-				fireEvent.error(screen.getByTestId('avatar--image'));
-				const svgElement = screen.getByTestId('avatar--person');
-				expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
-			});
-
-			it('should display the default square avatar if image is provided and fails to load', () => {
-				render(
-					<AvatarImage
-						appearance="square"
-						size="large"
-						alt="Carole Baskin"
-						testId="avatar"
-						src="thisisnotanimage"
-					/>,
-				);
-
-				fireEvent.error(screen.getByTestId('avatar--image'));
-				const svgElement = screen.getByTestId('avatar--ship');
-				expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
-			});
-
-			it('should reset error state if `src` prop is updated', () => {
-				const { rerender } = render(
-					<AvatarImage
-						appearance="circle"
-						size="large"
-						alt="Carole Baskin"
-						testId="avatar"
-						src="thisisnotanimage"
-					/>,
-				);
-
-				fireEvent.error(screen.getByTestId('avatar--image'));
-				const svgElement = screen.getByTestId('avatar--person');
-				expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
-
-				rerender(
-					<AvatarImage
-						appearance="circle"
-						size="large"
-						alt="Carole Baskin"
-						testId="avatar"
-						src="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs="
-					/>,
-				);
-
-				// After rerender on prop change we should no longer get the default SVG with aria-label
-				expect(() => {
-					const svgElement = screen.getByTestId('avatar--person');
-					expect(svgElement).toHaveAttribute('aria-label', 'Carole Baskin');
-				}).toThrow();
-				// Instead we should see an img with an alt
-				const imgElement = screen.getByTestId('avatar--image');
-				expect(imgElement).toHaveAttribute('alt', 'Carole Baskin');
-			});
-		},
-	);
+			}).toThrow();
+			// Instead we should see an img with an alt
+			const imgElement = screen.getByTestId('avatar--image');
+			expect(imgElement).toHaveAttribute('alt', 'Carole Baskin');
+		});
+	});
 
 	it('image should be decorative when no alt is provided', () => {
 		Object.defineProperty(Image.prototype, 'src', {

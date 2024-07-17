@@ -30,7 +30,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/primitives": "^11.0.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

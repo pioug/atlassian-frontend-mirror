@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 1.55.0
+
+### Minor Changes
+
+- [#120811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120811)
+  [`f66512151ee38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f66512151ee38) -
+  Removed responsive behaviour from heading tokens. Heading tokens will no longer scale down on
+  smaller displays. This may be reintroduced in the future with different behaviour.
+
 ## 1.54.1
 
 ### Patch Changes

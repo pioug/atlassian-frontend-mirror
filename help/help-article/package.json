@@ -42,7 +42,7 @@
 		"@atlaskit/css-reset": "^6.9.0",
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/renderer": "^109.42.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",
 		"lodash": "^4.17.21"

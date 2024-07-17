@@ -1,5 +1,22 @@
 # @atlaskit/media-card
 
+## 78.0.8
+
+### Patch Changes
+
+- [#120561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120561)
+  [`5bcb6ac107e75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bcb6ac107e75) -
+  Removed unused code in Media Card
+
+## 78.0.7
+
+### Patch Changes
+
+- [#120680](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120680)
+  [`ea8de83d2efa4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea8de83d2efa4) -
+  Small CSS rule fix
+- Updated dependencies
+
 ## 78.0.6
 
 ### Patch Changes

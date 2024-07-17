@@ -14,7 +14,7 @@ export const calculateSvgDimensions = (
 	const { width: parentWidth, height: parentHeight } = parentElement.getBoundingClientRect();
 
 	if (resizeMode === 'fit' || resizeMode === 'full-fit') {
-		return { maxWidth: `min(100%, ${imgWidth}px`, maxHeight: `min(100%, ${imgHeight}px` };
+		return { maxWidth: `min(100%, ${imgWidth}px)`, maxHeight: `min(100%, ${imgHeight}px)` };
 	}
 
 	const imgRatio = imgWidth / imgHeight;

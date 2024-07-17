@@ -164,7 +164,7 @@ describe('Icon button: Accessibility', () => {
 	});
 });
 
-const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
+const OPENS_NEW_WINDOW_LABEL = ', (opens new window)';
 describe('Link button" Accessibility', () => {
 	describe(`"${OPENS_NEW_WINDOW_LABEL}" announcements`, () => {
 		describe(`should be appended when \`target="_blank"\``, () => {

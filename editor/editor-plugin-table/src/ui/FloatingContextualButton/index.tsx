@@ -9,6 +9,7 @@ import { injectIntl } from 'react-intl-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
+import { focusToContextMenuTrigger } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
@@ -17,7 +18,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { toggleContextualMenu } from '../../commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
@@ -73,7 +74,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
 
 	useEffect(() => {
-		if (getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform_editor_a11y_table_context_menu')) {
 			if (isCellMenuOpenByKeyboard && !isContextualMenuOpen) {
 				const { state, dispatch } = editorView;
 				// open the menu when the keyboard shortcut is pressed
@@ -102,13 +103,14 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				className={ClassName.CONTEXTUAL_MENU_BUTTON}
 				selected={isContextualMenuOpen}
 				title={labelCellOptions}
+				keymap={
+					fg('platform_editor_a11y_table_context_menu') ? focusToContextMenuTrigger : undefined
+				}
 				onClick={handleClick}
 				iconBefore={<ExpandIcon label="" />}
 				aria-label={labelCellOptions}
 				aria-expanded={
-					getBooleanFF('platform.editor.a11y-table-context-menu_y4c9c')
-						? isContextualMenuOpen
-						: undefined
+					fg('platform_editor_a11y_table_context_menu') ? isContextualMenuOpen : undefined
 				}
 			/>
 		</div>

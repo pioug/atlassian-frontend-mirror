@@ -103,25 +103,8 @@ export interface DesignToken<TValue, Group extends Groups> extends Token<TValue,
 }
 
 export interface TypographyDesignToken<TValue> extends DesignToken<TValue, 'typography'> {
-	attributes: DesignToken<TValue, 'typography'>['attributes'] & {
-		responsiveSmallerVariant?: ResponsiveTypographyTokens;
-	};
+	attributes: DesignToken<TValue, 'typography'>['attributes'];
 }
-
-/**
- * @example
- * ```ts
- * const object = { font: { heading: { h900: { value: 'hello' } }}}
- * // -> `font.heading.h900`
- * ```
- */
-type FlattenKeys<T, Prefix extends string = ''> = {
-	[Key in keyof T]: T[Key] extends object
-		? T[Key] extends { value: any }
-			? `${Prefix}${Key & string}`
-			: `${Prefix}${Key & string}.${FlattenKeys<T[Key]>}`
-		: `${Prefix}.${Key & string}`;
-}[keyof T];
 
 type OmitDistributive<T, K extends PropertyKey> = T extends any
 	? T extends object
@@ -1112,7 +1095,6 @@ export type TypographyToken<
 		lineHeight: string;
 		fontFamily: string;
 		letterSpacing: string;
-		responsiveToken?: string;
 	},
 > = TypographyDesignToken<{
 	fontStyle: 'normal';
@@ -1122,8 +1104,6 @@ export type TypographyToken<
 	lineHeight: TPalette['lineHeight'];
 	letterSpacing: TPalette['letterSpacing'];
 }>;
-
-type ResponsiveTypographyTokens = FlattenKeys<TypographyTokenSchema<any>>;
 
 /**
  * The semantic interface for typography tokens

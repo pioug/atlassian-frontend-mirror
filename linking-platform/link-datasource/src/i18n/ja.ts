@@ -70,7 +70,6 @@ export default {
     '次のサイトから Confluence リストを挿入する:',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': '結果を挿入',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### 件の結果',
-  'linkDataSource.confluence-search.configmodal.resultsCountText': '{totalCount, plural, other {件の結果}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': 'キーワードを入力してページや添付ファイルなどを検索',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     'アクセスをリクエストするには、管理者にお問い合わせください。',
@@ -91,7 +90,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '課題を挿入',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '次のサイトから Jira 課題を挿入する',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {課題}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     '検索結果の件数をインライン スマート リンクとして表示します',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'インライン リンク',

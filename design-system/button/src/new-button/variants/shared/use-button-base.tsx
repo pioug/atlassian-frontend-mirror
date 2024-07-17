@@ -603,8 +603,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 
 	const isDefaultAppearanceSplitButton = splitButtonContext?.appearance === 'default';
 	const appearance =
-		isDefaultAppearanceSplitButton &&
-		fg('platform.design-system-team.component-visual-refresh_t8zbo')
+		isDefaultAppearanceSplitButton && fg('platform-component-visual-refresh')
 			? 'subtle'
 			: splitButtonContext?.appearance || propAppearance;
 	const spacing = splitButtonContext?.spacing || propSpacing;
@@ -624,12 +623,10 @@ const useButtonBase = <TagName extends HTMLElement>({
 				: hardCodedButtonStyles,
 			buttonStyles,
 			appearance === 'default' &&
-				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
-					? defaultRefreshedStyles
-					: defaultStyles),
+				(fg('platform-component-visual-refresh') ? defaultRefreshedStyles : defaultStyles),
 			appearance === 'default' &&
 				isInteractive &&
-				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform-component-visual-refresh')
 					? defaultInteractiveRefreshedStyles
 					: defaultInteractiveStyles),
 			appearance === 'primary' && primaryStyles,
@@ -641,12 +638,10 @@ const useButtonBase = <TagName extends HTMLElement>({
 			appearance === 'discovery' && discoveryStyles,
 			appearance === 'discovery' && isInteractive && discoveryInteractiveStyles,
 			appearance === 'subtle' &&
-				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
-					? subtleRefreshedStyles
-					: subtleStyles),
+				(fg('platform-component-visual-refresh') ? subtleRefreshedStyles : subtleStyles),
 			appearance === 'subtle' &&
 				isInteractive &&
-				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
+				(fg('platform-component-visual-refresh')
 					? subtleInteractiveRefreshedStyles
 					: subtleInteractiveStyles),
 			appearance === 'link' && linkStyles,
@@ -655,9 +650,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 				? linkDecorationStyles
 				: linkDecorationUnsetStyles,
 			isSelected &&
-				(fg('platform.design-system-team.component-visual-refresh_t8zbo')
-					? selectedRefreshedStyles
-					: selectedStyles),
+				(fg('platform-component-visual-refresh') ? selectedRefreshedStyles : selectedStyles),
 			isSelected && isSplitButton && selectedInsideSplitButtonStyles,
 			isSelected && isInteractive && selectedInteractiveStyles,
 			// TODO: remove me once we kill color fallbacks

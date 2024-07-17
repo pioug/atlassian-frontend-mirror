@@ -74,7 +74,7 @@ export type LinkProps<RouterLinkConfig extends Record<string, any> = never> = Om
 > &
 	Pick<
 		AnchorProps<RouterLinkConfig>,
-		'interactionName' | 'analyticsContext' | 'onClick' | 'testId'
+		'interactionName' | 'analyticsContext' | 'onClick' | 'testId' | 'newWindowLabel'
 	> &
 	RouterLinkComponentProps<RouterLinkConfig> & {
 		/**
@@ -88,6 +88,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 		children,
 		testId,
 		appearance = 'default',
+		newWindowLabel,
 		target,
 		// @ts-expect-error
 		className: preventedClassName,
@@ -111,6 +112,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 			]}
 			testId={testId}
 			componentName="Link"
+			newWindowLabel={newWindowLabel}
 		>
 			{children}
 			{target === '_blank' && (

@@ -138,7 +138,7 @@ export default {
   'fabric.linking.related_links_modal_title': '最近的链接',
   'fabric.linking.related_links_modal_unavailable_header': '没有最近的链接',
   'fabric.linking.related_links_modal_unavailable_message':
-    '未找到可在此处显示的任何链接。我们会不断审查已更新的页面或其他内容类型，并添加最近的链接。',
+    '未找到可在此处显示的任何链接。我们会不断审查并添加针对已更新页面或其他内容类型的最近链接。',
   'fabric.linking.related_links_not_found': '未找到可在此处显示的任何链接。',
   'fabric.linking.related_links_view_related_urls.nonfinal': '查看最近的链接...',
   'fabric.linking.related_work_items_not_found': '此链接在其他任何地方均未提及。',

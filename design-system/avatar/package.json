@@ -58,7 +58,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/serialize": "^1.1.0",
@@ -115,7 +115,7 @@
 		"platform.design-system-team.avatar-item-font-size_830x6": {
 			"type": "boolean"
 		},
-		"platform.design-system-team.component-visual-refresh_t8zbo": {
+		"platform-component-visual-refresh": {
 			"type": "boolean"
 		}
 	}

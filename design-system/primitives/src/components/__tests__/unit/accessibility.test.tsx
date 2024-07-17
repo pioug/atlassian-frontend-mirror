@@ -15,7 +15,7 @@ describe('Primitives', () => {
 			await axe(container);
 		});
 
-		const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
+		const OPENS_NEW_WINDOW_LABEL = ', (opens new window)';
 		describe(`"${OPENS_NEW_WINDOW_LABEL}" announcements`, () => {
 			describe('should be appended when `target="_blank"`', () => {
 				it('to `children` as visually hidden text', () => {
@@ -115,6 +115,161 @@ describe('Primitives', () => {
 
 					// Ensure label has not been added elsewhere
 					expect(anchor).not.toHaveAttribute('aria-label', `Foo ${OPENS_NEW_WINDOW_LABEL}`);
+				});
+			});
+
+			describe('should be not appended when `target` is not `blank`', () => {
+				it('to `children`', () => {
+					render(
+						<Anchor href="https://www.atlassian.com" testId="anchor" target="_self">
+							Atlassian website
+						</Anchor>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName('Atlassian website');
+				});
+				it('to `aria-label`', () => {
+					render(
+						<Anchor
+							href="https://www.atlassian.com"
+							testId="anchor"
+							target="_self"
+							aria-label="Jira"
+						/>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName('Jira');
+				});
+				it('to `aria-labelledby`', () => {
+					render(
+						<>
+							<div id="the-label">Confluence</div>
+							<Anchor
+								href="https://www.atlassian.com"
+								testId="anchor"
+								target="_self"
+								aria-labelledby="the-label"
+							/>
+						</>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName('Confluence');
+				});
+			});
+		});
+
+		const I18N_LABEL = 'se abre en una nueva ventana';
+		describe('i18n announcements', () => {
+			describe('should be appended when `target="_blank"`', () => {
+				it('to `children` as visually hidden text', () => {
+					render(
+						<Anchor
+							href="https://www.atlassian.com"
+							testId="anchor"
+							target="_blank"
+							newWindowLabel={I18N_LABEL}
+						>
+							Atlassian website
+						</Anchor>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName(`Atlassian website , ${I18N_LABEL}`);
+
+					// Check for visually hidden styles
+					const hiddenText = screen.getByText(`, ${I18N_LABEL}`);
+					expect(hiddenText).toHaveStyleDeclaration('width', '1px');
+					expect(hiddenText).toHaveStyleDeclaration('height', '1px');
+					expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
+					expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+				});
+				it('to `aria-label`', () => {
+					render(
+						<Anchor
+							href="https://www.atlassian.com"
+							testId="anchor"
+							target="_blank"
+							aria-label="Jira"
+							newWindowLabel={I18N_LABEL}
+						/>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName(`Jira , ${I18N_LABEL}`);
+				});
+				it('to `aria-labelledby`', () => {
+					render(
+						<>
+							<div id="the-label">Confluence</div>
+							<Anchor
+								href="https://www.atlassian.com"
+								testId="anchor"
+								target="_blank"
+								aria-labelledby="the-label"
+								newWindowLabel={I18N_LABEL}
+							/>
+						</>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName(`Confluence , ${I18N_LABEL}`);
+				});
+
+				it('to `aria-label` when `children` has content', () => {
+					render(
+						<Anchor
+							href="https://www.atlassian.com"
+							testId="anchor"
+							target="_blank"
+							aria-label="Atlas"
+							newWindowLabel={I18N_LABEL}
+						>
+							Atlassian website
+						</Anchor>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName(`Atlas , ${I18N_LABEL}`);
+
+					// Ensure label has not been added elsewhere
+					expect(anchor).not.toHaveTextContent(I18N_LABEL);
+					expect(anchor).not.toHaveAttribute('aria-labelledby');
+				});
+				it('to `aria-labelledby` when `children` has content and `aria-label` is also set', () => {
+					render(
+						<>
+							<div id="the-label">Loom</div>
+							<Anchor
+								href="https://www.atlassian.com"
+								testId="anchor"
+								target="_blank"
+								aria-label="Foo"
+								aria-labelledby="the-label"
+								newWindowLabel={I18N_LABEL}
+							>
+								Atlassian website
+							</Anchor>
+						</>,
+					);
+
+					const anchor = screen.getByTestId('anchor');
+					expect(anchor).toHaveAccessibleName(`Loom , ${I18N_LABEL}`);
+
+					// The label should be added as visually hidden text, with an ID used by `aria-labelledby`
+					expect(anchor).toHaveTextContent(I18N_LABEL);
+
+					// Check for visually hidden styles
+					const hiddenText = screen.getByText(`, ${I18N_LABEL}`);
+					expect(hiddenText).toHaveStyleDeclaration('width', '1px');
+					expect(hiddenText).toHaveStyleDeclaration('height', '1px');
+					expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
+					expect(hiddenText).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+
+					// Ensure label has not been added elsewhere
+					expect(anchor).not.toHaveAttribute('aria-label', `Foo ${I18N_LABEL}`);
 				});
 			});
 

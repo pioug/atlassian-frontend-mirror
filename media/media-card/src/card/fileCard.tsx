@@ -34,6 +34,7 @@ import {
 	type CardStatus,
 	type FileStateFlags,
 	type TitleBoxIcon,
+	isSSRPreview,
 } from '../types';
 import getDocument from '../utils/document';
 import { generateUniqueId } from '../utils/generateUniqueId';
@@ -56,7 +57,6 @@ import {
 	fireOperationalEvent,
 	fireScreenEvent,
 } from './cardAnalytics';
-import { isSSRPreview } from './getCardPreview';
 import { CardView } from './cardView';
 import { CardViews } from './cardviews';
 import { InlinePlayerLazy } from './inlinePlayerLazy';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0d78dffc736e342c95d1285f45359dd6>>
+ * @codegen <<SignedSource::c505470e7888b85984c3420b424a4de7>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -34,11 +34,5 @@ html[data-theme~="typography:typography-minor3"] {
   --ds-font-family-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-brand-heading: "Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-brand-body: "Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-  @media not all and (min-width: 64rem) {
-    --ds-font-heading-xxlarge: normal 700 1.75rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-    --ds-font-heading-xlarge: normal 700 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-    --ds-font-heading-large: normal 700 1.25rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-    --ds-font-heading-medium: normal 700 1rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-  }
 }
 `;

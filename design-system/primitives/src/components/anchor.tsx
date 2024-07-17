@@ -61,6 +61,10 @@ type BaseAnchorProps = {
 	 */
 	backgroundColor?: BackgroundColor;
 	/**
+	 * Use this to set a label for assistive technology that describes the link as opening in a new window. The default label is "(opens new window)".
+	 */
+	newWindowLabel?: string;
+	/**
 	 * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
 	 *
 	 * @see paddingBlock
@@ -148,6 +152,7 @@ const baseStyles = css({
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
 const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
+// Comma is added here to add a slight pause between announcing the anchor label and "opens in new window"
 const OPENS_NEW_WINDOW_LABEL = '(opens new window)';
 
 /**
@@ -164,6 +169,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		href,
 		children,
 		backgroundColor,
+		newWindowLabel,
 		padding,
 		paddingBlock,
 		paddingBlockStart,
@@ -251,7 +257,8 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			onClick={onClick}
 			aria-label={
 				ariaLabel && target === '_blank' && !ariaLabelledBy
-					? `${ariaLabel} ${OPENS_NEW_WINDOW_LABEL}`
+					? //`${ariaLabel} ${OPENS_NEW_WINDOW_LABEL}`
+						`${ariaLabel} , ${newWindowLabel ? newWindowLabel : OPENS_NEW_WINDOW_LABEL}`
 					: ariaLabel
 			}
 			aria-labelledby={
@@ -286,7 +293,9 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		>
 			{children}
 			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
-				<VisuallyHidden id={opensNewWindowLabelId}>{OPENS_NEW_WINDOW_LABEL}</VisuallyHidden>
+				<VisuallyHidden
+					id={opensNewWindowLabelId}
+				>{`, ${newWindowLabel ? newWindowLabel : OPENS_NEW_WINDOW_LABEL}`}</VisuallyHidden>
 			)}
 		</Component>
 	);

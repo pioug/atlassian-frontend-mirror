@@ -5,7 +5,7 @@ import { memo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type BackgroundColor, Box, Text, type TextColor, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -84,7 +84,7 @@ const Badge = memo(function Badge({
 	style,
 	testId,
 }: BadgeProps) {
-	if (getBooleanFF('platform.design-system-team.component-visual-refresh_t8zbo')) {
+	if (fg('platform-component-visual-refresh')) {
 		return (
 			<span
 				data-testid={testId}

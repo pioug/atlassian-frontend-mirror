@@ -153,7 +153,7 @@ const getStyles = (
 		size,
 		radius,
 		appearance,
-		borderColor = fg('platform.design-system-team.component-visual-refresh_t8zbo')
+		borderColor = fg('platform-component-visual-refresh')
 			? token('elevation.surface')
 			: token('elevation.surface.overlay', N0),
 		stackIndex,

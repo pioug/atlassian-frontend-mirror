@@ -51,9 +51,12 @@ import {
 	whenTableInFocus,
 	withCellTracking,
 } from '../event-handlers';
-import { createTableView } from '../nodeviews/table';
-import TableCell from '../nodeviews/TableCell';
-import TableRow from '../nodeviews/TableRow';
+import {
+	lazyTableCellView,
+	lazyTableHeaderView,
+	lazyTableRowView,
+	lazyTableView,
+} from '../nodeviews/lazy-node-views';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables, replaceSelectedTable } from '../transforms';
 import type {
@@ -350,22 +353,18 @@ export const createPlugin = (
 				return false;
 			},
 			nodeViews: {
-				table: (node, view, getPos) =>
-					createTableView(
-						node,
-						view,
-						getPos,
-						portalProviderAPI,
-						eventDispatcher,
-						getEditorContainerWidth,
-						getEditorFeatureFlags,
-						dispatchAnalyticsEvent,
-						pluginInjectionApi,
-						isTableAlignmentEnabled,
-					),
-				tableRow: (node, view, getPos) => new TableRow(node, view, getPos, eventDispatcher),
-				tableCell: (node, view, getPos) => new TableCell(node, view, getPos, eventDispatcher),
-				tableHeader: (node, view, getPos) => new TableCell(node, view, getPos, eventDispatcher),
+				table: lazyTableView({
+					portalProviderAPI,
+					eventDispatcher,
+					getEditorContainerWidth,
+					getEditorFeatureFlags,
+					dispatchAnalyticsEvent,
+					pluginInjectionApi,
+					isTableAlignmentEnabled,
+				}),
+				tableRow: lazyTableRowView({ eventDispatcher }),
+				tableCell: lazyTableCellView({ eventDispatcher }),
+				tableHeader: lazyTableHeaderView({ eventDispatcher }),
 			},
 			handleDOMEvents: {
 				focus: handleFocus,

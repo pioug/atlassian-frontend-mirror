@@ -8,6 +8,6 @@ snapshot(OldButtonExample, {
 	description: 'Old button appearances',
 	variants: themeVariants,
 	featureFlags: {
-		'platform.design-system-team.component-visual-refresh_t8zbo': [true, false],
+		'platform-component-visual-refresh': [true, false],
 	},
 });

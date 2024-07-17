@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/editor-common": "^85.2.0",
+		"@atlaskit/editor-common": "^86.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-context-identifier": "^1.1.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.4.0",
@@ -47,7 +47,7 @@
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"uuid": "^3.1.0"

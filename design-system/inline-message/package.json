@@ -42,7 +42,7 @@
 		"@atlaskit/inline-dialog": "^14.2.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.54.0",
+		"@atlaskit/tokens": "^1.55.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

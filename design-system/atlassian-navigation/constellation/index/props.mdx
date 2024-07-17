@@ -1,99 +1,106 @@
-import AtlassianNavigation from '!!extract-react-types-loader!../../docs/ert/skeleton-icon-button';
-import AppSwitcher from '!!extract-react-types-loader!../../src/components/AppSwitcher';
-import Create from '!!extract-react-types-loader!../../src/components/Create';
-import Help from '!!extract-react-types-loader!../../src/components/Help';
-import Notifications from '!!extract-react-types-loader!../../src/components/Notifications';
-import PrimaryButton from '!!extract-react-types-loader!../../src/components/PrimaryButton';
-import PrimaryDropdownButton from '!!extract-react-types-loader!../../src/components/PrimaryDropdownButton';
-import IconButton from '!!extract-react-types-loader!../../src/components/IconButton';
-import ProductHome from '!!extract-react-types-loader!../../src/components/ProductHome/product-home';
-import CustomProductHome from '!!extract-react-types-loader!../../src/components/ProductHome/custom-product-home';
-import Profile from '!!extract-react-types-loader!../../src/components/Profile';
-import Search from '!!extract-react-types-loader!../../src/components/Search';
-import Settings from '!!extract-react-types-loader!../../src/components/Settings';
-import SignIn from '!!extract-react-types-loader!../../src/components/SignIn';
-
-import NavigationSkeleton from '!!extract-react-types-loader!../../src/components/AtlassianNavigation/skeleton';
-import SkeletonCreateButton from '!!extract-react-types-loader!../../docs/ert/skeleton-create-button';
-import SkeletonIconButton from '!!extract-react-types-loader!../../docs/ert/skeleton-icon-button';
-import SkeletonPrimaryButton from '!!extract-react-types-loader!../../docs/ert/skeleton-primary-button';
-import SkeletonSwitcherButton from '!!extract-react-types-loader!../../docs/ert/skeleton-switcher-button';
+---
+props:
+  packageName: '@atlaskit/atlassian-navigation'
+  exports:
+    - AtlassianNavigation
+    - AppSwitcher
+    - Create
+    - Help
+    - Notifications
+    - PrimaryButton
+    - PrimaryDropdownButton
+    - IconButton
+    - ProductHome
+    - CustomProductHome
+    - Profile
+    - Search
+    - Settings
+    - SignIn
+    - NavigationSkeletonProps
+    - SkeletonCreateButtonProps
+    - SkeletonIconButtonProps
+    - SkeletonPrimaryButtonProps
+    - SkeletonSwitcherButtonProps
+---
 
 ## Props
 
 ### Container (Atlassian navigation)
 
-<PropsTable heading="" props={AtlassianNavigation} />
+<TSMorphProps exportName="AtlassianNavigation" packageName="@atlaskit/atlassian-navigation" />
 
 ### App Switcher
 
-<PropsTable heading="" props={AppSwitcher} />
+<TSMorphProps exportName="AppSwitcher" packageName="@atlaskit/atlassian-navigation" />
 
 ### Product home
 
-<PropsTable heading="" props={ProductHome} />
+<TSMorphProps exportName="ProductHome" packageName="@atlaskit/atlassian-navigation" />
 
 ### Custom product Home
 
-<PropsTable heading="" props={CustomProductHome} />
+<TSMorphProps exportName="CustomProductHome" packageName="@atlaskit/atlassian-navigation" />
 
 ### Primary button
 
-<PropsTable heading="" props={PrimaryButton} />
+<TSMorphProps exportName="PrimaryButton" packageName="@atlaskit/atlassian-navigation" />
 
 ### Primary dropdown button
 
-<PropsTable heading="" props={PrimaryDropdownButton} />
+<TSMorphProps exportName="PrimaryDropdownButton" packageName="@atlaskit/atlassian-navigation" />
 
 ### Create button
 
-<PropsTable heading="" props={Create} />
+<TSMorphProps exportName="Create" packageName="@atlaskit/atlassian-navigation" />
 
 ### Icon button
 
-<PropsTable heading="" props={IconButton} />
+<TSMorphProps exportName="IconButton" packageName="@atlaskit/atlassian-navigation" />
 
 ### Search
 
-<PropsTable heading="" props={Search} />
+<TSMorphProps exportName="Search" packageName="@atlaskit/atlassian-navigation" />
 
 ### Notifications button
 
-<PropsTable heading="" props={Notifications} />
+<TSMorphProps exportName="Notifications" packageName="@atlaskit/atlassian-navigation" />
 
 ### Help button
 
-<PropsTable heading="" props={Help} />
+<TSMorphProps exportName="Help" packageName="@atlaskit/atlassian-navigation" />
 
 ### Settings button
 
-<PropsTable heading="" props={Settings} />
+<TSMorphProps exportName="Settings" packageName="@atlaskit/atlassian-navigation" />
 
 ### Sign In button
 
-<PropsTable heading="" props={SignIn} />
+<TSMorphProps exportName="SignIn" packageName="@atlaskit/atlassian-navigation" />
 
 ### Profile button
 
-<PropsTable heading="" props={Profile} />
+<TSMorphProps exportName="Profile" packageName="@atlaskit/atlassian-navigation" />
 
 ## Skeleton Props
 
 ### Navigation skeleton
 
-<PropsTable heading="" props={NavigationSkeleton} />
+<TSMorphProps exportName="NavigationSkeletonProps" packageName="@atlaskit/atlassian-navigation" />
 
 ### Create button skeleton
 
-<PropsTable heading="" props={SkeletonCreateButton} />
+<TSMorphProps exportName="SkeletonCreateButtonProps" packageName="@atlaskit/atlassian-navigation" />
 
 ### Icon button skeleton
 
-<PropsTable heading="" props={SkeletonIconButton} />
+<TSMorphProps exportName="SkeletonIconButtonProps" packageName="@atlaskit/atlassian-navigation" />
 
 ### Primary button skeleton
 
-<PropsTable heading="" props={SkeletonPrimaryButton} />
+<TSMorphProps
+	exportName="SkeletonPrimaryButtonProps"
+	packageName="@atlaskit/atlassian-navigation"
+/>
 
 ### Secondary button skeletons
 
@@ -104,4 +111,7 @@ These props are shared by:
 - help button skeleton
 - settings button skeleton
 
-<PropsTable heading="" props={SkeletonSwitcherButton} />
+<TSMorphProps
+	exportName="SkeletonSwitcherButtonProps"
+	packageName="@atlaskit/atlassian-navigation"
+/>

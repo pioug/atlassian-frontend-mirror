@@ -69,8 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Infoga Confluence-lista från',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Infoga resultat',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### resultat',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {resultat} other {resultat}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': 'Ange nyckelord för att hitta sidor, bilagor med mera',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     'Kontakta din administratör för att begära åtkomst.',
@@ -92,7 +90,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Infoga ärende',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Infoga Jira-ärenden',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Infoga Jira-ärenden från',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ärende} other {ärenden}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Visa antalet sökresultat som en smart inline-länk',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Inline-länk',

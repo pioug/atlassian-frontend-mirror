@@ -70,8 +70,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Insertar lista de Confluence desde',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Insertar resultados',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### resultados',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {resultado} other {resultados}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Escribe palabras clave para encontrar páginas, archivos adjuntos y mucho más',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -93,7 +91,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Insertar incidencias',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insertar incidencias de Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insertar incidencias de Jira desde',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {incidencia} other {incidencias}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Mostrar el número de resultados de búsqueda como un enlace inteligente insertado',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Enlace insertado',

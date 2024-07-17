@@ -70,8 +70,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Wstaw listę Confluence z',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Wstaw wyniki',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': 'Liczba wyników: ###',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {wynik} few {wyniki} many {wyników} other {wyniku}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Wprowadź słowa kluczowe, aby znaleźć strony, załączniki i nie tylko',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -93,8 +91,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Wstaw zgłoszenia',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Wstaw zgłoszenia Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Wstaw zgłoszenia Jira z witryny',
-  'linkDataSource.jira-issues.configmodal.issue':
-    '{totalCount, plural, one {zgłoszenie} few {zgłoszenia} many {zgłoszeń} other {zgłoszenia}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Wyświetl liczbę wyników wyszukiwania jako śródwierszowe inteligentne łącze',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Łącze śródwierszowe',

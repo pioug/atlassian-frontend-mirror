@@ -67,7 +67,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Chèn danh sách Confluence từ',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Chèn kết quả',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### kết quả',
-  'linkDataSource.confluence-search.configmodal.resultsCountText': '{totalCount, plural, other {kết quả}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': 'Nhập từ khóa để tìm trang, tệp đính kèm, v.v.',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     'Hãy liên hệ với quản trị viên để yêu cầu quyền truy cập.',
@@ -89,7 +88,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Chèn vấn đề',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Chèn vấn đề Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Chèn vấn đề Jira từ',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {vấn đề}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Hiển thị số lượng kết quả tìm kiếm dưới dạng Liên kết thông minh nội tuyến',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Liên kết nội tuyến',

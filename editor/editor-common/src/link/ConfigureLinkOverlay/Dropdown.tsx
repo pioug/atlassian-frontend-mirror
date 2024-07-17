@@ -11,6 +11,7 @@ import DropdownMenu, {
 	DropdownItemGroup,
 	type OnOpenChangeArgs,
 } from '@atlaskit/dropdown-menu';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
@@ -29,12 +30,14 @@ export type DropdownProps = {
 	onConfigureClick: () => void;
 	/** Callback fired when the dropdown is open or close */
 	onDropdownChange?: OnDropdownChange;
+	editorView: EditorView;
 	testId: string;
 };
 
 const Dropdown = ({
 	onConfigureClick: onConfigureClickCallback,
 	onDropdownChange,
+	editorView,
 	testId,
 }: DropdownProps) => {
 	const { formatMessage } = useIntl();
@@ -44,25 +47,37 @@ const Dropdown = ({
 	const { fireActionClickEvent, fireLinkClickEvent, fireToolbarViewEvent } =
 		useLinkOverlayAnalyticsEvents();
 
+	const focusEditor = useCallback(() => {
+		// Fix dropdown giving focus back to the trigger async which is then unmounted and losing focus
+		// this is happening deep within atlaskit dropdown as a result of this code: https://github.com/focus-trap/focus-trap/blob/master/index.js#L987
+		// use setTimeout to run this async after that call
+		setTimeout(() => editorView.focus(), 0);
+	}, [editorView]);
+
 	const onOpenChange: (args: OnOpenChangeArgs) => void = useCallback(
-		({ isOpen }) => {
+		({ isOpen, event }) => {
 			onDropdownChange?.(isOpen);
 
 			if (isOpen) {
 				fireToolbarViewEvent();
 			}
+			if (!isOpen && event instanceof KeyboardEvent) {
+				focusEditor();
+			}
 		},
-		[fireToolbarViewEvent, onDropdownChange],
+		[fireToolbarViewEvent, focusEditor, onDropdownChange],
 	);
 
 	const onGoToLinkClick = useCallback(() => {
 		fireActionClickEvent('goToLink');
-	}, [fireActionClickEvent]);
+		focusEditor();
+	}, [fireActionClickEvent, focusEditor]);
 
 	const onConfigureClick = useCallback(() => {
 		fireActionClickEvent('configureLink');
 		onConfigureClickCallback?.();
-	}, [fireActionClickEvent, onConfigureClickCallback]);
+		focusEditor();
+	}, [fireActionClickEvent, focusEditor, onConfigureClickCallback]);
 
 	return (
 		<DropdownMenu<HTMLButtonElement>

@@ -115,7 +115,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 
 	private handleCloseAndFocus = (event: PointerEvent | KeyboardEvent) => {
 		this.state.target?.querySelector('button')?.focus();
-		if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+		if (fg('platform_editor_a11y_table_context_menu')) {
 			this.handleClose(event);
 		} else {
 			this.handleClose();
@@ -125,7 +125,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 	private handleClose = (event?: PointerEvent | KeyboardEvent) => {
 		const { onOpenChange } = this.props;
 		if (onOpenChange) {
-			if (fg('platform.editor.a11y-table-context-menu_y4c9c')) {
+			if (fg('platform_editor_a11y_table_context_menu')) {
 				onOpenChange({ isOpen: false, event: event });
 			} else {
 				onOpenChange({ isOpen: false });
@@ -207,7 +207,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 						}
 						handleEnterKeydown={(e: KeyboardEvent) => {
 							if (
-								fg('platform.editor.a11y-table-context-menu_y4c9c') ||
+								fg('platform_editor_a11y_table_context_menu') ||
 								fg('platform-editor-a11y-image-border-options-dropdown')
 							) {
 								if (!allowEnterDefaultBehavior) {
@@ -392,7 +392,7 @@ export function DropdownMenuItem({
 				onMouseEnter={() => onMouseEnter && onMouseEnter({ item })}
 				onMouseLeave={() => onMouseLeave && onMouseLeave({ item })}
 				aria-expanded={
-					fg('platform.editor.a11y-table-context-menu_y4c9c') ? item['aria-expanded'] : undefined
+					fg('platform_editor_a11y_table_context_menu') ? item['aria-expanded'] : undefined
 				}
 			>
 				{item.content}

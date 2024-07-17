@@ -76,8 +76,6 @@ export default {
     '⁣⁢Insert Confluence list from‍⁭⁯⁬‍⁫⁡‌⁠⁫‍⁭⁮؜⁠⁡⁡⁪⁯⁮‍⁣⁤',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': '⁣⁢Insert results⁯⁮‌‍؜؜⁮⁠⁭⁡؜‍⁮⁬‍⁫⁬⁪؜⁫⁬⁣⁤',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '⁣⁢### Results⁪⁮⁡⁯‌⁮‌⁬⁪⁯‌⁡‌‌‍⁫⁫⁮⁫⁠⁫⁫⁪⁫⁠⁣⁤',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {⁣⁢result⁫⁫⁬‌⁬؜⁯⁠‍⁬⁯؜⁭⁡⁭‍⁫⁯⁠‍⁪⁪⁫⁣⁤} other {⁣⁢results⁫⁫⁬‌⁬؜⁯⁠‍⁬⁯؜⁭⁡⁭‍⁫⁯⁠‍⁪⁪⁫⁣⁤}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     '⁣⁢Enter keywords to find pages, attachments, and more‌‌⁬⁬‌؜‍⁯‍⁮⁡⁫⁬⁭⁯⁫؜⁭⁣⁤',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -111,8 +109,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': '⁣⁢Insert Jira issues⁡⁡⁭‌⁯؜⁮⁮‌⁬‌⁬⁯‍؜⁮⁮⁠⁬⁭⁫⁬‍⁭⁣⁤',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites':
     '⁣⁢Insert Jira issues from⁭‍⁭؜⁮⁯⁭⁮⁬⁫؜⁮⁭⁠⁪⁬⁬⁪⁭⁠⁯‍‌⁡⁣⁤',
-  'linkDataSource.jira-issues.configmodal.issue':
-    '{totalCount, plural, one {⁣⁢issue⁯‌⁬⁠⁭⁡⁡⁭⁪⁯⁠‌⁮‌‍⁫؜⁫⁭⁮؜⁯⁣⁤} other {⁣⁢issues⁯‌⁬⁠⁭⁡⁡⁭⁪⁯⁠‌⁮‌‍⁫؜⁫⁭⁮؜⁯⁣⁤}}',
   'linkDataSource.jira-issues.configmodal.placeholder.issues': '⁣⁢### Issues؜؜⁮⁪⁡‌⁯⁮⁡؜‍⁡⁮‌‍⁬⁯؜⁮⁭⁪⁪⁠⁡⁫؜⁣⁤',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     '⁣⁢Display the number of search results as an inline Smart Link‍⁬⁠⁬؜⁠؜‍⁬⁮⁬‍‌⁯⁡⁮⁬⁣⁤',

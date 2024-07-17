@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-background-color",
-	"version": "1.3.3",
+	"version": "1.3.4",
 	"description": "Background color mark plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^39.0.3",
-		"@atlaskit/editor-common": "^85.2.0",
+		"@atlaskit/editor-common": "^86.1.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

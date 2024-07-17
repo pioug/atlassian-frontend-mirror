@@ -69,8 +69,6 @@ export default {
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Indsæt Confluence-liste fra',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Indsæt resultater',
   'linkDataSource.confluence-search.configmodal.placeholder.issues': '### Resultater',
-  'linkDataSource.confluence-search.configmodal.resultsCountText':
-    '{totalCount, plural, one {resultat} other {resultater}}',
   'linkDataSource.confluence-search.configmodal.searchLabel': 'Indtast nøgleord for at finde sider, vedhæftninger m.m.',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     'Kontakt din administrator for at anmode om adgang.',
@@ -91,7 +89,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Indsæt sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Indsæt Jira-sager',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Indsæt Jira-sager fra',
-  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {sag} other {sager}}',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkDescription':
     'Vis antallet af søgeresultater som et intelligent link på samme linje',
   'linkDataSource.jira-issues.configmodal.viewModeInlineLinkLabel': 'Link på samme linje',

@@ -13,7 +13,7 @@ import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/e
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { stopKeyboardColumnResizing } from '../../commands/column-resize';
 import { updateResizeHandleDecorations } from '../../commands/misc';
@@ -112,7 +112,7 @@ export const handleMouseDown = (
 		isTableScalingEnabled: shouldScale,
 		shouldUseIncreasedScalingPercent:
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
+			fg('platform.editor.table.use-increased-scaling-percent'),
 	});
 
 	if (
@@ -200,7 +200,7 @@ export const handleMouseDown = (
 				const resizedDelta = clientX - startX;
 				const shouldUseIncreasedScalingPercent =
 					isTableScalingWithFixedColumnWidthsOptionEnabled &&
-					getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+					fg('platform.editor.table.use-increased-scaling-percent');
 				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
 					const newResizeState = resizeColumnAndTable(
 						resizeState,
@@ -311,19 +311,21 @@ export const handleMouseDown = (
 		const { state } = view;
 		const { dragging, resizeHandlePos } = getPluginState(state);
 		const { isTableHovered } = getTablePluginState(state);
+		const tablePos = state.doc.resolve(start).start(-1);
+
 		if (
 			!which ||
 			!dragging ||
 			resizeHandlePos === null ||
 			!pointsAtCell(state.doc.resolve(resizeHandlePos)) ||
-			!isTableHovered
+			((!isNewColumnResizingEnabled || isTableNested(state, tablePos)) && !isTableHovered)
 		) {
 			return finish(event);
 		}
 
 		const $cell = state.doc.resolve(resizeHandlePos);
 		const table = $cell.node(-1);
-		const tablePos = state.doc.resolve(start).start(-1);
+		// const tablePos = state.doc.resolve(start).start(-1);
 		const tableDepth = state.doc.resolve(tablePos).depth;
 		const map = TableMap.get(table);
 		const colIndex = map.colCount($cell.pos - $cell.start(-1)) + $cell.nodeAfter!.attrs.colspan - 1;
@@ -332,7 +334,7 @@ export const handleMouseDown = (
 
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+			fg('platform.editor.table.use-increased-scaling-percent');
 		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 		}

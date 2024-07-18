@@ -128,8 +128,8 @@ export type {
 
 export { isAbortedRequestError, createUrl } from './utils/request/helpers';
 
-export { PollingFunction } from './utils/polling';
-export { isPollingError, PollingError } from './utils/polling/errors';
+export { PollingFunction, isPollingError, PollingError } from './utils/polling';
+
 export type { Executor, PollingErrorAttributes, PollingErrorReason } from './utils/polling/types';
 
 export type {

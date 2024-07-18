@@ -45,42 +45,51 @@ describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
 
 	describe('mapStateToPropsHelper', () => {
 		it('should map empty state to notLoaded', () => {
-			expect(mapStateToPropsHelper(containerAri, ari, { reactions: {}, flash: {} })).toMatchObject({
+			expect(
+				mapStateToPropsHelper(containerAri, ari, false, {
+					reactions: {},
+					flash: {},
+					particleEffectByEmoji: {},
+				}),
+			).toMatchObject({
 				status: ReactionStatus.notLoaded,
 				reactions: [],
 			});
 		});
 
-		it('should map ready state', () => {
+		it.each([true, false])('should map ready state', (particleEffectByEmojiEnabled: boolean) => {
 			const reactions: ReactionSummary[] = [];
 			expect(
-				mapStateToPropsHelper(containerAri, ari, {
+				mapStateToPropsHelper(containerAri, ari, particleEffectByEmojiEnabled, {
 					reactions: {
 						[reactionKey]: { status: ReactionStatus.ready, reactions },
 					},
 					flash: { [reactionKey]: { emojiA: true } },
+					particleEffectByEmoji: { [reactionKey]: { emojiA: true } },
 				}),
 			).toEqual({
 				status: ReactionStatus.ready,
 				reactions,
 				flash: { emojiA: true },
+				particleEffectByEmoji: particleEffectByEmojiEnabled ? { emojiA: true } : {},
 			});
 		});
 
 		it('should map loading state', () => {
 			expect(
-				mapStateToPropsHelper(containerAri, ari, {
+				mapStateToPropsHelper(containerAri, ari, true, {
 					reactions: {
 						[reactionKey]: { status: ReactionStatus.loading },
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				}),
 			).toEqual({ status: ReactionStatus.loading, reactions: [] });
 		});
 
 		it('should map error state', () => {
 			expect(
-				mapStateToPropsHelper(containerAri, ari, {
+				mapStateToPropsHelper(containerAri, ari, true, {
 					reactions: {
 						[reactionKey]: {
 							status: ReactionStatus.error,
@@ -88,6 +97,7 @@ describe('@atlaskit/reactions/containers/ConnectedReactionsView', () => {
 						},
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				}),
 			).toEqual({ status: ReactionStatus.error, reactions: [] });
 		});

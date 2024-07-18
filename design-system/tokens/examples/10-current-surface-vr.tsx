@@ -9,6 +9,8 @@ import { css, jsx } from '@emotion/react';
 
 import { CURRENT_SURFACE_CSS_VAR, token } from '../src';
 
+import { useVrGlobalTheme } from './utils/use-vr-global-theme';
+
 const boxStyles = css({
 	margin: 20,
 	padding: 20,
@@ -27,6 +29,7 @@ const SurfaceAwareBox = () => (
 );
 
 export default () => {
+	useVrGlobalTheme();
 	return (
 		<div>
 			<div

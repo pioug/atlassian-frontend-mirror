@@ -7,19 +7,14 @@ import styled from '@emotion/styled';
 import Button from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
-import Theme, {
-	elevation as AkElevations,
-	AtlaskitThemeProvider,
-	themed,
-	type Theme as ThemeType,
-} from '../src';
+import Theme, { elevation as AkElevations, AtlaskitThemeProvider, themed } from '../src';
 import { type Elevation, type ThemeModes } from '../src/types';
 
 const elevations = { ...AkElevations };
 
 // the below adaptation may be written statically like ${akElevationMixins.e100}
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Box = styled.div<{ elevation: Elevation; theme: ThemeType }>`
+const Box = styled.div<{ elevation: Elevation }>`
 	${({ elevation }) => elevations[elevation]}
 	background-color: ${(props) => themed({ light: 'white', dark: '#283447' })(props)};
 	border-radius: ${token('border.radius', '3px')};
@@ -51,21 +46,11 @@ export default () => {
 				{(theme) => (
 					<div>
 						<Wrapper>
-							<Box theme={theme} elevation="e100">
-								Cards on a board (e100)
-							</Box>
-							<Box theme={theme} elevation="e200">
-								Inline dialogs (e200)
-							</Box>
-							<Box theme={theme} elevation="e300">
-								Modals (e300)
-							</Box>
-							<Box theme={theme} elevation="e400">
-								Panels (e400)
-							</Box>
-							<Box theme={theme} elevation="e500">
-								Flag messages (e500)
-							</Box>
+							<Box elevation="e100">Cards on a board (e100)</Box>
+							<Box elevation="e200">Inline dialogs (e200)</Box>
+							<Box elevation="e300">Modals (e300)</Box>
+							<Box elevation="e400">Panels (e400)</Box>
+							<Box elevation="e500">Flag messages (e500)</Box>
 						</Wrapper>
 
 						<div

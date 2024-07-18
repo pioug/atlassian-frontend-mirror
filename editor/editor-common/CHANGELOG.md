@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 86.2.1
+
+### Patch Changes
+
+- [#121315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121315)
+  [`f550b1a0c6e85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f550b1a0c6e85) -
+  [ux] ED-24237 Fix comment appearances in renderer to match editor
+- [#120992](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120992)
+  [`a61cfb5567823`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a61cfb5567823) -
+  ED-23357 Update annotation node name calculations to avoid crashes on invalid ranges
+- Updated dependencies
+
+## 86.2.0
+
+### Minor Changes
+
+- [`ca831efa17dd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca831efa17dd5) -
+  [ED-23922] Added utility to count the number of unique elements, text formats, macros and layouts
+  in a JSONDocNode or JSONNode
+
+### Patch Changes
+
+- [#121046](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121046)
+  [`c5cbf1d63b0c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5cbf1d63b0c8) -
+  [ED-24241] Memonize the document.body to avoid multiple Layout Reflows for the same page
+
 ## 86.1.0
 
 ### Minor Changes

@@ -1,5 +1,18 @@
 # @atlaskit/media-test-helpers
 
+## 34.0.0
+
+### Major Changes
+
+- [#121438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121438)
+  [`6fc64e2707215`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fc64e2707215) -
+  Removed exports createRateLimitedError, createPollingMaxAttemptsError & createMediaStoreError. Now
+  they are exposed from @atlaskit/media-client/test-helpers
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.36
 
 ### Patch Changes

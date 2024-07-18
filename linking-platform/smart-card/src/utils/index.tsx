@@ -3,7 +3,6 @@ import Loadable from 'react-loadable';
 
 import type { CardProps } from '../view/Card';
 import { type FrameStyle } from '../view/EmbedCard/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { type ActiveThemeState } from '@atlaskit/tokens';
 import { themeObjectToString } from '@atlaskit/tokens';
 
@@ -287,16 +286,11 @@ export const getPreviewUrlWithTheme = (
 	previewUrl: string,
 	themeState: Partial<ActiveThemeState>,
 ): string => {
-	if (getBooleanFF('platform.linking-platform.smart-card.fix-embed-preview-url-query-params')) {
-		try {
-			const url = new URL(previewUrl);
-			url.searchParams.append('themeState', themeObjectToString(themeState));
-			return url.href;
-		} catch {
-			return previewUrl;
-		}
+	try {
+		const url = new URL(previewUrl);
+		url.searchParams.append('themeState', themeObjectToString(themeState));
+		return url.href;
+	} catch {
+		return previewUrl;
 	}
-
-	const themeStateQueryString = encodeURIComponent(themeObjectToString(themeState));
-	return `${previewUrl}${previewUrl.includes('?') ? '&' : '?'}themeState=${themeStateQueryString}`;
 };

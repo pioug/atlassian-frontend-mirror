@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N300 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -67,19 +67,15 @@ const HeadingItem = memo(
 			'', // TODO: Create DAC post when primitives/xcss are available as alternatives
 		);
 
-		const UNSAFE_overrides = getBooleanFF(
-			'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-		)
-			? undefined
-			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				css(cssFn(undefined));
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		const UNSAFE_overrides = css(cssFn(undefined));
 
 		return (
 			<div
 				css={[
 					headingStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles')
+					fg('platform.design-system-team.menu-tokenised-typography-styles')
 						? tokenizedHeadingStyles
 						: baseHeadingStyles,
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -91,11 +87,7 @@ const HeadingItem = memo(
 				data-ds--menu--heading-item
 				id={id}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={
-					getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
-						? undefined
-						: UNSAFE_className
-				}
+				className={UNSAFE_className}
 				{...rest}
 			>
 				{children}

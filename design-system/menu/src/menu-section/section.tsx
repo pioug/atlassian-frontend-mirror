@@ -9,7 +9,7 @@ import { Children, forwardRef, Fragment, type Ref } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N30A } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
@@ -138,11 +138,8 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 			'', // TODO: Create DAC post when primitives/xcss are available as alternatives
 		);
 
-		const UNSAFE_headingOverrides = getBooleanFF(
-			'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-		)
-			? undefined
-			: overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn;
+		const UNSAFE_headingOverrides =
+			overrides && overrides.HeadingItem && overrides.HeadingItem.cssFn;
 
 		const content = isList ? (
 			<ul
@@ -188,11 +185,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 			<div
 				{...rest}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={
-					getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
-						? undefined
-						: UNSAFE_className
-				}
+				className={UNSAFE_className}
 				id={id}
 				// NOTE: Firefox allows elements that have "overflow: auto" to gain focus (as if it had tab-index="0")
 				// We have made a deliberate choice to leave this behaviour as is.
@@ -201,7 +194,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
 					isScrollable ? scrollableStyles : unscrollableStyles,
 					hasSeparator
 						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							getBooleanFF('platform.design-system-team.section-1px-seperator-borders')
+							fg('platform.design-system-team.section-1px-seperator-borders')
 							? thinSeparatorStyles
 							: thickSeparatorStyles
 						: noSeparatorStyles,

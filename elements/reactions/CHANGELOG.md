@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 22.10.1
+
+### Patch Changes
+
+- [#119960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119960)
+  [`77542b34dfee2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77542b34dfee2) -
+  Exposed particleEffectByEmoji prop in ConnectedReactionsView to support particle effect
+- Updated dependencies
+
 ## 22.10.0
 
 ### Minor Changes

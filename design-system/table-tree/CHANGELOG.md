@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.10.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.10.4
 
 ### Patch Changes

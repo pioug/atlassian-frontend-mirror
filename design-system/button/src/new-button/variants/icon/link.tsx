@@ -41,7 +41,6 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		spacing,
 		testId,
 		tooltip,
-		UNSAFE_size,
 		...unsafeRest
 	}: LinkIconButtonProps<RouterLinkConfig>,
 	ref: Ref<HTMLAnchorElement>,
@@ -79,7 +78,6 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 		shape,
 		spacing,
 		testId,
-		UNSAFE_size,
 	});
 
 	if (!isTooltipDisabled) {

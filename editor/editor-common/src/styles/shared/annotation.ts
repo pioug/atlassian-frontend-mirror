@@ -34,11 +34,17 @@ export const AnnotationSharedCSSByState = () => {
 				borderBottom: '2px solid transparent',
 				cursor: 'pointer',
 				padding: '1px 0 2px',
-				'&:has(.card), &:has([data-inline-card])': {
-					paddingTop: '4px',
-					border: 'none',
-					boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow', Y200a)}`,
-				},
+				'&:has(.card), &:has([data-inline-card])': fg(
+					'annotations_align_editor_and_renderer_styles',
+				)
+					? {
+							padding: '5px 0 3px 0',
+						}
+					: {
+							paddingTop: '4px',
+							border: 'none',
+							boxShadow: `0 2px 0 0 ${token('color.border.accent.yellow', Y200a)}`,
+						},
 				'&:has(.date-lozenger-container)': {
 					paddingTop: '2px',
 				},

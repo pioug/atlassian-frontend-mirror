@@ -446,3 +446,5 @@ export {
 } from './calculate-toolbar-position';
 
 export { findNodePosByLocalIds } from './nodes-by-localIds';
+
+export { getPageElementCounts } from './page-element-counts';

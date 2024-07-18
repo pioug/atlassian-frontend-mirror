@@ -55,6 +55,10 @@ export const customThemeContrastChecker = ({
 			typeof customThemeTokenMap[background] === 'number'
 				? themeRamp[customThemeTokenMap[background] as number]
 				: (customThemeTokenMap[background] as string);
+
+		if (!(foregroundColor || rawForegroundColor) || !(backgroundColor || rawBackgroundColor)) {
+			return;
+		}
 		const contrast = getContrastRatio(
 			foregroundColor || rawForegroundColor,
 			backgroundColor || rawBackgroundColor,

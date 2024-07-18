@@ -39,9 +39,9 @@ jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
 jest.useFakeTimers({ legacyFakeTimers: true });
 
 describe('ConfluenceSearchConfigModal', () => {
-	ffTest.on(
-		'platform.linking-platform.datasources.use-refactored-config-modal',
-		'After refactoring',
+	ffTest.both(
+		'platform-datasources-use-refactored-config-modal',
+		'before and after refactoring',
 		() => {
 			const prevWindowLocation = window.location;
 
@@ -75,10 +75,9 @@ describe('ConfluenceSearchConfigModal', () => {
 
 			beforeEach(() => {
 				jest.clearAllMocks();
-			});
-
-			asMock(useBasicFilterHydration).mockReturnValue({
-				reset: () => {},
+				asMock(useBasicFilterHydration).mockReturnValue({
+					reset: () => {},
+				});
 			});
 
 			describe('when no Confluence instances are returned', () => {

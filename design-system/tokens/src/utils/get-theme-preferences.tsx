@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ThemeIdsWithOverrides, type ThemeState } from '../theme-config';
 
@@ -13,7 +13,7 @@ export const getThemePreferences = (themeState: ThemeState): ThemeIdsWithOverrid
 	if (colorMode === 'auto') {
 		if (
 			contrastMode !== 'no-preference' &&
-			getBooleanFF('platform.design-system-team.increased-contrast-themes')
+			fg('platform.design-system-team.increased-contrast-themes')
 		) {
 			autoColorModeThemes.forEach((normalTheme) => {
 				const increasedContrastTheme = getIncreasedContrastTheme(normalTheme);
@@ -29,7 +29,7 @@ export const getThemePreferences = (themeState: ThemeState): ThemeIdsWithOverrid
 
 		if (
 			contrastMode !== 'no-preference' &&
-			getBooleanFF('platform.design-system-team.increased-contrast-themes')
+			fg('platform.design-system-team.increased-contrast-themes')
 		) {
 			const increasedContrastTheme = getIncreasedContrastTheme(themeState[colorMode]);
 

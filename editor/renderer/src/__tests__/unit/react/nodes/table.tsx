@@ -1136,7 +1136,6 @@ describe('Renderer - React/Nodes/Table', () => {
 		});
 
 		describe('column widths undefined', () => {
-			// aa
 			it('table scales columns when table width is smaller than fixed-width line length - column widths undefined', () => {
 				const tableWidth = 500;
 				const scale = 0.6;
@@ -1154,7 +1153,6 @@ describe('Renderer - React/Nodes/Table', () => {
 				wrap.unmount();
 			});
 
-			// aa
 			it('should scale columns when table width is larger than fixed-width line length', () => {
 				const tableWidth = 1200;
 				const scale = 0.6;
@@ -1267,6 +1265,20 @@ describe('Renderer - React/Nodes/Table', () => {
 				wrap.unmount();
 			},
 		);
+
+		ffTest('platform.editor.table.allow-table-alignment', () => {
+			// should not have left style when table is inside of a block node
+			const tableNode = createTable(600, 'align-start');
+			const rendererWidth = 1000;
+
+			const wrap = mountTable(tableNode, rendererWidth, [], undefined, true);
+
+			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+			expect(tableContainer.prop('style')!.left).toBe(undefined);
+
+			wrap.unmount();
+		});
 	});
 
 	describe('SSR - Table widths', () => {

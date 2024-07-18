@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
-		"@atlaskit/editor-common": "^86.1.0",
+		"@atlaskit/editor-common": "^86.2.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

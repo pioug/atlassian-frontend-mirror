@@ -1,4 +1,5 @@
 import warnOnce from '@atlaskit/ds-lib/warn-once';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CSS_PREFIX, TOKEN_NOT_FOUND_CSS_VAR } from '../../constants';
 import token from '../../get-token';
@@ -33,6 +34,26 @@ describe('getToken', () => {
 		// eslint-disable-next-line no-console
 		expect(warnOnce).toHaveBeenCalledWith(
 			`Unknown token id at path: this-token-does-not-exist in @atlaskit/tokens`,
+		);
+	});
+
+	describe('should log error when color.icon.subtlest tokens is used when feature flag is off', () => {
+		ffTest(
+			'platform-component-visual-refresh',
+			() => {
+				const result = token('color.icon.subtlest');
+				expect(result).toEqual('var(--ds-icon-subtlest)');
+				expect(warnOnce).not.toHaveBeenCalledWith(
+					`Token "color.icon.subtlest" is only available when feature flag "platform-component-visual-refresh" is on, don't use it if the flag can't be turned on on this page`,
+				);
+			},
+			() => {
+				const result = token('color.icon.subtlest');
+				expect(result).toEqual('var(--ds-icon-subtlest)');
+				expect(warnOnce).toHaveBeenCalledWith(
+					`Token "color.icon.subtlest" is only available when feature flag "platform-component-visual-refresh" is on, don't use it if the flag can't be turned on on this page`,
+				);
+			},
 		);
 	});
 

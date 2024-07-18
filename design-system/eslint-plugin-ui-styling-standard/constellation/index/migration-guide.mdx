@@ -3,7 +3,6 @@ order: 3
 ---
 
 import SectionMessage from '@atlaskit/section-message';
-import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
 ## Patterns
 
@@ -190,7 +189,7 @@ For styles that cannot be expressed statically, use the `style` prop.
 This might be needed when:
 
 - Styles are derived from user input
-- Integrating with a 3rd party library that provides a `style` object
+- Integrating with a third party library that provides a `style` object
 
 #### Compiled
 
@@ -223,7 +222,116 @@ const Resizable = ({ width }: { width: string }) => <Box css={baseStyles} style=
 
 ## More examples
 
+### Feature flagging styles
+
+Dynamic styles are forbidden by
+[no-dynamic-styles](/components/eslint-plugin-ui-styling-standard/no-dynamic-styles/usage) so cannot
+be used to implement feature flagged styles.
+
+There are two supported approaches for feature flagging styles:
+
+1. [Toggled styles](#toggled-styles) to dynamically apply feature flagged styles.
+2. Multiple components which are dynamically switched between.
+
+#### Toggled styles
+
+Prefer [toggled styles](#toggled-styles) for feature flagging as it requires less code duplication.
+
+##### Adding styles
+
+Use a
+[logical expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND)
+to add new styles behind a feature flag.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { ff } from '@atlassian/feature-flags';
+
+const linkStyles = css({ color: text('color.link') });
+
+const underlineStyles = css({ textDecoration: 'underline' });
+
+export const Link = ({ children, href }: { children: string; href: string }) => (
+	<a href={href} css={[linkStyles, ff('my-feature-flag') && underlineStyles]}>
+		{children}
+	</a>
+);
+```
+
+##### Replacing styles
+
+Use a
+[conditional (ternary) expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator)
+to replace styles behind a feature flag.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { ff } from '@atlassian/feature-flags';
+
+const originalStyles = css({ color: text('color.text.accent.red') });
+
+const featureFlaggedStyles = css({ color: text('color.text.danger') });
+
+export const ErrorMessage = ({ children }: { children: string }) => (
+	<span css={ff('my-feature-flag') ? featureFlaggedStyles : originalStyles}>{children}</span>
+);
+```
+
+#### Multiple components
+
+Use multiple components for feature flagging if [toggled styles](#toggled-styles) are not suitable.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+import { ff } from '@atlassian/feature-flags';
+
+const linkStyles = css({ color: text('color.link') });
+
+const underlineStyles = css({ textDecoration: 'underline' });
+
+const LinkWithoutUnderline = ({ children, href }: { children: string; href: string }) => (
+	<a href={href} css={linkStyles}>
+		{children}
+	</a>
+);
+
+const LinkWithUnderline = ({
+	children,
+	href,
+	hasUnderline = true,
+}: {
+	children: string;
+	href: string;
+	hasUnderline?: boolean;
+}) => (
+	<a href={href} css={[linkStyles, ff('my-feature-flag') && hasUnderline && underlineStyles]}>
+		{children}
+	</a>
+);
+
+export const Link = ff('my-feature-flag') ? LinkWithUnderline : LinkWithoutUnderline;
+```
+
+### Migrating from Emotion or `styled-components`
+
+Using `@emotion/*` or `styled-components` for styling is forbidden by
+[use-compiled](/components/eslint-plugin-ui-styling-standard/use-compiled/usage).
+
+For internal Atlassians we have a
+[guide for migrating to Compiled](https://hello.atlassian.net/wiki/spaces/UAF/pages/3006969423/Migrating+AFM+platform+components+to+Compiled+a+guide).
+
+Otherwise refer to the
+[official documentation for migrating to compiled](https://compiledcssinjs.com/docs/migrating).
+
 ### Migrating from `styled`
+
+The `styled` API is forbidden by
+[no-styled](/components/eslint-plugin-ui-styling-standard/no-styled/usage).
+
+Use `css()` or `xcss()` to declare styles instead.
 
 #### Before
 
@@ -305,5 +413,162 @@ const Component = ({ width, status, isSelected, children }: Props) => (
 	<div css={[baseStyles, isSelected && selectedStyles, statusStyles[status]]} style={{ width }}>
 		{children}
 	</div>
+);
+```
+
+### Migrating nested selectors
+
+Nested selectors are forbidden by
+[no-nested-selectors](/components/eslint-plugin-ui-styling-standard/no-nested-selectors/usage).
+
+Apply styles directly to elements instead.
+
+<SectionMessage title="Third party libraries">
+
+If a third party library does not let you control rendering then investigate possible workarounds.
+For example, if you're using a React abstraction then consider using the lower level JS-only library
+instead.
+
+If you've exhausted all avenues you can suppress the lint rule and move on, but this is considered
+tech debt.
+
+</SectionMessage>
+
+<SectionMessage appearance="warning" title="Atlassian platform styles">
+
+Never use nested selectors to override Atlassian platform styles (including
+[Design System components](/components)). Overriding platform styles is unsafe and _will_ break.
+This blocks shipping changes to all customers, and is a pain point for everyone.
+
+</SectionMessage>
+
+#### Before
+
+The example below uses nested selectors to style child elements that it does not render.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const tableStyles = css({
+	tbody: {
+		border: 'none',
+	},
+	tr: {
+		border: 'none',
+		borderBlockEnd: `1px solid ${token('color.border')}`,
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+	},
+	td: {
+		verticalAlign: 'middle',
+	},
+});
+
+export const Table = ({ children }: { children: ReactNode }) => (
+	<table css={tableStyles}>{children}</table>
+);
+```
+
+#### After
+
+Instead we should apply styles directly to elements, even if it requires API changes.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const tableBodyStyles = css({
+	border: 'none',
+});
+
+export const TableBody = ({ children }: { children: ReactNode }) => (
+	<tbody css={tableBodyStyles}>{children}</tbody>
+);
+
+const tableRowStyles = css({
+	border: 'none',
+	borderBlockEnd: `1px solid ${token('color.border')}`,
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered'),
+	},
+});
+
+export const TableRow = ({ children }: { children: ReactNode }) => (
+	<tr css={tableRowStyles}>{children}</tr>
+);
+
+const tableCellStyles = css({
+	verticalAlign: 'middle',
+});
+
+export const TableCell = ({ children }: { children: ReactNode }) => (
+	<td css={tableCellStyles}>{children}</td>
+);
+```
+
+### Migrating spread props
+
+Explicitly define and apply all props used by a component.
+
+#### Before
+
+```tsx
+import { css } from '@compiled/react';
+
+type IconProps = {
+	color: string;
+};
+
+const Icon = ({ color, ...props }: IconProps) => {
+	return <svg fill={color} {...props} />;
+};
+```
+
+#### After
+
+```tsx
+import { css } from '@compiled/react';
+
+type IconProps = {
+	color: string;
+	'aria-label'?: string;
+};
+
+const Icon = ({ color, 'aria-label': ariaLabel }: IconProps) => {
+	return <svg fill={color} aria-label={ariaLabel} />;
+};
+```
+
+### Sharing common styles
+
+Share reusable components instead of exporting styles.
+
+#### Before
+
+```tsx
+import { css } from '@compiled/react';
+
+export const ellipsisStyles = css({
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+	textOverflow: 'ellipsis',
+});
+```
+
+#### After
+
+```tsx
+import { css } from '@compiled/react';
+
+const ellipsisStyles = css({
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+	textOverflow: 'ellipsis',
+});
+
+export const ClampedText = ({ children }: { children: string }) => (
+	<span css={ellipsisStyles}>{children}</span>
 );
 ```

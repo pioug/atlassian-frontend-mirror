@@ -1467,8 +1467,6 @@ describe('MediaStore', () => {
 									'video_640.mp4': {
 										processingStatus: 'succeeded',
 										url: '/sd-video',
-										cdnUrl:
-											'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
 									},
 								},
 								'video_640.mp4',
@@ -1476,13 +1474,8 @@ describe('MediaStore', () => {
 							);
 
 							expect(url).toEqual(
-								'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?collection=some-collection&max-age=2592000&token=cdn-token',
+								'http://some-host/sd-video/cdn?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token',
 							);
-
-							// Authentication does not need to be resolved for CDN URLs
-							expect(resolveAuth).not.toHaveBeenCalledWith(authProvider, {
-								collectionName: 'some-collection',
-							});
 						},
 						async () => {
 							const url = await mediaStore.getArtifactURL(

@@ -11,20 +11,25 @@ import Button, { IconButton } from '@atlaskit/button/new';
 import CheckIcon from '@atlaskit/icon/glyph/check';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
+import palettesBrandRefreshRaw from '../../../src/artifacts/palettes-raw/palette-brand-refresh';
 import palettesRaw from '../../../src/entry-points/palettes-raw';
 import { getAlpha, getContrastRatio } from '../../../src/utils/color-utils';
 import { isHex } from '../utils/search-params';
 import { type BaseTokens } from '../utils/types';
 
-export const baseTokenNames = palettesRaw
+const palettes = () =>
+	fg('platform-component-visual-refresh') ? palettesBrandRefreshRaw : palettesRaw;
+
+export const baseTokenNames = palettes()
 	.filter((base) => base.attributes.category !== 'opacity')
 	.map(({ path }) => path[path.length - 1]);
 
-export const baseTokens: Record<string, string> = palettesRaw
+export const baseTokens: Record<string, string> = palettes()
 	.filter((base) => base.attributes.category !== 'opacity')
 	.reduce(
 		(acc, { path, value }) => ({
@@ -56,7 +61,7 @@ function generateColorPair(bg: string) {
 	}
 }
 
-const groupedBaseTokens = palettesRaw
+const groupedBaseTokens = palettes()
 	.filter((base) => base.attributes.category !== 'opacity')
 	.reduce(
 		(acc, baseToken) => {

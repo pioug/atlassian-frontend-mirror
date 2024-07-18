@@ -1,5 +1,5 @@
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { extractValuesFromNonComplexJQL, type ResultMap } from '../extractValuesFromNonComplexJQL';
 
@@ -60,7 +60,7 @@ describe('Testing parseNonComplexJqlToValues', () => {
 	it.each<[string, ResultMap]>(cases)(
 		'should evaluate %s and return result as %s',
 		(jql, expected) => {
-			asMock(getBooleanFF).mockReturnValue(true);
+			asMock(fg).mockReturnValue(true);
 			const values = extractValuesFromNonComplexJQL(jql);
 			expect(values).toEqual(expected);
 		},

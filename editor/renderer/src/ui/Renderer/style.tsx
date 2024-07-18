@@ -1,7 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import type { Theme } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -435,6 +434,28 @@ function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
 		return '';
 	}
 
+	if (fg('annotations_align_editor_and_renderer_styles')) {
+		return css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'& [data-annotation-draft-mark][data-annotation-inline-node]': {
+				borderBottom: '2px solid transparent',
+				cursor: 'pointer',
+				padding: '1px 0 2px',
+				background: token('color.background.accent.yellow.subtler', Y75),
+				borderBottomColor: token('color.border.accent.yellow', Y300),
+				boxShadow: token('elevation.shadow.overlay', `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`),
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'& [data-annotation-draft-mark][data-annotation-inline-node][data-inline-card]': {
+				padding: '5px 0 3px 0',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'& [data-annotation-draft-mark][data-annotation-inline-node].date-lozenger-container': {
+				paddingTop: token('space.025', '2px'),
+			},
+		});
+	}
+
 	return css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		"& [data-mark-type='annotation'][data-mark-annotation-state='active'] [data-annotation-mark], & [data-annotation-draft-mark][data-annotation-inline-node]":
@@ -448,7 +469,7 @@ function getAnnotationStyles({ allowAnnotations }: RendererWrapperProps) {
 	});
 }
 
-export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: Theme) => {
+export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
 	const { colorMode } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.
 	const themeProps = { theme };

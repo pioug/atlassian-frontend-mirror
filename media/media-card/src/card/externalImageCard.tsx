@@ -1,4 +1,4 @@
-import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
 	type ExternalImageIdentifier,
 	type FileDetails,
@@ -55,8 +55,6 @@ export interface ExternalImageCardProps extends SharedCardProps, CardEventProps 
 	readonly shouldHideTooltip?: boolean;
 }
 
-export type ExternalImageCardBaseProps = ExternalImageCardProps & WithAnalyticsEventsProps;
-
 export const ExternalImageCard = ({
 	mediaClient,
 	appearance = 'auto',
@@ -79,8 +77,9 @@ export const ExternalImageCard = ({
 	mediaViewerItems,
 	onClick,
 	onMouseEnter,
-	createAnalyticsEvent,
-}: ExternalImageCardBaseProps) => {
+}: ExternalImageCardProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
 	const cardDimensions = dimensions || getDefaultCardDimensions(appearance);
 	const internalOccurrenceKey = useMemo(() => generateUniqueId(), []);
 	const timeElapsedTillCommenced = useMemo(() => performanceNow(), []);

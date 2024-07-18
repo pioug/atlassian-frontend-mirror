@@ -9,7 +9,6 @@ import { jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { ButtonItemProps } from '../types';
@@ -63,11 +62,7 @@ const ButtonItem = memo(
 			return (
 				<MenuItemPrimitive
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={
-						getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
-							? undefined
-							: UNSAFE_className
-					}
+					className={UNSAFE_className}
 					{...rest}
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={overrides}

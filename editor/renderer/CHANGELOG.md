@@ -1,5 +1,34 @@
 # @atlaskit/renderer
 
+## 109.42.5
+
+### Patch Changes
+
+- [#121315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121315)
+  [`f550b1a0c6e85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f550b1a0c6e85) -
+  [ux] ED-24237 Fix comment appearances in renderer to match editor
+- [#121452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121452)
+  [`9696ad7f5108a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9696ad7f5108a) -
+  ensure nested tables don't have left alignment styles
+- [#120992](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120992)
+  [`a61cfb5567823`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a61cfb5567823) -
+  ED-23357 Update annotation node name calculations to avoid crashes on invalid ranges
+- [#121315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121315)
+  [`f550b1a0c6e85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f550b1a0c6e85) -
+  ED-24236 fix missing underline for draft annotations in renderer (when annotations on inline nodes
+  fg is on)
+- Updated dependencies
+
+## 109.42.4
+
+### Patch Changes
+
+- [#120324](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120324)
+  [`9cb22ec2da5c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9cb22ec2da5c2) -
+  ED-24236 fix missing underline for draft annotations in renderer (when annotations on inline nodes
+  fg is on)
+- Updated dependencies
+
 ## 109.42.3
 
 ### Patch Changes

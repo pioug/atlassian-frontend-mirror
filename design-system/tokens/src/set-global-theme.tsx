@@ -1,6 +1,6 @@
 import { type UnbindFn } from 'bind-event-listener';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ThemeIdsWithOverrides, type ThemeState, themeStateDefaults } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';
@@ -45,7 +45,7 @@ const setGlobalTheme = async (
 ): Promise<UnbindFn> => {
 	// CLEANUP: Remove. This blocks application of increased contrast themes
 	// without the feature flag enabled.
-	if (!getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+	if (!fg('platform.design-system-team.increased-contrast-themes')) {
 		if (light === 'light-increased-contrast') {
 			light = 'light';
 		}

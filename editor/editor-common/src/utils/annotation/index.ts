@@ -134,15 +134,23 @@ export function getRangeInlineNodeNames({
 
 	let nodeNames = new Set<string>();
 
-	doc.nodesBetween(pos.from, pos.to, (node) => {
-		if (node.isInline) {
-			nodeNames.add(node.type.name);
-		}
-	});
+	try {
+		doc.nodesBetween(pos.from, pos.to, (node) => {
+			if (node.isInline) {
+				nodeNames.add(node.type.name);
+			}
+		});
 
-	// We sort the list alphabetically to make human consumption of the list easier (in tools like the analytics extension)
-	const sortedNames = [...nodeNames].sort();
-	return sortedNames;
+		// We sort the list alphabetically to make human consumption of the list easier (in tools like the analytics extension)
+		const sortedNames = [...nodeNames].sort();
+		return sortedNames;
+	} catch {
+		// Some callers have existing gaps where the positions are not valid,
+		// and so when called in the current document can throw an error if out of range.
+		//
+		// This is a defensive check to ensure we don't throw an error in those cases.
+		return undefined;
+	}
 }
 
 /**

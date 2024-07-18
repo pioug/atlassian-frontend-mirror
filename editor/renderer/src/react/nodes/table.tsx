@@ -402,6 +402,7 @@ export class TableContainer extends React.Component<
 			: lineLengthFixedWidth;
 
 		const shouldCalculateLeftForAlignment =
+			!isInsideOfBlockNode &&
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidth <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance));

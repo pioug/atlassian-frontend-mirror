@@ -2,10 +2,12 @@
 title: Custom icon
 description: A custom icon is for icons which have a very specific or unique action.
 order: 1
+props:
+  packageName: '@atlaskit/icon'
+  exports:
+    - CustomGlyphProps
 ---
-
-import CustomGlyphProps from '!!extract-react-types-loader!../../src/extract-react-types/custom-glyph';
 
 ## Props
 
-<PropsTable heading="" props={CustomGlyphProps} />
+<TSMorphProps exportName="CustomGlyphProps" packageName="@atlaskit/icon" />

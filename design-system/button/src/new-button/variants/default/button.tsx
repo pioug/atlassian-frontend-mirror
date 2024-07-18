@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 
 import { type CommonButtonVariantProps } from '../types';
@@ -48,17 +48,13 @@ const Button = React.memo(
 			spacing,
 			testId,
 			type = 'button',
-			UNSAFE_iconAfter_size,
-			UNSAFE_iconBefore_size,
 			...unsafeRest
 		},
 		ref,
 	) {
 		// @ts-expect-error
 		const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
-		const rest = getBooleanFF(
-			'platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw',
-		)
+		const rest = fg('platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw')
 			? saferRest
 			: unsafeRest;
 
@@ -90,8 +86,6 @@ const Button = React.memo(
 			shouldFitContainer,
 			spacing,
 			testId,
-			UNSAFE_iconAfter_size,
-			UNSAFE_iconBefore_size,
 		});
 
 		return (

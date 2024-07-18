@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 27.9.5
+
+### Patch Changes
+
+- [#121107](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121107)
+  [`29baf02f8e090`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29baf02f8e090) -
+  [ux] Remove FF platform.linking-platform.smart-card.fix-embed-preview-url-query-params
+- Updated dependencies
+
 ## 27.9.4
 
 ### Patch Changes

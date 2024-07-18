@@ -35,7 +35,7 @@ import {
 	type MediaTraceContext,
 	type PerformanceAttributes,
 } from '@atlaskit/media-common';
-import { createMediaStoreError, createRateLimitedError } from '@atlaskit/media-test-helpers';
+import { createMediaStoreError, createRateLimitedError } from '@atlaskit/media-client/test-helpers';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
 import { MediaCardError } from '../../errors';
 

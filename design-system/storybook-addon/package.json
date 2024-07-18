@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/storybook-addon-design-system",
-	"version": "0.8.0",
+	"version": "1.0.0",
 	"description": "Design token storybook addon",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -15,11 +15,12 @@
 			"category": "Tooling"
 		}
 	},
+	"scripts": {
+		"build": "tsup"
+	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
+	"type": "module",
+	"main": "src/index.tsx",
 	"typesVersions": {
 		">=4.5 <4.9": {
 			"*": [
@@ -34,17 +35,38 @@
 		".": "./src/index.tsx"
 	},
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.tsx",
+		"./preview": "./preview.js",
+		"./preset": "./preset.js",
+		"./manager": "./manager.js",
+		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^1.55.0",
+		"@atlaskit/tokens": "^1.56.0",
 		"@babel/runtime": "^7.0.0",
-		"@storybook/addons": "^6.4.0",
-		"@storybook/api": "^6.4.0",
-		"@storybook/components": "^6.4.0"
+		"@storybook/components": "^8.1.0",
+		"@storybook/icons": "^1.2.9",
+		"@storybook/manager-api": "^8.1.10",
+		"@storybook/preview-api": "^8.1.10",
+		"@storybook/types": "8.0.0",
+		"tsup": "^8.0.2"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"bundler": {
+		"exportEntries": [
+			"src/index.tsx"
+		],
+		"managerEntries": [
+			"src/manager.tsx"
+		],
+		"previewEntries": [
+			"src/preview.tsx"
+		],
+		"nodeEntries": [
+			"src/preset.tsx"
+		]
 	},
 	"techstack": {
 		"@atlassian/frontend": {

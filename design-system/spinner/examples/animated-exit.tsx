@@ -11,6 +11,7 @@ import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Spinner from '../src';
 
@@ -19,6 +20,7 @@ type Phase = 'stopped' | 'loading' | 'ready';
 const layoutStyles = css({
 	display: 'flex',
 	justifyContent: 'center',
+	gap: token('space.200', '16px'),
 });
 
 const columnStyles = css({
@@ -44,11 +46,23 @@ const spinnerStyles = css({ position: 'absolute' });
 function Harness({
 	children,
 	title,
+	buttonLabel,
 }: {
 	children: (phase: Phase) => React.ReactElement;
 	title: string;
+	buttonLabel: string;
 }) {
 	const [phase, setPhase] = useState<Phase>('stopped');
+	const liveRegionAnnouncement = (() => {
+		switch (phase) {
+			case 'loading':
+				return 'Loading';
+			case 'ready':
+				return 'Avatar loading completed';
+			default:
+				return null;
+		}
+	})();
 
 	useEffect(
 		function onPhaseChange() {
@@ -63,8 +77,11 @@ function Harness({
 	return (
 		<div css={columnStyles}>
 			<h4 css={headingStyles}>{title}</h4>
+			<VisuallyHidden>
+				<div aria-live="polite">{liveRegionAnnouncement}</div>
+			</VisuallyHidden>
 			<Button onClick={() => setPhase('loading')} isDisabled={phase === 'loading'}>
-				{phase === 'loading' ? 'running' : 'start'}
+				{buttonLabel}
 			</Button>
 			<div css={loadingContainerStyles}>{children(phase)}</div>
 		</div>
@@ -73,7 +90,7 @@ function Harness({
 
 function NotAnimated() {
 	return (
-		<Harness title="No exit animation">
+		<Harness title="No exit animation" buttonLabel="Load avatar without animation">
 			{(phase: Phase) => (
 				<React.Fragment>
 					{phase === 'ready' && <Avatar size="xlarge" />}
@@ -90,7 +107,7 @@ function NotAnimated() {
 
 function Animated() {
 	return (
-		<Harness title="With cross fading">
+		<Harness title="With cross fading" buttonLabel="Load avatar with animation">
 			{(phase: Phase) => (
 				<React.Fragment>
 					<ExitingPersistence appear>

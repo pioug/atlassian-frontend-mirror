@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "27.3.2",
+	"version": "27.3.4",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,7 +65,7 @@
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-state": "^1.1.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tokens": "^1.55.0",
+		"@atlaskit/tokens": "^1.56.0",
 		"@atlassian/feature-flags-test-utils": "0.2.3",
 		"@emotion/react": "^11.7.1",
 		"@types/deep-equal": "^1.0.1",

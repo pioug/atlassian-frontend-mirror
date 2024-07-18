@@ -6,13 +6,14 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod, Site } from '../../../common/types';
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { basicSearchInputMessages } from '../../common/modal/basic-search-input/messages';
+import { ModeSwitcher, type ModeSwitcherPropsOption } from '../../common/modal/mode-switcher';
 import { FILTER_SELECTION_DEBOUNCE_MS } from '../../common/modal/popup-select/constants';
 import { type SelectOption } from '../../common/modal/popup-select/types';
 import { BasicFilters } from '../basic-filters';
@@ -20,7 +21,6 @@ import { useHydrateJqlQuery } from '../basic-filters/hooks/useHydrateJqlQuery';
 import { type BasicFilterFieldType, type SelectedOptionsMap } from '../basic-filters/types';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraJQLEditor } from '../jql-editor';
-import { ModeSwitcher, type ModeSwitcherPropsOption } from '../mode-switcher';
 import {
 	type JiraIssueDatasourceParameters,
 	type JiraIssueDatasourceParametersQuery,
@@ -89,7 +89,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 	const [filterSelections, setFilterSelections] = useState<SelectedOptionsMap>({});
 
 	const showBasicFilters = useMemo(() => {
-		if (getBooleanFF('platform.linking-platform.datasource.show-jlol-basic-filters')) {
+		if (fg('platform.linking-platform.datasource.show-jlol-basic-filters')) {
 			return true;
 		}
 		return false;

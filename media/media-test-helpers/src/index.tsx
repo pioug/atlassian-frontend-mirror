@@ -157,11 +157,6 @@ export { exampleMediaFeatureFlags } from './example-mediaFeatureFlags';
 export { dataURItoBlob } from './mockData/utils';
 export { mapDataUriToBlob } from './utils/index';
 
-export {
-	createPollingMaxAttemptsError,
-	createRateLimitedError,
-	createMediaStoreError,
-} from './mediaClientErrors';
 export { default as FeatureFlagsWrapper } from './featureFlagsWrapper';
 export {
 	// Simulation tools

@@ -1,5 +1,51 @@
 # @atlaskit/button
 
+## 19.0.0
+
+### Major Changes
+
+- [#120669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120669)
+  [`9e1c531090ea4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e1c531090ea4) -
+  Removed these deprecated props for overriding icon sizes:
+
+  - `UNSAFE_size`
+  - `UNSAFE_iconBefore_size`
+  - `UNSAFE_iconAfter_size`
+
+  See
+  [the examples for overriding icon props](https://atlassian.design/components/button/examples#overriding-icon-props)
+  for the new method of customizing icon sizes in buttons. To automate migration of these props, use
+  [the button codemod](https://atlassian.design/components/button/button-legacy/migration-guide#use-the-codemod-for-automated-migration-assistance).
+
+- [#121331](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121331)
+  [`a8c984f9b3956`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8c984f9b3956) -
+  ButtonGroup's deprecated `appearance` prop has been removed. Apply the `appearance` prop on each
+  button instead.
+
+  **Before**:
+
+  ```jsx
+  <ButtonGroup appearance="primary">
+  	<Button>First button</Button>
+  	<Button>Second button</Button>
+  	<Button>Third button</Button>
+  </ButtonGroup>
+  ```
+
+  **After**:
+
+  ```jsx
+  <ButtonGroup>
+  	<Button appearance="primary">First button</Button>
+  	<Button appearance="primary">Second button</Button>
+  	<Button appearance="primary">Third button</Button>
+  </ButtonGroup>
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.4.1
 
 ### Patch Changes

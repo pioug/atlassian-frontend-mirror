@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.55.0",
+		"@atlaskit/tokens": "^1.56.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
@@ -50,7 +50,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/link-test-helpers": "^7.0.0",
-		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@types/linkify-it": "^3.0.2",

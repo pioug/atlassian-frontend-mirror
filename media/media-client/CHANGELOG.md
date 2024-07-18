@@ -1,5 +1,22 @@
 # @atlaskit/media-client
 
+## 27.3.4
+
+### Patch Changes
+
+- [#120529](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120529)
+  [`dc8b7900f9d1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc8b7900f9d1b) -
+  fix artifacts cdn url
+
+## 27.3.3
+
+### Patch Changes
+
+- [#121438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121438)
+  [`6fc64e2707215`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fc64e2707215) -
+  Exported new test helpers createPollingMaxAttemptsError, createRateLimitedError,
+  createServerUnauthorizedError, createMediaStoreError
+
 ## 27.3.2
 
 ### Patch Changes

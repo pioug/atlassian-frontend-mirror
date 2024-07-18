@@ -1,9 +1,14 @@
-import __noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
-import { type ThemeOptionsSchema } from '../../theme-config';
+import { type ThemeIdsWithOverrides, type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
+
+import {
+	mainThemes,
+	verifyBrandRefreshColors,
+	verifyNonBrandRefreshColors,
+} from './brand-refresh-assertion-helper';
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {
 	brandColor: '#ff0000',
@@ -382,29 +387,65 @@ describe('getThemeStyles', () => {
 					},
 				]);
 			},
-			async () => {
-				const results = await getThemeStyles('all');
+			(ff) => {
+				const ensureNoVisualRefreshThemes = (results: ThemeStyles[]) => {
+					if (
+						results.find((x) => x.id === 'light-brand-refresh') ||
+						results.find((x) => x.id === 'dark-brand-refresh')
+					) {
+						throw new Error(
+							`Results should not contain light-brand-refresh and dark-brand-refresh entries.`,
+						);
+					}
+				};
+				const assertThemeDataIsCorrect = (results: ThemeStyles[]) => {
+					expect(getThemeData(results)).toEqual([
+						{ id: 'light', attrs: { 'data-theme': 'light' } },
+						{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+						{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+						{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
+						{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
+						{ id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
+						{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+						{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+						{
+							id: 'typography-minor3',
+							attrs: { 'data-theme': 'typography-minor3' },
+						},
+					]);
+				};
+				const testWithVisualRefreshVariation = async (
+					verify: (css: string, id: ThemeIdsWithOverrides) => void,
+				) => {
+					const results = await getThemeStyles('all');
 
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+					ensureNoVisualRefreshThemes(results);
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
-					{ id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
-					{ id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
-					{
-						id: 'typography-minor3',
-						attrs: { 'data-theme': 'typography-minor3' },
+					// Check that CSS is defined for each result
+					// Regular expression to find the --ds-text variable and its value
+					results.forEach((result) => {
+						const id = result.id;
+						const css = result.css;
+						expect(css).toBeDefined();
+						if (mainThemes.includes(id)) {
+							verify(css, id);
+						}
+					});
+
+					assertThemeDataIsCorrect(results);
+				};
+
+				return ffTest(
+					'platform-component-visual-refresh',
+					async () => {
+						await testWithVisualRefreshVariation(verifyBrandRefreshColors);
 					},
-				]);
+					async () => {
+						await testWithVisualRefreshVariation(verifyNonBrandRefreshColors);
+					},
+					ff,
+				);
 			},
 		);
 	});

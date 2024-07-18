@@ -20,7 +20,6 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const baseData: JsonLd.Response['data'] = {
 	'@type': 'Object',
@@ -118,58 +117,24 @@ describe('EmbedCard view component', () => {
 		});
 
 		describe('FF fix embed preview url query params', () => {
-			ffTest.on(
-				'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
-				'FF for handling urls with # on',
-				() => {
-					it.each([PROVIDER_KEYS_WITH_THEMING])(
-						'should add themeState query param if theming is supported',
-						(providerKey) => {
-							const cardStateOverrideWithThemeSupport: any = {
-								...cardStateOverride,
-								details: {
-									...cardStateOverride.details,
-									meta: {
-										key: providerKey,
-										access: 'granted',
-										visibility: 'public',
-									},
-								},
-							};
-							const { iframeEl } = setup(cardStateOverrideWithThemeSupport, expectedUrl);
-
-							expect(iframeEl.getAttribute('src')).toEqual(
-								`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+colorMode%3Adark`,
-							);
+			it.each([PROVIDER_KEYS_WITH_THEMING])(
+				'should add themeState query param if theming is supported',
+				(providerKey) => {
+					const cardStateOverrideWithThemeSupport: any = {
+						...cardStateOverride,
+						details: {
+							...cardStateOverride.details,
+							meta: {
+								key: providerKey,
+								access: 'granted',
+								visibility: 'public',
+							},
 						},
-					);
-				},
-			);
+					};
+					const { iframeEl } = setup(cardStateOverrideWithThemeSupport, expectedUrl);
 
-			ffTest.off(
-				'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
-				'FF for handling urls with # off',
-				() => {
-					it.each([PROVIDER_KEYS_WITH_THEMING])(
-						'should add themeState query param if theming is supported',
-						(providerKey) => {
-							const cardStateOverrideWithThemeSupport: any = {
-								...cardStateOverride,
-								details: {
-									...cardStateOverride.details,
-									meta: {
-										key: providerKey,
-										access: 'granted',
-										visibility: 'public',
-									},
-								},
-							};
-							const { iframeEl } = setup(cardStateOverrideWithThemeSupport, expectedUrl);
-
-							expect(iframeEl.getAttribute('src')).toEqual(
-								`${expectedPreviewUrl}?themeState=dark%3Adark%20light%3Alight%20spacing%3Aspacing%20colorMode%3Adark`,
-							);
-						},
+					expect(iframeEl.getAttribute('src')).toEqual(
+						`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+colorMode%3Adark`,
 					);
 				},
 			);

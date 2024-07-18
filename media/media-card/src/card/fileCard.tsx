@@ -1,4 +1,4 @@
-import { type UIAnalyticsEvent, type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
@@ -114,8 +114,6 @@ export interface FileCardProps extends CardEventProps {
 	readonly shouldHideTooltip?: boolean;
 }
 
-export type FileCardBaseProps = FileCardProps & WithAnalyticsEventsProps;
-
 const LoadedCardView = fg('platform.media-experience.card-views-refactor_b91lr')
 	? CardViews
 	: CardView;
@@ -147,9 +145,9 @@ export const FileCard = ({
 	mediaViewerItems,
 	onClick,
 	onMouseEnter,
-	createAnalyticsEvent,
 	videoControlsWrapperRef,
-}: FileCardBaseProps) => {
+}: FileCardProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 	//----------------------------------------------------------------//
 	//------------ State, Refs & Initial Values ----------------------//
 	//----------------------------------------------------------------//

@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 8.10.1
+
+### Patch Changes
+
+- [#121046](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121046)
+  [`06f31de41af3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06f31de41af3a) -
+  Upgrading react version to 18
+
 ## 8.10.0
 
 ### Minor Changes

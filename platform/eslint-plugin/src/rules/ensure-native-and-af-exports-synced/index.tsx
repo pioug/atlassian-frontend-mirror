@@ -14,6 +14,9 @@ const exportsValidationExceptions: ExportsValidationExceptions = {
 	'@atlaskit/tokens': {
 		ignoredAfExportKeys: ['./babel-plugin'],
 	},
+	'@atlaskit/storybook-addon-design-system': {
+		ignoredAfExportKeys: ['.'],
+	},
 };
 
 const rule: Rule.RuleModule = {

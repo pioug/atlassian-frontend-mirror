@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 78.0.9
+
+### Patch Changes
+
+- [#121438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121438)
+  [`6fc64e2707215`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fc64e2707215) -
+  Added more accurate SVG status in DOM
+- [#121438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121438)
+  [`6fc64e2707215`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fc64e2707215) -
+  Replaced Analytics event generator HOC by Analytics Hook event generator
+- Updated dependencies
+
 ## 78.0.8
 
 ### Patch Changes

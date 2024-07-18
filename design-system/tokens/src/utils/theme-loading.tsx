@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import themeImportMap from '../artifacts/theme-import-map';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { type ThemeIdsWithOverrides } from '../theme-config';
@@ -26,7 +28,11 @@ export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides) => {
 };
 
 export const loadThemeCss = async (themeId: ThemeIdsWithOverrides) => {
+	if ((themeId === 'light' || themeId === 'dark') && fg('platform-component-visual-refresh')) {
+		themeId += '-brand-refresh';
+	}
 	const { default: themeCss } = await themeImportMap[themeId]();
+
 	return themeCss;
 };
 

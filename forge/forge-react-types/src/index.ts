@@ -57,6 +57,8 @@ export type {
 	ToggleProps,
 	TooltipProps,
 	ValidMessageProps,
+	PopupProps,
+	InlineEditProps,
 } from './components/__generated__';
 
 export type {

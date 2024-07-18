@@ -46,12 +46,16 @@ export interface ConnectedReactionsViewProps
 	 * This was initially implemented with a sync and Async versions and will be replaced with just a sync Store in a future release (Please use only the sync version)
 	 */
 	store: StorePropInput;
+	/**
+	 * Optional boolean to control if particle animation on reactions appear
+	 */
+	particleEffectByEmojiEnabled?: boolean;
 }
 
 /**
  * State Props required for <Reactions />
  */
-type StateProps = Pick<ReactionsProps, 'reactions' | 'status' | 'flash'>;
+type StateProps = Pick<ReactionsProps, 'reactions' | 'status' | 'flash' | 'particleEffectByEmoji'>;
 /**
  * Dispatch Props required for <Reactions />
  */
@@ -63,7 +67,12 @@ type DispatchProps = Pick<
 /**
  * Export the mapper function outside the component so easier to do unit tests
  */
-export const mapStateToPropsHelper = (containerAri: string, ari: string, state?: State) => {
+export const mapStateToPropsHelper = (
+	containerAri: string,
+	ari: string,
+	particleEffectByEmojiEnabled?: boolean,
+	state?: State,
+) => {
 	const reactionsState = state && state.reactions[`${containerAri}|${ari}`];
 
 	if (!state || !reactionsState) {
@@ -75,6 +84,9 @@ export const mapStateToPropsHelper = (containerAri: string, ari: string, state?:
 				reactions: reactionsState.reactions,
 				status: reactionsState.status,
 				flash: state.flash[`${containerAri}|${ari}`],
+				particleEffectByEmoji: particleEffectByEmojiEnabled
+					? state.particleEffectByEmoji[`${containerAri}|${ari}`]
+					: {},
 			};
 		case ReactionStatus.error:
 			return {
@@ -109,7 +121,7 @@ export const mapDispatchToPropsHelper = (actions: Actions, containerAri: string,
 export const ConnectedReactionsView = (
 	props: React.PropsWithChildren<ConnectedReactionsViewProps>,
 ) => {
-	const { ari, containerAri, store, ...rest } = props;
+	const { ari, containerAri, store, particleEffectByEmojiEnabled, ...rest } = props;
 	/**
 	 * Reference to the <Reactions /> component instance mandatory props
 	 */
@@ -143,9 +155,9 @@ export const ConnectedReactionsView = (
 	 */
 	const mapStateToProps: (state?: State) => StateProps = useCallback(
 		(state) => {
-			return mapStateToPropsHelper(containerAri, ari, state);
+			return mapStateToPropsHelper(containerAri, ari, particleEffectByEmojiEnabled, state);
 		},
-		[containerAri, ari],
+		[containerAri, ari, particleEffectByEmojiEnabled],
 	);
 
 	/**

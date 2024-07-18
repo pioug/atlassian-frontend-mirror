@@ -3,6 +3,7 @@ import path from 'path';
 import { type Config, type Core } from 'style-dictionary';
 
 import defaultPalette from '../../schema/palettes/palette';
+import brandRefreshPalette from '../../schema/palettes/palette-brand-refresh';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
@@ -26,6 +27,7 @@ import fontTransform from './transformers/web-font';
 const createGlobalConfig = (schemaInputDir: string): Config => ({
 	source: [`${schemaInputDir}/**/*.tsx`],
 	include: [
+		path.join(THEME_INPUT_DIR, 'atlassian-light-brand-refresh/**/*.tsx'),
 		path.join(THEME_INPUT_DIR, 'atlassian-light/**/*.tsx'),
 		path.join(THEME_INPUT_DIR, 'atlassian-spacing/**/*.tsx'),
 		// TODO this is the temporary 'default'
@@ -47,6 +49,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
 		'font/web': fontTransform,
 		'box-shadow/figma': boxShadowTransform(defaultPalette),
 		'color/palette': paletteTransform({
+			...brandRefreshPalette,
 			...defaultPalette,
 			...spacingScale,
 			...typographyPalette,

@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.26.0
+
+### Minor Changes
+
+- [#121529](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121529)
+  [`792ec81a6083d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/792ec81a6083d) -
+  Export InlineEdit and Popup prop types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.25.0
 
 ### Minor Changes

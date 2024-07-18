@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.5.10",
+	"version": "2.5.11",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/avatar-group": "^9.9.0",
 		"@atlaskit/badge": "^16.3.0",
-		"@atlaskit/button": "^18.4.0",
+		"@atlaskit/button": "^19.0.0",
 		"@atlaskit/datetime-picker": "^13.7.0",
 		"@atlaskit/dropdown-menu": "^12.14.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
@@ -75,7 +75,7 @@
 		"@atlaskit/tag": "^12.4.0",
 		"@atlaskit/textfield": "6.4.2",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.55.0",
+		"@atlaskit/tokens": "^1.56.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.4",
 		"@atlaskit/width-detector": "^4.2.0",
@@ -178,13 +178,13 @@
 		"platform.linking-platform.datasources.enable-sentry-client": {
 			"type": "boolean"
 		},
-		"platform.linking-platform.datasources.use-refactored-config-modal": {
-			"type": "boolean"
-		},
 		"platform.editor-update-tag-link-and-color_x6hcf": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.limit-total-results_8wqcd": {
+			"type": "boolean"
+		},
+		"platform-datasources-use-refactored-config-modal": {
 			"type": "boolean"
 		}
 	}

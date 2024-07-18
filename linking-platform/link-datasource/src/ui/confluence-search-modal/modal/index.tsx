@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 /** @jsx jsx */
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -25,12 +26,11 @@ import {
 	DatasourceDisplay,
 	DatasourceSearchMethod,
 } from '../../../analytics/types';
-import { type DisplayViewModes, type Site } from '../../../common/types';
+import { type Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
 import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
-import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
 import { AccessRequired } from '../../common/error-state/access-required';
@@ -41,15 +41,21 @@ import { InitialStateView } from '../../common/initial-state-view';
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
-import { useDatasourceContext } from '../../common/modal/datasource-context/DatasourceContext';
-import { DatasourceContextProvider } from '../../common/modal/datasource-context/DatasourceContextProvider';
+import {
+	DatasourceContextProvider,
+	useDatasourceContext,
+} from '../../common/modal/datasource-context';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
-import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
+import DatasourcesTableInModalPreview from '../../common/modal/datasources-table-in-modal-preview';
+import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher';
+import {
+	DatasourceViewModeProvider,
+	useViewModeContext,
+} from '../../common/modal/mode-switcher/useViewModeContext';
+import { type DateRangeType } from '../../common/modal/popup-select/types';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
-import DatasourcesTableUsingContext from '../../datasources-table-in-modal-preview';
 import { EmptyState } from '../../issue-like-table';
-import { getColumnAction } from '../../issue-like-table/utils';
 import { type SelectedOptionsMap } from '../basic-filters/types';
 import ConfluenceSearchContainer from '../confluence-search-container';
 import {
@@ -61,25 +67,70 @@ import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-sta
 import { confluenceSearchModalMessages } from './messages';
 import { PlainConfluenceSearchConfigModal as PlainConfluenceSearchConfigModalOld } from './ModalOld';
 
+const DEFAULT_VIEW_MODE = 'table';
+
 const inputContainerStyles = xcss({
 	alignItems: 'baseline',
 	display: 'flex',
 	minHeight: '72px',
 });
 
+const isValidParameters = (
+	parameters: Partial<ConfluenceSearchDatasourceParameters> | undefined,
+): parameters is ConfluenceSearchDatasourceParameters =>
+	!!(
+		parameters &&
+		parameters.cloudId &&
+		(parameters.searchString !== undefined ||
+			parameters.contributorAccountIds?.length ||
+			parameters.lastModified ||
+			parameters.lastModifiedFrom ||
+			parameters.lastModifiedTo)
+	);
+
+const useUpdateParametersOnFormUpdate = (
+	cloudId: string,
+	searchString: string | undefined,
+	lastModified: { value: DateRangeType | undefined; from?: string; to?: string } | undefined,
+	contributorAccountIds: string[],
+	overrideParameters: Partial<ConfluenceSearchDatasourceParameters> | undefined,
+) => {
+	const { setParameters } = useDatasourceContext();
+
+	useEffect(() => {
+		setParameters((parameters) => {
+			return {
+				...parameters,
+				cloudId: cloudId || '',
+				searchString,
+				lastModified: lastModified?.value,
+				lastModifiedFrom: lastModified?.from,
+				lastModifiedTo: lastModified?.to,
+				contributorAccountIds: contributorAccountIds.length > 0 ? contributorAccountIds : undefined,
+				...(overrideParameters ?? {}),
+			};
+		});
+	}, [
+		cloudId,
+		searchString,
+		lastModified,
+		contributorAccountIds,
+		setParameters,
+		overrideParameters,
+	]);
+};
+
 export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
 	const {
 		datasourceId,
 		onCancel,
 		onInsert,
-		viewMode = 'table',
 		parameters: initialParameters,
 		url: urlBeingEdited,
-		visibleColumnKeys: initialVisibleColumnKeys,
 		disableDisplayDropdown = false,
 		overrideParameters,
 	} = props;
-	const [currentViewMode, setCurrentViewMode] = useState<DisplayViewModes>(viewMode);
+	const { currentViewMode } = useViewModeContext();
 	const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
 	const { availableSites, selectedSite: selectedConfluenceSite } = useAvailableSites(
 		'confluence',
@@ -88,7 +139,6 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 	const [searchString, setSearchString] = useState<string | undefined>(
 		initialParameters?.searchString,
 	);
-	const [visibleColumnKeys, setVisibleColumnKeys] = useState(initialVisibleColumnKeys);
 	const [contributorAccountIds, setContributorAccountIds] = useState<string[]>(
 		initialParameters?.contributorAccountIds || [],
 	);
@@ -105,50 +155,29 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 	// analytics related parameters
 	const searchCount = useRef(0);
 	const userInteractions = useUserInteractions();
-	const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
-	const parameters = useMemo(
-		() => ({
-			...initialParameters,
-			cloudId: cloudId || '',
-			searchString,
-			lastModified: lastModified?.value,
-			lastModifiedFrom: lastModified?.from,
-			lastModifiedTo: lastModified?.to,
-			contributorAccountIds: contributorAccountIds?.length > 0 ? contributorAccountIds : undefined,
-		}),
-		[initialParameters, cloudId, searchString, lastModified, contributorAccountIds],
+	useUpdateParametersOnFormUpdate(
+		cloudId,
+		searchString,
+		lastModified,
+		contributorAccountIds,
+		overrideParameters,
 	);
-
-	const isParametersSet = useMemo(
-		() => !!cloudId && Object.values(parameters ?? {}).filter((v) => v !== undefined).length > 1,
-		[cloudId, parameters],
-	);
-
-	const parametersToSend = useMemo(() => {
-		if (!isParametersSet) {
-			return undefined;
-		}
-		return { ...parameters, ...(overrideParameters ?? {}) };
-	}, [parameters, overrideParameters, isParametersSet]);
 
 	const {
-		reset,
-		status,
-		onNextPage,
-		responseItems,
-		hasNextPage,
-		columns,
-		defaultVisibleColumnKeys,
-		loadDatasourceDetails,
-		totalCount,
-		extensionKey = null,
-		destinationObjectTypes,
-	} = useDatasourceTableState({
-		datasourceId,
-		parameters: parametersToSend,
-		fieldKeys: visibleColumnKeys,
-	});
+		visibleColumnKeys,
+		tableState: {
+			reset,
+			status,
+			responseItems,
+			extensionKey = null,
+			destinationObjectTypes,
+			totalCount,
+			columns,
+		},
+		visibleColumnCount,
+		parameters,
+	} = useDatasourceContext();
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -185,62 +214,10 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 		[reset, userInteractions],
 	);
 
-	useEffect(() => {
-		const newVisibleColumnKeys =
-			!initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
-				? defaultVisibleColumnKeys
-				: initialVisibleColumnKeys;
-
-		visibleColumnCount.current = newVisibleColumnKeys.length;
-		setVisibleColumnKeys(newVisibleColumnKeys);
-	}, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
-
 	const siteSelectorLabel =
 		availableSites && availableSites.length > 1
 			? confluenceSearchModalMessages.insertIssuesTitleManySites
 			: confluenceSearchModalMessages.insertIssuesTitle;
-
-	// TODO: common functionality of all modals refactor in EDM-9573
-	const handleVisibleColumnKeysChange = useCallback(
-		(newVisibleColumnKeys: string[] = []) => {
-			const columnAction = getColumnAction(visibleColumnKeys || [], newVisibleColumnKeys);
-			userInteractions.add(columnAction);
-			visibleColumnCount.current = newVisibleColumnKeys.length;
-
-			setVisibleColumnKeys(newVisibleColumnKeys);
-		},
-		[visibleColumnKeys, userInteractions],
-	);
-
-	const confluenceSearchTable = useMemo(() => {
-		return (
-			<ContentContainer withTableBorder>
-				<DatasourcesTableUsingContext
-					testId="confluence-search-datasource-table"
-					status={status}
-					columns={columns}
-					items={responseItems}
-					hasNextPage={hasNextPage}
-					visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-					onNextPage={onNextPage}
-					onLoadDatasourceDetails={loadDatasourceDetails}
-					onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
-					extensionKey={extensionKey}
-				/>
-			</ContentContainer>
-		);
-	}, [
-		status,
-		columns,
-		responseItems,
-		hasNextPage,
-		visibleColumnKeys,
-		defaultVisibleColumnKeys,
-		onNextPage,
-		loadDatasourceDetails,
-		handleVisibleColumnKeysChange,
-		extensionKey,
-	]);
 
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 
@@ -302,7 +279,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 				displayedColumnCount: visibleColumnCount.current,
 			});
 		}
-	}, [analyticsPayload, fireEvent, totalCount, isDataReady]);
+	}, [isDataReady, fireEvent, analyticsPayload, totalCount, visibleColumnCount]);
 
 	useEffect(() => {
 		const isResolved = status === 'resolved';
@@ -342,11 +319,14 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 				</ContentContainer>
 			);
 		}
-		return confluenceSearchTable;
+		return (
+			<ContentContainer withTableBorder>
+				<DatasourcesTableInModalPreview testId="confluence-search-datasource-table" />
+			</ContentContainer>
+		);
 	}, [
 		columns.length,
 		selectedConfluenceSiteUrl,
-		confluenceSearchTable,
 		resolvedWithNoResults,
 		status,
 		urlBeingEdited,
@@ -372,7 +352,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 	const { columnCustomSizes, wrappedColumnKeys } = useDatasourceContext();
 	const onInsertPressed = useCallback(
 		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
-			if (!isParametersSet || !cloudId || !confluenceSearchUrl) {
+			if (!parameters || !isValidParameters(parameters) || !confluenceSearchUrl) {
 				return;
 			}
 
@@ -411,10 +391,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 					buildDatasourceAdf<ConfluenceSearchDatasourceParameters>(
 						{
 							id: datasourceId,
-							parameters: {
-								...parametersToSend,
-								cloudId,
-							},
+							parameters: parameters,
 							views: [
 								{
 									type: 'table',
@@ -439,26 +416,20 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 			}
 		},
 		[
-			isParametersSet,
-			cloudId,
+			parameters,
+			confluenceSearchUrl,
 			analyticsPayload,
 			totalCount,
+			visibleColumnCount,
 			currentViewMode,
+			userInteractions,
 			onInsert,
-			confluenceSearchUrl,
 			datasourceId,
-			parametersToSend,
 			visibleColumnKeys,
 			columnCustomSizes,
 			wrappedColumnKeys,
-			userInteractions,
 		],
 	);
-
-	const handleViewModeChange = (selectedMode: DisplayViewModes) => {
-		userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
-		setCurrentViewMode(selectedMode);
-	};
 
 	const onSearch = useCallback(
 		(newSearchString: string, filters?: SelectedOptionsMap) => {
@@ -493,7 +464,10 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 	);
 
 	const isInsertDisabled =
-		!isParametersSet || status === 'rejected' || status === 'unauthorized' || status === 'loading';
+		!isValidParameters(parameters) ||
+		status === 'rejected' ||
+		status === 'unauthorized' ||
+		status === 'loading';
 
 	const getCancelButtonAnalyticsPayload = useCallback(() => {
 		return {
@@ -517,12 +491,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 							label={siteSelectorLabel}
 						/>
 					</ModalTitle>
-					{!hasNoConfluenceSites && !disableDisplayDropdown && (
-						<DisplayViewDropDown
-							onViewModeChange={handleViewModeChange}
-							viewMode={currentViewMode}
-						/>
-					)}
+					{!hasNoConfluenceSites && !disableDisplayDropdown && <DatasourceViewModeDropDown />}
 				</ModalHeader>
 				<ModalBody>
 					{!hasNoConfluenceSites ? (
@@ -531,7 +500,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 								<ConfluenceSearchContainer
 									isSearching={status === 'loading'}
 									onSearch={onSearch}
-									parameters={parameters}
+									parameters={isValidParameters(parameters) ? parameters : { cloudId: '' }}
 								/>
 							</Box>
 							{currentViewMode === 'inline'
@@ -596,12 +565,18 @@ export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
 	(props: ConfluenceSearchConfigModalProps) => (
 		<DatasourceExperienceIdProvider>
 			<UserInteractionsProvider>
-				{fg('platform.linking-platform.datasources.use-refactored-config-modal') ? (
+				{fg('platform-datasources-use-refactored-config-modal') ? (
 					<DatasourceContextProvider
+						datasourceId={props.datasourceId}
+						initialVisibleColumnKeys={props.visibleColumnKeys}
 						initialColumnCustomSizes={props.columnCustomSizes}
 						initialWrappedColumnKeys={props.wrappedColumnKeys}
+						initialParameters={props.parameters}
+						isValidParameters={isValidParameters}
 					>
-						<PlainConfluenceSearchConfigModal {...props} />
+						<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
+							<PlainConfluenceSearchConfigModal {...props} />
+						</DatasourceViewModeProvider>
 					</DatasourceContextProvider>
 				) : (
 					// TODO on cleanup 'use-refactored-config-modal' ff, delete `ModalOld.tsx` as well

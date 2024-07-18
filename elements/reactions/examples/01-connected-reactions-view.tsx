@@ -276,6 +276,24 @@ export default () => {
 							/>
 						}
 					/>
+
+					<hr />
+
+					{/* Example 11 */}
+					<Example
+						title={
+							'"ConnectedReactionsView" with a built in memory store and particle emojis enabled.'
+						}
+						body={
+							<ConnectedReactionsView
+								store={store}
+								containerAri={`${ExampleConstants.ContainerAriPrefix}1`}
+								ari={`${ExampleConstants.AriPrefix}1`}
+								emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
+								particleEffectByEmojiEnabled
+							/>
+						}
+					/>
 				</>
 			)}
 		</ExampleWrapper>

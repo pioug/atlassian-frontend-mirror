@@ -229,6 +229,39 @@ export default class RendererActions
 		return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
 	}
 
+	isRangeAnnotatable(range: Range | null): boolean {
+		try {
+			if (!range) {
+				return false;
+			}
+
+			const { startContainer, endContainer } = range;
+
+			if (
+				startContainer.parentElement?.closest('.ak-renderer-extension') ||
+				endContainer.parentElement?.closest('.ak-renderer-extension')
+			) {
+				return false;
+			}
+
+			return this.isValidAnnotationRange(range);
+		} catch {
+			// isValidAnnotationRange can fail when called inside nested renderers.
+			// while isRendererWithinRange guards against this to some degree -- the classnames
+			// are controlled by product -- and we don't have platform guarantees on them.
+			//
+			// Currently there is a mix of logic across the platform and confluence on determining
+			// positions that are annotatable. This is a defensive check to ensure we don't throw an error
+			// in cases where the range is not valid.
+			return false;
+		}
+	}
+
+	/**
+	 * This is replaced by `isRangeAnnotatable`.
+	 *
+	 * @deprecated
+	 **/
 	isRendererWithinRange(range: Range): boolean {
 		const { startContainer, endContainer } = range;
 

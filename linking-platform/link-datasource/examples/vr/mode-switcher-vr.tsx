@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { ModeSwitcher } from '../../src/ui/jira-issues-modal/mode-switcher';
+import { ModeSwitcher } from '../../src/ui/common/modal/mode-switcher';
 
 const exampleModes = [
 	{ value: 'basic', label: 'Basic' },

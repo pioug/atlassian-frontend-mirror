@@ -2,14 +2,15 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import { useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 
-import { setGlobalTheme, token } from '../src';
+import { token } from '../src';
+
+import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 
 const nonInteractiveStyles = {
 	sunken: {
@@ -143,14 +144,7 @@ const Box = ({ text, style }: { text: string; style: Record<string, string> }) =
 };
 
 export default () => {
-	useEffect(() => {
-		// If the theme has been set, dont do anything
-		if (document.documentElement.dataset.theme) {
-			return;
-		}
-		// Light theme is activated by default
-		setGlobalTheme({ colorMode: 'light' });
-	}, []);
+	useVrGlobalTheme();
 
 	return (
 		<div css={containerStyles}>

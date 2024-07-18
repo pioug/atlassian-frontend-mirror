@@ -95,11 +95,7 @@ const LinkItem = memo(
 				<MenuItemPrimitive
 					{...rest}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={
-						fg('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
-							? undefined
-							: UNSAFE_className
-					}
+					className={UNSAFE_className}
 					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 					overrides={overrides}
 					iconBefore={iconBefore}

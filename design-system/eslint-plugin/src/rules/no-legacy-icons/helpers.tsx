@@ -1,10 +1,5 @@
 import type { Rule } from 'eslint';
-import {
-	isNodeOfType,
-	type JSXAttribute,
-	type JSXOpeningElement,
-	type Node,
-} from 'eslint-codemod-utils';
+import { isNodeOfType, type JSXAttribute, type Node } from 'eslint-codemod-utils';
 
 import { getImportName } from '../utils/get-import-name';
 
@@ -160,61 +155,6 @@ export const createCantMigrateIdentifierError = (
 		},
 	};
 	pushManualError(locToString(node), errors, myError, packageName, exportName);
-};
-export const findUNSAFEProp = (iconAttr: JSXAttribute, button: JSXOpeningElement) => {
-	let UNSAFE_size: 'small' | 'large' | 'xlarge' | null = null;
-	const propName: 'iconAfter' | 'iconBefore' | 'icon' | null =
-		iconAttr.name.name === 'iconAfter' ||
-		iconAttr.name.name === 'iconBefore' ||
-		iconAttr.name.name === 'icon'
-			? iconAttr.name.name
-			: null;
-	const buttonAttributes = button.attributes;
-	const UNSAFE_propName: 'UNSAFE_iconAfter_size' | 'UNSAFE_iconBefore_size' | 'UNSAFE_size' | null =
-		propName === 'icon' ? `UNSAFE_size` : propName ? `UNSAFE_${propName}_size` : null;
-	const UNSAFE_size_index = buttonAttributes.findIndex(
-		(x) => UNSAFE_propName && 'name' in x && x.name && x.name.name === UNSAFE_propName,
-	);
-	let unsafeAttribute = UNSAFE_size_index !== -1 ? buttonAttributes[UNSAFE_size_index] : null;
-	if (
-		unsafeAttribute &&
-		isNodeOfType(unsafeAttribute, 'JSXAttribute') &&
-		unsafeAttribute.value &&
-		isNodeOfType(unsafeAttribute.value, 'Literal') &&
-		unsafeAttribute.value.value &&
-		['small', 'large', 'xlarge'].includes(unsafeAttribute.value.value as string)
-	) {
-		UNSAFE_size = unsafeAttribute.value.value as 'small' | 'large' | 'xlarge';
-	} else if (
-		unsafeAttribute &&
-		isNodeOfType(unsafeAttribute, 'JSXAttribute') &&
-		unsafeAttribute.value &&
-		isNodeOfType(unsafeAttribute.value, 'JSXExpressionContainer') &&
-		isNodeOfType(unsafeAttribute.value.expression, 'Literal') &&
-		['small', 'large', 'xlarge'].includes(unsafeAttribute.value.expression.value as string)
-	) {
-		UNSAFE_size = unsafeAttribute.value.expression.value as 'small' | 'large' | 'xlarge';
-	}
-	return { UNSAFE_size, UNSAFE_propName };
-};
-
-export const createCantMigrateUnsafeProp = (
-	node: Node,
-	propName: string,
-	value: string,
-	packageName: string,
-	iconName: string,
-	errors: errorsListManual,
-) => {
-	const myError: iconMigrationError = {
-		node,
-		messageId: 'cantMigrateUnsafeProp',
-		data: {
-			propName,
-			value,
-		},
-	};
-	pushManualError(locToString(node), errors, myError, packageName, iconName);
 };
 
 export const createCantFindSuitableReplacementError = (

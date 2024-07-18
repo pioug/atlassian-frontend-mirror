@@ -1,4 +1,3 @@
-import { type WithAnalyticsEventsProps, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { isFileIdentifier } from '@atlaskit/media-client';
 import { withMediaAnalyticsContext } from '@atlaskit/media-common';
 import React from 'react';
@@ -10,7 +9,7 @@ import { FileCard } from './fileCard';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export type CardBaseProps = CardProps & WithAnalyticsEventsProps & Partial<WrappedComponentProps>;
+export type CardBaseProps = CardProps & Partial<WrappedComponentProps>;
 
 export const CardBase = ({ identifier, ...otherProps }: CardBaseProps & WrappedComponentProps) => {
 	const innerContent = isFileIdentifier(identifier) ? (
@@ -27,9 +26,7 @@ export const Card: React.ComponentType<CardBaseProps> = withMediaAnalyticsContex
 	componentName: 'mediaCard',
 	component: 'mediaCard',
 })(
-	withAnalyticsEvents()(
-		injectIntl(CardBase, {
-			enforceContext: false,
-		}),
-	),
+	injectIntl(CardBase, {
+		enforceContext: false,
+	}),
 );

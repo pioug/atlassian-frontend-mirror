@@ -9,7 +9,7 @@ import { ClassNames, css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import FocusRing from '@atlaskit/focus-ring';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, type InlineProps, Stack, xcss } from '@atlaskit/primitives';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -233,11 +233,7 @@ const MenuItemPrimitive = ({
 	const spacing = useContext(SpacingContext);
 	const selectionStyle = useContext(SELECTION_STYLE_CONTEXT_DO_NOT_USE);
 	const renderTitle = (overrides && overrides.Title && overrides.Title.render) || defaultRender;
-	const UNSAFE_className = getBooleanFF(
-		'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-	)
-		? undefined
-		: UNSAFE_externalClassName;
+	const UNSAFE_className = UNSAFE_externalClassName;
 
 	return (
 		<ClassNames>
@@ -249,7 +245,7 @@ const MenuItemPrimitive = ({
 								cn([
 									positionRelativeStyles,
 									primitiveStyles,
-									getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles')
+									fg('platform.design-system-team.menu-tokenised-typography-styles')
 										? undefined
 										: primitiveBaseStyles,
 									spacingMapStyles[spacing],
@@ -290,7 +286,7 @@ const MenuItemPrimitive = ({
 											grow="fill"
 											xcss={
 												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles')
+												fg('platform.design-system-team.menu-tokenised-typography-styles')
 													? contentStyles
 													: [contentStyles, baseContentStyles]
 											}
@@ -298,9 +294,7 @@ const MenuItemPrimitive = ({
 											{renderTitle('span', {
 												children: title,
 												className: cn(
-													getBooleanFF(
-														'platform.design-system-team.menu-tokenised-typography-styles',
-													)
+													fg('platform.design-system-team.menu-tokenised-typography-styles')
 														? titleStyles
 														: undefined,
 													shouldTitleWrap ? wordBreakStyles : truncateStyles,
@@ -313,9 +307,7 @@ const MenuItemPrimitive = ({
 													css={[
 														descriptionStyles,
 														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-														getBooleanFF(
-															'platform.design-system-team.menu-tokenised-typography-styles',
-														)
+														fg('platform.design-system-team.menu-tokenised-typography-styles')
 															? tokenizedDescriptionStyles
 															: baseDescriptionStyles,
 														isDisabled && disabledDescriptionStyles,

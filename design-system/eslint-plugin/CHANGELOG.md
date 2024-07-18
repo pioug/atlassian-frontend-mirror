@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.11.1
+
+### Patch Changes
+
+- [#120669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120669)
+  [`9e1c531090ea4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e1c531090ea4) -
+  Dropped support for `UNSAFE` icon props in new buttons, which have now been removed.
+- Updated dependencies
+
 ## 10.11.0
 
 ### Minor Changes

@@ -4,7 +4,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes as ActionTypes } from './actions';
 import { createCommand } from './pm-plugins/plugin-factory';
@@ -96,7 +95,7 @@ export const _contentSplitByHardBreaks = (content: Array<Node>, schema: Schema):
 	return wrapperContent;
 };
 
-export const _extractListFromParagraphV2 = (
+export const extractListFromParagraph = (
 	node: Node,
 	parent: Node | null,
 	schema: Schema,
@@ -153,7 +152,7 @@ export const _extractListFromParagraphV2 = (
 			: chunksWithoutLeadingHardBreaks.slice(1);
 
 		// convert to list
-		const listItemNode = listItem.createAndFill(
+		const listItemNode = listItem?.createAndFill(
 			undefined,
 			paragraph.createChecked(undefined, restOfChunk),
 		);
@@ -224,128 +223,11 @@ export const _extractListFromParagraphV2 = (
 	return fragment;
 };
 
-const extractListFromParagraph = (node: Node, parent: Node | null, schema: Schema): Fragment => {
-	const { hardBreak, bulletList, orderedList } = schema.nodes;
-	const content: Array<Node> = mapChildren(node.content, (node) => node);
-
-	const listTypes = [bulletList, orderedList];
-
-	// wrap each line into a listItem and a containing list
-	const listified = content
-		.map((child, index) => {
-			const listMatch = getListType(child, schema);
-			const prevChild = index > 0 && content[index - 1];
-
-			// only extract list when preceded by a hardbreak
-			if (prevChild && prevChild.type !== hardBreak) {
-				return child;
-			}
-
-			if (!listMatch || !child.text) {
-				return child;
-			}
-
-			const [nodeType, length] = listMatch;
-
-			// convert to list item
-			const newText = child.text.substr(length);
-			const listItemNode = schema.nodes.listItem.createAndFill(
-				undefined,
-				schema.nodes.paragraph.createChecked(
-					undefined,
-					newText.length ? schema.text(newText) : undefined,
-				),
-			);
-
-			if (!listItemNode) {
-				return child;
-			}
-
-			const newList = nodeType.createChecked(undefined, [listItemNode]);
-			// Check whether our new list is valid content in our current structure,
-			// otherwise dont convert.
-			if (parent && !parent.type.validContent(Fragment.from(newList))) {
-				return child;
-			}
-
-			return newList;
-		})
-		.filter((child, idx, arr) => {
-			// remove hardBreaks that have a list node on either side
-
-			// wasn't hardBreak, leave as-is
-			if (child.type !== hardBreak) {
-				return child;
-			}
-
-			if (idx > 0 && listTypes.indexOf(arr[idx - 1].type) > -1) {
-				// list node on the left
-				return null;
-			}
-
-			if (idx < arr.length - 1 && listTypes.indexOf(arr[idx + 1].type) > -1) {
-				// list node on the right
-				return null;
-			}
-
-			return child;
-		});
-
-	// try to join
-	const mockState = EditorState.create({
-		schema,
-	});
-
-	let joinedListsTr: Transaction | undefined;
-	const mockDispatch = (tr: Transaction) => {
-		joinedListsTr = tr;
-	};
-
-	autoJoin(
-		(state, dispatch) => {
-			if (!dispatch) {
-				return false;
-			}
-
-			// Return false to prevent replaceWith from wrapping the text node in a paragraph
-			// paragraph since that will be done later. If it's done here, it will fail
-			// the paragraph.validContent check.
-			// Dont return false if there are lists, as they arent validContent for paragraphs
-			// and will result in hanging textNodes
-			const containsList = listified.some(
-				(node) => node.type === bulletList || node.type === orderedList,
-			);
-			if (listified.some((node) => node.isText) && !containsList) {
-				return false;
-			}
-
-			dispatch(state.tr.replaceWith(0, 2, listified));
-			return true;
-		},
-		(before, after) => isListNode(before) && isListNode(after),
-	)(mockState, mockDispatch);
-
-	const fragment = joinedListsTr ? joinedListsTr.doc.content : Fragment.from(listified);
-
-	// try to re-wrap fragment in paragraph (which is the original node we unwrapped)
-	const { paragraph } = schema.nodes;
-	if (paragraph.validContent(fragment)) {
-		return Fragment.from(paragraph.create(node.attrs, fragment, node.marks));
-	}
-
-	// fragment now contains other nodes, get Prosemirror to wrap with ContentMatch later
-	return fragment;
-};
-
 // above will wrap everything in paragraphs for us
 export const upgradeTextToLists = (slice: Slice, schema: Schema): Slice => {
 	return mapSlice(slice, (node, parent) => {
 		if (node.type === schema.nodes.paragraph) {
-			if (getBooleanFF('platform.editor.extractlistfromparagraphv2')) {
-				return _extractListFromParagraphV2(node, parent, schema);
-			} else {
-				return extractListFromParagraph(node, parent, schema);
-			}
+			return extractListFromParagraph(node, parent, schema);
 		}
 
 		return node;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f18ac1c27f1c5b0e65357c7cc43503e8>>
+ * @codegen <<SignedSource::faf9c2706cf34f43a11e8efe657678c9>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -62,6 +62,7 @@ export type ActiveTokens =
 	| 'color.icon.success'
 	| 'color.icon.discovery'
 	| 'color.icon.information'
+	| 'color.icon.subtlest'
 	| 'color.icon.subtle'
 	| 'color.border'
 	| 'color.border.accent.lime'

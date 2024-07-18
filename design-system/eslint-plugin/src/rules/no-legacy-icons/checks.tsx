@@ -20,12 +20,10 @@ import {
 	createCantMigrateReExportError,
 	createCantMigrateSizeUnknown,
 	createCantMigrateSpreadPropsError,
-	createCantMigrateUnsafeProp,
 	createGuidance,
 	createHelpers,
 	type errorsListAuto,
 	type errorsListManual,
-	findUNSAFEProp,
 	getMigrationMapObject,
 	type guidanceList,
 	locToString,
@@ -279,24 +277,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 			const isInNewButton =
 				isNodeOfType(node.parent.parent.parent.name, 'JSXIdentifier') &&
 				newButtonImports.has(node.parent.parent.parent.name.name);
-			let UNSAFE_size: 'small' | 'large' | 'xlarge' | null = null;
-			let UNSAFE_propName:
-				| 'UNSAFE_iconAfter_size'
-				| 'UNSAFE_iconBefore_size'
-				| 'UNSAFE_size'
-				| null = null;
-			if (isInNewButton) {
-				const result = findUNSAFEProp(node.parent.parent, node.parent.parent.parent);
-				UNSAFE_size = result.UNSAFE_size;
-				UNSAFE_propName = result.UNSAFE_propName;
-			}
-			if (
-				newIcon &&
-				isInNewButton &&
-				isNewIconMigratable &&
-				UNSAFE_size !== 'large' &&
-				UNSAFE_size !== 'xlarge'
-			) {
+			if (newIcon && isInNewButton && isNewIconMigratable) {
 				createAutoMigrationError(
 					node,
 					legacyIconImports[node.name].packageName,
@@ -308,7 +289,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 					isInNewButton,
 					'medium',
 				);
-			} else if ((!newIcon || !isNewIconMigratable) && !UNSAFE_size) {
+			} else if (!newIcon || !isNewIconMigratable) {
 				createCantFindSuitableReplacementError(
 					node,
 					legacyIconImports[node.name].packageName,
@@ -318,20 +299,6 @@ export const createChecks = (context: Rule.RuleContext) => {
 				guidance[locToString(node)] = createGuidance(
 					legacyIconImports[node.name].packageName,
 					isInNewButton,
-				);
-			} else if ((UNSAFE_size === 'large' || UNSAFE_size === 'xlarge') && UNSAFE_propName) {
-				createCantMigrateUnsafeProp(
-					node,
-					UNSAFE_propName,
-					UNSAFE_size,
-					legacyIconImports[node.name].packageName,
-					node.name,
-					errorsManual,
-				);
-				guidance[locToString(node)] = createGuidance(
-					legacyIconImports[node.name].packageName,
-					isInNewButton,
-					UNSAFE_size,
 				);
 			} else if (!isInNewButton) {
 				createCantMigrateFunctionUnknownError(
@@ -373,14 +340,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 		if (name in legacyIconImports) {
 			// Determine if inside a new button - if so:
 			// - Assume spread props are safe - still error if props explicitly set to unmigratable values
-			// - eventually: look for UNSAFE_iconBefore_size props on the parent button - if it's large/xlarge, fail
 			let insideNewButton = false;
-			let UNSAFE_propName:
-				| 'UNSAFE_iconAfter_size'
-				| 'UNSAFE_iconBefore_size'
-				| 'UNSAFE_size'
-				| null = null;
-			let UNSAFE_size: 'small' | 'large' | 'xlarge' | null = null;
 			if (
 				node.parent &&
 				isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
@@ -393,9 +353,6 @@ export const createChecks = (context: Rule.RuleContext) => {
 				newButtonImports.has(node.parent.parent.parent.parent.name.name)
 			) {
 				insideNewButton = true;
-				const result = findUNSAFEProp(node.parent.parent.parent, node.parent.parent.parent.parent);
-				UNSAFE_size = result.UNSAFE_size;
-				UNSAFE_propName = result.UNSAFE_propName;
 			}
 
 			// Find size prop on node
@@ -468,23 +425,6 @@ export const createChecks = (context: Rule.RuleContext) => {
 			// then we need to error; icon can't be auto-migrated safely
 			if (size === null) {
 				createCantMigrateSizeUnknown(node, errorsManual, legacyIconImports[name].packageName, name);
-				hasManualMigration = true;
-			}
-			// Check for unsafe size
-			if (
-				(UNSAFE_size === 'large' || UNSAFE_size === 'xlarge') &&
-				(UNSAFE_propName === 'UNSAFE_iconAfter_size' ||
-					UNSAFE_propName === 'UNSAFE_iconBefore_size' ||
-					UNSAFE_propName === 'UNSAFE_size')
-			) {
-				createCantMigrateUnsafeProp(
-					node,
-					UNSAFE_propName,
-					UNSAFE_size,
-					legacyIconImports[name].packageName,
-					name,
-					errorsManual,
-				);
 				hasManualMigration = true;
 			}
 			// Do a set comparison - is requiredAttributesAfterSpread a subset of afterSpreadSet?

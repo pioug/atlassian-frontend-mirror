@@ -64,4 +64,12 @@ export type State = {
 			[emojiId: string]: boolean;
 		};
 	};
+	/**
+	 * floating reactions for given emojis as true|false (key => unique id, value => collection of emojiIds and true|false to apply floating animation)
+	 */
+	particleEffectByEmoji: {
+		[key: string]: {
+			[emojiId: string]: boolean;
+		};
+	};
 };

@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 2.8.1
+
+### Patch Changes
+
+- [#120605](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120605)
+  [`0fd1aa0fa64aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fd1aa0fa64aa) -
+  Clean up stale feature gate, no functional changes.
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

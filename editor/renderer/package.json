@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "109.42.3",
+	"version": "109.42.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,9 +29,9 @@
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/button": "^18.4.0",
+		"@atlaskit/button": "^19.0.0",
 		"@atlaskit/code": "^15.4.0",
-		"@atlaskit/editor-common": "^86.1.0",
+		"@atlaskit/editor-common": "^86.2.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
@@ -52,7 +52,7 @@
 		"@atlaskit/status": "^1.4.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.55.0",
+		"@atlaskit/tokens": "^1.56.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -79,7 +79,7 @@
 		"@atlaskit/linking-common": "^5.7.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
-		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/navigation-next": "^9.0.0",
 		"@atlaskit/util-data-test": "^17.9.0",
@@ -118,6 +118,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"annotations_defensive_node_name_calculations": {
+			"type": "boolean"
+		},
 		"platform.media-experience.media-viewer-v2_hgsii": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -138,6 +141,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.table.allow-table-alignment": {
+			"type": "boolean"
+		},
+		"annotations_align_editor_and_renderer_styles": {
 			"type": "boolean"
 		},
 		"platform.comments-on-media.bug.incorrect-badge-highlight": {

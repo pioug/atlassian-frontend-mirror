@@ -22,6 +22,7 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import type { BlockControlsPlugin, PluginState } from '../types';
+import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
 import {
 	dragHandleDecoration,
@@ -306,16 +307,22 @@ export const createPlugin = (
 						decorations = decorations.add(newState.doc, [decs]);
 					}
 				}
-				// Add drop targets when node is being dragged
-				// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-				if (meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr)) && api) {
-					const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
-						oldState,
-						newState,
-						api,
-					);
-					decorationState = updatedDecorationState;
-					decorations = decorations.add(newState.doc, decs);
+
+				if (api) {
+					// Add drop targets when node is being dragged
+					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
+					const shouldShowDragTarget =
+						meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr));
+
+					if (shouldShowDragTarget || isBlocksDragTargetDebug()) {
+						const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
+							oldState,
+							newState,
+							api,
+						);
+						decorationState = updatedDecorationState;
+						decorations = decorations.add(newState.doc, decs);
+					}
 				}
 
 				// Remove drop target decoration when dragging stops

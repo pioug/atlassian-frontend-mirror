@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 1.6.2
+
+### Patch Changes
+
+- [#121438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121438)
+  [`35e0addb19a19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35e0addb19a19) -
+  [ux] Fixing media caption to stop them infinitely re-rendering in react 18 when using createRoot
+
 ## 1.6.1
 
 ### Patch Changes

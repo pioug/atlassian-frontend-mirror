@@ -47,7 +47,11 @@ const CustomHeader = () => {
 				</Heading>
 			</Box>
 			<Inline xcss={customCloseStyles}>
-				<IconButton onClick={onClose} label="Close Modal" icon={CrossIcon} UNSAFE_size="small" />
+				<IconButton
+					onClick={onClose}
+					label="Close Modal"
+					icon={(iconProps) => <CrossIcon {...iconProps} size="small" />}
+				/>
 			</Inline>
 		</Box>
 	);

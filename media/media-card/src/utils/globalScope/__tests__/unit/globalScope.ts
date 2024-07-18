@@ -1,5 +1,5 @@
 import { type FileIdentifier } from '@atlaskit/media-client';
-import { createMediaStoreError } from '@atlaskit/media-test-helpers';
+import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
 import { MediaCardError } from '../../../../errors';
 import { extractErrorInfo } from '../../../analytics';
 import {

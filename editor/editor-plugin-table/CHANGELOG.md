@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 7.21.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.21.1
+
+### Patch Changes
+
+- [#121046](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121046)
+  [`828e8f6bec2b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/828e8f6bec2b3) -
+  [ux] ED-17789 Fixing last column resizing to right fast
+- Updated dependencies
+
 ## 7.21.0
 
 ### Minor Changes

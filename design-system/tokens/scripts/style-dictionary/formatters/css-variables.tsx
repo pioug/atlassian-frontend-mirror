@@ -53,6 +53,14 @@ export const cssVariableFormatter: Format['formatter'] = ({ dictionary, options 
 
 	let themeId = theme.override || theme.id;
 
+	if (themeId === 'light-brand-refresh') {
+		themeId = 'light';
+	}
+
+	if (themeId === 'dark-brand-refresh') {
+		themeId = 'dark';
+	}
+
 	if (theme.attributes.type === 'color') {
 		let selectors: string[] = colorModes.map(
 			(mode) =>

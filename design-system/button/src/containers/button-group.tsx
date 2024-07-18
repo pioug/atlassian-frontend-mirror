@@ -9,15 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type Appearance } from '../old-button/types';
-
 export type ButtonGroupProps = {
-	/**
-	 * The appearance to apply to all buttons.
-	 *
-	 * @deprecated This prop is deprecated and will be removed in an upcoming major version. Apply the `appearance` prop on each button instead.
-	 */
-	appearance?: Appearance;
 	/**
 	 * The buttons to render inside the button group.
 	 */
@@ -47,13 +39,7 @@ const buttonGroupStyles = css({
 	},
 });
 
-export default function ButtonGroup({
-	appearance,
-	children,
-	testId,
-	label,
-	titleId,
-}: ButtonGroupProps) {
+export default function ButtonGroup({ children, testId, label, titleId }: ButtonGroupProps) {
 	return (
 		<div
 			css={buttonGroupStyles}
@@ -67,14 +53,7 @@ export default function ButtonGroup({
 				if (!child) {
 					return null;
 				}
-				return (
-					<Fragment key={idx}>
-						{appearance
-							? // eslint-disable-next-line @repo/internal/react/no-clone-element
-								React.cloneElement(child as JSX.Element, { appearance })
-							: child}
-					</Fragment>
-				);
+				return <Fragment key={idx}>{child}</Fragment>;
 			})}
 		</div>
 	);

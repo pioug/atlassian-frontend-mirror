@@ -2,15 +2,16 @@
  * @jsxRuntime classic
  */
 /** @jsx jsx */
-import { useRef, useState, type ComponentType, type FC } from 'react';
+import { type ComponentType, type FC, useRef, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Textfield from '@atlaskit/textfield';
-import { Box } from '@atlaskit/primitives';
 import Button, { IconButton } from '@atlaskit/button/new';
+import Modal, { ModalBody, ModalFooter, ModalTransition } from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-import Modal, { ModalTransition, ModalBody, ModalFooter } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
 
 const iconModalHeaderStyles = css({
@@ -107,7 +108,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	);
 
 	return (
-		<Box padding="space.050">
+		<Box padding="space.250">
 			<Tooltip content={componentName}>
 				<IconButton
 					icon={(iconProps) => <Icon {...iconProps} size="large" />}

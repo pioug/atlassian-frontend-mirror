@@ -5,8 +5,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import {
 	SELECTION_STYLE_CONTEXT_DO_NOT_USE,
 	SpacingContext,
@@ -58,11 +56,7 @@ const MenuGroup = ({
 				data-testid={testId}
 				role={role}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={
-					getBooleanFF('platform.design-system-team.unsafe-overrides-killswitch_c8j9m')
-						? undefined
-						: UNSAFE_className
-				}
+				className={UNSAFE_className}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			/>

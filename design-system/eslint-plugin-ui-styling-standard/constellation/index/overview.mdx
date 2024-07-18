@@ -8,6 +8,11 @@ codebases and ecosystem.
 These are the current ESLint rules that enforce and help comply with the UI Styling Standard today,
 but more are planned to support the standard over time.
 
+## Examples
+
+Check out the [migration guide](/components/eslint-plugin-ui-styling-standard/migration-guide) or
+[individual rule documentation](#rules) for examples.
+
 ## Rules
 
 <!-- START_RULE_TABLE_CODEGEN -->
@@ -45,7 +50,7 @@ but more are planned to support the standard over time.
 
 <!-- END_RULE_TABLE_CODEGEN -->
 
-## Purpose of the UI Styling Standard
+## Purpose
 
 For Atlassians, refer to the
 [internal UI Styling Standard policy](https://go.atlassian.com/ui-styling-standard-policy).
@@ -56,7 +61,7 @@ reduced visual regressions, and enables testing and maintainability at scale. Th
 readability and developer productivity via automation with tooling, testing, code migrations, and
 future advancements like generative AI.
 
-### Desired outcomes:
+### Desired outcomes
 
 - We can make large visual changes and migrations safely and in a fraction of the time.
 - To have the vast majority of styling code be deterministic, immutable, and bound to its scope,
@@ -70,13 +75,13 @@ future advancements like generative AI.
 - We aim to see a reduction of the “average styles per component”, reducing the effort to build and
   maintain UIs.
 
-## Basic principles
+## Core principles
 
 We want the styling ecosystem (CSS, CSS-in-JS, and parts of JSX) at Atlassian and the wider
 ecosystem we support to be as mature as the other code we write, such as TypeScript/JavaScript,
 Java, Go, etc.
 
-### Like other languages, styling code must be:
+Like other languages, styling code must be:
 
 - type-safe
 - static and locally analyzable
@@ -88,163 +93,45 @@ Java, Go, etc.
 As the W3C CSS spec and wider industry grows, having our styling code meet these principles will
 mean we can programatically evolve that a better future state.
 
-## Examples
+## Style constraints
 
-Refer to the [eslint rules](#rules) for more in-depth examples.
+Following our core principles, we've developed a set of style constraints.
 
-### Incorrect code
+All styles must be:
 
-1. The use of `styled-components` and `@emotion/…` are being deprecated.
-2. Dynamic styles are heavily discouraged.
-3. Nested selectors as well as `props.className` and global styles are heavily discouraged.
-4. Do not import or export styles.
-5. Do not use the `styled.div` or `styled(Component)` syntaxes.
-6. Do not pass-through or spread props, be explicit to verbose.
-7. Don't use `!important`, `&& { … }`, or similar hacks.
+- applied with the `css` or `xcss` prop
+- declared as objects with the `css()` or `xcss()` function
+- declared at the top-most scope of the module
+- declared in the same module that they are used in
+- static, not dynamic
 
-```tsx
-import styled from 'styled-components';
-import { css } from '@emotion/react';
-import { mixin, innerWrapperStyles, disabledStyles } from './shared/styles';
+Additionally, styles cannot be:
 
-const Wrapper = styled.div`
-  ${mixin}
-  && {
-    color: ${(props) => (props.disabled ? 'gray' : 'black')};
-    width: ${(props) => props.width || 100}px;
-  }
-  & > button {
-    color: ${(props) => (props.disabled ? 'gray' : 'blue')} !important;
-  }
-`;
+- global (outside of a repo-wide reset like the [CSS Reset](/components/css-reset/examples))
+- exported or imported between modules
+- combined using the spread operator
+- declared with nested selectors
 
-export const Component = ({
-  disabled,
-  width,
-  appearance = 'primary',
-  ...props,
-}: {
-  disabled?: boolean;
-  width?: number;
-  appearance?: 'primary' | 'secondary';
-}) => (
-  <Wrapper disabled={props.disabled}>
-    <div
-      css={[
-        innerWrapperStyles,
-        css({
-          ...(disabled
-            ? {
-            '& + [disabled]': {
-              ...disabledStyles,
-              opacity: props.disabled ? '70%' : '100%',
-            }
-            : undefined
-          ),
-        }),
-      ]}
-      {...props}
-    >
-      <button
-        disabled={props.disabled}
-        className={`btn btn-${props.appearance}`}
-      >
-        Click me
-      </button>
-    </div>
-  </Wrapper>
-);
-```
+These constraints unlock major performance improvements for [Compiled](https://compiledcssinjs.com/)
+and raise the floor for static analysis — enabling code evolution at scale.
 
-### Correct code
+## Benefits
 
-Every element should be clear in isolation how it's styled, using locally and statically available
-context so both humans and tooling can read this component in a performant and deterministic manner.
+The above style constraints provide numerous benefits:
 
-1. Use `@compiled/react` or [Primitives](/components/primitives/overview) wherever possible!
-2. Instead of dynamic styles:
-   1. Use static `css()` calls everywhere.
-   2. Compose styles together, turning styles on or off.
-   3. When absoluteuly necessary, use `props.style` for dynamic styles.
-3. Instead of nested selectors or global styles:
-   1. Style components directly.
-   2. Treat everything as local scope, parents shouldn't interact with children wherever feasible.
-4. Instead of passing raw styles around:
-   1. Write composable and reusable components which distribute styles with clear context.
-   2. Co-locate styles in the same file for human readability and far better tooling feasibility and
-      performance.
-5. Instead of `styled.…`, use `const styles = css({ … });` (hoisted and static) and
-   `<div css={styles} />`.
-   1. There will be a safe way to make bounded customizations on components through the use of
-      `<Component xcss={css({ … })}>` in the future.
-6. Instead of `...props`, be explicit with the `aria-` or `data-` props you support, or have more
-   complex spread handling. This is because `className`, `style`, and other things can be applied
-   without any knowledge, resulting in regressions in the future.
-7. Instead of `!important`, `&& { … }`, or other specificity hacks, ensure your styles are correctly
-   scoped to the component.
+- Linters can exhaustively lint all declared styles (all styles have an associated element without
+  indirection).
 
-```tsx
-import { css } from '@compiled/react';
-import { token } from '@atlaskit/tokens';
+- All element styles can be statically known, unlocking code transformation at scale through
+  codemods.
 
-const wrapperStyles = css({
-	padding: token('space.200'), // eg. from mixin
-	font: token('font.body'), // eg. from mixin
-	color: token('color.text'),
-});
-const disabledWrapperStyles = css({
-	color: token('color.text.disabled'),
-});
-const innerWrapperStyles = css({
-	// eg. colocated `innerWrapperStyles` (alternatively could create a reusable `<InnerWrapper>`)
-	display: 'flex',
-	gap: token('space.100'),
-	flexDirection: 'column',
-});
-const buttonStyles = css({
-	appearance: 'none', // eg. from global styles
-	padding: `${token('space.100')} ${token('space.200')}`, // eg. from global styles
-	color: token('color.link'),
-});
-const disabledButtonStyles = css({
-	cursor: 'not-allowed', // eg. from disabledStyles
-	color: token('color.text.disabled'),
-	opacity: '70%',
-});
-const buttonAppearanceStyles = cssMap({
-	primary: { background: token('color.background.brand.subtlest') },
-	secondary: { background: token('color.background.success') },
-});
+- Styles are typed end-to-end and can be narrowed, enabling safe, explicit and bounded style
+  overrides.
 
-export const Component = ({
-	disabled = false,
-	width = 100,
-	appearance = 'primary',
-	'aria-label': ariaLabel,
-}: {
-	disabled?: boolean;
-	width?: number;
-	appearance?: 'primary' | 'secondary';
-	'aria-label'?: string;
-}) => (
-	<div
-		css={[wrapperStyles, props.disabled && disabledWrapperStyles]}
-		style={{ width: `${props.width}px` }}
-		aria-label={ariaLabel}
-	>
-		<div css={innerWrapperStyles}>
-			{/* Typically, this `<button>` should be an Atlassian Design System `<Button>` */}
-			<button
-				disabled={props.disabled}
-				css={[
-					buttonStyles,
-					buttonAppearances[props.appearance],
-					props.disabled && disabledButtonStyles,
-				]}
-			>
-				Click me
-			</button>
-		</div>
-	</div>
-);
-```
+- Improved runtime performance, especially by eliminating dynamic styles.
+
+- Allows for effective build-time optimization when using compile time CSS-in-JS libraries such as
+  [Compiled](https://compiledcssinjs.com/).
+
+- The impacts of style changes can be better understood by developers, preventing regressions and
+  incidents.

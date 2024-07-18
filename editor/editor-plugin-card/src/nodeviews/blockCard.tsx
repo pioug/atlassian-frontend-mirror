@@ -6,9 +6,10 @@ import rafSchedule from 'raf-schd';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { findOverflowScrollParent, UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
+import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/src';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
@@ -120,22 +121,42 @@ export type BlockCardNodeViewProps = Pick<
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
+	unsubscribe: (() => void) | undefined;
+
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
 		if (this.reactComponentProps.platform !== 'mobile') {
 			// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
 			// see also: https://github.com/ProseMirror/prosemirror/issues/884
-			domRef.contentEditable = 'true';
+			if (fg('linking-platform-contenteditable-false-live-view')) {
+				this.unsubscribe =
+					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
+						({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
+					);
+				this.updateContentEditable(
+					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
+					domRef,
+				);
+			} else {
+				domRef.contentEditable = 'true';
+			}
 			domRef.setAttribute('spellcheck', 'false');
 		}
 		return domRef;
 	}
 
+	private updateContentEditable = (
+		editorViewModeState: EditorViewModePluginState | null | undefined,
+		divElement: HTMLDivElement,
+	) => {
+		divElement.contentEditable = editorViewModeState?.mode === 'view' ? 'false' : 'true';
+	};
+
 	// Need this function to check if the datasource attribute was added or not to a blockCard.
 	// If so, we return false so we can get the node to re-render properly as a datasource node instead.
 	// Otherwise, the node view will still consider the node as a blockCard and render a regular blockCard.
 	validUpdate(currentNode: Node, newNode: Node) {
-		if (getBooleanFF('platform.linking-platform.editor-datasource-typeguards')) {
+		if (fg('platform.linking-platform.editor-datasource-typeguards')) {
 			const isCurrentNodeBlockCard = !isDatasourceNode(currentNode);
 			const isNewNodeDatasource = isDatasourceNode(newNode);
 
@@ -170,5 +191,9 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				onClickCallback={onClickCallback}
 			/>
 		);
+	}
+
+	destroy() {
+		this.unsubscribe?.();
 	}
 }

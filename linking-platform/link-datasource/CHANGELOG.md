@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 2.5.11
+
+### Patch Changes
+
+- [#119596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119596)
+  [`20d39a56f1b9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20d39a56f1b9d) -
+  Introduce context to store view mode for datasources
+- [#121589](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121589)
+  [`837474950251a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/837474950251a) -
+  Refactor config modal, extract away some generic concerns like table state and visible columns, so
+  that makers can spent less time integrating
+- Updated dependencies
+
 ## 2.5.10
 
 ### Patch Changes

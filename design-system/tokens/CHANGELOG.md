@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.56.0
+
+### Minor Changes
+
+- [#120903](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120903)
+  [`11a0097de20b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11a0097de20b0) -
+  Added brand refresh color and token changes behind a feature flag.
+
 ## 1.55.0
 
 ### Minor Changes

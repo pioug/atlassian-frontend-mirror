@@ -1,5 +1,19 @@
 # @atlaskit/link-picker
 
+## 1.39.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.39.4
+
+### Patch Changes
+
+- [#121030](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121030)
+  [`23d9b73dfcb67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23d9b73dfcb67) -
+  Adding loading skeleton to issue goals and exporting the LoaderFallback in linking platform
+
 ## 1.39.3
 
 ### Patch Changes

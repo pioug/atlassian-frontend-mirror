@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "2.3.21",
+	"version": "2.3.22",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,9 +37,9 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/editor-common": "^86.1.0",
+		"@atlaskit/editor-common": "^86.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
-		"@atlaskit/editor-plugin-card": "2.6.1",
+		"@atlaskit/editor-plugin-card": "2.6.2",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -55,7 +55,7 @@
 	"devDependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
 		"@atlaskit/link-test-helpers": "^7.0.0",
-		"@atlaskit/media-test-helpers": "^33.0.0",
+		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",

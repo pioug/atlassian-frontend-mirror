@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25d54efb80cdfa2dff073292bd28bbcb>>
+ * @codegen <<SignedSource::db26fca19e3969bcba2e77bc6fe6eb89>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -62,6 +62,7 @@ const tokens = {
 	'color.icon.success': '--ds-icon-success',
 	'color.icon.discovery': '--ds-icon-discovery',
 	'color.icon.information': '--ds-icon-information',
+	'color.icon.subtlest': '--ds-icon-subtlest',
 	'color.icon.subtle': '--ds-icon-subtle',
 	'color.border': '--ds-border',
 	'color.border.accent.lime': '--ds-border-accent-lime',
@@ -542,6 +543,7 @@ export type CSSTokenMap = {
 	'color.icon.success': 'var(--ds-icon-success)';
 	'color.icon.discovery': 'var(--ds-icon-discovery)';
 	'color.icon.information': 'var(--ds-icon-information)';
+	'color.icon.subtlest': 'var(--ds-icon-subtlest)';
 	'color.icon.subtle': 'var(--ds-icon-subtle)';
 	'color.border': 'var(--ds-border)';
 	'color.border.accent.lime': 'var(--ds-border-accent-lime)';

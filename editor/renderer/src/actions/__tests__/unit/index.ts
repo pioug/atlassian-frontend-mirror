@@ -293,4 +293,47 @@ describe('RendererActions', () => {
 			expect(actions.isRendererWithinRange(mockRange)).toBe(true);
 		});
 	});
+
+	describe('isRangeAnnotatable', () => {
+		it('should return false when isValidAnnotationRange throws', () => {
+			const actions = new RendererActions();
+			const mockRange = new Range();
+			const mockNode = document.createElement('span');
+			Object.defineProperty(mockNode, 'parentElement', { value: document.createElement('div') });
+
+			Object.defineProperty(mockRange, 'startContainer', { value: mockNode });
+
+			actions.isValidAnnotationRange = () => {
+				throw new Error();
+			};
+
+			expect(actions.isRangeAnnotatable(mockRange)).toBe(false);
+		});
+
+		it('should return false when range is in a nested renderer', () => {
+			const actions = new RendererActions();
+			const mockRange = new Range();
+			const mockNode = document.createElement('span');
+			const mockParentElement = document.createElement('div');
+			mockParentElement.classList.add('ak-renderer-extension');
+			Object.defineProperty(mockNode, 'parentElement', { value: mockParentElement });
+			Object.defineProperty(mockRange, 'startContainer', { value: mockNode });
+
+			actions.isValidAnnotationRange = () => true;
+
+			expect(actions.isRangeAnnotatable(mockRange)).toBe(false);
+		});
+
+		it('should return true when range is not in a nested renderer', () => {
+			const actions = new RendererActions();
+			const mockRange = new Range();
+			const mockNode = document.createElement('span');
+			Object.defineProperty(mockNode, 'parentElement', { value: document.createElement('div') });
+			Object.defineProperty(mockRange, 'startContainer', { value: mockNode });
+
+			actions.isValidAnnotationRange = () => true;
+
+			expect(actions.isRangeAnnotatable(mockRange)).toBe(true);
+		});
+	});
 });

@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/platform/no-preconditioning */
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 /** @jsx jsx */
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -17,7 +19,7 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -56,12 +58,16 @@ import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
-import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
+import { useColumnResize } from '../../common/modal/datasources-table-in-modal-preview/use-column-resize';
+import { useColumnWrapping } from '../../common/modal/datasources-table-in-modal-preview/use-column-wrapping';
+import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher';
+import {
+	DatasourceViewModeProvider,
+	useViewModeContext,
+} from '../../common/modal/mode-switcher/useViewModeContext';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import { useColumnResize } from '../../issue-like-table/use-column-resize';
-import { useColumnWrapping } from '../../issue-like-table/use-column-wrapping';
 import { getColumnAction } from '../../issue-like-table/utils';
 import type { SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
@@ -75,6 +81,9 @@ import type {
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
+import { PlainJiraIssuesConfigModalOld } from './ModalOld';
+
+const DEFAULT_VIEW_MODE = 'table';
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -93,13 +102,12 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 		wrappedColumnKeys: initialWrappedColumnKeys,
 		onCancel,
 		onInsert,
-		viewMode = 'table',
 		parameters: initialParameters,
 		url: urlBeingEdited,
 		visibleColumnKeys: initialVisibleColumnKeys,
 	} = props;
 
-	const [currentViewMode, setCurrentViewMode] = useState<DisplayViewModes>(viewMode);
+	const { currentViewMode } = useViewModeContext();
 	const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
 	const { availableSites, selectedSite: selectedJiraSite } = useAvailableSites('jira', cloudId);
 	const [jql, setJql] = useState(initialParameters?.jql);
@@ -110,7 +118,8 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 	const searchCount = useRef(0);
 	const userInteractions = useUserInteractions();
 	const initialSearchMethod: JiraSearchMethod =
-		getBooleanFF('platform.linking-platform.datasource.show-jlol-basic-filters') &&
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform.linking-platform.datasource.show-jlol-basic-filters') &&
 		!isQueryTooComplex(initialParameters?.jql || '')
 			? 'basic'
 			: 'jql';
@@ -451,11 +460,6 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 		],
 	);
 
-	const handleViewModeChange = (selectedMode: DisplayViewModes) => {
-		userInteractions.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
-		setCurrentViewMode(selectedMode);
-	};
-
 	const handleOnNextPage = useCallback(
 		(onNextPageProps: onNextPageProps = {}) => {
 			userInteractions.add(DatasourceAction.NEXT_PAGE_SCROLLED);
@@ -493,9 +497,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 					onColumnResize={onColumnResize}
 					wrappedColumnKeys={wrappedColumnKeys}
 					onWrappedColumnChange={
-						getBooleanFF('platform.linking-platform.datasource-word_wrap')
-							? onWrappedColumnChange
-							: undefined
+						fg('platform.linking-platform.datasource-word_wrap') ? onWrappedColumnChange : undefined
 					}
 				/>
 			</ContentContainer>
@@ -573,9 +575,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 						<EmptyState testId={`jira-datasource-modal--empty-state`} />
 					) : (
 						<InitialStateView
-							showBeta={
-								!getBooleanFF('platform.linking-platform.datasource.show-jlol-basic-filters')
-							}
+							showBeta={!fg('platform.linking-platform.datasource.show-jlol-basic-filters')}
 							icon={<JiraInitialStateSVG />}
 							title={modalMessages.searchJiraTitle}
 							description={
@@ -637,12 +637,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 								label={siteSelectorLabel}
 							/>
 						</ModalTitle>
-						{!hasNoJiraSites && (
-							<DisplayViewDropDown
-								onViewModeChange={handleViewModeChange}
-								viewMode={currentViewMode}
-							/>
-						)}
+						{!hasNoJiraSites && <DatasourceViewModeDropDown />}
 					</ModalHeader>
 					<ModalBody>
 						{!hasNoJiraSites ? (
@@ -720,7 +715,13 @@ export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
 	(props: JiraConfigModalProps) => (
 		<DatasourceExperienceIdProvider>
 			<UserInteractionsProvider>
-				<PlainJiraIssuesConfigModal {...props} />
+				{fg('platform-datasources-use-refactored-config-modal') ? (
+					<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
+						<PlainJiraIssuesConfigModal {...props} />
+					</DatasourceViewModeProvider>
+				) : (
+					<PlainJiraIssuesConfigModalOld {...props}></PlainJiraIssuesConfigModalOld>
+				)}
 			</UserInteractionsProvider>
 		</DatasourceExperienceIdProvider>
 	),

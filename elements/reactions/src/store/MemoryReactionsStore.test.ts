@@ -142,6 +142,7 @@ describe('MemoryReactionsStore', () => {
 			expect(store.getState()).toMatchObject({
 				reactions: {},
 				flash: {},
+				particleEffectByEmoji: {},
 			});
 		});
 
@@ -167,6 +168,7 @@ describe('MemoryReactionsStore', () => {
 						},
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				});
 			});
 		});
@@ -191,6 +193,7 @@ describe('MemoryReactionsStore', () => {
 					},
 				},
 				flash: {},
+				particleEffectByEmoji: {},
 			});
 		});
 
@@ -215,6 +218,7 @@ describe('MemoryReactionsStore', () => {
 						},
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				});
 			});
 		});
@@ -240,6 +244,7 @@ describe('MemoryReactionsStore', () => {
 						},
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				});
 			});
 		});
@@ -270,6 +275,7 @@ describe('MemoryReactionsStore', () => {
 						},
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				});
 			});
 		});
@@ -312,6 +318,7 @@ describe('MemoryReactionsStore', () => {
 						},
 					},
 					flash: {},
+					particleEffectByEmoji: {},
 				},
 				metadata,
 			);
@@ -340,6 +347,7 @@ describe('MemoryReactionsStore', () => {
 					},
 				},
 				flash: {},
+				particleEffectByEmoji: {},
 			});
 		});
 
@@ -405,6 +413,7 @@ describe('MemoryReactionsStore', () => {
 				flash: {
 					[`${containerAri}|${ari}`]: { '1f44f': true },
 				},
+				particleEffectByEmoji: {},
 			});
 
 			expect(fakeClient.addReaction).not.toHaveBeenCalled();
@@ -447,6 +456,7 @@ describe('MemoryReactionsStore', () => {
 					},
 				},
 				flash: {},
+				particleEffectByEmoji: {},
 			});
 		});
 

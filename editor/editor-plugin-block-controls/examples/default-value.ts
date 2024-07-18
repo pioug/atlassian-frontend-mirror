@@ -10,7 +10,67 @@ export const defaultValue = {
 			content: [
 				{
 					type: 'text',
-					text: 'heading',
+					text: 'heading 1',
+				},
+			],
+		},
+		{
+			type: 'heading',
+			attrs: {
+				level: 2,
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'heading 2',
+				},
+			],
+		},
+		{
+			type: 'heading',
+			attrs: {
+				level: 3,
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'heading 3',
+				},
+			],
+		},
+		{
+			type: 'heading',
+			attrs: {
+				level: 4,
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'heading 4',
+				},
+			],
+		},
+		{
+			type: 'heading',
+			attrs: {
+				level: 5,
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'heading 5',
+				},
+			],
+		},
+		{
+			type: 'heading',
+			attrs: {
+				level: 6,
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'heading 6',
 				},
 			],
 		},

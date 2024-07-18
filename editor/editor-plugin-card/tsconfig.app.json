@@ -36,13 +36,7 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/button/tsconfig.app.json"
-		},
-		{
 			"path": "../custom-steps/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/dropdown-menu/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-common/tsconfig.app.json"
@@ -115,9 +109,6 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tooltip/tsconfig.app.json"
 		}
 	]
 }

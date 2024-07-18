@@ -21,6 +21,7 @@ import {
 	UnsupportedBlock,
 } from '@atlaskit/editor-common/ui';
 import { floatingLayouts, isRichMediaInsideOfBlockNode } from '@atlaskit/editor-common/utils';
+import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/src';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -29,6 +30,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
@@ -449,6 +451,8 @@ export type EmbedCardNodeViewProps = Pick<
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
+	unsubscribe: (() => void) | undefined;
+
 	viewShouldUpdate(nextNode: PMNode) {
 		if (this.node.attrs !== nextNode.attrs) {
 			return true;
@@ -461,11 +465,29 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		const domRef = document.createElement('div');
 		if (this.reactComponentProps.platform !== 'mobile') {
 			// It is a tradeoff for the bug mentioned that occurs in Chrome: https://product-fabric.atlassian.net/browse/ED-5379, https://github.com/ProseMirror/prosemirror/issues/884
-			domRef.contentEditable = 'true';
+			if (fg('linking-platform-contenteditable-false-live-view')) {
+				this.unsubscribe =
+					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.onChange(
+						({ nextSharedState }) => this.updateContentEditable(nextSharedState, domRef),
+					);
+				this.updateContentEditable(
+					this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState(),
+					domRef,
+				);
+			} else {
+				domRef.contentEditable = 'true';
+			}
 			domRef.setAttribute('spellcheck', 'false');
 		}
 		return domRef;
 	}
+
+	private updateContentEditable = (
+		editorViewModeState: EditorViewModePluginState | null | undefined,
+		divElement: HTMLDivElement,
+	) => {
+		divElement.contentEditable = editorViewModeState?.mode === 'view' ? 'false' : 'true';
+	};
 
 	render() {
 		const {
@@ -492,5 +514,9 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 				onClickCallback={onClickCallback}
 			/>
 		);
+	}
+
+	destroy() {
+		this.unsubscribe?.();
 	}
 }

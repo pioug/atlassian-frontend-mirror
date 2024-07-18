@@ -23,19 +23,13 @@ function isIconRenderProp(
  * Used to support render props with icons.
  *
  */
-const IconRenderer = ({
-	icon: Icon,
-	size,
-}: {
-	icon: IconProp;
-	size: IconProps['size'] | UNSAFE_NewIconProps['LEGACY_size'];
-}) => {
+const IconRenderer = ({ icon: Icon }: { icon: IconProp }) => {
 	return (
 		<>
 			{isIconRenderProp(Icon) ? (
-				Icon({ label: '', size: size, color: 'currentColor' })
+				Icon({ label: '', color: 'currentColor' })
 			) : (
-				<Icon label="" size={size} color={'currentColor'} />
+				<Icon label="" color={'currentColor'} />
 			)}
 		</>
 	);

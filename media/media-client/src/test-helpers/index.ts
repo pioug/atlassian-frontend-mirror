@@ -80,3 +80,9 @@ export {
 	assign,
 	type PartialResponseFileItem,
 } from './MockedMediaApi';
+export {
+	createPollingMaxAttemptsError,
+	createRateLimitedError,
+	createServerUnauthorizedError,
+	createMediaStoreError,
+} from './mediaClientErrors';

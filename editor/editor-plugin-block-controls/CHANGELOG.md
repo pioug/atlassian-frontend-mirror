@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.6.0
+
+### Minor Changes
+
+- [#121589](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121589)
+  [`c8c2209805321`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8c2209805321) -
+  [ux] ED-23588 fix drop target alignments
+
+### Patch Changes
+
+- [#119960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119960)
+  [`7b7393158a982`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b7393158a982) -
+  ED-24136 fix composition input for chrome
+- [#119250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119250)
+  [`dce4805f0326c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dce4805f0326c) -
+  Fix image cannot be dragged with ProseMirror native DnD in Firefox
+- Updated dependencies
+
 ## 1.5.20
 
 ### Patch Changes

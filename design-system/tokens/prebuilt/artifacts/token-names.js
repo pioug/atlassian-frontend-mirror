@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::25d54efb80cdfa2dff073292bd28bbcb>>
+ * @codegen <<SignedSource::db26fca19e3969bcba2e77bc6fe6eb89>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -68,6 +68,7 @@ var tokens = {
   'color.icon.success': '--ds-icon-success',
   'color.icon.discovery': '--ds-icon-discovery',
   'color.icon.information': '--ds-icon-information',
+  'color.icon.subtlest': '--ds-icon-subtlest',
   'color.icon.subtle': '--ds-icon-subtle',
   'color.border': '--ds-border',
   'color.border.accent.lime': '--ds-border-accent-lime',

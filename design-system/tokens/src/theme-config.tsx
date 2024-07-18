@@ -11,9 +11,11 @@ export type Themes =
 	| 'atlassian-light'
 	| 'atlassian-light-future'
 	| 'atlassian-light-increased-contrast'
+	| 'atlassian-light-brand-refresh'
 	| 'atlassian-dark'
 	| 'atlassian-dark-future'
 	| 'atlassian-dark-increased-contrast'
+	| 'atlassian-dark-brand-refresh'
 	| 'atlassian-legacy-light'
 	| 'atlassian-legacy-dark'
 	| 'atlassian-shape'
@@ -64,9 +66,11 @@ export const themeIds = [
 	'light-increased-contrast',
 	'light',
 	'light-future',
+	'light-brand-refresh',
 	'dark',
 	'dark-future',
 	'dark-increased-contrast',
+	'dark-brand-refresh',
 	'legacy-light',
 	'legacy-dark',
 	'spacing',
@@ -103,6 +107,7 @@ export type ExtensionThemeId = ThemeIds;
  */
 export type Palettes =
 	| 'defaultPalette'
+	| 'brandRefreshPalette'
 	| 'legacyPalette'
 	| 'spacingScale'
 	| 'shapePalette'
@@ -264,6 +269,24 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			type: 'typography',
 		},
 	},
+	'atlassian-light-brand-refresh': {
+		id: 'light-brand-refresh',
+		displayName: 'Light theme (Brand refresh)',
+		palette: 'brandRefreshPalette',
+		attributes: {
+			type: 'color',
+			mode: 'light',
+		},
+	},
+	'atlassian-dark-brand-refresh': {
+		id: 'dark-brand-refresh',
+		displayName: 'Dark theme (Brand refresh)',
+		palette: 'brandRefreshPalette',
+		attributes: {
+			type: 'color',
+			mode: 'dark',
+		},
+	},
 };
 
 type HEX = `#${string}`;
@@ -290,6 +313,8 @@ export interface ThemeState {
 		| 'legacy-light'
 		| 'light-increased-contrast'
 		| 'dark-increased-contrast'
+		| 'light-brand-refresh'
+		| 'dark-brand-refresh'
 	>;
 	dark: Extract<
 		ThemeIds,
@@ -301,6 +326,8 @@ export interface ThemeState {
 		| 'legacy-light'
 		| 'light-increased-contrast'
 		| 'dark-increased-contrast'
+		| 'light-brand-refresh'
+		| 'dark-brand-refresh'
 	>;
 	colorMode: ThemeColorModes;
 	contrastMode: ThemeContrastModes;

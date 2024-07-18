@@ -1,5 +1,18 @@
 # @atlaskit/storybook-addon-design-system
 
+## 1.0.0
+
+### Major Changes
+
+- [#121263](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121263)
+  [`9b5e0cb70a67b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b5e0cb70a67b) -
+  @atlaskit/storybook-addon-design-system has migrated to Storybook 8.0. Use the previous version if
+  your project is still on v6 or v7.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.0
 
 ### Minor Changes

@@ -57,3 +57,4 @@ export type { TextfieldProps } from './TextfieldProps.codegen';
 export type { ToggleProps } from './ToggleProps.codegen';
 export type { TooltipProps } from './TooltipProps.codegen';
 export type { ValidMessageProps } from './ValidMessageProps.codegen';
+export type { PopupProps } from './PopupProps.codegen';

@@ -1,5 +1,5 @@
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isQueryTooComplex } from '../isQueryTooComplex';
 
@@ -138,7 +138,7 @@ describe('Testing checkIfQueryIsComplex', () => {
 		it.each<[string, boolean]>([...nonComplexCases, ...complexCases, ...allFieldsCases])(
 			'should evaluate %s and return result as %s',
 			(jql, expected) => {
-				asMock(getBooleanFF).mockReturnValue(true);
+				asMock(fg).mockReturnValue(true);
 				expect(isQueryTooComplex(jql)).toBe(expected);
 			},
 		);
@@ -148,7 +148,7 @@ describe('Testing checkIfQueryIsComplex', () => {
 		it.each<[string, boolean]>([...nonComplexCases, ...complexCases, ...allFieldsCases])(
 			'should evaluate %s and return result as %s',
 			(jql) => {
-				asMock(getBooleanFF).mockReturnValue(false);
+				asMock(fg).mockReturnValue(false);
 				expect(isQueryTooComplex(jql)).toBe(false);
 			},
 		);

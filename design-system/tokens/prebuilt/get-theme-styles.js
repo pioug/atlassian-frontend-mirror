@@ -43,11 +43,14 @@ var getThemeStyles = /*#__PURE__*/function () {
             themePreferences = _themeConfig.themeIdsWithOverrides;
 
             // CLEANUP: Remove
-            if (!(0, _platformFeatureFlags.getBooleanFF)('platform.design-system-team.increased-contrast-themes')) {
+            if (!(0, _platformFeatureFlags.fg)('platform.design-system-team.increased-contrast-themes')) {
               themePreferences = themePreferences.filter(function (n) {
                 return n !== 'light-increased-contrast' && n !== 'dark-increased-contrast';
               });
             }
+            themePreferences = themePreferences.filter(function (n) {
+              return n !== 'light-brand-refresh' && n !== 'dark-brand-refresh';
+            });
           } else {
             themeState = {
               colorMode: (preferences === null || preferences === void 0 ? void 0 : preferences.colorMode) || _themeConfig.themeStateDefaults['colorMode'],

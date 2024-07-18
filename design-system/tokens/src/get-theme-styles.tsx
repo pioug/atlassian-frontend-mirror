@@ -1,4 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type ThemeIdsWithOverrides,
@@ -42,11 +42,15 @@ const getThemeStyles = async (
 		themePreferences = themeIdsWithOverrides;
 
 		// CLEANUP: Remove
-		if (!getBooleanFF('platform.design-system-team.increased-contrast-themes')) {
+		if (!fg('platform.design-system-team.increased-contrast-themes')) {
 			themePreferences = themePreferences.filter(
 				(n) => n !== 'light-increased-contrast' && n !== 'dark-increased-contrast',
 			);
 		}
+
+		themePreferences = themePreferences.filter(
+			(n) => n !== 'light-brand-refresh' && n !== 'dark-brand-refresh',
+		);
 	} else {
 		const themeState = {
 			colorMode: preferences?.colorMode || themeStateDefaults['colorMode'],

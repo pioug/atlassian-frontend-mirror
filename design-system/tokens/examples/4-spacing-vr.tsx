@@ -11,6 +11,8 @@ import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { token } from '../src';
 import type defaultTokenValues from '../src/artifacts/token-default-values';
 
+import { useVrGlobalTheme } from './utils/use-vr-global-theme';
+
 const ExampleSizeBox = ({
 	scaleToken,
 	fallback,
@@ -42,6 +44,7 @@ const containerStyles = xcss({
 });
 
 export default () => {
+	useVrGlobalTheme();
 	return (
 		<Box testId="spacing" xcss={containerStyles}>
 			<h1>Spacing scale</h1>

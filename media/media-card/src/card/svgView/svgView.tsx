@@ -77,6 +77,8 @@ export const SvgViewBase = ({
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const breakpoint = useBreakpoint(cardDimensions.width, wrapperRef);
 
+	const svgStatus = status === 'uploading' ? status : didSvgRender ? 'complete' : 'loading-svg';
+
 	const calculateDimensions = useCallback(
 		(targetImgElem: HTMLImageElement) => {
 			if (!wrapperRef.current || !targetImgElem) {
@@ -136,7 +138,7 @@ export const SvgViewBase = ({
 					centerElements
 					testId={fileCardImageViewSelector}
 					mediaName={fileName}
-					status={status}
+					status={svgStatus}
 					progress={progress}
 					selected={selected}
 					source={cardPreview?.source}

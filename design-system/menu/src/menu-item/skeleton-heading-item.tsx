@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -65,12 +64,8 @@ const SkeletonHeadingItem = ({
 		'', // TODO: Create DAC post when primitives/xcss are available as alternatives
 	);
 
-	const UNSAFE_overrides = getBooleanFF(
-		'platform.design-system-team.unsafe-overrides-killswitch_c8j9m',
-	)
-		? undefined
-		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			css(cssFn(undefined));
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	const UNSAFE_overrides = css(cssFn(undefined));
 
 	return (
 		<SkeletonShimmer isShimmering={isShimmering}>

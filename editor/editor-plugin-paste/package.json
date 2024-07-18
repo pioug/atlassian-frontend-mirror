@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "1.5.5",
+	"version": "1.5.6",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.1.0",
+		"@atlaskit/editor-common": "^86.2.0",
 		"@atlaskit/editor-markdown-transformer": "^5.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-annotation": "^1.15.0",
@@ -129,9 +129,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.multi-bodied-extension_0rygg": {
-			"type": "boolean"
-		},
-		"platform.editor.extractlistfromparagraphv2": {
 			"type": "boolean"
 		},
 		"platform.editor.preserve-whitespace-clipboard-text-serialization": {

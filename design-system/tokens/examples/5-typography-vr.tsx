@@ -11,6 +11,8 @@ import { Stack } from '@atlaskit/primitives';
 
 import { token } from '../src';
 
+import { useVrGlobalTheme } from './utils/use-vr-global-theme';
+
 const headings = [
 	{
 		name: 'font.heading.xxlarge',
@@ -135,6 +137,7 @@ const lineHeights = [
 ];
 
 export default () => {
+	useVrGlobalTheme();
 	return (
 		<div data-testid="typography">
 			<h1>Headings</h1>

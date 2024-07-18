@@ -1,6 +1,8 @@
 import { PollingError } from './errors';
 import { type Executor } from './types';
 
+export { PollingError, isPollingError } from './errors';
+
 export interface PollingOptions {
 	poll_intervalMs: number;
 	poll_maxAttempts: number;

@@ -13,8 +13,14 @@ import * as customThemeUtils from '../../custom-theme';
 // This import is just to get types
 import type * as enableGlobalThemeTypes from '../../enable-global-theme';
 import type * as setGlobalThemeTypes from '../../set-global-theme';
-import { type ThemeOptionsSchema } from '../../theme-config';
+import { type ThemeIdsWithOverrides, type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
+
+import {
+	mainThemes,
+	verifyBrandRefreshColors,
+	verifyNonBrandRefreshColors,
+} from './brand-refresh-assertion-helper';
 
 // Mock window.matchMedia before importing setGlobalTheme
 const matchMediaObject = {
@@ -100,26 +106,61 @@ describe('setGlobalTheme style loading', () => {
 					'typography-adg3',
 				]);
 			},
-			async () => {
-				await setGlobalTheme({
-					dark: 'dark',
-					light: 'light',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography-adg3',
-				});
+			(ff) => {
+				const testWithVisualRefreshVariation = async (
+					verify: (css: string, id: ThemeIdsWithOverrides) => void,
+				) => {
+					await setGlobalTheme({
+						dark: 'dark',
+						light: 'light',
+						shape: 'shape',
+						spacing: 'spacing',
+						typography: 'typography-adg3',
+					});
 
-				// Wait for styles to be added to the page
-				await waitFor(() => {
-					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(5);
-				});
+					// Wait for styles to be added to the page
+					await waitFor(() => {
+						const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+						expect(styleElements).toHaveLength(5);
+					});
 
-				// Validate that the data-theme attributes match the expected values
-				const styleElements = document.querySelectorAll('style');
-				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
+					// Validate that the data-theme attributes match the expected values
+					const styleElements = document.querySelectorAll('style');
 
-				expect(dataThemes.sort()).toEqual(['dark', 'light', 'shape', 'spacing', 'typography-adg3']);
+					// Create a Map to store data-themes by key
+					const themeMap = new Map();
+					// Add data-themes to the Map
+					styleElements.forEach((element) => {
+						const dataTheme = element.getAttribute('data-theme');
+						if (dataTheme) {
+							themeMap.set(dataTheme, element);
+						}
+					});
+
+					// Validate that the data-theme attributes match the expected values
+					const dataThemes = Array.from(themeMap.keys()).sort();
+					expect(dataThemes).toEqual(['dark', 'light', 'shape', 'spacing', 'typography-adg3']);
+
+					mainThemes.forEach((theme) => {
+						const styleElement = themeMap.get(theme);
+						if (styleElement) {
+							verify(styleElement.textContent, theme);
+						} else {
+							throw new Error(`Style element for ${theme} theme not found`);
+						}
+					});
+				};
+
+				return ffTest(
+					'platform-component-visual-refresh',
+					async () => {
+						await testWithVisualRefreshVariation(verifyBrandRefreshColors);
+					},
+					async () => {
+						await testWithVisualRefreshVariation(verifyNonBrandRefreshColors);
+					},
+					ff,
+				);
 			},
 		);
 	});

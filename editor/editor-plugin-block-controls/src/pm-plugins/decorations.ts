@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { type IntlShape, RawIntlProvider } from 'react-intl-next';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -23,8 +24,17 @@ export const dropTargetDecorations = (
 	// Decoration state is used to keep track of the position of the drop targets
 	// and allows us to easily map the updated position in the plugin apply method.
 	const decorationState: { index: number; pos: number }[] = [];
-	oldState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (_node, pos, _parent, index) => {
+	let prevNode: PMNode | undefined;
+
+	oldState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, _parent, index) => {
 		decorationState.push({ index, pos });
+		const dropTargetDec = createElement(DropTarget, {
+			api,
+			index,
+			prevNode,
+			nextNode: node,
+		});
+
 		decs.push(
 			Decoration.widget(
 				pos,
@@ -32,13 +42,7 @@ export const dropTargetDecorations = (
 					const element = document.createElement('div');
 					element.setAttribute('data-blocks-drop-target-container', 'true');
 					element.style.clear = 'unset';
-					ReactDOM.render(
-						createElement(DropTarget, {
-							api,
-							index,
-						}),
-						element,
-					);
+					ReactDOM.render(dropTargetDec, element);
 					return element;
 				},
 				{
@@ -47,6 +51,7 @@ export const dropTargetDecorations = (
 				},
 			),
 		);
+		prevNode = node;
 		return false;
 	});
 
@@ -148,6 +153,7 @@ export const mouseMoveWrapperDecorations = (
 			return false;
 		}
 		const anchorName = `--node-anchor-${node.type.name}-${index}`;
+
 		decs.push(
 			Decoration.widget(
 				pos,

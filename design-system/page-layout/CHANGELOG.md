@@ -1,5 +1,19 @@
 # @atlaskit/page-layout
 
+## 3.5.0
+
+### Minor Changes
+
+- [#121452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121452)
+  [`b49735b1f1e69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b49735b1f1e69) -
+  Fix zindex for content container in page-layout behind FF
+  'ally-jira-team.issue-sideview.inaccurate-reading-order_yna0p'. If successful will remove flag in
+  a cleanup PR.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.7
 
 ### Patch Changes

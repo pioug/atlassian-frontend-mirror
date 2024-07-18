@@ -167,7 +167,7 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
 
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
-export const editorFontSize = ({ theme }: { theme: EditorTheme }) =>
+export const editorFontSize = ({ theme }: { theme: { baseFontSize?: number } }) =>
 	theme && theme.baseFontSize ? theme.baseFontSize : defaultFontSize();
 
 export const relativeSize =

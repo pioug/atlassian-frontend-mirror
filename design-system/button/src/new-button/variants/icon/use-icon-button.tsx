@@ -55,7 +55,6 @@ const useIconButton = <TagName extends HTMLElement>({
 	shouldFitContainer,
 	spacing,
 	testId,
-	UNSAFE_size,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
 	const isCircle = shape === 'circle';
 
@@ -68,7 +67,7 @@ const useIconButton = <TagName extends HTMLElement>({
 		buttonType,
 		children: (
 			<Content type="icon" isLoading={isLoading}>
-				<IconRenderer icon={icon} size={UNSAFE_size} />
+				<IconRenderer icon={icon} />
 				<VisuallyHidden>{label}</VisuallyHidden>
 			</Content>
 		),

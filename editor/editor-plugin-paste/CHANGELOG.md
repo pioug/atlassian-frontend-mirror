@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.5.6
+
+### Patch Changes
+
+- [#121483](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121483)
+  [`b73c87fcb17dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b73c87fcb17dd) -
+  [ED-22946] Cleanup feature flag extractListFromParagraphV2
+
 ## 1.5.5
 
 ### Patch Changes

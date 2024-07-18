@@ -67,7 +67,8 @@ function classifyTokenPair(
 		hasMatchingRole &&
 		// Special case for subtlest text
 		!(
-			foregroundToken.name === 'color.text.subtlest' &&
+			(foregroundToken.name === 'color.text.subtlest' ||
+				foregroundToken.name === 'color.icon.subtlest') &&
 			['subtler'].includes(backgroundToken.emphasis)
 		)
 	);

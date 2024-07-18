@@ -3,12 +3,14 @@
 import React, { type PropsWithChildren } from 'react';
 import { type FileItem, type Identifier } from '@atlaskit/media-client';
 import {
-	createPollingMaxAttemptsError,
-	createRateLimitedError,
 	createStorybookMediaClientConfig,
 	enableMediaUfoLogger,
 	FeatureFlagsWrapper,
 } from '@atlaskit/media-test-helpers';
+import {
+	createPollingMaxAttemptsError,
+	createRateLimitedError,
+} from '@atlaskit/media-client/test-helpers';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { payloadPublisher } from '@atlassian/ufo';

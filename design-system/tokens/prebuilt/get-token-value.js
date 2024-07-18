@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _warnOnce = _interopRequireDefault(require("@atlaskit/ds-lib/warn-once"));
+var _platformFeatureFlags = require("@atlaskit/platform-feature-flags");
 var _tokenNames = _interopRequireDefault(require("./artifacts/token-names"));
 /**
  * Takes a dot-separated token name and and an optional fallback, and returns the current computed CSS value for the
@@ -32,8 +33,13 @@ function getTokenValue(tokenId) {
   var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   var token = _tokenNames.default[tokenId];
   var tokenValue = fallback;
-  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' && !token) {
-    (0, _warnOnce.default)("Unknown token id at path: ".concat(tokenId, " in @atlaskit/tokens"));
+  if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production') {
+    if (!token) {
+      (0, _warnOnce.default)("Unknown token id at path: ".concat(tokenId, " in @atlaskit/tokens"));
+    }
+    if (token === '--ds-icon-subtlest' && !(0, _platformFeatureFlags.fg)('platform-component-visual-refresh')) {
+      (0, _warnOnce.default)("Token \"color.icon.subtlest\" is only available when feature flag \"platform-component-visual-refresh\" is on, don't use it if the flag can't be turned on on this page");
+    }
   }
   if (typeof window === 'undefined') {
     return tokenValue;

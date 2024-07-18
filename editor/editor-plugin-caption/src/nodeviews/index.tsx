@@ -74,6 +74,18 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 		return { dom };
 	}
 
+	// ED-24114: We need to ignore mutations that are not related to the caption node
+	// since these mutations can cause an infinite loop in React 18 when using createRoot
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+		if (!fg('react_18_caption_concurrent_mode')) {
+			return false;
+		}
+		if (!this.contentDOM) {
+			return true;
+		}
+		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
+	}
+
 	handleEditorDisabledChanged() {
 		if (this.pluginInjectionApi?.editorDisabled) {
 			this.cleanupEditorDisabledListener =

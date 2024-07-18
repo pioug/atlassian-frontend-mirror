@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 2.6.2
+
+### Patch Changes
+
+- [#120605](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120605)
+  [`b2b0cfe2fb0c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2b0cfe2fb0c4) -
+  Removed unused code in leftIconOverlay
+- [#121395](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121395)
+  [`caceefb824256`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/caceefb824256) -
+  Removing contenteditable and CCFE workaround for smart links in live pages
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

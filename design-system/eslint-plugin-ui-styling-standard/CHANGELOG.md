@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.18.3
+
+### Patch Changes
+
+- [#116800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116800)
+  [`4a3de9921ec28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a3de9921ec28) -
+  Updated documentation.
+
 ## 0.18.2
 
 ### Patch Changes

@@ -53,8 +53,6 @@ const useDefaultButton = <TagName extends HTMLElement>({
 	shouldFitContainer,
 	spacing,
 	testId,
-	UNSAFE_iconAfter_size,
-	UNSAFE_iconBefore_size,
 }: UseDefaultButtonArgs<TagName>): UseButtonReturn<TagName> => {
 	const baseProps = useButtonBase<TagName>({
 		analyticsContext,
@@ -67,13 +65,13 @@ const useDefaultButton = <TagName extends HTMLElement>({
 			<Fragment>
 				{iconBefore && (
 					<Content type="icon" position="before" isLoading={isLoading}>
-						<IconRenderer icon={iconBefore} size={UNSAFE_iconBefore_size} />
+						<IconRenderer icon={iconBefore} />
 					</Content>
 				)}
 				{children && <Content isLoading={isLoading}>{children}</Content>}
 				{iconAfter && (
 					<Content type="icon" position="after" isLoading={isLoading}>
-						<IconRenderer icon={iconAfter} size={UNSAFE_iconAfter_size} />
+						<IconRenderer icon={iconAfter} />
 					</Content>
 				)}
 			</Fragment>

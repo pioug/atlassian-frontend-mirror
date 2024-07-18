@@ -168,6 +168,9 @@ export default function EditorExampleForIntegrationTests() {
 		if (flagKey === 'platform.linking-platform.smart-links-in-live-pages') {
 			return true;
 		}
+		if (flagKey === 'linking-platform-contenteditable-false-live-view') {
+			return true;
+		}
 		return false;
 	});
 	const options = React.useMemo(() => {

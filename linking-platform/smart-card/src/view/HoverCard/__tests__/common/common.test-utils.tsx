@@ -506,89 +506,40 @@ export const runCommonHoverCardTests = (
 		});
 
 		describe('FF fix embed preview url query params', () => {
-			ffTest.on(
-				'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
-				'FF for handling urls with # on',
-				() => {
-					it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
-						'should add themeState query param if theming is supported',
-						async (providerKey) => {
-							const expectedPreviewUrl = 'http://some-preview-url-test.com';
+			it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
+				'should add themeState query param if theming is supported',
+				async (providerKey) => {
+					const expectedPreviewUrl = 'http://some-preview-url-test.com';
 
-							let mock = {
-								...mockConfluenceResponse,
-								meta: { ...mockConfluenceResponse.meta, key: providerKey },
-								data: {
-									...mockConfluenceResponse.data,
-									preview: {
-										'@type': 'Link',
-										href: expectedPreviewUrl,
-									},
-								},
-							};
-
-							const { findByTestId, event } = await setup({
-								mock,
-								extraCardProps: { url: 'http://some-preview-url-test.com' },
-							});
-
-							const previewButton = await findByTestId('preview-content');
-							await event.click(previewButton);
-							const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
-							expect(iframeEl).toBeTruthy();
-
-							if (providerKey !== 'not-supported-provider') {
-								expect(iframeEl.getAttribute('src')).toEqual(
-									`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+colorMode%3Adark`,
-								);
-							} else {
-								expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
-							}
+					let mock = {
+						...mockConfluenceResponse,
+						meta: { ...mockConfluenceResponse.meta, key: providerKey },
+						data: {
+							...mockConfluenceResponse.data,
+							preview: {
+								'@type': 'Link',
+								href: expectedPreviewUrl,
+							},
 						},
-					);
-				},
-			);
+					};
 
-			ffTest.off(
-				'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
-				'FF for handling urls with # off',
-				() => {
-					it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
-						'should add themeState query param if theming is supported',
-						async (providerKey) => {
-							const expectedPreviewUrl = 'http://some-preview-url-test.com';
+					const { findByTestId, event } = await setup({
+						mock,
+						extraCardProps: { url: 'http://some-preview-url-test.com' },
+					});
 
-							let mock = {
-								...mockConfluenceResponse,
-								meta: { ...mockConfluenceResponse.meta, key: providerKey },
-								data: {
-									...mockConfluenceResponse.data,
-									preview: {
-										'@type': 'Link',
-										href: expectedPreviewUrl,
-									},
-								},
-							};
+					const previewButton = await findByTestId('preview-content');
+					await event.click(previewButton);
+					const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
+					expect(iframeEl).toBeTruthy();
 
-							const { findByTestId, event } = await setup({
-								mock,
-								extraCardProps: { url: 'http://some-preview-url-test.com' },
-							});
-
-							const previewButton = await findByTestId('preview-content');
-							await event.click(previewButton);
-							const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
-							expect(iframeEl).toBeTruthy();
-
-							if (providerKey !== 'not-supported-provider') {
-								expect(iframeEl.getAttribute('src')).toEqual(
-									`${expectedPreviewUrl}?themeState=dark%3Adark%20light%3Alight%20spacing%3Aspacing%20colorMode%3Adark`,
-								);
-							} else {
-								expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
-							}
-						},
-					);
+					if (providerKey !== 'not-supported-provider') {
+						expect(iframeEl.getAttribute('src')).toEqual(
+							`${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+colorMode%3Adark`,
+						);
+					} else {
+						expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+					}
 				},
 			);
 		});

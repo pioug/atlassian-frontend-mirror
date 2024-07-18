@@ -51,7 +51,6 @@ const IconButton = React.memo(
 			testId,
 			tooltip,
 			type = 'button',
-			UNSAFE_size,
 			...unsafeRest
 		}: IconButtonProps,
 		ref: React.Ref<HTMLButtonElement>,
@@ -94,7 +93,6 @@ const IconButton = React.memo(
 			shape,
 			spacing,
 			testId,
-			UNSAFE_size,
 		});
 
 		if (!isTooltipDisabled) {

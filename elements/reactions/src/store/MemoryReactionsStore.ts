@@ -79,6 +79,7 @@ export class MemoryReactionsStore implements Store {
 	private initialState: State = {
 		reactions: {},
 		flash: {},
+		particleEffectByEmoji: {},
 	};
 
 	constructor(client: Client, state?: State, metadata?: StoreMetadata) {
@@ -144,6 +145,23 @@ export class MemoryReactionsStore implements Store {
 			700,
 		);
 	};
+
+	private setParticleEffectForEmoji(
+		containerAri: string,
+		ari: string,
+		emojiId: string,
+		enable: boolean,
+	) {
+		this.setState({
+			particleEffectByEmoji: {
+				...this.state.particleEffectByEmoji,
+				[`${containerAri}|${ari}`]: {
+					...this.state.particleEffectByEmoji[`${containerAri}|${ari}`],
+					[emojiId]: enable,
+				},
+			},
+		});
+	}
 
 	private optmisticUpdate =
 		(containerAri: string, ari: string, emojiId: string) => (updater: Updater<ReactionSummary>) => {
@@ -260,6 +278,7 @@ export class MemoryReactionsStore implements Store {
 		const { containerAri, ari, emojiId } = reaction;
 		this.optmisticUpdate(containerAri, ari, emojiId)(addOne);
 		this.flash(reaction);
+		this.setParticleEffectForEmoji(containerAri, ari, emojiId, true);
 
 		const exp = ufoExperiences.add.getInstance(`${ari}|${emojiId}`);
 		// ufo start reaction experience
@@ -305,6 +324,7 @@ export class MemoryReactionsStore implements Store {
 	private doRemoveReaction = (reaction: ReactionSummary) => {
 		const { containerAri, ari, emojiId } = reaction;
 		const exp = ufoExperiences.remove.getInstance(`${ari}|${emojiId}`);
+		this.setParticleEffectForEmoji(containerAri, ari, emojiId, false);
 
 		// ufo start reaction experience
 

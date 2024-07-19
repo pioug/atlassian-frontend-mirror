@@ -70,15 +70,7 @@ export default () => {
 								return 'Please select a date to continue';
 							}}
 						>
-							{({
-								fieldProps: {
-									id,
-									['aria-invalid']: ariaInvalid,
-									['aria-describedby']: ariaDescribedby,
-									...rest
-								},
-								error,
-							}) => {
+							{({ fieldProps: { id, ['aria-invalid']: ariaInvalid, ...rest }, error }) => {
 								return (
 									<Fragment>
 										<DatePicker
@@ -86,7 +78,6 @@ export default () => {
 												ref: DOBfieldRef,
 												inputId: id,
 												'aria-invalid': ariaInvalid,
-												'aria-describedby': ariaDescribedby,
 											}}
 											{...rest}
 										/>
@@ -112,26 +103,16 @@ export default () => {
 								return 'Please select a date to continue';
 							}}
 						>
-							{({
-								fieldProps: {
-									id,
-									['aria-invalid']: ariaInvalid,
-									['aria-describedby']: ariaDescribedby,
-									...rest
-								},
-								error,
-							}) => {
+							{({ fieldProps: { id, ['aria-invalid']: ariaInvalid, ...rest }, error }) => {
 								return (
 									<Fragment>
 										<DateTimePicker
 											datePickerSelectProps={{
 												'aria-invalid': ariaInvalid,
-												'aria-describedby': `${id}-label ${error ? ariaDescribedby : ''}`,
 												ref: preferenceFieldRef,
 											}}
 											timePickerSelectProps={{
 												'aria-invalid': ariaInvalid,
-												'aria-describedby': `${id}-label ${error ? ariaDescribedby : ''}`,
 											}}
 											{...rest}
 										/>

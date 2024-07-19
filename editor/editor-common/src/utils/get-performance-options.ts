@@ -2,8 +2,7 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { ACTION, ACTION_SUBJECT, type AnalyticsEventPayload, EVENT_TYPE } from '../analytics';
-
-import { startMeasure, stopMeasure } from './performance/measure';
+import { startMeasure, stopMeasure } from '../performance-measures';
 
 // This was existing logic when converting from ReactNodeView
 // our current sampling for this event is not bound by node.type

@@ -19,7 +19,9 @@ export interface ButtonProps extends BaseProps {}
 /**
  * __Button__
  *
- * CAUTION: Legacy buttons will soon be deprecated. Please use the new Button components from `@atlaskit/button/new`.
+ * @deprecated Legacy buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use the new Button components from `@atlaskit/button/new`
+ *
+ * Please refer to the [migration guide](https://atlassian.design/components/button/button-legacy/migration-guide) for further details.
  *
  * A button triggers an event or action. They let users know what will happen next.
  *

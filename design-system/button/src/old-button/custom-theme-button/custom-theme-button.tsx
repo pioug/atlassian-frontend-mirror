@@ -57,6 +57,10 @@ const initial: State = { isHover: false, isActive: false, isFocus: false };
 /**
  * __Custom theme button__
  *
+ * @deprecated Legacy buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use the new Button components from `@atlaskit/button/new`
+ *
+ * Please refer to the [migration guide](https://atlassian.design/components/button/button-legacy/migration-guide) for further details.
+ *
  * A custom theme button. Avoid using this component. It exists for those already using custom theming, which is hard to use and has performance issues.
  *
  * - [Examples](https://atlassian.design/components/button/examples#custom-theme-button)

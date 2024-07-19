@@ -143,6 +143,7 @@ export type InlineCardNodeViewProps = Pick<
 	| 'enableInlineUpgradeFeatures'
 	| 'pluginInjectionApi'
 	| 'onClickCallback'
+	| '__livePage'
 >;
 
 export function InlineCardNodeView(
@@ -160,35 +161,45 @@ export function InlineCardNodeView(
 		enableInlineUpgradeFeatures,
 		pluginInjectionApi,
 		onClickCallback,
+		__livePage,
 	} = props;
 
 	const [isOverlayHovered, setIsOverlayHovered] = useState(false);
 
-	const floatingToolbarNode = useSharedPluginState(pluginInjectionApi, ['floatingToolbar'])
-		.floatingToolbarState?.configWithNodeInfo?.node;
+	const { editorViewModeState, floatingToolbarState } = useSharedPluginState(pluginInjectionApi, [
+		'floatingToolbar',
+		'editorViewMode',
+	]);
+	const floatingToolbarNode = floatingToolbarState?.configWithNodeInfo?.node;
 
-	if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+	if (__livePage && fg('platform.linking-platform.smart-links-in-live-pages')) {
 		const showHoverPreview = floatingToolbarNode !== node;
 		const livePagesHoverCardFadeInDelay = 800;
 
-		return (
+		const inlineCard = (
+			<WrappedInlineCard
+				isHovered={isOverlayHovered}
+				node={node}
+				view={view}
+				getPos={getPos}
+				actionOptions={actionOptions}
+				showServerActions={showServerActions}
+				useAlternativePreloader={useAlternativePreloader}
+				onClickCallback={onClickCallback}
+				showHoverPreview={showHoverPreview}
+				hoverPreviewOptions={{ fadeInDelay: livePagesHoverCardFadeInDelay }}
+			/>
+		);
+
+		return editorViewModeState?.mode === 'view' ? (
+			inlineCard
+		) : (
 			<OverlayWrapper
 				targetElementPos={getPos()}
 				view={view}
 				isHoveredCallback={setIsOverlayHovered}
 			>
-				<WrappedInlineCard
-					isHovered={isOverlayHovered}
-					node={node}
-					view={view}
-					getPos={getPos}
-					actionOptions={actionOptions}
-					showServerActions={showServerActions}
-					useAlternativePreloader={useAlternativePreloader}
-					onClickCallback={onClickCallback}
-					showHoverPreview={showHoverPreview}
-					hoverPreviewOptions={{ fadeInDelay: livePagesHoverCardFadeInDelay }}
-				/>
+				{inlineCard}
 			</OverlayWrapper>
 		);
 	}

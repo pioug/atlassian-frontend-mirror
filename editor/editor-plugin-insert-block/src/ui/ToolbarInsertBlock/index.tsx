@@ -273,7 +273,9 @@ export class ToolbarInsertBlock extends React.PureComponent<
 		if (!emojiPickerOpen || !ref || !emojiProvider) {
 			return null;
 		}
-		const onUnmount = () => this.props.pluginInjectionApi?.core?.actions?.focus();
+		const onUnmount = () => {
+			requestAnimationFrame(() => this.props.pluginInjectionApi?.core?.actions?.focus());
+		};
 
 		return (
 			<Popup

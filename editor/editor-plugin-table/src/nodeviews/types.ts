@@ -14,6 +14,7 @@ export type TableOptions = {
 	isDragAndDropEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
+	isCommentEditor?: boolean;
 };
 
 export interface Props {

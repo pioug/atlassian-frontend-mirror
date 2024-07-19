@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 2.13.1
+
+### Patch Changes
+
+- [#121871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121871)
+  [`3d286b2a5bdcb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d286b2a5bdcb) -
+  ED-24090 increase guideline z index
+
 ## 2.13.0
 
 ### Minor Changes

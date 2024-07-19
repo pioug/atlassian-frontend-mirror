@@ -47,7 +47,7 @@ import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 // #endregion
@@ -116,10 +116,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 		.add(decorationsPlugin)
 		.add([typeAheadPlugin, options.typeAhead])
 		.maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
-		.maybeAdd(
-			primaryToolbarPlugin,
-			() => !!getBooleanFF('platform.editor.primary-toolbar-ordering'),
-		)
+		.maybeAdd(primaryToolbarPlugin, () => !!fg('platform.editor.primary-toolbar-ordering'))
 		.maybeAdd(
 			undoRedoPlugin,
 			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),
@@ -134,14 +131,21 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 				},
 			],
 			() => {
-				if (getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')) {
+				if (fg('platform.editor.enable-selection-toolbar_ucdwd')) {
 					return true;
 				}
 
 				return false;
 			},
 		)
-		.add([hyperlinkPlugin, options.hyperlinkOptions])
+		.add([
+			hyperlinkPlugin,
+			{
+				...options.hyperlinkOptions,
+				// @ts-ignore Temporary solution to check for Live Page editor.
+				__livePage: options.__livePage,
+			},
+		])
 		.add([textFormattingPlugin, options.textFormatting])
 		.add(widthPlugin)
 		.add([quickInsertPlugin, options.quickInsert])

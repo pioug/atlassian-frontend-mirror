@@ -11,9 +11,10 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useConstructor } from '@atlaskit/editor-common/hooks';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { getAnalyticsAppearance, startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import EditorActions from '../actions';

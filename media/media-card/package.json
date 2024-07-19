@@ -83,7 +83,7 @@
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-picker": "^66.4.0",
 		"@atlaskit/media-state": "^1.1.0",
-		"@atlaskit/media-test-data": "^2.3.0",
+		"@atlaskit/media-test-data": "^2.4.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/radio": "^6.4.0",
 		"@atlaskit/range": "^7.3.0",

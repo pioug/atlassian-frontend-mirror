@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.2.0",
+		"@atlaskit/editor-common": "^86.3.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-block-type": "^3.8.0",
 		"@atlaskit/editor-plugin-code-block": "^3.0.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/editor-plugin-emoji": "^2.0.0",
 		"@atlaskit/editor-plugin-expand": "^2.0.0",
 		"@atlaskit/editor-plugin-extension": "^1.10.0",
-		"@atlaskit/editor-plugin-hyperlink": "^2.3.0",
+		"@atlaskit/editor-plugin-hyperlink": "^2.4.0",
 		"@atlaskit/editor-plugin-image-upload": "^1.1.0",
 		"@atlaskit/editor-plugin-layout": "^1.4.0",
 		"@atlaskit/editor-plugin-media": "^1.24.0",

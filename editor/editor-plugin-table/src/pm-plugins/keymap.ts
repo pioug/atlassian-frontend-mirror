@@ -69,6 +69,8 @@ export function keymapPlugin(
 	isCellBackgroundDuplicated = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent?: boolean,
+	isCommentEditor?: boolean,
+	isTableResizingEnabled?: boolean,
 ): SafePlugin {
 	const list = {};
 
@@ -91,6 +93,8 @@ export function keymapPlugin(
 			isTableAlignmentEnabled,
 			!!isFullWidthEnabled,
 			editorAnalyticsAPI,
+			isCommentEditor,
+			isTableResizingEnabled,
 		),
 		list,
 	);

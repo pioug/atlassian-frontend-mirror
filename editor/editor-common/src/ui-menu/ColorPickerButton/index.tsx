@@ -8,6 +8,7 @@ import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -26,6 +27,7 @@ import {
 	DEFAULT_BORDER_COLOR,
 	getSelectedRowAndColumnFromPalette,
 } from '../../ui-color';
+import { withReactEditorViewOuterListeners } from '../../ui-react';
 import { default as Popup } from '../../ui/Popup';
 import type { Position as PopupPosition } from '../../ui/Popup/utils';
 import { default as withOuterListeners } from '../../ui/with-outer-listeners';
@@ -82,6 +84,7 @@ type Props = WithAnalyticsEventsProps & {
 };
 
 const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
+const ColorPaletteWithReactViewListeners = withReactEditorViewOuterListeners(ColorPalette);
 
 const ColorPickerButton = (props: Props) => {
 	const buttonRef = React.useRef<HTMLButtonElement>(null);
@@ -194,18 +197,33 @@ const ColorPickerButton = (props: Props) => {
 						isPopupPositioned={isPopupPositioned}
 						ignoreEscapeKey={props.returnEscToButton}
 					>
-						<ColorPaletteWithListeners
-							cols={props.cols}
-							selectedColor={selectedColor}
-							onClick={onColorSelected}
-							handleClickOutside={togglePopup}
-							handleEscapeKeydown={handleEsc}
-							paletteOptions={{
-								palette: props.colorPalette,
-								hexToPaletteColor: props.hexToPaletteColor,
-								paletteColorTooltipMessages: props.paletteColorTooltipMessages,
-							}}
-						/>
+						{fg('react_18_color_picker_concurrent_mode') ? (
+							<ColorPaletteWithReactViewListeners
+								cols={props.cols}
+								selectedColor={selectedColor}
+								onClick={onColorSelected}
+								handleClickOutside={togglePopup}
+								handleEscapeKeydown={handleEsc}
+								paletteOptions={{
+									palette: props.colorPalette,
+									hexToPaletteColor: props.hexToPaletteColor,
+									paletteColorTooltipMessages: props.paletteColorTooltipMessages,
+								}}
+							/>
+						) : (
+							<ColorPaletteWithListeners
+								cols={props.cols}
+								selectedColor={selectedColor}
+								onClick={onColorSelected}
+								handleClickOutside={togglePopup}
+								handleEscapeKeydown={handleEsc}
+								paletteOptions={{
+									palette: props.colorPalette,
+									hexToPaletteColor: props.hexToPaletteColor,
+									paletteColorTooltipMessages: props.paletteColorTooltipMessages,
+								}}
+							/>
+						)}
 					</ArrowKeyNavigationProvider>
 				</div>
 			</Popup>

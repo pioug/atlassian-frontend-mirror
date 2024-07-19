@@ -44,7 +44,7 @@ var getThemePreferences = exports.getThemePreferences = function getThemePrefere
   });
   return (0, _toConsumableArray2.default)(new Set(themePreferences));
 };
-var getThemeOverridePreferences = exports.getThemeOverridePreferences = function getThemeOverridePreferences(themeState) {
+var getThemeOverridePreferences = exports.getThemeOverridePreferences = function getThemeOverridePreferences(_themeState) {
   var themeOverridePreferences = [];
   return (0, _toConsumableArray2.default)(new Set(themeOverridePreferences));
 };

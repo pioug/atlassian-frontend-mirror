@@ -1,5 +1,13 @@
 # @atlaskit/storybook-addon-design-system
 
+## 1.1.0
+
+### Minor Changes
+
+- [#121858](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121858)
+  [`a1c4a37a57a0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1c4a37a57a0c) -
+  Fixed the build issue in the previous version.
+
 ## 1.0.0
 
 ### Major Changes

@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 194.3.10
+
+### Patch Changes
+
+- [#121678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121678)
+  [`9ca02c9c7c5ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ca02c9c7c5ce) -
+  created new entrypoint for startMeasure,stopMeasure,clearMeasure, deprecated those functions in
+  editor-common/utils
+- Updated dependencies
+
+## 194.3.9
+
+### Patch Changes
+
+- [#121871](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121871)
+  [`61163aa3e3a70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61163aa3e3a70) -
+  ED-24145: Turned on table drag and drop in comment editor
+- [`3b20c735bc9ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b20c735bc9ee) -
+  [ux] Insert full-width table in comment editor when table resizing is enabled.
+
 ## 194.3.6
 
 ### Patch Changes

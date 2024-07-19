@@ -74,6 +74,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 			allowTextColor: true,
 			allowRule: true,
 			allowTables: {
+				advanced: true,
 				allowControls: true,
 			},
 			allowHelpDialog: true,
@@ -151,6 +152,7 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 									allowTextColor
 									allowRule={true}
 									allowTables={{
+										advanced: true,
 										allowControls: true,
 									}}
 									allowHelpDialog={true}

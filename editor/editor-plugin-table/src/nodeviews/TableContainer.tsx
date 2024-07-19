@@ -174,6 +174,7 @@ type ResizableTableContainerProps = {
 	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
+	isCommentEditor?: boolean;
 };
 
 export const ResizableTableContainer = React.memo(
@@ -194,6 +195,7 @@ export const ResizableTableContainer = React.memo(
 		isTableWithFixedColumnWidthsOptionEnabled,
 		isTableAlignmentEnabled,
 		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
 	}: PropsWithChildren<ResizableTableContainerProps>) => {
 		const containerRef = useRef<HTMLDivElement | null>(null);
 		const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
@@ -296,14 +298,21 @@ export const ResizableTableContainer = React.memo(
 			// padding left = padding right = akEditorGutterPadding = 32
 			responsiveContainerWidth = isTableScalingEnabled
 				? containerWidth - akEditorGutterPaddingDynamic() * 2
-				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+				: containerWidth -
+					akEditorGutterPaddingDynamic() * 2 -
+					(isCommentEditor ? 0 : resizeHandleSpacing);
 		}
-		let width = Math.min(tableWidth, responsiveContainerWidth);
+		let width =
+			!node.attrs.width && isCommentEditor
+				? responsiveContainerWidth
+				: Math.min(tableWidth, responsiveContainerWidth);
 
 		if (!isResizing) {
 			tableWidthRef.current = width;
 		}
-		const maxResizerWidth = Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
+		const maxResizerWidth = isCommentEditor
+			? responsiveContainerWidth
+			: Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 
 		const tableResizerProps = {
 			width,
@@ -391,6 +400,7 @@ type TableContainerProps = {
 	isTableWithFixedColumnWidthsOptionEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
+	isCommentEditor?: boolean;
 };
 
 export const TableContainer = ({
@@ -411,6 +421,7 @@ export const TableContainer = ({
 	isTableWithFixedColumnWidthsOptionEnabled,
 	isTableAlignmentEnabled,
 	shouldUseIncreasedScalingPercent,
+	isCommentEditor,
 }: PropsWithChildren<TableContainerProps>) => {
 	if (isTableResizingEnabled && !isNested) {
 		return (
@@ -431,6 +442,7 @@ export const TableContainer = ({
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
+				isCommentEditor={isCommentEditor}
 			>
 				{children}
 			</ResizableTableContainer>

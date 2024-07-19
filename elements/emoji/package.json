@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "67.6.32",
+	"version": "67.6.33",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,6 +42,7 @@
 		"@atlaskit/icon": "^22.6.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/textfield": "^6.4.0",
@@ -139,5 +140,10 @@
 		"typecheck": "cd ../../ && yarn typecheck:package ./packages/elements/emoji",
 		"start:dev": "cd ../../ && yarn start emoji --proxy ./packages/elements/emoji/proxy.ts",
 		"start:edge": "cd ../../ && PROXY_TARGET_ENV=edge yarn start emoji --proxy ./packages/elements/emoji/proxy.ts"
+	},
+	"platform-feature-flags": {
+		"editor-react-18-fix-emoji-selection": {
+			"type": "boolean"
+		}
 	}
 }

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.18.4
+
+### Patch Changes
+
+- [#122050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122050)
+  [`db22dc84c34c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db22dc84c34c3) -
+  Moves away from the use of ts-node to esbuild-register for local consumption
+
 ## 0.18.3
 
 ### Patch Changes

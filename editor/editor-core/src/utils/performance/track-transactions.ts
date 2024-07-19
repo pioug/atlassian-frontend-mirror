@@ -1,9 +1,5 @@
-import {
-	getTimeSince,
-	isPerformanceAPIAvailable,
-	startMeasure,
-	stopMeasure,
-} from '@atlaskit/editor-common/utils';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
+import { getTimeSince, isPerformanceAPIAvailable } from '@atlaskit/editor-common/utils';
 
 import type { TransactionTracking } from '../../types/performance-tracking';
 

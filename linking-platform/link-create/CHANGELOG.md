@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 2.8.3
+
+### Patch Changes
+
+- [#121784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121784)
+  [`b729bad421ff9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b729bad421ff9) -
+  [ux] Default to first site in site picker, when present. Show icon only when present (previously
+  was a grey square).
+
 ## 2.8.2
 
 ### Patch Changes

@@ -298,7 +298,7 @@ describe('DateTimePicker', () => {
 		});
 	});
 
-	describe('Accessible names', () => {
+	describe('Accessible names and descriptions', () => {
 		const label = 'Hibernation start date';
 		const testId = 'test';
 		const datePickerTestId = `${testId}--datepicker`;
@@ -366,6 +366,16 @@ describe('DateTimePicker', () => {
 
 			expect(datePicker).toHaveAttribute('aria-label', label);
 			expect(timePicker).toHaveAttribute('aria-label', label);
+		});
+
+		it('should add aria-describedby when prop is supplied', () => {
+			const describedBy = 'description';
+			render(<DateTimePicker aria-describedby={describedBy} testId={testId} />);
+
+			const datePicker = screen.getByTestId(datePickerTestId);
+			expect(datePicker).toHaveAttribute('aria-describedby', describedBy);
+			const timePicker = screen.getByTestId(timePickerTestId);
+			expect(timePicker).toHaveAttribute('aria-describedby', describedBy);
 		});
 	});
 });

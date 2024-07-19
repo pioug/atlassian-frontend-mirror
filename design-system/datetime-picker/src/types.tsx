@@ -12,6 +12,10 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	appearance?: Appearance;
 	/**
+	 * Used to associate accessible descriptions to the date picker.
+	 */
+	'aria-describedby'?: string;
+	/**
 	 * Set the picker to autofocus on mount.
 	 */
 	autoFocus?: boolean;
@@ -164,6 +168,10 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	appearance?: Appearance;
 	/**
+	 * Used to associate accessible descriptions to the time picker.
+	 */
+	'aria-describedby'?: string;
+	/**
 	 * Set the picker to autofocus on mount.
 	 */
 	autoFocus?: boolean;
@@ -280,6 +288,13 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 * `subtle` will remove the borders and background.
 	 */
 	appearance?: Appearance;
+	/**
+	 * Used to associate accessible descriptions to both the date and time
+	 * picker. If you want to associate individual accessible descriptions, this
+	 * should be done through the `datePickerSelectProps` and
+	 * `timePickerSelectProps`.
+	 */
+	'aria-describedby'?: string;
 	/**
 	 * Set the picker to autofocus on mount.
 	 */

@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.6.33
+
+### Patch Changes
+
+- [#121899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121899)
+  [`3677f60eb34a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3677f60eb34a2) -
+  [ux] Fix editor emoji selection in React 18.
+
 ## 67.6.32
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.11.2
+
+### Patch Changes
+
+- [#122050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122050)
+  [`db22dc84c34c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db22dc84c34c3) -
+  Moves away from the use of ts-node to esbuild-register for local consumption
+
 ## 10.11.1
 
 ### Patch Changes

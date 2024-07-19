@@ -96,6 +96,7 @@ export const createPlugin = (
 	isTableScalingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
 	shouldUseIncreasedScalingPercent?: boolean,
+	isCommentEditor?: boolean,
 ) => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
@@ -361,6 +362,7 @@ export const createPlugin = (
 					dispatchAnalyticsEvent,
 					pluginInjectionApi,
 					isTableAlignmentEnabled,
+					isCommentEditor,
 				}),
 				tableRow: lazyTableRowView({ eventDispatcher }),
 				tableCell: lazyTableCellView({ eventDispatcher }),

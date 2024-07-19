@@ -85,6 +85,8 @@ export const createPlugin =
 			allowEmbeds,
 			allowBlockCards,
 			onClickCallback,
+			// @ts-ignore Temporary solution to check for Live Page editor.
+			__livePage,
 		} = options;
 
 		const enableInlineUpgradeFeatures = !!showUpgradeDiscoverability && platform !== 'mobile';
@@ -101,10 +103,14 @@ export const createPlugin =
 				allowBlockCards,
 				pluginInjectionApi,
 				onClickCallback,
+				__livePage,
 			},
-			extraNodeViewProps: {
-				stopEvent,
-			},
+			...(__livePage &&
+				fg('platform.linking-platform.smart-links-in-live-pages') && {
+					extraNodeViewProps: {
+						stopEvent,
+					},
+				}),
 		});
 
 		return new SafePlugin({

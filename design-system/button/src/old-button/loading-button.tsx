@@ -14,7 +14,9 @@ export type LoadingButtonProps = Omit<BaseProps, 'overlay'> & LoadingButtonOwnPr
 /**
  * __Loading button__
  *
- * CAUTION: Legacy loading buttons will soon be deprecated. Please use the new Button components from `@atlaskit/button/new` with the `isLoading` prop.
+ * @deprecated Legacy loading buttons are deprecated and will be removed from `atlaskit/button` in an upcoming major release. Please use the new Button components from `@atlaskit/button/new` with the `isLoading` prop.
+ *
+ * Please refer to the [migration guide](https://atlassian.design/components/button/button-legacy/migration-guide) for further details.
  *
  * A small wrapper around Button that allows you to show an @atlaskit/spinner as an overlay on the button when you set an isLoading prop to true.
  *

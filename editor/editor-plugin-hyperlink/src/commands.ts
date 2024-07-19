@@ -17,40 +17,40 @@ import {
 } from '@atlaskit/editor-common/card';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { Command, EditorCommand, LinkInputType } from '@atlaskit/editor-common/types';
-import {
-	filterCommand as filter,
-	getLinkCreationAnalyticsEvent,
-	normalizeUrl,
-} from '@atlaskit/editor-common/utils';
+import { getLinkCreationAnalyticsEvent, normalizeUrl } from '@atlaskit/editor-common/utils';
 import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { stateKey } from './pm-plugins/main';
 
-export function setLinkHref(
+function setLinkHrefEditorCommand(
 	href: string,
 	pos: number,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	to?: number,
 	isTabPressed?: boolean,
-): Command {
-	return filter(isTextAtPos(pos), (state, dispatch) => {
-		const $pos = state.doc.resolve(pos);
-		const node = state.doc.nodeAt(pos) as Node;
-		const linkMark = state.schema.marks.link;
+): EditorCommand {
+	return ({ tr }) => {
+		if (!isTextAtPos(pos)({ tr })) {
+			return null;
+		}
+		const $pos = tr.doc.resolve(pos);
+		const node = tr.doc.nodeAt(pos) as Node;
+		const linkMark = tr.doc.type.schema.marks.link;
 		const mark = linkMark.isInSet(node.marks) as Mark | undefined;
 		const url = normalizeUrl(href);
 
 		if (mark && mark.attrs.href === url) {
-			return false;
+			return null;
 		}
 
 		const rightBound = to && pos !== to ? to : pos - $pos.textOffset + node.nodeSize;
 
-		const tr = state.tr.removeMark(pos, rightBound, linkMark);
+		tr.removeMark(pos, rightBound, linkMark);
 
 		if (href.trim()) {
 			tr.addMark(
@@ -69,36 +69,48 @@ export function setLinkHref(
 		if (!isTabPressed) {
 			tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
 		}
+		return tr;
+	};
+}
 
-		if (dispatch) {
-			dispatch(tr);
-		}
-		return true;
-	});
+export function setLinkHref(
+	href: string,
+	pos: number,
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	to?: number,
+	isTabPressed?: boolean,
+): Command {
+	return editorCommandToPMCommand(
+		setLinkHrefEditorCommand(href, pos, editorAnalyticsApi, to, isTabPressed),
+	);
 }
 
 export type UpdateLink = (href: string, text: string, pos: number, to?: number) => Command;
 
-export function updateLink(href: string, text: string, pos: number, to?: number): Command {
-	return (state, dispatch) => {
-		const $pos: ResolvedPos = state.doc.resolve(pos);
-		const node: Node | null | undefined = state.doc.nodeAt(pos);
+export function updateLinkEditorCommand(
+	href: string,
+	text: string,
+	pos: number,
+	to?: number,
+): EditorCommand {
+	return ({ tr }) => {
+		const $pos: ResolvedPos = tr.doc.resolve(pos);
+		const node: Node | null | undefined = tr.doc.nodeAt(pos);
 		if (!node) {
-			return false;
+			return null;
 		}
 		const url = normalizeUrl(href);
 
-		const mark = state.schema.marks.link.isInSet(node.marks);
-		const linkMark = state.schema.marks.link;
+		const mark = tr.doc.type.schema.marks.link.isInSet(node.marks);
+		const linkMark = tr.doc.type.schema.marks.link;
 
 		const rightBound = to && pos !== to ? to : pos - $pos.textOffset + node.nodeSize;
-		const tr = state.tr;
 
 		if (!url && text) {
 			tr.removeMark(pos, rightBound, linkMark);
 			tr.insertText(text, pos, rightBound);
 		} else if (!url) {
-			return false;
+			return null;
 		} else {
 			tr.insertText(text, pos, rightBound);
 			// Casting to LinkAttributes to prevent wrong attributes been passed (Example ED-7951)
@@ -109,12 +121,12 @@ export function updateLink(href: string, text: string, pos: number, to?: number)
 			tr.addMark(pos, pos + text.length, linkMark.create(linkAttrs));
 			tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
 		}
-
-		if (dispatch) {
-			dispatch(tr);
-		}
-		return true;
+		return tr;
 	};
+}
+
+export function updateLink(href: string, text: string, pos: number, to?: number): Command {
+	return editorCommandToPMCommand(updateLinkEditorCommand(href, text, pos, to));
 }
 
 export function insertLink(
@@ -260,6 +272,19 @@ export function removeLink(
 	return commandWithMetadata(setLinkHref('', pos, editorAnalyticsApi), {
 		action: ACTION.UNLINK,
 	});
+}
+
+export function removeLinkEditorCommand(
+	pos: number,
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): EditorCommand {
+	return ({ tr }) => {
+		setLinkHrefEditorCommand('', pos, editorAnalyticsApi)({ tr });
+		addLinkMetadata(tr.selection, tr, {
+			action: ACTION.UNLINK,
+		});
+		return tr;
+	};
 }
 
 export function editInsertedLink(editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command {

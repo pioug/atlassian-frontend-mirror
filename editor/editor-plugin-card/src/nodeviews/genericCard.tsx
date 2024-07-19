@@ -56,6 +56,7 @@ export interface CardProps extends CardNodeViewProps {
 	onClickCallback?: OnClickCallback;
 	showHoverPreview?: BaseCardProps['showHoverPreview'];
 	hoverPreviewOptions?: BaseCardProps['hoverPreviewOptions'];
+	__livePage?: boolean;
 }
 
 export interface SmartCardProps extends CardProps {
@@ -74,6 +75,7 @@ const WithClickHandler = ({
 	url,
 	onClickCallback,
 	children,
+	__livePage,
 }: {
 	pluginInjectionApi: ExtractInjectionAPI<CardPlugin> | undefined;
 	onClickCallback?: OnClickCallback;
@@ -81,6 +83,7 @@ const WithClickHandler = ({
 	children: (props: {
 		onClick: ((e: React.MouseEvent<HTMLAnchorElement>) => void) | undefined;
 	}) => React.ReactNode;
+	__livePage?: boolean;
 }) => {
 	const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, ['editorViewMode']);
 
@@ -106,7 +109,7 @@ const WithClickHandler = ({
 		 *
 		 * const allowNavigation = isLivePage && !onClickCallback;
 		 */
-		const allowNavigation = !onClickCallback;
+		const allowNavigation = __livePage && !onClickCallback;
 
 		return (
 			<>
@@ -188,6 +191,7 @@ export function Card(
 						pluginInjectionApi={pluginInjectionApi}
 						onClickCallback={onClickCallback}
 						url={url}
+						__livePage={this.props.__livePage}
 					>
 						{({ onClick }) => (
 							<SmartCardComponent

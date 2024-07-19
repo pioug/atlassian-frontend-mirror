@@ -785,4 +785,12 @@ describe('DatePicker', () => {
 		const input = screen.getByRole('combobox');
 		expect(input).toHaveAttribute('aria-label', 'Date');
 	});
+
+	it('should add aria-describedby when prop is supplied', () => {
+		const describedBy = 'description';
+		render(createDatePicker({ 'aria-describedby': describedBy }));
+
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
+	});
 });

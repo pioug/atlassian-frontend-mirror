@@ -25,6 +25,7 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import type {
 	AllEditorPresetPluginTypes,
 	EditorPresetBuilder,
@@ -53,8 +54,6 @@ import {
 	measureRender,
 	processRawValue,
 	shouldForceTracking,
-	startMeasure,
-	stopMeasure,
 	validateNodes,
 	validNode,
 } from '@atlaskit/editor-common/utils';

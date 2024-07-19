@@ -20,7 +20,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { token } from '@atlaskit/tokens';
@@ -197,7 +197,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled,
 		} = this.props;
 
-		if (getBooleanFF('platform.editor.table.live-pages-sorting_4malx')) {
+		if (fg('platform.editor.table.live-pages-sorting_4malx')) {
 			const { mode } =
 				this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState() || {};
 			if (mode === 'view') {
@@ -305,7 +305,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
 		}
 
-		if (getBooleanFF('platform.editor.table.live-pages-sorting_4malx')) {
+		if (fg('platform.editor.table.live-pages-sorting_4malx')) {
 			this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
 		}
 
@@ -388,7 +388,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 			const shouldUseIncreasedScalingPercent =
 				(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-					getBooleanFF('platform.editor.table.use-increased-scaling-percent')) ||
+					fg('platform.editor.table.use-increased-scaling-percent')) ||
 				false;
 
 			if (force || (!isResizing && shouldUpdateColgroup)) {
@@ -448,7 +448,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const table = findTable(view.state.selection);
 
-		if (!getBooleanFF('platform.editor.table.use-shared-state-hook')) {
+		if (!fg('platform.editor.table.use-shared-state-hook')) {
 			const pluginState = getPluginState(view.state);
 			isInDanger = pluginState.isInDanger;
 		}
@@ -466,7 +466,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+			fg('platform.editor.table.use-increased-scaling-percent');
 
 		if (
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
@@ -651,7 +651,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { showBeforeShadow, showAfterShadow } = this.state;
 		const node = getNode();
 
-		if (!getBooleanFF('platform.editor.table.use-shared-state-hook')) {
+		if (!fg('platform.editor.table.use-shared-state-hook')) {
 			const pluginState = getPluginState(view.state);
 			isInDanger = pluginState.isInDanger;
 			hoveredRows = pluginState.hoveredRows;
@@ -748,7 +748,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingEnabled &&
 			tableWithFixedColumnWidthsOption &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+			fg('platform.editor.table.use-increased-scaling-percent');
 
 		return (
 			<TableContainer
@@ -774,6 +774,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isWholeTableInDanger={isWholeTableInDanger}
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
+				isCommentEditor={options?.isCommentEditor}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

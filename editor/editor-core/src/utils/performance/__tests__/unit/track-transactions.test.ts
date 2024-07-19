@@ -1,7 +1,7 @@
 import {
 	startMeasure as startMeasureWithMark,
 	stopMeasure as stopMeasureWithMark,
-} from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/performance-measures';
 import { getTimeSince } from '@atlaskit/editor-common/utils';
 
 import { TransactionTracker } from '../../track-transactions';

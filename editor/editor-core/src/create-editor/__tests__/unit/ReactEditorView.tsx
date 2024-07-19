@@ -1,17 +1,9 @@
 const mockStopMeasureDuration = 1234;
 const mockStartTime = 1;
 const mockResponseTime = 200;
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/performance-measures', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
-	measureRender: jest.fn(async (name: string, callback: Function) => {
-		await Promise.resolve(0);
-		callback({
-			duration: mockStopMeasureDuration,
-			startTime: mockStartTime,
-			distortedDuration: false,
-		});
-	}),
 	stopMeasure: jest.fn(
 		(
 			measureName: string,
@@ -29,6 +21,17 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 				});
 		},
 	),
+}));
+jest.mock('@atlaskit/editor-common/utils', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+	measureRender: jest.fn(async (name: string, callback: Function) => {
+		await Promise.resolve(0);
+		callback({
+			duration: mockStopMeasureDuration,
+			startTime: mockStartTime,
+			distortedDuration: false,
+		});
+	}),
 	isPerformanceAPIAvailable: jest.fn(() => true),
 	getResponseEndTime: jest.fn(() => mockResponseTime),
 }));

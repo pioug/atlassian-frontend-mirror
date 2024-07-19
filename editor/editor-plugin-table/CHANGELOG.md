@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.21.3
+
+### Patch Changes
+
+- [`3b20c735bc9ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b20c735bc9ee) -
+  [ux] Insert full-width table in comment editor when table resizing is enabled.
+
 ## 7.21.2
 
 ### Patch Changes

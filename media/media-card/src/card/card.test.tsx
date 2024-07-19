@@ -4100,6 +4100,183 @@ describe('Card ', () => {
 			});
 		});
 
+		it('should not render error screen when the preview fails to load', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.svg();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			// The preview fails but the binary is OK. Card should not fail
+			mediaApi.getImage = () => {
+				throw createServerUnauthorizedError();
+			};
+
+			const { findAllByTestId, container } = render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						disableOverlay
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const elem = await findAllByTestId('media-card-svg');
+			expect(elem[0]).toBeDefined();
+			const imgElement = elem[0];
+			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			fireEvent.load(imgElement);
+
+			await waitFor(() =>
+				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			);
+
+			// Analytics are broken for this case!
+			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
+			/* 
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+				fileStatus: 'processed',
+			};
+
+			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'succeeded',
+				actionSubject: 'mediaCardRender',
+				attributes: {
+					fileAttributes,
+					fileMimetype: 'image/svg+xml',
+					performanceAttributes: {
+						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+					},
+					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+					status: 'success',
+					metadataTraceContext: {
+						spanId: expect.any(String),
+						traceId: expect.any(String),
+					},
+					traceContext: { traceId: expect.any(String) },
+				},
+				eventType: 'operational',
+			}); */
+		});
+
+		it('should not render error screen when the file failed processing', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.svgFailedProcessing();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { findAllByTestId, container } = render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						disableOverlay
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const elem = await findAllByTestId('media-card-svg');
+			expect(elem[0]).toBeDefined();
+			const imgElement = elem[0];
+			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			fireEvent.load(imgElement);
+
+			await waitFor(() =>
+				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			);
+
+			// Analytics are broken for this case!
+			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
+			/* 
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+				fileStatus: 'processed',
+			};
+
+			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'succeeded',
+				actionSubject: 'mediaCardRender',
+				attributes: {
+					fileAttributes,
+					fileMimetype: 'image/svg+xml',
+					performanceAttributes: {
+						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+					},
+					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+					status: 'success',
+					metadataTraceContext: {
+						spanId: expect.any(String),
+						traceId: expect.any(String),
+					},
+					traceContext: { traceId: expect.any(String) },
+				},
+				eventType: 'operational',
+			}); */
+		});
+
+		it('should not render error screen when the file has no preview', async () => {
+			// The file item is "processed without preview"
+			const [fileItem, identifier] = generateSampleFileItem.svgWithoutPreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { findAllByTestId, container } = render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						disableOverlay
+					/>
+				</MockedMediaClientProvider>,
+			);
+
+			const elem = await findAllByTestId('media-card-svg');
+			expect(elem[0]).toBeDefined();
+			const imgElement = elem[0];
+			expect(imgElement.nodeName.toLowerCase()).toBe('img');
+			fireEvent.load(imgElement);
+
+			await waitFor(() =>
+				expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
+			);
+
+			// Analytics are broken for this case!
+			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
+			/* 
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+				fileStatus: 'processed',
+			};
+
+			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'succeeded',
+				actionSubject: 'mediaCardRender',
+				attributes: {
+					fileAttributes,
+					fileMimetype: 'image/svg+xml',
+					performanceAttributes: {
+						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+					},
+					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+					status: 'success',
+					metadataTraceContext: {
+						spanId: expect.any(String),
+						traceId: expect.any(String),
+					},
+					traceContext: { traceId: expect.any(String) },
+				},
+				eventType: 'operational',
+			}); */
+		});
+
 		it('should render error screen when SVG binary fails to load', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.svg();
 			const { mediaApi } = createMockedMediaApi(fileItem);

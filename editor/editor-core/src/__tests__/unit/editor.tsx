@@ -2,14 +2,17 @@ const mockStopMeasureDuration = 1234;
 const tti = 1000;
 const ttiFromInvocation = 500;
 
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/performance-measures', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	stopMeasure: jest.fn(
 		(measureName: string, onMeasureComplete?: (duration: number, startTime: number) => void) => {
 			onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
 		},
 	),
+}));
+jest.mock('@atlaskit/editor-common/utils', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
 	measureTTI: jest.fn(),
 }));
 
@@ -61,6 +64,7 @@ import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { EDITOR_APPEARANCE_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import * as measure from '@atlaskit/editor-common/performance-measures';
 import type {
 	AutoformattingProvider,
 	QuickInsertProvider,
@@ -671,7 +675,7 @@ describe(`Editor`, () => {
 
 		describe('running the constructor once', () => {
 			it('should start measure', () => {
-				const startMeasureSpy = jest.spyOn(utils, 'startMeasure');
+				const startMeasureSpy = jest.spyOn(measure, 'startMeasure');
 				render(<Editor />);
 
 				expect(startMeasureSpy).toHaveBeenCalledWith(measurements.EDITOR_MOUNTED);

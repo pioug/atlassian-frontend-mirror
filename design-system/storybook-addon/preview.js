@@ -1,2 +1,2 @@
 /* eslint-disable */
-export { default } from './dist/preview';
+export { default } from './dist/esm/preview';

@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 86.3.0
+
+### Minor Changes
+
+- [#121678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121678)
+  [`9ca02c9c7c5ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ca02c9c7c5ce) -
+  created new entrypoint for startMeasure,stopMeasure,clearMeasure, deprecated those functions in
+  editor-common/utils
+
+## 86.2.3
+
+### Patch Changes
+
+- [#121941](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121941)
+  [`9db19df977817`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9db19df977817) -
+  Added new commands for hyperlink plugin: removeLink and updateLink. These can be used on an active
+  link to remove the hyperlink mark or update the text/href on the link.
+- [`3b20c735bc9ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b20c735bc9ee) -
+  [ux] Insert full-width table in comment editor when table resizing is enabled.
+
+## 86.2.2
+
+### Patch Changes
+
+- [#121764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121764)
+  [`50becb2c435c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50becb2c435c7) -
+  Fix color picker popup not opening in react 18
+
 ## 86.2.1
 
 ### Patch Changes

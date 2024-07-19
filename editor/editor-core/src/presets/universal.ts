@@ -207,7 +207,13 @@ export default function createUniversalPreset(
 						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
 					tableResizingEnabled:
 						isFullPage || (isComment && fg('platform_editor_table_support_in_comment')),
-					dragAndDropEnabled: featureFlags?.tableDragAndDrop && isFullPage,
+					dragAndDropEnabled:
+						(featureFlags?.tableDragAndDrop && isFullPage) ||
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						(isComment &&
+							featureFlags?.tableDragAndDrop &&
+							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+							fg('platform_editor_table_support_in_comment')),
 					isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
 					allowContextualMenu: !isMobile,
 					fullWidthEnabled: appearance === 'full-width',
@@ -215,6 +221,7 @@ export default function createUniversalPreset(
 					getEditorFeatureFlags,
 					isTableAlignmentEnabled: fg('platform.editor.table.allow-table-alignment') && isFullPage,
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
+					isCommentEditor: isComment,
 				},
 			],
 			Boolean(props.allowTables),
@@ -347,6 +354,8 @@ export default function createUniversalPreset(
 					linkPicker: props.linking?.linkPicker,
 					lpLinkPicker: featureFlags.lpLinkPicker ?? false,
 					editorAppearance: appearance,
+					// @ts-ignore Temporary solution to check for Live Page editor.
+					__livePage: props.__livePage,
 				},
 			],
 			Boolean(props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards),

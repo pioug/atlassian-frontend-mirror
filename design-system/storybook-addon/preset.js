@@ -1,2 +1,2 @@
 /* eslint-disable */
-module.exports = require('./dist/preset.cjs');
+module.exports = require('./dist/esm/preset.js');

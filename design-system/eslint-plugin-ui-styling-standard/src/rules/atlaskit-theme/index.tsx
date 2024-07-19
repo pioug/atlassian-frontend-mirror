@@ -1,6 +1,7 @@
 import type { Rule, Scope } from 'eslint';
 
 import { getImportSources, isCompiled } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { createLintRule } from '../utils/create-rule';
 
 const isIdentifierReferenced = (

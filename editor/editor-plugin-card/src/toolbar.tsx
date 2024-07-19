@@ -721,6 +721,7 @@ const getDatasourceButtonGroup = (
 			render: (editorView) => (
 				<EditToolbarButton
 					datasourceId={datasourceId}
+					node={node}
 					key="edit-toolbar-item"
 					url={metadata.url}
 					intl={intl}

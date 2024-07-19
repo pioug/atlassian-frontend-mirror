@@ -90,3 +90,22 @@ test('InlineDialog should work correctly with DatePicker component', async ({ pa
 	await expect(page.locator(datePickerContainer).first()).toBeVisible();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 });
+
+test('InlineDialog should stay open when interacting dropdown in modal', async ({ page }) => {
+	await page.visitExample('design-system', 'inline-dialog', 'popup');
+	await page.locator(inlineDialogBtn).click();
+	const inlineDialog = page.locator(inlineDialogTestId);
+	await expect(inlineDialog).toBeVisible();
+	const dropdownTrigger = page.getByTestId('dropdown--trigger');
+	await dropdownTrigger.click();
+	await page.locator('[role="menuitem"]').first().click();
+	await expect(inlineDialog).toBeVisible();
+
+	await dropdownTrigger.click();
+	const dropdownContent = page.getByTestId('dropdown--content');
+
+	await expect(dropdownContent).toBeVisible();
+	await page.keyboard.press('Escape');
+	await expect(dropdownContent).toBeHidden();
+	await expect(inlineDialog).toBeVisible();
+});

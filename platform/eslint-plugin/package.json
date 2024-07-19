@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "0.7.2",
+	"version": "0.7.3",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "UIP - Platform Integration Trust (PITa)",
@@ -39,9 +39,9 @@
 		"read-pkg-up": "^7.0.1"
 	},
 	"devDependencies": {
+		"@atlassian/ts-loader": "*",
 		"@types/eslint": "^8.56.6",
 		"eslint": "^8.49.0",
-		"outdent": "^0.5.0",
-		"tsconfig-paths": "^4.2.0"
+		"outdent": "^0.5.0"
 	}
 }

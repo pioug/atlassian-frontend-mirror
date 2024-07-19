@@ -580,6 +580,49 @@ const svg = createGenerator({
 	},
 });
 
+const svgWithoutPreview = createGenerator({
+	type: 'file',
+	id: 'd4fb1cef-d845-42d4-beca-7b185966f4d6',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'image',
+		mimeType: 'image/svg+xml',
+		name: 'car.svg',
+		size: 527014,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'image.jpg': {
+				url: '/file/d4fb1cef-d845-42d4-beca-7b185966f4d6/artifact/image.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+			'image.webp': {
+				url: '/file/d4fb1cef-d845-42d4-beca-7b185966f4d6/artifact/image.webp/binary',
+
+				processingStatus: 'succeeded',
+			},
+		},
+		representations: {},
+
+		createdAt: 1708310473485,
+	},
+});
+
+const svgFailedProcessing = createGenerator({
+	type: 'file',
+	id: 'd4fb1cef-d845-42d4-beca-7b185966f4d6',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'image',
+		mimeType: 'image/svg+xml',
+		name: 'car.svg',
+		size: 527014,
+		processingStatus: 'failed',
+		artifacts: {},
+		representations: {},
+		createdAt: 1708310473485,
+	},
+});
+
 export const generateSampleFileItem = {
 	workingImgWithRemotePreview,
 	workingImgWithRemotePreviewInRecentsCollection,
@@ -600,4 +643,6 @@ export const generateSampleFileItem = {
 	failedVideo,
 	passwordPdf,
 	svg,
+	svgWithoutPreview,
+	svgFailedProcessing,
 };

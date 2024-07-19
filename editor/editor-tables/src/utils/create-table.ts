@@ -21,7 +21,7 @@ type CreateTableProps = {
 	colsCount?: number;
 	withHeaderRow?: boolean;
 	cellContent?: PMNode;
-	tableWidth?: number;
+	tableWidth?: number | 'inherit';
 	layout?: string;
 };
 
@@ -63,5 +63,7 @@ export const createTable = ({
 	for (let i = 0; i < rowsCount; i++) {
 		rows.push(tableRow.createChecked(null, withHeaderRow && i === 0 ? headerCells : cells));
 	}
-	return table.createChecked({ localId: uuid.generate(), width: tableWidth ?? 760, layout }, rows);
+
+	const width = tableWidth === 'inherit' ? undefined : tableWidth === undefined ? 760 : tableWidth;
+	return table.createChecked({ localId: uuid.generate(), width, layout }, rows);
 };

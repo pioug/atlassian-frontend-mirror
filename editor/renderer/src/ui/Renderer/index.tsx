@@ -14,18 +14,17 @@ import {
 	IntlErrorBoundary,
 } from '@atlaskit/editor-common/ui';
 
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import {
 	getAnalyticsAppearance,
 	getAnalyticsEventSeverity,
 	getResponseEndTime,
-	startMeasure,
-	stopMeasure,
 	shouldForceTracking,
 	measureTTI,
 	getDistortedDurationMonitor,
 	browser,
 } from '@atlaskit/editor-common/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
@@ -266,8 +265,7 @@ export class Renderer extends PureComponent<RendererProps> {
 			// does not currently support SSR, should not be enabled in environments where Renderer is SSR-ed
 			allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
 			isInsideOfInlineExtension:
-				getBooleanFF('platform.editor.inline_extension.extended_lcqdn') &&
-				props.isInsideOfInlineExtension,
+				fg('platform.editor.inline_extension.extended_lcqdn') && props.isInsideOfInlineExtension,
 			textHighlighter: props.UNSTABLE_textHighlighter,
 			isCommentsOnMediaMediaInlineBugFixEnabled: featureFlags?.commentsOnMediaMediaInlineBugFix,
 		};
@@ -692,7 +690,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 			className={`ak-renderer-wrapper is-${appearance}`}
 			data-appearance={appearance}
 			shouldCheckExistingValue={
-				getBooleanFF('platform.editor.inline_extension.extended_lcqdn') && isInsideOfInlineExtension
+				fg('platform.editor.inline_extension.extended_lcqdn') && isInsideOfInlineExtension
 			}
 		>
 			<BaseTheme

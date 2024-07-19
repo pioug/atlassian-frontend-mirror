@@ -97,6 +97,7 @@ export interface TablePluginOptions {
 	isTableScalingEnabled?: boolean;
 	isTableAlignmentEnabled?: boolean;
 	isNewColumnResizingEnabled?: boolean;
+	isCommentEditor?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -262,6 +263,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						isTableScalingEnabled: options?.isTableScalingEnabled,
 						isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
 						isFullWidthModeEnabled: options?.fullWidthEnabled,
+						isCommentEditor: options?.isCommentEditor,
+						isTableResizingEnabled: options?.tableResizingEnabled,
 					})(state.schema);
 
 					return (
@@ -324,6 +327,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							dragAndDropEnabled,
 							isTableScalingEnabled,
 							isTableAlignmentEnabled,
+							isCommentEditor,
 						} = options || ({} as TablePluginOptions);
 
 						return createPlugin(
@@ -344,6 +348,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableScalingEnabled,
 							isTableAlignmentEnabled,
 							shouldUseIncreasedScalingPercent,
+							isCommentEditor,
 						);
 					},
 				},
@@ -386,6 +391,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableScalingEnabled = false,
 							isTableAlignmentEnabled = false,
 							fullWidthEnabled = false,
+							isCommentEditor = false,
+							tableResizingEnabled = false,
 						} = options || ({} as TablePluginOptions);
 
 						return keymapPlugin(
@@ -400,6 +407,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isCellBackgroundDuplicated,
 							isTableFixedColumnWidthsOptionEnabled,
 							shouldUseIncreasedScalingPercent,
+							isCommentEditor,
+							tableResizingEnabled,
 						);
 					},
 				},
@@ -463,7 +472,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tableWidth',
 					plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
-						options?.tableResizingEnabled
+						options?.tableResizingEnabled && !options?.isCommentEditor
 							? createTableWidthPlugin(
 									dispatch,
 									dispatchAnalyticsEvent,
@@ -717,6 +726,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableScalingEnabled: options?.isTableScalingEnabled,
 							isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
 							isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+							isCommentEditor: options?.isCommentEditor,
+							isTableResizingEnabled: options?.tableResizingEnabled,
 						})(state.schema);
 
 						const tr = insert(tableNode);

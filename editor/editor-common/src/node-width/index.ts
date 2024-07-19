@@ -138,7 +138,7 @@ const calcBreakoutNodeWidth = (
 		: absoluteBreakoutWidth(layout, containerWidth.width);
 };
 
-export const getTableContainerWidth = (node?: PMNode): number => {
+export const getTableContainerWidth = (node?: PMNode, isCommentEditor?: boolean): number => {
 	if (node?.attrs.width) {
 		return node.attrs.width;
 	}

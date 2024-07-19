@@ -43,7 +43,7 @@ const tableAttributes = (node: PmNode) => {
 		'data-layout': node.attrs.layout,
 		'data-autosize': node.attrs.__autoSize,
 		'data-table-local-id': node.attrs.localId || '',
-		'data-table-width': node.attrs.width,
+		'data-table-width': node.attrs.width || 'inherit',
 		'data-table-display-mode': node.attrs.displayMode,
 	};
 };
@@ -54,6 +54,10 @@ const getInlineWidth = (
 	state: EditorState,
 	pos: number | undefined,
 ): number | undefined => {
+	if (!node.attrs.width && options?.isCommentEditor && options?.isTableResizingEnabled) {
+		return;
+	}
+
 	// provide a width for tables when custom table width is supported
 	// this is to ensure 'responsive' tables (colgroup widths are undefined) become fixed to
 	// support screen size adjustments
@@ -360,6 +364,7 @@ export const createTableView = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	pluginInjectionApi?: PluginInjectionAPI,
 	isTableAlignmentEnabled?: boolean,
+	isCommentEditor?: boolean,
 ): NodeView => {
 	const {
 		pluginConfig,
@@ -386,6 +391,7 @@ export const createTableView = (
 			isDragAndDropEnabled,
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
 			isTableAlignmentEnabled,
+			isCommentEditor,
 		},
 		getEditorContainerWidth,
 		getEditorFeatureFlags,

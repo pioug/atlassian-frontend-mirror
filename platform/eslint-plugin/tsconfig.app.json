@@ -32,6 +32,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-platform/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../monorepo-tooling/ts-loader/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

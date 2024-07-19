@@ -91,15 +91,19 @@ export const SiteSelect = ({ options, name, testId }: SiteSelectProps) => {
 	);
 };
 
+const SiteRow = ({ avatarUrl, children }: PropsWithChildren<{ avatarUrl?: string }>) => (
+	<Inline space="space.100" alignBlock="center">
+		{avatarUrl ? <UrlIcon url={avatarUrl} /> : null}
+		{children}
+	</Inline>
+);
+
 export const SitePickerOption = ({
 	children,
 	...props
 }: PropsWithChildren<OptionProps<SitePickerOptionType, false>>): JSX.Element => (
 	<components.Option {...props}>
-		<Inline space="space.100" alignBlock="center">
-			<UrlIcon url={props.data.value.avatarUrl} />
-			{children}
-		</Inline>
+		<SiteRow avatarUrl={props.data.value.avatarUrl}>{children}</SiteRow>
 	</components.Option>
 );
 
@@ -108,9 +112,6 @@ export const SitePickerSingleValue = ({
 	...props
 }: PropsWithChildren<SingleValueProps<SitePickerOptionType, false>>): JSX.Element => (
 	<components.SingleValue {...props}>
-		<Inline space="space.100" alignBlock="center">
-			<UrlIcon url={props.data.value.avatarUrl} />
-			{children}
-		</Inline>
+		<SiteRow avatarUrl={props.data.value.avatarUrl}>{children}</SiteRow>
 	</components.SingleValue>
 );

@@ -1,6 +1,6 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import type {
 	EditorState,
 	ReadonlyTransaction,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.21.2",
+	"version": "7.21.3",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/button": "^19.0.0",
 		"@atlaskit/custom-steps": "^0.4.0",
-		"@atlaskit/editor-common": "^86.2.0",
+		"@atlaskit/editor-common": "^86.3.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",

@@ -1,3 +1,4 @@
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
 	AddMarkStep,
@@ -65,6 +66,9 @@ export const sanitizeStep = (step: Step): SanitizedStep => {
 
 	if (step instanceof AttrStep || step instanceof DocAttrStep) {
 		sanitizedStep.attr = step.attr;
+	} else if (step instanceof SetAttrsStep) {
+		// Combines all attrs keys separated by _ to one single string
+		sanitizedStep.attr = Object.keys(step.attrs).sort().join('_');
 	} else if (
 		step instanceof AddMarkStep ||
 		step instanceof RemoveMarkStep ||

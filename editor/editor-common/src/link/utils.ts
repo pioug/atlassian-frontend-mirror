@@ -1,13 +1,13 @@
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { Predicate } from '../types';
 
 import { linkPreferencesPath } from './constants';
 
-export function isTextAtPos(pos: number): Predicate {
-	return (state: EditorState) => {
-		const node = state.doc.nodeAt(pos);
+export function isTextAtPos(pos: number): (props: { tr: Transaction }) => boolean {
+	return ({ tr }: { tr: Transaction }) => {
+		const node = tr.doc.nodeAt(pos);
 		return !!node && node.isText;
 	};
 }

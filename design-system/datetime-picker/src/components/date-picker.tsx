@@ -401,6 +401,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	render() {
 		const {
 			appearance,
+			'aria-describedby': ariaDescribedBy,
 			autoFocus,
 			disabled,
 			hideIcon,
@@ -488,6 +489,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			>
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
 				<Select
+					aria-describedby={ariaDescribedBy}
 					aria-label={label || undefined}
 					appearance={this.props.appearance}
 					enableAnimation={false}

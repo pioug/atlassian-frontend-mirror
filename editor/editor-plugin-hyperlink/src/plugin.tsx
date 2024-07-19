@@ -10,23 +10,27 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { addLink, tooltip } from '@atlaskit/editor-common/keymaps';
 import { LinkAction } from '@atlaskit/editor-common/link';
-import type { HyperlinkState } from '@atlaskit/editor-common/link';
+import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconLink } from '@atlaskit/editor-common/quick-insert';
 import type {
+	EditorCommand,
 	HyperlinkPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 
 import type { HideLinkToolbar, InsertLink, ShowLinkToolbar, UpdateLink } from './commands';
 import {
 	hideLinkToolbarSetMeta,
 	insertLinkWithAnalytics,
+	removeLinkEditorCommand,
 	showLinkToolbar,
 	updateLink,
+	updateLinkEditorCommand,
 } from './commands';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
@@ -39,7 +43,11 @@ export type HyperlinkPlugin = NextEditorPlugin<
 	'hyperlink',
 	{
 		pluginConfiguration: HyperlinkPluginOptions | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<CardPlugin>];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<CardPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
+		];
 		actions: {
 			hideLinkToolbar: HideLinkToolbar;
 			insertLink: InsertLink;
@@ -58,10 +66,49 @@ export type HyperlinkPlugin = NextEditorPlugin<
 			 * ```
 			 */
 			showLinkToolbar: ShowLinkToolbar;
+
+			/**
+			 * EditorCommand to edit the current active link.
+			 *
+			 * Example:
+			 *
+			 * ```
+			 * api.core.actions.execute(
+			 *   api.hyperlink.commands.updateLink(href, text)
+			 * )
+			 * ```
+			 */
+			updateLink: (href: string, text: string) => EditorCommand;
+
+			/**
+			 * EditorCommand to remove the current active link.
+			 *
+			 * Example:
+			 *
+			 * ```
+			 * api.core.actions.execute(
+			 *   api.hyperlink.commands.removeLink()
+			 * )
+			 * ```
+			 */
+			removeLink: () => EditorCommand;
 		};
 		sharedState: HyperlinkState | undefined;
 	}
 >;
+
+const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
+	if (state === undefined) {
+		return undefined;
+	}
+	switch (state.type) {
+		case 'EDIT':
+		case 'EDIT_INSERTED':
+			return state.pos;
+		case 'INSERT':
+			return undefined;
+	}
+};
 
 /**
  * Hyperlink plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -78,6 +125,22 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 		commands: {
 			showLinkToolbar: (inputMethod = INPUT_METHOD.TOOLBAR) =>
 				showLinkToolbar(inputMethod, api?.analytics?.actions),
+			updateLink: (href: string, text: string) => {
+				const linkMark = api?.hyperlink?.sharedState.currentState()?.activeLinkMark;
+				const pos = getPosFromActiveLinkMark(linkMark);
+				if (pos === undefined) {
+					return () => null;
+				}
+				return updateLinkEditorCommand(href, text, pos);
+			},
+			removeLink: () => {
+				const linkMark = api?.hyperlink?.sharedState.currentState()?.activeLinkMark;
+				const pos = getPosFromActiveLinkMark(linkMark);
+				if (pos === undefined) {
+					return () => null;
+				}
+				return removeLinkEditorCommand(pos, api?.analytics?.actions);
+			},
 		},
 
 		actions: {
@@ -120,7 +183,9 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 			return [
 				{
 					name: 'hyperlink',
-					plugin: ({ dispatch, getIntl }) => plugin(dispatch, getIntl(), options?.editorAppearance),
+					plugin: ({ dispatch, getIntl }) =>
+						// @ts-ignore Temporary solution to check for Live Page editor.
+						plugin(dispatch, getIntl(), options?.editorAppearance, api, options.__livePage),
 				},
 				{
 					name: 'fakeCursorToolbarPlugin',

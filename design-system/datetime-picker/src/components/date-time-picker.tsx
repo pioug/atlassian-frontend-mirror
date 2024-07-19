@@ -214,6 +214,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 
 	render() {
 		const {
+			'aria-describedby': ariaDescribedBy,
 			autoFocus,
 			id,
 			innerProps,
@@ -245,6 +246,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 
 		const mergedDatePickerSelectProps = {
 			...datePickerSelectProps,
+			'aria-describedby': datePickerProps['aria-describedby'] || ariaDescribedBy,
 			'aria-label':
 				datePickerProps['label'] ||
 				datePickerSelectProps['aria-label'] ||
@@ -254,6 +256,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 
 		const mergedTimePickerSelectProps = {
 			...timePickerSelectProps,
+			'aria-describedby': timePickerProps['aria-describedby'] || ariaDescribedBy,
 			'aria-label':
 				timePickerProps['label'] ||
 				timePickerSelectProps['aria-label'] ||

@@ -9,7 +9,8 @@ import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type { EventDispatcher } from '../event-dispatcher';
 import { createDispatch } from '../event-dispatcher';
-import { analyticsEventKey, startMeasure, stopMeasure } from '../utils';
+import { startMeasure, stopMeasure } from '../performance-measures';
+import { analyticsEventKey } from '../utils';
 
 import type { NamedPluginKeys, NamedPluginStates, Writeable } from './types';
 

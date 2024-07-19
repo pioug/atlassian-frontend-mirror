@@ -1,8 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import * as measures from '@atlaskit/editor-common/performance-measures';
 import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import * as utils from '@atlaskit/editor-common/utils';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 
@@ -10,8 +10,9 @@ import measurements from '../../../../utils/performance/measure-enum';
 import useMeasureEditorMountTime from '../../useMeasureEditorMountTime';
 
 const mockStopMeasureDuration = 1234;
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+
+jest.mock('@atlaskit/editor-common/performance-measures', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	clearMeasure: jest.fn(),
 	stopMeasure: jest.fn(
@@ -29,7 +30,7 @@ describe('useMeasureEditorMountTime', () => {
 	});
 
 	describe('for startMeasure', () => {
-		const startMeasureSpy = jest.spyOn(utils, 'startMeasure');
+		const startMeasureSpy = jest.spyOn(measures, 'startMeasure');
 
 		afterEach(() => {
 			startMeasureSpy.mockRestore();
@@ -48,7 +49,7 @@ describe('useMeasureEditorMountTime', () => {
 	});
 
 	describe('for stopMeasure', () => {
-		const stopMeasureSpy = jest.spyOn(utils, 'stopMeasure');
+		const stopMeasureSpy = jest.spyOn(measures, 'stopMeasure');
 
 		afterEach(() => {
 			stopMeasureSpy.mockRestore();
@@ -70,7 +71,7 @@ describe('useMeasureEditorMountTime', () => {
 	});
 
 	describe('for clearMeasure', () => {
-		const clearMeasureSpy = jest.spyOn(utils, 'clearMeasure');
+		const clearMeasureSpy = jest.spyOn(measures, 'clearMeasure');
 
 		afterEach(() => {
 			clearMeasureSpy.mockRestore();

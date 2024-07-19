@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-design-system",
 	"description": "The essential plugin for use with the Atlassian Design System.",
-	"version": "10.11.1",
+	"version": "10.11.2",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -61,6 +61,7 @@
 		"@atlaskit/theme": "^12.11.0",
 		"@atlassian/codegen": "*",
 		"@atlassian/eslint-utils": "^0.5.0",
+		"@atlassian/ts-loader": "*",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
 		"@types/eslint": "^8.56.6",
@@ -71,14 +72,12 @@
 		"outdent": "^0.5.0",
 		"react": "^16.8.0",
 		"ts-jest": "^29.2.2",
-		"ts-node": "^10.9.1",
-		"tsconfig-paths": "^4.2.0",
 		"typescript": "~5.4.2"
 	},
 	"scripts": {
 		"ak-postbuild": "cp -r configs dist",
-		"codegen": "ts-node -r tsconfig-paths/register ./scripts/codegen.tsx",
-		"codegen-token-maps": "ts-node -r tsconfig-paths/register ./scripts/token-maps/codegen-token-maps.tsx"
+		"codegen": "run-ts ./scripts/codegen.tsx",
+		"codegen-token-maps": "run-ts ./scripts/token-maps/codegen-token-maps.tsx"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

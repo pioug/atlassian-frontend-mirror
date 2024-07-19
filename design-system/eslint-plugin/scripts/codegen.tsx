@@ -239,9 +239,10 @@ async function generate() {
 		}
 
 		const dirname = filename.replace(extname(filename), '');
-		const filenameWithExt = filename.endsWith('.tsx') ? filename + '.tsx' : filename;
+		const filenameWithExt = filename.endsWith('.tsx') ? filename : join(filename, 'index.tsx');
 
-		const rule: LintRule = (await import(join(rulesDir, filenameWithExt))).default;
+		// default.default is bacause of the way esbuild-register exposes dynamically imported modules.
+		const rule: LintRule = (await import(join(rulesDir, filenameWithExt))).default.default;
 
 		const foundRule = {
 			module: rule,

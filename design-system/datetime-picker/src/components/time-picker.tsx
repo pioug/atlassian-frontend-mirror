@@ -203,6 +203,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 	render() {
 		const {
 			appearance,
+			'aria-describedby': ariaDescribedBy,
 			autoFocus,
 			formatDisplayLabel,
 			hideIcon,
@@ -314,6 +315,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 					onKeyDown={this.onSelectKeyDown}
 				/>
 				<SelectComponent
+					aria-describedby={ariaDescribedBy}
 					aria-label={label || undefined}
 					appearance={appearance}
 					autoFocus={autoFocus}

@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.56.1
+
+### Patch Changes
+
+- [#121520](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121520)
+  [`4217ca1a57749`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4217ca1a57749) -
+  Internal change only. Prefix unused argument of getThemeOverridePreferences with an underscore.
+
 ## 1.56.0
 
 ### Minor Changes

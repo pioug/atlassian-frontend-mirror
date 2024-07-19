@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.6.1
+
+### Patch Changes
+
+- [#121921](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121921)
+  [`f928fa58107c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f928fa58107c6) -
+  Fix jitter issue when hovering over chart and expand node
+
 ## 1.6.0
 
 ### Minor Changes

@@ -2,6 +2,9 @@ import { isPerformanceAPIAvailable } from './is-performance-api-available';
 
 const measureMap = new Map<string, number>();
 
+/**
+ * @deprecated use 'startMeasure' from '@atlaskit/editor-common/performance-measures'
+ */
 export function startMeasure(measureName: string) {
 	if (!isPerformanceAPIAvailable()) {
 		return;
@@ -10,6 +13,9 @@ export function startMeasure(measureName: string) {
 	measureMap.set(measureName, performance.now());
 }
 
+/**
+ * @deprecated use 'stopMeasure' from '@atlaskit/editor-common/performance-measures'
+ */
 export function stopMeasure(
 	measureName: string,
 	onMeasureComplete?: (duration: number, startTime: number) => void,
@@ -35,6 +41,9 @@ export function stopMeasure(
 	}
 }
 
+/**
+ * @deprecated use 'clearMeasure' from '@atlaskit/editor-common/performance-measures'
+ */
 export function clearMeasure(measureName: string) {
 	if (!isPerformanceAPIAvailable()) {
 		return;

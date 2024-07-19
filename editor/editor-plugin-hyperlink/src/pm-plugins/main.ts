@@ -6,7 +6,7 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
 import { InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange, shallowEqual } from '@atlaskit/editor-common/utils';
 import { DOMSerializer, type Node } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -18,6 +18,8 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+import type { HyperlinkPlugin } from '../plugin';
 
 import { ButtonWrapper } from './decorations';
 
@@ -176,7 +178,13 @@ const getActiveText = (selection: Selection): string | undefined => {
 
 export const stateKey = new PluginKey<HyperlinkState>('hyperlinkPlugin');
 
-export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: EditorAppearance) =>
+export const plugin = (
+	dispatch: Dispatch,
+	intl: IntlShape,
+	editorAppearance?: EditorAppearance,
+	pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
+	__livePage?: boolean,
+) =>
 	new SafePlugin({
 		state: {
 			init(_, state: EditorState): HyperlinkState {
@@ -227,7 +235,7 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 							};
 
 					state = {
-						...(fg('platform.linking-platform.smart-links-in-live-pages') && state),
+						...(__livePage && fg('platform.linking-platform.smart-links-in-live-pages') && state),
 						activeText: state.activeText,
 						canInsertLink: state.canInsertLink,
 						inputMethod,
@@ -237,44 +245,51 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 					};
 
 					if (fg('platform.linking-platform.smart-links-in-live-pages')) {
-						if (action === LinkAction.SET_CONFIGURE_DROPDOWN_OPEN) {
-							const configureDropdownOpen = tr.getMeta(stateKey).isOpen;
-							// Hide overlay when the dropdown is closed (state is updated to false)
-							const decorations = configureDropdownOpen ? {} : { decorations: DecorationSet.empty };
+						const isViewMode =
+							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
-							state = {
-								...state,
-								...decorations,
-								configureDropdownOpen,
-							};
-						}
-						if (action === LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS) {
-							const configureButtonTargetPos = tr.getMeta(stateKey).pos;
-							const targetPosHasChanged =
-								pluginState.configureButtonTargetPos !== configureButtonTargetPos;
-							let decorations = pluginState.decorations;
+						if (__livePage && !isViewMode) {
+							if (action === LinkAction.SET_CONFIGURE_DROPDOWN_OPEN) {
+								const configureDropdownOpen = tr.getMeta(stateKey).isOpen;
+								// Hide overlay when the dropdown is closed (state is updated to false)
+								const decorations = configureDropdownOpen
+									? {}
+									: { decorations: DecorationSet.empty };
 
-							if (targetPosHasChanged && state.configureDropdownOpen !== true) {
-								if (configureButtonTargetPos === undefined) {
-									decorations = DecorationSet.empty;
-								} else {
-									const decoration = Decoration.widget(configureButtonTargetPos, (view) => {
-										return ButtonWrapper({
-											editorView: view,
-											pos: configureButtonTargetPos,
-											stateKey,
-											intl,
-										});
-									});
-									decorations = DecorationSet.create(newState.doc, [decoration]);
-								}
+								state = {
+									...state,
+									...decorations,
+									configureDropdownOpen,
+								};
 							}
+							if (action === LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS) {
+								const configureButtonTargetPos = tr.getMeta(stateKey).pos;
+								const targetPosHasChanged =
+									pluginState.configureButtonTargetPos !== configureButtonTargetPos;
+								let decorations = pluginState.decorations;
 
-							state = {
-								...state,
-								configureButtonTargetPos,
-								decorations,
-							};
+								if (targetPosHasChanged && state.configureDropdownOpen !== true) {
+									if (configureButtonTargetPos === undefined) {
+										decorations = DecorationSet.empty;
+									} else {
+										const decoration = Decoration.widget(configureButtonTargetPos, (view) => {
+											return ButtonWrapper({
+												editorView: view,
+												pos: configureButtonTargetPos,
+												stateKey,
+												intl,
+											});
+										});
+										decorations = DecorationSet.create(newState.doc, [decoration]);
+									}
+								}
+
+								state = {
+									...state,
+									configureButtonTargetPos,
+									decorations,
+								};
+							}
 						}
 					}
 				}
@@ -307,7 +322,7 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 		key: stateKey,
 		props: {
 			decorations: (state: EditorState) => {
-				if (fg('platform.linking-platform.smart-links-in-live-pages')) {
+				if (__livePage && fg('platform.linking-platform.smart-links-in-live-pages')) {
 					const { decorations } = stateKey.getState(state) ?? {};
 					return decorations;
 				} else {
@@ -348,46 +363,50 @@ export const plugin = (dispatch: Dispatch, intl: IntlShape, editorAppearance?: E
 					return false;
 				},
 			},
-			...(fg('platform.linking-platform.smart-links-in-live-pages') && {
-				markViews: {
-					link: (mark, view, inline) => {
-						const toDOM = mark.type.spec.toDOM;
-						if (!toDOM) {
-							throw new Error('toDom method missing');
-						}
-						const dom = DOMSerializer.renderSpec(document, toDOM(mark, inline)).dom;
-
-						if (!(dom instanceof HTMLElement)) {
-							throw new Error('Error rendering hyperlink spec to dom');
-						}
-
-						const setTargetElementPos = (val: number | undefined) => {
-							const tr = view.state.tr;
-							tr.setMeta(stateKey, { type: LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS, pos: val });
-							view.dispatch(tr);
-						};
-
-						dom.onmouseenter = () => {
-							const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
-							const nodePos = view.posAtDOM(dom, -1);
-							if (nodePos !== configureButtonTargetPos) {
-								setTargetElementPos(nodePos);
+			...(__livePage &&
+				fg('platform.linking-platform.smart-links-in-live-pages') && {
+					markViews: {
+						link: (mark, view, inline) => {
+							const toDOM = mark.type.spec.toDOM;
+							if (!toDOM) {
+								throw new Error('toDom method missing');
 							}
-						};
+							const dom = DOMSerializer.renderSpec(document, toDOM(mark, inline)).dom;
 
-						dom.onmouseleave = () => {
-							const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
-							if (configureButtonTargetPos !== undefined) {
-								setTargetElementPos(undefined);
+							if (!(dom instanceof HTMLElement)) {
+								throw new Error('Error rendering hyperlink spec to dom');
 							}
-						};
 
-						return {
-							dom: dom,
-						};
+							const setTargetElementPos = (val: number | undefined) => {
+								const tr = view.state.tr;
+								tr.setMeta(stateKey, {
+									type: LinkAction.SET_CONFIGURE_BUTTON_TARGET_POS,
+									pos: val,
+								});
+								view.dispatch(tr);
+							};
+
+							dom.onmouseenter = () => {
+								const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
+								const nodePos = view.posAtDOM(dom, -1);
+								if (nodePos !== configureButtonTargetPos) {
+									setTargetElementPos(nodePos);
+								}
+							};
+
+							dom.onmouseleave = () => {
+								const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
+								if (configureButtonTargetPos !== undefined) {
+									setTargetElementPos(undefined);
+								}
+							};
+
+							return {
+								dom: dom,
+							};
+						},
 					},
-				},
-			}),
+				}),
 		},
 	});
 

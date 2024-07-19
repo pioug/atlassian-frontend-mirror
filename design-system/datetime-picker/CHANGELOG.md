@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 13.7.3
+
+### Patch Changes
+
+- [#121570](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121570)
+  [`6026292f28f06`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6026292f28f06) -
+  [ux] Allows `aria-describedby` on all pickers. This will ensure messages from the form's field
+  component will be applied properly.
+
 ## 13.7.2
 
 ### Patch Changes

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.4.0
+
+### Minor Changes
+
+- [#121941](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121941)
+  [`9db19df977817`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9db19df977817) -
+  Added new commands for hyperlink plugin: removeLink and updateLink. These can be used on an active
+  link to remove the hyperlink mark or update the text/href on the link.
+
+## 2.3.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.22
 
 ### Patch Changes

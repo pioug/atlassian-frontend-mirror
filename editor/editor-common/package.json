@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "86.2.1",
+	"version": "86.3.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
 		"./extensibility": "./src/extensibility/index.ts",
 		"./normalize-feature-flags": "./src/normalize-feature-flags.ts",
 		"./messages": "./src/messages/index.ts",
+		"./performance-measures": "./src/performance-measures/index.ts",
 		"./provider-factory": "./src/provider-factory.ts",
 		"./styles": "./src/styles/index.ts",
 		"./validator": "./src/validator.ts",
@@ -102,6 +103,7 @@
 		"./extensibility": "./src/extensibility/index.ts",
 		"./normalize-feature-flags": "./src/normalize-feature-flags.ts",
 		"./messages": "./src/messages/index.ts",
+		"./performance-measures": "./src/performance-measures/index.ts",
 		"./provider-factory": "./src/provider-factory.ts",
 		"./styles": "./src/styles/index.ts",
 		"./validator": "./src/validator.ts",
@@ -324,6 +326,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.review-text-highlighting-styling": {
+			"type": "boolean"
+		},
+		"react_18_color_picker_concurrent_mode": {
 			"type": "boolean"
 		}
 	}

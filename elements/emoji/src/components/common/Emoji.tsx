@@ -11,6 +11,7 @@ import React, {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { shouldUseAltRepresentation } from '../../api/EmojiUtils';
 import {
 	deleteEmojiLabel,
@@ -162,7 +163,9 @@ const handleMouseDown = (props: Props, event: MouseEvent<any>) => {
 		return;
 	}
 	const { emoji, onSelected } = props;
-	event.preventDefault();
+	if (!fg('editor-react-18-fix-emoji-selection')) {
+		event.preventDefault();
+	}
 	if (onSelected && leftClick(event)) {
 		onSelected(toEmojiId(emoji), emoji, event);
 	}

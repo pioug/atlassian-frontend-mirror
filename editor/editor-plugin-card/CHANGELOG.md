@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 2.6.3
+
+### Patch Changes
+
+- [#121784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121784)
+  [`a6117088af0ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6117088af0ad) -
+  The edit toolbar button is retrieving metadata from /data endpoint for analytics metadata.
+
 ## 2.6.2
 
 ### Patch Changes

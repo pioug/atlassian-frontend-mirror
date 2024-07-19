@@ -4,12 +4,12 @@ import { extname, join, relative } from 'path';
 
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
-import format from '@af/formatting/sync';
 
+import format from '@af/formatting/sync';
+import { getPathSafeName, type LintRule } from '@atlaskit/eslint-utils/create-rule';
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { type LintRule, getPathSafeName } from '@atlaskit/eslint-utils/create-rule';
-import { externalRules, type ExternalRuleMeta } from '../src/rules/external-rules';
+import { type ExternalRuleMeta, externalRules } from '../src/rules/external-rules';
 
 const packagePluginName = '@atlaskit/eslint-plugin-ui-styling-standard';
 const pluginName = '@atlaskit/ui-styling-standard';
@@ -328,9 +328,10 @@ async function generate() {
 		}
 
 		const dirname = filename.replace(extname(filename), '');
-		const filenameWithExt = filename.endsWith('.tsx') ? filename + '.tsx' : filename;
+		const filenameWithExt = filename.endsWith('.tsx') ? filename : join(filename, 'index.tsx');
 
-		const rule: LintRule = (await import(join(rulesDir, filenameWithExt))).default;
+		// default.default is bacause of the way esbuild-register exposes dynamically imported modules.
+		const rule: LintRule = (await import(join(rulesDir, filenameWithExt))).default.default;
 
 		const foundRule: InternalRule = {
 			module: rule,

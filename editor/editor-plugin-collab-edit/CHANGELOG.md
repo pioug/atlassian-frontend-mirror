@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.9.0
+
+### Minor Changes
+
+- [#121784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121784)
+  [`af7f2ef6f68ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af7f2ef6f68ab) -
+  Improved steps analytics
+
 ## 1.8.7
 
 ### Patch Changes

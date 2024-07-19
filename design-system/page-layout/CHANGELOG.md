@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 3.5.1
+
+### Patch Changes
+
+- [#122002](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122002)
+  [`c38c1e4f2659d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c38c1e4f2659d) -
+  Code reverted for Fix zindex for content container in page-layout behind FF
+
 ## 3.5.0
 
 ### Minor Changes

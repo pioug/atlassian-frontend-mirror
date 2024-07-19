@@ -91,7 +91,7 @@ export const akEditorUnitZIndex = 1;
 export const akEditorShadowZIndex = 2;
 export const akEditorStickyHeaderZIndex = 11; // filmstrip uses 10 for its shadow
 export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
-export const akEditorGridLineZIndex = 1;
+export const akEditorGridLineZIndex = 2;
 // z-index for main menu bar -
 // this is highest as it should be above anything else in editor below.
 export const akEditorMenuZIndex = layers.blanket();

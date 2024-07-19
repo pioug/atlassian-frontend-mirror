@@ -1,13 +1,16 @@
 const mockStopMeasureDuration = 1234;
 
-jest.mock('@atlaskit/editor-common/utils', () => ({
-	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
+jest.mock('@atlaskit/editor-common/performance-measures', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/performance-measures'),
 	startMeasure: jest.fn(),
 	stopMeasure: jest.fn(
 		(measureName: string, onMeasureComplete?: (duration: number, startTime: number) => void) => {
 			onMeasureComplete && onMeasureComplete(mockStopMeasureDuration, 1);
 		},
 	),
+}));
+jest.mock('@atlaskit/editor-common/utils', () => ({
+	...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
 	measureTTI: jest.fn(),
 }));
 

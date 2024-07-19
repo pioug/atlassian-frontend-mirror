@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.42.6
+
+### Patch Changes
+
+- [#121678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121678)
+  [`9ca02c9c7c5ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ca02c9c7c5ce) -
+  created new entrypoint for startMeasure,stopMeasure,clearMeasure, deprecated those functions in
+  editor-common/utils
+- Updated dependencies
+
 ## 109.42.5
 
 ### Patch Changes

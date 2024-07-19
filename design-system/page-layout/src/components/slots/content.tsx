@@ -4,12 +4,8 @@
 /** @jsx jsx */
 import { type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-import { layers } from '@atlaskit/theme/constants';
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import { CONTENT } from '../../common/constants';
 
@@ -23,10 +19,6 @@ interface ContentProps {
 	 */
 	testId?: string;
 }
-
-const zIndexStyle = css({
-	zIndex: layers.navigation(),
-});
 
 const contentStyles = css({
 	display: 'flex',
@@ -48,13 +40,7 @@ const Content = (props: ContentProps) => {
 	const { children, testId } = props;
 
 	return (
-		<div
-			data-testid={testId}
-			css={[
-				contentStyles,
-				fg('ally-jira-team.issue-sideview.inaccurate-reading-order_yna0p') && zIndexStyle,
-			]}
-		>
+		<div data-testid={testId} css={contentStyles}>
 			{children}
 		</div>
 	);

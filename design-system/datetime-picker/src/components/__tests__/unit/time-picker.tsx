@@ -336,4 +336,12 @@ describe('TimePicker', () => {
 		const input = screen.getByRole('combobox');
 		expect(input).toHaveAttribute('aria-label', 'Time');
 	});
+
+	it('should add aria-describedby when prop is supplied', () => {
+		const describedBy = 'description';
+		render(createTimePicker({ 'aria-describedby': describedBy }));
+
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveAttribute('aria-describedby', expect.stringContaining(describedBy));
+	});
 });

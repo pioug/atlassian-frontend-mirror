@@ -196,10 +196,12 @@ export const dragHandleDecoration = (
 	nodeType: string,
 	handleOptions?: HandleOptions,
 ) => {
+	const elementType = fg('platform_editor_element_drag_and_drop_ed_24150') ? 'span' : 'div';
+
 	return Decoration.widget(
 		pos,
 		(view, getPos) => {
-			const element = document.createElement('div');
+			const element = document.createElement(elementType);
 			// Need to set it to inline to avoid text being split when merging two paragraphs
 			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');

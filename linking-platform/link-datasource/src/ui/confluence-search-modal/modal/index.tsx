@@ -6,28 +6,21 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button';
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import type { InlineCardAdf } from '@atlaskit/linking-common';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
 import {
 	type AnalyticsContextAttributesType,
 	type AnalyticsContextType,
 	type ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
-import {
-	DatasourceAction,
-	DatasourceDisplay,
-	DatasourceSearchMethod,
-} from '../../../analytics/types';
+import { DatasourceAction, DatasourceSearchMethod } from '../../../analytics/types';
 import { type Site } from '../../../common/types';
-import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
 import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
@@ -47,6 +40,7 @@ import {
 } from '../../common/modal/datasource-context';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
 import DatasourcesTableInModalPreview from '../../common/modal/datasources-table-in-modal-preview';
+import { InsertButton } from '../../common/modal/insert-button';
 import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher';
 import {
 	DatasourceViewModeProvider,
@@ -122,9 +116,7 @@ const useUpdateParametersOnFormUpdate = (
 
 export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
 	const {
-		datasourceId,
 		onCancel,
-		onInsert,
 		parameters: initialParameters,
 		url: urlBeingEdited,
 		disableDisplayDropdown = false,
@@ -349,88 +341,6 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 
 	const shouldShowResultsCount = !!totalCount && currentViewMode === 'table';
 
-	const { columnCustomSizes, wrappedColumnKeys } = useDatasourceContext();
-	const onInsertPressed = useCallback(
-		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
-			if (!parameters || !isValidParameters(parameters) || !confluenceSearchUrl) {
-				return;
-			}
-
-			const insertButtonClickedEvent = analyticsEvent.update({
-				actionSubjectId: 'insert',
-				attributes: {
-					...analyticsPayload,
-					totalItemCount: totalCount || 0,
-					displayedColumnCount: visibleColumnCount.current,
-					display:
-						currentViewMode === 'inline'
-							? DatasourceDisplay.DATASOURCE_INLINE
-							: DatasourceDisplay.DATASOURCE_TABLE,
-					searchCount: searchCount.current,
-					searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
-					actions: userInteractions.get(),
-				},
-				eventType: 'ui',
-			});
-
-			const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
-			insertButtonClickedEvent.fire(EVENT_CHANNEL);
-
-			if (currentViewMode === 'inline') {
-				onInsert(
-					{
-						type: 'inlineCard',
-						attrs: {
-							url: confluenceSearchUrl,
-						},
-					} as InlineCardAdf,
-					consumerEvent,
-				);
-			} else {
-				onInsert(
-					buildDatasourceAdf<ConfluenceSearchDatasourceParameters>(
-						{
-							id: datasourceId,
-							parameters: parameters,
-							views: [
-								{
-									type: 'table',
-									properties: {
-										columns: (visibleColumnKeys || []).map((key) => {
-											const width = columnCustomSizes?.[key];
-											const isWrapped = wrappedColumnKeys?.includes(key);
-											return {
-												key,
-												...(width ? { width } : {}),
-												...(isWrapped ? { isWrapped } : {}),
-											};
-										}),
-									},
-								},
-							],
-						},
-						confluenceSearchUrl,
-					),
-					consumerEvent,
-				);
-			}
-		},
-		[
-			parameters,
-			confluenceSearchUrl,
-			analyticsPayload,
-			totalCount,
-			visibleColumnCount,
-			currentViewMode,
-			userInteractions,
-			onInsert,
-			datasourceId,
-			visibleColumnKeys,
-			columnCustomSizes,
-			wrappedColumnKeys,
-		],
-	);
-
 	const onSearch = useCallback(
 		(newSearchString: string, filters?: SelectedOptionsMap) => {
 			searchCount.current++;
@@ -463,13 +373,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 		[reset, userInteractions],
 	);
 
-	const isInsertDisabled =
-		!isValidParameters(parameters) ||
-		status === 'rejected' ||
-		status === 'unauthorized' ||
-		status === 'loading';
-
-	const getCancelButtonAnalyticsPayload = useCallback(() => {
+	const getButtonAnalyticsPayload = useCallback(() => {
 		return {
 			extensionKey,
 			destinationObjectTypes,
@@ -526,18 +430,17 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 					)}
 					<CancelButton
 						onCancel={onCancel}
-						getAnalyticsPayload={getCancelButtonAnalyticsPayload}
+						getAnalyticsPayload={getButtonAnalyticsPayload}
 						testId="confluence-search-modal--cancel-button"
 					/>
 					{!hasNoConfluenceSites && (
-						<Button
-							appearance="primary"
-							onClick={onInsertPressed}
-							isDisabled={isInsertDisabled}
+						<InsertButton
 							testId="confluence-search-datasource-modal--insert-button"
+							url={confluenceSearchUrl}
+							getAnalyticsPayload={getButtonAnalyticsPayload}
 						>
 							<FormattedMessage {...confluenceSearchModalMessages.insertResultsButtonText} />
-						</Button>
+						</InsertButton>
 					)}
 				</ModalFooter>
 			</DatasourceModal>
@@ -573,6 +476,7 @@ export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
 						initialWrappedColumnKeys={props.wrappedColumnKeys}
 						initialParameters={props.parameters}
 						isValidParameters={isValidParameters}
+						onInsert={props.onInsert}
 					>
 						<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
 							<PlainConfluenceSearchConfigModal {...props} />

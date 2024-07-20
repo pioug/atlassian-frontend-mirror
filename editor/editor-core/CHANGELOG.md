@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 194.3.11
+
+### Patch Changes
+
+- [#122063](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122063)
+  [`c136e556d086d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c136e556d086d) -
+  [ux] Apply live page and check for live view in card and hyperlink plugin
+
 ## 194.3.10
 
 ### Patch Changes

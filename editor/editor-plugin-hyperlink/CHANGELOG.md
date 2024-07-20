@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.4.1
+
+### Patch Changes
+
+- [#122063](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122063)
+  [`c136e556d086d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c136e556d086d) -
+  [ux] Apply live page and check for live view in card and hyperlink plugin
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

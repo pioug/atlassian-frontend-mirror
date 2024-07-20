@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::a11aa419ac642ea0ddca74ef6b84f350>>
+ * @codegen <<SignedSource::9b49785e7a9a57c0a10723d0b2f28e23>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/timepicker/__generated__/index.partial.tsx <<SignedSource::2e6a672ddad4f76e568e3236e7bd4e8e>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/timepicker/__generated__/index.partial.tsx <<SignedSource::785d7ffcaac38544d4658ed1560d72f5>>
  */
 import type { SelectProps } from '@atlaskit/select';
 
@@ -14,9 +14,9 @@ export interface FieldProps {
 	isRequired: boolean;
 	isDisabled: boolean;
 	isInvalid: boolean;
-	onChange: (event: any) => any;
-	onBlur: () => any;
-	onFocus: () => any;
+	onChange: (event: unknown) => void;
+	onBlur: (event: unknown) => void;
+	onFocus: (event: unknown) => void;
 	value: any;
 	'aria-invalid': 'true' | 'false';
 	'aria-labelledby': string;
@@ -31,7 +31,6 @@ export type TimePickerProps = {
 	autoFocus?: boolean;
 	defaultIsOpen?: boolean;
 	defaultValue?: string;
-	formatDisplayLabel?: (time: string, timeFormat: string) => string;
 	isOpen?: boolean;
 	label?: string;
 	onChange?: (value: string) => void;

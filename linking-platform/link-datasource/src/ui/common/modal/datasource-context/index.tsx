@@ -1,5 +1,7 @@
 import React, { type PropsWithChildren, useContext, useMemo, useState } from 'react';
 
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 
 import {
@@ -23,10 +25,13 @@ import {
 type DatasourceContextStore = ColumnVisibilityProps &
 	ColumnWrappingProps &
 	ColumnResizeProps & {
+		datasourceId: string;
+		isValidParameters: (params: DatasourceParameters | undefined) => boolean;
 		tableState: DatasourceTableState;
 		visibleColumnKeys?: string[];
 		parameters: DatasourceParameters | undefined;
 		setParameters: React.Dispatch<React.SetStateAction<DatasourceParameters | undefined>>;
+		onInsert: (adf: InlineCardAdf | DatasourceAdf<any>, analyticsEvent?: UIAnalyticsEvent) => void;
 	};
 
 const DatasourceContext = React.createContext<DatasourceContextStore | null>(null);
@@ -38,6 +43,7 @@ export type Props = PropsWithChildren<{
 	initialVisibleColumnKeys?: string[] | undefined;
 	initialWrappedColumnKeys?: string[] | undefined;
 	initialColumnCustomSizes?: ColumnSizesMap | undefined;
+	onInsert: (adf: InlineCardAdf | DatasourceAdf<any>, analyticsEvent?: UIAnalyticsEvent) => void;
 }>;
 
 export const DatasourceContextProvider = ({
@@ -48,6 +54,7 @@ export const DatasourceContextProvider = ({
 	initialVisibleColumnKeys,
 	initialColumnCustomSizes,
 	initialWrappedColumnKeys,
+	onInsert,
 }: Props) => {
 	const [parameters, setParameters] = useState<DatasourceParameters | undefined>(initialParameters);
 
@@ -70,6 +77,8 @@ export const DatasourceContextProvider = ({
 
 	const contextValue = useMemo(
 		() => ({
+			datasourceId,
+			isValidParameters,
 			tableState,
 			visibleColumnCount,
 			visibleColumnKeys,
@@ -80,8 +89,11 @@ export const DatasourceContextProvider = ({
 			onWrappedColumnChange,
 			parameters,
 			setParameters,
+			onInsert,
 		}),
 		[
+			datasourceId,
+			isValidParameters,
 			tableState,
 			visibleColumnCount,
 			visibleColumnKeys,
@@ -91,6 +103,7 @@ export const DatasourceContextProvider = ({
 			wrappedColumnKeys,
 			onWrappedColumnChange,
 			parameters,
+			onInsert,
 		],
 	);
 

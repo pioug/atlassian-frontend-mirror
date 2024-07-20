@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.27.0
+
+### Minor Changes
+
+- [#116956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/116956)
+  [`968939ae640cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/968939ae640cf) -
+  Updates types for Popup, InlineEdit and Timepicker
+
 ## 0.26.0
 
 ### Minor Changes

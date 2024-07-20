@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 2.5.12
+
+### Patch Changes
+
+- [`5b2c27d787675`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b2c27d787675) -
+  Extract ADF creation related code and move into InsertButton
+
 ## 2.5.11
 
 ### Patch Changes

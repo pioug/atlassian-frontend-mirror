@@ -1,7 +1,7 @@
 {
-  "name": "Typography minor3",
+  "name": "Typography modernized",
   "tokens": {
-    "Typography minor3/font.weight.regular": {
+    "Typography modernized/font.weight.regular": {
       "attributes": {
         "group": "fontWeight",
         "state": "active",
@@ -10,7 +10,7 @@
       },
       "value": "400"
     },
-    "Typography minor3/font.weight.medium": {
+    "Typography modernized/font.weight.medium": {
       "attributes": {
         "group": "fontWeight",
         "state": "active",
@@ -19,7 +19,7 @@
       },
       "value": "500"
     },
-    "Typography minor3/font.weight.semibold": {
+    "Typography modernized/font.weight.semibold": {
       "attributes": {
         "group": "fontWeight",
         "state": "active",
@@ -28,7 +28,7 @@
       },
       "value": "600"
     },
-    "Typography minor3/font.weight.bold": {
+    "Typography modernized/font.weight.bold": {
       "attributes": {
         "group": "fontWeight",
         "state": "active",
@@ -37,7 +37,7 @@
       },
       "value": "700"
     },
-    "Typography minor3/font.family.heading": {
+    "Typography modernized/font.family.heading": {
       "attributes": {
         "group": "fontFamily",
         "state": "active",
@@ -46,7 +46,7 @@
       },
       "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
     },
-    "Typography minor3/font.family.body": {
+    "Typography modernized/font.family.body": {
       "attributes": {
         "group": "fontFamily",
         "state": "active",
@@ -55,7 +55,7 @@
       },
       "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
     },
-    "Typography minor3/font.family.code": {
+    "Typography modernized/font.family.code": {
       "attributes": {
         "group": "fontFamily",
         "state": "active",
@@ -64,7 +64,7 @@
       },
       "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
     },
-    "Typography minor3/font.family.brand.heading": {
+    "Typography modernized/font.family.brand.heading": {
       "attributes": {
         "group": "fontFamily",
         "state": "active",
@@ -73,7 +73,7 @@
       },
       "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
     },
-    "Typography minor3/font.family.brand.body": {
+    "Typography modernized/font.family.brand.body": {
       "attributes": {
         "group": "fontFamily",
         "state": "active",

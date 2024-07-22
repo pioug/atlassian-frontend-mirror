@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 1.56.2
+
+### Patch Changes
+
+- [#121959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121959)
+  [`44763b631bec5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44763b631bec5) -
+  Renamed `typography-minor3` theme to `typography-modernized`. There are no visual changes, purely
+  just a rename.
+
 ## 1.56.1
 
 ### Patch Changes

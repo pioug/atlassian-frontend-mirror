@@ -11,4 +11,10 @@ export type RelatedLinksModalProps = {
 	 * Prop which controls whether the modal is shown
 	 */
 	showModal: boolean;
+
+	/**
+	 * base url which will be appended with /gateway/api/graphql to make requests to AGG
+	 * to retrieve related ARIs for the given ari using content-referenced-entity relationship
+	 */
+	baseUriWithNoTrailingSlash?: string;
 };

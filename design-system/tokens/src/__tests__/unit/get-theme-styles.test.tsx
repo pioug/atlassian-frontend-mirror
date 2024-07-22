@@ -382,8 +382,8 @@ describe('getThemeStyles', () => {
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 					{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
 					{
-						id: 'typography-minor3',
-						attrs: { 'data-theme': 'typography-minor3' },
+						id: 'typography-modernized',
+						attrs: { 'data-theme': 'typography-modernized' },
 					},
 				]);
 			},
@@ -410,8 +410,8 @@ describe('getThemeStyles', () => {
 						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
 						{ id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
 						{
-							id: 'typography-minor3',
-							attrs: { 'data-theme': 'typography-minor3' },
+							id: 'typography-modernized',
+							attrs: { 'data-theme': 'typography-modernized' },
 						},
 					]);
 				};

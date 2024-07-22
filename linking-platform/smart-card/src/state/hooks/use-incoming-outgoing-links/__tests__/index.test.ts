@@ -1,6 +1,6 @@
 import 'jest-extended';
 import { renderHook } from '@testing-library/react-hooks';
-import { useIncomingOutgoingAri } from '..';
+import useIncomingOutgoingAri from '../index';
 import { queryIncomingOutgoingLinks } from '../query';
 
 describe('useIncomingOutgoingLinks', () => {

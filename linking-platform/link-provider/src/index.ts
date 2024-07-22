@@ -13,3 +13,9 @@ export type {
 export { useFeatureFlag } from './ff';
 /** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-661 Internal documentation for deprecation (no external access)} */
 export { editorCardProvider, EditorCardProvider } from './editor';
+export type {
+	BatchResponse,
+	SuccessResponse,
+	ErrorResponse,
+	ErrorResponseBody,
+} from './client/types/responses';

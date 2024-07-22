@@ -43,7 +43,7 @@ const withDesignTokens = (StoryFn: StoryFunction<Renderer>, context: StoryContex
 						colorMode: theme,
 						spacing: 'spacing',
 						shape: 'shape',
-						typography: 'typography-minor3',
+						typography: 'typography-modernized',
 					});
 					break;
 				case 'split':
@@ -52,7 +52,7 @@ const withDesignTokens = (StoryFn: StoryFunction<Renderer>, context: StoryContex
 						colorMode: 'light',
 						spacing: 'spacing',
 						shape: 'shape',
-						typography: 'typography-minor3',
+						typography: 'typography-modernized',
 					});
 
 					document.documentElement.querySelectorAll('style[data-theme]').forEach((el) => {

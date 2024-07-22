@@ -22,6 +22,7 @@ import Button from './styles';
 export const TOOLBAR_BUTTON = TOOLBAR_ACTION_SUBJECT_ID;
 
 export type Props = {
+	// Used for analytics only
 	buttonId?: TOOLBAR_ACTION_SUBJECT_ID;
 	className?: string;
 	disabled?: boolean;
@@ -110,11 +111,9 @@ const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>((props, ref) => 
 
 		[disabled, onClick, onItemClick, item, buttonId],
 	);
-	const id = buttonId ? `editor-toolbar__${buttonId}` : undefined;
 
 	const button = (
 		<Button
-			id={id}
 			ref={ref}
 			appearance="subtle"
 			testId={testId}

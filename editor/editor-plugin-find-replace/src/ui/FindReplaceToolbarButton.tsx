@@ -140,6 +140,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 					trigger={
 						<ToolbarButton
 							buttonId={TOOLBAR_BUTTON.FIND_REPLACE}
+							testId={`editor-toolbar__${TOOLBAR_BUTTON.FIND_REPLACE}`}
 							spacing={isReducedSpacing ? 'none' : 'default'}
 							selected={isActive}
 							title={<ToolTipContent description={title} keymap={keymap} />}

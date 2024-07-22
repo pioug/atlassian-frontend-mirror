@@ -13,7 +13,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { BackgroundColorPlugin } from '@atlaskit/editor-plugin-background-color';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changeColor } from './commands';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -59,7 +59,7 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 		isToolbarReducedSpacing,
 		editorView,
 	}) =>
-		getBooleanFF('platform.editor.refactor-highlight-toolbar_mo0pj') ? (
+		fg('platform.editor.refactor-highlight-toolbar_mo0pj') ? (
 			<PrimaryToolbarHighlightColor
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
@@ -120,10 +120,7 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 
 		pluginsOptions: {
 			selectionToolbar() {
-				if (
-					!options?.textHighlightingFloatingToolbarExperiment ||
-					!getBooleanFF('platform.editor.enable-selection-toolbar_ucdwd')
-				) {
+				if (!options?.textHighlightingFloatingToolbarExperiment) {
 					return;
 				}
 

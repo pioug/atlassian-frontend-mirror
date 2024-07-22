@@ -69,6 +69,7 @@ export type DefaultPresetPluginOptions = {
 	performanceTracking?: PerformanceTracking;
 	appearance?: EditorAppearance | undefined;
 	allowUndoRedoButtons?: boolean;
+	preferenceToolbarAboveSelection?: boolean;
 	featureFlags?: FeatureFlags;
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	/**
@@ -123,21 +124,12 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 		)
 		.add([blockTypePlugin, options.blockType])
 		.add(clearMarksOnEmptyDocPlugin)
-		.maybeAdd(
-			[
-				selectionToolbarPlugin,
-				{
-					preferenceToolbarAboveSelection: false,
-				},
-			],
-			() => {
-				if (fg('platform.editor.enable-selection-toolbar_ucdwd')) {
-					return true;
-				}
-
-				return false;
+		.add([
+			selectionToolbarPlugin,
+			{
+				preferenceToolbarAboveSelection: !!options.preferenceToolbarAboveSelection,
 			},
-		)
+		])
 		.add([
 			hyperlinkPlugin,
 			{

@@ -20,7 +20,7 @@ export type Themes =
 	| 'atlassian-legacy-dark'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
-	| 'atlassian-typography-minor3'
+	| 'atlassian-typography-modernized'
 	| 'atlassian-typography-adg3';
 export type ThemeFileNames = Themes;
 
@@ -76,7 +76,7 @@ export const themeIds = [
 	'spacing',
 	'shape',
 	'typography-adg3',
-	'typography-minor3',
+	'typography-modernized',
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -261,9 +261,9 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 			type: 'shape',
 		},
 	},
-	'atlassian-typography-minor3': {
-		id: 'typography-minor3',
-		displayName: 'Atlassian Typography (Minor Third)',
+	'atlassian-typography-modernized': {
+		id: 'typography-modernized',
+		displayName: 'Atlassian Typography (Modernized)',
 		palette: 'typographyPalette',
 		attributes: {
 			type: 'typography',
@@ -333,7 +333,7 @@ export interface ThemeState {
 	contrastMode: ThemeContrastModes;
 	shape?: Extract<ThemeIds, 'shape'>;
 	spacing: Extract<ThemeIds, 'spacing'>;
-	typography?: Extract<ThemeIds, 'typography' | 'typography-adg3' | 'typography-minor3'>;
+	typography?: Extract<ThemeIds, 'typography' | 'typography-adg3' | 'typography-modernized'>;
 	UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 

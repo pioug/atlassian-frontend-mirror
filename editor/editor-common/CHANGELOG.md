@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 86.3.1
+
+### Patch Changes
+
+- [#121978](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121978)
+  [`740b45d7d559f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/740b45d7d559f) -
+  [ux] Removing the `id` from the editor toolbar button as it does not meet accessibility
+  compliance. Updating cases where it was used. These buttons can be referenced better via their
+  role or data test id.
+- Updated dependencies
+
 ## 86.3.0
 
 ### Minor Changes

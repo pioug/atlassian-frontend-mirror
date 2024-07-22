@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugins
 
+## 3.4.25
+
+### Patch Changes
+
+- [#122243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122243)
+  [`b1d7c5ade9b3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1d7c5ade9b3a) -
+  [ux] EDF-91 Removed platform.editor.enable-selection-toolbar_ucdwd feature flag and enabled
+  bydefault.
+- Updated dependencies
+
 ## 3.4.24
 
 ### Patch Changes

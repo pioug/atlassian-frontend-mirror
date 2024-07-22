@@ -9,7 +9,6 @@ import noDuplicateDependencies from './rules/no-duplicate-dependencies';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
-import ensureValidEmotionCssProp from './rules/ensure-valid-emotion-css-prop';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
@@ -28,7 +27,6 @@ export const rules = {
 	'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
 	'ensure-atlassian-team': ensureAtlassianTeam,
 	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
-	'ensure-valid-emotion-css-prop': ensureValidEmotionCssProp,
 	'no-duplicate-dependencies': noDuplicateDependencies,
 	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,

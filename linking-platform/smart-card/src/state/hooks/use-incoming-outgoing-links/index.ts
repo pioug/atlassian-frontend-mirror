@@ -37,7 +37,7 @@ type RelatedLinksAgsResponse = {
 /**
  * @param baseUriWithNoTrailingSlash base url which will then be appended with /gateway/api/graphql to make requests to AGG
  */
-export const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
+const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 	const aggRequestCall = useCallback(
 		async <Response>(body: object, headers?: HeadersInit) =>
 			request<Response>(
@@ -91,3 +91,5 @@ export const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 		[getIncomingOutgoingAris],
 	);
 };
+
+export default useIncomingOutgoingAri;

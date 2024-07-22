@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.13.0
+
+### Minor Changes
+
+- [#122208](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122208)
+  [`976382f1717a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/976382f1717a1) -
+  EDM-9894: implement functionality for related links modal to render correct views
+
 ## 1.12.2
 
 ### Patch Changes

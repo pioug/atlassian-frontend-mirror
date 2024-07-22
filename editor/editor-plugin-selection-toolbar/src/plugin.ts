@@ -9,12 +9,15 @@ import type {
 	SelectionToolbarGroup,
 	SelectionToolbarHandler,
 } from '@atlaskit/editor-common/types';
+import {
+	calculateToolbarPositionAboveSelection,
+	calculateToolbarPositionTrackHead,
+} from '@atlaskit/editor-common/utils';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { calculateToolbarPositionTrackHead } from './calculate-toolbar-position';
 import { selectionToolbarPluginKey } from './plugin-key';
 
 type SelectionToolbarPluginState = {
@@ -162,7 +165,9 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 					}
 				}
 
-				const calcToolbarPosition = calculateToolbarPositionTrackHead;
+				const calcToolbarPosition = options.config.preferenceToolbarAboveSelection
+					? calculateToolbarPositionAboveSelection
+					: calculateToolbarPositionTrackHead;
 				const toolbarTitle = 'Selection toolbar';
 				const onPositionCalculated = calcToolbarPosition(toolbarTitle);
 				const nodeType = getSelectionNodeTypes(state);

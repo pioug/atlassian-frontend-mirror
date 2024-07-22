@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-highlight",
-	"version": "1.12.6",
+	"version": "1.12.7",
 	"description": "Highlight plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -109,9 +109,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.refactor-highlight-toolbar_mo0pj": {
-			"type": "boolean"
-		},
-		"platform.editor.enable-selection-toolbar_ucdwd": {
 			"type": "boolean"
 		},
 		"editor_inline_comments_on_inline_nodes": {

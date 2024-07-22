@@ -13,6 +13,7 @@ import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import ViewRelatedLinksAction from '..';
 import { SmartLinkModalProvider } from '../../../../../../state/modal';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),
@@ -36,9 +37,11 @@ describe('ViewRelatedLinksAction', () => {
 		const renderResult = render(
 			<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
 				<IntlProvider locale="en">
-					<SmartLinkModalProvider>
-						<ViewRelatedLinksAction {...props} testId={testId} />
-					</SmartLinkModalProvider>
+					<SmartCardProvider>
+						<SmartLinkModalProvider>
+							<ViewRelatedLinksAction {...props} testId={testId} />
+						</SmartLinkModalProvider>
+					</SmartCardProvider>
 				</IntlProvider>
 			</AnalyticsListener>,
 		);

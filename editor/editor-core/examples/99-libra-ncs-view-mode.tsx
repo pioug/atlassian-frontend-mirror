@@ -36,6 +36,19 @@ type WindowForTesting = Window & {
 	__setViewMode?: OrNull<(mode: 'view' | 'edit') => void>;
 };
 
+const getFeatureFlags = (urlParams: URLSearchParams): Record<string, boolean> | undefined => {
+	// Set in `packages/editor/libra/src/view-mode-test-case.ts`
+	const featureFlags = urlParams.get('platformFeatureFlags');
+	if (!featureFlags) {
+		return undefined;
+	}
+	try {
+		return JSON.parse(featureFlags);
+	} catch {
+		return undefined;
+	}
+};
+
 const useCollabProvider = ({ documentAri, collabEndpoint }: CollabProviderProps) => {
 	const provider = React.useMemo(() => {
 		const collabProvider = createSocketIOCollabProvider({
@@ -164,6 +177,7 @@ const CollabEditor = ({ userId, collabProps, setIsReady }: CollabEditorProps) =>
 const style = { height: '100%', width: '100%' };
 const urlParams = new URLSearchParams(window.location.search);
 export default function EditorExampleForIntegrationTests() {
+	const featureFlags = getFeatureFlags(urlParams);
 	setBooleanFeatureFlagResolver((flagKey) => {
 		if (flagKey === 'platform.linking-platform.smart-links-in-live-pages') {
 			return true;
@@ -171,7 +185,8 @@ export default function EditorExampleForIntegrationTests() {
 		if (flagKey === 'linking-platform-contenteditable-false-live-view') {
 			return true;
 		}
-		return false;
+
+		return featureFlags?.[flagKey] ?? false;
 	});
 	const options = React.useMemo(() => {
 		const fakeAri = `ari:cloud:confluence:collab-test:blog/${crypto.randomUUID()}`;

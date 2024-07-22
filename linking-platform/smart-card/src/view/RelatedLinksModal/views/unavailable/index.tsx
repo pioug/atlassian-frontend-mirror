@@ -5,7 +5,7 @@ import { messages } from '../../../../messages';
 import { EmptyState } from '../../components/EmptyState';
 import { UnavailableSVG } from './unavailable-svg';
 
-export const RelatedLinksUnavailableView = () => {
+const RelatedLinksUnavailableView = () => {
 	const intl = useIntl();
 
 	return (
@@ -16,3 +16,5 @@ export const RelatedLinksUnavailableView = () => {
 		/>
 	);
 };
+
+export default RelatedLinksUnavailableView;

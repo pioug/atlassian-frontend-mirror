@@ -1,4 +1,4 @@
-import { CardClient } from '@atlaskit/link-provider';
+import { CardClient, type BatchResponse } from '@atlaskit/link-provider';
 import { type JsonLd } from 'json-ld-types';
 import { type AnalyticsFacade } from '../state/analytics';
 
@@ -67,6 +67,7 @@ const successfulResponseData = {
 		name: 'Download',
 	},
 	'atlassian:downloadUrl': 'https://some-download.url',
+	'atlassian:ari': 'ari:cloud:example:1234',
 	preview: {
 		href: 'https://www.ilovecheese.com',
 	},
@@ -201,6 +202,7 @@ export const fakeFactory: any = (
 	implementation: (url: string) => Promise<JsonLd.Response>,
 	implementationPost: () => Promise<JsonLd.Response>,
 	implementationPrefetch: () => Promise<JsonLd.Response | undefined>,
+	implementationAri: (aris: string[]) => Promise<BatchResponse>,
 ) =>
 	class CustomClient extends CardClient {
 		// @ts-ignore
@@ -214,6 +216,10 @@ export const fakeFactory: any = (
 		// @ts-ignore
 		async prefetchData() {
 			return await implementationPrefetch();
+		}
+		// @ts-ignore
+		async fetchDataAris(aris: string[]) {
+			return await implementationAri(aris);
 		}
 	};
 

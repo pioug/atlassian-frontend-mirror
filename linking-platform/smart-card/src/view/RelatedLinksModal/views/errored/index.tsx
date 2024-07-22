@@ -5,7 +5,7 @@ import { messages } from '../../../../messages';
 import { ErrorSVG } from './error-svg';
 import { EmptyState } from '../../components/EmptyState';
 
-export const RelatedLinksErroredView = () => {
+const RelatedLinksErroredView = () => {
 	const intl = useIntl();
 
 	return (
@@ -16,3 +16,5 @@ export const RelatedLinksErroredView = () => {
 		/>
 	);
 };
+
+export default RelatedLinksErroredView;

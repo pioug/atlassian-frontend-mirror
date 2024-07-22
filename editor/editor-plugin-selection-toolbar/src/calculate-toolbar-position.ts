@@ -1,3 +1,8 @@
+/**
+ * These functions are currently not used. They were added to provide more control
+ * of the toolbar in different products, i.e confluence comments and annotations.
+ * Work to add the toolbar to more products has been paused at the time of writing.
+ */
 import type { PopupPosition as Position } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

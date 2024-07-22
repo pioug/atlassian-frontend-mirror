@@ -1,10 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c505470e7888b85984c3420b424a4de7>>
+ * @codegen <<SignedSource::af605e1d1296e40e5834bb2707cb59ee>>
  * @codegenCommand yarn build tokens
  */
 export default `
-html[data-theme~="typography:typography-minor3"] {
+html[data-theme~="typography:typography-modernized"] {
   --ds-UNSAFE-textTransformUppercase: uppercase;
   --ds-font-letterSpacing-0: 0;
   --ds-font-letterSpacing-100: 0;

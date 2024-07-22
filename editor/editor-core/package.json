@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "194.3.11",
+	"version": "194.3.12",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -87,13 +87,13 @@
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/collab-provider": "9.33.2",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
-		"@atlaskit/editor-plugin-annotation": "1.15.1",
+		"@atlaskit/editor-plugin-annotation": "1.15.2",
 		"@atlaskit/editor-plugin-card": "^2.6.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-list": "^3.5.0",
 		"@atlaskit/editor-plugin-paste": "^1.5.0",
 		"@atlaskit/editor-test-helpers": "*",
-		"@atlaskit/link-provider": "^1.12.0",
+		"@atlaskit/link-provider": "^1.13.0",
 		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
@@ -101,13 +101,13 @@
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/renderer": "^109.42.0",
-		"@atlaskit/smart-card": "^27.9.0",
+		"@atlaskit/smart-card": "^27.10.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.95",
+		"@atlassian/search-provider": "2.4.96",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -183,9 +183,6 @@
 		"platform.media-experience.card-views-refactor_b91lr": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.enable-selection-toolbar_ucdwd": {
-			"type": "boolean"
 		},
 		"platform.editor.multi-bodied-extension_0rygg": {
 			"type": "boolean",

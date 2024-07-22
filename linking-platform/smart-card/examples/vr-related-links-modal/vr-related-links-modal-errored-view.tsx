@@ -3,7 +3,7 @@
 import { css, jsx } from '@emotion/react';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import RelatedLinksModal from '../../src/view/RelatedLinksModal/components/RelatedLinksBaseModal';
-import { RelatedLinksErroredView } from '../../src/view/RelatedLinksModal/views/errored';
+import RelatedLinksErroredView from '../../src/view/RelatedLinksModal/views/errored';
 
 export default () => (
 	<VRTestWrapper

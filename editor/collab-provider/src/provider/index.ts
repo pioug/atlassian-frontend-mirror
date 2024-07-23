@@ -610,6 +610,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	getParticipants = () => {
 		return this.participantsService.getParticipants();
 	};
+
+	getSessionId = () => {
+		return this.sessionId;
+	};
 }
 
 /**

@@ -9,7 +9,10 @@ autofixer has been disabled by default, but it may be useful to enable to empowe
 ### Incorrect
 
 ```tsx
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { css } from '@emotion/core';
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -25,7 +28,10 @@ We expect usage of `xcss` with `@atlaskit/primitives` when working with Primitiv
 `@compiled/react` when working with custom or native code.
 
 ```tsx
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { jsx, css, styled } from '@compiled/react';
 
 const styles = css({ color: 'var(--ds-color-text)' });

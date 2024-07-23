@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import {
 	type FormEvent,
 	type MutableRefObject,

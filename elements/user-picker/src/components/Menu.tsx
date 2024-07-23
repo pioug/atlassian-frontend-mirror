@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { components } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';

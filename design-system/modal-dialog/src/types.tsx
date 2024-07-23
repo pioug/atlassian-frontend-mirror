@@ -38,7 +38,6 @@ export interface ModalDialogProps {
 	/**
 	 * Callback function which lets you allowlist nodes so they can be interacted with outside of the focus lock.
 	 * Return `true` if focus lock should handle element, `false` if not.
-	 * Works when `platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j` feature flag is enabled.
 	 */
 	focusLockAllowlist?: (element: HTMLElement) => boolean;
 
@@ -104,8 +103,10 @@ export interface ModalDialogProps {
 	isBlanketHidden?: boolean;
 
 	/**
-	 * Number representing where in the stack of modals this modal sits.
-	 * This offsets the modal dialogs vertical position.
+	 * The stackIndex is a reference to the position (index) of the calling dialog in a modal dialog stack.
+	 * New modals added to the stack receive the highest stack index of 0. As more modals are added to the stack, their index is dynamically increased according to their new position.
+	 * Don't alter the modal stack position using `stackIndex` in implementations of third-party libraries (e.g. AUI modal), it may lead to unpredictable bugs, especially if the third party library has its own focus lock.
+	 * Additionally, each modal in the stack gets a vertical offset based on `stackIndex` value.
 	 */
 	stackIndex?: number;
 

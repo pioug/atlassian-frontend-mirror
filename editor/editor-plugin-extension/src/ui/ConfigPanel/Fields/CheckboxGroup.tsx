@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { ChangeEvent } from 'react';
 import { Fragment, useCallback } from 'react';
 

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useLayoutEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';

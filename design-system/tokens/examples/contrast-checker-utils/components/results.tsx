@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { Fragment, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

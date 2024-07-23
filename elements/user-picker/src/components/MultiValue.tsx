@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { Box, xcss } from '@atlaskit/primitives';

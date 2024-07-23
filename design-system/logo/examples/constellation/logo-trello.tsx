@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 
 import { css, jsx } from '@compiled/react';
 

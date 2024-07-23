@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type SerializedStyles, css, jsx } from '@emotion/react';

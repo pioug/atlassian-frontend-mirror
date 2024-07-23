@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import {
 	type ComponentPropsWithoutRef,
 	type ComponentPropsWithRef,

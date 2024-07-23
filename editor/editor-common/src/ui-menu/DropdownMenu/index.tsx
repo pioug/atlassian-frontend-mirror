@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { PureComponent, useContext } from 'react';
 import type { MouseEventHandler, PointerEvent } from 'react';
 

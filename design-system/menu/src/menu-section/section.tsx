@@ -1,8 +1,8 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { Children, forwardRef, Fragment, type Ref } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

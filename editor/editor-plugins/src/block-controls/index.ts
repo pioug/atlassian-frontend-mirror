@@ -5,4 +5,5 @@ export type {
 	DecorationState,
 	BlockControlsSharedState,
 	HandleOptions,
+	MoveNodeMethod,
 } from '@atlaskit/editor-plugin-block-controls';

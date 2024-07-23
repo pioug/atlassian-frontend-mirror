@@ -1,8 +1,8 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import React, {
 	Children,
 	type ElementType,

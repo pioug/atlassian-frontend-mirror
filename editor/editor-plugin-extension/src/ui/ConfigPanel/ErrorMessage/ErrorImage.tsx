@@ -1,6 +1,9 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // Quality Ticket: https://product-fabric.atlassian.net/browse/DSP-4249
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 

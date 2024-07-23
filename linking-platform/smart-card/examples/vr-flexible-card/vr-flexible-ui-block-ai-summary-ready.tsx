@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 import { TitleBlock, SnippetBlock, Card, Provider } from '../../src/index';

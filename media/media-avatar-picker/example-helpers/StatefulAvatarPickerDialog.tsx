@@ -1,4 +1,7 @@
-/**@jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 /* eslint-disable no-console */
 import React, { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

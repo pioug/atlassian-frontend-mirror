@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { type ProviderProps } from '@atlaskit/link-provider';
 import { css, jsx } from '@compiled/react';
 import React from 'react';

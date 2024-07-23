@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import Button from '@atlaskit/button/new';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';

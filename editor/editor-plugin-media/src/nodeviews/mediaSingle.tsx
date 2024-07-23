@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { MouseEvent } from 'react';
 import React, { Component, Fragment } from 'react';
 

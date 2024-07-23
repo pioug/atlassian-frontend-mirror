@@ -2,121 +2,87 @@
 order: 2
 ---
 
+import link1Do from './images/link-01a-do.png';
+import link1Dont from './images/link-01b-dont.png';
+import link2Do from './images/link-02a-do.png';
+import link2Dont from './images/link-02b-dont.png';
+
 ## Usage
 
 Links help users navigate to another page or sections of a page. They can also download files or
 provide contact information such as phone numbers or email addresses.
 
-<!-- TODO: Add anatomy image once designed -->
+![Link diagram. A caption follows this image.](images/link-anatomy.png)
+
+1. **Label:** Text describing the link. Clearly describe where the link navigates or it's purpose.
+1. **Icon (optional):** If the the link opens in a new window, an icon will be automatically
+   displayed as an indicator.
+
+If the icon is not desired, reconsider if the link should open in a new window. Links that open new
+windows without warning can be disorienting for users.
 
 ## Accessibility
 
-### Don't use subtle links unless other context already indicates it is a link
+### Don't use subtle links when surrounded by regular text
 
-Link has an underline by default but it is disabled for subtle appearance links. Underlines help
-differentiate links from regular text, which makes them more accessible. Using color alone isn't
-clear to some users, especially if links are surrounded by other text.
+The default link appearance has an underline and color, making it distinguishable from regular text
+which is an accessibility requirement. Don't use 'subtle' appearance links in this context, as they
+are difficult to differentiate from regular text.
 
-Only use the subtle appearance if the context surrounding the link makes it clear that it is
-interactive, such as in navigation or breadcrumbs.
-
-Also, don't underline text that isn't a link. This makes the text look clickable because it looks a
-link.
-
-For more information see
-['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html)
-and
-['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
-
-<!-- TODO: Add do/dont images once designed (if necessary?) -->
-
-<DoDont type="do">
-	Use underlined links in body copy. Only omit an underline if the context makes it clear the link
-	is selectable.
+<DoDont
+	type="do"
+	image={{
+		url: link1Do,
+		alt: 'A link using the default appearance, surrounded by regular text. The default appearance provides color and an underline to differentiate the link from regular text.',
+	}}
+>
+	Use the default link appearance when surrounded by regular text.
 </DoDont>
 
-<DoDont type="dont">Use underlined links in navigation.</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: link1Dont,
+		alt: 'A link using the subtle appearance, surrounded by regular text. The subtle appearance is difficult to differentiate the link from regular text.',
+	}}
+>
+	Use the subtle link appearance when surrounded by regular text.
+</DoDont>
 
-### Use descriptive link text that clarifies the purpose of the link
+### Don't use subtle links unless other context already indicates it's a link
 
-Don't link vague words or phrases like “here” or “learn more.” Make sure the linked text clearly
-describes the purpose of the link.
+Only use the 'subtle' appearance if the surrounding context makes it clear that it's a link, such as
+in navigation or breadcrumbs.
 
-<!-- TODO: Add some Do/Don't images as examples -->
+<DoDont
+	type="do"
+	image={{
+		url: link2Do,
+		alt: 'Links in a navigation section. The links use the subtle appearance, which is appropriate because the surrounding context makes it clear that they are links.',
+	}}
+>
+	Use the subtle appearance when surrounding context makes it clear it's a link.
+</DoDont>
 
-<DoDont type="do">Clearly describe the purpose of the link.</DoDont>
+<DoDont
+	type="dont"
+	image={{
+		url: link2Dont,
+		alt: 'Links in a navigation section. The links use the default appearance, which is not required because the surrounding context makes it clear that they are links.',
+	}}
+>
+	Use the default appearance when surrounding context already makes it clear it's a link.
+</DoDont>
 
-<DoDont type="dont">Link vague words or phrases.</DoDont>
+<Snippet name="links-descriptive-text" />
 
-### Only open links in a new window or tab when necessary
+<Snippet name="links-open-new-window" variables={{ componentName: 'link' }} />
 
-Opening links in a new window can be disorienting for people, so only do it when necessary.
+<Snippet name="links-minimum-size" />
 
-It might make sense for a link to open in a new window if:
+<Snippet name="links-dont-confuse-with-buttons" variables={{ componentName: 'link' }} />
 
-- There's a risk of someone losing their current place or task
-- The link takes the person out of the current product or to an external website
-
-For more information see
-['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
-
-### Keep links large enough to interact with
-
-Make link text size at least 12px. Smaller text is harder to read and interact with.
-
-## Best practices
-
-### Don't confuse links and buttons
-
-Links are for navigation and URL changes, while buttons are for on-page actions such as form
-submissions or opening modals. These elements are treated differently by assistive technologies, so
-avoid using one in place of the other.
-
-More details on
-[when to use links and buttons](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
-
-## Content guidelines
-
-### Use clear and unique link text
-
-Try not to repeat the same link text over and over on a page. Make sure link text is clear about
-where the link will go.
-
-### Specify download links, including file type and size
-
-Always specify if a link triggers a download, and make the linked text clear about what exactly will
-be downloaded. Include file type and size as well.
-
-### Don't include unnecessary links
-
-Using too many links can overwhelm other, more important information on a page.
-
-Links take people to a new page or location. Be mindful of whether or not the linked resource is
-helpful or distracting to the current task.
-
-### Links in sentences or body copy
-
-Only link the words that are necessary to clarify where the link goes. Don't link the entire
-sentence. (Linking smaller phrases can be better for internationalization when sentence structures
-change across languages.)
-
-Only include the verb in the linked text if it better describes the purpose the link or
-differentiates it from other links and actions on the page.
-
-For example:
-
-> Update [Jira settings](/components/button/usage#use-buttons-for-actions-and-links-for-navigation)
-> to turn off notifications. To upgrade,
-> [sign up for Jira](/components/button/usage#use-buttons-for-actions-and-links-for-navigation).
-
-If only Jira was linked, it wouldn't be clear that this was a sign up page.
-
-### Links on their own (UI elements or navigation)
-
-For standalone links, link the whole phrase. Don't add punctuation.
-
-These type of links typically follow general button or other label content rules (sentence case
-capitalization, no punctuation, etc.)
+<Snippet name="links-content-guidelines" />
 
 ## Related
 

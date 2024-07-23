@@ -1,3 +1,4 @@
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -21,6 +22,7 @@ export interface PluginState {
 		pos: number;
 		anchorName: string;
 		nodeType: string;
+		handleOptions?: HandleOptions;
 	} | null;
 	isResizerResizing: boolean;
 	isDocSizeLimitEnabled: boolean | null;
@@ -55,7 +57,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 		];
 		sharedState: BlockControlsSharedState;
 		commands: {
-			moveNode: (start: number, to: number) => EditorCommand;
+			moveNode: (start: number, to: number, inputMethod?: MoveNodeMethod) => EditorCommand;
 			showDragHandleAt: (
 				pos: number,
 				anchorName: string,
@@ -79,3 +81,5 @@ export type BlockControlsMeta = {
 	editorHeight: number;
 	nodeMoved: boolean;
 };
+
+export type MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP | INPUT_METHOD.SHORTCUT;

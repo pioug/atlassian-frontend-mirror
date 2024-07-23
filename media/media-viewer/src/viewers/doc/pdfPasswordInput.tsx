@@ -1,4 +1,7 @@
-/**@jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useEffect, useRef, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useEffect } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';

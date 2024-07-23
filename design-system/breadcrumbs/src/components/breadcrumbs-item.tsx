@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 
 import { type ComponentType, type CSSProperties, memo, useRef } from 'react';
 

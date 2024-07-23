@@ -44,6 +44,11 @@ export const removeCodeBlock: Command = (state, dispatch) => {
 	return true;
 };
 
+// we will be hooking the button up in this follow up card ED-24222
+export const wrapCodeBlock: Command = (state, dispatch) => {
+	return false;
+};
+
 export const changeLanguage =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(language: string): Command =>

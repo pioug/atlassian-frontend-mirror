@@ -1,38 +1,36 @@
-After installing the package, register the addon with your Storybook configuration in the
-`.storybook/main.js` file.
+## Storybook v8
 
-```diff
-module.exports = {
-  addons: [
-+    '@atlaskit/storybook-addon-design-system'
-  ]
-};
-```
+1. Install a latest v1 version of the addon (e.g., `1.1.0`).
+2. Register the addon with your Storybook configuration in the `.storybook/main.js` file.
 
-## Storybook v6 and below
+   ```diff
+   module.exports = {
+     addons: [
+   +    '@atlaskit/storybook-addon-design-system'
+     ]
+   };
+   ```
 
-Add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which has
-the ability to modify the DOM of your stories.
+## Storybook v7
 
-```diff
-+ import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
+1. Install a pre-1.0 version of the addon (e.g., `0.8.0`).
+2. Register the addon with your Storybook configuration in the `.storybook/main.js` file.
 
-const { addDecorator } = require('@storybook/react');
+   ```diff
+   module.exports = {
+     addons: [
+   +    '@atlaskit/storybook-addon-design-system'
+     ]
+   };
+   ```
 
-+ addDecorator(withDesignTokens);
-```
-
-## Storybook v7 and above
-
-For Storybook version 7, the following changes are necessary:
-
-1. Initialising the `globalTypes.adsTheme` property in the global context
-2. Disable the
+3. Initialise the `globalTypes.adsTheme` property in the global context
+4. Disable the
    [built in `backgrounds` add on](https://storybook.js.org/docs/essentials/backgrounds#disable-backgrounds),
    as it conflicts with the ADS theming
 
-Both of these can be done in
-[the `preview` file](https://storybook.js.org/docs/configure#configure-story-rendering):
+Both step 3 and step 4 can be done in
+[the `preview.js` file](https://storybook.js.org/docs/configure#configure-story-rendering):
 
 ```diff
 + import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
@@ -58,3 +56,27 @@ const preview = {
 
 export default preview;
 ```
+
+## Storybook v6 and below
+
+1. Install a pre-1.0 version of the addon (e.g., `0.8.0`).
+2. Register the addon with your Storybook configuration in the `.storybook/main.js` file.
+
+   ```diff
+   module.exports = {
+     addons: [
+   +    '@atlaskit/storybook-addon-design-system'
+     ]
+   };
+   ```
+
+3. Add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which
+   has the ability to modify the DOM of your stories.
+
+   ```diff
+   + import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
+
+   const { addDecorator } = require('@storybook/react');
+
+   + addDecorator(withDesignTokens);
+   ```

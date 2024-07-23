@@ -6,7 +6,10 @@
  * this is the page where it is used; https://developer.atlassian.com/cloud/jira/platform/apis/document/playground/
  *
  */
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

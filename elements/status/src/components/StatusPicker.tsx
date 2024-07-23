@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import React, { type FormEvent, PureComponent } from 'react';

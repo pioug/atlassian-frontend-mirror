@@ -15,7 +15,6 @@ describe('participants-service-activity', () => {
 	let participantsService: ParticipantsService;
 	let activityPayload: ActivityPayload;
 	let presenceData: Pick<CollabActivityData, 'sessionId' | 'userId'>;
-	let activityAckData: CollabActivityData;
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -46,10 +45,6 @@ describe('participants-service-activity', () => {
 		presenceData = {
 			userId: '456',
 			sessionId: 'abc654',
-		};
-		activityAckData = {
-			activity: 'VIEWING',
-			...presenceData,
 		};
 	});
 
@@ -89,7 +84,7 @@ describe('participants-service-activity', () => {
 
 			it('should broadcast presence', () => {
 				expect(emit).toHaveBeenCalledTimes(1);
-				expect(emit).toHaveBeenCalledWith('activity:ack', activityAckData);
+				expect(emit).toHaveBeenCalledWith('activity:ack', activityPayload);
 			});
 		});
 

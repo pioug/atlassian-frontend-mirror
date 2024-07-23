@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { Mode, type Palette } from '../types';
 import {
 	createAndFireEvent,

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useEffect, useState } from 'react';
 
 import type { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';

@@ -8,8 +8,8 @@ import '!style-loader!css-loader!prismjs/themes/prism-tomorrow.css';
 
 const exampleCodeBlock = `/**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';

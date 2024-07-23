@@ -1,6 +1,9 @@
 // If you make any change here, copy it to above file as well
 // and notify about the change in #team-fc-editor-ai-dev channel.
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

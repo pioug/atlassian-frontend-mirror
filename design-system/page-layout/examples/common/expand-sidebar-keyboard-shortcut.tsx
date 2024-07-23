@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 /** @jsxFrag */
 
 import React, { useState } from 'react';

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { SyntheticEvent } from 'react';
 import { useCallback, useMemo, useState } from 'react';
 

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { css, jsx } from '@compiled/react';
 
 import { type ProviderProps, SmartCardProvider } from '@atlaskit/link-provider';

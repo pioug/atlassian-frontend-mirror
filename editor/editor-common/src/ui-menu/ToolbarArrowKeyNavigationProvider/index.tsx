@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 /* eslint-disable no-console */
 import type { ReactNode } from 'react';
 import React, { useCallback, useLayoutEffect, useRef } from 'react';

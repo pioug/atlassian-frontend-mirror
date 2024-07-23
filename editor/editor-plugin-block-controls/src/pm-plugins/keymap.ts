@@ -1,9 +1,16 @@
-import { bindKeymapWithCommand, showElementDragHandle } from '@atlaskit/editor-common/keymaps';
+import {
+	bindKeymapWithCommand,
+	dragToMoveDown,
+	dragToMoveUp,
+	showElementDragHandle,
+} from '@atlaskit/editor-common/keymaps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { moveNodeViaShortcut } from '../commands/move-node';
 import { showDragHandleAtSelection } from '../commands/show-drag-handle';
+import { DIRECTION } from '../consts';
 import type { BlockControlsPlugin } from '../types';
 
 function keymapList(api?: ExtractInjectionAPI<BlockControlsPlugin>) {
@@ -17,6 +24,12 @@ function keymapList(api?: ExtractInjectionAPI<BlockControlsPlugin>) {
 				//we always want to handle this shortcut to prevent default browser special char insert when option + alphabetical key is used
 				return true;
 			},
+			keymapList,
+		);
+		bindKeymapWithCommand(dragToMoveUp.common!, moveNodeViaShortcut(api, DIRECTION.UP), keymapList);
+		bindKeymapWithCommand(
+			dragToMoveDown.common!,
+			moveNodeViaShortcut(api, DIRECTION.DOWN),
 			keymapList,
 		);
 	}

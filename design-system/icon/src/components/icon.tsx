@@ -1,14 +1,16 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
-import { memo, type CSSProperties } from 'react';
+import { type CSSProperties, memo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import type { IconProps } from '../types';
-import { getBackground } from './utils';
+
 import { commonSVGStyles, getIconSize } from './styles';
+import { getBackground } from './utils';
 
 /**
  * We are hiding these props from consumers as they're used to
@@ -28,6 +30,12 @@ interface InternalIconProps extends IconProps {
 	 * This is used only for the custom sized icons in `@atlaskit/icon-file-type`.
 	 */
 	height?: number;
+	/**
+	 * @internal NOT FOR PUBLIC USE.
+	 * Fixes the margin of the icon.
+	 * This is used only for migration away from legacy icons.
+	 */
+	UNSAFE_margin?: string;
 }
 
 const iconStyles = css({
@@ -97,6 +105,7 @@ export const Icon = memo(function Icon(props: IconProps) {
 		label,
 		width,
 		height,
+		UNSAFE_margin,
 	} = props as InternalIconProps;
 
 	const glyphProps = dangerouslySetGlyph
@@ -120,6 +129,8 @@ export const Icon = memo(function Icon(props: IconProps) {
 					'--icon-primary-color': primaryColor,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					'--icon-secondary-color': secondaryColor || getBackground(),
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					...(UNSAFE_margin ? { margin: UNSAFE_margin } : {}),
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}

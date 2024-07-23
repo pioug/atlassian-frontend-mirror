@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.16.3
+
+### Patch Changes
+
+- [#122361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122361)
+  [`dc17551b4b23c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc17551b4b23c) -
+  Fix reading order in Profile card
+
 ## 19.16.2
 
 ### Patch Changes

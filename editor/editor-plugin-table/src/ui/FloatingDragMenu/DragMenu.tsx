@@ -1,5 +1,8 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 /** @jsxFrag */
 import React, { useEffect, useState } from 'react';
 

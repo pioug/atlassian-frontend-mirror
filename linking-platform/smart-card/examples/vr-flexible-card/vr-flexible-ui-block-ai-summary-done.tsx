@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';

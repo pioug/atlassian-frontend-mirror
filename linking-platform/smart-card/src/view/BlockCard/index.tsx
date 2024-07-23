@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { type BlockCardProps } from './types';
 import { type JsonLd } from 'json-ld-types';

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useEffect, useMemo, useRef } from 'react';
 import type { KeyboardEventHandler, SyntheticEvent } from 'react';
 

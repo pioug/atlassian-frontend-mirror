@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.14.6
+
+### Patch Changes
+
+- [#122769](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122769)
+  [`e5aebb55bcafc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5aebb55bcafc) -
+  [ux] This version removes `platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j`
+  feature flag. Now focus returns back to trigger elements upon closing nested modals.
+
 ## 12.14.5
 
 ### Patch Changes

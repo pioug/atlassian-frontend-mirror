@@ -1,5 +1,8 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import React, { Fragment, useState } from 'react';
 

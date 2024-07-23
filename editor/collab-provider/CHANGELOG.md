@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 9.34.0
+
+### Minor Changes
+
+- [#122648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122648)
+  [`f2ccf293106d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2ccf293106d2) -
+  add getSessionId(): expose provider's sessionId through getter, fix onParticipantActivityAck
+
 ## 9.33.2
 
 ### Patch Changes

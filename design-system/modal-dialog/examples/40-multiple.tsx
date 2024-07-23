@@ -107,12 +107,17 @@ export default function NestedDemo() {
 									<Lorem count={2} />
 								</ModalBody>
 								<ModalFooter>
-									<Button appearance="subtle" onClick={() => close(name)}>
+									<Button
+										testId={`${name}-modal-close-button`}
+										appearance="subtle"
+										onClick={() => close(name)}
+									>
 										Close
 									</Button>
 									{nextModal && (
 										<Button
 											aria-haspopup="dialog"
+											testId={`${name}-modal-trigger`}
 											appearance="primary"
 											onClick={() => open(nextModal)}
 										>

@@ -1,6 +1,9 @@
 // Disabling for ED-21403 fixing accessibility issue.
 /* eslint-disable jsx-a11y/role-supports-aria-props */
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

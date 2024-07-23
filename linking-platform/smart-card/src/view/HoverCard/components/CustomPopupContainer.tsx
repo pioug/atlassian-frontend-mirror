@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { type PopupComponentProps } from '@atlaskit/popup';

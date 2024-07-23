@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import Button from '@atlaskit/button/standard-button';
 import Modal, {
 	ModalBody,

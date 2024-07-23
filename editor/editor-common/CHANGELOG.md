@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 86.4.0
+
+### Minor Changes
+
+- [`042e8561002b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/042e8561002b0) -
+  [ED-23210] Update ElementAttribues for element events
+
 ## 86.3.1
 
 ### Patch Changes

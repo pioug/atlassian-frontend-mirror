@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { KeyboardEvent, RefObject } from 'react';
 import React, { PureComponent } from 'react';
 

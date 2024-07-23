@@ -4,6 +4,7 @@ import type { TrackAEP, UIAEP } from './utils';
 type ElementAttributes = {
 	nodeDepth: number;
 	nodeType: string;
+	inputMethod?: string;
 };
 
 type ElementMovedAEP = TrackAEP<

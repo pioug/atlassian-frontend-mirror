@@ -8,7 +8,10 @@ tester.run('use-compiled', rule, {
 		`import { ClassNames } from '@compiled/react';`,
 		`import { css, ClassNames, styled } from '@compiled/react';`,
 		`import '@compiled/react'`,
-		`/** @jsx jsx */`,
+		`/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */`,
 		`/** @jsxImportSource @compiled/react */`,
 	],
 	invalid: [],

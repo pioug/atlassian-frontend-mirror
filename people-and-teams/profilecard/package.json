@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "19.16.2",
+	"version": "19.16.3",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -125,6 +125,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.profile-card-trigger-next": {
+			"type": "boolean"
+		},
+		"enable_appropriate_reading_order_in_profile_card": {
 			"type": "boolean"
 		}
 	}

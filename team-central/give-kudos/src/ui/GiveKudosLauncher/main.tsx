@@ -1,4 +1,7 @@
-/**  @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { memo } from 'react';
 
 // Compiled isn't ready to be used in components used by Ecosystem

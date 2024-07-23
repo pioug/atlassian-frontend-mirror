@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
 import { getErrorMessage } from '../../src/view/FlexibleCard/components/actions/ai-summary-action/utils';
 import { getJsonLdResponse } from '../utils/flexible-ui';

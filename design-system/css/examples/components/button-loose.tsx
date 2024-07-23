@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import React from 'react';
 
 import { cssMap, jsx, type XCSSProp } from '@compiled/react';

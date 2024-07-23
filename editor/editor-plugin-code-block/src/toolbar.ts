@@ -11,12 +11,14 @@ import type {
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	changeLanguage,
 	copyContentToClipboard,
 	removeCodeBlock,
 	resetCopiedState,
+	wrapCodeBlock,
 } from './actions';
 import { createLanguageList, DEFAULT_LANGUAGES, getLanguageIdentifier } from './language-list';
 import { pluginKey } from './plugin-key';
@@ -25,6 +27,7 @@ import {
 	removeVisualFeedbackForCopyButton,
 } from './pm-plugins/codeBlockCopySelectionPlugin';
 import type { CodeBlockState } from './pm-plugins/main-state';
+import { WrapIcon } from './ui/icons/WrapIcon';
 
 import type { CodeBlockPlugin } from './index';
 
@@ -126,11 +129,29 @@ export const getToolbarConfig =
 			tabIndex: null,
 		};
 
+		const codeBlockWrapButton: FloatingToolbarButton<Command> = {
+			id: 'editor.codeBlock.wrap',
+			type: 'button',
+			icon: WrapIcon,
+			onClick: wrapCodeBlock,
+			title: formatMessage(codeBlockButtonMessages.wrapCode),
+			tabIndex: null,
+		};
+
 		return {
 			title: 'CodeBlock floating controls',
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
-			items: [languageSelect, separator, ...copyToClipboardItems, deleteButton],
+			items: fg('editor_support_code_block_wrapping')
+				? [
+						languageSelect,
+						separator,
+						codeBlockWrapButton,
+						separator,
+						...copyToClipboardItems,
+						deleteButton,
+					]
+				: [languageSelect, separator, ...copyToClipboardItems, deleteButton],
 			scrollable: true,
 		};
 	};

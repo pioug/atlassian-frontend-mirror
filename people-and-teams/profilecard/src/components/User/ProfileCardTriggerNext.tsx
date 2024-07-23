@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -366,6 +367,7 @@ export default function ProfilecardTriggerNext({
 				shouldUseCaptureOnOutsideClick
 				autoFocus={autoFocus ?? trigger === 'click'}
 				offset={offset ?? [0, 8]}
+				shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 			/>
 			{shouldShowGiveKudos && (
 				<Suspense fallback={null}>

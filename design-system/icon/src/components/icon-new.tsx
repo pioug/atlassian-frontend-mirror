@@ -1,15 +1,16 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { memo } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { NewIconProps } from '../types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * We are hiding this props from consumers as it's reserved
@@ -118,6 +119,7 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 		dangerouslySetGlyph,
 		// Used with iconTile to scale icon up and down
 		shouldScale,
+		LEGACY_margin,
 	} = props as InternalIconPropsNew;
 
 	const dangerouslySetInnerHTML = dangerouslySetGlyph
@@ -136,6 +138,8 @@ export const Icon = memo(function Icon(props: NewIconProps) {
 				size={LEGACY_size}
 				label={label}
 				testId={testId}
+				// @ts-ignore-next-line
+				UNSAFE_margin={LEGACY_margin}
 			/>
 		);
 	}

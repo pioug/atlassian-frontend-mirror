@@ -1,18 +1,19 @@
 import React from 'react';
 
-import AddCircleIconOld from '../glyph/add-circle';
-import AudioCircleIconOld from '../glyph/audio-circle';
-import SelectClearIconOld from '../glyph/select-clear';
+import Heading from '@atlaskit/heading';
+import { Inline, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
 import AddIcon from '../core/add';
 import AudioIcon from '../core/audio';
 import CrossIcon from '../core/cross-circle';
-import { token } from '@atlaskit/tokens';
+import AddCircleIconOld from '../glyph/add-circle';
+import AudioCircleIconOld from '../glyph/audio-circle';
+import SelectClearIconOld from '../glyph/select-clear';
 
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
-import Heading from '@atlaskit/heading';
 
 const styles = xcss({ padding: 'space.200' });
-const LegacyIconExample = () => {
+const LegacyIconColorExample = () => {
 	return (
 		<Stack space="space.200" alignInline="start" xcss={styles}>
 			<Heading size="small">LEGACY_primaryColor Examples</Heading>
@@ -124,4 +125,4 @@ const LegacyIconExample = () => {
 	);
 };
 
-export default LegacyIconExample;
+export default LegacyIconColorExample;

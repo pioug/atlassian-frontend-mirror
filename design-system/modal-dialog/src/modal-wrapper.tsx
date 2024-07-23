@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 
 import { useCallback } from 'react';
 
@@ -15,7 +15,7 @@ import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -146,22 +146,13 @@ const ModalWrapper = (props: ModalDialogProps) => {
 	}
 
 	return (
-		<UNSAFE_LAYERING
-			isDisabled={getBooleanFF('platform.design-system-team.layering_qmiw3') ? false : true}
-		>
+		<UNSAFE_LAYERING isDisabled={fg('platform.design-system-team.layering_qmiw3') ? false : true}>
 			<Portal zIndex={layers.modal()}>
 				<FadeIn>
 					{(fadeInProps) => (
 						<div {...fadeInProps} css={fillScreenStyles} aria-hidden={!isForeground}>
 							<FocusLock
 								autoFocus={autoFocusLock}
-								disabled={
-									getBooleanFF(
-										'platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j',
-									)
-										? undefined
-										: !isForeground
-								}
 								returnFocus={returnFocus}
 								onDeactivation={onDeactivation}
 								whiteList={(element) => allowlistElements(element, focusLockAllowlist)}

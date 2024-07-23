@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import EmailIcon from '@atlaskit/icon/glyph/email';
 import { N40, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

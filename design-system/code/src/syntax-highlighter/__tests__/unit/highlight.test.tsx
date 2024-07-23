@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 // disable these two rules, there is no good way to query node without querySelector
 /* eslint-disable testing-library/no-container,testing-library/no-node-access */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

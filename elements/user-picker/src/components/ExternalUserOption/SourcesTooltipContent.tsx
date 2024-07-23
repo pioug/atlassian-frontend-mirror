@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { Box, xcss } from '@atlaskit/primitives';
 import React, { type ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';

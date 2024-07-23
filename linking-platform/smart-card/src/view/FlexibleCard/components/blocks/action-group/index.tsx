@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { token } from '@atlaskit/tokens';
 import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';

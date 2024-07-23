@@ -70,6 +70,8 @@ test.describe('ConfluenceSearchModal', () => {
 
 	test('should close modal on ESC keydown', async ({ page }) => {
 		await setup(page);
+		await expect(page.getByTestId('confluence-search-datasource-modal--body')).toBeVisible();
+
 		await page.keyboard.press('Escape');
 		await expect(page.getByTestId('confluence-search-datasource-modal--body')).toBeHidden();
 	});
@@ -115,7 +117,9 @@ test.describe('ConfluenceSearchModal', () => {
 
 		// The locale is set to en not en-AU in the test example, so dates are formatted by the getFormattedDate helper
 		// which is why the format is different from what we see locally (Nov 11, 2023 vs 11 Nov 2023).
-		await expect(page.getByText(': Nov 11, 2023 - Dec 12, 2023')).toBeVisible();
+		await expect(page.getByTestId('confluence-search-modal--date-range-button')).toHaveText(
+			'Last updated: Nov 11, 2023 - Dec 12, 2023',
+		);
 
 		await expect(
 			page.getByTestId('confluence-search-datasource-table--cell-0').first(),
@@ -171,22 +175,24 @@ test.describe('ConfluenceSearchModal', () => {
 
 		await page.getByTestId('custom-date-range-update-button').click();
 
-		await expect(page.getByText(': before Dec 12, 2023')).toBeVisible();
+		await expect(page.getByTestId('confluence-search-modal--date-range-button')).toHaveText(
+			'Last updated: before Dec 12, 2023',
+		);
 	});
 
 	test('should reset and clear hydrated filter values after a site change', async ({ page }) => {
 		await setup(page);
 
 		// make both filter selections
-		await page.getByTestId('confluence-search-modal--date-range-button').click();
-		await page.getByText('Today').click();
-
 		await page.getByTestId('clol-basic-filter-editedOrCreatedBy-trigger').click();
 		await page
 			.getByText('Atlassian Assist (staging)', {
 				exact: true,
 			})
 			.click();
+
+		await page.getByTestId('confluence-search-modal--date-range-button').click();
+		await page.getByText('Today').click();
 
 		// click on insert button
 		await page.getByTestId('confluence-search-datasource-modal--insert-button').click();

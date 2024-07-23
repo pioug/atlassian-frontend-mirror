@@ -295,12 +295,7 @@ export class ParticipantsService {
 	onParticipantActivityAck = (payload: ActivityPayload) => {
 		try {
 			logger('Existing participants ack: ', payload.activity);
-			const data: CollabActivityData = {
-				activity: payload.activity,
-				userId: this.getPresenceData().userId,
-				sessionId: this.getPresenceData().sessionId,
-			};
-			this.emit('activity:ack', data);
+			this.emit('activity:ack', payload);
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
 			this.analyticsHelper?.sendErrorEvent(error, `Error while sending 'activity:ack'`);

@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { css, cssMap, jsx } from '@compiled/react';
 
 import { Button } from './components/button-loose';

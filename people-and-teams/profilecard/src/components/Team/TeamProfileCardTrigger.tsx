@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
 import { layers } from '@atlaskit/theme/constants';
@@ -407,6 +408,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 					zIndex={layers.modal()}
 					shouldFlip
 					autoFocus={this.props.trigger !== 'hover' && !this.openedByHover}
+					shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 				/>
 			</ErrorBoundary>
 		);

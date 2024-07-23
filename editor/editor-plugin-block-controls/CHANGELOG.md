@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.7.0
+
+### Minor Changes
+
+- [`042e8561002b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/042e8561002b0) -
+  [ux] [ED-23210] Implement shortcut for moving a node up and down in the document
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.1
 
 ### Patch Changes

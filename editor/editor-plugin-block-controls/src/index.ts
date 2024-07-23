@@ -4,4 +4,5 @@ export type {
 	DecorationState,
 	BlockControlsSharedState,
 	HandleOptions,
+	MoveNodeMethod,
 } from './types';

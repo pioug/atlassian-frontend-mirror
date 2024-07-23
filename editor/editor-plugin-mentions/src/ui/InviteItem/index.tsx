@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { MouseEvent, SyntheticEvent } from 'react';
 import React, { useCallback, useEffect } from 'react';
 

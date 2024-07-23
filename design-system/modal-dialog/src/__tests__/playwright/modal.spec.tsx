@@ -204,16 +204,45 @@ test('Modal with no focusable children should gain focus on its container', asyn
 	await expect(close).toBeFocused();
 });
 
-test('Focus should return to item specified by ref after modal is closed', async ({ page }) => {
-	const openModal = page.getByTestId('open-modal');
-	const closeModal = page.getByTestId('close-modal');
-	const focusOnModalClose = page.getByTestId('return-focus-element');
+test.describe('Focus', () => {
+	test('should return to item specified by ref after modal is closed', async ({ page }) => {
+		const openModal = page.getByTestId('open-modal');
+		const closeModal = page.getByTestId('close-modal');
+		const focusOnModalClose = page.getByTestId('return-focus-element');
 
-	await page.visitExample('design-system', 'modal-dialog', 'focus-to-ref-on-modal-close');
-	await expect(openModal).toBeVisible();
-	await expect(focusOnModalClose).toBeVisible();
-	await openModal.click();
-	await expect(closeModal).toBeVisible();
-	await closeModal.click();
-	await expect(focusOnModalClose).toBeFocused();
+		await page.visitExample('design-system', 'modal-dialog', 'focus-to-ref-on-modal-close');
+		await expect(openModal).toBeVisible();
+		await expect(focusOnModalClose).toBeVisible();
+		await openModal.click();
+		await expect(closeModal).toBeVisible();
+		await closeModal.click();
+		await expect(focusOnModalClose).toBeFocused();
+	});
+	test('should return to trigger element in nested modals', async ({ page }) => {
+		const sizes = ['large', 'medium', 'small'];
+		const nestedModalLargeTrigger = page.getByTestId(sizes[0]);
+		const nestedModalMediumTrigger = page.getByTestId(`${sizes[0]}-modal-trigger`);
+		const nestedModalSmallTrigger = page.getByTestId(`${sizes[1]}-modal-trigger`);
+		const closeModalSmallButton = page.getByTestId(`${sizes[2]}-modal-close-button`);
+
+		await page.visitExample('design-system', 'modal-dialog', 'multiple');
+		await expect(nestedModalLargeTrigger).toBeVisible();
+		await nestedModalLargeTrigger.click();
+
+		await expect(nestedModalMediumTrigger).toBeVisible();
+		await nestedModalMediumTrigger.click();
+
+		await expect(nestedModalSmallTrigger).toBeVisible();
+		await nestedModalSmallTrigger.click();
+		await expect(closeModalSmallButton).toBeVisible();
+
+		await page.keyboard.press('Escape');
+		await expect(nestedModalSmallTrigger).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(nestedModalMediumTrigger).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(nestedModalLargeTrigger).toBeFocused();
+	});
 });

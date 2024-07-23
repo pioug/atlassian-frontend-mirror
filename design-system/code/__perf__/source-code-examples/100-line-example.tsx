@@ -2,8 +2,8 @@
 export const hundredLineExample = `/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import React, { CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';

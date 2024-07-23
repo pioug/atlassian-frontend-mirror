@@ -1,8 +1,8 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { type ComponentType, type CSSProperties, type FC } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

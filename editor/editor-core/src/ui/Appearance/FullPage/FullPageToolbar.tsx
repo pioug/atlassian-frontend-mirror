@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { ReactElement } from 'react';
 import React, { useEffect, useState } from 'react';
 

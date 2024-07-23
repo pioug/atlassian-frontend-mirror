@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 /* eslint-disable @repo/internal/react/no-clone-element */
 import { Children, cloneElement, Component } from 'react';
 

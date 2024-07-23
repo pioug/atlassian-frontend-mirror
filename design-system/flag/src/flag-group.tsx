@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { token } from '@atlaskit/tokens';
 
 import { Children, createContext, type ReactElement, useContext, useMemo } from 'react';

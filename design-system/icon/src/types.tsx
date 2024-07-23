@@ -1,4 +1,4 @@
-import type { ComponentType, SVGProps as ReactSVGProps, ReactNode } from 'react';
+import type { ComponentType, ReactNode, SVGProps as ReactSVGProps } from 'react';
 
 import type { IconColor, IconColorPressed } from '@atlaskit/tokens/css-type-schema';
 
@@ -126,6 +126,10 @@ export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
 	 * Icon type. Used in icon build process.
 	 */
 	type?: 'utility' | 'global';
+	/**
+	 * Sets a margin on the fallback legacy icon.
+	 */
+	LEGACY_margin?: string;
 }
 
 export type IconTileAppearance =

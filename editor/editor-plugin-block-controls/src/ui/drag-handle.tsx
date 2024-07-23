@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 
@@ -217,8 +220,9 @@ const DragHandleInternal = ({
 						tr.setMeta(key, { pos: start });
 						return tr;
 					});
-				} else {
-					// return focus to editor to resume editing from caret positon
+				} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
+					// If not trying to press shortcut keys,
+					// return focus to editor to resume editing from caret position
 					view.focus();
 				}
 			}

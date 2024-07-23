@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useMemo } from 'react';
 
 import LinkIcon from '@atlaskit/icon/glyph/link';

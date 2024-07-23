@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { N50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { token } from '@atlaskit/tokens';
 import { components, type ControlProps } from '@atlaskit/select';

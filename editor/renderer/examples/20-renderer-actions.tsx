@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { useState } from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { generateUuid } from '@atlaskit/adf-schema';

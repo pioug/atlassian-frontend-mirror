@@ -4,8 +4,8 @@ import { CodeBlock } from '../src';
 
 export const text = `/**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from '@emotion/styled';

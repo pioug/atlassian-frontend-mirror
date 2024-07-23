@@ -45,7 +45,7 @@ export default function Example() {
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ol</Code>:
-				<Inline as="ul" xcss={listStyles} separator="·" space="space.100">
+				<Inline as="ol" xcss={listStyles} separator="·" space="space.100">
 					<InlineLink>Jira</InlineLink>
 					<InlineLink>Confluence</InlineLink>
 					<InlineLink>BitBucket</InlineLink>

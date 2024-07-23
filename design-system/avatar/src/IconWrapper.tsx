@@ -1,7 +1,7 @@
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { type FC, type ReactNode } from 'react';
 

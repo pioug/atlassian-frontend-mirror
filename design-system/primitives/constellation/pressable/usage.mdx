@@ -94,9 +94,12 @@ Pressable is meant for on-page actions such as opening modals or submitting form
 something that navigates to a new page, use a component that renders a semantically correct HTML
 `<a>` element such as:
 
-- The [link](/components/primitives/link/examples) component (coming soon) for standard text links.
-- The [anchor](/components/primitives/anchor/examples) primitive (coming soon) to create custom
-  links.
+- The [link](/components/primitives/link/examples) component for standard text links.
+- The [anchor](/components/primitives/anchor/examples) primitive to create custom links.
+
+Also, don't add underlines to a pressable. This makes the button appear to be a link, which can be
+confusing for users who assume they can perform actions specific to links, such as opening links in
+new windows.
 
 ## Content guidelines
 
@@ -122,4 +125,3 @@ questions.
 - Use existing components such as [buttons](/components/button/examples) or
   [menus](/components/menu/examples) for most actions in Atlassian products.
 - Use the [anchor primitive for custom links](/components/primitives/button/usage).
-- Pressable is built on the same API as [box](/components/primitives/box/usage).

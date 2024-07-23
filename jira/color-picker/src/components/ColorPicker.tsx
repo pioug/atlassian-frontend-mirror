@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 import { PopupSelect, type PopupSelectProps, type ValueType } from '@atlaskit/select';
 import Trigger from './Trigger';

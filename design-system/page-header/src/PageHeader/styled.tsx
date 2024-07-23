@@ -5,8 +5,8 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 
 import React, { type ReactNode } from 'react';
 

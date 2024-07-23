@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import React, { useEffect, useRef, useCallback, useState } from 'react';

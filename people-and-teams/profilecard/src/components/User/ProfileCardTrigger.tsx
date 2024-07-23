@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 
 import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -327,6 +327,7 @@ class ProfilecardTrigger extends React.PureComponent<
 					shouldUseCaptureOnOutsideClick
 					autoFocus={this.props.autoFocus ?? this.props.trigger === 'click'}
 					offset={this.props.offset ?? [0, 8]}
+					shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 				/>
 				{this.state.shouldShowGiveKudos && (
 					<Suspense fallback={null}>
@@ -360,7 +361,7 @@ class ProfilecardTrigger extends React.PureComponent<
 const ProfilecardTriggerLegacy = withAnalyticsEvents()(ProfilecardTrigger);
 
 export default function ProfilecardTriggerSwitch(props: ProfileCardTriggerProps) {
-	return getBooleanFF('platform.profile-card-trigger-next') ? (
+	return fg('platform.profile-card-trigger-next') ? (
 		<ProfilecardTriggerNext
 			{...props}
 			onVisibilityChange={(isVisible) => {

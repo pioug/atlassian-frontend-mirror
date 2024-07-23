@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
 import { useCallback, useState } from 'react';
 

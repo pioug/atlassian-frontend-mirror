@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { useConstructor } from '@atlaskit/editor-common/hooks';

@@ -1,8 +1,8 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
 /**
  * @jsxRuntime classic
+ * @jsx jsx
  */
-/** @jsx jsx */
 import { type ElementType, forwardRef, memo, type ReactNode, type Ref } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766

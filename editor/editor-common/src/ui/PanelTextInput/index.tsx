@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import type { FocusEvent, KeyboardEvent } from 'react';
 import { PureComponent } from 'react';
 

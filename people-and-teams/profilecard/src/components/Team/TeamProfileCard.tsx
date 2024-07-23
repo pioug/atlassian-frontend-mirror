@@ -8,6 +8,7 @@ import Button from '@atlaskit/button/standard-button';
 import FocusRing from '@atlaskit/focus-ring';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
@@ -267,6 +268,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 					/>
 				)}
 				zIndex={layers.modal()}
+				shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 			/>
 		</MoreButton>
 	);

@@ -126,6 +126,7 @@ export type FloatingToolbarButton<T extends {}> = {
 	onMouseLeave?: T;
 	onFocus?: T;
 	onBlur?: T;
+	onMount?: () => void;
 	icon?: Icon;
 	selected?: boolean;
 	disabled?: boolean;

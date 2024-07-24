@@ -1,4 +1,8 @@
-import type { DatasourceDataResponse, DatasourceDetailsResponse } from '@atlaskit/linking-types';
+import type {
+	ActionsDiscoveryResponse,
+	DatasourceDataResponse,
+	DatasourceDetailsResponse,
+} from '@atlaskit/linking-types';
 
 export const mockDatasourceDataResponse: DatasourceDataResponse = {
 	meta: {
@@ -191,5 +195,31 @@ export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse = {
 		schema: {
 			properties: mockDatasourceDetailsResponse.data.schema.properties,
 		},
+	},
+};
+
+export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
+	actions: [
+		{
+			actionKey: 'atlassian:issue:update:summary',
+			description: 'Updates issue summary',
+			fieldKey: 'summary',
+			integrationKey: 'jira',
+			type: 'string',
+		},
+	],
+	permissions: {
+		data: [
+			{
+				ari: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10025',
+				fieldKey: 'summary',
+				isEditable: true,
+			},
+			{
+				ari: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10030',
+				fieldKey: 'summary',
+				isEditable: true,
+			},
+		],
 	},
 };

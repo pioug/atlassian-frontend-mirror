@@ -159,6 +159,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			intl: { formatMessage },
 			shareError,
 			userPickerOptions,
+			productAttributes,
 		} = this.props;
 
 		return (
@@ -188,6 +189,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							isBrowseUsersDisabled={isBrowseUsersDisabled}
 							shareError={shareError}
 							userPickerOptions={userPickerOptions}
+							productAttributes={productAttributes}
 						/>
 					</div>
 					<div css={formFieldStyles}>

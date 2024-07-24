@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "3.5.1",
+	"version": "3.6.0",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 	"homepage": "https://atlassian.design/components/page-layout/",
 	"dependencies": {
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/icon": "^22.6.0",
+		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/link": "^1.0.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -117,9 +117,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.design-system-team.page-layout-resize-button-fix_u0qxv": {
-			"type": "boolean"
-		},
 		"platform.atlassian.griffin-navigation-redesign": {
 			"type": "boolean"
 		}

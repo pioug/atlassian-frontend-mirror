@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.0.3
+
+### Patch Changes
+
+- [#122977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122977)
+  [`41748db2c12de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41748db2c12de) -
+  [ux]ED-24225 add wrap button inside editor-plugin-block
+- Updated dependencies
+
 ## 3.0.2
 
 ### Patch Changes

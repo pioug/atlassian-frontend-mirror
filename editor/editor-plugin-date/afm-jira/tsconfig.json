@@ -42,6 +42,9 @@
       "path": "../../../design-system/locale/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/textfield/afm-jira/tsconfig.json"
     },
     {

@@ -92,6 +92,10 @@ describe('Async Card Loader', () => {
 			await nextTick();
 			expect(wrapper.find(MediaPickerAnalyticsErrorBoundary)).toBeDefined();
 		});
+
+		it('should contain preload static function', () => {
+			expect(CardLoader.preload).toBeDefined();
+		});
 	});
 
 	// FIXME: Jest upgrade

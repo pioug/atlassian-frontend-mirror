@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 86.5.0
+
+### Minor Changes
+
+- [#123058](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123058)
+  [`2f8d14c320506`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f8d14c320506) -
+  ED-24314 Adds new analytics event that fires editors inline comment selection dialog comment
+  button appears
+
+## 86.4.1
+
+### Patch Changes
+
+- [#122612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122612)
+  [`01a85ce0a88ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01a85ce0a88ec) -
+  [ux] ED-23705 Add logic to handle annotations on inline nodes when they are inserted or pasted.
+  Covers the following inline nodes: emoji, status, mention, date, inlineCard
+- Updated dependencies
+
 ## 86.4.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 2.9.0
+
+### Minor Changes
+
+- [#122986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122986)
+  [`48a5bb152f63b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48a5bb152f63b) -
+  Update react peer dependency to support react 18
+
 ## 2.8.3
 
 ### Patch Changes

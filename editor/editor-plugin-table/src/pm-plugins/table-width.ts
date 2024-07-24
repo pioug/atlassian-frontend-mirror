@@ -47,6 +47,7 @@ const createPlugin = (
 	fullWidthEnabled: boolean,
 	isTableScalingEnabled: boolean,
 	isTableAlignmentEnabled: boolean,
+	isCommentEditor: boolean,
 ) => {
 	return new SafePlugin({
 		key: pluginKey,
@@ -158,7 +159,7 @@ const createPlugin = (
 				});
 			}
 
-			if (isReplaceDocumentOperation) {
+			if (isReplaceDocumentOperation && !isCommentEditor) {
 				newState.doc.forEach((node, offset) => {
 					if (node.type === table) {
 						const width = node.attrs.width;

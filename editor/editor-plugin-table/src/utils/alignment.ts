@@ -23,9 +23,11 @@ export const shouldChangeAlignmentToCenterResized = (
 	lineLength: number | undefined,
 	updatedTableWidth: number,
 ) =>
-	isTableAlignmentEnabled &&
-	tableNode &&
-	tableNode.attrs.layout === ALIGN_START &&
-	lineLength &&
-	updatedTableWidth > lineLength &&
-	lineLength < FULL_WIDTH_EDITOR_CONTENT_WIDTH;
+	Boolean(
+		isTableAlignmentEnabled &&
+			tableNode &&
+			tableNode.attrs.layout === ALIGN_START &&
+			lineLength &&
+			updatedTableWidth > lineLength &&
+			lineLength < FULL_WIDTH_EDITOR_CONTENT_WIDTH,
+	);

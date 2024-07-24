@@ -1,3 +1,4 @@
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
@@ -37,6 +38,13 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 		sharedState: MediaPluginState | null;
 		actions: {
 			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
+			/**
+			 * Used to update the initial provider passed to the media plugin
+			 *
+			 * @param provider Promise<MediaProvider>
+			 * @returns {boolean} if setting the provider was successful or not
+			 */
+			setProvider: (provider: Promise<MediaProvider>) => boolean;
 		};
 	}
 >;

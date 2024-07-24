@@ -1,5 +1,15 @@
 # @atlaskit/avatar-group
 
+## 9.9.1
+
+### Patch Changes
+
+- [#122942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122942)
+  [`99084c446171e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99084c446171e) -
+  Fixes bug where the border color for avatars in the `data` prop were not being passed through. Now
+  the `borderColor` prop from an avatar in the `data` prop will pass through. Preference is given to
+  the `borderColor` prop from avatar group, if both are present.
+
 ## 9.9.0
 
 ### Minor Changes

@@ -6,11 +6,13 @@ const mockStorageClientGetItem = jest.fn();
 const mockStorageClientSetItemWithExpiry = jest.fn();
 
 jest.mock('../../storage/storage-client', () => ({
-	StorageClient: () => ({
-		...jest.requireActual('../../storage/storage-client').StorageClient,
-		getItem: mockStorageClientGetItem,
-		setItemWithExpiry: mockStorageClientSetItemWithExpiry,
-	}),
+	StorageClient: function () {
+		return {
+			...jest.requireActual('../../storage/storage-client').StorageClient,
+			getItem: mockStorageClientGetItem,
+			setItemWithExpiry: mockStorageClientSetItemWithExpiry,
+		};
+	},
 }));
 
 describe('use local storage', () => {

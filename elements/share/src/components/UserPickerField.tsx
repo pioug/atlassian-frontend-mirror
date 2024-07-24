@@ -55,6 +55,7 @@ export type Props = {
 	isBrowseUsersDisabled?: boolean;
 	shareError?: ShareError;
 	userPickerOptions?: UserPickerOptions;
+	productAttributes?: SmartUserPickerProps['productAttributes'];
 };
 
 type GetMessageDescriptor = (
@@ -235,6 +236,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 			enableSmartUserPicker,
 			isBrowseUsersDisabled,
 			userPickerOptions,
+			productAttributes,
 		} = this.props;
 		if (!enableSmartUserPicker || isBrowseUsersDisabled) {
 			return {};
@@ -248,6 +250,7 @@ export class UserPickerFieldComponent extends React.Component<WrappedComponentPr
 			includeGroups: true,
 			debounceTime: DEBOUNCE_MS,
 			orgId,
+			productAttributes,
 		};
 
 		const externalUserBylineByProduct = {

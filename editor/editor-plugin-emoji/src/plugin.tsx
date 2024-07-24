@@ -29,8 +29,9 @@ import {
 	recordSelectionSucceededSli,
 	SearchSort,
 } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { insertEmoji } from './commands/insert-emoji';
+import { createEmojiFragment, insertEmoji } from './commands/insert-emoji';
 import { EmojiNodeView } from './nodeviews/emoji';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
 import type { EmojiPlugin, EmojiPluginState } from './types';
@@ -156,8 +157,6 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return matchedItem;
 		},
 		selectItem(state, item, insert, { mode }) {
-			const { id = '', fallback, shortName } = item.emoji;
-			const text = fallback || shortName;
 			const emojiPluginState = emojiPluginKey.getState(state) as EmojiPluginState;
 
 			if (
@@ -180,14 +179,26 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 						}),
 					);
 			}
-			const emojiNode = state.schema.nodes.emoji.createChecked({
-				shortName,
-				id,
-				text,
-			});
-			const space = state.schema.text(' ');
 
-			const tr = insert(Fragment.from([emojiNode, space]));
+			let fragment: Fragment;
+
+			if (fg('editor_inline_comments_paste_insert_nodes')) {
+				fragment = createEmojiFragment(state.doc, state.selection.$head, item.emoji);
+			} else {
+				const { id = '', fallback, shortName } = item.emoji;
+				const text = fallback || shortName;
+
+				const emojiNode = state.schema.nodes.emoji.createChecked({
+					shortName,
+					id,
+					text,
+				});
+				const space = state.schema.text(' ');
+
+				fragment = Fragment.from([emojiNode, space]);
+			}
+
+			const tr = insert(fragment);
 			api?.analytics?.actions.attachAnalyticsEvent({
 				action: ACTION.INSERTED,
 				actionSubject: ACTION_SUBJECT.DOCUMENT,

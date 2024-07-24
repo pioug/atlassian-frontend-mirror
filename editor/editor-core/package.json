@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "194.3.12",
+	"version": "194.3.16",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,12 +45,12 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^19.0.0",
-		"@atlaskit/editor-common": "^86.4.0",
+		"@atlaskit/editor-common": "^86.5.0",
 		"@atlaskit/editor-plugins": "^3.4.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.6.0",
-		"@atlaskit/icon": "^22.6.0",
+		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/media-card": "^78.0.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -87,7 +87,7 @@
 		"@atlaskit/analytics-listeners": "^8.10.0",
 		"@atlaskit/collab-provider": "9.34.0",
 		"@atlaskit/editor-json-transformer": "^8.15.0",
-		"@atlaskit/editor-plugin-annotation": "1.15.2",
+		"@atlaskit/editor-plugin-annotation": "1.16.0",
 		"@atlaskit/editor-plugin-card": "^2.6.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-list": "^3.5.0",
@@ -107,7 +107,8 @@
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.16.0",
-		"@atlassian/search-provider": "2.4.96",
+		"@atlassian/feature-flags-test-utils": "*",
+		"@atlassian/search-provider": "2.4.97",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -165,10 +166,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"platform.linking-platform.datasource-assets_objects_remove_beta": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -211,6 +208,10 @@
 			"referenceOnly": "true"
 		},
 		"editor_inline_comments_on_inline_nodes": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
+		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
@@ -333,6 +334,13 @@
 		"linking-platform-contenteditable-false-live-view": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"editor_react_18_fix_table_delete_col_decorations": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_media_provider_from_plugin_config": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

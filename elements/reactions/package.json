@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "22.10.1",
+	"version": "22.10.2",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,11 +39,11 @@
 		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/button": "^19.0.0",
 		"@atlaskit/emoji": "^67.6.0",
-		"@atlaskit/icon": "^22.6.0",
+		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/popper": "^6.1.0",
-		"@atlaskit/popup": "1.20.1",
+		"@atlaskit/popup": "1.20.2",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tabs": "^16.3.0",

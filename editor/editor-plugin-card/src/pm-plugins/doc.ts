@@ -26,6 +26,7 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
+	getAnnotationMarksForPos,
 	getLinkCreationAnalyticsEvent,
 	isFromCurrentDomain,
 	nodesBetweenChanged,
@@ -36,7 +37,7 @@ import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
 
 import type { CardPluginState, Request } from '../types';
@@ -76,6 +77,7 @@ function replaceLinksToCards(
 	// replace all the outstanding links with their cards
 	const pos = tr.mapping.map(request.pos);
 	const $pos = tr.doc.resolve(pos);
+	const $head = tr.selection.$head;
 
 	const node = tr.doc.nodeAt(pos);
 	if (!node || !node.type.isText) {
@@ -90,11 +92,23 @@ function replaceLinksToCards(
 
 	// ED-5638: add an extra space after inline cards to avoid re-rendering them
 	const nodes = [cardAdf];
+
 	if (cardAdf.type === inlineCard) {
 		nodes.push(schema.text(' '));
 	}
 
 	tr.replaceWith(pos, pos + (node.text || url).length, nodes);
+
+	if (fg('editor_inline_comments_paste_insert_nodes')) {
+		const annotationMarksForPos = getAnnotationMarksForPos($head);
+
+		if (annotationMarksForPos && annotationMarksForPos.length > 0) {
+			annotationMarksForPos.forEach((annotationMark) => {
+				// Add the annotation mark on to the inlineCard node and the trailing space node.
+				tr.addMark(pos, pos + nodes[0].nodeSize + nodes[1].nodeSize, annotationMark);
+			});
+		}
+	}
 
 	return $pos.node($pos.depth - 1).type.name;
 }
@@ -527,7 +541,7 @@ export const setSelectedCardAppearance: (
 	}
 
 	let attrs;
-	if (getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')) {
+	if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
 		if (appearanceForNodeType(selectedNode.type) === appearance && !selectedNode.attrs.datasource) {
 			return false;
 		}
@@ -638,8 +652,8 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
 				});
 			}
 		} else if (
-			getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar') &&
-			node.type.isText
+			node.type.isText &&
+			fg('platform.linking-platform.enable-datasource-appearance-toolbar')
 		) {
 			// url to datasource
 			let link: { url: string; text: string | undefined; pos: number } | undefined;
@@ -725,7 +739,7 @@ export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: 
 		};
 	}
 
-	if (getBooleanFF('platform.linking-platform.editor-datasource-typeguards')) {
+	if (fg('platform.linking-platform.editor-datasource-typeguards')) {
 		if (isDatasourceNode(selectedNode)) {
 			return { url: selectedNode.attrs.url };
 		}
@@ -739,8 +753,8 @@ export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: 
 };
 
 const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
-	if (getBooleanFF('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-		if (getBooleanFF('platform.linking-platform.editor-datasource-typeguards')) {
+	if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
+		if (fg('platform.linking-platform.editor-datasource-typeguards')) {
 			if (
 				isDatasourceNode(selectedNode) &&
 				!isDatasourceConfigEditable(selectedNode.attrs.datasource.id) &&

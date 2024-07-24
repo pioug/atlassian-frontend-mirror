@@ -1,5 +1,11 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { Mark, Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
+	Mark,
+	Node as PMNode,
+	ResolvedPos,
+	Schema,
+	Slice,
+} from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 type Range = {
@@ -184,4 +190,20 @@ export function getAnnotationInlineNodeTypes(
 
 	// This sorting is done to make human consumption easier (ie. in dev tools, test snapshots, analytics events, ...)
 	return [...inlineNodeNames].sort();
+}
+
+/*
+	Get the annotations marks from the given position and add them to the original marks array if they exist.
+	Used with the creation of the inline nodes: emoji, status, dates, mentions & inlineCards.
+*/
+export function getAnnotationMarksForPos(pos: ResolvedPos): Mark[] | undefined {
+	if (!fg('editor_inline_comments_paste_insert_nodes')) {
+		return undefined;
+	}
+
+	const annotationMarks = pos
+		.marks()
+		.filter((mark) => mark.type === pos.doc.type.schema.marks.annotation);
+
+	return annotationMarks;
 }

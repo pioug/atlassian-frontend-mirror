@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import LinkFilledIcon from '@atlaskit/icon/glyph/link-filled';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup, { type TriggerProps } from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import { G300 } from '@atlaskit/theme/colors';
@@ -42,6 +42,7 @@ const isSafari = navigator.userAgent.indexOf('Safari');
 
 type InputProps = {
 	text: string;
+	label: string;
 };
 
 export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
@@ -54,6 +55,7 @@ export const HiddenInput = React.forwardRef<HTMLInputElement, InputProps>(
 			aria-hidden={true}
 			ref={ref}
 			value={props.text}
+			aria-label={props.label}
 			readOnly
 		/>
 	),
@@ -147,13 +149,13 @@ export class CopyLinkButton extends React.Component<Props, State> {
 						{shouldShowCopiedMessage && copiedToClipboardText}
 					</div>
 				)}
-				<HiddenInput ref={this.inputRef} text={this.props.link} />
+				<HiddenInput ref={this.inputRef} text={this.props.link} label={copiedToClipboardText} />
 				<Popup
 					zIndex={Z_INDEX}
 					autoFocus={false}
 					content={() => (
 						<InlineDialogContentWrapper>
-							<div css={messageContainerStyle} data-testid="message-container">
+							<div css={messageContainerStyle} data-testid="message-container" aria-hidden>
 								<React.Fragment>
 									<CheckCircleIcon label="" primaryColor={token('color.icon.success', G300)} />
 									<Box xcss={messageTextStyle}>{copiedToClipboardText}</Box>
@@ -174,9 +176,7 @@ export class CopyLinkButton extends React.Component<Props, State> {
 						)
 					}
 					shouldRenderToParent={
-						getBooleanFF('platform.enable-appropriate-reading-order-in-share-dialog_fu49')
-							? true
-							: false
+						fg('platform.enable-appropriate-reading-order-in-share-dialog_fu49') ? true : false
 					}
 				/>
 			</React.Fragment>

@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 194.3.16
+
+### Patch Changes
+
+- [#123311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123311)
+  [`ea5eb60bfc2f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea5eb60bfc2f9) -
+  [ux] Displays full-width tooltip when table resized to the width of the Comment editor when table
+  resizing is enabled.
+
+## 194.3.15
+
+### Patch Changes
+
+- [#123036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123036)
+  [`89dbc07d4028b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89dbc07d4028b) -
+  Introduces new "setProvider" action on media plugin. This allows a consumer to update the initial
+  configured media provider at a later point. This makes a difference if you are passing the media
+  prop to the media plugin rather than the Editor itself.
+- [#122514](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122514)
+  [`91276c81ef8a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91276c81ef8a8) -
+  [ED-24019] This change is cleaning up the feature flag
+  'platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg' which was introduced for new
+  keyboard shortcuts for inserting columns and rows to a table.
+- Updated dependencies
+
+## 194.3.14
+
+### Patch Changes
+
+- [#122612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122612)
+  [`01a85ce0a88ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01a85ce0a88ec) -
+  [ux] ED-23705 Add logic to handle annotations on inline nodes when they are inserted or pasted.
+  Covers the following inline nodes: emoji, status, mention, date, inlineCard
+- [#122977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122977)
+  [`41748db2c12de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41748db2c12de) -
+  [ux]ED-24225 add wrap button inside editor-plugin-block
+- Updated dependencies
+
 ## 194.3.12
 
 ### Patch Changes

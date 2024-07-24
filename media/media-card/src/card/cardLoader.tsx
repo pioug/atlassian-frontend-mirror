@@ -18,12 +18,18 @@ const MediaCardWithMediaClientProvider = Loadable({
 	loading: () => <CardLoadingWithContext />,
 });
 
-const CardLoader: React.FC<CardWithMediaClientConfigProps> = (props) => {
+type CardLoaderComponent = React.FC<CardWithMediaClientConfigProps> & {
+	preload: () => void;
+};
+
+const CardLoader: CardLoaderComponent = (props) => {
 	return (
 		<MediaCardContext.Provider value={props}>
 			<MediaCardWithMediaClientProvider {...props} />
 		</MediaCardContext.Provider>
 	);
 };
+
+CardLoader.preload = () => MediaCardWithMediaClientProvider.preload();
 
 export default CardLoader;

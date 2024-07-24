@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 3.6.0
+
+### Minor Changes
+
+- [#123311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123311)
+  [`2176e65169e6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2176e65169e6f) -
+  Surface layout fixes without feature flag.
+
 ## 3.5.1
 
 ### Patch Changes

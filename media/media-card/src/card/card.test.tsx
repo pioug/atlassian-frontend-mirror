@@ -17,19 +17,6 @@ jest.mock('../utils/ufoExperiences', () => {
 		abortUfoExperience: jest.fn(actualModule.abortUfoExperience),
 	};
 });
-jest.mock('./cardAnalytics', () => {
-	const actualModule = jest.requireActual('./cardAnalytics');
-	return {
-		__esModule: true,
-		...actualModule,
-		fireOperationalEvent: jest.fn(actualModule.fireOperationalEvent),
-		fireNonCriticalErrorEvent: jest.fn(actualModule.fireNonCriticalErrorEvent),
-		fireCopiedEvent: jest.fn(actualModule.fireCopiedEvent),
-		fireCommencedEvent: jest.fn(actualModule.fireCommencedEvent),
-		fireScreenEvent: jest.fn(actualModule.fireScreenEvent),
-	};
-});
-
 import { useAnalyticsEvents, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import * as svgHelpersModule from './svgView/helpers';
 import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
@@ -63,16 +50,11 @@ import * as performanceModule from './performance';
 import { getFileStreamsCache } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
 import { completeUfoExperience, abortUfoExperience } from '../utils/ufoExperiences';
-import {
-	fireNonCriticalErrorEvent,
-	fireOperationalEvent,
-	fireCommencedEvent,
-	fireScreenEvent,
-} from './cardAnalytics';
 import { MediaCardError } from '../errors';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
 
 const event = { fire: jest.fn() };
 const mockCreateAnalyticsEvent = jest.fn(() => event) as unknown as CreateUIAnalyticsEvent;
@@ -3218,83 +3200,6 @@ describe('Card ', () => {
 			});
 		});
 
-		describe('should fire commenced analytics event on file load start ', () => {
-			it('with file identifier', async () => {
-				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
-				const { mediaApi } = createMockedMediaApi(fileItem);
-
-				const { container } = render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<CardLoader
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				// simulate that the file has been fully loaded by the browser
-				const img = await screen.findByTestId(imgTestId);
-				fireEvent.load(img);
-
-				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
-				);
-
-				expect(fireCommencedEvent).toBeCalledTimes(1);
-				expect(fireCommencedEvent).toHaveBeenCalledWith(
-					expect.any(Function),
-					expect.objectContaining({
-						fileId: fileItem.id,
-					}),
-					{ overall: { durationSincePageStart: PERFORMANCE_NOW } },
-					{
-						traceId: expect.any(String),
-					},
-				);
-			});
-
-			it('with an external image identifier', async () => {
-				const { mediaApi } = createMockedMediaApi();
-				const extIdentifier = {
-					mediaItemType: 'external-image',
-					dataURI: 'ext-uri',
-					name: 'ext',
-				} as const;
-				const { container } = render(
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<CardLoader
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={extIdentifier}
-							isLazy={false}
-						/>
-					</MockedMediaClientProvider>,
-				);
-
-				// simulate that the file has been fully loaded by the browser
-				const img = await screen.findByTestId(imgTestId);
-				fireEvent.load(img);
-
-				// card should completely process the file
-				await waitFor(() =>
-					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
-				);
-
-				expect(fireCommencedEvent).toBeCalledTimes(1);
-				expect(fireCommencedEvent).toHaveBeenCalledWith(
-					expect.any(Function),
-					expect.objectContaining({
-						fileId: 'external-image',
-					}),
-					{ overall: { durationSincePageStart: PERFORMANCE_NOW } },
-					{
-						traceId: expect.any(String),
-					},
-				);
-			});
-		});
-
 		describe('should attach the correct file status flags when completing the UFO experience', () => {
 			it('should attach an uploading file status flag with value as true', async () => {
 				// using Jest's useFakeTimers to accelerate the polling function
@@ -3601,7 +3506,25 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
 
-				expect(fireScreenEvent).toBeCalledTimes(1);
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(3, {
+					eventType: 'screen',
+					action: 'viewed',
+					actionSubject: 'mediaCardRenderScreen',
+					name: 'mediaCardRenderScreen',
+					attributes: {
+						type: fileItem.details.mediaType,
+						fileAttributes: {
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileId: fileItem.id,
+							fileSize: fileItem.details.size,
+							fileStatus: 'processed',
+						},
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
 			it('when the file is a video and has a preview', async () => {
@@ -3627,7 +3550,25 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
 
-				expect(fireScreenEvent).toBeCalledTimes(1);
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(3, {
+					eventType: 'screen',
+					action: 'viewed',
+					actionSubject: 'mediaCardRenderScreen',
+					name: 'mediaCardRenderScreen',
+					attributes: {
+						type: fileItem.details.mediaType,
+						fileAttributes: {
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileId: fileItem.id,
+							fileSize: fileItem.details.size,
+							fileStatus: 'processed',
+						},
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 		});
 
@@ -3670,55 +3611,55 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
 
-				expect(fireOperationalEvent).toHaveBeenCalledTimes(3);
-				expect(fireOperationalEvent).toHaveBeenNthCalledWith(
-					1,
-					expect.any(Function),
-					'processing',
-					{
-						fileMediatype: fileItem.details.mediaType,
-						fileMimetype: fileItem.details.mimeType,
-						fileId: fileItem.id,
-						fileSize: fileItem.details.size,
-						fileStatus: 'processing',
-					},
-					{
-						overall: {
-							durationSinceCommenced: 0,
-							durationSincePageStart: PERFORMANCE_NOW,
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
 						},
-					},
-					{ client: { status: 'unknown' }, server: { status: 'unknown' } },
-					undefined,
-					{
-						traceId: expect.any(String),
-					},
-					{ spanId: expect.any(String), traceId: expect.any(String) },
-				);
-				expect(fireOperationalEvent).toHaveBeenNthCalledWith(
-					3,
-					expect.any(Function),
-					'complete',
-					{
-						fileMediatype: fileItem.details.mediaType,
-						fileMimetype: fileItem.details.mimeType,
-						fileId: fileItem.id,
-						fileSize: fileItem.details.size,
-						fileStatus: 'processed',
-					},
-					{
-						overall: {
-							durationSinceCommenced: 0,
-							durationSincePageStart: PERFORMANCE_NOW,
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
 						},
+						traceContext: { traceId: expect.any(String) },
 					},
-					{ client: { status: 'unknown' }, server: { status: 'unknown' } },
-					undefined,
-					{
-						traceId: expect.any(String),
+				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'succeeded',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes: {
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileId: fileItem.id,
+							fileSize: fileItem.details.size,
+							fileStatus: 'processed',
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'success',
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 					},
-					{ spanId: expect.any(String), traceId: expect.any(String) },
-				);
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 
 				// set timers back to normal
 				jest.runOnlyPendingTimers();
@@ -3751,27 +3692,49 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="complete"]')).toBeInTheDocument(),
 				);
 
-				expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
-				expect(fireOperationalEvent).toHaveBeenCalledWith(
-					expect.any(Function),
-					'complete',
-					{
-						fileMediatype: 'image',
-						fileId: extIdentifier.mediaItemType,
-					},
-					{
-						overall: {
-							durationSinceCommenced: 0,
-							durationSincePageStart: PERFORMANCE_NOW,
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: 'image',
+							fileId: extIdentifier.mediaItemType,
 						},
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						traceContext: { traceId: expect.any(String) },
 					},
-					{ client: { status: 'unknown' }, server: { status: 'unknown' } },
-					undefined,
-					{
-						traceId: expect.any(String),
+				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'succeeded',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: undefined,
+						fileAttributes: {
+							fileMediatype: 'image',
+							fileId: extIdentifier.mediaItemType,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'success',
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: undefined,
 					},
-					undefined,
-				);
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(3); // 2 operational events, 1 screen event
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
 			it('when a serverRateLimited error occurs (RequestError: serverRateLimited)', async () => {
@@ -3797,40 +3760,59 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(fireOperationalEvent).toBeCalledTimes(1);
-				expect(fireOperationalEvent).toHaveBeenLastCalledWith(
-					expect.any(Function),
-					'error',
-					{
-						fileMediatype: undefined,
-						fileMimetype: undefined,
-						fileId: fileItem.id,
-						fileSize: undefined,
-						fileStatus: undefined,
-					},
-					{
-						overall: {
-							durationSinceCommenced: 0,
-							durationSincePageStart: PERFORMANCE_NOW,
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
 						},
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						traceContext: { traceId: expect.any(String) },
 					},
-					{ client: { status: 'unknown' }, server: { status: 'unknown' } },
-					new MediaCardError(
-						'metadata-fetch',
-						new MediaFileStateError(fileItem.id, 'serverRateLimited', undefined, {
-							statusCode: 429,
-						}),
-					),
-					{
-						traceId: expect.any(String),
-					},
-					undefined,
-				);
-				expect((fireOperationalEvent as jest.Mock).mock.calls[0][5].secondaryError).toMatchObject({
-					id: fileItem.id,
-					reason: 'serverRateLimited',
-					details: { statusCode: 429 },
 				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: undefined,
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'fail',
+						failReason: 'metadata-fetch',
+						error: 'serverRateLimited',
+						errorDetail: 'serverRateLimited',
+						request: undefined,
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: undefined,
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 
 			it('when a pollingMaxAttemptsExceeded error occurs (PollingError: pollingMaxAttemptsExceeded)', async () => {
@@ -3856,40 +3838,294 @@ describe('Card ', () => {
 					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
 				);
 
-				expect(fireOperationalEvent).toBeCalledTimes(1);
-				expect(fireOperationalEvent).toHaveBeenLastCalledWith(
-					expect.any(Function),
-					'error',
-					{
-						fileMediatype: undefined,
-						fileMimetype: undefined,
-						fileId: fileItem.id,
-						fileSize: undefined,
-						fileStatus: undefined,
-					},
-					{
-						overall: {
-							durationSinceCommenced: 0,
-							durationSincePageStart: PERFORMANCE_NOW,
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
 						},
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						traceContext: { traceId: expect.any(String) },
 					},
-					{ client: { status: 'unknown' }, server: { status: 'unknown' } },
-					new MediaCardError(
-						'metadata-fetch',
-						new MediaFileStateError(fileItem.id, 'pollingMaxAttemptsExceeded', undefined, {
-							attempts: 2,
-						}),
-					),
-					{
-						traceId: expect.any(String),
-					},
-					undefined,
-				);
-				expect((fireOperationalEvent as jest.Mock).mock.calls[0][5].secondaryError).toMatchObject({
-					id: fileItem.id,
-					reason: 'pollingMaxAttemptsExceeded',
-					details: { attempts: 2 },
 				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: undefined,
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'fail',
+						failReason: 'metadata-fetch',
+						error: 'pollingMaxAttemptsExceeded',
+						errorDetail: 'pollingMaxAttemptsExceeded',
+						request: undefined,
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: undefined,
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
+			});
+
+			it('if status is failed-processing', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.failedPdf();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				const { container } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// card should completely process the error
+				await waitFor(() =>
+					expect(
+						container.querySelector('[data-test-status="failed-processing"]'),
+					).toBeInTheDocument(),
+				);
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes: {
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileId: fileItem.id,
+							fileSize: fileItem.details.size,
+							fileStatus: 'failed-processing',
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'fail',
+						failReason: 'failed-processing',
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
+			});
+
+			it('when a serverUnauthorized error occurs on the /image endpoint', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				mediaApi.getImage = () => {
+					throw createServerUnauthorizedError();
+				};
+
+				const { container } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// card should completely process the error
+				await waitFor(() =>
+					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				);
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: fileItem.details.mimeType,
+						fileAttributes: {
+							fileMediatype: fileItem.details.mediaType,
+							fileMimetype: fileItem.details.mimeType,
+							fileId: fileItem.id,
+							fileSize: fileItem.details.size,
+							fileStatus: 'processed',
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'fail',
+						failReason: 'remote-preview-fetch',
+						error: 'serverUnauthorized',
+						errorDetail: 'serverUnauthorized',
+						request: {
+							attempts: 5,
+							clientExhaustedRetries: true,
+							mediaRegion: 'test-media-region',
+							mediaEnv: 'test-media-env',
+							statusCode: 403,
+						},
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
+			});
+
+			it('when a serverUnauthorized error occurs on the /items endpoint', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				mediaApi.getItems = () => {
+					throw createServerUnauthorizedError();
+				};
+
+				const { container } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// card should completely process the error
+				await waitFor(() =>
+					expect(container.querySelector('[data-test-status="error"]')).toBeInTheDocument(),
+				);
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+					eventType: 'operational',
+					action: 'commenced',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+				});
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+					eventType: 'operational',
+					action: 'failed',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileMimetype: undefined,
+						fileAttributes: {
+							fileMediatype: undefined,
+							fileMimetype: undefined,
+							fileId: fileItem.id,
+							fileSize: undefined,
+							fileStatus: undefined,
+						},
+						performanceAttributes: {
+							overall: {
+								durationSinceCommenced: 0,
+								durationSincePageStart: PERFORMANCE_NOW,
+							},
+						},
+						status: 'fail',
+						failReason: 'metadata-fetch',
+						error: 'serverUnauthorized',
+						errorDetail: 'serverUnauthorized',
+						request: undefined,
+						ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+						traceContext: { traceId: expect.any(String) },
+						metadataTraceContext: undefined,
+					},
+				});
+
+				expect(event.fire).toHaveBeenCalledTimes(2);
+				expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 			});
 		});
 
@@ -3927,18 +4163,54 @@ describe('Card ', () => {
 			);
 			makeVisible();
 
-			await waitFor(() => expect(fireNonCriticalErrorEvent).toBeCalledTimes(1));
-			expect(fireNonCriticalErrorEvent).toBeCalledWith(
-				expect.any(Function),
-				expect.any(String),
-				expect.any(Object),
-				expect.any(Object),
-				expect.objectContaining({
-					primaryReason: 'remote-preview-fetch',
-				}),
-				expect.any(Object),
-				expect.any(Object),
-			);
+			await waitFor(() => expect(event.fire).toHaveBeenCalledTimes(2));
+
+			expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(1, {
+				eventType: 'operational',
+				action: 'commenced',
+				actionSubject: 'mediaCardRender',
+				attributes: {
+					fileAttributes: {
+						fileMediatype: undefined,
+						fileMimetype: undefined,
+						fileId: fileItem.id,
+						fileSize: undefined,
+						fileStatus: undefined,
+					},
+					performanceAttributes: {
+						overall: {
+							durationSincePageStart: PERFORMANCE_NOW,
+						},
+					},
+					traceContext: { traceId: expect.any(String) },
+				},
+			});
+
+			expect(mockCreateAnalyticsEvent).toHaveBeenNthCalledWith(2, {
+				eventType: 'operational',
+				action: 'nonCriticalFail',
+				actionSubject: 'mediaCardRender',
+				attributes: {
+					fileAttributes: {
+						fileMediatype: fileItem.details.mediaType,
+						fileMimetype: fileItem.details.mimeType,
+						fileId: fileItem.id,
+						fileSize: fileItem.details.size,
+						fileStatus: 'processed',
+					},
+					status: 'fail',
+					failReason: 'remote-preview-fetch',
+					error: 'nativeError',
+					errorDetail: 'mediaApi.getImage: remote-preview-fetch',
+					request: undefined,
+					ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
+					traceContext: { traceId: expect.any(String) },
+					metadataTraceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+					cardStatus: 'loading-preview',
+				},
+			});
+
+			expect(event.fire).toHaveBeenCalledWith(ANALYTICS_MEDIA_CHANNEL);
 
 			const img: HTMLImageElement = await screen.findByTestId(imgTestId);
 			expect(img).toBeInTheDocument();
@@ -4132,7 +4404,7 @@ describe('Card ', () => {
 
 			// Analytics are broken for this case!
 			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
-			/* 
+			/*
 			const fileAttributes = {
 				fileId: identifier.id,
 				fileMediatype: fileItem.details.mediaType,
@@ -4189,7 +4461,7 @@ describe('Card ', () => {
 
 			// Analytics are broken for this case!
 			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
-			/* 
+			/*
 			const fileAttributes = {
 				fileId: identifier.id,
 				fileMediatype: fileItem.details.mediaType,
@@ -4247,7 +4519,7 @@ describe('Card ', () => {
 
 			// Analytics are broken for this case!
 			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
-			/* 
+			/*
 			const fileAttributes = {
 				fileId: identifier.id,
 				fileMediatype: fileItem.details.mediaType,

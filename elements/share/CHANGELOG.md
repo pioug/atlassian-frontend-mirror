@@ -1,5 +1,25 @@
 # @atlaskit/share
 
+## 4.19.0
+
+### Minor Changes
+
+- [#121686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121686)
+  [`806f67cf6655e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/806f67cf6655e) -
+  [ux] passing an optional productAttributes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.18.11
+
+### Patch Changes
+
+- [#121516](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121516)
+  [`d2d28eeaef085`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2d28eeaef085) -
+  [ux] Announce copied to clipboard text when copy link button is clicked for screen readers
+
 ## 4.18.10
 
 ### Patch Changes

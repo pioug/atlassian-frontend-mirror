@@ -1,5 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
+import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
 import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
 
 snapshot(AvatarGroupPlayground, {
@@ -44,4 +45,8 @@ snapshot(AvatarGroupPlayground, {
 			selector: { byTestId: 'grid--overflow-menu--trigger' },
 		},
 	],
+});
+
+snapshot(BorderColorExample, {
+	description: 'Border colors should be visible for avatars in avatar group',
 });

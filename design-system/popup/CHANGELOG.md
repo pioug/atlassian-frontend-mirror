@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.20.2
+
+### Patch Changes
+
+- [#122722](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122722)
+  [`512798d699bd1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/512798d699bd1) -
+  Disable onClick event if popup is a disabled layer
+
 ## 1.20.1
 
 ### Patch Changes

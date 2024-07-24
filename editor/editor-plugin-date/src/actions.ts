@@ -5,11 +5,12 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { Command, CommandDispatch, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { getAnnotationMarksForPos, todayTimestampInUTC } from '@atlaskit/editor-common/utils';
+import { Fragment, type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { DatePluginState } from './pm-plugins/types';
@@ -19,12 +20,28 @@ import { isToday } from './utils/internal';
 export const createDate =
 	(isQuickInsertAction?: boolean) =>
 	(state: EditorState): Transaction => {
-		const dateNode = state.schema.nodes.date.createChecked({
-			timestamp: todayTimestampInUTC(),
-		});
-		const fragment = Fragment.fromArray([dateNode, state.schema.text(' ')]);
-
 		const tr = state.tr;
+		const annotationMarksForPos: Mark[] | undefined = fg(
+			'editor_inline_comments_paste_insert_nodes',
+		)
+			? getAnnotationMarksForPos(tr.selection.$head)
+			: undefined;
+
+		const dateNode = state.schema.nodes.date.createChecked(
+			{
+				timestamp: todayTimestampInUTC(),
+			},
+			null,
+			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+		);
+		const fragment = Fragment.fromArray([
+			dateNode,
+			state.schema.text(
+				' ',
+				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+			),
+		]);
+
 		const insertable = canInsert(tr.selection.$from, fragment);
 		if (!insertable) {
 			const parentSelection = NodeSelection.create(

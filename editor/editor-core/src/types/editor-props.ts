@@ -314,8 +314,20 @@ export interface EditorNextProps
 	 * Configuration of this parameter should be done via `editor-plugin-media` or the `universal` preset.
 	 *
 	 * Example:
+	 * ```ts
 	 * // In preset creation you can pass the props passed to the editor like this:
 	 * preset.add([mediaPlugin, mediaOptions])
+	 * ```
+	 *
+	 * Note: Props you pass to the media plugin via the preset do not re-render like in React.
+	 * Therefore if you need to update the media provider later you will need to explicitly update it like so:
+	 *
+	 * ```ts
+	 * const { preset, editorApi } = usePreset(createPreset)
+	 * ...
+	 * // If we need to update the media provider later on
+	 * editorApi?.media.actions.setProvider(mediaProvider);
+	 * ```
 	 */
 	media?: MediaOptions;
 }

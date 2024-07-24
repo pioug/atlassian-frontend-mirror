@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.0.3
+
+### Patch Changes
+
+- [#122612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122612)
+  [`01a85ce0a88ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01a85ce0a88ec) -
+  [ux] ED-23705 Add logic to handle annotations on inline nodes when they are inserted or pasted.
+  Covers the following inline nodes: emoji, status, mention, date, inlineCard
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

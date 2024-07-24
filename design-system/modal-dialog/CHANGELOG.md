@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.14.7
+
+### Patch Changes
+
+- [#122722](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122722)
+  [`512798d699bd1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/512798d699bd1) -
+  GA layering in modal-dialog to support multiple layers
+
 ## 12.14.6
 
 ### Patch Changes

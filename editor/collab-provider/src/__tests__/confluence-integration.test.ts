@@ -414,7 +414,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			await provider.destroy();
 			expect(unsubscribeSpy).toBeCalledTimes(1);
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"_this.getState is not a function"`,
+				`"this.getState is not a function"`,
 			);
 		});
 
@@ -423,7 +423,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			await provider.disconnect();
 			expect(unsubscribeSpy).toBeCalledTimes(1);
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"_this.getState is not a function"`,
+				`"this.getState is not a function"`,
 			);
 		});
 
@@ -492,7 +492,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
 		it('should be unusable before calling setup, and usable after', async () => {
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"_this.getState is not a function"`,
+				`"this.getState is not a function"`,
 			);
 			expect(() => {
 				provider.setMetadata({ title: 'abc' });
@@ -527,7 +527,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
 		it('should be unusable before calling initialize, and usable after', async () => {
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"_this.getState is not a function"`,
+				`"this.getState is not a function"`,
 			);
 			expect(() => {
 				provider.setMetadata({ title: 'abc' });
@@ -629,7 +629,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 		it('should be unable to use the provider after calling .unsubscribeAll()', async () => {
 			await provider.unsubscribeAll();
 			await expect(provider.getCurrentState()).rejects.toThrowErrorMatchingInlineSnapshot(
-				`"_this.getState is not a function"`,
+				`"this.getState is not a function"`,
 			);
 		});
 

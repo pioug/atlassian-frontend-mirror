@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugins
 
+## 3.4.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.29
+
+### Patch Changes
+
+- [#122514](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122514)
+  [`91276c81ef8a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91276c81ef8a8) -
+  [ED-24019] This change is cleaning up the feature flag
+  'platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg' which was introduced for new
+  keyboard shortcuts for inserting columns and rows to a table.
+- Updated dependencies
+
+## 3.4.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.26
 
 ### Patch Changes

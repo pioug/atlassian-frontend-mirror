@@ -1,6 +1,5 @@
 import { asMock } from '@atlaskit/media-common/test-helpers';
 import { empty } from 'rxjs/observable/empty';
-import MockDate from 'mockdate';
 import { of } from 'rxjs/observable/of';
 import { toArray } from 'rxjs/operators/toArray';
 import { fetchBlob, asyncMap } from '../../utils';
@@ -49,22 +48,34 @@ describe('utils', () => {
 		});
 
 		it('calls project function with the given concurrency', async () => {
-			MockDate.reset();
-			const invocations: { [v: string]: number } = {};
+			const invocations: { [v: string]: boolean } = { foo: false, baz: false, bar: false };
+			const resolvers: { [v: string]: () => void } = {};
+			const promises: { [v: string]: Promise<unknown> } = {};
+
 			const input = of('foo', 'bar', 'baz');
+
 			const project = jest.fn((v) => {
-				return new Promise((resolve) => {
-					invocations[v] = Date.now();
-					setTimeout(() => {
+				promises[v] = new Promise((resolve) => {
+					resolvers[v] = () => {
 						resolve(42);
-					}, 10);
+					};
 				});
+				invocations[v] = true;
+				return promises[v];
 			});
 
-			await input.pipe(asyncMap(project, 2)).pipe(toArray()).toPromise();
-			expect(invocations['bar'] - invocations['foo']).toBeLessThan(5);
-			expect(invocations['baz']).toBeGreaterThan(invocations['foo']);
-			expect(invocations['baz']).toBeGreaterThan(invocations['bar']);
+			input.pipe(asyncMap(project, 2)).pipe(toArray()).toPromise();
+
+			expect(invocations['foo']).toBe(true);
+			expect(invocations['bar']).toBe(true);
+			expect(invocations['baz']).toBe(false);
+
+			resolvers['bar']();
+			resolvers['foo']();
+			await Promise.all([promises['foo'], promises['bar']]);
+
+			expect(invocations['baz']).toBe(true);
+			resolvers['baz']();
 		});
 
 		it('returns projected values in-order even if promises resolve out of order', async () => {

@@ -20,7 +20,7 @@ export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) =
 
 	return (
 		<IconButton
-			icon={<AppSwitcherIcon label={typeof tooltip === 'string' ? tooltip : 'Appswitcher Icon'} />}
+			icon={<AppSwitcherIcon label={typeof tooltip === 'string' ? tooltip : 'Switch apps'} />}
 			tooltip={tooltip}
 			ref={ref}
 			{...iconButtonProps}

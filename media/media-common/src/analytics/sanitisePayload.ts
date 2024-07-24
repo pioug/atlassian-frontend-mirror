@@ -5,7 +5,8 @@ type PayloadWithFileAttributes = OperationalEventPayload<WithFileAttributes, any
 
 const sanitiseFileId = (draft: PayloadWithFileAttributes) => {
 	const { fileId } = draft.attributes.fileAttributes;
-	draft.attributes.fileAttributes.fileId = isValidId(fileId) ? fileId : 'INVALID_FILE_ID';
+	draft.attributes.fileAttributes.fileId =
+		fileId === 'external-image' || isValidId(fileId) ? fileId : 'INVALID_FILE_ID';
 };
 
 const hasFileAttributesWithFileId = (payload: Object): payload is PayloadWithFileAttributes =>

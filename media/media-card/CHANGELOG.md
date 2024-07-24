@@ -1,5 +1,15 @@
 # @atlaskit/media-card
 
+## 78.0.10
+
+### Patch Changes
+
+- [#122514](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122514)
+  [`7012015c2cc2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7012015c2cc2d) -
+  Introduced a preload static function to the CardLoader component. This function allows for
+  asynchronously loading the component ahead of time. Useful for optimising performance by
+  preloading the component when needed.
+
 ## 78.0.9
 
 ### Patch Changes

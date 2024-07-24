@@ -1,14 +1,19 @@
 // Resize a given column by an amount from the current state
+import { type EditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import {
+	akEditorFullWidthLayoutWidth,
+	akEditorGutterPaddingDynamic,
+} from '@atlaskit/editor-shared-styles';
 
-import { type AlignmentOptions, TableCssClassName as ClassName } from '../../../types';
+import { TableCssClassName as ClassName } from '../../../types';
 import {
 	ALIGN_CENTER,
 	ALIGN_START,
 	shouldChangeAlignmentToCenterResized,
 } from '../../../utils/alignment';
 
-import { getTableContainerElementWidth, getTableScalingPercent } from './misc';
+import { getTableScalingPercent } from './misc';
 import { growColumn, shrinkColumn, updateAffectedColumn } from './resize-logic';
 import { updateColgroup } from './resize-state';
 import type { ResizeState } from './types';
@@ -49,97 +54,164 @@ export const resizeColumn = (
 	return newState;
 };
 
-// try not scale table during resize
-export const resizeColumnAndTable = (
-	resizeState: ResizeState,
-	colIndex: number,
-	amount: number,
-	tableRef: HTMLElement,
-	tableNode: PmNode,
-	selectedColumns?: number[],
-	isTableScalingEnabled = false,
-	originalTableWidth?: number,
-	shouldUseIncreasedScalingPercent = false,
-	lineLength?: number,
-	isTableAlignmentEnabled = false,
-): ResizeState => {
-	// TODO: can we use document state, and apply scaling factor?
-	const tableWidth = tableRef.clientWidth;
-	const tableContainerWidth = tableRef.closest('.pm-table-container')?.clientWidth;
+type ResizeInformation = {
+	resizeState: ResizeState;
+	colIndex: number;
+	amount: number;
+};
 
-	const isOverflowed = !!(tableWidth && tableContainerWidth && tableWidth > tableContainerWidth);
-	let resizeAmount = tableNode.attrs.layout === ALIGN_START && !isOverflowed ? amount : amount * 2;
+type TableReferences = {
+	tableRef: HTMLElement;
+	tableNode: PmNode;
+};
 
-	// todo: reimplement - use getTableScalingPercentFrozen to get scaled percent before table width changes dynamically
-	// let scalePercent = 1;
-	// if (isTableScalingEnabled) {
-	// import from ./misc
-	//   scalePercent = getStaticTableScalingPercent(
-	//     tableNode,
-	//     originalTableWidth || resizeState.maxSize,
-	//   );
-	//   resizeAmount = amount / scalePercent;
-	// }
+type TableResizingPluginOptions = {
+	isTableAlignmentEnabled?: boolean;
+};
 
-	// need to look at the resize amount and try to adjust the colgroups
-	if (isOverflowed) {
+type ResizeColumnAndTable = ResizeInformation &
+	TableResizingPluginOptions &
+	TableReferences &
+	EditorContainerWidth;
+
+export const resizeColumnAndTable = ({
+	resizeState,
+	colIndex,
+	amount,
+	tableRef,
+	tableNode,
+	lineLength,
+	width: editorWidth,
+	isTableAlignmentEnabled,
+}: ResizeColumnAndTable): ResizeState => {
+	const editorContainerWidth = getEditorContainerWidth(editorWidth);
+	const isTableLeftAligned = tableNode.attrs.layout === ALIGN_START;
+	let resizeAmount = isTableLeftAligned ? amount : amount * 2;
+
+	const willTableHitEditorEdge = resizeState.maxSize + resizeAmount > editorContainerWidth;
+
+	const willResizedTableStayInOverflow =
+		resizeState.overflow && resizeState.tableWidth + resizeAmount / 2 > resizeState.maxSize;
+
+	// STEP 1: Update col width
+	if (willTableHitEditorEdge || willResizedTableStayInOverflow) {
+		const tableContainerWidth = tableRef.closest('.pm-table-container')?.clientWidth;
 		resizeAmount =
 			amount < 0
 				? amount
-				: resizeAmount - (tableNode.attrs.width + resizeAmount - tableContainerWidth) / 2;
+				: resizeAmount - (resizeState.maxSize + resizeAmount - tableContainerWidth!) / 2;
 	}
 
-	const newState = updateAffectedColumn(resizeState, colIndex, resizeAmount);
+	if (!willResizedTableStayInOverflow && !willTableHitEditorEdge) {
+		const diff = -(resizeState.tableWidth - resizeState.maxSize);
+		const rest = amount - diff;
+		const final = isTableLeftAligned ? diff + rest : diff + rest * 2;
+		resizeAmount = final;
+	}
 
-	// this function only updates the colgroup in DOM, it reverses the scalePercent
-	// todo: change isScalingEnabled to true when reimplementing scaling
-	updateColgroup(newState, tableRef, tableNode, false, shouldUseIncreasedScalingPercent);
+	let newState = updateAffectedColumn(resizeState, colIndex, resizeAmount);
 
-	// use the difference in width from affected column to update overall table width
+	// STEP 2: Update table container width
+	// columns have a min width, so delta !== resizeAmount when this is reached, use this for calculations
 	const delta = newState.cols[colIndex].width - resizeState.cols[colIndex].width;
 
-	if (!isOverflowed) {
-		// If the table is aligned to the start and the table width is greater than the line length, we should change the alignment to center
-		const shouldChangeAlignment = shouldChangeAlignmentToCenterResized(
-			isTableAlignmentEnabled,
-			tableNode,
-			lineLength,
-			newState.tableWidth + delta,
-		);
+	newState.maxSize = Math.round(
+		resizeState.overflow
+			? willResizedTableStayInOverflow
+				? // CASE 1A: table will stay in overflow
+					// do not grow the table because resize is happening in the overflow region
+					// and the overall table container needs to be retained
+					resizeState.maxSize
+				: // CASE 1B: table will no longer be in overflow, so adjust container width
+					// ensure the table is resized without any 'big jumps' by working out
+					// the difference between the new table width and the max size and adding the resize
+					resizeState.maxSize + (resizeState.tableWidth - resizeState.maxSize + delta)
+			: willTableHitEditorEdge
+				? // CASE 2: table will hit editor edge
+					editorContainerWidth
+				: // CASE 3: table is being resized from a non-overflow state
+					resizeState.maxSize + delta,
+	);
 
-		shouldChangeAlignment
-			? updateTablePreview(delta, tableRef, tableNode, ALIGN_CENTER)
-			: updateTablePreview(delta, tableRef, tableNode);
+	// do not apply scaling logic because resize state is already scaled
+	updateColgroup(newState, tableRef, tableNode, false, false);
+
+	if (!willTableHitEditorEdge && !willResizedTableStayInOverflow) {
+		updateTablePreview(
+			tableRef,
+			newState.maxSize,
+			shouldChangeAlignmentToCenterResized(
+				isTableAlignmentEnabled,
+				tableNode,
+				lineLength,
+				newState.maxSize,
+			),
+		);
 	}
 
-	return {
-		...newState,
-		// resizeState.tableWidth sometimes is off by ~3px on load on resized table when !isOverflowed, using resizeState.maxSize instead
-		tableWidth: isOverflowed ? tableContainerWidth : resizeState.maxSize + delta,
-	};
+	return newState;
 };
 
 const updateTablePreview = (
-	resizeAmount: number,
-	tableRef: HTMLElement | null,
-	tableNode: PmNode,
-	tableAligment?: AlignmentOptions,
+	tableRef: HTMLElement,
+	newTableWidth: number,
+	shouldChangeAlignment?: boolean,
 ) => {
-	const currentWidth = getTableContainerElementWidth(tableNode);
-	const resizingContainer = tableRef?.closest(`.${ClassName.TABLE_RESIZER_CONTAINER}`);
+	const resizingContainer = tableRef.closest(`.${ClassName.TABLE_RESIZER_CONTAINER}`);
 	const resizingItem = resizingContainer?.querySelector('.resizer-item');
 	const alignmentContainer = resizingContainer?.parentElement;
 
 	if (resizingItem) {
-		const newWidth = `${currentWidth + resizeAmount}px`;
-		if (tableRef) {
-			tableRef.style.width = newWidth;
-		}
+		const newWidth = `${newTableWidth}px`;
 		(resizingContainer as HTMLElement).style.width = newWidth;
 		(resizingItem as HTMLElement).style.width = newWidth;
 
-		if (tableAligment && alignmentContainer) {
-			alignmentContainer.style.justifyContent = tableAligment;
+		if (shouldChangeAlignment && alignmentContainer) {
+			alignmentContainer.style.justifyContent = ALIGN_CENTER;
 		}
 	}
+};
+
+const getEditorContainerWidth = (editorWidth: number) =>
+	Math.min(editorWidth - akEditorGutterPaddingDynamic() * 2, akEditorFullWidthLayoutWidth);
+
+/**
+ * Apply a scaling factor to resize state
+ */
+export const scaleResizeState = ({
+	resizeState,
+	tableRef,
+	tableNode,
+	editorWidth,
+}: TableReferences & { resizeState: ResizeState; editorWidth: number }): ResizeState => {
+	// check if table is scaled, if not then avoid applying scaling values down
+	if (resizeState.maxSize < getEditorContainerWidth(editorWidth)) {
+		return resizeState;
+	}
+
+	const scalePercent = getTableScalingPercent(tableNode, tableRef);
+	let cols = resizeState.cols.map((col) => ({
+		...col,
+		width: Math.round(Math.max(col.width * scalePercent, col.minWidth)),
+	}));
+
+	const scaledTableWidth = Math.round(resizeState.tableWidth * scalePercent);
+	const calculatedTableWidth = cols.reduce((prev, curr) => prev + curr.width, 0);
+
+	// using Math.round can cause the sum of col widths to be larger than the table width
+	// distribute the difference to the smallest column
+	if (calculatedTableWidth > scaledTableWidth) {
+		const diff = calculatedTableWidth - scaledTableWidth;
+		cols = cols.map((col) => {
+			return col.width - diff >= col.minWidth ? { ...col, width: col.width - diff } : col;
+		});
+	}
+
+	return {
+		...resizeState,
+		widths: cols.map((col) => col.width),
+		tableWidth: scaledTableWidth,
+		maxSize: Math.round(resizeState.maxSize * scalePercent),
+		cols,
+	};
 };

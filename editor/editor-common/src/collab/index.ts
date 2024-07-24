@@ -532,7 +532,7 @@ export const telepointerStyle = css`
 		position: relative;
 		transition: opacity 200ms;
 
-		&.telepointer-selection {
+		&.telepointer-selection:not(.inlineNodeView) {
 			line-height: 1.2;
 			pointer-events: none;
 			user-select: none;

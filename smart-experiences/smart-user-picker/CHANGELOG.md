@@ -1,5 +1,13 @@
 # @atlassian/smart-user-picker
 
+## 6.10.0
+
+### Minor Changes
+
+- [#121686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121686)
+  [`806f67cf6655e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/806f67cf6655e) -
+  [ux] passing an optional productAttributes
+
 ## 6.9.4
 
 ### Patch Changes

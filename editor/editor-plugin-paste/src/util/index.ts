@@ -15,6 +15,7 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getSelectedTableInfo, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export function isPastedFromWord(html?: string): boolean {
 	return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
@@ -129,6 +130,22 @@ export function applyTextMarksToSlice(
 					...parent.type.allowedMarks(marks).filter((mark) => mark.type !== linkMark),
 				].sort(sortByOrderWithTypeName('marks'));
 				return false;
+			}
+			if (fg('editor_inline_comments_paste_insert_nodes')) {
+				if (
+					node.isInline &&
+					['inlineCard', 'emoji', 'status', 'date', 'mention'].includes(node.type.name) &&
+					parent &&
+					parent.isBlock
+				) {
+					// @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
+					node.marks = [
+						...node.marks,
+						...parent.type
+							.allowedMarks(marks)
+							.filter((mark) => mark.type === schema.marks.annotation),
+					];
+				}
 			}
 
 			return true;

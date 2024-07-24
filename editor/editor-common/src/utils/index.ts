@@ -9,6 +9,7 @@ import { isEmptyParagraph } from './editor-core-utils';
 export { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 
 export {
+	getAnnotationMarksForPos,
 	canApplyAnnotationOnRange,
 	containsAnyAnnotations,
 	getAnnotationIdsFromRange,

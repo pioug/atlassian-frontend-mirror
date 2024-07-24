@@ -10,7 +10,6 @@ import { css, jsx } from '@emotion/react';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs, smallDurationMs } from '@atlaskit/motion/durations';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -21,15 +20,10 @@ import { type ResizeButtonProps } from './types';
 
 const increaseHitAreaStyles = css({
 	position: 'absolute',
-	insetBlockEnd: `${token('space.negative.100', '-8px')}`,
-	insetBlockStart: `${token('space.negative.100', '-8px')}`,
-	insetInlineEnd: `${token('space.negative.150', '-12px')}`,
-	insetInlineStart: `${token('space.negative.100', '-8px')}`,
-});
-
-const furtherIncreasedHitAreasStyles = css({
 	insetBlockEnd: `${token('space.negative.300', '-24px')}`,
 	insetBlockStart: `${token('space.negative.300', '-24px')}`,
+	insetInlineEnd: `${token('space.negative.150', '-12px')}`,
+	insetInlineStart: `${token('space.negative.100', '-8px')}`,
 });
 
 const mobileStyles = css({
@@ -105,11 +99,7 @@ const ResizeButton = ({ isLeftSidebarCollapsed, label, testId, ...props }: Resiz
 		{...props}
 	>
 		<ChevronRight label="" />
-		{getBooleanFF('platform.design-system-team.page-layout-resize-button-fix_u0qxv') ? (
-			<span css={[increaseHitAreaStyles, furtherIncreasedHitAreasStyles]} />
-		) : (
-			<div css={increaseHitAreaStyles} />
-		)}
+		<span css={increaseHitAreaStyles} />
 	</button>
 );
 

@@ -15,7 +15,6 @@ import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -146,7 +145,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 	}
 
 	return (
-		<UNSAFE_LAYERING isDisabled={fg('platform.design-system-team.layering_qmiw3') ? false : true}>
+		<UNSAFE_LAYERING isDisabled={false}>
 			<Portal zIndex={layers.modal()}>
 				<FadeIn>
 					{(fadeInProps) => (

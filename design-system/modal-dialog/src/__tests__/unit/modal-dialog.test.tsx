@@ -9,7 +9,6 @@ import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
 import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { width } from '../../internal/constants';
 import ModalBody from '../../modal-body';
@@ -59,40 +58,24 @@ const createModal = (props?: ModalDialogProps) => (
 
 describe('<ModalDialog />', () => {
 	describe('should close popup correctly when escape is pressed', () => {
-		ffTest(
-			'platform.design-system-team.layering_qmiw3',
-			() => {
-				render(<LayeredModal />);
+		render(<LayeredModal />);
 
-				const openModalBtn = screen.getByTestId('open-modal');
-				fireEvent.click(openModalBtn);
-				const modal = screen.getByTestId('modal');
-				const dropdownTrigger = screen.getByTestId('dropdown-menu--trigger');
-				expect(dropdownTrigger).toBeInTheDocument();
-				expect(modal).toBeInTheDocument();
-				expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument();
+		const openModalBtn = screen.getByTestId('open-modal');
+		fireEvent.click(openModalBtn);
+		const modal = screen.getByTestId('modal');
+		const dropdownTrigger = screen.getByTestId('dropdown-menu--trigger');
+		expect(dropdownTrigger).toBeInTheDocument();
+		expect(modal).toBeInTheDocument();
+		expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument();
 
-				fireEvent.click(dropdownTrigger);
-				expect(screen.getByTestId('dropdown-menu--content')).toBeInTheDocument();
-				fireEvent.keyDown(dropdownTrigger, {
-					key: 'Escape',
-					code: 'Escape',
-				});
-				expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument();
-				expect(modal).toBeInTheDocument();
-			},
-			() => {
-				render(<LayeredModal />);
-
-				const openModalBtn = screen.getByTestId('open-modal');
-				fireEvent.click(openModalBtn);
-				const modal = screen.getByTestId('modal');
-				const dropdownTrigger = screen.getByTestId('dropdown-menu--trigger');
-				expect(dropdownTrigger).toBeInTheDocument();
-				expect(modal).toBeInTheDocument();
-				expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument();
-			},
-		);
+		fireEvent.click(dropdownTrigger);
+		expect(screen.getByTestId('dropdown-menu--content')).toBeInTheDocument();
+		fireEvent.keyDown(dropdownTrigger, {
+			key: 'Escape',
+			code: 'Escape',
+		});
+		expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument();
+		expect(modal).toBeInTheDocument();
 	});
 	it('should be a section element', () => {
 		render(createModal());

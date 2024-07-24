@@ -11,7 +11,6 @@ import AddCircleIconOld from '../glyph/add-circle';
 import AudioCircleIconOld from '../glyph/audio-circle';
 import SelectClearIconOld from '../glyph/select-clear';
 
-
 const styles = xcss({ padding: 'space.200' });
 const LegacyIconColorExample = () => {
 	return (

@@ -83,11 +83,17 @@ const renderScaleDownColgroup = (
 		return [];
 	}
 
+	// isTableResized checks if table columns were resized
 	const tableResized = isTableResized(columnWidths);
 	const noOfColumns = columnWidths.length;
 	let targetWidths;
 
-	const tableContainerWidth = getTableContainerWidth(tableNode);
+	const tableContainerWidth =
+		rendererAppearance === 'comment' &&
+		isTableResizingEnabled(rendererAppearance) &&
+		!tableNode?.attrs.width
+			? renderWidth
+			: getTableContainerWidth(tableNode);
 
 	if (
 		isTableResizingEnabled(rendererAppearance) &&

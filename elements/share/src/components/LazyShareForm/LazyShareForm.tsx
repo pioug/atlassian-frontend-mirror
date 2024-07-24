@@ -39,6 +39,7 @@ export type LazyShareFormProps = Pick<
 	| 'bottomMessage'
 	| 'submitButtonLabel'
 	| 'product'
+	| 'productAttributes'
 	| 'customFooter'
 	| 'enableSmartUserPicker'
 	| 'loggedInAccountId'
@@ -104,6 +105,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 		bottomMessage,
 		submitButtonLabel,
 		product,
+		productAttributes,
 		customFooter,
 		enableSmartUserPicker,
 		loggedInAccountId,
@@ -181,6 +183,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 							config={config}
 							submitButtonLabel={submitButtonLabel}
 							product={product}
+							productAttributes={productAttributes}
 							enableSmartUserPicker={enableSmartUserPicker}
 							loggedInAccountId={loggedInAccountId}
 							cloudId={cloudId}

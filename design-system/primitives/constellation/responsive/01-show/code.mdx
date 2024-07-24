@@ -2,6 +2,10 @@
 title: Show
 description: Show is a responsive primitive that displays children at specified breakpoints
 order: 2
+props:
+  packageName: '@atlaskit/primitives/responsive'
+  exports:
+    - Show
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 	directoryName="primitives"
 />
 
-import ShowProps from '!!extract-react-types-loader!../../../extract-react-types/show-props';
-
 ## Props
 
-<PropsTable heading="" props={ShowProps} />
+<TSMorphProps exportName="Show" packageName="@atlaskit/primitives/responsive" />

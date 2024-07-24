@@ -8,6 +8,7 @@ import React, {
 	useState,
 } from 'react';
 import { ErrorBoundary, type FallbackProps } from 'react-error-boundary';
+import { StopPropagation } from '../../view/common/stop-propagation';
 import { type SmartLinkModalAPI, type SmartLinkModalProviderProps } from './types';
 
 const FALLBACK_API = { open: () => {}, close: () => {} };
@@ -19,7 +20,12 @@ export const SmartLinkModalProvider = ({ children }: SmartLinkModalProviderProps
 
 	const api: SmartLinkModalAPI = useMemo(
 		() => ({
-			open: (modal) => setElement(<Suspense fallback={null}>{modal}</Suspense>),
+			open: (modal) =>
+				setElement(
+					<Suspense fallback={null}>
+						<StopPropagation>{modal}</StopPropagation>
+					</Suspense>,
+				),
 			close: () => setElement(null),
 		}),
 		[],

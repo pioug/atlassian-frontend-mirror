@@ -164,6 +164,12 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 											secondaryToolbarComponents={[
 												<LockCircleIcon key="permission" size="large" label="Permissions" />,
 											]}
+											featureFlags={{
+												...this.props.editorProps?.featureFlags,
+												'table-drag-and-drop': true,
+												// 'table-preserve-width': true,
+												// 'sticky-scrollbar': true,
+											}}
 											{...this.props.editorProps}
 										/>
 									</CollapsedEditor>

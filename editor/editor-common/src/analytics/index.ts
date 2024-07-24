@@ -132,6 +132,8 @@ export type {
 	UpdatedSourceAEP,
 	UpdatedTargetAEP,
 	OverflowStateInfo,
+	ViewInlineCommentsButtonEventAEP,
+	ViewEventPayload,
 } from './types';
 export type { EditorAnalyticsAPI } from './api';
 export { editorAnalyticsChannel, fireAnalyticsEvent } from './fire-analytics-event';

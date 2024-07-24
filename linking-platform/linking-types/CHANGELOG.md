@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 8.12.0
+
+### Minor Changes
+
+- [#123065](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123065)
+  [`ca577ec58eb86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca577ec58eb86) -
+  Updates AtomicActionExecuteRequest to include target property which is ari, url, or id exclusively
+
 ## 8.11.1
 
 ### Patch Changes

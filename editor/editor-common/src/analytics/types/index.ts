@@ -159,3 +159,5 @@ export type {
 } from './referentiality-events';
 
 export type { ElementEventPayload } from './element-events';
+
+export type { ViewInlineCommentsButtonEventAEP, ViewEventPayload } from './view-events';

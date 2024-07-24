@@ -20,6 +20,7 @@ export type ShareFormProps = Pick<
 	| 'orgId'
 	| 'isBrowseUsersDisabled'
 	| 'userPickerOptions'
+	| 'productAttributes'
 > & {
 	config?: ConfigResponse;
 	isFetchingConfig?: boolean;

@@ -31,6 +31,9 @@
             "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../elements/status/afm-cc/tsconfig.json"
         },
         {

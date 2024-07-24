@@ -54,6 +54,7 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'cloudId'
 	| 'bottomMessage'
 	| 'product'
+	| 'productAttributes'
 	| 'customFooter'
 	| 'isCopyDisabled'
 	| 'isPublicLink'

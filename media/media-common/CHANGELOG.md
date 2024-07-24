@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.3.1
+
+### Patch Changes
+
+- [#122556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122556)
+  [`c307772eb58c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c307772eb58c7) -
+  Fixes sanitisation of analytics payload
+
 ## 11.3.0
 
 ### Minor Changes

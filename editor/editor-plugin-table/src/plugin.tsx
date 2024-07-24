@@ -472,13 +472,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tableWidth',
 					plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
-						options?.tableResizingEnabled && !options?.isCommentEditor
+						options?.tableResizingEnabled
 							? createTableWidthPlugin(
 									dispatch,
 									dispatchAnalyticsEvent,
 									options?.fullWidthEnabled ?? false,
 									options?.isTableScalingEnabled ?? false,
 									options?.isTableAlignmentEnabled ?? false,
+									options?.isCommentEditor ?? false,
 								)
 							: undefined,
 				},
@@ -683,7 +684,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											editorAnalyticsAPI={editorAnalyticsAPI}
 										/>
 									)}
-									{options?.isTableScalingEnabled &&
+									{(options?.isTableScalingEnabled ||
+										(options?.tableResizingEnabled && options.isCommentEditor)) &&
 										isTableResizing &&
 										widthToWidest &&
 										resizingTableLocalId &&

@@ -26,6 +26,7 @@ import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
+import { handleMouseOut, isTableInFocus } from '../event-handlers';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers';
@@ -186,6 +187,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 	}
 
+	private handleMouseOut = (event: Event) => {
+		if (!isTableInFocus(this.props.view)) {
+			return false;
+		}
+		return handleMouseOut(this.props.view, event);
+	};
+
 	componentDidMount() {
 		const {
 			allowColumnResizing,
@@ -203,6 +211,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			if (mode === 'view') {
 				this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
 			}
+		}
+		if (fg('editor_react_18_fix_table_delete_col_decorations')) {
+			this?.table?.addEventListener('mouseout', this.handleMouseOut);
 		}
 
 		const { tableWithFixedColumnWidthsOption = false, stickyScrollbar } = getEditorFeatureFlags();
@@ -307,6 +318,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		if (fg('platform.editor.table.live-pages-sorting_4malx')) {
 			this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
+		}
+		if (fg('editor_react_18_fix_table_delete_col_decorations')) {
+			this?.table?.removeEventListener('mouseout', this.handleMouseOut);
 		}
 
 		if (this.overflowShadowsObserver) {

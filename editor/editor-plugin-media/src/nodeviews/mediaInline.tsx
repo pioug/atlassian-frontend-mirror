@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -27,6 +27,7 @@ import type { FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import type { MediaPluginState } from '../pm-plugins/types';
@@ -189,8 +190,10 @@ export const MediaInline = (props: MediaInlineProps) => {
 	);
 };
 
-type MediaInlineSharedStateProps = Omit<MediaInlineProps, 'mediaPluginState'> & {
+type MediaInlineSharedStateProps = Omit<MediaInlineProps, 'mediaPluginState' | 'mediaProvider'> & {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
+	// Once we cleanup `platform_editor_media_provider_from_plugin_config` we can get rid of this
+	mediaProvider: Promise<MediaProvider> | undefined;
 };
 
 const MediaInlineSharedState = ({
@@ -207,8 +210,32 @@ const MediaInlineSharedState = ({
 		'editorViewMode',
 		'media',
 	]);
+	const newMediaProvider = useMemo(
+		() => (mediaState?.mediaProvider ? Promise.resolve(mediaState?.mediaProvider) : undefined),
+		[mediaState?.mediaProvider],
+	);
 
-	if (!mediaState) {
+	if (fg('platform_editor_media_provider_from_plugin_config')) {
+		if (!mediaState || !newMediaProvider) {
+			return null;
+		}
+
+		return (
+			<MediaInline
+				identifier={identifier}
+				mediaProvider={newMediaProvider}
+				mediaPluginState={mediaState}
+				node={node}
+				isSelected={isSelected}
+				view={view}
+				getPos={getPos}
+				contextIdentifierProvider={contextIdentifierProvider}
+				editorViewMode={editorViewModeState?.mode === 'view'}
+			/>
+		);
+	}
+
+	if (!mediaState || !mediaProvider) {
 		return null;
 	}
 
@@ -257,10 +284,12 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 		const getPos = this.getPos as getPosHandlerNode;
 		return (
 			<WithProviders
+				// Cleanup: `platform_editor_media_provider_from_plugin_config`
+				// Remove `mediaProvider`
 				providers={['mediaProvider', 'contextIdentifierProvider']}
 				providerFactory={providerFactory}
 				renderNode={({ mediaProvider, contextIdentifierProvider }) => {
-					if (!mediaProvider) {
+					if (!mediaProvider && !fg('platform_editor_media_provider_from_plugin_config')) {
 						return null;
 					}
 					return (

@@ -24,7 +24,31 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererContextProps } from '../../../../renderer-context';
 
-const schema = getSchemaBasedOnStage('stage0');
+const checkColWidths = (table: ReactWrapper, expectedColWidths: number[]) => {
+	table.find('col').forEach((col, index) => {
+		expect(col.prop('style')!.width).toBe(`${expectedColWidths[index]}px`);
+	});
+};
+
+const createTable = (width: number, layout: TableLayout) => {
+	return schema.nodeFromJSON({
+		...table(
+			tr([th()(p('Header content 1')), th()(p('Header content 2')), th()(p('Header content 3'))]),
+			tr([td()(p('Body content 1')), td()(p('Body content 2')), td()(p('Body content 3'))]),
+		),
+		attrs: { width, layout },
+	});
+};
+
+const createDefaultTable = (displayMode?: string) => {
+	return schema.nodeFromJSON({
+		...table(
+			tr([th()(p('Header content 1')), th()(p('Header content 2')), th()(p('Header content 3'))]),
+			tr([td()(p('Body content 1')), td()(p('Body content 2')), td()(p('Body content 3'))]),
+		),
+		attrs: { layout: 'default', displayMode },
+	});
+};
 
 const mountBasicTable = ({
 	columnWidths,
@@ -58,6 +82,73 @@ const mountBasicTable = ({
 		</Table>,
 	);
 };
+
+const mountTable = (
+	node: PMNode,
+	rendererWidth: number,
+	columnWidths?: number[],
+	appearance: RendererAppearance = 'full-page',
+	isInsideOfBlockNode = false,
+) => {
+	return mountWithIntl(
+		<Table
+			layout={node.attrs.layout}
+			renderWidth={rendererWidth}
+			rendererAppearance={appearance}
+			isNumberColumnEnabled={false}
+			tableNode={node}
+			columnWidths={columnWidths}
+			isInsideOfBlockNode={isInsideOfBlockNode}
+		>
+			<TableRow>
+				<TableHeader />
+				<TableHeader />
+				<TableHeader />
+			</TableRow>
+			<TableRow>
+				<TableCell />
+				<TableCell />
+				<TableCell />
+			</TableRow>
+		</Table>,
+	);
+};
+
+const mountTableWidthFF = (
+	featureFlags: RendererContextProps['featureFlags'],
+	node: PMNode,
+	rendererWidth: number,
+	columnWidths?: number[],
+	appearance: RendererAppearance = 'full-page',
+	isInsideOfBlockNode = false,
+) => {
+	return mountWithIntl(
+		<RendererContextProvider value={{ featureFlags }}>
+			<Table
+				layout={node.attrs.layout}
+				renderWidth={rendererWidth}
+				rendererAppearance={appearance}
+				isNumberColumnEnabled={false}
+				tableNode={node}
+				columnWidths={columnWidths}
+				isInsideOfBlockNode={isInsideOfBlockNode}
+			>
+				<TableRow>
+					<TableHeader />
+					<TableHeader />
+					<TableHeader />
+				</TableRow>
+				<TableRow>
+					<TableCell />
+					<TableCell />
+					<TableCell />
+				</TableRow>
+			</Table>
+		</RendererContextProvider>,
+	);
+};
+
+const schema = getSchemaBasedOnStage('stage0');
 
 describe('Renderer - React/Nodes/Table', () => {
 	const renderWidth = akEditorDefaultLayoutWidth;
@@ -956,105 +1047,6 @@ describe('Renderer - React/Nodes/Table', () => {
 	});
 
 	describe('Table widths', () => {
-		const createTable = (width: number, layout: TableLayout) => {
-			return schema.nodeFromJSON({
-				...table(
-					tr([
-						th()(p('Header content 1')),
-						th()(p('Header content 2')),
-						th()(p('Header content 3')),
-					]),
-					tr([td()(p('Body content 1')), td()(p('Body content 2')), td()(p('Body content 3'))]),
-				),
-				attrs: { width, layout },
-			});
-		};
-
-		const createDefaultTable = (displayMode?: string) => {
-			return schema.nodeFromJSON({
-				...table(
-					tr([
-						th()(p('Header content 1')),
-						th()(p('Header content 2')),
-						th()(p('Header content 3')),
-					]),
-					tr([td()(p('Body content 1')), td()(p('Body content 2')), td()(p('Body content 3'))]),
-				),
-				attrs: { layout: 'default', displayMode },
-			});
-		};
-
-		const mountTable = (
-			node: PMNode,
-			rendererWidth: number,
-			columnWidths?: number[],
-			appearance: RendererAppearance = 'full-page',
-			isInsideOfBlockNode = false,
-		) => {
-			return mountWithIntl(
-				<Table
-					layout={node.attrs.layout}
-					renderWidth={rendererWidth}
-					rendererAppearance={appearance}
-					isNumberColumnEnabled={false}
-					tableNode={node}
-					columnWidths={columnWidths}
-					isInsideOfBlockNode={isInsideOfBlockNode}
-				>
-					<TableRow>
-						<TableHeader />
-						<TableHeader />
-						<TableHeader />
-					</TableRow>
-					<TableRow>
-						<TableCell />
-						<TableCell />
-						<TableCell />
-					</TableRow>
-				</Table>,
-			);
-		};
-
-		const mountTableWidthFF = (
-			featureFlags: RendererContextProps['featureFlags'],
-			node: PMNode,
-			rendererWidth: number,
-			columnWidths?: number[],
-			appearance: RendererAppearance = 'full-page',
-			isInsideOfBlockNode = false,
-		) => {
-			return mountWithIntl(
-				<RendererContextProvider value={{ featureFlags }}>
-					<Table
-						layout={node.attrs.layout}
-						renderWidth={rendererWidth}
-						rendererAppearance={appearance}
-						isNumberColumnEnabled={false}
-						tableNode={node}
-						columnWidths={columnWidths}
-						isInsideOfBlockNode={isInsideOfBlockNode}
-					>
-						<TableRow>
-							<TableHeader />
-							<TableHeader />
-							<TableHeader />
-						</TableRow>
-						<TableRow>
-							<TableCell />
-							<TableCell />
-							<TableCell />
-						</TableRow>
-					</Table>
-				</RendererContextProvider>,
-			);
-		};
-
-		const checkColWidths = (table: ReactWrapper, expectedColWidths: number[]) => {
-			table.find('col').forEach((col, index) => {
-				expect(col.prop('style')!.width).toBe(`${expectedColWidths[index]}px`);
-			});
-		};
-
 		it('table is centered and has correct width', () => {
 			const tableNode = createTable(700, 'wide');
 			const rendererWidth = 1800;
@@ -1279,6 +1271,60 @@ describe('Renderer - React/Nodes/Table', () => {
 
 			wrap.unmount();
 		});
+	});
+
+	describe('table in comments renderer', () => {
+		// Should default table should have the same width as renderer enabled/disabled
+		ffTest(
+			'platform_editor_table_support_in_comment',
+			() => {
+				const tableNode = createDefaultTable();
+				const rendererWidth = 900;
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.width).toBe(rendererWidth);
+				wrap.unmount();
+			},
+			() => {
+				const tableNode = createDefaultTable('default');
+				const rendererWidth = 900;
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.width).toBe('inherit');
+				wrap.unmount();
+			},
+		);
+
+		// Should have correct width when table has width attribute and table resizing is enabled/disabled
+		ffTest(
+			'platform_editor_table_support_in_comment',
+			() => {
+				const tableWidth = 300;
+				const tableNode = createTable(tableWidth, 'default');
+				const rendererWidth = 900;
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.width).toBe(tableWidth);
+				wrap.unmount();
+			},
+			() => {
+				const tableWidth = 300;
+				const tableNode = createTable(tableWidth, 'default');
+				const rendererWidth = 900;
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.width).toBe('inherit');
+				wrap.unmount();
+			},
+		);
 	});
 
 	describe('SSR - Table widths', () => {

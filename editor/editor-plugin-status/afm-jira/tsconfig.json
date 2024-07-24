@@ -30,6 +30,9 @@
       "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../elements/status/afm-jira/tsconfig.json"
     },
     {

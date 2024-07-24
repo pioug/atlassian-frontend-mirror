@@ -172,6 +172,7 @@ const ToolbarItems = React.memo(
 							onMouseLeave={() => dispatchCommand(item.onMouseLeave)}
 							onFocus={() => dispatchCommand(item.onFocus)}
 							onBlur={() => dispatchCommand(item.onBlur)}
+							onMount={item.onMount}
 							selected={item.selected}
 							disabled={item.disabled}
 							tooltipContent={item.tooltipContent}

@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.3.2
+
+### Patch Changes
+
+- [#123065](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123065)
+  [`d85d7e47179c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d85d7e47179c1) -
+  change default aria-label on AppSwitcherIcon
+
 ## 4.3.1
 
 ### Patch Changes

@@ -86,6 +86,13 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		actions: {
 			insertMediaAsMediaSingle: (view, node, inputMethod) =>
 				insertMediaAsMediaSingle(view, node, inputMethod, api?.analytics?.actions),
+			setProvider: (provider) => {
+				return (
+					api?.core.actions.execute(({ tr }) =>
+						tr.setMeta(stateKey, { mediaProvider: provider }),
+					) ?? false
+				);
+			},
 		},
 
 		nodes() {

@@ -5,12 +5,14 @@ import { LRUMap } from 'lru_map';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
 import type {
+	ActionsDiscoveryRequest,
+	ActionsServiceDiscoveryResponse,
 	DatasourceDataRequest,
 	DatasourceDataResponse,
 	DatasourceDetailsRequest,
 	DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useResolverUrl } from '../use-resolver-url';
 
@@ -26,6 +28,11 @@ export const datasourceDataResponsePromiseCache = new LRUMap<
 	Promise<DatasourceDataResponse>
 >(URL_RESPONSE_CACHE_SIZE);
 
+export const datasourceActionsPermissionsPromiseCache = new LRUMap<
+	string,
+	Promise<ActionsServiceDiscoveryResponse>
+>(URL_RESPONSE_CACHE_SIZE);
+
 export const DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE = 20;
 
 export const useDatasourceClientExtension = () => {
@@ -35,8 +42,8 @@ export const useDatasourceClientExtension = () => {
 	const resolverUrl = useResolverUrl(client);
 
 	const cachedRequest = async <R>(
-		datasourceId: string,
-		data: DatasourceDetailsRequest | DatasourceDataRequest,
+		cacheKeyId: string,
+		data: DatasourceDetailsRequest | DatasourceDataRequest | ActionsDiscoveryRequest,
 		url: string,
 		lruMap: LRUMap<string, Promise<R>>,
 		force: boolean,
@@ -45,8 +52,9 @@ export const useDatasourceClientExtension = () => {
 			...data,
 			// Sort fields to use cached version of response regardless of the order
 			...('fields' in data ? { fields: [...(data.fields || [])].sort() } : {}),
+			...('fieldKeys' in data ? { fieldKeys: [...(data.fieldKeys || [])].sort() } : {}),
 		};
-		const cacheKey = JSON.stringify({ datasourceId, cacheKeyData });
+		const cacheKey = JSON.stringify({ cacheKeyId, cacheKeyData });
 		if (force) {
 			lruMap.delete(cacheKey);
 		}
@@ -55,7 +63,7 @@ export const useDatasourceClientExtension = () => {
 			return responsePromise;
 		}
 
-		const headers = getBooleanFF('platform.linking-platform.datasource.add-timezone-header')
+		const headers = fg('platform.linking-platform.datasource.add-timezone-header')
 			? {
 					/**
 					 * This header exist to enable the backend to process relative time, eg: "today", with respect to user timezone.
@@ -76,7 +84,7 @@ export const useDatasourceClientExtension = () => {
 	};
 
 	const getDatasourceDetails = useCallback(
-		async (datasourceId: string, data: DatasourceDetailsRequest, force = false) =>
+		async (datasourceId: string, data: DatasourceDetailsRequest, force: boolean = false) =>
 			cachedRequest(
 				datasourceId,
 				data,
@@ -88,7 +96,7 @@ export const useDatasourceClientExtension = () => {
 	);
 
 	const getDatasourceData = useCallback(
-		async (datasourceId: string, data: DatasourceDataRequest, force = false) =>
+		async (datasourceId: string, data: DatasourceDataRequest, force: boolean = false) =>
 			cachedRequest(
 				datasourceId,
 				data,
@@ -99,8 +107,26 @@ export const useDatasourceClientExtension = () => {
 		[resolverUrl],
 	);
 
+	const getDatasourceActionsAndPermissions = useCallback(
+		async (data: ActionsDiscoveryRequest, force: boolean = false) => {
+			const resolvedCacheIdKey = 'datasourceId' in data ? data.datasourceId : data.integrationKey;
+			// This is just to prevent empty string being passed up to ORS and causing issues.
+			if (!resolvedCacheIdKey) {
+				throw new Error('No target was supplied to retrieve actions for');
+			}
+			return cachedRequest(
+				resolvedCacheIdKey,
+				data,
+				`${resolverUrl}/actions`,
+				datasourceActionsPermissionsPromiseCache,
+				force,
+			);
+		},
+		[resolverUrl],
+	);
+
 	return useMemo(
-		() => ({ getDatasourceDetails, getDatasourceData }),
-		[getDatasourceDetails, getDatasourceData],
+		() => ({ getDatasourceDetails, getDatasourceData, getDatasourceActionsAndPermissions }),
+		[getDatasourceDetails, getDatasourceData, getDatasourceActionsAndPermissions],
 	);
 };

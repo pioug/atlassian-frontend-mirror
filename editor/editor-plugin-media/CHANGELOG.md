@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 1.25.0
+
+### Minor Changes
+
+- [#123036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123036)
+  [`89dbc07d4028b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89dbc07d4028b) -
+  Introduces new "setProvider" action on media plugin. This allows a consumer to update the initial
+  configured media provider at a later point. This makes a difference if you are passing the media
+  prop to the media plugin rather than the Editor itself.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.24.4
 
 ### Patch Changes

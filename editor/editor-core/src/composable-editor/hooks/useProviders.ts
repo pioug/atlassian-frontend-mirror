@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
 
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+	ContextIdentifierProvider,
+	MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
+import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
 
 import { usePresetContext } from '../../presets/context';
 
 interface UseProvidersProps {
 	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
+	mediaProvider: Promise<MediaProvider> | undefined;
 }
 
 /**
@@ -18,8 +23,9 @@ interface UseProvidersProps {
  *
  * In the future ideally consumers implement this behaviour themselves.
  */
-export const useProviders = ({ contextIdentifierProvider }: UseProvidersProps) => {
-	const editorApi = usePresetContext<[OptionalPlugin<ContextIdentifierPlugin>]>();
+export const useProviders = ({ contextIdentifierProvider, mediaProvider }: UseProvidersProps) => {
+	const editorApi =
+		usePresetContext<[OptionalPlugin<ContextIdentifierPlugin>, OptionalPlugin<MediaPlugin>]>();
 
 	useEffect(() => {
 		async function setProvider() {
@@ -35,4 +41,10 @@ export const useProviders = ({ contextIdentifierProvider }: UseProvidersProps) =
 		}
 		setProvider();
 	}, [contextIdentifierProvider, editorApi]);
+
+	useEffect(() => {
+		if (mediaProvider) {
+			editorApi?.media?.actions.setProvider(mediaProvider);
+		}
+	}, [mediaProvider, editorApi]);
 };

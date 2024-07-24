@@ -2,6 +2,10 @@
 title: Hide
 description: Hide is a responsive primitive that hides children at specified breakpoints
 order: 2
+props:
+  packageName: '@atlaskit/primitives/responsive'
+  exports:
+    - Hide
 ---
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -12,8 +16,6 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 	directoryName="primitives"
 />
 
-import HideProps from '!!extract-react-types-loader!../../../extract-react-types/hide-props';
-
 ## Props
 
-<PropsTable heading="" props={HideProps} />
+<TSMorphProps exportName="Hide" packageName="@atlaskit/primitives/responsive" />

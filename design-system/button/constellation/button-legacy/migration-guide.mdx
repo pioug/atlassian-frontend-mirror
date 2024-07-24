@@ -10,15 +10,25 @@ import SectionMessage from '@atlaskit/section-message';
 
 ## Migrate to use the new button components
 
-New button components with improved APIs are here. If you're using the old `@atlaskit/button`, you
-can start migrating some default and loading button usages to the [new button](/components/button),
-[icon button](/components/button/icon-button), and [link button](/components/button/link-button)
-today.
+New button components with improved APIs are here. This migration guide will help you migrate from
+the old `@atlaskit/button` to the new button components which are more accessible, have better
+performance, and provide more safe customization/composition options.
+
+- [Button](/components/button): Typical button with text and optional icon
+- [Link button](/components/button/link-button): Link that appears like a button
+- [Icon button](/components/button/icon-button): Button with only an icon
+
+* [Link Icon button](/components/button/link-icon-button): Link that appears like an icon button
+* [Link](/components/link): For text-based links
+
+- [Pressable](/components/primitives/pressable): Low-level button component for custom buttons
+- [Anchor](/components/primitives/anchor): Low-level anchor component for custom links
 
 ## Use the codemod for automated migration assistance
 
-Run the following command in your terminal, replacing the path with a path to the file you'd like to
-migrate.
+To streamline the experience, we provide a codemod to automate a majority of the work. It can be run
+with the following command in your terminal, replacing the path with a path to the file you'd like
+to migrate.
 
 ```shell
 npx @atlaskit/codemod-cli -n migrate-to-new-buttons --extensions tsx --parser tsx <path-to-your-file-or-package>
@@ -34,10 +44,9 @@ Here is what the codemod will do for all migratable buttons.
 
 ### Code changes when migrating default buttons
 
-**Before**
-
-```TSX
-import Button from '@atlaskit/button';
+```diff
++import Button from '@atlaskit/button/new';
+-import Button from '@atlaskit/button';
 
 const App = () => (
   <Button
@@ -49,49 +58,57 @@ const App = () => (
 );
 ```
 
-**After**
+### Code changes when migrating loading buttons
 
-```TSX
-import Button from '@atlaskit/button/new';
+```diff
++import Button from '@atlaskit/button/new';
+-import { LoadingButton } from '@atlaskit/button';
+import AddIcon from '@atlaskit/icon/glyph/add';
 
 const App = () => (
-  <Button
-    appearance="primary"
+-  <LoadingButton
++  <Button
+    isLoading
     onClick={onClick}
   >
     Default button
-  </Button >
++ </Button>
+- </LoadingButton>
 );
 ```
 
 ### Code changes when migrating icon buttons
 
-**Before**
-
-```TSX
-import Button from '@atlaskit/button';
+```diff
+-import Button from '@atlaskit/button';
++import { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/add';
 
 const App = () => (
-  <Button
-    iconBefore={<AddIcon label="more" />}
+-  <Button
++  <IconButton
+-    iconBefore={<AddIcon label="more" />}
++    icon={AddIcon}
++    label="more"
     onClick={onClick}
   />
 );
 ```
 
-**After**
+### Code changes when migrating link buttons
 
-```TSX
-import { IconButton } from '@atlaskit/button/new';
-import AddIcon from '@atlaskit/icon/glyph/add';
+```diff
+-import Button from '@atlaskit/button';
++import { LinkButton } from '@atlaskit/button/new';
 
 const App = () => (
-  <IconButton
-    icon={AddIcon}
-    label="more"
-    onClick={onClick}
-  />
+-  <Button
++  <LinkButton
+    href="/home"
+  >
+    Link button
+-  </Button>
++  </LinkButton>
 );
 ```
 

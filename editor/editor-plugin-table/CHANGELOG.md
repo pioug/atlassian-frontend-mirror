@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-table
 
+## 7.21.6
+
+### Patch Changes
+
+- [#123311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123311)
+  [`ea5eb60bfc2f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea5eb60bfc2f9) -
+  [ux] Displays full-width tooltip when table resized to the width of the Comment editor when table
+  resizing is enabled.
+
+## 7.21.5
+
+### Patch Changes
+
+- [#122514](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122514)
+  [`91276c81ef8a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91276c81ef8a8) -
+  [ED-24019] This change is cleaning up the feature flag
+  'platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg' which was introduced for new
+  keyboard shortcuts for inserting columns and rows to a table.
+- [#122054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122054)
+  [`2ead5fa12242d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ead5fa12242d) -
+  Use scaled amounts for new column resizing, and update logic to cater for more scenarios
+- Updated dependencies
+
+## 7.21.4
+
+### Patch Changes
+
+- [#122264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122264)
+  [`257d7e96264e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/257d7e96264e0) -
+  [ux] Fix table column delete decorations showing when expected in React 18.
+
 ## 7.21.3
 
 ### Patch Changes

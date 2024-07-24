@@ -171,8 +171,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			'Editor: unable to init media plugin - media or mediaGroup/mediaSingle node absent in schema',
 		);
 
-		if (mediaOptions?.provider && fg('platform_editor_media_provider_from_plugin_config')) {
-			this.setMediaProvider(mediaOptions?.provider);
+		if (fg('platform_editor_media_provider_from_plugin_config')) {
+			if (mediaOptions?.provider) {
+				this.setMediaProvider(mediaOptions?.provider);
+			}
 		} else {
 			options.providerFactory.subscribe(
 				'mediaProvider',
@@ -837,6 +839,7 @@ export const createPlugin = (
 			apply(tr, pluginState: MediaPluginState) {
 				const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
 				const resizingWidth = tr.getMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY);
+				const mediaProvider = tr.getMeta(stateKey)?.mediaProvider;
 				// Yes, I agree with you; this approach, using the clone() fuction, below is horrifying.
 				// However, we needed to implement this workaround to solve the singleton Media PluginState.
 				// The entire PluginInjectionAPI relies on the following axiom: "A PluginState that reflects a new EditorState.". We can not have the mutable singleton instance for all EditorState.
@@ -846,6 +849,10 @@ export const createPlugin = (
 				if (isResizing !== undefined) {
 					pluginState.setIsResizing(isResizing);
 					nextPluginState = nextPluginState.clone();
+				}
+
+				if (mediaProvider && fg('platform_editor_media_provider_from_plugin_config')) {
+					pluginState.setMediaProvider(mediaProvider);
 				}
 
 				if (resizingWidth) {

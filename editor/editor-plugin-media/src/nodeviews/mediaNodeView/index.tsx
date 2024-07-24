@@ -18,6 +18,7 @@ import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { updateCurrentMediaNodeAttrs } from '../../commands/helpers';
 import type { MediaNextEditorPluginType } from '../../next-plugin-type';
@@ -27,17 +28,27 @@ import type { MediaNodeViewProps } from '../types';
 
 import MediaNode from './media';
 
+interface MediaNodeWithPluginStateComponentProps {
+	width?: WidthPluginState;
+	newMediaProvider?: Promise<MediaProvider>;
+}
+
 interface MediaNodeWithProvidersProps {
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	innerComponent: (props: { width?: WidthPluginState }) => React.ReactElement;
+	innerComponent: (props: MediaNodeWithPluginStateComponentProps) => React.ReactElement;
 }
 
 const MediaNodeWithProviders = ({
 	pluginInjectionApi,
 	innerComponent,
 }: MediaNodeWithProvidersProps) => {
-	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
-	return innerComponent({ width: widthState });
+	const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, ['width', 'media']);
+	return innerComponent({
+		width: widthState,
+		newMediaProvider: mediaState?.mediaProvider
+			? Promise.resolve(mediaState?.mediaProvider)
+			: undefined,
+	});
 };
 
 function isMediaDecorationSpec(decoration: Decoration): decoration is Decoration {
@@ -123,7 +134,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 		mediaProvider?: Promise<MediaProvider>,
 		contextIdentifierProvider?: Promise<ContextIdentifierProvider>,
 	) => {
-		return ({ width: editorWidth }: { width?: WidthPluginState }) => {
+		return ({ width: editorWidth, newMediaProvider }: MediaNodeWithPluginStateComponentProps) => {
 			const getPos = this.getPos as getPosHandlerNode;
 			const { mediaOptions } = this.reactComponentProps;
 
@@ -162,7 +173,11 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 					originalDimensions={originalDimensions}
 					maxDimensions={maxDimensions}
 					url={url}
-					mediaProvider={mediaProvider}
+					mediaProvider={
+						fg('platform_editor_media_provider_from_plugin_config')
+							? newMediaProvider
+							: mediaProvider
+					}
 					contextIdentifierProvider={contextIdentifierProvider}
 					mediaOptions={mediaOptions}
 					onExternalImageLoaded={this.onExternalImageLoaded}
@@ -187,6 +202,8 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 		return (
 			<WithProviders
+				// Cleanup: `platform_editor_media_provider_from_plugin_config`
+				// Remove `mediaProvider`
 				providers={['mediaProvider', 'contextIdentifierProvider']}
 				providerFactory={providerFactory}
 				renderNode={this.renderMediaNodeWithProviders}

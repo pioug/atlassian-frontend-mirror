@@ -8,7 +8,8 @@ import type {
 	TypeAheadHandler,
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
@@ -17,6 +18,7 @@ import { MENTION_ITEM_HEIGHT, MentionItem } from '@atlaskit/mention/item';
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention/resource';
 import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import type { TeamMember } from '@atlaskit/mention/team-resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	buildTypeAheadCancelPayload,
@@ -406,14 +408,27 @@ export const createTypeAheadConfig = ({
 				mentionProvider.cacheMentionName(id, renderName);
 			}
 
-			const mentionNode = schema.nodes.mention.createChecked({
-				text,
-				id,
-				accessLevel,
-				userType: userType === 'DEFAULT' ? null : userType,
-				localId: mentionLocalId,
-			});
-			const space = schema.text(' ');
+			const annotationMarksForPos: Mark[] | undefined = fg(
+				'editor_inline_comments_paste_insert_nodes',
+			)
+				? getAnnotationMarksForPos(state.tr.selection.$head)
+				: undefined;
+
+			const mentionNode = schema.nodes.mention.createChecked(
+				{
+					text,
+					id,
+					accessLevel,
+					userType: userType === 'DEFAULT' ? null : userType,
+					localId: mentionLocalId,
+				},
+				null,
+				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+			);
+			const space = schema.text(
+				' ',
+				fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+			);
 
 			return insert(Fragment.from([mentionNode, space]));
 		},

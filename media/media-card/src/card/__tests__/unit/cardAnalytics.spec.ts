@@ -1,5 +1,5 @@
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { fireOperationalEvent, fireCopiedEvent, fireCommencedEvent } from '../../cardAnalytics';
+import { fireOperationalEvent, fireCopiedEvent } from '../../cardAnalytics';
 import {
 	type FileAttributes,
 	ANALYTICS_MEDIA_CHANNEL,
@@ -9,22 +9,8 @@ import {
 import * as analyticsModule from '../../../utils/analytics/analytics';
 import type { SSRStatus } from '../../../utils/analytics/analytics';
 
-import { MediaCardError } from '../../../errors';
-
-const getRenderFailedFileStatusPayload = jest.spyOn(
-	analyticsModule,
-	'getRenderFailedFileStatusPayload',
-);
 const getRenderErrorEventPayload = jest.spyOn(analyticsModule, 'getRenderErrorEventPayload');
-const getRenderSucceededEventPayload = jest.spyOn(
-	analyticsModule,
-	'getRenderSucceededEventPayload',
-);
 const getCopiedFilePayload = jest.spyOn(analyticsModule, 'getCopiedFilePayload');
-const getRenderCommencedEventPayload = jest.spyOn(
-	analyticsModule,
-	'getRenderCommencedEventPayload',
-);
 
 const event = { fire: jest.fn() };
 const createAnalyticsEventMock = jest.fn(() => event);
@@ -54,103 +40,6 @@ describe('fireOperationalEvent', () => {
 	beforeEach(() => {
 		event.fire.mockClear();
 		createAnalyticsEventMock.mockClear();
-	});
-
-	it('should fire failed event if status is failed-processing', () => {
-		fireOperationalEvent(
-			createAnalyticsEvent,
-			'failed-processing',
-			fileAttributes,
-			performanceAttributes,
-			ssrReliability,
-			undefined,
-			traceContext,
-			metadataTraceContext,
-		);
-
-		expect(getRenderFailedFileStatusPayload).toBeCalledWith(
-			fileAttributes,
-			performanceAttributes,
-			ssrReliability,
-			traceContext,
-			metadataTraceContext,
-		);
-		expect(createAnalyticsEventMock).toBeCalledWith({
-			action: 'failed',
-			actionSubject: 'mediaCardRender',
-			attributes: {
-				failReason: 'failed-processing',
-				fileAttributes: {
-					fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
-					some: 'file attributes',
-				},
-				metadataTraceContext: {
-					spanId: 'some-span-Id',
-					traceId: 'some-trace-Id',
-				},
-				performanceAttributes: { some: 'performance attributes' },
-				ssrReliability: {
-					client: { status: 'success' },
-					server: { status: 'success' },
-				},
-				status: 'fail',
-				traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
-			},
-			eventType: 'operational',
-		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
-	});
-
-	it('should fire failed event if status is error and an error object is provided', () => {
-		const error = new MediaCardError('upload');
-		fireOperationalEvent(
-			createAnalyticsEvent,
-			'error',
-			fileAttributes,
-			performanceAttributes,
-			ssrReliability,
-			error,
-			traceContext,
-			metadataTraceContext,
-		);
-
-		expect(getRenderErrorEventPayload).toBeCalledWith(
-			fileAttributes,
-			performanceAttributes,
-			error,
-			ssrReliability,
-			traceContext,
-			metadataTraceContext,
-		);
-		expect(createAnalyticsEventMock).toBeCalledWith({
-			action: 'failed',
-			actionSubject: 'mediaCardRender',
-			attributes: {
-				error: 'nativeError',
-				errorDetail: 'upload',
-				failReason: 'upload',
-				fileAttributes: {
-					fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
-					some: 'file attributes',
-				},
-				metadataTraceContext: {
-					spanId: 'some-span-Id',
-					traceId: 'some-trace-Id',
-				},
-				performanceAttributes: { some: 'performance attributes' },
-				request: undefined,
-				ssrReliability: {
-					client: { status: 'success' },
-					server: { status: 'success' },
-				},
-				status: 'fail',
-				traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
-			},
-			eventType: 'operational',
-		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
 	});
 
 	it('should fire failed event if status is error with a default Error if the error was not provided', () => {
@@ -196,76 +85,6 @@ describe('fireOperationalEvent', () => {
 				},
 				status: 'fail',
 				traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
-			},
-			eventType: 'operational',
-		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
-	});
-
-	it('should fire succeeded event with ssrReliability error when status is complete', () => {
-		fireOperationalEvent(
-			createAnalyticsEvent,
-			'complete',
-			fileAttributes,
-			performanceAttributes,
-			ssrReliability,
-			undefined,
-			traceContext,
-			metadataTraceContext,
-		);
-
-		expect(getRenderSucceededEventPayload).toBeCalledWith(
-			fileAttributes,
-			performanceAttributes,
-			ssrReliability,
-			traceContext,
-			metadataTraceContext,
-		);
-		expect(createAnalyticsEventMock).toBeCalledWith({
-			action: 'succeeded',
-			actionSubject: 'mediaCardRender',
-			attributes: {
-				fileAttributes: {
-					fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
-					some: 'file attributes',
-				},
-				metadataTraceContext: {
-					spanId: 'some-span-Id',
-					traceId: 'some-trace-Id',
-				},
-				performanceAttributes: { some: 'performance attributes' },
-				ssrReliability: {
-					client: { status: 'success' },
-					server: { status: 'success' },
-				},
-				status: 'success',
-				traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
-			},
-			eventType: 'operational',
-		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
-	});
-
-	it('should fire commenced event', () => {
-		fireCommencedEvent(createAnalyticsEvent, fileAttributes, performanceAttributes, traceContext);
-
-		expect(getRenderCommencedEventPayload).toBeCalledWith(
-			fileAttributes,
-			performanceAttributes,
-			traceContext,
-		);
-		expect(createAnalyticsEventMock).toBeCalledWith({
-			action: 'commenced',
-			actionSubject: 'mediaCardRender',
-			attributes: {
-				fileAttributes: {
-					fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
-					some: 'file attributes',
-				},
-				performanceAttributes: { some: 'performance attributes' },
-				traceContext: { traceId: 'some-trace-Id' },
 			},
 			eventType: 'operational',
 		});

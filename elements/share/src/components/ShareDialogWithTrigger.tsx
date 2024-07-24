@@ -563,6 +563,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			bottomMessage,
 			submitButtonLabel,
 			product,
+			productAttributes,
 			customFooter,
 			enableSmartUserPicker,
 			loggedInAccountId,
@@ -617,6 +618,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								setIsLoading={this.setIsLoading}
 								submitButtonLabel={submitButtonLabel}
 								product={product}
+								productAttributes={productAttributes}
 								enableSmartUserPicker={enableSmartUserPicker}
 								loggedInAccountId={loggedInAccountId}
 								cloudId={cloudId}

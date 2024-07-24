@@ -374,7 +374,9 @@ export const createPlugin = (
 				mousedown: withCellTracking(handleMouseDown),
 				mouseover: withCellTracking(whenTableInFocus(handleMouseOver)),
 				mouseleave: handleMouseLeave,
-				mouseout: whenTableInFocus(handleMouseOut),
+				mouseout: fg('editor_react_18_fix_table_delete_col_decorations')
+					? undefined
+					: whenTableInFocus(handleMouseOut),
 				mousemove: whenTableInFocus(handleMouseMove),
 				mouseenter: handleMouseEnter,
 				mouseup: whenTableInFocus(handleMouseUp),

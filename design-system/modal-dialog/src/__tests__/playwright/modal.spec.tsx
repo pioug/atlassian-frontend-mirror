@@ -246,3 +246,27 @@ test.describe('Focus', () => {
 		await expect(nestedModalLargeTrigger).toBeFocused();
 	});
 });
+
+test.describe('Modal over a popup', () => {
+	test('Should not close modal nor popup when interact with Modal', async ({ page }) => {
+		await page.visitExample('design-system', 'modal-dialog', 'modal-over-popup');
+		const popupTrigger = page.getByRole('button');
+		await popupTrigger.click();
+		const open = page.getByTestId(openModalBtn);
+		const modal = page.getByTestId(modalDialog);
+		const close = page.getByTestId(closeModalBtn);
+
+		await expect(open).toBeVisible();
+
+		await open.click();
+		await expect(modal).toBeVisible();
+
+		await close.click();
+		await expect(modal).toBeHidden();
+		await expect(open).toBeVisible();
+		await expect(open).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(open).toBeHidden();
+	});
+});

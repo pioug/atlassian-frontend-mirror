@@ -36,6 +36,7 @@ import {
 	previewScaleTable,
 	scaleTable,
 	TABLE_MAX_WIDTH,
+	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
@@ -88,6 +89,7 @@ interface TableResizerProps {
 	isWholeTableInDanger?: boolean;
 	isFullWidthModeEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
+	isCommentEditor?: boolean;
 }
 
 export interface TableResizerImprovementProps extends TableResizerProps {
@@ -203,6 +205,7 @@ export const TableResizer = ({
 	shouldUseIncreasedScalingPercent,
 	pluginInjectionApi,
 	isFullWidthModeEnabled,
+	isCommentEditor,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
 	const currentGap = useRef(0);
 	// track resizing state - use ref over state to avoid re-render
@@ -486,7 +489,12 @@ export const TableResizer = ({
 			).filter((guideline) => guideline.isFullWidth)[0];
 
 			const isFullWidthGuidelineActive = closestSnap.keys.includes(fullWidthGuideline.key);
-			const shouldUpdateWidthToWidest = !!isTableScalingEnabled && isFullWidthGuidelineActive;
+			const tableMaxWidth = isCommentEditor
+				? containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR
+				: TABLE_MAX_WIDTH;
+			const shouldUpdateWidthToWidest =
+				(isCommentEditor && tableMaxWidth === newWidth) ||
+				(!!isTableScalingEnabled && isFullWidthGuidelineActive);
 
 			chainCommands(
 				(state, dispatch) => {
@@ -497,12 +505,13 @@ export const TableResizer = ({
 				}),
 			)(state, dispatch);
 
-			updateWidth(shouldUpdateWidthToWidest ? TABLE_MAX_WIDTH : newWidth);
+			updateWidth(shouldUpdateWidthToWidest ? tableMaxWidth : newWidth);
 
 			return newWidth;
 		},
 		[
 			countFrames,
+			isCommentEditor,
 			isTableScalingEnabled,
 			isTableWithFixedColumnWidthsOptionEnabled,
 			isFullWidthModeEnabled,
@@ -528,9 +537,14 @@ export const TableResizer = ({
 			const { state, dispatch } = editorView;
 			const pos = getPos();
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
+
+			const tableMaxWidth = isCommentEditor
+				? containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR
+				: TABLE_MAX_WIDTH;
+
 			newWidth =
 				widthToWidest && currentTableNodeLocalId && widthToWidest[currentTableNodeLocalId]
-					? TABLE_MAX_WIDTH
+					? tableMaxWidth
 					: newWidth;
 
 			let tr = state.tr.setMeta(tableWidthPluginKey, {
@@ -618,6 +632,7 @@ export const TableResizer = ({
 			tableRef,
 			scheduleResize,
 			displayGuideline,
+			containerWidth,
 			attachAnalyticsEvent,
 			endMeasure,
 			onResizeStop,
@@ -626,6 +641,7 @@ export const TableResizer = ({
 			widthToWidest,
 			formatMessage,
 			pluginInjectionApi,
+			isCommentEditor,
 		],
 	);
 

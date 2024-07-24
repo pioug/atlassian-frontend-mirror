@@ -216,6 +216,7 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 
 	useProviders({
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
+		mediaProvider: props.editorProps.media?.provider,
 	});
 
 	return <ReactEditorView {...props} setEditorApi={setEditorAPI} />;

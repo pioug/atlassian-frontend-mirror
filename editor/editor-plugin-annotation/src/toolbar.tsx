@@ -8,6 +8,8 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
+	MODE,
 } from '@atlaskit/editor-common/analytics';
 import { addInlineComment, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
@@ -68,6 +70,21 @@ export const buildToolbar =
 					<ToolTipContent description={createCommentMessage} keymap={addInlineComment} />
 				),
 			title: createCommentMessage,
+			onMount: () => {
+				if (editorAnalyticsAPI) {
+					editorAnalyticsAPI.fireAnalyticsEvent({
+						action: ACTION.VIEWED,
+						actionSubject: ACTION_SUBJECT.BUTTON,
+						actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+						eventType: EVENT_TYPE.UI,
+						attributes: {
+							isDisabled: selectionValid === AnnotationSelectionType.DISABLED,
+							inputMethod: INPUT_METHOD.FLOATING_TB,
+							mode: MODE.EDITOR,
+						},
+					});
+				}
+			},
 			onClick: (state, dispatch) => {
 				if (editorAnalyticsAPI) {
 					editorAnalyticsAPI.fireAnalyticsEvent({

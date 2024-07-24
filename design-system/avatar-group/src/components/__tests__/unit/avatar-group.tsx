@@ -15,12 +15,14 @@ const generateData = ({
 	onClick,
 	disabledIndexes,
 	label,
+	borderColor,
 }: {
 	avatarCount: number;
 	href?: string;
 	onClick?: () => void;
 	disabledIndexes?: number[];
 	label?: string;
+	borderColor?: string;
 }) => {
 	const data = [];
 	for (let i = 0; i < avatarCount; i++) {
@@ -33,6 +35,7 @@ const generateData = ({
 			label: label ? `${label} ${i}` : undefined,
 			href,
 			onClick,
+			borderColor,
 		});
 	}
 	return data;
@@ -545,6 +548,62 @@ describe('<AvatarGroup />', () => {
 		expect(firstAvatar).not.toBeNull();
 		expect(secondAvatar).toBeNull();
 		expect(thirdAvatar).not.toBeNull();
+	});
+});
+
+describe('borderColor', () => {
+	const groupBorderColor = '#BABEEE';
+	const avatarBorderColor = '#C0FFEE';
+
+	it('should put border color on every avatar if provided to avatar group as a prop', () => {
+		render(
+			<AvatarGroup
+				borderColor={groupBorderColor}
+				testId="test"
+				appearance="stack"
+				data={generateData({ avatarCount: 2, onClick: __noop })}
+			/>,
+		);
+
+		const avatars = screen.getAllByRole('button');
+
+		avatars.forEach((avatar) => {
+			expect(avatar).toHaveStyle(`background-color: ${groupBorderColor}`);
+		});
+	});
+
+	it('should put border color on avatar if provided to avatar as a prop', () => {
+		render(
+			<AvatarGroup
+				testId="test"
+				appearance="stack"
+				data={generateData({ avatarCount: 2, onClick: __noop, borderColor: avatarBorderColor })}
+			/>,
+		);
+
+		const avatars = screen.getAllByRole('button');
+
+		avatars.forEach((avatar) => {
+			expect(avatar).toHaveStyle(`background-color: ${avatarBorderColor}`);
+		});
+	});
+
+	it('should prefer the border color on avatar props if both avatar and avatar group have `borderColor` set', () => {
+		render(
+			<AvatarGroup
+				borderColor={groupBorderColor}
+				testId="test"
+				appearance="stack"
+				data={generateData({ avatarCount: 2, onClick: __noop, borderColor: avatarBorderColor })}
+			/>,
+		);
+
+		const avatars = screen.getAllByRole('button');
+
+		avatars.forEach((avatar) => {
+			expect(avatar).not.toHaveStyle(`background-color: ${avatarBorderColor}`);
+			expect(avatar).toHaveStyle(`background-color: ${groupBorderColor}`);
+		});
 	});
 });
 

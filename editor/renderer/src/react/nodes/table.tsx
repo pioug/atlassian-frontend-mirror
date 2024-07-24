@@ -32,6 +32,7 @@ import { StickyTable, tableStickyPadding, OverflowParent } from './table/sticky'
 import { Table } from './table/table';
 import type { SharedTableProps } from './table/types';
 import {
+	isCommentAppearance,
 	isFullPageAppearance,
 	isFullWidthAppearance,
 	isFullWidthOrFullPageAppearance,
@@ -43,7 +44,9 @@ type TableArrayMapped = {
 };
 
 export const isTableResizingEnabled = (appearance: RendererAppearance) =>
-	isFullWidthOrFullPageAppearance(appearance);
+	isFullWidthOrFullPageAppearance(appearance) ||
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	(isCommentAppearance(appearance) && fg('platform_editor_table_support_in_comment'));
 
 const orderChildren = (
 	children: React.ReactElement[],
@@ -374,6 +377,12 @@ export class TableContainer extends React.Component<
 				return isRenderWidthValid
 					? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
 					: akEditorFullWidthLayoutWidth;
+			} else if (
+				rendererAppearance === 'comment' &&
+				isTableResizingEnabled(rendererAppearance) &&
+				!tableNode?.attrs.width
+			) {
+				return renderWidth;
 			} else {
 				// custom width, or width mapped to breakpoint
 				const tableContainerWidth = getTableContainerWidth(tableNode);

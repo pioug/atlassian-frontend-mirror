@@ -17,7 +17,9 @@ jest.mock('unzipit', () => ({
 			entries: { 'file_a.jpeg': { name: 'file_a.jpeg' } },
 		};
 	},
-	HTTPRangeReader: () => 'reader',
+	HTTPRangeReader: function () {
+		return 'reader';
+	},
 }));
 
 import {

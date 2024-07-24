@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.10.1
+
+### Patch Changes
+
+- [#123301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123301)
+  [`cfa744ea08648`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfa744ea08648) -
+  Prevent click event from propagate from action modal
+
 ## 27.10.0
 
 ### Minor Changes

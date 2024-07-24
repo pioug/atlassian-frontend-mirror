@@ -68,7 +68,7 @@ export interface BitbucketAttributes {
 
 export interface ConfluenceAttributes {
 	/**
-	 * Identifies whether this user is a confluence guest
+	 * Identifies whether this user is part of a Confluence site that is entitled for guests
 	 */
 	isEntitledConfluenceExternalCollaborator?: boolean;
 }

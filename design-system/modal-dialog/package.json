@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "12.14.6",
+	"version": "12.14.7",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/focus-ring": "^1.5.0",
-		"@atlaskit/icon": "^22.6.0",
+		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/layering": "^0.3.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -68,7 +68,6 @@
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",
@@ -139,19 +138,12 @@
 		"./modal-transition": "./src/modal-transition.tsx"
 	},
 	"platform-feature-flags": {
-		"platform.design-system-team.layering_qmiw3": {
-			"type": "boolean"
-		},
 		"platform.design-system-team.popup-select-close_8h15h": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
 		"platform.design-system-team.iframe_gojiv": {
 			"type": "boolean"
-		},
-		"platform.design-system-team.iframe-layering_p3eb8": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		}
 	},
 	"homepage": "https://atlassian.design/components/modal-dialog/"

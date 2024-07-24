@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "2.6.4",
+	"version": "2.6.5",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,24 +38,24 @@
 		"@atlaskit/adf-schema": "^39.0.3",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/custom-steps": "^0.4.0",
-		"@atlaskit/editor-common": "^86.4.0",
+		"@atlaskit/editor-common": "^86.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.4.0",
 		"@atlaskit/editor-plugin-decorations": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-		"@atlaskit/editor-plugin-floating-toolbar": "^1.7.0",
+		"@atlaskit/editor-plugin-floating-toolbar": "^1.8.0",
 		"@atlaskit/editor-plugin-grid": "^1.1.0",
 		"@atlaskit/editor-plugin-width": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
-		"@atlaskit/icon": "^22.6.0",
+		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/link-analytics": "^8.3.0",
-		"@atlaskit/link-client-extension": "^1.9.0",
+		"@atlaskit/link-client-extension": "^1.10.0",
 		"@atlaskit/link-datasource": "^2.5.0",
 		"@atlaskit/linking-common": "^5.7.0",
-		"@atlaskit/linking-types": "^8.11.0",
+		"@atlaskit/linking-types": "^8.12.0",
 		"@atlaskit/menu": "2.8.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^11.0.0",
@@ -141,6 +141,9 @@
 			"type": "boolean"
 		},
 		"linking-platform-contenteditable-false-live-view": {
+			"type": "boolean"
+		},
+		"editor_inline_comments_paste_insert_nodes": {
 			"type": "boolean"
 		}
 	},

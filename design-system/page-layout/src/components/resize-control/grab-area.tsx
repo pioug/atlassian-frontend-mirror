@@ -8,7 +8,6 @@ import { type ComponentProps, type FocusEvent, type KeyboardEvent, type MouseEve
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -54,17 +53,14 @@ const grabAreaStyles = css({
 	},
 });
 
-const grabAreaReducedHeightStyles = css({
-	height: `calc(100% - ${token('space.600', '3rem')} * 2)`,
-	position: 'absolute',
-	insetBlockEnd: 0,
-});
-
 const grabAreaCollapsedStyles = css({
+	height: `calc(100% - ${token('space.600', '3rem')} * 2)`,
 	padding: 0,
+	position: 'absolute',
 	backgroundColor: 'transparent',
 	border: 0,
 	cursor: 'default',
+	insetBlockEnd: 0,
 });
 
 const lineStyles = css({
@@ -104,14 +100,7 @@ const GrabArea = ({
 		// range input would be more semantically accurate, it does not affect
 		// usability.
 		role="slider"
-		css={[
-			grabAreaStyles,
-			isLeftSidebarCollapsed && grabAreaCollapsedStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			getBooleanFF('platform.design-system-team.page-layout-resize-button-fix_u0qxv') &&
-				isLeftSidebarCollapsed &&
-				grabAreaReducedHeightStyles,
-		]}
+		css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
 		aria-orientation="vertical"
 		aria-valuenow={leftSidebarPercentageExpanded}
 		aria-valuemin={0}

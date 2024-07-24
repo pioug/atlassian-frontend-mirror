@@ -14,12 +14,14 @@ import type {
 	EditorCommand,
 	TOOLBAR_MENU_TYPE,
 } from '@atlaskit/editor-common/types';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+import { Fragment, type Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { ClosingPayload, StatusType } from './types';
@@ -29,8 +31,18 @@ export const DEFAULT_STATUS: StatusType = {
 	color: 'neutral',
 };
 
-export const verifyAndInsertStatus = (statusNode: Node, tr: Transaction): Transaction => {
-	const fragment = Fragment.fromArray([statusNode, tr.doc.type.schema.text(' ')]);
+export const verifyAndInsertStatus = (
+	statusNode: Node,
+	tr: Transaction,
+	annotationMarks?: Mark[] | undefined,
+): Transaction => {
+	const fragment = Fragment.fromArray([
+		statusNode,
+		tr.doc.type.schema.text(
+			' ',
+			fg('editor_inline_comments_paste_insert_nodes') ? annotationMarks : undefined,
+		),
+	]);
 	const insertable = canInsert(tr.selection.$from, fragment);
 	if (!insertable) {
 		const parentSelection = NodeSelection.create(
@@ -54,11 +66,23 @@ export const verifyAndInsertStatus = (statusNode: Node, tr: Transaction): Transa
 };
 
 export const createStatus = (tr: Transaction): Transaction => {
-	const statusNode = tr.doc.type.schema.nodes.status.createChecked({
-		...DEFAULT_STATUS,
-		localId: uuid.generate(),
-	});
-	return verifyAndInsertStatus(statusNode, tr);
+	const annotationMarksForPos: Mark[] | undefined = fg('editor_inline_comments_paste_insert_nodes')
+		? getAnnotationMarksForPos(tr.selection.$head)
+		: undefined;
+
+	const statusNode = tr.doc.type.schema.nodes.status.createChecked(
+		{
+			...DEFAULT_STATUS,
+			localId: uuid.generate(),
+		},
+		null,
+		fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+	);
+	return verifyAndInsertStatus(
+		statusNode,
+		tr,
+		fg('editor_inline_comments_paste_insert_nodes') ? annotationMarksForPos : undefined,
+	);
 };
 
 export const insertStatus =

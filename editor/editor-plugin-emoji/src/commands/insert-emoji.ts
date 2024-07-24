@@ -6,10 +6,35 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { getAnnotationMarksForPos } from '@atlaskit/editor-common/utils';
+import {
+	Fragment,
+	type Mark,
+	type Node,
+	type ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EmojiId } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+export const createEmojiFragment = (doc: Node, pos: ResolvedPos, emoji: EmojiId): Fragment => {
+	const { id = '', fallback, shortName } = emoji;
+	const annotationMarksForPos: Mark[] | undefined = getAnnotationMarksForPos(pos);
+
+	const emojiNode = doc.type.schema.nodes.emoji.createChecked(
+		{
+			shortName,
+			id,
+			text: fallback || shortName,
+		},
+		null,
+		annotationMarksForPos,
+	);
+	const space = doc.type.schema.text(' ', annotationMarksForPos);
+
+	return Fragment.fromArray([emojiNode, space]);
+};
 
 export const insertEmoji =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
@@ -22,13 +47,20 @@ export const insertEmoji =
 			const { emoji } = tr.doc.type.schema.nodes;
 
 			if (emoji && emojiId) {
-				const node = emoji.createChecked({
-					...emojiId,
-					text: emojiId.fallback || emojiId.shortName,
-				});
-				const textNode = doc.type.schema.text(' ');
+				let fragment: Fragment;
 
-				const fragment = Fragment.fromArray([node, textNode]);
+				if (fg('editor_inline_comments_paste_insert_nodes')) {
+					fragment = createEmojiFragment(doc, selection.$head, emojiId);
+				} else {
+					const node = emoji.createChecked({
+						...emojiId,
+						text: emojiId.fallback || emojiId.shortName,
+					});
+					const textNode = doc.type.schema.text(' ');
+
+					fragment = Fragment.fromArray([node, textNode]);
+				}
+
 				const newTr = safeInsert(fragment)(tr);
 				if (inputMethod) {
 					editorAnalyticsAPI?.attachAnalyticsEvent({

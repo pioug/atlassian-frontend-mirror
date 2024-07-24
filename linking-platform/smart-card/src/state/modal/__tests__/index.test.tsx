@@ -43,7 +43,7 @@ const Action2 = () => {
 	);
 };
 
-const TestComponent = () => {
+const TestComponent = ({ onClick }: { onClick?: React.MouseEventHandler<HTMLDivElement> }) => {
 	const [child, setChild] = useState<ReactNode | null>(
 		<div data-testid="child">
 			<Action1 />
@@ -52,7 +52,7 @@ const TestComponent = () => {
 	);
 
 	return (
-		<div data-testid="parent">
+		<div data-testid="parent" onClick={onClick}>
 			<SmartLinkModalProvider>
 				<button data-testid="btn-delete" onClick={() => setChild(null)} type="button">
 					Delete
@@ -145,5 +145,27 @@ describe('useSmartLinkModal', () => {
 		});
 
 		expect(result.current).toBeDefined();
+	});
+
+	it('does not propagate click event to parent component', async () => {
+		const onClick = jest.fn();
+		render(<TestComponent onClick={onClick} />);
+
+		// First click to open modal
+		const btnOpen = await screen.findByTestId('action-1');
+		fireEvent.click(btnOpen);
+
+		const parent = await screen.findByTestId('parent');
+		await within(parent).findByTestId('modal');
+
+		// Second click inside modal
+		const modal = await screen.findByTestId('modal');
+		fireEvent.click(modal);
+
+		// Third click inside modal to close modal
+		const btnClose = await screen.findByTestId('btn-close');
+		fireEvent.click(btnClose);
+
+		expect(onClick).toHaveBeenCalledTimes(1);
 	});
 });

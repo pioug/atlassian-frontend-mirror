@@ -1,6 +1,10 @@
 import type { IconButtonProps } from '@atlaskit/button/new';
 import type { IconProps } from '@atlaskit/icon';
-import type { LoadOptions, Value } from '@atlaskit/smart-user-picker';
+import type {
+	LoadOptions,
+	Props as SmartUserPickerProps,
+	Value,
+} from '@atlaskit/smart-user-picker';
 
 import type { ShortenRequest, UrlShortenerClient } from '../clients/AtlassianUrlShortenerClient';
 import type { ShareClient } from '../clients/ShareServiceClient';
@@ -140,6 +144,8 @@ export type ShareDialogContainerProps = {
 	 * We use this prop to control different text messages in UI.
 	 */
 	product?: ProductName;
+	/* attributes that apply to the product */
+	productAttributes?: SmartUserPickerProps['productAttributes'];
 	/**
 	 * Footer for the share dialog.
 	 */

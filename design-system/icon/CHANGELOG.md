@@ -1,5 +1,20 @@
 # @atlaskit/icon
 
+## 22.7.0
+
+### Minor Changes
+
+- [#122612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122612)
+  [`0c9d2190a14f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c9d2190a14f2) -
+  Adds a new prop, LEGACY_margin, to the new icon API to allow for spacing adjustments between old
+  and new icons API.
+
+### Patch Changes
+
+- [#122977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122977)
+  [`41748db2c12de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41748db2c12de) -
+  [ux]ED-24225 add wrap button inside editor-plugin-block
+
 ## 22.6.0
 
 ### Minor Changes

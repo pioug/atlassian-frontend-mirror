@@ -21,7 +21,10 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
-import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
+import {
+	TABLE_MAX_WIDTH,
+	TABLE_OFFSET_IN_COMMENT_EDITOR,
+} from '../pm-plugins/table-resizing/utils';
 import type { PluginInjectionAPI, TableSharedState } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import { ALIGN_CENTER, ALIGN_START } from '../utils/alignment';
@@ -291,6 +294,8 @@ export const ResizableTableContainer = React.memo(
 			responsiveContainerWidth = isTableScalingEnabled
 				? lineLength
 				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
+		} else if (isCommentEditor) {
+			responsiveContainerWidth = containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
 		} else {
 			// 76 is currently an accepted padding value considering the spacing for resizer handle
 			// containerWidth = width of a DIV with test id="ak-editor-fp-content-area". It is a parent of
@@ -298,9 +303,7 @@ export const ResizableTableContainer = React.memo(
 			// padding left = padding right = akEditorGutterPadding = 32
 			responsiveContainerWidth = isTableScalingEnabled
 				? containerWidth - akEditorGutterPaddingDynamic() * 2
-				: containerWidth -
-					akEditorGutterPaddingDynamic() * 2 -
-					(isCommentEditor ? 0 : resizeHandleSpacing);
+				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
 		}
 		let width =
 			!node.attrs.width && isCommentEditor
@@ -336,6 +339,7 @@ export const ResizableTableContainer = React.memo(
 			pluginInjectionApi,
 			onResizeStart,
 			onResizeStop,
+			isCommentEditor,
 		};
 
 		const isLivePageViewMode = editorViewModeState?.mode === 'view';

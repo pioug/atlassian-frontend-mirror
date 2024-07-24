@@ -8,7 +8,7 @@ const URS_URL = '/gateway/api/v1/recommendations';
 
 const intl = {} as IntlShape;
 
-const exampleContext = {
+const mockBitbucketContext = {
 	childObjectId: 'childObjectId',
 	containerId: 'containerId',
 	contextType: 'fieldId',
@@ -26,7 +26,7 @@ const exampleContext = {
 };
 
 const exampleRequest: RecommendationRequest = {
-	context: exampleContext,
+	context: mockBitbucketContext,
 	maxNumberOfResults: 50,
 	query: 'query',
 	includeUsers: true,
@@ -112,5 +112,255 @@ describe('default-value-hydration-client', () => {
 		expect(fetchMock.called()).toBeTruthy();
 		expect(requestBody).toMatchSnapshot('URS query');
 		expect(users).toMatchSnapshot('URS users');
+	});
+});
+
+describe('search recommendations with Confluence guests', () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+		fetchMock.restore();
+	});
+
+	it('should include guests in request when productAttributes.isEntitledConfluenceExternalCollaborator is true', async () => {
+		const entitledGuestConfluenceRequest: RecommendationRequest = {
+			context: {
+				childObjectId: 'childObjectId',
+				containerId: 'containerId',
+				contextType: 'fieldId',
+				objectId: 'objectId',
+				principalId: 'principalId',
+				productAttributes: {
+					isEntitledConfluenceExternalCollaborator: true,
+				},
+				productKey: 'confluence',
+				sessionId: 'session-id',
+				siteId: 'site-id',
+			},
+			maxNumberOfResults: 50,
+			query: 'query',
+			includeUsers: true,
+			includeGroups: true,
+			includeTeams: true,
+			includeNonLicensedUsers: false,
+		};
+		const expectedRequestBody = {
+			context: {
+				childObjectId: 'childObjectId',
+				containerId: 'containerId',
+				contextType: 'fieldId',
+				objectId: 'objectId',
+				principalId: 'principalId',
+				productAttributes: {
+					isEntitledConfluenceExternalCollaborator: true,
+				},
+				productKey: 'confluence',
+				sessionId: 'session-id',
+				siteId: 'site-id',
+			},
+			includeUsers: true,
+			includeGroups: true,
+			includeTeams: true,
+			includeNonLicensedUsers: false,
+			maxNumberOfResults: 50,
+			performSearchQueryOnly: false,
+			searchQuery: {
+				cpusQueryHighlights: {
+					query: '',
+					field: '',
+				},
+				productAccessPermissionIds: ['write', 'external-collaborator-write'],
+				customQuery: '',
+				customerDirectoryId: '',
+				filter: '',
+				minimumAccessLevel: 'APPLICATION',
+				queryString: 'query',
+				restrictTo: {
+					userIds: [],
+					groupIds: [],
+				},
+				searchUserbase: false,
+			},
+		};
+
+		let requestBody;
+		fetchMock.post(
+			{
+				functionMatcher: (url: string, options: any) => {
+					requestBody = JSON.parse(options.body);
+					return url === '/gateway/api/v1/recommendations';
+				},
+			},
+			exampleResponse,
+			{
+				repeat: 1,
+				overwriteRoutes: false,
+			},
+		);
+
+		await getUserRecommendations(entitledGuestConfluenceRequest, intl);
+
+		expect(fetchMock.called()).toBeTruthy();
+		// asserting that recommendations request body has `productPermissionIds: ['write', 'external-collaborator-write']`, which will include guests in the search
+		expect(requestBody).toEqual(expectedRequestBody);
+	});
+
+	it('should not include guests in request when productAttributes.isEntitledConfluenceExternalCollaborator is false', async () => {
+		const notEntitledGuestConfluenceRequest: RecommendationRequest = {
+			context: {
+				childObjectId: 'childObjectId',
+				containerId: 'containerId',
+				contextType: 'fieldId',
+				objectId: 'objectId',
+				principalId: 'principalId',
+				productAttributes: {
+					isEntitledConfluenceExternalCollaborator: false,
+				},
+				productKey: 'confluence',
+				sessionId: 'session-id',
+				siteId: 'site-id',
+			},
+			maxNumberOfResults: 50,
+			query: 'query',
+			includeUsers: true,
+			includeGroups: true,
+			includeTeams: true,
+			includeNonLicensedUsers: false,
+		};
+
+		const expectedRequestBody = {
+			context: {
+				childObjectId: 'childObjectId',
+				containerId: 'containerId',
+				contextType: 'fieldId',
+				objectId: 'objectId',
+				principalId: 'principalId',
+				productAttributes: {
+					isEntitledConfluenceExternalCollaborator: false,
+				},
+				productKey: 'confluence',
+				sessionId: 'session-id',
+				siteId: 'site-id',
+			},
+			includeUsers: true,
+			includeGroups: true,
+			includeTeams: true,
+			includeNonLicensedUsers: false,
+			maxNumberOfResults: 50,
+			performSearchQueryOnly: false,
+			searchQuery: {
+				cpusQueryHighlights: {
+					query: '',
+					field: '',
+				},
+				customQuery: '',
+				customerDirectoryId: '',
+				filter: '',
+				minimumAccessLevel: 'APPLICATION',
+				queryString: 'query',
+				restrictTo: {
+					userIds: [],
+					groupIds: [],
+				},
+				searchUserbase: false,
+			},
+		};
+
+		let requestBody;
+		fetchMock.post(
+			{
+				functionMatcher: (url: string, options: any) => {
+					requestBody = JSON.parse(options.body);
+					return url === '/gateway/api/v1/recommendations';
+				},
+			},
+			exampleResponse,
+			{
+				repeat: 1,
+				overwriteRoutes: false,
+			},
+		);
+
+		await getUserRecommendations(notEntitledGuestConfluenceRequest, intl);
+
+		expect(fetchMock.called()).toBeTruthy();
+		// asserting that recommendations request body doesn't have productPermissionsIds "external-collaborator-write", so the response won't include guests in the search
+		expect(requestBody).toEqual(expectedRequestBody);
+	});
+
+	it('should not include guests in request when productAttributes is not present', async () => {
+		const notEntitledGuestConfluenceRequest: RecommendationRequest = {
+			context: {
+				childObjectId: 'childObjectId',
+				containerId: 'containerId',
+				contextType: 'fieldId',
+				objectId: 'objectId',
+				principalId: 'principalId',
+				productKey: 'confluence',
+				sessionId: 'session-id',
+				siteId: 'site-id',
+			},
+			maxNumberOfResults: 50,
+			query: 'query',
+			includeUsers: true,
+			includeGroups: true,
+			includeTeams: true,
+			includeNonLicensedUsers: false,
+		};
+
+		const expectedRequestBody = {
+			context: {
+				childObjectId: 'childObjectId',
+				containerId: 'containerId',
+				contextType: 'fieldId',
+				objectId: 'objectId',
+				principalId: 'principalId',
+				productKey: 'confluence',
+				sessionId: 'session-id',
+				siteId: 'site-id',
+			},
+			includeUsers: true,
+			includeGroups: true,
+			includeTeams: true,
+			includeNonLicensedUsers: false,
+			maxNumberOfResults: 50,
+			performSearchQueryOnly: false,
+			searchQuery: {
+				cpusQueryHighlights: {
+					query: '',
+					field: '',
+				},
+				customQuery: '',
+				customerDirectoryId: '',
+				filter: '',
+				minimumAccessLevel: 'APPLICATION',
+				queryString: 'query',
+				restrictTo: {
+					userIds: [],
+					groupIds: [],
+				},
+				searchUserbase: false,
+			},
+		};
+
+		let requestBody;
+		fetchMock.post(
+			{
+				functionMatcher: (url: string, options: any) => {
+					requestBody = JSON.parse(options.body);
+					return url === '/gateway/api/v1/recommendations';
+				},
+			},
+			exampleResponse,
+			{
+				repeat: 1,
+				overwriteRoutes: false,
+			},
+		);
+
+		await getUserRecommendations(notEntitledGuestConfluenceRequest, intl);
+
+		expect(fetchMock.called()).toBeTruthy();
+		// asserting that recommendations request body doesn't have productPermissionsIds "external-collaborator-write", so the response won't include guests in the search
+		expect(requestBody).toEqual(expectedRequestBody);
 	});
 });

@@ -1,5 +1,18 @@
 # @atlaskit/link-client-extension
 
+## 1.10.0
+
+### Minor Changes
+
+- [#123151](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123151)
+  [`15b8082f63c21`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15b8082f63c21) -
+  Adds the getDatasourceActionsAndPermissions function to fetch actions and permissions in
+  useDatasourceClientExtension
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.2
 
 ### Patch Changes

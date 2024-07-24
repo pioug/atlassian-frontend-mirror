@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "2.8.3",
+	"version": "2.9.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,7 +17,8 @@
 		"website": {
 			"name": "LinkCreate"
 		},
-		"i18n": true
+		"i18n": true,
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -47,14 +48,14 @@
 		"@atlaskit/button": "^19.0.0",
 		"@atlaskit/empty-state": "^7.9.0",
 		"@atlaskit/form": "^10.4.0",
-		"@atlaskit/icon": "^22.6.0",
+		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/icon-file-type": "^6.4.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/linking-common": "^5.7.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/select": "^17.11.0",
-		"@atlaskit/smart-user-picker": "^6.9.0",
+		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.10.0",
@@ -67,7 +68,7 @@
 		"react-final-form": "^6.5.3"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

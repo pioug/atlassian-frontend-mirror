@@ -369,6 +369,7 @@ export class ShareDialogContainerInternal extends React.Component<
 			bottomMessage,
 			shareeAction,
 			product,
+			productAttributes,
 			customFooter,
 			onTriggerButtonClick,
 			onUserSelectionChange,
@@ -424,6 +425,7 @@ export class ShareDialogContainerInternal extends React.Component<
 							shareeAction === 'edit' && <FormattedMessage {...messages.inviteTriggerButtonText} />
 						}
 						product={product!}
+						productAttributes={productAttributes}
 						customFooter={customFooter}
 						onUserSelectionChange={onUserSelectionChange}
 						shareFieldsFooter={shareFieldsFooter}

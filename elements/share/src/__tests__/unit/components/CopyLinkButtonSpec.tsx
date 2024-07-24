@@ -190,5 +190,13 @@ describe('CopyLinkButton', () => {
 			// `react-test-renderer` with `_flushCallback` additional x times.
 			expect(wrapper.state().shouldShowCopiedMessage).toBeFalsy();
 		});
+
+		it('should have the correct aria attributes on the popup once the button is clicked', () => {
+			const wrapper: ReactWrapper<Props, State, any> = mount<Props, State>(
+				<CopyLinkButton {...props} copiedToClipboardText="Copied to clipboard" />,
+			);
+
+			expect(wrapper.find('input').props()).toHaveProperty('aria-label', 'Copied to clipboard');
+		});
 	});
 });

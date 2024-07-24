@@ -143,41 +143,39 @@ export function keymapPlugin(
 		list,
 	);
 
-	if (fg('platform.editor.a11y-help-dialog-shortcut-keys-position_aghfg')) {
-		bindKeymapWithCommand(
-			addRowBeforeVO.common!,
-			addRowAroundSelection(editorAnalyticsAPI)('TOP'),
-			list,
-		);
+	bindKeymapWithCommand(
+		addRowBeforeVO.common!,
+		addRowAroundSelection(editorAnalyticsAPI)('TOP'),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			addRowAfterVO.common!,
-			addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
-			list,
-		);
+	bindKeymapWithCommand(
+		addRowAfterVO.common!,
+		addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			addColumnBeforeVO.common!,
-			addColumnBeforeCommand(
-				isTableScalingEnabled,
-				isCellBackgroundDuplicated,
-				isTableFixedColumnWidthsOptionEnabled,
-				shouldUseIncreasedScalingPercent,
-			),
-			list,
-		);
+	bindKeymapWithCommand(
+		addColumnBeforeVO.common!,
+		addColumnBeforeCommand(
+			isTableScalingEnabled,
+			isCellBackgroundDuplicated,
+			isTableFixedColumnWidthsOptionEnabled,
+			shouldUseIncreasedScalingPercent,
+		),
+		list,
+	);
 
-		bindKeymapWithCommand(
-			addColumnAfterVO.common!,
-			addColumnAfterCommand(
-				isTableScalingEnabled,
-				isCellBackgroundDuplicated,
-				isTableFixedColumnWidthsOptionEnabled,
-				shouldUseIncreasedScalingPercent,
-			),
-			list,
-		);
-	}
+	bindKeymapWithCommand(
+		addColumnAfterVO.common!,
+		addColumnAfterCommand(
+			isTableScalingEnabled,
+			isCellBackgroundDuplicated,
+			isTableFixedColumnWidthsOptionEnabled,
+			shouldUseIncreasedScalingPercent,
+		),
+		list,
+	);
 
 	if (dragAndDropEnabled) {
 		// Move row/column shortcuts

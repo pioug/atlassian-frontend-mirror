@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import Tooltip from '@atlaskit/tooltip';
@@ -18,6 +18,7 @@ export interface Props {
 	onMouseLeave?: <T>(event: React.MouseEvent<T>) => void;
 	onFocus?: <T>(event: React.FocusEvent<T>) => void;
 	onBlur?: <T>(event: React.FocusEvent<T>) => void;
+	onMount?: () => void;
 	selected?: boolean;
 	disabled?: boolean;
 	appearance?: ButtonAppearance;
@@ -46,6 +47,7 @@ export default ({
 	onMouseLeave,
 	onFocus,
 	onBlur,
+	onMount,
 	selected,
 	disabled,
 	href,
@@ -69,6 +71,13 @@ export default ({
 	const isButtonPressed = ariaHasPopup ? undefined : selected;
 	const ariaChecked = isRadioButton ? isButtonPressed : undefined;
 	const ariaPressed = isRadioButton ? undefined : isButtonPressed;
+
+	useEffect(() => {
+		if (onMount) {
+			onMount();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<Tooltip

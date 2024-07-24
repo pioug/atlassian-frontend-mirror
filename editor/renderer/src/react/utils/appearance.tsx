@@ -5,5 +5,7 @@ export const isFullWidthAppearance = (appearance: RendererAppearance) =>
 
 export const isFullPageAppearance = (appearance: RendererAppearance) => appearance === 'full-page';
 
+export const isCommentAppearance = (appearance: RendererAppearance) => appearance === 'comment';
+
 export const isFullWidthOrFullPageAppearance = (appearance: RendererAppearance) =>
 	isFullPageAppearance(appearance) || isFullWidthAppearance(appearance);

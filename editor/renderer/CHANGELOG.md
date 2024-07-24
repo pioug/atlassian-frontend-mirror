@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.42.7
+
+### Patch Changes
+
+- [#123311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123311)
+  [`d3af2ef54521c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3af2ef54521c) -
+  [ux] Enables table resizing in comment renderer under a feature gate.
+
 ## 109.42.6
 
 ### Patch Changes

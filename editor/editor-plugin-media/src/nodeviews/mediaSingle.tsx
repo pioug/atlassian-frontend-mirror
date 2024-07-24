@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { MouseEvent } from 'react';
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -527,13 +527,20 @@ const MediaSingleNodeWrapper = ({
 			'editorViewMode',
 		]);
 
+	const newMediaProvider = useMemo(
+		() => (mediaState?.mediaProvider ? Promise.resolve(mediaState?.mediaProvider) : undefined),
+		[mediaState?.mediaProvider],
+	);
+
 	return (
 		<MediaSingleNode
 			width={widthState!.width}
 			lineLength={widthState!.lineLength}
 			node={node}
 			getPos={getPos}
-			mediaProvider={mediaProvider}
+			mediaProvider={
+				fg('platform_editor_media_provider_from_plugin_config') ? newMediaProvider : mediaProvider
+			}
 			contextIdentifierProvider={contextIdentifierProvider}
 			mediaOptions={mediaOptions}
 			view={view}
@@ -685,6 +692,8 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
 		return (
 			<WithProviders
+				// Cleanup: `platform_editor_media_provider_from_plugin_config`
+				// Remove `mediaProvider`
 				providers={['mediaProvider', 'contextIdentifierProvider']}
 				providerFactory={providerFactory}
 				renderNode={({ mediaProvider, contextIdentifierProvider }) => {

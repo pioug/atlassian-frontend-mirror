@@ -30,7 +30,9 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { FilmstripItem } from '@atlaskit/media-filmstrip';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useMediaProvider } from '../hooks/useMediaProvider';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../pm-plugins/types';
@@ -351,6 +353,7 @@ interface MediaGroupNodeViewProps {
 interface RenderFn {
 	editorDisabledPlugin?: EditorDisabledPluginState;
 	editorViewModePlugin?: EditorViewModePluginState | null;
+	mediaProvider?: MediaProvider | null;
 }
 
 interface MediaGroupNodeViewInternalProps {
@@ -364,7 +367,12 @@ function MediaGroupNodeViewInternal({
 }: MediaGroupNodeViewInternalProps) {
 	const { editorDisabledState: editorDisabledPlugin, editorViewModeState: editorViewModePlugin } =
 		useSharedPluginState(pluginInjectionApi, ['editorDisabled', 'editorViewMode']);
-	return renderFn({ editorDisabledPlugin, editorViewModePlugin });
+	const mediaProvider = useMediaProvider(pluginInjectionApi);
+	return renderFn({
+		editorDisabledPlugin,
+		editorViewModePlugin,
+		mediaProvider,
+	});
 }
 
 class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
@@ -374,10 +382,44 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 
 		return (
 			<WithProviders
+				// Cleanup: `platform_editor_media_provider_from_plugin_config`
+				// Remove `mediaProvider`
 				providers={['mediaProvider', 'contextIdentifierProvider']}
 				providerFactory={providerFactory}
 				renderNode={({ mediaProvider, contextIdentifierProvider }) => {
-					const renderFn = ({ editorDisabledPlugin, editorViewModePlugin }: RenderFn) => {
+					const renderFn = ({
+						editorDisabledPlugin,
+						editorViewModePlugin,
+						mediaProvider: mediaProviderFromState,
+					}: RenderFn) => {
+						if (fg('platform_editor_media_provider_from_plugin_config')) {
+							const newMediaProvider = mediaProviderFromState
+								? Promise.resolve(mediaProviderFromState)
+								: undefined;
+
+							if (!newMediaProvider) {
+								return null;
+							}
+
+							return (
+								<IntlMediaGroup
+									node={this.node}
+									getPos={getPos}
+									view={this.view}
+									forwardRef={forwardRef}
+									disabled={(editorDisabledPlugin || {}).editorDisabled}
+									allowLazyLoading={mediaOptions.allowLazyLoading}
+									mediaProvider={newMediaProvider}
+									contextIdentifierProvider={contextIdentifierProvider}
+									isCopyPasteEnabled={mediaOptions.isCopyPasteEnabled}
+									anchorPos={this.view.state.selection.$anchor.pos}
+									headPos={this.view.state.selection.$head.pos}
+									mediaOptions={mediaOptions}
+									editorViewMode={editorViewModePlugin?.mode === 'view'}
+								/>
+							);
+						}
+
 						if (!mediaProvider) {
 							return null;
 						}

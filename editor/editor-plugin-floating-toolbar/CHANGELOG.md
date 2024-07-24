@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.8.0
+
+### Minor Changes
+
+- [#123058](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123058)
+  [`2f8d14c320506`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f8d14c320506) -
+  ED-24314 Adds new analytics event that fires editors inline comment selection dialog comment
+  button appears
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.11
 
 ### Patch Changes

@@ -11,6 +11,7 @@ const myComment = {
 			attrs: {
 				isNumberColumnEnabled: false,
 				layout: 'wide',
+				width: 500,
 			},
 			content: [
 				{

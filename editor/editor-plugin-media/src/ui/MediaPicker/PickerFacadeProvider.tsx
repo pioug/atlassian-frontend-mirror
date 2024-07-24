@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { flushSync } from 'react-dom';
 
@@ -38,8 +38,81 @@ const dummyMediaPickerObject: CustomMediaPicker = {
 	setUploadParams: () => {},
 };
 
-//eslint-disable-next-line @repo/internal/react/no-class-components
-export default class PickerFacadeProvider extends React.Component<Props, State> {
+function PickerFacadeProviderNew({ mediaState, analyticsName, children }: Props) {
+	const [state, setState] = useState<State>({
+		pickerFacadeInstance: undefined,
+		config: undefined,
+		mediaClientConfig: undefined,
+	});
+
+	const mediaProvider = useMemo(() => mediaState?.mediaProvider, [mediaState?.mediaProvider]);
+
+	const handleMediaProvider = useCallback(
+		async (_name: string, provider: Promise<MediaProvider> | undefined) => {
+			const mediaProvider = await provider;
+			if (!mediaProvider || !mediaProvider.uploadParams) {
+				return;
+			}
+			const resolvedMediaClientConfig =
+				(await mediaProvider.uploadMediaClientConfig) ||
+				(await mediaProvider.viewMediaClientConfig);
+			if (!resolvedMediaClientConfig) {
+				return;
+			}
+			const pickerFacadeConfig = {
+				mediaClientConfig: resolvedMediaClientConfig,
+				errorReporter: mediaState.options.errorReporter || new ErrorReporter(),
+				featureFlags: mediaState.mediaOptions && mediaState.mediaOptions.featureFlags,
+			};
+
+			const pickerFacadeInstance = await new PickerFacade(
+				'customMediaPicker',
+				pickerFacadeConfig,
+				dummyMediaPickerObject,
+				analyticsName,
+			).init();
+			pickerFacadeInstance.onNewMedia(mediaState.insertFile);
+			pickerFacadeInstance.setUploadParams(mediaProvider.uploadParams);
+			const config = {
+				uploadParams: mediaProvider.uploadParams,
+			};
+			flushSync(() => {
+				setState({
+					pickerFacadeInstance,
+					config,
+					mediaClientConfig: resolvedMediaClientConfig,
+				});
+			});
+		},
+		[
+			analyticsName,
+			mediaState.insertFile,
+			mediaState.mediaOptions,
+			mediaState.options.errorReporter,
+		],
+	);
+
+	useEffect(() => {
+		if (mediaProvider) {
+			handleMediaProvider('mediaProvider', Promise.resolve(mediaProvider));
+		}
+	}, [mediaProvider, handleMediaProvider]);
+
+	const { mediaClientConfig, config, pickerFacadeInstance } = state;
+
+	if (!mediaClientConfig || !config || !pickerFacadeInstance) {
+		return null;
+	}
+
+	return children({
+		mediaClientConfig,
+		config,
+		pickerFacadeInstance,
+	});
+}
+
+// eslint-disable-next-line @repo/internal/react/no-class-components
+class PickerFacadeProviderOld extends React.Component<Props, State> {
 	state: State = {};
 
 	private handleMediaProvider = async (_name: string, provider?: Promise<MediaProvider>) => {
@@ -131,4 +204,12 @@ export default class PickerFacadeProvider extends React.Component<Props, State> 
 			pickerFacadeInstance,
 		});
 	}
+}
+
+export default function PickerFacadeProvider(props: Props) {
+	return fg('platform_editor_media_provider_from_plugin_config') ? (
+		<PickerFacadeProviderNew {...props} />
+	) : (
+		<PickerFacadeProviderOld {...props} />
+	);
 }

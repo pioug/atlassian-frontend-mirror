@@ -363,7 +363,7 @@ const AvatarGroup = ({
 					{
 						...avatarData,
 						size,
-						borderColor,
+						borderColor: borderColor || avatarData.borderColor,
 						testId: testId && `${testId}--avatar-${idx}`,
 						onClick: callback
 							? (event, analyticsEvent) => {

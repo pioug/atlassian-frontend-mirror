@@ -38,6 +38,7 @@ import {
 	resizeColumnAndTable,
 	updateControls,
 } from './utils';
+import { scaleResizeState } from './utils/resize-column';
 
 export const handleMouseDown = (
 	view: EditorView,
@@ -53,7 +54,7 @@ export const handleMouseDown = (
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;
 	const domAtPos = view.domAtPos.bind(view);
-	const { lineLength } = getEditorContainerWidth();
+	const { lineLength, width: editorWidth } = getEditorContainerWidth();
 
 	if (
 		editorDisabled ||
@@ -102,7 +103,7 @@ export const handleMouseDown = (
 		shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 	}
 
-	const resizeState = getResizeState({
+	let resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
 		maxSize,
 		table: originalTable,
@@ -134,6 +135,17 @@ export const handleMouseDown = (
 	// When we start resizing a column we need to ensure the underlying tooltip is removed from the decoration to avoid
 	// unnecessary tooltips being displayed during drag.
 	updateResizeHandleDecorations(undefined, undefined, false)(state, dispatch);
+
+	// for new column resizing, take the current scaled version of table widths and use those as the basis for resizing
+	// implication: the scaled version of the table becomes the source of truth
+	if (isNewColumnResizingEnabled && shouldScale) {
+		resizeState = scaleResizeState({
+			resizeState,
+			tableRef: dom,
+			tableNode: originalTable,
+			editorWidth,
+		});
+	}
 
 	function finish(event: MouseEvent) {
 		window.removeEventListener('mouseup', finish);
@@ -201,20 +213,19 @@ export const handleMouseDown = (
 				const shouldUseIncreasedScalingPercent =
 					isTableScalingWithFixedColumnWidthsOptionEnabled &&
 					fg('platform.editor.table.use-increased-scaling-percent');
+
 				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
-					const newResizeState = resizeColumnAndTable(
+					const newResizeState = resizeColumnAndTable({
 						resizeState,
 						colIndex,
-						resizedDelta,
-						dom,
-						originalTable,
-						resizingSelectedColumns ? selectedColumns : undefined,
-						shouldScale, // isTableScalingEnabled
-						undefined, // originalTableWidth
-						shouldUseIncreasedScalingPercent,
+						amount: resizedDelta,
+						tableRef: dom,
+						tableNode: originalTable,
+						width: editorWidth,
 						lineLength,
 						isTableAlignmentEnabled,
-					);
+					});
+
 					tr = updateColumnWidths(newResizeState, table, start)(tr);
 
 					// If the table is aligned to the start and the table width is greater than the line length, we should change the alignment to center
@@ -222,12 +233,13 @@ export const handleMouseDown = (
 						isTableAlignmentEnabled,
 						originalTable,
 						lineLength,
-						newResizeState.tableWidth,
+						newResizeState.maxSize,
 					);
+
 					if (shouldChangeAlignment) {
 						tr = tr.setNodeMarkup(start - 1, state.schema.nodes.table, {
 							...table.attrs,
-							width: newResizeState.tableWidth,
+							width: newResizeState.maxSize,
 							layout: ALIGN_CENTER,
 						});
 
@@ -236,7 +248,7 @@ export const handleMouseDown = (
 							actionSubject: ACTION_SUBJECT.TABLE,
 							actionSubjectId: null,
 							attributes: {
-								tableWidth: newResizeState.tableWidth,
+								tableWidth: newResizeState.maxSize,
 								newAlignment: ALIGN_CENTER,
 								previousAlignment: ALIGN_START,
 								totalRowCount: totalRowCount,
@@ -247,7 +259,7 @@ export const handleMouseDown = (
 							eventType: EVENT_TYPE.TRACK,
 						})(tr);
 					} else {
-						tr.setNodeAttribute(start - 1, 'width', newResizeState.tableWidth);
+						tr.setNodeAttribute(start - 1, 'width', newResizeState.maxSize);
 					}
 				} else {
 					const newResizeState = resizeColumn(
@@ -335,29 +347,29 @@ export const handleMouseDown = (
 		const shouldUseIncreasedScalingPercent =
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
 			fg('platform.editor.table.use-increased-scaling-percent');
+
 		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 		}
 
+		const resizedDelta = clientX - dragging.startX;
+
 		if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
-			resizeColumnAndTable(
+			resizeColumnAndTable({
 				resizeState,
 				colIndex,
-				clientX - dragging.startX,
-				dom,
-				table,
-				undefined,
-				shouldScale,
-				undefined,
-				shouldUseIncreasedScalingPercent,
+				amount: resizedDelta,
+				tableRef: dom,
+				tableNode: originalTable,
+				width: editorWidth,
 				lineLength,
 				isTableAlignmentEnabled,
-			);
+			});
 		} else {
 			resizeColumn(
 				resizeState,
 				colIndex,
-				clientX - dragging.startX,
+				resizedDelta,
 				dom,
 				table,
 				undefined,

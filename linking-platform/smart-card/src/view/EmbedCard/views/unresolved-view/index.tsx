@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import LinkGlyph from '@atlaskit/icon/glyph/link';
+import LinkGlyph from '@atlaskit/icon/core/migration/link';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -69,7 +69,14 @@ const UnresolvedView = ({
 		return (
 			<ImageIcon
 				src={typeof iconUrlOrElement === 'string' ? iconUrlOrElement : undefined}
-				default={<LinkGlyph label="icon" size="small" testId="embed-card-fallback-icon" />}
+				default={
+					<LinkGlyph
+						label="icon"
+						LEGACY_size="small"
+						testId="embed-card-fallback-icon"
+						color="currentColor"
+					/>
+				}
 			/>
 		);
 	}, [iconUrlOrElement]);

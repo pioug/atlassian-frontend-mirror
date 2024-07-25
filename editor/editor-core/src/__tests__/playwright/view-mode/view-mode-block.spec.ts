@@ -21,6 +21,10 @@ test.describe('block cards in view mode', () => {
 	});
 
 	test.describe('when view mode is enabled and FF is on', () => {
+		test.use({
+			platformFeatureFlags: { 'platform.linking-platform.smart-links-in-live-pages': true },
+		});
+
 		test('and FF is on, clicking on description does not let you change text', async ({
 			editor,
 		}) => {

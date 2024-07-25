@@ -20,7 +20,7 @@ import {
 } from '../utils/flexible-ui';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { type ActionItem } from '../../src';
-import PremiumIcon from '@atlaskit/icon/glyph/premium';
+import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 const meta = { supportedFeature: ['AISummary'] };
@@ -64,7 +64,7 @@ export default () => (
 				previewAction,
 				makeCustomActionItem(),
 				makeCustomActionItem({
-					icon: <PremiumIcon label="magic" />,
+					icon: <PremiumIcon label="magic" color="currentColor" />,
 					testId: 'third-action-item',
 					content: 'Magic!',
 				}),

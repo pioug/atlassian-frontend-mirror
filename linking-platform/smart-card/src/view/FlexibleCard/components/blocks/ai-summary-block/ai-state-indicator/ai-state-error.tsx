@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import { getAISummaryErrorMessage } from '../../../../../../utils/ai-summary';
@@ -15,6 +15,10 @@ const contentStyles = xcss({
 	fontWeight: '400',
 	lineHeight: '14px',
 });
+
+const alignTextWithIcon = {
+	marginTop: '1px',
+};
 
 const FormattedErrorMessage = ({ message, url }: { message: MessageDescriptor; url?: string }) => (
 	<FormattedMessage
@@ -36,14 +40,19 @@ const AIStateError = ({ appearance, testId, error }: Partial<AIStateIndicatorPro
 				<AIIndicatorContainer
 					icon={
 						<ErrorIcon
-							primaryColor={token('color.icon.danger', '#C9372C')}
+							color={token('color.icon.danger', '#C9372C')}
 							label="AI"
-							size="small"
+							LEGACY_size="small"
 							testId={`${testId}-error-icon`}
 						/>
 					}
 					content={
-						<Box testId={`${testId}-error-message`} xcss={contentStyles}>
+						<Box
+							testId={`${testId}-error-message`}
+							xcss={contentStyles}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							style={alignTextWithIcon}
+						>
 							<FormattedErrorMessage message={message} url={url} />
 						</Box>
 					}

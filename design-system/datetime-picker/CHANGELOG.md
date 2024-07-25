@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 13.7.4
+
+### Patch Changes
+
+- [`974d1508085ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/974d1508085ce) -
+  Accessibility changes. Add ability to change focus to the current date using ArrowUp and ArrowDown
+  keys while the focus is on the `input`.
+- Updated dependencies
+
 ## 13.7.3
 
 ### Patch Changes

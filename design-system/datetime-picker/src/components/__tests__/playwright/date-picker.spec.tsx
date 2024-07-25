@@ -125,3 +125,31 @@ test('When DatePicker is focused & another element is focused inside of DatePick
 	await page.evaluate(`document.querySelector('${previousMonthButton}').focus()`);
 	await expect(page.locator(calendar)).toBeVisible();
 });
+
+test('When DatePicker is opened should set focus to current date on ArrowDown keypress', async ({
+	page,
+	skipAxeCheck,
+}) => {
+	await page.visitExample('design-system', 'datetime-picker', 'date-picker-states');
+	await page.locator(datePicker).first().click();
+	await page.keyboard.press('ArrowDown');
+	await expect(page.locator(calendar)).toBeVisible();
+	await expect(page.locator(focusedDate).first()).toBeFocused();
+	// failing for placeholder and background color in Select
+	// https://product-fabric.atlassian.net/browse/DSP-19111
+	skipAxeCheck();
+});
+
+test('When DatePicker is opened should set focus to current date on ArrowUp keypress', async ({
+	page,
+	skipAxeCheck,
+}) => {
+	await page.visitExample('design-system', 'datetime-picker', 'date-picker-states');
+	await page.locator(datePicker).first().click();
+	await page.keyboard.press('ArrowUp');
+	await expect(page.locator(calendar)).toBeVisible();
+	await expect(page.locator(focusedDate).first()).toBeFocused();
+	// failing for placeholder and background color in Select
+	// https://product-fabric.atlassian.net/browse/DSP-19111
+	skipAxeCheck();
+});

@@ -50,6 +50,7 @@ export const ResolvingView = ({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className={blockCardResolvingViewClassName}
 	>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19718 */}
 		<DocumentFilledIcon
 			size="small"
 			primaryColor={token('color.icon.subtle', N50)}

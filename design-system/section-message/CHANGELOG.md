@@ -1,5 +1,14 @@
 # @atlaskit/section-message
 
+## 6.5.10
+
+### Patch Changes
+
+- [#123461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123461)
+  [`4b9d857fa00b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b9d857fa00b4) -
+  Internal change to use new Heading component. Very minor letter spacing changes.
+- Updated dependencies
+
 ## 6.5.9
 
 ### Patch Changes

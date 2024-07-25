@@ -27,6 +27,7 @@ const FlexibleErroredView = ({
 
 	return (
 		<UnresolvedView {...props} actions={actions} testId={testId}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513 */}
 			<WarningIcon
 				label="errored-warning-icon"
 				size="small"

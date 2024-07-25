@@ -4,8 +4,9 @@ import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import PreviewIcon from '@atlaskit/icon/glyph/open';
+import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
+import PreviewIcon from '@atlaskit/icon/core/migration/arrow-up-right--open';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 
@@ -58,7 +59,7 @@ const ExampleToolbarItem = styled.div({
 });
 
 const idToIcon: Record<string, JSX.Element> = {
-	'download-content': <DownloadIcon label="download" />,
+	'download-content': <DownloadIcon label="download" LEGACY_fallbackIcon={DownloadIconLegacy} />,
 	'preview-content': <PreviewIcon label="preview" />,
 };
 

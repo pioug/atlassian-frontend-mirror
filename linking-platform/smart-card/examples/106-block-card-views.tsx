@@ -9,8 +9,8 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Page from '@atlaskit/page';
-import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
-import CommentIcon from '@atlaskit/icon/glyph/comment';
+import AttachmentIcon from '@atlaskit/icon/core/migration/attachment';
+import CommentIcon from '@atlaskit/icon/core/migration/comment';
 import { token } from '@atlaskit/tokens';
 
 import { Frame } from '../src/view/BlockCard/components/Frame';
@@ -55,12 +55,12 @@ const subHeaderCSS = css({
 
 const resolvedViewDetails = [
 	{
-		icon: <AttachmentIcon size="small" label="attachment" />,
+		icon: <AttachmentIcon LEGACY_size="small" label="attachment" />,
 		text: '2',
 		tooltip: '2 attachments',
 	},
 	{
-		icon: <CommentIcon size="small" label="comment" />,
+		icon: <CommentIcon LEGACY_size="small" label="comment" />,
 		text: '5',
 		tooltip: '5 attachments',
 	},

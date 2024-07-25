@@ -4,6 +4,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
@@ -14,12 +15,13 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { LoomIcon } from '@atlaskit/logo';
 
-import { recordVideo, recordVideoFailed } from './commands';
+import { insertLoom, recordVideo, recordVideoFailed } from './commands';
 import type { LoomPluginState } from './pm-plugin';
 import { createPlugin, loomPluginKey } from './pm-plugin';
-import type { LoomPluginOptions } from './types';
+import type { LoomPluginOptions, PositionType, VideoMeta } from './types';
 import LoomToolbarButton from './ui/ToolbarButton';
 
 export type LoomPlugin = NextEditorPlugin<
@@ -42,12 +44,25 @@ export type LoomPlugin = NextEditorPlugin<
 				inputMethod: INPUT_METHOD;
 				editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 			}) => EditorCommand;
+			/**
+			 * Insert loom into the document.
+			 *
+			 * @param video Video metadata (`sharedUrl` and `title`)
+			 * @param positionType {'start' | 'end' | 'current'} Where you want to insert the loom
+			 * @returns {boolean} If the loom was successfully inserted
+			 */
+			insertLoom: (video: VideoMeta, positionType: PositionType) => boolean;
 		};
 	}
 >;
 
 export const loomPlugin: LoomPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;
+
+	// Workaround since we want to insert a loom via the `hyperlink` plugin for now.
+	// The hyperlink plugin (and the card plugin) are deeply tied into using the Prosemirror Command
+	// Ideally one day we refactor those and we can remove this.
+	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({ disabled, appearance }) => {
 		if (!config.shouldShowToolbarButton) {
 			return null;
@@ -60,12 +75,31 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 
 		actions: {
 			recordVideo,
+			insertLoom: (video, positionType) =>
+				insertLoom(editorViewRef.current, api, video, positionType),
 		},
 
 		pmPlugins: () => [
 			{
 				name: 'loom',
 				plugin: () => createPlugin({ config, api }),
+			},
+			{
+				name: 'loomViewRefWorkaround',
+				plugin: () => {
+					return new SafePlugin({
+						view: (editorView: EditorView) => {
+							// Do not cleanup the editorViewRef on destroy
+							// because some functions may point to a stale
+							// reference and this means we will return null.
+							// EditorView is assumed to be stable so we do not need to
+							// cleanup.
+							// See: #hot-106316
+							editorViewRef.current = editorView;
+							return {};
+						},
+					});
+				},
 			},
 		],
 

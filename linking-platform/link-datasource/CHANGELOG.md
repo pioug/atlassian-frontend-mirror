@@ -1,5 +1,37 @@
 # @atlaskit/link-datasource
 
+## 2.7.0
+
+### Minor Changes
+
+- [#117215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117215)
+  [`3f2423168897d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f2423168897d) -
+  [ux] Updated components to use new iconography behind a feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.14
+
+### Patch Changes
+
+- [#123587](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123587)
+  [`efab517d460b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efab517d460b3) -
+  Removes feature flag platform.editor-update-tag-link-and-color_x6hcf
+
 ## 2.5.13
 
 ### Patch Changes

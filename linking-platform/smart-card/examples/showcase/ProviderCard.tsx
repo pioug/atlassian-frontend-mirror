@@ -8,10 +8,12 @@ import { css, jsx } from '@emotion/react';
 import { useCallback } from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import Lozenge, { type ThemeAppearance } from '@atlaskit/lozenge';
-import ExpandIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import CollapseIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
+import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
+import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
+import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
+import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import { N50A, N40A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -145,16 +147,27 @@ export const ProviderCard = ({
 						</span>
 					) : null}
 				</span>
-				<Button
+				<IconButton
 					spacing="compact"
-					iconBefore={
+					onClick={handleClick}
+					icon={(props) =>
 						expanded ? (
-							<CollapseIcon size="small" label="collapse" />
+							<CollapseIcon
+								{...props}
+								LEGACY_size="small"
+								label="collapse"
+								LEGACY_fallbackIcon={CollapseIconLegacy}
+							/>
 						) : (
-							<ExpandIcon size="small" label="expand" />
+							<ExpandIcon
+								{...props}
+								LEGACY_size="small"
+								label="expand"
+								LEGACY_fallbackIcon={ExpandIconLegacy}
+							/>
 						)
 					}
-					onClick={handleClick}
+					label={''}
 				/>
 			</div>
 			{expanded ? <ProviderCardExampleList examples={examples} config={config} /> : null}

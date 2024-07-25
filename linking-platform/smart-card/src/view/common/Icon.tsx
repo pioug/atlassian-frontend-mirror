@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import ImageLoader from 'react-render-image';
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { gs } from './utils';
 
 export interface IconProps {
@@ -65,7 +65,7 @@ export const Icon = ({
 	isFlexibleUi = false,
 }: IconProps) => {
 	const placeholder = defaultIcon || (
-		<LinkIcon label="link" size="small" testId={`${testId}-default`} />
+		<LinkIcon label="link" LEGACY_size="small" testId={`${testId}-default`} color="currentColor" />
 	);
 
 	const image = url && (

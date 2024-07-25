@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import TrashIcon from '@atlaskit/icon/glyph/trash';
+import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
 
 import { SmartLinkSize } from '../../src';
 import { DeleteAction } from '../../src/view/FlexibleCard/components/actions';
@@ -96,13 +96,13 @@ export default () => (
 										<DeleteAction
 											size={size}
 											onClick={onClick}
-											icon={<TrashIcon label="Trash" />}
+											icon={<TrashIcon label="Trash" spacing="spacious" />}
 											testId="vr-test-delete-action"
 										/>
 										<DeleteAction
 											size={size}
 											onClick={onClick}
-											icon={<TrashIcon label="Trash" />}
+											icon={<TrashIcon label="Trash" spacing="spacious" />}
 											appearance="default"
 											testId="vr-test-delete-action"
 										/>

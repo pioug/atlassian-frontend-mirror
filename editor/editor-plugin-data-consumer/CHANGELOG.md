@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-data-consumer
 
+## 1.4.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.4
 
 ### Patch Changes

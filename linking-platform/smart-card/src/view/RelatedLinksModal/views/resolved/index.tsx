@@ -9,6 +9,7 @@ import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';
 import { type RelatedLinksProps } from './types';
 import { Stack } from '@atlaskit/primitives';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 
 const RelatedLinksResolvedView = ({
 	incomingLinks = [],
@@ -16,16 +17,20 @@ const RelatedLinksResolvedView = ({
 }: RelatedLinksProps) => {
 	return (
 		<Stack space="space.150">
-			<RelatedLinksList
-				urls={incomingLinks}
-				title={messages.related_links_found_in}
-				testId="incoming-related-links-list"
-			/>
-			<RelatedLinksList
-				urls={outgoingLinks}
-				title={messages.related_links_includes_links_to}
-				testId="outgoing-related-links-list"
-			/>
+			<AnalyticsContext data={{ component: 'relatedLinksIncoming' }}>
+				<RelatedLinksList
+					urls={incomingLinks}
+					title={messages.related_links_found_in}
+					testId="incoming-related-links-list"
+				/>
+			</AnalyticsContext>
+			<AnalyticsContext data={{ component: 'relatedLinksOutgoing' }}>
+				<RelatedLinksList
+					urls={outgoingLinks}
+					title={messages.related_links_includes_links_to}
+					testId="outgoing-related-links-list"
+				/>
+			</AnalyticsContext>
 		</Stack>
 	);
 };

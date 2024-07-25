@@ -48,8 +48,8 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/formatting": "*",
-		"@atlaskit/button": "^19.0.0",
-		"@atlaskit/calendar": "^14.3.0",
+		"@atlaskit/button": "^19.1.0",
+		"@atlaskit/calendar": "^14.4.0",
 		"@atlaskit/checkbox": "^13.5.0",
 		"@atlaskit/radio": "^6.4.0",
 		"@atlaskit/textfield": "^6.4.0",

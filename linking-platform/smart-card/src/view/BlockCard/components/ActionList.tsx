@@ -8,7 +8,7 @@ import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 
 import { type ActionProps, Action } from './Action';
 import { gs, mq } from '../../common/utils';
@@ -53,7 +53,7 @@ export const ActionList = ({ items }: ActionListProps) => {
 						trigger={({ triggerRef, ...props }) => (
 							<Button
 								{...props}
-								iconBefore={<MoreIcon label="more" />}
+								iconBefore={<MoreIcon label="more" color="currentColor" spacing="spacious" />}
 								ref={triggerRef}
 								css={buttonStyles}
 								testId="dropdown-trigger"

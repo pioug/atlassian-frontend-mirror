@@ -18,6 +18,10 @@ describe('validate valid schema', () => {
 		// the following also have empty marks, which fails
 		'nestedExpand-with-codeBlock.json',
 		'panel-with-codeBlock.json',
+		'expand-with-nested-expand.json',
+		'blockquote-with-codeBlock.json',
+		'blockquote-with-mediaGroup.json',
+		'blockquote-with-mediaSingle.json',
 	];
 	const valid = fullValidJsonSchema.concat(stage0ValidJsonSchema);
 

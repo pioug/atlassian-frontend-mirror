@@ -11,7 +11,8 @@ import uuid from 'uuid';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import LoadingButton from '@atlaskit/button/loading-button';
-import EditorAddIcon from '@atlaskit/icon/glyph/editor/add';
+import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
+import EditorAddIcon from '@atlaskit/icon/utility/add';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -113,7 +114,14 @@ export const FormFooter = memo(
 				testId={testIds.actionButton}
 				onClick={pluginAction.callback}
 				appearance="default"
-				iconBefore={<EditorAddIcon label="" size="medium" />}
+				iconBefore={
+					<EditorAddIcon
+						label=""
+						LEGACY_size="medium"
+						LEGACY_fallbackIcon={EditorAddIconLegacy}
+						color="currentColor"
+					/>
+				}
 				isDisabled={isSubmitting}
 				aria-labelledby={isSubmitting ? submitMessageId : undefined}
 			>

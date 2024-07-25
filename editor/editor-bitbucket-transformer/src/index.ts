@@ -2,7 +2,11 @@ import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model'
 import { DOMParser } from '@atlaskit/editor-prosemirror/model';
 import { MarkdownSerializer, marks, nodes } from './serializer';
 import { transformHtml } from './util';
-import type { Transformer } from '@atlaskit/editor-common/types';
+
+interface Transformer<T> {
+	encode(node: PMNode): T;
+	parse(content: T): PMNode;
+}
 
 export interface TransformerOptions {
 	disableBitbucketLinkStripping?: boolean;

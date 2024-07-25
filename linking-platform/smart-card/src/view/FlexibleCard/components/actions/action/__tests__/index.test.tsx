@@ -6,7 +6,7 @@ import '@testing-library/jest-dom';
 import Action from '../index';
 import userEvent from '@testing-library/user-event';
 import { SmartLinkSize } from '../../../../../../constants';
-import TestIcon from '@atlaskit/icon/glyph/activity';
+import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
 import type { ActionProps } from '../types';
 
 describe('Action', () => {

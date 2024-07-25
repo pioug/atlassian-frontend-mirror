@@ -17,6 +17,7 @@ export const extractSubscriberCount = (jsonLd: LinkSubscriberType): LinkDetail |
 		return {
 			text: subscriberCount.toString(),
 			icon: (
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19499
 				<PeopleIcon
 					size="small"
 					label="subscribers"

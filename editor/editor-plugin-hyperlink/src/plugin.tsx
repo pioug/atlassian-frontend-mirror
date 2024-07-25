@@ -184,8 +184,15 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 				{
 					name: 'hyperlink',
 					plugin: ({ dispatch, getIntl }) =>
-						// @ts-ignore Temporary solution to check for Live Page editor.
-						plugin(dispatch, getIntl(), options?.editorAppearance, api, options.__livePage),
+						plugin(
+							dispatch,
+							getIntl(),
+							options?.editorAppearance,
+							api,
+							options?.onClickCallback,
+							// @ts-ignore Temporary solution to check for Live Page editor.
+							options.__livePage,
+						),
 				},
 				{
 					name: 'fakeCursorToolbarPlugin',

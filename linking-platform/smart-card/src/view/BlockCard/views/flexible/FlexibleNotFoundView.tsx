@@ -47,6 +47,7 @@ const FlexibleNotFoundView = ({
 
 	return (
 		<UnresolvedView {...props} testId={testId} title={title}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
 			<LockIcon
 				label="not-found-lock-icon"
 				size="small"

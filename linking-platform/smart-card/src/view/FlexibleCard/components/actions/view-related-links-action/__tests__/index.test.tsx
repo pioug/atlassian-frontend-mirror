@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { render } from '@testing-library/react';
+import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
 import userEvent from '@testing-library/user-event';
 
@@ -79,34 +79,42 @@ describe('ViewRelatedLinksAction', () => {
 		expect(element).toBe(actionWithAriaLabel);
 	});
 
-	it('invokes the onClick callback when the action is clicked', async () => {
-		const onClick = jest.fn();
-		const { getByTestId } = setup({ onClick });
-
-		getByTestId(testId).click();
-
-		expect(onClick).toHaveBeenCalledTimes(1);
-	});
-
 	it('opens the RelatedLinksModal when the action is clicked', async () => {
+		//returning a valid json response
+		fetchMock.mockResponse(() => Promise.resolve({ body: '{}' }));
 		const user = userEvent.setup();
 		const onClick = jest.fn();
 
-		const { getByTestId, findByRole, findByText } = setup({ onClick });
+		const { getByTestId, findByRole, findByText, onEvent } = setup({ onClick });
 
 		const actionButton = getByTestId(testId);
-		await user.click(actionButton);
-		const modal = await findByRole('dialog');
-		const modalTitle = await findByText('Recent Links');
-		const closeButton = await findByRole('button', { name: 'Close' });
+		user.click(actionButton);
 
+		const modal = await findByRole('dialog');
 		expect(modal).toBeInTheDocument();
+
+		const modalTitle = await findByText('Recent Links');
 		expect(modalTitle).toBeInTheDocument();
+
+		// will render unavailable view
+		const unavailableView = await findByText('No recent links');
+		expect(unavailableView).toBeInTheDocument();
+
+		const closeButton = await findByRole('button', { name: 'Close' });
 		expect(closeButton).toBeInTheDocument();
+
+		expect(onEvent).toBeFiredWithAnalyticEventOnce({
+			payload: {
+				action: 'clicked',
+				actionSubject: 'button',
+				eventType: 'ui',
+				actionSubjectId: 'relatedLinks',
+			},
+		});
 
 		expect(onClick).toHaveBeenCalledTimes(1);
 
-		await user.click(closeButton);
-		expect(modal).not.toBeInTheDocument();
+		user.click(closeButton);
+		await waitForElementToBeRemoved(modal);
 	});
 });

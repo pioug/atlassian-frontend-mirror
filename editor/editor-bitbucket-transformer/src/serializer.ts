@@ -8,7 +8,6 @@ import {
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { escapeMarkdown, stringRepeat } from './util';
 import tableNodes from './tableSerializer';
-import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
 
 /**
  * Look for series of backticks in a string, find length of the longest one, then
@@ -221,7 +220,8 @@ const editorNodes = {
 		}
 	},
 	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
-		const order = getOrderFromOrderedListNode(parent);
+		const num = Number(parent?.attrs?.order);
+		const order = Number.isNaN(num) || num < 0 ? 1 : Math.floor(num);
 		const delimiter = parent.type.name === 'bulletList' ? '* ' : `${order + index}. `;
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);

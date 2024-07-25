@@ -10,6 +10,7 @@ export default () => (
 			actions={[
 				{
 					name: ActionName.CustomAction,
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 					icon: <LikeIcon label="Like" />,
 					content: 'Like',
 					onClick: () => console.log('Like clicked!'),

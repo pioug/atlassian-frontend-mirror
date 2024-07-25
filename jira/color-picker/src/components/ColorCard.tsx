@@ -10,7 +10,7 @@ import { KEY_ENTER, KEY_SPACE } from '../constants';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeRefs } from 'use-callback-ref';
 
 export interface Props {
@@ -89,7 +89,7 @@ const ColorCard = (props: Props) => {
 
 	return (
 		<Tooltip content={label}>
-			{getBooleanFF('platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s') ? (
+			{fg('platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s') ? (
 				(tooltipProps) => {
 					delete tooltipProps['aria-describedby'];
 					return (

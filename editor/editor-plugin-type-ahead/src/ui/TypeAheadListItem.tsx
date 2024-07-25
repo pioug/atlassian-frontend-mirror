@@ -40,6 +40,26 @@ export const itemIcon = css({
 	},
 });
 
+const itemIconSize = css({
+	width: token('space.400', '32px'),
+	height: token('space.400', '32px'),
+
+	// Icon svgs may contain nested svg, which are likely smaller than 32px
+	// Hence only change the parent svg
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'svg:first-of-type': {
+		width: token('space.400', '32px'),
+		height: token('space.400', '32px'),
+	},
+
+	// AI icons may contain div as container of the icon
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	div: {
+		width: token('space.400', '32px'),
+		height: token('space.400', '32px'),
+	},
+});
+
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const itemBody = css`
 	display: flex;
@@ -116,6 +136,7 @@ type TypeAheadListItemProps = {
 	selectedIndex: number;
 	ariaLabel?: string;
 	onItemClick: (mode: SelectItemMode, index: number) => void;
+	moreElementsInQuickInsertViewEnabled?: boolean;
 };
 
 type CustomItemComponentWrapperProps = {
@@ -180,6 +201,7 @@ export const TypeAheadListItem = React.memo(
 		onItemClick,
 		itemIndex,
 		ariaLabel,
+		moreElementsInQuickInsertViewEnabled,
 	}: TypeAheadListItemProps) => {
 		/**
 		 * To select and highlight the first Item when no item is selected
@@ -196,8 +218,12 @@ export const TypeAheadListItem = React.memo(
 
 		const { icon, title, render: customRenderItem } = item;
 		const elementIcon = useMemo(() => {
-			return <div css={itemIcon}>{icon ? icon() : <FallbackIcon label={title} />}</div>;
-		}, [icon, title]);
+			return (
+				<div css={[itemIcon, moreElementsInQuickInsertViewEnabled && itemIconSize]}>
+					{icon ? icon() : <FallbackIcon label={title} />}
+				</div>
+			);
+		}, [icon, title, moreElementsInQuickInsertViewEnabled]);
 
 		const insertSelectedItem = useCallback(() => {
 			onItemClick(SelectItemMode.SELECTED, itemIndex);

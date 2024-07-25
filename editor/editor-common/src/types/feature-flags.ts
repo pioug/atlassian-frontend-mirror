@@ -353,6 +353,16 @@ export type FeatureFlags = {
 
 	 */
 	commentsOnMediaAutoscrollInEditor?: boolean;
+
+	/**
+	 * @description
+	 * Enables more elements in view in quick insert typeahead
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-24231
+	 * @default false
+
+	 */
+	moreElementsInQuickInsertView?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

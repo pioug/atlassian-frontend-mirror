@@ -1,6 +1,6 @@
 import React from 'react';
 import { N600 } from '@atlaskit/theme/colors';
-import AttachmentIcon from '@atlaskit/icon/glyph/attachment';
+import AttachmentIcon from '@atlaskit/icon/core/migration/attachment';
 import { token } from '@atlaskit/tokens';
 
 import { type JsonLd } from 'json-ld-types';
@@ -19,9 +19,9 @@ export const extractAttachmentCount = (jsonLd: LinkAttachmentType): LinkDetail |
 			text: attachmentCount.toString(),
 			icon: (
 				<AttachmentIcon
-					size="small"
+					LEGACY_size="small"
 					label="attachments"
-					primaryColor={token('color.icon.subtle', N600)}
+					color={token('color.icon.subtle', N600)}
 				/>
 			),
 		};

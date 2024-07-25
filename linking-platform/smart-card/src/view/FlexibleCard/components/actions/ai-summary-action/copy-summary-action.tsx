@@ -31,6 +31,7 @@ export function CopySummaryAction({
 	return (
 		<Action
 			content={<FormattedMessage {...messages.copy_summary_action} />}
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 			icon={<CopyIcon label="Copy Summary" />}
 			onClick={handleCopySummaryClick}
 			testId={`${testId}-copy-summary-action`}

@@ -1,8 +1,6 @@
 import getJest from './getJest';
 
-declare var global: any;
-
-const jest = getJest();
+const jestHelper = getJest();
 
 class MockFileReader {
 	loadEvent = () => {};
@@ -13,19 +11,21 @@ class MockFileReader {
 		this.result = result;
 	}
 
-	addEventListener = jest.fn().mockImplementation((eventName: string, fn: () => void): void => {
-		if (eventName === 'load') {
-			this.loadEvent = fn;
-		} else if (eventName === 'error') {
-			this.errorEvent = fn;
-		}
-	});
+	addEventListener = jestHelper
+		.fn()
+		.mockImplementation((eventName: string, fn: () => void): void => {
+			if (eventName === 'load') {
+				this.loadEvent = fn;
+			} else if (eventName === 'error') {
+				this.errorEvent = fn;
+			}
+		});
 
-	readAsDataURL = jest.fn().mockImplementation((): void => {
+	readAsDataURL = jestHelper.fn().mockImplementation((): void => {
 		this.loadEvent();
 	});
 
-	readAsArrayBuffer = jest.fn().mockImplementation((): void => {
+	readAsArrayBuffer = jestHelper.fn().mockImplementation((): void => {
 		this.loadEvent();
 	});
 }
@@ -33,15 +33,17 @@ class MockFileReader {
 const mockFileReaderError = { message: 'error' };
 
 class MockFileReaderWithError extends MockFileReader {
-	readAsDataURL = jest.fn().mockImplementation((): void => {
+	readAsDataURL = jestHelper.fn().mockImplementation((): void => {
 		this.errorEvent(mockFileReaderError);
 	});
 }
 
-const GlobalFileReader = global.FileReader;
+const GlobalFileReader = globalThis.FileReader;
 let FileReader: any;
-if (global.FileReader && typeof jest !== 'undefined') {
-	FileReader = jest.spyOn(global, 'FileReader').mockImplementation(() => new GlobalFileReader());
+if (globalThis.FileReader && typeof jest !== 'undefined') {
+	FileReader = jestHelper
+		.spyOn(globalThis, 'FileReader')
+		.mockImplementation(() => new GlobalFileReader());
 }
 
 const mockFileReader = (result: string | null | ArrayBuffer) => {

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.27.1
+
+### Patch Changes
+
+- [#123440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123440)
+  [`664b4a312b787`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/664b4a312b787) -
+  Add additional prop support for calendar, inlineedit, select, textarea, textfield
+
 ## 0.27.0
 
 ### Minor Changes

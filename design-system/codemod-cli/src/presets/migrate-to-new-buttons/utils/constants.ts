@@ -2,7 +2,9 @@ export const PRINT_SETTINGS = {
 	quote: 'single' as const,
 };
 
-/** NEW button **/
+/**
+ * NEW button *
+ */
 export const NEW_BUTTON_ENTRY_POINT = '@atlaskit/button/new';
 export const NEW_BUTTON_VARIANTS: {
 	[key: string]: string;
@@ -13,7 +15,9 @@ export const NEW_BUTTON_VARIANTS: {
 	linkIcon: 'LinkIconButton',
 };
 
-/** OLD button **/
+/**
+ * OLD button *
+ */
 export const OLD_BUTTON_ENTRY_POINT = '@atlaskit/button';
 export const OLD_BUTTON_VARIANTS: {
 	[key: string]: string;
@@ -49,7 +53,9 @@ export const UNSAFE_SIZE_PROPS_MAP: Record<string, string> = {
 
 export const unsupportedProps = ['component', 'css', 'style'];
 
-export const linkButtonMissingHrefComment = `"link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.`;
+export const linkButtonMissingHrefComment = `"link" and "subtle-link" appearances are not available in the new Button, appearance should be "subtle" or "default".`;
+
+export const noSpacinglinkButtonMissingHrefComment = `"link" and "subtle-link" appearances are not available in the new Button, appearance should be "subtle" or "default", or provide a href prop then migrate to Link.`;
 
 export const buttonPropsNoLongerSupportedComment = `Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.`;
 
@@ -70,3 +76,7 @@ export const loadingButtonComment = ({
 }) => {
 	return `This should be migrated to a new Button with a \`isLoading\` prop. ${hasLinkAppearance ? `"link" and "subtle-link" appearances are not available for new loading buttons."` : ''}${hasHref ? `The \`href\` attribute it not compatible with new loading buttons, because links should not need loading states.` : ''} Please reconsider the design or change the appearance of the button.`;
 };
+
+export const migrateButtonToSubtleLinkButton = `"link" and "subtle-link" appearances are not available in the new Button. Appearance should be migrated to "subtle" or "default" for Link Button, or use Link with "default" appearance.`;
+
+export const migrateSubtleButtonToSubtleLinkButton = `"link" and "subtle-link" appearances are not available in the new Button. Appearance should be migrated to "subtle" or "default" for Link Button, or use Link with "subtle" appearance.`;

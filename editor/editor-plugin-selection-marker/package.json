@@ -34,10 +34,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.5.0",
+		"@atlaskit/editor-common": "^86.7.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
 		"@atlaskit/editor-plugin-focus": "^1.2.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.4.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.5.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/theme": "^12.11.0",

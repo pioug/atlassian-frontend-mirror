@@ -6,7 +6,14 @@ export default function IconCode() {
 	const { iconThemed } = useIconThemed();
 
 	return (
-		<svg focusable="false" aria-hidden width={40} height={40} fillRule="evenodd">
+		<svg
+			focusable="false"
+			aria-hidden
+			width={40}
+			height={40}
+			fillRule="evenodd"
+			viewBox="0 0 40 40"
+		>
 			<path fill={iconThemed({ light: '#fff', dark: '#161A1D' })} d="M0 0h40v40H0z" />
 			<path fill={iconThemed({ light: '#ebecf0', dark: '#2C333A' })} d="M13 6h26v28H13z" />
 			<path

@@ -1,7 +1,15 @@
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
-import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	type INPUT_METHOD,
+	MODE,
+	PLATFORMS,
+} from '@atlaskit/editor-common/analytics';
+import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
 import { InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
@@ -183,6 +191,7 @@ export const plugin = (
 	intl: IntlShape,
 	editorAppearance?: EditorAppearance,
 	pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
+	onClickCallback?: OnClickCallback,
 	__livePage?: boolean,
 ) =>
 	new SafePlugin({
@@ -401,6 +410,37 @@ export const plugin = (
 								}
 							};
 
+							dom.onclick = (event: any) => {
+								if (isDirectTarget(event, dom)) {
+									const url = mark.attrs.href;
+
+									pluginInjectionApi?.analytics?.actions?.fireAnalyticsEvent?.({
+										action: ACTION.VISITED,
+										actionSubject: ACTION_SUBJECT.LINK,
+										eventType: EVENT_TYPE.TRACK,
+										attributes: {
+											platform: PLATFORMS.WEB,
+											mode: MODE.EDITOR,
+										},
+									});
+
+									if (url) {
+										try {
+											onClickCallback?.({ event, url });
+										} catch {}
+
+										/**
+										 * Links should navigate by default in live pages if:
+										 * - the link is the direct target of the click event
+										 * - default handling wasn't prevented with `event.preventDefault()`
+										 */
+										if (!event.defaultPrevented) {
+											window.location.href = url;
+										}
+									}
+								}
+							};
+
 							return {
 								dom: dom,
 							};
@@ -412,4 +452,8 @@ export const plugin = (
 
 function isLinkDirectTarget(event: MouseEvent) {
 	return event?.target instanceof HTMLElement && event.target.tagName === 'A';
+}
+
+function isDirectTarget(event: Event, element: HTMLElement) {
+	return event?.target instanceof HTMLElement && event.target === element;
 }

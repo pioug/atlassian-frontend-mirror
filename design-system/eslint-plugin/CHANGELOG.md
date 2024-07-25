@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.12.0
+
+### Minor Changes
+
+- [#123319](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123319)
+  [`33c44e0d8f875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33c44e0d8f875) -
+  Enabled linting rule to discourage direct usage of HTML anchor elements in favor of Atlassian
+  Design System link components
+
 ## 10.11.2
 
 ### Patch Changes

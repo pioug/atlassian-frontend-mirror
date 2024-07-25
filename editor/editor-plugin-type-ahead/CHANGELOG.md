@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.5.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`a2c733eaa3214`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2c733eaa3214) -
+  [ED-24348] Change icon size for quick insert tyeahead to 32x32 when
+  platform_editor_more_elements_in_quick_insert_view is on
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.5
 
 ### Patch Changes

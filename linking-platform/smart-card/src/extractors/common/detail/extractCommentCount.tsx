@@ -1,7 +1,7 @@
 import React from 'react';
 import { N600 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import ChatIcon from '@atlaskit/icon/glyph/comment';
+import ChatIcon from '@atlaskit/icon/core/migration/comment';
 
 import { type JsonLd } from 'json-ld-types';
 import { type LinkDetail } from './types';
@@ -22,8 +22,8 @@ export const extractCommentCount = (jsonLd: LinkCommentType): LinkDetail | undef
 				<ChatIcon
 					label="comment-count"
 					key="comments-count-icon"
-					size="small"
-					primaryColor={token('color.icon.subtle', N600)}
+					LEGACY_size="small"
+					color={token('color.icon.subtle', N600)}
 				/>
 			),
 		};

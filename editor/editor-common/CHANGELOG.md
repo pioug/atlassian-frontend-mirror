@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 86.7.0
+
+### Minor Changes
+
+- [#121606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121606)
+  [`fb55435295b55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb55435295b55) -
+  Add on click callback to hyperlink plugin for live page
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`a2c733eaa3214`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2c733eaa3214) -
+  [ED-24348]
+
+  - Add feature flag `moreElementsInQuickInsertView` for experiment
+    `platform_editor_more_elements_in_quick_insert_view`
+  - Update quick insert icons to have viewBox attributes to allow scale
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 86.6.0
+
+### Minor Changes
+
+- [#123621](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123621)
+  [`4184bd66727cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4184bd66727cb) -
+  Update drag preview opacity on windows
+
+## 86.5.1
+
+### Patch Changes
+
+- [#120300](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/120300)
+  [`34ffc5b13e668`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34ffc5b13e668) -
+  fix bug where telepointer selection prevents clicking inline nodes
+
 ## 86.5.0
 
 ### Minor Changes

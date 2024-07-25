@@ -8,7 +8,7 @@ export default function IconList() {
 	const lineColour = iconThemed({ light: '#C1C7D0', dark: '#454F59' });
 
 	return (
-		<svg focusable="false" aria-hidden width={40} height={40}>
+		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">
 			<g fill="none" fillRule="evenodd">
 				<path fill={iconThemed({ light: '#FFF', dark: '#161A1D' })} d="M0 0h40v40H0z" />
 				<g transform="translate(8 10)">

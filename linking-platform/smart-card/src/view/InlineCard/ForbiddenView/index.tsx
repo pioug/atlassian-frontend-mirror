@@ -38,6 +38,7 @@ export interface InlineCardForbiddenViewProps {
 
 const FallbackForbiddenIcon = (
 	<AKIconWrapper>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
 		<LockIcon
 			label="error"
 			size="small"

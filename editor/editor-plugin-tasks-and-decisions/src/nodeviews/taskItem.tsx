@@ -187,21 +187,37 @@ class Task extends ReactNodeView<Props> {
 	viewShouldUpdate(nextNode: PMNode) {
 		/**
 		 * To ensure the placeholder is correctly toggled we need to allow react to re-render
-		 * on first character insertion.
-		 * Note: last character deletion is handled externally and automatically re-renders.
+		 * on first character insertion or when the last character is deleted.
 		 */
-		return this.isContentEmpty(this.node) && !!nextNode.content.childCount;
+		if (fg('react_18_tasks_and_decisions_concurrent_mode')) {
+			return (
+				(this.isContentEmpty(this.node) && !this.isContentEmpty(nextNode)) ||
+				(this.isContentEmpty(nextNode) && !this.isContentEmpty(this.node))
+			);
+		} else {
+			return this.isContentEmpty(this.node) && !this.isContentEmpty(nextNode);
+		}
 	}
 
 	update(node: PMNode, decorations: readonly Decoration[]) {
-		return super.update(
-			node,
-			decorations,
-			undefined,
-			(currentNode: PMNode, newNode: PMNode) =>
-				// Toggle the placeholder based on whether user input exists
-				!this.isContentEmpty(newNode) && !!(currentNode.attrs.state === newNode.attrs.state),
-		);
+		if (fg('react_18_tasks_and_decisions_concurrent_mode')) {
+			return super.update(
+				node,
+				decorations,
+				undefined,
+				(currentNode: PMNode, newNode: PMNode) =>
+					!!(currentNode.attrs.state === newNode.attrs.state),
+			);
+		} else {
+			return super.update(
+				node,
+				decorations,
+				undefined,
+				(currentNode: PMNode, newNode: PMNode) =>
+					// Toggle the placeholder based on whether user input exists
+					!this.isContentEmpty(newNode) && !!(currentNode.attrs.state === newNode.attrs.state),
+			);
+		}
 	}
 
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {

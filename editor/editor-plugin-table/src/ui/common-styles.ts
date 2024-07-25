@@ -242,18 +242,6 @@ const viewModeSortStyles = () => {
 	}
 };
 
-const numberColumnFix = () => {
-	if (fg('platform.editor.table.editor-num-col-style-changes')) {
-		return '';
-	}
-
-	return css`
-		> table[data-number-column='true'] {
-			width: calc(100% - 1px);
-		}
-	`;
-};
-
 const tableBorderStyles = () => {
 	return `border-color: ${tableBorderDeleteColor}`;
 };
@@ -1070,8 +1058,6 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		overflow: auto;
 		overflow-y: hidden;
 		position: relative;
-
-		${numberColumnFix()}
 	}
 `;
 

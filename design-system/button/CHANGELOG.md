@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 19.1.0
+
+### Minor Changes
+
+- [#123598](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123598)
+  [`83919d6adb836`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83919d6adb836) -
+  Remove unsafe spread on new buttons.
+
 ## 19.0.0
 
 ### Major Changes

@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 27.11.0
+
+### Minor Changes
+
+- [#117215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117215)
+  [`3f2423168897d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f2423168897d) -
+  [ux] Updated components to use new iconography behind a feature flag
+
+### Patch Changes
+
+- [#123762](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123762)
+  [`7dadca256c8a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7dadca256c8a3) -
+  Change related links AGS query and add sorting
+
+## 27.10.2
+
+### Patch Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`6d777ac1c05f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d777ac1c05f0) -
+  Add analytics to related links
+- Updated dependencies
+
 ## 27.10.1
 
 ### Patch Changes

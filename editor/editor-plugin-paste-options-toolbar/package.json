@@ -38,10 +38,10 @@
 		"./styles": "./src/styles.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.5.0",
-		"@atlaskit/editor-markdown-transformer": "^5.8.0",
-		"@atlaskit/editor-plugin-analytics": "^1.4.0",
-		"@atlaskit/editor-plugin-paste": "^1.5.0",
+		"@atlaskit/editor-common": "^86.7.0",
+		"@atlaskit/editor-markdown-transformer": "^5.9.0",
+		"@atlaskit/editor-plugin-analytics": "^1.5.0",
+		"@atlaskit/editor-plugin-paste": "^1.6.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/icon": "^22.7.0",

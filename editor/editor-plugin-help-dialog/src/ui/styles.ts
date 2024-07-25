@@ -2,18 +2,21 @@
 import { css } from '@emotion/react';
 
 import { akEditorUnitZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import * as colors from '@atlaskit/theme/colors';
 import { B300, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const header = css({
+const headerFont = fg('platform_editor_migration_icon_and_typography')
+	? { font: token('font.heading.large') }
+	: { fontSize: relativeFontSizeToBase16(24) };
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+export const header = css(headerFont, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
 	minHeight: token('space.300', '24px'),
 	padding: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(24),
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'center',
@@ -25,13 +28,14 @@ export const header = css({
 	borderRadius: token('border.radius', '3px'),
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const footer = css({
+const footerFont = fg('platform_editor_migration_icon_and_typography')
+	? { font: token('font.body') }
+	: { fontSize: relativeFontSizeToBase16(14), lineHeight: token('space.250', '20px') };
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+export const footer = css(footerFont, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(14),
-	lineHeight: token('space.250', '20px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtlest', colors.N300),
 	padding: token('space.300', '24px'),

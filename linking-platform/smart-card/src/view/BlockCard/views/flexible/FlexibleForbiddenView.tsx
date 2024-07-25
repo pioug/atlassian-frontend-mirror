@@ -89,6 +89,7 @@ const FlexibleForbiddenView = ({
 
 	return (
 		<UnresolvedView {...props} actions={actions} showPreview={true} testId={testId} title={title}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
 			<LockIcon
 				label="forbidden-lock-icon"
 				size="small"

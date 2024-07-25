@@ -35,6 +35,7 @@ describe('Errored view', () => {
 					url={URL}
 					message="Error"
 					onRetry={onRetrySpy}
+					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513
 					icon={<WarningIcon label="my-icon" testId="warning-icon" />}
 				/>
 			</IntlProvider>,

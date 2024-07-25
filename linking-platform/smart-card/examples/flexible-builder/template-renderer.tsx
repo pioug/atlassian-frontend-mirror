@@ -8,7 +8,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from '@atlaskit/dropdown-menu';
 import Button from '@atlaskit/button/standard-button';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import Range from '@atlaskit/range/range';
 import { Card } from '../../src';
 import { type BlockTemplate, type FlexibleTemplate } from './types';
@@ -94,7 +94,7 @@ const TemplateRenderer = ({ template, url }: { template: FlexibleTemplate; url?:
 							trigger={({ triggerRef, ...props }) => (
 								<Button
 									{...props}
-									iconBefore={<MoreIcon label="more" />}
+									iconBefore={<MoreIcon label="more" color="currentColor" />}
 									ref={triggerRef}
 									spacing="compact"
 								/>

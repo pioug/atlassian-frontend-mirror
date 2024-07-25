@@ -27,7 +27,7 @@ import {
 	SmartLinkSize,
 	SmartLinkTheme,
 } from '../../src/index';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { type CustomActionItem } from '../../src/view/FlexibleCard/components/blocks/types';
 import { response1, response2, response3, response4 } from '../content/example-responses';
 import VRTestWrapper from '../utils/vr-test-wrapper';
@@ -126,7 +126,7 @@ const renderPreview = (url: string) => {
 	const titleActions = [
 		{
 			name: ActionName.CustomAction,
-			icon: <ShortcutIcon label="open in new tab" size="medium" />,
+			icon: <ShortcutIcon label="open in new tab" LEGACY_size="medium" />,
 			iconPosition: 'before',
 			onClick: () => {},
 			tooltipMessage: 'Go to',

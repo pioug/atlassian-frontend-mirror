@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.21.6",
+	"version": "7.22.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,14 +28,14 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^39.0.3",
-		"@atlaskit/button": "^19.0.0",
-		"@atlaskit/custom-steps": "^0.4.0",
-		"@atlaskit/editor-common": "^86.5.0",
+		"@atlaskit/adf-schema": "^40.3.0",
+		"@atlaskit/button": "^19.1.0",
+		"@atlaskit/custom-steps": "^0.5.0",
+		"@atlaskit/editor-common": "^86.7.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.1.0",
-		"@atlaskit/editor-plugin-analytics": "^1.4.0",
-		"@atlaskit/editor-plugin-content-insertion": "^1.4.0",
+		"@atlaskit/editor-plugin-analytics": "^1.5.0",
+		"@atlaskit/editor-plugin-content-insertion": "^1.5.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
 		"@atlaskit/editor-plugin-guideline": "^1.1.0",
 		"@atlaskit/editor-plugin-selection": "^1.2.0",
@@ -126,16 +126,13 @@
 		"platform.editor.table.live-pages-sorting_4malx": {
 			"type": "boolean"
 		},
-		"platform.editor.table.editor-num-col-style-changes": {
-			"type": "boolean"
-		},
-		"platform_editor_a11y_table_context_menu": {
-			"type": "boolean"
-		},
 		"platform_editor_element_drag_and_drop_ed_24041": {
 			"type": "boolean"
 		},
 		"editor_react_18_fix_table_delete_col_decorations": {
+			"type": "boolean"
+		},
+		"platform_editor_a11y_table_context_menu": {
 			"type": "boolean"
 		}
 	}

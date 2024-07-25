@@ -5,7 +5,7 @@
 import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 
 import {
 	type ActionItem,

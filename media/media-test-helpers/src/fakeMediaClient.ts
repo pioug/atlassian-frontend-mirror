@@ -5,10 +5,10 @@ import { asMock } from './jestHelpers';
 
 import getJest from './getJest';
 
-const jest = getJest<any, unknown>();
+const jestHelper = getJest<any, unknown>();
 
 export const getDefaultMediaClientConfig = (): MediaClientConfig => ({
-	authProvider: jest.fn().mockReturnValue(
+	authProvider: jestHelper.fn().mockReturnValue(
 		Promise.resolve({
 			clientId: 'some-client-id',
 			token: 'some-token',
@@ -20,13 +20,13 @@ export const getDefaultMediaClientConfig = (): MediaClientConfig => ({
 export const fakeMediaClient = (
 	config: MediaClientConfig = getDefaultMediaClientConfig(),
 ): MediaClient => {
-	if (jest && jest.genMockFromModule) {
+	if (jestHelper && jestHelper.genMockFromModule) {
 		const {
 			MediaClient: MockMediaClient,
 			FileFetcherImpl,
 			MediaStore: MockMediaStore,
 			StargateClient,
-		} = jest.genMockFromModule<any>('@atlaskit/media-client');
+		} = jestHelper.genMockFromModule<any>('@atlaskit/media-client');
 		const mediaClient = new MockMediaClient();
 
 		const fileFetcher = new FileFetcherImpl();
@@ -39,7 +39,7 @@ export const fakeMediaClient = (
 		mediaClient.config = config; // <- deprecated
 		mediaClient.mediaClientConfig = config;
 		mediaClient.mediaStore = mockMediaStore;
-		mediaClient.mediaStore.getItems = jest.fn().mockResolvedValue({ data: { items: [] } });
+		mediaClient.mediaStore.getItems = jestHelper.fn().mockResolvedValue({ data: { items: [] } });
 		asMock(mediaClient.getImageUrl).mockResolvedValue('some-image-url');
 		asMock(mediaClient.getImageUrlSync).mockReturnValue('some-image-url');
 		asMock(mediaClient.getImage).mockImplementation(mockMediaStore.getImage);
@@ -53,7 +53,7 @@ export const fakeMediaClient = (
 			}),
 		);
 		asMock(mediaClient.file.getFileState).mockImplementation(() => ({
-			subscribe: jest.fn(),
+			subscribe: jestHelper.fn(),
 		}));
 		asMock(mediaClient.stargate.fetchToken).mockImplementation(() =>
 			Promise.resolve({

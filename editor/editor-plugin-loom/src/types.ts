@@ -11,6 +11,8 @@ type LoomClient = {
 	}) => void;
 };
 
+export type PositionType = 'start' | 'end' | 'current';
+
 export type LoomPluginErrorMessages =
 	| 'is-supported-failure'
 	| 'failed-to-initialise'

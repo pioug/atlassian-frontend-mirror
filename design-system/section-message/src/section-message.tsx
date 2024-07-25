@@ -56,7 +56,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 				</Box>
 				<Stack space="space.100" testId={testId && `${testId}--content`}>
 					{!!title && (
-						<Heading as="h2" level="h500">
+						<Heading as="h2" size="small">
 							{title}
 						</Heading>
 					)}

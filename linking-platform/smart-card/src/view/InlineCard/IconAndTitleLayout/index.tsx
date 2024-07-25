@@ -10,7 +10,7 @@ import {
 	EmojiWrapper,
 	TitleWrapperClassName,
 } from './styled';
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { LinkAppearance, NoLinkAppearance } from '../styled';
 
 export interface IconAndTitleLayoutProps {
@@ -81,7 +81,12 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 
 		return (
 			<IconWrapper>
-				<LinkIcon label="link" size="small" testId={`${testId}-default`} />
+				<LinkIcon
+					label="link"
+					LEGACY_size="small"
+					testId={`${testId}-default`}
+					color="currentColor"
+				/>
 			</IconWrapper>
 		);
 	}

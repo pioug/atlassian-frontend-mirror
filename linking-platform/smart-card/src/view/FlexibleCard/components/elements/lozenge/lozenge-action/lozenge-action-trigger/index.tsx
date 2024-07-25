@@ -29,6 +29,7 @@ const LozengeActionTrigger = ({
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19514 */}
 					<ChevronDownIcon label="options" size="medium" />
 				</span>
 			</Lozenge>

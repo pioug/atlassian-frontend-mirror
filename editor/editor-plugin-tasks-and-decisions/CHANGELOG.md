@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.2.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- [#122776](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122776)
+  [`6ccf1a43db89a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ccf1a43db89a) -
+  Fix tasks and decisions placeholder not disappearing when using type-ahead on React 18.
+- Updated dependencies
+
 ## 2.1.2
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.5.13",
+	"version": "2.7.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,12 +35,12 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^39.0.3",
+		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/avatar": "^21.11.0",
 		"@atlaskit/avatar-group": "^9.9.0",
 		"@atlaskit/badge": "^16.3.0",
-		"@atlaskit/button": "^19.0.0",
+		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/datetime-picker": "^13.7.0",
 		"@atlaskit/dropdown-menu": "^12.14.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
@@ -69,7 +69,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^11.0.0",
 		"@atlaskit/select": "^17.11.0",
-		"@atlaskit/smart-card": "^27.10.0",
+		"@atlaskit/smart-card": "^27.11.0",
 		"@atlaskit/smart-user-picker": "6.10.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tag": "^12.4.0",
@@ -176,9 +176,6 @@
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasources.enable-sentry-client": {
-			"type": "boolean"
-		},
-		"platform.editor-update-tag-link-and-color_x6hcf": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.limit-total-results_8wqcd": {

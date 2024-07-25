@@ -5,7 +5,7 @@ import { useIconThemed } from '../use-icon-themed';
 export default function IconStatus() {
 	const { iconThemed } = useIconThemed();
 	return (
-		<svg focusable="false" aria-hidden width={40} height={40}>
+		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">
 			<g fill="none" fillRule="evenodd">
 				<path fill={iconThemed({ light: '#FFF', dark: '#161A1D' })} d="M0 0h40v40H0z" />
 				<g transform="translate(5 11)">

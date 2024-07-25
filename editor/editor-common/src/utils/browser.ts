@@ -1,5 +1,6 @@
 const result: { [key: string]: any } = {
 	mac: false,
+	windows: false,
 	ie: false,
 	ie_version: 0,
 	gecko: false,
@@ -21,6 +22,11 @@ if (typeof navigator !== 'undefined') {
 	const ie11up = /Trident\/(?:[7-9]|\d{2,})\..*rv:(\d+)/.exec(navigator.userAgent);
 
 	result.mac = /Mac/.test(navigator.platform);
+
+	result.windows =
+		(navigator as any).userAgentData?.platform === 'Windows' ||
+		/Windows|Win\d+/i.test(navigator.userAgent);
+
 	let ie = (result.ie = !!(ieUpTo10 || ie11up || ieEdge));
 	result.ie_version = ieUpTo10
 		? (document as any).documentMode || 6

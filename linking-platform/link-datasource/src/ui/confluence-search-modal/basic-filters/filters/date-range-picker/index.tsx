@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { DatePicker } from '@atlaskit/datetime-picker';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import Popup from '@atlaskit/popup';
 import { R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -184,8 +184,8 @@ export const DateRangePicker = ({
 								{invalidDateRange && (
 									<DateRangeErrorMessage>
 										<ErrorIcon
-											size="small"
-											primaryColor={token('color.icon.danger', R400)}
+											LEGACY_size="small"
+											color={token('color.icon.danger', R400)}
 											label="Date range error"
 										/>
 										{invalidDateRange}

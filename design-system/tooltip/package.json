@@ -69,7 +69,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
-		"@atlaskit/button": "^19.0.0",
+		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",

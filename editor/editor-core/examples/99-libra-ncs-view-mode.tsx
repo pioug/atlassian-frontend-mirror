@@ -117,6 +117,7 @@ const CollabEditor = ({ userId, collabProps, setIsReady }: CollabEditorProps) =>
 					useAlternativePreloader: false,
 				},
 			},
+			__livePage: true,
 		};
 	}, [collabEdit]);
 
@@ -179,9 +180,6 @@ const urlParams = new URLSearchParams(window.location.search);
 export default function EditorExampleForIntegrationTests() {
 	const featureFlags = getFeatureFlags(urlParams);
 	setBooleanFeatureFlagResolver((flagKey) => {
-		if (flagKey === 'platform.linking-platform.smart-links-in-live-pages') {
-			return true;
-		}
 		if (flagKey === 'linking-platform-contenteditable-false-live-view') {
 			return true;
 		}

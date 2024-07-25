@@ -3,7 +3,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { DeleteAction, EditAction } from '../index';
 import { SmartLinkSize } from '../../../../../constants';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';

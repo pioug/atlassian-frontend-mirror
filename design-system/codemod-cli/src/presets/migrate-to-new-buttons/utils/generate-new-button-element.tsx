@@ -1,4 +1,4 @@
-import { type API, type JSXElement, type JSXAttribute, type JSXSpreadAttribute } from 'jscodeshift';
+import { type API, type JSXAttribute, type JSXElement, type JSXSpreadAttribute } from 'jscodeshift';
 
 import { NEW_BUTTON_VARIANTS } from '../utils/constants';
 
@@ -200,4 +200,32 @@ export const generateNewElement = (
 		closingElement: isIconOrLinkIcon ? null : j.jsxClosingElement(j.jsxIdentifier(variant)),
 		children: element.children,
 	});
+};
+
+export const modifyButtonAttributes = (
+	element: JSXElement,
+	j: API['jscodeshift'],
+	hasSpacingNone: boolean,
+) => {
+	j(element)
+		.find(j.JSXAttribute)
+		.filter(
+			(path) =>
+				path.node.name.name === 'appearance' &&
+				path.node.value?.type === 'StringLiteral' &&
+				(path.node.value.value === 'link' || path.node.value.value === 'subtle-link'),
+		)
+		.replaceWith(j.jsxAttribute(j.jsxIdentifier('appearance'), j.stringLiteral('subtle')));
+
+	if (hasSpacingNone) {
+		j(element)
+			.find(j.JSXAttribute)
+			.filter(
+				(path) =>
+					path.node.name.name === 'spacing' &&
+					path.node.value?.type === 'StringLiteral' &&
+					path.node.value.value === 'none',
+			)
+			.remove();
+	}
 };

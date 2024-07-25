@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.8.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.2
+
+### Patch Changes
+
+- [#123621](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123621)
+  [`4184bd66727cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4184bd66727cb) -
+  Update drag preview opacity on windows
+- Updated dependencies
+
+## 1.7.1
+
+### Patch Changes
+
+- [#122706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122706)
+  [`1d88c71435949`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1d88c71435949) -
+  ED-24330 Dispatch meta to set isDragging to false in PM drop handler to remove drop target
+  decorations
+
 ## 1.7.0
 
 ### Minor Changes

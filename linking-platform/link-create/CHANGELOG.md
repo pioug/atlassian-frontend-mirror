@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 2.10.0
+
+### Minor Changes
+
+- [#117215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/117215)
+  [`3f2423168897d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f2423168897d) -
+  [ux] Updated components to use new iconography behind a feature flag
+
 ## 2.9.0
 
 ### Minor Changes

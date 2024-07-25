@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.2.20
+
+### Patch Changes
+
+- [#123716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123716)
+  [`63a8b37768519`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63a8b37768519) -
+  [ux] Internal updates to typography.
+
 ## 3.2.19
 
 ### Patch Changes

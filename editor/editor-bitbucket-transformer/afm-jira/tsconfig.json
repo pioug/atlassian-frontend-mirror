@@ -16,9 +16,5 @@
     "../src/**/*.test.*",
     "../src/**/test.*"
   ],
-  "references": [
-    {
-      "path": "../../editor-common/afm-jira/tsconfig.json"
-    }
-  ]
+  "references": []
 }

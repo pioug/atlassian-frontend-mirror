@@ -45,6 +45,9 @@
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -52,6 +55,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"

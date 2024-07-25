@@ -31,6 +31,7 @@ import type { GeneralEventPayload } from './general-events';
 import type { HighlightActionsEventPayload } from './highlight-actions-menu-events';
 import type { HighlightEventPayload } from './highlight-events';
 import type { InsertEventPayload } from './insert-events';
+import type { VisitedLinkAEP } from './link-events';
 import type {
 	CreateLinkInlineDialogEventPayload,
 	EditLinkToolbarAEP,
@@ -101,6 +102,7 @@ export type AnalyticsEventPayload<T = void> =
 	| DatasourceClickedPayload
 	| ElementEventPayload
 	| ContextMenuEventPayload
+	| VisitedLinkAEP
 	| ViewEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

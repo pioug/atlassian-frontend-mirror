@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 7.22.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- [#123596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123596)
+  [`db5f9a8d10a86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db5f9a8d10a86) -
+  Remove width overrides for table when num col is enabled
+- Updated dependencies
+
 ## 7.21.6
 
 ### Patch Changes

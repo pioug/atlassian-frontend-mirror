@@ -9,8 +9,11 @@ import { FormattedMessage, injectIntl } from 'react-intl-next';
 
 import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import Heading from '@atlaskit/heading';
+import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { dialogHeader, header, toolbarButton } from './styles';
 
@@ -22,10 +25,16 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={header}>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<h1 css={dialogHeader}>
-				<FormattedMessage {...messages.editorHelp} />
-			</h1>
+			{fg('platform_editor_migration_icon_and_typography') ? (
+				<Heading size="large">
+					<FormattedMessage {...messages.editorHelp} />
+				</Heading>
+			) : (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<h1 css={dialogHeader}>
+					<FormattedMessage {...messages.editorHelp} />
+				</h1>
+			)}
 
 			<div>
 				<ToolbarButton
@@ -33,7 +42,17 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					onClick={onClose}
 					title={formatMessage(messages.closeHelpDialog)}
 					spacing="compact"
-					iconBefore={<CrossIcon label={formatMessage(messages.closeHelpDialog)} size="medium" />}
+					iconBefore={
+						fg('platform_editor_migration_icon_and_typography') ? (
+							<CloseIcon
+								label={formatMessage(messages.closeHelpDialog)}
+								color="currentColor"
+								spacing="spacious"
+							/>
+						) : (
+							<CrossIcon label={formatMessage(messages.closeHelpDialog)} size="medium" />
+						)
+					}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={toolbarButton}
 				/>

@@ -1,5 +1,6 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type BlockControlsPlugin } from '../types';
 
@@ -24,6 +25,14 @@ export const handleMouseOver = (
 		if (activeNode?.anchorName === anchorName) {
 			return false;
 		}
+
+		if (
+			['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '') &&
+			fg('platform_editor_element_drag_and_drop_ed_24227')
+		) {
+			return false;
+		}
+
 		const pos = view.posAtDOM(rootElement, 0, 0);
 		const rootPos = view.state.doc.resolve(pos).start(1) - 1;
 		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;

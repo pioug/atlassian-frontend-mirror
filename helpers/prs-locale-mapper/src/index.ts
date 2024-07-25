@@ -1,5 +1,5 @@
 /**
- * This function is being used to address locale discrepancies in Atlassian products;
+ * This function is being used to address locale discrepancies in Atlassian products:
  * see: https://hello.atlassian.net/wiki/spaces/i18n/pages/528623554/Locale+Discrepancies+Across+Atlassian+Products+and+Platform+Areas
  */
 export const mapLocaleToPrsLocale = (locale: string): string => {

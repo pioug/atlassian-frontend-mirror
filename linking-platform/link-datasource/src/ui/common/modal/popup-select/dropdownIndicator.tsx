@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CloseIcon from '@atlaskit/icon/glyph/cross-circle';
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import CloseIcon from '@atlaskit/icon/core/migration/cross-circle';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
 import { Box, xcss } from '@atlaskit/primitives';
 import { components, type DropdownIndicatorProps } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
@@ -32,9 +32,9 @@ const CustomDropdownIndicator = (props: DropdownIndicatorProps<SelectOption, tru
 				}}
 			>
 				{selectProps.inputValue ? (
-					<CloseIcon size="small" label="" />
+					<CloseIcon LEGACY_size="small" label="" color="currentColor" />
 				) : (
-					<SearchIcon size="small" label="" />
+					<SearchIcon LEGACY_size="small" label="" color="currentColor" />
 				)}
 			</Box>
 		</components.DropdownIndicator>

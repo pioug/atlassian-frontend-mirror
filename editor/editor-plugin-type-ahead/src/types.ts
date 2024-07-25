@@ -14,6 +14,7 @@ import type {
 	UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type {
 	EditorState,
 	ReadonlyTransaction,
@@ -152,7 +153,7 @@ export type TypeAheadPlugin = NextEditorPlugin<
 	'typeAhead',
 	{
 		pluginConfiguration: TypeAheadPluginOptions | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<FeatureFlagsPlugin>];
 		sharedState: TypeAheadPluginSharedState;
 		actions: {
 			isOpen: (editorState: EditorState) => boolean;

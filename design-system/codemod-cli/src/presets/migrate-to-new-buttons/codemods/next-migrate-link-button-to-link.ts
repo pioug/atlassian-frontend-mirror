@@ -1,10 +1,19 @@
-import { type API, type FileInfo, type ASTPath, type ImportDeclaration } from 'jscodeshift';
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import { getImportDeclaration } from '@hypermod/utils';
+import { type API, type ASTPath, type FileInfo, type ImportDeclaration } from 'jscodeshift';
 
-import { PRINT_SETTINGS, NEW_BUTTON_ENTRY_POINT, NEW_BUTTON_VARIANTS } from '../utils/constants';
-import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-value-from-link-button-to-link-children';
+import { addCommentBefore } from '@atlaskit/codemod-utils';
+
+import {
+	migrateButtonToSubtleLinkButton,
+	migrateSubtleButtonToSubtleLinkButton,
+	NEW_BUTTON_ENTRY_POINT,
+	NEW_BUTTON_VARIANTS,
+	PRINT_SETTINGS,
+} from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { modifyLinkAttributes } from '../utils/generate-link-element';
+import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-value-from-link-button-to-link-children';
 
 function transformer(file: FileInfo, api: API) {
 	const j = api.jscodeshift;
@@ -64,15 +73,38 @@ function transformer(file: FileInfo, api: API) {
 				'none',
 			);
 			if (!hasSpacingNone) {
+				let oldAppearanceValue;
 				j(path)
 					.find(j.JSXAttribute)
-					.filter(
-						(path) =>
+					.filter((path) => {
+						if (
 							path.node.name.name === 'appearance' &&
 							path.node.value?.type === 'StringLiteral' &&
-							(path.node.value.value === 'subtle-link' || path.node.value.value === 'link'),
-					)
+							(path.node.value.value === 'subtle-link' || path.node.value.value === 'link')
+						) {
+							oldAppearanceValue = path.node.value.value;
+							return true;
+						}
+
+						return false;
+					})
 					.replaceWith(j.jsxAttribute(j.jsxIdentifier('appearance'), j.stringLiteral('subtle')));
+
+				if (oldAppearanceValue) {
+					const attribute = path.value.openingElement.attributes?.find(
+						(node) => node.type === 'JSXAttribute' && node.name.name === 'appearance',
+					);
+					if (attribute) {
+						addCommentBefore(
+							j,
+							j(attribute),
+							oldAppearanceValue === 'link'
+								? migrateButtonToSubtleLinkButton
+								: migrateSubtleButtonToSubtleLinkButton,
+							'line',
+						);
+					}
+				}
 			}
 
 			if (hasSpacingNone) {

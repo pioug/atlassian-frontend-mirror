@@ -16,6 +16,7 @@ import RelatedLinksUnavailableView from './views/unavailable';
 import useIncomingOutgoingAri from '../../state/hooks/use-incoming-outgoing-links';
 import useResponse from '../../state/hooks/use-response';
 import { type RelatedLinksModalProps } from './types';
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 
 const isGrantedResponse = (
 	response: SuccessResponse | ErrorResponse,
@@ -33,6 +34,7 @@ const RelatedLinksModal = ({
 	const { getIncomingOutgoingAris } = useIncomingOutgoingAri(baseUriWithNoTrailingSlash);
 	const { connections } = useSmartLinkContext();
 	const { handleResolvedLinkResponse } = useResponse();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const [incomingLinks, setIncomingLinks] = useState<string[]>([]);
 	const [outgoingLinks, setOutgoingLinks] = useState<string[]>([]);
@@ -78,18 +80,18 @@ const RelatedLinksModal = ({
 	const fetchIncomingOutgoingData = useCallback(async () => {
 		const { incomingAris, outgoingAris } = await getIncomingOutgoingAris(ari);
 		let incomingRejected = false;
-		let outGoinRejected = false;
+		let outGoingRejected = false;
 
 		const [incomingUrls, outgoingUrls] = await Promise.all([
 			resolveAris(incomingAris).catch(() => {
 				incomingRejected = true;
 			}),
 			resolveAris(outgoingAris).catch(() => {
-				outGoinRejected = true;
+				outGoingRejected = true;
 			}),
 		]);
 
-		if (incomingRejected && outGoinRejected) {
+		if (incomingRejected && outGoingRejected) {
 			throw new Error('both incoming and outgoing resolve request were rejected');
 		}
 
@@ -99,6 +101,7 @@ const RelatedLinksModal = ({
 	useEffect(() => {
 		if (!ari) {
 			setModalStatus('error');
+			fireEvent('operational.relatedLinks.failed', { reason: 'ARI empty' });
 			return;
 		}
 		fetchIncomingOutgoingData()
@@ -107,22 +110,28 @@ const RelatedLinksModal = ({
 				if (incomingUrls.length + outgoingUrls.length) {
 					// we are only rendering the first 5 links that are returned from our request
 					unstable_batchedUpdates(() => {
-						setIncomingLinks(incomingUrls.splice(0, RELATED_LINKS_LENGTH));
-						setOutgoingLinks(outgoingUrls.splice(0, RELATED_LINKS_LENGTH));
+						setIncomingLinks(incomingUrls.slice(0, RELATED_LINKS_LENGTH));
+						setOutgoingLinks(outgoingUrls.slice(0, RELATED_LINKS_LENGTH));
 					});
 					setModalStatus('resolved');
 				} else {
 					// if no links are found then render unavailable view
 					setModalStatus('unavailable');
 				}
+				fireEvent('operational.relatedLinks.success', {
+					incomingCount: incomingUrls.length,
+					outgoingCount: outgoingUrls.length,
+				});
 			})
 			.catch((_error) => {
 				setModalStatus('error');
+				fireEvent('operational.relatedLinks.failed', { reason: 'Failed to fetch related links' });
 			});
 	}, [
 		ari,
 		connections.client,
 		fetchIncomingOutgoingData,
+		fireEvent,
 		getIncomingOutgoingAris,
 		handleResolvedLinkResponse,
 	]);

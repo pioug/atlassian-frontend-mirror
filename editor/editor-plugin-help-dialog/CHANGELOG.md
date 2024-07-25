@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.4.0
+
+### Minor Changes
+
+- [#123266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123266)
+  [`821ca3d93201f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/821ca3d93201f) -
+  [ux] Migrate legacy icons and typography in Editor to new ADS icons and token under Feature Gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

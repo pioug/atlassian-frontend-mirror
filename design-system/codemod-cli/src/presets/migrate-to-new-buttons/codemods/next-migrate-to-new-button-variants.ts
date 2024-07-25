@@ -1,36 +1,45 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
+import { getDefaultImportSpecifierName } from '@hypermod/utils';
 import {
 	type API,
 	type FileInfo,
 	type ImportDefaultSpecifier,
 	type ImportSpecifier,
 } from 'jscodeshift';
-import { addCommentBefore } from '@atlaskit/codemod-utils';
-import { getDefaultImportSpecifierName } from '@hypermod/utils';
 
-import {
-	PRINT_SETTINGS,
-	OLD_BUTTON_VARIANTS,
-	NEW_BUTTON_VARIANTS,
-	entryPointsMapping,
-	OLD_BUTTON_ENTRY_POINT,
-	NEW_BUTTON_ENTRY_POINT,
-	linkButtonMissingHrefComment,
-	buttonPropsNoLongerSupportedComment,
-	unsupportedProps,
-	loadingButtonComment,
-} from '../utils/constants';
-import getDefaultImports from '../utils/get-default-imports';
-import getSpecifierNames from '../utils/get-specifier-names';
-import { generateNewElement, handleIconAttributes } from '../utils/generate-new-button-element';
-import { generateLinkComponent } from '../utils/generate-link-element';
-import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
-import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-imported';
-import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
-import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
-import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
+import { addCommentBefore } from '@atlaskit/codemod-utils';
+
 import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
 import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';
+import {
+	buttonPropsNoLongerSupportedComment,
+	entryPointsMapping,
+	linkButtonMissingHrefComment,
+	loadingButtonComment,
+	migrateButtonToSubtleLinkButton,
+	migrateSubtleButtonToSubtleLinkButton,
+	NEW_BUTTON_ENTRY_POINT,
+	NEW_BUTTON_VARIANTS,
+	noSpacinglinkButtonMissingHrefComment,
+	OLD_BUTTON_ENTRY_POINT,
+	OLD_BUTTON_VARIANTS,
+	PRINT_SETTINGS,
+	unsupportedProps,
+} from '../utils/constants';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
+import { generateLinkComponent } from '../utils/generate-link-element';
+import {
+	generateNewElement,
+	handleIconAttributes,
+	modifyButtonAttributes,
+} from '../utils/generate-new-button-element';
+import getDefaultImports from '../utils/get-default-imports';
+import getSpecifierNames from '../utils/get-specifier-names';
+import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
+import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-imported';
+import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
+import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
+import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
 
 const transformer = (file: FileInfo, api: API): string => {
 	const j = api.jscodeshift;
@@ -198,6 +207,22 @@ const transformer = (file: FileInfo, api: API): string => {
 			hasVariant.linkButton = true;
 
 			j(element).replaceWith(generateNewElement(NEW_BUTTON_VARIANTS.link, element.value, j));
+
+			const attribute = element.node.attributes?.find(
+				(node) => node.type === 'JSXAttribute' && node.name.name === 'appearance',
+			);
+			if (attribute) {
+				if (
+					linkAppearanceAttribute?.type === 'JSXAttribute' &&
+					linkAppearanceAttribute.value?.type === 'StringLiteral'
+				) {
+					if (linkAppearanceAttribute.value.value === 'link') {
+						addCommentBefore(j, j(attribute), migrateButtonToSubtleLinkButton, 'line');
+					} else if (linkAppearanceAttribute.value.value === 'subtle-link') {
+						addCommentBefore(j, j(attribute), migrateSubtleButtonToSubtleLinkButton, 'line');
+					}
+				}
+			}
 		}
 
 		if (isLink && !isLoadingButton) {
@@ -290,7 +315,18 @@ const transformer = (file: FileInfo, api: API): string => {
 				);
 			}
 		} else if (!hasHref && linkAppearanceAttribute) {
-			addCommentBefore(j, j(linkAppearanceAttribute), linkButtonMissingHrefComment, 'line');
+			modifyButtonAttributes(element.node, j, hasSpacingNone);
+			const attribute = element.node.attributes?.find(
+				(node) => node.type === 'JSXAttribute' && node.name.name === 'appearance',
+			);
+			if (attribute) {
+				addCommentBefore(
+					j,
+					j(attribute),
+					hasSpacingNone ? noSpacinglinkButtonMissingHrefComment : linkButtonMissingHrefComment,
+					'line',
+				);
+			}
 		}
 	});
 

@@ -1,16 +1,16 @@
 import getJest from './getJest';
 
-const jest = getJest();
+const jestHelper = getJest();
 
 let getOrientationMock: jest.Mock | Promise<number>;
 let loadImageMock: jest.Mock | Promise<{}>;
 
 // so that jest doesn't hoist mock of media-ui and replaces actual module on every import of media-test-helpers
 export const loadImageMockSetup = () => {
-	jest.doMock('@atlaskit/media-ui', () => ({
-		...jest.requireActual<Object>('@atlaskit/media-ui'),
-		getOrientation: jest.fn(() => getOrientationMock),
-		loadImage: jest.fn(() => loadImageMock),
+	jestHelper.doMock('@atlaskit/media-ui', () => ({
+		...jestHelper.requireActual<Object>('@atlaskit/media-ui'),
+		getOrientation: jestHelper.fn(() => getOrientationMock),
+		loadImage: jestHelper.fn(() => loadImageMock),
 	}));
 };
 
@@ -29,7 +29,7 @@ export const mockLoadImageError = (errorMessage: string = 'some-image-failed-to-
 };
 
 export const unMockLoadImage = () => {
-	const uiModule = jest.requireActual('@atlaskit/media-ui');
+	const uiModule = jestHelper.requireActual('@atlaskit/media-ui');
 	getOrientationMock = uiModule.getOrientation;
 	loadImageMock = uiModule.loadImage;
 };

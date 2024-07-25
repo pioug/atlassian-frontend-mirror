@@ -15,7 +15,7 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import { ErrorMessage, Field } from '@atlaskit/form';
-import Selectclear from '@atlaskit/icon/glyph/select-clear';
+import Selectclear from '@atlaskit/icon/core/migration/cross-circle--select-clear';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import Textfield, { type TextFieldProps } from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -127,9 +127,10 @@ export const TextInput = ({
 		<Tooltip content={clearLabel}>
 			<Pressable xcss={clearTextButtonStyles} onClick={handleClear} testId={testIds.clearUrlButton}>
 				<Selectclear
-					size="medium"
+					LEGACY_size="medium"
 					label={clearLabel || ''}
-					primaryColor={token('color.icon.subtle')}
+					color={token('color.icon.subtle')}
+					spacing="spacious"
 				/>
 			</Pressable>
 		</Tooltip>

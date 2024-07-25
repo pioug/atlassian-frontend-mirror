@@ -6,7 +6,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import { type CardState } from '../../../state/types';
 import { type JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -39,7 +39,7 @@ export const hoverCardClassName = 'smart-links-hover-preview';
 export const getCopyAction = (url: string): ActionItem =>
 	({
 		name: ActionName.CustomAction,
-		icon: <CopyIcon label="copy url" size="medium" />,
+		icon: <CopyIcon label="copy url" LEGACY_size="medium" spacing="spacious" />,
 		iconPosition: 'before',
 		onClick: async () => await navigator.clipboard.writeText(url),
 		tooltipMessage: <FormattedMessage {...messages.copy_url_to_clipboard} />,

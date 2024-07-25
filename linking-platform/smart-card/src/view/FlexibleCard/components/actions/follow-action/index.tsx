@@ -72,6 +72,7 @@ const FollowAction = (props: FollowActionProps) => {
 	const stackTooltipMessage = isProject ? projectTooltipMessage : goalTooltipMessage;
 	const tooltipMessage = isStackItem ? stackTooltipMessage : message;
 
+	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 	const icon = value ? <InviteTeamIcon label="Follow" /> : <UnfollowIcon label="Unfollow" />;
 
 	const stackIconType = isProject ? 'projects' : 'goal';

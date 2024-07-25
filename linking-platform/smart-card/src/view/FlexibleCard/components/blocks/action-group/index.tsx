@@ -16,7 +16,7 @@ import DropdownMenu from '@atlaskit/dropdown-menu';
 
 import { SmartLinkSize } from '../../../../../constants';
 import Button from '@atlaskit/button/standard-button';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { sizeToButtonSpacing } from '../../utils';
 import { messages } from '../../../../../messages';
 import {
@@ -121,7 +121,7 @@ const ActionGroup = ({
 
 		if (actionItems.length > 0) {
 			const spacing = sizeToButtonSpacing[size];
-			const moreIcon = <MoreIcon label="more" />;
+			const moreIcon = <MoreIcon label="more" color="currentColor" />;
 			const formatMessage = <FormattedMessage {...messages.more_actions} />;
 
 			return (

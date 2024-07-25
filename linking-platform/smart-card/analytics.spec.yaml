@@ -145,3 +145,49 @@ events:
       description: fired when the automation action button is clicked
       attributes:
         <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
+  - button clicked (relatedLinks):
+      type: ui
+      description: fired when the related links action button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
+  - modal opened (relatedLinks):
+      type: ui
+      description: fired when related links modal is opened
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
+  - modal closed (relatedLinks):
+      type: ui
+      description: fired when related links modal is closed
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+        dwellTime:
+          required: true
+          type: number
+          description: total time spent over the related links modal
+
+  - relatedLinks success:
+      type: operational
+      description: fired when related links are retrieved succesfully
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+        incomingCount:
+          type: number
+          required: true
+          description: number of resources where this link is found in
+        outgoingCount:
+          type: number
+          required: true
+          description: number of links included in this resource
+
+  - relatedLinks failed:
+      type: operational
+      description: fired when related links retrieval fails
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+        reason:
+          required: true
+          type: string
+          description: failure reason

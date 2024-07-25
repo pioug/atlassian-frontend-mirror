@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { type TagType } from '@atlaskit/linking-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { SimpleTag as Tag } from '@atlaskit/tag';
 
 interface TagProps {
@@ -18,7 +17,7 @@ const TagRenderType = ({ tag, testId = TAG_TYPE_TEST_ID }: TagProps) => {
 		return <></>;
 	}
 
-	return getBooleanFF('platform.editor-update-tag-link-and-color_x6hcf') ? (
+	return (
 		<Tag
 			text={text}
 			testId={testId}
@@ -26,8 +25,6 @@ const TagRenderType = ({ tag, testId = TAG_TYPE_TEST_ID }: TagProps) => {
 			color={tag?.color ?? 'standard'}
 			href={tag?.url}
 		/>
-	) : (
-		<Tag text={text} testId={testId} appearance={'default'} />
 	);
 };
 

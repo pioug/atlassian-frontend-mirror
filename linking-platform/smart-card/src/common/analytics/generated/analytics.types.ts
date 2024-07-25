@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::c3c6503e4183ef772d7576a979b729b7>>
+ * @codegen <<SignedSource::b519212dc7ce398897c4e790498adb64>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataType = {
@@ -51,6 +51,18 @@ export type AiInteractionInitiatedAttributesType = {
 	userGeneratedAI: number;
 };
 export type ButtonClickedAutomationActionAttributesType = {};
+export type ButtonClickedRelatedLinksAttributesType = {};
+export type ModalOpenedRelatedLinksAttributesType = {};
+export type ModalClosedRelatedLinksAttributesType = {
+	dwellTime: number;
+};
+export type RelatedLinksSuccessAttributesType = {
+	incomingCount: number;
+	outgoingCount: number;
+};
+export type RelatedLinksFailedAttributesType = {
+	reason: string;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -77,6 +89,21 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fired when the automation action button is clicked */
 	'ui.button.clicked.automationAction': ButtonClickedAutomationActionAttributesType;
+	/**
+	 * fired when the related links action button is clicked */
+	'ui.button.clicked.relatedLinks': ButtonClickedRelatedLinksAttributesType;
+	/**
+	 * fired when related links modal is opened */
+	'ui.modal.opened.relatedLinks': ModalOpenedRelatedLinksAttributesType;
+	/**
+	 * fired when related links modal is closed */
+	'ui.modal.closed.relatedLinks': ModalClosedRelatedLinksAttributesType;
+	/**
+	 * fired when related links are retrieved succesfully */
+	'operational.relatedLinks.success': RelatedLinksSuccessAttributesType;
+	/**
+	 * fired when related links retrieval fails */
+	'operational.relatedLinks.failed': RelatedLinksFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

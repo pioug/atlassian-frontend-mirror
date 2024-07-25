@@ -1,13 +1,16 @@
 import { createCheck } from '../../../__tests__/test-utils';
 import transformer from '../codemods/next-migrate-to-new-button-variants';
 import {
-	linkButtonMissingHrefComment,
 	buttonPropsNoLongerSupportedComment,
+	customThemeButtonComment,
+	linkButtonMissingHrefComment,
+	loadingButtonComment,
+	migrateButtonToSubtleLinkButton,
 	migrateFitContainerButtonToDefaultButtonComment,
 	migrateFitContainerButtonToIconButtonComment,
-	customThemeButtonComment,
+	migrateSubtleButtonToSubtleLinkButton,
+	noSpacinglinkButtonMissingHrefComment,
 	overlayPropComment,
-	loadingButtonComment,
 } from '../utils/constants';
 
 const check = createCheck(transformer);
@@ -555,6 +558,7 @@ describe('Migrate to link buttons', () => {
         </Button>
         <Button>Default button</Button>
         <Button href="/#" appearance='link'>Link button</Button>
+        <Button href="/#" appearance='subtle-link'>Link button</Button>
       </div>
 	  );
 	  `,
@@ -567,7 +571,20 @@ describe('Migrate to link buttons', () => {
           Link button
         </Link>
         <Button>Default button</Button>
-        <LinkButton href="/#" appearance='subtle'>Link button</LinkButton>
+        <LinkButton
+          href="/#"
+          // TODO: (from codemod) ${migrateButtonToSubtleLinkButton}
+          appearance='subtle'
+        >
+          Link button
+        </LinkButton>
+        <LinkButton
+          href="/#"
+          // TODO: (from codemod) ${migrateSubtleButtonToSubtleLinkButton}
+          appearance='subtle'
+        >
+          Link button
+        </LinkButton>
       </div>
 	    );
 	  `,
@@ -635,12 +652,14 @@ describe('Migrate to link buttons', () => {
 	     <div>
 	        <LinkButton
 	          href='/#'
+	          // TODO: (from codemod) ${migrateButtonToSubtleLinkButton}
 	          appearance='subtle'
 	        >
 	          Link button
 	        </LinkButton>
 	        <LinkButton
 	          href='/#'
+	          // TODO: (from codemod) ${migrateSubtleButtonToSubtleLinkButton}
 	          appearance='subtle'
 	        >
 	          Link button
@@ -932,7 +951,96 @@ describe('Migrate to new button variants: edge cases', () => {
         <div>
           <Button
             // TODO: (from codemod) ${linkButtonMissingHrefComment}
+            appearance="subtle"
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+	});
+
+	check({
+		it: 'should migrate the button with link appearance and no spacing but without href to a default button, add add a comment',
+		original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <div>
+          <Button
             appearance="link"
+            spacing='none'
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+		expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <Button
+            // TODO: (from codemod) ${noSpacinglinkButtonMissingHrefComment}
+            appearance="subtle"
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+	});
+
+	check({
+		it: 'should migrate the button with subtle-link appearance but without href to a default button, add add a comment',
+		original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <div>
+          <Button
+            appearance="subtle-link"
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+		expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <Button
+            // TODO: (from codemod) ${linkButtonMissingHrefComment}
+            appearance="subtle"
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+	});
+
+	check({
+		it: 'should migrate the button with subtle-link appearance and no spacing but without href to a default button, add add a comment',
+		original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <div>
+          <Button
+            appearance="subtle-link"
+            spacing='none'
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+		expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <Button
+            // TODO: (from codemod) ${noSpacinglinkButtonMissingHrefComment}
+            appearance="subtle"
           >
             Button looks like a link
           </Button>

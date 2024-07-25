@@ -1,6 +1,6 @@
 import React from 'react';
-import CheckIcon from '@atlaskit/icon/glyph/check';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CheckIcon from '@atlaskit/icon/core/migration/check-mark--check';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 
 import type { ActionState } from './Action';
 
@@ -27,14 +27,14 @@ export const ActionIcon = ({ state }: { state: ActionState }) => {
 			return (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div data-testid="check-icon" style={spinnerStyles}>
-					<CheckIcon size="small" label="check" />
+					<CheckIcon LEGACY_size="small" label="check" color="currentColor" />
 				</div>
 			);
 		case 'failure':
 			return (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<div data-testid="cross-icon" style={spinnerStyles}>
-					<CrossIcon size="small" label="check" />
+					<CrossIcon LEGACY_size="small" label="check" color="currentColor" />
 				</div>
 			);
 	}

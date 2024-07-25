@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import ExpandIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
-import CollapseIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
-import CopyIcon from '@atlaskit/icon/glyph/copy';
+import ExpandIcon from '@atlaskit/icon/utility/chevron-down';
+import CollapseIcon from '@atlaskit/icon/utility/chevron-up';
+import ExpandIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-down';
+import CollapseIconLegacy from '@atlaskit/icon/glyph/hipchat/chevron-up';
+import CopyIcon from '@atlaskit/icon/core/migration/copy';
 
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -103,7 +105,7 @@ export const ProviderCategory = ({ category, examples, config }: ProviderCategor
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 				<div className="right">
 					<Button
-						iconBefore={<CopyIcon size="small" label="" />}
+						iconBefore={<CopyIcon LEGACY_size="small" label="" spacing="spacious" />}
 						onClick={handleCopyToClipboard}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -113,11 +115,31 @@ export const ProviderCategory = ({ category, examples, config }: ProviderCategor
 						Copy
 					</Button>
 					{Object.entries(expanded).every(([, isExpanded]) => isExpanded) ? (
-						<Button iconBefore={<CollapseIcon size="small" label="" />} onClick={handleCollapseAll}>
+						<Button
+							iconBefore={
+								<CollapseIcon
+									LEGACY_size="small"
+									label=""
+									LEGACY_fallbackIcon={CollapseIconLegacy}
+									color="currentColor"
+								/>
+							}
+							onClick={handleCollapseAll}
+						>
 							Collapse all
 						</Button>
 					) : (
-						<Button iconBefore={<ExpandIcon size="small" label="" />} onClick={handleExpandAll}>
+						<Button
+							iconBefore={
+								<ExpandIcon
+									LEGACY_size="small"
+									label=""
+									LEGACY_fallbackIcon={ExpandIconLegacy}
+									color="currentColor"
+								/>
+							}
+							onClick={handleExpandAll}
+						>
 							Expand all
 						</Button>
 					)}

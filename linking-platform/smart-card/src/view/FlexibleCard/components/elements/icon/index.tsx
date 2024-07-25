@@ -4,7 +4,7 @@
  */
 import React, { useMemo } from 'react';
 
-import LinkIcon from '@atlaskit/icon/glyph/link';
+import LinkIcon from '@atlaskit/icon/core/migration/link';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
@@ -62,7 +62,7 @@ const renderAtlaskitIcon = (
 };
 
 const renderDefaultIcon = (label: string, testId: string): React.ReactNode => (
-	<LinkIcon label={label} testId={`${testId}-default`} />
+	<LinkIcon label={label} testId={`${testId}-default`} color="currentColor" />
 );
 
 const renderImageIcon = (

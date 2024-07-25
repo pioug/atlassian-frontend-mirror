@@ -29,6 +29,14 @@ export interface LinkingOptions {
 	smartLinks?: CardOptions;
 }
 
+type OnClickCallback = ({
+	event,
+	url,
+}: {
+	event: React.MouseEvent<HTMLAnchorElement>;
+	url?: string;
+}) => void;
+
 /**
  * Configuration for the Hyperlink plugin
  */
@@ -38,4 +46,5 @@ export interface HyperlinkPluginOptions {
 	editorAppearance?: EditorAppearance;
 	lpLinkPicker?: boolean;
 	disableFloatingToolbar?: boolean;
+	onClickCallback?: OnClickCallback;
 }

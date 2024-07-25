@@ -7,29 +7,15 @@ type Node = {
 	id?: string;
 };
 
-type MayBe<T> = T | undefined | null;
-
-type IncomingReferencedEntityNode = MayBe<
-	Node & {
-		from?: Node;
-	}
->;
-
-type OutgoingReferencedEntityNode = MayBe<
-	Node & {
-		to?: Node;
-	}
->;
+type Aris = {
+	aris?: Node[];
+};
 
 type RelatedLinksAgsResponse = {
 	data?: {
 		graphStore?: {
-			incoming?: {
-				nodes?: IncomingReferencedEntityNode[];
-			};
-			outgoing?: {
-				nodes?: OutgoingReferencedEntityNode[];
-			};
+			incoming?: Aris;
+			outgoing?: Aris;
 		};
 	};
 };
@@ -62,7 +48,7 @@ const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 		async (ari: string, firstIncoming: number = 50, firstOutgoing: number = 50) => {
 			const response = await aggRequestCall<RelatedLinksAgsResponse>({
 				variables: {
-					ids: [ari],
+					id: ari,
 					firstIncoming,
 					firstOutgoing,
 				},
@@ -70,13 +56,13 @@ const useIncomingOutgoingAri = (baseUriWithNoTrailingSlash = '') => {
 			});
 
 			const incomingAris =
-				response?.data?.graphStore?.incoming?.nodes
-					?.map((node) => node?.from?.id)
+				response?.data?.graphStore?.incoming?.aris
+					?.map((node) => node?.id)
 					?.filter((id): id is string => !!id) ?? [];
 
 			const outgoingAris =
-				response?.data?.graphStore?.outgoing?.nodes
-					?.map((node) => node?.to?.id)
+				response?.data?.graphStore?.outgoing?.aris
+					?.map((node) => node?.id)
 					?.filter((id): id is string => !!id) ?? [];
 
 			return { incomingAris, outgoingAris };

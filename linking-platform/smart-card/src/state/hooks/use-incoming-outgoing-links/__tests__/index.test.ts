@@ -17,13 +17,6 @@ describe('useIncomingOutgoingLinks', () => {
 		jest.clearAllMocks();
 	});
 
-	// FIXME: Jest upgrade
-	// TypeError: expect(...).toBeFunction is not a function
-	it.skip('returns getIncomingOutgoingLinksForAri function', () => {
-		const { getIncomingOutgoingAris } = setup();
-		expect(getIncomingOutgoingAris).toBeFunction();
-	});
-
 	describe('getIncomingOutgoingLinksForAri', () => {
 		it.each([
 			['ari-1', 5, 10],
@@ -41,7 +34,7 @@ describe('useIncomingOutgoingLinks', () => {
 				const requestBodyJson = await new Response(request.body).json();
 				expect(requestBodyJson.query).toEqual(queryIncomingOutgoingLinks);
 				expect(requestBodyJson.variables).toEqual({
-					ids: [ari],
+					id: ari,
 					firstIncoming: firstIncoming ?? 50, // 50 is default size
 					firstOutgoing: firstOutgoing ?? 50, // 50 is default size
 				});
@@ -50,10 +43,10 @@ describe('useIncomingOutgoingLinks', () => {
 
 		// FIXME: Jest upgrade
 		// throws error
-		it.skip('throws when the request fails', async () => {
+		it('throws when the request fails', async () => {
 			const { getIncomingOutgoingAris } = setup();
 			fetchMock.mockRejectOnce();
-			expect(getIncomingOutgoingAris('test-ari')).toReject();
+			expect(getIncomingOutgoingAris('test-ari')).rejects.toEqual(undefined);
 		});
 
 		it.each([
@@ -70,7 +63,7 @@ describe('useIncomingOutgoingLinks', () => {
 			[
 				{
 					data: {
-						graphStore: { outgoing: { nodes: null }, incoming: { nodes: null } },
+						graphStore: { outgoing: { aris: null }, incoming: { aris: null } },
 					},
 				},
 				[],
@@ -79,35 +72,7 @@ describe('useIncomingOutgoingLinks', () => {
 			[
 				{
 					data: {
-						graphStore: { outgoing: { nodes: [] }, incoming: { nodes: [] } },
-					},
-				},
-				[],
-				[],
-			],
-			[
-				{
-					data: {
-						graphStore: {
-							outgoing: {
-								nodes: [
-									{
-										from: {
-											id: 'ARI-FROM-1',
-										},
-									},
-								],
-							},
-							incoming: {
-								nodes: [
-									{
-										to: {
-											id: 'ARI-TO-1',
-										},
-									},
-								],
-							},
-						},
+						graphStore: { outgoing: { aris: [] }, incoming: { aris: [] } },
 					},
 				},
 				[],
@@ -118,20 +83,16 @@ describe('useIncomingOutgoingLinks', () => {
 					data: {
 						graphStore: {
 							outgoing: {
-								nodes: [
+								aris: [
 									{
-										to: {
-											id: 'O-ARI-TO-1',
-										},
+										id: 'O-ARI-TO-1',
 									},
 								],
 							},
 							incoming: {
-								nodes: [
+								aris: [
 									{
-										from: {
-											id: 'I-ARI-FROM-1',
-										},
+										id: 'I-ARI-FROM-1',
 									},
 								],
 							},
@@ -146,34 +107,26 @@ describe('useIncomingOutgoingLinks', () => {
 					data: {
 						graphStore: {
 							outgoing: {
-								nodes: [
+								aris: [
 									{
-										to: {
-											id: 'O-ARI-TO-1',
-										},
+										id: 'O-ARI-TO-1',
 									},
 									undefined,
 									null,
 									{
-										to: {
-											id: 'O-ARI-TO-2',
-										},
+										id: 'O-ARI-TO-2',
 									},
 								],
 							},
 							incoming: {
-								nodes: [
+								aris: [
 									{
-										from: {
-											id: 'I-ARI-FROM-1',
-										},
+										id: 'I-ARI-FROM-1',
 									},
 									undefined,
 									null,
 									{
-										from: {
-											id: 'I-ARI-FROM-2',
-										},
+										id: 'I-ARI-FROM-2',
 									},
 								],
 							},
@@ -188,45 +141,31 @@ describe('useIncomingOutgoingLinks', () => {
 					data: {
 						graphStore: {
 							outgoing: {
-								nodes: [
+								aris: [
 									{
-										to: {
-											id: 'ARI-TO-1',
-										},
+										id: 'ARI-TO-1',
 									},
 									{
-										to: {
-											id: 'ARI-TO-2',
-										},
+										id: 'ARI-TO-2',
 									},
 									{
-										to: {
-											id: 'ARI-TO-3',
-										},
+										id: 'ARI-TO-3',
 									},
 									{
-										to: {
-											id: 'ARI-TO-4',
-										},
+										id: 'ARI-TO-4',
 									},
 								],
 							},
 							incoming: {
-								nodes: [
+								aris: [
 									{
-										from: {
-											id: 'ARI-FROM-1',
-										},
+										id: 'ARI-FROM-1',
 									},
 									{
-										from: {
-											id: 'ARI-FROM-2',
-										},
+										id: 'ARI-FROM-2',
 									},
 									{
-										from: {
-											id: 'ARI-FROM-3',
-										},
+										id: 'ARI-FROM-3',
 									},
 								],
 							},
@@ -237,7 +176,7 @@ describe('useIncomingOutgoingLinks', () => {
 				['ARI-TO-1', 'ARI-TO-2', 'ARI-TO-3', 'ARI-TO-4'],
 			],
 		])(
-			'when graphql response is %s, incomingAris should be %s and outgoingAris should be %s',
+			'%# for given graphql response, incomingAris should be %s and outgoingAris should be %s',
 			async (response, expectedIncomingAris, expectedOutgoingAris) => {
 				const { getIncomingOutgoingAris } = setup();
 				fetchMock.mockOnceIf('/gateway/api/graphql', JSON.stringify(response));

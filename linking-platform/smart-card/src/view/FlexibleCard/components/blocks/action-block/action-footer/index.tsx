@@ -36,6 +36,7 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 	switch (appearance) {
 		case 'error':
 			return (
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 				<ErrorIcon
 					primaryColor={token('color.icon.danger', '#C9372C')}
 					label="Error"

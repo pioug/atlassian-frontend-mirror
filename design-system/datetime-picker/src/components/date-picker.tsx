@@ -54,6 +54,7 @@ interface State {
 	selectInputValue: string;
 	l10n: LocalizationProvider;
 	locale: string;
+	shouldSetFocusOnCurrentDay: boolean;
 }
 
 const datePickerDefaultProps = {
@@ -102,6 +103,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			calendarValue: this.props.value || this.props.defaultValue || getShortISOString(new Date()),
 			l10n: createLocalizationProvider(this.props.locale),
 			locale: this.props.locale,
+			shouldSetFocusOnCurrentDay: false,
 		};
 	}
 
@@ -185,9 +187,13 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
 		if (!this.containerRef?.contains(newlyFocusedElement)) {
-			this.setState({ isOpen: false });
+			this.setState({ isOpen: false, shouldSetFocusOnCurrentDay: false });
 			this.props.onBlur(event);
 		}
+	};
+
+	onContainerFocus = () => {
+		this.setState({ shouldSetFocusOnCurrentDay: false });
 	};
 
 	onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -257,7 +263,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				const innerCombobox: HTMLInputElement | undefined | null =
 					this.containerRef?.querySelector('[role="combobox"]');
 				innerCombobox?.focus();
-				this.setState({ isOpen: false });
+				this.setState({ isOpen: false, shouldSetFocusOnCurrentDay: false });
 				break;
 			case 'backspace':
 			case 'delete': {
@@ -297,6 +303,14 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					if (valueChanged) {
 						this.props.onChange(safeCalendarValue);
 					}
+				}
+				break;
+			case 'arrowdown':
+			case 'arrowup':
+				if (this.state.isOpen && !this.state.shouldSetFocusOnCurrentDay) {
+					this.setState({
+						shouldSetFocusOnCurrentDay: true,
+					});
 				}
 				break;
 			default:
@@ -472,6 +486,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			calendarWeekStartDay: weekStartDay,
 			nextMonthLabel,
 			previousMonthLabel,
+			shouldSetFocusOnCurrentDay: this.state.shouldSetFocusOnCurrentDay,
 		};
 
 		return (
@@ -481,6 +496,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				{...innerProps}
 				role="presentation"
 				onBlur={this.onContainerBlur}
+				onFocus={this.onContainerFocus}
 				onClick={this.onInputClick}
 				onInput={this.onTextInput}
 				onKeyDown={this.onInputKeyDown}

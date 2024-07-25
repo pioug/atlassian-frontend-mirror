@@ -1,6 +1,5 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Anchor from '@atlaskit/primitives/anchor';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -47,11 +46,6 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 ) => {
 	// @ts-expect-error
 	const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
-	const rest = getBooleanFF(
-		'platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw',
-	)
-		? saferRest
-		: unsafeRest;
 
 	const baseProps = useIconButton<HTMLAnchorElement>({
 		analyticsContext,
@@ -101,7 +95,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				{(triggerProps) => (
 					<Anchor
 						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-						{...rest}
+						{...saferRest}
 						aria-labelledby={baseProps['aria-labelledby']}
 						testId={testId}
 						componentName="LinkIconButton"
@@ -110,27 +104,27 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 						// Shared between tooltip and native props
 						onMouseOver={(e) => {
 							triggerProps.onMouseOver?.(e);
-							rest.onMouseOver?.(e);
+							saferRest.onMouseOver?.(e);
 						}}
 						onMouseOut={(e) => {
 							triggerProps.onMouseOut?.(e);
-							rest.onMouseOut?.(e);
+							saferRest.onMouseOut?.(e);
 						}}
 						onMouseMove={(e) => {
 							triggerProps.onMouseMove?.(e);
-							rest.onMouseMove?.(e);
+							saferRest.onMouseMove?.(e);
 						}}
 						onMouseDown={(e) => {
 							triggerProps.onMouseDown?.(e);
-							rest.onMouseDown?.(e);
+							saferRest.onMouseDown?.(e);
 						}}
 						onFocus={(e) => {
 							triggerProps.onFocus?.(e);
-							rest.onFocus?.(e);
+							saferRest.onFocus?.(e);
 						}}
 						onBlur={(e) => {
 							triggerProps.onBlur?.(e);
-							rest.onBlur?.(e);
+							saferRest.onBlur?.(e);
 						}}
 						// Shared between tooltip and base props
 						onClick={(event, analyticsEvent) => {
@@ -171,7 +165,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 	return (
 		<Anchor
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-			{...rest}
+			{...saferRest}
 			aria-labelledby={baseProps['aria-labelledby']}
 			ref={baseProps.ref}
 			xcss={baseProps.xcss}

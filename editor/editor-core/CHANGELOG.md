@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 194.4.0
+
+### Minor Changes
+
+- [#122895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122895)
+  [`49b8c7658f3b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49b8c7658f3b5) -
+  [ED-24173] bump @atlaskit/adf-schema to 40.3.0 and @atlassian/adf-schema-json to 1.18.0
+
+### Patch Changes
+
+- [#121606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121606)
+  [`fb55435295b55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb55435295b55) -
+  Add on click callback to hyperlink plugin for live page
+- [#123266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123266)
+  [`821ca3d93201f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/821ca3d93201f) -
+  [ux] Migrate legacy icons and typography in Editor to new ADS icons and token under Feature Gate
+- Updated dependencies
+
 ## 194.3.16
 
 ### Patch Changes

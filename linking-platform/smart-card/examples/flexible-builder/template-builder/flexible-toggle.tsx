@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 import Toggle from '@atlaskit/toggle';
@@ -48,7 +48,13 @@ const FlexibleToggle = ({
 						appearance="subtle-link"
 						{...tooltipProps}
 						href="http://go/flexible-smart-links-docs"
-						iconBefore={<ShortcutIcon label="Go to flexible smart links docs" size="small" />}
+						iconBefore={
+							<ShortcutIcon
+								label="Go to flexible smart links docs"
+								LEGACY_size="small"
+								color="currentColor"
+							/>
+						}
 						spacing="none"
 						target="_blank"
 					/>

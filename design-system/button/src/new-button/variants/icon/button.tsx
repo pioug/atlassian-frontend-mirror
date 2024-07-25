@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -57,11 +56,6 @@ const IconButton = React.memo(
 	) {
 		// @ts-expect-error
 		const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
-		const rest = getBooleanFF(
-			'platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw',
-		)
-			? saferRest
-			: unsafeRest;
 
 		/**
 		 * TODO: At some stage I'll look into re-using more logic across 'default' and 'icon'
@@ -115,7 +109,7 @@ const IconButton = React.memo(
 				>
 					{(triggerProps) => (
 						<Pressable
-							{...rest}
+							{...saferRest}
 							// Top level props
 							aria-labelledby={baseProps['aria-labelledby']}
 							type={type}
@@ -126,27 +120,27 @@ const IconButton = React.memo(
 							// Shared between tooltip and native props
 							onMouseOver={(e) => {
 								triggerProps.onMouseOver?.(e);
-								rest.onMouseOver?.(e);
+								saferRest.onMouseOver?.(e);
 							}}
 							onMouseOut={(e) => {
 								triggerProps.onMouseOut?.(e);
-								rest.onMouseOut?.(e);
+								saferRest.onMouseOut?.(e);
 							}}
 							onMouseMove={(e) => {
 								triggerProps.onMouseMove?.(e);
-								rest.onMouseMove?.(e);
+								saferRest.onMouseMove?.(e);
 							}}
 							onMouseDown={(e) => {
 								triggerProps.onMouseDown?.(e);
-								rest.onMouseDown?.(e);
+								saferRest.onMouseDown?.(e);
 							}}
 							onFocus={(e) => {
 								triggerProps.onFocus?.(e);
-								rest.onFocus?.(e);
+								saferRest.onFocus?.(e);
 							}}
 							onBlur={(e) => {
 								triggerProps.onBlur?.(e);
-								rest.onBlur?.(e);
+								saferRest.onBlur?.(e);
 							}}
 							// Shared between tooltip and base props
 							onClick={(event, analyticsEvent) => {
@@ -179,7 +173,7 @@ const IconButton = React.memo(
 
 		return (
 			<Pressable
-				{...rest}
+				{...saferRest}
 				aria-labelledby={baseProps['aria-labelledby']}
 				ref={baseProps.ref}
 				xcss={baseProps.xcss}

@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
 import { Card, Provider } from '../src';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import Banner from '@atlaskit/banner';
 
 const FallbackComponent = () => {
 	return (
-		<Banner appearance="error" icon={<ErrorIcon label="" secondaryColor="inherit" />}>
+		<Banner
+			appearance="error"
+			icon={
+				<ErrorIcon
+					color="currentColor"
+					spacing="spacious"
+					label=""
+					LEGACY_secondaryColor={'inherit'}
+				/>
+			}
+		>
 			An unexpected error happend and this is a custom fallback component.{' '}
 			<a href="/packages/linking-platform/smart-card/docs/handle-errors">Learn more</a>
 		</Banner>

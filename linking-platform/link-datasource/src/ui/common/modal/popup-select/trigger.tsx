@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button/standard-button';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
@@ -78,7 +78,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 					appearance="default"
 					isSelected={isSelected || hasOptions}
 					isDisabled={isDisabled}
-					iconAfter={<ChevronDownIcon label="" />}
+					iconAfter={<ChevronDownIcon label="" color="currentColor" />}
 					testId={`${triggerButtonTestId}--button`}
 				>
 					<Flex>

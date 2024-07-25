@@ -77,6 +77,7 @@ export const ErroredView = ({
 					<Byline>
 						<UnresolvedText
 							icon={
+								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513
 								<WarningIcon
 									label="errored-warning-icon"
 									size="small"

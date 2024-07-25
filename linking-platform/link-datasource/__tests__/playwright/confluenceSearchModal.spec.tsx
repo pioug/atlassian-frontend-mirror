@@ -184,6 +184,9 @@ test.describe('ConfluenceSearchModal', () => {
 		await setup(page);
 
 		// make both filter selections
+		// (NOTE): The order is important for the test's reliability.
+		// At the moment, "editedOrCreatedBy" triggers with a debounce. Date range
+		// triggers a change immediately.
 		await page.getByTestId('clol-basic-filter-editedOrCreatedBy-trigger').click();
 		await page
 			.getByText('Atlassian Assist (staging)', {

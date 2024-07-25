@@ -2,7 +2,7 @@ import React from 'react';
 import { type JsonLd } from 'json-ld-types';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import LikeIcon from '@atlaskit/icon/glyph/like';
+import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
 import { token } from '@atlaskit/tokens';
 import { type CardType, type CardState } from '@atlaskit/linking-common';
 import extractFlexibleUiContext from '../../src/extractors/flexible';
@@ -118,7 +118,7 @@ export const makeCustomActionItem = (
 ): CustomActionItem => ({
 	name: ActionName.CustomAction,
 	onClick: () => console.log('Custom action!'),
-	icon: <LikeIcon label="like" />,
+	icon: <LikeIcon label="like" spacing="spacious" color="currentColor" />,
 	iconPosition: 'before',
 	content: 'Like',
 	...options,

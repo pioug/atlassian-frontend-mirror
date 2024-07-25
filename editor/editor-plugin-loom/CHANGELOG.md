@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-loom
 
+## 2.4.0
+
+### Minor Changes
+
+- [#121606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121606)
+  [`e06f32518241c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e06f32518241c) -
+  Added new action to loom plugin "insertLoom" which allows the user to insert a loom video into the
+  document.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

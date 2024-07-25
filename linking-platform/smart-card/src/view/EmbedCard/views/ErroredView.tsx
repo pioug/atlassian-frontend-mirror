@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { fontSize } from '@atlaskit/theme/constants';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -51,7 +51,7 @@ export const EmbedCardErroredView = ({
 		isSelected={isSelected}
 		testId={testId}
 	>
-		<ErrorIcon size="small" primaryColor={token('color.icon.danger', R300)} label="error-icon" />
+		<ErrorIcon LEGACY_size="small" color={token('color.icon.danger', R300)} label="error-icon" />
 		<span css={messageStyles}>
 			<FormattedMessage {...messages.could_not_load_link} />
 		</span>

@@ -31,9 +31,5 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-bitbucket-transformer/app"
 	},
-	"references": [
-		{
-			"path": "../editor-common/tsconfig.app.json"
-		}
-	]
+	"references": []
 }

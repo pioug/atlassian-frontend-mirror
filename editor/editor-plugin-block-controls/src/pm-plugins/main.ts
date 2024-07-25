@@ -326,7 +326,10 @@ export const createPlugin = (
 				}
 
 				// Remove drop target decoration when dragging stops
-				if (meta?.isDragging === false && !tr.docChanged) {
+				if (
+					meta?.isDragging === false &&
+					(fg('platform_editor_element_drag_and_drop_ed_24330') ? true : !tr.docChanged)
+				) {
 					const dropTargetDecs = decorations
 						.find()
 						.filter(({ spec }) => spec.type === 'drop-target-decoration');
@@ -408,7 +411,7 @@ export const createPlugin = (
 			handleDOMEvents: {
 				drop(view: EditorView, event: DragEvent) {
 					// prosemirror has sends a default transaction on drop (meta where uiEvent is 'drop'),
-					// this duplicates the an empty version of the node it was dropping,
+					// this duplicates an empty version of the node it was dropping,
 					// Adding some check here to prevent that if drop position is within activeNode
 					const { state, dispatch, dragging } = view;
 					const pluginState = key.getState(state);

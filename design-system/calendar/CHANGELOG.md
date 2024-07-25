@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 14.4.0
+
+### Minor Changes
+
+- [`974d1508085ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/974d1508085ce) -
+  Add a new prop `shouldSetFocusOnCurrentDay` to automatically set the focus to the current day.
+
 ## 14.3.6
 
 ### Patch Changes

@@ -42,6 +42,7 @@ const CopyLinkAction = ({ onClick: onClickCallback, ...props }: CopyLinkActionPr
 	return data ? (
 		<Action
 			content={<FormattedMessage {...messages.copy_url_to_clipboard} />}
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 			icon={<LinkIcon label="copy url" size="medium" />}
 			onClick={onClick}
 			testId="smart-action-copy-link-action"

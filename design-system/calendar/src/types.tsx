@@ -156,6 +156,11 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
 	 * programmatically. Defaults to "0".
 	 */
 	tabIndex?: TabIndex;
+	/**
+	 * This allows the calendar to automatically set the focus to the current day.
+	 * The default is false.
+	 */
+	shouldSetFocusOnCurrentDay?: boolean;
 }
 
 export interface CalendarRef {

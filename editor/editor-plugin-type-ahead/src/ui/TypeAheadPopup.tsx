@@ -9,7 +9,9 @@ import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -93,6 +95,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	} = props;
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
+	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
 
 	const startTime = useMemo(
 		() => performance.now(),
@@ -290,6 +293,10 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 					editorView={editorView}
 					decorationElement={anchorElement}
 					triggerHandler={triggerHandler}
+					moreElementsInQuickInsertViewEnabled={
+						featureFlagsState?.moreElementsInQuickInsertView &&
+						triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT
+					}
 				/>
 			</div>
 		</Popup>

@@ -6,7 +6,7 @@
 import { jsx } from '@emotion/react';
 
 import React from 'react';
-import LinkGlyph from '@atlaskit/icon/glyph/link';
+import LinkGlyph from '@atlaskit/icon/core/migration/link';
 
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
@@ -69,7 +69,14 @@ export const EmbedCardResolvedView = React.forwardRef<
 		const src = typeof iconFromContext === 'string' ? iconFromContext : undefined;
 		const text = title || context?.text;
 		const linkGlyph = React.useMemo(
-			() => <LinkGlyph label="icon" size="small" testId="embed-card-fallback-icon" />,
+			() => (
+				<LinkGlyph
+					label="icon"
+					LEGACY_size="small"
+					testId="embed-card-fallback-icon"
+					color="currentColor"
+				/>
+			),
 			[],
 		);
 		let icon = React.useMemo(() => {

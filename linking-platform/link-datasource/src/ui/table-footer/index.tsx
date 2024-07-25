@@ -119,6 +119,7 @@ export const TableFooter = ({
 							<Button
 								onClick={onRefresh}
 								appearance="subtle"
+								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19585
 								iconBefore={<RefreshIcon label={intl.formatMessage(footerMessages.refreshLabel)} />}
 								isDisabled={isLoading}
 								testId="refresh-button"

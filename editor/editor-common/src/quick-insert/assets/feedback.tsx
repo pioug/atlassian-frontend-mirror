@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function IconFeedback() {
 	return (
-		<svg focusable="false" aria-hidden width={40} height={40}>
+		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">
 			<defs>
 				<linearGradient x1="46.01%" y1="100%" x2="17.216%" y2="0%" id="feedback-a">
 					<stop stopColor="#C1C7D0" offset="0%" />

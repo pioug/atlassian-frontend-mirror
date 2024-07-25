@@ -8,7 +8,7 @@ import {
 	ExampleStorageKey,
 	FunctionStorageValue,
 } from './constants';
-import PremiumIcon from '@atlaskit/icon/glyph/premium';
+import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { token } from '@atlaskit/tokens';
 
 export type ChangeParams<T extends object> = [

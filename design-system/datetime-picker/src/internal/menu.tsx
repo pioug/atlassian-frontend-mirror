@@ -8,7 +8,7 @@ import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { type MenuProps } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -39,9 +39,7 @@ const menuStyles = css({
  * This is the menu used in the select of the date picker.
  */
 export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
-	<UNSAFE_LAYERING
-		isDisabled={getBooleanFF('platform.design-system-team.layering_qmiw3') ? false : true}
-	>
+	<UNSAFE_LAYERING isDisabled={fg('platform.design-system-team.layering_qmiw3') ? false : true}>
 		<FixedLayer
 			inputValue={selectProps.inputValue}
 			containerRef={selectProps.calendarContainerRef}
@@ -60,6 +58,7 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
 						previousMonthLabel={selectProps.previousMonthLabel}
 						calendarRef={selectProps.calendarRef}
 						selected={[selectProps.calendarValue]}
+						shouldSetFocusOnCurrentDay={selectProps.shouldSetFocusOnCurrentDay}
 						locale={selectProps.calendarLocale}
 						testId={selectProps.testId && `${selectProps.testId}--calendar`}
 						weekStartDay={selectProps.calendarWeekStartDay}

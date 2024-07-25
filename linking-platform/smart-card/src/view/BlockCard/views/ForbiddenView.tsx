@@ -103,6 +103,7 @@ export const ForbiddenView = ({
 					<Byline>
 						<UnresolvedText
 							icon={
+								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497
 								<LockIcon
 									label="forbidden-lock-icon"
 									size="small"

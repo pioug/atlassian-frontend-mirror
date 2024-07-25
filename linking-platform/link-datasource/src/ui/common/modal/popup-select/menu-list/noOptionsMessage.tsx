@@ -31,6 +31,7 @@ const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
 
 	return (
 		<CustomSelectMessage
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19578
 			icon={<QuestionCircleIcon primaryColor={token('color.icon', N500)} size="xlarge" label="" />}
 			message={asyncPopupSelectMessages.noOptionsMessage}
 			testId={`${filterName}--no-options-message`}

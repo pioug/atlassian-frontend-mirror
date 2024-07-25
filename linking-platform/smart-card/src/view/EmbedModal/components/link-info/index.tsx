@@ -7,11 +7,12 @@ import { jsx } from '@emotion/react';
 import React, { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { useModal } from '@atlaskit/modal-dialog';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
-import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
+import DownloadIcon from '@atlaskit/icon/core/download';
+import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
+import VidFullScreenOffIcon from '@atlaskit/icon/core/migration/fullscreen-exit--vid-full-screen-off';
 import { Icon } from '../../../common/Icon';
 import { messages } from '../../../../messages';
 import { MAX_MODAL_SIZE } from '../../constants';
@@ -36,7 +37,14 @@ const LinkInfo = ({
 			return (
 				<LinkInfoButton
 					content={<FormattedMessage {...messages.download} />}
-					icon={<DownloadIcon label={messages.download.defaultMessage as string} />}
+					icon={
+						<DownloadIcon
+							label={messages.download.defaultMessage as string}
+							LEGACY_fallbackIcon={DownloadIconLegacy}
+							spacing="spacious"
+							color="currentColor"
+						/>
+					}
 					onClick={onDownloadButtonClick}
 					testId={`${testId}-download`}
 				/>
@@ -57,7 +65,13 @@ const LinkInfo = ({
 			return (
 				<LinkInfoButton
 					content={content}
-					icon={<ShortcutIcon label={messages.viewOriginal.defaultMessage as string} />}
+					icon={
+						<ShortcutIcon
+							label={messages.viewOriginal.defaultMessage as string}
+							spacing="spacious"
+							color="currentColor"
+						/>
+					}
 					onClick={onViewButtonClick}
 					testId={`${testId}-url`}
 				/>
@@ -69,9 +83,17 @@ const LinkInfo = ({
 		const isFullScreen = size === MAX_MODAL_SIZE;
 		const message = isFullScreen ? messages.preview_min_size : messages.preview_max_size;
 		const icon = isFullScreen ? (
-			<VidFullScreenOffIcon label={message.defaultMessage as string} />
+			<VidFullScreenOffIcon
+				label={message.defaultMessage as string}
+				spacing="spacious"
+				color="currentColor"
+			/>
 		) : (
-			<VidFullScreenOnIcon label={message.defaultMessage as string} />
+			<VidFullScreenOnIcon
+				label={message.defaultMessage as string}
+				spacing="spacious"
+				color="currentColor"
+			/>
 		);
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -107,7 +129,13 @@ const LinkInfo = ({
 				{sizeButton}
 				<LinkInfoButton
 					content={<FormattedMessage {...messages.preview_close} />}
-					icon={<CrossIcon label={messages.preview_close.defaultMessage as string} />}
+					icon={
+						<CrossIcon
+							label={messages.preview_close.defaultMessage as string}
+							color="currentColor"
+							spacing="spacious"
+						/>
+					}
 					onClick={onClose as () => void}
 					testId={`${testId}-close`}
 				/>

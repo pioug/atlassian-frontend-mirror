@@ -60,6 +60,7 @@ const AvatarOptionLabel = ({ data, testId }: { data: AvatarLabelOption; testId?:
 		<Flex alignItems="center" testId={testId || 'basic-filter-popup-select-option--avatar'}>
 			{data.isGroup ? (
 				<Flex alignItems="center" justifyContent="center" xcss={groupWrapperStyles}>
+					{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19580 */}
 					<PeopleGroupIcon size="small" label="" />
 				</Flex>
 			) : (

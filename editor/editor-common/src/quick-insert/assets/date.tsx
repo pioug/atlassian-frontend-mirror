@@ -7,7 +7,7 @@ export default function IconDate() {
 	const { iconThemed } = useIconThemed();
 
 	return (
-		<svg focusable="false" aria-hidden width={40} height={40}>
+		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">
 			<defs>
 				<linearGradient x1="100.699%" y1="50%" x2="-14.52%" y2="50%" id="date-a">
 					<stop stopColor="#FAFBFC" offset="0%" />

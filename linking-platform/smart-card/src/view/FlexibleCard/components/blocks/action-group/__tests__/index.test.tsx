@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import PremiumIcon from '@atlaskit/icon/glyph/premium';
+import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import ActionGroup from '..';
 import { ActionName } from '../../../../../../constants';
 import { type ActionItem, type CustomActionItem } from '../../types';

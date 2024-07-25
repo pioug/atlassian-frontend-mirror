@@ -16,6 +16,7 @@ const rotateSvg = css({
  */
 const RelatedLinksActionIcon = () => (
 	<span css={rotateSvg}>
+		{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716 */}
 		<ChildIssuesIcon label="View recent links..." />
 	</span>
 );

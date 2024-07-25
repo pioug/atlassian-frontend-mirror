@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import Pressable from '@atlaskit/primitives/pressable';
 
 import { type CommonButtonVariantProps } from '../types';
@@ -54,9 +53,6 @@ const Button = React.memo(
 	) {
 		// @ts-expect-error
 		const { className: _className, css: _css, as: _as, style: _style, ...saferRest } = unsafeRest;
-		const rest = fg('platform.design-system-team.remove-unsafe-spread-from-new-button_a2xhw')
-			? saferRest
-			: unsafeRest;
 
 		const baseProps = useDefaultButton<HTMLButtonElement>({
 			ariaLabel,
@@ -91,7 +87,7 @@ const Button = React.memo(
 		return (
 			<Pressable
 				// TODO: Remove spread props
-				{...rest}
+				{...saferRest}
 				aria-label={baseProps['aria-label']}
 				aria-labelledby={baseProps['aria-labelledby']}
 				ref={baseProps.ref}

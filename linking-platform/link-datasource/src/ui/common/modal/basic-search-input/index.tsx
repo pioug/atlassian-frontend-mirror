@@ -8,7 +8,7 @@ import { css, jsx } from '@emotion/react';
 import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
-import SearchIcon from '@atlaskit/icon/glyph/editor/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -73,7 +73,9 @@ export const BasicSearchInput = ({
 						iconBefore={
 							<SearchIcon
 								label={formatMessage(basicSearchInputMessages.basicTextSearchLabel)}
-								size="medium"
+								LEGACY_size="medium"
+								color="currentColor"
+								spacing="spacious"
 							/>
 						}
 						isDisabled={isDisabled}

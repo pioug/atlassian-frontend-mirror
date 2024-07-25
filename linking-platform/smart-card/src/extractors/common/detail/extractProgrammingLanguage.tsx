@@ -1,6 +1,6 @@
 import React from 'react';
 import { N600 } from '@atlaskit/theme/colors';
-import CodeIcon from '@atlaskit/icon/glyph/code';
+import CodeIcon from '@atlaskit/icon/core/migration/angle-brackets--code';
 
 import { type JsonLd } from 'json-ld-types';
 import { type LinkDetail } from './types';
@@ -20,7 +20,7 @@ export const extractProgrammingLanguage = (
 	if (programmingLanguage) {
 		return {
 			text: programmingLanguage,
-			icon: <CodeIcon size="small" label="code" primaryColor={token('color.icon.subtle', N600)} />,
+			icon: <CodeIcon LEGACY_size="small" label="code" color={token('color.icon.subtle', N600)} />,
 		};
 	}
 };

@@ -1,11 +1,19 @@
 import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
 
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { EditorCommand } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { LoomPlugin } from './plugin';
 import { LoomPluginAction, loomPluginKey } from './pm-plugin';
-import type { VideoMeta } from './types';
+import type { PositionType, VideoMeta } from './types';
 
 export const enableLoom =
 	({ loomButton }: { loomButton: HTMLButtonElement }): EditorCommand =>
@@ -98,3 +106,43 @@ export const insertVideo =
 
 		return tr;
 	};
+
+const getPositions = (tr: Transaction, posType: PositionType): { from: number; to: number } => {
+	const selection = tr.selection;
+
+	switch (posType) {
+		case 'current':
+			return { from: selection.from, to: selection.from };
+		case 'start':
+			return { from: 0, to: 0 };
+		case 'end':
+			return { from: tr.doc.content.size, to: tr.doc.content.size };
+	}
+};
+
+export const insertLoom = (
+	editorView: EditorView | null,
+	api: ExtractInjectionAPI<LoomPlugin> | undefined,
+	video: VideoMeta,
+	positionType: PositionType,
+): boolean => {
+	if (!editorView) {
+		return false;
+	}
+	const { state, dispatch } = editorView;
+	const { from, to } = getPositions(state.tr, positionType);
+
+	return (
+		api?.hyperlink?.actions.insertLink(
+			INPUT_METHOD.TYPEAHEAD,
+			from,
+			to,
+			video.sharedUrl,
+			video.title,
+			undefined,
+			undefined,
+			undefined,
+			'embed', // Convert to embed card instead of inline
+		)(state, dispatch) ?? false
+	);
+};

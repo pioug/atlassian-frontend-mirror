@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "194.3.16",
+	"version": "194.4.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,12 +40,12 @@
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/adf-schema": "^39.0.3",
+		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^19.0.0",
-		"@atlaskit/editor-common": "^86.5.0",
+		"@atlaskit/button": "^19.1.0",
+		"@atlaskit/editor-common": "^86.7.0",
 		"@atlaskit/editor-plugins": "^3.4.0",
 		"@atlaskit/editor-prosemirror": "4.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
@@ -83,15 +83,15 @@
 		"@af/editor-examples-helpers": "0.0.18",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/adf-utils": "^19.4.0",
+		"@atlaskit/adf-utils": "^19.5.0",
 		"@atlaskit/analytics-listeners": "^8.10.0",
-		"@atlaskit/collab-provider": "9.34.0",
-		"@atlaskit/editor-json-transformer": "^8.15.0",
-		"@atlaskit/editor-plugin-annotation": "1.16.0",
-		"@atlaskit/editor-plugin-card": "^2.6.0",
+		"@atlaskit/collab-provider": "9.35.0",
+		"@atlaskit/editor-json-transformer": "^8.16.0",
+		"@atlaskit/editor-plugin-annotation": "1.17.0",
+		"@atlaskit/editor-plugin-card": "^2.7.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.0.0",
-		"@atlaskit/editor-plugin-list": "^3.5.0",
-		"@atlaskit/editor-plugin-paste": "^1.5.0",
+		"@atlaskit/editor-plugin-list": "^3.6.0",
+		"@atlaskit/editor-plugin-paste": "^1.6.0",
 		"@atlaskit/editor-test-helpers": "*",
 		"@atlaskit/link-provider": "^1.13.0",
 		"@atlaskit/logo": "^14.1.0",
@@ -100,13 +100,13 @@
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^11.0.0",
-		"@atlaskit/renderer": "^109.42.0",
-		"@atlaskit/smart-card": "^27.10.0",
+		"@atlaskit/renderer": "^109.43.0",
+		"@atlaskit/smart-card": "^27.11.0",
 		"@atlaskit/synchrony-test-helpers": "^2.4.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/adf-schema-json": "^1.16.0",
+		"@atlassian/adf-schema-json": "^1.18.0",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@atlassian/search-provider": "2.4.97",
 		"@emotion/jest": "^11.8.0",
@@ -159,8 +159,7 @@
 			"referenceOnly": "true"
 		},
 		"platform.linking-platform.smart-links-in-live-pages": {
-			"type": "boolean",
-			"referenceOnly": "true"
+			"type": "boolean"
 		},
 		"platform.editor.live-pages-expand-divergence": {
 			"type": "boolean",
@@ -271,10 +270,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.table.editor-num-col-style-changes": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"platform.editor.simplify-inline-cards-in-code-blocks_jw6t1": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -341,6 +336,10 @@
 		},
 		"platform_editor_media_provider_from_plugin_config": {
 			"type": "boolean"
+		},
+		"platform_editor_migration_icon_and_typography": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

@@ -57,6 +57,7 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 		previouslySelected,
 		previousMonthLabel,
 		selected,
+		shouldSetFocusOnCurrentDay = false,
 		today,
 		locale = 'en-US',
 		year,
@@ -215,7 +216,7 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 							weeks={weeks}
 							handleClickDay={handleClickDay}
 							monthsLong={monthsLong}
-							shouldSetFocus={shouldSetFocus}
+							shouldSetFocus={shouldSetFocus || shouldSetFocusOnCurrentDay}
 							tabIndex={tabIndex}
 							testId={testId}
 						/>

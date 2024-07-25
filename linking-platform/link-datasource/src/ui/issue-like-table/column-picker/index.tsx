@@ -147,7 +147,9 @@ export const ColumnPicker = ({
 							isSelected={isOpen}
 							iconBefore={
 								<div>
+									{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19549 */}
 									<BoardIcon label="board" size="medium" />
+									{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19549 */}
 									<ChevronDownIcon label="down" size="medium" />
 								</div>
 							}

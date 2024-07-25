@@ -7,9 +7,9 @@ import React, { useCallback, useMemo, useRef, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Button, { type ButtonProps } from '@atlaskit/button';
-import ChevronLeftIcon from '@atlaskit/icon/glyph/chevron-left';
-import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
+import { IconButton, type IconButtonProps } from '@atlaskit/button/new';
+import ChevronLeftIcon from '@atlaskit/icon/utility/migration/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right';
 
 import {
 	calculateConditionalButtons,
@@ -131,9 +131,9 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 		}
 	}, [onTabClick, ghost, ref]);
 
-	const buttonProps: ButtonProps = {
+	const buttonProps: Partial<IconButtonProps> = {
 		appearance: 'subtle',
-		spacing: 'none',
+		spacing: 'compact',
 	};
 
 	return (
@@ -142,12 +142,13 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 			{conditionalButtons.back && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div className="back" css={backButtonStyles}>
-					<Button
+					<IconButton
 						data-test-id="back"
-						{...buttonProps}
-						iconBefore={<ChevronLeftIcon label="back" />}
 						onClick={() => scrollBack(ref)}
-					></Button>
+						label="back"
+						icon={ChevronLeftIcon}
+						{...buttonProps}
+					/>
 				</div>
 			)}
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
@@ -155,12 +156,13 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 			{conditionalButtons.forward && (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={nextButtonStyles}>
-					<Button
+					<IconButton
 						data-test-id="forward"
-						{...buttonProps}
-						iconBefore={<ChevronRightIcon label="forward" />}
 						onClick={() => scrollForward(ref)}
-					></Button>
+						{...buttonProps}
+						label="forward"
+						icon={ChevronRightIcon}
+					/>
 				</div>
 			)}
 		</div>

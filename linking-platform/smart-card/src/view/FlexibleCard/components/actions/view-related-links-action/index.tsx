@@ -12,6 +12,7 @@ import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import RelatedLinksActionIcon from './related-links-action-icon';
 import { lazy, useCallback } from 'react';
 import { useSmartLinkModal } from '../../../../../state/modal';
+import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 
 const RelatedLinksModal = lazy(
 	() =>
@@ -27,6 +28,7 @@ const ViewRelatedLinksAction = ({
 	const modal = useSmartLinkModal();
 	const context = useFlexibleUiContext();
 	const actionData = context?.actions?.ViewRelatedLinksAction;
+	const { fireEvent } = useAnalyticsEvents();
 
 	const onClick = useCallback(() => {
 		const ari = actionData?.ari;
@@ -34,8 +36,10 @@ const ViewRelatedLinksAction = ({
 			modal.open(<RelatedLinksModal ari={ari} showModal={true} onClose={() => modal.close()} />);
 		}
 
+		fireEvent('ui.button.clicked.relatedLinks', {});
+
 		onClickCallback?.();
-	}, [actionData?.ari, modal, onClickCallback]);
+	}, [actionData?.ari, fireEvent, modal, onClickCallback]);
 
 	return actionData ? (
 		<Action

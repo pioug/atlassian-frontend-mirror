@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import type { TriggerProps } from '@atlaskit/popup/types';
 
 export interface PopupTriggerProps {
@@ -28,7 +28,7 @@ export const PopupTrigger = ({
 			iconAfter={
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<span style={{ display: 'flex', alignItems: 'center' }}>
-					<ChevronDownIcon size="medium" label="" />
+					<ChevronDownIcon LEGACY_size="medium" label="" color="currentColor" />
 				</span>
 			}
 		>

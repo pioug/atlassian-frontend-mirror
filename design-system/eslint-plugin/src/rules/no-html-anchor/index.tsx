@@ -11,7 +11,7 @@ const rule = createLintRule({
 		docs: {
 			description:
 				'Discourage direct usage of HTML anchor elements in favor of Atlassian Design System link components.',
-			recommended: false,
+			recommended: true,
 			severity: 'warn',
 		},
 		messages: {

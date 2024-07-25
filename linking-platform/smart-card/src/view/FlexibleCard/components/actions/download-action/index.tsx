@@ -43,6 +43,7 @@ const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionPr
 	return data ? (
 		<Action
 			content={<FormattedMessage {...label} />}
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19716
 			icon={<DownloadIcon label="Download" />}
 			onClick={onClick}
 			testId="smart-action-download-action"

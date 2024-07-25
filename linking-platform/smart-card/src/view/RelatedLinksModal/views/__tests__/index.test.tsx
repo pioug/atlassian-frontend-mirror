@@ -1,12 +1,21 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { type CardStore } from '@atlaskit/linking-common';
+import '@atlaskit/link-test-helpers/jest';
 import RelatedLinksBaseModal from '../../components/RelatedLinksBaseModal';
 import RelatedLinksResolvedView from '../resolved';
 import RelatedLinksUnavailableView from '../unavailable';
 import RelatedLinksResolvingView from '../resolving';
 import RelatedLinksErroredView from '../errored';
-import { SmartCardProvider } from '@atlaskit/link-provider';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
+import userEvent from '@testing-library/user-event';
+import { mockSuccessResponse } from '../../__tests__/mocks';
+import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+
+mockSimpleIntersectionObserver();
 
 const RelatedLinksBaseModalWithI18N = ({ children }: { children?: React.ReactNode }) => (
 	<IntlProvider locale={'en'}>
@@ -16,7 +25,7 @@ const RelatedLinksBaseModalWithI18N = ({ children }: { children?: React.ReactNod
 	</IntlProvider>
 );
 
-describe('RelatedLinksModal', () => {
+describe('RelatedLinksModal views', () => {
 	it('renders related links modal', async () => {
 		render(<RelatedLinksBaseModalWithI18N />);
 
@@ -31,15 +40,29 @@ describe('RelatedLinksModal', () => {
 	});
 
 	describe('ResolvedView', () => {
-		const renderRelatedLinksResolvedView = (incomingLinks: string[], outgoingLinks: string[]) => {
+		const onEvent = jest.fn();
+
+		const renderRelatedLinksResolvedView = (
+			incomingLinks: string[],
+			outgoingLinks: string[],
+			cardStore: CardStore = {},
+		) => {
 			return render(
-				<SmartCardProvider>
-					<RelatedLinksBaseModalWithI18N>
-						<RelatedLinksResolvedView incomingLinks={incomingLinks} outgoingLinks={outgoingLinks} />
-					</RelatedLinksBaseModalWithI18N>
-				</SmartCardProvider>,
+				<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
+					<SmartCardProvider storeOptions={{ initialState: cardStore }}>
+						<RelatedLinksBaseModalWithI18N>
+							<RelatedLinksResolvedView
+								incomingLinks={incomingLinks}
+								outgoingLinks={outgoingLinks}
+							/>
+						</RelatedLinksBaseModalWithI18N>
+					</SmartCardProvider>
+				</AnalyticsListener>,
 			);
 		};
+		afterEach(() => {
+			jest.clearAllMocks();
+		});
 
 		it('renders related links modal with resolved view', async () => {
 			const mockUrl = 'http://some-url.atlassian.com';
@@ -54,7 +77,7 @@ describe('RelatedLinksModal', () => {
 			const outgoingLinksHeading = await screen.findByText('Includes Links To');
 			expect(outgoingLinksHeading).toBeInTheDocument();
 
-			const allLinks = await screen.findAllByRole('link');
+			const allLinks = await screen.findAllByTestId('smart-element-link');
 			expect(allLinks.length).toBe(3);
 
 			const incomingLinks = await screen.findByTestId('incoming-related-links-list');
@@ -90,6 +113,47 @@ describe('RelatedLinksModal', () => {
 
 			const emptyListText = await screen.findAllByText("We didn't find any links to show here.");
 			expect(emptyListText.length).toBe(2);
+		});
+
+		it('fires events with right context', async () => {
+			renderRelatedLinksResolvedView(['incoming-link1'], ['outgoing-link1'], {
+				'incoming-link1': { status: 'resolved', details: mockSuccessResponse.body },
+				'outgoing-link1': { status: 'resolved', details: mockSuccessResponse.body },
+			});
+
+			const [incomingLink, outgoingLink] = await screen.findAllByTestId('smart-element-link');
+			await userEvent.click(incomingLink);
+			await waitFor(() =>
+				expect(onEvent).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'link',
+						eventType: 'ui',
+					},
+					context: [
+						{
+							component: 'relatedLinksIncoming',
+						},
+					],
+				}),
+			);
+
+			onEvent.mockClear();
+			await userEvent.click(outgoingLink);
+			await waitFor(() =>
+				expect(onEvent).toBeFiredWithAnalyticEventOnce({
+					payload: {
+						action: 'clicked',
+						actionSubject: 'link',
+						eventType: 'ui',
+					},
+					context: [
+						{
+							component: 'relatedLinksOutgoing',
+						},
+					],
+				}),
+			);
 		});
 	});
 

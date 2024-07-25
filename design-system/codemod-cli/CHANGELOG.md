@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.25.2
+
+### Patch Changes
+
+- [#123131](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123131)
+  [`862fb8cdd4b71`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/862fb8cdd4b71) -
+  Codemod includes new migration pathways for legacy button
+
 ## 0.25.1
 
 ### Patch Changes

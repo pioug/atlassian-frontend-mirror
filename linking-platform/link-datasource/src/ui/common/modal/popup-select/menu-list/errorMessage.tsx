@@ -47,6 +47,7 @@ const CustomErrorMessage = ({ filterName, errors }: { filterName: string; errors
 
 	return (
 		<CustomSelectMessage
+			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19579
 			icon={<ErrorIcon primaryColor={token('color.icon', N500)} label="" size="xlarge" />}
 			message={asyncPopupSelectMessages.errorMessage}
 			testId={`${filterName}--error-message`}

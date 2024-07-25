@@ -7,7 +7,7 @@ export default function IconFallback() {
 	const { iconThemed } = useIconThemed();
 
 	return (
-		<svg focusable="false" aria-hidden width={40} height={40}>
+		<svg focusable="false" aria-hidden width={40} height={40} viewBox="0 0 40 40">
 			<defs>
 				<linearGradient x1="-26.046%" y1="100%" x2="62.626%" y2="0%" id="fallback-a">
 					<stop stopColor="#B3BAC5" offset="0%" />

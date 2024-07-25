@@ -5,8 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { type PropsWithChildren, useCallback, useState } from 'react';
+import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
-import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
+import DragHandlerIcon from '@atlaskit/icon/core/migration/drag-handle--drag-handler';
 import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 import { type BlockName } from '../constants';
@@ -58,11 +59,16 @@ const BlockBuilderContainer = ({
 	return (
 		<div css={containerStyles}>
 			<div css={headerStyles}>
-				<DragHandlerIcon label="" />
+				<DragHandlerIcon label="" spacing="spacious" />
 				<h5>
 					{name} {internal && <Lozenge>INTERNAL</Lozenge>}
 				</h5>
-				<Button iconBefore={<ChevronIcon open={open} />} onClick={handleExpand} spacing="compact" />
+				<IconButton
+					onClick={handleExpand}
+					spacing="compact"
+					icon={() => <ChevronIcon open={open} />}
+					label=""
+				/>
 			</div>
 			{open && (
 				<div css={contentStyles}>

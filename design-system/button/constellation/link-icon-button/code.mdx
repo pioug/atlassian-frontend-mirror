@@ -2,24 +2,20 @@
 title: Link icon button
 description: An icon-only button that helps people navigate to a common link or page location.
 order: 1
+props:
+  packageName: '@atlaskit/button/new'
+  exports:
+    - LinkIconButton
 ---
-
-import CommonIconProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/icon-button/common-icon-button-props';
-import LinkIconButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/icon-button/link-icon-button-props';
 
 ## Props
 
 ### Common props
 
-These props work for both `IconButton` and `LinkIconButton`. Each button type also supports its
-respective HTML element attributes, except for:
+Each button type also supports its respective HTML element attributes, except for:
 
 - `disabled` (use `isDisabled` instead)
 - `style`
 - `role`
 
-<PropsTable heading="" props={CommonIconProps} />
-
-### LinkIconButton props
-
-<PropsTable heading="" props={LinkIconButtonProps} />
+<TSMorphProps exportName="LinkIconButton" packageName="@atlaskit/button/new" />

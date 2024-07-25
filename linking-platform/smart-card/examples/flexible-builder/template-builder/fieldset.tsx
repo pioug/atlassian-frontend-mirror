@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import type { PropsWithChildren } from 'react';
 import { useCallback, useState } from 'react';
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import ChevronIcon from './chevron-icon';
 
 const containerStyles = css({
@@ -37,7 +37,7 @@ const Fieldset = ({
 		<div css={containerStyles}>
 			<div css={headerStyles} onClick={handleOnClick}>
 				<h6>{legend}</h6>
-				<Button iconBefore={<ChevronIcon open={open} />} spacing="compact" />
+				<IconButton spacing="compact" icon={() => <ChevronIcon open={open} />} label="" />
 			</div>
 			{open && children}
 		</div>

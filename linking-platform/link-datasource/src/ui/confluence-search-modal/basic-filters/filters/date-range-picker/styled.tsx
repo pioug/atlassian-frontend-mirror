@@ -98,4 +98,5 @@ export const DateRangeErrorMessage = styled.div({
 	marginTop: token('space.050', '2px'),
 	fontSize: '12px',
 	color: token('color.text.danger', R400),
+	alignItems: 'center',
 });

@@ -1,5 +1,9 @@
 import { createCheck } from '../../../__tests__/test-utils';
 import transformer from '../codemods/next-migrate-link-button-to-link';
+import {
+	migrateButtonToSubtleLinkButton,
+	migrateSubtleButtonToSubtleLinkButton,
+} from '../utils/constants';
 
 const check = createCheck(transformer);
 
@@ -47,6 +51,7 @@ describe('Migrate Link buttons to Links', () => {
     import { LinkButton } from '@atlaskit/button/new';
       const App = () => (
         <LinkButton
+          // TODO: (from codemod) ${migrateButtonToSubtleLinkButton}
           appearance="subtle"
           href="https://atlassian.design/"
         >
@@ -73,6 +78,7 @@ describe('Migrate Link buttons to Links', () => {
     import { LinkButton } from '@atlaskit/button/new';
       const App = () => (
         <LinkButton
+          // TODO: (from codemod) ${migrateSubtleButtonToSubtleLinkButton}
           appearance="subtle"
           href="https://atlassian.design/"
         >
@@ -193,7 +199,7 @@ describe('Migrate Link buttons to Links', () => {
           A link
         </Link>
         <IconButton icon={AddIcon} />
-      </div>  
+      </div>
       );
     `,
 	});

@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
 import { ButtonGroup } from '@atlaskit/button';
-import ErrorIcon from '@atlaskit/icon/glyph/error';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { token } from '@atlaskit/tokens';
 
 import { Button } from '../../../common/ui/Button';
@@ -51,7 +51,8 @@ export function CreateFormFooter({
 				<div css={errorStyles} data-testid={`${testId}-error`}>
 					<ErrorIcon
 						label={formErrorMessage}
-						primaryColor={token('color.icon.danger', '#E34935')}
+						color={token('color.icon.danger', '#E34935')}
+						spacing="spacious"
 					/>
 					{formErrorMessage}
 				</div>

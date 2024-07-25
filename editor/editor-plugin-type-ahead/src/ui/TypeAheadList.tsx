@@ -37,6 +37,7 @@ type TypeAheadListProps = {
 	fitHeight: number;
 	decorationElement: HTMLElement;
 	triggerHandler?: TypeAheadHandler;
+	moreElementsInQuickInsertViewEnabled?: boolean;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
@@ -65,6 +66,7 @@ const TypeAheadListComponent = React.memo(
 		fitHeight,
 		decorationElement,
 		triggerHandler,
+		moreElementsInQuickInsertViewEnabled,
 	}: TypeAheadListProps) => {
 		const listRef = useRef<List>() as React.MutableRefObject<List>;
 		const listContainerRef = useRef<HTMLDivElement>(null);
@@ -300,6 +302,7 @@ const TypeAheadListComponent = React.memo(
 									getTypeAheadListAriaLabels(triggerHandler?.trigger, intl, currentItem)
 										.listItemAriaLabel
 								}
+								moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
 							/>
 						</div>
 					</div>

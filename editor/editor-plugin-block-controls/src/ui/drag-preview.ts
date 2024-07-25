@@ -1,3 +1,4 @@
+import { browser } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -61,9 +62,11 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 		clonedDom.style.marginRight = '0';
 		clonedDom.style.marginBottom = '0';
 		clonedDom.style.boxShadow = 'none';
-		clonedDom.style.opacity = fg('platform_editor_elements_drag_and_drop_ed_23189')
-			? '0.31'
-			: '0.4';
+		clonedDom.style.opacity = browser.windows
+			? '1'
+			: fg('platform_editor_elements_drag_and_drop_ed_23189')
+				? '0.31'
+				: '0.4';
 
 		parent.appendChild(clonedDom);
 	}

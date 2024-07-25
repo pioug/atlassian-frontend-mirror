@@ -99,6 +99,7 @@ export function getDefaultPresetOptionsFromEditorProps(
 		hyperlinkOptions: {
 			editorAppearance: props.appearance,
 			linkPicker: props.linking?.linkPicker,
+			onClickCallback: cardOptions?.onClickCallback,
 			platform: isMobile ? 'mobile' : 'web',
 		},
 		codeBlock: {

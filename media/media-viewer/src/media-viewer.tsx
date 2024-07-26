@@ -154,6 +154,7 @@ const MediaViewerWithScrollLock = (props: Props & WrappedComponentProps) => {
 	);
 };
 
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 export const MediaViewer: React.ComponentType<Props> = withMediaAnalyticsContext({
 	packageName,
 	packageVersion,

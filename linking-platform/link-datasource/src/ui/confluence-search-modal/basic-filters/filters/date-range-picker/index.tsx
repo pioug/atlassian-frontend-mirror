@@ -121,6 +121,7 @@ export const DateRangePicker = ({
 		<Popup
 			isOpen={!!isPickerOpen}
 			onClose={handlePickerToggle}
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={PopupComponent}
 			zIndex={layers.modal()}
 			content={() => {

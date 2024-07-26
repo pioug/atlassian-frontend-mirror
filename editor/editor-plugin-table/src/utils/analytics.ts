@@ -16,7 +16,12 @@ import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils';
 import { getTableWidth } from '../utils';
 
-export function getSelectedTableInfo(selection: Selection) {
+export function getSelectedTableInfo(selection: Selection): {
+	table: ReturnType<typeof findTable> | undefined;
+	map: TableMap | undefined;
+	totalRowCount: number;
+	totalColumnCount: number;
+} {
 	let map;
 	let totalRowCount = 0;
 	let totalColumnCount = 0;

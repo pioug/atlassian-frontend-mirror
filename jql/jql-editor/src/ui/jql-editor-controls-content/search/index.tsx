@@ -20,6 +20,7 @@ export const Search = () => {
 		<Tooltip
 			position={'bottom'}
 			content={<TooltipContent>{label}</TooltipContent>}
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			tag={TooltipTag}
 		>
 			<BaseSearch label={label} onSearch={onSearch} isSearching={isSearching} />

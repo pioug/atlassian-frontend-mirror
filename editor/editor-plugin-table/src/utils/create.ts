@@ -33,7 +33,7 @@ export const createTableWithWidth =
 		if (isTableScalingEnabled && isFullWidthModeEnabled && !isCommentEditor) {
 			attrsOverrides.tableWidth = TABLE_MAX_WIDTH;
 		}
-		if (isTableAlignmentEnabled && isFullWidthModeEnabled) {
+		if (isTableAlignmentEnabled && (isFullWidthModeEnabled || isCommentEditor)) {
 			attrsOverrides.layout = 'align-start';
 		}
 		if (isCommentEditor && isTableResizingEnabled) {

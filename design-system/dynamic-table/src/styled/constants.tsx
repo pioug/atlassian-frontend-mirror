@@ -1,4 +1,4 @@
-import { type LegacyRef, type ReactNode } from 'react';
+import { type ReactNode, type Ref } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
@@ -13,7 +13,7 @@ export interface TruncateStyleProps {
 	shouldTruncate?: boolean;
 	children?: ReactNode;
 	testId?: string;
-	innerRef?: LegacyRef<HTMLTableCellElement | HTMLTableRowElement> | undefined;
+	innerRef?: Ref<HTMLTableCellElement | HTMLTableRowElement> | undefined;
 	className?: string;
 }
 

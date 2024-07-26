@@ -1,11 +1,18 @@
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	type ContentNodeWithPos,
+	findParentNodeOfType,
+	findSelectedNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { mapChildren } from '../utils/slice';
 
-export const findExpand = (state: EditorState, selection?: Selection | null) => {
+export const findExpand = (
+	state: EditorState,
+	selection?: Selection | null,
+): ContentNodeWithPos | undefined => {
 	const { expand, nestedExpand } = state.schema.nodes;
 	return (
 		findSelectedNodeOfType([expand, nestedExpand])(selection || state.selection) ||

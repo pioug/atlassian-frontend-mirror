@@ -30,7 +30,7 @@ const CustomSelectMessage = ({ icon, message, testId }: CustomSelectMessageProps
 			<Flex xcss={boxStyles} alignItems="center" justifyContent="center">
 				{icon}
 			</Flex>
-			<Heading level="h400">
+			<Heading size="xsmall">
 				<FormattedMessage {...message} />
 			</Heading>
 		</Stack>

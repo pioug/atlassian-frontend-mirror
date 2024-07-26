@@ -58,6 +58,7 @@ function Tooltip({
 	mousePosition = 'bottom',
 	content,
 	truncate = false,
+	// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 	component: Container = TooltipContainer,
 	tag: TargetContainer = 'div',
 	testId,
@@ -481,7 +482,7 @@ function Tooltip({
 													/**
 													 * "Tooltip" classname is a hook used by tests to manipulate
 													 * and hide tooltips, including in VR snapshots
-													 **/
+													 */
 													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 													className={`Tooltip ${className}`}
 													style={{

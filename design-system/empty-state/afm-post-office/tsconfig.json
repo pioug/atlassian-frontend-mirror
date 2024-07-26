@@ -1,0 +1,33 @@
+{
+  "extends": "../../../../tsconfig.entry-points.post-office.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__empty-state/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../button/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../spinner/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../theme/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../tokens/afm-post-office/tsconfig.json"
+    }
+  ]
+}

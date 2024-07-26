@@ -1,5 +1,14 @@
 # @atlaskit/embedded-confluence
 
+## 2.18.1
+
+### Patch Changes
+
+- [#123484](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123484)
+  [`c0a76768fd245`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0a76768fd245) -
+  [ux] [CBT-3460] Resolves an issue where setting `isHeightSetFromContent` prop on `ViewPage`
+  component to `true` could cause double scrollbars to appear [ECOHELP-40020]
+
 ## 2.18.0
 
 ### Minor Changes

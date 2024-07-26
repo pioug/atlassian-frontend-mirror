@@ -6,6 +6,9 @@ export { default as Rows } from './components/rows';
 export { default as Row } from './components/row';
 export { default as TableTreeDataHelper } from './utils/table-tree-data-helper';
 
+export type { TableTreeProps } from './components/table-tree';
+export type { HeaderProps } from './components/header';
+export type { RowsProps } from './components/rows';
+export type { RowProps } from './components/row';
 export type { CellWithColumnWidthProps } from './components/internal/with-column-width';
 export type { CellProps } from './components/cell';
-export type { RowsProps } from './components/rows';

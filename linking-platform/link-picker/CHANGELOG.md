@@ -1,5 +1,25 @@
 # @atlaskit/link-picker
 
+## 1.41.0
+
+### Minor Changes
+
+- [#124114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124114)
+  [`0add97fe66134`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0add97fe66134) -
+  A `/lazy` entrypoint has been added.
+
+  Prefer the default export from the default entrypoint if you do not want a lazy-loaded version.
+
+  ```tsx
+  import LinkPicker from '@atlaskit/link-picker';
+  ```
+
+  Prefer the `LazyLinkPicker` export from the `/lazy` entrypoint if you want a lazy-loaded version.
+
+  ```tsx
+  import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
+  ```
+
 ## 1.40.0
 
 ### Minor Changes

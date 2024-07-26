@@ -1,35 +1,35 @@
 import React, {
-	useRef,
-	useEffect,
-	useMemo,
-	forwardRef,
 	type ComponentType,
+	forwardRef,
 	type Ref,
+	useEffect,
 	useImperativeHandle,
+	useMemo,
+	useRef,
 } from 'react';
+
 import { mergeStyles, type OptionsOrGroups } from 'react-select';
 import type BaseSelect from 'react-select/base';
 
-import { Input } from './components/input-aria-describedby';
-import { NoOptionsMessage } from './components/no-options';
-
-import {
-	type SelectProps,
-	type OptionType,
-	type AsyncSelectProps,
-	type CreatableSelectProps,
-	type GroupType,
-	type AtlaskitSelectRefType,
-} from './types';
 import {
 	ClearIndicator,
 	DropdownIndicator,
+	IndicatorSeparator,
 	LoadingIndicator,
 	MultiValueRemove,
-	IndicatorSeparator,
 } from './components';
+import { Input } from './components/input-aria-describedby';
+import { NoOptionsMessage } from './components/no-options';
 import baseStyles from './styles';
-import { onFocus, isOptionsGrouped } from './utils/grouped-options-announcement';
+import {
+	type AsyncSelectProps,
+	type AtlaskitSelectRefType,
+	type CreatableSelectProps,
+	type GroupType,
+	type OptionType,
+	type SelectProps,
+} from './types';
+import { isOptionsGrouped, onFocus } from './utils/grouped-options-announcement';
 
 type AtlaskitSelectProps<Option extends unknown, IsMulti extends boolean> =
 	| SelectProps<Option, IsMulti>
@@ -95,7 +95,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		 * More info https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/88021/overview
 		 */
 		useImperativeHandle(
-			forwardedRef,
+			forwardedRef as Ref<AtlaskitSelectRefType>,
 			() => ({
 				select: internalSelectRef.current,
 				focus: () => internalSelectRef.current?.focus(),

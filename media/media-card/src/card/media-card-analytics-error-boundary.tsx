@@ -72,6 +72,7 @@ class WrappedMediaCardAnalyticsErrorBoundary extends React.Component<
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 const MediaCardAnalyticsErrorBoundary: React.ComponentType<
 	MediaCardAnalyticsErrorBoundaryProps & WithAnalyticsEventsProps
 > = withMediaAnalyticsContext({

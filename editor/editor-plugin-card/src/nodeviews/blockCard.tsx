@@ -156,16 +156,8 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 	// If so, we return false so we can get the node to re-render properly as a datasource node instead.
 	// Otherwise, the node view will still consider the node as a blockCard and render a regular blockCard.
 	validUpdate(currentNode: Node, newNode: Node) {
-		if (fg('platform.linking-platform.editor-datasource-typeguards')) {
-			const isCurrentNodeBlockCard = !isDatasourceNode(currentNode);
-			const isNewNodeDatasource = isDatasourceNode(newNode);
-
-			// need to return falsy to update node
-			return !(isCurrentNodeBlockCard && isNewNodeDatasource);
-		}
-
-		const isCurrentNodeBlockCard = !currentNode.attrs?.datasource;
-		const isNewNodeDatasource = newNode.attrs?.datasource;
+		const isCurrentNodeBlockCard = !isDatasourceNode(currentNode);
+		const isNewNodeDatasource = isDatasourceNode(newNode);
 
 		// need to return falsy to update node
 		return !(isCurrentNodeBlockCard && isNewNodeDatasource);

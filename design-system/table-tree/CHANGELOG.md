@@ -1,5 +1,12 @@
 # @atlaskit/table-tree
 
+## 9.11.0
+
+### Minor Changes
+
+- [`cdd8a85db4ed4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdd8a85db4ed4) -
+  Export proper types for all table tree elements. Remove all remnants of extract react types.
+
 ## 9.10.5
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-guideline",
-	"version": "1.1.9",
+	"version": "1.2.0",
 	"description": "guideline plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,9 +27,9 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.7.0",
-		"@atlaskit/editor-plugin-width": "^1.1.0",
-		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-common": "^86.8.0",
+		"@atlaskit/editor-plugin-width": "^1.2.0",
+		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",

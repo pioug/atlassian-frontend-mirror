@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.9.0
+
+### Minor Changes
+
+- [#124209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124209)
+  [`8aa1792f12ed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aa1792f12ed3) -
+  bump @atlaskit/editor-prosemirror to 5.0.0, bump @atlaskit/adf-schema to 40.1.0
+
+### Patch Changes
+
+- [#124232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124232)
+  [`0994c8bb3ee39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0994c8bb3ee39) -
+  ED-24321 Fix issue where table nodes wrapped in fragment marks can't be selected using keyboard
+  shortcut
+- [#123552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123552)
+  [`ee13728534201`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee13728534201) -
+  Fix drop targets now showing when document changes during drag
+- Updated dependencies
+
+## 1.8.1
+
+### Patch Changes
+
+- [#123768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123768)
+  [`f1c6cc33e33bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1c6cc33e33bb) -
+  ED-24227 disable drag handle for wrapped media
+
 ## 1.8.0
 
 ### Minor Changes

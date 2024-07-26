@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 import type {
 	ExtensionKey,
 	ExtensionManifest,
@@ -58,6 +60,31 @@ const FieldDefinitionsPromiseResolver = (props: FieldDefsPromiseResolverProps) =
 
 	const [fields, setFields] = useState<FieldDefinition[] | undefined>(undefined);
 
+	// Event listener for Forge apps that have macro config.
+	// When an app generates a new config schema, we need to force a re-render
+	// of the config panel so that the UI reflects the new schema.
+	// Otherwise the panel renders a stale schema.
+	const [forgeAppConfigLastUpdated, setForgeAppConfigLastUpdated] = useState(new Date());
+	useEffect(() => {
+		if (extensionParameters?.extensionId && extensionParameters?.localId) {
+			const { extensionId, localId } = extensionParameters;
+			const id = `${extensionId}-${localId}`;
+			const eventName = `forge.bridge.CONFIG_FORGE_DOC_UPDATED_${id}`;
+			const handleForgeConfigUpdated = () => {
+				setForgeAppConfigLastUpdated(new Date());
+			};
+
+			const unbind = bind(window.document, {
+				type: eventName,
+				listener: handleForgeConfigUpdated,
+			});
+
+			return () => {
+				unbind();
+			};
+		}
+	}, [extensionParameters]);
+
 	// Resolve the promise
 	// useStateFromPromise() has an issue which isn't compatible with
 	// DynamicFieldDefinitions when it returns a function as setState()
@@ -101,7 +128,7 @@ const FieldDefinitionsPromiseResolver = (props: FieldDefsPromiseResolverProps) =
 					setFields(undefined);
 				}
 			});
-	}, [extensionManifest, nodeKey, extensionParameters, setErrorMessage]);
+	}, [extensionManifest, nodeKey, extensionParameters, setErrorMessage, forgeAppConfigLastUpdated]);
 
 	return <>{props.children(fields)}</>;
 };

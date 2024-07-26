@@ -3,9 +3,9 @@ import React, { useCallback, useContext, useMemo, useRef, useState } from 'react
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
-import { type LinkPickerProps } from '../../index';
 import { ANALYTICS_CHANNEL } from '../constants';
-import { type LinkPickerAnalyticsContextType } from '../utils/analytics/analytics.codegen';
+import type { LinkPickerProps } from '../types';
+import type { LinkPickerAnalyticsContextType } from '../utils/analytics/analytics.codegen';
 
 type AnalyticsContextAttributesType = LinkPickerAnalyticsContextType;
 

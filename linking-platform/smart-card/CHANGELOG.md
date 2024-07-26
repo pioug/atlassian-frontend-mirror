@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.11.1
+
+### Patch Changes
+
+- [#123925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123925)
+  [`d6234c59408c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6234c59408c8) -
+  Internal change to typography component APIs resulting in very minor letter spacing changes.
+
 ## 27.11.0
 
 ### Minor Changes

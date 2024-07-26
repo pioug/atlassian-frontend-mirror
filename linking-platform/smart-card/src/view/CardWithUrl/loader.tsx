@@ -64,12 +64,7 @@ export function CardWithURLRenderer(props: CardProps) {
 	const analytics = useSmartLinkAnalytics(url ?? '', undefined, id);
 	const isFlexibleUi = isFlexibleUiCard(children);
 	const errorHandler = useCallback(
-		(
-			error: Error,
-			info: {
-				componentStack: string;
-			},
-		) => {
+		(error: Error, info: ErrorInfo) => {
 			const { componentStack } = info;
 			const errorInfo: ErrorInfo = {
 				componentStack,

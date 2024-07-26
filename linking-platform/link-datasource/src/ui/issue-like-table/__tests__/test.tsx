@@ -58,30 +58,32 @@ const mockTableRenderUfoFailure = jest.fn();
 jest.mock('@atlaskit/ufo', () => ({
 	__esModule: true,
 	...jest.requireActual<object>('@atlaskit/ufo'),
-	ConcurrentExperience: (experienceId: string): Partial<ConcurrentExperience> => ({
-		experienceId: experienceId,
-		getInstance: jest.fn().mockImplementation(() => {
-			if (experienceId === 'datasource-rendered') {
-				return {
-					success: mockTableRenderUfoSuccess,
-				};
-			}
-			if (experienceId === 'smart-link-rendered' || experienceId === 'smart-link-authenticated') {
-				return {
-					success: mockTableRenderUfoSuccess,
-					start: mockColumnPickerUfoStart,
-					failure: mockTableRenderUfoFailure,
-				};
-			}
-			if (experienceId === 'column-picker-rendered') {
-				return {
-					start: mockColumnPickerUfoStart,
-					addMetadata: mockColumnPickerUfoAddMetadata,
-					success: mockColumnPickerUfoSuccess,
-				};
-			}
+	ConcurrentExperience: jest.fn().mockImplementation(
+		(experienceId: string): Partial<ConcurrentExperience> => ({
+			experienceId: experienceId,
+			getInstance: jest.fn().mockImplementation(() => {
+				if (experienceId === 'datasource-rendered') {
+					return {
+						success: mockTableRenderUfoSuccess,
+					};
+				}
+				if (experienceId === 'smart-link-rendered' || experienceId === 'smart-link-authenticated') {
+					return {
+						success: mockTableRenderUfoSuccess,
+						start: mockColumnPickerUfoStart,
+						failure: mockTableRenderUfoFailure,
+					};
+				}
+				if (experienceId === 'column-picker-rendered') {
+					return {
+						start: mockColumnPickerUfoStart,
+						addMetadata: mockColumnPickerUfoAddMetadata,
+						success: mockColumnPickerUfoSuccess,
+					};
+				}
+			}),
 		}),
-	}),
+	),
 }));
 
 const mockColumnPickerUfoAddMetadata = jest.fn();

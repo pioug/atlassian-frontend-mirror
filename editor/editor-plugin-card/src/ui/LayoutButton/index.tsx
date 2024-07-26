@@ -16,7 +16,6 @@ import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -95,9 +94,7 @@ const LayoutButtonWrapper = ({
 	const { cardState } = useSharedPluginState(api, ['card']);
 	const { node, pos } = getDatasource(editorView);
 
-	const isDatasource = getBooleanFF('platform.linking-platform.editor-datasource-typeguards')
-		? isDatasourceNode(node)
-		: !!node?.attrs?.datasource;
+	const isDatasource = isDatasourceNode(node);
 
 	if (!isDatasource) {
 		return null;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "12.14.7",
+	"version": "12.14.8",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/portal": "^4.6.0",
-		"@atlaskit/primitives": "^11.0.0",
+		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",
 		"@babel/runtime": "^7.0.0",
@@ -138,10 +138,6 @@
 		"./modal-transition": "./src/modal-transition.tsx"
 	},
 	"platform-feature-flags": {
-		"platform.design-system-team.popup-select-close_8h15h": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"platform.design-system-team.iframe_gojiv": {
 			"type": "boolean"
 		}

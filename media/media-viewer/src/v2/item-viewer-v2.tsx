@@ -79,6 +79,7 @@ const CodeViewerV2 = Loadable({
 
 const SvgViewer = Loadable({
 	loader: (): Promise<React.ComponentType<SvgViewerProps>> =>
+		// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 		import(/* webpackChunkName: "@atlaskit-internal_svgViewer" */ '../viewers/svg').then(
 			(mod) => mod.SvgViewer,
 		),

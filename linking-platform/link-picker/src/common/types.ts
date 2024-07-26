@@ -1,6 +1,8 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import { type MessageDescriptor } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
+
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type LinkInputType = 'manual' | 'typeAhead';
 
@@ -82,3 +84,84 @@ export interface PickerState {
 	preventHidingRecents: boolean;
 	allowCreateFeatureDiscovery: boolean;
 }
+
+interface Meta {
+	/** Indicates how the link was picked. */
+	inputMethod: LinkInputType;
+}
+
+interface OnSubmitParameter {
+	/** The `url` of the linked resource. */
+	url: string;
+	/** The desired text to be displayed alternatively to the title of the linked resource. */
+	displayText: string | null;
+	/** The resolved `title` of the resource at the time of link picking (if applicable, null if not known). */
+	title: string | null;
+	/** Meta data about the link picking submission. */
+	meta: Meta;
+	/**
+	 * The input value of the `url` field at time of submission if inserted "manually".
+	 * This can useful if the `url` was manually inserted with a value that is different from the normalised value returned as `url`.
+	 * @example
+	 * { url: 'https://google.com', rawUrl: 'google.com' }
+	 */
+	rawUrl?: string;
+	/** Raw object from the selected resource */
+	data?: Record<string, unknown>;
+}
+
+export interface LinkPickerProps {
+	/**
+	 * Callback to fire on form submission.
+	 */
+	onSubmit: (arg: OnSubmitParameter, analytic?: UIAnalyticsEvent | null) => void;
+	/**
+	 * Callback to fire when the cancel button is clicked.
+	 * If not provided, cancel button is not displayed.
+	 */
+	onCancel?: () => void;
+	/** Callback to fire when content is changed inside the link picker e.g. items, when loading, tabs */
+	onContentResize?: () => void;
+	/** The url of the linked resource for editing. */
+	url?: string;
+	/** The desired text to be displayed alternatively to the title of the linked resource for editing. */
+	displayText?: string | null;
+	/** Plugins that provide link suggestions / search capabilities. */
+	plugins?: LinkPickerPlugin[];
+	/** If set true, Link picker will show the loading spinner where the tabs and results will show. */
+	isLoadingPlugins?: boolean;
+	/** Hides the link picker display text field if set to true. */
+	hideDisplayText?: boolean;
+	/** Disables the default width containing the link picker. */
+	disableWidth?: boolean;
+	/** Override the default left padding. */
+	paddingLeft?: string;
+	/** Override the default right padding. */
+	paddingRight?: string;
+	/** Override the default top padding. */
+	paddingTop?: string;
+	/** Override the default bottom padding. */
+	paddingBottom?: string;
+	/** Customise the link picker root component */
+	component?: React.ComponentType<Partial<LinkPickerProps> & { children: React.ReactElement }>;
+	/** Allows for customisation of text in the link picker. */
+	customMessages?: CustomLinkPickerMessages;
+	featureFlags?: Record<string, unknown>;
+	/** Controls showing a "submission in-progres" UX */
+	isSubmitting?: boolean;
+}
+
+type CustomLinkPickerMessages = {
+	/** Label for the link input field */
+	linkLabel?: MessageDescriptor;
+	/** Aria label for the link input field */
+	linkAriaLabel?: MessageDescriptor;
+	/** Placeholder for the link input field */
+	linkPlaceholder?: MessageDescriptor;
+	/** Label for the link display text field */
+	linkTextLabel?: MessageDescriptor;
+	/** Placeholder for the link display text field */
+	linkTextPlaceholder?: MessageDescriptor;
+	/** Label for the submit button */
+	submitButtonLabel?: MessageDescriptor;
+};

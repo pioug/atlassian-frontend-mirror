@@ -1,0 +1,54 @@
+{
+  "extends": "../../../../tsconfig.entry-points.post-office.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__mention/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-gas-types/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/avatar/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/focus-ring/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/lozenge/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../util-service-support/afm-post-office/tsconfig.json"
+    }
+  ]
+}

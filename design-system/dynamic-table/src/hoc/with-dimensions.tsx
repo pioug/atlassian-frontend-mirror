@@ -1,4 +1,4 @@
-import React, { type LegacyRef } from 'react';
+import React, { type Ref } from 'react';
 
 export interface State {
 	refWidth: number;
@@ -6,7 +6,7 @@ export interface State {
 }
 
 export interface WithDimensionsProps {
-	innerRef?: LegacyRef<HTMLTableCellElement | HTMLTableRowElement>;
+	innerRef?: Ref<HTMLTableCellElement | HTMLTableRowElement>;
 	isRanking: boolean;
 	refWidth: number;
 	refHeight: number;

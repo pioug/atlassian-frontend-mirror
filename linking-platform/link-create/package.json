@@ -53,7 +53,7 @@
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/linking-common": "^5.7.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
-		"@atlaskit/primitives": "^11.0.0",
+		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/select": "^17.11.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.2.0",

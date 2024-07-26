@@ -16,7 +16,7 @@ export type FlexProps<T extends ElementType = 'div'> = {
 	/**
 	 * The DOM element to render as the Flex. Defaults to `div`.
 	 */
-	as?: 'div' | 'span' | 'ul' | 'ol' | 'li';
+	as?: 'div' | 'span' | 'ul' | 'ol' | 'li' | 'dl';
 
 	/**
 	 * Used to align children along the main axis.

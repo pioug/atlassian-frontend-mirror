@@ -116,6 +116,7 @@ class WrappedMediaInlineAnalyticsErrorBoundary extends React.Component<
 	}
 }
 
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 const MediaInlineAnalyticsErrorBoundary: React.ComponentType<
 	MediaInlineAnalyticsErrorBoundaryProps & WithAnalyticsEventsProps
 > = withAnalyticsEvents()(WrappedMediaInlineAnalyticsErrorBoundary);

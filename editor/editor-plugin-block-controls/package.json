@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "1.8.0",
+	"version": "1.9.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,14 +35,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.3.0",
-		"@atlaskit/editor-common": "^86.7.0",
-		"@atlaskit/editor-plugin-analytics": "^1.5.0",
-		"@atlaskit/editor-plugin-editor-disabled": "^1.1.5",
-		"@atlaskit/editor-plugin-feature-flags": "^1.1.0",
-		"@atlaskit/editor-plugin-width": "^1.1.0",
-		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-common": "^86.8.0",
+		"@atlaskit/editor-plugin-analytics": "^1.6.0",
+		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
+		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
+		"@atlaskit/editor-plugin-width": "^1.2.0",
+		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
-		"@atlaskit/editor-tables": "^2.7.0",
+		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.2.0",
@@ -161,10 +161,16 @@
 		"platform_editor_element_drag_and_drop_ed_24150": {
 			"type": "boolean"
 		},
+		"platform_editor_element_drag_and_drop_ed_24321": {
+			"type": "boolean"
+		},
 		"platform_editor_element_drag_and_drop_ed_24330": {
 			"type": "boolean"
 		},
 		"platform_editor_element_drag_and_drop_ed_24227": {
+			"type": "boolean"
+		},
+		"platform_editor_element_drag_and_drop_ed_24372": {
 			"type": "boolean"
 		}
 	}

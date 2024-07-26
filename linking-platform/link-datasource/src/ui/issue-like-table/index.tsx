@@ -645,6 +645,7 @@ export const IssueLikeDataTableView = ({
 					const contentComponent =
 						stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
 							<Tooltip
+								// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 								tag={TruncateTextTag}
 								content={stringifiedContent}
 								testId="issues-table-cell-tooltip"

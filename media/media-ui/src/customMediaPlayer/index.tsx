@@ -797,7 +797,7 @@ export class CustomMediaPlayerBase extends Component<
 		);
 	}
 }
-
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 export const CustomMediaPlayer: React.ComponentType<
 	CustomMediaPlayerProps & WithAnalyticsEventsProps
 > = withMediaAnalyticsContext({

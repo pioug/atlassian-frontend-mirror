@@ -174,6 +174,7 @@ export const createPlugin = (
 
 				let isDecsMissing = false;
 				let isHandleMissing = false;
+				let isDropTargetsMissing = false;
 				if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 					// Ensure decorations stay in sync when nodes are added or removed from the doc
 					isHandleMissing =
@@ -181,7 +182,15 @@ export const createPlugin = (
 					const decsLength = decorations
 						.find()
 						.filter(({ spec }) => spec.id !== 'drag-handle').length;
-					isDecsMissing = !isDragging && decsLength !== newState.doc.childCount;
+					isDecsMissing =
+						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
+				}
+
+				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
+					const dropTargetLen = decorations
+						.find()
+						.filter(({ spec }) => spec.type === 'drop-target-decoration').length;
+					isDropTargetsMissing = isDragging && dropTargetLen !== newState.doc.childCount + 1;
 				}
 
 				// This is not targeted enough - it's trying to catch events like expand being set to breakout
@@ -308,46 +317,84 @@ export const createPlugin = (
 					}
 				}
 
-				if (api) {
-					// Add drop targets when node is being dragged
-					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-					const shouldShowDragTarget =
-						meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr));
+				const shouldUpdateDropTargets = meta?.isDragging || isDropTargetsMissing;
+				let shouldMapDropTargets = false;
 
-					if (shouldShowDragTarget || isBlocksDragTargetDebug()) {
-						const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
-							oldState,
-							newState,
-							api,
-						);
-						decorationState = updatedDecorationState;
-						decorations = decorations.add(newState.doc, decs);
+				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
+					shouldMapDropTargets = !shouldUpdateDropTargets && tr.docChanged && isDragging;
+					if (meta?.isDragging === false || isDropTargetsMissing) {
+						// Remove drop target decoration when dragging stops
+						const dropTargetDecs = decorations
+							.find()
+							.filter(({ spec }) => spec.type === 'drop-target-decoration');
+						decorations = decorations.remove(dropTargetDecs);
+					}
+
+					if (api) {
+						// Add drop targets when node is being dragged
+						// if the transaction is only for analytics and user is dragging, continue to draw drop targets
+						if (shouldUpdateDropTargets || isBlocksDragTargetDebug()) {
+							const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
+								oldState,
+								newState,
+								api,
+							);
+							decorationState = updatedDecorationState;
+							decorations = decorations.add(newState.doc, decs);
+						}
+					}
+
+					// Map drop target decoration positions when the document changes
+					if (shouldMapDropTargets) {
+						decorationState = decorationState.map(({ index, pos }) => {
+							return {
+								index,
+								pos: tr.mapping.map(pos),
+							};
+						});
+					}
+				} else {
+					if (api) {
+						// Add drop targets when node is being dragged
+						// if the transaction is only for analytics and user is dragging, continue to draw drop targets
+						const shouldShowDragTarget =
+							meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr));
+
+						if (shouldShowDragTarget || isBlocksDragTargetDebug()) {
+							const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
+								oldState,
+								newState,
+								api,
+							);
+							decorationState = updatedDecorationState;
+							decorations = decorations.add(newState.doc, decs);
+						}
+					}
+
+					// Remove drop target decoration when dragging stops
+					if (
+						meta?.isDragging === false &&
+						(fg('platform_editor_element_drag_and_drop_ed_24330') ? true : !tr.docChanged)
+					) {
+						const dropTargetDecs = decorations
+							.find()
+							.filter(({ spec }) => spec.type === 'drop-target-decoration');
+						decorations = decorations.remove(dropTargetDecs);
+					}
+
+					// Map drop target decoration positions when the document changes
+					if (tr.docChanged && isDragging) {
+						decorationState = decorationState.map(({ index, pos }) => {
+							return {
+								index,
+								pos: tr.mapping.map(pos),
+							};
+						});
 					}
 				}
 
-				// Remove drop target decoration when dragging stops
-				if (
-					meta?.isDragging === false &&
-					(fg('platform_editor_element_drag_and_drop_ed_24330') ? true : !tr.docChanged)
-				) {
-					const dropTargetDecs = decorations
-						.find()
-						.filter(({ spec }) => spec.type === 'drop-target-decoration');
-					decorations = decorations.remove(dropTargetDecs);
-				}
-
-				// Map drop target decoration positions when the document changes
-				if (tr.docChanged && isDragging) {
-					decorationState = decorationState.map(({ index, pos }) => {
-						return {
-							index,
-							pos: tr.mapping.map(pos),
-						};
-					});
-				}
-
 				// Map decorations if document changes and node decorations do not need to be redrawn
-				if (tr.docChanged && !redrawDecorations) {
+				if (shouldMapDropTargets || (tr.docChanged && !redrawDecorations)) {
 					decorations = decorations.map(tr.mapping, tr.doc);
 				}
 

@@ -26,6 +26,7 @@ const CardActionButtonWithAnalytics = withAnalyticsEvents({
 		actionSubjectId: 'mediaCardDropDownMenu',
 		attributes: {},
 	}),
+	// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 })(CardActionButton);
 
 type DropdownItemProps = any & WithAnalyticsEventsProps; // Trick applied due to the lack of props type of DropdownItem
@@ -64,6 +65,7 @@ export class CardActionsDropdownMenu extends Component<CardActionsDropdownMenuPr
 					testId="media-card-actions-menu"
 					onOpenChange={onOpenChange}
 					trigger={({ triggerRef, ...providedProps }) => (
+						// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 						<CardActionButtonWithAnalytics
 							variant={triggerVariant}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

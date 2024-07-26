@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode",
-	"version": "2.0.4",
+	"version": "2.1.0",
 	"description": "Editor viewmode plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.7.0",
-		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-common": "^86.8.0",
+		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

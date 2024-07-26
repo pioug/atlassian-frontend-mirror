@@ -8,7 +8,9 @@ export {
 	transformSliceNestedExpandToExpand,
 } from '@atlaskit/editor-common/transforms';
 
-export const findParentExpandNode = (state: EditorState) => {
+export const findParentExpandNode = (
+	state: EditorState,
+): ReturnType<ReturnType<typeof findParentNodeOfType>> => {
 	return (
 		findParentNodeOfType(state.schema.nodes.expand)(state.selection) ||
 		findParentNodeOfType(state.schema.nodes.nestedExpand)(state.selection)

@@ -84,7 +84,11 @@ export const removeMediaGroupNode = (state: EditorState) => {
 	return tr;
 };
 
-export const getSelectedMediaSingle = (state: EditorState) => {
+export const getSelectedMediaSingle = (
+	state: EditorState,
+):
+	| ReturnType<ReturnType<typeof findSelectedNodeOfType>>
+	| ReturnType<ReturnType<typeof findParentNodeOfType>> => {
 	const { mediaSingle } = state.schema.nodes;
 
 	return (

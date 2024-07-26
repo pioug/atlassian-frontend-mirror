@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 13.7.5
+
+### Patch Changes
+
+- [#123484](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123484)
+  [`404b4cb52e659`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/404b4cb52e659) -
+  Launch layering in datetime picker to fix escape close issue
+
 ## 13.7.4
 
 ### Patch Changes

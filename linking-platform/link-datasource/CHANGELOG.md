@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 2.8.0
+
+### Minor Changes
+
+- [#124209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124209)
+  [`8aa1792f12ed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aa1792f12ed3) -
+  bump @atlaskit/editor-prosemirror to 5.0.0, bump @atlaskit/adf-schema to 40.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.1
+
+### Patch Changes
+
+- [#123925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123925)
+  [`d6234c59408c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6234c59408c8) -
+  Internal change to typography component APIs resulting in very minor letter spacing changes.
+
 ## 2.7.0
 
 ### Minor Changes

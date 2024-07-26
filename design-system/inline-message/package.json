@@ -40,7 +40,7 @@
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/inline-dialog": "^14.2.0",
-		"@atlaskit/primitives": "^11.0.0",
+		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",
 		"@babel/runtime": "^7.0.0",
@@ -96,10 +96,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.design-system-team.layering_qmiw3": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform.design-system-team.inline-message-layering_wfp1p": {
 			"type": "boolean",
 			"referenceOnly": true

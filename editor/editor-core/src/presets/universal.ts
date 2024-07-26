@@ -219,7 +219,9 @@ export default function createUniversalPreset(
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',
 					getEditorFeatureFlags,
-					isTableAlignmentEnabled: fg('platform.editor.table.allow-table-alignment') && isFullPage,
+					isTableAlignmentEnabled:
+						fg('platform.editor.table.allow-table-alignment') &&
+						(isFullPage || (isComment && fg('platform_editor_table_support_in_comment'))),
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 					isCommentEditor: isComment,
 				},

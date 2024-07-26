@@ -58,7 +58,7 @@ export const AutomationModalHeader = ({
 							primaryColor={token('color.icon.accent.green', G50)}
 						/>
 					</Box>
-					<Heading level="h600" id={titleId}>
+					<Heading size="medium" id={titleId}>
 						{modalTitle}
 					</Heading>
 				</Inline>

@@ -15,11 +15,12 @@ import {
 	MockLinkPickerPromisePlugin,
 	UnstableMockLinkPickerPlugin,
 } from '../../__tests__/__helpers/mock-plugins';
+import type { LinkPickerProps } from '../../common/types';
 
 import { messages as formFooterMessages } from './form-footer';
 import { messages as resultsListMessages } from './search-results/link-search-list';
 
-import { LinkPicker, type LinkPickerProps, testIds } from './index';
+import { LinkPicker, testIds } from './index';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {
 	return jest.fn().mockImplementation(() => -5);

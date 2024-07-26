@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-copy-button",
-	"version": "1.1.11",
+	"version": "1.2.0",
 	"description": "editor-plugin-copy-button for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,10 +35,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.7.0",
-		"@atlaskit/editor-plugin-analytics": "^1.5.0",
-		"@atlaskit/editor-plugin-decorations": "^1.1.0",
-		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-common": "^86.8.0",
+		"@atlaskit/editor-plugin-analytics": "^1.6.0",
+		"@atlaskit/editor-plugin-decorations": "^1.2.0",
+		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/icon": "^22.7.0",
 		"@babel/runtime": "^7.0.0"
 	},

@@ -39,6 +39,7 @@ export class ClipboardLoader extends React.PureComponent<
 				import(/* webpackChunkName: "@atlaskit-internal_media-clipboard" */ './clipboard'),
 			]);
 
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			ClipboardLoader.Clipboard = mediaClient.withMediaClient(clipboardModule.Clipboard);
 
 			this.setState({

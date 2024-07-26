@@ -28,7 +28,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/lozenge": "^11.9.0",
-		"@atlaskit/primitives": "^11.0.0",
+		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",

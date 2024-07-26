@@ -13,7 +13,12 @@ import {
 
 import type { DomPanelAtrrs } from './types';
 
-export const findPanel = (state: EditorState, selection?: Selection | null) => {
+export const findPanel = (
+	state: EditorState,
+	selection?: Selection | null,
+):
+	| ReturnType<ReturnType<typeof findSelectedNodeOfType>>
+	| ReturnType<ReturnType<typeof findParentNodeOfType>> => {
 	const { panel } = state.schema.nodes;
 	return (
 		findSelectedNodeOfType(panel)(selection || state.selection) ||

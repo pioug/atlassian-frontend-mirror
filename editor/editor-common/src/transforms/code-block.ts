@@ -1,7 +1,11 @@
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	type ContentNodeWithPos,
+	findParentNodeOfType,
+	findSelectedNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { mapSlice } from '../utils/slice';
 
@@ -50,7 +54,10 @@ export const transformSingleLineCodeBlockToCodeMark = (slice: Slice, schema: Sch
 	return slice;
 };
 
-export const findCodeBlock = (state: EditorState, selection?: Selection | null) => {
+export const findCodeBlock = (
+	state: EditorState,
+	selection?: Selection | null,
+): ContentNodeWithPos | undefined => {
 	const { codeBlock } = state.schema.nodes;
 	return (
 		findSelectedNodeOfType(codeBlock)(selection || state.selection) ||

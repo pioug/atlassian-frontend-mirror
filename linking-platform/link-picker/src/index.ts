@@ -1,5 +1,6 @@
-export { default as LinkPicker } from './ui';
-export type { LinkPickerProps } from './ui/link-picker';
+export { default } from './ui';
+export { DeprecatedLazyLinkPickerExport as LinkPicker } from './ui';
+export type { LinkPickerProps } from './common/types';
 export type {
 	LinkInputType,
 	LinkPickerPluginAction,

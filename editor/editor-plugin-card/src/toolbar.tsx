@@ -337,9 +337,7 @@ const generateToolbarItems =
 		const currentAppearance = appearanceForNodeType(node.type);
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
-		const isDatasource = fg('platform.linking-platform.editor-datasource-typeguards')
-			? isDatasourceNode(node)
-			: currentAppearance === 'block' && node?.attrs?.datasource;
+		const isDatasource = isDatasourceNode(node);
 
 		const shouldRenderDatasourceToolbar =
 			isDatasource &&

@@ -1,7 +1,11 @@
 import type { NodeType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	type ContentNodeWithPos,
+	findParentNodeOfType,
+	findSelectedNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 
 export function getSelectedNodeOrNodeParentByNodeType({
 	nodeType,
@@ -9,7 +13,7 @@ export function getSelectedNodeOrNodeParentByNodeType({
 }: {
 	nodeType: NodeType | Array<NodeType>;
 	selection: Transaction['selection'];
-}) {
+}): ContentNodeWithPos | undefined {
 	let node = findSelectedNodeOfType(nodeType)(selection);
 	if (!node) {
 		node = findParentNodeOfType(nodeType)(selection);

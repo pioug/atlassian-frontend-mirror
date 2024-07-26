@@ -24,6 +24,7 @@ const triggerStyles = xcss({ display: 'inline-flex' });
 
 const AIIndicatorTooltip = ({ content, trigger, xcss: overrideXcss }: AIIndicatorTooltipProps) => {
 	return (
+		// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 		<Tooltip component={AIIndicatorTooltipPrimitive} content={content} tag="span">
 			{(tooltipProps) => (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

@@ -42,6 +42,7 @@ export const SyntaxHelp = () => {
 		<Tooltip
 			position={'bottom'}
 			content={<TooltipContent>{label}</TooltipContent>}
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			tag={TooltipTag}
 		>
 			<BaseSyntaxHelp describedby={descriptionId} label={label} onClick={onClick} />

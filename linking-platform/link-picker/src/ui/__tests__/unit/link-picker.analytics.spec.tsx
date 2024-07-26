@@ -16,8 +16,9 @@ import mockedPluginData from '../../../__tests__/__helpers/mock-plugin-data';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
-import { LinkPicker, LinkPickerProps } from '../../../index';
-import { PACKAGE_DATA as ROOT_CONTEXT } from '../../index';
+import type { LinkPickerProps } from '../../../common/types';
+import LinkPicker from '../../index';
+import { PACKAGE_DATA as ROOT_CONTEXT } from '../../main';
 import { testIds } from '../../link-picker';
 import { MockLinkPickerPromisePlugin } from '../../../__tests__/__helpers/mock-plugins';
 

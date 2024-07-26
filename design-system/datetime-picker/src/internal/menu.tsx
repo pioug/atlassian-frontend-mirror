@@ -8,7 +8,6 @@ import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type MenuProps } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -39,7 +38,7 @@ const menuStyles = css({
  * This is the menu used in the select of the date picker.
  */
 export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
-	<UNSAFE_LAYERING isDisabled={fg('platform.design-system-team.layering_qmiw3') ? false : true}>
+	<UNSAFE_LAYERING isDisabled={false}>
 		<FixedLayer
 			inputValue={selectProps.inputValue}
 			containerRef={selectProps.calendarContainerRef}

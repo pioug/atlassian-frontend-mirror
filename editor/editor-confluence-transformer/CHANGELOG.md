@@ -1,5 +1,20 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.11.0
+
+### Minor Changes
+
+- [#124190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124190)
+  [`9ab9c4ca2b9df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ab9c4ca2b9df) -
+  Clean-up platform.editor.refactor-highlight-toolbar_mo0pj feature flag
+- [#124209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124209)
+  [`8aa1792f12ed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aa1792f12ed3) -
+  bump @atlaskit/editor-prosemirror to 5.0.0, bump @atlaskit/adf-schema to 40.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.10.0
 
 ### Minor Changes

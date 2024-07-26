@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 86.8.0
+
+### Minor Changes
+
+- [#124190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124190)
+  [`9ab9c4ca2b9df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ab9c4ca2b9df) -
+  Clean-up platform.editor.refactor-highlight-toolbar_mo0pj feature flag
+- [#124209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124209)
+  [`8aa1792f12ed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aa1792f12ed3) -
+  bump @atlaskit/editor-prosemirror to 5.0.0, bump @atlaskit/adf-schema to 40.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 86.7.1
+
+### Patch Changes
+
+- [#124114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124114)
+  [`0add97fe66134`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0add97fe66134) -
+  Adopt lazy link picker entrypoint.
+- Updated dependencies
+
 ## 86.7.0
 
 ### Minor Changes

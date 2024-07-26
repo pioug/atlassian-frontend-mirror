@@ -77,5 +77,6 @@ export class ZoomControlsBase extends Component<ZoomControlsProps & WrappedCompo
 	}
 }
 
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 export const ZoomControls: React.ComponentType<React.PropsWithChildren<ZoomControlsProps>> =
 	withAnalyticsEvents({})(injectIntl(ZoomControlsBase));

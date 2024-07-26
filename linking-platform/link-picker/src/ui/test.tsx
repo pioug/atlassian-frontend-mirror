@@ -6,17 +6,24 @@ import { waitForElementToBeRemoved } from '@testing-library/react';
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import '@testing-library/jest-dom';
 
-import { type LinkPickerProps, type LinkPicker as LinkPickerType } from './link-picker';
+import type { LinkPickerProps } from '../common/types';
 
-describe('<ComposedLinkPicker />', () => {
-	const setupLinkPicker = ({
-		url = '',
-		component,
-		plugins,
-		scrollingTabs,
-	}: Partial<LinkPickerProps> & { scrollingTabs?: boolean } = {}) => {
+import type { LinkPicker as LinkPickerType } from './link-picker';
+
+const testIds = {
+	urlInputField: 'link-url',
+	errorBoundary: 'link-picker-root-error-boundary-ui',
+	loaderBoundary: 'link-picker-root-loader-boundary-ui',
+	tabList: 'link-picker-tabs',
+	tabItem: 'link-picker-tab',
+	linkPickerRoot: 'link-picker-root',
+	actionButton: 'link-picker-action-button',
+};
+
+describe('lazy loaded export', () => {
+	const setupLazyLinkPicker = ({ url = '', component, plugins }: Partial<LinkPickerProps> = {}) => {
 		jest.isolateModules(() => {
-			const LinkPicker: typeof LinkPickerType = require('./index').default;
+			const LinkPicker: typeof LinkPickerType = require('./index').DeprecatedLazyLinkPickerExport;
 			render(
 				<LinkPicker
 					component={component}
@@ -24,57 +31,57 @@ describe('<ComposedLinkPicker />', () => {
 					onSubmit={jest.fn()}
 					plugins={plugins ?? []}
 					onCancel={jest.fn()}
-					featureFlags={{ scrollingTabs }}
 				/>,
 			);
 		});
-
-		return {
-			testIds: {
-				urlInputField: 'link-url',
-				errorBoundary: 'link-picker-root-error-boundary-ui',
-				loaderBoundary: 'link-picker-root-loader-boundary-ui',
-				tabList: 'link-picker-tabs',
-				tabItem: 'link-picker-tab',
-				linkPickerRoot: 'link-picker-root',
-				actionButton: 'link-picker-action-button',
-			},
-		};
 	};
 
-	describe('lazy load', () => {
-		it('after resolving it should load the LinkPicker component', async () => {
-			const { testIds } = setupLinkPicker();
+	it('after resolving it should load the LinkPicker component', async () => {
+		setupLazyLinkPicker();
 
-			await waitForElementToBeRemoved(() => screen.getByTestId(testIds.loaderBoundary));
+		await waitForElementToBeRemoved(() => screen.getByTestId(testIds.loaderBoundary));
 
-			expect(screen.getByTestId(testIds.urlInputField)).toBeInTheDocument();
-		});
-
-		it('should render loader-fallback', () => {
-			const { testIds } = setupLinkPicker();
-			expect(screen.getByTestId(testIds.loaderBoundary)).toBeInTheDocument();
-		});
+		expect(screen.getByTestId(testIds.urlInputField)).toBeInTheDocument();
 	});
+
+	it('should render loader-fallback', () => {
+		setupLazyLinkPicker();
+		expect(screen.getByTestId(testIds.loaderBoundary)).toBeInTheDocument();
+	});
+});
+
+describe.each(['default', 'DeprecatedLazyLinkPickerExport'])(`using export %s`, (namedExport) => {
+	const setupLinkPicker = ({ url = '', component, plugins }: Partial<LinkPickerProps> = {}) => {
+		jest.isolateModules(() => {
+			const LinkPicker: typeof LinkPickerType = require('./index')[namedExport];
+			render(
+				<LinkPicker
+					component={component}
+					url={url}
+					onSubmit={jest.fn()}
+					plugins={plugins ?? []}
+					onCancel={jest.fn()}
+				/>,
+			);
+		});
+	};
 
 	describe('error boundary', () => {
 		it('renders a fallback ui if the inner link picker component throws an error', async () => {
 			jest.spyOn(console, 'error').mockImplementation(() => {});
 
 			// Provide an invalid initial prop to throw an error
-			const { testIds } = setupLinkPicker({
+			setupLinkPicker({
 				url: new URL('https://atlassian.com') as any,
 			});
 
-			await waitForElementToBeRemoved(() => screen.getByTestId(testIds.loaderBoundary));
-
-			expect(screen.getByTestId(testIds.errorBoundary)).toBeInTheDocument();
+			expect(await screen.findByTestId(testIds.errorBoundary)).toBeInTheDocument();
 		});
 	});
 
 	describe('with root component', () => {
 		it('should render the default root component if nothing was specified', async () => {
-			const { testIds } = setupLinkPicker();
+			setupLinkPicker();
 
 			expect(screen.getByTestId(testIds.linkPickerRoot)).toBeInTheDocument();
 		});
@@ -109,7 +116,7 @@ describe('<ComposedLinkPicker />', () => {
 				});
 			};
 
-			const { testIds } = setupLinkPicker({
+			setupLinkPicker({
 				component: CustomRootComponent,
 				plugins: [plugin1],
 			});

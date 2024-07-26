@@ -29,7 +29,7 @@ export type InlineProps<T extends ElementType = 'div'> = {
 	/**
 	 * The DOM element to render as the Inline. Defaults to `div`.
 	 */
-	as?: 'div' | 'span' | 'ul' | 'ol' | 'li';
+	as?: 'div' | 'span' | 'ul' | 'ol' | 'li' | 'dl';
 	/**
 	 * Used to align children along the block axis (typically vertical).
 	 */

@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 11.1.0
+
+### Minor Changes
+
+- [#123719](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123719)
+  [`4de823258d64a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4de823258d64a) -
+  Added `dl` as a valid polymorphic element for both the `Inline` and `Stack` primitives.
+
 ## 11.0.2
 
 ### Patch Changes

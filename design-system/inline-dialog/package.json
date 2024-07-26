@@ -116,10 +116,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.design-system-team.layering_qmiw3": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform.design-system-team.inline-message-layering_wfp1p": {
 			"type": "boolean"
 		}

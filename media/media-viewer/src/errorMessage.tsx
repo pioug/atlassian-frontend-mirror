@@ -149,6 +149,7 @@ export class ErrorMessage extends React.Component<
 	}
 }
 
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 const ErroMsg: React.ComponentType<Props & WithAnalyticsEventsProps> = withAnalyticsEvents()(
 	injectIntl(ErrorMessage),
 );

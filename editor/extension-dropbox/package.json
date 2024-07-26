@@ -50,9 +50,9 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/adf-utils": "^19.5.0",
+		"@atlaskit/adf-utils": "^19.6.0",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/editor-common": "^86.7.0",
+		"@atlaskit/editor-common": "^86.8.0",
 		"@atlaskit/icon": "^22.7.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/tokens": "^1.56.0",

@@ -41,24 +41,26 @@ const mockColumnPickerRenderUfoFailure = jest.fn();
 jest.mock('@atlaskit/ufo', () => ({
 	__esModule: true,
 	...jest.requireActual<object>('@atlaskit/ufo'),
-	ConcurrentExperience: (experienceId: string): Partial<ConcurrentExperience> => ({
-		experienceId: experienceId,
-		getInstance: jest.fn().mockImplementation(() => {
-			if (experienceId === 'datasource-rendered') {
-				return {
-					start: mockTableRenderUfoStart,
-					success: mockTableRenderUfoSuccess,
-					failure: mockTableRenderUfoFailure,
-					addMetadata: mockTableRenderUfoAddMetadata,
-				};
-			}
-			if (experienceId === 'column-picker-rendered') {
-				return {
-					failure: mockColumnPickerRenderUfoFailure,
-				};
-			}
+	ConcurrentExperience: jest.fn().mockImplementation(
+		(experienceId: string): Partial<ConcurrentExperience> => ({
+			experienceId: experienceId,
+			getInstance: jest.fn().mockImplementation(() => {
+				if (experienceId === 'datasource-rendered') {
+					return {
+						start: mockTableRenderUfoStart,
+						success: mockTableRenderUfoSuccess,
+						failure: mockTableRenderUfoFailure,
+						addMetadata: mockTableRenderUfoAddMetadata,
+					};
+				}
+				if (experienceId === 'column-picker-rendered') {
+					return {
+						failure: mockColumnPickerRenderUfoFailure,
+					};
+				}
+			}),
 		}),
-	}),
+	),
 }));
 
 jest.mock('@atlaskit/outbound-auth-flow-client', () => ({

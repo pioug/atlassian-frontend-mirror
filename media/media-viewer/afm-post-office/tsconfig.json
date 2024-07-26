@@ -1,0 +1,78 @@
+{
+  "extends": "../../../../tsconfig.entry-points.post-office.json",
+  "compilerOptions": {
+    "declaration": true,
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__media-viewer/app",
+    "composite": true,
+    "rootDir": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*"
+  ],
+  "references": [
+    {
+      "path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/button/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/code/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/form/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../icon-file-type/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../media-client/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../media-client-react/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../media-common/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../media-svg/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../media-ui/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/side-navigation/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/textfield/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../data/ufo-external/afm-post-office/tsconfig.json"
+    }
+  ]
+}

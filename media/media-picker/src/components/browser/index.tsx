@@ -44,6 +44,7 @@ export class BrowserLoader extends React.PureComponent<BrowserWithMediaClientCon
 				import(/* webpackChunkName: "@atlaskit-internal_media-browser" */ './browser'),
 			]);
 
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			BrowserLoader.Browser = mediaClient.withMediaClient(browserModule.Browser);
 
 			if (this.mounted) {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-context-identifier",
-	"version": "1.1.9",
+	"version": "1.2.0",
 	"description": "Context identifier plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,8 +36,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.7.0",
-		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-common": "^86.8.0",
+		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

@@ -155,7 +155,57 @@ ruleTester.run('use-primitives-text', rule, {
 				},
 			],
 		},
+		{
+			code: outdent`
+				<div>
+					{/* comment text, could be eslint ignore instruction */}
+					<p>text</p>
+				</div>`,
+			errors: [
+				{
+					messageId: 'preferPrimitivesText',
+					suggestions: [
+						{
+							desc: `Convert to Text`,
+							output: outdent`
+								import { Text } from '@atlaskit/primitives';
+								<div>
+									{/* comment text, could be eslint ignore instruction */}
+									<Text as='p'>text</Text>
+								</div>`,
+						},
+					],
+				},
+			],
+		},
 		// it suggests Text and Stack for groups of paragraph elements
+		{
+			code: outdent`
+				<div>
+					{/* comment text, could be eslint ignore instruction */}
+					<p>text 1</p>
+					<p data-testid='contentTestId'>text 2</p>
+					<p>text 3</p>
+				</div>`,
+			errors: [
+				{
+					messageId: 'preferPrimitivesStackedText',
+					suggestions: [
+						{
+							desc: `Convert to Text and Stack`,
+							output: outdent`
+								import { Text, Stack } from '@atlaskit/primitives';
+								<div><Stack space='space.150'>
+									{/* comment text, could be eslint ignore instruction */}
+									<Text as='p'>text 1</Text>
+									<Text testId='contentTestId' as='p'>text 2</Text>
+									<Text as='p'>text 3</Text>
+								</Stack></div>`,
+						},
+					],
+				},
+			],
+		},
 		{
 			code: outdent`
 				<div>

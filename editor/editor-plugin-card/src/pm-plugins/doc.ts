@@ -652,8 +652,9 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
 				});
 			}
 		} else if (
-			node.type.isText &&
-			fg('platform.linking-platform.enable-datasource-appearance-toolbar')
+			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+			fg('platform.linking-platform.enable-datasource-appearance-toolbar') &&
+			node.type.isText
 		) {
 			// url to datasource
 			let link: { url: string; text: string | undefined; pos: number } | undefined;
@@ -739,14 +740,8 @@ export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: 
 		};
 	}
 
-	if (fg('platform.linking-platform.editor-datasource-typeguards')) {
-		if (isDatasourceNode(selectedNode)) {
-			return { url: selectedNode.attrs.url };
-		}
-	} else {
-		if (selectedNode.attrs.datasource) {
-			return { url: selectedNode.attrs.url };
-		}
+	if (isDatasourceNode(selectedNode)) {
+		return { url: selectedNode.attrs.url };
 	}
 
 	return selectedNode.attrs;
@@ -754,27 +749,15 @@ export const getAttrsForAppearance = (appearance: CardAppearance, selectedNode: 
 
 const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
 	if (fg('platform.linking-platform.enable-datasource-appearance-toolbar')) {
-		if (fg('platform.linking-platform.editor-datasource-typeguards')) {
-			if (
-				isDatasourceNode(selectedNode) &&
-				!isDatasourceConfigEditable(selectedNode.attrs.datasource.id) &&
-				selectedNode.attrs.url
-			) {
-				setDatasourceStash(tr, {
-					url: selectedNode.attrs.url,
-					views: selectedNode.attrs.datasource.views,
-				});
-			}
-		} else {
-			if (
-				selectedNode?.attrs?.datasource &&
-				!isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
-			) {
-				setDatasourceStash(tr, {
-					url: selectedNode.attrs.url,
-					views: selectedNode.attrs.datasource.views,
-				});
-			}
+		if (
+			isDatasourceNode(selectedNode) &&
+			!isDatasourceConfigEditable(selectedNode.attrs.datasource.id) &&
+			selectedNode.attrs.url
+		) {
+			setDatasourceStash(tr, {
+				url: selectedNode.attrs.url,
+				views: selectedNode.attrs.datasource.views,
+			});
 		}
 	}
 };

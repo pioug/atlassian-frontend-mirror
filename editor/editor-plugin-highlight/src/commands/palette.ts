@@ -41,6 +41,7 @@ export const setPalette =
 			api.analytics?.actions.attachAnalyticsEvent(createAnalyticsEvent(isPaletteOpen, inputMethod))(
 				tr,
 			);
+			tr.setMeta('addToHistory', false);
 			if (dispatch) {
 				dispatch(tr);
 			}

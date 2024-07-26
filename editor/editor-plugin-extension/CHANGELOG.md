@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.12.0
+
+### Minor Changes
+
+- [#124209](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124209)
+  [`8aa1792f12ed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8aa1792f12ed3) -
+  bump @atlaskit/editor-prosemirror to 5.0.0, bump @atlaskit/adf-schema to 40.1.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.11.1
+
+### Patch Changes
+
+- [#123920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123920)
+  [`dc459fb7e6e6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc459fb7e6e6b) -
+  Add event listener for updates to Forge app config schema and force re-render of the config panel.
+  Async functions in Forge apps lead to a race condition that causes the panel to render stale
+  schemas unless the panel is re-rendered.
+
 ## 1.11.0
 
 ### Minor Changes

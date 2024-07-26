@@ -8,7 +8,7 @@ import { forwardRef, useMemo, useState } from 'react';
 import { css, Global, jsx } from '@emotion/react';
 
 import { UNSAFE_useLayering } from '@atlaskit/layering';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -76,6 +76,7 @@ function PopperWrapper({
 	rootBoundary,
 	shouldFlip,
 	placement = 'auto',
+	// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 	popupComponent: PopupContainer = DefaultPopupComponent,
 	autoFocus = true,
 	triggerRef,
@@ -156,7 +157,7 @@ function PopperWrapper({
 						shouldRenderToParent={shouldRenderToParent}
 						shouldFitContainer={shouldFitContainer}
 					>
-						{getBooleanFF('platform.design-system-team.iframe_gojiv') && (
+						{fg('platform.design-system-team.iframe_gojiv') && (
 							<Global styles={blockPointerEventsOnExternalIframeStyles} />
 						)}
 						<RepositionOnUpdate update={update}>

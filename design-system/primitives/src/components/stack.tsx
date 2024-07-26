@@ -18,7 +18,7 @@ export type StackProps<T extends ElementType = 'div'> = {
 	/**
 	 * The DOM element to render as the Stack. Defaults to `div`.
 	 */
-	as?: 'div' | 'span' | 'ul' | 'ol';
+	as?: 'div' | 'span' | 'ul' | 'ol' | 'dl';
 	/**
 	 * Used to align children along the block axis (typically vertical).
 	 */

@@ -1,16 +1,21 @@
-import { Code } from '@atlaskit/code';
+---
+props:
+  packageName: '@atlaskit/table-tree'
+  exports:
+    - TableTreeProps
+    - HeaderProps
+    - RowsProps
+    - RowProps
+    - Cell
+---
 
-import TableTreeProps from '!!extract-react-types-loader!../../extract-react-types/table-tree';
-import HeaderProps from '!!extract-react-types-loader!../../extract-react-types/table-tree-header';
-import RowProps from '!!extract-react-types-loader!../../extract-react-types/table-tree-row';
-import RowsProps from '!!extract-react-types-loader!../../extract-react-types/table-tree-rows';
-import CellProps from '!!extract-react-types-loader!../../extract-react-types/table-tree-cell';
+import { Code } from '@atlaskit/code';
 
 ## Props
 
 ### Table tree props
 
-<PropsTable heading="" props={TableTreeProps} />
+<TSMorphProps exportName="TableTreeProps" packageName="@atlaskit/table-tree" />
 
 ### Headers props
 
@@ -18,16 +23,16 @@ The <b>Headers</b> component does not take any props.
 
 ### Header props
 
-<PropsTable heading="" props={HeaderProps} />
+<TSMorphProps exportName="HeaderProps" packageName="@atlaskit/table-tree" />
 
 ### Rows props
 
-<PropsTable heading="" props={RowsProps} />
+<TSMorphProps exportName="RowsProps" packageName="@atlaskit/table-tree" />
 
 ### Row props
 
-<PropsTable heading="" props={RowProps} />
+<TSMorphProps exportName="RowProps" packageName="@atlaskit/table-tree" />
 
 ### Cell props
 
-<PropsTable heading="" props={CellProps} />
+<TSMorphProps exportName="Cell" packageName="@atlaskit/table-tree" />

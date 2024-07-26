@@ -76,6 +76,10 @@ export interface CreateFormProps<FormData> {
 	 */
 	hideFooter?: boolean;
 	/**
+	 * Hides the "Required fields are marked with an asterisk" message
+	 */
+	hideRequiredFieldMessage?: boolean;
+	/**
 	 * Values to initialise the forms initial state with
 	 * Should not include values for reserved fields
 	 */
@@ -91,6 +95,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 	onCancel,
 	isLoading,
 	hideFooter,
+	hideRequiredFieldMessage,
 	initialValues,
 }: CreateFormProps<FormData>) => {
 	const { setFormErrorMessage, formErrorMessage, enableEditView } = useFormContext();
@@ -187,9 +192,11 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 								setShouldShowWarning(isModified);
 							}}
 						/>
-						<p>
-							{intl.formatMessage(messages.requiredFieldInstruction)} <RequiredAsterisk />
-						</p>
+						{!hideRequiredFieldMessage && (
+							<p>
+								{intl.formatMessage(messages.requiredFieldInstruction)} <RequiredAsterisk />
+							</p>
+						)}
 						<Box>{children}</Box>
 						{!hideFooter && (
 							<CreateFormFooter

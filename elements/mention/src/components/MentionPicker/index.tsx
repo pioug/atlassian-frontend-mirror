@@ -300,6 +300,7 @@ export class MentionPicker extends React.PureComponent<
 
 const MentionPickerWithIntl = injectIntl(MentionPicker, { forwardRef: true });
 
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 export const MentionPickerWithAnalytics = withAnalyticsEvents({})(MentionPickerWithIntl);
 
 export type MentionPickerWithAnalytics = MentionPicker;

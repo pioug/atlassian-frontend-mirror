@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
+import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
 
 import type { Command, EditorAppearance } from '../../../types';
 import { getAnalyticsEditorAppearance } from '../../../utils';
@@ -14,7 +14,8 @@ import { useEscapeClickaway } from './useEscapeClickaway';
  */
 type OptionalKeys<T extends {}, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export interface EditorLinkPickerProps extends OptionalKeys<LinkPickerProps, 'onCancel'> {
+export interface EditorLinkPickerProps
+	extends OptionalKeys<React.ComponentProps<typeof LazyLinkPicker>, 'onCancel'> {
 	view: EditorView;
 	/**
 	 * Used for analytics purposes to describe how the link picker was invoked
@@ -85,7 +86,7 @@ export const EditorLinkPicker = ({
 	return (
 		<div ref={ref}>
 			<AnalyticsContext data={analyticsData}>
-				<LinkPicker {...restProps} onCancel={onEscape} />
+				<LazyLinkPicker {...restProps} onCancel={onEscape} />
 			</AnalyticsContext>
 		</div>
 	);

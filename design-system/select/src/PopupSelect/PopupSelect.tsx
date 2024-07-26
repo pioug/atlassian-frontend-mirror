@@ -1,34 +1,38 @@
 import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
+
+import { type Placement } from '@popperjs/core';
+import { bind, type UnbindFn } from 'bind-event-listener';
 import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
-import Select, { type components as RSComponents, type GroupBase, mergeStyles } from 'react-select';
-import { uid } from 'react-uid';
-import { Manager, Reference, Popper, type PopperProps, type Modifier } from 'react-popper';
-import { type Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
+import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
+import Select, { type GroupBase, mergeStyles, type components as RSComponents } from 'react-select';
+import { uid } from 'react-uid';
 import { shallowEqualObjects } from 'shallow-equal';
-import DefaultSelect from '../Select';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { MenuDialog, DummyControl, defaultComponents } from './components';
+import DefaultSelect from '../Select';
 import baseStyles from '../styles';
 import {
-	type OptionType,
 	type ActionMeta,
+	type AtlaskitSelectRefType,
+	type OptionType,
 	type ReactSelectProps,
 	type StylesConfig,
-	type ValueType,
 	type ValidationState,
-	type AtlaskitSelectRefType,
+	type ValueType,
 } from '../types';
-import { bind, type UnbindFn } from 'bind-event-listener';
+
+import { defaultComponents, DummyControl, MenuDialog } from './components';
 
 type SelectComponents = typeof RSComponents;
 
-/** Are we rendering on the client or server? */
+/**
+ * Are we rendering on the client or server?
+ */
 const canUseDOM = () =>
 	Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
 
@@ -355,7 +359,7 @@ export default class PopupSelect<
 		this.setState({ isOpen: true });
 
 		if (this.selectRef) {
-			getBooleanFF('platform.design-system-team.use-default-select-in-popup-select_46rmj')
+			fg('platform.design-system-team.use-default-select-in-popup-select_46rmj')
 				? this.selectRef.select?.openMenu('first')
 				: this.selectRef.openMenu('first');
 		}
@@ -461,9 +465,7 @@ export default class PopupSelect<
 
 		// subtract the control height to maintain consistency
 		const showSearchControl = this.showSearchControl();
-		let controlRef = getBooleanFF(
-			'platform.design-system-team.use-default-select-in-popup-select_46rmj',
-		)
+		let controlRef = fg('platform.design-system-team.use-default-select-in-popup-select_46rmj')
 			? this.selectRef.select?.controlRef
 			: this.selectRef.controlRef;
 
@@ -506,7 +508,7 @@ export default class PopupSelect<
 			}
 		};
 
-		const InternalSelect: React.ComponentType<any> = getBooleanFF(
+		const InternalSelect: React.ComponentType<any> = fg(
 			'platform.design-system-team.use-default-select-in-popup-select_46rmj',
 		)
 			? DefaultSelect
@@ -542,11 +544,6 @@ export default class PopupSelect<
 									placeholder={placeholder}
 									ref={this.getSelectRef}
 									{...props}
-									onMenuClose={() => {
-										getBooleanFF('platform.design-system-team.popup-select-close_8h15h') &&
-											this.close();
-										props.onMenuClose?.();
-									}}
 									isSearchable={showSearchControl}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									styles={mergeStyles(this.defaultStyles, props.styles || {})}

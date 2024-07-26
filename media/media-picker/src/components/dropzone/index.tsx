@@ -38,6 +38,7 @@ export class DropzoneLoader extends React.PureComponent<DropzoneWithMediaClientC
 					),
 				]);
 
+				// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 				DropzoneLoader.Dropzone = mediaClient.withMediaClient(dropzoneModule.Dropzone);
 
 				DropzoneLoader.MediaPickerErrorBoundary = mediaPickerErrorBoundaryModule.default;

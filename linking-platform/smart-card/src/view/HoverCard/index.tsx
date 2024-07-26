@@ -5,7 +5,7 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { useCallback } from 'react';
+import { type ErrorInfo, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { SmartLinkModalProvider } from '../../state/modal';
@@ -22,12 +22,7 @@ const HoverCardWithErrorBoundary = (props: HoverCardProps & HoverCardInternalPro
 	const analytics = useSmartLinkAnalytics(url, undefined, id);
 
 	const onError = useCallback(
-		(
-			error: Error,
-			info: {
-				componentStack: string;
-			},
-		) => {
+		(error: Error, info: ErrorInfo) => {
 			analytics.ui.renderFailedEvent({
 				display: CardDisplay.HoverCardPreview,
 				id,

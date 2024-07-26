@@ -232,16 +232,10 @@ export const createPlugin =
 								datasourceTableRef && currentState?.datasourceTableRef !== datasourceTableRef;
 
 							if (isDatasource && shouldUpdateTableRef) {
-								const getLayout = () => {
-									return isDatasourceTableLayout(node.attrs.layout)
-										? node.attrs.layout
-										: DATASOURCE_DEFAULT_LAYOUT;
-								};
-
 								// since we use the plugin state, which is a shared state, we need to update the datasourceTableRef, layout on each selection
-								const layout = fg('platform.linking-platform.editor-datasource-typeguards')
-									? getLayout()
-									: node?.attrs?.layout || DATASOURCE_DEFAULT_LAYOUT;
+								const layout = isDatasourceTableLayout(node.attrs.layout)
+									? node.attrs.layout
+									: DATASOURCE_DEFAULT_LAYOUT;
 
 								const isNested = selection.$anchor.depth > 0;
 
@@ -327,9 +321,7 @@ export const createPlugin =
 							pluginInjectionApi,
 							onClickCallback: options.onClickCallback,
 						};
-						const isDatasource = fg('platform.linking-platform.editor-datasource-typeguards')
-							? isDatasourceNode(node)
-							: !!node?.attrs?.datasource;
+						const isDatasource = isDatasourceNode(node);
 
 						if (isDatasource) {
 							if (

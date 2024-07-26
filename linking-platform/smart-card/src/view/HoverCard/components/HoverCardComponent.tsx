@@ -285,6 +285,7 @@ export const HoverCardComponent = ({
 			content={content}
 			trigger={trigger}
 			zIndex={zIndex}
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={CustomPopupContainer}
 		/>
 	);

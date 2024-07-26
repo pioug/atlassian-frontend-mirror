@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-slack-transformer",
-	"version": "3.5.0",
+	"version": "3.6.0",
 	"description": "Editor Slack transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "4.0.1",
+		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -40,8 +40,8 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^194.4.0",
-		"@atlaskit/editor-test-helpers": "^18.27.0",
+		"@atlaskit/editor-core": "^194.5.0",
+		"@atlaskit/editor-test-helpers": "^18.28.0",
 		"@atlaskit/emoji": "^67.6.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",

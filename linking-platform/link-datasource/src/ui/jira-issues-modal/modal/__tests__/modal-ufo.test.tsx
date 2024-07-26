@@ -12,31 +12,33 @@ const mockColumnPickerRenderUfoFailure = jest.fn();
 jest.mock('@atlaskit/ufo', () => ({
 	__esModule: true,
 	...jest.requireActual<Object>('@atlaskit/ufo'),
-	ConcurrentExperience: (experienceId: string): Partial<ConcurrentExperience> => ({
-		experienceId: experienceId,
-		getInstance: jest.fn().mockImplementation(() => {
-			if (experienceId === 'datasource-rendered') {
+	ConcurrentExperience: jest.fn().mockImplementation(
+		(experienceId: string): Partial<ConcurrentExperience> => ({
+			experienceId: experienceId,
+			getInstance: jest.fn().mockImplementation(() => {
+				if (experienceId === 'datasource-rendered') {
+					return {
+						start: mockUfoStart,
+						success: mockUfoSuccess,
+						failure: mockUfoFailure,
+						addMetadata: mockUfoAddMetadata,
+					};
+				}
+				if (experienceId === 'column-picker-rendered') {
+					return {
+						failure: mockColumnPickerRenderUfoFailure,
+					};
+				}
 				return {
-					start: mockUfoStart,
-					success: mockUfoSuccess,
-					failure: mockUfoFailure,
-					addMetadata: mockUfoAddMetadata,
+					// there are other experiences outside this tests scope that reference atlaskit/ufo
+					start: jest.fn(),
+					success: jest.fn(),
+					failure: jest.fn(),
+					addMetadata: jest.fn(),
 				};
-			}
-			if (experienceId === 'column-picker-rendered') {
-				return {
-					failure: mockColumnPickerRenderUfoFailure,
-				};
-			}
-			return {
-				// there are other experiences outside this tests scope that reference atlaskit/ufo
-				start: jest.fn(),
-				success: jest.fn(),
-				failure: jest.fn(),
-				addMetadata: jest.fn(),
-			};
+			}),
 		}),
-	}),
+	),
 }));
 
 describe('UFO metrics: JiraIssuesConfigModal', () => {

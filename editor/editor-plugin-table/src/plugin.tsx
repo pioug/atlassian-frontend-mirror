@@ -294,6 +294,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				options?.isTableScalingEnabled,
 				options?.isTableAlignmentEnabled,
 				api?.analytics?.actions,
+				options?.isCommentEditor,
 			),
 		},
 

@@ -24,12 +24,14 @@ const mockUfoSuccess = jest.fn();
 jest.mock('@atlaskit/ufo', () => ({
 	__esModule: true,
 	...jest.requireActual<object>('@atlaskit/ufo'),
-	ConcurrentExperience: (): Partial<ConcurrentExperience> => ({
-		getInstance: jest.fn().mockImplementation(() => ({
-			start: mockUfoStart,
-			success: mockUfoSuccess,
-		})),
-	}),
+	ConcurrentExperience: jest.fn().mockImplementation(
+		(): Partial<ConcurrentExperience> => ({
+			getInstance: jest.fn().mockImplementation(() => ({
+				start: mockUfoStart,
+				success: mockUfoSuccess,
+			})),
+		}),
+	),
 }));
 
 const renderColumnPicker = (

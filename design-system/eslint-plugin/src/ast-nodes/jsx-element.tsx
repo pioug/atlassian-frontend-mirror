@@ -89,11 +89,15 @@ export const JSXElementHelper = {
 	},
 
 	getChildren(node: JSXElement | JSXFragment): JSXElement['children'] {
-		// Filter out text children with whitespace characters only as JSX removes whitespace used for intendation
 		const filteredChildren = node.children.filter((child) => {
+			// Filter out text children with whitespace characters only as JSX removes whitespace used for intendation
 			if (isNodeOfType(child, 'JSXText')) {
 				const whiteSpaceChars = new RegExp('\\s', 'g');
 				return !whiteSpaceChars.test(child.value);
+			}
+			// Filter out empty JSX expressions, for example JSX expression containing comments only, including eslint ignore comments
+			if (isNodeOfType(child, 'JSXExpressionContainer')) {
+				return !isNodeOfType(child.expression, 'JSXEmptyExpression');
 			}
 			return true;
 		});

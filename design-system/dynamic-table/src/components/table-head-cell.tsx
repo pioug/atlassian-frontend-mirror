@@ -1,4 +1,4 @@
-import React, { type FC, type LegacyRef } from 'react';
+import React, { type FC, type Ref } from 'react';
 
 import { HeadCell } from '../styled/table-head';
 import { type SortOrderType } from '../types';
@@ -9,7 +9,7 @@ export interface TableHeadCellProps {
 	isSortable?: boolean;
 	sortOrder?: SortOrderType;
 	isFixedSize?: boolean;
-	innerRef?: LegacyRef<HTMLTableCellElement>;
+	innerRef?: Ref<HTMLTableCellElement>;
 	inlineStyles?: {};
 	content?: React.ReactNode;
 	onClick?: () => void;

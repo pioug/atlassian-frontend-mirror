@@ -45,6 +45,7 @@ export const ExpandToggle = () => {
 		<Tooltip
 			position={'bottom'}
 			content={<TooltipContent>{message}</TooltipContent>}
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			tag={TooltipTag}
 		>
 			<BaseExpandToggle

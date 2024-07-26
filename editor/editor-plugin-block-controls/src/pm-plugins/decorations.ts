@@ -25,8 +25,9 @@ export const dropTargetDecorations = (
 	// and allows us to easily map the updated position in the plugin apply method.
 	const decorationState: { index: number; pos: number }[] = [];
 	let prevNode: PMNode | undefined;
+	const state = fg('platform_editor_element_drag_and_drop_ed_24372') ? newState : oldState;
 
-	oldState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, _parent, index) => {
+	state.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, _parent, index) => {
 		decorationState.push({ index, pos });
 		const dropTargetDec = createElement(DropTarget, {
 			api,

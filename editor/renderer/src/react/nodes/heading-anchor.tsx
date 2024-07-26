@@ -115,6 +115,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 			// @see https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6548
 			return (
 				<Tooltip
+					// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 					tag={CopyAnchorWrapperWithRef}
 					content={tooltipMessage}
 					position="top"

@@ -55,7 +55,7 @@ const Example = () => {
 		<Stack space="space.300">
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Stack space="space.100">
-					<Heading level="h600">
+					<Heading size="medium">
 						Standard user picker with <code>UNSAFE_hasDraggableParentComponent=true</code>
 					</Heading>
 					<PickerExamples id="basic" />
@@ -68,7 +68,7 @@ const Example = () => {
 						<PickerExamples id="mousedown-captured" />
 					</Box>
 				</Stack>
-				<Heading level="h600">
+				<Heading size="medium">
 					User picker inside <code>react-beautiful-dnd</code> Draggable with{' '}
 					<code>UNSAFE_hasDraggableParentComponent=true</code>
 				</Heading>

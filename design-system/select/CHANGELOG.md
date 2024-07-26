@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 17.11.8
+
+### Patch Changes
+
+- [#123484](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123484)
+  [`e241c04ab92d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e241c04ab92d5) -
+  Remove abandoned feature flag usage
+
 ## 17.11.7
 
 ### Patch Changes

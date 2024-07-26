@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 3.5.0
+
+### Minor Changes
+
+- [#124190](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124190)
+  [`9ab9c4ca2b9df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ab9c4ca2b9df) -
+  Clean-up platform.editor.refactor-highlight-toolbar_mo0pj feature flag
+
+### Patch Changes
+
+- [#123552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123552)
+  [`ee13728534201`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee13728534201) -
+  Update feature gate for editor-core editor-plugins
+- Updated dependencies
+
+## 3.4.35
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.4.34
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.33
 
 ### Patch Changes

@@ -5,7 +5,12 @@ import { TableMap } from '../table-map';
 import { findTable } from './find';
 import { getSelectionRect } from './get-selection-rect';
 
-export function getSelectedTableInfo(selection: Selection) {
+export function getSelectedTableInfo(selection: Selection): {
+	table: ReturnType<typeof findTable> | undefined;
+	map: TableMap | undefined;
+	totalRowCount: number;
+	totalColumnCount: number;
+} {
 	let map;
 	let totalRowCount = 0;
 	let totalColumnCount = 0;

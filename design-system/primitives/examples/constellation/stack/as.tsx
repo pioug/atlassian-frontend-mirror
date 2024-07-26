@@ -42,6 +42,17 @@ export default function Example() {
 					<li>Ordered List Item</li>
 				</Stack>
 			</Box>
+			<Box>
+				<Heading level="h500">Stack as 'dl'</Heading>
+				<Stack as="dl" space="space.200">
+					<Box as="dt">Jira</Box>
+					<Box as="dd">Flexible project management</Box>
+					<Box as="dt">Confluence</Box>
+					<Box as="dd">Knowledge, all in one place</Box>
+					<Box as="dt">BitBucket</Box>
+					<Box as="dd">Collaborative code repos</Box>
+				</Stack>
+			</Box>
 		</Inline>
 	);
 }

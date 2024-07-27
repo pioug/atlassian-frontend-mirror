@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.12.1
+
+### Patch Changes
+
+- [#124216](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124216)
+  [`66f55374a6828`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66f55374a6828) -
+  use-primitives-text bug fix for inline ESlint ignore statements.
+
 ## 10.12.0
 
 ### Minor Changes

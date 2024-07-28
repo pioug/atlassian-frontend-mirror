@@ -63,11 +63,13 @@
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
-		"./drag-event-polyfill": "./src/drag-event-polyfill.ts"
+		"./drag-event-polyfill": "./src/drag-event-polyfill.ts",
+		"./dom-rect-polyfill": "./src/dom-rect-polyfill.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./drag-event-polyfill": "./src/drag-event-polyfill.ts"
+		"./drag-event-polyfill": "./src/drag-event-polyfill.ts",
+		"./dom-rect-polyfill": "./src/dom-rect-polyfill.ts"
 	},
 	"homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/"
 }

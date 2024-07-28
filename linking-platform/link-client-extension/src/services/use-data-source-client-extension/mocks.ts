@@ -20,6 +20,7 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
 		totalCount: 1234,
 		items: [
 			{
+				ari: { data: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10025' },
 				id: { data: 'EDM-12' },
 				description: { data: 'Design datasource feature' },
 				createdAt: { data: '2023-01-22T01:30:00.000-05:00' },
@@ -36,6 +37,7 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
 				},
 			},
 			{
+				ari: { data: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10026' },
 				id: { data: 'EDM-14' },
 				description: { data: 'Implement datasource feature' },
 				createdAt: { data: '2023-03-01T01:30:00.000-05:00' },
@@ -54,6 +56,7 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
 				},
 			},
 			{
+				ari: { data: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10027' },
 				id: { data: 'EDM-15' },
 				description: { data: 'Add Jira Provider' },
 				createdAt: { data: '2023-03-31T01:30:00.000-05:00' },
@@ -69,6 +72,7 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
 				},
 			},
 			{
+				ari: { data: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10028' },
 				id: { data: 'EDM-16' },
 				description: { data: 'Plan team party' },
 				createdAt: { data: '2023-05-01T01:30:00.000-05:00' },

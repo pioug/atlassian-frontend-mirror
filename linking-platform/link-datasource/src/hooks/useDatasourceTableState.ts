@@ -15,8 +15,10 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
+import { useDatasourceActions } from '../state';
 
 import useErrorLogger from './useErrorLogger';
 
@@ -80,6 +82,7 @@ export const useDatasourceTableState = ({
 }: DatasourceTableStateProps): DatasourceTableState => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const { captureError } = useErrorLogger({ datasourceId });
+	const { onAddItems } = useDatasourceActions();
 
 	const idFieldCount = 1;
 	const keyFieldCount = 1;
@@ -94,7 +97,9 @@ export const useDatasourceTableState = ({
 	});
 	const [status, setStatus] = useState<DatasourceTableState['status']>('empty');
 	const [authDetails, setAuthDetails] = useState<DatasourceTableState['authDetails']>([]);
-	const [responseItems, setResponseItems] = useState<DatasourceTableState['responseItems']>([]);
+	const [responseItems, setResponseItems] =
+		useState<DatasourceTableState['responseItems']>(initialEmptyArray);
+	const [, setResponseItemIds] = useState<string[]>(initialEmptyArray);
 	const [hasNextPage, setHasNextPage] = useState<DatasourceTableState['hasNextPage']>(true);
 	const [nextCursor, setNextCursor] = useState<string | undefined>(undefined);
 	const [columns, setColumns] = useState<DatasourceTableState['columns']>([]);
@@ -231,7 +236,6 @@ export const useDatasourceTableState = ({
 					meta: { access, destinationObjectTypes, extensionKey, auth, providerName },
 					data: { items, nextPageCursor, totalCount, schema },
 				} = await getDatasourceData(datasourceId, datasourceDataRequest, shouldForceRequest);
-
 				/**
 				 * Let the response finish and store in cache, but throw error if signal is aborted
 				 */
@@ -250,13 +254,16 @@ export const useDatasourceTableState = ({
 				setDestinationObjectTypes(destinationObjectTypes);
 				setTotalCount(totalCount);
 				setNextCursor(nextPageCursor);
-
 				setResponseItems((currentResponseItems) => {
 					if (shouldRequestFirstPage) {
 						return items;
 					}
 					return [...currentResponseItems, ...items];
 				});
+				if (fg('enable_datasource_react_sweet_state')) {
+					const newIds = onAddItems(items);
+					setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
+				}
 
 				setHasNextPage(Boolean(nextPageCursor));
 
@@ -271,9 +278,9 @@ export const useDatasourceTableState = ({
 					applySchemaProperties(schema || fullSchema, fieldKeys);
 				}
 
-				const isUserLoadingNextPage = responseItems?.length !== 0 && !shouldRequestFirstPage;
+				const isUserLoadingNextPage = responseItems.length !== 0 && !shouldRequestFirstPage;
 				if (isUserLoadingNextPage) {
-					const currentLoadedItemCount = responseItems?.length || 0;
+					const currentLoadedItemCount = responseItems.length;
 					const newlyLoadedItemCount = items?.length || 0;
 
 					fireEvent('track.nextItem.loaded', {
@@ -314,9 +321,11 @@ export const useDatasourceTableState = ({
 			parameters,
 			fieldKeys,
 			nextCursor,
+			responseItems,
+			setResponseItemIds,
+			onAddItems,
 			getDatasourceData,
 			datasourceId,
-			responseItems,
 			applySchemaProperties,
 			fireEvent,
 			fullSchema,
@@ -327,6 +336,7 @@ export const useDatasourceTableState = ({
 	const reset = useCallback(
 		(options?: ResetOptions) => {
 			setResponseItems(initialEmptyArray);
+			setResponseItemIds(initialEmptyArray);
 			setHasNextPage(true);
 			setNextCursor(undefined);
 			setTotalCount(undefined);

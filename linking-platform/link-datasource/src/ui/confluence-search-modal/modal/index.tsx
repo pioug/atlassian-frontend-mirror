@@ -29,6 +29,7 @@ import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-exp
 import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
+import { StoreContainer } from '../../../state';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoInstancesView } from '../../common/error-state/no-instances';
@@ -469,27 +470,29 @@ const contextData = {
 
 export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
 	(props: ConfluenceSearchConfigModalProps) => (
-		<DatasourceExperienceIdProvider>
-			<UserInteractionsProvider>
-				{fg('platform-datasources-use-refactored-config-modal') ? (
-					<DatasourceContextProvider
-						datasourceId={props.datasourceId}
-						initialVisibleColumnKeys={props.visibleColumnKeys}
-						initialColumnCustomSizes={props.columnCustomSizes}
-						initialWrappedColumnKeys={props.wrappedColumnKeys}
-						initialParameters={props.parameters}
-						isValidParameters={isValidParameters}
-						onInsert={props.onInsert}
-					>
-						<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
-							<PlainConfluenceSearchConfigModal {...props} />
-						</DatasourceViewModeProvider>
-					</DatasourceContextProvider>
-				) : (
-					// TODO on cleanup 'use-refactored-config-modal' ff, delete `ModalOld.tsx` as well
-					<PlainConfluenceSearchConfigModalOld {...props} />
-				)}
-			</UserInteractionsProvider>
-		</DatasourceExperienceIdProvider>
+		<StoreContainer>
+			<DatasourceExperienceIdProvider>
+				<UserInteractionsProvider>
+					{fg('platform-datasources-use-refactored-config-modal') ? (
+						<DatasourceContextProvider
+							datasourceId={props.datasourceId}
+							initialVisibleColumnKeys={props.visibleColumnKeys}
+							initialColumnCustomSizes={props.columnCustomSizes}
+							initialWrappedColumnKeys={props.wrappedColumnKeys}
+							initialParameters={props.parameters}
+							isValidParameters={isValidParameters}
+							onInsert={props.onInsert}
+						>
+							<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
+								<PlainConfluenceSearchConfigModal {...props} />
+							</DatasourceViewModeProvider>
+						</DatasourceContextProvider>
+					) : (
+						// TODO on cleanup 'use-refactored-config-modal' ff, delete `ModalOld.tsx` as well
+						<PlainConfluenceSearchConfigModalOld {...props} />
+					)}
+				</UserInteractionsProvider>
+			</DatasourceExperienceIdProvider>
+		</StoreContainer>
 	),
 );

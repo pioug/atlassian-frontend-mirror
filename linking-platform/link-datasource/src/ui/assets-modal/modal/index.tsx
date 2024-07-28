@@ -19,7 +19,7 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -47,6 +47,7 @@ import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { PermissionError } from '../../../services/cmdbService.utils';
+import { StoreContainer } from '../../../state';
 import { AccessRequired } from '../../../ui/common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { CancelButton } from '../../common/modal/cancel-button';
@@ -87,7 +88,8 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	const [schemaId, setSchemaId] = useState(initialParameters?.schemaId);
 	const apiVersion = initialParameters?.version;
 	const [visibleColumnKeys, setVisibleColumnKeys] = useState(
-		getBooleanFF('platform.linking-platform.datasource-assets_add_version_parameter') &&
+		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+		fg('platform.linking-platform.datasource-assets_add_version_parameter') &&
 			apiVersion !== VERSION_TWO
 			? []
 			: initialVisibleColumnKeys,
@@ -144,7 +146,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 			aql: aql || '',
 			schemaId: schemaId || '',
 			workspaceId: workspaceId || '',
-			...(getBooleanFF('platform.linking-platform.datasource-assets_add_version_parameter')
+			...(fg('platform.linking-platform.datasource-assets_add_version_parameter')
 				? { version: VERSION_TWO }
 				: {}),
 		}),
@@ -246,7 +248,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	}, []);
 
 	useEffect(() => {
-		if (getBooleanFF('platform.linking-platform.datasource-assets_add_version_parameter')) {
+		if (fg('platform.linking-platform.datasource-assets_add_version_parameter')) {
 			const newVisibleColumnKeys =
 				initialVisibleColumnKeys &&
 				initialVisibleColumnKeys.length > 0 &&
@@ -329,7 +331,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 							workspaceId,
 							aql,
 							schemaId,
-							...(getBooleanFF('platform.linking-platform.datasource-assets_add_version_parameter')
+							...(fg('platform.linking-platform.datasource-assets_add_version_parameter')
 								? { version: VERSION_TWO }
 								: {}),
 						},
@@ -506,10 +508,12 @@ const contextData = {
 
 export const AssetsConfigModal = withAnalyticsContext(contextData)(
 	(props: AssetsConfigModalProps) => (
-		<DatasourceExperienceIdProvider>
-			<UserInteractionsProvider>
-				<PlainAssetsConfigModal {...props} />
-			</UserInteractionsProvider>
-		</DatasourceExperienceIdProvider>
+		<StoreContainer>
+			<DatasourceExperienceIdProvider>
+				<UserInteractionsProvider>
+					<PlainAssetsConfigModal {...props} />
+				</UserInteractionsProvider>
+			</DatasourceExperienceIdProvider>
+		</StoreContainer>
 	),
 );

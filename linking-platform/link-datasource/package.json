@@ -85,6 +85,7 @@
 		"debounce-promise": "^3.1.2",
 		"lodash": "^4.17.21",
 		"react-dom": "^16.8.0",
+		"react-sweet-state": "^2.6.5",
 		"tiny-invariant": "^1.2.0",
 		"use-debounce": "^3.4.0",
 		"uuid": "^3.1.0"
@@ -156,6 +157,9 @@
 		"./i18n/*": "./src/i18n/*.ts"
 	},
 	"platform-feature-flags": {
+		"enable_datasource_react_sweet_state": {
+			"type": "boolean"
+		},
 		"platform.linking-platform.datasource.add-timezone-header": {
 			"type": "boolean",
 			"referenceOnly": "true"

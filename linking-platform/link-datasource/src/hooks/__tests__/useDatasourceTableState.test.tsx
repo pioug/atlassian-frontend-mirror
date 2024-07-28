@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { act, renderHook, type RenderHookOptions } from '@testing-library/react-hooks';
+import { defaultRegistry } from 'react-sweet-state';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
@@ -17,6 +18,7 @@ import { captureException } from '@atlaskit/linking-common/sentry';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
+import { Store } from '../../state';
 import {
 	type DatasourceTableStateProps,
 	useDatasourceTableState,
@@ -52,6 +54,7 @@ jest.mock('@atlaskit/linking-common/sentry', () => {
 describe('useDatasourceTableState', () => {
 	let getDatasourceDetails: jest.Mock = jest.fn();
 	let getDatasourceData: jest.Mock = jest.fn();
+	const store = defaultRegistry.getStore(Store);
 
 	const setup = (fields?: string[]) => {
 		asMock(useDatasourceClientExtension).mockReturnValue({
@@ -81,6 +84,7 @@ describe('useDatasourceTableState', () => {
 
 	beforeEach(() => {
 		jest.resetModules();
+		store.storeState.resetState();
 		getDatasourceDetails = jest.fn().mockResolvedValue(mockDatasourceDetailsResponse);
 		getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
 	});
@@ -129,15 +133,14 @@ describe('useDatasourceTableState', () => {
 			expect(getDatasourceData).not.toHaveBeenCalled();
 		});
 	});
-
 	describe('on mount', () => {
 		it('should return initial state', async () => {
 			const { result, waitForNextUpdate } = setup();
-
 			expect({
 				...result.current,
 			}).toEqual({
 				status: 'loading',
+				providerName: undefined,
 				onNextPage: expect.any(Function),
 				loadDatasourceDetails: expect.any(Function),
 				responseItems: [],
@@ -153,24 +156,73 @@ describe('useDatasourceTableState', () => {
 			await waitForNextUpdate();
 		});
 
-		it('should call #getDatasourceData with expected arguments', async () => {
-			const { waitForNextUpdate } = setup(['name', 'abcd', 'city']);
+		describe('calls #getDatasourceData and conditionally saves the entity data into the store based on enable_datasource_react_sweet_state feature flag value', () => {
+			ffTest(
+				'enable_datasource_react_sweet_state',
+				async () => {
+					const { waitForNextUpdate } = setup(['name', 'abcd', 'city']);
+					expect(store.storeState.getState().items).toEqual({});
 
-			expect(getDatasourceData).toHaveBeenCalledWith(
-				mockDatasourceId,
-				{
-					parameters: {
-						cloudId: mockCloudId,
-						jql: mockParameterValue,
-					},
-					pageSize: 20,
-					pageCursor: undefined,
-					fields: ['name', 'abcd', 'city'],
-					includeSchema: true,
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						{
+							parameters: {
+								cloudId: mockCloudId,
+								jql: mockParameterValue,
+							},
+							pageSize: 20,
+							pageCursor: undefined,
+							fields: ['name', 'abcd', 'city'],
+							includeSchema: true,
+						},
+						false,
+					);
+					await waitForNextUpdate();
+					const entries = Object.entries(store.storeState.getState().items);
+
+					expect(entries).toHaveLength(4);
+					entries.forEach(([ari, item]) => {
+						const ariRegex = new RegExp(
+							'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/[0-9]+',
+						);
+						expect(ari).toEqual(expect.stringMatching(ariRegex));
+						expect(item).toMatchObject({
+							id: { data: expect.any(String) },
+							description: { data: expect.any(String) },
+							createdAt: { data: expect.any(String) },
+							assigned: {
+								data: { displayName: expect.any(String) },
+							},
+							status: {
+								data: {
+									text: expect.any(String),
+								},
+							},
+						});
+					});
 				},
-				false,
+				async () => {
+					const { waitForNextUpdate } = setup(['name', 'abcd', 'city']);
+					expect(store.storeState.getState().items).toEqual({});
+
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						{
+							parameters: {
+								cloudId: mockCloudId,
+								jql: mockParameterValue,
+							},
+							pageSize: 20,
+							pageCursor: undefined,
+							fields: ['name', 'abcd', 'city'],
+							includeSchema: true,
+						},
+						false,
+					);
+					await waitForNextUpdate();
+					expect(store.storeState.getState().items).toEqual({});
+				},
 			);
-			await waitForNextUpdate();
 		});
 
 		it('should populate columns and defaultVisibleColumnKeys after getDatasourceData call with response items', async () => {

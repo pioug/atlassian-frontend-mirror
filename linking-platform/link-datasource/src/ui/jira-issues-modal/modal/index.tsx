@@ -50,6 +50,7 @@ import {
 } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
+import { StoreContainer } from '../../../state';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { loadingErrorMessages } from '../../common/error-state/messages';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
@@ -716,16 +717,18 @@ const contextData = {
 
 export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
 	(props: JiraConfigModalProps) => (
-		<DatasourceExperienceIdProvider>
-			<UserInteractionsProvider>
-				{fg('platform-datasources-use-refactored-config-modal') ? (
-					<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
-						<PlainJiraIssuesConfigModal {...props} />
-					</DatasourceViewModeProvider>
-				) : (
-					<PlainJiraIssuesConfigModalOld {...props}></PlainJiraIssuesConfigModalOld>
-				)}
-			</UserInteractionsProvider>
-		</DatasourceExperienceIdProvider>
+		<StoreContainer>
+			<DatasourceExperienceIdProvider>
+				<UserInteractionsProvider>
+					{fg('platform-datasources-use-refactored-config-modal') ? (
+						<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
+							<PlainJiraIssuesConfigModal {...props} />
+						</DatasourceViewModeProvider>
+					) : (
+						<PlainJiraIssuesConfigModalOld {...props}></PlainJiraIssuesConfigModalOld>
+					)}
+				</UserInteractionsProvider>
+			</DatasourceExperienceIdProvider>
+		</StoreContainer>
 	),
 );

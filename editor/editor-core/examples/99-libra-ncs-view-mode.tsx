@@ -180,10 +180,6 @@ const urlParams = new URLSearchParams(window.location.search);
 export default function EditorExampleForIntegrationTests() {
 	const featureFlags = getFeatureFlags(urlParams);
 	setBooleanFeatureFlagResolver((flagKey) => {
-		if (flagKey === 'linking-platform-contenteditable-false-live-view') {
-			return true;
-		}
-
 		return featureFlags?.[flagKey] ?? false;
 	});
 	const options = React.useMemo(() => {

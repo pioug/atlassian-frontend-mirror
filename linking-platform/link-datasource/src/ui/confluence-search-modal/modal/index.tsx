@@ -9,8 +9,9 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -38,18 +39,13 @@ import { InitialStateView } from '../../common/initial-state-view';
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
-import {
-	DatasourceContextProvider,
-	useDatasourceContext,
-} from '../../common/modal/datasource-context';
+import { useDatasourceContext } from '../../common/modal/datasource-context';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
+import { createDatasourceModal } from '../../common/modal/datasource-modal/createDatasourceModal';
 import DatasourcesTableInModalPreview from '../../common/modal/datasources-table-in-modal-preview';
 import { InsertButton } from '../../common/modal/insert-button';
 import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher';
-import {
-	DatasourceViewModeProvider,
-	useViewModeContext,
-} from '../../common/modal/mode-switcher/useViewModeContext';
+import { useViewModeContext } from '../../common/modal/mode-switcher/useViewModeContext';
 import { type DateRangeType } from '../../common/modal/popup-select/types';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
@@ -59,13 +55,12 @@ import ConfluenceSearchContainer from '../confluence-search-container';
 import {
 	type ConfluenceSearchConfigModalProps,
 	type ConfluenceSearchDatasourceParameters,
+	type ConnectedConfluenceSearchConfigModalProps,
 } from '../types';
 
 import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
 import { confluenceSearchModalMessages } from './messages';
 import { PlainConfluenceSearchConfigModal as PlainConfluenceSearchConfigModalOld } from './ModalOld';
-
-const DEFAULT_VIEW_MODE = 'table';
 
 const inputContainerStyles = xcss({
 	alignItems: 'baseline',
@@ -73,9 +68,7 @@ const inputContainerStyles = xcss({
 	minHeight: '72px',
 });
 
-const isValidParameters = (
-	parameters: Partial<ConfluenceSearchDatasourceParameters> | undefined,
-): parameters is ConfluenceSearchDatasourceParameters =>
+const isValidParameters = (parameters: DatasourceParameters | undefined): boolean =>
 	!!(
 		parameters &&
 		parameters.cloudId &&
@@ -87,13 +80,13 @@ const isValidParameters = (
 	);
 
 const useUpdateParametersOnFormUpdate = (
-	cloudId: string,
+	cloudId: string | undefined,
 	searchString: string | undefined,
 	lastModified: { value: DateRangeType | undefined; from?: string; to?: string } | undefined,
 	contributorAccountIds: string[],
 	overrideParameters: Partial<ConfluenceSearchDatasourceParameters> | undefined,
 ) => {
-	const { setParameters } = useDatasourceContext();
+	const { setParameters } = useDatasourceContext<ConfluenceSearchDatasourceParameters>();
 
 	useEffect(() => {
 		setParameters((parameters) => {
@@ -118,32 +111,48 @@ const useUpdateParametersOnFormUpdate = (
 	]);
 };
 
-export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
+export const PlainConfluenceSearchConfigModal = (
+	props: ConnectedConfluenceSearchConfigModalProps,
+) => {
 	const {
 		onCancel,
-		parameters: initialParameters,
 		url: urlBeingEdited,
 		disableDisplayDropdown = false,
 		overrideParameters,
 	} = props;
+
 	const { currentViewMode } = useViewModeContext();
-	const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
+
+	const {
+		visibleColumnKeys,
+		tableState: {
+			reset,
+			status,
+			responseItems,
+			extensionKey = null,
+			destinationObjectTypes,
+			totalCount,
+			columns,
+		},
+		visibleColumnCount,
+		parameters,
+	} = useDatasourceContext<ConfluenceSearchDatasourceParameters>();
+
+	const [cloudId, setCloudId] = useState(parameters?.cloudId);
 	const { availableSites, selectedSite: selectedConfluenceSite } = useAvailableSites(
 		'confluence',
 		cloudId,
 	);
-	const [searchString, setSearchString] = useState<string | undefined>(
-		initialParameters?.searchString,
-	);
+	const [searchString, setSearchString] = useState<string | undefined>(parameters?.searchString);
 	const [contributorAccountIds, setContributorAccountIds] = useState<string[]>(
-		initialParameters?.contributorAccountIds || [],
+		parameters?.contributorAccountIds || [],
 	);
 	const [lastModified, setLastModified] = useState(
-		initialParameters?.lastModified
+		parameters?.lastModified
 			? {
-					value: initialParameters?.lastModified,
-					from: initialParameters?.lastModifiedFrom,
-					to: initialParameters?.lastModifiedTo,
+					value: parameters?.lastModified,
+					from: parameters?.lastModifiedFrom,
+					to: parameters?.lastModifiedTo,
 				}
 			: undefined,
 	);
@@ -159,21 +168,6 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 		contributorAccountIds,
 		overrideParameters,
 	);
-
-	const {
-		visibleColumnKeys,
-		tableState: {
-			reset,
-			status,
-			responseItems,
-			extensionKey = null,
-			destinationObjectTypes,
-			totalCount,
-			columns,
-		},
-		visibleColumnCount,
-		parameters,
-	} = useDatasourceContext();
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
@@ -408,7 +402,9 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 								<ConfluenceSearchContainer
 									isSearching={status === 'loading'}
 									onSearch={onSearch}
-									parameters={isValidParameters(parameters) ? parameters : { cloudId: '' }}
+									parameters={
+										parameters && isValidParameters(parameters) ? parameters : { cloudId: '' }
+									}
 								/>
 							</Box>
 							{currentViewMode === 'inline'
@@ -438,7 +434,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 						testId="confluence-search-modal--cancel-button"
 					/>
 					{!hasNoConfluenceSites && (
-						<InsertButton
+						<InsertButton<ConfluenceSearchDatasourceParameters>
 							testId="confluence-search-datasource-modal--insert-button"
 							url={confluenceSearchUrl}
 							getAnalyticsPayload={getButtonAnalyticsPayload}
@@ -468,31 +464,31 @@ const contextData = {
 	},
 };
 
-export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
-	(props: ConfluenceSearchConfigModalProps) => (
+const ConnectedConfluenceSearchConfigModal =
+	createDatasourceModal<ConfluenceSearchDatasourceParameters>({
+		isValidParameters,
+		dataProvider: 'confluence-search',
+		component: PlainConfluenceSearchConfigModal,
+	});
+
+export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
+	if (fg('platform-datasources-use-refactored-config-modal')) {
+		return (
+			<StoreContainer>
+				<ConnectedConfluenceSearchConfigModal {...props} />
+			</StoreContainer>
+		);
+	}
+
+	return (
 		<StoreContainer>
-			<DatasourceExperienceIdProvider>
-				<UserInteractionsProvider>
-					{fg('platform-datasources-use-refactored-config-modal') ? (
-						<DatasourceContextProvider
-							datasourceId={props.datasourceId}
-							initialVisibleColumnKeys={props.visibleColumnKeys}
-							initialColumnCustomSizes={props.columnCustomSizes}
-							initialWrappedColumnKeys={props.wrappedColumnKeys}
-							initialParameters={props.parameters}
-							isValidParameters={isValidParameters}
-							onInsert={props.onInsert}
-						>
-							<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
-								<PlainConfluenceSearchConfigModal {...props} />
-							</DatasourceViewModeProvider>
-						</DatasourceContextProvider>
-					) : (
-						// TODO on cleanup 'use-refactored-config-modal' ff, delete `ModalOld.tsx` as well
+			<AnalyticsContext data={contextData}>
+				<DatasourceExperienceIdProvider>
+					<UserInteractionsProvider>
 						<PlainConfluenceSearchConfigModalOld {...props} />
-					)}
-				</UserInteractionsProvider>
-			</DatasourceExperienceIdProvider>
+					</UserInteractionsProvider>
+				</DatasourceExperienceIdProvider>
+			</AnalyticsContext>
 		</StoreContainer>
-	),
-);
+	);
+};

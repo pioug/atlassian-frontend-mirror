@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.10.1
+
+### Patch Changes
+
+- [#124134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124134)
+  [`60d66d9621cca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60d66d9621cca) -
+  Removed FF platform.editor.allow-list-in-blockquote
+- Updated dependencies
+
 ## 3.10.0
 
 ### Minor Changes

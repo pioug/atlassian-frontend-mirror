@@ -55,6 +55,7 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 					onClose={closeHandler}
 					width={fixedWidth}
 					autoFocus={false}
+					shouldReturnFocus={false}
 					onOpenComplete={openCompleteHandler}
 				>
 					<ModalHeader>

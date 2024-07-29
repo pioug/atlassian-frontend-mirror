@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugins
 
+## 3.5.3
+
+### Patch Changes
+
+- [#112464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112464)
+  [`e26f188519478`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26f188519478) -
+  Remove feature flag that is fully rolled out
+- Updated dependencies
+
+## 3.5.2
+
+### Patch Changes
+
+- [#124517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124517)
+  [`d7e6d3d76a05d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7e6d3d76a05d) -
+  Removed FF platform.editor.handle-paste-for-action-in-panel
+- Updated dependencies
+
+## 3.5.1
+
+### Patch Changes
+
+- [#124134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124134)
+  [`66625e5ffed2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66625e5ffed2f) -
+  Removed FF platform.editor.allow-custom-cut-for-panel
+- [#124231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124231)
+  [`48ae65e0f36e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48ae65e0f36e8) -
+  Removed FF platform.editor.transform-slice-for-nested-expand
+- [#124134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124134)
+  [`60d66d9621cca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60d66d9621cca) -
+  Removed FF platform.editor.allow-list-in-blockquote
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

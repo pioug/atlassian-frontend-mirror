@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.6.2
+
+### Patch Changes
+
+- [#123180](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123180)
+  [`14addfd71de93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14addfd71de93) -
+  Fix edit link modal disappear when hover over hyperlink in live page
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

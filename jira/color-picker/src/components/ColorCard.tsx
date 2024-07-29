@@ -10,7 +10,6 @@ import { KEY_ENTER, KEY_SPACE } from '../constants';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { mergeRefs } from 'use-callback-ref';
 
 export interface Props {
@@ -89,75 +88,42 @@ const ColorCard = (props: Props) => {
 
 	return (
 		<Tooltip content={label}>
-			{fg('platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s') ? (
-				(tooltipProps) => {
-					delete tooltipProps['aria-describedby'];
-					return (
-						<div
-							{...tooltipProps}
-							css={[
-								sharedColorContainerStyles,
-								(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
-								focused && !isTabbing && colorCardOptionFocusedStyles,
-							]}
-							onClick={handleClick}
-							onMouseDown={handleMouseDown}
-							onKeyDown={handleKeyDown}
-							role="radio"
-							aria-checked={selected}
-							aria-label={label}
-							tabIndex={0}
-							ref={mergeRefs([ref, tooltipProps.ref])}
-						>
-							<div css={colorCardWrapperStyles}>
-								<div
-									css={colorCardContentStyles}
-									style={{
-										background: value || 'transparent',
-									}}
-								>
-									{selected && (
-										<div css={colorCardContentCheckMarkStyles}>
-											<EditorDoneIcon primaryColor={checkMarkColor} label="" />
-										</div>
-									)}
-								</div>
+			{(tooltipProps) => {
+				delete tooltipProps['aria-describedby'];
+				return (
+					<div
+						{...tooltipProps}
+						css={[
+							sharedColorContainerStyles,
+							(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
+							focused && !isTabbing && colorCardOptionFocusedStyles,
+						]}
+						onClick={handleClick}
+						onMouseDown={handleMouseDown}
+						onKeyDown={handleKeyDown}
+						role="radio"
+						aria-checked={selected}
+						aria-label={label}
+						tabIndex={0}
+						ref={mergeRefs([ref, tooltipProps.ref])}
+					>
+						<div css={colorCardWrapperStyles}>
+							<div
+								css={colorCardContentStyles}
+								style={{
+									background: value || 'transparent',
+								}}
+							>
+								{selected && (
+									<div css={colorCardContentCheckMarkStyles}>
+										<EditorDoneIcon primaryColor={checkMarkColor} label="" />
+									</div>
+								)}
 							</div>
 						</div>
-					);
-				}
-			) : (
-				<div
-					css={[
-						sharedColorContainerStyles,
-						(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
-						focused && !isTabbing && colorCardOptionFocusedStyles,
-					]}
-					onClick={handleClick}
-					onMouseDown={handleMouseDown}
-					onKeyDown={handleKeyDown}
-					role="radio"
-					aria-checked={selected}
-					aria-label={label}
-					tabIndex={0}
-					ref={ref}
-				>
-					<div css={colorCardWrapperStyles}>
-						<div
-							css={colorCardContentStyles}
-							style={{
-								background: value || 'transparent',
-							}}
-						>
-							{selected && (
-								<div css={colorCardContentCheckMarkStyles}>
-									<EditorDoneIcon primaryColor={checkMarkColor} label="" />
-								</div>
-							)}
-						</div>
 					</div>
-				</div>
-			)}
+				);
+			}}
 		</Tooltip>
 	);
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { MediaViewer } from '../../media-viewer';
+import { MediaViewerBase } from './media-viewer';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { fakeMediaClient, imageFileId } from '@atlaskit/media-test-helpers';
-import { MediaViewer as MediaViewerNextGen } from '../../../media-viewer';
-import { type MediaViewerExtensions } from '../../../components/types';
+import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
+import { type MediaViewerExtensions } from './types';
 import { type ExternalImageIdentifier, type FileIdentifier } from '@atlaskit/media-client';
 
 describe('MediaViewer', () => {
@@ -20,7 +20,7 @@ describe('MediaViewer', () => {
 		} as MediaViewerExtensions;
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={imageFileId}
 				items={[]}
@@ -60,7 +60,7 @@ describe('MediaViewer', () => {
 		const items = [id1, id2, id3];
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={items}
@@ -97,7 +97,7 @@ describe('MediaViewer', () => {
 		const items = [id1, id2];
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={items}
@@ -118,7 +118,7 @@ describe('MediaViewer', () => {
 		};
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={[]}
@@ -143,7 +143,7 @@ describe('MediaViewer', () => {
 		};
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={[]}
@@ -164,7 +164,7 @@ describe('MediaViewer', () => {
 		};
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={[]}
@@ -198,7 +198,7 @@ describe('MediaViewer', () => {
 		const items = [id2, id3];
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={items}
@@ -232,7 +232,7 @@ describe('MediaViewer', () => {
 		const items = [id1, id2, id3];
 
 		const component = mount(
-			<MediaViewer
+			<MediaViewerBase
 				mediaClient={mediaClient}
 				selectedItem={id1}
 				items={items}

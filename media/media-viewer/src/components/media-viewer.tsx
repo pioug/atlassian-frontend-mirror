@@ -5,7 +5,9 @@ import { MediaViewer as MediaViewerNextGen } from '../media-viewer';
 import { type MediaMessage, type MediaViewerProps } from './types';
 import { isSameIdentifier } from '../utils';
 import { isFileIdentifier } from '@atlaskit/media-client';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { withMediaClient } from '@atlaskit/media-client-react';
+import type { MediaViewerWithMediaClientConfigProps } from './types';
 
 const ensureCollectionName = (identifier: Identifier, collectionName: string) =>
 	isFileIdentifier(identifier)
@@ -42,7 +44,7 @@ const normaliseItems = (
 
 // TODO: This component will be removed in https://product-fabric.atlassian.net/browse/CXP-2722
 
-export const MediaViewer = ({
+export const MediaViewerBase = ({
 	featureFlags,
 	onClose,
 	mediaClient,
@@ -79,7 +81,7 @@ export const MediaViewer = ({
 		};
 	}, []);
 
-	return getBooleanFF('platform.media-experience.media-viewer-v2_hgsii') ? (
+	return fg('platform.media-experience.media-viewer-v2_hgsii') ? (
 		<MediaViewerNextGenV2
 			selectedItem={normalisedSelectedItem}
 			onClose={onClose}
@@ -99,4 +101,11 @@ export const MediaViewer = ({
 			contextId={contextId}
 		/>
 	);
+};
+
+// Can't export in a single line. Typescript struggles to recognize the component signature in the error boundary test file ./media-viewer-error-boundary.test.tsx
+// export const MediaViewerWithMediaClient = withMediaClient(MediaViewerBase)
+export const MediaViewerWithMediaClient = (props: MediaViewerWithMediaClientConfigProps) => {
+	const ViewerComponent = withMediaClient(MediaViewerBase);
+	return <ViewerComponent {...props} />;
 };

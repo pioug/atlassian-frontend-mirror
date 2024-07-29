@@ -1,4 +1,5 @@
 import { type Identifier, type MediaClient } from '@atlaskit/media-client';
+import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { type ReactNode } from 'react';
 
@@ -41,3 +42,5 @@ export type MediaMessage = {
 	source: 'media';
 	event: 'mediaViewerOpened' | 'mediaViewerClosed';
 };
+
+export type MediaViewerWithMediaClientConfigProps = WithMediaClientConfigProps<MediaViewerProps>;

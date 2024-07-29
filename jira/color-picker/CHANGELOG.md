@@ -1,5 +1,12 @@
 # @atlaskit/color-picker
 
+## 3.2.21
+
+### Patch Changes
+
+- [`62cf13123dd15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62cf13123dd15) -
+  Cleanup platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s
+
 ## 3.2.20
 
 ### Patch Changes

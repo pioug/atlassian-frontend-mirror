@@ -1,0 +1,57 @@
+import React, { type KeyboardEvent, type MouseEvent, useState } from 'react';
+
+import { useIntl } from 'react-intl-next';
+
+import StarIcon from '@atlaskit/icon/glyph/star';
+import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
+import { Pressable, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+import messages from './messages';
+
+const pressableStarIconStyles = xcss({
+	background: 'transparent',
+	padding: 'space.0',
+	height: '32px',
+	width: '32px',
+});
+
+const hiddenStyles = xcss({
+	opacity: 0,
+});
+
+export const StarIconButton = ({
+	isStarred,
+	handleToggle,
+	visible = true,
+}: {
+	isStarred: boolean;
+	handleToggle: (e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void;
+	visible?: boolean;
+}) => {
+	const { formatMessage } = useIntl();
+	const [isHovered, setIsHovered] = useState(false);
+
+	return (
+		<Pressable
+			xcss={[pressableStarIconStyles, !visible && hiddenStyles]}
+			onClick={handleToggle}
+			onMouseEnter={() => setIsHovered(true)}
+			onMouseLeave={() => setIsHovered(false)}
+		>
+			{isStarred || isHovered ? (
+				<StarFilledIcon
+					size="medium"
+					label={formatMessage(messages.removeFromFavouritesLabel)}
+					primaryColor={token('color.background.accent.yellow.subtler.pressed')}
+				/>
+			) : (
+				<StarIcon
+					size="medium"
+					label={formatMessage(messages.clickToFavouriteLabel)}
+					primaryColor={token('color.background.accent.gray.bolder.hovered')}
+				/>
+			)}
+		</Pressable>
+	);
+};

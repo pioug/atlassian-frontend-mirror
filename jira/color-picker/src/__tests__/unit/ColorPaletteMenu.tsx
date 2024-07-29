@@ -2,10 +2,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ColorPaletteMenuWithoutAnalytics as ColorPaletteMenu } from '../..';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<typeof getBooleanFF>;
 
 describe('ColorPaletteMenu', () => {
 	const mockFn = jest.fn();
@@ -62,10 +58,6 @@ describe('ColorPaletteMenu', () => {
 	});
 
 	describe('FFs enabled', () => {
-		beforeEach(() => {
-			mockGetBooleanFF.mockReturnValue(true);
-		});
-
 		test('should render ColorPaletteMenu with ColorCard', async () => {
 			const { getByRole, getAllByRole } = renderUI();
 

@@ -10,6 +10,7 @@ import { JQLEditor, type JQLEditorProps } from '@atlaskit/jql-editor';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../analytics';
@@ -66,11 +67,11 @@ type AnalyticsPayloadOverride = {
 	attributes?: object;
 };
 
-interface ModalProps<ADF, Parameters>
+interface ModalProps<ADF, Parameters extends DatasourceParameters>
 	extends ConfigModalProps<ADF, Parameters>,
 		Pick<ConfluenceSearchConfigModalProps, 'disableDisplayDropdown' | 'overrideParameters'> {}
 
-export const setupFactory = <Parameters, InsertArgs, ADF>(
+export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs, ADF>(
 	providerType: ProviderType,
 	Component:
 		| ((props: ModalProps<ADF, Parameters>) => JSX.Element)

@@ -10,8 +10,9 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getListTypes, insertTaskDecisionAction, insertTaskDecisionCommand } from './commands';
 import { getCurrentIndentLevel, getTaskItemIndex, isInsideTask } from './pm-plugins/helpers';
@@ -26,6 +27,30 @@ import ToolbarTask from './ui/ToolbarTask';
 const taskDecisionToolbarGroupStyles = css({
 	display: 'flex',
 });
+
+type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true' };
+
+// @nodeSpecException:toDOM patch
+export const taskItemSpecWithFixedToDOM = () => {
+	if (!fg('platform_editor_lazy-node-views')) {
+		return taskItem;
+	}
+
+	return {
+		...taskItem,
+		toDOM: (node: PMNode): DOMOutputSpec => {
+			const checked = node.attrs.state === 'DONE';
+			const inputAttrs: HTMLInputElementAttrs = {
+				type: 'checkbox',
+			};
+			if (checked) {
+				inputAttrs.checked = 'true';
+			}
+			// TODO: Align styling with `@atlaskit/task-decision`
+			return ['div', { style: 'display: flex;' }, ['input', inputAttrs], ['div', 0]];
+		},
+	};
+};
 
 const addItem =
 	(insert: (node: PMNode) => Transaction, listType: TaskDecisionListType, schema: Schema) =>
@@ -57,7 +82,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					name: 'taskList',
 					node: taskList,
 				},
-				{ name: 'taskItem', node: taskItem },
+				{ name: 'taskItem', node: taskItemSpecWithFixedToDOM() },
 			];
 		},
 

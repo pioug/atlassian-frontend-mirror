@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 48.6.13
+
+### Patch Changes
+
+- [#124060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124060)
+  [`538d55e561f10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/538d55e561f10) -
+  Replaced Analytics Error Boundary with react-error-boundary. Replaced custom async bundle loader
+  with React Lazy/Suspense
+- [#123180](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123180)
+  [`82e0654a10976`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/82e0654a10976) -
+  Fix non-pdf docs not rendering in Viewer (HOT-110664)
+
 ## 48.6.12
 
 ### Patch Changes

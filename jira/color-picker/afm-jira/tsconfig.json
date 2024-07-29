@@ -24,9 +24,6 @@
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
     },
     {
-      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
-    },
-    {
       "path": "../../../design-system/select/afm-jira/tsconfig.json"
     },
     {

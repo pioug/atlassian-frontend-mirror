@@ -3,11 +3,13 @@ type Pattern =
 	'native-elements';
 
 export interface RuleConfig {
+	failSilently: boolean;
 	patterns: Pattern[];
 	enableUnsafeAutofix: false;
 }
 
 const defaults: RuleConfig = {
+	failSilently: false,
 	patterns: ['native-elements'],
 	enableUnsafeAutofix: false,
 };

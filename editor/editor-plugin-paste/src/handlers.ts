@@ -41,7 +41,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/smart-card';
 // TODO: ED-20519 Needs Macro extraction
 
@@ -224,7 +224,6 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 			panelNode &&
 			sliceHasTask &&
 			slice.content.firstChild?.type === panel &&
-			getBooleanFF('platform.editor.handle-paste-for-action-in-panel') &&
 			isEmptyNode(panelNode) &&
 			selection.$from.node() === selection.$to.node()
 		) {
@@ -1227,7 +1226,7 @@ export function handleRichText(
 				const nextSelection = lastChild?.type.isTextblock
 					? TextSelection.findFrom($nextPos, -1, true)
 					: new GapCursorSelection($nextPos, Side.RIGHT);
-				if (getBooleanFF('platform.editor.place-cursor-inside-text-block') && nextSelection) {
+				if (nextSelection && fg('platform.editor.place-cursor-inside-text-block')) {
 					tr.setSelection(nextSelection);
 				} else if (insideTableCell(state) && shouldUpdateCursorPosAfterPaste) {
 					const nextPos = tr.doc.resolve(tr.mapping.map(selection.$from.pos));
@@ -1314,7 +1313,7 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice) {
 	return Boolean(
 		isInListItem(state) &&
-			getBooleanFF('platform.editor.allow-action-in-list') &&
-			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || '') &&
+			fg('platform.editor.allow-action-in-list'),
 	);
 }

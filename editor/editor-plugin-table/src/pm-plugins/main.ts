@@ -294,10 +294,7 @@ export const createPlugin = (
 					slice = transformSliceRemoveCellBackgroundColor(slice, schema);
 				}
 
-				//  If a partial paste of nested expand, paste only nested-expand's content */
-				if (fg('platform.editor.transform-slice-for-nested-expand')) {
-					slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
-				}
+				slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
 
 				return slice;
 			},

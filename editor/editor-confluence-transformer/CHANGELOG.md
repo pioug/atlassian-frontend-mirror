@@ -1,5 +1,11 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.11.0
 
 ### Minor Changes

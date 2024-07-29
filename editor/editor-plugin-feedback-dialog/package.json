@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-feedback-dialog",
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"description": "Feedback dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^86.8.0",
+		"@atlaskit/editor-common": "^87.0.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@babel/runtime": "^7.0.0"
 	},

@@ -68,19 +68,27 @@ const itemBody = css`
 	justify-content: space-between;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const itemText = css`
-	white-space: initial;
-	color: ${token('color.text', N800)};
-	.item-title {
-		line-height: 1.4;
-	}
-	.item-description {
-		font-size: ${relativeFontSizeToBase16(12)};
-		color: ${token('color.text.subtlest', N200)};
-		margin-top: ${token('space.050', '4px')};
-	}
-`;
+const itemText = css({
+	whiteSpace: 'initial',
+	color: `${token('color.text', N800)}`,
+});
+const itemTitle = css({
+	lineHeight: '1.4',
+});
+const itemTitleOverride = css({
+	font: token('font.body'),
+});
+
+const itemDescription = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	fontSize: `${relativeFontSizeToBase16(12)};`,
+	color: `${token('color.text.subtlest', N200)};`,
+	marginTop: `${token('space.050', '4px')};`,
+});
+const itemDescriptionOverride = css({
+	font: token('font.body.small'),
+	marginTop: 0,
+});
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 const itemAfter = css`
@@ -280,17 +288,26 @@ export const TypeAheadListItem = React.memo(
 					css={listItemClasses}
 				>
 					<div aria-hidden={true}>
-						<div css={itemText}>
+						<div css={[itemText]}>
 							<div css={itemBody}>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<div className="item-title">{item.title}</div>
+								<div css={[itemTitle, moreElementsInQuickInsertViewEnabled && itemTitleOverride]}>
+									{item.title}
+								</div>
 								<div css={itemAfter}>
 									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 									{item.keyshortcut && <div css={shortcutStyle}>{item.keyshortcut}</div>}
 								</div>
 							</div>
 							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-							<div className="item-description">{item.description}</div>
+							<div
+								css={[
+									itemDescription,
+									moreElementsInQuickInsertViewEnabled && itemDescriptionOverride,
+								]}
+							>
+								{item.description}
+							</div>
 						</div>
 					</div>
 				</ButtonItem>

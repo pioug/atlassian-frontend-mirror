@@ -30,6 +30,8 @@ import type { OnSelectItem, TypeAheadHandler, TypeAheadItem, TypeAheadPlugin } f
 import { TypeAheadList } from './TypeAheadList';
 
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 380;
+const DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW = 480;
+
 const ITEM_PADDING = 12;
 
 const typeAheadContent = css({
@@ -42,6 +44,9 @@ const typeAheadContent = css({
 	overflowY: 'auto',
 	MsOverflowStyle: '-ms-autohiding-scrollbar',
 	position: 'relative',
+});
+const typeAheadContentOverride = css({
+	maxHeight: `${DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW}px`,
 });
 
 type TypeAheadPopupProps = {
@@ -96,6 +101,17 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 
 	const ref = useRef<HTMLDivElement>(null) as React.MutableRefObject<HTMLDivElement>;
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
+	const moreElementsInQuickInsertViewEnabled =
+		featureFlagsState?.moreElementsInQuickInsertView &&
+		triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
+
+	const defaultMenuHeight = useMemo(
+		() =>
+			moreElementsInQuickInsertViewEnabled
+				? DEFAULT_TYPEAHEAD_MENU_HEIGHT_NEW
+				: DEFAULT_TYPEAHEAD_MENU_HEIGHT,
+		[moreElementsInQuickInsertViewEnabled],
+	);
 
 	const startTime = useMemo(
 		() => performance.now(),
@@ -157,7 +173,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		triggerHandler,
 	]);
 
-	const [fitHeight, setFitHeight] = useState(DEFAULT_TYPEAHEAD_MENU_HEIGHT);
+	const [fitHeight, setFitHeight] = useState(defaultMenuHeight);
 
 	const getFitHeight = useCallback(() => {
 		if (!anchorElement || !popupsMountPoint) {
@@ -175,8 +191,8 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		const spaceBelow = boundariesTop + boundariesHeight - (targetTop + targetHeight);
 
 		// Keep default height if more than enough space
-		if (spaceBelow >= DEFAULT_TYPEAHEAD_MENU_HEIGHT) {
-			return setFitHeight(DEFAULT_TYPEAHEAD_MENU_HEIGHT);
+		if (spaceBelow >= defaultMenuHeight) {
+			return setFitHeight(defaultMenuHeight);
 		}
 
 		// Determines whether typeahead will fit above or below decoration
@@ -189,10 +205,10 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		const fitHeightWithSpace = newFitHeight - ITEM_PADDING * 2;
 
 		// Ensure typeahead height is max its default height
-		const minFitHeight = Math.min(DEFAULT_TYPEAHEAD_MENU_HEIGHT, fitHeightWithSpace);
+		const minFitHeight = Math.min(defaultMenuHeight, fitHeightWithSpace);
 
 		return setFitHeight(minFitHeight);
-	}, [anchorElement, popupsMountPoint]);
+	}, [anchorElement, defaultMenuHeight, popupsMountPoint]);
 
 	const getFitHeightDebounced = rafSchedule(getFitHeight);
 
@@ -278,7 +294,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			ariaLabel={null}
 		>
 			<div
-				css={typeAheadContent}
+				css={[typeAheadContent, moreElementsInQuickInsertViewEnabled && typeAheadContentOverride]}
 				tabIndex={0}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={TYPE_AHEAD_POPUP_CONTENT_CLASS}
@@ -293,10 +309,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 					editorView={editorView}
 					decorationElement={anchorElement}
 					triggerHandler={triggerHandler}
-					moreElementsInQuickInsertViewEnabled={
-						featureFlagsState?.moreElementsInQuickInsertView &&
-						triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT
-					}
+					moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
 				/>
 			</div>
 		</Popup>

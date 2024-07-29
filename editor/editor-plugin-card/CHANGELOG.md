@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 2.8.2
+
+### Patch Changes
+
+- [#112464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112464)
+  [`e26f188519478`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26f188519478) -
+  Remove feature flag that is fully rolled out
+
+## 2.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

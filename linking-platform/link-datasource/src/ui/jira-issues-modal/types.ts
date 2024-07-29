@@ -2,6 +2,7 @@ import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { type ConfigModalProps } from '../../common/types';
+import { type ConnectedConfigModalProps } from '../common/modal/datasource-modal/createDatasourceModal';
 
 type XOR<T1, T2> =
 	| (T1 & {
@@ -24,3 +25,6 @@ export interface JiraConfigModalProps
 		InlineCardAdf | DatasourceAdf,
 		DatasourceParameters | JiraIssueDatasourceParameters
 	> {}
+
+export interface ConnectedJiraConfigModalProps
+	extends ConnectedConfigModalProps<JiraIssueDatasourceParameters> {}

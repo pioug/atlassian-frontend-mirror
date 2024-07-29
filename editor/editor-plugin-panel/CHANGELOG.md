@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-panel
 
+## 2.2.1
+
+### Patch Changes
+
+- [#124134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124134)
+  [`66625e5ffed2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66625e5ffed2f) -
+  Removed FF platform.editor.allow-custom-cut-for-panel
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

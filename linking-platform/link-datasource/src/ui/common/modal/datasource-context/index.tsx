@@ -1,9 +1,9 @@
 import React, { type PropsWithChildren, useContext, useMemo, useState } from 'react';
 
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type DatasourceAdf, type InlineCardAdf } from '@atlaskit/linking-common';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 
+import { type OnInsertFunction } from '../../../../common/types';
 import {
 	type DatasourceTableState,
 	useDatasourceTableState,
@@ -22,31 +22,33 @@ import {
 	useColumnWrapping,
 } from '../datasources-table-in-modal-preview/use-column-wrapping';
 
-type DatasourceContextStore = ColumnVisibilityProps &
-	ColumnWrappingProps &
-	ColumnResizeProps & {
-		datasourceId: string;
-		isValidParameters: (params: DatasourceParameters | undefined) => boolean;
-		tableState: DatasourceTableState;
-		visibleColumnKeys?: string[];
-		parameters: DatasourceParameters | undefined;
-		setParameters: React.Dispatch<React.SetStateAction<DatasourceParameters | undefined>>;
-		onInsert: (adf: InlineCardAdf | DatasourceAdf<any>, analyticsEvent?: UIAnalyticsEvent) => void;
-	};
+type DatasourceContextValue<Parameters extends DatasourceParameters = DatasourceParameters> =
+	ColumnVisibilityProps &
+		ColumnWrappingProps &
+		ColumnResizeProps &
+		Pick<
+			DatasourceContextProviderProps<Parameters>,
+			'datasourceId' | 'onInsert' | 'isValidParameters'
+		> & {
+			tableState: DatasourceTableState;
+			visibleColumnKeys?: string[];
+			parameters: Parameters | undefined;
+			setParameters: React.Dispatch<React.SetStateAction<Parameters | undefined>>;
+		};
 
-const DatasourceContext = React.createContext<DatasourceContextStore | null>(null);
+const DatasourceContext = React.createContext<DatasourceContextValue | null>(null);
 
-export type Props = PropsWithChildren<{
+type DatasourceContextProviderProps<Parameters extends DatasourceParameters> = PropsWithChildren<{
 	datasourceId: string;
 	isValidParameters: (params: DatasourceParameters | undefined) => boolean;
-	initialParameters: DatasourceParameters | undefined;
+	initialParameters: Parameters | undefined;
 	initialVisibleColumnKeys?: string[] | undefined;
 	initialWrappedColumnKeys?: string[] | undefined;
 	initialColumnCustomSizes?: ColumnSizesMap | undefined;
-	onInsert: (adf: InlineCardAdf | DatasourceAdf<any>, analyticsEvent?: UIAnalyticsEvent) => void;
+	onInsert: OnInsertFunction<InlineCardAdf | DatasourceAdf<Parameters>>;
 }>;
 
-export const DatasourceContextProvider = ({
+export const DatasourceContextProvider = <Parameters extends DatasourceParameters>({
 	children,
 	datasourceId,
 	isValidParameters,
@@ -55,7 +57,7 @@ export const DatasourceContextProvider = ({
 	initialColumnCustomSizes,
 	initialWrappedColumnKeys,
 	onInsert,
-}: Props) => {
+}: DatasourceContextProviderProps<Parameters>) => {
 	const [parameters, setParameters] = useState<DatasourceParameters | undefined>(initialParameters);
 
 	const [visibleColumnKeys, setVisibleColumnKeys] = useState(initialVisibleColumnKeys);
@@ -89,7 +91,7 @@ export const DatasourceContextProvider = ({
 			onWrappedColumnChange,
 			parameters,
 			setParameters,
-			onInsert,
+			onInsert: onInsert as OnInsertFunction<InlineCardAdf | DatasourceAdf<DatasourceParameters>>,
 		}),
 		[
 			datasourceId,
@@ -110,8 +112,8 @@ export const DatasourceContextProvider = ({
 	return <DatasourceContext.Provider value={contextValue}>{children}</DatasourceContext.Provider>;
 };
 
-export const useDatasourceContext = () => {
-	const value = useContext(DatasourceContext);
+export const useDatasourceContext = <Parameters extends DatasourceParameters>() => {
+	const value = useContext(DatasourceContext) as DatasourceContextValue<Parameters> | null;
 	if (!value) {
 		throw new Error('useDatasourceStore must be used within DatasourceContextProvider');
 	}

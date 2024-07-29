@@ -265,7 +265,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${taskDecisionStyles}
   ${statusStyles}
   ${annotationSharedStyles()}
-  ${smartCardStyles}
+  ${smartCardStyles()}
   ${smartCardSharedStyles}
   ${dateStyles}
   ${embedCardStyles}

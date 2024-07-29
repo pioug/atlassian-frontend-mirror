@@ -23,7 +23,6 @@ import {
 	ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 	CONFLUENCE_SEARCH_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
@@ -195,9 +194,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 				if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
 					quickInsertArray.push({
 						id: 'datasource',
-						title: fg('platform.linking-platform.datasource-assets_objects_remove_beta')
-							? formatMessage(messages.datasourceAssetsObjectsGeneralAvailability)
-							: formatMessage(messages.datasourceAssetsObjects),
+						title: formatMessage(messages.datasourceAssetsObjectsGeneralAvailability),
 						description: formatMessage(messages.datasourceAssetsObjectsDescription),
 						categories: ['external-content', 'development'],
 						keywords: ['assets'],

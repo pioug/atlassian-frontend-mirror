@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - CodeBlockProps
  *
- * @codegen <<SignedSource::1bb8e861957ec1acd27a7d7932aa8f08>>
+ * @codegen <<SignedSource::3abe89ee78d0ace93fd0177c16759eba>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/code/__generated__/codeblock.partial.tsx <<SignedSource::8d1724c2fcc8fab3764250a4f63f76eb>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/codeblock.partial.tsx <<SignedSource::8d1724c2fcc8fab3764250a4f63f76eb>>
  */
 import React from 'react';
 import { CodeBlock as PlatformCodeBlock } from '@atlaskit/code';

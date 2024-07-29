@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.5.1
+
+### Patch Changes
+
+- [#124134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124134)
+  [`80147d04d87b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80147d04d87b6) -
+  Fix bug in React 18 concurrent mode where find input swallows characters
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

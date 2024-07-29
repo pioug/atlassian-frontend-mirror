@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { DatasourceAction } from '../../../../analytics/types';
+import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { IssueLikeDataTableView } from '../../../issue-like-table';
 import { type IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
 import { useDatasourceContext } from '../datasource-context';
@@ -31,6 +33,15 @@ const Table = (props: DatasourcesTableProps) => {
 		},
 	} = useDatasourceContext();
 
+	const userInteractions = useUserInteractions();
+	const handleOnNextPage: typeof onNextPage = useCallback(
+		(onNextPageProps = {}) => {
+			userInteractions.add(DatasourceAction.NEXT_PAGE_SCROLLED);
+			onNextPage(onNextPageProps);
+		},
+		[onNextPage, userInteractions],
+	);
+
 	return (
 		<IssueLikeDataTableView
 			{...props}
@@ -39,7 +50,7 @@ const Table = (props: DatasourcesTableProps) => {
 			items={responseItems}
 			hasNextPage={hasNextPage}
 			visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-			onNextPage={onNextPage}
+			onNextPage={handleOnNextPage}
 			onLoadDatasourceDetails={loadDatasourceDetails}
 			onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 			extensionKey={extensionKey}

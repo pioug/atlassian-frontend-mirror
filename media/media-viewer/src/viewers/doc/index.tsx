@@ -29,7 +29,7 @@ export class DocViewer extends BaseViewer<string, Props> {
 	protected async init() {
 		const { item, mediaClient, collectionName, onError } = this.props;
 
-		if (isPreviewableFileState(item)) {
+		if (isPreviewableFileState(item) && item.mimeType.toLowerCase() === 'application/pdf') {
 			const src = await getObjectUrlFromFileState(item);
 			if (!src) {
 				this.setState({

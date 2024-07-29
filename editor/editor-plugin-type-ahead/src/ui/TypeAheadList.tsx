@@ -29,6 +29,11 @@ import { TypeAheadListItem } from './TypeAheadListItem';
 const LIST_ITEM_ESTIMATED_HEIGHT = 64;
 const LIST_WIDTH = 320;
 
+const list = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: { padding: `${token('space.100', '8px')} ${token('space.150', '12px')}` },
+});
+
 type TypeAheadListProps = {
 	items: Array<TypeAheadItem>;
 	selectedIndex: number;
@@ -340,16 +345,20 @@ const TypeAheadListComponent = React.memo(
 						containerRole="presentation"
 						role="listbox"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={css({
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-							button: {
-								padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-								'span:last-child span:last-child': {
-									whiteSpace: 'normal',
+						css={[
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							css({
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+								button: {
+									padding: `${token('space.150', '12px')} ${token('space.150', '12px')} 11px`,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+									'span:last-child span:last-child': {
+										whiteSpace: 'normal',
+									},
 								},
-							},
-						})}
+							}),
+							moreElementsInQuickInsertViewEnabled && list,
+						]}
 					/>
 					<TypeaheadAssistiveTextPureComponent numberOfResults={items.length.toString()} />
 				</div>

@@ -3,9 +3,9 @@
  *
  * Shared types file from UIKit 2
  *
- * @codegen <<SignedSource::65d194d117930d36350ecd1b5f0bab19>>
+ * @codegen <<SignedSource::ad83eeeac30d7e2549bbd156e3075df0>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/types.ts <<SignedSource::ead448842d74cb269e35940f951e298f>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/types.ts <<SignedSource::ead448842d74cb269e35940f951e298f>>
  */
 export type SerialisableEvent = {
 	bubbles: boolean;

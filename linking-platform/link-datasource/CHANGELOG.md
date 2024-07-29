@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 2.9.1
+
+### Patch Changes
+
+- [#124652](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124652)
+  [`265b4500eb956`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/265b4500eb956) -
+  Extract ADF creation related code and move into InsertButton
+
+## 2.9.0
+
+### Minor Changes
+
+- [#123321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123321)
+  [`f932f3070f30d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f932f3070f30d) -
+  Added `react-sweet-state` which will be fully integrated in issue like table in the next
+  changeset.
+
 ## 2.8.0
 
 ### Minor Changes

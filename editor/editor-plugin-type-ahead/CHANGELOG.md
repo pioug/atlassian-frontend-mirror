@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.6.2
+
+### Patch Changes
+
+- [#124534](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124534)
+  [`febd01f800a8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/febd01f800a8f) -
+  [ED-24356] Update spacing and popup height of typeahead to fit more elements in view under the
+  experiment `platform_editor_more_elements_in_quick_insert_view`
+
+## 1.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.0
 
 ### Minor Changes

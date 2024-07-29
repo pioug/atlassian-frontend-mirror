@@ -44,6 +44,11 @@ jest.mock('uuid/v4', () => ({
 
 jest.mock('@atlaskit/editor-common/provider-factory');
 
+// Use fake timers otherwise `setInterval` called from ComposableEditor is an open handle that prevents
+// the test from closing.
+// Invoked here: packages/editor/editor-common/src/utils/browser-extensions.ts
+jest.useFakeTimers();
+
 const { EmojiResource } = jest.genMockFromModule<typeof EmojiModule>('@atlaskit/emoji');
 
 const { ActivityResource } = jest.genMockFromModule<typeof ActivityProviderModule>(

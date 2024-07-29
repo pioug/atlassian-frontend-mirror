@@ -9,12 +9,14 @@ type Pattern =
 	| 'emphasis-elements';
 
 export interface RuleConfig {
+	failSilently: boolean;
 	patterns: Pattern[];
 	inheritColor: boolean;
 	enableUnsafeAutofix: boolean;
 }
 
 const defaults: RuleConfig = {
+	failSilently: false,
 	patterns: ['paragraph-elements', 'span-elements', 'strong-elements', 'emphasis-elements'],
 	inheritColor: false,
 	enableUnsafeAutofix: false,

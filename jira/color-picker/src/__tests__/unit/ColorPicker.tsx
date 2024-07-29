@@ -4,11 +4,7 @@ import { ColorPickerWithoutAnalytics as ColorPicker, type ColorPickerProps } fro
 import Trigger from '../../components/Trigger';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { IntlProvider } from 'react-intl-next';
-
-jest.mock('@atlaskit/platform-feature-flags');
-const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<typeof getBooleanFF>;
 
 describe('ColorPicker', () => {
 	const mockFn = jest.fn();
@@ -66,10 +62,6 @@ describe('ColorPicker', () => {
 	});
 
 	describe('FFs enabled', () => {
-		beforeEach(() => {
-			mockGetBooleanFF.mockReturnValue(true);
-		});
-
 		test('should render ColorPicker', () => {
 			const { getByLabelText } = renderUI();
 			const colorButton = getByLabelText('Blue selected, Color picker');

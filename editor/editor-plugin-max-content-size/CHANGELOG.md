@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-max-content-size
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

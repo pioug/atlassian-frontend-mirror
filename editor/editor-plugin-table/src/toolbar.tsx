@@ -292,21 +292,26 @@ export const getToolbarCellOptionsConfig = (
 			selected: false,
 			disabled: false,
 		},
-		{
-			id: 'editor.table.mergeCells',
-			title: formatMessage(messages.mergeCells),
-			onClick: mergeCellsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.FLOATING_TB),
-			selected: false,
-			disabled: !canMergeCells(editorState.tr),
-		},
-		{
-			id: 'editor.table.splitCell',
-			title: formatMessage(messages.splitCell),
-			onClick: splitCellWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.FLOATING_TB),
-			selected: false,
-			disabled: !splitCell(editorState),
-		},
 	];
+
+	if (pluginState.pluginConfig.allowMergeCells) {
+		options.push(
+			{
+				id: 'editor.table.mergeCells',
+				title: formatMessage(messages.mergeCells),
+				onClick: mergeCellsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.FLOATING_TB),
+				selected: false,
+				disabled: !canMergeCells(editorState.tr),
+			},
+			{
+				id: 'editor.table.splitCell',
+				title: formatMessage(messages.splitCell),
+				onClick: splitCellWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.FLOATING_TB),
+				selected: false,
+				disabled: !splitCell(editorState),
+			},
+		);
+	}
 
 	if (pluginState?.pluginConfig?.allowDistributeColumns) {
 		const newResizeStateWithAnalytics = editorView

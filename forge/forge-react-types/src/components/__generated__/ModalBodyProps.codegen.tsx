@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalBodyProps
  *
- * @codegen <<SignedSource::d14bb490070c1de8d385715588b59cb4>>
+ * @codegen <<SignedSource::7d8f7d9cf8ba92c4ab3a90a0143d902a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/modal/__generated__/modal-body.partial.tsx <<SignedSource::3afbe2d34b967a182c9e3517f8ada448>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/modal-body.partial.tsx <<SignedSource::3afbe2d34b967a182c9e3517f8ada448>>
  */
 import React from 'react';
 import { ModalBody as PlatformModalBody } from '@atlaskit/modal-dialog';

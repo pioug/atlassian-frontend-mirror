@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 87.0.1
+
+### Patch Changes
+
+- [#112464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112464)
+  [`e26f188519478`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26f188519478) -
+  Remove feature flag that is fully rolled out
+- Updated dependencies
+
+## 87.0.0
+
+### Major Changes
+
+- [#123678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123678)
+  [`6bcb27fe4752f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bcb27fe4752f) -
+  [ux] Updating smart-card styles export to change cursor based on live pages mode, and updating
+  usage of smartCardStyles to match new declaration
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 86.8.0
 
 ### Minor Changes

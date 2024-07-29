@@ -396,10 +396,13 @@ export const plugin = (
 							};
 
 							dom.onmouseenter = () => {
-								const { configureButtonTargetPos } = stateKey.getState(view.state) ?? {};
-								const nodePos = view.posAtDOM(dom, -1);
-								if (nodePos !== configureButtonTargetPos) {
-									setTargetElementPos(nodePos);
+								const { activeLinkMark, configureButtonTargetPos } =
+									stateKey.getState(view.state) ?? {};
+								if (!activeLinkMark) {
+									const nodePos = view.posAtDOM(dom, -1);
+									if (nodePos !== configureButtonTargetPos) {
+										setTargetElementPos(nodePos);
+									}
 								}
 							};
 

@@ -4,11 +4,30 @@ import {
 	expect,
 	editorViewModeTestCase as test,
 } from '@af/editor-libra';
+import { type EditorViewModePageInterface } from '@af/editor-libra/src/types';
 import { blockCard, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { viewModeBlockAdf } from './view-mode.spec.ts-fixtures';
 
-test.describe('block cards in view mode', () => {
+const getCursorStyles = async (editor: EditorViewModePageInterface) => {
+	const nodes = EditorNodeContainerModel.from(editor);
+	const blockCardModel = EditorBlockCardModel.from(nodes.blockCard);
+	await blockCardModel.waitForStable();
+
+	const titleCursorStyle = await nodes.blockCard
+		.locator('.block-card-content-header')
+		.evaluate((element) => {
+			return window.getComputedStyle(element).cursor;
+		});
+
+	const descriptionCursorStyle = await blockCardModel.blockCardDescription.evaluate((element) => {
+		return window.getComputedStyle(element).cursor;
+	});
+
+	return { titleCursor: titleCursorStyle, descriptionCursor: descriptionCursorStyle };
+};
+
+test.describe('block cards in view mode with content-editable FF on', () => {
 	test.use({
 		adf: viewModeBlockAdf,
 		editorProps: {
@@ -18,13 +37,12 @@ test.describe('block cards in view mode', () => {
 				allowBlockCards: true,
 			},
 		},
+		platformFeatureFlags: {
+			'linking-platform-contenteditable-false-live-view': true,
+		},
 	});
 
-	test.describe('when view mode is enabled and FF is on', () => {
-		test.use({
-			platformFeatureFlags: { 'platform.linking-platform.smart-links-in-live-pages': true },
-		});
-
+	test.describe('when view mode is enabled', () => {
 		test('and FF is on, clicking on description does not let you change text', async ({
 			editor,
 		}) => {
@@ -39,16 +57,7 @@ test.describe('block cards in view mode', () => {
 			await editor.keyboard.type('this text should not exist');
 
 			const expectedBlockCard = blockCard({
-				data: {
-					'@context': 'https://www.w3.org/ns/activitystreams',
-					'@type': 'Document',
-					generator: {
-						icon: 'https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png',
-					},
-					name: 'Welcome to Atlassian!',
-					url: 'http://www.atlassian.com',
-					summary: "Recently, we've been talking to Tesla about how they use JIRA. Read on!",
-				},
+				url: 'http://www.atlassian.com',
 			});
 
 			await expect(editor).toMatchDocument(doc(p(' '), expectedBlockCard()));
@@ -70,6 +79,86 @@ test.describe('block cards in view mode', () => {
 			await editor.keyboard.type('this text should exist');
 
 			await expect(editor).toMatchDocument(doc(p(' '), p('this text should exist')));
+		});
+	});
+});
+
+test.describe('block cards in view mode with smart-links-in-live-pages FF on', () => {
+	test.use({
+		adf: viewModeBlockAdf,
+		editorProps: {
+			appearance: 'full-page',
+			allowTextAlignment: true,
+			smartLinks: {
+				allowBlockCards: true,
+			},
+		},
+		platformFeatureFlags: {
+			'platform.linking-platform.smart-links-in-live-pages': true,
+		},
+	});
+
+	test.describe('when view mode is enabled', () => {
+		test('cursor should be text over the description, and pointer over title', async ({
+			editor,
+		}) => {
+			await editor.setViewMode('view');
+			const { titleCursor, descriptionCursor } = await getCursorStyles(editor);
+
+			expect(titleCursor).toEqual('pointer');
+			expect(descriptionCursor).toEqual('text');
+		});
+	});
+
+	test.describe('when view mode is disabled', () => {
+		test('cursor should be text over the description, and pointer over title', async ({
+			editor,
+		}) => {
+			await editor.setViewMode('edit');
+			const { titleCursor, descriptionCursor } = await getCursorStyles(editor);
+
+			expect(titleCursor).toEqual('pointer');
+			expect(descriptionCursor).toEqual('text');
+		});
+	});
+});
+
+test.describe('block cards in view mode with smart-links-in-live-pages FF off', () => {
+	test.use({
+		adf: viewModeBlockAdf,
+		editorProps: {
+			appearance: 'full-page',
+			allowTextAlignment: true,
+			smartLinks: {
+				allowBlockCards: true,
+			},
+		},
+		platformFeatureFlags: {
+			'platform.linking-platform.smart-links-in-live-pages': false,
+		},
+	});
+
+	test.describe('when view mode is enabled', () => {
+		test('cursor should be pointer over the description, and auto over title', async ({
+			editor,
+		}) => {
+			await editor.setViewMode('view');
+			const { titleCursor, descriptionCursor } = await getCursorStyles(editor);
+
+			expect(titleCursor).toEqual('auto');
+			expect(descriptionCursor).toEqual('pointer');
+		});
+	});
+
+	test.describe('when view mode is disabled', () => {
+		test('cursor should be pointer over the description, and auto over title', async ({
+			editor,
+		}) => {
+			await editor.setViewMode('edit');
+			const { titleCursor, descriptionCursor } = await getCursorStyles(editor);
+
+			expect(titleCursor).toEqual('auto');
+			expect(descriptionCursor).toEqual('pointer');
 		});
 	});
 });

@@ -10,11 +10,9 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { type UIAnalyticsEvent, withAnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/standard-button';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import type { InlineCardAdf } from '@atlaskit/linking-common/types';
-import type { Link } from '@atlaskit/linking-types';
+import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
 import {
 	ModalBody,
 	ModalFooter,
@@ -24,8 +22,8 @@ import {
 } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
-import { componentMetadata } from '../../../analytics/constants';
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import { componentMetadata, EVENT_CHANNEL } from '../../../analytics/constants';
 import type {
 	AnalyticsContextAttributesType,
 	AnalyticsContextType,
@@ -37,17 +35,12 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { DisplayViewModes, JiraSearchMethod, Site } from '../../../common/types';
-import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import {
 	DatasourceExperienceIdProvider,
 	useDatasourceExperienceId,
 } from '../../../contexts/datasource-experience-id';
 import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
-import {
-	type onNextPageProps,
-	useDatasourceTableState,
-} from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
 import { StoreContainer } from '../../../state';
@@ -61,33 +54,30 @@ import { initialStateViewMessages } from '../../common/initial-state-view/messag
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SmartCardPlaceholder, SmartLink } from '../../common/modal/count-view-smart-link';
+import { useDatasourceContext } from '../../common/modal/datasource-context';
 import { DatasourceModal } from '../../common/modal/datasource-modal';
-import { useColumnResize } from '../../common/modal/datasources-table-in-modal-preview/use-column-resize';
-import { useColumnWrapping } from '../../common/modal/datasources-table-in-modal-preview/use-column-wrapping';
+import { createDatasourceModal } from '../../common/modal/datasource-modal/createDatasourceModal';
+import DatasourcesTableInModalPreview from '../../common/modal/datasources-table-in-modal-preview';
+import { InsertButton } from '../../common/modal/insert-button';
 import { DatasourceViewModeDropDown } from '../../common/modal/mode-switcher';
-import {
-	DatasourceViewModeProvider,
-	useViewModeContext,
-} from '../../common/modal/mode-switcher/useViewModeContext';
+import { useViewModeContext } from '../../common/modal/mode-switcher/useViewModeContext';
 import TableSearchCount from '../../common/modal/search-count';
 import { SiteSelector } from '../../common/modal/site-selector';
-import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import { getColumnAction } from '../../issue-like-table/utils';
+import { EmptyState } from '../../issue-like-table';
 import type { SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraSearchContainer } from '../jira-search-container';
-import type {
-	JiraConfigModalProps,
-	JiraIssueDatasourceParameters,
-	JiraIssueDatasourceParametersQuery,
+import {
+	type ConnectedJiraConfigModalProps,
+	type JiraConfigModalProps,
+	type JiraIssueDatasourceParameters,
+	type JiraIssueDatasourceParametersQuery,
 } from '../types';
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
 import { PlainJiraIssuesConfigModalOld } from './ModalOld';
-
-const DEFAULT_VIEW_MODE = 'table';
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -99,24 +89,36 @@ const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) =
 const jqlSupportDocumentLink =
 	'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
 
-const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
+const isValidParameters = (parameters: DatasourceParameters | undefined): boolean =>
+	typeof parameters?.jql === 'string' &&
+	parameters.jql.length > 0 &&
+	typeof parameters?.cloudId === 'string' &&
+	parameters.cloudId.length > 0;
+
+const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
+	const { onCancel, url: urlBeingEdited } = props;
+
+	const { visibleColumnCount, visibleColumnKeys, parameters, setParameters, tableState } =
+		useDatasourceContext<JiraIssueDatasourceParameters>();
+
 	const {
-		datasourceId,
-		columnCustomSizes: initialColumnCustomSizes,
-		wrappedColumnKeys: initialWrappedColumnKeys,
-		onCancel,
-		onInsert,
-		parameters: initialParameters,
-		url: urlBeingEdited,
-		visibleColumnKeys: initialVisibleColumnKeys,
-	} = props;
+		reset,
+		status,
+		responseItems,
+		columns,
+		totalCount,
+		extensionKey = null,
+		destinationObjectTypes,
+	} = tableState;
+
+	const { cloudId, jql } = parameters ?? {};
+	const [initialJql] = useState(jql);
 
 	const { currentViewMode } = useViewModeContext();
-	const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
+
 	const { availableSites, selectedSite: selectedJiraSite } = useAvailableSites('jira', cloudId);
-	const [jql, setJql] = useState(initialParameters?.jql);
-	const [searchBarJql, setSearchBarJql] = useState<string | undefined>(initialParameters?.jql);
-	const [visibleColumnKeys, setVisibleColumnKeys] = useState(initialVisibleColumnKeys);
+
+	const [searchBarJql, setSearchBarJql] = useState<string | undefined>(jql);
 
 	// analytics related parameters
 	const searchCount = useRef(0);
@@ -124,50 +126,14 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 	const initialSearchMethod: JiraSearchMethod =
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 		fg('platform.linking-platform.datasource.show-jlol-basic-filters') &&
-		!isQueryTooComplex(initialParameters?.jql || '')
+		!isQueryTooComplex(initialJql || '')
 			? 'basic'
 			: 'jql';
 	const [currentSearchMethod, setCurrentSearchMethod] =
 		useState<JiraSearchMethod>(initialSearchMethod);
 	const searchMethodSearchedWith = useRef<JiraSearchMethod | null>(null);
-	const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 	const basicFilterSelectionsSearchedWith = useRef<SelectedOptionsMap>({});
 	const isSearchedWithComplexQuery = useRef<boolean>(false);
-
-	const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
-		() =>
-			!!cloudId
-				? {
-						cloudId,
-						jql: jql || '',
-					}
-				: undefined,
-		[cloudId, jql],
-	);
-
-	const isParametersSet = !!(jql && cloudId);
-
-	const { columnCustomSizes, onColumnResize } = useColumnResize(initialColumnCustomSizes);
-
-	const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping(initialWrappedColumnKeys);
-
-	const {
-		reset,
-		status,
-		onNextPage,
-		responseItems,
-		hasNextPage,
-		columns,
-		defaultVisibleColumnKeys,
-		loadDatasourceDetails,
-		totalCount,
-		extensionKey = null,
-		destinationObjectTypes,
-	} = useDatasourceTableState({
-		datasourceId,
-		parameters: isParametersSet ? parameters : undefined,
-		fieldKeys: visibleColumnKeys,
-	});
 
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const experienceId = useDatasourceExperienceId();
@@ -182,9 +148,6 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 
 	const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
 	const jqlUrl = selectedJiraSite && jql && `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`;
-
-	const isInsertDisabled =
-		!isParametersSet || status === 'rejected' || status === 'unauthorized' || status === 'loading';
 
 	const shouldShowIssueCount = !!totalCount && totalCount !== 1 && currentViewMode === 'table';
 
@@ -221,21 +184,15 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 		extensionKey,
 	});
 
-	useEffect(() => {
-		const newVisibleColumnKeys =
-			!initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
-				? defaultVisibleColumnKeys
-				: initialVisibleColumnKeys;
-
-		visibleColumnCount.current = newVisibleColumnKeys.length;
-		setVisibleColumnKeys(newVisibleColumnKeys);
-	}, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
-
+	/**
+	 * If the selected Jira site changes, update the cloudId in the parameters
+	 * This is mainly useful for setting the initial cloudId after the site selection loads
+	 */
 	useEffect(() => {
 		if (selectedJiraSite && (!cloudId || cloudId !== selectedJiraSite.cloudId)) {
-			setCloudId(selectedJiraSite.cloudId);
+			setParameters(() => ({ jql: '', cloudId: selectedJiraSite.cloudId }));
 		}
-	}, [cloudId, selectedJiraSite]);
+	}, [cloudId, selectedJiraSite, setParameters]);
 
 	const fireSingleItemViewedEvent = useCallback(() => {
 		fireEvent('ui.link.viewed.singleItem', {
@@ -261,7 +218,7 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 				displayedColumnCount: visibleColumnCount.current,
 			});
 		}
-	}, [analyticsPayload, fireEvent, totalCount, isDataReady]);
+	}, [isDataReady, fireEvent, analyticsPayload, totalCount, visibleColumnCount]);
 
 	const fireIssueViewAnalytics = useCallback(() => {
 		if (!totalCount) {
@@ -315,20 +272,21 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 				userInteractions.add(DatasourceAction.QUERY_UPDATED);
 			}
 
-			setJql(newParameters.jql);
+			setParameters((state) =>
+				state && newParameters.jql ? { cloudId: state.cloudId, jql: newParameters.jql } : undefined,
+			);
 			reset({ shouldForceRequest: true });
 		},
-		[jql, reset, userInteractions],
+		[jql, reset, userInteractions, setParameters],
 	);
 
 	const onSiteSelection = useCallback(
 		(site: Site) => {
 			userInteractions.add(DatasourceAction.INSTANCE_UPDATED);
-			setJql('');
-			setCloudId(site.cloudId);
+			setParameters({ jql: '', cloudId: site.cloudId });
 			reset({ shouldForceRequest: true });
 		},
-		[reset, userInteractions],
+		[reset, userInteractions, setParameters],
 	);
 
 	const retrieveUrlForSmartCardRender = useCallback(() => {
@@ -336,193 +294,6 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 		// agreement with BE that we will use `key` for rendering smartlink
 		return (data?.key?.data as Link)?.url;
 	}, [responseItems]);
-
-	const onInsertPressed = useCallback(
-		(e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
-			if (!isParametersSet || !jql || !selectedJiraSite) {
-				return;
-			}
-
-			// During insertion, we want the JQL of the datasource to be whatever is in the search bar,
-			// even if the user didn't previously click search
-			const upToDateJql = searchBarJql ?? jql;
-
-			const upToDateJqlUrl =
-				selectedJiraSite &&
-				jql &&
-				`${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
-
-			const filterSelectionCount = availableBasicFilterTypes.reduce(
-				(current, filter) => ({
-					...current,
-					[`${filter}BasicFilterSelectionCount`]:
-						basicFilterSelectionsSearchedWith.current[filter]?.length || 0,
-				}),
-				{},
-			);
-
-			const insertButtonClickedEvent = analyticsEvent.update({
-				actionSubjectId: 'insert',
-				attributes: {
-					...analyticsPayload,
-					totalItemCount: totalCount || 0,
-					displayedColumnCount: visibleColumnCount.current,
-					display: getDisplayValue(currentViewMode, totalCount || 0),
-					searchCount: searchCount.current,
-					searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-					actions: userInteractions.get(),
-					isQueryComplex: isSearchedWithComplexQuery.current,
-					...(searchMethodSearchedWith.current === 'basic' ? { ...filterSelectionCount } : {}),
-				},
-				eventType: 'ui',
-			});
-
-			// additional event for tracking in confluence against JIM
-			const macroInsertedEvent = analyticsEvent.clone();
-			macroInsertedEvent?.update({
-				eventType: 'track',
-				action: 'inserted',
-				actionSubject: 'macro',
-				actionSubjectId: 'jlol',
-				attributes: {
-					...analyticsPayload,
-					totalItemCount: totalCount || 0,
-					displayedColumnCount: visibleColumnCount.current,
-					display: getDisplayValue(currentViewMode, totalCount || 0),
-					searchCount: searchCount.current,
-					searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
-					actions: userInteractions.get(),
-				},
-			});
-
-			const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
-			insertButtonClickedEvent.fire(EVENT_CHANNEL);
-
-			const firstIssueUrl = retrieveUrlForSmartCardRender();
-
-			if (currentViewMode === 'inline') {
-				macroInsertedEvent?.fire(EVENT_CHANNEL);
-				const url = responseItems.length === 1 ? firstIssueUrl : upToDateJqlUrl;
-				onInsert(
-					{
-						type: 'inlineCard',
-						attrs: {
-							url,
-						},
-					} as InlineCardAdf,
-					consumerEvent,
-				);
-			} else {
-				onInsert(
-					buildDatasourceAdf<JiraIssueDatasourceParameters>(
-						{
-							id: datasourceId,
-							parameters: {
-								cloudId,
-								jql: upToDateJql, // TODO support non JQL type
-							},
-							views: [
-								{
-									type: 'table',
-									properties: {
-										columns: (visibleColumnKeys || []).map((key) => {
-											const width = columnCustomSizes?.[key];
-											const isWrapped = wrappedColumnKeys?.includes(key);
-											return {
-												key,
-												...(width ? { width } : {}),
-												...(isWrapped ? { isWrapped } : {}),
-											};
-										}),
-									},
-								},
-							],
-						},
-						upToDateJqlUrl,
-					),
-					consumerEvent,
-				);
-			}
-		},
-		[
-			isParametersSet,
-			jql,
-			selectedJiraSite,
-			searchBarJql,
-			analyticsPayload,
-			totalCount,
-			currentViewMode,
-			retrieveUrlForSmartCardRender,
-			responseItems.length,
-			onInsert,
-			datasourceId,
-			cloudId,
-			visibleColumnKeys,
-			columnCustomSizes,
-			wrappedColumnKeys,
-			userInteractions,
-		],
-	);
-
-	const handleOnNextPage = useCallback(
-		(onNextPageProps: onNextPageProps = {}) => {
-			userInteractions.add(DatasourceAction.NEXT_PAGE_SCROLLED);
-			onNextPage(onNextPageProps);
-		},
-		[onNextPage, userInteractions],
-	);
-
-	const handleVisibleColumnKeysChange = useCallback(
-		(newVisibleColumnKeys: string[] = []) => {
-			const columnAction = getColumnAction(visibleColumnKeys || [], newVisibleColumnKeys);
-			userInteractions.add(columnAction);
-			visibleColumnCount.current = newVisibleColumnKeys.length;
-
-			setVisibleColumnKeys(newVisibleColumnKeys);
-		},
-		[visibleColumnKeys, userInteractions],
-	);
-
-	const issueLikeDataTableView = useMemo(
-		() => (
-			<ContentContainer withTableBorder>
-				<IssueLikeDataTableView
-					testId="jira-datasource-table"
-					status={status}
-					columns={columns}
-					items={responseItems}
-					hasNextPage={hasNextPage}
-					visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-					onNextPage={handleOnNextPage}
-					onLoadDatasourceDetails={loadDatasourceDetails}
-					onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
-					extensionKey={extensionKey}
-					columnCustomSizes={columnCustomSizes}
-					onColumnResize={onColumnResize}
-					wrappedColumnKeys={wrappedColumnKeys}
-					onWrappedColumnChange={
-						fg('platform.linking-platform.datasource-word_wrap') ? onWrappedColumnChange : undefined
-					}
-				/>
-			</ContentContainer>
-		),
-		[
-			status,
-			columns,
-			responseItems,
-			hasNextPage,
-			visibleColumnKeys,
-			defaultVisibleColumnKeys,
-			handleOnNextPage,
-			loadDatasourceDetails,
-			handleVisibleColumnKeysChange,
-			extensionKey,
-			columnCustomSizes,
-			onColumnResize,
-			wrappedColumnKeys,
-			onWrappedColumnChange,
-		],
-	);
 
 	const renderCountModeContent = useCallback(() => {
 		const selectedJiraSiteUrl = selectedJiraSite?.url;
@@ -601,11 +372,14 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 			);
 		}
 
-		return issueLikeDataTableView;
+		return (
+			<ContentContainer withTableBorder>
+				<DatasourcesTableInModalPreview testId="jira-datasource-table" />
+			</ContentContainer>
+		);
 	}, [
 		columns.length,
 		currentSearchMethod,
-		issueLikeDataTableView,
 		jql,
 		jqlUrl,
 		resolvedWithNoResults,
@@ -626,6 +400,58 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 			actions: userInteractions.get(),
 		};
 	}, [analyticsPayload, userInteractions]);
+
+	const filterSelectionCount = availableBasicFilterTypes.reduce(
+		(current, filter) => ({
+			...current,
+			[`${filter}BasicFilterSelectionCount`]:
+				basicFilterSelectionsSearchedWith.current[filter]?.length || 0,
+		}),
+		{},
+	);
+
+	const getInsertButtonAnalyticsPayload = useCallback(
+		() => ({
+			...analyticsPayload,
+			display: getDisplayValue(currentViewMode, totalCount || 0),
+			isQueryComplex: isSearchedWithComplexQuery.current,
+			searchMethod: mapSearchMethod(searchMethodSearchedWith.current),
+			searchCount: searchCount.current,
+			actions: userInteractions.get(),
+			...(searchMethodSearchedWith.current === 'basic' ? { ...filterSelectionCount } : {}),
+		}),
+		[analyticsPayload, currentViewMode, filterSelectionCount, totalCount, userInteractions],
+	);
+
+	const urlToInsert = useMemo(() => {
+		const jql = parameters?.jql;
+		if (!jql || !selectedJiraSite?.url) {
+			return;
+		}
+		// During insertion, we want the JQL of the datasource to be whatever is in the search bar,
+		// even if the user didn't previously click search
+		const upToDateJql = searchBarJql ?? jql;
+
+		const upToDateJqlUrl = `${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
+
+		return currentViewMode === 'inline' && responseItems.length === 1
+			? retrieveUrlForSmartCardRender()
+			: upToDateJqlUrl;
+	}, [
+		currentViewMode,
+		parameters?.jql,
+		responseItems,
+		retrieveUrlForSmartCardRender,
+		searchBarJql,
+		selectedJiraSite?.url,
+	]);
+
+	const updateParametersBeforeInsert = (parameters: JiraIssueDatasourceParameters) => ({
+		cloudId: parameters.cloudId,
+		// searchBarJql will not be null at this point, since this function is only called when user press insert button
+		//
+		jql: searchBarJql || '',
+	});
 
 	return (
 		<IntlMessagesProvider defaultMessages={i18nEN} loaderFn={fetchMessagesForLocale}>
@@ -683,14 +509,14 @@ const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 							testId="jira-datasource-modal--cancel-button"
 						/>
 						{!hasNoJiraSites && (
-							<Button
-								appearance="primary"
-								onClick={onInsertPressed}
-								isDisabled={isInsertDisabled}
+							<InsertButton<JiraIssueDatasourceParameters>
 								testId="jira-datasource-modal--insert-button"
+								url={urlToInsert}
+								overwriteParameters={updateParametersBeforeInsert}
+								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
 							>
 								<FormattedMessage {...modalMessages.insertIssuesButtonText} />
-							</Button>
+							</InsertButton>
 						)}
 					</ModalFooter>
 				</DatasourceModal>
@@ -715,20 +541,52 @@ const contextData = {
 	},
 };
 
-export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
-	(props: JiraConfigModalProps) => (
+const ConnectedJiraIssueConfigModal = createDatasourceModal({
+	isValidParameters,
+	dataProvider: 'jira-issues',
+	component: PlainJiraIssuesConfigModal,
+});
+
+const JiraIssuesConfigModalWithExtraAnalyticsOnInsert = (props: JiraConfigModalProps) => {
+	const onInsert = props.onInsert;
+	const onInsertWithMacroAnalytics = useCallback<typeof onInsert>(
+		(adf, analyticsEvent) => {
+			if (analyticsEvent && adf.type === 'inlineCard') {
+				const macroInsertedEvent = analyticsEvent.clone();
+				macroInsertedEvent?.update({
+					eventType: 'track',
+					action: 'inserted',
+					actionSubject: 'macro',
+					actionSubjectId: 'jlol',
+				});
+				macroInsertedEvent?.fire(EVENT_CHANNEL);
+			}
+			onInsert(adf, analyticsEvent);
+		},
+		[onInsert],
+	);
+
+	return (
 		<StoreContainer>
-			<DatasourceExperienceIdProvider>
-				<UserInteractionsProvider>
-					{fg('platform-datasources-use-refactored-config-modal') ? (
-						<DatasourceViewModeProvider viewMode={props.viewMode ?? DEFAULT_VIEW_MODE}>
-							<PlainJiraIssuesConfigModal {...props} />
-						</DatasourceViewModeProvider>
-					) : (
-						<PlainJiraIssuesConfigModalOld {...props}></PlainJiraIssuesConfigModalOld>
-					)}
-				</UserInteractionsProvider>
-			</DatasourceExperienceIdProvider>
+			<ConnectedJiraIssueConfigModal {...props} onInsert={onInsertWithMacroAnalytics} />
 		</StoreContainer>
-	),
-);
+	);
+};
+
+export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
+	if (fg('platform-datasources-use-refactored-config-modal')) {
+		return <JiraIssuesConfigModalWithExtraAnalyticsOnInsert {...props} />;
+	}
+
+	return (
+		<StoreContainer>
+			<AnalyticsContext data={contextData}>
+				<DatasourceExperienceIdProvider>
+					<UserInteractionsProvider>
+						<PlainJiraIssuesConfigModalOld {...props} />
+					</UserInteractionsProvider>
+				</DatasourceExperienceIdProvider>
+			</AnalyticsContext>
+		</StoreContainer>
+	);
+};

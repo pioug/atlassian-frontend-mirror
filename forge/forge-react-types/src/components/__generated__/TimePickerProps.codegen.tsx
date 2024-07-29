@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::9b49785e7a9a57c0a10723d0b2f28e23>>
+ * @codegen <<SignedSource::d674cb805411d0a1d2e687abeeeba9e3>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/timepicker/__generated__/index.partial.tsx <<SignedSource::785d7ffcaac38544d4658ed1560d72f5>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::785d7ffcaac38544d4658ed1560d72f5>>
  */
 import type { SelectProps } from '@atlaskit/select';
 

@@ -5,7 +5,6 @@ import { extendedPalette } from '../mock-data';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
-import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 import { IntlProvider } from 'react-intl-next';
 
 class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
@@ -30,11 +29,5 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 }
 
 const Story = () => <ColorPaletteMenuExample />;
-
-Story.decorators = [
-	withPlatformFeatureFlags({
-		'platform.jca11y-2997-remove-duplicate-screen-reader-announcements_fz13s': true,
-	}),
-];
 
 export default Story;

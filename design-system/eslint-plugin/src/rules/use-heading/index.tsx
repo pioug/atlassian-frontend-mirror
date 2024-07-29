@@ -1,6 +1,7 @@
 import type { Rule } from 'eslint';
 
 import { createLintRule } from '../utils/create-rule';
+import { errorBoundary } from '../utils/error-boundary';
 
 import { getConfig } from './config';
 import { NativeElements } from './transformers';
@@ -25,12 +26,15 @@ const rule = createLintRule({
 	create(context) {
 		const config = getConfig(context.options[0]);
 
-		return {
-			// transforms <h1>...</h1> usages
-			'JSXElement[openingElement.name.name=/^h[0-6]$/]': (node: Rule.Node) => {
-				return NativeElements.lint(node, { context, config });
+		return errorBoundary(
+			{
+				// transforms <h1>...</h1> usages
+				'JSXElement[openingElement.name.name=/^h[0-6]$/]': (node: Rule.Node) => {
+					return NativeElements.lint(node, { context, config });
+				},
 			},
-		};
+			config,
+		);
 	},
 });
 

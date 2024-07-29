@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.7.2
+
+### Patch Changes
+
+- [#124517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124517)
+  [`d7e6d3d76a05d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7e6d3d76a05d) -
+  Removed FF platform.editor.handle-paste-for-action-in-panel
+
+## 1.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

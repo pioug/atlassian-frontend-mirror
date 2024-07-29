@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.3.1
+
+### Patch Changes
+
+- [#124164](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124164)
+  [`5a96af255a094`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a96af255a094) -
+  Enabling lazy node view loading behind a feature flag for tasks for performance.
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

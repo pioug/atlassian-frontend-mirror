@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - CheckboxGroupProps
  *
- * @codegen <<SignedSource::21fc9f2e0d144686e4795ed4c64f0798>>
+ * @codegen <<SignedSource::f081eb8a07f8dafda74e2c8df49239e8>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/checkboxgroup/index.tsx <<SignedSource::e4f95cf79182924e927523227eebf6fc>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/checkboxgroup/index.tsx <<SignedSource::e4f95cf79182924e927523227eebf6fc>>
  */
 export interface CheckboxGroupProps {
 	name: string;

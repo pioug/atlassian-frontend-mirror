@@ -13,7 +13,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { decisionItemNodeView } from '../nodeviews/decisionItem';
-import { taskItemNodeViewFactory } from '../nodeviews/taskItem';
+import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
 import type { TasksAndDecisionsPlugin } from '../types';
 
 import {
@@ -55,7 +55,7 @@ export function createPlugin(
 	return new SafePlugin({
 		props: {
 			nodeViews: {
-				taskItem: taskItemNodeViewFactory(portalProviderAPI, eventDispatcher, providerFactory, api),
+				taskItem: lazyTaskView(portalProviderAPI, eventDispatcher, providerFactory, api),
 				decisionItem: decisionItemNodeView(portalProviderAPI, eventDispatcher, api),
 			},
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {

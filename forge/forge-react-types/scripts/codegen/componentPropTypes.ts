@@ -21,7 +21,7 @@ const isSourceFile = (node: Node): node is SourceFile => 'getFilePath' in node;
  * the component index file. e.g.
  *   export { Badge } from './badge/__generated__/index.partial';
  * in the index file will resolve to:
- *   platform/packages/forge/forge-ui/src/components/UIKit2-codegen/badge/__generated__/index.partial.tsx
+ *   platform/packages/forge/forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx
  */
 const loadComponentSourceFile = (componentSymbol: Symbol, project: Project): SourceFile | null => {
 	const declaration = componentSymbol.getDeclarations()[0];
@@ -166,14 +166,14 @@ const updatePackageJsonWithADSComponentDependencies = (componentOutputDir: strin
 };
 
 /**
- * This copies types file from the types file in UIKit2-codegen
+ * This copies types file from the types file in UIKit
  * to __generated__ folder.
  */
 const generateSharedTypesFile = (componentOutputDir: string) => {
 	// eslint-disable-next-line no-console
 	console.log('Generating shared types file');
 
-	const uiKit2TypesFile = require.resolve('@atlassian/forge-ui/UIKit2-codegen/types');
+	const uiKit2TypesFile = require.resolve('@atlassian/forge-ui/UIKit/types');
 
 	const signedSourceCode = createSignedArtifact(
 		fs.readFileSync(uiKit2TypesFile, 'utf8'),
@@ -192,7 +192,7 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
 const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
 	const componentOutputDir = resolve(__dirname, '..', '..', 'src', 'components', '__generated__');
 	const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
-		require.resolve('@atlassian/forge-ui/UIKit2-codegen'),
+		require.resolve('@atlassian/forge-ui/UIKit'),
 	);
 	try {
 		const componentPropTypeSymbols = componentIndexSourceFile

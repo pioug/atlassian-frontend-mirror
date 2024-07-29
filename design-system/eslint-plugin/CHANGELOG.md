@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.12.2
+
+### Patch Changes
+
+- [#124172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124172)
+  [`19b2005de7c1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19b2005de7c1b) -
+  Wrap use-heading, use-primitives-text and use-latest-xcss-syntax-typography with an error boudary
+  to stop it breaking issue-automat CI.
+
 ## 10.12.1
 
 ### Patch Changes

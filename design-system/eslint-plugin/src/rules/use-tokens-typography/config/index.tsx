@@ -17,6 +17,9 @@ export const ruleSchema: JSONSchema4 = {
 			shouldEnforceFallbacks: {
 				type: 'boolean',
 			},
+			enableUnsafeAutofix: {
+				type: 'boolean',
+			},
 		},
 	},
 };

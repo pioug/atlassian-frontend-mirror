@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RadioGroupProps
  *
- * @codegen <<SignedSource::7fc6c49342a8e432eac07b36e1032e13>>
+ * @codegen <<SignedSource::3da1d927615a1b61298bcd18c73f323a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/radio/__generated__/radio-group.partial.tsx <<SignedSource::223b7d89d4a1f28e5d1e6a65f289180a>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/radio-group.partial.tsx <<SignedSource::223b7d89d4a1f28e5d1e6a65f289180a>>
  */
 import React from 'react';
 import { RadioGroup as PlatformRadioGroup } from '@atlaskit/radio';

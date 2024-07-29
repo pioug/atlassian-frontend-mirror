@@ -370,11 +370,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			editorView,
 		} = this.props;
 		const { isDragAndDropEnabled } = getPluginState(editorView.state);
+		const content = formatMessage(
+			isDragAndDropEnabled ? messages.addColumnRight : messages.insertColumn,
+		);
 
 		return {
-			content: formatMessage(
-				isDragAndDropEnabled ? messages.addColumnRight : messages.insertColumn,
-			),
+			content,
 			value: { name: 'insert_column' },
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
@@ -384,6 +385,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					<AddColRightIcon />
 				</span>
 			) : undefined,
+			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
+				? tooltip(addColumnAfter, String(content))
+				: undefined,
 		} as MenuItem;
 	};
 
@@ -393,9 +397,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			editorView,
 		} = this.props;
 		const { isDragAndDropEnabled } = getPluginState(editorView.state);
+		const content = formatMessage(isDragAndDropEnabled ? messages.addRowBelow : messages.insertRow);
 
 		return {
-			content: formatMessage(isDragAndDropEnabled ? messages.addRowBelow : messages.insertRow),
+			content,
 			value: { name: 'insert_row' },
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
@@ -405,6 +410,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					<AddRowBelowIcon />
 				</span>
 			) : undefined,
+			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
+				? tooltip(addRowAfter, String(content))
+				: undefined,
 		} as MenuItem;
 	};
 
@@ -419,10 +427,12 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const noOfColumns = right - left;
 		const noOfRows = bottom - top;
 
+		const content = formatMessage(messages.clearCells, {
+			0: Math.max(noOfColumns, noOfRows),
+		});
+
 		return {
-			content: formatMessage(messages.clearCells, {
-				0: Math.max(noOfColumns, noOfRows),
-			}),
+			content,
 			value: { name: 'clear' },
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
@@ -436,6 +446,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					/>
 				</span>
 			) : undefined,
+			'aria-label': fg('platform_editor_announce_cell_options_hotkeys')
+				? tooltip(backspace, String(content))
+				: undefined,
 		} as MenuItem;
 	};
 

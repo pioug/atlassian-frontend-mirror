@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SectionMessageProps
  *
- * @codegen <<SignedSource::0720bbd252e4bf10cbca4e31a70a1b1d>>
+ * @codegen <<SignedSource::c1255003a7e00ac8b54193a00017eb1b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/sectionmessage/__generated__/index.partial.tsx <<SignedSource::dd1458a5551bb547bccc3ed9b20a0775>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/sectionmessage/__generated__/index.partial.tsx <<SignedSource::dd1458a5551bb547bccc3ed9b20a0775>>
  */
 import React from 'react';
 import PlatformSectionMessage from '@atlaskit/section-message';

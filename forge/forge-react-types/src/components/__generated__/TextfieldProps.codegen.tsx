@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TextfieldProps
  *
- * @codegen <<SignedSource::250d3abc9d24d3d90be6bf523851de67>>
+ * @codegen <<SignedSource::b607d734def411a588141e55868fe7c9>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/textfield/__generated__/index.partial.tsx <<SignedSource::b1cc4fd107a1b6c756f2daaf460121fc>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/__generated__/index.partial.tsx <<SignedSource::b1cc4fd107a1b6c756f2daaf460121fc>>
  */
 import React from 'react';
 import PlatformTextfield from '@atlaskit/textfield';

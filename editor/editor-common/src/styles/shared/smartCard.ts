@@ -20,7 +20,7 @@ export const DATASOURCE_INNER_CONTAINER_CLASSNAME = 'datasourceView-content-inne
 export const FLOATING_TOOLBAR_LINKPICKER_CLASSNAME = 'card-floating-toolbar--link-picker';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const smartCardStyles = css`
+export const smartCardStyles = () => css`
 	.${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER} {
 		max-width: calc(100% - 20px);
 		vertical-align: top;
@@ -69,7 +69,17 @@ export const smartCardStyles = css`
 
 	.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
 		.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
-			cursor: pointer;
+			cursor: ${
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+				fg('platform.linking-platform.smart-links-in-live-pages') ? 'text' : 'pointer'
+			};
+
+			a {
+				cursor: ${
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+					fg('platform.linking-platform.smart-links-in-live-pages') ? 'pointer' : 'auto'
+				};
+			}
 		}
 
 		&.${akEditorSelectedNodeClassName} .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {

@@ -1,5 +1,7 @@
 import {
+	EditorFloatingToolbarModel,
 	EditorHyperlinkModel,
+	EditorLinkOverlayModel,
 	EditorNodeContainerModel,
 	expect,
 	editorViewModeTestCase as test,
@@ -41,6 +43,27 @@ test.describe('hyperlink in view mode', () => {
 			await link.click({ pointer: 'middle' });
 
 			expect(page.url()).not.toBe(previousUrl);
+		});
+
+		test('toolbar does not disappear when hover over link', async ({ editor }) => {
+			await editor.setViewMode('edit');
+
+			const nodes = EditorNodeContainerModel.from(editor);
+			const link = nodes.link.first();
+			await link.hover();
+
+			const overlayModel = EditorLinkOverlayModel.from(link);
+			await overlayModel.click();
+
+			const hyperlinkModel = EditorHyperlinkModel.from(link);
+			const floatingToolbarModel = EditorFloatingToolbarModel.from(editor, hyperlinkModel);
+			await floatingToolbarModel.waitForStable();
+			await floatingToolbarModel.clickEditLink();
+			await floatingToolbarModel.clickLabelField();
+
+			await link.hover();
+
+			await expect(floatingToolbarModel.toolbar).toBeVisible();
 		});
 	});
 

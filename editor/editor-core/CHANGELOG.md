@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 195.0.1
+
+### Patch Changes
+
+- [#112464](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/112464)
+  [`e26f188519478`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26f188519478) -
+  Remove feature flag that is fully rolled out
+
+## 195.0.0
+
+### Major Changes
+
+- [#123678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123678)
+  [`6bcb27fe4752f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bcb27fe4752f) -
+  [ux] Updating smart-card styles export to change cursor based on live pages mode, and updating
+  usage of smartCardStyles to match new declaration
+
+### Patch Changes
+
+- [#124231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124231)
+  [`48ae65e0f36e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48ae65e0f36e8) -
+  Removed FF platform.editor.transform-slice-for-nested-expand
+- [#124134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124134)
+  [`60d66d9621cca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60d66d9621cca) -
+  Removed FF platform.editor.allow-list-in-blockquote
+- Updated dependencies
+
 ## 194.5.0
 
 ### Minor Changes

@@ -11,6 +11,7 @@ import { jsx } from '@emotion/react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import type { InlineCardAdf } from '@atlaskit/linking-common';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { DatasourceDisplay, DatasourceSearchMethod } from '../../../../analytics/types';
@@ -19,13 +20,20 @@ import { useUserInteractions } from '../../../../contexts/user-interactions';
 import { useDatasourceContext } from '../datasource-context';
 import { useViewModeContext } from '../mode-switcher/useViewModeContext';
 
-export type InsertButtonProps = PropsWithChildren<{
+export type InsertButtonProps<Parameters extends DatasourceParameters> = PropsWithChildren<{
 	testId: string;
 	url: string | undefined;
 	getAnalyticsPayload: () => Record<string, any>;
+	overwriteParameters?: (parameters: Parameters) => Parameters;
 }>;
 
-export const InsertButton = ({ testId, url, getAnalyticsPayload, children }: InsertButtonProps) => {
+export const InsertButton = <Parameters extends DatasourceParameters>({
+	testId,
+	url,
+	getAnalyticsPayload,
+	overwriteParameters,
+	children,
+}: InsertButtonProps<Parameters>) => {
 	const {
 		datasourceId,
 		parameters,
@@ -36,7 +44,7 @@ export const InsertButton = ({ testId, url, getAnalyticsPayload, children }: Ins
 		columnCustomSizes,
 		wrappedColumnKeys,
 		onInsert,
-	} = useDatasourceContext();
+	} = useDatasourceContext<Parameters>();
 	const userInteractions = useUserInteractions();
 	const { currentViewMode } = useViewModeContext();
 
@@ -55,7 +63,6 @@ export const InsertButton = ({ testId, url, getAnalyticsPayload, children }: Ins
 			const insertButtonClickedEvent = analyticsEvent.update({
 				actionSubjectId: 'insert',
 				attributes: {
-					...getAnalyticsPayload(),
 					totalItemCount: totalCount || 0,
 					displayedColumnCount: visibleColumnCount.current,
 					display:
@@ -64,6 +71,7 @@ export const InsertButton = ({ testId, url, getAnalyticsPayload, children }: Ins
 							: DatasourceDisplay.DATASOURCE_TABLE,
 					searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
 					actions: userInteractions.get(),
+					...getAnalyticsPayload(),
 				},
 				eventType: 'ui',
 			});
@@ -86,7 +94,7 @@ export const InsertButton = ({ testId, url, getAnalyticsPayload, children }: Ins
 					buildDatasourceAdf(
 						{
 							id: datasourceId,
-							parameters: parameters,
+							parameters: overwriteParameters ? overwriteParameters(parameters) : parameters,
 							views: [
 								{
 									type: 'table',
@@ -111,18 +119,19 @@ export const InsertButton = ({ testId, url, getAnalyticsPayload, children }: Ins
 			}
 		},
 		[
-			isValidParameters,
-			parameters,
-			url,
-			getAnalyticsPayload,
-			totalCount,
-			visibleColumnCount,
-			currentViewMode,
-			userInteractions,
-			onInsert,
-			datasourceId,
-			visibleColumnKeys,
 			columnCustomSizes,
+			currentViewMode,
+			datasourceId,
+			getAnalyticsPayload,
+			isValidParameters,
+			onInsert,
+			overwriteParameters,
+			parameters,
+			totalCount,
+			url,
+			userInteractions,
+			visibleColumnCount,
+			visibleColumnKeys,
 			wrappedColumnKeys,
 		],
 	);

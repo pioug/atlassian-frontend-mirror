@@ -283,6 +283,7 @@ export function updateAffectedColumn(
 
 	return {
 		...resizeState,
+		tableWidth: updatedCols.reduce((acc, col) => acc + col.width, 0),
 		cols: updatedCols,
 	};
 }

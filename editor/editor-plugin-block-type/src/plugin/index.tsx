@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { blockquote, blockquoteWithList, hardBreak, heading } from '@atlaskit/adf-schema';
+import { blockquoteWithList, hardBreak, heading } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -31,7 +31,6 @@ import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { TextBlockTypes } from './block-types';
 import { setBlockTypeWithAnalytics } from './commands';
@@ -177,9 +176,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		name: 'blockType',
 
 		nodes() {
-			const blockquoteNode = getBooleanFF('platform.editor.allow-list-in-blockquote')
-				? blockquoteWithList
-				: blockquote;
+			const blockquoteNode = blockquoteWithList;
 			const nodes: BlockTypeNode[] = [
 				{ name: 'heading', node: heading },
 				{ name: 'blockquote', node: blockquoteNode },

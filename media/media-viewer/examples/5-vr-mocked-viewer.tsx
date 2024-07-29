@@ -16,7 +16,7 @@ import {
 import { token } from '@atlaskit/tokens';
 import { wideImage } from '../example-helpers/assets/wide-image';
 import { MainWrapper, MVSidebar, MVSidebarHeader } from '../example-helpers/MainWrapper';
-import { MediaViewer } from '../src/components/media-viewer';
+import { MediaViewerBase } from '../src/components/media-viewer';
 import { type MediaViewerExtensionsActions } from '../src';
 
 let files: MockFile[] = [];
@@ -105,7 +105,7 @@ export default class Example extends React.Component<{}, State> {
 		return (
 			<MainWrapper>
 				{isMediaViewerActive && files.length && (
-					<MediaViewer
+					<MediaViewerBase
 						items={files
 							.map(
 								({ id }): Identifier => ({

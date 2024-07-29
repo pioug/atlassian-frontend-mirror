@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::0a5db5340d1afcf68706d286b61adc6b>>
+ * @codegen <<SignedSource::80c39ebb3a358a4cb28ca8e692f5fb04>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/button/__generated__/index.partial.tsx <<SignedSource::30c668dc994f1624c2cfd94e07742e85>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::30c668dc994f1624c2cfd94e07742e85>>
  */
 import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/new';
 

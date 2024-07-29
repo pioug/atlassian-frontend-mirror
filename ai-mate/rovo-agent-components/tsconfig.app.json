@@ -31,6 +31,25 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__rovo-agent-components/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/skeleton/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

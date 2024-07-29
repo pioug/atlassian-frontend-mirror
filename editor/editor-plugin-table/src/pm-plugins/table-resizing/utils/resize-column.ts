@@ -1,9 +1,11 @@
 // Resize a given column by an amount from the current state
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { type EditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import {
 	akEditorFullWidthLayoutWidth,
 	akEditorGutterPaddingDynamic,
+	akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
 
 import { TableCssClassName as ClassName } from '../../../types';
@@ -86,12 +88,13 @@ export const resizeColumnAndTable = ({
 }: ResizeColumnAndTable): ResizeState => {
 	const editorContainerWidth = getEditorContainerWidth(editorWidth);
 	const isTableLeftAligned = tableNode.attrs.layout === ALIGN_START;
+	const isNumberColumnEnabled = tableNode.attrs.isNumberColumnEnabled;
+	const isOverflow = resizeState.tableWidth > resizeState.maxSize;
 	let resizeAmount = isTableLeftAligned ? amount : amount * 2;
-
 	const willTableHitEditorEdge = resizeState.maxSize + resizeAmount > editorContainerWidth;
 
 	const willResizedTableStayInOverflow =
-		resizeState.overflow && resizeState.tableWidth + resizeAmount / 2 > resizeState.maxSize;
+		isOverflow && resizeState.tableWidth + resizeAmount / 2 > resizeState.maxSize;
 
 	// STEP 1: Update col width
 	if (willTableHitEditorEdge || willResizedTableStayInOverflow) {
@@ -100,54 +103,58 @@ export const resizeColumnAndTable = ({
 			amount < 0
 				? amount
 				: resizeAmount - (resizeState.maxSize + resizeAmount - tableContainerWidth!) / 2;
-	}
-
-	if (!willResizedTableStayInOverflow && !willTableHitEditorEdge) {
+	} else {
 		const diff = -(resizeState.tableWidth - resizeState.maxSize);
 		const rest = amount - diff;
 		const final = isTableLeftAligned ? diff + rest : diff + rest * 2;
 		resizeAmount = final;
 	}
 
-	let newState = updateAffectedColumn(resizeState, colIndex, resizeAmount);
+	const newState = updateAffectedColumn(resizeState, colIndex, resizeAmount);
 
 	// STEP 2: Update table container width
 	// columns have a min width, so delta !== resizeAmount when this is reached, use this for calculations
 	const delta = newState.cols[colIndex].width - resizeState.cols[colIndex].width;
 
 	newState.maxSize = Math.round(
-		resizeState.overflow
+		isOverflow
 			? willResizedTableStayInOverflow
 				? // CASE 1A: table will stay in overflow
 					// do not grow the table because resize is happening in the overflow region
 					// and the overall table container needs to be retained
-					resizeState.maxSize
+					isNumberColumnEnabled
+					? resizeState.maxSize + akEditorTableNumberColumnWidth
+					: resizeState.maxSize
 				: // CASE 1B: table will no longer be in overflow, so adjust container width
 					// ensure the table is resized without any 'big jumps' by working out
 					// the difference between the new table width and the max size and adding the resize
-					resizeState.maxSize + (resizeState.tableWidth - resizeState.maxSize + delta)
+					isNumberColumnEnabled
+					? resizeState.maxSize +
+						akEditorTableNumberColumnWidth +
+						(resizeState.tableWidth - resizeState.maxSize + akEditorTableNumberColumnWidth + delta)
+					: resizeState.maxSize + (resizeState.tableWidth - resizeState.maxSize + delta)
 			: willTableHitEditorEdge
 				? // CASE 2: table will hit editor edge
 					editorContainerWidth
 				: // CASE 3: table is being resized from a non-overflow state
-					resizeState.maxSize + delta,
+					isNumberColumnEnabled
+					? resizeState.maxSize + akEditorTableNumberColumnWidth + delta
+					: resizeState.maxSize + delta,
 	);
 
 	// do not apply scaling logic because resize state is already scaled
 	updateColgroup(newState, tableRef, tableNode, false, false);
 
-	if (!willTableHitEditorEdge && !willResizedTableStayInOverflow) {
-		updateTablePreview(
-			tableRef,
+	updateTablePreview(
+		tableRef,
+		newState.maxSize,
+		shouldChangeAlignmentToCenterResized(
+			isTableAlignmentEnabled,
+			tableNode,
+			lineLength,
 			newState.maxSize,
-			shouldChangeAlignmentToCenterResized(
-				isTableAlignmentEnabled,
-				tableNode,
-				lineLength,
-				newState.maxSize,
-			),
-		);
-	}
+		),
+	);
 
 	return newState;
 };
@@ -184,34 +191,55 @@ export const scaleResizeState = ({
 	tableNode,
 	editorWidth,
 }: TableReferences & { resizeState: ResizeState; editorWidth: number }): ResizeState => {
-	// check if table is scaled, if not then avoid applying scaling values down
-	if (resizeState.maxSize < getEditorContainerWidth(editorWidth)) {
+	const isNumberColumnEnabled = tableNode.attrs.isNumberColumnEnabled;
+	const isTableScaled =
+		isNumberColumnEnabled || resizeState.maxSize > getEditorContainerWidth(editorWidth);
+
+	// Tables with number column can cause the table to be in two different states:
+	// 1. The table sum of col widths will be smaller than the max size, which is incorrect. For this
+	// avoid scaling and take the document width
+	// 2. The table sum of col widths will be the same size as max width, which happens when the table
+	// is scaled using preserve table width logic, for this apply a scaled width
+	// return early if table isn't scaled
+	if (!isTableScaled || (isNumberColumnEnabled && resizeState.maxSize > resizeState.tableWidth)) {
 		return resizeState;
 	}
 
 	const scalePercent = getTableScalingPercent(tableNode, tableRef);
-	let cols = resizeState.cols.map((col) => ({
-		...col,
-		width: Math.round(Math.max(col.width * scalePercent, col.minWidth)),
-	}));
-
 	const scaledTableWidth = Math.round(resizeState.tableWidth * scalePercent);
+	let cols = resizeState.cols.map((col) => {
+		return {
+			...col,
+			minWidth: tableCellMinWidth,
+			width: Math.max(Math.round(col.width * scalePercent), tableCellMinWidth),
+		};
+	});
+
 	const calculatedTableWidth = cols.reduce((prev, curr) => prev + curr.width, 0);
 
 	// using Math.round can cause the sum of col widths to be larger than the table width
-	// distribute the difference to the smallest column
+	// distribute the difference to the first column
 	if (calculatedTableWidth > scaledTableWidth) {
 		const diff = calculatedTableWidth - scaledTableWidth;
+		let hasDiffBeenDistributed = false;
 		cols = cols.map((col) => {
-			return col.width - diff >= col.minWidth ? { ...col, width: col.width - diff } : col;
+			if (!hasDiffBeenDistributed && col.width - diff >= col.minWidth) {
+				hasDiffBeenDistributed = true;
+				return { ...col, width: col.width - diff };
+			}
+			return col;
 		});
 	}
+
+	const maxSize = isNumberColumnEnabled
+		? Math.round((resizeState.maxSize + akEditorTableNumberColumnWidth) * scalePercent)
+		: Math.round(resizeState.maxSize * scalePercent);
 
 	return {
 		...resizeState,
 		widths: cols.map((col) => col.width),
 		tableWidth: scaledTableWidth,
-		maxSize: Math.round(resizeState.maxSize * scalePercent),
+		maxSize,
 		cols,
 	};
 };

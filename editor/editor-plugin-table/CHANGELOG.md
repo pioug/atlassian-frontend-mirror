@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-table
 
+## 7.24.0
+
+### Minor Changes
+
+- [#124519](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124519)
+  [`fbd519a29db88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbd519a29db88) -
+  Don't add merge cell and split cell options to floating toolbar if allowMergedCell is disabled or
+  undefined
+- [#124475](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124475)
+  [`f1beea7ed5546`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1beea7ed5546) -
+  [ux] [ED-24078] This change is adding aria-labels to the Table Cell Options menu so that the
+  screenreader will announce the keyboard shortcuts to keyboard-only users. The change is feature
+  flagged behind 'platform_editor_announce_cell_options_hotkeys'.
+
+### Patch Changes
+
+- [#124231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124231)
+  [`48ae65e0f36e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48ae65e0f36e8) -
+  Removed FF platform.editor.transform-slice-for-nested-expand
+- [#124519](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124519)
+  [`0d1225bff51ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d1225bff51ff) -
+  Use scaled amounts for new column resizing, and update logic to cater for more scenarios
+- Updated dependencies
+
 ## 7.23.0
 
 ### Minor Changes

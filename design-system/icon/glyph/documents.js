@@ -4,17 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _base = require("@atlaskit/icon/base");
-
+var _pages = _interopRequireDefault(require("@atlaskit/icon/core/pages"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const DocumentsIcon = props => /*#__PURE__*/_react.default.createElement(_base.Icon, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path d="M6 17H5V7h1V5H5a2 2 0 00-2 2v10a2 2 0 002 2h1v-2zm13-6.995V19H9V5h5.99v2.49a1.5 1.5 0 001.5 1.5h4.5v-.522c0-.297-.132-.578-.359-.768l-5.074-4.236c-.36-.3-.813-.464-1.282-.464H9a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2v-8.995h-2z" fill="currentColor" fill-rule="evenodd"/></svg>`
-}, props));
-
+const DocumentsIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentColor" fill-rule="evenodd" d="M6 17H5V7h1V5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h1zm13-6.99V19H9V5h5.99v2.49a1.5 1.5 0 0 0 1.5 1.5h4.5v-.52c0-.3-.13-.58-.36-.77l-5.07-4.24c-.36-.3-.81-.46-1.28-.46H9a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8.99z"/></svg>`
+}, props, {
+  newIcon: _pages.default
+}));
 DocumentsIcon.displayName = 'DocumentsIcon';
-var _default = DocumentsIcon;
-exports.default = _default;
+var _default = exports.default = DocumentsIcon;

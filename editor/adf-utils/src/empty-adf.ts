@@ -6,3 +6,5 @@ export const getEmptyADF = (): DocNode => ({
 	version: 1,
 	content: [],
 });
+
+export { isEmpty } from './transforms/helpers';

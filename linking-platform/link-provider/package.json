@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "1.13.0",
+	"version": "1.14.0",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/link-extractors": "^1.5.0",
-		"@atlaskit/linking-common": "^5.7.0",
+		"@atlaskit/linking-common": "^5.8.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"async-retry": "^1.2.3",
@@ -69,6 +69,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.linking-platform.datasource.add-timezone-header": {
+			"type": "boolean"
+		},
+		"map_new_ors_generic_error_types_in_link_provider": {
 			"type": "boolean"
 		}
 	}

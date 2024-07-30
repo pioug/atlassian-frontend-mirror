@@ -7,4 +7,5 @@ export const codeBlockClassNames = {
 	contentWrapper: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER,
 	gutter: CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER,
 	content: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT,
+	contentWrapped: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED,
 };

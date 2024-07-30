@@ -405,6 +405,7 @@ type TableContainerProps = {
 	isTableAlignmentEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 	isCommentEditor?: boolean;
+	isChromelessEditor?: boolean;
 };
 
 export const TableContainer = ({
@@ -426,6 +427,7 @@ export const TableContainer = ({
 	isTableAlignmentEnabled,
 	shouldUseIncreasedScalingPercent,
 	isCommentEditor,
+	isChromelessEditor,
 }: PropsWithChildren<TableContainerProps>) => {
 	if (isTableResizingEnabled && !isNested) {
 		return (
@@ -463,6 +465,7 @@ export const TableContainer = ({
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				width: 'inherit',
+				marginLeft: isChromelessEditor ? 18 : undefined,
 			}}
 		>
 			{children}

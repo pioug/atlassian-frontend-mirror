@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.27.2
+
+### Patch Changes
+
+- [#125044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125044)
+  [`340243f088aaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/340243f088aaf) -
+  Use lazy node view behind a feature flag for media nodes.
+
 ## 1.27.1
 
 ### Patch Changes

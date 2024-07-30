@@ -27,7 +27,7 @@ import {
 } from './types/responses';
 import { type InvokeRequest } from './types/requests';
 import { LRUMap } from 'lru_map';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const MAX_BATCH_SIZE = 50;
 const MIN_TIME_BETWEEN_BATCHES = 250;
@@ -77,7 +77,7 @@ export default class CardClient implements CardClientInterface {
 			 * This header exist to enable the backend to process relative time, eg: "today", with respect to the user timezone.
 			 * eg: used in "confluence-object-provider" to resolve confluence SLLV links that may involve relative time calculation.
 			 */
-			...(getBooleanFF('platform.linking-platform.datasource.add-timezone-header')
+			...(fg('platform.linking-platform.datasource.add-timezone-header')
 				? { 'origin-timezone': Intl?.DateTimeFormat().resolvedOptions().timeZone }
 				: {}),
 
@@ -378,6 +378,20 @@ export default class CardClient implements CardClientInterface {
 				case 'ResolveRateLimitError':
 				case 'InternalServerError': // ORS failures
 					return new APIError('error', hostname, errorMessage, errorType, extensionKey);
+			}
+
+			if (fg('map_new_ors_generic_error_types_in_link_provider')) {
+				switch (errorType) {
+					case 'BadRequestError':
+						return new APIError('fallback', hostname, errorMessage, errorType, extensionKey);
+					case 'AuthError':
+						return new APIError('auth', hostname, errorMessage, errorType, extensionKey);
+					case 'UnsupportedError': // URL isn't supported
+						return new APIError('fatal', hostname, errorMessage, errorType, extensionKey);
+					case 'TimeoutError':
+					case 'RateLimitError':
+						return new APIError('error', hostname, errorMessage, errorType, extensionKey);
+				}
 			}
 		}
 		// Catch all: we don't know this error, bail out.

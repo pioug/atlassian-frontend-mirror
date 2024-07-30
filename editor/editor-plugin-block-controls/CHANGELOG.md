@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.10.0
+
+### Minor Changes
+
+- [#123594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123594)
+  [`ea6c9a5361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea6c9a5361f96) -
+  [ux] Add prelim nested DnD support
+
 ## 1.9.1
 
 ### Patch Changes

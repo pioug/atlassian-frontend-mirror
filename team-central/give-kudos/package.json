@@ -47,7 +47,7 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/drawer": "^7.13.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/portal": "^4.6.0",

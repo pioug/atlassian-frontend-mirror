@@ -40,8 +40,8 @@ type AnnouncerProps = {
 // https://github.com/nvaccess/nvda/labels/bug%2Fdouble-speaking
 
 let timer: ReturnType<typeof setTimeout>;
-export const Announcer: React.FC<AnnouncerProps> = memo(
-	forwardRef(
+export const Announcer = memo(
+	forwardRef<HTMLDivElement, AnnouncerProps>(
 		(
 			{
 				ariaAtomic = 'true',

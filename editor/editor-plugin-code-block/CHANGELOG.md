@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.2.3
+
+### Patch Changes
+
+- [#125133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125133)
+  [`d804e5dd3216b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d804e5dd3216b) -
+  ED-24226 - Add state to manage the toggle word wrap state of code blocks. New WeakMap added in
+  editor-common/src/code-block, as word wrap state is shared throughout the editor. Covers regular
+  changes to code block by the user via the node view update function. Covers breakout of code block
+  node. Does not cover drag&drop & cut&paste edge cases.
+
+## 3.2.2
+
+### Patch Changes
+
+- [#124302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124302)
+  [`45dc9b6543007`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45dc9b6543007) -
+  [ux] ED-24228 adding wrap content functionality with feature gate
+
 ## 3.2.1
 
 ### Patch Changes

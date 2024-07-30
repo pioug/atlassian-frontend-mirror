@@ -38,7 +38,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.6.0",
 		"@atlaskit/feature-gate-js-client": "^4.18.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/link-datasource": "^2.9.0",
 		"@atlaskit/media-card": "^78.0.0",
 		"@atlaskit/media-client": "^27.3.0",
@@ -63,7 +63,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.13.0",
+		"@atlaskit/link-provider": "^1.14.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"react": "^16.8.0",
 		"react-dom": "^16.8.0"
@@ -74,9 +74,9 @@
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/css-reset": "^6.9.0",
 		"@atlaskit/editor-test-helpers": "^18.29.0",
-		"@atlaskit/link-provider": "^1.13.0",
+		"@atlaskit/link-provider": "^1.14.0",
 		"@atlaskit/link-test-helpers": "^7.0.0",
-		"@atlaskit/linking-common": "^5.7.0",
+		"@atlaskit/linking-common": "^5.8.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",

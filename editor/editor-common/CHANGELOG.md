@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 87.0.4
+
+### Patch Changes
+
+- [#125133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125133)
+  [`d804e5dd3216b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d804e5dd3216b) -
+  ED-24226 - Add state to manage the toggle word wrap state of code blocks. New WeakMap added in
+  editor-common/src/code-block, as word wrap state is shared throughout the editor. Covers regular
+  changes to code block by the user via the node view update function. Covers breakout of code block
+  node. Does not cover drag&drop & cut&paste edge cases.
+
+## 87.0.3
+
+### Patch Changes
+
+- [#124585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124585)
+  [`38ebc7f4f4ce9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38ebc7f4f4ce9) -
+  Fix LazyNodeView race condition
+- [#124302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124302)
+  [`45dc9b6543007`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45dc9b6543007) -
+  [ux] ED-24228 adding wrap content functionality with feature gate
+
+## 87.0.2
+
+### Patch Changes
+
+- [`23c64778d8082`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23c64778d8082) -
+  [ux] Updating the cursor style for embed cards when the smart links in live pages FF is on
+
 ## 87.0.1
 
 ### Patch Changes

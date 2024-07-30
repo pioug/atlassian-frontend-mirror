@@ -17,13 +17,14 @@ import { codeBlockClassNames } from '../ui/class-names';
 import { findCodeBlock } from '../utils';
 
 import { ACTIONS } from './actions';
-import type { CodeBlockState } from './main-state';
+import { type CodeBlockState } from './main-state';
 
 export const createPlugin = ({
 	useLongPressSelection = false,
 	getIntl,
 	allowCompositionInputOverride = false,
 	api,
+	isWrapped = false,
 }: {
 	useLongPressSelection?: boolean;
 	getIntl: () => IntlShape;
@@ -31,6 +32,7 @@ export const createPlugin = ({
 	// Don't want to add an uneccessary listener to web
 	allowCompositionInputOverride?: boolean;
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
+	isWrapped?: boolean;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
 
@@ -105,6 +107,7 @@ export const createPlugin = ({
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
 				if (tr.docChanged || tr.selectionSet) {
 					const node = findCodeBlock(newState, tr.selection);
+
 					const newPluginState: CodeBlockState = {
 						...pluginState,
 						pos: node ? node.pos : null,
@@ -134,7 +137,7 @@ export const createPlugin = ({
 		props: {
 			nodeViews: {
 				codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
-					codeBlockNodeView(node, view, getPos, api),
+					codeBlockNodeView(node, view, getPos, api, isWrapped),
 			},
 			handleClickOn: createSelectionClickHandler(
 				['codeBlock'],

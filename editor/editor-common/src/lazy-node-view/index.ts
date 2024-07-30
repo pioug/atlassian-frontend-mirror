@@ -1,16 +1,13 @@
-import debounce from 'lodash/debounce';
-
-import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type {
-	Decoration,
-	DecorationSource,
-	EditorView,
-	NodeView,
-} from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 
+import { LazyNodeView } from './node-view';
+import { queueReplaceNodeViews } from './replace-node-views';
+import type { NodeViewConstructor } from './types';
+
+export type { NodeViewConstructor };
 /**
  * 📢 Public Type
  *
@@ -38,139 +35,13 @@ export type LazyLoadingProps<NodeViewOptions> = {
 
 /**
  * 🧱 Internal: Editor FE Platform
+ *
+ * Controls which node was scheduled to load the original node view code
  */
-export type NodeViewConstructor = (
-	node: PMNode,
-	view: EditorView,
-	getPos: () => number | undefined,
-	decorations: readonly Decoration[],
-	innerDecorations: DecorationSource,
-) => NodeView;
-
-/**
- * 🧱 Internal: Editor FE Platform
- */
-type LoadedReactNodeViews = Record<string, NodeViewConstructor>;
-
-/**
- * 🧱 Internal: Editor FE Platform
- */
-type CacheType = WeakMap<EditorView, LoadedReactNodeViews>;
-
-/**
- * 🧱 Internal: Editor FE Platform
- *
- * A cache to store loaded React NodeViews for each EditorView.
- *
- * This cache will help us to avoid any race condition
- * when multiple Editors exist in the same page.
- *
- * @type {CacheType}
- */
-const cachePerEditorView: CacheType = new WeakMap<EditorView, LoadedReactNodeViews>();
-
-/**
- * 🧱 Internal: Editor FE Platform
- */
-const isFirefox = /gecko\/\d/i.test(navigator.userAgent);
-
-/**
- * 🧱 Internal: Editor FE Platform
- *
- * A NodeView that serves as a placeholder until the actual NodeView is loaded.
- */
-class LazyNodeView implements NodeView {
-	dom: Node;
-	contentDOM?: HTMLElement;
-
-	constructor(node: PMNode, view: EditorView, getPos: () => number | undefined) {
-		if (typeof node.type?.spec?.toDOM !== 'function') {
-			this.dom = document.createElement('div');
-			return;
-		}
-
-		const fallback = DOMSerializer.renderSpec(document, node.type.spec.toDOM(node));
-
-		this.dom = fallback.dom;
-		this.contentDOM = fallback.contentDOM;
-
-		if (this.dom instanceof HTMLElement) {
-			// This attribute is mostly used for debugging purposed
-			// It will help us to found out when the node was replaced
-			this.dom.setAttribute('data-lazy-node-view', node.type.name);
-			// This is used on Libra tests
-			// We are using this to make sure all lazy noded were replaced
-			// before the test started
-			this.dom.setAttribute('data-lazy-node-view-fallback', 'true');
-		}
-	}
-}
-
-/**
- * 🧱 Internal: Editor FE Platform
- *
- * Debounces and replaces the node views in a ProseMirror editor with lazy-loaded node views.
- *
- * This function is used to update the `nodeViews` property of the `EditorView` after lazy-loaded
- * node views have been loaded. It uses a debounced approach to ensure that the replacement does
- * not happen too frequently, which can be performance-intensive.
- *
- * The function checks if there are any loaded node views in the cache associated with the given
- * `EditorView`. If there are, it replaces the current `nodeViews` in the `EditorView` with the
- * loaded node views. The replacement is scheduled using `requestIdleCallback` or
- * `requestAnimationFrame` to avoid blocking the main thread, especially in Firefox where
- * `requestIdleCallback` may not be supported.
- *
- * @param {WeakMap<EditorView, Record<string, NodeViewConstructor>>} cache - A WeakMap that stores
- *        the loaded node views for each `EditorView`. The key is the `EditorView`, and the value
- *        is a record of node type names to their corresponding `NodeViewConstructor`.
- * @param {EditorView} view - The ProseMirror `EditorView` instance whose `nodeViews` property
- *        needs to be updated.
- *
- * @example
- * const cache = new WeakMap();
- * const view = new EditorView(...);
- *
- * // Assume some node views have been loaded and stored in the cache
- * cache.set(view, {
- *   'table': TableViewConstructor,
- *   'tableCell': TableCellViewConstructor,
- * });
- *
- * debouncedReplaceNodeviews(cache, view);
- */
-export const debouncedReplaceNodeviews = debounce((cache: CacheType, view: EditorView) => {
-	const loadedNodeviews: Record<string, NodeViewConstructor> | undefined = cache.get(view);
-
-	if (!loadedNodeviews) {
-		return;
-	}
-	cache.delete(view);
-
-	// eslint-disable-next-line compat/compat
-	const idle = window.requestIdleCallback;
-
-	/*
-	 * For reasons that goes beyond my knowledge
-	 * some Firefox versions aren't calling the requestIdleCallback.
-	 *
-	 * So, we need this check to make sure we use the requestAnimationFrame instead
-	 */
-	const later = isFirefox || typeof idle !== 'function' ? window.requestAnimationFrame : idle;
-
-	later(() => {
-		const currentNodeViews = view.props.nodeViews;
-
-		const nextNodeViews = {
-			...currentNodeViews,
-			...loadedNodeviews,
-		};
-
-		view.setProps({
-			nodeViews: nextNodeViews,
-		});
-	});
-});
+const requestedNodesPerEditorView: WeakMap<EditorView, Set<string>> = new WeakMap<
+	EditorView,
+	Set<string>
+>();
 
 /**
  * 📢 Public: Any EditorPlugin can use this function
@@ -224,19 +95,20 @@ export const withLazyLoading = <Options>({
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
 	): NodeView => {
-		let cachedMap: Record<string, NodeViewConstructor> | undefined = cachePerEditorView.get(view);
-		if (!cachedMap) {
-			cachedMap = {};
-			cachePerEditorView.set(view, cachedMap);
+		let requestedNodes: Set<string> | undefined = requestedNodesPerEditorView.get(view);
+		if (!requestedNodes) {
+			(requestedNodes = new Set()), requestedNodesPerEditorView.set(view, requestedNodes);
 		}
 
-		const wasAlreadyRequested = cachedMap.hasOwnProperty(nodeName);
+		const wasAlreadyRequested = requestedNodes.has(nodeName);
 		if (wasAlreadyRequested) {
 			return new LazyNodeView(node, view, getPos);
 		}
 
+		requestedNodes.add(nodeName);
+
 		loader().then((nodeViewFuncModule) => {
-			cachedMap[nodeName] = (
+			const nodeViewFunc = (
 				node: PMNode,
 				view: EditorView,
 				getPos: () => number | undefined,
@@ -245,7 +117,10 @@ export const withLazyLoading = <Options>({
 				return nodeViewFuncModule(node, view, getPos, decorations, getNodeViewOptions);
 			};
 
-			debouncedReplaceNodeviews(cachePerEditorView, view);
+			queueReplaceNodeViews(view, {
+				nodeName,
+				nodeViewFunc,
+			});
 		});
 
 		if (typeof node.type?.spec?.toDOM !== 'function') {

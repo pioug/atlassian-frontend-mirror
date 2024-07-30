@@ -13,6 +13,9 @@ import {
 	TableRendererComment,
 	WideTableRendererFullWidth,
 	FullWidthTableRendererFullWidth,
+	TableRendererWithoutAppearance,
+	TableRendererWideWithoutAppearance,
+	TableRendererFullWidthWithoutAppearance,
 } from './table.fixture';
 
 snapshot(TableRenderer, {
@@ -50,4 +53,13 @@ snapshot(WideTableRendererFullWidth, {
 });
 snapshot(FullWidthTableRendererFullWidth, {
 	description: 'Table Full-width renderer should render full-with table',
+});
+snapshot(TableRendererWithoutAppearance, {
+	description: 'Table renderer without appearance should render default table',
+});
+snapshot(TableRendererWideWithoutAppearance, {
+	description: 'Table renderer without appearance should render wide table',
+});
+snapshot(TableRendererFullWidthWithoutAppearance, {
+	description: 'Table renderer without appearance should render full-with table',
 });

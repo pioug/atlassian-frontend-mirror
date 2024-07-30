@@ -1,5 +1,7 @@
+import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
 import type { Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
 import { updateExpandedState } from '../utils/single-player-expand';
@@ -15,7 +17,19 @@ export function removeBreakout(isLivePage?: boolean): Command {
 		const marks = node.node.marks.filter((m) => m.type.name !== 'breakout');
 		const tr = state.tr.setNodeMarkup(node.pos, node.node.type, node.node.attrs, marks);
 
-		updateExpandedState(tr, node, isLivePage);
+		if (fg('editor_support_code_block_wrapping')) {
+			if (node.node.type === state.schema.nodes.expand) {
+				updateExpandedState(tr, node, isLivePage);
+			} else if (node.node.type === state.schema.nodes.codeBlock) {
+				const newNode = tr.doc.nodeAt(node.pos);
+				const oldNode = node.node;
+				if (newNode) {
+					transferCodeBlockWrappedValue(oldNode, newNode);
+				}
+			}
+		} else {
+			updateExpandedState(tr, node, isLivePage);
+		}
 
 		tr.setMeta('scrollIntoView', false);
 

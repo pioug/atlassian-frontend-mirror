@@ -13,7 +13,6 @@ import { token } from '@atlaskit/tokens';
 
 import {
 	ButtonItem,
-	HeadingItem,
 	LinkItem,
 	MenuGroup,
 	PopupMenuGroup,
@@ -168,70 +167,72 @@ export default () => {
 			>
 				<PopupMenuGroup testId="mock-starred-menu" maxHeight={500}>
 					<Section isScrollable>
-						<HeadingItem>Scrollable Starred</HeadingItem>
-						<ButtonItem
-							description="Software Project"
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
-						>
-							Endeavour (JSPA)
-						</ButtonItem>
-						<ButtonItem
-							description="Software Project"
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
-						>
-							Navigation v3 (JNAV)
-						</ButtonItem>
-						<HeadingItem>Recent</HeadingItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Software Project"
-						>
-							Emanada (EM)
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Software Project"
-						>
-							Jira Frontend Performance Initiative (PEAR)
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Software Project"
-						>
-							Fabric Editor
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Next-gen software project"
-						>
-							Content Services
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Classic business project"
-						>
-							Trinity Mobile
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Classic service desk"
-						>
-							SPA Performance (SPAPERF)
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Software Project"
-						>
-							Moneyball Design (EXM)
-						</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="Software Project"
-						>
-							3Sia (CZAM)
-						</ButtonItem>
+						<Section title="Scrollable Starred">
+							<ButtonItem
+								description="Software Project"
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
+							>
+								Endeavour (JSPA)
+							</ButtonItem>
+							<ButtonItem
+								description="Software Project"
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
+							>
+								Navigation v3 (JNAV)
+							</ButtonItem>
+						</Section>
+						<Section title="Recent">
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Software Project"
+							>
+								Emanada (EM)
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Software Project"
+							>
+								Jira Frontend Performance Initiative (PEAR)
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Software Project"
+							>
+								Fabric Editor
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Next-gen software project"
+							>
+								Content Services
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Classic business project"
+							>
+								Trinity Mobile
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Classic service desk"
+							>
+								SPA Performance (SPAPERF)
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Software Project"
+							>
+								Moneyball Design (EXM)
+							</ButtonItem>
+							<ButtonItem
+								iconBefore={<Blog24Icon label="Quote icon" />}
+								description="Software Project"
+							>
+								3Sia (CZAM)
+							</ButtonItem>
+						</Section>
 					</Section>
 					<Section hasSeparator>
 						<LinkItem href="#view-all">View all projects</LinkItem>

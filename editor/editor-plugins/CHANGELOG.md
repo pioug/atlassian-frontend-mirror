@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 3.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.5.4
+
+### Patch Changes
+
+- [#123594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123594)
+  [`ea6c9a5361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea6c9a5361f96) -
+  Add FG to editor examples
+- Updated dependencies
+
 ## 3.5.3
 
 ### Patch Changes

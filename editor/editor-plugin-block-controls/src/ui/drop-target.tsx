@@ -83,12 +83,12 @@ const styleDropIndicator = css({
 
 export const DropTarget = ({
 	api,
-	index,
+	id,
 	prevNode,
 	nextNode,
 }: {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
-	index: number;
+	id: number;
 	prevNode?: PMNode;
 	nextNode?: PMNode;
 }) => {
@@ -121,7 +121,7 @@ export const DropTarget = ({
 				if (!activeNode || !decorationState) {
 					return;
 				}
-				const { pos } = decorationState.find((dec) => dec.index === index) || {};
+				const { pos } = decorationState.find((dec) => dec.id === id) || {};
 
 				if (activeNode && pos !== undefined) {
 					const { pos: start } = activeNode;
@@ -129,7 +129,7 @@ export const DropTarget = ({
 				}
 			},
 		});
-	}, [index, api]);
+	}, [id, api]);
 
 	const topTargetMarginStyle = useMemo(() => {
 		return getDropTargetPositionStyle(prevNode, nextNode);

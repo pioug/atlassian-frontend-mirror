@@ -122,6 +122,12 @@ export const smartCardStyles = () => css`
 	.${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER} {
 		.${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
 			cursor: pointer;
+			a {
+				cursor: ${
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+					fg('platform.linking-platform.smart-links-in-live-pages') ? 'pointer' : 'auto'
+				};
+			}
 			&::after {
 				transition: box-shadow 0s;
 			}

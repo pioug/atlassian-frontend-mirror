@@ -1,5 +1,6 @@
 import { createElement } from 'react';
 
+import { bind, type UnbindFn } from 'bind-event-listener';
 import ReactDOM from 'react-dom';
 import { type IntlShape, RawIntlProvider } from 'react-intl-next';
 
@@ -14,6 +15,9 @@ import { DragHandle } from '../ui/drag-handle';
 import { DropTarget } from '../ui/drop-target';
 import { MouseMoveWrapper } from '../ui/mouse-move-wrapper';
 
+const IGNORE_NODES = ['tableCell', 'tableHeader', 'tableRow', 'layoutColumn'];
+const NESTED_DEPTH = fg('platform_editor_elements_dnd_nested') ? 100 : 0;
+
 export const dropTargetDecorations = (
 	oldState: EditorState,
 	newState: EditorState,
@@ -23,15 +27,29 @@ export const dropTargetDecorations = (
 	unmountDecorations('data-blocks-drop-target-container');
 	// Decoration state is used to keep track of the position of the drop targets
 	// and allows us to easily map the updated position in the plugin apply method.
-	const decorationState: { index: number; pos: number }[] = [];
+	const decorationState: { id: number; pos: number }[] = [];
 	let prevNode: PMNode | undefined;
 	const state = fg('platform_editor_element_drag_and_drop_ed_24372') ? newState : oldState;
 
 	state.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, _parent, index) => {
-		decorationState.push({ index, pos });
+		let depth = 0;
+		if (fg('platform_editor_elements_dnd_nested')) {
+			depth = newState.doc.resolve(pos).depth;
+			if (node.isInline) {
+				return false;
+			}
+			if (IGNORE_NODES.includes(node.type.name)) {
+				return true; //skip over, don't consider it a valid depth
+			}
+
+			decorationState.push({ id: pos, pos });
+		} else {
+			decorationState.push({ id: index, pos });
+		}
+
 		const dropTargetDec = createElement(DropTarget, {
 			api,
-			index,
+			id: fg('platform_editor_elements_dnd_nested') ? pos : index,
 			prevNode,
 			nextNode: node,
 		});
@@ -53,7 +71,7 @@ export const dropTargetDecorations = (
 			),
 		);
 		prevNode = node;
-		return false;
+		return depth < NESTED_DEPTH;
 	});
 
 	/**
@@ -63,10 +81,20 @@ export const dropTargetDecorations = (
 	 * node and not its size.
 	 *
 	 */
-	decorationState.push({
-		index: decorationState.length + 1,
-		pos: newState.doc.nodeSize - 2,
-	});
+
+	const lastPos = newState.doc.content.size;
+	if (fg('platform_editor_elements_dnd_nested')) {
+		decorationState.push({
+			id: lastPos,
+			pos: lastPos,
+		});
+	} else {
+		decorationState.push({
+			id: decorationState.length + 1,
+			pos: newState.doc.nodeSize - 2,
+		});
+	}
+
 	decs.push(
 		Decoration.widget(
 			newState.doc.nodeSize - 2,
@@ -76,7 +104,7 @@ export const dropTargetDecorations = (
 				ReactDOM.render(
 					createElement(DropTarget, {
 						api,
-						index: decorationState.length,
+						id: fg('platform_editor_elements_dnd_nested') ? lastPos : decorationState.length,
 					}),
 					element,
 				);
@@ -109,7 +137,22 @@ export const emptyParagraphNodeDecorations = () => {
 export const nodeDecorations = (newState: EditorState) => {
 	const decs: Decoration[] = [];
 	newState.doc.descendants((node, pos, _parent, index) => {
-		const anchorName = `--node-anchor-${node.type.name}-${index}`;
+		let depth = 0;
+		let anchorName;
+
+		if (fg('platform_editor_elements_dnd_nested')) {
+			if (node.isInline) {
+				return false;
+			}
+			if (IGNORE_NODES.includes(node.type.name)) {
+				return true; //skip over, don't consider it a valid depth
+			}
+			depth = newState.doc.resolve(pos).depth;
+			anchorName = `--node-anchor-${node.type.name}-${pos}`;
+		} else {
+			anchorName = `--node-anchor-${node.type.name}-${index}`;
+		}
+
 		let style;
 		if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
 			style = `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}; position: relative; z-index: 1;`;
@@ -125,13 +168,15 @@ export const nodeDecorations = (newState: EditorState) => {
 					style,
 					['data-drag-handler-anchor-name']: anchorName,
 					['data-drag-handler-node-type']: node.type.name,
+					['data-drag-handler-anchor-depth']: `${depth}`,
 				},
 				{
 					type: 'node-decoration',
 				},
 			),
 		);
-		return false;
+
+		return depth < NESTED_DEPTH;
 	});
 	return decs;
 };
@@ -197,8 +242,8 @@ export const dragHandleDecoration = (
 	nodeType: string,
 	handleOptions?: HandleOptions,
 ) => {
+	let unbind: UnbindFn;
 	const elementType = fg('platform_editor_element_drag_and_drop_ed_24150') ? 'span' : 'div';
-
 	return Decoration.widget(
 		pos,
 		(view, getPos) => {
@@ -207,6 +252,15 @@ export const dragHandleDecoration = (
 			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
+
+			if (fg('platform_editor_elements_dnd_nested')) {
+				unbind = bind(element, {
+					type: 'mouseover',
+					listener: (e) => {
+						e.stopPropagation();
+					},
+				});
+			}
 
 			if (fg('platform_editor_element_drag_and_drop_ed_23896')) {
 				unmountDecorations('data-blocks-drag-handle-container');
@@ -238,6 +292,9 @@ export const dragHandleDecoration = (
 			side: -1,
 			id: 'drag-handle',
 			destroy: (node) => {
+				if (fg('platform_editor_elements_dnd_nested')) {
+					unbind && unbind();
+				}
 				if (!fg('platform_editor_element_drag_and_drop_ed_23896')) {
 					ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
 				}

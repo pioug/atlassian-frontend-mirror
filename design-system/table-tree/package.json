@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",

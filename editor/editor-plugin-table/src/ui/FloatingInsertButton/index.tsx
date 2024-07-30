@@ -25,7 +25,7 @@ import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-s
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertColumnWithAnalytics, insertRowWithAnalytics } from '../../commands-with-analytics';
 import { TableCssClassName as ClassName } from '../../types';
@@ -52,6 +52,7 @@ export interface Props {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
+	isChromelessEditor?: boolean;
 }
 
 export class FloatingInsertButton extends React.Component<Props & WrappedComponentProps, any> {
@@ -76,6 +77,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			isHeaderRowEnabled,
 			isDragAndDropEnabled,
 			dispatchAnalyticsEvent,
+			isChromelessEditor,
 		} = this.props;
 
 		// TODO: temporarily disable insert button for first column and row https://atlassian.slack.com/archives/C05U8HRQM50/p1698363744682219?thread_ts=1698209039.104909&cid=C05U8HRQM50
@@ -199,6 +201,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 						tableRef={tableRef}
 						onMouseDown={type === 'column' ? this.insertColumn : this.insertRow}
 						hasStickyHeaders={this.props.hasStickyHeaders || false}
+						isChromelessEditor={isChromelessEditor}
 					/>
 				) : (
 					<InsertButton
@@ -273,7 +276,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			const shouldUseIncreasedScalingPercent =
 				isTableScalingEnabled &&
 				tableWithFixedColumnWidthsOption &&
-				getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+				fg('platform.editor.table.use-increased-scaling-percent');
 
 			const { state, dispatch } = editorView;
 			insertColumnWithAnalytics(

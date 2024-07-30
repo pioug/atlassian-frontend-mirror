@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-breakout",
-	"version": "1.6.1",
+	"version": "1.6.2",
 	"description": "Breakout plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/editor-plugin-width": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",
@@ -102,6 +102,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.core.increase-full-page-guttering": {
+			"type": "boolean"
+		},
+		"editor_support_code_block_wrapping": {
 			"type": "boolean"
 		}
 	}

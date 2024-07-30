@@ -18,7 +18,7 @@ import {
 	copyContentToClipboard,
 	removeCodeBlock,
 	resetCopiedState,
-	wrapCodeBlock,
+	toggleWordWrapStateForCodeBlockNode,
 } from './actions';
 import { createLanguageList, DEFAULT_LANGUAGES, getLanguageIdentifier } from './language-list';
 import { pluginKey } from './plugin-key';
@@ -133,7 +133,7 @@ export const getToolbarConfig =
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
 			icon: WrapIcon,
-			onClick: wrapCodeBlock,
+			onClick: toggleWordWrapStateForCodeBlockNode, // Hooking up here for demo purposes. To be revisited with ED-24222.
 			title: formatMessage(codeBlockButtonMessages.wrapCode),
 			tabIndex: null,
 		};

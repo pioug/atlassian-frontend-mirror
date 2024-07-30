@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 17.11.9
+
+### Patch Changes
+
+- [#124328](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124328)
+  [`69cea8c513faa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69cea8c513faa) -
+  Add announcement of focused option for the first open of Popup select
+
 ## 17.11.8
 
 ### Patch Changes

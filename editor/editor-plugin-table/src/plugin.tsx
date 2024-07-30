@@ -98,6 +98,7 @@ export interface TablePluginOptions {
 	isTableAlignmentEnabled?: boolean;
 	isNewColumnResizingEnabled?: boolean;
 	isCommentEditor?: boolean;
+	isChromelessEditor?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -329,6 +330,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableScalingEnabled,
 							isTableAlignmentEnabled,
 							isCommentEditor,
+							isChromelessEditor,
 						} = options || ({} as TablePluginOptions);
 
 						return createPlugin(
@@ -350,6 +352,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableAlignmentEnabled,
 							shouldUseIncreasedScalingPercent,
 							isCommentEditor,
+							isChromelessEditor,
 						);
 					},
 				},
@@ -632,6 +635,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											getEditorFeatureFlags={
 												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
 											}
+											isChromelessEditor={options?.isChromelessEditor}
 										/>
 									)}
 									{options?.allowContextualMenu && (

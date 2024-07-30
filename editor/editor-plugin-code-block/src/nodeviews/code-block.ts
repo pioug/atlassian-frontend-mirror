@@ -1,5 +1,6 @@
 import rafSchedule from 'raf-schd';
 
+import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
 import type {
 	ExtractInjectionAPI,
 	getPosHandler,
@@ -9,7 +10,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { resetShouldIgnoreFollowingMutations } from '../actions';
 import type { CodeBlockPlugin } from '../plugin';
@@ -18,7 +19,7 @@ import { codeBlockClassNames } from '../ui/class-names';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-const toDOM = (node: Node, contentEditable: boolean) =>
+const toDOM = (node: Node, contentEditable: boolean, isWrapped?: boolean) =>
 	[
 		'div',
 		{ class: 'code-block' },
@@ -29,15 +30,15 @@ const toDOM = (node: Node, contentEditable: boolean) =>
 			['div', { class: codeBlockClassNames.gutter, contenteditable: 'false' }],
 			[
 				'div',
-				{ class: codeBlockClassNames.content },
+				isWrapped && fg('editor_support_code_block_wrapping')
+					? { class: `${codeBlockClassNames.content} ${codeBlockClassNames.contentWrapped}` }
+					: { class: codeBlockClassNames.content },
 				[
 					'code',
 					{
 						'data-language': node.attrs.language || '',
 						spellcheck: 'false',
-						contenteditable: getBooleanFF(
-							'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
-						)
+						contenteditable: fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
 							? contentEditable
 								? 'true'
 								: 'false'
@@ -59,17 +60,19 @@ export class CodeBlockView {
 	getPos: getPosHandlerNode;
 	view: EditorView;
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
+	isWrapped?: boolean;
 
 	constructor(
 		node: Node,
 		view: EditorView,
 		getPos: getPosHandlerNode,
 		api?: ExtractInjectionAPI<CodeBlockPlugin>,
+		isWrapped?: boolean,
 		private cleanupEditorDisabledListener?: () => void,
 	) {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
-			toDOM(node, !api?.editorDisabled?.sharedState.currentState()?.editorDisabled),
+			toDOM(node, !api?.editorDisabled?.sharedState.currentState()?.editorDisabled, isWrapped),
 		);
 		this.getPos = getPos;
 		this.view = view;
@@ -78,6 +81,7 @@ export class CodeBlockView {
 		this.contentDOM = contentDOM as HTMLElement;
 		this.lineNumberGutter = this.dom.querySelector(`.${codeBlockClassNames.gutter}`) as HTMLElement;
 		this.api = api;
+		this.isWrapped = isWrapped;
 
 		this.ensureLineNumbers();
 		this.handleEditorDisabledChanged();
@@ -86,7 +90,7 @@ export class CodeBlockView {
 	handleEditorDisabledChanged() {
 		if (
 			this.api?.editorDisabled &&
-			getBooleanFF('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
+			fg('platform.editor.live-view.disable-editing-in-view-mode_fi1rx')
 		) {
 			this.cleanupEditorDisabledListener = this.api.editorDisabled.sharedState.onChange(
 				(sharedState) => {
@@ -170,6 +174,10 @@ export class CodeBlockView {
 			return false;
 		}
 		if (node !== this.node) {
+			if (fg('editor_support_code_block_wrapping')) {
+				transferCodeBlockWrappedValue(this.node, node);
+			}
+
 			if (node.attrs.language !== this.node.attrs.language) {
 				this.contentDOM.setAttribute('data-language', node.attrs.language || '');
 			}
@@ -209,4 +217,5 @@ export const codeBlockNodeView = (
 	view: EditorView,
 	getPos: getPosHandler,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api);
+	isWrapped: boolean | undefined,
+) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api, isWrapped);

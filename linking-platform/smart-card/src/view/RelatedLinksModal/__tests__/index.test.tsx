@@ -15,7 +15,7 @@ import {
 	mockNotFoundResponse,
 	mockSuccessResponse,
 	mockUnAuthResponse,
-} from './mocks';
+} from './__mocks__/mocks';
 import useResponse from '../../../state/hooks/use-response';
 import useIncomingOutgoingAri from '../../../state/hooks/use-incoming-outgoing-links';
 import { fakeFactory } from '../../../utils/mocks';

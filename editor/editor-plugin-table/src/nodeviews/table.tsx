@@ -365,6 +365,7 @@ export const createTableView = (
 	pluginInjectionApi?: PluginInjectionAPI,
 	isTableAlignmentEnabled?: boolean,
 	isCommentEditor?: boolean,
+	isChromelessEditor?: boolean,
 ): NodeView => {
 	const {
 		pluginConfig,
@@ -392,6 +393,7 @@ export const createTableView = (
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
 			isTableAlignmentEnabled,
 			isCommentEditor,
+			isChromelessEditor,
 		},
 		getEditorContainerWidth,
 		getEditorFeatureFlags,

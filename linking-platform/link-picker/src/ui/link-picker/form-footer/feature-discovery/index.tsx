@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -28,7 +28,7 @@ const LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS = 15552000000; // 180 days
  * Cleanup ticket:
  * https://product-fabric.atlassian.net/browse/EDM-7480
  */
-const FeatureDiscovery: FC<FeatureDiscoveryProps> = ({ children, testId }) => {
+const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps) => {
 	const storageClient = useMemo(() => new StorageClient(LOCAL_STORAGE_CLIENT_KEY), []);
 	// Set this to `false` if you want to always show the feature discovery pulse.
 	// (or open Application tab in your devtools and delete the relevent row)

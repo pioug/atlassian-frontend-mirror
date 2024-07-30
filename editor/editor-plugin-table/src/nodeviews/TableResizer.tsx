@@ -533,13 +533,13 @@ export const TableResizer = ({
 	const handleResizeStop = useCallback<HandleResize>(
 		(originalState, delta) => {
 			isResizing.current = false;
-			let newWidth = originalState.width + delta.width;
+			let newWidth: number | undefined = originalState.width + delta.width;
 			const { state, dispatch } = editorView;
 			const pos = getPos();
 			const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
 			const tableMaxWidth = isCommentEditor
-				? containerWidth - TABLE_OFFSET_IN_COMMENT_EDITOR
+				? undefined // Table's full-width in comment appearance inherit the width of the Editor/Renderer
 				: TABLE_MAX_WIDTH;
 
 			newWidth =
@@ -598,13 +598,13 @@ export const TableResizer = ({
 			displayGapCursor(true);
 			dispatch(tr);
 
-			if (delta.width < 0) {
+			if (delta.width < 0 && newWidth !== undefined) {
 				pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
 					formatMessage(messages.tableSizeDecreaseScreenReaderInformation, {
 						newWidth: newWidth,
 					}),
 				);
-			} else if (delta.width > 0) {
+			} else if (delta.width > 0 && newWidth !== undefined) {
 				pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
 					formatMessage(messages.tableSizeIncreaseScreenReaderInformation, {
 						newWidth: newWidth,
@@ -614,7 +614,7 @@ export const TableResizer = ({
 
 			// Hide guidelines when resizing stops
 			displayGuideline([]);
-			updateWidth(newWidth);
+			newWidth !== undefined && updateWidth(newWidth);
 			scheduleResize.cancel();
 
 			if (onResizeStop) {
@@ -632,7 +632,6 @@ export const TableResizer = ({
 			tableRef,
 			scheduleResize,
 			displayGuideline,
-			containerWidth,
 			attachAnalyticsEvent,
 			endMeasure,
 			onResizeStop,

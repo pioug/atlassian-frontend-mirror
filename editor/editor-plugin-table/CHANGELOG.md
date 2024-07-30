@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.24.2
+
+### Patch Changes
+
+- [#124709](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124709)
+  [`a52d9a09ddd5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a52d9a09ddd5c) -
+  [ux] When table resized to full-width in comment editor, it inherits the width of the editor.
+
+## 7.24.1
+
+### Patch Changes
+
+- [#124890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124890)
+  [`04951dd1969d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04951dd1969d5) -
+  [ux] ED-24278: Turned on table dnd in chromeless editor
+- Updated dependencies
+
 ## 7.24.0
 
 ### Minor Changes

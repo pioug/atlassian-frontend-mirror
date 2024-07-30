@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.6.1
+
+### Patch Changes
+
+- [#124673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124673)
+  [`baa5f86d19b52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/baa5f86d19b52) -
+  EDF-939 Export and use empty check from adf-utils
+
 ## 19.6.0
 
 ### Minor Changes

@@ -238,3 +238,8 @@ export type IconMigrationSizeGuidance =
 	| 'icon-lab'
 	| 'no-larger-size';
 export type IconMigrationMap = Record<string, IconMigrationResult>;
+
+export type IconFacadeProps = IconProps & {
+	newIcon?: React.ComponentType<NewIconProps>;
+	iconType?: NewIconProps['type'];
+};

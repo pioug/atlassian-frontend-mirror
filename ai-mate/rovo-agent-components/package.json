@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/heading": "^2.4.3",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/skeleton": "^0.4.0",

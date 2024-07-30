@@ -1,5 +1,16 @@
 # @atlaskit/link-provider
 
+## 1.14.0
+
+### Minor Changes
+
+- [`d0cbbb4cfdfa3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0cbbb4cfdfa3) -
+  Map new ORS errors to link-provider specific errors
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

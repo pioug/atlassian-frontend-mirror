@@ -6,7 +6,9 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { Slice } from '@atlaskit/editor-prosemirror/dist/types/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -15,6 +17,14 @@ import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
 import { selectNode } from '../utils';
+
+function transformNested(nodeCopy: Slice, destType: string): Slice {
+	const firstChild = nodeCopy.content.firstChild;
+	if (firstChild && firstChild.type.name === 'nestedExpand' && destType === 'doc') {
+		return transformSliceNestedExpandToExpand(nodeCopy, firstChild.type.schema);
+	}
+	return nodeCopy;
+}
 
 /**
  *
@@ -107,10 +117,21 @@ export const moveNode =
 		}
 		const size = node?.nodeSize ?? 1;
 		const end = start + size;
-		let nodeCopy = tr.doc.content.cut(start, end); // cut the content
-		tr.delete(start, end); // delete the content from the original position
-		const mappedTo = tr.mapping.map(to);
-		tr.insert(mappedTo, nodeCopy); // insert the content at the new position
+
+		let mappedTo;
+		if (fg('platform_editor_elements_dnd_nested')) {
+			const nodeCopy = tr.doc.slice(start, end, false); // cut the content
+			const destType = tr.doc.resolve(to).node().type.name;
+			const convertedNode = transformNested(nodeCopy, destType).content;
+			tr.delete(start, end); // delete the content from the original position
+			mappedTo = tr.mapping.map(to);
+			tr.insert(mappedTo, convertedNode); // insert the content at the new position
+		} else {
+			const nodeCopy = tr.doc.content.cut(start, end); // cut the content
+			tr.delete(start, end); // delete the content from the original position
+			mappedTo = tr.mapping.map(to);
+			tr.insert(mappedTo, nodeCopy); // insert the content at the new position
+		}
 		tr = selectNode(tr, mappedTo, node.type.name);
 		tr.setMeta(key, { nodeMoved: true });
 		api?.core.actions.focus();

@@ -8,9 +8,6 @@ interface ExportsValidationExceptions {
 }
 
 const exportsValidationExceptions: ExportsValidationExceptions = {
-	'@atlassian/sizemap': {
-		ignoredAfExportKeys: ['.', './lmdb-cache-manager'],
-	},
 	'@atlaskit/tokens': {
 		ignoredAfExportKeys: ['./babel-plugin'],
 	},

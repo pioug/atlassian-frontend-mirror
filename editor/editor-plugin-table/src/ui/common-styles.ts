@@ -514,8 +514,16 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 			}
 		}
 
+		.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}.${ClassName.DRAG_CONTROLS_CHROMELESS} {
+			left: -4px;
+		}
+
 		.${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 			padding: 0 ${tablePadding}px;
+		}
+
+		.${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}.${ClassName.DRAG_CONTROLS_CHROMELESS} {
+			left: -8px;
 		}
 
 		&.${ClassName.TABLE_CONTAINER}[data-number-column='true'] {

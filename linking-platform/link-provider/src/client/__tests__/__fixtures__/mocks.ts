@@ -202,6 +202,46 @@ export const mocks = {
 		},
 		status: 500,
 	},
+	invokeBadRequestError: {
+		error: {
+			type: 'BadRequestError',
+			message: 'Bad request',
+			status: 400,
+		},
+		status: 200,
+	},
+	invokeAuthError: {
+		error: {
+			type: 'AuthError',
+			message: 'Authorization failed',
+			status: 403,
+		},
+		status: 403,
+	},
+	invokeUnsupportedError: {
+		error: {
+			type: 'UnsupportedError',
+			message: 'Search not supported',
+			status: 404,
+		},
+		status: 404,
+	},
+	invokeTimeoutError: {
+		error: {
+			type: 'TimeoutError',
+			message: 'Server took too long to respond',
+			status: 504,
+		},
+		status: 200,
+	},
+	invokeRateLimitError: {
+		error: {
+			type: 'RateLimitError',
+			message: 'Too many requests',
+			status: 429,
+		},
+		status: 200,
+	},
 };
 export const fakeResponse = () => Promise.resolve(mocks.success);
 

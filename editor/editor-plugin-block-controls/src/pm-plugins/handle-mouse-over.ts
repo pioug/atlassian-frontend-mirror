@@ -34,7 +34,15 @@ export const handleMouseOver = (
 		}
 
 		const pos = view.posAtDOM(rootElement, 0, 0);
-		const rootPos = view.state.doc.resolve(pos).start(1) - 1;
+
+		let rootPos;
+		if (fg('platform_editor_elements_dnd_nested')) {
+			const $rootPos = view.state.doc.resolve(pos);
+			const depth = $rootPos.depth;
+			rootPos = depth ? $rootPos.before() : $rootPos.pos;
+		} else {
+			rootPos = view.state.doc.resolve(pos).start(1) - 1;
+		}
 		const nodeType = rootElement.getAttribute('data-drag-handler-node-type')!;
 
 		if (nodeType) {

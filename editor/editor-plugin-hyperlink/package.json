@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-card": "2.8.2",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@babel/runtime": "^7.0.0",

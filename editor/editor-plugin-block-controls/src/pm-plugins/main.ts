@@ -182,15 +182,26 @@ export const createPlugin = (
 					const decsLength = decorations
 						.find()
 						.filter(({ spec }) => spec.id !== 'drag-handle').length;
-					isDecsMissing =
-						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
+
+					//TODO: Fix this logic for nested scenarios
+					if (!fg('platform_editor_elements_dnd_nested')) {
+						isDecsMissing =
+							!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
+					}
 				}
 
 				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
 					const dropTargetLen = decorations
 						.find()
 						.filter(({ spec }) => spec.type === 'drop-target-decoration').length;
-					isDropTargetsMissing = isDragging && dropTargetLen !== newState.doc.childCount + 1;
+
+					//TODO: Fix this logic for nested scenarios
+					if (!fg('platform_editor_elements_dnd_nested')) {
+						isDropTargetsMissing =
+							isDragging &&
+							meta?.isDragging !== false &&
+							dropTargetLen !== newState.doc.childCount + 1;
+					}
 				}
 
 				// This is not targeted enough - it's trying to catch events like expand being set to breakout
@@ -321,7 +332,13 @@ export const createPlugin = (
 				let shouldMapDropTargets = false;
 
 				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
-					shouldMapDropTargets = !shouldUpdateDropTargets && tr.docChanged && isDragging;
+					shouldMapDropTargets =
+						!shouldUpdateDropTargets &&
+						tr.docChanged &&
+						isDragging &&
+						meta?.isDragging !== false &&
+						!meta?.nodeMoved;
+
 					if (meta?.isDragging === false || isDropTargetsMissing) {
 						// Remove drop target decoration when dragging stops
 						const dropTargetDecs = decorations
@@ -344,11 +361,11 @@ export const createPlugin = (
 						}
 					}
 
-					// Map drop target decoration positions when the document changes
+					//Map drop target decoration positions when the document changes
 					if (shouldMapDropTargets) {
-						decorationState = decorationState.map(({ index, pos }) => {
+						decorationState = decorationState.map(({ id, pos }) => {
 							return {
-								index,
+								id,
 								pos: tr.mapping.map(pos),
 							};
 						});
@@ -384,9 +401,9 @@ export const createPlugin = (
 
 					// Map drop target decoration positions when the document changes
 					if (tr.docChanged && isDragging) {
-						decorationState = decorationState.map(({ index, pos }) => {
+						decorationState = decorationState.map(({ id, pos }) => {
 							return {
-								index,
+								id,
 								pos: tr.mapping.map(pos),
 							};
 						});

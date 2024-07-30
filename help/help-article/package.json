@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css-reset": "^6.9.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/renderer": "^109.44.0",
 		"@atlaskit/tokens": "^1.56.0",
 		"@babel/runtime": "^7.0.0",

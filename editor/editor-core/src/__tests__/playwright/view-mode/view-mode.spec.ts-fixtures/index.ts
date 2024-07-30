@@ -70,3 +70,18 @@ export const viewModeHyperlinkAdf = {
 		},
 	],
 };
+
+export const viewModeEmbedAdf = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'embedCard',
+			attrs: {
+				url: 'https://www.loom.com/share/a46f8b2f41684b498e880893bf3837c5',
+				layout: 'center',
+				width: 66.66666666666666,
+			},
+		},
+	],
+};

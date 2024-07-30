@@ -43,7 +43,7 @@
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/code": "^15.4.0",
 		"@atlaskit/form": "^10.4.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/icon-file-type": "^6.4.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",

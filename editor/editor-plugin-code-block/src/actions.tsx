@@ -6,6 +6,10 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
+import {
+	codeBlockWrappedStates,
+	isCodeBlockWordWrapEnabled,
+} from '@atlaskit/editor-common/code-block';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import type { Command } from '@atlaskit/editor-common/types';
@@ -20,12 +24,14 @@ import {
 	removeSelectedNode,
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './plugin-key';
 import { ACTIONS } from './pm-plugins/actions';
 import { copySelectionPluginKey } from './pm-plugins/codeBlockCopySelectionPlugin';
-import type { CodeBlockState } from './pm-plugins/main-state';
+import { type CodeBlockState } from './pm-plugins/main-state';
 import { transformToCodeBlockAction } from './transform-to-code-block';
+import { findCodeBlock } from './utils';
 
 export const removeCodeBlock: Command = (state, dispatch) => {
 	const {
@@ -42,11 +48,6 @@ export const removeCodeBlock: Command = (state, dispatch) => {
 		dispatch(removeTr);
 	}
 	return true;
-};
-
-// we will be hooking the button up in this follow up card ED-24222
-export const wrapCodeBlock: Command = (state, dispatch) => {
-	return false;
 };
 
 export const changeLanguage =
@@ -249,3 +250,29 @@ export function insertCodeBlockWithAnalytics(
 		return true;
 	});
 }
+
+/**
+ * Add the given node to the codeBlockWrappedStates WeakMap with the toggle boolean value.
+ */
+export const toggleWordWrapStateForCodeBlockNode: Command = (state) => {
+	if (!fg('editor_support_code_block_wrapping')) {
+		return false;
+	}
+	const codeBlockNode = findCodeBlock(state)?.node;
+
+	if (!codeBlockWrappedStates || !codeBlockNode) {
+		return false;
+	}
+
+	const currentValue = isCodeBlockWordWrapEnabled(codeBlockNode);
+
+	codeBlockWrappedStates.set(codeBlockNode, !currentValue);
+
+	// TODO: Remove in ED-24222. Leaving here for demo purposes.
+	// eslint-disable-next-line no-console
+	console.log(
+		`Code Block Word Wrap: Updating codeBlockWrappedStates with: ${codeBlockWrappedStates.get(codeBlockNode)}`,
+	);
+
+	return true;
+};

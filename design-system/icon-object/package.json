@@ -52,14 +52,14 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@af/icon-build-process": "^1.0.0",
+		"@af/icon-build-process": "^1.1.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/visual-regression": "*",

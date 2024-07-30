@@ -5,7 +5,7 @@ import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
@@ -37,6 +37,7 @@ export interface Props {
 	getScrollOffset?: () => number;
 	tableWrapperHeight?: number;
 	api?: PluginInjectionAPI;
+	isChromelessEditor?: boolean;
 }
 
 export const TableFloatingColumnControls = ({
@@ -56,6 +57,7 @@ export const TableFloatingColumnControls = ({
 	getScrollOffset,
 	tableWrapperHeight,
 	api,
+	isChromelessEditor,
 }: Props) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -109,7 +111,10 @@ export const TableFloatingColumnControls = ({
 		<div
 			ref={containerRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}
+			className={
+				ClassName.DRAG_COLUMN_CONTROLS_WRAPPER +
+				(isChromelessEditor ? ' ' + ClassName.DRAG_CONTROLS_CHROMELESS : '')
+			}
 			data-testid="table-floating-column-controls-wrapper"
 		>
 			<ColumnControls
@@ -128,7 +133,7 @@ export const TableFloatingColumnControls = ({
 				isNumberColumnEnabled={isNumberColumnEnabled}
 				isDragging={isDragging}
 				getScrollOffset={getScrollOffset}
-				api={getBooleanFF('platform.editor.table.use-shared-state-hook') ? api : undefined}
+				api={fg('platform.editor.table.use-shared-state-hook') ? api : undefined}
 			/>
 			{isDragging && (
 				<ColumnDropTargets

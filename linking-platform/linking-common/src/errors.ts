@@ -1,4 +1,5 @@
 export type ServerErrorType =
+	// deprecated error types
 	| 'ResolveBadRequestError'
 	| 'ResolveAuthError'
 	| 'ResolveUnsupportedError'
@@ -11,7 +12,15 @@ export type ServerErrorType =
 	| 'SearchFailedError'
 	| 'SearchTimeoutError'
 	| 'SearchRateLimitError'
-	| 'InternalServerError';
+	| 'InternalServerError'
+	// new combined error types from ORS /model/errors.ts
+	| 'UnsupportedError' // 404
+	| 'AuthError' // 401, 403
+	| 'TimeoutError' //502, 503, 504
+	| 'OperationFailedError' // 500
+	| 'BadRequestError' // 400
+	| 'RateLimitError' //429
+	| 'UnexpectedError'; //500
 
 // Used to catch any other errors - not server-side.
 export type ErrorType = ServerErrorType | 'UnexpectedError';

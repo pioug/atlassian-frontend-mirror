@@ -1,5 +1,15 @@
 # @atlaskit/icon
 
+## 22.8.0
+
+### Minor Changes
+
+- [#124884](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124884)
+  [`3108a1a229e07`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3108a1a229e07) - -
+  Icons in `@atlaskit/icon/glyph` can now switch to updated designs behind a feature flag.
+  - SVGs in `/svgs`, used by icons in `@atlaskit/icon/glyph`, have been re-optimised with the latest
+    version of SVGO; some slight changes to SVG code or subpixel aliasing may occur
+
 ## 22.7.0
 
 ### Minor Changes

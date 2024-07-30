@@ -369,6 +369,7 @@ export const TableCssClassName = {
 	DRAG_CONTROLS_INSERT_BUTTON_INNER: `${tablePrefixSelector}-controls__drag-insert-button-inner`,
 	DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN: `${tablePrefixSelector}-controls__drag-insert-button-inner-column`,
 	DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW: `${tablePrefixSelector}-controls__drag-insert-button-inner-row`,
+	DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW_CHROMELESS: `${tablePrefixSelector}-controls__drag-insert-button-inner-row-chromeless`,
 	DRAG_CONTROLS_INSERT_BUTTON_WRAP: `${tablePrefixSelector}-controls__drag-insert-button-wrap`,
 
 	CONTROLS_INSERT_MARKER: `${tablePrefixSelector}-controls__insert-marker`,
@@ -388,6 +389,7 @@ export const TableCssClassName = {
 	/** drag and drop controls */
 	DRAG_ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-drag-row-controls-wrapper`,
 	DRAG_ROW_CONTROLS: `${tablePrefixSelector}-drag-row-controls`,
+	DRAG_CONTROLS_CHROMELESS: `drag-controls-chromeless`,
 	DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER: `${tablePrefixSelector}-drag-row-floating-insert-dot-wrapper`,
 	DRAG_ROW_FLOATING_INSERT_DOT: `${tablePrefixSelector}-drag-row-floating-insert-dot`,
 

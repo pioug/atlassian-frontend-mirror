@@ -1,4 +1,5 @@
 import { type AriaOnFocusProps, type GroupBase, type OptionsOrGroups } from 'react-select';
+
 import { type GroupType, type OptionType } from '../types';
 
 // Used for overwriting ariaLiveMessages builtin onFocus method.
@@ -24,4 +25,14 @@ export const isOptionsGrouped = (
 	arr: OptionsOrGroups<OptionType, GroupType<OptionType>> | undefined,
 ) => {
 	return arr?.every((obj) => obj.hasOwnProperty('options'));
+};
+
+// Helper function which calculates how many options are in total in all groups.
+export const countAllOptions = (groupsArray: readonly GroupType<OptionType>[]) => {
+	const totalLength = groupsArray?.reduce((acc: number, currentGroup) => {
+		const group = currentGroup as GroupType<OptionType>;
+		acc += group?.options?.length;
+		return acc;
+	}, 0);
+	return totalLength;
 };

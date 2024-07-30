@@ -101,19 +101,13 @@
 					"title": "Pressable",
 					"folder": "pressable",
 					"slug": "primitives/pressable",
-					"id": "@atlaskit/primitives/pressable",
-					"status": {
-						"type": "beta"
-					}
+					"id": "@atlaskit/primitives/pressable"
 				},
 				{
 					"title": "Anchor",
 					"folder": "anchor",
 					"slug": "primitives/anchor",
-					"id": "@atlaskit/primitives/anchor",
-					"status": {
-						"type": "beta"
-					}
+					"id": "@atlaskit/primitives/anchor"
 				}
 			]
 		},

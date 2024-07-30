@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "3.5.3",
+	"version": "3.5.7",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -230,16 +230,16 @@
 		"@atlaskit/editor-plugin-base": "1.9.1",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.1.2",
 		"@atlaskit/editor-plugin-better-type-history": "1.6.1",
-		"@atlaskit/editor-plugin-block-controls": "1.9.1",
+		"@atlaskit/editor-plugin-block-controls": "1.10.0",
 		"@atlaskit/editor-plugin-block-type": "3.10.1",
 		"@atlaskit/editor-plugin-border": "1.5.1",
-		"@atlaskit/editor-plugin-breakout": "1.6.1",
+		"@atlaskit/editor-plugin-breakout": "1.6.2",
 		"@atlaskit/editor-plugin-caption": "1.8.1",
 		"@atlaskit/editor-plugin-card": "2.8.2",
 		"@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.2.1",
 		"@atlaskit/editor-plugin-clipboard": "1.2.1",
 		"@atlaskit/editor-plugin-code-bidi-warning": "1.2.1",
-		"@atlaskit/editor-plugin-code-block": "3.2.1",
+		"@atlaskit/editor-plugin-code-block": "3.2.3",
 		"@atlaskit/editor-plugin-collab-edit": "1.11.1",
 		"@atlaskit/editor-plugin-composition": "1.2.1",
 		"@atlaskit/editor-plugin-content-insertion": "1.6.1",
@@ -276,7 +276,7 @@
 		"@atlaskit/editor-plugin-list": "3.7.1",
 		"@atlaskit/editor-plugin-loom": "2.5.1",
 		"@atlaskit/editor-plugin-max-content-size": "1.2.1",
-		"@atlaskit/editor-plugin-media": "1.27.1",
+		"@atlaskit/editor-plugin-media": "1.27.2",
 		"@atlaskit/editor-plugin-mentions": "2.2.1",
 		"@atlaskit/editor-plugin-panel": "2.2.1",
 		"@atlaskit/editor-plugin-paste": "1.7.2",
@@ -293,7 +293,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.2.1",
 		"@atlaskit/editor-plugin-status": "2.3.1",
 		"@atlaskit/editor-plugin-submit-editor": "1.2.1",
-		"@atlaskit/editor-plugin-table": "7.24.0",
+		"@atlaskit/editor-plugin-table": "7.24.2",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "2.3.1",
 		"@atlaskit/editor-plugin-text-color": "1.10.1",
 		"@atlaskit/editor-plugin-text-formatting": "1.11.1",
@@ -504,6 +504,14 @@
 			"referenceOnly": true
 		},
 		"platform_editor_element_drag_and_drop_ed_24372": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_elements_dnd_nested": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_element_drag_and_drop_ed_24330": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

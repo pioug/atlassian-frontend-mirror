@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { PopupSelect, type OptionsType } from '../../..';
+import { type OptionsType, PopupSelect } from '../../../index';
 
 const user = userEvent.setup();
 
@@ -14,6 +14,9 @@ const OPTIONS: OptionsType = [
 	{ label: '3', value: 'three' },
 	{ label: '4', value: 'four' },
 ];
+
+const ariaLabelSuffix =
+	'Option 0 focused, 0 of 6. 6 results available. Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
 
 const addedListeners = () => {
 	//@ts-ignore
@@ -292,7 +295,7 @@ describe('Popup Select', () => {
 
 			const input = screen.getByRole('combobox');
 
-			expect(input).toHaveAccessibleName(label);
+			expect(input).toHaveAccessibleName(label + '. ' + ariaLabelSuffix);
 		});
 
 		it('should have an accessible name that references the placeholder prop if the label prop is not provided', async () => {
@@ -318,7 +321,53 @@ describe('Popup Select', () => {
 
 			const input = screen.getByRole('combobox');
 
-			expect(input).toHaveAccessibleName(placeholder);
+			expect(input).toHaveAccessibleName(placeholder + '. ' + ariaLabelSuffix);
+		});
+		it('should announce selected option if the label prop is not provided', async () => {
+			render(
+				<PopupSelect
+					options={OPTIONS}
+					isSearchable={false}
+					searchThreshold={-1}
+					target={({ ref }) => (
+						<button ref={ref} data-testid="select-trigger">
+							Target
+						</button>
+					)}
+				/>,
+			);
+
+			const selectTrigger = screen.getByText('Target');
+
+			await user.click(selectTrigger);
+
+			const input = screen.getByRole('combobox');
+			expect(input).toHaveAccessibleName(ariaLabelSuffix);
+		});
+
+		it('should announce selected option and respect the label prop if provided', async () => {
+			const selectedOptionText = 'Test Label. ' + ariaLabelSuffix;
+
+			render(
+				<PopupSelect
+					options={OPTIONS}
+					isSearchable={false}
+					searchThreshold={-1}
+					label={'Test Label'}
+					target={({ ref }) => (
+						<button ref={ref} data-testid="select-trigger">
+							Target
+						</button>
+					)}
+				/>,
+			);
+
+			const selectTrigger = screen.getByText('Target');
+
+			await user.click(selectTrigger);
+
+			const input = screen.getByRole('combobox');
+			expect(input).toHaveAccessibleName(selectedOptionText);
 		});
 	});
 

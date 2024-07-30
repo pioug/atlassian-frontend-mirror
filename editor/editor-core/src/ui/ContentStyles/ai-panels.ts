@@ -1,19 +1,22 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, keyframes } from '@emotion/react';
 
-import {
-	akEditorDeleteBackground,
-	akEditorSelectedNodeClassName,
-} from '@atlaskit/editor-shared-styles';
-import { N0, N20 } from '@atlaskit/theme/colors';
+import { N0, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+const isFirefox: boolean =
+	typeof navigator !== 'undefined' && navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 const rotationAnimation = keyframes({
 	'0%': {
 		'--panel-gradient-angle': '0deg',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		...(isFirefox ? { backgroundPosition: '100%' } : {}),
 	},
 	'100%': {
 		'--panel-gradient-angle': '360deg',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		...(isFirefox ? { backgroundPosition: '-100%' } : {}),
 	},
 });
 
@@ -39,131 +42,121 @@ const aiPrismColor = {
 const prismBorderAnimationStyles = css({
 	'&::before, &::after': {
 		animation: `${rotationAnimation} linear 2s infinite`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		...(isFirefox ? { animationDirection: 'normal', animationDuration: '1s' } : {}),
 		'@media (prefers-reduced-motion)': {
 			animation: 'none',
 		},
 	},
 });
 
-const prismBorderStyles = (
-	colorMode?: 'light' | 'dark',
-	sizeOffset?: number,
-	positionOffset?: number,
-) =>
+const prismBorderStyles = (colorMode?: 'light' | 'dark', hover?: boolean) =>
 	css({
 		content: "''",
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		position: 'absolute',
-		background: `conic-gradient( from var(--panel-gradient-angle, 180deg) at 50% 50%, ${
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			aiPrismColor['prism.border.step.4'][colorMode ?? 'light']
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		} -52.2deg, ${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 89.76deg, ${
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			aiPrismColor['prism.border.step.2'][colorMode ?? 'light']
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		} 145.8deg, ${aiPrismColor['prism.border.step.3'][colorMode ?? 'light']} 262.8deg, ${
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			aiPrismColor['prism.border.step.4'][colorMode ?? 'light']
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		} 307.8deg, ${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 449.76deg )`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		zIndex: -1,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: `calc(100% + ${sizeOffset}px)`,
+		width: `calc(100% + 2px)`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `calc(100% + ${sizeOffset}px)`,
+		height: `calc(100% + 2px)`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		top: `${positionOffset}px`,
+		top: `-1px`,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		left: `${positionOffset}px`,
-		borderRadius: token('border.radius.200', '5px'),
+		left: `-1px`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		borderRadius: `calc(${token('border.radius.100', '3px')} + 1px)`,
 		transform: 'translate3d(0, 0, 0)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		...(hover
+			? {
+					background: token('color.border.input', N500),
+				}
+			: isFirefox
+				? {
+						background: `linear-gradient(90deg,
+								${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 0%,
+								${aiPrismColor['prism.border.step.2'][colorMode ?? 'light']} 12%,
+								${aiPrismColor['prism.border.step.3'][colorMode ?? 'light']} 24%,
+								${aiPrismColor['prism.border.step.4'][colorMode ?? 'light']} 48%,
+								${aiPrismColor['prism.border.step.3'][colorMode ?? 'light']} 64%,
+								${aiPrismColor['prism.border.step.2'][colorMode ?? 'light']} 80%,
+								${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 100%
+							)`,
+						backgroundSize: '200%',
+					}
+				: {
+						background: `conic-gradient(
+								from var(--panel-gradient-angle, 270deg),
+								${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 0%,
+								${aiPrismColor['prism.border.step.2'][colorMode ?? 'light']} 20%,
+								${aiPrismColor['prism.border.step.3'][colorMode ?? 'light']} 50%,
+								${aiPrismColor['prism.border.step.4'][colorMode ?? 'light']} 56%,
+								${aiPrismColor['prism.border.step.1'][colorMode ?? 'light']} 100%
+							)`,
+					}),
 	});
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 export const aiPanelStyles = (colorMode?: 'light' | 'dark') => css`
 	@property --panel-gradient-angle {
 		syntax: '<angle>';
-		initial-value: 180deg;
+		initial-value: 270deg;
 		inherits: false;
 	}
 
-	// The .with-border style is only present when the new macro styles are applied
-	// TODO: Remove this once new macro styles have been adopted
-	div[extensiontype='com.atlassian.ai-blocks'] {
-		&.${akEditorSelectedNodeClassName}:has(.streaming) {
-			& .extension-container {
-				box-shadow: none !important;
-				${prismBorderAnimationStyles}
-			}
+	div[extensionType='com.atlassian.ai-blocks'] {
+		// This hides the label for the extension
+		.extension-label {
+			display: none;
 		}
 
-		.danger > .extension-container {
-			background-color: ${token('color.background.danger', akEditorDeleteBackground)};
-		}
-
+		// This styles the ai panel correctly when its just sitting on the page and there
+		// is no user interaction
 		.extension-container {
-			overflow: visible;
-			background-color: ${token('color.background.accent.gray.subtlest', N20)};
 			position: relative;
-			border-radius: 4px;
+			box-shadow: none;
+			overflow: unset;
+			background-color: ${token('elevation.surface', N0)} !important;
 			&::before,
 			&::after {
-				${prismBorderStyles(colorMode, 2, -1)}
-			}
-			.extension-overflow-wrapper {
-				border-radius: inherit;
-				box-shadow: inherit;
-				background-color: inherit;
-			}
-			&.with-border {
-				border: 1px solid ${token('elevation.surface.overlay', N0)};
+				${prismBorderStyles(colorMode)}
 			}
 			&.with-hover-border {
-				border: 1px solid ${token('elevation.surface.overlay', N0)};
-			}
-		}
-	}
-
-	div[extensiontype='com.atlassian.ai-blocks']:has(.with-border) {
-		.extension-container {
-			background-color: ${token('elevation.surface.overlay', N0)};
-			.extension-overflow-wrapper {
-				box-shadow: none !important;
-			}
-		}
-
-		.extension-title {
-			display: none !important;
-		}
-
-		&:not(.${akEditorSelectedNodeClassName}),
-		&:not(.danger) {
-			.extension-container {
 				&::before,
 				&::after {
-					${prismBorderStyles(colorMode, 4, -2)}
-				}
-				&.wider-layout {
-					&::after,
-					&::before {
-						${prismBorderStyles(colorMode, 2, -1)}
-					}
+					${prismBorderStyles(colorMode, true)}
 				}
 			}
-		}
-
-		&.${akEditorSelectedNodeClassName}, &.danger {
-			.extension-container {
-				&.wider-layout {
-					&::after,
-					&::before {
-						content: none;
-					}
-				}
+			& .with-margin-styles {
+				background-color: ${token('elevation.surface', N0)} !important;
+				border-radius: ${token('border.radius.100', '3px')};
 			}
 		}
 	}
 
+	// This styles the ai panel correctly when its streaming
+	div[extensionType='com.atlassian.ai-blocks']:has(.streaming) {
+		.extension-container {
+			box-shadow: none;
+			overflow: unset;
+			${prismBorderAnimationStyles}
+			&::before,
+			&::after {
+				${prismBorderStyles(colorMode)}
+			}
+		}
+	}
+
+	// This styles the ai panel correctly when a user is hovering over the delete button in the floating panel
+	div[extensionType='com.atlassian.ai-blocks'].danger {
+		.extension-container {
+			box-shadow: 0 0 0 1px ${token('color.border.danger', R400)};
+		}
+	}
+
+	// This removes the margin from the action list when inside an ai panel
 	div[extensiontype='com.atlassian.ai-blocks'][extensionkey='ai-action-items-block:aiActionItemsBodiedExtension'] {
 		div[data-node-type='actionList'] {
 			margin: 0 !important;

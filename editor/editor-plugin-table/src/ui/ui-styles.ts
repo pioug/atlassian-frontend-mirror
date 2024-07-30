@@ -198,6 +198,10 @@ export const dragInsertButtonWrapper = () => css`
 		left: -3px;
 		bottom: -2px;
 	}
+	.${ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW_CHROMELESS} {
+		left: 6px;
+		bottom: -2px;
+	}
 
 	.${ClassName.DRAG_CONTROLS_INSERT_BUTTON} {
 		${Button(`

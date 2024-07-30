@@ -12,7 +12,7 @@ import RelatedLinksResolvingView from '../resolving';
 import RelatedLinksErroredView from '../errored';
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import userEvent from '@testing-library/user-event';
-import { mockSuccessResponse } from '../../__tests__/mocks';
+import { mockSuccessResponse } from '../../__tests__/__mocks__/mocks';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
 mockSimpleIntersectionObserver();

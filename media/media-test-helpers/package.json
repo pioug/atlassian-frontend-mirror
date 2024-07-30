@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/checkbox": "^13.5.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/locale": "^2.7.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-common": "^11.3.0",

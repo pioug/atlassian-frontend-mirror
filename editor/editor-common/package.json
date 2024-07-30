@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "87.0.1",
+	"version": "87.0.4",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -93,6 +93,7 @@
 		"./constants": "./src/link/constants.ts",
 		"./doc-utils": "./src/doc-utils/index.ts",
 		"./expand": "./src/expand/index.ts",
+		"./code-block": "./src/code-block/index.ts",
 		"./table": "./src/table/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts"
 	},
@@ -114,6 +115,7 @@
 		"./ui": "./src/ui/index.tsx",
 		"./utils": "./src/utils/index.ts",
 		"./card": "./src/card/index.ts",
+		"./code-block": "./src/code-block/index.ts",
 		"./collab": "./src/collab/index.ts",
 		"./emoji": "./src/emoji.ts",
 		"./mention": "./src/mention.ts",
@@ -183,7 +185,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/emoji": "^67.6.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/icon-object": "^6.4.0",
 		"@atlaskit/link-datasource": "^2.9.0",
 		"@atlaskit/link-picker": "^1.41.0",
@@ -331,6 +333,9 @@
 			"type": "boolean"
 		},
 		"editor_inline_comments_paste_insert_nodes": {
+			"type": "boolean"
+		},
+		"editor_support_code_block_wrapping": {
 			"type": "boolean"
 		}
 	}

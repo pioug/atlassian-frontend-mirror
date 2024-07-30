@@ -378,13 +378,15 @@ describe('extractJsonldDataIcon', () => {
 			'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
 			'returns type icon for Task (using default) as no url is supplied',
 			() => {
-				const data: JsonLd.Data.BaseData = {
-					...baseData,
-					'@type': 'atlassian:Task',
-				};
-				const { icon } = extractJsonldDataIcon(data) || {};
+				it('returns type icon for Task (using default) as no url is supplied', () => {
+					const data: JsonLd.Data.BaseData = {
+						...baseData,
+						'@type': 'atlassian:Task',
+					};
+					const { icon } = extractJsonldDataIcon(data) || {};
 
-				expect(icon).toBe(IconType.Task);
+					expect(icon).toBe(IconType.Task);
+				});
 			},
 		);
 

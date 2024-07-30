@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { media, mediaGroup, mediaInline, mediaSingleSpec } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -21,13 +20,13 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { NodeSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from './next-plugin-type';
-import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
-import { ReactMediaInlineNode } from './nodeviews/mediaInline';
-import { ReactMediaNode } from './nodeviews/mediaNodeView';
-import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
+import { lazyMediaView } from './nodeviews/lazy-media';
+import { lazyMediaGroupView } from './nodeviews/lazy-media-group';
+import { lazyMediaInlineView } from './nodeviews/lazy-media-inline';
+import { lazyMediaSingleView } from './nodeviews/lazy-media-single';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
 import keymapPlugin from './pm-plugins/keymap';
@@ -35,8 +34,11 @@ import keymapMediaSinglePlugin from './pm-plugins/keymap-media-single';
 import linkingPlugin from './pm-plugins/linking';
 import keymapLinkingPlugin from './pm-plugins/linking/keymap';
 import type { MediaState } from './pm-plugins/main';
-import { stateKey } from './pm-plugins/main';
-import { createPlugin, stateKey as pluginKey } from './pm-plugins/main';
+import { createPlugin, stateKey } from './pm-plugins/main';
+import { mediaSpecWithFixedToDOM } from './toDOM-fixes/media';
+import { mediaGroupSpecWithFixedToDOM } from './toDOM-fixes/mediaGroup';
+import { mediaInlineSpecWithFixedToDOM } from './toDOM-fixes/mediaInline';
+import { mediaSingleSpecWithFixedToDOM } from './toDOM-fixes/mediaSingle';
 import { floatingToolbar } from './toolbar';
 import type { CustomMediaPicker } from './types';
 import { MediaPickerComponents } from './ui/MediaPicker';
@@ -105,7 +107,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 
 			const allowMediaInline = getMediaFeatureFlag('mediaInline', mediaFeatureFlags);
 
-			const mediaSingleOption = getBooleanFF('platform.editor.media.extended-resize-experience')
+			const mediaSingleOption = fg('platform.editor.media.extended-resize-experience')
 				? {
 						withCaption: allowCaptions,
 						withExtendedWidthTypes: true,
@@ -115,13 +117,11 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						withExtendedWidthTypes: false,
 					};
 
-			const mediaSingleNode = mediaSingleSpec(mediaSingleOption);
-
 			return [
-				{ name: 'mediaGroup', node: mediaGroup },
-				{ name: 'mediaSingle', node: mediaSingleNode },
-				{ name: 'media', node: media },
-				{ name: 'mediaInline', node: mediaInline },
+				{ name: 'mediaGroup', node: mediaGroupSpecWithFixedToDOM() },
+				{ name: 'mediaSingle', node: mediaSingleSpecWithFixedToDOM(mediaSingleOption) },
+				{ name: 'media', node: mediaSpecWithFixedToDOM() },
+				{ name: 'mediaInline', node: mediaInlineSpecWithFixedToDOM() },
 			].filter((node) => {
 				if (node.name === 'mediaGroup') {
 					return allowMediaGroup;
@@ -159,14 +159,14 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 							{
 								providerFactory,
 								nodeViews: {
-									mediaGroup: ReactMediaGroupNode(
+									mediaGroup: lazyMediaGroupView(
 										portalProviderAPI,
 										eventDispatcher,
 										providerFactory,
 										options,
 										api,
 									),
-									mediaSingle: ReactMediaSingleNode(
+									mediaSingle: lazyMediaSingleView(
 										portalProviderAPI,
 										eventDispatcher,
 										providerFactory,
@@ -174,14 +174,14 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 										dispatchAnalyticsEvent,
 										options,
 									),
-									media: ReactMediaNode(
+									media: lazyMediaView(
 										portalProviderAPI,
 										eventDispatcher,
 										providerFactory,
 										options,
 										api,
 									),
-									mediaInline: ReactMediaInlineNode(
+									mediaInline: lazyMediaInlineView(
 										portalProviderAPI,
 										eventDispatcher,
 										providerFactory,
@@ -305,7 +305,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 					keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video'],
 					icon: () => <IconImages />,
 					action(insert, state) {
-						const pluginState = pluginKey.getState(state);
+						const pluginState = stateKey.getState(state);
 						pluginState?.showMediaPicker();
 						const tr = insert('');
 						api?.analytics?.actions.attachAnalyticsEvent({

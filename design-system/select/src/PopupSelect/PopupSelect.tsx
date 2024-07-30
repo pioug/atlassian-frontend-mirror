@@ -6,7 +6,13 @@ import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import NodeResolver from 'react-node-resolver';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
-import Select, { type GroupBase, mergeStyles, type components as RSComponents } from 'react-select';
+import Select, {
+	type AriaOnFocusProps,
+	type GroupBase,
+	mergeStyles,
+	type OptionsOrGroups,
+	type components as RSComponents,
+} from 'react-select';
 import { uid } from 'react-uid';
 import { shallowEqualObjects } from 'shallow-equal';
 
@@ -19,12 +25,14 @@ import baseStyles from '../styles';
 import {
 	type ActionMeta,
 	type AtlaskitSelectRefType,
+	type GroupType,
 	type OptionType,
 	type ReactSelectProps,
 	type StylesConfig,
 	type ValidationState,
 	type ValueType,
 } from '../types';
+import { countAllOptions, isOptionsGrouped, onFocus } from '../utils/grouped-options-announcement';
 
 import { defaultComponents, DummyControl, MenuDialog } from './components';
 
@@ -78,12 +86,11 @@ export interface PopupSelectProps<
 	footer?: ReactNode;
 	// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
 	/**
-    The props passed down to React Popper.
-
-    Use these to override the default positioning strategy, behaviour and placement used by this library.
-    For more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
-
-   */
+	 * The props passed down to React Popper.
+	 *
+	 * Use these to override the default positioning strategy, behaviour and placement used by this library.
+	 * For more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
+	 */
 	popperProps?: PopperPropsNoChildren<Modifiers>;
 	/**
 	 * The maximum number of options the select can contain without rendering the search field. The default is `5`.
@@ -106,30 +113,40 @@ export interface PopupSelectProps<
 	minMenuWidth?: number | string;
 	// eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
 	/**
-    Render props used to anchor the popup to your content.
-
-    Make this an interactive element, such as an @atlaskit/button component.
-
-    The provided render props in `options` are detailed below:
-    - `isOpen`: The current state of the popup.
-        Use this to change the appearance of your target based on the state of your component
-    - `ref`: Pass this ref to the element the Popup should be attached to
-    - `onKeyDown`: Pass this keydown handler to the element to allow keyboard users to access the element.
-    - `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to
-        ensure your experience is accessible
-   */
+	 * Render props used to anchor the popup to your content.
+	 *
+	 * Make this an interactive element, such as an @atlaskit/button component.
+	 *
+	 * The provided render props in `options` are detailed below:
+	 * - `isOpen`: The current state of the popup.
+	 * 		Use this to change the appearance of your target based on the state of your component
+	 * - `ref`: Pass this ref to the element the Popup should be attached to
+	 * - `onKeyDown`: Pass this keydown handler to the element to allow keyboard users to access the element.
+	 * - `aria-haspopup`, `aria-expanded`, `aria-controls`: Spread these onto a target element to
+	 * 		ensure your experience is accessible
+	 */
 	target?: (options: PopupSelectTriggerProps & { isOpen: boolean }) => ReactNode;
 	isOpen?: boolean;
 	defaultIsOpen?: boolean;
-	/** Use this to set whether the component uses compact or standard spacing. */
+	/**
+	 * Use this to set whether the component uses compact or standard spacing.
+	 */
 	spacing?: 'default' | 'compact';
-	/** @deprecated Use isInvalid instead. The state of validation if used in a form */
+	/**
+	 * @deprecated Use isInvalid instead. The state of validation if used in a form
+	 */
 	validationState?: ValidationState;
-	/** This prop indicates if the component is in an error state. */
+	/**
+	 * This prop indicates if the component is in an error state.
+	 */
 	isInvalid?: boolean;
-	/** This gives an accessible name to the input for people who use assistive technology. */
+	/**
+	 * This gives an accessible name to the input for people who use assistive technology.
+	 */
 	label?: string;
-	/** The `testId` prop appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. It will be set on the menu element when defined: `{testId}--menu` */
+	/**
+	 * The `testId` prop appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. It will be set on the menu element when defined: `{testId}--menu`
+	 */
 	testId?: string;
 }
 
@@ -513,6 +530,63 @@ export default class PopupSelect<
 		)
 			? DefaultSelect
 			: Select;
+		const providedAriaLabel = getLabel();
+
+		const updateInputAriaLabel = (ariaLabelText: string) => {
+			// Update aria-label to get first announcement when popup opened.
+			if (this.selectRef?.select?.inputRef || this.selectRef?.inputRef) {
+				if (providedAriaLabel) {
+					ariaLabelText = `${providedAriaLabel}. ${ariaLabelText}`;
+				}
+				fg('platform.design-system-team.use-default-select-in-popup-select_46rmj')
+					? this.selectRef?.select.inputRef?.setAttribute('aria-label', ariaLabelText)
+					: this.selectRef?.inputRef?.setAttribute('aria-label', ariaLabelText);
+			}
+		};
+
+		const generateNoGroupsAriaText = (
+			onFocusProps: AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
+			ariaLabelSuffix: string,
+		) => {
+			const { focused } = onFocusProps;
+			const options = props?.options || [];
+			const totalLength = options?.length + 1;
+			const optionIndex = options?.findIndex((option) => option === focused) ?? 0;
+			const optionName =
+				typeof props?.getOptionLabel === 'function'
+					? props.getOptionLabel(focused as Option)
+					: focused.label;
+
+			const ariaLabelText = `Option ${optionName} focused, ${optionIndex} of ${totalLength}.
+			${totalLength} results available.
+			${ariaLabelSuffix}
+			`;
+			// Option LABEL focused, 1 of 8. 8 results available.
+			// Use Up and Down to choose options, press Enter to select the currently focused option,
+			// press Escape to exit the menu.
+			return ariaLabelText;
+		};
+
+		const onReactSelectFocus = (
+			onFocusProps: AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
+		) => {
+			const ariaLabelSuffix =
+				' Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
+			let ariaLabelText = '';
+			let ariaLiveMessage = '';
+			if (props.options?.length) {
+				if (isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)) {
+					const totalLength = countAllOptions(props.options as readonly GroupBase<OptionType>[]);
+					ariaLiveMessage = onFocus(onFocusProps);
+					ariaLabelText = `${ariaLiveMessage} ${totalLength} results available. ${ariaLabelSuffix}`;
+				} else {
+					ariaLabelText = generateNoGroupsAriaText(onFocusProps, ariaLabelSuffix);
+					ariaLiveMessage = ariaLabelText;
+				}
+				updateInputAriaLabel(ariaLabelText);
+				return ariaLiveMessage;
+			}
+		};
 
 		const popper = (
 			<Popper
@@ -535,7 +609,7 @@ export default class PopupSelect<
 						>
 							<FocusLock disabled={!focusLockEnabled} returnFocus>
 								<InternalSelect
-									aria-label={getLabel()}
+									aria-label={providedAriaLabel}
 									backspaceRemovesValue={false}
 									controlShouldRenderValue={false}
 									isClearable={false}
@@ -550,6 +624,15 @@ export default class PopupSelect<
 									maxMenuHeight={this.getMaxHeight()}
 									components={selectComponents}
 									onChange={this.handleSelectChange}
+									ariaLiveMessages={
+										!showSearchControl
+											? {
+													// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
+													onFocus: onReactSelectFocus,
+													...props.ariaLiveMessages, // priority to use user handlers if provided
+												}
+											: props.ariaLiveMessages
+									}
 								/>
 								{footer}
 							</FocusLock>

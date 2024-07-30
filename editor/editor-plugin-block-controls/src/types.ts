@@ -70,7 +70,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 >;
 
 export type DecorationState = {
-	index: number;
+	id: number;
 	pos: number;
 }[];
 

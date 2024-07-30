@@ -343,6 +343,28 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		this.props.view.dispatch(tr);
 	};
 
+	// Should be called only when table node width is reset to undefined in Comment Editor
+	// Maybe replaced by handleColgroupUpdates as we implement new table's support in Comment Editor.
+	removeInlineTableWidth() {
+		const { isResizing, getNode, view, getPos } = this.props;
+		if (!this.table) {
+			return;
+		}
+
+		const tableNode = getNode();
+		const newTableWidth = tableNode.attrs.width;
+
+		const start = getPos() || 0;
+		const depth = view.state.doc.resolve(start).depth;
+		if (depth !== 0) {
+			return;
+		}
+
+		if (!isResizing && newTableWidth === null) {
+			this.table.style.width = '';
+		}
+	}
+
 	handleColgroupUpdates(force = false) {
 		const { getNode, containerWidth, isResizing, view, getPos, getEditorFeatureFlags } = this.props;
 
@@ -498,6 +520,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			clearHoverSelection()(view.state, view.dispatch);
 		}
 
+		if (this.props.options?.isCommentEditor && options?.isTableResizingEnabled) {
+			this.removeInlineTableWidth();
+		}
+
 		if (this.wrapper?.parentElement && this.table && !this.overflowShadowsObserver) {
 			if (this.props.isDragAndDropEnabled) {
 				// requestAnimationFrame is used here to fix a race condition issue
@@ -533,6 +559,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				{ priority: 'important' },
 			);
 		}
+
 		if (currentTable.attrs.__autoSize) {
 			// Wait for next tick to handle auto sizing, gives the browser time to do layout calc etc.
 			this.handleAutoSizeDebounced();
@@ -566,6 +593,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 			this.handleTableResizingDebounced();
 		}
+
 		if (isOverflowAnalyticsEnabled) {
 			const newIsOverflowing =
 				this.state[ShadowEvent.SHOW_BEFORE_SHADOW] || this.state[ShadowEvent.SHOW_AFTER_SHADOW];
@@ -703,6 +731,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				stickyHeader={this.state.stickyHeader}
 				tableWrapperWidth={this.state.tableWrapperWidth}
 				api={pluginInjectionApi}
+				isChromelessEditor={options?.isChromelessEditor}
 			/>
 		);
 		const tableContainerWidth = getTableContainerWidth(node);
@@ -729,6 +758,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				getScrollOffset={() => this.wrapper?.scrollLeft || 0}
 				tableWrapperHeight={this.state.tableWrapperHeight}
 				api={pluginInjectionApi}
+				isChromelessEditor={options?.isChromelessEditor}
 			/>
 		) : null;
 
@@ -789,6 +819,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isTableAlignmentEnabled={isTableAlignmentEnabled}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 				isCommentEditor={options?.isCommentEditor}
+				isChromelessEditor={options?.isChromelessEditor}
 			>
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

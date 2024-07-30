@@ -22,6 +22,7 @@ export const CodeBlockSharedCssClassName = {
 	CODEBLOCK_LINE_NUMBER_GUTTER: 'line-number-gutter',
 	CODEBLOCK_CONTENT: 'code-content',
 	DS_CODEBLOCK: '[data-ds--code--code-block]',
+	CODEBLOCK_CONTENT_WRAPPED: 'code-content--wrapped',
 };
 
 export const codeBlockSharedStyles = () => css`
@@ -129,6 +130,13 @@ export const codeBlockSharedStyles = () => css`
 				white-space: pre;
 				font-size: ${relativeFontSizeToBase16(fontSize())};
 				line-height: 1.5rem;
+			}
+		}
+
+		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} {
+			code {
+				word-break: break-word;
+				white-space: pre-wrap;
 			}
 		}
 	}

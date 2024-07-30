@@ -208,12 +208,9 @@ export default function createUniversalPreset(
 					tableResizingEnabled:
 						isFullPage || (isComment && fg('platform_editor_table_support_in_comment')),
 					dragAndDropEnabled:
-						(featureFlags?.tableDragAndDrop && isFullPage) ||
-						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-						(isComment &&
-							featureFlags?.tableDragAndDrop &&
-							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-							fg('platform_editor_table_support_in_comment')),
+						featureFlags?.tableDragAndDrop &&
+						(isFullPage ||
+							((isComment || isChromeless) && fg('platform_editor_table_support_in_comment'))),
 					isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
 					allowContextualMenu: !isMobile,
 					fullWidthEnabled: appearance === 'full-width',
@@ -224,6 +221,7 @@ export default function createUniversalPreset(
 						(isFullPage || (isComment && fg('platform_editor_table_support_in_comment'))),
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 					isCommentEditor: isComment,
+					isChromelessEditor: isChromeless,
 				},
 			],
 			Boolean(props.allowTables),

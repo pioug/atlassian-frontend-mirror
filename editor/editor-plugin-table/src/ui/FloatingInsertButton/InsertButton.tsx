@@ -23,6 +23,7 @@ export interface ButtonProps {
 	tableRef: HTMLElement;
 	onMouseDown: (event: SyntheticEvent<HTMLButtonElement>) => void;
 	hasStickyHeaders: boolean;
+	isChromelessEditor?: boolean;
 }
 
 const getInsertLineHeight = (
@@ -64,12 +65,16 @@ const getNumberColumnWidth = (tableRef: HTMLElement, isDragAndDropEnabled?: bool
 	return 0;
 };
 
-const getInsertLineWidth = (tableRef: HTMLElement, isDragAndDropEnabled?: boolean) => {
+const getInsertLineWidth = (
+	tableRef: HTMLElement,
+	isDragAndDropEnabled?: boolean,
+	isChromelessEditor?: boolean,
+) => {
 	// The line gets width 100% from the table,
 	// but since we have an overflow on the left,
 	// we should add an offset to make up for it.
 	const LINE_OFFSET = 4;
-	const DRAG_LINE_OFFSET = 6;
+	const DRAG_LINE_OFFSET = isChromelessEditor ? 14 : 6;
 	const { parentElement, offsetWidth } = tableRef;
 	const parentOffsetWidth = parentElement!.offsetWidth;
 	const { scrollLeft } = parentElement!;
@@ -97,6 +102,7 @@ export const InsertButtonForDragAndDrop = ({
 	type,
 	intl: { formatMessage },
 	hasStickyHeaders,
+	isChromelessEditor,
 }: ButtonProps & WrappedComponentProps) => {
 	const isRow = type === 'row';
 
@@ -114,8 +120,10 @@ export const InsertButtonForDragAndDrop = ({
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={classnames(ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER, {
-						[ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW]: isRow,
+						[ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW]: isRow && !isChromelessEditor,
 						[ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_COLUMN]: !isRow,
+						[ClassName.DRAG_CONTROLS_INSERT_BUTTON_INNER_ROW_CHROMELESS]:
+							isRow && isChromelessEditor,
 					})}
 				>
 					<button
@@ -147,7 +155,7 @@ export const InsertButtonForDragAndDrop = ({
 					style={
 						type === 'row'
 							? {
-									width: getInsertLineWidth(tableRef, true),
+									width: getInsertLineWidth(tableRef, true, isChromelessEditor),
 									left: token('space.150', '12px'),
 								}
 							: {

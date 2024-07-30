@@ -4,17 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-
 var _react = _interopRequireDefault(require("react"));
-
 var _base = require("@atlaskit/icon/base");
-
+var _share = _interopRequireDefault(require("@atlaskit/icon/core/share"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-const ShareIcon = props => /*#__PURE__*/_react.default.createElement(_base.Icon, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentColor" fill-rule="evenodd"><path d="M6 15a3 3 0 100-6 3 3 0 000 6zm0-2a1 1 0 110-2 1 1 0 010 2zm12-4a3 3 0 100-6 3 3 0 000 6zm0-2a1 1 0 110-2 1 1 0 010 2zm0 14a3 3 0 100-6 3 3 0 000 6zm0-2a1 1 0 110-2 1 1 0 010 2z" fill-rule="nonzero"/><path d="M7 13.562l8.66 5 1-1.732-8.66-5z"/><path d="M7 10.83l1 1.732 8.66-5-1-1.732z"/></g></svg>`
-}, props));
-
+const ShareIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentColor" fill-rule="evenodd"><path fill-rule="nonzero" d="M6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6m0-2a1 1 0 1 1 0-2 1 1 0 0 1 0 2m12-4a3 3 0 1 0 0-6 3 3 0 0 0 0 6m0-2a1 1 0 1 1 0-2 1 1 0 0 1 0 2m0 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6m0-2a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/><path d="m7 13.562 8.66 5 1-1.732-8.66-5z"/><path d="m7 10.83 1 1.732 8.66-5-1-1.732z"/></g></svg>`
+}, props, {
+  newIcon: _share.default
+}));
 ShareIcon.displayName = 'ShareIcon';
-var _default = ShareIcon;
-exports.default = _default;
+var _default = exports.default = ShareIcon;

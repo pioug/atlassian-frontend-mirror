@@ -12,10 +12,7 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "Link",
-			"category": "Components",
-			"status": {
-				"type": "beta"
-			}
+			"category": "Components"
 		},
 		"runReact18": true
 	},

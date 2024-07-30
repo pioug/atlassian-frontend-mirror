@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.0.1",
+	"version": "195.0.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.6.0",
-		"@atlaskit/icon": "^22.7.0",
+		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/media-card": "^78.0.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -93,7 +93,7 @@
 		"@atlaskit/editor-plugin-list": "^3.7.0",
 		"@atlaskit/editor-plugin-paste": "^1.7.0",
 		"@atlaskit/editor-test-helpers": "*",
-		"@atlaskit/link-provider": "^1.13.0",
+		"@atlaskit/link-provider": "^1.14.0",
 		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-integration-test-helpers": "^3.0.0",
@@ -330,6 +330,14 @@
 			"referenceOnly": true
 		},
 		"platform_editor_element_drag_and_drop_ed_24372": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_elements_dnd_nested": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_element_drag_and_drop_ed_24330": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

@@ -82,15 +82,15 @@ const migrationMap: IconMigrationMap = {
 			xlarge: 'icon-tile',
 		},
 	},
-	'app-switcher': {
-		newIcon: { name: 'app-switcher', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'top-nav',
-			medium: 'top-nav',
-			large: 'top-nav',
-			xlarge: 'top-nav',
-		},
-	},
+	// 'app-switcher': {
+	// 	newIcon: { name: 'app-switcher', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'top-nav',
+	// 		medium: 'top-nav',
+	// 		large: 'top-nav',
+	// 		xlarge: 'top-nav',
+	// 	},
+	// },
 	archive: {
 		newIcon: { name: 'archive-box', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
@@ -759,15 +759,15 @@ const migrationMap: IconMigrationMap = {
 			xlarge: 'icon-tile',
 		},
 	},
-	download: {
-		newIcon: { name: 'cloud-arrow-down', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'swap',
-			medium: 'swap',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
+	// download: {
+	// 	newIcon: { name: 'cloud-arrow-down', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'swap',
+	// 		medium: 'swap',
+	// 		large: 'icon-tile',
+	// 		xlarge: 'icon-tile',
+	// 	},
+	// },
 	'drag-handler': {
 		newIcon: { name: 'drag-handle', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
@@ -2214,24 +2214,24 @@ const migrationMap: IconMigrationMap = {
 			xlarge: 'icon-lab',
 		},
 	},
-	'menu-expand': {
-		newIcon: { name: 'menu', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'swap',
-			medium: 'swap',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
-	menu: {
-		newIcon: { name: 'menu', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'swap',
-			medium: 'swap',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
+	// 'menu-expand': {
+	// 	newIcon: { name: 'menu', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'swap',
+	// 		medium: 'swap',
+	// 		large: 'icon-tile',
+	// 		xlarge: 'icon-tile',
+	// 	},
+	// },
+	// menu: {
+	// 	newIcon: { name: 'menu', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'swap',
+	// 		medium: 'swap',
+	// 		large: 'icon-tile',
+	// 		xlarge: 'icon-tile',
+	// 	},
+	// },
 	mobile: {
 		newIcon: { name: 'device-mobile', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
@@ -2267,24 +2267,24 @@ const migrationMap: IconMigrationMap = {
 			xlarge: 'icon-lab',
 		},
 	},
-	'notification-direct': {
-		newIcon: { name: 'notification', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'swap-slight-visual-change',
-			medium: 'swap-slight-visual-change',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
-	notification: {
-		newIcon: { name: 'notification', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'swap-visual-change',
-			medium: 'swap-visual-change',
-			large: 'icon-tile',
-			xlarge: 'icon-tile',
-		},
-	},
+	// 'notification-direct': {
+	// 	newIcon: { name: 'notification', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'swap-slight-visual-change',
+	// 		medium: 'swap-slight-visual-change',
+	// 		large: 'icon-tile',
+	// 		xlarge: 'icon-tile',
+	// 	},
+	// },
+	// notification: {
+	// 	newIcon: { name: 'notification', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'swap-visual-change',
+	// 		medium: 'swap-visual-change',
+	// 		large: 'icon-tile',
+	// 		xlarge: 'icon-tile',
+	// 	},
+	// },
 	'office-building-filled': {
 		newIcon: { name: 'office-building', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
@@ -2756,15 +2756,15 @@ const migrationMap: IconMigrationMap = {
 			xlarge: 'icon-tile',
 		},
 	},
-	switcher: {
-		newIcon: { name: 'app-switcher', type: 'core', package: '@atlaskit/icon' },
-		sizeGuidance: {
-			small: 'swap-visual-change',
-			medium: 'swap-visual-change',
-			large: 'not-recommended',
-			xlarge: 'not-recommended',
-		},
-	},
+	// switcher: {
+	// 	newIcon: { name: 'app-switcher', type: 'core', package: '@atlaskit/icon' },
+	// 	sizeGuidance: {
+	// 		small: 'swap-visual-change',
+	// 		medium: 'swap-visual-change',
+	// 		large: 'not-recommended',
+	// 		xlarge: 'not-recommended',
+	// 	},
+	// },
 	table: {
 		newIcon: { name: 'grid', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {

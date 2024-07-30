@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 195.0.4
+
+### Patch Changes
+
+- [#124302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124302)
+  [`45dc9b6543007`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45dc9b6543007) -
+  [ux] ED-24228 adding wrap content functionality with feature gate
+
+## 195.0.3
+
+### Patch Changes
+
+- [#124890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124890)
+  [`04951dd1969d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04951dd1969d5) -
+  [ux] ED-24278: Turned on table dnd in chromeless editor
+- Updated dependencies
+
+## 195.0.2
+
+### Patch Changes
+
+- [#123594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123594)
+  [`ea6c9a5361f96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea6c9a5361f96) -
+  Add FG to editor examples
+- [`23c64778d8082`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23c64778d8082) -
+  [ux] Updating the cursor style for embed cards when the smart links in live pages FF is on
+- [#124603](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124603)
+  [`e70e68b3089ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e70e68b3089ab) -
+  [ux] [EDF-662] Fix broken ai panel styling, fix streaming animation in firefox
+
 ## 195.0.1
 
 ### Patch Changes

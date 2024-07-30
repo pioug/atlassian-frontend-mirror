@@ -23,6 +23,7 @@ type TableViewOptions = {
 	pluginInjectionApi?: PluginInjectionAPI;
 	isTableAlignmentEnabled?: boolean;
 	isCommentEditor?: boolean;
+	isChromelessEditor?: boolean;
 };
 
 export const lazyTableView = (options: TableViewOptions) => {
@@ -40,6 +41,7 @@ export const lazyTableView = (options: TableViewOptions) => {
 				options.pluginInjectionApi,
 				options.isTableAlignmentEnabled,
 				options.isCommentEditor,
+				options.isChromelessEditor,
 			);
 		};
 	}
@@ -65,6 +67,7 @@ export const lazyTableView = (options: TableViewOptions) => {
 					pluginInjectionApi,
 					isTableAlignmentEnabled,
 					isCommentEditor,
+					isChromelessEditor,
 				} = getNodeViewOptions();
 
 				return createTableView(
@@ -79,6 +82,7 @@ export const lazyTableView = (options: TableViewOptions) => {
 					pluginInjectionApi,
 					isTableAlignmentEnabled,
 					isCommentEditor,
+					isChromelessEditor,
 				);
 			};
 		});

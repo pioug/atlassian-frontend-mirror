@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.41.1
+
+### Patch Changes
+
+- [#124870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124870)
+  [`6f1acda08a4f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f1acda08a4f4) -
+  Removes internal usage of React.FC types
+- Updated dependencies
+
 ## 1.41.0
 
 ### Minor Changes

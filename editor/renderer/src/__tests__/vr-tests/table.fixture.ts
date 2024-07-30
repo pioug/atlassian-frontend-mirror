@@ -65,3 +65,18 @@ export const TableRendererComment = generateRendererComponent({
 	document: tableAdf,
 	appearance: 'comment',
 });
+
+export const TableRendererWithoutAppearance = generateRendererComponent({
+	document: tableAdf,
+	appearance: undefined,
+});
+
+export const TableRendererFullWidthWithoutAppearance = generateRendererComponent({
+	document: overflowTableFullWidth,
+	appearance: undefined,
+});
+
+export const TableRendererWideWithoutAppearance = generateRendererComponent({
+	document: overflowTableWide,
+	appearance: undefined,
+});

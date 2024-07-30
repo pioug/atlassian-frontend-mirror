@@ -47,6 +47,7 @@ export interface TableFloatingControlsProps {
 	stickyHeader?: RowStickyState;
 	insertRowButtonIndex?: number;
 	tableWrapperWidth?: number;
+	isChromelessEditor?: boolean;
 }
 
 export const TableFloatingControls = ({
@@ -67,6 +68,7 @@ export const TableFloatingControls = ({
 	isTableHovered,
 	tableWrapperWidth,
 	api,
+	isChromelessEditor,
 }: TableFloatingControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
 	const _selectRow = useCallback(
 		(row: number, expand: boolean) => {
@@ -126,7 +128,9 @@ export const TableFloatingControls = ({
 		stickyHeader && stickyHeader.sticky && hasHeaderRow ? stickyHeader.top : undefined;
 
 	const wrapperClassName = isDragAndDropEnabled
-		? ClassName.DRAG_ROW_CONTROLS_WRAPPER
+		? isChromelessEditor
+			? ClassName.DRAG_ROW_CONTROLS_WRAPPER + ' ' + ClassName.DRAG_CONTROLS_CHROMELESS
+			: ClassName.DRAG_ROW_CONTROLS_WRAPPER
 		: ClassName.ROW_CONTROLS_WRAPPER;
 
 	const tablePos = findTable(editorView.state.selection)?.pos;

@@ -7,6 +7,8 @@ import { css, Global, jsx } from '@emotion/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { DRAG_HANDLE_MAX_WIDTH_PLUS_GAP } from './consts';
+
 const extendedHoverZone = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.block-ctrl-drag-preview [data-drag-handler-anchor-name]::after': {
@@ -33,8 +35,53 @@ const extendedHoverZone = css({
 	'hr[data-drag-handler-anchor-name]': {
 		overflow: 'visible',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	//eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'[data-blocks-drag-handle-container="true"] + *::after': {
+		display: 'none',
+	},
+});
+
+const extendedHoverZoneNested = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.block-ctrl-drag-preview [data-drag-handler-anchor-name]::after': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+		display: 'none !important',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& [data-drag-handler-anchor-name]::after': {
+			content: '""',
+			position: 'absolute',
+			top: 0,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			left: `-${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+			width: `${DRAG_HANDLE_MAX_WIDTH_PLUS_GAP}px`,
+			height: '100%',
+			cursor: 'default',
+			zIndex: 1,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&& [data-drag-handler-anchor-depth="0"][data-drag-handler-anchor-name]::after': {
+			content: '""',
+			position: 'absolute',
+			top: 0,
+			left: '-100%',
+			width: '100%',
+			height: '100%',
+			cursor: 'default',
+			zIndex: -1,
+		},
+	},
+	// TODO - ED-23995 this style override needs to be moved to the Rule styles after FF cleanup - packages/editor/editor-common/src/styles/shared/rule.ts
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'hr[data-drag-handler-anchor-name]': {
+		overflow: 'visible',
+	},
+	//Hide psudeo element at top depth level. Leave for nested depths to prevent mouseover loop.
+	//eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-blocks-drag-handle-container="true"] + [data-drag-handler-anchor-depth="0"]::after': {
 		display: 'none',
 	},
 });
@@ -137,7 +184,11 @@ export const GlobalStylesWrapper = () => {
 		<Global
 			styles={[
 				globalStyles,
-				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') && extendedHoverZone,
+				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
+					? fg('platform_editor_elements_dnd_nested')
+						? extendedHoverZoneNested
+						: extendedHoverZone
+					: false,
 				getTextNodeStyle(),
 				fg('platform.editor.elements.drag-and-drop-ed-23932') && withDeleteLinesStyleFix,
 				fg('platform_editor_element_drag_and_drop_ed_24005') && withMediaSingleStyleFix,

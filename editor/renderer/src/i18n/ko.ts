@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': '내림차순',
   'fabric.editor.headingLink.failedToCopy': '복사 실패',
   'fabric.editor.headingLink.noneSortingLabel': '없음',
+  'fabric.editor.inlineComment.marker.end': '인라인 댓글 끝',
+  'fabric.editor.inlineComment.marker.start': '인라인 댓글 시작',
 };

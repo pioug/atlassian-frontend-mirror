@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "1.3.1",
+	"version": "1.3.2",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,7 +21,7 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.0.0",
+		"@atlaskit/editor-common": "^87.1.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
@@ -81,9 +81,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.change-navigation-for-atom-nodes": {
-			"type": "boolean"
-		},
 		"platform.editor.single-player-expand": {
 			"type": "boolean"
 		}

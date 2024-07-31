@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': '降序',
   'fabric.editor.headingLink.failedToCopy': '复制失败',
   'fabric.editor.headingLink.noneSortingLabel': '无',
+  'fabric.editor.inlineComment.marker.end': '内联评论结束',
+  'fabric.editor.inlineComment.marker.start': '内联评论开始',
 };

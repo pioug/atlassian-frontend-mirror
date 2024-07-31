@@ -12,7 +12,7 @@ export default () => (
 	<React.Fragment>
 		<ButtonItem
 			onClick={console.log}
-			iconBefore={<ImgIcon src={koala} alt={'Koala'} />}
+			iconBefore={<ImgIcon src={koala} alt="" />}
 			description="Hover over me"
 			iconAfter={<RightArrow label="" />}
 			isSelected

@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'csökkenő',
   'fabric.editor.headingLink.failedToCopy': 'A másolás nem sikerült',
   'fabric.editor.headingLink.noneSortingLabel': 'Nincs',
+  'fabric.editor.inlineComment.marker.end': 'beágyazott megjegyzés vége',
+  'fabric.editor.inlineComment.marker.start': 'beágyazott megjegyzés kezdete',
 };

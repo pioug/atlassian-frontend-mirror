@@ -7,6 +7,7 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Konfigurer {macroName}',
   'fabric.editor.action': 'Handlingselement',
   'fabric.editor.action.description': 'Opprett og tilordne handlinger',
   'fabric.editor.addAltText': 'Alternativ tekst',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Gå tilbake',
   'fabric.editor.backgroundColor': 'Bakgrunnsfarge',
   'fabric.editor.blockCardUnavailable': 'Den innebygde koblingen er inne i {node}, og visningen kan ikke endres',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Dra for å flytte',
+  'fabric.editor.blockControlMoveDown': 'Flytt ned',
+  'fabric.editor.blockControlMoveUp': 'Flytt opp',
   'fabric.editor.blockDescription': 'Vis mer informasjon om en kobling, inkludert et sammendrag og handlinger',
   'fabric.editor.blockTitle': 'Kort',
   'fabric.editor.blockquote': 'et sitat',
@@ -69,6 +73,9 @@ export default {
   'fabric.editor.collapseNode': 'Minimer innhold',
   'fabric.editor.collapseTable': 'Minimer tabell',
   'fabric.editor.columnDragHandle': 'Kolonnealternativer',
+  'fabric.editor.columnMovedLeft': 'Kolonnen ble flyttet til venstre til {index} av {total}',
+  'fabric.editor.columnMovedRight': 'Kolonnen ble flyttet til høyre til {index} av {total}',
+  'fabric.editor.columnSelected': 'Kolonne {index} av {total} er valgt',
   'fabric.editor.columns': 'Oppsett',
   'fabric.editor.columns.description': 'Konstruer siden med seksjoner',
   'fabric.editor.columnsAreInserted':
@@ -98,10 +105,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopier',
   'fabric.editor.cornerControl': 'Fremhev tabell',
   'fabric.editor.createComment': 'Kommenter',
+  'fabric.editor.createCommentDisabled':
+    'Du kan bare kommentere på tekst, overskrifter, emojier, datoer, omtaler, koblinger og statuser.',
   'fabric.editor.createCommentInvalid': 'Du kan kun kommentere tekst og overskrifter',
   'fabric.editor.customPanel': 'Egendefinert panel',
   'fabric.editor.customPanel.description': 'Legg til et notat med en emoji og farget bakgrunn',
-  'fabric.editor.datasource.assetsObjects': 'Ressurser (beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Sett inn objekter fra ressurser i Jira Service Management med søk og filtrering',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Ressurser',
@@ -241,6 +249,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Trykk på {keyMap} for å åpne denne dialogen',
   'fabric.editor.highlight': 'Fremhevingsfarge',
   'fabric.editor.highlightColor': 'Slå av og på fargepaletten for fremheving',
+  'fabric.editor.highlightFloatingToolbar': 'Fremheving',
   'fabric.editor.horizontalRule': 'Deler',
   'fabric.editor.horizontalRule.description': 'Atskill innhold med en horisontal linje',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Lim inn eller søk etter kobling',
@@ -339,6 +348,7 @@ export default {
   'fabric.editor.numberedColumn': 'Nummert kolonne',
   'fabric.editor.off': '{formattingType} av',
   'fabric.editor.on': '{formattingType} på',
+  'fabric.editor.openCellOptions': 'Åpne cellealternativer',
   'fabric.editor.openLink': 'Åpne kobling i en ny fane',
   'fabric.editor.orderedList': 'Nummerert liste',
   'fabric.editor.orderedList.description': 'Opprett en sortert liste',
@@ -375,6 +385,9 @@ export default {
   'fabric.editor.rightSidebar': 'Oppsett for høyre sidestolpe',
   'fabric.editor.rowControl': 'Fremhev rad',
   'fabric.editor.rowDragHandle': 'Radalternativer',
+  'fabric.editor.rowMovedDown': 'Raden ble flyttet ned til {index} av {total}',
+  'fabric.editor.rowMovedUp': 'Raden ble flyttet opp til {index} av {total}',
+  'fabric.editor.rowSelected': 'Rad {index} av {total} er valgt',
   'fabric.editor.rowsAreInserted': '{count, plural, one {En rad er satt inn} other {{count} rader er satt inn}}',
   'fabric.editor.rowsAreRemoved': '{count, plural, one {Raden er fjernet} other {{count} rader er fjernet}}',
   'fabric.editor.saveButton': 'Lagre',

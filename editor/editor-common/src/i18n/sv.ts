@@ -7,6 +7,7 @@
  */
 //Swedish
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Konfigurera {macroName}',
   'fabric.editor.action': 'Uppgift',
   'fabric.editor.action.description': 'Skapa och tilldela åtgärdsuppgifter',
   'fabric.editor.addAltText': 'Alternativ text',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Gå tillbaka',
   'fabric.editor.backgroundColor': 'Bakgrundsfärg',
   'fabric.editor.blockCardUnavailable': 'Inlinelänken är inuti {node} och det går inte att byta dess vy',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Dra för att flytta',
+  'fabric.editor.blockControlMoveDown': 'Flytta ner',
+  'fabric.editor.blockControlMoveUp': 'Flytta upp',
   'fabric.editor.blockDescription': 'Visa mer information om en länk, inklusive en sammanfattning och åtgärder',
   'fabric.editor.blockTitle': 'Kort',
   'fabric.editor.blockquote': 'ett citattecken',
@@ -69,6 +73,9 @@ export default {
   'fabric.editor.collapseNode': 'komprimera innehåll',
   'fabric.editor.collapseTable': 'Dölj tabell',
   'fabric.editor.columnDragHandle': 'Kolumnalternativ',
+  'fabric.editor.columnMovedLeft': 'Kolumnen flyttades åt vänster till {index} av {total}',
+  'fabric.editor.columnMovedRight': 'Kolumnen flyttades åt höger till {index} av {total}',
+  'fabric.editor.columnSelected': 'Kolumn {index} av {total} markerad',
   'fabric.editor.columns': 'Layouter',
   'fabric.editor.columns.description': 'Ge din sida struktur med sektioner',
   'fabric.editor.columnsAreInserted':
@@ -99,10 +106,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopiera',
   'fabric.editor.cornerControl': 'Markera tabellen',
   'fabric.editor.createComment': 'Kommentera',
+  'fabric.editor.createCommentDisabled':
+    'Du kan bara kommentera text, rubriker, emojis, datum, omnämnanden, länkar och statusar.',
   'fabric.editor.createCommentInvalid': 'Du kan bara kommentera på text och rubriker',
   'fabric.editor.customPanel': 'Anpassad panel',
   'fabric.editor.customPanel.description': 'Lägg till en anteckning med en emoji och en färgad bakgrund',
-  'fabric.editor.datasource.assetsObjects': 'Tillgångar (beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Infoga objekt från Tillgångar i Jira Service Management med sökning och filtrering',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Tillgångar',
@@ -242,6 +250,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Tryck på {keyMap} för att när som helst öppna den här dialogrutan',
   'fabric.editor.highlight': 'Markeringsfärg',
   'fabric.editor.highlightColor': 'Växla palett för markeringsfärg',
+  'fabric.editor.highlightFloatingToolbar': 'Markering',
   'fabric.editor.horizontalRule': 'Avgränsare',
   'fabric.editor.horizontalRule.description': 'Separera innehåll med en horisontell linje',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Klistra in eller sök efter en länk',
@@ -340,6 +349,7 @@ export default {
   'fabric.editor.numberedColumn': 'Numrerad kolumn',
   'fabric.editor.off': '{formattingType} av',
   'fabric.editor.on': '{formattingType} på',
+  'fabric.editor.openCellOptions': 'Öppna cellalternativ',
   'fabric.editor.openLink': 'Öppna länk i en ny flik',
   'fabric.editor.orderedList': 'Numrerad lista',
   'fabric.editor.orderedList.description': 'Skapa en sorterad lista',
@@ -376,6 +386,9 @@ export default {
   'fabric.editor.rightSidebar': 'Layout med höger sidopanel',
   'fabric.editor.rowControl': 'Markera raden',
   'fabric.editor.rowDragHandle': 'Radalternativ',
+  'fabric.editor.rowMovedDown': 'Raden flyttades ner till {index} av {total}',
+  'fabric.editor.rowMovedUp': 'Raden flyttades upp till {index} av {total}',
+  'fabric.editor.rowSelected': 'Rad {index} av {total} markerad',
   'fabric.editor.rowsAreInserted': '{count, plural, one {En rad har infogats} other {{count} rader har infogats}}',
   'fabric.editor.rowsAreRemoved': '{count, plural, one {Raden har tagits bort} other {{count} rader har tagits bort}}',
   'fabric.editor.saveButton': 'Spara',

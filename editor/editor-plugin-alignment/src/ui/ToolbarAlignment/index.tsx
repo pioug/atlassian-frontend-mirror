@@ -10,7 +10,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { alignmentMessages as messages } from '@atlaskit/editor-common/messages';
-import { separatorStyles } from '@atlaskit/editor-common/styles';
+import { expandIconContainerStyle, separatorStyles } from '@atlaskit/editor-common/styles';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/ui';
 import {
@@ -19,7 +19,8 @@ import {
 	ToolbarButton,
 } from '@atlaskit/editor-common/ui-menu';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AlignmentPlugin } from '../../plugin';
 import type { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
@@ -106,10 +107,17 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								<div css={triggerWrapper}>
 									<IconMap alignment={alignment} />
-									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-									<span css={expandIconWrapper}>
-										<ExpandIcon label="" />
-									</span>
+									{fg('platform_editor_migration_icon_and_typography') ? (
+										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+										<span css={expandIconContainerStyle}>
+											<ChevronDownIcon label="" color="currentColor" />
+										</span>
+									) : (
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+										<span css={expandIconWrapper}>
+											<ExpandIcon label="" />
+										</span>
+									)}
 								</div>
 							}
 							ref={this.toolbarItemRef}
@@ -179,7 +187,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 	};
 
 	private onOpenChange = () => {
-		if (getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty')) {
+		if (fg('platform.editor.a11y-main-toolbar-navigation_osrty')) {
 			this.setState({ isOpen: false });
 		}
 	};

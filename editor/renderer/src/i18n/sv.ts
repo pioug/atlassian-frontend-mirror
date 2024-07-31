@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'fallande',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering misslyckades',
   'fabric.editor.headingLink.noneSortingLabel': 'Ingen',
+  'fabric.editor.inlineComment.marker.end': 'slut på inlinekommentarer',
+  'fabric.editor.inlineComment.marker.start': 'start på inlinekommentarer',
 };

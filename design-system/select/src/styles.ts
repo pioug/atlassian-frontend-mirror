@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B100,
 	B400,
@@ -17,7 +18,6 @@ import {
 	R75,
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { type StylesConfig, type ValidationState } from './types';
 
@@ -29,7 +29,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 	return {
 		container: (css, { isDisabled }) => ({
 			...css,
-			...(getBooleanFF('platform.design-system-team.select-new-typography_7m89c')
+			...(fg('platform.design-system-team.select-new-typography_7m89c')
 				? {
 						font: token('font.body'),
 					}
@@ -234,7 +234,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		singleValue: (css, { isDisabled }) => ({
 			...css,
 			color: isDisabled ? token('color.text.disabled', N70) : token('color.text', N800),
-			...(!getBooleanFF('platform.design-system-team.select-new-typography_7m89c') && {
+			...(!fg('platform.design-system-team.select-new-typography_7m89c') && {
 				lineHeight: '1rem',
 			}),
 		}),
@@ -286,6 +286,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		},
 		multiValueLabel: (css, { isDisabled }) => ({
 			...css,
+			...(fg('platform.design-system-team.select-new-typography_7m89c') && {
+				font: token('font.body.UNSAFE_small'),
+			}),
 			padding: token('space.025', '2px'),
 			color: isDisabled ? token('color.text.disabled', N70) : 'inherit',
 			paddingRight: token('space.025', '2px'),
@@ -310,7 +313,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		}),
 		groupHeading: (css) => ({
 			...css,
-			...(getBooleanFF('platform.design-system-team.select-new-typography_7m89c') && {
+			...(fg('platform.design-system-team.select-new-typography_7m89c') && {
 				font: token('font.body.small'),
 			}),
 			color: token('color.text.subtle', N200),

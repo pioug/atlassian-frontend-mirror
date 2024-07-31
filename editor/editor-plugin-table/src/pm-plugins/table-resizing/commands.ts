@@ -72,7 +72,8 @@ export const stopResizing = (tr?: Transaction) =>
 		{
 			type: 'STOP_RESIZING',
 		},
-		(originalTr) => (tr || originalTr).setMeta('scrollIntoView', false),
+		(originalTr) =>
+			(tr || originalTr).setMeta('scrollIntoView', false).setMeta('is-resizer-resizing', false),
 	);
 
 export const setDragging = (
@@ -86,7 +87,7 @@ export const setDragging = (
 				dragging,
 			},
 		},
-		(originalTr) => tr || originalTr,
+		(originalTr) => (tr || originalTr).setMeta('is-resizer-resizing', true),
 	);
 
 export const setLastClick = (

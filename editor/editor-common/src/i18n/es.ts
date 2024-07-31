@@ -7,6 +7,7 @@
  */
 //Spanish (International)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Configurar {macroName}',
   'fabric.editor.action': 'Elemento de acción',
   'fabric.editor.action.description': 'Crear y asignar elementos de acción',
   'fabric.editor.addAltText': 'Texto alternativo',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Regresar',
   'fabric.editor.backgroundColor': 'Color de fondo',
   'fabric.editor.blockCardUnavailable': 'El enlace insertado está dentro de {node} y no puede cambiar de vista',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Arrastrar para mover',
+  'fabric.editor.blockControlMoveDown': 'Bajar',
+  'fabric.editor.blockControlMoveUp': 'Subir',
   'fabric.editor.blockDescription': 'Mostrar más información sobre un enlace, incluido un resumen y acciones',
   'fabric.editor.blockTitle': 'Tarjeta',
   'fabric.editor.blockquote': 'una cita',
@@ -69,6 +73,9 @@ export default {
   'fabric.editor.collapseNode': 'contraer contenido',
   'fabric.editor.collapseTable': 'Contraer tabla',
   'fabric.editor.columnDragHandle': 'Opciones de columna',
+  'fabric.editor.columnMovedLeft': 'Columna movida a la izquierda a {index} de {total}',
+  'fabric.editor.columnMovedRight': 'Columna movida a la derecha a {index} de {total}',
+  'fabric.editor.columnSelected': '{index} de {total} columna/s seleccionada/s',
   'fabric.editor.columns': 'Diseños',
   'fabric.editor.columns.description': 'Estructurar la página con secciones',
   'fabric.editor.columnsAreInserted':
@@ -99,10 +106,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Copiar',
   'fabric.editor.cornerControl': 'Destacar tabla',
   'fabric.editor.createComment': 'Comentar',
+  'fabric.editor.createCommentDisabled':
+    'Solo puedes comentar en texto, encabezados, emoticonos, fechas, menciones, enlaces y estados.',
   'fabric.editor.createCommentInvalid': 'Solo puedes comentar en el texto y los encabezados',
   'fabric.editor.customPanel': 'Panel personalizado',
   'fabric.editor.customPanel.description': 'Añade una nota con un emoticono y un fondo de color',
-  'fabric.editor.datasource.assetsObjects': 'Activos (beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Inserta objetos de Activos en Jira Service Management con las funciones de búsqueda y filtro',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Activos',
@@ -243,6 +251,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Pulsa {keyMap} para abrir este diálogo con rapidez en cualquier momento',
   'fabric.editor.highlight': 'Color de resaltado',
   'fabric.editor.highlightColor': 'Activar paleta de colores de resaltado',
+  'fabric.editor.highlightFloatingToolbar': 'Destacar',
   'fabric.editor.horizontalRule': 'Divisor',
   'fabric.editor.horizontalRule.description': 'Separar el contenido con una línea horizontal',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Pegar o buscar el enlace',
@@ -343,6 +352,7 @@ export default {
   'fabric.editor.numberedColumn': 'Columna numerada',
   'fabric.editor.off': '{formattingType} desactivado',
   'fabric.editor.on': '{formattingType} activado',
+  'fabric.editor.openCellOptions': 'Abrir opciones de celda',
   'fabric.editor.openLink': 'Abrir el enlace en otra pestaña',
   'fabric.editor.orderedList': 'Lista numerada',
   'fabric.editor.orderedList.description': 'Crear una lista ordenada',
@@ -379,6 +389,9 @@ export default {
   'fabric.editor.rightSidebar': 'Diseño de la barra lateral derecha',
   'fabric.editor.rowControl': 'Destacar fila',
   'fabric.editor.rowDragHandle': 'Opciones de fila',
+  'fabric.editor.rowMovedDown': 'Fila movida hacia abajo a {index} de {total}',
+  'fabric.editor.rowMovedUp': 'Fila movida hacia arriba a {index} de {total}',
+  'fabric.editor.rowSelected': '{index} de {total} fila/s seleccionada/s',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Se ha insertado una fila} other {Se han insertado {count} filas}}',
   'fabric.editor.rowsAreRemoved':

@@ -7,6 +7,7 @@
  */
 //Polish (Poland)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Skonfiguruj makro {macroName}',
   'fabric.editor.action': 'Element akcji',
   'fabric.editor.action.description': 'Utwórz i przypisz elementy akcji',
   'fabric.editor.addAltText': 'Tekst alternatywny',
@@ -35,6 +36,9 @@ export default {
   'fabric.editor.backgroundColor': 'Kolor tła',
   'fabric.editor.blockCardUnavailable':
     'Łącze bezpośrednio w tekście jest wewnątrz węzła {node} i nie można zmienić jego widoku',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Przeciągnij, aby przenieść',
+  'fabric.editor.blockControlMoveDown': 'Przenieś niżej',
+  'fabric.editor.blockControlMoveUp': 'Przenieś wyżej',
   'fabric.editor.blockDescription': 'Wyświetla więcej informacji o łączu, w tym podsumowanie i czynności',
   'fabric.editor.blockTitle': 'Karta',
   'fabric.editor.blockquote': 'cudzysłów',
@@ -71,6 +75,9 @@ export default {
   'fabric.editor.collapseNode': 'Zwiń zawartość',
   'fabric.editor.collapseTable': 'Zwiń tabelę',
   'fabric.editor.columnDragHandle': 'Opcje kolumn',
+  'fabric.editor.columnMovedLeft': 'Przesunięto kolumnę w lewo do {index} z {total}',
+  'fabric.editor.columnMovedRight': 'Przesunięto kolumnę w prawo do {index} z {total}',
+  'fabric.editor.columnSelected': 'Wybrano kolumnę {index} z {total}',
   'fabric.editor.columns': 'Układy',
   'fabric.editor.columns.description': 'Uporządkuj swoją stronę, korzystając z sekcji',
   'fabric.editor.columnsAreInserted':
@@ -101,10 +108,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopiuj',
   'fabric.editor.cornerControl': 'Zaznacz tablicę',
   'fabric.editor.createComment': 'Komentarz',
+  'fabric.editor.createCommentDisabled':
+    'Można komentować tylko tekst, nagłówki, emoji, daty, wzmianki, łącza i statusy.',
   'fabric.editor.createCommentInvalid': 'Możesz komentować tylko tekst i nagłówki',
   'fabric.editor.customPanel': 'Panel niestandardowy',
   'fabric.editor.customPanel.description': 'Dodaj notatkę z emoji i kolorowym tłem',
-  'fabric.editor.datasource.assetsObjects': 'Zasoby (wersja beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Wstawianie obiektów z Zasobów do Jira Service Management z wyszukiwaniem i filtrowaniem',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Zasoby',
@@ -244,6 +252,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Naciśnij {keyMap}, aby szybko otworzyć okno dialogowe w dowolnym momencie',
   'fabric.editor.highlight': 'Kolor wyróżnienia',
   'fabric.editor.highlightColor': 'Przełącz paletę kolorów wyróżnienia',
+  'fabric.editor.highlightFloatingToolbar': 'Wyróżnij',
   'fabric.editor.horizontalRule': 'Separator',
   'fabric.editor.horizontalRule.description': 'Oddziel treści linią poziomą',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Wklej lub wyszukaj łącze',
@@ -347,6 +356,7 @@ export default {
   'fabric.editor.numberedColumn': 'Kolumna numerowana',
   'fabric.editor.off': '{formattingType} wył.',
   'fabric.editor.on': '{formattingType} wł.',
+  'fabric.editor.openCellOptions': 'Otwórz opcje komórki',
   'fabric.editor.openLink': 'Otwórz łącze na nowej karcie',
   'fabric.editor.orderedList': 'Lista numerowana',
   'fabric.editor.orderedList.description': 'Utwórz uporządkowaną listę',
@@ -385,6 +395,9 @@ export default {
   'fabric.editor.rightSidebar': 'Układ z paskiem bocznym po prawej',
   'fabric.editor.rowControl': 'Podświetl wiersz',
   'fabric.editor.rowDragHandle': 'Opcje wierszy',
+  'fabric.editor.rowMovedDown': 'Przesunięto wiersz w dół do {index} z {total}',
+  'fabric.editor.rowMovedUp': 'Przesunięto wiersz w górę do {index} z {total}',
+  'fabric.editor.rowSelected': 'Wybrano wiersz {index} z {total}',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Wstawiono wiersz} few {Wstawiono {count} wiersze} many {Wstawiono {count} wierszy} other {Wstawiono {count} wiersza}}',
   'fabric.editor.rowsAreRemoved':

@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'azalan',
   'fabric.editor.headingLink.failedToCopy': 'Kopyalama işlemi başarısız oldu',
   'fabric.editor.headingLink.noneSortingLabel': 'yok',
+  'fabric.editor.inlineComment.marker.end': 'satır içi yorum sonu',
+  'fabric.editor.inlineComment.marker.start': 'satır içi yorum başlangıcı',
 };

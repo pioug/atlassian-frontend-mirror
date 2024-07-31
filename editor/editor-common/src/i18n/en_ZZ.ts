@@ -7,6 +7,7 @@
  */
 //
 export default {
+  'editor-common-extensibility.macro.button.configure': '⁣⁢Configure {macroName}⁫⁯⁠⁯⁪؜‍⁭⁬‌⁡‌⁬⁡‍⁠⁯⁪؜⁪⁪⁣⁤',
   'fabric.editor.action': '⁣⁢Action item⁭⁫⁬؜⁭⁯⁯⁫⁫⁫‍⁭⁠⁫⁠؜⁡⁭‌⁫‍⁡‍‌⁣⁤',
   'fabric.editor.action.description': '⁣⁢Create and assign action items⁫⁭‌‌⁬⁡⁯‌⁯⁪⁡‌⁭⁮⁪؜⁯⁪⁮⁬⁯⁠⁡⁣⁤',
   'fabric.editor.addAltText': '⁣⁢Alt text‌⁭‍⁡⁫⁪⁡⁪⁪⁠⁫؜‍⁭⁪⁡‌⁪‍⁪‌⁯⁠‌⁭⁣⁤',
@@ -35,6 +36,9 @@ export default {
   'fabric.editor.backgroundColor': '⁣⁢Background color⁪‍⁫⁬⁯⁬⁪⁯‍⁬⁭⁪؜⁭⁬⁪‍⁮⁫⁬⁯⁡⁣⁤',
   'fabric.editor.blockCardUnavailable':
     '⁣⁢The inline link is inside {node} and cannot have its view changed⁮⁬⁫⁮⁬⁮‌⁬⁭⁠⁯⁬⁫‌⁠⁯⁪‍⁠⁪⁮⁣⁤',
+  'fabric.editor.blockControlDragHandleUsageInfo': '⁣⁢Drag to move⁫⁪⁪‌⁪⁡⁮⁡⁠‌⁡؜‌⁭⁡‍⁫؜⁣⁤',
+  'fabric.editor.blockControlMoveDown': '⁣⁢Move down⁠⁯⁬⁡‌⁭⁬‍؜‌‍⁪‌‍⁭⁬⁡⁭⁫⁠⁭⁠⁬⁣⁤',
+  'fabric.editor.blockControlMoveUp': '⁣⁢Move up⁠⁮⁬⁯‌⁮⁯⁭⁭⁪⁬‌⁪⁪⁡‍⁡‌⁪‍‍⁣⁤',
   'fabric.editor.blockDescription':
     '⁣⁢Display more information about a link, including a summary and actions‍⁭⁯⁫⁪⁬⁭⁬⁬⁯⁯⁫⁬⁠⁬⁬⁫⁫⁮⁮⁡⁮⁮⁣⁤',
   'fabric.editor.blockTitle': '⁣⁢Card‍⁯⁫‌⁮‌؜‌؜⁡‍‍⁮‌‌؜⁭⁫⁬‍⁯⁫؜⁠⁡⁪⁣⁤',
@@ -72,6 +76,9 @@ export default {
   'fabric.editor.collapseNode': '⁣⁢Collapse content‍⁡⁫‌⁫⁠⁬⁭⁯⁬⁮؜‍⁭⁭‍‌؜⁪⁠‌⁡‍⁭⁡⁮‌⁣⁤',
   'fabric.editor.collapseTable': '⁣⁢Collapse table⁫⁬⁠⁡⁠⁫⁠‌⁫؜؜⁭⁪⁯⁭‌⁠⁬‍⁮⁡⁣⁤',
   'fabric.editor.columnDragHandle': '⁣⁢Column options⁪⁮⁬⁪⁡‌⁪؜⁡؜‌⁠⁪⁬‌⁬⁪⁪⁪⁭⁫⁪‍‍⁣⁤',
+  'fabric.editor.columnMovedLeft': '⁣⁢Column moved left to {index} of {total}⁫⁠؜‌⁮‌⁭⁪⁬⁪⁠⁫⁬⁡⁭⁫‌⁪⁯⁬⁣⁤',
+  'fabric.editor.columnMovedRight': '⁣⁢Column moved right to {index} of {total}⁠⁮⁮⁡⁭⁭‌⁪⁭؜⁪⁯⁯⁡⁭⁫⁠⁠⁫؜⁭⁫⁡⁬⁫⁣⁤',
+  'fabric.editor.columnSelected': '⁣⁢Column {index} of {total} selected⁫؜⁭⁫⁪⁮⁬؜‍⁡⁪⁫⁯⁮⁫؜⁭⁮⁡⁫⁭‌⁯⁣⁤',
   'fabric.editor.columns': '⁣⁢Layouts⁬⁪⁡⁮⁪⁬⁭⁠‍⁬⁬⁠⁡⁫‌⁠⁮‍⁡⁬⁮⁣⁤',
   'fabric.editor.columns.description': '⁣⁢Structure your page using sections‌⁯‍⁠⁠‍⁮⁬؜⁪⁭‍⁯⁯⁫⁮⁡⁡⁪⁬⁡⁣⁤',
   'fabric.editor.columnsAreInserted':
@@ -103,10 +110,11 @@ export default {
   'fabric.editor.copyToClipboard': '⁣⁢Copy⁪⁠⁪؜‍‍‌⁬⁮⁬؜‌⁬؜‍؜⁡⁠⁪⁮؜⁠⁠⁯‌‌⁬⁪⁣⁤',
   'fabric.editor.cornerControl': '⁣⁢Highlight table⁯⁡⁯⁫؜‌⁪‍‌⁭‍⁭؜⁠⁬⁭‌⁠⁮‍⁣⁤',
   'fabric.editor.createComment': '⁣⁢Comment⁯⁠⁡⁪⁪⁪⁡؜⁪‌⁬؜⁭⁡⁯⁡⁮⁠‌؜⁣⁤',
+  'fabric.editor.createCommentDisabled':
+    '⁣⁢You can only comment on text, headings, emojis, dates, mentions, links, and statuses.؜⁯⁠⁫⁫؜⁡⁮⁬⁡‍⁯⁪⁫‍؜⁮⁬⁣⁤',
   'fabric.editor.createCommentInvalid': '⁣⁢You can only comment on text and headings⁮⁠‍⁫⁮‌⁯⁬⁯⁪⁫⁮⁪‌⁭⁠⁮‍⁪⁫⁪⁯⁬⁡⁣⁤',
   'fabric.editor.customPanel': '⁣⁢Custom panel⁭⁭⁬؜؜⁬⁭⁠⁪⁬⁠⁭‍⁯⁠⁫⁯⁫⁯؜⁣⁤',
   'fabric.editor.customPanel.description': '⁣⁢Add a note with an emoji and colored background‍⁬⁠⁭⁫⁡⁯⁮⁮⁯‍⁪⁡⁪⁭⁡⁮⁪⁡⁮⁯⁮‌⁣⁤',
-  'fabric.editor.datasource.assetsObjects': '⁣⁢Assets (Beta)⁡⁡⁮⁮⁮⁡⁠⁭‍⁯⁡⁯⁠⁫⁯⁬⁮⁪⁬⁡⁮‌⁣⁤',
   'fabric.editor.datasource.assetsObjects.description':
     '⁣⁢Insert objects from Assets in Jira Service Management with search and filtering‍‌⁡⁭⁫⁡‌‌‌‌‍⁯⁮‍⁮⁮⁮⁠؜⁭⁫⁣⁤',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': '⁣⁢Assets‍⁬⁭؜‌⁫؜⁭⁯⁭⁡؜⁭⁫⁯‌⁮‌⁬‌⁫⁬‍⁯⁭⁫‌‍⁣⁤',
@@ -356,6 +364,7 @@ export default {
   'fabric.editor.numberedColumn': '⁣⁢Numbered column⁪؜⁫؜⁬⁭⁫⁠‌‍‍⁭⁫⁫⁯⁯‌⁬⁯⁭⁫‍⁭⁬⁡⁣⁤',
   'fabric.editor.off': '⁣⁢{formattingType} Off⁭⁭‍⁪⁭⁬⁫‍⁫⁬‌⁭‌⁫⁮⁫⁮⁡‌⁫⁠⁮⁠⁣⁤',
   'fabric.editor.on': '⁣⁢{formattingType} On⁠⁪⁫⁮⁭‌⁫⁮‌⁡‍⁬‍⁡⁮؜⁮⁠⁬⁯⁯⁣⁤',
+  'fabric.editor.openCellOptions': '⁣⁢Open cell options⁫؜⁮‌⁮⁫‍⁫‌⁫⁯⁡⁠‍⁠⁪⁮⁭⁣⁤',
   'fabric.editor.openLink': '⁣⁢Open link in a new tab⁮⁫⁭⁠⁡⁡‌⁫⁮⁫‍⁯‌⁠⁫⁪⁭‌‌⁡⁯⁡⁣⁤',
   'fabric.editor.orderedList': '⁣⁢Numbered list⁮⁭⁯‍⁡؜؜⁯⁬⁡⁪⁪⁪⁯؜⁡⁬⁬⁮⁮‍؜⁣⁤',
   'fabric.editor.orderedList.description': '⁣⁢Create an ordered list‍؜⁭⁪⁠⁡⁯⁫⁫‍‍⁭⁫⁯⁪⁯‌⁭‍⁪‍⁣⁤',
@@ -394,6 +403,9 @@ export default {
   'fabric.editor.rightSidebar': '⁣⁢Right sidebar layout⁠⁫‍‌⁫‌⁭⁬⁭‍⁮⁠⁡⁬‍‍⁯‌⁣⁤',
   'fabric.editor.rowControl': '⁣⁢Highlight row⁮‌⁮⁫⁫‌⁫⁮⁡⁪⁮‍⁪⁠⁡⁡⁪⁪⁮⁠⁫⁬⁭⁠⁫⁣⁤',
   'fabric.editor.rowDragHandle': '⁣⁢Row options⁠⁪؜⁠‍⁫‍‌⁬‍‍‍⁬⁬⁪⁭⁠⁭⁭⁡⁫‌⁭⁮⁣⁤',
+  'fabric.editor.rowMovedDown': '⁣⁢Row moved down to {index} of {total}⁯⁭؜‌⁪⁮⁮⁡⁪‌⁪‍⁪‌؜‌⁠⁬⁬؜؜⁣⁤',
+  'fabric.editor.rowMovedUp': '⁣⁢Row moved up to {index} of {total}⁡⁫⁠؜⁯⁠⁯⁡⁯⁠⁭؜⁡⁪⁬‍⁯⁫⁣⁤',
+  'fabric.editor.rowSelected': '⁣⁢Row {index} of {total} selected⁠⁫⁮‍⁡⁮؜‍‌⁯⁮⁪⁪⁯‍⁠؜⁡⁣⁤',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {⁣⁢A row has been inserted؜⁮‌⁭⁡⁠⁡‌⁠؜⁪⁡‍⁬⁮⁯⁯⁬⁡⁫؜⁣⁤} other {⁣⁢{count} rows have been inserted؜⁮‌⁭⁡⁠⁡‌⁠؜⁪⁡‍⁬⁮⁯⁯⁬⁡⁫؜⁣⁤}}',
   'fabric.editor.rowsAreRemoved':

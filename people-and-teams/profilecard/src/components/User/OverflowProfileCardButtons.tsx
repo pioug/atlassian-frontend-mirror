@@ -4,7 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 
 import messages from '../../messages';
 import { OverflowActionButtonsWrapper } from '../../styled/Card';
@@ -60,7 +60,13 @@ export const OverflowProfileCardButtons = (props: OverflowButtonsProps) => {
 						type="button"
 						{...providedProps}
 						ref={triggerRef}
-						iconBefore={<MoreIcon label={intl.formatMessage(messages.profileCardMoreIconLabel)} />}
+						iconBefore={
+							<MoreIcon
+								color="currentColor"
+								spacing="spacious"
+								label={intl.formatMessage(messages.profileCardMoreIconLabel)}
+							/>
+						}
 					/>
 				)}
 			>

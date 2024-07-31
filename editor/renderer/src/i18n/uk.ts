@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'за спаданням',
   'fabric.editor.headingLink.failedToCopy': 'Не вдалося скопіювати',
   'fabric.editor.headingLink.noneSortingLabel': 'Немає',
+  'fabric.editor.inlineComment.marker.end': 'кінець вбудованого коментаря',
+  'fabric.editor.inlineComment.marker.start': 'початок вбудованого коментаря',
 };

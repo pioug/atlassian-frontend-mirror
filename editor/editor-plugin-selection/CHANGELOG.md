@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.3.2
+
+### Patch Changes
+
+- [#125367](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125367)
+  [`40695df29bb9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40695df29bb9a) -
+  Removed FF cd platform.editor.change-navigation-for-atom-nodes
+
 ## 1.3.1
 
 ### Patch Changes

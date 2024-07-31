@@ -7,6 +7,7 @@
  */
 //French (France)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Configurer {macroName}',
   'fabric.editor.action': 'Tâche',
   'fabric.editor.action.description': 'Créer et assigner des tâches',
   'fabric.editor.addAltText': 'Texte alternatif',
@@ -35,6 +36,9 @@ export default {
   'fabric.editor.backLink': 'Retour',
   'fabric.editor.backgroundColor': "Couleur d'arrière-plan",
   'fabric.editor.blockCardUnavailable': 'Le lien contextuel est dans {node} et sa vue ne peut être modifiée',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Faites glisser pour déplacer',
+  'fabric.editor.blockControlMoveDown': 'Déplacer vers le bas',
+  'fabric.editor.blockControlMoveUp': 'Déplacer vers le haut',
   'fabric.editor.blockDescription':
     "Affichez plus d'informations concernant un lien, y compris un résumé et des actions",
   'fabric.editor.blockTitle': 'Carte',
@@ -71,6 +75,9 @@ export default {
   'fabric.editor.collapseNode': 'Réduire le contenu',
   'fabric.editor.collapseTable': 'Réduire le tableau',
   'fabric.editor.columnDragHandle': 'Options de colonne',
+  'fabric.editor.columnMovedLeft': 'Colonne déplacée vers la gauche à la position {index} sur {total}',
+  'fabric.editor.columnMovedRight': 'Colonne déplacée vers la droite à la position {index} sur {total}',
+  'fabric.editor.columnSelected': 'Colonne {index} sur {total} sélectionnée',
   'fabric.editor.columns': 'Mises en page',
   'fabric.editor.columns.description': 'Organiser votre page en sections',
   'fabric.editor.columnsAreInserted':
@@ -101,10 +108,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Copier',
   'fabric.editor.cornerControl': 'Mettre le tableau en surbrillance',
   'fabric.editor.createComment': 'Commenter',
+  'fabric.editor.createCommentDisabled':
+    'Vous ne pouvez commenter que le texte, les titres, les émoticônes, les dates, les mentions, les liens et les états.',
   'fabric.editor.createCommentInvalid': 'Vous pouvez uniquement commenter du texte et des titres',
   'fabric.editor.customPanel': 'Volet personnalisé',
   'fabric.editor.customPanel.description': "Ajoutez une remarque avec une émoticône et un fond d'écran coloré",
-  'fabric.editor.datasource.assetsObjects': 'Actifs (Bêta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Insérer des objets depuis Actifs dans Jira Service Management grâce à la recherche et au filtrage',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Actifs',
@@ -121,7 +129,7 @@ export default {
   'fabric.editor.decision': 'Décision',
   'fabric.editor.decision.description': 'Enregistrer des décisions pour les suivre plus facilement',
   'fabric.editor.decisionPlaceholder': 'Ajoutez une décision…',
-  'fabric.editor.decreaseSize': 'Réduire la taille du tableau ou du média',
+  'fabric.editor.decreaseSize': 'Réduire la taille du tableau ou de la ressource',
   'fabric.editor.defaultAltText': 'Document',
   'fabric.editor.description': 'Description',
   'fabric.editor.displayBlock': 'Afficher la carte',
@@ -245,6 +253,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Appuyez sur {keyMap} pour ouvrir rapidement cette boîte de dialogue à tout moment',
   'fabric.editor.highlight': 'Couleur de surbrillance',
   'fabric.editor.highlightColor': 'Activer ou désactiver la palette de couleurs de surbrillance',
+  'fabric.editor.highlightFloatingToolbar': 'Surligner',
   'fabric.editor.horizontalRule': 'Séparateur',
   'fabric.editor.horizontalRule.description': 'Séparer du contenu avec une ligne horizontale',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Coller ou rechercher un lien',
@@ -263,7 +272,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Taille',
   'fabric.editor.imageBorderSubtle': 'Subtile',
   'fabric.editor.improvement': 'Amélioration',
-  'fabric.editor.increaseSize': 'Augmenter la taille du tableau ou du média',
+  'fabric.editor.increaseSize': 'Augmenter la taille du tableau ou de la ressource',
   'fabric.editor.indent': 'Retrait positif',
   'fabric.editor.info': 'Informations',
   'fabric.editor.infoPanel': "Volet d'informations",
@@ -348,6 +357,7 @@ export default {
   'fabric.editor.numberedColumn': 'Colonne numérotée',
   'fabric.editor.off': '{formattingType} désactivé(e)',
   'fabric.editor.on': '{formattingType} activé',
+  'fabric.editor.openCellOptions': 'Ouvrir les options des cellules',
   'fabric.editor.openLink': 'Ouvrir le lien dans un nouvel onglet',
   'fabric.editor.orderedList': 'Liste numérotée',
   'fabric.editor.orderedList.description': 'Créer une liste ordonnée',
@@ -384,6 +394,9 @@ export default {
   'fabric.editor.rightSidebar': 'Disposition de la barre latérale de droite',
   'fabric.editor.rowControl': 'Mettre la ligne en surbrillance',
   'fabric.editor.rowDragHandle': 'Options de ligne',
+  'fabric.editor.rowMovedDown': 'Ligne déplacée vers le bas à la position {index} sur {total}',
+  'fabric.editor.rowMovedUp': 'Ligne déplacée vers le haut à la position {index} sur {total}',
+  'fabric.editor.rowSelected': 'Ligne {index} sur {total} sélectionnée',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Une ligne a été insérée} other {{count} lignes ont été insérées}}',
   'fabric.editor.rowsAreRemoved':

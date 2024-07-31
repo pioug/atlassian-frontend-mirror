@@ -1,9 +1,9 @@
 import React from 'react';
 
-import IconEmail from '@atlaskit/icon/glyph/email';
-import IconLocation from '@atlaskit/icon/glyph/location';
-import OfficeBuildingIcon from '@atlaskit/icon/glyph/office-building';
-import IconRecent from '@atlaskit/icon/glyph/recent';
+import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
+import IconEmail from '@atlaskit/icon/core/migration/email';
+import IconLocation from '@atlaskit/icon/core/migration/location';
+import OfficeBuildingIcon from '@atlaskit/icon/core/migration/office-building';
 
 import { DetailsLabel, DetailsLabelIcon, DetailsLabelText } from '../../styled/Card';
 
@@ -32,7 +32,7 @@ export default class IconLabel extends React.PureComponent<Props> {
 		// @ts-ignore
 		const IconElement = this.props.icon && icons[this.props.icon];
 		const displayIcon = IconElement ? (
-			<IconElement label={`${this.props.icon}`} size="small" />
+			<IconElement label={`${this.props.icon}`} LEGACY_size="small" color="currentColor" />
 		) : null;
 
 		return (

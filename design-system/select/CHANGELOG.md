@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.11.10
+
+### Patch Changes
+
+- [#123901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123901)
+  [`19b70fe0c7efc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19b70fe0c7efc) -
+  [ux] Updating multi value labels font size using composite font token. If successful, these
+  changes will be made available in a later release.
+
 ## 17.11.9
 
 ### Patch Changes

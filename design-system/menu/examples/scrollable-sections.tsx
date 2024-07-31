@@ -16,31 +16,31 @@ export default () => {
 			<MenuGroup maxHeight={300}>
 				<Section title="Recent" isScrollable>
 					<ButtonItem
-						iconBefore={<ImgIcon src={battery} alt="Battery" />}
+						iconBefore={<ImgIcon src={battery} alt="" />}
 						description="Next-gen software project"
 					>
 						Fabric Editor
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={cloud} alt="Cloud" />}
+						iconBefore={<ImgIcon src={cloud} alt="" />}
 						description="Classic business project"
 					>
 						Content Services
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={wallet} alt="Wallet" />}
+						iconBefore={<ImgIcon src={wallet} alt="" />}
 						description="Next-gen software project"
 					>
 						Trinity Mobile
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={koala} alt="Koala" />}
+						iconBefore={<ImgIcon src={koala} alt="" />}
 						description="Classic service desk"
 					>
 						Customer Feedback
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={ui} alt="UI logo" />}
+						iconBefore={<ImgIcon src={ui} alt="" />}
 						description="Classic software project"
 					>
 						Design System

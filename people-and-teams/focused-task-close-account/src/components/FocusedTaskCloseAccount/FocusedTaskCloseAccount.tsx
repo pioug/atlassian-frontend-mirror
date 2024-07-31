@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import Drawer from '@atlaskit/drawer';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 
 import * as Styled from './styled';
 import Footer from '../Footer';
@@ -51,7 +51,9 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
 		return (
 			<MessagesIntlProvider>
 				<Drawer
-					icon={(props: any) => <CrossIcon label="" {...props} size="medium" />}
+					icon={(props: any) => (
+						<CrossIcon color="currentColor" label="" {...props} LEGACY_size="medium" />
+					)}
 					isOpen={isOpen}
 					onClose={onClose}
 					width="full"

@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'จากมากไปหาน้อย',
   'fabric.editor.headingLink.failedToCopy': 'การคัดลอกไม่สำเร็จ',
   'fabric.editor.headingLink.noneSortingLabel': 'ไม่มี',
+  'fabric.editor.inlineComment.marker.end': 'สิ้นสุดความคิดเห็นในบรรทัด',
+  'fabric.editor.inlineComment.marker.start': 'เริ่มต้นความคิดเห็นในบรรทัด',
 };

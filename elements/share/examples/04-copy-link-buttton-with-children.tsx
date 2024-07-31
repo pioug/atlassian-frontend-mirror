@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkButton } from '@atlaskit/button/new';
+import Link from '@atlaskit/link';
 
 import { CopyLinkButton } from '../src/components/CopyLinkButton';
 
@@ -10,8 +10,6 @@ export default () => (
 		copyLinkButtonText={'Copy link with Tooltip'}
 		copiedToClipboardText={'Link copied to clipboard'}
 	>
-		<LinkButton appearance="link" spacing="none" href="/">
-			Fancy Button
-		</LinkButton>
+		<Link href="/">Fancy Button</Link>
 	</CopyLinkButton>
 );

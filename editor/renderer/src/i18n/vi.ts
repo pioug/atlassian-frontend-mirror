@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'giảm dần',
   'fabric.editor.headingLink.failedToCopy': 'Sao chép không thành công',
   'fabric.editor.headingLink.noneSortingLabel': 'không có',
+  'fabric.editor.inlineComment.marker.end': 'bình luận nội tuyến kết thúc',
+  'fabric.editor.inlineComment.marker.start': 'bình luận nội tuyến bắt đầu',
 };

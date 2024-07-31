@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': '遞減',
   'fabric.editor.headingLink.failedToCopy': '複製失敗',
   'fabric.editor.headingLink.noneSortingLabel': '無',
+  'fabric.editor.inlineComment.marker.end': '內嵌留言結束',
+  'fabric.editor.inlineComment.marker.start': '內嵌留言開始',
 };

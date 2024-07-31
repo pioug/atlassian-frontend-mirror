@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.24.3
+
+### Patch Changes
+
+- [#125536](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125536)
+  [`bf49379d856ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf49379d856ff) -
+  hide element drag handle during column resize
+
 ## 7.24.2
 
 ### Patch Changes

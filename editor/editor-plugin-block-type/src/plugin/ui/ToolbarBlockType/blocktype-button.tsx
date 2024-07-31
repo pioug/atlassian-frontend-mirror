@@ -12,8 +12,11 @@ import { FormattedMessage } from 'react-intl-next';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { wrapperStyle } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import TextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
+import TextStyleIcon from '@atlaskit/icon/core/migration/text-style--editor-text-style';
+import { default as ExpandIcon } from '@atlaskit/icon/glyph/chevron-down';
+import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { NORMAL_TEXT } from '../../block-types';
 
@@ -64,13 +67,24 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 					css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}
 					data-testid="toolbar-block-type-text-styles-icon"
 				>
-					{props.isSmall && <TextStyleIcon label={labelTextStyles} />}
-					<span
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={expandIconWrapperStyle}
-					>
-						<ExpandIcon label="" />
-					</span>
+					{fg('platform_editor_migration_icon_and_typography') ? (
+						<React.Fragment>
+							{props.isSmall && (
+								<TextStyleIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
+							)}
+							<ChevronDownIcon label="" color="currentColor" />
+						</React.Fragment>
+					) : (
+						<React.Fragment>
+							{props.isSmall && <TextStyleIconLegacy label={labelTextStyles} />}
+							<span
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								css={expandIconWrapperStyle}
+							>
+								<ExpandIcon label="" />
+							</span>
+						</React.Fragment>
+					)}
 				</span>
 			}
 		>

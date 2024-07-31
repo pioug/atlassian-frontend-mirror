@@ -81,6 +81,7 @@ export const TeamAvatarImage = ({ alt = '', src, size, testId, ...rest }: Avatar
 	if (!src || hasImageErrored) {
 		return (
 			<span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- No icon available (DSP-19499) */}
 				<TeamIcon
 					label={alt}
 					primaryColor={ICON_BACKGROUND}

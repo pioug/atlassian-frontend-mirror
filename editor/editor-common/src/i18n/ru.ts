@@ -7,6 +7,7 @@
  */
 //Russian
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Настроить макрос «{macroName}»',
   'fabric.editor.action': 'Задача',
   'fabric.editor.action.description': 'Создавайте и назначайте задачи',
   'fabric.editor.addAltText': 'Альтернативный текст',
@@ -35,6 +36,9 @@ export default {
   'fabric.editor.backgroundColor': 'Цвет фона',
   'fabric.editor.blockCardUnavailable':
     'Встроенная ссылка находится внутри узла {node} — нельзя изменить представление',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Перетаскивайте, чтобы переместить',
+  'fabric.editor.blockControlMoveDown': 'Переместить блок вниз',
+  'fabric.editor.blockControlMoveUp': 'Переместить блок вверх',
   'fabric.editor.blockDescription':
     'Отображение дополнительной информации о ссылке, включая краткое описание и действия',
   'fabric.editor.blockTitle': 'Карточка',
@@ -72,6 +76,9 @@ export default {
   'fabric.editor.collapseNode': 'Свернуть содержимое',
   'fabric.editor.collapseTable': 'Свернуть таблицу',
   'fabric.editor.columnDragHandle': 'Параметры столбца',
+  'fabric.editor.columnMovedLeft': 'Столбец перемещен влево на позицию {index} из {total}',
+  'fabric.editor.columnMovedRight': 'Столбец перемещен вправо на позицию {index} из {total}',
+  'fabric.editor.columnSelected': 'Выбран столбец {index} из {total}',
   'fabric.editor.columns': 'Макеты',
   'fabric.editor.columns.description': 'Расположение информации на странице с помощью разделов',
   'fabric.editor.columnsAreInserted':
@@ -103,10 +110,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Скопировать',
   'fabric.editor.cornerControl': 'Выделить таблицу',
   'fabric.editor.createComment': 'Комментировать',
+  'fabric.editor.createCommentDisabled':
+    'Можно комментировать только текст, заголовки, эмодзи, даты, упоминания, ссылки и статусы.',
   'fabric.editor.createCommentInvalid': 'Можно комментировать только текст и заголовки',
   'fabric.editor.customPanel': 'Пользовательская панель',
   'fabric.editor.customPanel.description': 'Добавьте примечание с эмодзи и цветным фоном',
-  'fabric.editor.datasource.assetsObjects': 'Активы (бета-версия)',
   'fabric.editor.datasource.assetsObjects.description':
     'Вставка объектов из Активов в Jira Service Management с помощью поиска и фильтрации',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Активы',
@@ -246,6 +254,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Это окно можно быстро открыть в любое время нажатием {keyMap}',
   'fabric.editor.highlight': 'Цвет выделения',
   'fabric.editor.highlightColor': 'Переключить цветовую палитру подсветки',
+  'fabric.editor.highlightFloatingToolbar': 'Выделить',
   'fabric.editor.horizontalRule': 'Разделитель',
   'fabric.editor.horizontalRule.description': 'Разделение содержимого горизонтальной линией',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Вставить или искать ссылку',
@@ -349,6 +358,7 @@ export default {
   'fabric.editor.numberedColumn': 'Столбец с нумерацией',
   'fabric.editor.off': '{formattingType} выкл.',
   'fabric.editor.on': '{formattingType} вкл.',
+  'fabric.editor.openCellOptions': 'Открыть параметры ячейки',
   'fabric.editor.openLink': 'Открыть ссылку на новой вкладке',
   'fabric.editor.orderedList': 'Нумерованный список',
   'fabric.editor.orderedList.description': 'Создание нумерованного списка',
@@ -387,6 +397,9 @@ export default {
   'fabric.editor.rightSidebar': 'Макет с правой боковой панелью',
   'fabric.editor.rowControl': 'Выделить строку',
   'fabric.editor.rowDragHandle': 'Параметры строки',
+  'fabric.editor.rowMovedDown': 'Строка перемещена вниз на позицию {index} из {total}',
+  'fabric.editor.rowMovedUp': 'Строка перемещена вверх на позицию {index} из {total}',
+  'fabric.editor.rowSelected': 'Выбрана строка {index} из {total}',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Вставлена {count} строка} few {Вставлено {count} строки} many {Вставлено {count} строк} other {Вставлено {count} строки}}',
   'fabric.editor.rowsAreRemoved':

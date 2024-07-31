@@ -4,7 +4,6 @@ import type { Command, EditorCommandWithMetadata } from '@atlaskit/editor-common
 import { isEmptyParagraph, isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { SelectionActionTypes } from './actions';
 import { GapCursorSelection, Side } from './gap-cursor-selection';
@@ -152,47 +151,12 @@ const arrowRightFromNode =
 		const { node, from, $to } = selection;
 		const { selectionRelativeToNode } = getPluginState(state);
 
-		if (getBooleanFF('platform.editor.change-navigation-for-atom-nodes')) {
-			if (node.isAtom) {
-				if (
-					isSelectionAtEndOfParentNode($to, selection) &&
-					(node.isInline || isIgnoredByGapCursor(node))
-				) {
-					// selection is for inline node or atom node which is ignored by gap-cursor and that is the last child of its parent node - set text selection after it
-					return findAndSetTextSelection(
-						RelativeSelectionPos.End,
-						state.doc.resolve(from + 1),
-						SelectionDirection.After,
-					)(state, dispatch);
-				}
-				return false;
-			} else if (selectionRelativeToNode === RelativeSelectionPos.Start) {
-				// selection is for container node - set selection inside it at the start
-				return setSelectionInsideAtNodeStart(
-					RelativeSelectionPos.Inside,
-					node,
-					from,
-				)(state, dispatch);
-			} else if (
-				isIgnoredByGapCursor(node) &&
-				(!selectionRelativeToNode || selectionRelativeToNode === RelativeSelectionPos.End)
-			) {
-				const selectableNode = findSelectableContainerAfter($to, state.doc);
-				if (selectableNode && isIgnoredByGapCursor(selectableNode.node)) {
-					// selection is for node without gap cursor followed by another node without gap cursor - set node selection for next node
-					return setSelectionRelativeToNode(
-						RelativeSelectionPos.Start,
-						NodeSelection.create(state.doc, selectableNode.pos),
-					)(state, dispatch);
-				}
-			}
-
-			return false;
-		}
-
 		if (node.isAtom) {
-			if (isSelectionAtEndOfParentNode($to, selection)) {
-				// selection is for inline node that is the last child of its parent node - set text selection after it
+			if (
+				isSelectionAtEndOfParentNode($to, selection) &&
+				(node.isInline || isIgnoredByGapCursor(node))
+			) {
+				// selection is for inline node or atom node which is ignored by gap-cursor and that is the last child of its parent node - set text selection after it
 				return findAndSetTextSelection(
 					RelativeSelectionPos.End,
 					state.doc.resolve(from + 1),
@@ -230,59 +194,12 @@ const arrowLeftFromNode =
 		const { node, from, to, $from } = selection;
 		const { selectionRelativeToNode } = getPluginState(state);
 
-		if (getBooleanFF('platform.editor.change-navigation-for-atom-nodes')) {
-			if (node.isAtom) {
-				if (
-					isSelectionAtStartOfParentNode($from, selection) &&
-					(node.isInline || isIgnoredByGapCursor(node))
-				) {
-					// selection is for inline node or atom node which is ignored by gap-cursor and that is the first child of its parent node - set text selection before it
-					return findAndSetTextSelection(
-						RelativeSelectionPos.Start,
-						state.doc.resolve(from),
-						SelectionDirection.Before,
-					)(state, dispatch);
-				}
-				return false;
-			} else if (selectionRelativeToNode === RelativeSelectionPos.End) {
-				// selection is for container node - set selection inside it at the end
-				return setSelectionInsideAtNodeEnd(
-					RelativeSelectionPos.Inside,
-					node,
-					from,
-					to,
-				)(state, dispatch);
-			} else if (
-				!selectionRelativeToNode ||
-				selectionRelativeToNode === RelativeSelectionPos.Inside
-			) {
-				// selection is for container node - set selection inside it at the start
-				// (this is a special case when the user selects by clicking node)
-				return setSelectionInsideAtNodeStart(
-					RelativeSelectionPos.Before,
-					node,
-					from,
-				)(state, dispatch);
-			} else if (
-				isIgnoredByGapCursor(node) &&
-				selectionRelativeToNode === RelativeSelectionPos.Start
-			) {
-				// selection is for node without gap cursor preceeded by another node without gap cursor - set node selection for previous node
-				const selectableNode = findSelectableContainerBefore($from, state.doc);
-				if (selectableNode && isIgnoredByGapCursor(selectableNode.node)) {
-					return setSelectionRelativeToNode(
-						RelativeSelectionPos.End,
-						NodeSelection.create(state.doc, selectableNode.pos),
-					)(state, dispatch);
-				}
-			}
-
-			return false;
-		}
-
 		if (node.isAtom) {
-			if (isSelectionAtStartOfParentNode($from, selection)) {
-				// selection is for inline node that is the first child of its parent node - set text selection before it
+			if (
+				isSelectionAtStartOfParentNode($from, selection) &&
+				(node.isInline || isIgnoredByGapCursor(node))
+			) {
+				// selection is for inline node or atom node which is ignored by gap-cursor and that is the first child of its parent node - set text selection before it
 				return findAndSetTextSelection(
 					RelativeSelectionPos.Start,
 					state.doc.resolve(from),
@@ -399,46 +316,15 @@ const setSelectionInsideAtNodeStart =
 
 		const selectableNode = findFirstChildNodeToSelect(node);
 
-		if (getBooleanFF('platform.editor.change-navigation-for-atom-nodes')) {
-			if (selectableNode) {
-				const { node: childNode, pos: childPos } = selectableNode;
-				const selectionPos = pos + childPos + 1;
-				if (
-					childNode.isText ||
-					(childNode.isAtom && isIgnoredByGapCursor(childNode)) ||
-					childNode.isInline
-				) {
-					//selection is for text node, inline node or atom node which is ignored by gap-cursor. set selection before it.
-					return findAndSetTextSelection(
-						selectionRelativeToNode,
-						state.doc.resolve(selectionPos),
-						SelectionDirection.Before,
-					)(state, dispatch);
-				} else if (isEmptyParagraph(childNode)) {
-					return findAndSetTextSelection(
-						selectionRelativeToNode,
-						state.doc.resolve(selectionPos + 1),
-						SelectionDirection.Before,
-					)(state, dispatch);
-				} else if (!isIgnoredByGapCursor(node)) {
-					return setSelectionRelativeToNode(
-						selectionRelativeToNode,
-						new GapCursorSelection(state.doc.resolve(selectionPos), Side.LEFT),
-					)(state, dispatch);
-				} else if (isSelectableContainerNode(node)) {
-					return setSelectionRelativeToNode(
-						selectionRelativeToNode,
-						NodeSelection.create(state.doc, selectionPos),
-					)(state, dispatch);
-				}
-			}
-			return false;
-		}
-
 		if (selectableNode) {
 			const { node: childNode, pos: childPos } = selectableNode;
 			const selectionPos = pos + childPos + 1;
-			if (childNode.isText || childNode.isAtom) {
+			if (
+				childNode.isText ||
+				(childNode.isAtom && isIgnoredByGapCursor(childNode)) ||
+				childNode.isInline
+			) {
+				//selection is for text node, inline node or atom node which is ignored by gap-cursor. set selection before it.
 				return findAndSetTextSelection(
 					selectionRelativeToNode,
 					state.doc.resolve(selectionPos),
@@ -483,46 +369,15 @@ export const setSelectionInsideAtNodeEnd =
 
 		const selectableNode = findLastChildNodeToSelect(node);
 
-		if (getBooleanFF('platform.editor.change-navigation-for-atom-nodes')) {
-			if (selectableNode) {
-				const { node: childNode, pos: childPos } = selectableNode;
-				const selectionPos = from + childPos + childNode.nodeSize;
-				if (
-					childNode.isText ||
-					(childNode.isAtom && isIgnoredByGapCursor(childNode)) ||
-					childNode.isInline
-				) {
-					//selection is for text node, inline node or atom node which is ignored by gap-cursor. set selection after it.
-					return findAndSetTextSelection(
-						selectionRelativeToNode,
-						state.doc.resolve(selectionPos + 1),
-						SelectionDirection.After,
-					)(state, dispatch);
-				} else if (isEmptyParagraph(childNode)) {
-					return findAndSetTextSelection(
-						selectionRelativeToNode,
-						state.doc.resolve(selectionPos),
-						SelectionDirection.After,
-					)(state, dispatch);
-				} else if (!isIgnoredByGapCursor(node)) {
-					return setSelectionRelativeToNode(
-						selectionRelativeToNode,
-						new GapCursorSelection(state.doc.resolve(selectionPos + 1), Side.RIGHT),
-					)(state, dispatch);
-				} else if (isSelectableContainerNode(node)) {
-					return setSelectionRelativeToNode(
-						selectionRelativeToNode,
-						NodeSelection.create(state.doc, selectionPos),
-					)(state, dispatch);
-				}
-			}
-			return false;
-		}
-
 		if (selectableNode) {
 			const { node: childNode, pos: childPos } = selectableNode;
 			const selectionPos = from + childPos + childNode.nodeSize;
-			if (childNode.isText || childNode.isAtom) {
+			if (
+				childNode.isText ||
+				(childNode.isAtom && isIgnoredByGapCursor(childNode)) ||
+				childNode.isInline
+			) {
+				//selection is for text node, inline node or atom node which is ignored by gap-cursor. set selection after it.
 				return findAndSetTextSelection(
 					selectionRelativeToNode,
 					state.doc.resolve(selectionPos + 1),

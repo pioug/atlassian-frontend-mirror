@@ -47,6 +47,8 @@ const ErrorMessage = (props: Props) => {
 
 	return (
 		<ErrorWrapper data-testid="profilecard-error">
+			{/* TODO: https://product-fabric.atlassian.net/browse/DSP-19538 */}
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons */}
 			<IconError label="icon error" size="xlarge" />
 			{errorContent()}
 			{reload && (

@@ -36,7 +36,8 @@ export type ToolbarElementNames =
 	| 'avatarGroup'
 	| 'findReplace'
 	| 'aiExperience'
-	| 'loom';
+	| 'loom'
+	| 'spellCheck';
 
 export type ToolbarElementConfig = {
 	name: ToolbarElementNames;

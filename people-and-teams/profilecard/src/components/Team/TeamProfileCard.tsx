@@ -6,7 +6,7 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
 import FocusRing from '@atlaskit/focus-ring';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
@@ -264,7 +264,7 @@ const ExtraActions = ({ actions, analytics }: ActionProps) => {
 						{...triggerProps}
 						isSelected={isOpen}
 						onClick={() => onMoreClick(!isOpen)}
-						iconAfter={<MoreIcon label="actions" />}
+						iconAfter={<MoreIcon spacing="spacious" label="actions" color="currentColor" />}
 					/>
 				)}
 				zIndex={layers.modal()}

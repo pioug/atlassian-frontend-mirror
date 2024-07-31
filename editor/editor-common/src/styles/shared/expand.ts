@@ -8,6 +8,11 @@ export const expandIconWrapperStyle = css({
 	marginLeft: token('space.negative.100', '-8px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const expandIconContainerStyle = css({
+	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0 0`,
+});
+
 const prefix = 'ak-editor-expand';
 
 export const expandClassNames = {

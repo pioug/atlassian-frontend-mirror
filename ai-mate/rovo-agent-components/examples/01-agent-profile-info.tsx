@@ -4,7 +4,11 @@ import { IntlProvider } from 'react-intl-next';
 
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
-import { AgentProfileCreator, AgentProfileInfo } from '../src/ui/agent-profile-info';
+import {
+	AgentProfileCreator,
+	AgentProfileInfo,
+	AgentStarCount,
+} from '../src/ui/agent-profile-info';
 
 const wrapperStyles = xcss({
 	width: '280px',
@@ -30,7 +34,7 @@ export default function () {
 								}}
 							/>
 						}
-						starCount={14253}
+						starCountRender={<AgentStarCount starCount={14253} isLoading={false} />}
 					/>
 				</Box>
 
@@ -51,7 +55,7 @@ export default function () {
 								}}
 							/>
 						}
-						starCount={512}
+						starCountRender={<AgentStarCount starCount={512} isLoading={false} />}
 						agentDescription="Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice."
 					/>
 				</Box>
@@ -61,7 +65,6 @@ export default function () {
 						agentName="Test agent with long name Test agent with long name and loading"
 						isStarred={true}
 						onStarToggle={() => {}}
-						starCount={12}
 						creatorRender={
 							<AgentProfileCreator
 								creator={undefined}
@@ -71,6 +74,7 @@ export default function () {
 								}}
 							/>
 						}
+						starCountRender={<AgentStarCount starCount={12} isLoading={true} />}
 						agentDescription="Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice."
 					/>
 				</Box>
@@ -78,7 +82,7 @@ export default function () {
 				<Box xcss={wrapperStyles}>
 					<AgentProfileInfo
 						agentName="Agent without creator and description"
-						isStarred={true}
+						isStarred={false}
 						onStarToggle={() => {}}
 						creatorRender={
 							<AgentProfileCreator
@@ -89,7 +93,7 @@ export default function () {
 								}}
 							/>
 						}
-						starCount={14253}
+						starCountRender={<AgentStarCount starCount={undefined} isLoading={false} />}
 					/>
 				</Box>
 			</Inline>

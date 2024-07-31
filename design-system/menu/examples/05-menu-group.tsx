@@ -44,18 +44,14 @@ export default () => {
 			>
 				<MenuGroup testId="with-adjacent-sections" maxWidth={600} maxHeight={1000}>
 					<Section title="Actions">
-						<LinkItem iconBefore={<EditorSearchIcon label="Search Icon" />} href="#search">
+						<LinkItem iconBefore={<EditorSearchIcon label="" />} href="#search">
 							Search your items
 						</LinkItem>
-						<LinkItem
-							iconBefore={<EditFilledIcon label="Editor Icon" />}
-							href="#add-new-item"
-							isDisabled
-						>
+						<LinkItem iconBefore={<EditFilledIcon label="" />} href="#add-new-item" isDisabled>
 							Add new item (disabled)
 						</LinkItem>
 						<LinkItem
-							iconBefore={<StarFilledIcon label="Star icon" />}
+							iconBefore={<StarFilledIcon label="" />}
 							iconAfter={<ArrowRightIcon label="" />}
 							description="You have 24 starred items."
 							href="#starred"
@@ -64,7 +60,7 @@ export default () => {
 						</LinkItem>
 						<LinkItem
 							iconAfter={<ArrowRightIcon label="" />}
-							iconBefore={<Archive24Icon label="Quote icon" />}
+							iconBefore={<Archive24Icon label="" />}
 							description="You have 16 archived items."
 							href="#archived"
 						>
@@ -72,14 +68,14 @@ export default () => {
 						</LinkItem>
 					</Section>
 					<Section title="More actions">
-						<LinkItem iconBefore={<EditorSearchIcon label="Search Icon" />} href="#edit">
+						<LinkItem iconBefore={<EditorSearchIcon label="" />} href="#edit">
 							Edit your items
 						</LinkItem>
-						<LinkItem iconBefore={<TrashIcon label="Delete Icon" />} href="#delete" isDisabled>
+						<LinkItem iconBefore={<TrashIcon label="" />} href="#delete" isDisabled>
 							Delete item (disabled)
 						</LinkItem>
 						<LinkItem
-							iconBefore={<StarIcon label="Star icon" />}
+							iconBefore={<StarIcon label="" />}
 							iconAfter={<ArrowRightIcon label="" />}
 							description="You have 24 unstarred items."
 							href="#unstarred"
@@ -88,7 +84,7 @@ export default () => {
 						</LinkItem>
 						<LinkItem
 							iconAfter={<ArrowRightIcon label="" />}
-							iconBefore={<PresenceActiveIcon label="Active icon" />}
+							iconBefore={<PresenceActiveIcon label="" />}
 							description="You have 16 archived items."
 							href="#archive"
 						>
@@ -97,7 +93,7 @@ export default () => {
 						<LinkItem
 							isDisabled={true}
 							iconAfter={<ArrowRightIcon label="" />}
-							iconBefore={<PresenceActiveIcon label="Active icon" />}
+							iconBefore={<PresenceActiveIcon label="" />}
 							description="You have 4 archived items."
 							href="#active"
 						>
@@ -105,41 +101,38 @@ export default () => {
 						</LinkItem>
 					</Section>
 					<Section title="Favourite articles" hasSeparator isScrollable>
-						<ButtonItem iconBefore={<Blog24Icon label="Quote icon" />}>Untitled</ButtonItem>
-						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
-							description="It's short and sweet."
-						>
+						<ButtonItem iconBefore={<Blog24Icon label="" />}>Untitled</ButtonItem>
+						<ButtonItem iconBefore={<Blog24Icon label="" />} description="It's short and sweet.">
 							Short stories of Albany
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
+							iconBefore={<Blog24Icon label="" />}
 							description="Success often comes with a shadow side and hidden costs. In this article, we examine the shadow side of Pablo Picasso's genius."
 						>
 							The Shadow Side of Greatness
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
+							iconBefore={<Blog24Icon label="" />}
 							description="Self-awareness is critical for success in all fields. Read this article to learn how biologist Louis Agassiz taught self-awareness through observation."
 						>
 							Famous Biologist Louis Agassiz on the Usefulness of Learning Through Observation
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
+							iconBefore={<Blog24Icon label="" />}
 							description="Famous poet Joseph Brodsky was exiled from his home in Russia and forced to leave the love of his life behind, never to be seen again. In 1988, Brodsky shared a beautiful strategy and method for dealing with the critics, detractors, and negative influences in your life."
 						>
 							Joseph Brodsky Explains Perfectly How to Deal With Critics and Detractors in Your
 							Life:
 						</ButtonItem>
 						<ButtonItem
-							iconBefore={<Blog24Icon label="Quote icon" />}
+							iconBefore={<Blog24Icon label="" />}
 							description="Martha Graham, perhaps the most influential dance choreographer of the 20th century, explains why it is not your job to judge your own work"
 						>
 							Martha Graham on the Hidden Danger of Comparing Yourself to Others
 						</ButtonItem>
 						<ButtonItem
 							testId="favourite-articles-button-item"
-							iconBefore={<Blog24Icon label="Quote icon" />}
+							iconBefore={<Blog24Icon label="" />}
 							description="Actress Nichelle Nichols helped shape the Civil Rights Movement without realizing it. Read this article to learn how you can live a meaningful life."
 						>
 							Lessons on Living a Meaningful Life from Nichelle Nichols
@@ -170,66 +163,48 @@ export default () => {
 						<Section title="Scrollable Starred">
 							<ButtonItem
 								description="Software Project"
-								iconBefore={<Blog24Icon label="Quote icon" />}
+								iconBefore={<Blog24Icon label="" />}
 								iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
 							>
 								Endeavour (JSPA)
 							</ButtonItem>
 							<ButtonItem
 								description="Software Project"
-								iconBefore={<Blog24Icon label="Quote icon" />}
+								iconBefore={<Blog24Icon label="" />}
 								iconAfter={<StarFilledIcon label="" primaryColor={token('color.icon.warning')} />}
 							>
 								Navigation v3 (JNAV)
 							</ButtonItem>
 						</Section>
 						<Section title="Recent">
-							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
-								description="Software Project"
-							>
+							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
 								Emanada (EM)
 							</ButtonItem>
-							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
-								description="Software Project"
-							>
+							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
 								Jira Frontend Performance Initiative (PEAR)
 							</ButtonItem>
-							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
-								description="Software Project"
-							>
+							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
 								Fabric Editor
 							</ButtonItem>
 							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
+								iconBefore={<Blog24Icon label="" />}
 								description="Next-gen software project"
 							>
 								Content Services
 							</ButtonItem>
 							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
+								iconBefore={<Blog24Icon label="" />}
 								description="Classic business project"
 							>
 								Trinity Mobile
 							</ButtonItem>
-							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
-								description="Classic service desk"
-							>
+							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Classic service desk">
 								SPA Performance (SPAPERF)
 							</ButtonItem>
-							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
-								description="Software Project"
-							>
+							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
 								Moneyball Design (EXM)
 							</ButtonItem>
-							<ButtonItem
-								iconBefore={<Blog24Icon label="Quote icon" />}
-								description="Software Project"
-							>
+							<ButtonItem iconBefore={<Blog24Icon label="" />} description="Software Project">
 								3Sia (CZAM)
 							</ButtonItem>
 						</Section>

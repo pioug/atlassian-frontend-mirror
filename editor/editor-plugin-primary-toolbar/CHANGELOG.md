@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 1.3.2
+
+### Patch Changes
+
+- [#124654](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124654)
+  [`3eace5ec6b539`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3eace5ec6b539) -
+  [ux] Updated the primary toolbar plugin to allow have a spellcheck button which is next to the
+  undo/redo buttons. Also update the ai plugin to support this and fallback to the original "append
+  to end" implementation if the toolbar plugin is not enabled
+
 ## 1.3.1
 
 ### Patch Changes

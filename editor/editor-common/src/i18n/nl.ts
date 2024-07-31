@@ -7,6 +7,7 @@
  */
 //Dutch (Netherlands)
 export default {
+  'editor-common-extensibility.macro.button.configure': '{macroName} configureren',
   'fabric.editor.action': 'Actiepunt',
   'fabric.editor.action.description': 'Actie-items maken en toewijzen',
   'fabric.editor.addAltText': 'Alt-tekst',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Ga terug',
   'fabric.editor.backgroundColor': 'Achtergrondkleur',
   'fabric.editor.blockCardUnavailable': 'De inline-link zit in {node} en de weergave ervan kan niet gewijzigd worden',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Sleep om te verplaatsen',
+  'fabric.editor.blockControlMoveDown': 'Verplaats naar beneden',
+  'fabric.editor.blockControlMoveUp': 'Verplaats naar boven',
   'fabric.editor.blockDescription': 'Meer informatie weergeven over een link, inclusief een samenvatting en acties',
   'fabric.editor.blockTitle': 'Kaart',
   'fabric.editor.blockquote': 'een citaat',
@@ -69,6 +73,9 @@ export default {
   'fabric.editor.collapseNode': 'Content inklappen',
   'fabric.editor.collapseTable': 'Tabel inklappen',
   'fabric.editor.columnDragHandle': 'Kolomopties',
+  'fabric.editor.columnMovedLeft': 'Kolom naar links verplaatst naar {index} van {total}',
+  'fabric.editor.columnMovedRight': 'Kolom naar rechts verplaatst naar {index} van {total}',
+  'fabric.editor.columnSelected': 'Kolom {index} van {total} geselecteerd',
   'fabric.editor.columns': 'Lay-outs',
   'fabric.editor.columns.description': 'Je pagina structureren met secties',
   'fabric.editor.columnsAreInserted':
@@ -99,10 +106,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopiëren',
   'fabric.editor.cornerControl': 'Tabel markeren',
   'fabric.editor.createComment': 'Opmerking maken',
+  'fabric.editor.createCommentDisabled':
+    'Je kunt alleen opmerkingen plaatsen bij tekst, kopteksten, emoticons, datums, vermeldingen, links en statussen.',
   'fabric.editor.createCommentInvalid': 'Je kunt alleen opmerkingen plaatsen bij tekst en koppen',
   'fabric.editor.customPanel': 'Aangepast paneel',
   'fabric.editor.customPanel.description': 'Voeg een notitie toe met een emoji en een gekleurde achtergrond',
-  'fabric.editor.datasource.assetsObjects': 'Assets (bèta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Voeg objecten van Assets in Jira Service Management in met behulp van zoeken en filteren',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Assets',
@@ -241,6 +249,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Klik op {keyMap} om dit dialoogvenster snel te openen',
   'fabric.editor.highlight': 'Kleur markeren',
   'fabric.editor.highlightColor': 'Kleurenpalet voor markeringen in- en uitschakelen',
+  'fabric.editor.highlightFloatingToolbar': 'Highlight',
   'fabric.editor.horizontalRule': 'Scheidingslijn',
   'fabric.editor.horizontalRule.description': 'Inhoud scheiden met een horizontale lijn',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Link plakken of zoeken',
@@ -342,6 +351,7 @@ export default {
   'fabric.editor.numberedColumn': 'Genummerde kolom',
   'fabric.editor.off': '{formattingType} uit',
   'fabric.editor.on': '{formattingType} aan',
+  'fabric.editor.openCellOptions': 'Celopties openen',
   'fabric.editor.openLink': 'Link openen in een nieuw tabblad',
   'fabric.editor.orderedList': 'Genummerde lijst',
   'fabric.editor.orderedList.description': 'Een gesorteerde lijst maken',
@@ -378,6 +388,9 @@ export default {
   'fabric.editor.rightSidebar': 'Lay-out van rechterzijbalk',
   'fabric.editor.rowControl': 'Rij markeren',
   'fabric.editor.rowDragHandle': 'Rij-opties',
+  'fabric.editor.rowMovedDown': 'Rij naar beneden verplaatst naar {index} van {total}',
+  'fabric.editor.rowMovedUp': 'Rij naar boven verplaatst naar {index} van {total}',
+  'fabric.editor.rowSelected': 'Rij {index} van {total} geselecteerd',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Er is een rij ingevoegd} other {Er zijn {count} rijen ingevoegd}}',
   'fabric.editor.rowsAreRemoved': '{count, plural, one {De rij is verwijderd} other {{count} rijen zijn verwijderd}}',

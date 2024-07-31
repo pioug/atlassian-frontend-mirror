@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'descendente',
   'fabric.editor.headingLink.failedToCopy': 'Copia fallida',
   'fabric.editor.headingLink.noneSortingLabel': 'ninguno',
+  'fabric.editor.inlineComment.marker.end': 'final de comentario insertado',
+  'fabric.editor.inlineComment.marker.start': 'inicio de comentario insertado',
 };

@@ -13,7 +13,7 @@ import {
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { createEditorContentStyle } from '../../ContentStyles';
@@ -214,11 +214,15 @@ const editorContentArea = css(
 );
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const editorContentGutterStyle = css({
-	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	padding: getBooleanFF('platform.editor.core.increase-full-page-guttering')
+export const editorContentGutterStyle = () => {
+	const padding = fg('platform.editor.core.increase-full-page-guttering')
 		? // there is no space token for 52px
 			`0 52px`
-		: `0 ${token('space.400', '32px')}`,
-});
+		: `0 ${token('space.400', '32px')}`;
+
+	return css({
+		boxSizing: 'border-box',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		padding: padding,
+	});
+};

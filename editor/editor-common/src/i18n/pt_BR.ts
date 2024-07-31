@@ -7,6 +7,7 @@
  */
 //Portuguese (Brazil)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Configurar {macroName}',
   'fabric.editor.action': 'Item de ação',
   'fabric.editor.action.description': 'Criar e atribuir itens de ação',
   'fabric.editor.addAltText': 'Texto alt',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Voltar',
   'fabric.editor.backgroundColor': 'Cor do plano de fundo',
   'fabric.editor.blockCardUnavailable': 'O link em linha está em {node}, e sua exibição não pode ser alterada',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Arraste para mover',
+  'fabric.editor.blockControlMoveDown': 'Mover para baixo',
+  'fabric.editor.blockControlMoveUp': 'Mover para cima',
   'fabric.editor.blockDescription': 'Mostrar mais informações sobre links, incluindo resumo e ações',
   'fabric.editor.blockTitle': 'Cartão',
   'fabric.editor.blockquote': 'citação',
@@ -69,6 +73,9 @@ export default {
   'fabric.editor.collapseNode': 'Recolher conteúdo',
   'fabric.editor.collapseTable': 'Recolher tabela',
   'fabric.editor.columnDragHandle': 'Opções de coluna',
+  'fabric.editor.columnMovedLeft': 'Coluna movida para a esquerda para {index} de {total}',
+  'fabric.editor.columnMovedRight': 'Coluna movida para a direita para {index} de {total}',
+  'fabric.editor.columnSelected': 'Coluna {index} de {total} selecionada',
   'fabric.editor.columns': 'Layouts',
   'fabric.editor.columns.description': 'Estruturar sua página usando seções',
   'fabric.editor.columnsAreInserted':
@@ -99,10 +106,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Copiar',
   'fabric.editor.cornerControl': 'Destacar tabela',
   'fabric.editor.createComment': 'Comentar',
+  'fabric.editor.createCommentDisabled':
+    'Você só pode comentar em textos, títulos, emojis, datas, menções, links e status.',
   'fabric.editor.createCommentInvalid': 'Você só pode comentar em texto e cabeçalhos',
   'fabric.editor.customPanel': 'Painel personalizado',
   'fabric.editor.customPanel.description': 'Adicione uma observação com um emoji e plano de fundo colorido',
-  'fabric.editor.datasource.assetsObjects': 'Recursos (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Insira objetos a partir de Recursos no Jira Service Management com ferramentas de pesquisa e filtro',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Recursos',
@@ -242,6 +250,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Pressione {keyMap} para abrir rapidamente esta caixa de diálogo a qualquer momento',
   'fabric.editor.highlight': 'Cor de realce',
   'fabric.editor.highlightColor': 'Alternar paleta de cores de destaque',
+  'fabric.editor.highlightFloatingToolbar': 'Realce',
   'fabric.editor.horizontalRule': 'Divisória',
   'fabric.editor.horizontalRule.description': 'Separar conteúdo com uma linha horizontal',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Colar ou pesquisar link',
@@ -343,6 +352,7 @@ export default {
   'fabric.editor.numberedColumn': 'Coluna numerada',
   'fabric.editor.off': '{formattingType} Desativado',
   'fabric.editor.on': '{formattingType} Ativado',
+  'fabric.editor.openCellOptions': 'Abrir opções de célula',
   'fabric.editor.openLink': 'Abrir link em uma nova guia',
   'fabric.editor.orderedList': 'Lista numerada',
   'fabric.editor.orderedList.description': 'Criar uma lista ordenada',
@@ -379,6 +389,9 @@ export default {
   'fabric.editor.rightSidebar': 'Layout com barra lateral à direita',
   'fabric.editor.rowControl': 'Destacar linha',
   'fabric.editor.rowDragHandle': 'Opções de linhas',
+  'fabric.editor.rowMovedDown': 'Linha movida para baixo para {index} de {total}',
+  'fabric.editor.rowMovedUp': 'Linha movida para cima para {index} de {total}',
+  'fabric.editor.rowSelected': 'Linha {index} de {total} selecionada',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Uma linha foi inserida} other {{count} linhas foram inseridas}}',
   'fabric.editor.rowsAreRemoved': '{count, plural, one {A linha foi removida} other {{count} linhas foram removidas}}',

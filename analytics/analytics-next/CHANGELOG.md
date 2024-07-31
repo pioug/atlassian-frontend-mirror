@@ -1,5 +1,13 @@
 # @atlaskit/analytics-next
 
+## 9.3.3
+
+### Patch Changes
+
+- [#125281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125281)
+  [`69348340269b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69348340269b2) -
+  Switch AnalyticsErrorBoundary between Modern and Legacy context
+
 ## 9.3.2
 
 ### Patch Changes

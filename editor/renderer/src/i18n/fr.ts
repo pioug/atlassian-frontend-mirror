@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'ordre décroissant',
   'fabric.editor.headingLink.failedToCopy': 'Copie impossible',
   'fabric.editor.headingLink.noneSortingLabel': 'Néant',
+  'fabric.editor.inlineComment.marker.end': 'fin du commentaire contextuel',
+  'fabric.editor.inlineComment.marker.start': 'début du commentaire contextuel',
 };

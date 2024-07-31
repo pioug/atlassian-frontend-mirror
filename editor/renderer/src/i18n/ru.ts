@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'по убыванию',
   'fabric.editor.headingLink.failedToCopy': 'Ошибка копирования',
   'fabric.editor.headingLink.noneSortingLabel': 'Нет',
+  'fabric.editor.inlineComment.marker.end': 'конец встроенного комментария',
+  'fabric.editor.inlineComment.marker.start': 'начало встроенного комментария',
 };

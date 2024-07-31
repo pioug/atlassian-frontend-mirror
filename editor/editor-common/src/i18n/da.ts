@@ -7,6 +7,7 @@
  */
 //Danish (Denmark)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Konfigurer {macroName}',
   'fabric.editor.action': 'Handlingsgenstand',
   'fabric.editor.action.description': 'Opret og tildel handlingsgenstande',
   'fabric.editor.addAltText': 'Alternativ tekst',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Gå tilbage',
   'fabric.editor.backgroundColor': 'Baggrundsfarve',
   'fabric.editor.blockCardUnavailable': 'Det indbyggede link er inden i {node}, og dets visning kan ikke ændres',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Træk for at flytte',
+  'fabric.editor.blockControlMoveDown': 'Flyt ned',
+  'fabric.editor.blockControlMoveUp': 'Flyt op',
   'fabric.editor.blockDescription': 'Vis flere oplysninger om et link, inklusive sammendrag og handlinger',
   'fabric.editor.blockTitle': 'Kort',
   'fabric.editor.blockquote': 'et citat',
@@ -69,6 +73,9 @@ export default {
   'fabric.editor.collapseNode': 'skjul indhold',
   'fabric.editor.collapseTable': 'Luk tabel',
   'fabric.editor.columnDragHandle': 'Kolonneindstillinger',
+  'fabric.editor.columnMovedLeft': 'Kolonne flyttet til venstre til {index} af {total}',
+  'fabric.editor.columnMovedRight': 'Kolonne flyttet til højre til {index} af {total}',
+  'fabric.editor.columnSelected': 'Kolonne {index} af {total} er valgt',
   'fabric.editor.columns': 'Layout',
   'fabric.editor.columns.description': 'Opdel din side i afsnit',
   'fabric.editor.columnsAreInserted':
@@ -100,10 +107,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopiér',
   'fabric.editor.cornerControl': 'Fremhæv tabel',
   'fabric.editor.createComment': 'Kommenter',
+  'fabric.editor.createCommentDisabled':
+    'Du kan kun kommentere tekst, overskrifter, emojier, datoer, omtaler, links og statusser.',
   'fabric.editor.createCommentInvalid': 'Du kan kun kommentere tekst og overskrifter',
   'fabric.editor.customPanel': 'Brugerdefineret panel',
   'fabric.editor.customPanel.description': 'Tilføj en note med en emoji og farvet baggrund',
-  'fabric.editor.datasource.assetsObjects': 'Aktiver (beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Indsæt objekter fra Aktiver i Jira Service Management med søgning og filtrering',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Aktiver',
@@ -242,6 +250,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Tryk på {keyMap} for at få hurtig adgang til denne dialogboks',
   'fabric.editor.highlight': 'Farve på fremhævning',
   'fabric.editor.highlightColor': 'Slå fremhævningsfarvepalet til/fra',
+  'fabric.editor.highlightFloatingToolbar': 'Fremhæv',
   'fabric.editor.horizontalRule': 'Rumdeler',
   'fabric.editor.horizontalRule.description': 'Adskil indhold med en vandret linje',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Indsæt eller søg efter link',
@@ -340,6 +349,7 @@ export default {
   'fabric.editor.numberedColumn': 'Kolonne med nummerering',
   'fabric.editor.off': '{formattingType} fra',
   'fabric.editor.on': '{formattingType} til',
+  'fabric.editor.openCellOptions': 'Åbn celleegenskaber',
   'fabric.editor.openLink': 'Åbn link i en nye fane',
   'fabric.editor.orderedList': 'Nummereret liste',
   'fabric.editor.orderedList.description': 'Opret en sorteret liste',
@@ -376,6 +386,9 @@ export default {
   'fabric.editor.rightSidebar': 'Layout med højre sidebjælke',
   'fabric.editor.rowControl': 'Fremhæv række',
   'fabric.editor.rowDragHandle': 'Rækkeindstillinger',
+  'fabric.editor.rowMovedDown': 'Række flyttet ned til {index} af {total}',
+  'fabric.editor.rowMovedUp': 'Række flyttet op til {index} af {total}',
+  'fabric.editor.rowSelected': 'Række {index} af {total} er valgt',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {En række er blevet indsat} other {{count} rækker er blevet indsat}}',
   'fabric.editor.rowsAreRemoved':

@@ -18,13 +18,13 @@ export default () => {
 			<MenuGroup maxHeight={300}>
 				<Section title="starred">
 					<ButtonItem
-						iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
+						iconBefore={<ImgIcon src={Yeti} alt="" />}
 						description="Next-gen software project"
 					>
 						Navigation System
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={Drill} alt={'Drill'} />}
+						iconBefore={<ImgIcon src={Drill} alt="" />}
 						description="Next-gen service desk"
 					>
 						Analytics Platform
@@ -32,31 +32,31 @@ export default () => {
 				</Section>
 				<Section title="Recent">
 					<ButtonItem
-						iconBefore={<ImgIcon src={battery} alt={'Battery'} />}
+						iconBefore={<ImgIcon src={battery} alt="" />}
 						description="Next-gen software project"
 					>
 						Fabric Editor
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={cloud} alt={'Cloud'} />}
+						iconBefore={<ImgIcon src={cloud} alt="" />}
 						description="Classic business project"
 					>
 						Content Services
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={wallet} alt={'Wallet'} />}
+						iconBefore={<ImgIcon src={wallet} alt="" />}
 						description="Next-gen software project"
 					>
 						Trinity Mobile
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={koala} alt={'Koala'} />}
+						iconBefore={<ImgIcon src={koala} alt="" />}
 						description="Classic service desk"
 					>
 						Customer Feedback
 					</ButtonItem>
 					<ButtonItem
-						iconBefore={<ImgIcon src={ui} alt={'UI'} />}
+						iconBefore={<ImgIcon src={ui} alt="" />}
 						description="Classic software project"
 					>
 						Design System

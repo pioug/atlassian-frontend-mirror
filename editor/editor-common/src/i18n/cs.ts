@@ -7,6 +7,7 @@
  */
 //Czech
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Konfigurovat makro {macroName}',
   'fabric.editor.action': 'Aktuální úkol',
   'fabric.editor.action.description': 'Vytvořit a přiřadit aktuální úkol',
   'fabric.editor.addAltText': 'Alternativní text',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Zpět',
   'fabric.editor.backgroundColor': 'Barva pozadí',
   'fabric.editor.blockCardUnavailable': 'Vložený odkaz je uvnitř uzlu {node} a jeho zobrazení nelze změnit',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Přetažením přesunete.',
+  'fabric.editor.blockControlMoveDown': 'Posunout dolů',
+  'fabric.editor.blockControlMoveUp': 'Posunout nahoru',
   'fabric.editor.blockDescription': 'Zobrazit další informace o odkazu, včetně souhrnu a akcí',
   'fabric.editor.blockTitle': 'Karta',
   'fabric.editor.blockquote': 'citace',
@@ -70,6 +74,9 @@ export default {
   'fabric.editor.collapseNode': 'Sbalit obsah',
   'fabric.editor.collapseTable': 'Sbalit tabulku',
   'fabric.editor.columnDragHandle': 'Možnosti sloupce',
+  'fabric.editor.columnMovedLeft': 'Sloupec byl přesunut doleva na pozici {index} z {total}',
+  'fabric.editor.columnMovedRight': 'Sloupec byl přesunut doprava na pozici {index} z {total}',
+  'fabric.editor.columnSelected': 'Je vybrán sloupec {index} z {total}',
   'fabric.editor.columns': 'Rozvržení',
   'fabric.editor.columns.description': 'Uspořádejte svou stránku pomocí oddílů',
   'fabric.editor.columnsAreInserted':
@@ -100,10 +107,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopírovat',
   'fabric.editor.cornerControl': 'Zvýraznit tabulku',
   'fabric.editor.createComment': 'Komentář',
+  'fabric.editor.createCommentDisabled':
+    'Komentovat můžete pouze text, nadpisy, smajlíky, kalendářní data, zmínky, odkazy a stavy.',
   'fabric.editor.createCommentInvalid': 'Komentovat můžete pouze text a nadpisy',
   'fabric.editor.customPanel': 'Vlastní panel',
   'fabric.editor.customPanel.description': 'Přidejte poznámku se smajlíkem a barevným pozadím.',
-  'fabric.editor.datasource.assetsObjects': 'Aktiva (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Pomocí vyhledávání a filtrování vložte objekty z Aktiv do Jira Service Management.',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Aktiva',
@@ -242,6 +250,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Zmáčkněte {keyMap}, abyste mohli kdykoliv rychle otevřít tento dialog.',
   'fabric.editor.highlight': 'Barva zvýraznění',
   'fabric.editor.highlightColor': 'Přepnout paletu barev zvýraznění',
+  'fabric.editor.highlightFloatingToolbar': 'Zvýraznění',
   'fabric.editor.horizontalRule': 'Dílčí příčka',
   'fabric.editor.horizontalRule.description': 'Rozdělit obsah horizontální čárou',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Vložit nebo vyhledat odkaz',
@@ -344,6 +353,7 @@ export default {
   'fabric.editor.numberedColumn': 'Číslovaný sloupec',
   'fabric.editor.off': 'Formátování {formattingType} vypnuto',
   'fabric.editor.on': '{formattingType} zapnuto',
+  'fabric.editor.openCellOptions': 'Otevřít možnosti buňky',
   'fabric.editor.openLink': 'Otevřít odkaz na nové kartě',
   'fabric.editor.orderedList': 'Číslovaný seznam',
   'fabric.editor.orderedList.description': 'Vytvořit seřazený seznam',
@@ -382,6 +392,9 @@ export default {
   'fabric.editor.rightSidebar': 'Rozvržení pravého bočního panelu',
   'fabric.editor.rowControl': 'Zvýraznit řádek',
   'fabric.editor.rowDragHandle': 'Možnosti řádku',
+  'fabric.editor.rowMovedDown': 'Řádek byl přesunut dolů na pozici {index} z {total}',
+  'fabric.editor.rowMovedUp': 'Řádek byl přesunut nahoru na pozici {index} z {total}',
+  'fabric.editor.rowSelected': 'Je vybrán řádek {index} z {total}',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Byl vložen řádek.} few {Byly vloženy {count} řádky.} many {Bylo vloženo {count} řádku.} other {Bylo vloženo {count} řádků.}}',
   'fabric.editor.rowsAreRemoved':

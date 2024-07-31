@@ -7,6 +7,7 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'editor-common-extensibility.macro.button.configure': 'Налаштувати {macroName}',
   'fabric.editor.action': 'Задача',
   'fabric.editor.action.description': 'Створити та призначити задачу',
   'fabric.editor.addAltText': 'Текст заміщення',
@@ -34,6 +35,9 @@ export default {
   'fabric.editor.backLink': 'Назад',
   'fabric.editor.backgroundColor': 'Колір фону',
   'fabric.editor.blockCardUnavailable': 'Вбудоване посилання знаходиться у вузлі {node}, тому змінити подання не можна',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Перетягніть, щоб змінити порядок',
+  'fabric.editor.blockControlMoveDown': 'Перемістити вниз',
+  'fabric.editor.blockControlMoveUp': 'Перемістити вверх',
   'fabric.editor.blockDescription': 'Показати більше інформації про посилання, у тому числі зведені дані й дії',
   'fabric.editor.blockTitle': 'Картка',
   'fabric.editor.blockquote': 'цитата',
@@ -70,6 +74,9 @@ export default {
   'fabric.editor.collapseNode': 'Згорніть вміст',
   'fabric.editor.collapseTable': 'Згорнути таблицю',
   'fabric.editor.columnDragHandle': 'Параметри стовпців',
+  'fabric.editor.columnMovedLeft': 'Стовпець переміщено на позицію ліворуч від стовпця {index} з {total}',
+  'fabric.editor.columnMovedRight': 'Стовпець переміщено на позицію праворуч від стовпця {index} з {total}',
+  'fabric.editor.columnSelected': 'Вибрано стовпець {index} з {total}',
   'fabric.editor.columns': 'Макет',
   'fabric.editor.columns.description': 'Впорядкувати сторінку за допомогою розділів',
   'fabric.editor.columnsAreInserted':
@@ -100,10 +107,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Копіювати',
   'fabric.editor.cornerControl': 'Виділити таблицю',
   'fabric.editor.createComment': 'Додати коментар',
+  'fabric.editor.createCommentDisabled':
+    'Ви можете коментувати лише текст, заголовки, емодзі, дати, згадування, посилання й стани.',
   'fabric.editor.createCommentInvalid': 'Коментувати можна лише текст і заголовки',
   'fabric.editor.customPanel': 'Користувацька панель',
   'fabric.editor.customPanel.description': 'Додайте примітку з емодзі та кольоровим фоном',
-  'fabric.editor.datasource.assetsObjects': 'Ресурси (бета-версія)',
   'fabric.editor.datasource.assetsObjects.description':
     'Вставляйте об’єкти з розділу «Ресурси» в Jira Service Management за допомогою пошуку й фільтрації',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Ресурси',
@@ -243,6 +251,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Натисніть {keyMap}, щоб відкрити це вікно будь-коли',
   'fabric.editor.highlight': 'Колір позначення тексту',
   'fabric.editor.highlightColor': 'Перемкнути палітру кольорів для позначення',
+  'fabric.editor.highlightFloatingToolbar': 'Виділити',
   'fabric.editor.horizontalRule': 'Роздільник',
   'fabric.editor.horizontalRule.description': 'Відокремити інформацію горизонтальною лінією',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Вставте або знайдіть посилання',
@@ -278,8 +287,8 @@ export default {
   'fabric.editor.insertMenu': 'Вставка елементів',
   'fabric.editor.insertRow': 'Вставити рядок знизу',
   'fabric.editor.insertRowDrag': 'Вставити рядок',
-  'fabric.editor.insertTableColumn': 'Додайте стовпець таблиці',
-  'fabric.editor.insertTableRow': 'Додайте рядок таблиці',
+  'fabric.editor.insertTableColumn': 'Вставити стовпець таблиці',
+  'fabric.editor.insertTableRow': 'Вставити рядок таблиці',
   'fabric.editor.invalidDateError': 'Введіть дійсну дату',
   'fabric.editor.invalidLink': 'Введіть дійсне посилання.',
   'fabric.editor.inviteItem.title':
@@ -346,6 +355,7 @@ export default {
   'fabric.editor.numberedColumn': 'Нумерований стовпець',
   'fabric.editor.off': '{formattingType} вимкнуто',
   'fabric.editor.on': '{formattingType} увімкнуто',
+  'fabric.editor.openCellOptions': 'Відкрити параметри клітинки',
   'fabric.editor.openLink': 'Відкрити посилання в новій вкладці',
   'fabric.editor.orderedList': 'Нумерований список',
   'fabric.editor.orderedList.description': 'Створити упорядкований список',
@@ -384,6 +394,9 @@ export default {
   'fabric.editor.rightSidebar': 'Макет із бічною панеллю праворуч',
   'fabric.editor.rowControl': 'Виділити рядок',
   'fabric.editor.rowDragHandle': 'Параметри рядків',
+  'fabric.editor.rowMovedDown': 'Рядок переміщено на позицію під рядком {index} з {total}',
+  'fabric.editor.rowMovedUp': 'Рядок переміщено на позицію над рядком {index} з {total}',
+  'fabric.editor.rowSelected': 'Вибрано рядок {index} з {total}',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Додано {count} рядок} few {Додано {count} рядки} many {Додано {count} рядків} other {Додано {count} рядків}}',
   'fabric.editor.rowsAreRemoved':

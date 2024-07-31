@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'laskevassa järjestyksessä',
   'fabric.editor.headingLink.failedToCopy': 'Kopiointi epäonnistui',
   'fabric.editor.headingLink.noneSortingLabel': 'Ei mitään',
+  'fabric.editor.inlineComment.marker.end': 'tekstin sisäisen kommentin loppu',
+  'fabric.editor.inlineComment.marker.start': 'tekstin sisäisen kommentin alku',
 };

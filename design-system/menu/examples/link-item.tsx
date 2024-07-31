@@ -48,7 +48,7 @@ export default () => {
 			</LinkItem>
 			<LinkItem
 				{...getComputedProps({ href: '#link-item5' })}
-				iconBefore={<ImgIcon src={koala} alt={'A koala'} />}
+				iconBefore={<ImgIcon src={koala} alt="" />}
 				description="Classic service desk"
 			>
 				Customer Feedback

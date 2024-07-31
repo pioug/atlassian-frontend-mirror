@@ -75,7 +75,11 @@ export {
 
 export { UnsupportedSharedCssClassName, unsupportedStyles } from './shared/unsupported-content';
 
-export { expandIconWrapperStyle, expandClassNames } from './shared/expand';
+export {
+	expandIconWrapperStyle,
+	expandClassNames,
+	expandIconContainerStyle,
+} from './shared/expand';
 export { ClassNames as MediaSharedClassNames } from './shared/media';
 
 export { BreakoutCssClassName } from './shared/breakout';

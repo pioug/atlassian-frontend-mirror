@@ -7,6 +7,7 @@
  */
 //German (Germany)
 export default {
+  'editor-common-extensibility.macro.button.configure': '{macroName} konfigurieren',
   'fabric.editor.action': 'Aufgabe',
   'fabric.editor.action.description': 'Aufgaben erstellen und zuweisen',
   'fabric.editor.addAltText': 'Alternativtext',
@@ -35,6 +36,9 @@ export default {
   'fabric.editor.backgroundColor': 'Hintergrundfarbe',
   'fabric.editor.blockCardUnavailable':
     'Die Ansicht des Inline-Links kann nicht geändert werden, da sich der Link innerhalb von {node} befindet.',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Zum Verschieben ziehen',
+  'fabric.editor.blockControlMoveDown': 'Nach unten verschieben',
+  'fabric.editor.blockControlMoveUp': 'Nach oben verschieben',
   'fabric.editor.blockDescription':
     'Weitere Informationen zu einem Link anzeigen, darunter eine Zusammenfassung und Aktionen',
   'fabric.editor.blockTitle': 'Karte',
@@ -71,6 +75,9 @@ export default {
   'fabric.editor.collapseNode': 'Inhaltsanzeige reduzieren',
   'fabric.editor.collapseTable': 'Tabelle reduzieren',
   'fabric.editor.columnDragHandle': 'Spaltenoptionen',
+  'fabric.editor.columnMovedLeft': 'Spalte nach links verschoben auf {index} von {total}',
+  'fabric.editor.columnMovedRight': 'Spalte nach rechts verschoben auf {index} von {total}',
+  'fabric.editor.columnSelected': 'Spalte {index} von {total} ausgewählt',
   'fabric.editor.columns': 'Layouts',
   'fabric.editor.columns.description': 'Seite mithilfe von Abschnitten strukturieren',
   'fabric.editor.columnsAreInserted':
@@ -102,10 +109,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Kopieren',
   'fabric.editor.cornerControl': 'Tabelle hervorheben',
   'fabric.editor.createComment': 'Kommentieren',
+  'fabric.editor.createCommentDisabled':
+    'Sie können nur Text, Überschriften, Emojis, Daten, Erwähnungen, Links und Status kommentieren.',
   'fabric.editor.createCommentInvalid': 'Sie können nur Kommentare für Text und Überschriften hinterlassen.',
   'fabric.editor.customPanel': 'Benutzerdefiniertes Panel',
   'fabric.editor.customPanel.description': 'Fügen Sie einen Hinweis mit Emoji und farbigem Hintergrund hinzu',
-  'fabric.editor.datasource.assetsObjects': 'Assets (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Fügen Sie Objekte aus Assets in Jira Service Management mit Such- und Filterfunktionen ein.',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Assets',
@@ -245,6 +253,7 @@ export default {
   'fabric.editor.helpDialogTips': 'Drücken Sie {keyMap}, um diesen Dialog jederzeit schnell zu öffnen',
   'fabric.editor.highlight': 'Markierungsfarbe',
   'fabric.editor.highlightColor': 'Farbpalette für Hervorhebungen umschalten',
+  'fabric.editor.highlightFloatingToolbar': 'Hervorheben',
   'fabric.editor.horizontalRule': 'Trennlinie',
   'fabric.editor.horizontalRule.description': 'Inhalte mithilfe einer horizontalen Linie unterteilen',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Link einfügen oder suchen',
@@ -345,6 +354,7 @@ export default {
   'fabric.editor.numberedColumn': 'Nummerierte Spalte',
   'fabric.editor.off': '{formattingType} aus',
   'fabric.editor.on': '{formattingType} ein',
+  'fabric.editor.openCellOptions': 'Zellenoptionen öffnen',
   'fabric.editor.openLink': 'Link in neuer Registerkarte öffnen',
   'fabric.editor.orderedList': 'Nummerierte Liste',
   'fabric.editor.orderedList.description': 'Sortierte Liste erstellen',
@@ -381,6 +391,9 @@ export default {
   'fabric.editor.rightSidebar': 'Layout der rechten Seitenleiste',
   'fabric.editor.rowControl': 'Zeile hervorheben',
   'fabric.editor.rowDragHandle': 'Zeilenoptionen',
+  'fabric.editor.rowMovedDown': 'Zeile nach unten verschoben auf {index} von {total}',
+  'fabric.editor.rowMovedUp': 'Zeile nach oben verschoben auf {index} von {total}',
+  'fabric.editor.rowSelected': 'Zeile {index} von {total} ausgewählt',
   'fabric.editor.rowsAreInserted':
     '{count, plural, one {Eine Zeile wurde eingefügt.} other {{count} Zeilen wurden eingefügt.}}',
   'fabric.editor.rowsAreRemoved':

@@ -31,6 +31,17 @@ const undoRedoGroup: ToolbarElementConfig[] = [
 		enabled: (componentRegistry) => componentRegistry.has('undoRedoPlugin'),
 	},
 ];
+
+const spellCheckGroup: ToolbarElementConfig[] = [
+	{
+		name: 'spellCheck',
+	},
+	{
+		name: 'separator',
+		enabled: (componentRegistry) => componentRegistry.has('spellCheck'),
+	},
+];
+
 const blockTypeGroup: ToolbarElementConfig[] = [
 	{
 		name: 'blockType',
@@ -117,6 +128,7 @@ const others: ToolbarElementConfig[] = [
 
 const toolbarConfiguration: ToolbarElementConfig[] = [
 	...undoRedoGroup,
+	...spellCheckGroup,
 	...blockTypeGroup,
 	...textFormattingGroup,
 	...alignmentGroup,

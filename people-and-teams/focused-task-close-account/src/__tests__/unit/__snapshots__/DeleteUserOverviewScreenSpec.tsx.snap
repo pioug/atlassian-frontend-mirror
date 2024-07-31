@@ -111,9 +111,10 @@ exports[`DeleteUserOverviewScreen 1`] = `
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -135,9 +136,10 @@ exports[`DeleteUserOverviewScreen 1`] = `
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -159,9 +161,10 @@ exports[`DeleteUserOverviewScreen 1`] = `
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -294,9 +297,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -318,9 +322,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -342,9 +347,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -477,9 +483,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -501,9 +508,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -525,9 +533,10 @@ exports[`accessibleSites display text displayed is different when no accessibleS
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -672,9 +681,10 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -696,9 +706,10 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -720,9 +731,10 @@ exports[`deactivateUserHandler display warning section is not displayed if the d
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -818,9 +830,10 @@ exports[`delete screen display content is different when user is deactivated 1`]
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -842,9 +855,10 @@ exports[`delete screen display content is different when user is deactivated 1`]
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>
@@ -866,9 +880,10 @@ exports[`delete screen display content is different when user is deactivated 1`]
             }
             placement="auto-start"
           >
-            <InfoIcon
+            <InformationIcon
+              LEGACY_size="small"
+              color="currentColor"
               label=""
-              size="small"
             />
           </StatefulInlineDialog>
         </Styled(span)>

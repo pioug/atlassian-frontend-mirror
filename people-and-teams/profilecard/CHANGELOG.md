@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.17.0
+
+### Minor Changes
+
+- [#124211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124211)
+  [`6a213831a2e92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a213831a2e92) -
+  [ux] Updated components to use new iconography behind a feature flag
+
 ## 19.16.3
 
 ### Patch Changes

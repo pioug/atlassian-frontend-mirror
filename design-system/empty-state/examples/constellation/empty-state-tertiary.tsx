@@ -12,7 +12,7 @@ const EmptyStateTertiaryActionExample = () => {
 			primaryAction={<Button appearance="primary">Request access</Button>}
 			secondaryAction={<Button>View permissions</Button>}
 			tertiaryAction={
-				<LinkButton appearance="link" href="http://www.atlassian.com" target="_blank">
+				<LinkButton appearance="subtle" href="http://www.atlassian.com" target="_blank">
 					About permissions
 				</LinkButton>
 			}

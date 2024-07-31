@@ -14,4 +14,6 @@ export default {
   'fabric.editor.headingLink.descSortingLabel': 'malejąco',
   'fabric.editor.headingLink.failedToCopy': 'Kopiowanie nie powiodło się',
   'fabric.editor.headingLink.noneSortingLabel': 'Brak',
+  'fabric.editor.inlineComment.marker.end': 'koniec komentarza śródwierszowego',
+  'fabric.editor.inlineComment.marker.start': 'początek komentarza śródwierszowego',
 };

@@ -44,7 +44,7 @@ export default () => {
 				<MenuGroup>
 					<Section>
 						<ButtonItem
-							iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
+							iconBefore={<ImgIcon src={Yeti} alt="" />}
 							description={fullText.slice(0, textIndex + 12)}
 						>
 							Spacecraft

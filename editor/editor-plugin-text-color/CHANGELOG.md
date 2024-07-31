@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.10.2
+
+### Patch Changes
+
+- [#125353](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125353)
+  [`77847728bf617`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77847728bf617) -
+  Migrate icons in Editor primary toolbar
+- Updated dependencies
+
 ## 1.10.1
 
 ### Patch Changes

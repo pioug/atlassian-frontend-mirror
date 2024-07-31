@@ -100,24 +100,58 @@ export const AgentProfileCreator = ({
 	) : null;
 };
 
+export const AgentStarCount = ({
+	starCount,
+	isLoading,
+}: {
+	starCount: number | null | undefined;
+	isLoading: boolean;
+}) => {
+	const { formatMessage } = useIntl();
+
+	if (starCount === null || starCount === undefined) {
+		return null;
+	}
+
+	return (
+		<Box xcss={countStyles}>
+			<StarIcon label="" size="small" />
+			{isLoading ? (
+				<Skeleton
+					testId="agent-profile-info-star-count-skeleton"
+					isShimmering
+					height={16}
+					width={75}
+					borderRadius={3}
+				/>
+			) : (
+				formatMessage(messages.starredCount, { count: starCount })
+			)}
+		</Box>
+	);
+};
+
+const wrapperStyles = xcss({
+	marginBottom: 'space.100',
+});
+
 export const AgentProfileInfo = ({
 	agentName,
 	agentDescription,
 	creatorRender,
-	starCount,
+	starCountRender,
 	isStarred,
 	onStarToggle,
 }: {
 	agentName: string;
 	agentDescription?: string | null;
 	creatorRender: React.ReactNode;
-	starCount: number;
+	starCountRender: React.ReactNode;
 	isStarred: boolean;
 	onStarToggle: () => void;
 }) => {
-	const { formatMessage } = useIntl();
 	return (
-		<Stack space="space.100">
+		<Stack space="space.100" xcss={wrapperStyles}>
 			<Inline xcss={nameStyles} space="space.100" alignBlock="center">
 				<Heading size="xlarge">{agentName}</Heading>
 				<StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />
@@ -128,13 +162,7 @@ export const AgentProfileInfo = ({
 					{agentDescription}
 				</Box>
 			)}
-			{/* TODO https://product-fabric.atlassian.net/browse/AIM-2668 remove starCount 0 check */}
-			{starCount !== 0 && (
-				<Box xcss={countStyles}>
-					<StarIcon label="" size="small" />
-					{formatMessage(messages.starredCount, { count: starCount })}
-				</Box>
-			)}
+			{starCountRender}
 		</Stack>
 	);
 };

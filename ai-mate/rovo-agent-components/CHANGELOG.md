@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-components
 
+## 0.1.0
+
+### Minor Changes
+
+- [#125357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125357)
+  [`b94215c8c2301`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b94215c8c2301) -
+  Adding data fetcher and controller for single agent endpoint, added favourites count in view agent
+  modal
+
 ## 0.0.2
 
 ### Patch Changes

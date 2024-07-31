@@ -7,6 +7,7 @@
  */
 //Hungarian
 export default {
+  'editor-common-extensibility.macro.button.configure': '{macroName} konfigurálása',
   'fabric.editor.action': 'Teendő',
   'fabric.editor.action.description': 'Műveleti elemek létrehozása és hozzárendelése',
   'fabric.editor.addAltText': 'Alternatív szöveg',
@@ -35,6 +36,9 @@ export default {
   'fabric.editor.backgroundColor': 'Háttérszín',
   'fabric.editor.blockCardUnavailable':
     'A beillesztett link a(z) {node} csomóponton belül található, és nem módosítható a nézete',
+  'fabric.editor.blockControlDragHandleUsageInfo': 'Az áthelyezéshez húzd át',
+  'fabric.editor.blockControlMoveDown': 'Mozgatás le',
+  'fabric.editor.blockControlMoveUp': 'Mozgatás fel',
   'fabric.editor.blockDescription':
     'Több információ, többek között az összefoglaló és a műveletek megjelenítése egy linkről',
   'fabric.editor.blockTitle': 'Kártya',
@@ -71,6 +75,9 @@ export default {
   'fabric.editor.collapseNode': 'tartalom összecsukása',
   'fabric.editor.collapseTable': 'Táblázat összecsukása',
   'fabric.editor.columnDragHandle': 'Oszlopbeállítások',
+  'fabric.editor.columnMovedLeft': 'Oszlop balra mozgatva a következő pozícióba: {index}/{total}',
+  'fabric.editor.columnMovedRight': 'Oszlop jobbra mozgatva a következő pozícióba: {index}/{total}',
+  'fabric.editor.columnSelected': '{index}/{total} oszlop kiválasztva',
   'fabric.editor.columns': 'Elrendezések',
   'fabric.editor.columns.description': 'Az oldal rendszerezése szakaszok használatával',
   'fabric.editor.columnsAreInserted':
@@ -101,10 +108,11 @@ export default {
   'fabric.editor.copyToClipboard': 'Másolás',
   'fabric.editor.cornerControl': 'Táblázat kijelölése',
   'fabric.editor.createComment': 'Megjegyzés',
+  'fabric.editor.createCommentDisabled':
+    'Csak szövegekhez, címsorokhoz, emojikhoz, dátumokhoz, említésekhez, linkekhez és állapotokhoz fűzhetsz megjegyzést.',
   'fabric.editor.createCommentInvalid': 'Csak szöveghez és fejléchez fűzhetsz megjegyzést',
   'fabric.editor.customPanel': 'Egyéni panel',
   'fabric.editor.customPanel.description': 'Adj hozzá megjegyzést emojival és színes háttérrel',
-  'fabric.editor.datasource.assetsObjects': 'Eszközök (béta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Objektumok beszúrása az Eszközökből a Jira Service Managementbe kereséssel és szűrőkkel',
   'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Eszközök',
@@ -244,6 +252,7 @@ export default {
   'fabric.editor.helpDialogTips': 'A párbeszédablak gyors megnyitásához nyomja meg a(z) {keyMap} gombot',
   'fabric.editor.highlight': 'Kiemelés színe',
   'fabric.editor.highlightColor': 'Kiemelő színpaletta váltása',
+  'fabric.editor.highlightFloatingToolbar': 'Kiemelés',
   'fabric.editor.horizontalRule': 'Elválasztó',
   'fabric.editor.horizontalRule.description': 'Tartalom elválasztása egy vízszintes vonallal',
   'fabric.editor.hyperlink.linkVisibleLabel': 'Beillesztés vagy link keresése',
@@ -343,6 +352,7 @@ export default {
   'fabric.editor.numberedColumn': 'Számozott oszlop',
   'fabric.editor.off': '{formattingType} kikapcsolva',
   'fabric.editor.on': '{formattingType} bekapcsolva',
+  'fabric.editor.openCellOptions': 'Cellabeállítások megnyitása',
   'fabric.editor.openLink': 'Hivatkozás megnyitása új lapon',
   'fabric.editor.orderedList': 'Számozott lista',
   'fabric.editor.orderedList.description': 'Sorrendbe állított lista létrehozása',
@@ -379,6 +389,9 @@ export default {
   'fabric.editor.rightSidebar': 'Jobb oldalsávos elrendezés',
   'fabric.editor.rowControl': 'Sor kijelölése',
   'fabric.editor.rowDragHandle': 'Sorbeállítások',
+  'fabric.editor.rowMovedDown': 'Sor lefelé mozgatva a következő pozícióba: {index}/{total}',
+  'fabric.editor.rowMovedUp': 'Sor felfelé mozgatva a következő pozícióba: {index}/{total}',
+  'fabric.editor.rowSelected': '{index}/{total} sor kiválasztva',
   'fabric.editor.rowsAreInserted': '{count, plural, one {Be lett szúrva egy sor} other {Be lett szúrva {count} sor}}',
   'fabric.editor.rowsAreRemoved':
     '{count, plural, one {A sor el lett távolítva} other {{count} sor el lett távolítva}}',

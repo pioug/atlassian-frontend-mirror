@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import SectionMessage from '@atlaskit/section-message';
-import InfoIcon from '@atlaskit/icon/glyph/info';
+import InfoIcon from '@atlaskit/icon/core/migration/information--info';
 
 import { commonMessages, overviewMessages } from '../../messages';
 import StatefulInlineDialog from '../StatefulInlineDialog';
@@ -125,7 +125,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 							</Styled.InlineDialogContent>
 						}
 					>
-						<InfoIcon label="" size="small" />
+						<InfoIcon color="currentColor" label="" LEGACY_size="small" />
 					</StatefulInlineDialog>
 				</Styled.IconHoverWrapper>
 			</li>
@@ -153,7 +153,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 							/>
 						}
 					>
-						<InfoIcon label="" size="small" />
+						<InfoIcon color="currentColor" label="" LEGACY_size="small" />
 					</StatefulInlineDialog>
 				</Styled.IconHoverWrapper>
 			</li>
@@ -180,7 +180,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
 							/>
 						}
 					>
-						<InfoIcon label="" size="small" />
+						<InfoIcon color="currentColor" label="" LEGACY_size="small" />
 					</StatefulInlineDialog>
 				</Styled.IconHoverWrapper>
 			</li>

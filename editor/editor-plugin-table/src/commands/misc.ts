@@ -726,7 +726,7 @@ export const updateWidthToWidest = (widthToWidest: WidthToWidest) =>
 	});
 
 export const setTableAlignment =
-	(newAlignment: TableLayout): EditorCommand =>
+	(newAlignment: TableLayout, isCommentEditor: boolean): EditorCommand =>
 	({ tr }) => {
 		const tableObject = findTable(tr.selection);
 
@@ -741,7 +741,9 @@ export const setTableAlignment =
 
 		// table uses old breakout values in layout attribute to determine width
 		// but that information is lost when alignment changes, so we need to ensure we retain that info
-		if (!tableObject.node.attrs.width) {
+		// If table width is not set in the Comment editor, it means that the table width is inherited from the editor and is "full width".
+		// In that case when switching between alignment options in the Comment editor we should keep the table width unset.
+		if (!tableObject.node.attrs.width && !isCommentEditor) {
 			const tableWidth = getTableContainerWidth(tableObject.node);
 			nextTableAttrs.width = tableWidth;
 		}

@@ -530,6 +530,7 @@ export const getToolbarConfig =
 							editorView,
 							shouldUseIncreasedScalingPercent,
 							options?.fullWidthEnabled,
+							options?.isCommentEditor,
 						)
 					: [];
 
@@ -862,6 +863,7 @@ export const getAlignmentOptionsConfig = (
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
 	isFullWidthEditor?: boolean,
+	isCommentEditor?: boolean,
 ): Array<FloatingToolbarDropdown<Command>> => {
 	const tableObject = findTable(editorState.selection);
 
@@ -898,7 +900,7 @@ export const getAlignmentOptionsConfig = (
 			icon: icon,
 			title: formatMessage(layoutToMessages[value]),
 			selected: normaliseAlignment(currentLayout) === value,
-			onClick: setTableAlignmentWithAnalytics(editorAnalyticsAPI)(
+			onClick: setTableAlignmentWithAnalytics(editorAnalyticsAPI, isCommentEditor || false)(
 				value,
 				currentLayout,
 				INPUT_METHOD.FLOATING_TB,

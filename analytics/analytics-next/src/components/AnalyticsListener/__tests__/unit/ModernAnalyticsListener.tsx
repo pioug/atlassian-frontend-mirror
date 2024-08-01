@@ -2,6 +2,8 @@ import React, { memo, useCallback } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
+import AnalyticsReactContext from '@atlaskit/analytics-next-stable-react-context';
+
 import UIAnalyticsEvent from '../../../../events/UIAnalyticsEvent';
 import { useAnalyticsContext } from '../../../../hooks/useAnalyticsContext';
 import { useRenderCounter } from '../../../../test-utils/useRenderCounter';
@@ -83,7 +85,7 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(onEvent).toBeCalledWith(event, 'atlaskit');
+		expect(onEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 	});
 
@@ -105,8 +107,8 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(outerOnEvent).toBeCalledWith(event, 'atlaskit');
-		expect(innerOnEvent).toBeCalledWith(event, 'atlaskit');
+		expect(outerOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
+		expect(innerOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 	});
 
@@ -128,8 +130,8 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(outerOnEvent).toBeCalledWith(event, 'atlaskit');
-		expect(innerOnEvent).not.toBeCalled();
+		expect(outerOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
+		expect(innerOnEvent).not.toHaveBeenCalled();
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 
 		outerOnEvent.mockReset();
@@ -149,8 +151,8 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(outerOnEvent).not.toBeCalled();
-		expect(innerOnEvent).toBeCalledWith(event, 'atlaskit');
+		expect(outerOnEvent).not.toHaveBeenCalled();
+		expect(innerOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 	});
 
@@ -169,7 +171,7 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(onEvent).toBeCalledWith(event, 'atlaskit');
+		expect(onEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 	});
 
@@ -188,7 +190,7 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(firstOnEvent).toBeCalledWith(event, 'atlaskit');
+		expect(firstOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 
 		firstOnEvent.mockReset();
@@ -204,7 +206,7 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(firstOnEvent).toBeCalledWith(event, 'atlaskit');
+		expect(firstOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
 
 		const secondOnEvent = jest.fn();
@@ -220,7 +222,63 @@ describe('ModernAnalyticsListener', () => {
 
 		fireEvent.click(getByText('Button'));
 
-		expect(secondOnEvent).toBeCalledWith(event, 'atlaskit');
+		expect(secondOnEvent).toHaveBeenCalledWith(event, 'atlaskit');
 		expect(getByText('Button').dataset.renderCount).toBe('1');
+	});
+
+	it('should recalculate getAnalyticsEventHandlers when getAtlaskitAnalyticsEventHandlers changes', () => {
+		const event = new UIAnalyticsEvent({ payload: { action: 'clicked' } });
+		const onEvent = jest.fn();
+		const getAtlaskitAnalyticsEventHandlers = jest.fn(() => []);
+		const newHandlerAction = jest.fn((event, channel) => ({ event, channel }));
+
+		const { getByText, rerender } = render(
+			<UnderTestSingleListener
+				onEvent={onEvent}
+				listenChannel="atlaskit"
+				event={event}
+				sendChannel="atlaskit"
+			/>,
+			{
+				wrapper: ({ children }) => (
+					<AnalyticsReactContext.Provider
+						value={{
+							getAtlaskitAnalyticsEventHandlers,
+							getAtlaskitAnalyticsContext: jest.fn(),
+						}}
+					>
+						{children}
+					</AnalyticsReactContext.Provider>
+				),
+			},
+		);
+
+		fireEvent.click(getByText('Button'));
+		expect(onEvent).toHaveBeenCalledTimes(1);
+
+		const newGetAtlaskitAnalyticsEventHandlers = jest.fn(() => [
+			(event: UIAnalyticsEvent, channel: string) => {
+				newHandlerAction(event, channel);
+			},
+		]);
+
+		rerender(
+			<AnalyticsReactContext.Provider
+				value={{
+					getAtlaskitAnalyticsEventHandlers: newGetAtlaskitAnalyticsEventHandlers,
+					getAtlaskitAnalyticsContext: jest.fn(),
+				}}
+			>
+				<UnderTestSingleListener
+					onEvent={onEvent}
+					listenChannel="atlaskit"
+					event={event}
+					sendChannel="atlaskit"
+				/>
+			</AnalyticsReactContext.Provider>,
+		);
+
+		fireEvent.click(getByText('Button'));
+		expect(onEvent).toHaveBeenCalledTimes(2);
 	});
 });

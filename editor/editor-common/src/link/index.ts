@@ -32,3 +32,4 @@ export { sha1 } from './LinkPicker/HyperlinkAddToolbar/utils';
 export { isLinkAtPos, isTextAtPos, getLinkPreferencesURLFromENV } from './utils';
 export { OverlayButton } from './ConfigureLinkOverlay';
 export type { OverlayButtonProps } from './ConfigureLinkOverlay';
+export { handleNavigation } from './ConfigureLinkOverlay/handleNavigation';

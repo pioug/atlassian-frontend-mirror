@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useLayoutEffect, useState } from 'react';
+import { type MouseEvent, useCallback, useLayoutEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -41,6 +41,10 @@ export interface OverlayButtonProps {
 	 * Called when the dropdown is open/closed with isOpen state as true and false respectively.
 	 */
 	onDropdownChange?: OnDropdownChange;
+	/**
+	 * Called when the open link button in the dropdown is clicked.
+	 */
+	onOpenLinkClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const showDropdownThresholdPx = 50;
@@ -50,12 +54,13 @@ export const OverlayButton = withAnalyticsContext()(({
 	testId = 'link-configure-overlay-button',
 	targetElementPos = 0,
 	onDropdownChange,
+	onOpenLinkClick,
 }: OverlayButtonProps) => {
 	const { formatMessage } = useIntl();
 	const configureLinkLabel = formatMessage(cardMessages.inlineConfigureLink);
 	const [showDropdown, setShowDropdown] = useState(false);
 
-	const { fireLinkClickEvent, fireActionClickEvent } = useLinkOverlayAnalyticsEvents();
+	const { fireActionClickEvent, fireLinkClickEvent } = useLinkOverlayAnalyticsEvents();
 
 	useLayoutEffect(() => {
 		let domNode = editorView.nodeDOM(targetElementPos);
@@ -88,10 +93,10 @@ export const OverlayButton = withAnalyticsContext()(({
 	}, [editorView, isText, targetElementPos, nodeEnd]);
 
 	const handleConfigureClickWithAnalytics = useCallback(() => {
-		fireLinkClickEvent();
 		fireActionClickEvent('configureLink');
+		fireLinkClickEvent();
 		handleConfigureClick();
-	}, [fireActionClickEvent, fireLinkClickEvent, handleConfigureClick]);
+	}, [fireLinkClickEvent, handleConfigureClick, fireActionClickEvent]);
 
 	const { from, to } = editorView.state.selection;
 	const isSelected = from === targetElementPos && to === nodeEnd;
@@ -106,6 +111,7 @@ export const OverlayButton = withAnalyticsContext()(({
 				<Dropdown
 					testId={testId}
 					onConfigureClick={handleConfigureClick}
+					onOpenLinkClick={onOpenLinkClick}
 					onDropdownChange={onDropdownChange}
 					editorView={editorView}
 				/>

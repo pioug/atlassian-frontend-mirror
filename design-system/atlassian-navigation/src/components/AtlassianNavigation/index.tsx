@@ -6,7 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -98,11 +98,12 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 					css={containerStyles}
 					data-testid={testId && `${testId}-header`}
 					role="banner"
+					data-vc="atlassian-navigation"
 				>
 					<nav css={leftStyles} aria-label={label}>
 						{AppSwitcher && <AppSwitcher />}
 						{ProductHome && <ProductHome />}
-						{getBooleanFF('platform.design-system-team.navigation-v2-no-jank_5yhbd') ? (
+						{fg('platform.design-system-team.navigation-v2-no-jank_5yhbd') ? (
 							<PrimaryItemsContainerV2
 								testId={testId}
 								moreLabel={moreLabel}
@@ -125,7 +126,11 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 
 					<div css={rightStyles} data-testid={testId && `${testId}-secondary-actions`}>
 						{Search && <Search />}
-						<div role="list" css={[rightStyles, noRightMarginStyles]}>
+						<div
+							role="list"
+							css={[rightStyles, noRightMarginStyles]}
+							data-vc="atlassian-navigation-secondary-actions"
+						>
 							{Notifications && <Notifications />}
 							{Help && <Help />}
 							{Settings && <Settings />}

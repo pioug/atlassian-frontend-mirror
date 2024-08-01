@@ -194,7 +194,7 @@ const ProgressIndicatorDots = () => {
 									appearance={selectedAppearance === 'inverted' ? 'primary' : 'default'}
 									onClick={handlePrev}
 								>
-									Prev
+									Previous
 								</Button>
 								<ProgressIndicator
 									appearance={selectedAppearance}

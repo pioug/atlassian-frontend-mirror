@@ -1,18 +1,13 @@
+import { type MouseEvent } from 'react';
+
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	type INPUT_METHOD,
-	MODE,
-	PLATFORMS,
-} from '@atlaskit/editor-common/analytics';
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
-import { InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
+import { handleNavigation, InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange, shallowEqual } from '@atlaskit/editor-common/utils';
@@ -264,7 +259,6 @@ export const plugin = (
 								const decorations = configureDropdownOpen
 									? {}
 									: { decorations: DecorationSet.empty };
-
 								state = {
 									...state,
 									...decorations,
@@ -287,6 +281,32 @@ export const plugin = (
 												pos: configureButtonTargetPos,
 												stateKey,
 												intl,
+												onOpenLinkClick: (event) => {
+													if (
+														configureButtonTargetPos === undefined ||
+														typeof configureButtonTargetPos !== 'number'
+													) {
+														return;
+													}
+													const node = view.state.tr.doc.nodeAt(configureButtonTargetPos);
+													if (node === null) {
+														return;
+													}
+													const url = node.marks.find((mark) => mark.type.name === 'link')?.attrs
+														.href as string | undefined;
+
+													if (!url) {
+														return;
+													}
+
+													handleNavigation({
+														fireAnalyticsEvent:
+															pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
+														onClickCallback,
+														url,
+														event,
+													});
+												},
 											});
 										});
 										decorations = DecorationSet.create(newState.doc, [decoration]);
@@ -413,37 +433,20 @@ export const plugin = (
 								}
 							};
 
-							dom.onclick = (event: any) => {
+							dom.onclick = (event) => {
 								if (isDirectTarget(event, dom)) {
 									const url = mark.attrs.href;
-
-									pluginInjectionApi?.analytics?.actions?.fireAnalyticsEvent?.({
-										action: ACTION.VISITED,
-										actionSubject: ACTION_SUBJECT.LINK,
-										eventType: EVENT_TYPE.TRACK,
-										attributes: {
-											platform: PLATFORMS.WEB,
-											mode: MODE.EDITOR,
-										},
+									// event is globalThis.MouseEvent, while handleNavigation
+									// (and editor-common OnClickCallback) require React.MouseEvent
+									const reactMouseEvent = event as unknown as MouseEvent<HTMLAnchorElement>;
+									handleNavigation({
+										fireAnalyticsEvent: pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
+										onClickCallback,
+										url,
+										event: reactMouseEvent,
 									});
-
-									if (url) {
-										try {
-											onClickCallback?.({ event, url });
-										} catch {}
-
-										/**
-										 * Links should navigate by default in live pages if:
-										 * - the link is the direct target of the click event
-										 * - default handling wasn't prevented with `event.preventDefault()`
-										 */
-										if (!event.defaultPrevented) {
-											window.location.href = url;
-										}
-									}
 								}
 							};
-
 							return {
 								dom: dom,
 							};

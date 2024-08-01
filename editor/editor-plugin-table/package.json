@@ -31,7 +31,7 @@
 		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/custom-steps": "^0.6.0",
-		"@atlaskit/editor-common": "^87.1.0",
+		"@atlaskit/editor-common": "^87.2.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/icon": "^22.8.0",
-		"@atlaskit/menu": "^2.8.0",
+		"@atlaskit/menu": "^2.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.2.0",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.4.0",
@@ -118,6 +118,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.table.use-increased-scaling-percent": {
+			"type": "boolean"
+		},
+		"platform_editor_dark_mode_cell_header_color_fix": {
 			"type": "boolean"
 		},
 		"platform.editor.table.live-pages-sorting_4malx": {

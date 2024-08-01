@@ -5,7 +5,6 @@ import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-vi
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -16,15 +15,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { eventsFromTransaction } from '../analytics/events-from-tr';
 import { isLocalStorageKeyDiscovered } from '../common/local-storage';
 import type { cardPlugin } from '../index';
-import type { BlockCardNodeViewProps } from '../nodeviews/blockCard';
-import { BlockCard } from '../nodeviews/blockCard';
-import { Datasource } from '../nodeviews/datasource';
-import type { EmbedCardNodeViewProps } from '../nodeviews/embedCard';
-import { EmbedCard } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
+import { lazyBlockCardView } from '../nodeviews/lazy-block-card';
+import { lazyEmbedCardView } from '../nodeviews/lazy-embed-card';
 import type { CardPluginOptions, CardPluginState } from '../types';
 import { isDatasourceTableLayout } from '../ui/LayoutButton/utils';
-import { isBlockSupportedAtPosition, isDatasourceNode, isEmbedSupportedAtPosition } from '../utils';
+import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from '../utils';
 
 import {
 	clearOverlayCandidate,
@@ -312,80 +308,26 @@ export const createPlugin =
 			props: {
 				nodeViews: {
 					inlineCard: inlineCardViewProducer,
-					blockCard: (node, view, getPos, decorations) => {
-						const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
-						const reactComponentProps: BlockCardNodeViewProps = {
-							platform,
-							actionOptions,
-							showServerActions,
-							pluginInjectionApi,
-							onClickCallback: options.onClickCallback,
-						};
-						const isDatasource = isDatasourceNode(node);
-
-						if (isDatasource) {
-							if (
-								options.allowDatasource &&
-								platform !== 'mobile' &&
-								canRenderDatasource(node?.attrs?.datasource?.id)
-							) {
-								const datasourcePosition = typeof getPos === 'function' && getPos();
-
-								const datasourceResolvedPosition =
-									datasourcePosition && view.state.doc.resolve(datasourcePosition);
-
-								const isNodeNested = !!(
-									datasourceResolvedPosition && datasourceResolvedPosition.depth > 0
-								);
-
-								return new Datasource({
-									node,
-									view,
-									getPos,
-									portalProviderAPI,
-									eventDispatcher,
-									pluginInjectionApi,
-									isNodeNested,
-								}).init();
-							} else {
-								return inlineCardViewProducer(node, view, getPos, decorations);
-							}
-						}
-
-						return new BlockCard(
-							node,
-							view,
-							getPos,
-							portalProviderAPI,
-							eventDispatcher,
-							reactComponentProps,
-							undefined,
-						).init();
-					},
-					embedCard: (node, view, getPos) => {
-						const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } =
-							pmPluginFactoryParams;
-						const reactComponentProps: EmbedCardNodeViewProps = {
-							eventDispatcher,
-							allowResizing,
-							platform,
-							fullWidthMode,
-							dispatchAnalyticsEvent,
-							pluginInjectionApi,
-							actionOptions,
-							showServerActions,
-							onClickCallback: options.onClickCallback,
-						};
-						return new EmbedCard(
-							node,
-							view,
-							getPos,
-							portalProviderAPI,
-							eventDispatcher,
-							reactComponentProps,
-							undefined,
-						).init();
-					},
+					blockCard: lazyBlockCardView({
+						pmPluginFactoryParams,
+						platform,
+						actionOptions,
+						showServerActions,
+						pluginInjectionApi,
+						onClickCallback,
+						allowDatasource: options.allowDatasource,
+						inlineCardViewProducer,
+					}),
+					embedCard: lazyEmbedCardView({
+						allowResizing,
+						platform,
+						fullWidthMode,
+						pmPluginFactoryParams,
+						pluginInjectionApi,
+						actionOptions,
+						showServerActions,
+						onClickCallback: options.onClickCallback,
+					}),
 				},
 				...(enableInlineUpgradeFeatures && {
 					handleKeyDown: (view: EditorView): boolean => {

@@ -140,6 +140,7 @@ const AvatarImage: FC<AvatarImageProps> = ({ alt = '', src, appearance, size, te
 			}}
 			onError={() => setHasImageErrored(true)}
 			aria-hidden={isHidden}
+			data-vc="avatar-image"
 		/>
 	);
 };

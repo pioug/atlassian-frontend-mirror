@@ -4,6 +4,7 @@ import {
 	type ReactElement,
 	type ReactNode,
 	type Ref,
+	type RefObject,
 } from 'react';
 
 import type {
@@ -204,6 +205,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	 * Provide an accessible label via `aria-label` for assistive technology.
 	 */
 	label?: string;
+	/**
+	 * If ref is passed, focus returns to that specific ref element after dropdown dismissed.
+	 */
+	returnFocusRef?: RefObject<HTMLElement>;
 }
 
 type StandardDropdownMenuProps<TriggerElement extends HTMLElement = any> =

@@ -498,7 +498,12 @@ export const createPlugin = (
 						if (!nodeElement) {
 							return false;
 						}
-						const nodeTarget = state.doc.nodeAt(view.posAtDOM(nodeElement, 0) - 1);
+
+						const domPos = fg('platform_editor_element_drag_and_drop_ed_24304')
+							? Math.max(view.posAtDOM(nodeElement, 0) - 1, 0)
+							: view.posAtDOM(nodeElement, 0) - 1;
+
+						const nodeTarget = state.doc.nodeAt(domPos);
 
 						isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
 					}
@@ -539,9 +544,7 @@ export const createPlugin = (
 						}
 					}
 
-					//NOTE: altKey === 'option' on MacOS
 					if (
-						event.altKey &&
 						event.shiftKey &&
 						event.ctrlKey &&
 						fg('platform_editor_element_drag_and_drop_ed_23873')

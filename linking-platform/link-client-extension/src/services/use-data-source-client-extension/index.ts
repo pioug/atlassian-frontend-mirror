@@ -6,7 +6,10 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { request } from '@atlaskit/linking-common';
 import type {
 	ActionsDiscoveryRequest,
+	ActionsDiscoveryResponse,
 	ActionsServiceDiscoveryResponse,
+	AtomicActionExecuteRequest,
+	AtomicActionExecuteResponse,
 	DatasourceDataRequest,
 	DatasourceDataResponse,
 	DatasourceDetailsRequest,
@@ -83,9 +86,14 @@ export const useDatasourceClientExtension = () => {
 		}
 	};
 
+	const uncachedRequest = async <R>(data: AtomicActionExecuteRequest, url: string) => {
+		const responsePromise = request<R>('post', url, data, undefined, [200, 201, 202, 203, 204]);
+		return responsePromise;
+	};
+
 	const getDatasourceDetails = useCallback(
 		async (datasourceId: string, data: DatasourceDetailsRequest, force: boolean = false) =>
-			cachedRequest(
+			cachedRequest<DatasourceDetailsResponse>(
 				datasourceId,
 				data,
 				`${resolverUrl}/datasource/${datasourceId}/fetch/details`,
@@ -97,7 +105,7 @@ export const useDatasourceClientExtension = () => {
 
 	const getDatasourceData = useCallback(
 		async (datasourceId: string, data: DatasourceDataRequest, force: boolean = false) =>
-			cachedRequest(
+			cachedRequest<DatasourceDataResponse>(
 				datasourceId,
 				data,
 				`${resolverUrl}/datasource/${datasourceId}/fetch/data`,
@@ -114,7 +122,7 @@ export const useDatasourceClientExtension = () => {
 			if (!resolvedCacheIdKey) {
 				throw new Error('No target was supplied to retrieve actions for');
 			}
-			return cachedRequest(
+			return cachedRequest<ActionsDiscoveryResponse>(
 				resolvedCacheIdKey,
 				data,
 				`${resolverUrl}/actions`,
@@ -125,8 +133,24 @@ export const useDatasourceClientExtension = () => {
 		[resolverUrl],
 	);
 
+	const executeAtomicAction = useCallback(
+		async (data: AtomicActionExecuteRequest) =>
+			uncachedRequest<AtomicActionExecuteResponse>(data, `${resolverUrl}/actions/execute`),
+		[resolverUrl],
+	);
+
 	return useMemo(
-		() => ({ getDatasourceDetails, getDatasourceData, getDatasourceActionsAndPermissions }),
-		[getDatasourceDetails, getDatasourceData, getDatasourceActionsAndPermissions],
+		() => ({
+			getDatasourceDetails,
+			getDatasourceData,
+			getDatasourceActionsAndPermissions,
+			executeAtomicAction,
+		}),
+		[
+			getDatasourceDetails,
+			getDatasourceData,
+			getDatasourceActionsAndPermissions,
+			executeAtomicAction,
+		],
 	);
 };

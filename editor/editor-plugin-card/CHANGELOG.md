@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-card
 
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.0
+
+### Minor Changes
+
+- [`aef5432662b58`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aef5432662b58) -
+  [ux] EDM-10363 Implement opening links via configure overlay dropdown open link button
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.2
 
 ### Patch Changes

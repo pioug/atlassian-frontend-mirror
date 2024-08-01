@@ -109,7 +109,7 @@ export const AgentStarCount = ({
 }) => {
 	const { formatMessage } = useIntl();
 
-	if (starCount === null || starCount === undefined) {
+	if ((starCount === null || starCount === undefined) && !isLoading) {
 		return null;
 	}
 

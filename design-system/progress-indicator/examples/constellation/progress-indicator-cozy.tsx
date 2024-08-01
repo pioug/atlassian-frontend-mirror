@@ -32,7 +32,7 @@ const CozyExample = () => {
 	return (
 		<div css={containerStyles}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-				Prev
+				Previous
 			</Button>
 			<ProgressIndicator spacing="cozy" selectedIndex={selectedIndex} values={values} />
 			<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>

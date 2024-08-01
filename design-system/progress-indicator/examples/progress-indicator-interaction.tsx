@@ -42,7 +42,7 @@ const Example = ({ values = ['one', 'two', 'three'] }: ExampleProps) => {
 		<Box paddingInline="space.200" paddingBlock="space.200">
 			<SpreadInlineLayout>
 				<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-					Prev
+					Previous
 				</Button>
 				<ProgressIndicator
 					onSelect={handleSelect}

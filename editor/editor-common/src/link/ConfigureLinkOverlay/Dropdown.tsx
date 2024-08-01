@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback } from 'react';
+import { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -31,6 +31,8 @@ export type OnDropdownChange = (isOpen: boolean) => void;
 export type DropdownProps = {
 	/** Callback fired when the Configure dropdown item is clicked */
 	onConfigureClick: () => void;
+	/** Callback fired when the Open Link dropdown item is clicked */
+	onOpenLinkClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 	/** Callback fired when the dropdown is open or close */
 	onDropdownChange?: OnDropdownChange;
 	editorView: EditorView;
@@ -39,6 +41,7 @@ export type DropdownProps = {
 
 const Dropdown = ({
 	onConfigureClick: onConfigureClickCallback,
+	onOpenLinkClick: onOpenLinkClickCallback,
 	onDropdownChange,
 	editorView,
 	testId,
@@ -71,10 +74,14 @@ const Dropdown = ({
 		[fireToolbarViewEvent, focusEditor, onDropdownChange],
 	);
 
-	const onGoToLinkClick = useCallback(() => {
-		fireActionClickEvent('goToLink');
-		focusEditor();
-	}, [fireActionClickEvent, focusEditor]);
+	const onGoToLinkClick = useCallback(
+		(event: MouseEvent<Element> | KeyboardEvent) => {
+			fireActionClickEvent('goToLink');
+			onOpenLinkClickCallback?.(event as MouseEvent<HTMLAnchorElement>);
+			focusEditor();
+		},
+		[fireActionClickEvent, focusEditor, onOpenLinkClickCallback],
+	);
 
 	const onConfigureClick = useCallback(() => {
 		fireActionClickEvent('configureLink');
@@ -101,6 +108,7 @@ const Dropdown = ({
 			<DropdownItemGroup>
 				<DropdownItem
 					elemBefore={<ShortcutIcon label={goToLinkLabel} size={'medium'} />}
+					testId={`${testId}-dropdown-item-open-link`}
 					onClick={onGoToLinkClick}
 				>
 					{goToLinkLabel}

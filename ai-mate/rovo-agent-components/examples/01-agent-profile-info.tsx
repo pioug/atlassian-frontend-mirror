@@ -74,7 +74,7 @@ export default function () {
 								}}
 							/>
 						}
-						starCountRender={<AgentStarCount starCount={12} isLoading={true} />}
+						starCountRender={<AgentStarCount starCount={undefined} isLoading={true} />}
 						agentDescription="Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice."
 					/>
 				</Box>

@@ -383,6 +383,7 @@ export const ImageEmoji = (props: Props) => {
 			onError={onError}
 			onLoad={onLoad}
 			{...sizing}
+			data-vc="emoji"
 		/>
 	);
 

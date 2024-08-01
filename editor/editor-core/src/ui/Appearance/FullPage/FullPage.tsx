@@ -79,6 +79,11 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
 
 	const isEditorToolbarHidden = editorViewModeState?.mode === 'view';
 
+	const popupsBoundariesElement =
+		props.popupsBoundariesElement ||
+		scrollContentContainerRef?.current?.scrollContainer ||
+		undefined;
+
 	return (
 		<ContextPanelWidthProvider>
 			<div
@@ -124,7 +129,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
 					editorDOMElement={props.editorDOMElement}
 					editorView={props.editorView!}
 					eventDispatcher={props.eventDispatcher}
-					popupsBoundariesElement={props.popupsBoundariesElement}
+					popupsBoundariesElement={popupsBoundariesElement}
 					popupsMountPoint={props.popupsMountPoint}
 					popupsScrollableElement={props.popupsScrollableElement}
 					providerFactory={props.providerFactory}

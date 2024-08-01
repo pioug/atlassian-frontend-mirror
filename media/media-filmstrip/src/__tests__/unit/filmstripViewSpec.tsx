@@ -1,7 +1,8 @@
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case MutationObserver
 declare var window: any;
 import React from 'react';
-import { shallow, type CommonWrapper, mount } from 'enzyme';
+import { shallow, type CommonWrapper } from 'enzyme';
+import { render } from '@testing-library/react';
 import { FilmstripView } from '../../filmstripView';
 import {
 	LeftArrow,
@@ -403,9 +404,8 @@ describe('FilmstripView', () => {
 
 	describe('.render()', () => {
 		it('styles', () => {
-			const element = mount(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
-			mockSizing(element);
-			expect(element).toMatchSnapshot();
+			const { container } = render(<FilmstripView offset={0}>{['a', 'b', 'c']}</FilmstripView>);
+			expect(container).toMatchSnapshot();
 		});
 
 		it('should not render the left arrow when offset is equal to minOffset', () => {

@@ -10,11 +10,15 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { DOMSerializer, type Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const LOCAL_STORAGE_DOC_KEY = 'lazy-node-example-content';
+const smartCardClient = new ConfluenceCardClient('stg');
 
 // ----------------------------------------------------------------------
 /**
@@ -34,6 +38,8 @@ const optInNodes = [
 	'tableCell',
 	'tableHeader',
 	'taskItem',
+	'embedCard',
+	'blockCard',
 ] as const;
 type NodeViewType = Record<(typeof optInNodes)[number], typeof createToDOMNodeView>;
 
@@ -136,6 +142,14 @@ const useBasePreset = () =>
 				allowDistributeColumns: true,
 			},
 			allowTasksAndDecisions: true,
+			linking: {
+				smartLinks: {
+					allowDatasource: true,
+					allowBlockCards: true,
+					allowEmbeds: true,
+					provider: Promise.resolve(new ConfluenceCardProvider('stg')),
+				},
+			},
 			featureFlags: {
 				'safer-dispatched-transactions': true,
 				'table-drag-and-drop': true,
@@ -242,28 +256,42 @@ export default function LazyNodeComparison() {
 					xcss={direction === 'row' ? editorContainerRowStyles : editorContainerColumnStyles}
 				>
 					<Heading size="medium">Standard Editor</Heading>
-
-					<ComposableEditor
-						appearance="full-page"
-						preset={normalEditorPreset}
-						defaultValue={initialEditorValue}
-						media={{ provider: mediaProvider }}
-						onChange={onEditorChange}
-					/>
+					<SmartCardProvider client={smartCardClient}>
+						<ComposableEditor
+							appearance="full-page"
+							preset={normalEditorPreset}
+							defaultValue={initialEditorValue}
+							media={{ provider: mediaProvider }}
+							linking={{
+								smartLinks: {
+									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
+								},
+							}}
+							onChange={onEditorChange}
+						/>
+					</SmartCardProvider>
 				</Stack>
 				<Stack
+					space="space.200"
 					grow="fill"
 					xcss={direction === 'row' ? editorContainerRowStyles : editorContainerColumnStyles}
 				>
 					<Heading size="medium">Editor using lazy node fallback</Heading>
 
-					<ComposableEditor
-						appearance="full-page"
-						defaultValue={initialEditorValue}
-						preset={lazyNodeEditorPreset}
-						disabled={true}
-						media={{ provider: mediaProvider }}
-					/>
+					<SmartCardProvider client={smartCardClient}>
+						<ComposableEditor
+							appearance="full-page"
+							defaultValue={initialEditorValue}
+							preset={lazyNodeEditorPreset}
+							disabled={true}
+							media={{ provider: mediaProvider }}
+							linking={{
+								smartLinks: {
+									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
+								},
+							}}
+						/>
+					</SmartCardProvider>
 				</Stack>
 			</Flex>
 		</>

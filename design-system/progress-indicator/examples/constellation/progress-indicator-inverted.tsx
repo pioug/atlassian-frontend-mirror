@@ -35,7 +35,7 @@ const InvertedExample = () => {
 	return (
 		<div css={containerStyles}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev} appearance="primary">
-				Prev
+				Previous
 			</Button>
 			<ProgressIndicator appearance="inverted" selectedIndex={selectedIndex} values={values} />
 			<Button

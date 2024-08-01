@@ -73,6 +73,7 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 				}
 				css={[buttonBaseStyles, isHighlighted && buttonHighlightedStyles]}
 				role="listitem"
+				data-vc="primary-button"
 			>
 				<Button
 					appearance="primary"

@@ -1,7 +1,9 @@
-import type {
-	ActionsDiscoveryResponse,
-	DatasourceDataResponse,
-	DatasourceDetailsResponse,
+import {
+	ActionOperationStatus,
+	type ActionsDiscoveryResponse,
+	type AtomicActionExecuteResponse,
+	type DatasourceDataResponse,
+	type DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
 
 export const mockDatasourceDataResponse: DatasourceDataResponse = {
@@ -226,4 +228,19 @@ export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 			},
 		],
 	},
+};
+
+export const mockExecuteActionResponse: AtomicActionExecuteResponse = {
+	operationStatus: ActionOperationStatus.SUCCESS,
+	errors: [],
+};
+
+export const mockExecuteActionResponseFailure: AtomicActionExecuteResponse = {
+	operationStatus: ActionOperationStatus.FAILURE,
+	errors: [
+		{
+			message: 'summary: You must specify a summary of the issue.',
+			code: 400,
+		},
+	],
 };

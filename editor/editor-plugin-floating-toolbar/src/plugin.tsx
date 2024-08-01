@@ -284,6 +284,7 @@ export function ContentComponent({
 		absoluteOffset = { top: 0, left: 0, right: 0, bottom: 0 },
 		focusTrap,
 		mediaAssistiveMessage = '',
+		stick = true,
 	} = config;
 	const targetRef = getDomRef(editorView, dispatchAnalyticsEvent);
 
@@ -352,7 +353,7 @@ export function ContentComponent({
 				fitWidth={width}
 				absoluteOffset={absoluteOffset}
 				alignX={align}
-				stick={true}
+				stick={stick}
 				zIndex={zIndex}
 				mountTo={popupsMountPoint}
 				boundariesElement={popupsBoundariesElement}

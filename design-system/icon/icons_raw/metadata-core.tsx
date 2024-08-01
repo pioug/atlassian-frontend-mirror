@@ -66,6 +66,22 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		usage: 'Reserved for adding or viewing apps.',
 		tags: 'third-party, applications',
 	},
+	'app-switcher': {
+		categorization: 'Single-purpose',
+		location: 'ADS',
+		type: 'Core',
+		team: 'ADS',
+		usage: 'Reserved for app switcher in global product navigation.',
+		tags: 'application switcher, change product, switch product, product switcher, top navigation,',
+	},
+	'app-switcher-legacy': {
+		categorization: 'Single-purpose',
+		location: 'ADS',
+		type: 'Core',
+		team: 'ADS',
+		usage: 'Reserved for the legacy app switcher in global product navigation.',
+		tags: 'application switcher, change product, switch product, product switcher, top navigation,',
+	},
 	'archive-box': {
 		categorization: 'Multi-purpose',
 		location: 'ADS',
@@ -836,6 +852,14 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		usage: 'Reserved for user mentions.',
 		tags: 'at symbol, @, tag, username',
 	},
+	menu: {
+		categorization: 'Single-purpose',
+		location: 'ADS',
+		type: 'Core',
+		team: 'ADS',
+		usage: 'Reserved for accessing the menu in global product navigation.',
+		tags: 'menu, top navigation, 3 lines, hamburger',
+	},
 	microphone: {
 		categorization: 'Multi-purpose',
 		location: 'Icon contributions',
@@ -859,6 +883,15 @@ const iconMetadata: UNSAFE_IconMetadata = {
 		team: 'Confluence',
 		usage: 'Reserved for a non-expandable item in a page tree.',
 		tags: 'page, dot, page tree, navigation',
+	},
+	notification: {
+		categorization: 'Single-purpose',
+		location: 'ADS',
+		type: 'Core',
+		team: 'ADS',
+		usage:
+			'Reserved for notifications within global product navigation and within product screens.',
+		tags: 'bell, alert, top navigation',
 	},
 	'office-building': {
 		categorization: 'Multi-purpose',

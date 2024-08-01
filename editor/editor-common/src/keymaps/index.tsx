@@ -135,16 +135,16 @@ export const focusToContextMenuTrigger = makeKeyMapWithCommon(
 
 export const dragToMoveUp = makeKeyMapWithCommon(
 	'Move node up in the document',
-	'Ctrl-Alt-Shift-ArrowUp',
+	'Ctrl-Shift-ArrowUp',
 );
 export const dragToMoveDown = makeKeyMapWithCommon(
 	'Move node down in the document',
-	'Ctrl-Alt-Shift-ArrowDown',
+	'Ctrl-Shift-ArrowDown',
 );
 
 export const showElementDragHandle = makeKeyMapWithCommon(
 	'Show drag handle for editor element',
-	'Ctrl-Alt-Shift-a',
+	'Ctrl-Shift-h',
 );
 
 const arrowKeysMap: Record<string, string> = {

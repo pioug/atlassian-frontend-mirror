@@ -1,19 +1,18 @@
 import React from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import isModernContextEnabledEnv from '../../utils/isModernContextEnabledEnv';
 
 import LegacyAnalyticsContext from './LegacyAnalyticsContext';
 import ModernAnalyticsContext from './ModernAnalyticsContext';
 import { type AnalyticsContextFunction } from './types';
 
 const ExportedAnalyticsContext: AnalyticsContextFunction = (props) => {
-	const isModernContextEnabledEnv =
-		typeof process !== 'undefined' &&
-		process !== null &&
-		process.env?.['ANALYTICS_NEXT_MODERN_CONTEXT'];
+	const isModernContext =
+		isModernContextEnabledEnv || fg('platform.analytics-next-use-modern-context_fqgbx');
 
-	return isModernContextEnabledEnv ||
-		getBooleanFF('platform.analytics-next-use-modern-context_fqgbx') ? (
+	return isModernContext ? (
 		<ModernAnalyticsContext {...props} />
 	) : (
 		<LegacyAnalyticsContext {...props} />

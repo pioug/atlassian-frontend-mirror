@@ -658,7 +658,7 @@ export const toggleFixedColumnWidthsOptionAnalytics = (
 	})(editorAnalyticsAPI)(editorCommandToPMCommand(setTableDisplayMode));
 
 export const setTableAlignmentWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null, isCommentEditor: boolean) =>
 	(
 		newAlignment: AlignmentOptions,
 		// previous alignment could be a breakout value, if so use 'null' to indicate alignment was not previously set
@@ -687,7 +687,9 @@ export const setTableAlignmentWithAnalytics =
 					reason,
 				},
 			};
-		})(editorAnalyticsAPI)(editorCommandToPMCommand(setTableAlignment(newAlignment)));
+		})(editorAnalyticsAPI)(
+			editorCommandToPMCommand(setTableAlignment(newAlignment, isCommentEditor)),
+		);
 
 export const setTableAlignmentWithTableContentWithPosWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>

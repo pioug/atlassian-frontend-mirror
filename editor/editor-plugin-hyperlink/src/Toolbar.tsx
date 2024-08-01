@@ -50,7 +50,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	editInsertedLink,
@@ -290,7 +290,7 @@ export const getToolbarConfig =
 						},
 						...(cardActions?.getEndingToolbarItems(intl, link) ?? []),
 
-						...(getBooleanFF('platform.editor.card.inject-settings-button')
+						...(fg('platform.editor.card.inject-settings-button')
 							? []
 							: getSettingsButtonGroup(intl, editorAnalyticsApi)),
 					];
@@ -322,7 +322,7 @@ export const getToolbarConfig =
 
 					return {
 						...hyperLinkToolbar,
-						preventPopupOverflow: !!lpLinkPicker,
+						preventPopupOverflow: true,
 						height: popupHeight,
 						width: RECENT_SEARCH_WIDTH_IN_PX,
 						items: [

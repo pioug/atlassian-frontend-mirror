@@ -2,20 +2,26 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { css, jsx } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
 
 import { groupedCountries } from './data/countries';
 import Select from './Select';
 import { type FormatOptionLabelMeta, type SelectProps } from './types';
+import {
+	type CountyGroupOptions,
+	isCountryOptionsGrouped,
+	onCountryOptionFocus,
+} from './utils/country-groups-announcement';
 
 type Country = (typeof groupedCountries)[number]['options'][number];
 
 // custom option renderer
 const labelStyles = css({
-	alignItems: 'center',
 	display: 'flex',
+	alignItems: 'center',
 	lineHeight: 1.2,
 });
 
@@ -50,16 +56,40 @@ const formatOptionLabel = (opt: Country, { context }: FormatOptionLabelMeta<Coun
 	context === 'value' ? controlLabel(opt) : optionLabel(opt);
 
 // put it all together
-const CountrySelect = (props: SelectProps<Country>) => (
-	<Select
-		isClearable={false}
-		formatOptionLabel={formatOptionLabel}
-		getOptionLabel={getOptionLabel}
-		getOptionValue={getOptionValue}
-		isMulti={false}
-		options={groupedCountries}
-		{...props}
-	/>
-);
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
+/**
+ * __Country select__
+ *
+ * A country select {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
+ */
+const CountrySelect = (props: SelectProps<Country>) => {
+	const { ariaLiveMessages, options } = props;
+	const countryOptions = options || groupedCountries;
+
+	return (
+		<Select
+			isClearable={false}
+			formatOptionLabel={formatOptionLabel}
+			getOptionLabel={getOptionLabel}
+			getOptionValue={getOptionValue}
+			isMulti={false}
+			options={countryOptions}
+			ariaLiveMessages={
+				isCountryOptionsGrouped(countryOptions)
+					? {
+							onFocus: (data) => onCountryOptionFocus(data, countryOptions as CountyGroupOptions[]),
+							...ariaLiveMessages,
+						}
+					: { ...ariaLiveMessages }
+			}
+			{...props}
+		/>
+	);
+};
 
 export default CountrySelect;

@@ -5,22 +5,25 @@ import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stabl
 import { useAnalyticsContext } from '../../hooks/useAnalyticsContext';
 import { useTrackedRef } from '../../hooks/useTrackedRef';
 
-import { type AnalyticsContextFunction } from './types';
+import type { AnalyticsContextFunction } from './types';
 
 const AnalyticsContext: AnalyticsContextFunction = ({ data, children }) => {
 	const dataRef = useTrackedRef(data);
-	const analyticsContext = useAnalyticsContext();
+	const {
+		getAtlaskitAnalyticsEventHandlers,
+		getAtlaskitAnalyticsContext: getOriginalAnalyticsContext,
+	} = useAnalyticsContext();
 
 	const getAtlaskitAnalyticsContext = useCallback(() => {
-		return [...analyticsContext.getAtlaskitAnalyticsContext(), dataRef.current];
-	}, [analyticsContext, dataRef]);
+		return [...getOriginalAnalyticsContext(), dataRef.current];
+	}, [getOriginalAnalyticsContext, dataRef]);
 
 	const value = useMemo(
 		() => ({
 			getAtlaskitAnalyticsContext,
-			getAtlaskitAnalyticsEventHandlers: analyticsContext.getAtlaskitAnalyticsEventHandlers,
+			getAtlaskitAnalyticsEventHandlers,
 		}),
-		[analyticsContext, getAtlaskitAnalyticsContext],
+		[getAtlaskitAnalyticsContext, getAtlaskitAnalyticsEventHandlers],
 	);
 
 	return <AnalyticsReactContext.Provider value={value}>{children}</AnalyticsReactContext.Provider>;

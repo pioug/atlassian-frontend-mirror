@@ -32,7 +32,7 @@ const HelpExample = () => {
 	return (
 		<div css={containerStyles}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-				Prev
+				Previous
 			</Button>
 			<ProgressIndicator appearance="help" selectedIndex={selectedIndex} values={values} />
 			<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>

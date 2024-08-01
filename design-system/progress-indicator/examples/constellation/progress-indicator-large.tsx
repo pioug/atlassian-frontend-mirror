@@ -32,7 +32,7 @@ const LargeExample = () => {
 	return (
 		<div css={containerStyles}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-				Prev
+				Previous
 			</Button>
 			<ProgressIndicator selectedIndex={selectedIndex} values={values} size="large" />
 			<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>

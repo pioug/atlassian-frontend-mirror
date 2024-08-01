@@ -8,7 +8,7 @@ import {
 	akEditorToolbarKeylineHeight,
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
@@ -16,7 +16,7 @@ export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
 // box-shadow is overriden by the mainToolbar
 const mainToolbarWithKeyline = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	boxShadow: getBooleanFF('platform.confluence.frontend.narrow-full-page-editor-toolbar')
+	boxShadow: fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
 		? `${token('elevation.shadow.overflow')}`
 		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			`0 ${akEditorToolbarKeylineHeight}px 0 0 ${token(
@@ -25,44 +25,50 @@ const mainToolbarWithKeyline = css({
 			)}`,
 });
 
-const mainToolbarTwoLineStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
-		flexWrap: 'wrap',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `calc(${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()} * 2)`,
-	},
-});
+const mainToolbarTwoLineStyle = () => {
+	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
+			flexWrap: 'wrap',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: `calc(${editorToolbarHeight} * 2)`,
+		},
+	});
+};
 
-const mainToolbar = css({
-	position: 'relative',
-	alignItems: 'center',
-	boxShadow: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderBottom: getBooleanFF('platform.confluence.frontend.narrow-full-page-editor-toolbar')
-		? `1px solid ${token('color.border')}`
-		: undefined,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: akEditorFloatingDialogZIndex,
-	display: 'flex',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: FULL_PAGE_EDITOR_TOOLBAR_HEIGHT(),
-	flexShrink: 0,
-	backgroundColor: token('elevation.surface', 'white'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& object': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		height: '0 !important',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
-		display: 'grid',
+const mainToolbar = () => {
+	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
+	return css({
+		position: 'relative',
+		alignItems: 'center',
+		boxShadow: 'none',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `calc(${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()} * 2)`,
-	},
-});
+		borderBottom: fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
+			? `1px solid ${token('color.border')}`
+			: undefined,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		zIndex: akEditorFloatingDialogZIndex,
+		display: 'flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		height: editorToolbarHeight,
+		flexShrink: 0,
+		backgroundColor: token('elevation.surface', 'white'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& object': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+			height: '0 !important',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+		[`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
+			display: 'grid',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: `calc(${editorToolbarHeight} * 2)`,
+		},
+	});
+};
 
 export const mainToolbarStyle = (showKeyline: boolean, twoLineEditorToolbar: boolean) => [
 	mainToolbar,
@@ -92,16 +98,19 @@ const mainToolbarFirstChild = css({
 	},
 });
 
-const mainToolbarFirstChildTowLine = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
-		flex: '1 1 100%',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: FULL_PAGE_EDITOR_TOOLBAR_HEIGHT(),
-		justifyContent: 'flex-end',
-		minWidth: 'fit-content',
-	},
-});
+const mainToolbarFirstChildTowLine = () => {
+	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
+			flex: '1 1 100%',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: editorToolbarHeight,
+			justifyContent: 'flex-end',
+			minWidth: 'fit-content',
+		},
+	});
+};
 
 export const mainToolbarFirstChildStyle = (twoLineEditorToolbar: boolean) => [
 	mainToolbarFirstChild,
@@ -112,18 +121,21 @@ const mainToolbarSecondChild = css({
 	minWidth: 'fit-content',
 });
 
-const mainToolbarSecondChildTwoLine = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
-		display: 'flex',
-		flexGrow: 1,
-		flex: '1 1 100%',
-		margin: 'auto',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: FULL_PAGE_EDITOR_TOOLBAR_HEIGHT(),
-		minWidth: 0,
-	},
-});
+const mainToolbarSecondChildTwoLine = () => {
+	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
+	return css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		[`@media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px)`]: {
+			display: 'flex',
+			flexGrow: 1,
+			flex: '1 1 100%',
+			margin: 'auto',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: editorToolbarHeight,
+			minWidth: 0,
+		},
+	});
+};
 
 export const mainToolbarSecondChildStyle = (twoLineEditorToolbar: boolean) => [
 	mainToolbarSecondChild,

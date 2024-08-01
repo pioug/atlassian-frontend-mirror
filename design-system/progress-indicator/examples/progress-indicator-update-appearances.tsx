@@ -34,7 +34,7 @@ const Example = ({ values = ['default', 'inverted', 'primary', 'help'] }: Exampl
 		<Box paddingInline="space.200" paddingBlock="space.200">
 			<SpreadInlineLayout>
 				<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-					Prev
+					Previous
 				</Button>
 				<ProgressIndicator
 					selectedIndex={selectedIndex}

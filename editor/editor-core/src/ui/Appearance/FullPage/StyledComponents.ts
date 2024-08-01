@@ -67,17 +67,20 @@ export const positionedOverEditorStyle = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const contentArea = css({
-	display: 'flex',
-	flexDirection: 'row',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()})`,
-	boxSizing: 'border-box',
-	margin: 0,
-	padding: 0,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
-});
+export const contentArea = () => {
+	const editorToolbarHeight = FULL_PAGE_EDITOR_TOOLBAR_HEIGHT();
+	return css({
+		display: 'flex',
+		flexDirection: 'row',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		height: `calc(100% - ${editorToolbarHeight})`,
+		boxSizing: 'border-box',
+		margin: 0,
+		padding: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
+	});
+};
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const contentAreaHeightNoToolbar = css({

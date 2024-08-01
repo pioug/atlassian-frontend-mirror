@@ -344,6 +344,7 @@ export interface FloatingToolbarConfig {
 	focusTrap?: boolean;
 	preventPopupOverflow?: boolean;
 	mediaAssistiveMessage?: string;
+	stick?: boolean;
 }
 
 export type FloatingToolbarHandler = (

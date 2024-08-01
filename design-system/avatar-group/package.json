@@ -27,9 +27,9 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/avatar": "^21.11.0",
+		"@atlaskit/avatar": "^21.12.0",
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/menu": "^2.8.0",
+		"@atlaskit/menu": "^2.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/theme": "^12.11.0",

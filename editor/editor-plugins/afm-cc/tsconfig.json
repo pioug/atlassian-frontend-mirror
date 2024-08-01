@@ -187,6 +187,9 @@
             "path": "../../editor-plugin-media/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-media-insert/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-mentions/afm-cc/tsconfig.json"
         },
         {

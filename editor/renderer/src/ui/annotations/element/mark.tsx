@@ -163,7 +163,7 @@ export const MarkComponent = ({
 		if (isMobile()) {
 			return {};
 		}
-		if (isInlineCommentsKbAccessible) {
+		if (isInlineCommentsKbAccessible && state !== AnnotationMarkStates.RESOLVED) {
 			const startMarker = intl.formatMessage(
 				inlineCommentMessages.contentRendererInlineCommentMarkerStart,
 			);

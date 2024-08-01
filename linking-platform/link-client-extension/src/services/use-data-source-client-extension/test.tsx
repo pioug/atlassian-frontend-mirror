@@ -7,6 +7,8 @@ import { NetworkError } from '@atlaskit/linking-common';
 import type {
 	ActionsDiscoveryRequest,
 	ActionsDiscoveryResponse,
+	AtomicActionExecuteRequest,
+	AtomicActionExecuteResponse,
 	DatasourceDataRequest,
 	DatasourceDataResponse,
 	DatasourceDetailsRequest,
@@ -18,6 +20,8 @@ import {
 	mockActionsDiscoveryResponse,
 	mockDatasourceDataResponse,
 	mockDatasourceDetailsResponse,
+	mockExecuteActionResponse,
+	mockExecuteActionResponseFailure,
 } from './mocks';
 
 import {
@@ -78,21 +82,40 @@ describe('useDatasourceClientExtension', () => {
 			datasourceId: datasourceId,
 		};
 
+		const atomicExecuteActionRequestParams: AtomicActionExecuteRequest = {
+			integrationKey: 'jira',
+			actionKey: 'atlassian:issue:update:summary',
+			parameters: {
+				inputs: {
+					summary: 'some new value - vive la france',
+				},
+				target: {
+					ari: 'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10030',
+				},
+			},
+		};
+
 		const { result } = renderHook(() => useDatasourceClientExtension(), {
 			wrapper,
 		});
 
-		const { getDatasourceDetails, getDatasourceData, getDatasourceActionsAndPermissions } =
-			result.current;
+		const {
+			getDatasourceDetails,
+			getDatasourceData,
+			getDatasourceActionsAndPermissions,
+			executeAtomicAction,
+		} = result.current;
 
 		return {
 			getDatasourceDetails,
 			getDatasourceData,
 			getDatasourceActionsAndPermissions,
+			executeAtomicAction,
 			datasourceDetailsParams,
 			datasourceDataParams,
 			actionsDiscoveryIntegrationParams,
 			actionsDiscoveryDatasourceParams,
+			atomicExecuteActionRequestParams,
 		};
 	};
 
@@ -122,6 +145,7 @@ describe('useDatasourceClientExtension', () => {
 			getDatasourceDetails: expect.any(Function),
 			getDatasourceData: expect.any(Function),
 			getDatasourceActionsAndPermissions: expect.any(Function),
+			executeAtomicAction: expect.any(Function),
 		});
 	});
 
@@ -905,4 +929,105 @@ describe('useDatasourceClientExtension', () => {
 			});
 		},
 	);
+
+	describe('#executeAtomicAction', () => {
+		it('should make request to /actions/execute endpoint', async () => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			mockFetch.mockResolvedValueOnce({
+				json: async () => undefined,
+				ok: true,
+				text: async () => undefined,
+			});
+
+			await executeAtomicAction(atomicExecuteActionRequestParams);
+
+			expect(mockFetch).toHaveBeenCalledWith(expect.stringContaining(`/actions/execute`), {
+				body: JSON.stringify(atomicExecuteActionRequestParams),
+				credentials: 'include',
+				headers: {
+					Accept: 'application/json',
+					'Cache-Control': 'no-cache',
+					'Content-Type': 'application/json',
+				},
+				method: 'post',
+			});
+		});
+
+		it('should return error response', async () => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			const error = new Error();
+			mockFetch.mockRejectedValueOnce(error);
+
+			await expect(executeAtomicAction(atomicExecuteActionRequestParams)).rejects.toBe(error);
+		});
+
+		it.each(allErrorCodes)('should throw %s response', async (status: number) => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			const expectedResponse = { ok: false, status };
+			mockFetch.mockResolvedValueOnce(expectedResponse);
+
+			await expect(executeAtomicAction(atomicExecuteActionRequestParams)).rejects.toBe(
+				expectedResponse,
+			);
+		});
+
+		it('should throw network error on string error', async () => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			const errorMessage = 'API is down';
+			mockFetch.mockRejectedValueOnce(errorMessage);
+
+			await expect(executeAtomicAction(atomicExecuteActionRequestParams)).rejects.toThrow(
+				new NetworkError(errorMessage),
+			);
+		});
+
+		it('should throw network error response on TypeError', async () => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			const error = TypeError('null has no properties');
+			mockFetch.mockRejectedValueOnce(error);
+
+			await expect(executeAtomicAction(atomicExecuteActionRequestParams)).rejects.toThrow(
+				new NetworkError(error),
+			);
+		});
+
+		it('should return successful response for upstream success', async () => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			const expectedResponse: AtomicActionExecuteResponse = mockExecuteActionResponse;
+
+			mockFetch.mockResolvedValueOnce({
+				body: {},
+				json: async () => expectedResponse,
+				ok: true,
+				text: async () => JSON.stringify(expectedResponse),
+			});
+
+			const response = await executeAtomicAction(atomicExecuteActionRequestParams);
+
+			expect(response).toEqual(expectedResponse);
+		});
+
+		it('should return a successful response with wrapped error for upstream failure', async () => {
+			const { executeAtomicAction, atomicExecuteActionRequestParams } = setup();
+
+			const expectedResponse: AtomicActionExecuteResponse = mockExecuteActionResponseFailure;
+
+			mockFetch.mockResolvedValueOnce({
+				body: {},
+				json: async () => expectedResponse,
+				ok: true,
+				text: async () => JSON.stringify(expectedResponse),
+			});
+
+			const response = await executeAtomicAction(atomicExecuteActionRequestParams);
+
+			expect(response).toEqual(expectedResponse);
+		});
+	});
 });

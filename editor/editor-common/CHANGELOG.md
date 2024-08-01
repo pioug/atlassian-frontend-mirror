@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 87.2.0
+
+### Minor Changes
+
+- [`aef5432662b58`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aef5432662b58) -
+  [ux] EDM-10363 Implement opening links via configure overlay dropdown open link button
+
 ## 87.1.0
 
 ### Minor Changes

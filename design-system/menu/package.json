@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "2.8.1",
+	"version": "2.9.0",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

@@ -121,7 +121,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 			<PopupWithListeners
 				target={element!}
 				offset={[0, 8]}
-				fitHeight={327}
+				fitHeight={370}
 				fitWidth={340}
 				handleClickOutside={this.closeDatePickerWithAnalytics}
 				handleEscapeKeydown={this.closeDatePickerWithAnalytics}
@@ -130,6 +130,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 				ariaLabel={null}
+				preventOverflow={true}
 			>
 				<div css={popupContentWrapper}>
 					<DatePickerInput

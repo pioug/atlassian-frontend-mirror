@@ -3,13 +3,33 @@ import { getCellAttrs, getCellDomAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import TableNodeView from './TableNodeViewBase';
 
 const DEFAULT_COL_SPAN = 1;
 const DEFAULT_ROW_SPAN = 1;
 
+/**
+ * For performance reasons we do this in the background - it shouldn't block the main thread
+ */
+function delayUntilIdle(cb: Function) {
+	if (typeof window === 'undefined') {
+		return;
+	}
+	// eslint-disable-next-line compat/compat
+	if (window.requestIdleCallback !== undefined) {
+		// eslint-disable-next-line compat/compat
+		return window.requestIdleCallback(() => cb(), { timeout: 500 });
+	}
+	return window.requestAnimationFrame(() => cb());
+}
+
+const cssVariablePattern = /^VAR\(--.*\)$/;
+
 export default class TableCell extends TableNodeView<HTMLElement> implements NodeView {
+	private delayHandle: number | undefined;
+
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -17,7 +37,42 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		eventDispatcher: EventDispatcher,
 	) {
 		super(node, view, getPos, eventDispatcher);
+
+		// CONFCLOUD-78239: Previously we had a bug which tried to invert the heading colour of a table
+		// Obviously design tokens can't be inverted and so it would result in `VAR(--DS-BACKGROUND-ACCENT-GRAY-SUBTLEST, #F4F5F7)`
+		// which is not a valid CSS variable.
+		//
+		// We should follow-up and remove this in TODO-xx in 6 months once we're confident
+		// that this has fixed most of the cases in the wild.
+		//
+		// This is a workaround to fix those cases on the fly. Note it is super specific on purpose
+		// so that it just fixes the heading token (other tokens should be unaffected)
+		// At some point in the future
+		if (
+			cssVariablePattern.test(node.attrs.background) &&
+			fg('platform_editor_dark_mode_cell_header_color_fix')
+		) {
+			this.delayHandle = delayUntilIdle(() => {
+				const pos = getPos();
+				if (pos) {
+					view.dispatch(
+						view.state.tr
+							.setNodeAttribute(pos, 'background', node.attrs.background.toLowerCase())
+							// Ensures dispatch does not contribute to undo history (otherwise user requires multiple undo's to revert table)
+							.setMeta('addToHistory', false),
+					);
+				}
+			});
+		}
 	}
+
+	destroy = () => {
+		if (this.delayHandle && typeof window !== 'undefined') {
+			// eslint-disable-next-line compat/compat
+			window?.cancelIdleCallback?.(this.delayHandle);
+			window?.cancelAnimationFrame?.(this.delayHandle);
+		}
+	};
 
 	update(node: PMNode) {
 		const didUpdate = this.updateNodeView(node);

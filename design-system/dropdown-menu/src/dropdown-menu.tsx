@@ -90,6 +90,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 	shouldFitContainer = false,
 	shouldFlip = true,
 	shouldRenderToParent = false,
+	returnFocusRef,
 	spacing,
 	statusLabel,
 	testId,
@@ -149,7 +150,14 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				return;
 			}
 
-			if ((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape') {
+			// transfer focus to the element specified by ref
+			// if ref is not provided, use old behavior:
+			// focus on trigger when <Esc> or <Shift+Tab> is pressed
+			if (returnFocusRef) {
+				requestAnimationFrame(() => {
+					returnFocusRef.current?.focus();
+				});
+			} else if ((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape') {
 				requestAnimationFrame(() => {
 					itemRef.current?.focus();
 				});
@@ -160,7 +168,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 
 			onOpenChange({ isOpen: newValue, event });
 		},
-		[onOpenChange, setLocalIsOpen, itemRef],
+		[itemRef, onOpenChange, returnFocusRef, setLocalIsOpen],
 	);
 
 	const { isFocused, bindFocus } = useFocus();

@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 21.12.0
+
+### Minor Changes
+
+- [#125278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125278)
+  [`f80ae8ed91fc9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f80ae8ed91fc9) -
+  Adding data-vc attributes for tracking TTVC (go/ttvc).
+
 ## 21.11.2
 
 ### Patch Changes

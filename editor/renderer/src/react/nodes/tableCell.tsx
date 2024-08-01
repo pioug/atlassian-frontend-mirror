@@ -87,6 +87,8 @@ const getDataAttributes = (colwidth?: number[], background?: string): any => {
 	return attrs;
 };
 
+const cssVariablePattern = /^var\(--.*\)$/;
+
 const getStyle = ({
 	background,
 	colGroupWidth,
@@ -125,6 +127,15 @@ const getStyle = ({
 
 		if (tokenColor) {
 			style.backgroundColor = tokenColor;
+		} else if (
+			/**
+			 * There was previously a bug in dark mode where we would attempt to invert
+			 * a design token in `getDarkModeLCHColor` causing issues.
+			 * If it's a design token we should return it as is.
+			 */
+			cssVariablePattern.test(background)
+		) {
+			style.backgroundColor = background;
 		} else {
 			// if we have a custom color, we need to check if we are in dark mode
 			if (colorMode === 'dark') {

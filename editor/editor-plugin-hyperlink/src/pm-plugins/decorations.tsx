@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type MouseEvent } from 'react';
 
 import { render } from 'react-dom';
 import { IntlProvider, type IntlShape } from 'react-intl-next';
@@ -12,11 +12,14 @@ export const ButtonWrapper = ({
 	pos,
 	stateKey,
 	intl,
+	onOpenLinkClick,
 }: {
 	editorView: EditorView;
 	pos?: number;
 	stateKey: PluginKey<HyperlinkState>;
 	intl: IntlShape;
+	/** Callback fired when the Open Link dropdown item is clicked */
+	onOpenLinkClick: (event: MouseEvent<HTMLAnchorElement>) => void;
 }) => {
 	const wrapper = document.createElement('span');
 	wrapper.style.position = 'relative';
@@ -37,6 +40,7 @@ export const ButtonWrapper = ({
 				targetElementPos={pos}
 				editorView={editorView}
 				onDropdownChange={onDropdownChange}
+				onOpenLinkClick={onOpenLinkClick}
 			/>
 			{nonBreakingCharacter}
 		</IntlProvider>,

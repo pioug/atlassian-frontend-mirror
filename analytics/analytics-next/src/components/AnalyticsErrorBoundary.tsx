@@ -1,7 +1,8 @@
 import React, { Component, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/platform/prefer-fg
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import isModernContextEnabledEnv from '../utils/isModernContextEnabledEnv';
 
 import LegacyAnalyticsContext from './AnalyticsContext/LegacyAnalyticsContext';
 import ModernAnalyticsContext from './AnalyticsContext/ModernAnalyticsContext';
@@ -46,41 +47,29 @@ export default class AnalyticsErrorBoundary extends Component<
 	}
 
 	render() {
-		const isModernContextEnabledEnv =
-			typeof process !== 'undefined' &&
-			process !== null &&
-			process.env?.['ANALYTICS_NEXT_MODERN_CONTEXT'];
-
 		const { data, children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
+		const isModernContext =
+			isModernContextEnabledEnv || fg('platform.analytics-next-use-modern-context_fqgbx');
 
 		if (hasError) {
 			if (ErrorComponent) {
-				if (
-					isModernContextEnabledEnv ||
-					// eslint-disable-next-line @atlaskit/platform/prefer-fg
-					getBooleanFF('platform.analytics-next-use-modern-context_fqgbx')
-				) {
+				if (isModernContext) {
 					return (
 						<ModernAnalyticsContext data={data}>
 							<ErrorComponent />
 						</ModernAnalyticsContext>
 					);
-				} else {
-					return (
-						<LegacyAnalyticsContext data={data}>
-							<ErrorComponent />
-						</LegacyAnalyticsContext>
-					);
 				}
+				return (
+					<LegacyAnalyticsContext data={data}>
+						<ErrorComponent />
+					</LegacyAnalyticsContext>
+				);
 			}
 			return null;
 		}
-		if (
-			isModernContextEnabledEnv ||
-			// eslint-disable-next-line @atlaskit/platform/prefer-fg
-			getBooleanFF('platform.analytics-next-use-modern-context_fqgbx')
-		) {
+		if (isModernContext) {
 			return <ModernAnalyticsContext data={data}>{children}</ModernAnalyticsContext>;
 		}
 

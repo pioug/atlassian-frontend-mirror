@@ -182,7 +182,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		const target: HTMLElement = anchorElement;
 		const { top: targetTop, height: targetHeight } = target.getBoundingClientRect();
 
-		const boundariesElement: HTMLElement = document.body;
+		const boundariesElement: HTMLElement = popupsBoundariesElement || document.body;
 		const { height: boundariesHeight, top: boundariesTop } =
 			boundariesElement.getBoundingClientRect();
 
@@ -208,7 +208,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		const minFitHeight = Math.min(defaultMenuHeight, fitHeightWithSpace);
 
 		return setFitHeight(minFitHeight);
-	}, [anchorElement, defaultMenuHeight, popupsMountPoint]);
+	}, [anchorElement, defaultMenuHeight, popupsBoundariesElement, popupsMountPoint]);
 
 	const getFitHeightDebounced = rafSchedule(getFitHeight);
 
@@ -292,6 +292,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			fitWidth={340}
 			offset={OFFSET}
 			ariaLabel={null}
+			preventOverflow={true}
 		>
 			<div
 				css={[typeAheadContent, moreElementsInQuickInsertViewEnabled && typeAheadContentOverride]}

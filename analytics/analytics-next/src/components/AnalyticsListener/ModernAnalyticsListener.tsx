@@ -2,33 +2,36 @@ import React, { useCallback, useMemo } from 'react';
 
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 
-import { type UIAnalyticsEventHandler } from '../../events/UIAnalyticsEvent';
+import type { UIAnalyticsEventHandler } from '../../events/UIAnalyticsEvent';
 import { useAnalyticsContext } from '../../hooks/useAnalyticsContext';
 import { useTrackedRef } from '../../hooks/useTrackedRef';
 
-import { type AnalyticsListenerFunction } from './types';
+import type { AnalyticsListenerFunction } from './types';
 
 const AnalyticsListener: AnalyticsListenerFunction = ({ children, channel, onEvent }) => {
-	const analyticsContext = useAnalyticsContext();
+	const { getAtlaskitAnalyticsEventHandlers = () => [], getAtlaskitAnalyticsContext } =
+		useAnalyticsContext();
+
 	const onEventRef = useTrackedRef(onEvent);
 	const channelRef = useTrackedRef(channel);
 
-	const getAtlaskitAnalyticsEventHandlers = useCallback(() => {
+	const getAnalyticsEventHandlers = useCallback(() => {
 		const thisHandler: UIAnalyticsEventHandler = (event, eventChannel) => {
 			if (channelRef.current === '*' || channelRef.current === eventChannel) {
 				onEventRef.current(event, eventChannel);
 			}
 		};
 
-		return [...analyticsContext.getAtlaskitAnalyticsEventHandlers(), thisHandler];
-	}, [analyticsContext, channelRef, onEventRef]);
+		return [thisHandler, ...getAtlaskitAnalyticsEventHandlers()];
+	}, [channelRef, onEventRef, getAtlaskitAnalyticsEventHandlers]);
 
-	const value = useMemo(() => {
-		return {
-			getAtlaskitAnalyticsEventHandlers,
-			getAtlaskitAnalyticsContext: analyticsContext.getAtlaskitAnalyticsContext,
-		};
-	}, [analyticsContext, getAtlaskitAnalyticsEventHandlers]);
+	const value = useMemo(
+		() => ({
+			getAtlaskitAnalyticsContext,
+			getAtlaskitAnalyticsEventHandlers: getAnalyticsEventHandlers,
+		}),
+		[getAtlaskitAnalyticsContext, getAnalyticsEventHandlers],
+	);
 
 	return <AnalyticsReactContext.Provider value={value}>{children}</AnalyticsReactContext.Provider>;
 };

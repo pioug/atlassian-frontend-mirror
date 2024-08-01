@@ -123,3 +123,104 @@ test.describe('Nested keyboard navigation', () => {
 		await expect(page.getByTestId(getTriggerTestId(0))).toBeFocused();
 	});
 });
+
+test.describe('Testing returnFocusRef', () => {
+	const triggerTestId = 'dropdown--trigger';
+	const contentTestId = 'dropdown--content';
+	const focusedElementId = 'checkbox2';
+	const anotherInteractiveElementId = 'checkbox3';
+	const outsideDropdown = 'examples'; // container id
+
+	test('Verify that Dropdown Menu is closing on Tab press and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.getByTestId(contentTestId).press('Tab');
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+
+	test('Verify that Dropdown Menu is closing on Shift+Tab press and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.getByTestId(contentTestId).press('Shift+Tab');
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+
+	test('Verify that Dropdown Menu is closing on Esc press and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.getByTestId(contentTestId).press('Escape');
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+
+	test('Verify that Dropdown Menu is closing on dropdown item selected (keyboard) and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.getByRole('menuitem').first().press('Enter');
+
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+
+	test('Verify that Dropdown Menu is closing on dropdown item selected (mouse) and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.getByRole('menuitem').first().click();
+
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+
+	test('Verify that Dropdown Menu is closing on click on an interactive element and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.locator(`#${anotherInteractiveElementId}`).click();
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+
+	test('Verify that Dropdown Menu is closing on click outside the dropdown and focus on the element specified by returnFocusRef', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'testing-return-focus-ref');
+
+		await page.getByTestId(triggerTestId).press('Enter');
+		await expect(page.getByTestId(contentTestId)).toBeVisible();
+
+		await page.locator(`#${outsideDropdown}`).click();
+		await expect(page.getByTestId(contentTestId)).toBeHidden();
+		await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
+	});
+});

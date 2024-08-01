@@ -3,15 +3,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import rafSchedule from 'raf-schd';
 
-import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import ReactNodeView, {
+	type getInlineNodeViewProducer,
+} from '@atlaskit/editor-common/react-node-view';
+import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, UnsupportedBlock } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
+import { browser, canRenderDatasource } from '@atlaskit/editor-common/utils';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode/src';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { Decoration, DecorationSource } from '@atlaskit/editor-prosemirror/view';
+import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
+import { Datasource } from '../nodeviews/datasource';
 import { registerCard } from '../pm-plugins/actions';
 import { isDatasourceNode } from '../utils';
 
@@ -189,3 +193,79 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 		this.unsubscribe?.();
 	}
 }
+
+export interface BlockCardNodeViewProperties {
+	pmPluginFactoryParams: PMPluginFactoryParams;
+	platform: BlockCardNodeViewProps['platform'];
+	actionOptions: BlockCardNodeViewProps['actionOptions'];
+	showServerActions: BlockCardNodeViewProps['showServerActions'];
+	pluginInjectionApi: BlockCardNodeViewProps['pluginInjectionApi'];
+	onClickCallback: BlockCardNodeViewProps['onClickCallback'];
+	allowDatasource: boolean | undefined;
+	inlineCardViewProducer: ReturnType<typeof getInlineNodeViewProducer>;
+}
+
+export const blockCardNodeView =
+	({
+		pmPluginFactoryParams,
+		platform,
+		actionOptions,
+		showServerActions,
+		pluginInjectionApi,
+		onClickCallback,
+		allowDatasource,
+		inlineCardViewProducer,
+	}: BlockCardNodeViewProperties) =>
+	(
+		node: Node,
+		view: EditorView,
+		getPos: () => number | undefined,
+		decorations: readonly Decoration[],
+	) => {
+		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
+		const reactComponentProps: BlockCardNodeViewProps = {
+			platform,
+			actionOptions,
+			showServerActions,
+			pluginInjectionApi,
+			onClickCallback: onClickCallback,
+		};
+		const isDatasource = isDatasourceNode(node);
+
+		if (isDatasource) {
+			if (
+				allowDatasource &&
+				platform !== 'mobile' &&
+				canRenderDatasource(node?.attrs?.datasource?.id)
+			) {
+				const datasourcePosition = typeof getPos === 'function' && getPos();
+
+				const datasourceResolvedPosition =
+					datasourcePosition && view.state.doc.resolve(datasourcePosition);
+
+				const isNodeNested = !!(datasourceResolvedPosition && datasourceResolvedPosition.depth > 0);
+
+				return new Datasource({
+					node,
+					view,
+					getPos,
+					portalProviderAPI,
+					eventDispatcher,
+					pluginInjectionApi,
+					isNodeNested,
+				}).init();
+			} else {
+				return inlineCardViewProducer(node, view, getPos, decorations);
+			}
+		}
+
+		return new BlockCard(
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
+			eventDispatcher,
+			reactComponentProps,
+			undefined,
+		).init();
+	};

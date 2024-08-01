@@ -32,7 +32,7 @@
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/icon": "^22.8.0",
 		"@atlaskit/layering": "^0.3.0",
-		"@atlaskit/menu": "^2.8.0",
+		"@atlaskit/menu": "^2.9.0",
 		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/spinner": "^16.2.0",

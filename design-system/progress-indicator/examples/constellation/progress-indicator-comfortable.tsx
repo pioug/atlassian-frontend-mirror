@@ -32,7 +32,7 @@ const ComfortableExample = () => {
 	return (
 		<div css={containerStyles}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-				Prev
+				Previous
 			</Button>
 			<ProgressIndicator spacing="comfortable" selectedIndex={selectedIndex} values={values} />
 			<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>

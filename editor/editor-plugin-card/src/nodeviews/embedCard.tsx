@@ -14,6 +14,7 @@ import type {
 	ColumnResizingPluginState,
 	ExtractInjectionAPI,
 	GridType,
+	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import {
 	findOverflowScrollParent,
@@ -520,3 +521,49 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		this.unsubscribe?.();
 	}
 }
+
+export interface EmbedCardNodeViewProperties {
+	allowResizing: EmbedCardNodeViewProps['allowResizing'];
+	platform: EmbedCardNodeViewProps['platform'];
+	fullWidthMode: EmbedCardNodeViewProps['fullWidthMode'];
+	pmPluginFactoryParams: PMPluginFactoryParams;
+	pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
+	actionOptions: EmbedCardNodeViewProps['actionOptions'];
+	showServerActions: EmbedCardNodeViewProps['showServerActions'];
+	onClickCallback: EmbedCardNodeViewProps['onClickCallback'];
+}
+
+export const embedCardNodeView =
+	({
+		allowResizing,
+		platform,
+		fullWidthMode,
+		pmPluginFactoryParams,
+		pluginInjectionApi,
+		actionOptions,
+		showServerActions,
+		onClickCallback,
+	}: EmbedCardNodeViewProperties) =>
+	(node: PMNode, view: EditorView, getPos: () => number | undefined) => {
+		const { portalProviderAPI, eventDispatcher, dispatchAnalyticsEvent } = pmPluginFactoryParams;
+		const reactComponentProps: EmbedCardNodeViewProps = {
+			eventDispatcher,
+			allowResizing,
+			platform,
+			fullWidthMode,
+			dispatchAnalyticsEvent,
+			pluginInjectionApi,
+			actionOptions,
+			showServerActions,
+			onClickCallback: onClickCallback,
+		};
+		return new EmbedCard(
+			node,
+			view,
+			getPos,
+			portalProviderAPI,
+			eventDispatcher,
+			reactComponentProps,
+			undefined,
+		).init();
+	};

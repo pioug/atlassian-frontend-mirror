@@ -119,6 +119,7 @@ const LinkItem = memo(
 						<Component
 							data-testid={testId}
 							data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
+							data-vc="link-item"
 							{...rest}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className}

@@ -51,12 +51,14 @@
 	"peerDependencies": {
 		"@atlaskit/media-core": "^34.2.0",
 		"@emotion/react": "^11.7.1",
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
+	"runReact18": true,
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.2.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/ssr": "*",
+		"@testing-library/react": "^12.1.5",
 		"@types/debounce": "^1.2.0",
 		"enzyme": "^3.10.0",
 		"react": "^16.8.0",

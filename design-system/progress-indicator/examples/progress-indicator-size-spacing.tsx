@@ -38,7 +38,7 @@ const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
 		<Box paddingInline="space.200" paddingBlock="space.200">
 			<SpreadInlineLayout>
 				<Button isDisabled={selectedIndex === 0} onClick={handlePrev}>
-					Prev
+					Previous
 				</Button>
 				<Inline space="space.300" testId="vr-hook">
 					{sizes.map((size) => (

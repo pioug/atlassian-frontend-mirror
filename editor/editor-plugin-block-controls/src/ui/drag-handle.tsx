@@ -134,14 +134,16 @@ const DragHandleInternal = ({
 	const handleOnClick = useCallback(() => {
 		setDragHandleSelected(!dragHandleSelected);
 		api?.core?.actions.execute(({ tr }) => {
-			if (start === undefined) {
+			const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
+
+			if (startPos === undefined) {
 				return tr;
 			}
 
-			tr = selectNode(tr, start, nodeType);
-			tr.setMeta(key, { pos: start });
+			tr = selectNode(tr, startPos, nodeType);
+			tr.setMeta(key, { pos: startPos });
 
-			const resolvedMovingNode = tr.doc.resolve(start);
+			const resolvedMovingNode = tr.doc.resolve(startPos);
 			const maybeNode = resolvedMovingNode.nodeAfter;
 
 			fg('platform.editor.elements.drag-and-drop-long-node-scroll') &&
@@ -161,7 +163,15 @@ const DragHandleInternal = ({
 		});
 
 		view.focus();
-	}, [start, api, view, dragHandleSelected, setDragHandleSelected, nodeType]);
+	}, [
+		dragHandleSelected,
+		api?.core?.actions,
+		api?.analytics?.actions,
+		view,
+		getPos,
+		start,
+		nodeType,
+	]);
 
 	// handleMouseDown required along with onClick to ensure the correct selection
 	// is set immediately when the drag handle is clicked. Otherwise browser native
@@ -184,40 +194,43 @@ const DragHandleInternal = ({
 	// but ensures the preview is generated correctly.
 	const handleMouseDownWrapperRemoved = useCallback(() => {
 		api?.core?.actions.execute(({ tr }) => {
-			if (start === undefined) {
+			const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
+			if (startPos === undefined) {
 				return tr;
 			}
 
-			const node = tr.doc.nodeAt(start);
+			const node = tr.doc.nodeAt(startPos);
 			if (!node) {
 				return tr;
 			}
-			const $startPos = tr.doc.resolve(start + node.nodeSize);
+			const $startPos = tr.doc.resolve(startPos + node.nodeSize);
 			const selection = new TextSelection($startPos);
 			tr.setSelection(selection);
-			tr.setMeta(key, { pos: start });
+			tr.setMeta(key, { pos: startPos });
 			return tr;
 		});
-	}, [start, api]);
+	}, [api?.core?.actions, getPos, start]);
 
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLButtonElement>) => {
 			if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
 				// allow user to use spacebar to select the node
+
 				if (!e.repeat && e.key === ' ') {
+					const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
 					api?.core?.actions.execute(({ tr }) => {
-						if (start === undefined) {
+						if (startPos === undefined) {
 							return tr;
 						}
 
-						const node = tr.doc.nodeAt(start);
+						const node = tr.doc.nodeAt(startPos);
 						if (!node) {
 							return tr;
 						}
-						const $startPos = tr.doc.resolve(start + node.nodeSize);
+						const $startPos = tr.doc.resolve(startPos + node.nodeSize);
 						const selection = new TextSelection($startPos);
 						tr.setSelection(selection);
-						tr.setMeta(key, { pos: start });
+						tr.setMeta(key, { pos: startPos });
 						return tr;
 					});
 				} else if (![e.altKey, e.ctrlKey, e.shiftKey].some((pressed) => pressed)) {
@@ -227,7 +240,7 @@ const DragHandleInternal = ({
 				}
 			}
 		},
-		[start, api, view],
+		[getPos, start, api?.core?.actions, view],
 	);
 
 	useEffect(() => {

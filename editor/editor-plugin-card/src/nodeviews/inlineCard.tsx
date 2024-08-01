@@ -3,6 +3,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import rafSchedule from 'raf-schd';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { handleNavigation } from '@atlaskit/editor-common/link';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -198,6 +199,14 @@ export function InlineCardNodeView(
 				targetElementPos={getPos()}
 				view={view}
 				isHoveredCallback={setIsOverlayHovered}
+				onOpenLinkClick={(event) => {
+					handleNavigation({
+						fireAnalyticsEvent: pluginInjectionApi?.analytics?.actions.fireAnalyticsEvent,
+						onClickCallback,
+						url: node.attrs.url,
+						event,
+					});
+				}}
 			>
 				{inlineCard}
 			</OverlayWrapper>

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.6.3
+
+### Patch Changes
+
+- [#125980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125980)
+  [`93070430085a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93070430085a6) -
+  fix editor popup overflow issue
+- Updated dependencies
+
 ## 1.6.2
 
 ### Patch Changes

@@ -158,6 +158,10 @@ export interface ReactionsProps
 	 * Optional prop to change the placement of the summary popup reaction list
 	 */
 	summaryViewPlacement?: Placement;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
 }
 
 /**
@@ -206,6 +210,7 @@ export const Reactions = React.memo(
 		summaryViewEnabled = false,
 		summaryViewThreshold = 3,
 		summaryViewPlacement,
+		showOpaqueBackground = false,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -407,6 +412,7 @@ export const Reactions = React.memo(
 							onReactionFocused={handleReactionFocused}
 							onReactionMouseEnter={handleReactionMouseEnter}
 							placement={summaryViewPlacement}
+							showOpaqueBackground={showOpaqueBackground}
 						/>
 					</div>
 				) : (
@@ -422,6 +428,7 @@ export const Reactions = React.memo(
 							handleUserListClick={handleOpenReactionsDialog}
 							allowUserDialog={allowUserDialog}
 							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
+							showOpaqueBackground={showOpaqueBackground}
 						/>
 					))
 				)}
@@ -440,6 +447,7 @@ export const Reactions = React.memo(
 					tooltipContent={getTooltip(status, errorMessage)}
 					emojiPickerSize={emojiPickerSize}
 					miniMode={miniMode}
+					showOpaqueBackground={showOpaqueBackground}
 				/>
 				{allowUserDialog && reactions.length > 0 && (
 					<Tooltip

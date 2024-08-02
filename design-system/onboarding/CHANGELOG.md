@@ -1,5 +1,15 @@
 # @atlaskit/onboarding
 
+## 11.10.4
+
+### Patch Changes
+
+- [#125754](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125754)
+  [`aa57c66a5b798`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa57c66a5b798) -
+  Migrating ipm-choreographer out of post-office and into platform. Fixing tests and lint checks for
+  ipm-choreographer, and adding a bugfix for Engagekit. Also, a minor change to @atlaskit/onboarding
+  to export the SpotlightProps interface.
+
 ## 11.10.3
 
 ### Patch Changes

@@ -16,4 +16,14 @@ export const messages = defineMessages({
 		defaultMessage: 'Move down',
 		description: 'Moves selected content down',
 	},
+	movedup: {
+		id: 'fabric.editor.blockControlMovedUp',
+		defaultMessage: 'Content has been moved up',
+		description: 'Selected content has been moved down',
+	},
+	movedDown: {
+		id: 'fabric.editor.blockControlMovedDown',
+		defaultMessage: 'Content has been moved down',
+		description: 'Selected content has been moved down',
+	},
 });

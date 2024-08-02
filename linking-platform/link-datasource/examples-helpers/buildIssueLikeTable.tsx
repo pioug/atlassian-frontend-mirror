@@ -53,6 +53,7 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true, canControlWrapping =
 		status,
 		onNextPage,
 		responseItems,
+		responseItemIds,
 		hasNextPage,
 		defaultVisibleColumnKeys,
 		columns,
@@ -83,6 +84,7 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true, canControlWrapping =
 				<IssueLikeDataTableView
 					testId="link-datasource"
 					items={responseItems}
+					itemIds={responseItemIds}
 					onNextPage={onNextPage}
 					onLoadDatasourceDetails={loadDatasourceDetails}
 					hasNextPage={hasNextPage}

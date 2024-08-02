@@ -1,5 +1,23 @@
 # @atlaskit/rovo-agent-components
 
+## 0.1.2
+
+### Patch Changes
+
+- [#126478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126478)
+  [`09da97621f790`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09da97621f790) -
+  Moving conversation-starters ans ChatPillIcon to rovo-agent-components, created
+  ConversationStarterWithAnalytics to be re-exported for internal atlassian consumption
+
+## 0.1.1
+
+### Patch Changes
+
+- [#125026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125026)
+  [`6a0fb797d9383`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a0fb797d9383) -
+  Fix not showing loading state if favouriteCount is undefined
+- Updated dependencies
+
 ## 0.1.0
 
 ### Minor Changes

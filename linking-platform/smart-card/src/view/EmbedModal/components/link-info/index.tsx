@@ -12,7 +12,8 @@ import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import VidFullScreenOnIcon from '@atlaskit/icon/core/migration/fullscreen-enter--vid-full-screen-on';
-import VidFullScreenOffIcon from '@atlaskit/icon/core/migration/fullscreen-exit--vid-full-screen-off';
+import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
+import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
 import { Icon } from '../../../common/Icon';
 import { messages } from '../../../../messages';
 import { MAX_MODAL_SIZE } from '../../constants';
@@ -83,7 +84,8 @@ const LinkInfo = ({
 		const isFullScreen = size === MAX_MODAL_SIZE;
 		const message = isFullScreen ? messages.preview_min_size : messages.preview_max_size;
 		const icon = isFullScreen ? (
-			<VidFullScreenOffIcon
+			<FullscreenExitIcon
+				LEGACY_fallbackIcon={VidFullScreenOffIcon}
 				label={message.defaultMessage as string}
 				spacing="spacious"
 				color="currentColor"

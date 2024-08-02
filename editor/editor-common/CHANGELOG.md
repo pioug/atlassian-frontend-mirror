@@ -1,5 +1,47 @@
 # @atlaskit/editor-common
 
+## 87.3.3
+
+### Patch Changes
+
+- [#126568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126568)
+  [`ce40c0ff7852f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce40c0ff7852f) -
+  Add menu item and typeahead for Upload image from URL
+
+## 87.3.2
+
+### Patch Changes
+
+- [`63d659eb3e73d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63d659eb3e73d) -
+  ED-24315 improve a11y for block controls
+
+## 87.3.1
+
+### Patch Changes
+
+- [`f42945811476f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f42945811476f) -
+  [NO-ISSUE] Mapping macro extensionKeys for the pageElementCounts analytics events to remove
+  prefixes with UUIDs
+
+## 87.3.0
+
+### Minor Changes
+
+- [#125595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125595)
+  [`88881a6e5b2e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88881a6e5b2e9) -
+  added a css util for lnv
+
+### Patch Changes
+
+- [#125984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125984)
+  [`167a210dfd672`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/167a210dfd672) -
+  [ux] Update shortcuts for element dnd
+- [#125082](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125082)
+  [`ba605ab4da0e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba605ab4da0e1) -
+  [ED-23977] This change cleans up the use of the feature flag
+  'platform.editor.a11y-main-toolbar-navigation_osrty'.
+- Updated dependencies
+
 ## 87.2.0
 
 ### Minor Changes

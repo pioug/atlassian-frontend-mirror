@@ -1,376 +1,396 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { type AnalyticsEventPayload, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useIntl } from 'react-intl-next';
+
+import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
-import filterActions from '../../internal/filterActions';
+import filterActionsInner from '../../internal/filterActions';
+import getLabelMessage from '../../internal/getLabelMessage';
 import { CardWrapper } from '../../styled/Card';
 import {
-	type AnalyticsProps,
 	type ProfileCardAction,
 	type ProfileCardClientData,
 	type ProfilecardProps,
 	type ProfileCardTriggerProps,
-	type ProfileCardTriggerState,
 	type TeamCentralReportingLinesData,
 } from '../../types';
 import { cardTriggered, fireEvent } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
 
 import { ProfileCardLazy } from './lazyProfileCard';
-import ProfilecardTriggerNext from './ProfileCardTriggerNext';
 import UserLoadingState from './UserLoadingState';
 
-class ProfilecardTrigger extends React.PureComponent<
-	ProfileCardTriggerProps & AnalyticsProps,
-	ProfileCardTriggerState
-> {
-	static defaultProps: Partial<ProfileCardTriggerProps> = {
-		actions: [],
-		trigger: 'hover',
-		position: 'bottom-start',
-	};
+export default function ProfilecardTriggerNext({
+	autoFocus,
+	trigger = 'hover',
+	userId,
+	cloudId,
+	resourceClient,
+	actions = [],
+	position = 'bottom-start',
+	children,
+	testId,
+	addFlag,
+	onReportingLinesClick,
+	ariaLabel,
+	ariaLabelledBy,
+	prepopulatedData,
+	disabledAriaAttributes,
+	onVisibilityChange,
+}: ProfileCardTriggerProps) {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { formatMessage } = useIntl();
 
-	_isMounted: boolean = false;
-	showDelay: number = this.props.trigger === 'click' ? 0 : DELAY_MS_SHOW;
-	hideDelay: number = this.props.trigger === 'click' ? 0 : DELAY_MS_HIDE;
-	showTimer: number = 0;
-	hideTimer: number = 0;
+	const isMounted = useRef(false);
 
-	fireAnalytics = (payload: AnalyticsEventPayload) => {
-		// Don't fire any analytics if the component is unmounted
-		if (!this._isMounted) {
-			return;
-		}
+	const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
+	const hideDelay = trigger === 'click' ? 0 : DELAY_MS_HIDE;
 
-		if (this.props.createAnalyticsEvent) {
-			fireEvent(this.props.createAnalyticsEvent, payload);
-		}
-	};
+	const showTimer = useRef<number>(0);
+	const hideTimer = useRef<number>(0);
+	const [visible, setVisible] = useState<boolean>(false);
 
-	hideProfilecard = () => {
-		clearTimeout(this.showTimer);
-		clearTimeout(this.hideTimer);
+	const [isLoading, setIsLoading] = useState<boolean | undefined>(undefined);
+	const [hasError, setHasError] = useState<boolean>(false);
+	const [error, setError] = useState(null);
+	const [data, setData] = useState<ProfileCardClientData | null>(null);
+	const [reportingLinesData, setReportingLinesData] = useState<
+		TeamCentralReportingLinesData | undefined
+	>(undefined);
+	const [shouldShowGiveKudos, setShouldShowGiveKudos] = useState(false);
+	const [teamCentralBaseUrl, setTeamCentralBaseUrl] = useState<string | undefined>(undefined);
+	const [kudosDrawerOpen, setKudosDrawerOpen] = useState(false);
+	const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
+	const triggerRef = useRef<HTMLElement | null>(null);
 
-		this.hideTimer = window.setTimeout(() => {
-			this.setState({ visible: false });
-		}, this.hideDelay);
-	};
+	useEffect(() => {
+		isMounted.current = true;
+		return () => {
+			isMounted.current = false;
+			clearTimeout(showTimer.current);
+			clearTimeout(hideTimer.current);
+		};
+	}, []);
 
-	showProfilecard = () => {
-		clearTimeout(this.hideTimer);
-		clearTimeout(this.showTimer);
+	useEffect(() => {
+		// Reset state when the userId changes
+		setIsLoading(undefined);
+		setHasError(false);
+		setError(null);
+		setData(null);
+		setReportingLinesData(undefined);
+		setShouldShowGiveKudos(false);
+		setTeamCentralBaseUrl(undefined);
+	}, [userId]);
 
-		this.showTimer = window.setTimeout(() => {
-			if (!this.state.visible) {
-				this.clientFetchProfile();
-				this.setState({ visible: true });
+	const fireAnalytics = useCallback(
+		(payload: AnalyticsEventPayload) => {
+			// Don't fire any analytics if the component is unmounted
+			if (!isMounted.current) {
+				return;
 			}
-		}, this.showDelay);
-	};
 
-	onClick = (event: React.MouseEvent) => {
-		// If the user clicks on the trigger then we don't want that click event to
-		// propagate out to parent containers. For example when clicking a mention
-		// lozenge in an inline-edit.
-		event.stopPropagation();
+			fireEvent(createAnalyticsEvent, payload);
+		},
+		[createAnalyticsEvent],
+	);
 
-		this.showProfilecard();
-
-		if (!this.state.visible) {
-			this.fireAnalytics(cardTriggered('user', 'click'));
+	const hideProfilecard = useCallback(() => {
+		clearTimeout(showTimer.current);
+		clearTimeout(hideTimer.current);
+		if (!isTriggeredUsingKeyboard) {
+			hideTimer.current = window.setTimeout(() => {
+				setVisible(false);
+				onVisibilityChange && onVisibilityChange(false);
+			}, hideDelay);
 		}
-	};
+	}, [hideDelay, isTriggeredUsingKeyboard, onVisibilityChange]);
 
-	onMouseEnter = () => {
-		this.showProfilecard();
-
-		if (!this.state.visible) {
-			this.fireAnalytics(cardTriggered('user', 'hover'));
-		}
-	};
-
-	onKeyPress = (event: React.KeyboardEvent) => {
-		if (event.key === 'Enter' || event.key === ' ') {
-			event.preventDefault();
-			this.showProfilecard();
-			if (!this.state.visible) {
-				this.fireAnalytics(cardTriggered('user', 'click'));
+	const handleKeyboardClose = useCallback(
+		(event: React.KeyboardEvent) => {
+			if (event.key && event.key !== 'Escape') {
+				return;
 			}
-		}
-	};
+			if (triggerRef.current) {
+				triggerRef.current.focus();
+			}
+			setTriggeredUsingKeyboard(false);
+			setVisible(false);
+			onVisibilityChange && onVisibilityChange(false);
+		},
+		[setTriggeredUsingKeyboard, setVisible, onVisibilityChange],
+	);
 
-	onFocus = () => {
-		this.showProfilecard();
-	};
+	const handleClientSuccess = useCallback(
+		(
+			profileData: ProfileCardClientData,
+			reportingLinesData: TeamCentralReportingLinesData,
+			shouldShowGiveKudos: boolean,
+		) => {
+			if (!isMounted.current) {
+				return;
+			}
 
-	containerListeners =
-		this.props.trigger === 'hover'
-			? {
-					onMouseEnter: this.onMouseEnter,
-					onMouseLeave: this.hideProfilecard,
-					onBlur: this.hideProfilecard,
-					onKeyPress: this.onKeyPress,
-				}
-			: {
-					onClick: this.onClick,
-					onKeyPress: this.onKeyPress,
-				};
+			setIsLoading(false);
+			setHasError(false);
+			setData(profileData);
+			setReportingLinesData(reportingLinesData);
+			setShouldShowGiveKudos(shouldShowGiveKudos);
+		},
+		[setHasError, setIsLoading, setData, setReportingLinesData, setShouldShowGiveKudos],
+	);
 
-	layerListeners = {
-		handleClickOutside: this.hideProfilecard,
-		handleEscapeKeydown: this.hideProfilecard,
-	};
+	const handleClientError = useCallback(
+		(err: any) => {
+			if (!isMounted.current) {
+				return;
+			}
 
-	state: ProfileCardTriggerState = {
-		visible: false,
-		isLoading: undefined,
-		hasError: false,
-		error: null,
-		data: null,
-		reportingLinesData: undefined,
-		shouldShowGiveKudos: false,
-		teamCentralBaseUrl: undefined,
-		kudosDrawerOpen: false,
-	};
+			setIsLoading(false);
+			setHasError(true);
+			setError(err);
+		},
+		[setHasError, setIsLoading, setError],
+	);
 
-	componentDidMount() {
-		this._isMounted = true;
-	}
-
-	componentDidUpdate(prevProps: ProfileCardTriggerProps) {
-		const { userId, cloudId, resourceClient } = this.props;
-		const { visible } = this.state;
-
-		// just re-fetching data when the card opens
-		if (
-			visible &&
-			(userId !== prevProps.userId ||
-				cloudId !== prevProps.cloudId ||
-				resourceClient !== prevProps.resourceClient)
-		) {
-			this.setState(
-				{
-					isLoading: undefined,
-				},
-				this.clientFetchProfile,
-			);
-		}
-	}
-
-	componentWillUnmount() {
-		this._isMounted = false;
-		clearTimeout(this.showTimer);
-		clearTimeout(this.hideTimer);
-	}
-
-	clientFetchProfile = () => {
-		const { cloudId, userId } = this.props;
-		const { isLoading } = this.state;
-
+	const clientFetchProfile = useCallback(async () => {
 		if (isLoading === true) {
 			// don't fetch data when fetching is in process
 			return;
 		}
 
-		this.setState({
-			teamCentralBaseUrl: this.props.resourceClient.getTeamCentralBaseUrl(),
-		});
+		setTeamCentralBaseUrl(resourceClient.getTeamCentralBaseUrl());
+		setIsLoading(true);
+		setHasError(false);
+		setError(null);
+		setData(null);
 
-		this.setState(
-			{
-				isLoading: true,
-				hasError: false,
-				data: null,
-			},
-			() => {
-				const requests = Promise.all([
-					this.props.resourceClient.getProfile(cloudId || '', userId, this.fireAnalytics),
-					this.props.resourceClient.getReportingLines(userId),
-					this.props.resourceClient.shouldShowGiveKudos(),
-				]);
+		try {
+			const requests = Promise.all([
+				resourceClient.getProfile(cloudId || '', userId, fireAnalytics),
+				resourceClient.getReportingLines(userId),
+				resourceClient.shouldShowGiveKudos(),
+			]);
 
-				requests
-					.then(
-						(res) => this.handleClientSuccess(...res),
-						(err) => this.handleClientError(err),
-					)
-					.catch((err) => this.handleClientError(err));
-			},
-		);
-	};
-
-	handleClientSuccess(
-		profileData: ProfileCardClientData,
-		reportingLinesData: TeamCentralReportingLinesData,
-		shouldShowGiveKudos: boolean,
-	) {
-		if (!this._isMounted) {
-			return;
+			const responses = await requests;
+			handleClientSuccess(...responses);
+		} catch (err) {
+			handleClientError(err);
 		}
+	}, [
+		cloudId,
+		fireAnalytics,
+		isLoading,
+		resourceClient,
+		userId,
+		handleClientSuccess,
+		handleClientError,
+	]);
 
-		this.setState({
-			isLoading: false,
-			hasError: false,
-			data: profileData,
-			reportingLinesData,
-			shouldShowGiveKudos,
-		});
-	}
+	const showProfilecard = useCallback(() => {
+		clearTimeout(hideTimer.current);
+		clearTimeout(showTimer.current);
+		showTimer.current = window.setTimeout(() => {
+			if (!visible) {
+				void clientFetchProfile();
+				setVisible(true);
+				onVisibilityChange && onVisibilityChange(true);
+			}
+		}, showDelay);
+	}, [showDelay, visible, clientFetchProfile, onVisibilityChange]);
 
-	handleClientError(err: any) {
-		if (!this._isMounted) {
-			return;
+	const onClick = useCallback(
+		(event: React.MouseEvent) => {
+			// If the user clicks on the trigger then we don't want that click event to
+			// propagate out to parent containers. For example when clicking a mention
+			// lozenge in an inline-edit.
+			event.stopPropagation();
+
+			showProfilecard();
+
+			if (!visible) {
+				fireAnalytics(cardTriggered('user', 'click'));
+			}
+		},
+		[fireAnalytics, showProfilecard, visible],
+	);
+
+	const onMouseEnter = useCallback(() => {
+		showProfilecard();
+
+		if (!visible) {
+			fireAnalytics(cardTriggered('user', 'hover'));
 		}
+	}, [fireAnalytics, showProfilecard, visible]);
 
-		this.setState({
-			isLoading: false,
-			hasError: true,
-			error: err,
-		});
-	}
-
-	filterActions(): ProfileCardAction[] {
-		return filterActions(this.props.actions, this.state.data);
-	}
-
-	renderProfileCard() {
-		const newProps: ProfilecardProps = {
-			userId: this.props.userId,
-			isCurrentUser: this.state.data?.isCurrentUser,
-			clientFetchProfile: this.clientFetchProfile,
-			...this.state.data,
-			reportingLines: this.state.reportingLinesData,
-			onReportingLinesClick: this.props.onReportingLinesClick,
-			isKudosEnabled: this.state.shouldShowGiveKudos,
-			teamCentralBaseUrl: this.state.teamCentralBaseUrl,
-			cloudId: this.props.cloudId,
-			openKudosDrawer: this.openKudosDrawer,
-		};
-
-		const wrapperProps =
-			this.props.trigger === 'hover'
-				? {
-						onMouseEnter: this.onMouseEnter,
-						onMouseLeave: this.hideProfilecard,
-						onFocus: this.onFocus,
-					}
-				: {};
-
-		return (
-			<div {...wrapperProps}>
-				{this.state.visible && (
-					<Suspense fallback={null}>
-						<ProfileCardLazy
-							{...newProps}
-							actions={this.filterActions()}
-							hasError={this.state.hasError}
-							errorType={this.state.error}
-							withoutElevation
-						/>
-					</Suspense>
-				)}
-			</div>
-		);
-	}
-
-	openKudosDrawer = () => {
-		this.hideProfilecard();
-		this.setState({ kudosDrawerOpen: true });
-	};
-
-	closeKudosDrawer = () => {
-		this.setState({ kudosDrawerOpen: false });
-	};
-
-	renderCard = () => {
-		const { isLoading } = this.state;
-
-		if (isLoading === true || isLoading === undefined) {
-			return (
-				<CardWrapper>
-					<UserLoadingState fireAnalytics={this.fireAnalytics} />
-				</CardWrapper>
-			);
-		} else {
-			return this.renderProfileCard();
-		}
-	};
-
-	renderWithTrigger() {
-		return (
-			<>
-				<Popup
-					isOpen={!!this.state.visible}
-					onClose={this.hideProfilecard}
-					placement={this.props.position}
-					content={this.renderCard}
-					trigger={(triggerProps) => {
-						const { ref, ...innerProps } = triggerProps;
-						return (
-							<span
-								{...innerProps}
-								{...this.containerListeners}
-								ref={ref}
-								data-testid={this.props.testId}
-								role="button"
-								tabIndex={0}
-							>
-								{this.props.children}
-							</span>
-						);
-					}}
-					zIndex={layers.modal()}
-					shouldUseCaptureOnOutsideClick
-					autoFocus={this.props.autoFocus ?? this.props.trigger === 'click'}
-					offset={this.props.offset ?? [0, 8]}
-					shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
-				/>
-				{this.state.shouldShowGiveKudos && (
-					<Suspense fallback={null}>
-						<GiveKudosLauncherLazy
-							isOpen={this.state.kudosDrawerOpen}
-							recipient={{
-								type: KudosType.INDIVIDUAL,
-								recipientId: this.props.userId!,
-							}}
-							analyticsSource="profile-card"
-							teamCentralBaseUrl={this.state.teamCentralBaseUrl!}
-							cloudId={this.props.cloudId!}
-							addFlag={this.props.addFlag}
-							onClose={this.closeKudosDrawer}
-						/>
-					</Suspense>
-				)}
-			</>
-		);
-	}
-
-	render() {
-		if (this.props.children) {
-			return this.renderWithTrigger();
-		} else {
-			throw new Error('Component "ProfileCardTrigger" must have "children" property');
-		}
-	}
-}
-
-const ProfilecardTriggerLegacy = withAnalyticsEvents()(ProfilecardTrigger);
-
-export default function ProfilecardTriggerSwitch(props: ProfileCardTriggerProps) {
-	return fg('platform.profile-card-trigger-next') ? (
-		<ProfilecardTriggerNext
-			{...props}
-			onVisibilityChange={(isVisible) => {
-				if (props.onVisibilityChange) {
-					props.onVisibilityChange(isVisible);
+	const onKeyPress = useCallback(
+		(event: React.KeyboardEvent) => {
+			if (event.key === 'Enter' || event.key === ' ') {
+				event.preventDefault();
+				setTriggeredUsingKeyboard(true);
+				showProfilecard();
+				if (!visible) {
+					fireAnalytics(cardTriggered('user', 'click'));
 				}
-			}}
-		/>
-	) : (
-		<ProfilecardTriggerLegacy {...props} />
+			}
+		},
+		[fireAnalytics, showProfilecard, visible],
+	);
+
+	const onFocus = useCallback(() => {
+		showProfilecard();
+	}, [showProfilecard]);
+
+	const containerListeners = useMemo(
+		() =>
+			trigger === 'hover'
+				? {
+						onMouseEnter: onMouseEnter,
+						onMouseLeave: hideProfilecard,
+						onBlur: hideProfilecard,
+						onKeyPress: onKeyPress,
+					}
+				: {
+						onClick: onClick,
+						onKeyPress: onKeyPress,
+					},
+		[hideProfilecard, onClick, onKeyPress, onMouseEnter, trigger],
+	);
+
+	const filterActions = useCallback((): ProfileCardAction[] => {
+		return filterActionsInner(actions, data);
+	}, [actions, data]);
+
+	const openKudosDrawer = () => {
+		hideProfilecard();
+		setKudosDrawerOpen(true);
+	};
+
+	const closeKudosDrawer = () => {
+		setKudosDrawerOpen(false);
+	};
+
+	const showLoading = isLoading === true || isLoading === undefined;
+	const wrapperProps = useMemo(
+		() =>
+			trigger === 'hover'
+				? {
+						onMouseEnter: onMouseEnter,
+						onMouseLeave: hideProfilecard,
+						onFocus: onFocus,
+					}
+				: {},
+		[hideProfilecard, onFocus, onMouseEnter, trigger],
+	);
+	const profilecardProps: ProfilecardProps = {
+		userId: userId,
+		fullName: prepopulatedData?.fullName,
+		isCurrentUser: data?.isCurrentUser,
+		clientFetchProfile: clientFetchProfile,
+		...data,
+		reportingLines: reportingLinesData,
+		onReportingLinesClick: onReportingLinesClick,
+		isKudosEnabled: shouldShowGiveKudos,
+		teamCentralBaseUrl: teamCentralBaseUrl,
+		cloudId: cloudId,
+		openKudosDrawer: openKudosDrawer,
+		isTriggeredUsingKeyboard: isTriggeredUsingKeyboard,
+		disabledAriaAttributes: disabledAriaAttributes,
+	};
+
+	return (
+		<>
+			<Popup
+				isOpen={!!visible}
+				onClose={(event: React.KeyboardEvent) => {
+					hideProfilecard();
+					handleKeyboardClose(event);
+				}}
+				placement={position}
+				content={() => (
+					<div {...wrapperProps}>
+						{showLoading ? (
+							<LoadingView fireAnalytics={fireAnalytics} />
+						) : (
+							visible && (
+								<Suspense fallback={null}>
+									<ProfileCardLazy
+										{...profilecardProps}
+										actions={filterActions()}
+										hasError={hasError}
+										errorType={error}
+										withoutElevation
+									/>
+								</Suspense>
+							)
+						)}
+					</div>
+				)}
+				trigger={(triggerProps) => {
+					const { ref: callbackRef, ...innerProps } = triggerProps;
+					const ref = (element: HTMLElement | null) => {
+						triggerRef.current = element;
+						if (typeof callbackRef === 'function') {
+							callbackRef(element);
+						}
+					};
+					const { 'aria-expanded': _, 'aria-haspopup': __, ...restInnerProps } = innerProps;
+					return (
+						<span
+							{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
+							{...containerListeners}
+							ref={ref}
+							data-testid={testId}
+							aria-labelledby={ariaLabelledBy}
+							{...(disabledAriaAttributes
+								? {}
+								: {
+										role: 'button',
+										tabIndex: 0,
+										'aria-label': getLabelMessage(
+											ariaLabel,
+											profilecardProps.fullName,
+											formatMessage,
+										),
+									})}
+						>
+							{children}
+						</span>
+					);
+				}}
+				zIndex={layers.modal()}
+				shouldUseCaptureOnOutsideClick
+				autoFocus={autoFocus ?? trigger === 'click'}
+			/>
+			{shouldShowGiveKudos && (
+				<Suspense fallback={null}>
+					<GiveKudosLauncherLazy
+						isOpen={kudosDrawerOpen}
+						recipient={{
+							type: KudosType.INDIVIDUAL,
+							recipientId: userId!,
+						}}
+						analyticsSource="profile-card"
+						teamCentralBaseUrl={teamCentralBaseUrl!}
+						cloudId={cloudId!}
+						addFlag={addFlag}
+						onClose={closeKudosDrawer}
+					/>
+				</Suspense>
+			)}
+		</>
 	);
 }
+
+const LoadingView = ({
+	fireAnalytics,
+}: {
+	fireAnalytics: (payload: AnalyticsEventPayload) => void;
+}) => (
+	<CardWrapper data-testId="profilecard.profilecardtrigger.loading">
+		<UserLoadingState fireAnalytics={fireAnalytics} />
+	</CardWrapper>
+);

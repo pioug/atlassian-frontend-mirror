@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.11.0
+
+### Minor Changes
+
+- [#126478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126478)
+  [`ca1665ebbfe4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca1665ebbfe4d) -
+  [ED-23435] Store primary toolbar component registry in a plugin variable instead of in plugin
+  state to avoid having to add effects to all plugins and enable SSR for the toolbar. [Breaking
+  change] Converted registerComponent from the primary toolbar plugin into an action.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.2
 
 ### Patch Changes

@@ -7,6 +7,8 @@ import { LazyNodeView } from './node-view';
 import { queueReplaceNodeViews } from './replace-node-views';
 import type { NodeViewConstructor } from './types';
 
+export { convertToInlineCss } from './css-helper';
+
 export type { NodeViewConstructor };
 /**
  * 📢 Public Type

@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.41.2
+
+### Patch Changes
+
+- [#126437](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126437)
+  [`272d94f729337`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/272d94f729337) -
+  Updates typing of ConditionalSpotlightTargetWrapper to be compatible for React18
+- Updated dependencies
+
 ## 1.41.1
 
 ### Patch Changes

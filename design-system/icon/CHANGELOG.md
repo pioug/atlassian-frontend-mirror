@@ -1,5 +1,23 @@
 # @atlaskit/icon
 
+## 22.10.0
+
+### Minor Changes
+
+- [#126553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126553)
+  [`a8d7e60d3b69d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8d7e60d3b69d) -
+  Add new export, `migrationOutcomeDescriptionMap`, containing written migration guidance for use in
+  documentation and tooling
+
+## 22.9.0
+
+### Minor Changes
+
+- [#125980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125980)
+  [`4df9272f5f016`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4df9272f5f016) -
+  Adds four new icons to the experimental /core icon set: 'notification', 'menu', 'app-switcher',
+  and 'app-switcher-legacy'
+
 ## 22.8.0
 
 ### Minor Changes

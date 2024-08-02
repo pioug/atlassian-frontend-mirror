@@ -30,7 +30,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.8.0",
+		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.56.0",

@@ -48,7 +48,7 @@
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/icon": "^22.8.0",
+		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",

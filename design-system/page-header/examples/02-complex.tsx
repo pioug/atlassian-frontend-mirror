@@ -20,7 +20,7 @@ const actionsContent = (
 	<ButtonGroup label="Content actions">
 		<Button appearance="primary">Edit page</Button>
 		<Button>Share</Button>
-		<Button>...</Button>
+		<Button aria-label="More actions">...</Button>
 	</ButtonGroup>
 );
 const barContent = (

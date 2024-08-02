@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 109.45.0
+
+### Minor Changes
+
+- [#125866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125866)
+  [`42f304a6a5e68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42f304a6a5e68) -
+  Excludes resolved inline comments from being read by screenreaders
+
+### Patch Changes
+
+- [#125830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125830)
+  [`0886d04fff5e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0886d04fff5e6) -
+  [ux] Fix bug in dark mode for table header pasted from light mode.
+- Updated dependencies
+
 ## 109.44.1
 
 ### Patch Changes

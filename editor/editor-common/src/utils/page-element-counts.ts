@@ -50,7 +50,12 @@ export const getPageElementCounts = (doc: JSONDocNode): PageElementCounts => {
 					'extensionKey' in node.attrs &&
 					node.attrs.extensionKey
 				) {
-					const extensionKey = node.attrs.extensionKey as string;
+					let extensionKey = node.attrs.extensionKey as string;
+					// If macros extensionKey has <UUID>/<UUID>/static/ prepended to it, remove the prefix
+					if (extensionKey.includes('/static/')) {
+						const extensionKeyParts = extensionKey.split('/');
+						extensionKey = extensionKeyParts[extensionKeyParts.length - 1];
+					}
 					acc.macros[extensionKey] = (acc.macros[extensionKey] ?? 0) + 1;
 				}
 			} else {

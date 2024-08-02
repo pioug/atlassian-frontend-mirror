@@ -1,4 +1,27 @@
-import type { IconMigrationMap } from './types';
+import type { IconMigrationMap, IconMigrationSizeGuidance } from './types';
+
+export const migrationOutcomeDescriptionMap: Record<IconMigrationSizeGuidance, string> = {
+	swap: 'Swap icon',
+	'swap-slight-visual-change':
+		'Swap icon for an equivalent in the new set; there will be some slight visual change.',
+	'swap-visual-change':
+		'Swap icon for an equivalent in the new set; there will be a noticeable visual change.',
+	'swap-size-shift-utility': 'Swap icon for a 12px utility icon; expect some size shift.',
+	'no-larger-size':
+		'This icon should not be used with a larger size; please shift to a smaller size.',
+	'not-recommended': 'No equivalent icon in new set. This icon is not recommended.',
+	'product-icon':
+		'Product icons are not supported; please use the custom SVG component from `@atlaskit/icon/svg`.',
+	'icon-lab':
+		'Find an alternative icon, or create an updated icon in the new style, and contribute it to `@atlassian/icon-lab`.',
+	'top-nav':
+		'This icon is only for use for top navigation; please choose a different icon if used elsewhere.',
+	'icon-tile': 'Switch to Icon Tile, use a smaller size or remove.',
+	'16-icon-tile': "This icon can be re-created using an Icon tile with size='16'.",
+	'24-icon-tile': "This icon can be re-created using an Icon tile with size='24'.",
+	'32-icon-tile': "This icon can be re-created using an Icon tile with size='32'.",
+	'48-icon-tile': "This icon can be re-created using an Icon tile with size='48'.",
+};
 
 const migrationMap: IconMigrationMap = {
 	activity: {
@@ -309,11 +332,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'bitbucket/repos': {
+		newIcon: { name: 'angle-brackets', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
+			large: '32-icon-tile',
+			xlarge: '48-icon-tile',
 		},
 	},
 	'bitbucket/snippets': {
@@ -759,15 +783,15 @@ const migrationMap: IconMigrationMap = {
 			xlarge: 'icon-tile',
 		},
 	},
-	// download: {
-	// 	newIcon: { name: 'cloud-arrow-down', type: 'core', package: '@atlaskit/icon' },
-	// 	sizeGuidance: {
-	// 		small: 'swap',
-	// 		medium: 'swap',
-	// 		large: 'icon-tile',
-	// 		xlarge: 'icon-tile',
-	// 	},
-	// },
+	download: {
+		newIcon: { name: 'download', type: 'core', package: '@atlaskit/icon' },
+		sizeGuidance: {
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
+		},
+	},
 	'drag-handler': {
 		newIcon: { name: 'drag-handle', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
@@ -804,7 +828,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/add': {
-		newIcon: { name: 'edit', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'add', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-slight-visual-change',
 			medium: 'swap-slight-visual-change',
@@ -1341,11 +1365,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'editor/table': {
+		newIcon: { name: 'grid', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'editor/task': {
@@ -1462,6 +1487,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'emoji/flags': {
+		newIcon: { name: 'flag', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'icon-lab',
 			medium: 'icon-lab',
@@ -1522,6 +1548,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'emoji/people': {
+		newIcon: { name: 'emoji', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'icon-lab',
 			medium: 'icon-lab',
@@ -1564,6 +1591,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	export: {
+		newIcon: { name: 'upload', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'icon-lab',
 			medium: 'icon-lab',
@@ -1814,11 +1842,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'lightbulb-filled': {
+		newIcon: { name: 'lightbulb', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	lightbulb: {
@@ -1840,9 +1869,10 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'link-filled': {
+		newIcon: { name: 'link', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: '16-icon-tile',
-			medium: '24-icon-tile',
+			small: 'swap-visual-change',
+			medium: 'swap-visual-change',
 			large: '32-icon-tile',
 			xlarge: '48-icon-tile',
 		},
@@ -1894,10 +1924,10 @@ const migrationMap: IconMigrationMap = {
 	'lock-filled': {
 		newIcon: { name: 'lock-locked', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: '16-icon-tile',
+			medium: '24-icon-tile',
+			large: '32-icon-tile',
+			xlarge: '48-icon-tile',
 		},
 	},
 	lock: {
@@ -2021,11 +2051,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'media-services/fit-to-page': {
+		newIcon: { name: 'minimize', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'icon-tile',
+			xlarge: 'icon-tile',
 		},
 	},
 	'media-services/full-screen': {
@@ -2882,7 +2913,7 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'vid-audio-on': {
-		newIcon: { name: 'audio', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'microphone', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',
@@ -2950,7 +2981,8 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'vid-full-screen-off': {
-		newIcon: { name: 'fullscreen-exit', type: 'core', package: '@atlaskit/icon' },
+		newIcon: { name: 'minimize', type: 'core', package: '@atlaskit/icon' },
+		additionalIcons: [{ name: 'fullscreen-exit', type: 'core', package: '@atlaskit/icon' }],
 		sizeGuidance: {
 			small: 'swap-visual-change',
 			medium: 'swap-visual-change',

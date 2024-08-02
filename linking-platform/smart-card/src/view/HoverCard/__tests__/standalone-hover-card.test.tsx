@@ -377,18 +377,19 @@ describe('standalone hover card', () => {
 					noFadeDelay: true,
 				});
 
-				// No Fade In Delay
-				jest.advanceTimersByTime(0);
-				expect(queryByTestId('hover-card')).not.toBeNull();
+				act(() => {
+					jest.advanceTimersByTime(0); // No Fade In Delay
+				});
+				expect(await findByTestId('hover-card')).toBeInTheDocument();
 
 				const triggerArea = await findByTestId('hover-card-trigger-wrapper');
 				expect(triggerArea).toBeDefined();
 
-				await event.unhover(triggerArea);
-
-				// No Fade Out Delay
-				jest.advanceTimersByTime(0);
-				expect(queryByTestId('hover-card')).toBeNull();
+				await act(async () => {
+					await event.unhover(triggerArea);
+					jest.advanceTimersByTime(0); // No Fade Out Delay
+				});
+				expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 			});
 
 			it('noFadeDelay should not cancel fade in/out timeouts when is false', async () => {
@@ -396,13 +397,14 @@ describe('standalone hover card', () => {
 					noFadeDelay: false,
 				});
 
-				// Fade In Delay not completed yet
-				jest.advanceTimersByTime(499);
-
+				act(() => {
+					jest.advanceTimersByTime(499);
+				});
 				expect(queryByTestId('hover-card')).toBeNull();
 
-				// Fade In Delay completed
-				jest.advanceTimersByTime(1);
+				act(() => {
+					jest.advanceTimersByTime(1); // Fade In Delay completed
+				});
 
 				expect(queryByTestId('hover-card')).not.toBeNull();
 
@@ -411,13 +413,13 @@ describe('standalone hover card', () => {
 
 				await event.unhover(triggerArea);
 
-				// Fade Out Delay not completed yet
-				jest.advanceTimersByTime(299);
+				act(() => {
+					jest.advanceTimersByTime(299); // Fade Out Delay not completed yet
+				});
 				expect(queryByTestId('hover-card')).not.toBeNull();
 
-				// Fade Out Delay completed
 				act(() => {
-					jest.advanceTimersByTime(1);
+					jest.advanceTimersByTime(1); // Fade Out Delay completed
 				});
 				expect(queryByTestId('hover-card')).toBeNull();
 			});
@@ -456,11 +458,14 @@ describe('standalone hover card', () => {
 				// Element sets to can open
 				const canOpenElement = await findByTestId(`${testId}-can-open`);
 				await event.hover(canOpenElement);
+
 				expect(await findByTestId(contentTestId)).toBeInTheDocument();
 
 				// Element sets to cannot open
 				const cannotOpenElement = await findByTestId(`${testId}-cannot-open`);
-				await event.hover(cannotOpenElement);
+				await act(async () => {
+					await event.hover(cannotOpenElement);
+				});
 				expect(queryByTestId(contentTestId)).not.toBeInTheDocument();
 
 				// Go back to element sets to can open again

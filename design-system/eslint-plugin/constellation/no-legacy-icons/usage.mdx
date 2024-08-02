@@ -40,3 +40,22 @@ import { IconButton } from '@atlaskit/button/new';
 	label="Add to Cart"
 />;
 ```
+
+## Options
+
+This rule comes with options to configure which errors display and in what detail - as well as how
+icons should be migrated.
+
+### shouldErrorForAutoMigration
+
+Enables/disables errors for icons that are able to be automatically migrated. Defaults to `true`.
+
+### shouldErrorForManualMigration
+
+Enables/disables errors for icons that cannot be be automatically migrated and need manual review.
+Defaults to `true`.
+
+### quiet
+
+When `true`, the rule will only provide one error per icon usage, stating if the icon can be
+automatically migrated or not

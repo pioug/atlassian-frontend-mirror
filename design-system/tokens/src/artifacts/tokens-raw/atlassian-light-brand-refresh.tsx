@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cb4c1b3bfd8b73594376f95a6fdea6f2>>
+ * @codegen <<SignedSource::84f9795802e0d1982d5c51816c2da3aa>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -11112,7 +11112,7 @@ const tokens = [
       "introduced": "0.10.32",
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
     },
-    "value": "#091e421f",
+    "value": "#1E1F211f",
     "filePath": "schema/themes/atlassian-light-brand-refresh/elevation/shadow.tsx",
     "isSource": true,
     "original": {
@@ -11122,7 +11122,7 @@ const tokens = [
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
       },
-      "value": "#091e421f"
+      "value": "#1E1F211f"
     },
     "name": "elevation.shadow.overflow.perimeter",
     "path": [
@@ -11140,7 +11140,7 @@ const tokens = [
       "introduced": "0.10.32",
       "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
     },
-    "value": "#091e4229",
+    "value": "#1E1F2129",
     "filePath": "schema/themes/atlassian-light-brand-refresh/elevation/shadow.tsx",
     "isSource": true,
     "original": {
@@ -11150,7 +11150,7 @@ const tokens = [
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
       },
-      "value": "#091e4229"
+      "value": "#1E1F2129"
     },
     "name": "elevation.shadow.overflow.spread",
     "path": [

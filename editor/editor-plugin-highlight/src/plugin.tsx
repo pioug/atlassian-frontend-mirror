@@ -67,6 +67,10 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 			editorView={editorView}
 		/>
 	);
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'highlight',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'highlight',
@@ -94,15 +98,6 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 				return;
 			}
 			return highlightPluginKey.getState(editorState);
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'highlight',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		pluginsOptions: {

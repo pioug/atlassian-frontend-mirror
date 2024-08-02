@@ -20,6 +20,7 @@ describe('AssetsConfigModal', () => {
 						<RenderAssetsContent
 							isFetchingInitialData={props.isFetchingInitialData ?? false}
 							status="resolved"
+							responseItemIds={['some-id1', 'some-id2']}
 							responseItems={[
 								{
 									myColumn: { data: 'some-value' },

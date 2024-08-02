@@ -22,6 +22,7 @@ export const dropTargetDecorations = (
 	oldState: EditorState,
 	newState: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
+	formatMessage: IntlShape['formatMessage'],
 ) => {
 	const decs: Decoration[] = [];
 	unmountDecorations('data-blocks-drop-target-container');
@@ -50,6 +51,7 @@ export const dropTargetDecorations = (
 		const dropTargetDec = createElement(DropTarget, {
 			api,
 			id: fg('platform_editor_elements_dnd_nested') ? pos : index,
+			formatMessage,
 			prevNode,
 			nextNode: node,
 		});
@@ -105,6 +107,7 @@ export const dropTargetDecorations = (
 					createElement(DropTarget, {
 						api,
 						id: fg('platform_editor_elements_dnd_nested') ? lastPos : decorationState.length,
+						formatMessage,
 					}),
 					element,
 				);

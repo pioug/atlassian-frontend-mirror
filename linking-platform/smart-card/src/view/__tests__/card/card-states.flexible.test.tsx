@@ -47,7 +47,7 @@ describe('smart-card: card states, flexible', () => {
 					new APIError('fatal', 'localhost', 'something wrong', 'ResolveUnsupportedError'),
 				);
 
-				const { getByTestId } = render(
+				const { findByTestId } = render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl} onError={mockOnError}>
 							<TitleBlock />
@@ -55,11 +55,11 @@ describe('smart-card: card states, flexible', () => {
 					</Provider>,
 				);
 
-				const erroredView = await waitFor(() => getByTestId('smart-block-title-errored-view'));
+				const erroredView = await findByTestId('smart-block-title-errored-view');
 				expect(erroredView).toBeTruthy();
 				await flushPromises();
 
-				const erroredViewAgain = await waitFor(() => getByTestId('smart-block-title-errored-view'));
+				const erroredViewAgain = await findByTestId('smart-block-title-errored-view');
 				expect(erroredViewAgain).toBeTruthy();
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -71,14 +71,14 @@ describe('smart-card: card states, flexible', () => {
 		describe('> state: resolved', () => {
 			it('should open window when flexible ui link with resolved URL is clicked', async () => {
 				const mockUrl = 'https://this.is.the.seventh.url';
-				const { getByTestId } = render(
+				const { getByTestId, findByTestId } = render(
 					<Provider client={mockClient}>
 						<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedView = await waitFor(() => getByTestId('smart-block-title-resolved-view'), {
+				const resolvedView = await findByTestId('smart-block-title-resolved-view', undefined, {
 					timeout: 5000,
 				});
 				expect(resolvedView).toBeTruthy();
@@ -92,17 +92,16 @@ describe('smart-card: card states, flexible', () => {
 			});
 
 			it('should render with metadata when resolved', async () => {
-				const { getByText } = render(
+				const { findByText } = render(
 					<Provider client={mockClient}>
 						<Card appearance="inline" url={mockUrl}>
 							<TitleBlock />
 						</Card>
 					</Provider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
+				const resolvedViewName = await findByText('I love cheese');
 				expect(resolvedViewName).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('should re-render when URL changes', async () => {
@@ -115,8 +114,7 @@ describe('smart-card: card states, flexible', () => {
 				);
 				const resolvedView = await waitFor(() => getByText('I love cheese'));
 				expect(resolvedView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				rerender(
 					<Provider client={mockClient}>
@@ -126,8 +124,7 @@ describe('smart-card: card states, flexible', () => {
 					</Provider>,
 				);
 				await waitFor(() => getByText('I love cheese'));
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(2);
+				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
@@ -140,8 +137,7 @@ describe('smart-card: card states, flexible', () => {
 				);
 				const resolvedView = await waitFor(() => getByText('I love cheese'));
 				expect(resolvedView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				rerender(
 					<Provider client={mockClient}>
@@ -151,8 +147,7 @@ describe('smart-card: card states, flexible', () => {
 					</Provider>,
 				);
 				await waitFor(() => getByText('I love cheese'));
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('should call onResolve prop after flexible card is resolved', async () => {
@@ -213,7 +208,7 @@ describe('smart-card: card states, flexible', () => {
 		});
 	});
 
-	describe.each(['inline' as CardAppearance, 'block' as CardAppearance, 'embed' as CardAppearance])(
+	describe.each(['inline', 'block', 'embed'] satisfies CardAppearance[])(
 		'with %s card appearance',
 		(appearance: CardAppearance) => {
 			const testId = 'smart-links-container'; // default Flexible UI container testId
@@ -228,9 +223,13 @@ describe('smart-card: card states, flexible', () => {
 						</Card>
 					</Provider>,
 				);
+
 				const block = await waitFor(() => getByTestId(testId));
 				expect(block).toBeTruthy();
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+				await waitFor(async () => {
+					// EDM-10399 Some React operations must be completed before this check can be made
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+				});
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
 						display: 'flexible',

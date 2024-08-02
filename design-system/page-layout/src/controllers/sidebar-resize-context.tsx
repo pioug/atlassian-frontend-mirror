@@ -1,7 +1,6 @@
 import { createContext, type KeyboardEvent, type MouseEvent, useContext, useEffect } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type LeftSidebarState = {
 	isFlyoutOpen: boolean;
@@ -92,15 +91,3 @@ export const useLeftSidebarFlyoutLock = () => {
 		};
 	}, [setLeftSidebarState]);
 };
-
-/**
- * @deprecated Returns noop. Added to support an internal redesign, `UNSAFE_useSetLeftSidebarState` will be removed in the next major release.
- */
-export const UNSAFE_useSetLeftSidebarState =
-	(): SidebarResizeContextValue['setLeftSidebarState'] => {
-		const { setLeftSidebarState } = useContext(SidebarResizeContext);
-
-		return getBooleanFF('platform.atlassian.griffin-navigation-redesign')
-			? setLeftSidebarState
-			: noop;
-	};

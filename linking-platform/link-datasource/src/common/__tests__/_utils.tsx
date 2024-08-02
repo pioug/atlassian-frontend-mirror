@@ -85,6 +85,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 		onNextPage: jest.fn(),
 		loadDatasourceDetails: jest.fn(),
 		hasNextPage: false,
+		responseItemIds: ['some-id1', 'some-id2'],
 		responseItems: [
 			{
 				myColumn: { data: 'some-value' },
@@ -125,6 +126,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 	const getUnauthorisedHookState: () => DatasourceTableState = () => ({
 		columns: [],
 		status: 'unauthorized',
+		responseItemIds: [],
 		responseItems: [],
 		hasNextPage: true,
 		defaultVisibleColumnKeys: [],
@@ -139,6 +141,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 	const getEmptyHookState: () => DatasourceTableState = () => ({
 		columns: [],
 		status: 'empty',
+		responseItemIds: [],
 		responseItems: [],
 		hasNextPage: true,
 		defaultVisibleColumnKeys: [],
@@ -153,6 +156,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 	const getLoadingHookState: () => DatasourceTableState = () => ({
 		columns: [],
 		status: 'loading',
+		responseItemIds: [],
 		responseItems: [],
 		hasNextPage: true,
 		defaultVisibleColumnKeys: [],
@@ -166,6 +170,7 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 	const getErrorHookState: () => DatasourceTableState = () => ({
 		columns: [],
 		status: 'rejected',
+		responseItemIds: [],
 		responseItems: [],
 		hasNextPage: true,
 		defaultVisibleColumnKeys: [],

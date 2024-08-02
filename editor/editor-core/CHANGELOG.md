@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 195.1.0
+
+### Minor Changes
+
+- [#126478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126478)
+  [`d4759f0dd6f74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4759f0dd6f74) -
+  [ED-24247] Added 'mediaInsertPlugin' to the universal preset behind a fg
+  "platform_editor_insert_media_plugin_phase_one" and also only if the mediaPlugin is added
+
+## 195.0.9
+
+### Patch Changes
+
+- [#125980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125980)
+  [`93070430085a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93070430085a6) -
+  add editor content area as default popup boundaries element for full page editor and comment
+  editor
+- [#125082](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125082)
+  [`ba605ab4da0e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba605ab4da0e1) -
+  [ED-23977] This change cleans up the use of the feature flag
+  'platform.editor.a11y-main-toolbar-navigation_osrty'.
+- Updated dependencies
+
 ## 195.0.4
 
 ### Patch Changes

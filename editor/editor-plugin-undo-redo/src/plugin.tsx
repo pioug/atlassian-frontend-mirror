@@ -23,6 +23,10 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'undoRedoPlugin',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'undoRedoPlugin',
@@ -38,15 +42,6 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api }) => {
 					plugin: (options) => createPlugin(options),
 				},
 			];
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'undoRedoPlugin',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

@@ -14,9 +14,6 @@ test.use({
 			replacePlusMenu: true,
 		},
 	},
-	platformFeatureFlags: {
-		'platform.editor.a11y-main-toolbar-navigation_osrty': true,
-	},
 });
 
 test.describe('ElementBrowser', () => {

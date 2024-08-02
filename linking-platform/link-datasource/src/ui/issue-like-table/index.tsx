@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -17,6 +17,7 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -37,14 +38,16 @@ import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
 import { renderType, stringifyType } from './render-type';
+import { Table, TableCell, TableHeading, withTablePluginHeaderPrefix } from './styled';
+import { TableCellContent } from './table-cell-content';
+import { TruncateTextTag } from './truncate-text-tag';
 import {
-	fieldTextFontSize,
-	Table,
-	TableHeading,
-	withTablePluginBodyPrefix,
-	withTablePluginHeaderPrefix,
-} from './styled';
-import { type DatasourceTypeWithOnlyValues, type IssueLikeDataTableViewProps } from './types';
+	type DatasourceTypeWithOnlyValues,
+	type HeaderRowCellType,
+	type IssueLikeDataTableViewProps,
+	type RowCellType,
+	type RowType,
+} from './types';
 import { useIsOnScreen } from './useIsOnScreen';
 import { COLUMN_BASE_WIDTH, getWidthCss } from './utils';
 
@@ -56,12 +59,6 @@ const tableHeadStyles = css({
 	top: 0,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: stickyTableHeadersIndex,
-});
-
-const truncateTextStyles = css({
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
 });
 
 const columnPickerWidth = 80;
@@ -93,40 +90,6 @@ const ColumnPickerHeader = styled.th({
 const truncateStyles = css({
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const TableCell = styled.td({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`${withTablePluginBodyPrefix()}`]: {
-		/* First section here is to override things editor table plugin css defines */
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		font: fieldTextFontSize,
-		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
-		border: 0,
-		minWidth: 'auto',
-		verticalAlign: 'inherit',
-		boxSizing: 'border-box',
-		borderRight: `0.5px solid ${token('color.border', N40)}`,
-		borderBottom: `0.5px solid ${token('color.border', N40)}`,
-		overflow: 'hidden',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`${withTablePluginBodyPrefix('&:first-child')}`]: {
-		paddingLeft: token('space.100', '8px'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	[`${withTablePluginBodyPrefix('&:last-child')}`]: {
-		borderRight: 0,
-		paddingRight: token('space.100', '8px'),
-	},
-	// Inline smart links are pretty opinionated about word-wrapping.
-	// We want it to be controlled by user, so we make it overflow and truncate by default.
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	["& [data-testid='inline-card-icon-and-title'], " +
-	"& [data-testid='button-connect-account'] > span"]: {
-		whiteSpace: 'unset',
-	},
 });
 
 const tableContainerStyles = css({
@@ -319,19 +282,6 @@ const headingHoverEffectStyles = css({
 	},
 });
 
-export interface RowType {
-	cells: Array<RowCellType>;
-	key?: string;
-	ref?: Ref<HTMLTableRowElement>;
-}
-
-export interface RowCellType {
-	key: string;
-	width?: number;
-	shouldTruncate?: boolean;
-	content?: React.ReactNode | string;
-}
-
 function extractIndex(data: Record<string, unknown>) {
 	const { index } = data;
 	invariant(typeof index === 'number');
@@ -392,21 +342,12 @@ function getDefaultColumnWidth(key: string, type: DatasourceType['type']): numbe
 	}
 }
 
-const TruncateTextTag = forwardRef(
-	(props: React.PropsWithChildren<unknown>, ref: React.Ref<HTMLElement>) => {
-		return (
-			<span css={truncateTextStyles} {...props} ref={ref}>
-				{props.children}
-			</span>
-		);
-	},
-);
-
 export const IssueLikeDataTableView = ({
 	testId,
 	onNextPage,
 	onLoadDatasourceDetails,
 	items,
+	itemIds,
 	columns,
 	renderItem = renderType,
 	visibleColumnKeys,
@@ -504,17 +445,14 @@ export const IssueLikeDataTableView = ({
 		[columnCustomSizes, columnsWidthsSum, shouldUseWidth, tableContainerWidth],
 	);
 
-	const headerColumns: Array<RowCellType> = useMemo(
+	const headerColumns: Array<HeaderRowCellType> = useMemo(
 		() =>
-			visibleSortedColumns.map(
-				({ key, title, type }, index) =>
-					({
-						key,
-						content: title,
-						shouldTruncate: true,
-						width: getColumnWidth(key, type, index === visibleSortedColumns.length - 1),
-					}) as RowCellType,
-			),
+			visibleSortedColumns.map(({ key, title, type }, index) => ({
+				key,
+				content: title,
+				shouldTruncate: true,
+				width: getColumnWidth(key, type, index === visibleSortedColumns.length - 1),
+			})),
 		[getColumnWidth, visibleSortedColumns],
 	);
 
@@ -522,10 +460,10 @@ export const IssueLikeDataTableView = ({
 		() => ({
 			key: 'loading',
 			cells: headerColumns.map<RowCellType>((column) => ({
-				...column,
 				content: (
 					<Skeleton borderRadius={8} width="100%" height={14} testId="issues-table-row-loading" />
 				),
+				key: column.key,
 			})),
 		}),
 		[headerColumns],
@@ -619,56 +557,85 @@ export const IssueLikeDataTableView = ({
 
 	const tableRows: Array<RowType> = useMemo(
 		() =>
-			items.map<RowType>((newRowData, rowIndex) => ({
-				key: `${
-					(identityColumnKey &&
-						newRowData[identityColumnKey] &&
-						newRowData[identityColumnKey].data) ||
-					rowIndex
-				}`,
-				cells: visibleSortedColumns.map<RowCellType>(({ key, type }, cellIndex) => {
-					// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-					const value = newRowData[key]?.data;
-					const values = Array.isArray(value) ? value : [value];
+			fg('enable_datasource_react_sweet_state')
+				? itemIds.map<RowType>((id, rowIndex) => {
+						return {
+							key: id,
+							cells: visibleSortedColumns.map<RowCellType>(({ key, type }, cellIndex) => {
+								return {
+									key,
+									columnKey: key,
+									content: (
+										<TableCellContent
+											id={id}
+											columnKey={key}
+											columnType={type}
+											wrappedColumnKeys={wrappedColumnKeys}
+											renderItem={renderItem}
+										/>
+									),
+									width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
+								};
+							}),
+							ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
+						};
+					})
+				: items.map<RowType>((newRowData, rowIndex) => ({
+						key: `${
+							(identityColumnKey &&
+								newRowData[identityColumnKey] &&
+								newRowData[identityColumnKey].data) ||
+							rowIndex
+						}`,
+						cells: visibleSortedColumns.map<RowCellType>(({ key, type }, cellIndex) => {
+							// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+							const value = newRowData[key]?.data;
+							const values = Array.isArray(value) ? value : [value];
 
-					const renderedValues = renderItem({
-						type,
-						values,
-					} as DatasourceTypeWithOnlyValues);
+							const renderedValues = renderItem({
+								type,
+								values,
+							} as DatasourceTypeWithOnlyValues);
 
-					const stringifiedContent = values
-						.map((value) =>
-							stringifyType({ type, value } as DatasourceType, intl.formatMessage, intl.formatDate),
-						)
-						.filter((value) => value !== '')
-						.join(', ');
-					const contentComponent =
-						stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
-							<Tooltip
-								// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-								tag={TruncateTextTag}
-								content={stringifiedContent}
-								testId="issues-table-cell-tooltip"
-							>
-								{renderedValues}
-							</Tooltip>
-						) : (
-							renderedValues
-						);
+							const stringifiedContent = values
+								.map((value) =>
+									stringifyType(
+										{ type, value } as DatasourceType,
+										intl.formatMessage,
+										intl.formatDate,
+									),
+								)
+								.filter((value) => value !== '')
+								.join(', ');
 
-					return {
-						key,
-						content: contentComponent,
-						width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
-					};
-				}),
-				ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
-			})),
+							const contentComponent =
+								stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
+									<Tooltip
+										// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
+										tag={TruncateTextTag}
+										content={stringifiedContent}
+										testId="issues-table-cell-tooltip"
+									>
+										{renderedValues}
+									</Tooltip>
+								) : (
+									renderedValues
+								);
+
+							return {
+								key,
+								content: contentComponent,
+								width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
+							};
+						}),
+						ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
+					})),
 		[
 			items,
-			visibleSortedColumns,
+			itemIds,
 			renderItem,
 			wrappedColumnKeys,
+			visibleSortedColumns,
 			getColumnWidth,
 			intl.formatMessage,
 			intl.formatDate,

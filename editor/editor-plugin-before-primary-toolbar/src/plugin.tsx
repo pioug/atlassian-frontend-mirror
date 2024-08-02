@@ -30,18 +30,13 @@ export const beforePrimaryToolbarPlugin: BeforePrimaryToolbarPlugin = ({ api, co
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'beforePrimaryToolbar',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'beforePrimaryToolbar',
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'beforePrimaryToolbar',
-					component: primaryToolbarComponent,
-				}),
-			);
-		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};

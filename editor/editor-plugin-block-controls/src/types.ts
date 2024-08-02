@@ -1,9 +1,12 @@
+import { type IntlShape } from 'react-intl-next';
+
 import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import { type AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -54,10 +57,16 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			OptionalPlugin<WidthPlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<AccessibilityUtilsPlugin>,
 		];
 		sharedState: BlockControlsSharedState;
 		commands: {
-			moveNode: (start: number, to: number, inputMethod?: MoveNodeMethod) => EditorCommand;
+			moveNode: (
+				start: number,
+				to: number,
+				inputMethod?: MoveNodeMethod,
+				formatMessage?: IntlShape['formatMessage'],
+			) => EditorCommand;
 			showDragHandleAt: (
 				pos: number,
 				anchorName: string,

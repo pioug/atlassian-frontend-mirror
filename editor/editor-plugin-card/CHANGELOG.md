@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 2.9.2
+
+### Patch Changes
+
+- [#125851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125851)
+  [`4ffe0a8ea7929`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ffe0a8ea7929) -
+  Refactor node views.
+- Updated dependencies
+
 ## 2.9.1
 
 ### Patch Changes

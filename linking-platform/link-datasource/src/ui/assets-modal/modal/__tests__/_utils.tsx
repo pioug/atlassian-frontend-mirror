@@ -58,6 +58,7 @@ export const getDefaultDataSourceTableHookState: () => DatasourceTableState = ()
 	onNextPage: jest.fn(),
 	loadDatasourceDetails: jest.fn(),
 	hasNextPage: false,
+	responseItemIds: ['some-id1', 'some-id2', 'some-id3'],
 	responseItems: [
 		{
 			myColumn: { data: 'some-value' },
@@ -110,6 +111,7 @@ export const getSingleAssetHookState: () => DatasourceTableState = () => ({
 export const getEmptyDatasourceTableHookState: () => DatasourceTableState = () => ({
 	columns: [],
 	status: 'empty',
+	responseItemIds: [],
 	responseItems: [],
 	hasNextPage: true,
 	defaultVisibleColumnKeys: [],
@@ -124,6 +126,7 @@ export const getEmptyDatasourceTableHookState: () => DatasourceTableState = () =
 export const getErrorDatasourceTableHookState: () => DatasourceTableState = () => ({
 	columns: [],
 	status: 'rejected',
+	responseItemIds: [],
 	responseItems: [],
 	hasNextPage: true,
 	defaultVisibleColumnKeys: [],
@@ -137,6 +140,7 @@ export const getErrorDatasourceTableHookState: () => DatasourceTableState = () =
 export const getLoadingDatasourceTableHookState: () => DatasourceTableState = () => ({
 	columns: [],
 	status: 'loading',
+	responseItemIds: [],
 	responseItems: [],
 	hasNextPage: true,
 	defaultVisibleColumnKeys: [],

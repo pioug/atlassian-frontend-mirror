@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 2.9.2
+
+### Patch Changes
+
+- [#126362](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126362)
+  [`9e45954d2bba0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e45954d2bba0) -
+  We are testing refactoring datasource table view to use react-sweet-state behind a feature flag.
+  If this is successful it will be available in a later release.
+- Updated dependencies
+
 ## 2.9.1
 
 ### Patch Changes

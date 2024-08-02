@@ -71,18 +71,13 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'toolbarListsIndentation',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'toolbarListsIndentation',
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'toolbarListsIndentation',
-					component: primaryToolbarComponent,
-				}),
-			);
-		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};

@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.20.3
+
+### Patch Changes
+
+- [#123803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/123803)
+  [`741dadf4fa8f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/741dadf4fa8f9) -
+  Added modifiers prop to the popup
+
 ## 1.20.2
 
 ### Patch Changes

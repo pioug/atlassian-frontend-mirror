@@ -46,6 +46,10 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'alignment',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'alignment',
@@ -78,15 +82,6 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 					plugin: () => keymapPlugin(),
 				},
 			];
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'alignment',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

@@ -88,6 +88,7 @@ function PopperWrapper({
 	role,
 	label,
 	titleId,
+	modifiers,
 }: PopperWrapperProps) {
 	const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
 	const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(null);
@@ -112,7 +113,7 @@ function PopperWrapper({
 
 	const { currentLevel } = UNSAFE_useLayering();
 
-	const modifiers = useMemo(
+	const mergedModifiers = useMemo(
 		() => [
 			{
 				name: 'flip',
@@ -123,12 +124,13 @@ function PopperWrapper({
 					fallbackPlacements,
 				},
 			},
+			...(modifiers || []),
 		],
-		[shouldFlip, rootBoundary, boundary, fallbackPlacements],
+		[shouldFlip, rootBoundary, boundary, fallbackPlacements, modifiers],
 	);
 
 	return (
-		<Popper placement={placement} offset={offset} modifiers={modifiers} strategy={strategy}>
+		<Popper placement={placement} offset={offset} modifiers={mergedModifiers} strategy={strategy}>
 			{({ ref, style, placement, update }) => {
 				return (
 					<PopupContainer

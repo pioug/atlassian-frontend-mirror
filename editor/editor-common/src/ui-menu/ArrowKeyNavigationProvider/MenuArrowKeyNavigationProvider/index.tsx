@@ -24,10 +24,7 @@ export const MenuArrowKeyNavigationProvider = ({
 }: React.PropsWithChildren<Omit<MenuArrowKeyNavigationProviderProps, 'type'>>) => {
 	const wrapperRef = useRef<HTMLDivElement>(null);
 	const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
-	const element =
-		popupsMountPoint && fg('platform.editor.a11y-main-toolbar-navigation_osrty')
-			? [popupsMountPoint, editorRef.current]
-			: [editorRef.current];
+	const element = popupsMountPoint ? [popupsMountPoint, editorRef.current] : [editorRef.current];
 	const [listenerTargetElement] = useState<(HTMLElement | null)[]>(element);
 
 	const incrementIndex = useCallback(

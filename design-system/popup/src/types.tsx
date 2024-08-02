@@ -9,7 +9,7 @@ import {
 	type SetStateAction,
 } from 'react';
 
-import { type Placement, type PopperChildrenProps } from '@atlaskit/popper';
+import { type Modifier, type Placement, type PopperChildrenProps } from '@atlaskit/popper';
 
 export interface TriggerProps {
 	ref: Ref<any>;
@@ -236,6 +236,12 @@ interface BaseProps {
 	 * Usage of either this, or the `label` attribute is strongly recommended.
 	 */
 	titleId?: string;
+
+	/**
+	 * Additional modifiers and modifier overwrites.
+	 * for more details - https://popper.js.org/docs/v1/#modifiers
+	 */
+	modifiers?: Partial<Modifier<string, object>>[];
 }
 
 interface InternalPopupProps extends BaseProps {

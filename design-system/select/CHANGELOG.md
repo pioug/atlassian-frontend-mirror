@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.11.11
+
+### Patch Changes
+
+- [#125980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125980)
+  [`d908d9c41ed27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d908d9c41ed27) -
+  The parent group label in `CountrySelect` must be announced with options.
+- Updated dependencies
+
 ## 17.11.10
 
 ### Patch Changes

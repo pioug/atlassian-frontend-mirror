@@ -514,7 +514,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 			}
 		}
 
-		.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}.${ClassName.DRAG_CONTROLS_CHROMELESS} {
+		.${ClassName.DRAG_ROW_CONTROLS_WRAPPER}.${ClassName.TABLE_CHROMELESS} {
 			left: -4px;
 		}
 
@@ -522,7 +522,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 			padding: 0 ${tablePadding}px;
 		}
 
-		.${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}.${ClassName.DRAG_CONTROLS_CHROMELESS} {
+		.${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER}.${ClassName.TABLE_CHROMELESS} {
 			left: -8px;
 		}
 
@@ -536,9 +536,15 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		.${ClassName.TABLE_LEFT_SHADOW} {
 			left: 6px;
 		}
+		.${ClassName.TABLE_LEFT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
+			left: 8px;
+		}
 
 		.${ClassName.TABLE_RIGHT_SHADOW} {
 			left: calc(100% - 6px);
+		}
+		.${ClassName.TABLE_RIGHT_SHADOW}.${ClassName.TABLE_CHROMELESS} {
+			left: calc(100% - 16px);
 		}
 	}
 

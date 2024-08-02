@@ -28,7 +28,7 @@ import {
 } from './common/setup.test-utils';
 import { runCommonHoverCardTests, unauthorizedViewTests } from './common/common.test-utils';
 import { analyticsTests } from './common/analytics.test-utils';
-import { fireEvent } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import React from 'react';
 
 describe('hover card over flexible smart links', () => {
@@ -56,7 +56,9 @@ describe('hover card over flexible smart links', () => {
 		expectToBeInTheDocument: boolean,
 	) => {
 		await event.unhover(trigger);
-		jest.runAllTimers();
+		act(() => {
+			jest.runAllTimers();
+		});
 
 		const element = await findByTestId(testId);
 		expect(element).toBeInTheDocument();
@@ -119,9 +121,9 @@ describe('hover card over flexible smart links', () => {
 		jest.restoreAllMocks();
 	});
 
+	// Run common tests
 	runCommonHoverCardTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
 	unauthorizedViewTests((setupProps?: SetUpParams) => setupComponent(setupProps), testConfig);
-
 	analyticsTests((setupProps?: SetUpParams) => setupComponent(setupProps), {
 		display: 'flexible',
 		isAnalyticsContextResolvedOnHover: true,

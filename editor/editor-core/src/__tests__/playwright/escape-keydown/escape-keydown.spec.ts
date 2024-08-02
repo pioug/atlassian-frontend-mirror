@@ -53,6 +53,9 @@ test.describe('Escape Keydown: insert block', () => {
 		editorProps: {
 			appearance: 'full-page',
 		},
+		platformFeatureFlags: {
+			'editor-fix-esc-main-toolbar-navigation': true,
+		},
 	});
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
@@ -87,6 +90,9 @@ test.describe('Escape Keydown: text color', () => {
 			allowTextColor: true,
 		},
 		adf: emptyDocument,
+		platformFeatureFlags: {
+			'editor-fix-esc-main-toolbar-navigation': true,
+		},
 	});
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
@@ -120,6 +126,9 @@ test.describe('Escape Keydown: font style', () => {
 	test.use({
 		editorProps: {
 			appearance: 'full-page',
+		},
+		platformFeatureFlags: {
+			'editor-fix-esc-main-toolbar-navigation': true,
 		},
 	});
 
@@ -155,6 +164,9 @@ test.describe('Escape Keydown: text alignment', () => {
 			allowTextAlignment: true,
 		},
 		adf: emptyDocument,
+		platformFeatureFlags: {
+			'editor-fix-esc-main-toolbar-navigation': true,
+		},
 	});
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
@@ -187,6 +199,9 @@ test.describe('Escape Keydown: more formatting', () => {
 	test.use({
 		editorProps: {
 			appearance: 'full-page',
+		},
+		platformFeatureFlags: {
+			'editor-fix-esc-main-toolbar-navigation': true,
 		},
 	});
 

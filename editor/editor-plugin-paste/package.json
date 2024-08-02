@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "1.7.2",
+	"version": "1.7.3",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.2.0",
+		"@atlaskit/editor-common": "^87.3.0",
 		"@atlaskit/editor-markdown-transformer": "^5.10.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@atlaskit/editor-plugin-annotation": "^1.18.0",
@@ -60,7 +60,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-schema": "^40.3.0",
-		"@atlaskit/editor-plugin-block-type": "^3.10.0",
+		"@atlaskit/editor-plugin-block-type": "^3.11.0",
 		"@atlaskit/editor-plugin-history": "^1.2.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.6.0",
 		"@atlaskit/ssr": "*",
@@ -119,9 +119,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.media.fix-copy-paste-excel_62g4s": {
-			"type": "boolean"
-		},
-		"platform.editor.place-cursor-inside-text-block": {
 			"type": "boolean"
 		},
 		"platform.editor.multi-bodied-extension_0rygg": {

@@ -42,6 +42,10 @@ interface ReactionSummaryViewProps
 	 * Optional event when focused a reaction inside the summary
 	 */
 	onReactionFocused?: ReactionFocused;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
 }
 
 export const ReactionSummaryView = ({
@@ -55,6 +59,7 @@ export const ReactionSummaryView = ({
 	onReactionClick,
 	onReactionFocused,
 	onReactionMouseEnter,
+	showOpaqueBackground = false,
 }: ReactionSummaryViewProps) => {
 	const [isSummaryPopupOpen, setSummaryPopupOpen] = useState<boolean>(false);
 
@@ -98,6 +103,7 @@ export const ReactionSummaryView = ({
 					emojiProvider={emojiProvider}
 					reactions={reactions}
 					onClick={handleSummaryClick}
+					showOpaqueBackground={showOpaqueBackground}
 				/>
 			)}
 		/>

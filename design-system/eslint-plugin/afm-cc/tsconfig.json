@@ -25,6 +25,9 @@
             "path": "../../eslint-utils/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../icon/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../tokens/afm-cc/tsconfig.json"
         }
     ]

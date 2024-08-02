@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 1.56.3
+
+### Patch Changes
+
+- [#125137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125137)
+  [`f50390862bd7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f50390862bd7b) -
+  Updated shadow tokens to use the new colours from visual refresh colour palettes. Changes are also
+  behind the visual refresh feature flag.
+
 ## 1.56.2
 
 ### Patch Changes

@@ -42,6 +42,10 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'textColor',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'textColor',
@@ -70,15 +74,6 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 			changeColor: (color: string) => {
 				return changeColor(color, api?.analytics?.actions);
 			},
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'textColor',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

@@ -187,9 +187,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 	};
 
 	private onOpenChange = () => {
-		if (fg('platform.editor.a11y-main-toolbar-navigation_osrty')) {
-			this.setState({ isOpen: false });
-		}
+		this.setState({ isOpen: false });
 	};
 }
 

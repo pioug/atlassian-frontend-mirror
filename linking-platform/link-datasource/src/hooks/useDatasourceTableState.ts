@@ -46,6 +46,8 @@ export interface DatasourceTableState {
 	reset: (options?: ResetOptions) => void;
 	/** Requests the available column schemas that can be displayed within the table */
 	loadDatasourceDetails: () => void;
+	/** Item ids to be hydrated from a store by consumers [NOTE: They must be in the same order as responseItems] */
+	responseItemIds: string[];
 	/** Items to be rendered within the table */
 	responseItems: DatasourceDataResponseItem[];
 	/** Indicates whether there is still more data that can be paginated */
@@ -99,7 +101,7 @@ export const useDatasourceTableState = ({
 	const [authDetails, setAuthDetails] = useState<DatasourceTableState['authDetails']>([]);
 	const [responseItems, setResponseItems] =
 		useState<DatasourceTableState['responseItems']>(initialEmptyArray);
-	const [, setResponseItemIds] = useState<string[]>(initialEmptyArray);
+	const [responseItemIds, setResponseItemIds] = useState<string[]>(initialEmptyArray);
 	const [hasNextPage, setHasNextPage] = useState<DatasourceTableState['hasNextPage']>(true);
 	const [nextCursor, setNextCursor] = useState<string | undefined>(undefined);
 	const [columns, setColumns] = useState<DatasourceTableState['columns']>([]);
@@ -405,6 +407,7 @@ export const useDatasourceTableState = ({
 		status,
 		onNextPage,
 		responseItems,
+		responseItemIds,
 		reset,
 		loadDatasourceDetails,
 		hasNextPage,

@@ -3,7 +3,6 @@ import React, { PureComponent, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 
@@ -35,8 +34,7 @@ class WithOutsideClick extends PureComponent<
 
 		if (this.props.handleEscapeKeydown) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
-			(getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') &&
-			this.props.popupsMountPoint
+			(this.props.popupsMountPoint
 				? this.props.popupsMountPoint
 				: undefined || this.props.editorRef?.current || this.props.targetRef || document
 			).addEventListener('keydown', this.handleKeydown as any, false);
@@ -49,8 +47,7 @@ class WithOutsideClick extends PureComponent<
 		}
 
 		if (this.props.handleEscapeKeydown) {
-			(getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty') &&
-			this.props.popupsMountPoint
+			(this.props.popupsMountPoint
 				? this.props.popupsMountPoint
 				: undefined || this.props.editorRef?.current || this.props.targetRef || document
 			).removeEventListener('keydown', this.handleKeydown as any, false);

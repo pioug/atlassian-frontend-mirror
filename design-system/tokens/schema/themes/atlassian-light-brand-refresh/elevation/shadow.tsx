@@ -38,9 +38,9 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
 					],
 				},
 				// @ts-ignore no current palette colour for this yet
-				spread: { value: '#091e4229' },
+				spread: { value: '#1E1F2129' },
 				// @ts-ignore no current palette colour for this yet
-				perimeter: { value: '#091e421f' },
+				perimeter: { value: '#1E1F211f' },
 			},
 			overlay: {
 				value: [

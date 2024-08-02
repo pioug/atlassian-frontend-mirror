@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 22.10.3
+
+### Patch Changes
+
+- [#124009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/124009)
+  [`1b172cc669c8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b172cc669c8e) -
+  [ux] add support for opaque backgrounds in pre-existing reaction buttons while in summary view
+- Updated dependencies
+
 ## 22.10.2
 
 ### Patch Changes

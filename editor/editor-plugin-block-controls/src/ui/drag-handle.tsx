@@ -20,6 +20,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
 	dragToMoveUp,
+	getAriaKeyshortcuts,
 	TooltipContentWithMultipleShortcuts,
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
@@ -438,7 +439,17 @@ const DragHandleInternal = ({
 			keymap: dragToMoveDown,
 		},
 	];
+
+	const message = helpDescriptors
+		.map((descriptor) => {
+			return descriptor.keymap
+				? [descriptor.description, getAriaKeyshortcuts(descriptor.keymap)]
+				: [descriptor.description];
+		})
+		.join('. ');
+
 	const renderButton = () => (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			type="button"
 			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
@@ -459,8 +470,14 @@ const DragHandleInternal = ({
 			<DragHandlerIcon label="" size="medium" />
 		</button>
 	);
+
 	return fg('platform_editor_element_drag_and_drop_ed_23873') ? (
-		<Tooltip content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}>
+		<Tooltip
+			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
+			onShow={() => {
+				api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
+			}}
+		>
 			{renderButton()}
 		</Tooltip>
 	) : (

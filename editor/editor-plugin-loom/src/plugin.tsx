@@ -69,6 +69,10 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		}
 		return <LoomToolbarButton disabled={disabled} api={api} appearance={appearance} />;
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'loom',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'loom',
@@ -154,15 +158,6 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 		},
 
 		// Enable inserting Loom recordings through main toolbar
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'loom',
-					component: primaryToolbarComponent,
-				}),
-			);
-		},
-
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };

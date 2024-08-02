@@ -33,6 +33,7 @@ import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 import { maxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
+import { mediaInsertPlugin } from '@atlaskit/editor-plugins/media-insert';
 import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import { panelPlugin } from '@atlaskit/editor-plugins/panel';
 import { pasteOptionsToolbarPlugin } from '@atlaskit/editor-plugins/paste-options-toolbar';
@@ -183,6 +184,10 @@ export default function createUniversalPreset(
 				},
 			],
 			Boolean(props.media),
+		)
+		.maybeAdd(
+			mediaInsertPlugin,
+			Boolean(props.media && fg('platform_editor_insert_media_plugin_phase_one')),
 		)
 		.maybeAdd(captionPlugin, Boolean(props.media?.allowCaptions))
 		.maybeAdd(

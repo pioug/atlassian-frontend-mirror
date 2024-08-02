@@ -1,5 +1,18 @@
 # @atlaskit/dropdown-menu
 
+## 12.15.0
+
+### Minor Changes
+
+- [#126129](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126129)
+  [`75d153a575b4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75d153a575b4d) -
+  Accessibility changes. Add a new optional prop `returnFocusRef` for cases when we need to focus an
+  interactive element after closing DropdownMenu.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.14.2
 
 ### Patch Changes

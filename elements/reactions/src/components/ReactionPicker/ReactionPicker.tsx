@@ -124,6 +124,10 @@ export interface ReactionPickerProps
 	 * Optional emoji picker size to control the size of emoji picker
 	 */
 	emojiPickerSize?: PickerSize;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
 }
 
 /**
@@ -143,6 +147,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 		onCancel = () => {},
 		tooltipContent = <FormattedMessage {...messages.addReaction} />,
 		emojiPickerSize,
+		showOpaqueBackground = false,
 	} = props;
 
 	const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
@@ -298,6 +303,7 @@ export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
 							miniMode={miniMode}
 							disabled={disabled}
 							tooltipContent={settings.isOpen ? null : tooltipContent}
+							showOpaqueBackground={showOpaqueBackground}
 						/>
 					)}
 				</Reference>

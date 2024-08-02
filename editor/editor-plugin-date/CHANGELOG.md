@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-date
 
+## 2.2.2
+
+### Patch Changes
+
+- [#125980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125980)
+  [`93070430085a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93070430085a6) -
+  fix editor popup overflow issue
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

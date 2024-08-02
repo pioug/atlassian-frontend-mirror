@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.7.3
+
+### Patch Changes
+
+- [#126553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126553)
+  [`c7d63e493e698`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c7d63e493e698) -
+  Removed FF platform.editor.place-cursor-inside-text-block
+
 ## 1.7.2
 
 ### Patch Changes

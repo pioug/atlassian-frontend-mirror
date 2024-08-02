@@ -1,26 +1,22 @@
-import type {
-	EditorCommand,
-	NextEditorPlugin,
-	ToolbarUIComponentFactory,
-} from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 
 export type PrimaryToolbarPlugin = NextEditorPlugin<
 	'primaryToolbar',
 	{
 		sharedState: PrimaryToolbarPluginState | undefined;
-		commands: {
+		actions: {
 			registerComponent: ({
 				name,
 				component,
 			}: {
 				name: ToolbarElementNames;
 				component: ToolbarUIComponentFactory;
-			}) => EditorCommand;
+			}) => void;
 		};
 	}
 >;
 
-type ComponentRegistry = Map<string, ToolbarUIComponentFactory>;
+export type ComponentRegistry = Map<string, ToolbarUIComponentFactory>;
 
 export type ToolbarElementNames =
 	| 'separator'
@@ -45,6 +41,5 @@ export type ToolbarElementConfig = {
 };
 
 export type PrimaryToolbarPluginState = {
-	componentRegistry: ComponentRegistry;
 	components: ToolbarUIComponentFactory[];
 };

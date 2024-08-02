@@ -1,3 +1,5 @@
+import { type IntlShape } from 'react-intl-next';
+
 import {
 	bindKeymapWithCommand,
 	dragToMoveDown,
@@ -13,7 +15,10 @@ import { showDragHandleAtSelection } from '../commands/show-drag-handle';
 import { DIRECTION } from '../consts';
 import type { BlockControlsPlugin } from '../types';
 
-function keymapList(api?: ExtractInjectionAPI<BlockControlsPlugin>) {
+function keymapList(
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+	formatMessage?: IntlShape['formatMessage'],
+) {
 	let keymapList = {};
 
 	if (api && fg('platform_editor_element_drag_and_drop_ed_23873')) {
@@ -26,15 +31,21 @@ function keymapList(api?: ExtractInjectionAPI<BlockControlsPlugin>) {
 			},
 			keymapList,
 		);
-		bindKeymapWithCommand(dragToMoveUp.common!, moveNodeViaShortcut(api, DIRECTION.UP), keymapList);
+		bindKeymapWithCommand(
+			dragToMoveUp.common!,
+			moveNodeViaShortcut(api, DIRECTION.UP, formatMessage),
+			keymapList,
+		);
 		bindKeymapWithCommand(
 			dragToMoveDown.common!,
-			moveNodeViaShortcut(api, DIRECTION.DOWN),
+			moveNodeViaShortcut(api, DIRECTION.DOWN, formatMessage),
 			keymapList,
 		);
 	}
 	return keymapList;
 }
 
-export const boundKeydownHandler = (api?: ExtractInjectionAPI<BlockControlsPlugin>) =>
-	keydownHandler(keymapList(api));
+export const boundKeydownHandler = (
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+	formatMessage?: IntlShape['formatMessage'],
+) => keydownHandler(keymapList(api, formatMessage));

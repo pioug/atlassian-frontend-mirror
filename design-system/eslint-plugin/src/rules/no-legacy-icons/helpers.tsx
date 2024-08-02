@@ -1,9 +1,12 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute, type Node } from 'eslint-codemod-utils';
 
-import { getImportName } from '../utils/get-import-name';
+import baseMigrationMap, {
+	type IconMigrationSizeGuidance,
+	migrationOutcomeDescriptionMap,
+} from '@atlaskit/icon/UNSAFE_migration-map';
 
-import migrationMap, { outcomeDescriptionMap, type Size } from './migration-map-temp';
+import { getImportName } from '../utils/get-import-name';
 
 export type iconMigrationError = Rule.ReportDescriptor;
 
@@ -13,6 +16,10 @@ export type errorsListManual = {
 export type errorsListAuto = { [loc: string]: iconMigrationError };
 export type guidanceList = { [loc: string]: string };
 
+const sizes = ['small', 'medium', 'large', 'xlarge'] as const;
+export type Size = (typeof sizes)[number];
+export const isSize = (size: any): size is Size => sizes.includes(size as Size);
+
 /**
  * Returns the migration map object for a legacy icon or null if not found
  * @param iconPackage The name of the legacy icon package
@@ -20,8 +27,8 @@ export type guidanceList = { [loc: string]: string };
  */
 export const getMigrationMapObject = (iconPackage: string) => {
 	const key = getIconKey(iconPackage);
-	if (key in migrationMap) {
-		return migrationMap[key];
+	if (key in baseMigrationMap) {
+		return baseMigrationMap[key];
 	}
 	return null;
 };
@@ -70,21 +77,23 @@ export const createGuidance = (
 				migrationMapObject.sizeGuidance[size] &&
 				canAutoMigrateNewIconBasedOnSize(migrationMapObject.sizeGuidance[size])
 			) {
-				guidance += `Fix: Use ${newIcon.name} from @atlaskit/${newIcon.library}/${newIcon.type}/${newIcon.name} instead.`;
+				guidance += `Fix: Use ${newIcon.name} from ${newIcon.package}/${newIcon.type}/${newIcon.name} instead.`;
 			} else {
 				guidance += `No equivalent icon for this size, ${size}, in new set.`;
 			}
-			guidance += `${migrationMapObject.sizeGuidance[size] in outcomeDescriptionMap ? ` Please: ${outcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
+			guidance += `${migrationMapObject.sizeGuidance[size] in migrationOutcomeDescriptionMap ? ` Please: ${migrationOutcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
 		} else {
-			guidance = `Use ${newIcon.name} from @atlaskit/${newIcon.library}/${newIcon.type}/${newIcon.name} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
-			for (const [size, value] of Object.entries(migrationMapObject.sizeGuidance)) {
-				guidance += `\t- ${size}: `;
-				if (!(value in outcomeDescriptionMap)) {
-					guidance += 'No migration advice given.\n';
-				} else {
-					guidance += `${outcomeDescriptionMap[value]}.\n`;
-				}
-			}
+			guidance = `Use ${newIcon.name} from ${newIcon.package}/${newIcon.type}/${newIcon.name} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
+			Object.entries(migrationMapObject.sizeGuidance).forEach(
+				([size, value]: [string, unknown]) => {
+					guidance += `\t- ${size}: `;
+					if (!((value as IconMigrationSizeGuidance) in migrationOutcomeDescriptionMap)) {
+						guidance += 'No migration advice given.\n';
+					} else {
+						guidance += `${migrationOutcomeDescriptionMap[value as IconMigrationSizeGuidance]}.\n`;
+					}
+				},
+			);
 		}
 		if (insideNewButton) {
 			guidance += buttonGuidanceStr;

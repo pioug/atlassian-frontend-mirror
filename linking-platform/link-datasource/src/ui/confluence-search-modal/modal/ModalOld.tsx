@@ -133,6 +133,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 		status,
 		onNextPage,
 		responseItems,
+		responseItemIds,
 		hasNextPage,
 		columns,
 		defaultVisibleColumnKeys,
@@ -222,6 +223,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 					status={status}
 					columns={columns}
 					items={responseItems}
+					itemIds={responseItemIds}
 					hasNextPage={hasNextPage}
 					visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
 					onNextPage={onNextPage}
@@ -241,6 +243,7 @@ export const PlainConfluenceSearchConfigModal = (props: ConfluenceSearchConfigMo
 			status,
 			columns,
 			responseItems,
+			responseItemIds,
 			hasNextPage,
 			visibleColumnKeys,
 			defaultVisibleColumnKeys,

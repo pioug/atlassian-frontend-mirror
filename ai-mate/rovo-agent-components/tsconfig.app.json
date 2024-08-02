@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/button/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
@@ -40,6 +43,9 @@
 		},
 		{
 			"path": "../../design-system/logo/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

@@ -1226,7 +1226,7 @@ export function handleRichText(
 				const nextSelection = lastChild?.type.isTextblock
 					? TextSelection.findFrom($nextPos, -1, true)
 					: new GapCursorSelection($nextPos, Side.RIGHT);
-				if (nextSelection && fg('platform.editor.place-cursor-inside-text-block')) {
+				if (nextSelection) {
 					tr.setSelection(nextSelection);
 				} else if (insideTableCell(state) && shouldUpdateCursorPosAfterPaste) {
 					const nextPos = tr.doc.resolve(tr.mapping.map(selection.$from.pos));

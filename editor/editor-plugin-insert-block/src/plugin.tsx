@@ -134,6 +134,10 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'insertBlock',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'insertBlock',
@@ -156,12 +160,6 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					toggleDropdownMenuOptionsRef.current = null;
 				};
 			}, []);
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'insertBlock',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

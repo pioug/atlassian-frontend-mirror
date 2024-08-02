@@ -146,4 +146,10 @@ describe('ReactionSummaryButton', () => {
 		const counter = await screen.findByTestId(RENDER_COUNTER_TESTID);
 		expect(counter).toHaveTextContent('15');
 	});
+
+	it('should have an opaque background if showOpaqueBackground is true', () => {
+		renderComponent({ showOpaqueBackground: true });
+		const button = screen.getByRole('button');
+		expect(button).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
+	});
 });

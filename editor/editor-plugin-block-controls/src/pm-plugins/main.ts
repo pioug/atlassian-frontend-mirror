@@ -231,6 +231,8 @@ export const createPlugin = (
 					isDecsMissing ||
 					(!!meta?.nodeMoved && tr.docChanged);
 
+				const { formatMessage } = getIntl();
+
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				if (redrawDecorations && !isResizerResizing && api) {
 					if (fg('platform_editor_elements_drag_and_drop_ed_24000')) {
@@ -355,6 +357,7 @@ export const createPlugin = (
 								oldState,
 								newState,
 								api,
+								formatMessage,
 							);
 							decorationState = updatedDecorationState;
 							decorations = decorations.add(newState.doc, decs);
@@ -382,6 +385,7 @@ export const createPlugin = (
 								oldState,
 								newState,
 								api,
+								formatMessage,
 							);
 							decorationState = updatedDecorationState;
 							decorations = decorations.add(newState.doc, decs);
@@ -446,6 +450,7 @@ export const createPlugin = (
 								}
 							: activeNode;
 				}
+
 				return {
 					decorations,
 					decorationState,
@@ -549,8 +554,9 @@ export const createPlugin = (
 						event.ctrlKey &&
 						fg('platform_editor_element_drag_and_drop_ed_23873')
 					) {
+						const { formatMessage } = getIntl();
 						//prevent holding down key combo from firing repeatedly
-						if (!event.repeat && boundKeydownHandler(api)(view, event)) {
+						if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
 							event.preventDefault();
 							return true;
 						}

@@ -129,7 +129,7 @@ export const TableFloatingControls = ({
 
 	const wrapperClassName = isDragAndDropEnabled
 		? isChromelessEditor
-			? ClassName.DRAG_ROW_CONTROLS_WRAPPER + ' ' + ClassName.DRAG_CONTROLS_CHROMELESS
+			? ClassName.DRAG_ROW_CONTROLS_WRAPPER + ' ' + ClassName.TABLE_CHROMELESS
 			: ClassName.DRAG_ROW_CONTROLS_WRAPPER
 		: ClassName.ROW_CONTROLS_WRAPPER;
 

@@ -1,3 +1,5 @@
+import { type Ref } from 'react';
+
 import type {
 	DatasourceDataResponseItem,
 	DatasourceResponseSchemaProperty,
@@ -39,6 +41,7 @@ export interface IssueLikeDataTableViewProps {
 	hasNextPage: boolean;
 	status: DatasourceTableStatusType;
 	items: DatasourceDataResponseItem[];
+	itemIds: string[];
 	onNextPage: NextPageType;
 	onLoadDatasourceDetails: () => void;
 	/**
@@ -86,4 +89,25 @@ export interface IssueLikeDataTableViewProps {
 	 * @param shouldWrap  Whenever column should wrap
 	 */
 	onWrappedColumnChange?: (key: string, shouldWrap: boolean) => void;
+}
+
+export interface HeaderRowCellType {
+	key: string;
+	width?: number;
+	shouldTruncate?: boolean;
+	content?: React.ReactNode | string;
+}
+
+export interface RowType {
+	cells: Array<RowCellType>;
+	key?: string;
+	ref?: Ref<HTMLTableRowElement>;
+}
+
+export interface RowCellType {
+	key: string;
+	type?: DatasourceType['type'];
+	width?: number;
+	shouldTruncate?: boolean;
+	content?: React.ReactNode | string;
 }

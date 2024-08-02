@@ -3465,7 +3465,7 @@
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
       },
-      "value": "#091e421f"
+      "value": "#1E1F211f"
     },
     "Light brand-refresh/elevation.shadow.overflow.spread": {
       "attributes": {
@@ -3474,7 +3474,7 @@
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
       },
-      "value": "#091e4229"
+      "value": "#1E1F2129"
     },
     "Light brand-refresh/elevation.shadow.overlay": {
       "attributes": {

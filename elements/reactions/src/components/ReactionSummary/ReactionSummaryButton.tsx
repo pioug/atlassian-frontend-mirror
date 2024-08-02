@@ -20,6 +20,16 @@ const buttonStyle = xcss({
 	paddingLeft: 'space.100',
 });
 
+const opaqueBackgroundStyles = xcss({
+	backgroundColor: 'elevation.surface',
+	':hover': {
+		backgroundColor: 'elevation.surface.hovered',
+	},
+	':active': {
+		backgroundColor: 'elevation.surface.pressed',
+	},
+});
+
 const containerStyle = xcss({
 	position: 'relative',
 });
@@ -34,6 +44,11 @@ interface ReactionSummaryButtonProps extends Pick<ReactionsProps, 'emojiProvider
 	 * The number of emojis to show in the summary button
 	 */
 	emojisToShow?: number;
+
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
 }
 
 /**
@@ -49,7 +64,13 @@ export const RENDER_SUMMARY_EMOJI_TESTID = 'summary-emoji-display';
 // forwardRef is used here so that the parent popup component can properly interact with the button
 export const ReactionSummaryButton = forwardRef(
 	(
-		{ emojiProvider, reactions = [], emojisToShow = 3, onClick }: ReactionSummaryButtonProps,
+		{
+			emojiProvider,
+			reactions = [],
+			emojisToShow = 3,
+			onClick,
+			showOpaqueBackground = false,
+		}: ReactionSummaryButtonProps,
 		ref: React.Ref<HTMLDivElement>,
 	) => {
 		const intl = useIntl();
@@ -70,23 +91,15 @@ export const ReactionSummaryButton = forwardRef(
 			[emojisToShow, reactions],
 		);
 
+		const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
+
 		return (
 			<Box xcss={containerStyle} ref={ref}>
 				<ReactionButton
 					onClick={onClick}
 					testId={RENDER_SUMMARY_BUTTON_TESTID}
 					ariaLabel={intl.formatMessage(messages.summary)}
-					additionalStyles={[
-						xcss({
-							backgroundColor: 'elevation.surface',
-							':hover': {
-								backgroundColor: 'elevation.surface.hovered',
-							},
-							':active': {
-								backgroundColor: 'elevation.surface.pressed',
-							},
-						}),
-					]}
+					additionalStyles={buttonStyles}
 				>
 					<Inline space="space.050" xcss={buttonStyle}>
 						{topReactions.map((reaction) => (

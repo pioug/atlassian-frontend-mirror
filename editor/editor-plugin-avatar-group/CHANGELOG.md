@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 1.5.1
+
+### Patch Changes
+
+- [#125928](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125928)
+  [`bac56c4b39309`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bac56c4b39309) -
+  [ED-23425] Avatar group toolbar button should be conditional on the config value showAvatarGroup
+- Updated dependencies
+
+## 1.5.0
+
+### Minor Changes
+
+- [#126478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126478)
+  [`ca1665ebbfe4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca1665ebbfe4d) -
+  [ED-23435] Store primary toolbar component registry in a plugin variable instead of in plugin
+  state to avoid having to add effects to all plugins and enable SSR for the toolbar. [Breaking
+  change] Converted registerComponent from the primary toolbar plugin into an action.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

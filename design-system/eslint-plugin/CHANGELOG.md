@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.12.3
+
+### Patch Changes
+
+- [#126553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126553)
+  [`a8d7e60d3b69d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8d7e60d3b69d) -
+  Update `no-legacy-icons` rule to use icon migration map from `@atlaskit/icon`.
+- Updated dependencies
+
 ## 10.12.2
 
 ### Patch Changes

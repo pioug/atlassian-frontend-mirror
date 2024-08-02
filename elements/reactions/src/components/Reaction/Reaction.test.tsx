@@ -69,6 +69,7 @@ const renderReaction = (
 	onEvent: (event: UIAnalyticsEvent, channel?: string) => void = () => {},
 	users: User[] = [],
 	showParticleEffect: boolean = false,
+	showOpaqueBackground: boolean = false,
 ) =>
 	renderWithIntl(
 		<AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
@@ -79,6 +80,7 @@ const renderReaction = (
 				onMouseEnter={onMouseEnter}
 				flash={enableFlash}
 				showParticleEffect={showParticleEffect}
+				showOpaqueBackground={showOpaqueBackground}
 			/>
 		</AnalyticsListener>,
 	);
@@ -142,6 +144,32 @@ describe('@atlaskit/reactions/components/Reaction', () => {
 		expect(content).toBeInTheDocument();
 		const tooltipWrapper = await screen.findByRole('presentation');
 		expect(tooltipWrapper).toBeInTheDocument();
+	});
+
+	it('should render with opaque background if showOpaqueBackground is true', async () => {
+		const count = 3;
+		const reacted = false;
+		const onClickSpy = jest.fn();
+		const onMouseEnterSpy = jest.fn();
+		const enableFlash = false;
+		const onEventSpy = jest.fn();
+		const users: User[] = [];
+		const showParticleEffect = false;
+		const showOpaqueBackground = true;
+		renderReaction(
+			reacted,
+			count,
+			onClickSpy,
+			onMouseEnterSpy,
+			enableFlash,
+			onEventSpy,
+			users,
+			showParticleEffect,
+			showOpaqueBackground,
+		);
+		const btn = await screen.findByRole('button');
+		expect(btn).toBeInTheDocument();
+		expect(btn).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
 	});
 
 	describe('with analytics', () => {

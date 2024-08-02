@@ -279,7 +279,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 					bubbles: true,
 				});
 
-				if (mountTo && fg('platform.editor.a11y-main-toolbar-navigation_osrty')) {
+				if (mountTo) {
 					mountTo.dispatchEvent(keyboardEvent);
 					return;
 				}

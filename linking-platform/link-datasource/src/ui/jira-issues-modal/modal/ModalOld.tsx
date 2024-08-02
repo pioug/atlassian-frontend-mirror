@@ -138,6 +138,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 		status,
 		onNextPage,
 		responseItems,
+		responseItemIds,
 		hasNextPage,
 		columns,
 		defaultVisibleColumnKeys,
@@ -478,6 +479,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 					status={status}
 					columns={columns}
 					items={responseItems}
+					itemIds={responseItemIds}
 					hasNextPage={hasNextPage}
 					visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
 					onNextPage={handleOnNextPage}
@@ -497,6 +499,7 @@ export const PlainJiraIssuesConfigModalOld = (props: JiraConfigModalProps) => {
 			status,
 			columns,
 			responseItems,
+			responseItemIds,
 			hasNextPage,
 			visibleColumnKeys,
 			defaultVisibleColumnKeys,

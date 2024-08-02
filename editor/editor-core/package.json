@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.0.4",
+	"version": "195.1.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,12 +45,12 @@
 		"@atlaskit/analytics-next": "^9.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/editor-common": "^87.2.0",
-		"@atlaskit/editor-plugins": "^3.5.0",
+		"@atlaskit/editor-common": "^87.3.0",
+		"@atlaskit/editor-plugins": "^3.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
-		"@atlaskit/icon": "^22.8.0",
+		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/media-card": "^78.0.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -100,15 +100,15 @@
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
 		"@atlaskit/primitives": "^11.1.0",
-		"@atlaskit/renderer": "^109.44.0",
-		"@atlaskit/smart-card": "^27.11.0",
+		"@atlaskit/renderer": "^109.45.0",
+		"@atlaskit/smart-card": "^27.12.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.18.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.99",
+		"@atlassian/search-provider": "2.4.100",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -146,6 +146,10 @@
 		}
 	},
 	"platform-feature-flags": {
+		"enable_datasource_react_sweet_state": {
+			"type": "boolean",
+			"referenceOnly": "true"
+		},
 		"annotations_defensive_node_name_calculations": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -157,9 +161,6 @@
 		"platform.linking-platform.prevent-suspicious-linkification": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.linking-platform.smart-links-in-live-pages": {
-			"type": "boolean"
 		},
 		"platform.editor.live-pages-expand-divergence": {
 			"type": "boolean",
@@ -219,6 +220,9 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
+		"platform_editor_insert_media_plugin_phase_one": {
+			"type": "boolean"
+		},
 		"platform.editor.card.inject-settings-button": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -270,9 +274,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.a11y-main-toolbar-navigation_osrty": {
-			"type": "boolean"
-		},
 		"platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2": {
 			"type": "boolean"
 		},
@@ -307,16 +308,16 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"editor_react_18_fix_table_delete_col_decorations": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"react_18_color_picker_concurrent_mode": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"linking-platform-contenteditable-false-live-view": {
+		"editor-fix-esc-main-toolbar-navigation": {
 			"type": "boolean"
-		},
-		"editor_react_18_fix_table_delete_col_decorations": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_lazy-node-views": {
 			"type": "boolean",

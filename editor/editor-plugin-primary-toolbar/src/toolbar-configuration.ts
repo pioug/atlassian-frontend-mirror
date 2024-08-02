@@ -1,19 +1,18 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 
-import type { PrimaryToolbarPluginState, ToolbarElementConfig } from './types';
+import type { ComponentRegistry, ToolbarElementConfig } from './types';
 
 export const getToolbarComponents = (
-	pluginState: PrimaryToolbarPluginState,
+	componentRegistry: ComponentRegistry,
 ): ToolbarUIComponentFactory[] =>
 	toolbarConfiguration
 		.filter(
 			(toolbarElement) =>
-				typeof toolbarElement.enabled === 'undefined' ||
-				toolbarElement.enabled(pluginState.componentRegistry),
+				typeof toolbarElement.enabled === 'undefined' || toolbarElement.enabled(componentRegistry),
 		)
 		.reduce<ToolbarUIComponentFactory[]>((acc, toolbarElement) => {
-			if (pluginState.componentRegistry.has(toolbarElement.name)) {
-				const component = pluginState.componentRegistry.get(toolbarElement.name);
+			if (componentRegistry.has(toolbarElement.name)) {
+				const component = componentRegistry.get(toolbarElement.name);
 
 				if (!!component) {
 					acc.push(component);

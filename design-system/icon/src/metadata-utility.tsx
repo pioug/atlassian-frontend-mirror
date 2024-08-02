@@ -25,7 +25,7 @@ const metadata: Record<string, Data> = {
 		keywords: ['add', 'plus', 'create', 'new', 'icon', 'utility', 'create', 'plus'],
 		componentName: 'AddIcon',
 		package: '@atlaskit/icon/utility/add',
-		oldName: ['add-circle', 'add', 'emoji/custom'],
+		oldName: ['add-circle', 'add', 'editor/add', 'emoji/custom'],
 		categorization: 'Multi-purpose',
 		location: 'ADS',
 		team: 'ADS',

@@ -1,3 +1,5 @@
+import { type IntlShape } from 'react-intl-next';
+
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -5,6 +7,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -56,6 +59,7 @@ const getCurrentNodePos = (state: EditorState): number => {
 export const moveNodeViaShortcut = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	direction: DIRECTION,
+	formatMessage?: IntlShape['formatMessage'],
 ): Command => {
 	return (state) => {
 		const currentNodePos = getCurrentNodePos(state);
@@ -82,7 +86,7 @@ export const moveNodeViaShortcut = (
 			const nodeType = state.doc.nodeAt(currentNodePos)?.type.name;
 			if (moveToPos > -1) {
 				api?.core?.actions.execute(({ tr }) => {
-					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.SHORTCUT)({ tr });
+					moveNode(api)(currentNodePos, moveToPos, INPUT_METHOD.SHORTCUT, formatMessage)({ tr });
 					tr.scrollIntoView();
 					return tr;
 				});
@@ -107,6 +111,7 @@ export const moveNode =
 		start: number,
 		to: number,
 		inputMethod: MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP,
+		formatMessage?: IntlShape['formatMessage'],
 	): EditorCommand =>
 	({ tr }) => {
 		const node = tr.doc.nodeAt(start);
@@ -147,6 +152,16 @@ export const moveNode =
 				...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
 			},
 		})(tr);
+
+		if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
+			const movedMessage =
+				to > start ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
+
+			api?.accessibilityUtils?.actions.ariaNotify(
+				formatMessage ? formatMessage(movedMessage) : movedMessage.defaultMessage,
+				{ priority: 'important' },
+			);
+		}
 
 		return tr;
 	};

@@ -50,6 +50,7 @@ export const Popup: FC<PopupProps> = memo(
 		role,
 		label,
 		titleId,
+		modifiers,
 	}: PopupProps) => {
 		const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 		const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
@@ -82,6 +83,7 @@ export const Popup: FC<PopupProps> = memo(
 					role={role}
 					label={label}
 					titleId={titleId}
+					modifiers={modifiers}
 				/>
 			</UNSAFE_LAYERING>
 		);

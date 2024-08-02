@@ -36,6 +36,10 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 			);
 		}
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'findReplace',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'findReplace',
@@ -83,15 +87,6 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 					/>
 				);
 			},
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'findReplace',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

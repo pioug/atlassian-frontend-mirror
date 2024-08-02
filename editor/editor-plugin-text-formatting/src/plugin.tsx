@@ -77,6 +77,11 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'textFormatting',
+		component: primaryToolbarComponent,
+	});
+
 	return {
 		name: 'textFormatting',
 
@@ -135,15 +140,6 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 				...textFormattingPluginKey.getState(editorState),
 				formattingIsPresent: clearFormattingPluginKey.getState(editorState)?.formattingIsPresent,
 			};
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'textFormatting',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

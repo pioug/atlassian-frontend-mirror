@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-date",
-	"version": "2.2.1",
+	"version": "2.2.2",
 	"description": "Date plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/calendar": "^14.4.0",
 		"@atlaskit/date": "^0.10.0",
-		"@atlaskit/editor-common": "^87.2.0",
+		"@atlaskit/editor-common": "^87.3.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",

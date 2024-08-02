@@ -61,7 +61,7 @@
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.8.0",
+		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/motion": "^1.7.0",
 		"@atlaskit/portal": "^4.6.0",
 		"@atlaskit/primitives": "^11.1.0",

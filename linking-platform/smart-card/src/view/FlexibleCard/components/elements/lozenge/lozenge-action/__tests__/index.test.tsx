@@ -115,6 +115,7 @@ describe('LozengeAction', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+		jest.restoreAllMocks();
 	});
 
 	it('renders element', async () => {
@@ -394,7 +395,7 @@ describe('LozengeAction', () => {
 			fireEvent.click(element);
 		});
 		const item = await findByTestId(itemTestId);
-		act(() => {
+		await act(async () => {
 			fireEvent.click(item);
 		});
 		element = await findByTestId(triggerTestId);

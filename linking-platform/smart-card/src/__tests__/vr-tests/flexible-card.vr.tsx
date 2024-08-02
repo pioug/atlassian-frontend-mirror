@@ -42,8 +42,24 @@ snapshot(FlexibleUiComposition, {
 });
 
 // Blocks
-snapshot(FlexibleUiBlock);
-snapshot(FlexibleUiBlockTitle);
+snapshot(FlexibleUiBlock, {
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
+		},
+	],
+});
+snapshot(FlexibleUiBlockTitle, {
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
+		},
+	],
+});
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--title hovered',
 	states: [
@@ -52,6 +68,13 @@ snapshot(FlexibleUiBlockTitle, {
 				byTestId: 'actions-on-hover-title-block-resolved-view',
 			},
 			state: 'hovered',
+		},
+	],
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
 		},
 	],
 });
@@ -65,8 +88,23 @@ snapshot(FlexibleUiBlockTitle, {
 			state: 'hovered',
 		},
 	],
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
+		},
+	],
 });
-snapshot(FlexibleUiBlockMetadata);
+snapshot(FlexibleUiBlockMetadata, {
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
+		},
+	],
+});
 snapshot(FlexibleUiBlockSnippet);
 snapshot(FlexibleUiBlockFooter);
 snapshot(FlexibleUiBlockAISummary, {
@@ -92,7 +130,15 @@ snapshot(FlexibleUiBlockActionGroup, {
 // Elements
 snapshot(FlexibleUiElementLink);
 snapshot(FlexibleUiElementLozenge);
-snapshot(FlexibleUiElementBadge);
+snapshot(FlexibleUiElementBadge, {
+	ignoredErrors: [
+		{
+			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
+			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
+			jiraIssueId: 'EDM-10562',
+		},
+	],
+});
 snapshot(FlexibleUiElementAvatarGroup);
 snapshot(FlexibleUiElementMedia);
 

@@ -3444,7 +3444,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#030404",
+          "color": "#01040475",
           "opacity": 0.56
         },
         {
@@ -3453,7 +3453,7 @@
             "x": 0,
             "y": 0
           },
-          "color": "#030404",
+          "color": "#01040475",
           "opacity": 0.5
         }
       ]
@@ -3465,7 +3465,7 @@
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.spread to replicate the overflow shadow."
       },
-      "value": "#03040480"
+      "value": "#01040480"
     },
     "Dark brand-refresh/elevation.shadow.overflow.spread": {
       "attributes": {
@@ -3474,7 +3474,7 @@
         "introduced": "0.10.32",
         "description": "Use only when elevation.shadow.overflow is not technically feasible to implement. Pair with elevation.shadow.overflow.perimeter to replicate the overflow shadow."
       },
-      "value": "#0304048f"
+      "value": "#0104048f"
     },
     "Dark brand-refresh/elevation.shadow.overlay": {
       "attributes": {
@@ -3487,12 +3487,12 @@
         {
           "radius": 0,
           "spread": 1,
-          "color": "#39424a",
+          "color": "#BDBDBD",
           "offset": {
             "x": 0,
             "y": 0
           },
-          "opacity": 1
+          "opacity": 0.12
         },
         {
           "radius": 12,

@@ -1,4 +1,4 @@
-import React, { type FunctionComponent } from 'react';
+import React from 'react';
 
 import { SpotlightTarget } from '@atlaskit/onboarding';
 
@@ -7,9 +7,10 @@ export interface ConditionalSpotlightTargetWrapperProps {
 	children: React.ReactElement;
 }
 
-export const ConditionalSpotlightTargetWrapper: FunctionComponent<
-	ConditionalSpotlightTargetWrapperProps
-> = ({ spotlightTargetName, children }) => {
+export const ConditionalSpotlightTargetWrapper = ({
+	spotlightTargetName,
+	children,
+}: ConditionalSpotlightTargetWrapperProps) => {
 	return spotlightTargetName ? (
 		<SpotlightTarget name={spotlightTargetName}>{children}</SpotlightTarget>
 	) : (

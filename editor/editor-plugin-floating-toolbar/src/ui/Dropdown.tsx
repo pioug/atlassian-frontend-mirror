@@ -22,7 +22,6 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
@@ -227,12 +226,9 @@ export default class Dropdown extends Component<Props, State> {
 				this.props.setDisableParentScroll(this.state.isOpen);
 			}
 
-			// ECA11Y-235: no sense in sending keyboard event since the menu popup mounted to the custom element, we will ensure first element focused asap as 'MenuArrowKeyNavigationProvider' is mounted
-			if (
-				this.props.mountPoint &&
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-				getBooleanFF('platform.editor.a11y-main-toolbar-navigation_osrty')
-			) {
+			// ECA11Y-235: no sense in sending keyboard event since the menu popup mounted to the custom element,
+			// we will ensure first element focused asap as 'MenuArrowKeyNavigationProvider' is mounted
+			if (this.props.mountPoint) {
 				return;
 			}
 

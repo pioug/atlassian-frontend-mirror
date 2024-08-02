@@ -24,6 +24,9 @@
       "path": "../../eslint-utils/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../icon/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../tokens/afm-jira/tsconfig.json"
     }
   ]

@@ -158,6 +158,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 		status,
 		onNextPage,
 		responseItems,
+		responseItemIds,
 		reset,
 		loadDatasourceDetails,
 		hasNextPage,
@@ -449,6 +450,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 								isFetchingInitialData={assetsClientLoading}
 								status={status}
 								responseItems={responseItems}
+								responseItemIds={responseItemIds}
 								visibleColumnKeys={visibleColumnKeys}
 								onVisibleColumnKeysChange={onVisibleColumnKeysChange}
 								datasourceId={datasourceId}

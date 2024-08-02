@@ -171,6 +171,10 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			/>
 		);
 	};
+	api?.primaryToolbar?.actions.registerComponent({
+		name: 'blockType',
+		component: primaryToolbarComponent,
+	});
 
 	return {
 		name: 'blockType',
@@ -230,15 +234,6 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				return;
 			}
 			return pluginKey.getState(editorState);
-		},
-
-		usePluginHook: () => {
-			api?.core?.actions.execute(
-				api?.primaryToolbar?.commands.registerComponent({
-					name: 'blockType',
-					component: primaryToolbarComponent,
-				}),
-			);
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

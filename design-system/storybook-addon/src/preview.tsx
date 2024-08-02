@@ -8,6 +8,7 @@
  *
  * https://storybook.js.org/docs/react/writing-stories/decorators
  */
+// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 import type { ProjectAnnotations, Renderer } from '@storybook/types';
 
 import withDesignTokens from './decorator';

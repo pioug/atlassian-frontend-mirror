@@ -44,4 +44,12 @@ describe('@atlaskit/reactions/components/Trigger', () => {
 		fireEvent.click(await screen.findByLabelText('Add reaction'));
 		expect(mockOnClick).not.toHaveBeenCalled();
 	});
+
+	it('should have opaque css when showOpaqueBackground is true', async () => {
+		renderWithIntl(<Trigger tooltipContent="" miniMode={false} showOpaqueBackground />);
+
+		const button = await screen.findByTestId('render-trigger-button');
+		expect(button).toBeInTheDocument();
+		expect(button).toHaveCompiledCss('background-color', 'var(--ds-surface, #FFFFFF)');
+	});
 });

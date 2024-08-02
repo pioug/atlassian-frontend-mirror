@@ -4,6 +4,7 @@ import MockAtlasProject from '../../../../__fixtures__/atlas-project';
 import * as HoverCardComponent from '../../components/HoverCardComponent';
 import { type setup as hoverCardSetup, type SetUpParams } from './setup.test-utils';
 import { within } from '@testing-library/dom';
+import { act } from '@testing-library/react';
 
 type AnalyticsTestConfig = {
 	/**
@@ -76,7 +77,7 @@ export const getEventPayload = ({
 	action: string;
 	actionSubject: string;
 	actionSubjectId?: string;
-	additionalAttributes?: {};
+	additionalAttributes?: object;
 	isAnalyticsContextResolvedOnHover?: boolean;
 }) => ({
 	action,
@@ -137,8 +138,10 @@ export const analyticsTests = (
 			const hoverCard = await findByTestId('hover-card');
 			within(hoverCard).getByTestId('smart-block-title-resolved-view');
 			await event.unhover(element);
-			jest.runAllTimers();
-			expect(queryByTestId('hover-card')).toBeNull();
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 
 			expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
 			expect(mock.mock.results[0].value).toEqual(

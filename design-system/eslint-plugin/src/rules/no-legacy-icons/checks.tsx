@@ -26,9 +26,10 @@ import {
 	type errorsListManual,
 	getMigrationMapObject,
 	type guidanceList,
+	isSize,
 	locToString,
+	type Size,
 } from './helpers';
-import { isSize, type Size } from './migration-map-temp';
 
 export const createChecks = (context: Rule.RuleContext) => {
 	//create global variables to be shared by the checks

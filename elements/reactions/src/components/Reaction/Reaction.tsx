@@ -64,6 +64,10 @@ export interface ReactionProps extends Pick<ReactionTooltipProps, 'allowUserDial
 	 * Optional function when the user wants to see more users in a modal
 	 */
 	handleUserListClick?: (emojiId: string) => void;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
 }
 const containerStyles = xcss({
 	position: 'relative',
@@ -80,6 +84,16 @@ const reactedStyles = xcss({
 	},
 });
 
+const opaqueBackgroundStyles = xcss({
+	backgroundColor: 'elevation.surface',
+	':hover': {
+		backgroundColor: 'elevation.surface.hovered',
+	},
+	':active': {
+		backgroundColor: 'elevation.surface.pressed',
+	},
+});
+
 /**
  * Render an emoji reaction button
  */
@@ -93,6 +107,7 @@ export const Reaction = ({
 	showParticleEffect = false,
 	handleUserListClick = () => {},
 	allowUserDialog,
+	showOpaqueBackground = false,
 }: ReactionProps) => {
 	const intl = useIntl();
 	const hoverStart = useRef<number>();
@@ -158,6 +173,8 @@ export const Reaction = ({
 		setIsTooltipEnabled(false);
 	};
 
+	const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
+
 	return (
 		<Box xcss={containerStyles}>
 			{showParticleEffect && (
@@ -173,7 +190,7 @@ export const Reaction = ({
 				<ReactionButton
 					onClick={handleClick}
 					flash={flash}
-					additionalStyles={reaction.reacted ? [reactedStyles] : []}
+					additionalStyles={reaction.reacted ? [reactedStyles] : buttonStyles}
 					ariaLabel={intl.formatMessage(messages.reactWithEmoji, {
 						emoji: emojiName,
 					})}

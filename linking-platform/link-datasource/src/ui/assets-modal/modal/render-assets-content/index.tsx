@@ -30,6 +30,7 @@ export interface RenderAssetsContentProps {
 	isFetchingInitialData: boolean;
 	status: DatasourceTableStatusType;
 	responseItems: DatasourceDataResponseItem[];
+	responseItemIds: string[];
 	visibleColumnKeys?: string[];
 	datasourceId: string;
 	aql?: string;
@@ -111,6 +112,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 	const {
 		status,
 		responseItems,
+		responseItemIds,
 		visibleColumnKeys,
 		onNextPage,
 		hasNextPage,
@@ -131,6 +133,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 					status={status}
 					columns={columns}
 					items={responseItems}
+					itemIds={responseItemIds}
 					hasNextPage={hasNextPage}
 					visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
 					onNextPage={onNextPage}
@@ -147,6 +150,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps) => {
 			onNextPage,
 			onVisibleColumnKeysChange,
 			responseItems,
+			responseItemIds,
 			status,
 			visibleColumnKeys,
 		],

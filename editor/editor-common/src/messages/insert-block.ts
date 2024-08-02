@@ -31,6 +31,16 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Add image, video, or file',
 		description: 'Insert one or more files, videos or images',
 	},
+	insertMediaFromUrl: {
+		id: 'fabric.editor.insertMediaFromUrl',
+		defaultMessage: 'Image from link',
+		description: 'Upload image from URL',
+	},
+	insertMediaFromUrlDescription: {
+		id: 'fabric.editor.insertMediaFromUrlDescription',
+		defaultMessage: 'Add an image or video from a link',
+		description: 'Upload a image to your page from external URL',
+	},
 	mediaFilesDescription: {
 		id: 'fabric.editor.mediaFiles.description',
 		defaultMessage: 'Add images and other files to your page',

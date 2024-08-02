@@ -852,7 +852,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={shadowStyle(showBeforeShadow)}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={ClassName.TABLE_LEFT_SHADOW}
+					className={
+						options?.isChromelessEditor && !isDragAndDropEnabled
+							? ClassName.TABLE_LEFT_SHADOW + ' ' + ClassName.TABLE_CHROMELESS
+							: ClassName.TABLE_LEFT_SHADOW
+					}
 				/>
 				{this.state.stickyHeader && (
 					<div
@@ -910,7 +914,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={shadowStyle(showAfterShadow)}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={ClassName.TABLE_RIGHT_SHADOW}
+					className={
+						options?.isChromelessEditor && !isDragAndDropEnabled
+							? ClassName.TABLE_RIGHT_SHADOW + ' ' + ClassName.TABLE_CHROMELESS
+							: ClassName.TABLE_RIGHT_SHADOW
+					}
 				/>
 				{this.state.stickyHeader && (
 					<div

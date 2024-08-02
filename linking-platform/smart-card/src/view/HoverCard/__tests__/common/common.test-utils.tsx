@@ -1,5 +1,5 @@
 import * as analytics from '../../../../utils/analytics/analytics';
-import { fireEvent } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import {
 	mockBaseResponseWithErrorPreview,
@@ -166,9 +166,10 @@ export const unauthorizedViewTests = (
 			// wait for card to be resolved
 			await findByTestId(authTooltipId);
 			await event.unhover(element);
-			jest.runAllTimers();
-			expect(queryByTestId('hover-card')).toBeNull();
-
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 			expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
 
 			expect(mock.mock.results[0].value).toEqual(
@@ -213,97 +214,105 @@ export const runCommonHoverCardTests = (
 
 		it('renders hover card', async () => {
 			const { findByTestId } = await setup();
-			jest.runAllTimers();
-			const hoverCard = await findByTestId('hover-card');
-
-			expect(hoverCard).toBeTruthy();
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(await findByTestId('hover-card')).toBeInTheDocument();
 		});
 
 		it('should wait a default delay before showing', async () => {
-			const { queryByTestId } = await setup({
+			const { queryByTestId, findByTestId } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
-			// Delay not completed yet
-			jest.advanceTimersByTime(499);
+			act(() => {
+				jest.advanceTimersByTime(499); // Delay not completed yet
+			});
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
+			act(() => {
+				jest.advanceTimersByTime(1); // Delay completed
+			});
 
-			expect(queryByTestId('hover-card')).toBeNull();
-
-			// Delay completed
-			jest.advanceTimersByTime(1);
-
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			expect(await findByTestId('hover-card')).toBeInTheDocument();
 		});
 
 		it('should wait a custom delay before showing if provided', async () => {
-			const { queryByTestId } = await setup({
+			const { queryByTestId, findByTestId } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 				extraCardProps: { hoverPreviewOptions: { fadeInDelay: 1000 } },
 			});
 
-			// Delay not completed yet
-			jest.advanceTimersByTime(999);
+			act(() => {
+				jest.advanceTimersByTime(999); // Delay not completed yet
+			});
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
+			act(() => {
+				jest.advanceTimersByTime(1); // Delay completed
+			});
 
-			expect(queryByTestId('hover-card')).toBeNull();
-
-			// Delay completed
-			jest.advanceTimersByTime(1);
-
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			expect(await findByTestId('hover-card')).toBeInTheDocument();
 		});
 
 		it('should wait a default delay before hiding', async () => {
 			const { queryByTestId, element, event } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
-			jest.runAllTimers();
+			act(() => {
+				jest.runAllTimers();
+			});
 			await event.unhover(element);
+			act(() => {
+				jest.advanceTimersByTime(299); // Delay not completed yet
+			});
 
-			// Delay not completed yet
-			jest.advanceTimersByTime(299);
+			expect(queryByTestId('hover-card')).toBeInTheDocument();
 
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			act(() => {
+				jest.advanceTimersByTime(1); // Delay completed
+			});
 
-			// Delay completed
-			jest.advanceTimersByTime(1);
-
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 
 		it('should stay shown if theres a mouseEnter before the delay elapses', async () => {
 			const { queryByTestId, element, event } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
-			jest.runAllTimers();
-			await event.unhover(element);
 
-			// Delay not completed yet
-			jest.advanceTimersByTime(299);
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			act(() => {
+				jest.runAllTimers();
+			});
+			await event.unhover(element);
+			act(() => {
+				jest.advanceTimersByTime(299); // Delay not completed yet
+			});
+
+			expect(queryByTestId('hover-card')).toBeInTheDocument();
 
 			await event.hover(element);
+			act(() => {
+				jest.advanceTimersByTime(1); // Delay completed
+			});
 
-			// Delay completed
-			jest.advanceTimersByTime(1);
-
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			expect(queryByTestId('hover-card')).toBeInTheDocument();
 		});
 
-		it('should stay hidden if theres a mouseLeave before the delay elapses', async () => {
+		it('should stay hidden if there is a mouseLeave before the delay elapses', async () => {
 			const { queryByTestId, element, event } = await setup({
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
-			// Delay not completed yet
-			jest.advanceTimersByTime(299);
+			act(() => {
+				jest.advanceTimersByTime(299); // Delay not completed yet
+			});
 
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 			await event.unhover(element);
+			await act(async () => {
+				jest.advanceTimersByTime(1); // Delay completed
+			});
 
-			// Delay completed
-			jest.advanceTimersByTime(1);
-
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 
 		it('should stay shown if mouse moves over the hover card', async () => {
@@ -312,7 +321,7 @@ export const runCommonHoverCardTests = (
 			const hoverCard = await findByTestId('hover-card');
 			await event.hover(hoverCard);
 
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			expect(queryByTestId('hover-card')).toBeInTheDocument();
 		});
 
 		it('should hide if mouse moves on the hover card and then leaves it', async () => {
@@ -321,9 +330,11 @@ export const runCommonHoverCardTests = (
 			const hoverCard = await findByTestId('hover-card');
 			await event.hover(hoverCard);
 			await event.unhover(hoverCard);
-			jest.runAllTimers();
+			act(() => {
+				jest.runAllTimers();
+			});
 
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 
 		it('should hide the card if a mouse sends multiple mouse over events but leaves the hover area before the delay elapses', async () => {
@@ -331,17 +342,23 @@ export const runCommonHoverCardTests = (
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
-			jest.advanceTimersByTime(100);
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
 			const titleAndIcon = await findByTestId(secondaryChildTestId);
 			await event.hover(titleAndIcon);
-			jest.advanceTimersByTime(199);
+			act(() => {
+				jest.advanceTimersByTime(199);
+			});
 
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
+
 			await event.unhover(element);
+			act(() => {
+				jest.advanceTimersByTime(1);
+			});
 
-			jest.advanceTimersByTime(1);
-
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 
 		it('should show the card in 500ms the card if a mouse sends multiple mouse over events over children', async () => {
@@ -349,7 +366,10 @@ export const runCommonHoverCardTests = (
 				userEventOptions: userEventOptionsWithAdvanceTimers,
 			});
 
-			jest.advanceTimersByTime(300);
+			act(() => {
+				jest.advanceTimersByTime(300);
+			});
+
 			const titleAndIcon = await findByTestId(secondaryChildTestId);
 
 			fireEvent.mouseOver(titleAndIcon);
@@ -360,7 +380,10 @@ export const runCommonHoverCardTests = (
 					cancelable: true,
 				}),
 			);
-			jest.advanceTimersByTime(100);
+
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
 
 			fireEvent.mouseOver(titleAndIcon);
 			fireEvent(
@@ -370,24 +393,27 @@ export const runCommonHoverCardTests = (
 					cancelable: true,
 				}),
 			);
-			jest.advanceTimersByTime(100);
 
-			expect(queryByTestId('hover-card')).not.toBeNull();
+			act(() => {
+				jest.advanceTimersByTime(100);
+			});
+
+			expect(queryByTestId('hover-card')).toBeInTheDocument();
 		});
 
 		it('should hide after pressing escape', async () => {
 			const { queryByTestId, event } = await setup();
 			await event.keyboard('{Escape}');
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 
 		it('should close hover card when a user right clicks on child', async () => {
 			const { element, findByTestId, queryByTestId, event } = await setup();
 
-			expect(await findByTestId('hover-card')).toBeDefined();
+			expect(await findByTestId('hover-card')).toBeInTheDocument();
 			await event.pointer({ keys: '[MouseRight>]', target: element });
 
-			expect(queryByTestId('hover-card')).toBeNull();
+			expect(queryByTestId('hover-card')).not.toBeInTheDocument();
 		});
 	});
 
@@ -416,8 +442,8 @@ export const runCommonHoverCardTests = (
 		it('should not render smartlinks actions if disabled', async () => {
 			const { queryByTestId } = await setup();
 
-			expect(queryByTestId('download-content')).toBeNull();
-			expect(queryByTestId('preview-content')).toBeNull();
+			expect(queryByTestId('download-content')).not.toBeInTheDocument();
+			expect(queryByTestId('preview-content')).not.toBeInTheDocument();
 		});
 
 		it('should not render client actions that are excluded', async () => {
@@ -427,7 +453,7 @@ export const runCommonHoverCardTests = (
 				},
 			});
 
-			expect(queryByTestId('download-content')).toBeNull();
+			expect(queryByTestId('download-content')).not.toBeInTheDocument();
 			expect(queryByTestId('preview-content')).toBeDefined();
 		});
 
@@ -438,8 +464,7 @@ export const runCommonHoverCardTests = (
 					const { findByTestId, queryByTestId, event } = await setup();
 
 					const previewButton = await findByTestId('smart-action-preview-action');
-					event.click(previewButton);
-
+					await event.click(previewButton);
 					const previewModal = await findByTestId('smart-embed-preview-modal');
 					expect(previewModal).toBeInTheDocument();
 
@@ -451,16 +476,16 @@ export const runCommonHoverCardTests = (
 				async () => {
 					const { findByTestId, queryByTestId, event } = await setup();
 					const previewButton = await findByTestId('preview-content');
-					event.click(previewButton);
+					await event.click(previewButton);
 					const previewModal = await findByTestId('smart-embed-preview-modal');
 
-					expect(previewModal).toBeTruthy();
+					expect(previewModal).toBeInTheDocument();
 
 					const icon = await findByTestId('block-card-icon');
-					expect(icon).toBeTruthy();
+					expect(icon).toBeInTheDocument();
 
 					const hoverCard = queryByTestId('hover-card');
-					expect(hoverCard).toBeNull();
+					expect(hoverCard).not.toBeInTheDocument();
 				},
 			);
 		});

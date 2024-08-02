@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.10.0
+
+### Minor Changes
+
+- [#126478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126478)
+  [`ca1665ebbfe4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca1665ebbfe4d) -
+  [ED-23435] Store primary toolbar component registry in a plugin variable instead of in plugin
+  state to avoid having to add effects to all plugins and enable SSR for the toolbar. [Breaking
+  change] Converted registerComponent from the primary toolbar plugin into an action.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.9.3
+
+### Patch Changes
+
+- [#125082](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125082)
+  [`ba605ab4da0e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba605ab4da0e1) -
+  [ED-23977] This change cleans up the use of the feature flag
+  'platform.editor.a11y-main-toolbar-navigation_osrty'.
+- Updated dependencies
+
 ## 1.9.2
 
 ### Patch Changes

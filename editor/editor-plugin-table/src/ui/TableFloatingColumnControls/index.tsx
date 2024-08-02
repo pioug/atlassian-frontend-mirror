@@ -113,7 +113,7 @@ export const TableFloatingColumnControls = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={
 				ClassName.DRAG_COLUMN_CONTROLS_WRAPPER +
-				(isChromelessEditor ? ' ' + ClassName.DRAG_CONTROLS_CHROMELESS : '')
+				(isChromelessEditor ? ' ' + ClassName.TABLE_CHROMELESS : '')
 			}
 			data-testid="table-floating-column-controls-wrapper"
 		>

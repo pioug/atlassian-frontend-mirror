@@ -9,10 +9,12 @@ import {
 import { KeyboardEventWithKeyCode, fakeMediaClient, asMock } from '@atlaskit/media-test-helpers';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
-import { MediaViewer, MediaViewerComponent } from '../../../media-viewer';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { MediaViewer } from '../../../media-viewer';
 import { CloseButtonWrapper, SidebarWrapper, Blanket } from '../../../styleWrappers';
 import Header from '../../../header';
-import { List } from '../../../list';
 import { type MediaViewerProps, type MediaViewerExtensions } from '../../../components/types';
 function createFixture(
 	items: Identifier[],
@@ -38,7 +40,32 @@ function createFixture(
 	return { subject, el, onClose, onEvent };
 }
 
+function createFixtureRTL(
+	items: Identifier[],
+	identifier: Identifier,
+	overrides?: Partial<MediaViewerProps>,
+) {
+	const subject = createMediaSubject();
+	const mediaClient = fakeMediaClient();
+	asMock(mediaClient.file.getFileState).mockReturnValue(createMediaSubscribable());
+	const onClose = jest.fn();
+	const onEvent = jest.fn();
+	const el = render(
+		<AnalyticsListener channel="media" onEvent={onEvent}>
+			<MediaViewer
+				selectedItem={identifier}
+				items={items}
+				mediaClient={mediaClient}
+				onClose={onClose}
+				{...overrides}
+			/>
+		</AnalyticsListener>,
+	);
+	return { subject, el, onClose, onEvent };
+}
+
 describe('<MediaViewer />', () => {
+	const user = userEvent.setup();
 	const identifier: Identifier = {
 		id: 'some-id',
 		occurrenceKey: 'some-custom-occurrence-key',
@@ -121,13 +148,7 @@ describe('<MediaViewer />', () => {
 	});
 
 	describe('Sidebar integration', () => {
-		function MySidebarContent(props: any) {
-			return <div />;
-		}
-
-		const mockSidebarRenderer = jest
-			.fn()
-			.mockImplementation((identifier) => <MySidebarContent identifier={identifier} />);
+		const mockSidebarRenderer = jest.fn().mockImplementation(() => <div>Sidebar Content</div>);
 
 		const extensions: MediaViewerExtensions = {
 			sidebar: {
@@ -143,64 +164,42 @@ describe('<MediaViewer />', () => {
 				expect(el.find(SidebarWrapper).exists()).toBe(false);
 			});
 
-			it('should render sidebar with selected identifier in state', () => {
-				const { el } = createFixture(items, identifier, { extensions });
-				el.find(MediaViewerComponent).setState({
-					isSidebarVisible: true,
-					selectedIdentifier: identifier2,
-				});
-				expect(el.find(SidebarWrapper).exists()).toBe(true);
-				expect(mockSidebarRenderer).toHaveBeenCalledWith(identifier2, {
+			it('should render sidebar with selected identifier in state', async () => {
+				createFixtureRTL(items, identifier, { extensions, selectedItem: identifier2 });
+				const sidebarButton = screen.getByLabelText('sidebar');
+				await user.click(sidebarButton);
+				expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
+				expect(mockSidebarRenderer).toHaveBeenLastCalledWith(identifier2, {
 					close: expect.any(Function),
 				});
 			});
 
-			it('should render sidebar with default selected identifier if not set in state', () => {
-				const { el } = createFixture(items, identifier, { extensions });
-				el.find(MediaViewerComponent).setState({
-					isSidebarVisible: true,
-				});
-				expect(el.find(SidebarWrapper).exists()).toBe(true);
-				expect(mockSidebarRenderer).toHaveBeenCalledWith(identifier, {
+			it('should render sidebar with default selected identifier if not set in state', async () => {
+				createFixtureRTL(items, identifier, { extensions });
+				const sidebarButton = screen.getByLabelText('sidebar');
+				await user.click(sidebarButton);
+				expect(screen.queryByText('Sidebar Content')).toBeInTheDocument();
+				expect(mockSidebarRenderer).toHaveBeenLastCalledWith(identifier, {
 					close: expect.any(Function),
 				});
 			});
 
-			it('should not show sidebar if extensions prop is not defined', () => {
-				const { el } = createFixture(items, identifier, {
+			it('should not show sidebar if extensions prop is not defined', async () => {
+				createFixtureRTL(items, identifier, {
 					extensions: undefined,
+					selectedItem: identifier2,
 				});
-				el.find(MediaViewerComponent).setState({
-					isSidebarVisible: true,
-					selectedIdentifier: identifier2,
-				});
-				expect(el.find(SidebarWrapper).exists()).toBe(false);
+
+				expect(screen.queryByText('sidebar')).not.toBeInTheDocument();
 			});
 
 			it('should not show sidebar if sidebarRenderer is not defined within the extensions prop', () => {
-				const { el } = createFixture(items, identifier, { extensions: {} });
-				el.find(MediaViewerComponent).setState({
-					isSidebarVisible: true,
-					selectedIdentifier: identifier2,
+				createFixtureRTL(items, identifier, {
+					extensions: {},
+					selectedItem: identifier2,
 				});
-				expect(el.find(SidebarWrapper).exists()).toBe(false);
-			});
-		});
 
-		describe('toggling visibility', () => {
-			it('should show sidebar if sidebar is currently not visible', () => {
-				const { el } = createFixture(items, identifier, { extensions });
-				el.find(List).prop('onSidebarButtonClick')!();
-				expect(el.find(MediaViewerComponent).state('isSidebarVisible')).toBe(true);
-			});
-
-			it('should hide sidebar if sidebar is currently visible', () => {
-				const { el } = createFixture(items, identifier, { extensions });
-				el.find(MediaViewerComponent).setState({
-					isSidebarVisible: true,
-				});
-				el.find(List).prop('onSidebarButtonClick')!();
-				expect(el.find(MediaViewerComponent).state('isSidebarVisible')).toBe(false);
+				expect(screen.queryByText('sidebar')).not.toBeInTheDocument();
 			});
 		});
 	});

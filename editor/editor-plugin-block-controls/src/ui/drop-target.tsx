@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { type IntlShape } from 'react-intl-next';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -86,11 +87,13 @@ export const DropTarget = ({
 	id,
 	prevNode,
 	nextNode,
+	formatMessage,
 }: {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 	id: number;
 	prevNode?: PMNode;
 	nextNode?: PMNode;
+	formatMessage?: IntlShape['formatMessage'];
 }) => {
 	const ref = useRef(null);
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
@@ -125,11 +128,13 @@ export const DropTarget = ({
 
 				if (activeNode && pos !== undefined) {
 					const { pos: start } = activeNode;
-					api?.core?.actions.execute(api?.blockControls?.commands?.moveNode(start, pos));
+					api?.core?.actions.execute(
+						api?.blockControls?.commands?.moveNode(start, pos, undefined, formatMessage),
+					);
 				}
 			},
 		});
-	}, [id, api]);
+	}, [id, api, formatMessage]);
 
 	const topTargetMarginStyle = useMemo(() => {
 		return getDropTargetPositionStyle(prevNode, nextNode);

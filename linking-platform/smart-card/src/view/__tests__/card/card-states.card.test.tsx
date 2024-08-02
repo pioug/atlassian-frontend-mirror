@@ -38,38 +38,44 @@ describe('smart-card: card states, block', () => {
 
 	describe('render method: withUrl', () => {
 		describe('> state: loading', () => {
+			/**
+			 * Note EDM-10399 React18 Migration: This test is a bit odd as it asserts a loading state (an intermediate state),
+			 * then asserts that the loading state is removed and a mocked function was called.
+			 */
 			it('block: should render loading state initially', async () => {
-				const { getByTestId } = render(
+				const { getByTestId, queryByTestId } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const loadingView = await waitFor(() => getByTestId('block-card-resolving-view'));
-				expect(loadingView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+
+				await waitFor(async () => {
+					expect(getByTestId('block-card-resolving-view')).toBeInTheDocument();
+				});
+
+				await waitFor(() => {
+					expect(queryByTestId('block-card-resolving-view')).not.toBeInTheDocument();
+				});
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 		});
 
 		describe('> state: resolved', () => {
 			it('block: should render with metadata when resolved', async () => {
-				const { getByText } = render(
+				const { findByText } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
-				const resolvedViewDescription = await waitFor(() =>
-					getByText('Here is your serving of cheese: 🧀'),
-				);
-				expect(resolvedViewName).toBeTruthy();
-				expect(resolvedViewDescription).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				const resolvedViewName = await findByText('I love cheese');
+				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewDescription).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
@@ -80,38 +86,33 @@ describe('smart-card: card states, block', () => {
 			});
 
 			it('block: should render with metadata when resolved and call onResolve if provided', async () => {
-				const { getByText } = render(
+				const { findByText } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} onResolve={mockOnResolve} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
-				const resolvedViewDescription = await waitFor(() =>
-					getByText('Here is your serving of cheese: 🧀'),
-				);
-				expect(resolvedViewName).toBeTruthy();
-				expect(resolvedViewDescription).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
-				expect(mockOnResolve).toBeCalled();
-				expect(mockOnResolve).toBeCalledTimes(1);
+				const resolvedViewName = await findByText('I love cheese');
+				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewDescription).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+				expect(mockOnResolve).toHaveBeenCalledTimes(1);
 			});
 
 			it('should re-render when URL changes', async () => {
 				let resolvedView = null;
-				const { getByText, rerender } = render(
+				const { findByText, rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(resolvedView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				resolvedView = await findByText('I love cheese');
+				expect(resolvedView).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				rerender(
 					<IntlProvider locale="en">
@@ -120,24 +121,22 @@ describe('smart-card: card states, block', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(2);
+				resolvedView = await findByText('I love cheese');
+				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
 				let resolvedView = null;
-				const { getByText, rerender } = render(
+				const { findByText, rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(resolvedView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				resolvedView = await findByText('I love cheese');
+				expect(resolvedView).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				rerender(
 					<IntlProvider locale="en">
@@ -146,9 +145,8 @@ describe('smart-card: card states, block', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				resolvedView = await findByText('I love cheese');
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 		});
 
@@ -156,20 +154,19 @@ describe('smart-card: card states, block', () => {
 			describe('with auth services available', () => {
 				it('block: renders the forbidden view if no access, with auth prompt', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					const { getByText, getByTestId, container } = render(
+					const { findByText, findByTestId, container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('block-card-forbidden-view'));
-					expect(frame).toBeTruthy();
-					const forbiddenLink = await waitFor(() => getByText(mockUrl));
-					expect(forbiddenLink).toBeTruthy();
+					const frame = await findByTestId('block-card-forbidden-view');
+					expect(frame).toBeInTheDocument();
+					const forbiddenLink = await findByText(mockUrl);
+					expect(forbiddenLink).toBeInTheDocument();
 					const forbiddenLinkButton = container.querySelector('button');
-					expect(forbiddenLinkButton).toBeTruthy();
+					expect(forbiddenLinkButton).toBeInTheDocument();
 					expect(forbiddenLinkButton!.textContent).toContain('Try another account');
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'forbidden',
@@ -180,19 +177,18 @@ describe('smart-card: card states, block', () => {
 			describe('with no auth services available', () => {
 				it('block: renders the forbidden view if no access, no auth prompt', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.forbiddenWithNoAuth);
-					const { getByText, getByTestId, container } = render(
+					const { findByText, findByTestId, container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('block-card-forbidden-view'));
-					expect(frame).toBeTruthy();
-					const forbiddenLink = await waitFor(() => getByText(mockUrl));
+					const frame = await findByTestId('block-card-forbidden-view');
+					expect(frame).toBeInTheDocument();
+					const forbiddenLink = await findByText(mockUrl);
 					const forbiddenLinkButton = container.querySelector('button');
-					expect(forbiddenLink).toBeTruthy();
-					expect(forbiddenLinkButton).toBeFalsy();
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(forbiddenLink).toBeInTheDocument();
+					expect(forbiddenLinkButton).not.toBeInTheDocument();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'forbidden',
@@ -205,20 +201,19 @@ describe('smart-card: card states, block', () => {
 			describe('with auth services available', () => {
 				it('block: renders with connect flow', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { getByText, getByTestId } = render(
+					const { findByText, getByTestId, findByTestId } = render(
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('block-card-unauthorized-view'));
-					expect(frame).toBeTruthy();
-					const unauthorizedLink = await waitFor(() => getByText(mockUrl));
-					expect(unauthorizedLink).toBeTruthy();
+					const frame = await findByTestId('block-card-unauthorized-view');
+					expect(frame).toBeInTheDocument();
+					const unauthorizedLink = await findByText(mockUrl);
+					expect(unauthorizedLink).toBeInTheDocument();
 					const unauthorizedLinkButton = getByTestId('button-connect-account');
-					expect(unauthorizedLinkButton).toBeTruthy();
+					expect(unauthorizedLinkButton).toBeInTheDocument();
 					expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'unauthorized',
@@ -229,19 +224,18 @@ describe('smart-card: card states, block', () => {
 			describe('with auth services not available', () => {
 				it('block: renders without connect flow', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorizedWithNoAuth);
-					const { getByText, getByTestId, container } = render(
+					const { findByText, findByTestId, container } = render(
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('block-card-unauthorized-view'));
-					expect(frame).toBeTruthy();
-					const unauthorizedLink = await waitFor(() => getByText(mockUrl));
+					const frame = await findByTestId('block-card-unauthorized-view');
+					expect(frame).toBeInTheDocument();
+					const unauthorizedLink = await findByText(mockUrl);
 					const unauthorizedLinkButton = container.querySelector('button');
-					expect(unauthorizedLink).toBeTruthy();
-					expect(unauthorizedLinkButton).toBeFalsy();
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(unauthorizedLink).toBeInTheDocument();
+					expect(unauthorizedLinkButton).not.toBeInTheDocument();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'unauthorized',
@@ -252,7 +246,7 @@ describe('smart-card: card states, block', () => {
 			describe('with authFlow explicitly disabled', () => {
 				it('block: renders as blue link', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { getByTestId } = render(
+					const { findByTestId } = render(
 						<Provider client={mockClient} authFlow="disabled">
 							<Card
 								testId="disabled-authFlow-card"
@@ -262,10 +256,9 @@ describe('smart-card: card states, block', () => {
 							/>
 						</Provider>,
 					);
-					const dumbLink = await waitFor(() => getByTestId('disabled-authFlow-card-fallback'));
-					expect(dumbLink).toBeTruthy();
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					const dumbLink = await findByTestId('disabled-authFlow-card-fallback');
+					expect(dumbLink).toBeInTheDocument();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'fallback',
@@ -285,10 +278,9 @@ describe('smart-card: card states, block', () => {
 				const frame = await findByTestId('block-card-errored-view');
 				const link = await findByText(mockUrl);
 
-				expect(frame).toBeTruthy();
-				expect(link).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(frame).toBeInTheDocument();
+				expect(link).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'errored',
@@ -297,17 +289,16 @@ describe('smart-card: card states, block', () => {
 
 			it('block: renders not found card when link not found', async () => {
 				mockFetch.mockImplementationOnce(async () => mocks.notFound);
-				const { getByText, getByTestId } = render(
+				const { findByText, findByTestId } = render(
 					<Provider client={mockClient}>
 						<Card appearance="block" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const frame = await waitFor(() => getByTestId('block-card-not-found-view'));
-				expect(frame).toBeTruthy();
-				const link = await waitFor(() => getByText(mockUrl));
-				expect(link).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				const frame = await findByTestId('block-card-not-found-view');
+				expect(frame).toBeInTheDocument();
+				const link = await findByText(mockUrl);
+				expect(link).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'not_found',
@@ -327,7 +318,7 @@ describe('smart-card: card states, block', () => {
 				);
 
 				const link = await findByTestId('block-card-resolved-view');
-				expect(link).toBeTruthy();
+				expect(link).toBeInTheDocument();
 			});
 		});
 	});
@@ -336,7 +327,7 @@ describe('smart-card: card states, block', () => {
 		it('fires `link clicked` analytics event when clicked', async () => {
 			window.open = jest.fn();
 			const onEvent = jest.fn();
-			const { getByRole, getByText } = render(
+			const { getByRole, findByText } = render(
 				<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
@@ -345,7 +336,7 @@ describe('smart-card: card states, block', () => {
 					</IntlProvider>
 				</AnalyticsListener>,
 			);
-			await waitFor(() => getByText('I love cheese'));
+			await findByText('I love cheese');
 
 			const link = getByRole('link');
 			fireEvent.click(link);
@@ -380,21 +371,20 @@ describe('smart-card: card states, block', () => {
 	describe('render method: withUrl and new FF', () => {
 		describe('> state: loading', () => {
 			it('block: should render loading state initially', async () => {
-				const { getByTestId } = render(
+				const { findByTestId } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const loadingView = await waitFor(() => getByTestId('smart-block-resolving-view'));
-				expect(loadingView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				const loadingView = await findByTestId('smart-block-resolving-view');
+				expect(loadingView).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it(`block: shouldn't render loading state initially if useLegacyBlockCard passed`, async () => {
-				const { queryByTestId, getByTestId } = render(
+				const { queryByTestId, findByTestId } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} useLegacyBlockCard={true} />
@@ -402,7 +392,7 @@ describe('smart-card: card states, block', () => {
 					</IntlProvider>,
 				);
 
-				const oldLoadingView = await waitFor(() => getByTestId('block-card-resolving-view'));
+				const oldLoadingView = await findByTestId('block-card-resolving-view');
 				expect(oldLoadingView).toBeTruthy();
 
 				const smartLoadingView = await waitFor(() => queryByTestId('smart-block-resolving-view'), {
@@ -414,56 +404,48 @@ describe('smart-card: card states, block', () => {
 
 		describe('> state: resolved', () => {
 			it('block: should render with metadata when resolved', async () => {
-				const { getByText } = render(
+				const { findByText } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
-				const resolvedViewDescription = await waitFor(() =>
-					getByText('Here is your serving of cheese: 🧀'),
-				);
-				expect(resolvedViewName).toBeTruthy();
-				expect(resolvedViewDescription).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				const resolvedViewName = await findByText('I love cheese');
+				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewDescription).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			it('block: should render with metadata when resolved and call onResolve if provided', async () => {
-				const { getByText } = render(
+				const { findByText } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} onResolve={mockOnResolve} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
-				const resolvedViewDescription = await waitFor(() =>
-					getByText('Here is your serving of cheese: 🧀'),
-				);
-				expect(resolvedViewName).toBeTruthy();
-				expect(resolvedViewDescription).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
-				expect(mockOnResolve).toBeCalled();
-				expect(mockOnResolve).toBeCalledTimes(1);
+				const resolvedViewName = await findByText('I love cheese');
+				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewDescription).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+				expect(mockOnResolve).toHaveBeenCalledTimes(1);
 			});
 
 			it('should re-render when URL changes', async () => {
 				let resolvedView = null;
-				const { getByText, rerender } = render(
+				const { findByText, rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(resolvedView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				resolvedView = await findByText('I love cheese');
+				expect(resolvedView).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				rerender(
 					<IntlProvider locale="en">
@@ -472,24 +454,22 @@ describe('smart-card: card states, block', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(2);
+				resolvedView = await findByText('I love cheese');
+				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
 				let resolvedView = null;
-				const { getByText, rerender } = render(
+				const { findByText, rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} />
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(resolvedView).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				resolvedView = await findByText('I love cheese');
+				expect(resolvedView).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 
 				rerender(
 					<IntlProvider locale="en">
@@ -498,9 +478,8 @@ describe('smart-card: card states, block', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await waitFor(() => getByText('I love cheese'));
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				resolvedView = await findByText('I love cheese');
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 
 			describe('server actions', () => {
@@ -565,7 +544,7 @@ describe('smart-card: card states, block', () => {
 					await findByText(resolvedLinkText);
 					const actionElement = await getByTestId(actionElementTestId);
 
-					expect(actionElement).toBeTruthy();
+					expect(actionElement).toBeInTheDocument();
 				});
 
 				it('block: does not render with server actions when showServerActions is false', async () => {
@@ -583,7 +562,7 @@ describe('smart-card: card states, block', () => {
 					await findByText(resolvedLinkText);
 					const actionElement = queryByTestId(actionElementTestId);
 
-					expect(actionElement).toBeTruthy();
+					expect(actionElement).toBeInTheDocument();
 				});
 
 				it('block: does render with server actions when showServerActions is not provided and action options are not hidden', async () => {
@@ -594,7 +573,7 @@ describe('smart-card: card states, block', () => {
 					await findByText(resolvedLinkText);
 					const actionElement = queryByTestId(actionElementTestId);
 
-					expect(actionElement).toBeTruthy();
+					expect(actionElement).toBeInTheDocument();
 				});
 
 				// testing that action options takes precendence over showServerActions
@@ -604,7 +583,7 @@ describe('smart-card: card states, block', () => {
 					await findByText(resolvedLinkText);
 					const actionElement = queryByTestId(actionElementTestId);
 
-					expect(actionElement).toBeTruthy();
+					expect(actionElement).toBeInTheDocument();
 				});
 
 				it('block: renders with server actions and fires click event when showServerActions is true', async () => {
@@ -624,23 +603,20 @@ describe('smart-card: card states, block', () => {
 			describe('with auth services available', () => {
 				it('block: renders the forbidden view if no access, with auth prompt', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					const { getByText, getByTestId } = render(
+					const { findByText, findByTestId } = render(
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('smart-block-forbidden-view'));
-					expect(frame).toBeTruthy();
-					const forbiddenLink = await waitFor(() => getByText('Restricted content'));
-					expect(forbiddenLink).toBeTruthy();
-					const forbiddenLinkButton = await waitFor(() =>
-						getByTestId('smart-action-connect-other-account'),
-					);
-					expect(forbiddenLinkButton).toBeTruthy();
-					expect(forbiddenLinkButton).toBeTruthy();
+					const frame = await findByTestId('smart-block-forbidden-view');
+					expect(frame).toBeInTheDocument();
+					const forbiddenLink = await findByText('Restricted content');
+					expect(forbiddenLink).toBeInTheDocument();
+					const forbiddenLinkButton = await findByTestId('smart-action-connect-other-account');
+					expect(forbiddenLinkButton).toBeInTheDocument();
+					expect(forbiddenLinkButton).toBeInTheDocument();
 					expect(forbiddenLinkButton!.textContent).toContain('Try another account');
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'forbidden',
@@ -651,19 +627,18 @@ describe('smart-card: card states, block', () => {
 			describe('with no auth services available', () => {
 				it('block: renders the forbidden view if no access, no auth prompt', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.forbiddenWithNoAuth);
-					const { getByText, getByTestId, container } = render(
+					const { findByText, findByTestId, container } = render(
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('smart-block-forbidden-view'));
-					expect(frame).toBeTruthy();
-					const forbiddenLink = await waitFor(() => getByText('Restricted content'));
+					const frame = await findByTestId('smart-block-forbidden-view');
+					expect(frame).toBeInTheDocument();
+					const forbiddenLink = await findByText('Restricted content');
 					const forbiddenLinkButton = container.querySelector('button');
-					expect(forbiddenLink).toBeTruthy();
-					expect(forbiddenLinkButton).toBeFalsy();
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(forbiddenLink).toBeInTheDocument();
+					expect(forbiddenLinkButton).not.toBeInTheDocument();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'forbidden',
@@ -791,24 +766,21 @@ describe('smart-card: card states, block', () => {
 			describe('with auth services available', () => {
 				it('block: renders with connect flow', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { getByText, getByTestId } = render(
+					const { findByText, findByTestId } = render(
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
 
-					const frame = await waitFor(() => getByTestId('smart-block-unauthorized-view'));
-					expect(frame).toBeTruthy();
+					const frame = await findByTestId('smart-block-unauthorized-view');
+					expect(frame).toBeInTheDocument();
 
-					const unauthorizedLink = await waitFor(() => getByText(mockUrl));
-					expect(unauthorizedLink).toBeTruthy();
-					const unauthorizedLinkButton = await waitFor(() =>
-						getByTestId('smart-action-connect-account'),
-					);
-					expect(unauthorizedLinkButton).toBeTruthy();
+					const unauthorizedLink = await findByText(mockUrl);
+					expect(unauthorizedLink).toBeInTheDocument();
+					const unauthorizedLinkButton = await findByTestId('smart-action-connect-account');
+					expect(unauthorizedLinkButton).toBeInTheDocument();
 					expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'unauthorized',
@@ -819,19 +791,18 @@ describe('smart-card: card states, block', () => {
 			describe('with auth services not available', () => {
 				it('block: renders without connect flow', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorizedWithNoAuth);
-					const { getByText, getByTestId, container } = render(
+					const { findByText, findByTestId, container } = render(
 						<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const frame = await waitFor(() => getByTestId('smart-block-unauthorized-view'));
-					expect(frame).toBeTruthy();
-					const unauthorizedLink = await waitFor(() => getByText(mockUrl));
+					const frame = await findByTestId('smart-block-unauthorized-view');
+					expect(frame).toBeInTheDocument();
+					const unauthorizedLink = await findByText(mockUrl);
 					const unauthorizedLinkButton = container.querySelector('button');
-					expect(unauthorizedLink).toBeTruthy();
-					expect(unauthorizedLinkButton).toBeFalsy();
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					expect(unauthorizedLink).toBeInTheDocument();
+					expect(unauthorizedLinkButton).not.toBeInTheDocument();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'unauthorized',
@@ -842,15 +813,14 @@ describe('smart-card: card states, block', () => {
 			describe('with authFlow explicitly disabled', () => {
 				it('block: renders as blue link', async () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					const { getByText } = render(
+					const { findByText } = render(
 						<Provider client={mockClient} authFlow="disabled">
 							<Card appearance="block" url={mockUrl} onError={mockOnError} />
 						</Provider>,
 					);
-					const dumbLink = await waitFor(() => getByText(mockUrl));
-					expect(dumbLink).toBeTruthy();
-					expect(mockFetch).toBeCalled();
-					expect(mockFetch).toBeCalledTimes(1);
+					const dumbLink = await findByText(mockUrl);
+					expect(dumbLink).toBeInTheDocument();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,
 						status: 'fallback',
@@ -870,10 +840,9 @@ describe('smart-card: card states, block', () => {
 				const frame = await findByTestId('smart-block-errored-view');
 				const link = await findByText(mockUrl);
 
-				expect(frame).toBeTruthy();
-				expect(link).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				expect(frame).toBeInTheDocument();
+				expect(link).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'errored',
@@ -885,17 +854,16 @@ describe('smart-card: card states, block', () => {
 					...mocks.notFound,
 					data: { ...mocks.notFound.data, generator: mockGenerator },
 				}));
-				const { getByText, getByTestId } = render(
+				const { findByText, findByTestId } = render(
 					<Provider client={mockClient} featureFlags={{ enableFlexibleBlockCard: true }}>
 						<Card appearance="block" url={mockUrl} onError={mockOnError} />
 					</Provider>,
 				);
-				const frame = await waitFor(() => getByTestId('smart-block-not-found-view'));
-				expect(frame).toBeTruthy();
-				const link = await waitFor(() => getByText("We can't show you this Jira page"));
-				expect(link).toBeTruthy();
-				expect(mockFetch).toBeCalled();
-				expect(mockFetch).toBeCalledTimes(1);
+				const frame = await findByTestId('smart-block-not-found-view');
+				expect(frame).toBeInTheDocument();
+				const link = await findByText("We can't show you this Jira page");
+				expect(link).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
 					status: 'not_found',
@@ -915,7 +883,7 @@ describe('smart-card: card states, block', () => {
 				);
 
 				const link = await findByTestId('block-card-resolved-view');
-				expect(link).toBeTruthy();
+				expect(link).toBeInTheDocument();
 			});
 		});
 	});
@@ -923,19 +891,17 @@ describe('smart-card: card states, block', () => {
 	describe('render method: withData', () => {
 		describe('> state: resolved', () => {
 			it('block: renders successfully with data', async () => {
-				const { getByText } = render(
+				const { findByText } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} data={mocks.success.data} />
 						</Provider>
 					</IntlProvider>,
 				);
-				const resolvedViewName = await waitFor(() => getByText('I love cheese'));
-				const resolvedViewDescription = await waitFor(() =>
-					getByText('Here is your serving of cheese: 🧀'),
-				);
-				expect(resolvedViewName).toBeTruthy();
-				expect(resolvedViewDescription).toBeTruthy();
+				const resolvedViewName = await findByText('I love cheese');
+				const resolvedViewDescription = await findByText('Here is your serving of cheese: 🧀');
+				expect(resolvedViewName).toBeInTheDocument();
+				expect(resolvedViewDescription).toBeInTheDocument();
 			});
 		});
 	});

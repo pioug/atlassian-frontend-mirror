@@ -20,7 +20,6 @@ import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
-import { act } from '@testing-library/react';
 
 mockSimpleIntersectionObserver();
 
@@ -82,7 +81,7 @@ describe('smart-card: success analytics', () => {
 				expect(resolvedView).toBeTruthy();
 				expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
 					display: 'embed',
 					status: 'resolved',
 					definitionId: 'd1',
@@ -94,11 +93,14 @@ describe('smart-card: success analytics', () => {
 				fireEvent.load(resolvedViewFrame);
 				fireEvent.mouseEnter(resolvedViewFrame);
 				expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(0);
-				act(() => {
-					jest.advanceTimersByTime(6000);
-				});
-				expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiIframeDwelledEvent).toBeCalledWith({
+				await waitFor(
+					async () => {
+						expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(1);
+					},
+					{ timeout: 6000 }, // EDM-10399 Simulate the dwell time
+				);
+
+				expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledWith({
 					definitionId: 'd1',
 					destinationProduct: undefined,
 					destinationSubproduct: undefined,
@@ -128,7 +130,7 @@ describe('smart-card: success analytics', () => {
 			expect(resolvedCard).toBeTruthy();
 			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
 				display: 'inline',
 				status: 'resolved',
 				definitionId: 'd1',
@@ -136,8 +138,8 @@ describe('smart-card: success analytics', () => {
 				canBeDatasource: false,
 			});
 
-			expect(mockStartUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1');
-			expect(mockSucceedUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1', {
+			expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+			expect(mockSucceedUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1', {
 				display: 'inline',
 				extensionKey: 'object-provider',
 			});
@@ -355,9 +357,9 @@ describe('smart-card: success analytics', () => {
 			});
 			expect(onError).toHaveBeenCalledTimes(1);
 
-			expect(mockStartUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1');
-			expect(mockFailUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1');
-			expect(mockFailUfoExperience).toBeCalledWith('smart-link-authenticated', 'some-uuid-1');
+			expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+			expect(mockFailUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+			expect(mockFailUfoExperience).toHaveBeenCalledWith('smart-link-authenticated', 'some-uuid-1');
 			expect(mockStartUfoExperience).toHaveBeenCalledBefore(mockFailUfoExperience as jest.Mock);
 
 			spy.mockRestore();
@@ -404,11 +406,11 @@ describe('smart-card: success analytics', () => {
 				mockClient = new (fakeFactory(mockFetch, mockPostData))();
 			});
 
-			it.each([
-				['inline' as CardAppearance, 'resolvedCard1-resolved-view'],
-				['block' as CardAppearance, 'resolvedCard1'],
-				['embed' as CardAppearance, 'resolvedCard1'],
-			])(
+			it.each<[CardAppearance, string]>([
+				['inline', 'resolvedCard1-resolved-view'],
+				['block', 'resolvedCard1'],
+				['embed', 'resolvedCard1'],
+			] satisfies Array<[CardAppearance, string]>)(
 				'should fire the renderSuccess analytics event with canBeDatasource = true when the url was resolved and display is %s',
 				async (appearance, testId) => {
 					const mockUrl = 'https://this.is.the.sixth.url';
@@ -421,8 +423,11 @@ describe('smart-card: success analytics', () => {
 					);
 					const resolvedView = await findByTestId(testId);
 					expect(resolvedView).toBeTruthy();
-					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiRenderSuccessEvent).toBeCalledWith({
+					await waitFor(() => {
+						// EDM-10399 Some React operations must be completed before this check can be made
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+					});
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
 						display: appearance,
 						status: 'resolved',
 						definitionId: 'd1',

@@ -25,8 +25,6 @@ export type PluginsOptions = {
 	 * The selection toolbar is a floating toolbar that is displayed for
 	 * range selections when any plugins return a selection toolbar group with
 	 * items.
-	 * @private
-	 * @deprecated Do not use this plugin option, it is for AI purposes only and will be removed soon.
 	 */
 	selectionToolbar?: SelectionToolbarHandler;
 	/**

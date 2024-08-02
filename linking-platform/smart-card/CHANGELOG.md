@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 27.12.1
+
+### Patch Changes
+
+- [#126553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126553)
+  [`a8d7e60d3b69d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8d7e60d3b69d) -
+  Updated internals following bump of @atlaskit/icon bump
+- Updated dependencies
+
+## 27.12.0
+
+### Minor Changes
+
+- [#125731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125731)
+  [`25f65295f4775`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25f65295f4775) -
+  Add React 18 to peer dependencies
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.11.1
 
 ### Patch Changes

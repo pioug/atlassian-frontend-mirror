@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.9.2
+
+### Patch Changes
+
+- [#125082](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125082)
+  [`ba605ab4da0e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba605ab4da0e1) -
+  [ED-23977] This change cleans up the use of the feature flag
+  'platform.editor.a11y-main-toolbar-navigation_osrty'.
+- Updated dependencies
+
 ## 1.9.1
 
 ### Patch Changes

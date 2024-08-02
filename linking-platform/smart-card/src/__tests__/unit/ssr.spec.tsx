@@ -7,12 +7,19 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import { CardSSR, type CardSSRProps } from '../../ssr';
 import { Provider, Client } from '../..';
-import * as CardWithUrlContent from '../../view/CardWithUrl/component';
+import { CardWithUrlContent } from '../../view/CardWithUrl/component';
 import { ANALYTICS_CHANNEL, context } from '../../utils/analytics';
 
-const cardMock = jest.spyOn(CardWithUrlContent, 'CardWithUrlContent');
+jest.mock('../../view/CardWithUrl/component', () => {
+	const originalModule = jest.requireActual('../../view/CardWithUrl/component');
+	return {
+		...originalModule,
+		CardWithUrlContent: jest.fn((props) => <originalModule.CardWithUrlContent {...props} />),
+	};
+});
 
 describe('<CardSSR />', () => {
+	const cardWithUrlContentMock = jest.mocked(CardWithUrlContent);
 	const cardProps: CardSSRProps = {
 		appearance: 'inline',
 		url,
@@ -40,6 +47,11 @@ describe('<CardSSR />', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		// Reset the implementation
+		const originalModule = jest.requireActual('../../view/CardWithUrl/component');
+		cardWithUrlContentMock.mockImplementation((props) => (
+			<originalModule.CardWithUrlContent {...props} />
+		));
 	});
 
 	it('should render CardWithUrlContent with provided props', async () => {
@@ -50,12 +62,12 @@ describe('<CardSSR />', () => {
 	});
 
 	it('should render error fallback component with correct props', async () => {
-		cardMock.mockImplementationOnce(() => {
+		cardWithUrlContentMock.mockImplementation(() => {
 			throw new Error();
 		});
+
 		setup();
-		const fallbackComponent = await screen.findByTestId('lazy-render-placeholder');
-		expect(fallbackComponent).toBeVisible();
+		expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
 	});
 
 	describe('props', () => {
@@ -66,13 +78,16 @@ describe('<CardSSR />', () => {
 				id,
 			});
 
-			expect(cardMock).toHaveBeenCalledWith(expect.objectContaining({ id }), expect.anything());
+			expect(cardWithUrlContentMock).toHaveBeenCalledWith(
+				expect.objectContaining({ id }),
+				expect.anything(),
+			);
 		});
 
 		it('should provide random uuid for id prop if there is not one provided', () => {
 			setup();
 
-			expect(cardMock).toHaveBeenCalledWith(
+			expect(cardWithUrlContentMock).toHaveBeenCalledWith(
 				expect.objectContaining({ id: expect.any(String) }),
 				expect.anything(),
 			);
@@ -96,6 +111,7 @@ describe('<CardSSR />', () => {
 
 		it('should fire link clicked event with attributes from SmartLinkAnalyticsContext', async () => {
 			const { spy } = setup({ id: 'some-id' });
+
 			const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
 
 			fireEvent.click(resolvedCard);

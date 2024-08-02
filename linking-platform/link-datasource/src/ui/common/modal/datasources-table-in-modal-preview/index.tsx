@@ -25,6 +25,7 @@ const Table = (props: DatasourcesTableProps) => {
 			status,
 			onNextPage,
 			responseItems,
+			responseItemIds,
 			hasNextPage,
 			columns,
 			defaultVisibleColumnKeys,
@@ -48,6 +49,7 @@ const Table = (props: DatasourcesTableProps) => {
 			status={status}
 			columns={columns}
 			items={responseItems}
+			itemIds={responseItemIds}
 			hasNextPage={hasNextPage}
 			visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
 			onNextPage={handleOnNextPage}

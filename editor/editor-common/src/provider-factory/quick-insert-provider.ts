@@ -15,6 +15,7 @@ export type QuickInsertItemId =
 	| 'helpdialog'
 	| 'date'
 	| 'media'
+	| 'media-insert'
 	| 'blockquote'
 	| 'heading1'
 	| 'heading2'

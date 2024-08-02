@@ -88,12 +88,23 @@ const setup = (
 	const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } = stateOverride;
 
 	const mockReset = jest.fn();
+	const mockResponseItems = responseItems || [
+		{
+			myColumn: {
+				data: 'some-value',
+			},
+			id: {
+				data: 'some-id1',
+			},
+		},
+	];
 	asMock(useDatasourceTableState).mockReturnValue({
 		reset: mockReset,
 		status: 'resolved',
 		onNextPage: jest.fn(),
 		loadDatasourceDetails: jest.fn(),
 		hasNextPage: false,
+		responseItemIds: mockResponseItems.map((item) => item.id?.data),
 		responseItems: responseItems || [
 			{
 				myColumn: {
@@ -156,22 +167,24 @@ const setupAssetsTable = (
 	const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } = stateOverride;
 
 	const mockReset = jest.fn();
+	const mockResponseItems = responseItems || [
+		{
+			myColumn: {
+				data: 'some-value',
+			},
+			id: {
+				data: 'some-id1',
+			},
+		},
+	];
 	asMock(useDatasourceTableState).mockReturnValue({
 		reset: mockReset,
 		status: 'resolved',
 		onNextPage: jest.fn(),
 		loadDatasourceDetails: jest.fn(),
 		hasNextPage: false,
-		responseItems: responseItems || [
-			{
-				myColumn: {
-					data: 'some-value',
-				},
-				id: {
-					data: 'some-id1',
-				},
-			},
-		],
+		responseItemIds: mockResponseItems.map((item) => item.id?.data),
+		responseItems: mockResponseItems,
 		totalCount: responseItems?.length || 2,
 		columns: [
 			{ key: 'myColumn', title: 'My Column', type: 'string' },

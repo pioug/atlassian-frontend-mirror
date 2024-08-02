@@ -1,5 +1,20 @@
 # @atlaskit/media-filmstrip
 
+## 47.1.0
+
+### Minor Changes
+
+- [#125103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125103)
+  [`49e04e4b4c2ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49e04e4b4c2ec) -
+  update @atlaskit/media-filmstrip to support React 18
+
+### Patch Changes
+
+- [#125973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125973)
+  [`e910e85bc9e20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e910e85bc9e20) -
+  add missing runReact18 flag in package.json
+- Updated dependencies
+
 ## 47.0.23
 
 ### Patch Changes

@@ -50,14 +50,14 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.8.0",
+		"@atlaskit/icon": "^22.10.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@af/icon-build-process": "^1.1.0",
+		"@af/icon-build-process": "^2.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"enzyme": "^3.10.0",

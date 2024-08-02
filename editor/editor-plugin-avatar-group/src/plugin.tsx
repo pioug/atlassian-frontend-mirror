@@ -64,20 +64,15 @@ export const avatarGroupPlugin: AvatarGroupPlugin = ({ config: props, api }) => 
 			/>
 		);
 	};
+	if (props.showAvatarGroup) {
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'avatarGroup',
+			component: primaryToolbarComponent,
+		});
+	}
 
 	return {
 		name: 'avatarGroup',
-
-		usePluginHook: () => {
-			if (props.showAvatarGroup) {
-				api?.core?.actions.execute(
-					api?.primaryToolbar?.commands.registerComponent({
-						name: 'avatarGroup',
-						component: primaryToolbarComponent,
-					}),
-				);
-			}
-		},
 
 		primaryToolbarComponent:
 			!api?.primaryToolbar && props.showAvatarGroup ? primaryToolbarComponent : undefined,

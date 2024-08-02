@@ -21,10 +21,6 @@ export {
 	RIGHT_SIDEBAR_WIDTH,
 } from './common/constants';
 
-export {
-	usePageLayoutResize,
-	useLeftSidebarFlyoutLock,
-	UNSAFE_useSetLeftSidebarState,
-} from './controllers';
+export { usePageLayoutResize, useLeftSidebarFlyoutLock } from './controllers';
 
 export type { SlotHeightProps, SlotWidthProps, Dimensions, LeftSidebarState } from './common/types';

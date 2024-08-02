@@ -1,5 +1,14 @@
 # @atlaskit/link-client-extension
 
+## 1.11.0
+
+### Minor Changes
+
+- [#122437](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122437)
+  [`a5e13bc24add8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5e13bc24add8) -
+  Adds the executeAtomicAction function to forward a request to actions service and execute it in
+  useDatasourceClientExtension
+
 ## 1.10.0
 
 ### Minor Changes

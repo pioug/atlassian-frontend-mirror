@@ -21,6 +21,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
+import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
 	TABLE_MAX_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
@@ -455,12 +456,17 @@ export const TableContainer = ({
 		);
 	}
 
+	const { isDragAndDropEnabled } = getPluginState(editorView.state);
+
 	return (
 		<InnerContainer
 			node={node}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={classNames(className, {
-				'less-padding': editorWidth < akEditorMobileBreakoutPoint && !isNested,
+				'less-padding':
+					editorWidth < akEditorMobileBreakoutPoint &&
+					!isNested &&
+					!(isChromelessEditor && isDragAndDropEnabled),
 			})}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

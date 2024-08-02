@@ -1,5 +1,13 @@
 # @atlaskit/analytics-next
 
+## 9.3.4
+
+### Patch Changes
+
+- [#126024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126024)
+  [`1dd14118edb5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1dd14118edb5c) -
+  Fixing event bubbling difference between Modern and Legacy context
+
 ## 9.3.3
 
 ### Patch Changes

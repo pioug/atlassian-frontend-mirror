@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.10.2
+
+### Patch Changes
+
+- [`63d659eb3e73d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63d659eb3e73d) -
+  ED-24315 improve a11y for block controls
+
+## 1.10.1
+
+### Patch Changes
+
+- [#125984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125984)
+  [`167a210dfd672`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/167a210dfd672) -
+  [ux] Update shortcuts for element dnd
+- [#125542](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125542)
+  [`06bc2f65f892e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06bc2f65f892e) -
+  ED-24304 resolve range error issue
+- Updated dependencies
+
 ## 1.10.0
 
 ### Minor Changes

@@ -18,6 +18,9 @@
   ],
   "references": [
     {
+      "path": "../../../design-system/button/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/heading/afm-jira/tsconfig.json"
     },
     {
@@ -25,6 +28,9 @@
     },
     {
       "path": "../../../design-system/logo/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/primitives/afm-jira/tsconfig.json"

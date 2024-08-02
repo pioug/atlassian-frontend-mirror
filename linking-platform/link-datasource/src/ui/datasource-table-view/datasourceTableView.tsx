@@ -56,6 +56,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 		status,
 		onNextPage,
 		responseItems,
+		responseItemIds,
 		hasNextPage,
 		columns,
 		defaultVisibleColumnKeys,
@@ -195,6 +196,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 						testId={'datasource-table-view'}
 						hasNextPage={hasNextPage}
 						items={responseItems}
+						itemIds={responseItemIds}
 						onNextPage={onNextPage}
 						onLoadDatasourceDetails={loadDatasourceDetails}
 						status={status}

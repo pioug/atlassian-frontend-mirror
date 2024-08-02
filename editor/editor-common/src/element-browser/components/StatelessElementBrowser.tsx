@@ -10,6 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext, withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../analytics';
@@ -17,6 +18,7 @@ import type { QuickInsertItem } from '../../provider-factory';
 import type { EmptyStateHandler } from '../../types';
 import {
 	DEVICE_BREAKPOINT_NUMBERS,
+	ELEMENT_BROWSER_ID,
 	GRID_SIZE,
 	INLINE_SIDEBAR_HEIGHT,
 	SIDEBAR_HEADING_WRAPPER_HEIGHT,
@@ -267,7 +269,11 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	);
 
 	return (
-		<div css={wrapper} data-testid="element-browser">
+		<div
+			css={wrapper}
+			data-testid="element-browser"
+			id={fg('editor-fix-esc-main-toolbar-navigation') ? ELEMENT_BROWSER_ID : undefined}
+		>
 			<ContainerWidthMonitor />
 			{containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
 				<MobileBrowser

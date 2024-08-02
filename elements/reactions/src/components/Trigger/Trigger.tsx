@@ -40,6 +40,10 @@ export interface TriggerProps {
 	 * Aria accessibility attributes that will be added to the button
 	 */
 	ariaAttributes?: AriaAttributes;
+	/**
+	 * Optional prop for using an opaque button background instead of a transparent background
+	 */
+	showOpaqueBackground?: boolean;
 }
 
 const triggerStyles = xcss({
@@ -55,7 +59,7 @@ const triggerStyles = xcss({
 	lineHeight: '16px',
 });
 
-const enabledTriggerStyles = xcss({
+const transparentEnabledTriggerStyles = xcss({
 	borderColor: 'color.border',
 	backgroundColor: 'color.background.neutral.subtle',
 
@@ -64,6 +68,17 @@ const enabledTriggerStyles = xcss({
 	},
 	':active': {
 		backgroundColor: 'color.background.neutral.subtle.pressed',
+	},
+});
+
+const opaqueEnabledTriggerStyles = xcss({
+	borderColor: 'color.border',
+	backgroundColor: 'elevation.surface',
+	':hover': {
+		backgroundColor: 'elevation.surface.hovered',
+	},
+	':active': {
+		backgroundColor: 'elevation.surface.pressed',
 	},
 });
 
@@ -84,7 +99,14 @@ const miniModeStyles = xcss({
  */
 export const Trigger = React.forwardRef(
 	(props: TriggerProps, ref: React.Ref<HTMLButtonElement>) => {
-		const { onClick, miniMode, tooltipContent, disabled = false, ariaAttributes = {} } = props;
+		const {
+			onClick,
+			miniMode,
+			tooltipContent,
+			disabled = false,
+			ariaAttributes = {},
+			showOpaqueBackground = false,
+		} = props;
 
 		const handleMouseDown = (
 			e: React.MouseEvent<HTMLElement>,
@@ -101,7 +123,11 @@ export const Trigger = React.forwardRef(
 					testId={RENDER_TRIGGER_BUTTON_TESTID}
 					xcss={[
 						triggerStyles,
-						disabled ? disabledTriggerStyles : enabledTriggerStyles,
+						disabled
+							? disabledTriggerStyles
+							: showOpaqueBackground
+								? opaqueEnabledTriggerStyles
+								: transparentEnabledTriggerStyles,
 						miniMode && miniModeStyles,
 					]}
 					onClick={handleMouseDown}

@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 3.8.0
+
+### Minor Changes
+
+- [#125595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125595)
+  [`91e9255bd7c93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91e9255bd7c93) -
+  Remove deprecated UNSAFE_useSetLeftSidebarState
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.7.0
 
 ### Minor Changes

@@ -215,11 +215,27 @@ export interface SVGProps extends GlyphProps {
  * The migration outcome for a given legacy icon
  */
 type IconMigrationResult = {
+	/**
+	 * The recommended new icon that the legacy icon should be migrated to
+	 */
 	newIcon?: {
-		name?: string;
-		type?: string;
-		package?: string;
+		name: string;
+		type: string;
+		package: string;
 	};
+	/**
+	 * Alternative new icon that the legacy icon can be migrated to
+	 * Primarily used to maintain migration guidance for icons that have since had a
+	 * change to the recommended migration path in "newIcon"
+	 */
+	additionalIcons?: {
+		name: string;
+		type: string;
+		package: string;
+	}[];
+	/**
+	 * For each size the legacy icon can take, the per-size migration guidance
+	 */
 	sizeGuidance: Record<Size, IconMigrationSizeGuidance>;
 };
 export type IconMigrationSizeGuidance =

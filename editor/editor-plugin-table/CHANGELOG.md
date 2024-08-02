@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 7.24.4
+
+### Patch Changes
+
+- [`af28106c0d62b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af28106c0d62b) -
+  ED-24420: Fixed shadow position when dnd is enabled in chromeless editor
+- [#125830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125830)
+  [`0886d04fff5e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0886d04fff5e6) -
+  [ux] Fix bug in dark mode for table header pasted from light mode.
+- [#126024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126024)
+  [`2412502549b2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2412502549b2b) -
+  [ux] When table alignment changed, table should keep its width in Comment Editor.
+- Updated dependencies
+
 ## 7.24.3
 
 ### Patch Changes

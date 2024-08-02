@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.17.1
+
+### Patch Changes
+
+- [#126478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126478)
+  [`94b1c424dffc8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94b1c424dffc8) -
+  Clean up legacy profilecard trigger FF
+
 ## 19.17.0
 
 ### Minor Changes

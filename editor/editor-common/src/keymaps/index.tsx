@@ -289,6 +289,10 @@ export function getAriaKeyshortcuts(keymap: Keymap | string | undefined): string
 						return 'Space';
 					case 'backspace':
 						return 'Backspace';
+					case 'arrowup':
+						return 'Arrow Up';
+					case 'arrowdown':
+						return 'Arrow Down';
 					default:
 						return modifier.split('').join(' ');
 				}

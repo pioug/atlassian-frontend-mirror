@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 3.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.0
+
+### Minor Changes
+
+- [#125851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125851)
+  [`61da51db4b7e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61da51db4b7e5) -
+  [ED-24247] Added editor-plugin-media-insert to editor-plugins
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.13
 
 ### Patch Changes

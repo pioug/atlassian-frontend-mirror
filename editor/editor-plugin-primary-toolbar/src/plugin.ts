@@ -1,26 +1,39 @@
-import { registerComponent } from './commands';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+
+import { registerComponent } from './actions';
 import { createPlugin, primaryToolbarPluginKey } from './pm-plugin';
 import type { PrimaryToolbarPlugin } from './types';
+import Separator from './ui/separator';
 
-export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => ({
-	name: 'primaryToolbar',
+export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => {
+	// We use a plugin variable to store the component registry to avoid having to use
+	// effects in each plugin, and to enable rendering the toolbar in SSR
+	// TODO: Replace this with something in plugin state once we have a way to initialise across plugins on plugin initialisation
+	const componentRegistry = new Map<string, ToolbarUIComponentFactory>();
 
-	commands: {
-		registerComponent,
-	},
+	// Pre-fill registry with the separator component
+	componentRegistry.set('separator', Separator);
 
-	pmPlugins: () => [
-		{
-			name: 'primaryToolbar',
-			plugin: () => createPlugin(),
+	return {
+		name: 'primaryToolbar',
+
+		actions: {
+			registerComponent: registerComponent(componentRegistry),
 		},
-	],
 
-	getSharedState(editorState) {
-		if (!editorState) {
-			return;
-		}
+		pmPlugins: () => [
+			{
+				name: 'primaryToolbar',
+				plugin: () => createPlugin(componentRegistry),
+			},
+		],
 
-		return primaryToolbarPluginKey.getState(editorState);
-	},
-});
+		getSharedState(editorState) {
+			if (!editorState) {
+				return;
+			}
+
+			return primaryToolbarPluginKey.getState(editorState);
+		},
+	};
+};

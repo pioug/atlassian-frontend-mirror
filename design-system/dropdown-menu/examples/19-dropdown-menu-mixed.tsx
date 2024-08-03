@@ -1,0 +1,155 @@
+import React, { type KeyboardEvent, useState } from 'react';
+
+import { PrimaryDropdownButton, useOverflowStatus } from '@atlaskit/atlassian-navigation';
+import Avatar from '@atlaskit/avatar';
+import { Label } from '@atlaskit/form';
+import EditorAddIcon from '@atlaskit/icon/glyph/add';
+import EditorPeopleIcon from '@atlaskit/icon/glyph/people-group';
+import { ButtonItem, HeadingItem, MenuGroup } from '@atlaskit/menu';
+import Popup from '@atlaskit/popup';
+import { type PopupProps } from '@atlaskit/popup/types';
+import { Box, xcss } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
+
+import { DropdownItem } from '../src';
+
+interface SearchDropdownItemProps {
+	setFilteredOptions: React.Dispatch<React.SetStateAction<{ label: string; value: string }[]>>;
+	filteredOptions: { label: string; value: string }[];
+}
+
+const searchOptions = [
+	{ label: 'Option 1', value: 'option1' },
+	{ label: 'Option 2', value: 'option2' },
+	{ label: 'Option 3', value: 'option3' },
+];
+
+const SearchDropdownItem = ({ setFilteredOptions, filteredOptions }: SearchDropdownItemProps) => {
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const searchText = e.target.value.toLowerCase();
+		const filteredItems = searchOptions.filter((option) =>
+			option.label.toLowerCase().includes(searchText),
+		);
+		setFilteredOptions(filteredItems);
+	};
+
+	return (
+		<Box paddingInline="space.200">
+			<Label htmlFor="basic-textfield">Filter menu items</Label>
+			<Textfield onChange={handleSearchChange} name="basic" id="basic-textfield" />
+		</Box>
+	);
+};
+
+type PrimaryDropdownProps = {
+	content: PopupProps['content'];
+	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+	text: string;
+	isHighlighted?: boolean;
+};
+
+const PrimaryDropdown = (props: PrimaryDropdownProps) => {
+	const { content, text, isHighlighted } = props;
+	const { isVisible, closeOverflowMenu } = useOverflowStatus();
+	const [isOpen, setIsOpen] = useState(false);
+	const onDropdownItemClick = () => {
+		console.log(
+			'Programmatically closing the menu, even though the click happens inside the popup menu.',
+		);
+		closeOverflowMenu();
+	};
+
+	if (!isVisible) {
+		return (
+			<ButtonItem testId={text} onClick={onDropdownItemClick}>
+				{text}
+			</ButtonItem>
+		);
+	}
+
+	const onClick = () => {
+		setIsOpen(!isOpen);
+	};
+
+	const onClose = () => {
+		setIsOpen(false);
+	};
+
+	const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+		if (event.key === 'ArrowDown') {
+			setIsOpen(true);
+		}
+	};
+
+	return (
+		<Popup
+			content={content}
+			isOpen={isOpen}
+			onClose={onClose}
+			placement="bottom-start"
+			testId={`${text}-popup`}
+			trigger={(triggerProps) => (
+				<PrimaryDropdownButton
+					onClick={onClick}
+					onKeyDown={onKeyDown}
+					isHighlighted={isHighlighted}
+					isSelected={isOpen}
+					testId={`${text}-popup-trigger`}
+					{...triggerProps}
+				>
+					{text}
+				</PrimaryDropdownButton>
+			)}
+		/>
+	);
+};
+
+const SearchableDropdown = () => {
+	const [filteredOptions, setFilteredOptions] = React.useState(searchOptions);
+	return (
+		<Box>
+			<Box role="menu">
+				{filteredOptions.map((filteredOption) => (
+					<DropdownItem key={filteredOption.value}>{filteredOption.label}</DropdownItem>
+				))}
+			</Box>
+			<SearchDropdownItem
+				filteredOptions={filteredOptions}
+				setFilteredOptions={setFilteredOptions}
+			/>
+		</Box>
+	);
+};
+
+const OptionsContent = () => (
+	<MenuGroup>
+		<Box role="menu" paddingBlock="space.200">
+			<HeadingItem>Teammates</HeadingItem>
+			<DropdownItem elemBefore={<Avatar size="small" />}>Michal</DropdownItem>
+			<DropdownItem elemBefore={<Avatar size="small" />}>Alex</DropdownItem>
+			<DropdownItem elemBefore={<Avatar size="small" />}>Stefana</DropdownItem>
+		</Box>
+		<Box role="menu" paddingBlock="space.200">
+			<HeadingItem>Your collaborators</HeadingItem>
+			<DropdownItem elemAfter={<EditorAddIcon label="" />}>Invite collaborator</DropdownItem>
+			<DropdownItem elemAfter={<EditorPeopleIcon label="" />}>Create team</DropdownItem>
+		</Box>
+		<Box paddingBlock="space.200">
+			<HeadingItem>Filter menu</HeadingItem>
+			<SearchableDropdown />
+		</Box>
+	</MenuGroup>
+);
+
+const jiraItemStyles = xcss({
+	display: 'flex',
+	alignItems: 'flex-start',
+});
+
+const CustomDropdownMenu = () => (
+	<Box xcss={jiraItemStyles} padding="space.200">
+		<PrimaryDropdown content={OptionsContent} text="Mixed item" />
+	</Box>
+);
+
+export default CustomDropdownMenu;

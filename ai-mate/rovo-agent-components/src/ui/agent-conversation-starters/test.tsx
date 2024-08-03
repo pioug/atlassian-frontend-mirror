@@ -15,8 +15,6 @@ import {
 	usePageContextType,
 } from './index';
 
-// is_default: false,
-
 function mockPageLocation(url: string) {
 	// @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
 	delete window.location;

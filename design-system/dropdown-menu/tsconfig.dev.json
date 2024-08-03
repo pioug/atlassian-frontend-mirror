@@ -48,6 +48,9 @@
 			"path": "../app-provider/tsconfig.app.json"
 		},
 		{
+			"path": "../atlassian-navigation/tsconfig.app.json"
+		},
+		{
 			"path": "../avatar/tsconfig.app.json"
 		},
 		{
@@ -91,6 +94,9 @@
 		},
 		{
 			"path": "../section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../textfield/tsconfig.app.json"
 		},
 		{
 			"path": "../toggle/tsconfig.app.json"

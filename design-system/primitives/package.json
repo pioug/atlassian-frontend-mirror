@@ -122,7 +122,7 @@
 		"@atlaskit/css": "^0.3.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/interaction-context": "^2.1.0",
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@atlaskit/visually-hidden": "^1.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

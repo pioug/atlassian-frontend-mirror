@@ -80,7 +80,7 @@
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

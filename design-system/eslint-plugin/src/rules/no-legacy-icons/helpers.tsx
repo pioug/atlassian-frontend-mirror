@@ -8,6 +8,8 @@ import baseMigrationMap, {
 
 import { getImportName } from '../utils/get-import-name';
 
+import { upcomingIcons } from './upcoming-icons';
+
 export type iconMigrationError = Rule.ReportDescriptor;
 
 export type errorsListManual = {
@@ -27,8 +29,24 @@ export const isSize = (size: any): size is Size => sizes.includes(size as Size);
  */
 export const getMigrationMapObject = (iconPackage: string) => {
 	const key = getIconKey(iconPackage);
-	if (key in baseMigrationMap) {
+	if (Object.keys(baseMigrationMap).includes(key)) {
 		return baseMigrationMap[key];
+	}
+	return null;
+};
+
+export const getUpcomingIcons = (iconPackage: string) => {
+	const key = getIconKey(iconPackage);
+	if (upcomingIcons.includes(key)) {
+		const retval: { sizeGuidance: Record<Size, IconMigrationSizeGuidance> } = {
+			sizeGuidance: {
+				small: 'swap',
+				medium: 'swap',
+				large: 'icon-tile',
+				xlarge: 'icon-tile',
+			},
+		};
+		return retval;
 	}
 	return null;
 };
@@ -64,7 +82,32 @@ export const createGuidance = (
 	size?: Size,
 ) => {
 	const migrationMapObject = getMigrationMapObject(iconPackage);
-	if (migrationMapObject) {
+	const upcomingIcon = getUpcomingIcons(iconPackage);
+	if (upcomingIcon) {
+		let guidance = '';
+		if (size) {
+			if (
+				upcomingIcon.sizeGuidance[size] &&
+				canAutoMigrateNewIconBasedOnSize(upcomingIcon.sizeGuidance[size])
+			) {
+				guidance += `Fix: An upcoming icon release is planned to migrate this legacy icon.`;
+			} else {
+				guidance += `No equivalent icon for this size, ${size}, in the current or upcoming set of icons.`;
+			}
+			guidance += `${Object.keys(migrationOutcomeDescriptionMap).includes(upcomingIcon.sizeGuidance[size]) ? ` Once the upcoming icons are released, please: ${migrationOutcomeDescriptionMap[upcomingIcon.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
+		} else {
+			guidance = `Please wait for the upcoming icons released, as it will contain an alternative for this legacy icon.\nMigration suggestions, depending on the legacy icon size:\n`;
+			for (const [size, value] of Object.entries(upcomingIcon.sizeGuidance)) {
+				guidance += `\t- ${size}: `;
+				if (!Object.keys(migrationOutcomeDescriptionMap).includes(value)) {
+					guidance += 'No migration advice given.\n';
+				} else {
+					guidance += `${migrationOutcomeDescriptionMap[value as IconMigrationSizeGuidance]}.\n`;
+				}
+			}
+		}
+		return guidance;
+	} else if (migrationMapObject) {
 		const newIcon = migrationMapObject.newIcon;
 		if (!newIcon) {
 			return 'No equivalent icon in new set. An option is to contribute a custom icon into icon-labs package instead.\n';

@@ -147,6 +147,7 @@ export enum ACTION {
 	UPDATE_PARAMETERS = 'updateParameters',
 	GET_CHILDERN = 'getChildern',
 	MOVED = 'moved',
+	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
 }
 
 export enum INPUT_METHOD {

@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.7.1
+
+### Patch Changes
+
+- [`3e30fae044b25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e30fae044b25) -
+  Cleanup feature flag for bug fix for emoji selection in React 18
+- Updated dependencies
+
 ## 67.7.0
 
 ### Minor Changes

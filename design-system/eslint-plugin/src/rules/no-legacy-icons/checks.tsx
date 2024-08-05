@@ -25,6 +25,7 @@ import {
 	type errorsListAuto,
 	type errorsListManual,
 	getMigrationMapObject,
+	getUpcomingIcons,
 	type guidanceList,
 	isSize,
 	locToString,
@@ -271,14 +272,18 @@ export const createChecks = (context: Rule.RuleContext) => {
 			node.parent.parent.name.name !== 'LEGACY_fallbackIcon'
 		) {
 			const migrationMapObject = getMigrationMapObject(legacyIconImports[node.name].packageName);
+			const upcomingIcon = getUpcomingIcons(legacyIconImports[node.name].packageName);
 			const newIcon = migrationMapObject?.newIcon;
 			const isNewIconMigratable = canAutoMigrateNewIconBasedOnSize(
-				migrationMapObject?.sizeGuidance?.medium,
+				upcomingIcon ? upcomingIcon.sizeGuidance.medium : migrationMapObject?.sizeGuidance?.medium,
 			);
 			const isInNewButton =
 				isNodeOfType(node.parent.parent.parent.name, 'JSXIdentifier') &&
 				newButtonImports.has(node.parent.parent.parent.name.name);
-			if (newIcon && isInNewButton && isNewIconMigratable) {
+			if (
+				(newIcon && isInNewButton && isNewIconMigratable) ||
+				(upcomingIcon && isInNewButton && isNewIconMigratable)
+			) {
 				createAutoMigrationError(
 					node,
 					legacyIconImports[node.name].packageName,
@@ -290,7 +295,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 					isInNewButton,
 					'medium',
 				);
-			} else if (!newIcon || !isNewIconMigratable) {
+			} else if ((!newIcon && !upcomingIcon) || !isNewIconMigratable) {
 				createCantFindSuitableReplacementError(
 					node,
 					legacyIconImports[node.name].packageName,
@@ -457,19 +462,22 @@ export const createChecks = (context: Rule.RuleContext) => {
 				hasManualMigration = true;
 			}
 			const migrationMapObject = getMigrationMapObject(legacyIconImports[name].packageName);
+			const upcomingIcon = getUpcomingIcons(legacyIconImports[name].packageName);
 			const newIcon = migrationMapObject?.newIcon;
 			const isNewIconMigratable = canAutoMigrateNewIconBasedOnSize(
-				migrationMapObject?.sizeGuidance[size ?? 'medium'],
+				upcomingIcon
+					? upcomingIcon.sizeGuidance[size ?? 'medium']
+					: migrationMapObject?.sizeGuidance[size ?? 'medium'],
 			);
-			if (!hasManualMigration && newIcon && isNewIconMigratable) {
+			if (!hasManualMigration && (newIcon || upcomingIcon) && isNewIconMigratable) {
 				createAutoMigrationError(node, legacyIconImports[name].packageName, name, errorsAuto);
-			} else if ((!newIcon || !isNewIconMigratable) && size) {
+			} else if (((!newIcon && !upcomingIcon) || !isNewIconMigratable) && size) {
 				createCantFindSuitableReplacementError(
 					node,
 					legacyIconImports[name].packageName,
 					name,
 					errorsManual,
-					migrationMapObject ? true : false,
+					upcomingIcon ? true : migrationMapObject ? true : false,
 				);
 			}
 			guidance[locToString(node)] = createGuidance(

@@ -1,8 +1,6 @@
 import React, { type CSSProperties, Fragment, type ReactNode } from 'react';
 
-// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 import { useEffect } from '@storybook/preview-api';
-// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 import type { Renderer, StoryContext, PartialStoryFn as StoryFunction } from '@storybook/types';
 
 import { setGlobalTheme, token } from '@atlaskit/tokens';

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 2.9.3
+
+### Patch Changes
+
+- [#125862](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125862)
+  [`6c72c192b5df6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c72c192b5df6) -
+  [ux] Improve embed card fallback for lazy node view such that it matches the embed card loading
+  state.
+- Updated dependencies
+
 ## 2.9.2
 
 ### Patch Changes

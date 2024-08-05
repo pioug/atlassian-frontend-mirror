@@ -427,6 +427,18 @@ type CollabStepsTrackerPayloadAEP = OperationalAEP<
 
 type HeadingAnchorLinkButtonAEP = ButtonAEP<ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK, undefined>;
 
+type CodeBlockWordWrapToggleAEP = TrackAEP<
+	ACTION.TOGGLE_CODE_BLOCK_WRAP,
+	ACTION_SUBJECT.CODE_BLOCK,
+	undefined,
+	{
+		platform: PLATFORMS;
+		mode: MODE;
+		wordWrapEnabled: boolean;
+	},
+	undefined
+>;
+
 export type GeneralEventPayload<T = void> =
 	| AnnotateButtonAEP
 	| AnnotationAEP
@@ -467,4 +479,5 @@ export type GeneralEventPayload<T = void> =
 	| DocumentProcessingErrorAEP
 	| InvalidMediaContentTransformedAEP
 	| HeadingAnchorLinkButtonAEP
-	| CollabStepsTrackerPayloadAEP;
+	| CollabStepsTrackerPayloadAEP
+	| CodeBlockWordWrapToggleAEP;

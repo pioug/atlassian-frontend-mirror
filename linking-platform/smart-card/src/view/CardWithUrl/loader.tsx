@@ -9,8 +9,9 @@ import { LoadingCardLink } from './component-lazy/LoadingCardLink';
 import { type CardWithUrlContentProps } from './types';
 import { importWithRetry } from '../../utils';
 import { isFlexibleUiCard } from '../../utils/flexible';
+import { di } from 'react-magnetic-di';
 
-const LazyCardWithUrlContent = lazy(() =>
+export const LazyCardWithUrlContent = lazy(() =>
 	importWithRetry(
 		() =>
 			import(
@@ -20,6 +21,7 @@ const LazyCardWithUrlContent = lazy(() =>
 );
 
 export function CardWithURLRenderer(props: CardProps) {
+	di(LazyCardWithUrlContent);
 	const [id] = useState(() => (props.id ? props.id : uuid()));
 
 	useEffect(() => {

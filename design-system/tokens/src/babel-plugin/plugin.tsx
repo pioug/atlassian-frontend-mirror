@@ -75,6 +75,7 @@ export default function plugin() {
 					state: {
 						opts: {
 							shouldUseAutoFallback?: boolean;
+							shouldForceAutoFallback?: boolean;
 							defaultTheme?: DefaultColorTheme;
 						};
 					},
@@ -125,7 +126,9 @@ export default function plugin() {
 							}
 
 							// Handle fallbacks
-							const fallback = path.node.arguments[1];
+							const fallback = state.opts.shouldForceAutoFallback
+								? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme))
+								: path.node.arguments[1];
 
 							if (t.isStringLiteral(fallback)) {
 								// String literals can be concatenated into css variable call

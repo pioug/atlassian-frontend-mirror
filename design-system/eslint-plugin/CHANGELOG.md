@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.12.4
+
+### Patch Changes
+
+- [#126974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126974)
+  [`bf10ab6817404`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf10ab6817404) -
+  Updates the no-legacy-icons eslint rule to account for upcoming icons.
+
 ## 10.12.3
 
 ### Patch Changes

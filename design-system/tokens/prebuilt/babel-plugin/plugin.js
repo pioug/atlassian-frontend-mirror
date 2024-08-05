@@ -106,7 +106,7 @@ function plugin() {
               }
 
               // Handle fallbacks
-              var fallback = path.node.arguments[1];
+              var fallback = state.opts.shouldForceAutoFallback ? t.stringLiteral(getDefaultFallback(tokenName, state.opts.defaultTheme)) : path.node.arguments[1];
               if (t.isStringLiteral(fallback)) {
                 // String literals can be concatenated into css variable call
                 // Empty string fallbacks are ignored. For now, as the user did specify a fallback, no default is inserted

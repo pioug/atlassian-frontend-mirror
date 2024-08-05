@@ -1,6 +1,5 @@
 import React, { type ReactElement, useCallback, useState } from 'react';
 
-// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 import { IconButton, TooltipLinkList, WithTooltip } from '@storybook/components';
 import {
 	BottomBarIcon,
@@ -9,9 +8,7 @@ import {
 	CrossIcon,
 	MirrorIcon,
 	SidebarIcon,
-	// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 } from '@storybook/icons';
-// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 import { useGlobals } from '@storybook/manager-api';
 
 import { TOOL_ID } from './constants';

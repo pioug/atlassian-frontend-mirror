@@ -3,8 +3,14 @@ import {
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	MODE,
+	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	EditorAnalyticsAPI,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
 import {
 	codeBlockWrappedStates,
@@ -254,25 +260,46 @@ export function insertCodeBlockWithAnalytics(
 /**
  * Add the given node to the codeBlockWrappedStates WeakMap with the toggle boolean value.
  */
-export const toggleWordWrapStateForCodeBlockNode: Command = (state) => {
-	if (!fg('editor_support_code_block_wrapping')) {
-		return false;
-	}
-	const codeBlockNode = findCodeBlock(state)?.node;
+export const toggleWordWrapStateForCodeBlockNode =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(state, dispatch) => {
+		if (!fg('editor_support_code_block_wrapping')) {
+			return false;
+		}
+		const codeBlockNode = findCodeBlock(state)?.node;
+		const { tr } = state;
 
-	if (!codeBlockWrappedStates || !codeBlockNode) {
-		return false;
-	}
+		if (!codeBlockWrappedStates || !codeBlockNode) {
+			return false;
+		}
 
-	const currentValue = isCodeBlockWordWrapEnabled(codeBlockNode);
+		const updatedToggleState = !isCodeBlockWordWrapEnabled(codeBlockNode);
 
-	codeBlockWrappedStates.set(codeBlockNode, !currentValue);
+		codeBlockWrappedStates.set(codeBlockNode, updatedToggleState);
 
-	// TODO: Remove in ED-24222. Leaving here for demo purposes.
-	// eslint-disable-next-line no-console
-	console.log(
-		`Code Block Word Wrap: Updating codeBlockWrappedStates with: ${codeBlockWrappedStates.get(codeBlockNode)}`,
-	);
+		// TODO: Remove in ED-24222. Leaving here for demo purposes.
+		// eslint-disable-next-line no-console
+		console.log(
+			`Code Block Word Wrap: Updating codeBlockWrappedStates with: ${updatedToggleState}`,
+		);
 
-	return true;
-};
+		if (dispatch) {
+			const payload: AnalyticsEventPayload = {
+				action: ACTION.TOGGLE_CODE_BLOCK_WRAP,
+				actionSubject: ACTION_SUBJECT.CODE_BLOCK,
+				attributes: {
+					platform: PLATFORMS.WEB,
+					mode: MODE.EDITOR,
+					wordWrapEnabled: updatedToggleState,
+				},
+				eventType: EVENT_TYPE.TRACK,
+			};
+
+			// TODO: ED-24320 should convert this to attachAnalyticsEvent if it is dispatching a transaction here.
+			editorAnalyticsAPI?.fireAnalyticsEvent(payload);
+
+			dispatch(tr);
+		}
+
+		return true;
+	};

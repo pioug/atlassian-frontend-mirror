@@ -129,7 +129,7 @@ describe('no-legacy-icons', () => {
 				// Spread props inside LEGACY_fallbackIcon
 				import AddIcon from '@atlaskit/icon/glyph/add';
 				import Icon from '@atlaskit/icon/core/add';
-					<Icon LEGACY_fallbackIcon={(props) => <AddIcon {...props}/>} label="" />
+				<Icon LEGACY_fallbackIcon={(props) => <AddIcon {...props}/>} label="" />
 				`,
 			},
 			{
@@ -140,7 +140,7 @@ describe('no-legacy-icons', () => {
 				import AddIcon from '@atlaskit/icon/core/add';
 
 				<IconTile icon={AddIcon} size="small" color="gray" label="" />
-			`,
+				`,
 			},
 		],
 		invalid: [
@@ -154,6 +154,39 @@ describe('no-legacy-icons', () => {
 				errors: [
 					{
 						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				name: 'Upcoming Icons small size',
+				code: `
+				// Icon Tile usage
+				import { IconTile } from '@atlaskit/icon';
+				import ReposIcon from '@atlaskit/icon/glyph/bitbucket/repos';
+
+				<ReposIcon size="small" label="" />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				name: 'Upcoming Icons large size',
+				code: `
+				// Icon Tile usage
+				import { IconTile } from '@atlaskit/icon';
+				import ReposIcon from '@atlaskit/icon/glyph/bitbucket/repos';
+
+				<ReposIcon size="large" label="" />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsManualMigration',
+					},
+					{
+						messageId: 'cantFindSuitableReplacement',
 					},
 				],
 			},

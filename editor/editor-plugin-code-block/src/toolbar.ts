@@ -133,7 +133,7 @@ export const getToolbarConfig =
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
 			icon: WrapIcon,
-			onClick: toggleWordWrapStateForCodeBlockNode, // Hooking up here for demo purposes. To be revisited with ED-24222.
+			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI), // Hooking up here for demo purposes. To be revisited with ED-24222.
 			title: formatMessage(codeBlockButtonMessages.wrapCode),
 			tabIndex: null,
 		};

@@ -38,6 +38,8 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
 
+import { useDatasourceAnalyticsEvents } from '../../analytics';
+
 import { GlyphPlaceholder, UnwrapTextIcon, WrapTextIcon } from './custom-icons';
 import { issueLikeTableMessages } from './messages';
 import { TableHeading } from './styled';
@@ -148,6 +150,8 @@ export const DraggableTableHeading = ({
 	isWrapped,
 	onIsWrappedChange,
 }: DraggableTableHeadingProps) => {
+	const { fireEvent } = useDatasourceAnalyticsEvents();
+
 	const mainHeaderCellRef = useRef<HTMLTableCellElement>(null);
 	const columnResizeHandleRef = useRef<HTMLDivElement | null>(null);
 	const [state, setState] = useState<DraggableState>(idleState);
@@ -355,10 +359,20 @@ export const DraggableTableHeading = ({
 		[],
 	);
 
-	const toggleWrap = useCallback(
-		() => onIsWrappedChange && onIsWrappedChange(!(isWrapped || false)),
-		[isWrapped, onIsWrappedChange],
-	);
+	const toggleWrap = useCallback(() => {
+		if (!onIsWrappedChange) {
+			return;
+		}
+
+		const nextIsWrap = !(isWrapped || false);
+		if (nextIsWrap) {
+			fireEvent('ui.button.clicked.wrap', {});
+		} else {
+			fireEvent('ui.button.clicked.unwrap', {});
+		}
+
+		onIsWrappedChange(nextIsWrap);
+	}, [fireEvent, isWrapped, onIsWrappedChange]);
 
 	return (
 		<TableHeading

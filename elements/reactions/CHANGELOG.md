@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 22.10.4
+
+### Patch Changes
+
+- [#126748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126748)
+  [`17d07f73f9b89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17d07f73f9b89) -
+  [ux] Change the styling of the reactions summary popup
+- Updated dependencies
+
 ## 22.10.3
 
 ### Patch Changes

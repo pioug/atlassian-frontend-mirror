@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "87.3.3",
+	"version": "87.3.5",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -209,7 +209,7 @@
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/textfield": "^6.4.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@atlaskit/width-detector": "^4.2.0",
@@ -321,9 +321,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_a11y_table_context_menu": {
-			"type": "boolean"
-		},
-		"platform.editor.review-text-highlighting-styling": {
 			"type": "boolean"
 		},
 		"react_18_color_picker_concurrent_mode": {

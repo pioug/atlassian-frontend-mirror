@@ -42,7 +42,7 @@
 		"@atlaskit/activity": "^1.0.1",
 		"@atlaskit/editor-core": "^195.1.0",
 		"@atlaskit/editor-test-helpers": "^18.29.0",
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@emotion/react": "^11.7.1",
 		"@types/debug": "^4.1.10",

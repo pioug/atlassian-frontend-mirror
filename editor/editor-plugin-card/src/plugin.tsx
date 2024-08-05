@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { blockCard, embedCard, inlineCard } from '@atlaskit/adf-schema';
+import { inlineCard } from '@atlaskit/adf-schema';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
@@ -31,6 +31,8 @@ import { queueCardsFromChangedTr } from './pm-plugins/doc';
 import { cardKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
+import { blockCardSpecWithFixedToDOM } from './toDOM-fixes/blockCard';
+import { embedCardSpecWithFixedToDOM } from './toDOM-fixes/embedCard';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './toolbar';
 import type { CardPluginOptions, CardPluginState } from './types';
 import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
@@ -74,13 +76,13 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
 		nodes() {
 			const nodes = [
 				{ name: 'inlineCard', node: inlineCard },
-				{ name: 'blockCard', node: blockCard },
+				{ name: 'blockCard', node: blockCardSpecWithFixedToDOM() },
 			];
 
 			if (options.allowEmbeds) {
 				nodes.push({
 					name: 'embedCard',
-					node: embedCard,
+					node: embedCardSpecWithFixedToDOM(),
 				});
 			}
 

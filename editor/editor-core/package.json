@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.1.0",
+	"version": "195.1.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,7 +57,7 @@
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@atlaskit/tooltip": "^18.5.0",
 		"@atlaskit/width-detector": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -282,10 +282,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.elements.drag-and-drop-ed-23892": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.review-text-highlighting-styling": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

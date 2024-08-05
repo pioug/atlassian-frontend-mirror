@@ -10,7 +10,8 @@ import { ReactionSummaryButton } from './ReactionSummaryButton';
 
 const summaryPopupStyles = xcss({
 	padding: 'space.100',
-	maxWidth: '400px',
+	paddingTop: 'space.050',
+	maxWidth: '325px',
 });
 
 /**

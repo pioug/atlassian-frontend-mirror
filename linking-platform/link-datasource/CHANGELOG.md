@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.9.3
+
+### Patch Changes
+
+- [#121590](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/121590)
+  [`4dbf48b5397de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4dbf48b5397de) -
+  Track datasource table word-wrap action
+- Updated dependencies
+
 ## 2.9.2
 
 ### Patch Changes

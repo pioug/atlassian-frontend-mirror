@@ -93,19 +93,29 @@ jest.mock('../../artifacts/tokens-raw/atlassian-typography-adg3', () => ({
 	],
 }));
 
+interface TransformConfig {
+	shouldUseAutoFallback?: boolean;
+	shouldForceAutoFallback?: boolean;
+	transformTemplateLiterals?: boolean;
+	options?: TransformOptions;
+	defaultTheme?: string;
+}
+
 const transform =
-	(
+	({
 		shouldUseAutoFallback = false,
+		shouldForceAutoFallback = false,
 		transformTemplateLiterals = false,
-		options: TransformOptions = {},
+		options = {},
 		defaultTheme = 'light',
-	) =>
+	}: TransformConfig) =>
 	(code: TemplateStringsArray | string): string => {
 		const plugins: any = [
 			[
 				babelPlugin,
 				{
 					shouldUseAutoFallback: shouldUseAutoFallback,
+					shouldForceAutoFallback: shouldForceAutoFallback,
 					defaultTheme: defaultTheme,
 				},
 			],
@@ -131,7 +141,7 @@ const transform =
 
 describe('Tokens Babel Plugin', () => {
 	it('converts 1-argument usage correctly when shouldUseAutoFallback set to false', () => {
-		const actual = transform()`
+		const actual = transform({})`
       import { token } from '@atlaskit/tokens';
       token('test-token');
     `;
@@ -139,26 +149,8 @@ describe('Tokens Babel Plugin', () => {
 		expect(actual).toMatchInlineSnapshot(`""var(--test-token)";"`);
 	});
 
-	it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
-		const actual = transform(true)`
-        import { token } from '@atlaskit/tokens';
-        token('test-token');
-      `;
-
-		expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
-	});
-
-	it('converts 1-argument usage correctly when shouldUseAutoFallback set to true AND fallback is legacy-light', () => {
-		const actual = transform(true, false, {}, 'legacy-light')`
-        import { token } from '@atlaskit/tokens';
-        token('test-token');
-      `;
-
-		expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
-	});
-
 	it('converts StringLiteral second argument', () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token } from '@atlaskit/tokens';
         token('test-token', 'blue');
       `;
@@ -167,13 +159,13 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it('removes empty StringLiteral second argument', () => {
-		const noAutoFallback = transform()`
+		const noAutoFallback = transform({})`
         import { token } from '@atlaskit/tokens';
         token('test-token', '');
       `;
 
 		// No fallback inserted if user passes in an empty string
-		const autoFallback = transform(true)`
+		const autoFallback = transform({ shouldUseAutoFallback: true })`
         import { token } from '@atlaskit/tokens';
         token('test-token', '');
       `;
@@ -183,7 +175,7 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it('handles aliased imports', () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token as getToken } from '@atlaskit/tokens';
         getToken('test-token');
       `;
@@ -192,13 +184,13 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it("does nothing if there's no import of @atlaskit/tokens", () => {
-		const actual = transform()("token('test-token', color.blue);");
+		const actual = transform({})("token('test-token', color.blue);");
 
 		expect(actual).toMatchInlineSnapshot('"token(\'test-token\', color.blue);"');
 	});
 
 	it("doesn't remove tokens import if there are still usages left", () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token } from '@atlaskit/tokens';
         a = token;
         token('test-token', 'blue');
@@ -212,7 +204,7 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it('converts expression second arguments', () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token } from '@atlaskit/tokens';
         token('test-token', \`\${color.blue}\`);
         token('test-token', color.blue);
@@ -229,7 +221,7 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it('converts escape characters correctly', () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token } from '@atlaskit/tokens';
         token('test-token-escape', color.blue);
         token('test-token-escape');
@@ -243,7 +235,7 @@ describe('Tokens Babel Plugin', () => {
 
 	// If the token name has escape characters they should make it into the final result
 	it('works correctly with template literal conversion', () => {
-		const actual = transform(false, true)`
+		const actual = transform({ shouldUseAutoFallback: false, transformTemplateLiterals: true })`
         import { token } from '@atlaskit/tokens';
         token('test-token', \`\${color.blue}\`);
         token('test-token', color.blue);
@@ -265,7 +257,7 @@ describe('Tokens Babel Plugin', () => {
 
 	it('throws if token does not exist', () => {
 		expect(
-			() => transform()`
+			() => transform({})`
         import { token } from '@atlaskit/tokens';
         token('this.token.does.not.exist');
       `,
@@ -274,7 +266,7 @@ describe('Tokens Babel Plugin', () => {
 
 	it('throws on empty token() call', () => {
 		expect(
-			() => transform()`
+			() => transform({})`
         import { token } from '@atlaskit/tokens';
         token();
       `,
@@ -283,7 +275,7 @@ describe('Tokens Babel Plugin', () => {
 
 	it('throws on non-string token argument', () => {
 		expect(
-			() => transform()`
+			() => transform({})`
         import { token } from '@atlaskit/tokens';
         token(()=>{}, color.blue, color.red);
       `,
@@ -292,7 +284,7 @@ describe('Tokens Babel Plugin', () => {
 
 	it('throws on too many arguments', () => {
 		expect(
-			() => transform()`
+			() => transform({})`
         import { token } from '@atlaskit/tokens';
         token('test-token', color.blue, color.red);
       `,
@@ -300,7 +292,7 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it('correctly handles assorted usages', () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token } from '@atlaskit/tokens';
         componentStyles = css({
           color: token('test-token'),
@@ -317,7 +309,7 @@ describe('Tokens Babel Plugin', () => {
 	});
 
 	it('correctly handles nested scopes', () => {
-		const actual = transform()`
+		const actual = transform({})`
 import { token } from '@atlaskit/tokens';
 const getStyles = css => css\`
   \${true && \`color: \${token('test-token')}\`}
@@ -332,7 +324,7 @@ const getStyles = css => css\`
 	});
 
 	it('Ignores token functions from other packages', () => {
-		const actual = transform()`
+		const actual = transform({})`
         import { token } from 'foobar';
         token('test-token');
       `;
@@ -344,8 +336,12 @@ const getStyles = css => css\`
 	});
 
 	it('Ignores token functions in node_modules directories', () => {
-		const actual = transform(false, false, {
-			filename: 'node_modules/foo/bar.tsx',
+		const actual = transform({
+			shouldUseAutoFallback: false,
+			transformTemplateLiterals: false,
+			options: {
+				filename: 'node_modules/foo/bar.tsx',
+			},
 		})`
         import { token } from '@atlaskit/tokens';
         token('test-token');
@@ -358,8 +354,12 @@ const getStyles = css => css\`
 	});
 
 	it('Ignores token functions in nested node_modules directories', () => {
-		const actual = transform(false, false, {
-			filename: 'packages/foo/node_modules/bar/bar.tsx',
+		const actual = transform({
+			shouldUseAutoFallback: false,
+			transformTemplateLiterals: false,
+			options: {
+				filename: 'packages/foo/node_modules/bar/bar.tsx',
+			},
 		})`
         import { token } from '@atlaskit/tokens';
         token('test-token');
@@ -372,7 +372,7 @@ const getStyles = css => css\`
 	});
 
 	it('formats box shadow fallback styles correctly when opacity is included in hex value', () => {
-		const actual = transform(true)`
+		const actual = transform({ shouldUseAutoFallback: true })`
         import { token } from '@atlaskit/tokens';
         token('test-token-shadow');
       `;
@@ -383,7 +383,7 @@ const getStyles = css => css\`
 	});
 
 	it('formats box shadow fallback styles correctly when opacity is NOT included in hex value', () => {
-		const actual = transform(true)`
+		const actual = transform({ shouldUseAutoFallback: true })`
         import { token } from '@atlaskit/tokens';
         token('test-token-shadow-no-opacity');
       `;
@@ -393,9 +393,94 @@ const getStyles = css => css\`
 		);
 	});
 
+	describe('shouldUseAutoFallback === true', () => {
+		it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
+			const actual = transform({ shouldUseAutoFallback: true })`
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
+		});
+
+		it('converts 1-argument usage correctly when shouldUseAutoFallback set to true AND fallback is legacy-light', () => {
+			const actual = transform({
+				shouldUseAutoFallback: true,
+				transformTemplateLiterals: false,
+				defaultTheme: 'legacy-light',
+			})`
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
+		});
+	});
+
+	describe('shouldForceAutoFallback === true', () => {
+		it('should override manual fallback usage', () => {
+			const actual = transform({ shouldForceAutoFallback: true })`
+				import { token } from '@atlaskit/tokens';
+				token('test-token', 'red');
+			`;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
+		});
+
+		it('should override manual fallback usage AND fallback is legacy-light', () => {
+			const actual = transform({
+				shouldForceAutoFallback: true,
+				defaultTheme: 'legacy-light',
+			})`
+        import { token } from '@atlaskit/tokens';
+        token('test-token', 'red');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
+		});
+
+		it('converts 1-argument usage correctly', () => {
+			const actual = transform({ shouldForceAutoFallback: true })`
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #ffffff)";"`);
+		});
+
+		it('converts 1-argument usage correctly AND fallback is legacy-light', () => {
+			const actual = transform({
+				shouldForceAutoFallback: true,
+				defaultTheme: 'legacy-light',
+			})`
+        import { token } from '@atlaskit/tokens';
+        token('test-token');
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`""var(--test-token, #cccccc)";"`);
+		});
+
+		it('converts expression second arguments', () => {
+			const actual = transform({ shouldForceAutoFallback: true })`
+        import { token } from '@atlaskit/tokens';
+        token('test-token', \`\${color.blue}\`);
+        token('test-token', color.blue);
+        token('test-token', condition ? "blue" : color.red );
+        token('test-token', getColor());
+      `;
+
+			expect(actual).toMatchInlineSnapshot(`
+				""var(--test-token, #ffffff)";
+				"var(--test-token, #ffffff)";
+				"var(--test-token, #ffffff)";
+				"var(--test-token, #ffffff)";"
+			`);
+		});
+	});
+
 	describe('Non-color themes (spacing, typography, shape)', () => {
 		it('converts 1-argument usage correctly when shouldUseAutoFallback set to false', () => {
-			const actual = transform()`
+			const actual = transform({})`
       import { token } from '@atlaskit/tokens';
       token('space.075');
     `;
@@ -404,7 +489,11 @@ const getStyles = css => css\`
 		});
 
 		it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
-			const actual = transform(true, false, {}, 'legacy-light')`
+			const actual = transform({
+				shouldUseAutoFallback: true,
+				transformTemplateLiterals: false,
+				defaultTheme: 'legacy-light',
+			})`
         import { token } from '@atlaskit/tokens';
         token('space.075');
         token('space.100');

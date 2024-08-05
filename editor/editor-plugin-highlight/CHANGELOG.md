@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.14.1
+
+### Patch Changes
+
+- [#126974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126974)
+  [`8730c454c41f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8730c454c41f7) -
+  [ux] [ED-24386] Clean up FF platform.editor.review-text-highlighting-styling
+
 ## 1.14.0
 
 ### Minor Changes

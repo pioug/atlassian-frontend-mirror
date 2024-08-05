@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 87.3.5
+
+### Patch Changes
+
+- [#126974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126974)
+  [`8730c454c41f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8730c454c41f7) -
+  [ux] [ED-24386] Clean up FF platform.editor.review-text-highlighting-styling
+
+## 87.3.4
+
+### Patch Changes
+
+- [#126818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126818)
+  [`197b047fbe6e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/197b047fbe6e6) -
+  ED-24245 - Adding analytics TRACK event that is triggered when the user clicks the toggle word
+  wrap button on the code block floating toolbar.
+
 ## 87.3.3
 
 ### Patch Changes

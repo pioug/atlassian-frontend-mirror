@@ -202,6 +202,26 @@ events:
             *ExtensionKey,
             *Actions,
           ]
+  - button clicked (wrap):
+      type: ui
+      description: Fired on wrap button click
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - button clicked (unwrap):
+      type: ui
+      description: Fired on unwrap button click
+      attributes:
+        <<:
+          [
+              *ComponentMetaDataContext,
+              *AnalyticsContext,
+              *AnalyticsContextAttributes,
+          ]
   - link clicked (singleItem):
       type: ui
       description: Fired when user clicks on datasource items

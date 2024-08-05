@@ -39,7 +39,7 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@babel/runtime": "^7.0.0",
 		"@storybook/components": "^8.1.0",
 		"@storybook/icons": "^1.2.9",

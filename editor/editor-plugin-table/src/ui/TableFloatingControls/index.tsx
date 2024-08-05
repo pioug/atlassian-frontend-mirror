@@ -135,9 +135,7 @@ export const TableFloatingControls = ({
 
 	const tablePos = findTable(editorView.state.selection)?.pos;
 	const isNested = tablePos !== undefined && isTableNested(editorView.state, tablePos!);
-	const shouldShowCornerControls = fg('platform_editor_element_drag_and_drop_ed_24041')
-		? !featureFlagsState?.elementDragAndDrop || isNested
-		: !featureFlagsState?.elementDragAndDrop;
+	const shouldShowCornerControls = !featureFlagsState?.elementDragAndDrop || isNested;
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

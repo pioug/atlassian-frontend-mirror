@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.24.5
+
+### Patch Changes
+
+- [#126781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126781)
+  [`a399030079377`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a399030079377) -
+  ED-24476 Clean up table controls feature flag
+
 ## 7.24.4
 
 ### Patch Changes

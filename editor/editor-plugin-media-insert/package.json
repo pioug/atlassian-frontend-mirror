@@ -31,7 +31,7 @@
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"react": "^16.8.0"
 	},
 	"devDependencies": {

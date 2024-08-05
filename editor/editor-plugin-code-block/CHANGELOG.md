@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.2.4
+
+### Patch Changes
+
+- [#126818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126818)
+  [`197b047fbe6e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/197b047fbe6e6) -
+  ED-24245 - Adding analytics TRACK event that is triggered when the user clicks the toggle word
+  wrap button on the code block floating toolbar.
+
 ## 3.2.3
 
 ### Patch Changes

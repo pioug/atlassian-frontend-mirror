@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::6518dea178189cd102e0ca6ce7eae059>>
+ * @codegen <<SignedSource::a526398bbb8839b31c26c69ef2845c19>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -17,10 +17,6 @@ export type AnalyticsContextAttributesType = {
 };
 
 export type DatasourceModalDialogViewedAttributesType = {};
-export type LinkClickedPoweredByAttributesType = {
-	extensionKey: string;
-	componentHierarchy: string;
-};
 export type ModalReadyDatasourceAttributesType = {
 	instancesCount: number | null;
 	schemasCount: number | null;
@@ -62,6 +58,8 @@ export type ButtonClickedCancelAttributesType = {
 	extensionKey: string | null;
 	actions: unknown[];
 };
+export type ButtonClickedWrapAttributesType = {};
+export type ButtonClickedUnwrapAttributesType = {};
 export type LinkClickedSingleItemAttributesType = {
 	extensionKey: string | null;
 	destinationObjectTypes: unknown[];
@@ -153,6 +151,7 @@ export type ButtonClickedBasicSearchDropdownAttributesType = {
 	type: 'showMore';
 };
 export type AqlEditorSearchedAttributesType = {};
+export type LinkClickedPoweredByAttributesType = {};
 export type GetWorkspaceIdSuccessAttributesType = {};
 export type GetWorkspaceIdFailedAttributesType = {
 	statusCodeGroup: '1xx' | '3xx' | '4xx' | '5xx' | 'unknown';
@@ -199,6 +198,12 @@ export type AnalyticsEventAttributes = {
 	 * Fired on cancel button click */
 	'ui.button.clicked.cancel': ButtonClickedCancelAttributesType;
 	/**
+	 * Fired on wrap button click */
+	'ui.button.clicked.wrap': ButtonClickedWrapAttributesType;
+	/**
+	 * Fired on unwrap button click */
+	'ui.button.clicked.unwrap': ButtonClickedUnwrapAttributesType;
+	/**
 	 * Fired when user clicks on datasource items */
 	'ui.link.clicked.singleItem': LinkClickedSingleItemAttributesType;
 	/**
@@ -244,11 +249,11 @@ export type AnalyticsEventAttributes = {
 	 * Fired when the “show more” button inside the dropdown menu is clicked */
 	'ui.button.clicked.basicSearchDropdown': ButtonClickedBasicSearchDropdownAttributesType;
 	/**
-	 * Fired when the “show more” button inside the dropdown menu is clicked */
-	'ui.link.clicked.poweredBy': LinkClickedPoweredByAttributesType;
-	/**
 	 * Fired when search is initiated via the search icon or enter key press for aql editor input field. */
 	'ui.aqlEditor.searched': AqlEditorSearchedAttributesType;
+	/**
+	 * Fired when the power by link on the issue like table footer is clicked. */
+	'ui.link.clicked.poweredBy': LinkClickedPoweredByAttributesType;
 	/**
 	 * Fired when fetching a workspace Id is successful. */
 	'operational.getWorkspaceId.success': GetWorkspaceIdSuccessAttributesType;

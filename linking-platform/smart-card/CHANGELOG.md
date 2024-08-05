@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 27.12.2
+
+### Patch Changes
+
+- [#125862](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125862)
+  [`6c72c192b5df6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c72c192b5df6) -
+  Small change to improve testability of smart card in editor. No production code changes.
+- Updated dependencies
+
 ## 27.12.1
 
 ### Patch Changes

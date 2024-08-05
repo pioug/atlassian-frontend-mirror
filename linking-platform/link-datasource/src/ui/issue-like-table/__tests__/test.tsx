@@ -8,6 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 import { defaultRegistry } from 'react-sweet-state';
 import invariant from 'tiny-invariant';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
 	flushPromises,
@@ -137,6 +138,7 @@ describe('IssueLikeDataTableView', () => {
 	const store = defaultRegistry.getStore(Store);
 
 	const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
+		const onAnalyticsEvent = jest.fn();
 		const onNextPage = jest.fn(() => {});
 		const onLoadDatasourceDetails = jest.fn(() => {});
 		const onVisibleColumnKeysChange = jest.fn(() => {});
@@ -145,27 +147,29 @@ describe('IssueLikeDataTableView', () => {
 		const smartLinkClient = new SmartLinkClient();
 
 		const renderResult = render(
-			<DatasourceExperienceIdProvider>
-				<IntlProvider locale="en">
-					<SmartCardProvider client={smartLinkClient}>
-						<IssueLikeDataTableView
-							testId="sometable"
-							status={'resolved'}
-							onNextPage={onNextPage}
-							onLoadDatasourceDetails={onLoadDatasourceDetails}
-							hasNextPage={false}
-							onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-							onColumnResize={onColumnResize}
-							onWrappedColumnChange={onWrappedColumnChange}
-							items={[]}
-							itemIds={[]}
-							columns={[]}
-							visibleColumnKeys={['id']}
-							{...props}
-						/>
-					</SmartCardProvider>
-				</IntlProvider>
-			</DatasourceExperienceIdProvider>,
+			<AnalyticsListener channel="media" onEvent={onAnalyticsEvent}>
+				<DatasourceExperienceIdProvider>
+					<IntlProvider locale="en">
+						<SmartCardProvider client={smartLinkClient}>
+							<IssueLikeDataTableView
+								testId="sometable"
+								status={'resolved'}
+								onNextPage={onNextPage}
+								onLoadDatasourceDetails={onLoadDatasourceDetails}
+								hasNextPage={false}
+								onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+								onColumnResize={onColumnResize}
+								onWrappedColumnChange={onWrappedColumnChange}
+								items={[]}
+								itemIds={[]}
+								columns={[]}
+								visibleColumnKeys={['id']}
+								{...props}
+							/>
+						</SmartCardProvider>
+					</IntlProvider>
+				</DatasourceExperienceIdProvider>
+			</AnalyticsListener>,
 		);
 
 		let wasColumnPickerOpenBefore = false;
@@ -207,6 +211,7 @@ describe('IssueLikeDataTableView', () => {
 
 		return {
 			...renderResult,
+			onAnalyticsEvent,
 			onNextPage,
 			onLoadDatasourceDetails,
 			onVisibleColumnKeysChange,
@@ -1773,6 +1778,29 @@ describe('IssueLikeDataTableView', () => {
 						).toBe('Unwrap text');
 					});
 
+					it('should fire ui.button.clicked.wrap event on "Wrap text" is clicked', () => {
+						const { onAnalyticsEvent, getByTestId, getByText } = setup({
+							items: getComplexItems(),
+							columns: getComplexColumns(),
+							visibleColumnKeys: ['id', 'someOtherKey'],
+						});
+
+						fireEvent.click(getByTestId('someOtherKey-column-dropdown'));
+						fireEvent.click(getByText('Wrap text'));
+
+						expect(onAnalyticsEvent).toBeFiredWithAnalyticEventOnce(
+							{
+								payload: {
+									eventType: 'ui',
+									action: 'clicked',
+									actionSubject: 'button',
+									actionSubjectId: 'wrap',
+								},
+							},
+							'media',
+						);
+					});
+
 					it('should call onWrappedColumnChange when "Unwrap text" is clicked', async () => {
 						const items = getComplexItems();
 						const itemIds = setupItemIds(items);
@@ -1790,6 +1818,30 @@ describe('IssueLikeDataTableView', () => {
 
 						expect(onWrappedColumnChange).toHaveBeenCalledWith('someOtherKey', false);
 					});
+				});
+
+				it('should fire ui.button.clicked.unwrap event on "Unwrap text" is clicked', () => {
+					const { onAnalyticsEvent, getByTestId, getByText } = setup({
+						wrappedColumnKeys: ['someOtherKey'],
+						items: getComplexItems(),
+						columns: getComplexColumns(),
+						visibleColumnKeys: ['id', 'someOtherKey'],
+					});
+
+					fireEvent.click(getByTestId('someOtherKey-column-dropdown'));
+					fireEvent.click(getByText('Unwrap text'));
+
+					expect(onAnalyticsEvent).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								eventType: 'ui',
+								action: 'clicked',
+								actionSubject: 'button',
+								actionSubjectId: 'unwrap',
+							},
+						},
+						'media',
+					);
 				});
 
 				describe('UFO metrics', () => {

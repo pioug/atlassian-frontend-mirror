@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 1.57.0
+
+### Minor Changes
+
+- [#126723](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126723)
+  [`b637fc4edb5b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b637fc4edb5b9) -
+  [ux] tokens-babel-plugin accepts `shouldForceAutoFallback` which overrides fallback values
+  regardless of provided fallback.
+
 ## 1.56.3
 
 ### Patch Changes

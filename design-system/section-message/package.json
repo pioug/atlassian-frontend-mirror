@@ -53,7 +53,7 @@
 		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.56.0",
+		"@atlaskit/tokens": "^1.57.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

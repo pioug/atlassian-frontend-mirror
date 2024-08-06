@@ -28,7 +28,6 @@ import {
 	dragHandleDecoration,
 	dropTargetDecorations,
 	emptyParagraphNodeDecorations,
-	mouseMoveWrapperDecorations,
 	nodeDecorations,
 } from './decorations';
 import { handleMouseOver } from './handle-mouse-over';
@@ -104,8 +103,6 @@ const initialState: PluginState = {
 	isPMDragging: false,
 };
 
-const DRAG_AND_DROP_DOC_SIZE_LIMIT = 50;
-
 export const createPlugin = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
@@ -122,20 +119,6 @@ export const createPlugin = (
 				oldState: EditorState,
 				newState: EditorState,
 			) {
-				if (initialState.isDocSizeLimitEnabled === null) {
-					if (fg('platform.editor.elements.drag-and-drop-doc-size-limit_7k4vq')) {
-						initialState.isDocSizeLimitEnabled = true;
-					} else {
-						initialState.isDocSizeLimitEnabled = false;
-					}
-				}
-				if (
-					initialState.isDocSizeLimitEnabled &&
-					newState.doc.childCount > DRAG_AND_DROP_DOC_SIZE_LIMIT
-				) {
-					return initialState;
-				}
-
 				let {
 					activeNode,
 					decorations,
@@ -173,21 +156,18 @@ export const createPlugin = (
 				}
 
 				let isDecsMissing = false;
-				let isHandleMissing = false;
 				let isDropTargetsMissing = false;
-				if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-					// Ensure decorations stay in sync when nodes are added or removed from the doc
-					isHandleMissing =
-						!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
-					const decsLength = decorations
-						.find()
-						.filter(({ spec }) => spec.id !== 'drag-handle').length;
+				// Ensure decorations stay in sync when nodes are added or removed from the doc
+				const isHandleMissing =
+					!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
+				const decsLength = decorations
+					.find()
+					.filter(({ spec }) => spec.id !== 'drag-handle').length;
 
-					//TODO: Fix this logic for nested scenarios
-					if (!fg('platform_editor_elements_dnd_nested')) {
-						isDecsMissing =
-							!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
-					}
+				//TODO: Fix this logic for nested scenarios
+				if (!fg('platform_editor_elements_dnd_nested')) {
+					isDecsMissing =
+						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
 				}
 
 				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
@@ -244,12 +224,7 @@ export const createPlugin = (
 						decorations = DecorationSet.create(newState.doc, []);
 					}
 					const nodeDecs = nodeDecorations(newState);
-					if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-						decorations = decorations.add(newState.doc, [...nodeDecs]);
-					} else {
-						const mouseWrapperDecs = mouseMoveWrapperDecorations(newState, api);
-						decorations = decorations.add(newState.doc, [...nodeDecs, ...mouseWrapperDecs]);
-					}
+					decorations = decorations.add(newState.doc, [...nodeDecs]);
 
 					// Note: Quite often the handle is not in the right position after a node is moved
 					// it is safer for now to not show it when a node is moved
@@ -358,6 +333,7 @@ export const createPlugin = (
 								newState,
 								api,
 								formatMessage,
+								meta?.activeNode?.nodeType,
 							);
 							decorationState = updatedDecorationState;
 							decorations = decorations.add(newState.doc, decs);
@@ -386,6 +362,7 @@ export const createPlugin = (
 								newState,
 								api,
 								formatMessage,
+								meta?.activeNode?.nodeType,
 							);
 							decorationState = updatedDecorationState;
 							decorations = decorations.add(newState.doc, decs);
@@ -495,23 +472,18 @@ export const createPlugin = (
 					// Currently we can only drag one node at a time
 					// so we only need to check first child
 					const draggable = dragging?.slice.content.firstChild;
-					const activeNode = state.tr.doc.nodeAt(pluginState.activeNode.pos);
-
-					let isSameNode = draggable === activeNode;
-					if (fg('platform.editor.elements.drag-and-drop-ed-23892')) {
-						const nodeElement = event.target?.closest('[data-drag-handler-anchor-name]');
-						if (!nodeElement) {
-							return false;
-						}
-
-						const domPos = fg('platform_editor_element_drag_and_drop_ed_24304')
-							? Math.max(view.posAtDOM(nodeElement, 0) - 1, 0)
-							: view.posAtDOM(nodeElement, 0) - 1;
-
-						const nodeTarget = state.doc.nodeAt(domPos);
-
-						isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
+					const nodeElement = event.target?.closest('[data-drag-handler-anchor-name]');
+					if (!nodeElement) {
+						return false;
 					}
+
+					const domPos = fg('platform_editor_element_drag_and_drop_ed_24304')
+						? Math.max(view.posAtDOM(nodeElement, 0) - 1, 0)
+						: view.posAtDOM(nodeElement, 0) - 1;
+
+					const nodeTarget = state.doc.nodeAt(domPos);
+
+					const isSameNode = !!(nodeTarget && draggable?.eq(nodeTarget));
 
 					if (isSameNode) {
 						// Prevent the default drop behavior if the position is within the activeNode
@@ -531,9 +503,7 @@ export const createPlugin = (
 					}
 				},
 				mouseover: (view: EditorView, event: Event) => {
-					if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-						handleMouseOver(view, event, api);
-					}
+					handleMouseOver(view, event, api);
 					return false;
 				},
 				keydown(view: EditorView, event: KeyboardEvent) {
@@ -570,71 +540,37 @@ export const createPlugin = (
 			const editorContentArea: HTMLElement | null = editorView.dom.closest(
 				'.fabric-editor-popup-scroll-parent',
 			);
-			let resizeObserverHeight: ResizeObserver;
-			let resizeObserverWidth: ResizeObserver;
 
-			if (!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-				// Use ResizeObserver to observe height changes
-				resizeObserverHeight = new ResizeObserver(
-					rafSchedule((entries) => {
-						const editorHeight = entries[0]?.contentBoxSize[0]?.blockSize;
+			// Use ResizeObserver to observe width changes
+			const resizeObserverWidth = new ResizeObserver(
+				rafSchedule((entries) => {
+					const editorContentArea = entries[0].target;
+					const editorWidthRight = editorContentArea!.getBoundingClientRect().right;
+					const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
 
-						// Update the plugin state when the height changes
-						const pluginState = key.getState(editorView.state);
-						if (!pluginState?.isDragging) {
-							const isResizerResizing = !!dom.querySelector('.is-resizing');
+					// Update the plugin state when the height changes
+					const pluginState = key.getState(editorView.state);
+					if (!pluginState?.isDragging) {
+						const isResizerResizing = !!dom.querySelector('.is-resizing');
 
-							const transaction = editorView.state.tr;
+						const transaction = editorView.state.tr;
 
-							if (pluginState?.isResizerResizing !== isResizerResizing) {
-								transaction.setMeta('is-resizer-resizing', isResizerResizing);
-							}
-
-							if (!isResizerResizing && editorHeight) {
-								transaction.setMeta(key, { editorHeight });
-							}
-
-							editorView.dispatch(transaction);
+						if (pluginState?.isResizerResizing !== isResizerResizing) {
+							transaction.setMeta('is-resizer-resizing', isResizerResizing);
 						}
-					}),
-				);
 
-				// Start observing the editor DOM element
-				resizeObserverHeight.observe(dom);
-			}
-
-			if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-				// Use ResizeObserver to observe width changes
-				resizeObserverWidth = new ResizeObserver(
-					rafSchedule((entries) => {
-						const editorContentArea = entries[0].target;
-						const editorWidthRight = editorContentArea!.getBoundingClientRect().right;
-						const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
-
-						// Update the plugin state when the height changes
-						const pluginState = key.getState(editorView.state);
-						if (!pluginState?.isDragging) {
-							const isResizerResizing = !!dom.querySelector('.is-resizing');
-
-							const transaction = editorView.state.tr;
-
-							if (pluginState?.isResizerResizing !== isResizerResizing) {
-								transaction.setMeta('is-resizer-resizing', isResizerResizing);
+						if (!isResizerResizing) {
+							if (fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+								transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
 							}
-
-							if (!isResizerResizing) {
-								if (fg('platform_editor_elements_drag_and_drop_ed_23394')) {
-									transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
-								}
-							}
-							editorView.dispatch(transaction);
 						}
-					}),
-				);
+						editorView.dispatch(transaction);
+					}
+				}),
+			);
 
-				if (editorContentArea && fg('platform_editor_elements_drag_and_drop_ed_23394')) {
-					resizeObserverWidth.observe(editorContentArea);
-				}
+			if (editorContentArea && fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+				resizeObserverWidth.observe(editorContentArea);
 			}
 
 			// Start pragmatic monitors
@@ -642,16 +578,8 @@ export const createPlugin = (
 
 			return {
 				destroy() {
-					if (!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-						resizeObserverHeight.unobserve(dom);
-					}
-
-					if (
-						editorContentArea &&
-						fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
-					) {
-						fg('platform_editor_elements_drag_and_drop_ed_23394') &&
-							resizeObserverWidth.unobserve(editorContentArea);
+					if (editorContentArea && fg('platform_editor_elements_drag_and_drop_ed_23394')) {
+						resizeObserverWidth.unobserve(editorContentArea);
 					}
 					pragmaticCleanup();
 				},

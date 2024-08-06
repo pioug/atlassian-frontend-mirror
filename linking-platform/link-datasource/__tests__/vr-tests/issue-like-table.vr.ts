@@ -13,6 +13,10 @@ snapshot(IssueLikeTable, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		enable_datasource_react_sweet_state: [true, false],
+		'platform-datasources-enable-two-way-sync': [true, false],
+	},
 });
 
 snapshot(IssueLikeTableReadonly, {
@@ -25,4 +29,8 @@ snapshot(IssueLikeTableReadonly, {
 			jiraIssueId: 'NONE-123',
 		},
 	],
+	featureFlags: {
+		enable_datasource_react_sweet_state: [true, false],
+		'platform-datasources-enable-two-way-sync': [true, false],
+	},
 });

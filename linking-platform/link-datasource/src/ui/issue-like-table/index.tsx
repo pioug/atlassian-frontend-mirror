@@ -38,7 +38,13 @@ import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
 import { renderType, stringifyType } from './render-type';
-import { Table, TableCell, TableHeading, withTablePluginHeaderPrefix } from './styled';
+import {
+	InlineEditableTableCell,
+	Table,
+	TableCell,
+	TableHeading,
+	withTablePluginHeaderPrefix,
+} from './styled';
 import { TableCellContent } from './table-cell-content';
 import { TruncateTextTag } from './truncate-text-tag';
 import {
@@ -557,6 +563,7 @@ export const IssueLikeDataTableView = ({
 
 	const tableRows: Array<RowType> = useMemo(
 		() =>
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			fg('enable_datasource_react_sweet_state')
 				? itemIds.map<RowType>((id, rowIndex) => {
 						return {
@@ -812,18 +819,35 @@ export const IssueLikeDataTableView = ({
 										paddingBlock: token('space.100', '8px'),
 									};
 								}
-								return (
-									<TableCell
-										key={cellKey}
-										data-testid={testId && `${testId}--cell-${cellIndex}`}
-										colSpan={isEditable && isLastCell ? 2 : undefined}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-										style={loadingRowStyle}
-										css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
-									>
-										{content}
-									</TableCell>
-								);
+
+								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+								if (fg('platform-datasources-enable-two-way-sync')) {
+									return (
+										<InlineEditableTableCell
+											key={cellKey}
+											data-testid={testId && `${testId}--cell-${cellIndex}`}
+											colSpan={isEditable && isLastCell ? 2 : undefined}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+											style={loadingRowStyle}
+											css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
+										>
+											{content}
+										</InlineEditableTableCell>
+									);
+								} else {
+									return (
+										<TableCell
+											key={cellKey}
+											data-testid={testId && `${testId}--cell-${cellIndex}`}
+											colSpan={isEditable && isLastCell ? 2 : undefined}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+											style={loadingRowStyle}
+											css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
+										>
+											{content}
+										</TableCell>
+									);
+								}
 							})}
 						</tr>
 					))}

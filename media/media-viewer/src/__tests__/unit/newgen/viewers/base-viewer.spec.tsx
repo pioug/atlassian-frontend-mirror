@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from '@atlaskit/button/custom-theme-button';
 import { type ProcessedFileState } from '@atlaskit/media-client';
-import { type BaseProps, BaseViewer } from '../../../../viewers/base-viewer';
+import { type BaseProps, BaseViewer, type BaseState } from '../../../../viewers/base-viewer';
 import { Outcome } from '../../../../domain';
 import { ErrorMessage } from '../../../../errorMessage';
-import { type MediaViewerError } from '../../../../errors';
+import { MediaViewerError } from '../../../../errors';
 import { Spinner } from '../../../../loading';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { mount } from 'enzyme';
@@ -36,13 +36,16 @@ function createInitialState() {
 	};
 }
 
-function createTestViewer(props: BaseProps, mountWithContext?: boolean) {
+function createTestViewer(
+	props: BaseProps,
+	initialState: BaseState<string> = createInitialState(),
+) {
 	const initSpy = jest.fn();
 	const releaseSpy = jest.fn();
 	const renderSuccessfulSpy = jest.fn((content: string) => <div>{content}</div>);
 	class TestViewer extends BaseViewer<string, BaseProps> {
 		protected get initialState() {
-			return createInitialState();
+			return initialState;
 		}
 		protected init = initSpy;
 		protected release = releaseSpy;
@@ -108,19 +111,17 @@ describe('BaseViewer', () => {
 	});
 
 	it('invokes renderSuccessful() when the content loading was successful', () => {
-		const { el, TestViewer, renderSuccessfulSpy } = createTestViewer(createProps());
-		const content = Outcome.successful('test');
-		el.find(TestViewer).setState({ content });
+		const { el, renderSuccessfulSpy } = createTestViewer(createProps(), {
+			content: Outcome.successful('test'),
+		});
 		expect(el.text()).toEqual('test');
 		expect(renderSuccessfulSpy).toHaveBeenCalled();
 	});
 
 	it('renders an error message when the content loading has failed', () => {
-		const { el, TestViewer } = createTestViewer(createProps(), true);
-		const content = Outcome.failed({
-			failReason: 'previewFailed',
+		const { el } = createTestViewer(createProps(), {
+			content: Outcome.failed(new MediaViewerError('unsupported')),
 		});
-		el.find(TestViewer).setState({ content });
 		const errorMessage = el.find(ErrorMessage);
 		expect(errorMessage).toHaveLength(1);
 		expect(errorMessage.text()).toContain("We couldn't generate a preview for this file");

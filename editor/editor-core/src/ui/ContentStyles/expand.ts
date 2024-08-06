@@ -36,7 +36,6 @@ export const expandStyles = () => css`
 
 	.${expandClassNames.prefix} {
 		${sharedExpandStyles.containerStyles({ expanded: false, focused: false })()}
-		${!fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') && `overflow: hidden;`}
 
 		cursor: pointer;
 		box-sizing: border-box;
@@ -72,7 +71,7 @@ export const expandStyles = () => css`
 		${sharedExpandStyles.contentStyles({ expanded: false, focused: false })()}
 		cursor: text;
 		padding-top: 0px;
-		${fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2') && `overflow-x: clip;`}
+		${fg('platform_editor_drag_and_drop_expand_style_fix') && `overflow-x: clip;`}
 	}
 
 	.${expandClassNames.titleInput} {

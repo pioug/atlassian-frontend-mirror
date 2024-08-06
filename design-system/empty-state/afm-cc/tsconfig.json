@@ -22,6 +22,15 @@
             "path": "../../button/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../heading/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../primitives/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../spinner/afm-cc/tsconfig.json"
         },
         {

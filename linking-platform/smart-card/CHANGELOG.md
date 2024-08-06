@@ -1,5 +1,26 @@
 # @atlaskit/smart-card
 
+## 27.13.0
+
+### Minor Changes
+
+- [#127156](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127156)
+  [`4795e7d3ea7c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4795e7d3ea7c1) -
+  [ux] Increase inline smart-card icon size
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.12.3
+
+### Patch Changes
+
+- [#127197](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127197)
+  [`b5304a0c2ce56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5304a0c2ce56) -
+  Fix recent links heading case
+- Updated dependencies
+
 ## 27.12.2
 
 ### Patch Changes

@@ -215,31 +215,26 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 	render() {
 		const {
 			'aria-describedby': ariaDescribedBy,
+			appearance,
 			autoFocus,
-			id,
-			innerProps,
-			isDisabled,
-			name,
-			timeIsEditable,
 			dateFormat,
 			datePickerProps,
 			datePickerSelectProps,
+			id,
+			innerProps,
+			isDisabled,
+			isInvalid,
+			locale,
+			name,
+			spacing,
+			testId,
+			timeFormat,
+			timeIsEditable,
 			timePickerProps,
 			timePickerSelectProps,
 			times,
-			timeFormat,
-			locale,
-			testId,
 		} = this.props;
 		const { isFocused, value, dateValue, timeValue } = this.getSafeState();
-		const bothProps = {
-			isDisabled,
-			onBlur: this.onBlur,
-			onFocus: this.onFocus,
-			isInvalid: this.props.isInvalid,
-			appearance: this.props.appearance,
-			spacing: this.props.spacing,
-		};
 
 		const { styles: datePickerStyles = {} } = datePickerSelectProps;
 		const { styles: timePickerStyles = {} } = timePickerSelectProps;
@@ -270,41 +265,51 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 
 		return (
 			<DateTimePickerContainer
-				appearance={bothProps.appearance}
+				appearance={appearance}
 				isDisabled={isDisabled}
 				isFocused={isFocused}
-				isInvalid={bothProps.isInvalid}
+				isInvalid={isInvalid}
 				testId={testId}
 				innerProps={innerProps}
 			>
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
 				<div css={datePickerContainerStyles}>
 					<DatePicker
-						{...bothProps}
+						appearance={appearance}
 						autoFocus={autoFocus}
 						dateFormat={dateFormat}
 						hideIcon
 						id={id}
-						onChange={this.onDateChange}
-						selectProps={mergedDatePickerSelectProps}
-						value={dateValue}
+						isDisabled={isDisabled}
+						isInvalid={isInvalid}
 						locale={locale}
+						onBlur={this.onBlur}
+						onChange={this.onDateChange}
+						onFocus={this.onFocus}
+						selectProps={mergedDatePickerSelectProps}
+						spacing={spacing}
 						testId={testId && `${testId}--datepicker`}
+						value={dateValue}
 						{...datePickerProps}
 					/>
 				</div>
 				<div css={timePickerContainerStyles}>
 					<TimePicker
-						{...bothProps}
+						appearance={appearance}
 						hideIcon
+						isDisabled={isDisabled}
+						isInvalid={isInvalid}
+						locale={locale}
+						onBlur={this.onBlur}
 						onChange={this.onTimeChange}
+						onFocus={this.onFocus}
 						selectProps={mergedTimePickerSelectProps}
-						value={timeValue}
+						spacing={spacing}
+						testId={testId && `${testId}--timepicker`}
+						timeFormat={timeFormat}
 						timeIsEditable={timeIsEditable}
 						times={times}
-						timeFormat={timeFormat}
-						locale={locale}
-						testId={testId && `${testId}--timepicker`}
+						value={timeValue}
 						{...timePickerProps}
 					/>
 				</div>

@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { decisionItem, decisionList, taskItem, taskList } from '@atlaskit/adf-schema';
+import { decisionList, taskItem, taskList } from '@atlaskit/adf-schema';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
@@ -20,6 +20,7 @@ import inputRulePlugin from './pm-plugins/input-rules';
 import keymap, { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
 import { stateKey as taskPluginKey } from './pm-plugins/plugin-key';
+import { decisionItemSpecWithFixedToDOM } from './toDOM-fixes/decisionItem';
 import type { TaskDecisionListType, TasksAndDecisionsPlugin } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
@@ -77,7 +78,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		nodes() {
 			return [
 				{ name: 'decisionList', node: decisionList },
-				{ name: 'decisionItem', node: decisionItem },
+				{ name: 'decisionItem', node: decisionItemSpecWithFixedToDOM() },
 				{
 					name: 'taskList',
 					node: taskList,

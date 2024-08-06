@@ -93,7 +93,7 @@ describe('ViewRelatedLinksAction', () => {
 		const modal = await findByRole('dialog');
 		expect(modal).toBeInTheDocument();
 
-		const modalTitle = await findByText('Recent Links');
+		const modalTitle = await findByText('Recent links');
 		expect(modalTitle).toBeInTheDocument();
 
 		// will render unavailable view

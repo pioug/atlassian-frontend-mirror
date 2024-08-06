@@ -28,6 +28,10 @@ export interface PluginState {
 		handleOptions?: HandleOptions;
 	} | null;
 	isResizerResizing: boolean;
+	/**
+	 * @private
+	 * @deprecated Doc size limits no longer supported
+	 */
 	isDocSizeLimitEnabled: boolean | null;
 	/**
 	 * is dragging the node without using drag handle, i,e, native prosemirror DnD

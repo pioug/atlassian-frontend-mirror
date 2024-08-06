@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.11.12
+
+### Patch Changes
+
+- [`941edf62401ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/941edf62401ae) -
+  This version removes `platform.design-system-team.use-default-select-in-popup-select_46rmj`
+  feature flag. The `PopupSelect` component now uses the internal `Select` component ensure the
+  accessibility of options with group labels for assistive technologies.
+
 ## 17.11.11
 
 ### Patch Changes

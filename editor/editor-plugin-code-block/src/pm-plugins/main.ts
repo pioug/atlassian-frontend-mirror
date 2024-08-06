@@ -7,7 +7,13 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView, EditorProps as PMEditorProps } from '@atlaskit/editor-prosemirror/view';
+import {
+	type Decoration,
+	DecorationSet,
+	type EditorView,
+	type EditorProps as PMEditorProps,
+} from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '../actions';
 import type { CodeBlockPlugin } from '../index';
@@ -17,6 +23,7 @@ import { codeBlockClassNames } from '../ui/class-names';
 import { findCodeBlock } from '../utils';
 
 import { ACTIONS } from './actions';
+import { createLineNumbersDecorations } from './decorators';
 import { type CodeBlockState } from './main-state';
 
 export const createPlugin = ({
@@ -33,6 +40,7 @@ export const createPlugin = ({
 	allowCompositionInputOverride?: boolean;
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 	isWrapped?: boolean;
+	decorations?: DecorationSet;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
 
@@ -97,21 +105,33 @@ export const createPlugin = ({
 		state: {
 			init(_, state): CodeBlockState {
 				const node = findCodeBlock(state, state.selection);
+
 				return {
 					pos: node ? node.pos : null,
 					contentCopied: false,
 					isNodeSelected: false,
 					shouldIgnoreFollowingMutations: false,
+					decorations: DecorationSet.empty,
 				};
 			},
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
 				if (tr.docChanged || tr.selectionSet) {
 					const node = findCodeBlock(newState, tr.selection);
 
+					let lineNumberDecorators: Decoration[] = [];
+					if (fg('editor_support_code_block_wrapping')) {
+						if (node && node.pos !== undefined) {
+							lineNumberDecorators = createLineNumbersDecorations(node.pos, node.node);
+						}
+					}
+
 					const newPluginState: CodeBlockState = {
 						...pluginState,
 						pos: node ? node.pos : null,
 						isNodeSelected: tr.selection instanceof NodeSelection,
+						decorations: fg('editor_support_code_block_wrapping')
+							? DecorationSet.create(tr.doc, lineNumberDecorators)
+							: DecorationSet.empty,
 					};
 					return newPluginState;
 				}
@@ -135,9 +155,15 @@ export const createPlugin = ({
 		},
 		key: pluginKey,
 		props: {
+			decorations(state) {
+				if (fg('editor_support_code_block_wrapping')) {
+					return pluginKey.getState(state).decorations || DecorationSet.empty;
+				}
+				return undefined;
+			},
 			nodeViews: {
 				codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
-					codeBlockNodeView(node, view, getPos, api, isWrapped),
+					codeBlockNodeView(node, view, getPos, api),
 			},
 			handleClickOn: createSelectionClickHandler(
 				['codeBlock'],

@@ -1,6 +1,5 @@
 import { NodeSelection, TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const getSelection = (tr: Transaction, start: number) => {
 	const node = tr.doc.nodeAt(start);
@@ -17,8 +16,7 @@ export const getSelection = (tr: Transaction, start: number) => {
 	} else if (
 		// Even though mediaGroup is not selectable,
 		// we need a quick way to make all child media nodes appear as selected without the need for a custom selection
-		node?.type.name === 'mediaGroup' &&
-		fg('platform_editor_element_drag_and_drop_ed_23842')
+		node?.type.name === 'mediaGroup'
 	) {
 		return new NodeSelection($startPos);
 	} else {
@@ -29,37 +27,19 @@ export const getSelection = (tr: Transaction, start: number) => {
 		let inlineNodeEndPos = 0;
 
 		tr.doc.nodesBetween($startPos.pos, $startPos.pos + nodeSize, (n, pos) => {
-			if (fg('platform.editor.elements.drag-and-drop-ed-23905')) {
-				if (n.isInline) {
-					inlineNodeEndPos = pos + n.nodeSize;
-				}
-
-				if (n.isInline && !foundInlineNode) {
-					inlineNodePos = pos;
-					foundInlineNode = true;
-				}
-			} else {
-				if (foundInlineNode) {
-					return false;
-				}
-				if (n.isInline) {
-					inlineNodePos = pos;
-					foundInlineNode = true;
-					return false;
-				}
+			if (n.isInline) {
+				inlineNodeEndPos = pos + n.nodeSize;
 			}
+
+			if (n.isInline && !foundInlineNode) {
+				inlineNodePos = pos;
+				foundInlineNode = true;
+			}
+
 			return true;
 		});
 
-		const inlineNodeDepth = inlineNodePos - start;
-		return new TextSelection(
-			tr.doc.resolve(
-				fg('platform.editor.elements.drag-and-drop-ed-23905')
-					? inlineNodeEndPos
-					: start + nodeSize - inlineNodeDepth,
-			),
-			tr.doc.resolve(inlineNodePos),
-		);
+		return new TextSelection(tr.doc.resolve(inlineNodeEndPos), tr.doc.resolve(inlineNodePos));
 	}
 };
 

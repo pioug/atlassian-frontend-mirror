@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 195.1.10
+
+### Patch Changes
+
+- [#127369](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127369)
+  [`95ff22b16d347`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95ff22b16d347) -
+  [ux] ED-24374 Add support for dynamic line number positions on code block nodeview
+
+## 195.1.9
+
+### Patch Changes
+
+- [#127275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127275)
+  [`45778c5f2adf8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45778c5f2adf8) -
+  ED-24384 Clean up remove wrap feature flag
+
+## 195.1.8
+
+### Patch Changes
+
+- [#126929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126929)
+  [`ba2a4b1af84db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba2a4b1af84db) -
+  Clean up FFs
+- Updated dependencies
+
 ## 195.1.6
 
 ### Patch Changes

@@ -305,11 +305,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 /**
  * __Anchor__
  *
- * @internal Still under development. Do not use.
- *
  * Anchor is a primitive for building custom anchor links. It's a wrapper around the HTML `<a>` element that provides a consistent API for handling client-side routing and Atlassian Design System styling.
- *
- * This component is mostly used by other design system components, such as the [link component](/components/link/usage).
  *
  * - [Examples](https://atlassian.design/components/primitives/anchor/examples)
  * - [Code](https://atlassian.design/components/primitives/anchor/code)

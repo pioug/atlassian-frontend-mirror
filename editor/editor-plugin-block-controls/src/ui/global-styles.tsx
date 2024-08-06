@@ -86,23 +86,10 @@ const extendedHoverZoneNested = css({
 	},
 });
 
-const paragraphWithTrailingBreak = '+ p > .ProseMirror-trailingBreak';
-const paragraphWithCursorTarget = '+ p > .cursor-target';
 const paragraphWithTrailingBreakAsOnlyChild = '+ p > .ProseMirror-trailingBreak:only-child';
 const paragraphWithPlaceholder = '+ p > .placeholder-decoration';
 const dragHandleContainer = '.ProseMirror-widget[data-blocks-drag-handle-container="true"]';
 const dragHandleSelector = 'button[data-testid="block-ctrl-drag-handle"]';
-
-const withoutInlineNodeStyle = css({
-	// Currently, we are hiding the drag handle container by checking if the paragraph has a trailing break and no cursor target
-	// TODO ED-23827 add a classname to empty paragraphs for easier targeting
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithTrailingBreak}):not(:has(${paragraphWithCursorTarget}))`]:
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-			display: 'none !important',
-		},
-});
 
 const withInlineNodeStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -110,21 +97,6 @@ const withInlineNodeStyle = css({
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 			display: 'none !important',
-		},
-});
-
-/**
- * Please do not change change transform to display:none, or visibility:hidden
- * Otherwise it might break composition input for Chrome
- * https://product-fabric.atlassian.net/browse/ED-24136
- */
-const withoutInlineNodeStyleWithChromeFix = css({
-	// Currently, we are hiding the drag handle container by checking if the paragraph has a trailing break and no cursor target
-	// TODO ED-23827 add a classname to empty paragraphs for easier targeting
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`${dragHandleContainer}:has(${paragraphWithTrailingBreak}):not(:has(${paragraphWithCursorTarget})) ${dragHandleSelector}`]:
-		{
-			transform: 'scale(0)',
 		},
 });
 
@@ -168,15 +140,9 @@ const withMediaSingleStyleFix = css({
 });
 
 const getTextNodeStyle = () => {
-	if (fg('platform.editor.elements.drag-and-drop-ed-23868')) {
-		return fg('platform_editor_element_controls_chrome_input_fix')
-			? withInlineNodeStyleWithChromeFix
-			: withInlineNodeStyle;
-	} else {
-		return fg('platform_editor_element_controls_chrome_input_fix')
-			? withoutInlineNodeStyleWithChromeFix
-			: withoutInlineNodeStyle;
-	}
+	return fg('platform_editor_element_controls_chrome_input_fix')
+		? withInlineNodeStyleWithChromeFix
+		: withInlineNodeStyle;
 };
 
 export const GlobalStylesWrapper = () => {
@@ -184,14 +150,10 @@ export const GlobalStylesWrapper = () => {
 		<Global
 			styles={[
 				globalStyles,
-				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
-					? fg('platform_editor_elements_dnd_nested')
-						? extendedHoverZoneNested
-						: extendedHoverZone
-					: false,
+				fg('platform_editor_elements_dnd_nested') ? extendedHoverZoneNested : extendedHoverZone,
 				getTextNodeStyle(),
-				fg('platform.editor.elements.drag-and-drop-ed-23932') && withDeleteLinesStyleFix,
-				fg('platform_editor_element_drag_and_drop_ed_24005') && withMediaSingleStyleFix,
+				withDeleteLinesStyleFix,
+				withMediaSingleStyleFix,
 			]}
 		/>
 	);

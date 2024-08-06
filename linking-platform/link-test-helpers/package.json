@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "7.0.9",
+	"version": "7.2.0",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -10,7 +10,8 @@
 	"atlassian": {
 		"team": "Linking Platform",
 		"inPublicMirror": false,
-		"releaseModel": "continuous"
+		"releaseModel": "continuous",
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -45,7 +46,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/linking-types": "^8.12.0",
+		"@atlaskit/linking-types": "^8.13.0",
 		"@babel/runtime": "^7.0.0",
 		"@jest/globals": "^26.4.2",
 		"@testing-library/react": "^12.1.5",
@@ -56,7 +57,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"react-dom": "^16.8.0",

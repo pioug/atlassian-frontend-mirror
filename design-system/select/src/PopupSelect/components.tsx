@@ -2,18 +2,26 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, type ReactNode, type CSSProperties } from 'react';
-import { components } from 'react-select';
+import { type CSSProperties, type FC, type ReactNode } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { components } from 'react-select';
 
-import VisuallyHidden from '@atlaskit/visually-hidden';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';
-import { layers } from '@atlaskit/theme/constants';
 import { N40A } from '@atlaskit/theme/colors';
+import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { type ControlProps, type MenuProps, type OptionType } from '../types';
+import {
+	type ClearIndicatorProps,
+	type ControlProps,
+	type IndicatorSeparatorProps,
+	type MenuProps,
+	type MultiValueRemoveProps,
+	type OptionType,
+} from '../types';
 
 // ==============================
 // Styled Components
@@ -28,12 +36,17 @@ interface MenuDialogProps {
 }
 
 const menuDialogStyles = css({
+	zIndex: layers.modal(),
 	backgroundColor: token('elevation.surface.overlay', 'white'),
 	borderRadius: token('border.radius.100', '4px'),
 	boxShadow: token('elevation.shadow.overlay', `0 0 0 1px ${N40A}, 0 4px 11px ${N40A}`),
-	zIndex: layers.modal(),
 });
 
+/**
+ * __Menu dialog__
+ * Wrapper for PopupSelect component.
+ *
+ */
 export const MenuDialog: FC<MenuDialogProps> = ({
 	maxWidth,
 	minWidth,
@@ -67,9 +80,9 @@ export const MenuDialog: FC<MenuDialogProps> = ({
 // ==============================
 
 const dropdownStyles = css({
+	width: 32,
 	marginInlineEnd: token('space.025', '2px'),
 	textAlign: 'center',
-	width: 32,
 });
 
 const DropdownIndicator = () => (
@@ -88,6 +101,10 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, 
 	</div>
 );
 
+/**
+ * __Dummy control__
+ * Overrides the default DummyControl component in Select.
+ */
 export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
 	<VisuallyHidden>
 		<components.Control {...props} />
@@ -99,8 +116,21 @@ const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
 	<div {...innerProps}>{children}</div>
 );
 
+const IndicatorSeparator = (props: IndicatorSeparatorProps) => (
+	<components.IndicatorSeparator {...props} />
+);
+
+const ClearIndicator = (props: ClearIndicatorProps) => <components.ClearIndicator {...props} />;
+
+const MultiValueRemove = (props: MultiValueRemoveProps) => (
+	<components.MultiValueRemove {...props} />
+);
+
 export const defaultComponents = {
 	Control,
 	DropdownIndicator,
 	Menu,
+	IndicatorSeparator,
+	ClearIndicator,
+	MultiValueRemove,
 };

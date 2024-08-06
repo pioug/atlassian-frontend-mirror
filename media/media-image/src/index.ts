@@ -1,4 +1,4 @@
-export { default as MediaImage } from './mediaImageWithErrorBoundary';
+export { MediaImageWithErrorBoundary as MediaImage } from './mediaImageErrorBoundary';
 export type {
 	MediaImageWithMediaClientConfigProps as MediaImageProps,
 	MediaImageChildrenProps,

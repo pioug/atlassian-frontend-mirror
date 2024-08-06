@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { hydrateRoot } from 'react-dom-18/client';
-
 import { getExamplesFor, ssr } from '@atlaskit/ssr';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
@@ -10,6 +8,16 @@ afterEach(() => {
 	jest.resetAllMocks();
 });
 
+// TODO: This is a temporary workaround before complete migration to react-dom v18
+// 	See conversation https://hello.atlassian.net/wiki/x/HtE48
+let hydrateRoot: unknown;
+try {
+	// eslint-disable-next-line import/no-unresolved
+	hydrateRoot = require('react-dom/client').hydrateRoot;
+} catch (e) {
+	/* Skipping error */
+}
+
 test('should ssr then hydrate analytics-next correctly', async () => {
 	const [example] = await getExamplesFor('analytics-next');
 	const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
@@ -17,7 +25,12 @@ test('should ssr then hydrate analytics-next correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(example.filePath);
 
-	hydrateRoot(elem, <Example />);
+	if (typeof hydrateRoot === 'function') {
+		hydrateRoot(elem, <Example />);
+	} else {
+		const { hydrate } = require('react-dom');
+		hydrate(<Example />, elem);
+	}
 
 	// ignore warnings caused by emotion's server-side rendering approach
 	// eslint-disable-next-line no-console

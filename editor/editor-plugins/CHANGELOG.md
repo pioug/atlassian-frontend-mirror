@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugins
 
+## 3.6.11
+
+### Patch Changes
+
+- [#127369](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127369)
+  [`95ff22b16d347`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95ff22b16d347) -
+  ED-24374 Add wrapping tests and export decorator utils for code block
+- Updated dependencies
+
+## 3.6.10
+
+### Patch Changes
+
+- [#127275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127275)
+  [`45778c5f2adf8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45778c5f2adf8) -
+  ED-24384 Clean up remove wrap feature flag
+- Updated dependencies
+
+## 3.6.9
+
+### Patch Changes
+
+- [#126929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126929)
+  [`ba2a4b1af84db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba2a4b1af84db) -
+  Clean up FFs
+- Updated dependencies
+
+## 3.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.6.7
 
 ### Patch Changes

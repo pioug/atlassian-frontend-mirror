@@ -41,10 +41,10 @@ import { ButtonItem } from '@atlaskit/side-navigation';
 ```tsx
 const styles = css({ padding: 'var(--ds-space-100)' });
 
-<Box as="a" xcss={styles}>
+<Anchor xcss={styles}>
 	<Stack>
 		<Inline />
 		<Inline />
 	</Stack>
-</Box>;
+</Anchor>;
 ```

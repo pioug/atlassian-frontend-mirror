@@ -46,6 +46,9 @@
     },
     {
       "path": "../../../elements/task-decision/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tokens/afm-jira/tsconfig.json"
     }
   ]
 }

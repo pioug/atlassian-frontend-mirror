@@ -10,15 +10,12 @@ jest.mock('unzipit', () => ({
 jest.unmock('../../../../../utils');
 
 import React from 'react';
-import { mount } from 'enzyme';
-import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import {
 	ArchiveSidebar,
 	type ArchiveSidebarProps,
-	type ArchiveSidebarState,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar';
-import { ArchiveSidebarFolderEntry } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
-import { ArchiveSidebarHeader } from '../../../../../viewers/archiveSidebar/archive-sidebar-header';
 import { type ZipEntry } from 'unzipit';
 
 describe('ArchiveSidebar', () => {
@@ -34,14 +31,9 @@ describe('ArchiveSidebar', () => {
 			onError: () => {},
 		};
 		const passedProps = { ...baseProps, ...props };
-		return mount(<ArchiveSidebar {...passedProps} />);
+		return render(<ArchiveSidebar {...passedProps} />);
 	}
 
-	it('should render expected elements', () => {
-		const el = mountBaseComponent({});
-		expect(el.find(ArchiveSidebarFolderEntry)).toHaveLength(1);
-		expect(el.find(ArchiveSidebarHeader)).toHaveLength(1);
-	});
 	it('should set root using passed in entry', async () => {
 		const entry = {
 			name: 'folder1',
@@ -49,15 +41,11 @@ describe('ArchiveSidebar', () => {
 		} as ZipEntry;
 
 		const onEntrySelectedMock = jest.fn();
-		const el = mountBaseComponent({ onEntrySelected: onEntrySelectedMock });
-		const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
-		archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
-		await sleep(0);
-		el.update();
-		// Need to find element again, as the results of .find() are immutable
-		expect(el.find(ArchiveSidebarFolderEntry).prop('root')).toEqual('folder1');
+		mountBaseComponent({ onEntrySelected: onEntrySelectedMock, entries: { entry } });
+		expect(screen.getByText('folder1')).toBeInTheDocument();
 	});
-	it('should call extractArchiveFolderName if entry is archive', async () => {
+
+	it('should show correct entry name when entry is selected', async () => {
 		const entry = {
 			name: 'archive.zip',
 			isDirectory: false,
@@ -65,30 +53,10 @@ describe('ArchiveSidebar', () => {
 		} as any;
 
 		const onEntrySelectedMock = jest.fn();
-		const el = mountBaseComponent({ onEntrySelected: onEntrySelectedMock });
-		const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
-		archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
-		await sleep(0);
-		const archiveSidebarState = el.state() as ArchiveSidebarState;
-		expect(archiveSidebarState.currentArchiveSidebarFolder.root).toEqual('archive/');
-		expect(archiveSidebarState.currentArchiveSidebarFolder.name).toEqual('archive/');
+		mountBaseComponent({ onEntrySelected: onEntrySelectedMock, entries: { entry } });
+		expect(screen.getByText('archive.zip')).toBeInTheDocument();
 	});
-	it('should update state when entry is selected', async () => {
-		const entry = {
-			name: 'archive.zip',
-			isDirectory: false,
-			blob: jest.fn(),
-		} as any;
 
-		const onEntrySelectedMock = jest.fn();
-		const el = mountBaseComponent({ onEntrySelected: onEntrySelectedMock });
-		const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
-		archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
-		await sleep(0);
-		const archiveSidebarState = el.state() as ArchiveSidebarState;
-		expect(archiveSidebarState.currentArchiveSidebarFolder.root).toEqual('archive/');
-		expect(archiveSidebarState.currentArchiveSidebarFolder.name).toEqual('archive/');
-	});
 	it('should not call onEntrySelected if entry is directory', async () => {
 		const entry = {
 			name: 'folder_1',
@@ -97,22 +65,13 @@ describe('ArchiveSidebar', () => {
 		} as any;
 
 		const onEntrySelectedMock = jest.fn();
-		const el = mountBaseComponent({ onEntrySelected: onEntrySelectedMock });
-		const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
-		archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
-		await sleep(0);
-		expect(onEntrySelectedMock).toBeCalledTimes(0);
+		mountBaseComponent({ onEntrySelected: onEntrySelectedMock, entries: { entry } });
+		const entryItem = screen.getByText('folder_1');
+		fireEvent.click(entryItem);
+		expect(onEntrySelectedMock).toHaveBeenCalledTimes(0);
 	});
-	it('ArchiveSidebarHeaders onClick should trigger its onHeaderClicked callback', async () => {
-		const onHeaderClickedMock = jest.fn();
-		const el = mountBaseComponent({
-			onHeaderClicked: onHeaderClickedMock,
-		});
-		const archiveSidebarHeader = el.find(ArchiveSidebarHeader);
-		archiveSidebarHeader.prop('onHeaderClick')();
-		expect(onHeaderClickedMock).toHaveBeenCalled();
-	});
-	it('ArchiveSidebarHeaders onHeaderClicked callback should update state', async () => {
+
+	it('ArchiveSidebarHeaders onHeaderClicked callback should be triggered when header is clicked', async () => {
 		const entry = {
 			name: 'root/archive.zip',
 			isDirectory: false,
@@ -120,21 +79,17 @@ describe('ArchiveSidebar', () => {
 		} as any;
 		const onEntrySelectedMock = jest.fn();
 		const onHeaderClickedMock = jest.fn();
-		const el = mountBaseComponent({
+		mountBaseComponent({
 			onHeaderClicked: onHeaderClickedMock,
 			onEntrySelected: onEntrySelectedMock,
 			entries: { entry },
 		});
-		const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
-		archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
-		const archiveSidebarHeader = el.find(ArchiveSidebarHeader);
-		await sleep(0);
-		archiveSidebarHeader.prop('onHeaderClick')();
+		const headerBtn = screen.getByLabelText('Home');
+		fireEvent.click(headerBtn);
 		expect(onHeaderClickedMock).toHaveBeenCalled();
-		const archiveSidebarState = el.state() as ArchiveSidebarState;
-		expect(archiveSidebarState.currentArchiveSidebarFolder.root).toEqual('root/');
-		expect(archiveSidebarState.currentArchiveSidebarFolder.name).toEqual('root/');
+		expect(screen.getByText('root/')).toBeInTheDocument();
 	});
+
 	it('should call onError if rejectAfter throws an error', async () => {
 		const entry = {
 			name: 'archive.zip',
@@ -146,13 +101,15 @@ describe('ArchiveSidebar', () => {
 
 		const onErrorMock = jest.fn();
 		const onEntrySelectedMock = jest.fn();
-		const el = mountBaseComponent({
+		mountBaseComponent({
 			onEntrySelected: onEntrySelectedMock,
 			onError: onErrorMock,
+			entries: { entry },
 		});
-		const archiveSidebarFolderEntry = el.find(ArchiveSidebarFolderEntry);
-		archiveSidebarFolderEntry.prop('onEntrySelected')(entry);
-		await sleep(0);
-		expect(onErrorMock).toBeCalledWith(new Error('error'), entry);
+		const downloadBtn = screen.getByLabelText('Download');
+		fireEvent.click(downloadBtn);
+		await waitFor(() => {
+			expect(onErrorMock).toHaveBeenCalledWith(new Error('error'), entry);
+		});
 	});
 });

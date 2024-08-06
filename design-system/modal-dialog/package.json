@@ -59,7 +59,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "*",
-		"@atlaskit/checkbox": "^13.5.0",
+		"@atlaskit/checkbox": "^13.6.0",
 		"@atlaskit/dropdown-menu": "^12.15.0",
 		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/radio": "^6.4.0",

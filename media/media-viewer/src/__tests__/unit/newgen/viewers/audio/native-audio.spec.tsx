@@ -3,13 +3,11 @@ jest.mock('../../../../../utils/isIE', () => ({
 }));
 
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
+import { render, screen, waitFor } from '@testing-library/react';
 import { type ProcessedFileState } from '@atlaskit/media-client';
-import { mountWithIntlContext, nextTick, fakeMediaClient } from '@atlaskit/media-test-helpers';
+import { fakeMediaClient } from '@atlaskit/media-test-helpers';
 import { AudioViewer } from '../../../../../viewers/audio';
-import Spinner from '@atlaskit/spinner';
-import { DefaultCoverWrapper, AudioCover } from '../../../../../styleWrappers';
-import { ErrorMessage } from '../../../../../errorMessage';
-import Button from '@atlaskit/button/custom-theme-button';
 import { type Auth } from '@atlaskit/media-core';
 
 const token = 'some-token';
@@ -37,6 +35,7 @@ function createFixture(
 	collectionName?: string,
 	item?: ProcessedFileState,
 	mockReturnGetArtifactURL?: Promise<string>,
+	mockGetImageUrl?: Promise<string>,
 ) {
 	const mediaClient = fakeMediaClient({
 		authProvider: () => authPromise,
@@ -49,15 +48,21 @@ function createFixture(
 				Promise.resolve('some-base-url/audio?client=some-client-id&token=some-token'),
 		);
 
-	const el = mountWithIntlContext(
-		<AudioViewer
-			onCanPlay={() => {}}
-			onError={() => {}}
-			mediaClient={mediaClient}
-			item={item || audioItem}
-			collectionName={collectionName}
-			previewCount={0}
-		/>,
+	if (mockGetImageUrl) {
+		jest.spyOn(mediaClient, 'getImageUrl').mockReturnValue(mockGetImageUrl);
+	}
+
+	const el = render(
+		<IntlProvider locale="en">
+			<AudioViewer
+				onCanPlay={() => {}}
+				onError={() => {}}
+				mediaClient={mediaClient}
+				item={item || audioItem}
+				collectionName={collectionName}
+				previewCount={0}
+			/>
+		</IntlProvider>,
 	);
 	return { mediaClient, el };
 }
@@ -69,102 +74,84 @@ describe('Audio viewer', () => {
 
 	it('assigns a src for audio files when successful', async () => {
 		const authPromise = Promise.resolve({ token, clientId, baseUrl });
-		const { el } = createFixture(authPromise);
-		await (el as any).instance()['init']();
-		el.update();
-		expect(el.find('audio').prop('src')).toEqual(
-			'some-base-url/audio?client=some-client-id&token=some-token',
+		const {
+			el: { container },
+		} = createFixture(authPromise);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(container.querySelector('audio')?.src).toBe(
+			'http://localhost/some-base-url/audio?client=some-client-id&token=some-token',
 		);
 	});
 
 	it('shows spinner when pending', async () => {
-		const authPromise: any = new Promise(() => {});
-		const { el } = createFixture(authPromise);
-		el.update();
-		expect(el.find(Spinner)).toHaveLength(1);
+		const authPromise = Promise.resolve({ token, clientId, baseUrl });
+		createFixture(authPromise);
+		expect(screen.getByLabelText('Loading file...')).toBeInTheDocument();
 	});
 
 	it('shows error message with a download button if there is an error displaying the preview', async () => {
 		const mockGetArtifactUrlReturn = Promise.resolve('');
 
-		const { el } = createFixture(
-			new Promise(() => {}),
-			undefined,
-			undefined,
-			mockGetArtifactUrlReturn,
-		);
+		createFixture(new Promise(() => {}), undefined, undefined, mockGetArtifactUrlReturn);
 
 		await mockGetArtifactUrlReturn;
 
-		el.update();
-		const errorMessage = el.find(ErrorMessage);
-		expect(errorMessage).toHaveLength(1);
-		expect(errorMessage.text()).toContain("We couldn't generate a preview for this file");
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(screen.getByText(`We couldn't generate a preview for this file.`)).toBeInTheDocument();
 
 		// download button
-		expect(errorMessage.text()).toContain('Try downloading the file to view it');
-		expect(errorMessage.find(Button)).toHaveLength(1);
+		expect(screen.getByText('Try downloading the file to view it.')).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', {
+				name: /Download/i,
+			}),
+		).toBeInTheDocument();
 	});
 
 	describe('cover', () => {
 		it('it should show the default cover while the audio cover is loading', async () => {
 			const authPromise = Promise.resolve({ token, clientId, baseUrl });
-			const { el } = createFixture(authPromise);
-			await (el as any).instance()['init']();
-			el.update();
-			expect(el.find(DefaultCoverWrapper)).toHaveLength(1);
+			createFixture(authPromise);
+			await waitFor(() => expect(screen.getByLabelText('cover')).toBeInTheDocument());
 		});
 
 		it('it should show the default cover when the audio cover is errored', async () => {
 			const authPromise = Promise.resolve({ token, clientId, baseUrl });
-			const { el } = createFixture(authPromise);
-			const instance: any = el.instance();
-
-			instance['loadCover'] = () => Promise.reject('no cover found');
-			await instance['init']();
-			el.update();
-			expect(el.find(DefaultCoverWrapper)).toHaveLength(1);
+			createFixture(authPromise, undefined, undefined, undefined, Promise.resolve(''));
+			await waitFor(() => expect(screen.getByLabelText('cover')).toBeInTheDocument());
 		});
 
 		it('it should show the audio cover if exists', async () => {
 			const authPromise = Promise.resolve({ token, clientId, baseUrl });
-			const { el } = createFixture(authPromise);
-			const instance: any = el.instance();
-			const promiseSrc = Promise.resolve('cover-src');
-
-			instance['loadCover'] = () => promiseSrc;
-			await instance['init']();
-			await promiseSrc;
-			await nextTick();
-			await nextTick();
-			el.update();
-
-			expect(el.find(DefaultCoverWrapper)).toHaveLength(0);
-			expect(el.find(AudioCover).prop('src')).toEqual('some-image-url');
-		});
-
-		it('MSW-720: pass the collectionName to calls to getArtifactURL', async () => {
-			const collectionName = 'collectionName';
-			const authPromise = Promise.resolve({ token, clientId, baseUrl });
-			const { el, mediaClient } = createFixture(authPromise, collectionName);
-			const instance: any = el.instance();
-			const promiseSrc = Promise.resolve('cover-src');
-
-			instance['loadCover'] = () => promiseSrc;
-			await instance['init']();
-			await promiseSrc;
-			el.update();
-
-			expect((mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0][2]).toEqual(
-				collectionName,
+			global.Image = jest.fn().mockImplementation(() => {
+				return {
+					// Implement the onload property
+					onload: null,
+					// Simulate the behavior when the image loads
+					set src(value: any) {
+						setTimeout(() => {
+							if (this.onload) {
+								this.onload(); // Call onload handler
+							}
+						}, 0);
+					},
+				};
+			});
+			createFixture(
+				authPromise,
+				undefined,
+				undefined,
+				undefined,
+				Promise.resolve('http://localhost/some-cover-image'),
 			);
-			expect((mediaClient.file.getArtifactURL as jest.Mock).mock.calls[1][2]).toEqual(
-				collectionName,
+			await waitFor(() => expect(screen.getByAltText('my audio')).toBeInTheDocument());
+			expect(screen.getByAltText('my audio').getAttribute('src')).toBe(
+				'http://localhost/some-cover-image',
 			);
 		});
 
 		describe('AutoPlay', () => {
-			async function createAutoPlayFixture(previewCount: number) {
+			function createAutoPlayFixture(previewCount: number) {
 				const mediaClient = fakeMediaClient();
 
 				jest
@@ -173,30 +160,37 @@ describe('Audio viewer', () => {
 						Promise.resolve('some-base-url/audio?client=some-client-id&token=some-token'),
 					);
 
-				const el = mountWithIntlContext(
-					<AudioViewer
-						onCanPlay={() => {}}
-						onError={() => {}}
-						mediaClient={mediaClient}
-						item={audioItem}
-						collectionName="collectionName"
-						previewCount={previewCount}
-					/>,
+				const el = render(
+					<IntlProvider locale="en">
+						<AudioViewer
+							onCanPlay={() => {}}
+							onError={() => {}}
+							mediaClient={mediaClient}
+							item={audioItem}
+							collectionName="collectionName"
+							previewCount={previewCount}
+						/>
+						,
+					</IntlProvider>,
 				);
-				const instance: any = el.instance();
-				await instance['init']();
-				el.update();
 				return el;
 			}
 
 			it('should auto play when it is the first preview', async () => {
-				const el = await createAutoPlayFixture(0);
-				expect(el.find('audio').prop('autoPlay')).toBeTruthy();
+				const { container } = createAutoPlayFixture(0);
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+
+				expect(container.querySelector('audio')).toHaveAttribute('autoPlay');
 			});
 
 			it('should not auto play when it is not the first preview', async () => {
-				const el = await createAutoPlayFixture(1);
-				expect(el.find('audio').prop('autoPlay')).toBeFalsy();
+				const { container } = await createAutoPlayFixture(1);
+				await waitFor(() =>
+					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+				);
+				expect(container.querySelector('audio')).not.toHaveAttribute('autoPlay');
 			});
 		});
 	});

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "8.3.12",
+	"version": "8.4.0",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,16 +31,17 @@
 		],
 		"website": {
 			"name": "LinkingAnalytics"
-		}
+		},
+		"runReact18": true
 	},
 	"scripts": {
 		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-analytics run codegen-analytics'"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/link-client-extension": "^1.11.0",
-		"@atlaskit/linking-common": "^5.8.0",
-		"@atlaskit/linking-types": "^8.12.0",
+		"@atlaskit/link-client-extension": "^1.13.0",
+		"@atlaskit/linking-common": "^5.9.0",
+		"@atlaskit/linking-types": "^8.13.0",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0",
 		"lru_map": "^0.4.1",
@@ -48,12 +49,12 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "^1.14.0",
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/analytics-codegen": "^0.1.0",
 		"@atlaskit/link-picker": "^1.41.0",
-		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/link-test-helpers": "^7.2.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",

@@ -3,6 +3,8 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type DatasourceType } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useDatasourceItem } from '../../../state';
@@ -12,42 +14,35 @@ import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from
 
 interface TableCellContentProps {
 	id: string;
-	columnKey: string | null;
-	columnType: string;
+	columnKey: string;
+	columnType: DatasourceType['type'];
 	/** Used to retrieve cell content from the store */
 	renderItem: TableViewPropsRenderType;
 	wrappedColumnKeys: string[] | undefined;
 }
 
-export const TableCellContent = ({
+const truncateTextStyles = xcss({
+	textOverflow: 'ellipsis',
+	overflow: 'hidden',
+	width: '100%',
+});
+
+const TooltipWrapper = ({
 	columnKey,
-	columnType,
-	id,
-	renderItem,
+	datasourceTypeWithValues: { type, values },
 	wrappedColumnKeys,
-}: TableCellContentProps): JSX.Element => {
+	children,
+}: {
+	columnKey: string;
+	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
+	wrappedColumnKeys: string[] | undefined;
+	children: React.ReactNode;
+}) => {
 	const intl = useIntl();
-	const rowData = useDatasourceItem({ id });
-	if (!rowData || !columnKey || !rowData[columnKey]) {
-		return <></>;
-	}
-
-	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-	const value = rowData[columnKey]?.data;
-	const values = Array.isArray(value) ? value : [value];
-
-	const renderedValues = renderItem({
-		type: columnType,
-		values,
-	} as DatasourceTypeWithOnlyValues);
 
 	const stringifiedContent = values
 		.map((value) =>
-			stringifyType(
-				{ type: columnType, value } as DatasourceType,
-				intl.formatMessage,
-				intl.formatDate,
-			),
+			stringifyType({ type, value } as DatasourceType, intl.formatMessage, intl.formatDate),
 		)
 		.filter((value) => value !== '')
 		.join(', ');
@@ -60,10 +55,110 @@ export const TableCellContent = ({
 				content={stringifiedContent}
 				testId="issues-table-cell-tooltip"
 			>
-				{renderedValues}
+				{children}
 			</Tooltip>
 		);
 	}
 
-	return <>{renderedValues}</>;
+	return <>{children}</>;
+};
+
+const ReadOnlyCell = ({
+	id,
+	columnType,
+	wrappedColumnKeys = [],
+	renderItem,
+	columnKey,
+}: TableCellContentProps) => {
+	const rowData = useDatasourceItem({ id });
+	if (!rowData || !columnKey || !rowData[columnKey]) {
+		return <></>;
+	}
+
+	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+	const value = rowData[columnKey]?.data;
+	const values = Array.isArray(value) ? value : [value];
+
+	const datasourceTypeWithValues = {
+		type: columnType,
+		values,
+	} as DatasourceTypeWithOnlyValues;
+
+	return (
+		<TooltipWrapper
+			columnKey={columnKey}
+			datasourceTypeWithValues={datasourceTypeWithValues}
+			wrappedColumnKeys={wrappedColumnKeys}
+		>
+			{renderItem(datasourceTypeWithValues)}
+		</TooltipWrapper>
+	);
+};
+
+const InlineEditableCell = ({
+	id,
+	columnKey,
+	columnType,
+	renderItem,
+	wrappedColumnKeys,
+}: TableCellContentProps) => {
+	const rowData = useDatasourceItem({ id });
+	if (!rowData || !columnKey || !rowData[columnKey]) {
+		return <></>;
+	}
+
+	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+	const value = rowData[columnKey]?.data;
+	const values = Array.isArray(value) ? value : [value];
+
+	const datasourceTypeWithValues = {
+		type: columnType,
+		values,
+	} as DatasourceTypeWithOnlyValues;
+
+	return (
+		<TooltipWrapper
+			columnKey={columnKey}
+			datasourceTypeWithValues={datasourceTypeWithValues}
+			wrappedColumnKeys={wrappedColumnKeys}
+		>
+			<Box
+				testId={'inline-edit-read-view'}
+				paddingInline={'space.100'}
+				paddingBlock={'space.050'}
+				xcss={truncateTextStyles}
+			>
+				{renderItem(datasourceTypeWithValues)}
+			</Box>
+		</TooltipWrapper>
+	);
+};
+
+export const TableCellContent = ({
+	columnKey,
+	columnType,
+	id,
+	renderItem,
+	wrappedColumnKeys,
+}: TableCellContentProps): JSX.Element => {
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	const renderedContent = fg('platform-datasources-enable-two-way-sync') ? (
+		<InlineEditableCell
+			id={id}
+			columnKey={columnKey}
+			columnType={columnType}
+			renderItem={renderItem}
+			wrappedColumnKeys={wrappedColumnKeys}
+		/>
+	) : (
+		<ReadOnlyCell
+			id={id}
+			columnKey={columnKey}
+			columnType={columnType}
+			wrappedColumnKeys={wrappedColumnKeys}
+			renderItem={renderItem}
+		/>
+	);
+
+	return renderedContent;
 };

@@ -226,4 +226,9 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Record',
 		description: 'Record',
 	},
+	turnInto: {
+		id: 'fabric.editor.turnInto',
+		defaultMessage: 'Turn into',
+		description: 'Turn selected texts into another element containing those texts',
+	},
 });

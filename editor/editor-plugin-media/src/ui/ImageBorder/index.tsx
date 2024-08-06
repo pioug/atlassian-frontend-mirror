@@ -28,6 +28,7 @@ import {
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Text } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
@@ -163,7 +164,7 @@ const ImageBorder = ({
 									handleTriggerByKeyboard(e, () => setIsColorSubmenuOpen(!isColorSubmenuOpen))
 								}
 							>
-								<span>{formatMessage(messages.borderColor)}</span>
+								<Text>{formatMessage(messages.borderColor)}</Text>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<div css={contextualMenuColorIcon(color && hexToEditorBorderPaletteColor(color))} />
 							</button>
@@ -232,7 +233,7 @@ const ImageBorder = ({
 									handleTriggerByKeyboard(e, () => setIsSizeSubmenuOpen(!isSizeSubmenuOpen))
 								}
 							>
-								<span>{formatMessage(messages.borderSize)}</span>
+								<Text>{formatMessage(messages.borderSize)}</Text>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<div css={contextualMenuArrow} />
 							</button>

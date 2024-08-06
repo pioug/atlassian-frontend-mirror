@@ -1,10 +1,8 @@
 import React from 'react';
 
-import ScrollLock from 'react-scrolllock';
-
 import noop from '@atlaskit/ds-lib/noop';
 import { sizes } from '@atlaskit/icon';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, type PopperChildrenProps, Reference } from '@atlaskit/popper';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, layers } from '@atlaskit/theme/constants';
@@ -63,7 +61,7 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 				containerRef.getBoundingClientRect().width -
 				parseInt(sizes.small.slice(0, -2)) -
 				gridSize(),
-			...(getBooleanFF('platform.design-system-team.date-picker-input-a11y-fix_cbbxs') && {
+			...(fg('platform.design-system-team.date-picker-input-a11y-fix_cbbxs') && {
 				pointerEvents: 'none',
 			}),
 		};
@@ -73,11 +71,6 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 			 * We need to set the intial top value to where the container is and zIndex so that it still
 			 * applies since we're creating a new stacking context. */
 			<Manager>
-				{getBooleanFF(
-					'platform.design-system-team.remove-scroll-lock-on-datetime-picker_6h6oi',
-				) ? null : (
-					<ScrollLock />
-				)}
 				<Reference>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					{({ ref }) => <div ref={ref} data-layer-child style={divStyles} />}

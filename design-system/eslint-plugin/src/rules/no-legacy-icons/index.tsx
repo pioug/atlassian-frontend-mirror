@@ -39,8 +39,8 @@ const rule = createLintRule({
 			cantMigrateSpreadProps: `This usage of Icon uses spread props in a way that can't be automatically migrated. Please explicitly define the following props after spread: '{{missingProps}}' `,
 			cantMigrateSizeUnknown: `This usage of Icon sets the size via a variable or function that can't be determined.`,
 			cantMigrateFunctionUnknown: `'{{iconName}}' from legacy '{{importSource}}' is used in unknown function/component. Please manually migrate this icon.`,
-			cantMigrateIdentifier: `This icon is passed to other components via a map or array, in a way that can't be automatically migrated. Please manually migrate wherever this expression is used and use the icon components directly.`,
-			cantMigrateUnsafeProp: `Property '{{propName}}' with value of '{{value}}' is unable to be auto-migrated to the new button. Please manually migrate this icon.`,
+			cantMigrateIdentifierMapOrArray: `This icon is passed to other components via a map or array, in a way that can't be automatically migrated. Please manually migrate wherever this expression is used and use the icon components directly.`,
+			cantMigrateIdentifier: `This is a legacy icon, {{iconName}} from {{iconSource}}, being referenced. Please manually migrate.`,
 		},
 	},
 
@@ -57,6 +57,7 @@ const rule = createLintRule({
 			checkJSXElement,
 			checkCallExpression,
 			throwErrors,
+			checkIconReference,
 		} = createChecks(context);
 
 		return errorBoundary(
@@ -82,6 +83,8 @@ const rule = createLintRule({
 
 				// Icons called as an argument of a function (i.e. icon={DefaultIcon(AddIcon)})
 				CallExpression: checkCallExpression,
+
+				Identifier: checkIconReference,
 
 				'Program:exit': throwErrors,
 			},

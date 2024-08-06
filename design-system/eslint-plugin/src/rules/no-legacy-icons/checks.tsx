@@ -6,10 +6,12 @@ import {
 	type Identifier,
 	type ImportDeclaration,
 	isNodeOfType,
+	type Node,
 	type VariableDeclaration,
 } from 'eslint-codemod-utils';
 
 import {
+	addToListOfRanges,
 	canAutoMigrateNewIconBasedOnSize,
 	canMigrateColor,
 	createAutoMigrationError,
@@ -17,36 +19,57 @@ import {
 	createCantMigrateColorError,
 	createCantMigrateFunctionUnknownError,
 	createCantMigrateIdentifierError,
+	createCantMigrateIdentifierMapOrArrayError,
 	createCantMigrateReExportError,
 	createCantMigrateSizeUnknown,
 	createCantMigrateSpreadPropsError,
 	createGuidance,
 	createHelpers,
-	type errorsListAuto,
-	type errorsListManual,
+	type ErrorListAuto,
+	type ErrorListManual,
 	getMigrationMapObject,
 	getUpcomingIcons,
-	type guidanceList,
+	type GuidanceList,
+	isInRangeList,
 	isSize,
 	locToString,
+	type RangeList,
 	type Size,
 } from './helpers';
 
-export const createChecks = (context: Rule.RuleContext) => {
+type ReturnObject = {
+	checkImportDeclarations: (node: ImportDeclaration & Rule.NodeParentExtension) => void;
+	checkVariableDeclarations: (node: VariableDeclaration & Rule.NodeParentExtension) => void;
+	checkExportDefaultDeclaration: (
+		node: ExportDefaultDeclaration & Rule.NodeParentExtension,
+	) => void;
+	checkExportNamedVariables: (node: ExportNamedDeclaration & Rule.NodeParentExtension) => void;
+	checkArrayOrMap: (node: Identifier) => void;
+	checkIconAsProp: (node: Identifier) => void;
+	checkIconReference: (node: Identifier & Rule.NodeParentExtension) => void;
+	checkJSXElement: (node: Rule.Node) => void;
+	checkCallExpression: (node: CallExpression & Rule.NodeParentExtension) => void;
+	throwErrors: () => void;
+};
+
+export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	//create global variables to be shared by the checks
 	const { getPrimaryColor, getConfigFlag } = createHelpers(context);
 	const legacyIconImports: { [key: string]: { packageName: string; exported: boolean } } = {};
 	const newButtonImports = new Set<string>();
 
-	const errorsManual: errorsListManual = {};
-	const errorsAuto: errorsListAuto = {};
+	const errorsManual: ErrorListManual = {};
+	const errorsAuto: ErrorListAuto = {};
 
-	let guidance: guidanceList = {};
+	let guidance: GuidanceList = {};
 
 	// Extract parameters
 	const shouldErrorForManualMigration = getConfigFlag('shouldErrorForManualMigration', true);
 	const shouldErrorForAutoMigration = getConfigFlag('shouldErrorForAutoMigration', true);
 	const isQuietMode = getConfigFlag('quiet', false);
+
+	// Sorted list of ranges
+	let errorRanges: RangeList = [];
 
 	/**
 	 * Adds the legacy Icon and new button imports to the correct global arrays to be used by the other checks
@@ -102,15 +125,15 @@ export const createChecks = (context: Rule.RuleContext) => {
 			for (const decl of node.declarations) {
 				if (
 					isNodeOfType(decl, 'VariableDeclarator') &&
-					'init' in decl &&
-					'id' in decl &&
+					Object.keys(decl).includes('init') &&
+					Object.keys(decl).includes('id') &&
 					decl.init &&
 					decl.id &&
 					'name' in decl.id &&
 					decl.id.name &&
 					isNodeOfType(decl.init, 'Identifier')
 				) {
-					if (decl.init.name in legacyIconImports) {
+					if (Object.keys(legacyIconImports).includes(decl.init.name)) {
 						legacyIconImports[decl.id.name] = {
 							packageName: legacyIconImports[decl.init.name].packageName,
 							exported: legacyIconImports[decl.init.name].exported || isExported,
@@ -133,20 +156,20 @@ export const createChecks = (context: Rule.RuleContext) => {
 		let exportName = '';
 		let packageName = '';
 		if (
-			'declaration' in node &&
+			Object.keys(node).includes('declaration') &&
 			node.declaration &&
 			isNodeOfType(node.declaration, 'Identifier') &&
-			node.declaration.name in legacyIconImports
+			Object.keys(legacyIconImports).includes(node.declaration.name)
 		) {
 			packageName = legacyIconImports[node.declaration.name].packageName;
 			exportName = 'Default export';
 		} else if (
-			'declaration' in node &&
+			Object.keys(node).includes('declaration') &&
 			node.declaration &&
 			isNodeOfType(node.declaration, 'AssignmentExpression') &&
 			isNodeOfType(node.declaration.left, 'Identifier') &&
 			isNodeOfType(node.declaration.right, 'Identifier') &&
-			node.declaration.right.name in legacyIconImports
+			Object.keys(legacyIconImports).includes(node.declaration.right.name)
 		) {
 			packageName = legacyIconImports[node.declaration.right.name].packageName;
 			exportName = node.declaration.left.name;
@@ -154,6 +177,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 			return;
 		}
 		createCantMigrateReExportError(node, packageName, exportName, errorsManual);
+		addToListOfRanges(node, errorRanges);
 		guidance[locToString(node)] = createGuidance(packageName);
 	};
 
@@ -165,7 +189,11 @@ export const createChecks = (context: Rule.RuleContext) => {
 		node: ExportNamedDeclaration & Rule.NodeParentExtension,
 	): void => {
 		// export {default as AddIcon} from '@atlaskit/icon/glyph/add';
-		if (node.source && isNodeOfType(node.source, 'Literal') && 'value' in node.source) {
+		if (
+			node.source &&
+			isNodeOfType(node.source, 'Literal') &&
+			Object.keys(node.source).includes('value')
+		) {
 			const moduleSource = node.source.value;
 			if (
 				typeof moduleSource === 'string' &&
@@ -176,6 +204,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 			) {
 				for (const spec of node.specifiers) {
 					createCantMigrateReExportError(spec, moduleSource, spec.exported.name, errorsManual);
+					addToListOfRanges(spec, errorRanges);
 					guidance[locToString(spec)] = createGuidance(moduleSource);
 				}
 			}
@@ -184,10 +213,10 @@ export const createChecks = (context: Rule.RuleContext) => {
 			for (const decl of node.declaration.declarations) {
 				if (
 					isNodeOfType(decl, 'VariableDeclarator') &&
-					'init' in decl &&
+					Object.keys(decl).includes('init') &&
 					decl.init &&
 					isNodeOfType(decl.init, 'Identifier') &&
-					decl.init.name in legacyIconImports
+					Object.keys(legacyIconImports).includes(decl.init.name)
 				) {
 					createCantMigrateReExportError(
 						node,
@@ -195,6 +224,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 						decl.init.name,
 						errorsManual,
 					);
+					addToListOfRanges(node, errorRanges);
 					guidance[locToString(node)] = createGuidance(
 						legacyIconImports[decl.init.name].packageName,
 					);
@@ -208,7 +238,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 			 * export { AddIcon, CrossIcon as default }
 			 */
 			for (const spec of node.specifiers) {
-				if (spec.local.name in legacyIconImports) {
+				if (Object.keys(legacyIconImports).includes(spec.local.name)) {
 					//update legacy imports to be exported
 					legacyIconImports[spec.local.name] = {
 						packageName: legacyIconImports[spec.local.name].packageName,
@@ -220,6 +250,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 						spec.exported.name,
 						errorsManual,
 					);
+					addToListOfRanges(spec, errorRanges);
 					guidance[locToString(spec)] = createGuidance(
 						legacyIconImports[spec.local.name].packageName,
 					);
@@ -236,13 +267,18 @@ export const createChecks = (context: Rule.RuleContext) => {
 		if (!isNodeOfType(node, 'Identifier')) {
 			return;
 		}
-		if (node.name && node.name in legacyIconImports && legacyIconImports[node.name].packageName) {
-			createCantMigrateIdentifierError(
+		if (
+			node.name &&
+			Object.keys(legacyIconImports).includes(node.name) &&
+			legacyIconImports[node.name].packageName
+		) {
+			createCantMigrateIdentifierMapOrArrayError(
 				node,
 				legacyIconImports[node.name].packageName,
 				node.name,
 				errorsManual,
 			);
+			addToListOfRanges(node, errorRanges);
 			guidance[locToString(node)] = createGuidance(legacyIconImports[node.name].packageName);
 		}
 	};
@@ -267,7 +303,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 		}
 
 		if (
-			node.name in legacyIconImports &&
+			Object.keys(legacyIconImports).includes(node.name) &&
 			isNodeOfType(node.parent.parent.name, 'JSXIdentifier') &&
 			node.parent.parent.name.name !== 'LEGACY_fallbackIcon'
 		) {
@@ -290,6 +326,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 					node.name,
 					errorsAuto,
 				);
+				addToListOfRanges(node, errorRanges);
 				guidance[locToString(node)] = createGuidance(
 					legacyIconImports[node.name].packageName,
 					isInNewButton,
@@ -302,6 +339,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 					node.name,
 					errorsManual,
 				);
+				addToListOfRanges(node, errorRanges);
 				guidance[locToString(node)] = createGuidance(
 					legacyIconImports[node.name].packageName,
 					isInNewButton,
@@ -313,12 +351,45 @@ export const createChecks = (context: Rule.RuleContext) => {
 					node.name,
 					errorsManual,
 				);
+				addToListOfRanges(node, errorRanges);
 				guidance[locToString(node)] = createGuidance(
 					legacyIconImports[node.name].packageName,
 					isInNewButton,
 				);
 			}
 		}
+	};
+
+	const checkIconReference = (node: Identifier & Rule.NodeParentExtension): void => {
+		//check the reference to see if it's a legacy icon, if not exit early
+		if (!Object.keys(legacyIconImports).includes(node.name)) {
+			return;
+		}
+		//if this is an import statement then exit early
+		if (
+			node.parent &&
+			(isNodeOfType(node.parent, 'ImportSpecifier') ||
+				isNodeOfType(node.parent, 'ImportDefaultSpecifier'))
+		) {
+			return;
+		}
+		//if in Fallback prop, do not error
+		if (
+			node.parent &&
+			node.parent.parent &&
+			isNodeOfType(node.parent.parent, 'JSXAttribute') &&
+			isNodeOfType(node.parent.parent.name, 'JSXIdentifier') &&
+			node.parent.parent.name.name === 'LEGACY_fallbackIcon'
+		) {
+			return;
+		}
+		// manually error
+		createCantMigrateIdentifierError(
+			node,
+			legacyIconImports[node.name].packageName,
+			node.name,
+			errorsManual,
+		);
 	};
 
 	/**
@@ -343,7 +414,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 
 		const name = node.openingElement.name.name;
 		// Legacy icons rendered as JSX elements
-		if (name in legacyIconImports) {
+		if (Object.keys(legacyIconImports).includes(name)) {
 			// Determine if inside a new button - if so:
 			// - Assume spread props are safe - still error if props explicitly set to unmigratable values
 			let insideNewButton = false;
@@ -480,6 +551,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 					upcomingIcon ? true : migrationMapObject ? true : false,
 				);
 			}
+			addToListOfRanges(node, errorRanges);
 			guidance[locToString(node)] = createGuidance(
 				legacyIconImports[name].packageName,
 				insideNewButton,
@@ -493,11 +565,11 @@ export const createChecks = (context: Rule.RuleContext) => {
 	 * @param node The function call node found by ESLint
 	 */
 	const checkCallExpression = (node: CallExpression & Rule.NodeParentExtension): void => {
-		if ('arguments' in node && node.arguments.length) {
+		if (Object.keys(node).includes('arguments') && node.arguments.length) {
 			for (const arg of node.arguments) {
 				if (
 					isNodeOfType(arg, 'Identifier') &&
-					arg.name in legacyIconImports &&
+					Object.keys(legacyIconImports).includes(arg.name) &&
 					legacyIconImports[arg.name].packageName
 				) {
 					createCantMigrateFunctionUnknownError(
@@ -506,6 +578,7 @@ export const createChecks = (context: Rule.RuleContext) => {
 						arg.name,
 						errorsManual,
 					);
+					addToListOfRanges(node, errorRanges);
 					guidance[locToString(node)] = createGuidance(legacyIconImports[arg.name].packageName);
 				}
 			}
@@ -518,23 +591,41 @@ export const createChecks = (context: Rule.RuleContext) => {
 	const throwErrors = (): void => {
 		if (shouldErrorForManualMigration) {
 			for (const [key, errorList] of Object.entries(errorsManual)) {
-				const node = 'node' in errorList.errors[0] ? errorList.errors[0].node : null;
+				const node: Node | null = 'node' in errorList.errors[0] ? errorList.errors[0].node : null;
+				const cantMigrateIdentifierError = errorList.errors.find(
+					(x) => 'messageId' in x && x.messageId === 'cantMigrateIdentifier',
+				);
 				if (node) {
-					const guidanceMessage = key in guidance ? guidance[key] : '';
-					context.report({
-						node,
-						messageId: 'noLegacyIconsManualMigration',
-						data: {
-							iconName: errorList.iconName,
-							importSource: errorList.importSource,
-							guidance: isQuietMode
-								? guidanceMessage
-								: `${guidanceMessage}For more information see the below errors.\n`,
-						},
-					});
-					if (!isQuietMode) {
-						for (const error of errorList.errors) {
-							context.report(error);
+					let isInRange = false;
+					if (cantMigrateIdentifierError && isInRangeList(node, errorRanges)) {
+						isInRange = true;
+					}
+					if (
+						(isInRange && errorList.errors.length - 1 > 0) ||
+						(!isInRange && errorList.errors.length > 0)
+					) {
+						const guidanceMessage = Object.keys(guidance).includes(key) ? guidance[key] : '';
+						context.report({
+							node,
+							messageId: 'noLegacyIconsManualMigration',
+							data: {
+								iconName: errorList.iconName,
+								importSource: errorList.importSource,
+								guidance: isQuietMode
+									? guidanceMessage
+									: `${guidanceMessage}For more information see the below errors.\n`,
+							},
+						});
+						if (!isQuietMode) {
+							for (const error of errorList.errors) {
+								if (
+									'messageId' in error &&
+									(error.messageId !== 'cantMigrateIdentifier' ||
+										(error.messageId === 'cantMigrateIdentifier' && !isInRange))
+								) {
+									context.report(error);
+								}
+							}
 						}
 					}
 				}
@@ -544,14 +635,22 @@ export const createChecks = (context: Rule.RuleContext) => {
 			for (const [key, error] of Object.entries(errorsAuto)) {
 				// If there's a manual error that exists for this same component,
 				// don't throw the auto error
-				if (key in errorsManual) {
-					delete errorsAuto[key];
-					continue;
+				if (Object.keys(errorsManual).includes(key)) {
+					const cantMigrateIdentifierError = errorsManual[key].errors.find(
+						(x) => 'messageId' in x && x.messageId === 'cantMigrateIdentifier',
+					);
+					if (
+						!cantMigrateIdentifierError ||
+						(cantMigrateIdentifierError && errorsManual[key].errors.length > 1)
+					) {
+						delete errorsAuto[key];
+						continue;
+					}
 				}
 				const node = 'node' in error ? error.node : null;
 				if (node) {
-					const guidanceMessage = key in guidance ? guidance[key] : '';
-					if ('data' in error && error.data) {
+					const guidanceMessage = Object.keys(guidance).includes(key) ? guidance[key] : '';
+					if (Object.keys(error).includes('data') && error.data) {
 						error.data.guidance = guidanceMessage;
 					}
 					context.report(error);
@@ -570,5 +669,6 @@ export const createChecks = (context: Rule.RuleContext) => {
 		checkJSXElement,
 		checkCallExpression,
 		throwErrors,
+		checkIconReference,
 	};
 };

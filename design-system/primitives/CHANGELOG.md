@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 11.1.1
+
+### Patch Changes
+
+- [#126649](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126649)
+  [`24092d9f293a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/24092d9f293a1) -
+  Removed development warnings from JSDoc comment for Anchor primitive.
+
 ## 11.1.0
 
 ### Minor Changes

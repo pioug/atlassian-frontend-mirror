@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-floating-toolbar",
-	"version": "1.9.2",
+	"version": "1.10.0",
 	"description": "Floating toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,8 +29,8 @@
 	"dependencies": {
 		"@atlaskit/adf-utils": "^19.6.0",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/checkbox": "^13.5.0",
-		"@atlaskit/editor-common": "^87.3.0",
+		"@atlaskit/checkbox": "^13.6.0",
+		"@atlaskit/editor-common": "^87.4.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-block-controls": "^1.10.0",
 		"@atlaskit/editor-plugin-context-panel": "^1.2.0",
@@ -45,6 +45,7 @@
 		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/menu": "^2.9.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
+		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/select": "^17.11.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",

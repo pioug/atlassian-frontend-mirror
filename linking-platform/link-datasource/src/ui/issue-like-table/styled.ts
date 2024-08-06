@@ -118,3 +118,32 @@ export const TableCell = styled.td({
 		whiteSpace: 'unset',
 	},
 });
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- To migrate as part of go/ui-styling-standard
+export const InlineEditableTableCell = styled.td({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	[`${withTablePluginBodyPrefix()}`]: {
+		/* First section here is to override things editor table plugin css defines */
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		font: fieldTextFontSize,
+		padding: `${token('space.0', '0')} ${token('space.0', '0')}`,
+		border: 0,
+		minWidth: 'auto',
+		verticalAlign: 'inherit',
+		boxSizing: 'border-box',
+		borderRight: `0.5px solid ${token('color.border', N40)}`,
+		borderBottom: `0.5px solid ${token('color.border', N40)}`,
+		overflow: 'hidden',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	[`${withTablePluginBodyPrefix('&:last-child')}`]: {
+		borderRight: 0,
+	},
+	// Inline smart links are pretty opinionated about word-wrapping.
+	// We want it to be controlled by user, so we make it overflow and truncate by default.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	["& [data-testid='inline-card-icon-and-title'], " +
+	"& [data-testid='button-connect-account'] > span"]: {
+		whiteSpace: 'unset',
+	},
+});

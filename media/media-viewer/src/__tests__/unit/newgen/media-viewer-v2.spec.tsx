@@ -36,6 +36,10 @@ describe('<MediaViewer />', () => {
 		jest.clearAllMocks();
 	});
 
+	afterEach(() => {
+		onEvent.mockClear();
+	});
+
 	// We are keeping the test for this data-testid since JIRA is still using it in their codebase to perform checks. Before removing this test, we need to ensure this 'media-viewer-popup' test id is not being used anywhere else in other codebases
 	// Related ticket https://product-fabric.atlassian.net/browse/MPT-15
 	it('should attach data-testid to the blanket', () => {
@@ -154,8 +158,11 @@ describe('<MediaViewer />', () => {
 			const closeButton = screen.getByLabelText('Close');
 			await user.click(closeButton);
 			expect(onEvent).toHaveBeenCalled();
-			const closeEvent: any = onEvent.mock.calls[onEvent.mock.calls.length - 1][0];
-			expect(closeEvent.payload.attributes.input).toEqual('button');
+			// Here, we check if any event has been called with the attribute input = button, not just the last call.
+			// This is because the onEvent call stack can get out of order sometimes due to React 18's batched updates
+			expect(
+				onEvent.mock.calls.some((call) => call[0].payload.attributes?.input === 'button'),
+			).toBeTruthy();
 		});
 
 		// TODO: this test is flaky on pipeline, that's why its skipped for now and needs to be unskipped in the future
@@ -165,7 +172,7 @@ describe('<MediaViewer />', () => {
         <AnalyticsListener channel="media" onEvent={onEvent}>
           <MockedMediaClientProvider
             mockedMediaApi={mediaApi}
-            
+
           >
             <MediaViewerV2
               selectedItem={workingVideoIdentifier}

@@ -19,6 +19,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
+import { useDiscoverActions } from '../state/actions';
 
 import useErrorLogger from './useErrorLogger';
 
@@ -85,6 +86,7 @@ export const useDatasourceTableState = ({
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const { captureError } = useErrorLogger({ datasourceId });
 	const { onAddItems } = useDatasourceActions();
+	const { discoverActions } = useDiscoverActions();
 
 	const idFieldCount = 1;
 	const keyFieldCount = 1;
@@ -235,7 +237,7 @@ export const useDatasourceTableState = ({
 
 			try {
 				const {
-					meta: { access, destinationObjectTypes, extensionKey, auth, providerName },
+					meta: { access, destinationObjectTypes, product, extensionKey, auth, providerName },
 					data: { items, nextPageCursor, totalCount, schema },
 				} = await getDatasourceData(datasourceId, datasourceDataRequest, shouldForceRequest);
 				/**
@@ -262,9 +264,30 @@ export const useDatasourceTableState = ({
 					}
 					return [...currentResponseItems, ...items];
 				});
+
 				if (fg('enable_datasource_react_sweet_state')) {
-					const newIds = onAddItems(items);
+					/**
+					 * Product is typed as any.
+					 */
+					const integrationKey: unknown = product;
+					const newIds = onAddItems(
+						items,
+						typeof integrationKey === 'string' ? integrationKey : undefined,
+					);
 					setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
+
+					if (fg('platform-datasources-enable-two-way-sync')) {
+						if (typeof integrationKey === 'string') {
+							const aris = items.reduce<string[]>(
+								(acc, item) => (typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc),
+								[],
+							);
+
+							if (aris.length) {
+								discoverActions({ aris, integrationKey, fieldKeys });
+							}
+						}
+					}
 				}
 
 				setHasNextPage(Boolean(nextPageCursor));
@@ -332,6 +355,7 @@ export const useDatasourceTableState = ({
 			fireEvent,
 			fullSchema,
 			initialEmptyArray,
+			discoverActions,
 		],
 	);
 

@@ -2,7 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ChangeEvent, forwardRef, memo, type Ref, useCallback, useRef, useState } from 'react';
+import {
+	type ChangeEvent,
+	forwardRef,
+	memo,
+	type Ref,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -100,6 +109,18 @@ const checkboxStyles = css({
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:disabled:checked + svg': {
+		'--checkbox-tick-color': 'var(--local-tick-disabled)',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-19551
+	'&:indeterminate + svg': {
+		'--checkbox-background-color': 'var(--local-background-checked)',
+		'--checkbox-border-color': 'var(--local-border-checked)',
+		'--checkbox-tick-color': 'var(--local-tick-checked)',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-19551
+	'&:disabled:indeterminate + svg': {
+		'--checkbox-background-color': 'var(--local-background-disabled)',
+		'--checkbox-border-color': 'var(--local-border-disabled)',
 		'--checkbox-tick-color': 'var(--local-tick-disabled)',
 	},
 	'@media screen and (forced-colors: active)': {
@@ -200,6 +221,12 @@ const Checkbox = memo(
 		// Use isChecked from the state if it is controlled
 		const isChecked = isCheckedProp === undefined ? isCheckedState : isCheckedProp;
 
+		useEffect(() => {
+			if (internalRef.current) {
+				internalRef.current.indeterminate = isIndeterminate;
+			}
+		}, [isIndeterminate]);
+
 		return (
 			<Label
 				isDisabled={isDisabled}
@@ -224,7 +251,6 @@ const Checkbox = memo(
 					required={isRequired}
 					css={checkboxStyles}
 					onChange={onChangeAnalytics}
-					aria-checked={isIndeterminate ? 'mixed' : isChecked}
 					aria-invalid={isInvalid ? 'true' : undefined}
 					data-testid={testId && `${testId}--hidden-checkbox`}
 					data-invalid={isInvalid ? 'true' : undefined}

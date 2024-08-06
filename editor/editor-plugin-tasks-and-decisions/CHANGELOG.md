@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.3.2
+
+### Patch Changes
+
+- [#127170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127170)
+  [`4599c24981ca4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4599c24981ca4) -
+  [ux] Implement and align lazy node view fallback with the node view for decision node.
+
 ## 2.3.1
 
 ### Patch Changes

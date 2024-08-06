@@ -44,7 +44,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/avatar": "^21.12.0",
-		"@atlaskit/checkbox": "^13.5.0",
+		"@atlaskit/checkbox": "^13.6.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/link": "1.0.3",
 		"@atlaskit/ssr": "*",

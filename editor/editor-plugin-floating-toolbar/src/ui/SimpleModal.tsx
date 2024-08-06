@@ -6,7 +6,7 @@ import Button from '@atlaskit/button/new';
 import { messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import Modal, { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-
+import { Text } from '@atlaskit/primitives';
 export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentProps) => {
 	const {
 		onConfirm,
@@ -28,7 +28,7 @@ export const SimpleModal = (props: ConfirmationDialogProps & WrappedComponentPro
 			</ModalHeader>
 
 			<ModalBody>
-				<p>{options?.message}</p>
+				<Text as="p">{options?.message}</Text>
 			</ModalBody>
 			<ModalFooter>
 				<Button

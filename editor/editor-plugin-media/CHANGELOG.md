@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.27.3
+
+### Patch Changes
+
+- [#126418](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126418)
+  [`dc10688cd20b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc10688cd20b6) -
+  [ux] Migrate typography with new ADS token and primitive
+- Updated dependencies
+
 ## 1.27.2
 
 ### Patch Changes

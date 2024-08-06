@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.2.5
+
+### Patch Changes
+
+- [#127369](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127369)
+  [`95ff22b16d347`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95ff22b16d347) -
+  [ux] ED-24374 Add support for dynamic line number positions on code block nodeview
+
 ## 3.2.4
 
 ### Patch Changes

@@ -13,7 +13,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { BlockControlsPlugin, HandleOptions } from '../types';
 import { DragHandle } from '../ui/drag-handle';
 import { DropTarget } from '../ui/drop-target';
-import { MouseMoveWrapper } from '../ui/mouse-move-wrapper';
+import { canMoveToIndex } from '../utils/validation';
 
 const IGNORE_NODES = ['tableCell', 'tableHeader', 'tableRow', 'layoutColumn'];
 const NESTED_DEPTH = fg('platform_editor_elements_dnd_nested') ? 100 : 0;
@@ -23,6 +23,7 @@ export const dropTargetDecorations = (
 	newState: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 	formatMessage: IntlShape['formatMessage'],
+	activeNodeType: string,
 ) => {
 	const decs: Decoration[] = [];
 	unmountDecorations('data-blocks-drop-target-container');
@@ -32,8 +33,9 @@ export const dropTargetDecorations = (
 	let prevNode: PMNode | undefined;
 	const state = fg('platform_editor_element_drag_and_drop_ed_24372') ? newState : oldState;
 
-	state.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, _parent, index) => {
+	state.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
 		let depth = 0;
+		const nodeType = newState.doc.type.schema.nodes[activeNodeType];
 		if (fg('platform_editor_elements_dnd_nested')) {
 			depth = newState.doc.resolve(pos).depth;
 			if (node.isInline) {
@@ -43,6 +45,12 @@ export const dropTargetDecorations = (
 				return true; //skip over, don't consider it a valid depth
 			}
 
+			const canDrop = parent && activeNodeType && canMoveToIndex(parent, index, nodeType);
+
+			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
+			if (!canDrop) {
+				return false; //not valid pos, so nested not valid either
+			}
 			decorationState.push({ id: pos, pos });
 		} else {
 			decorationState.push({ id: index, pos });
@@ -156,19 +164,12 @@ export const nodeDecorations = (newState: EditorState) => {
 			anchorName = `--node-anchor-${node.type.name}-${index}`;
 		}
 
-		let style;
-		if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-			style = `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}; position: relative; z-index: 1;`;
-		} else {
-			style = `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}`;
-		}
-
 		decs.push(
 			Decoration.node(
 				pos,
 				pos + node.nodeSize,
 				{
-					style,
+					style: `anchor-name: ${anchorName}; ${pos === 0 ? 'margin-top: 0px;' : ''}; position: relative; z-index: 1;`,
 					['data-drag-handler-anchor-name']: anchorName,
 					['data-drag-handler-node-type']: node.type.name,
 					['data-drag-handler-anchor-depth']: `${depth}`,
@@ -180,59 +181,6 @@ export const nodeDecorations = (newState: EditorState) => {
 		);
 
 		return depth < NESTED_DEPTH;
-	});
-	return decs;
-};
-/**
- * Setting up decorations around each node to track mousemove events into each node
- * When a mouseenter event is triggered on the node, we will set the activeNode to the node
- * And show the drag handle
- */
-export const mouseMoveWrapperDecorations = (
-	newState: EditorState,
-	api: ExtractInjectionAPI<BlockControlsPlugin>,
-) => {
-	const decs: Decoration[] = [];
-	unmountDecorations('data-blocks-decoration-container');
-
-	newState.doc.descendants((node, pos, _parent, index) => {
-		// Do not render a mouse move wrapper for nodes that have wrapping - this causes wrapping to break
-		const hasWrapping = node.attrs.layout === 'wrap-left' || node.attrs.layout === 'wrap-right';
-		if (hasWrapping) {
-			return false;
-		}
-		const anchorName = `--node-anchor-${node.type.name}-${index}`;
-
-		decs.push(
-			Decoration.widget(
-				pos,
-				(view, getPos) => {
-					const element = document.createElement('div');
-					element.setAttribute('data-blocks-decoration-container', 'true');
-					element.setAttribute('style', 'clear: unset;');
-					ReactDOM.render(
-						createElement(MouseMoveWrapper, {
-							view,
-							api,
-							anchorName,
-							nodeType: node.type.name,
-							getPos,
-						}),
-						element,
-					);
-					return element;
-				},
-				{
-					type: 'mouse-move-wrapper',
-					side: -1,
-					ignoreSelection: true,
-					stopEvent: (e) => {
-						return true;
-					},
-				},
-			),
-		);
-		return false;
 	});
 	return decs;
 };
@@ -269,11 +217,10 @@ export const dragHandleDecoration = (
 				unmountDecorations('data-blocks-drag-handle-container');
 			}
 
-			if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-				// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
-				// due to margins applied to other nodes eg. Headings
-				element.style.clear = 'unset';
-			}
+			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
+			// due to margins applied to other nodes eg. Headings
+			element.style.clear = 'unset';
+
 			ReactDOM.render(
 				createElement(
 					RawIntlProvider,

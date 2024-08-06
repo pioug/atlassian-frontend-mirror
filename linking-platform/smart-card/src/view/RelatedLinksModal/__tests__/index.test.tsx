@@ -129,7 +129,7 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent Links');
+		const modalTitle = await screen.findByText('Recent links');
 		const incomingLinksTitle = await screen.findByText('Found In');
 		const outgoingLinksTitle = await screen.findByText('Includes Links To');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
@@ -339,7 +339,7 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent Links');
+		const modalTitle = await screen.findByText('Recent links');
 		const unavailableTitle = await screen.findByText('No recent links');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
@@ -389,7 +389,7 @@ describe('RelatedLinksModal', () => {
 		setup({ ari: '' });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent Links');
+		const modalTitle = await screen.findByText('Recent links');
 		const errorTitle = await screen.findByText('Something went wrong');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
@@ -412,7 +412,7 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent Links');
+		const modalTitle = await screen.findByText('Recent links');
 		const errorTitle = await screen.findByText('Something went wrong');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
@@ -445,7 +445,7 @@ describe('RelatedLinksModal', () => {
 		setup({ ari });
 
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent Links');
+		const modalTitle = await screen.findByText('Recent links');
 		const errorTitle = await screen.findByText('Something went wrong');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 

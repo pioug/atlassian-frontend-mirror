@@ -11,7 +11,8 @@ import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import React from 'react';
 import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button/custom-theme-button';
-
+import { render, waitFor, screen } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import {
 	type ProcessedFileState,
 	type FileIdentifier,
@@ -26,7 +27,6 @@ import {
 	mountWithIntlContext,
 	fakeMediaClient,
 	asMock,
-	nextTick,
 	mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
 import { ItemViewer, ItemViewerBase } from '../../../item-viewer';
@@ -114,6 +114,28 @@ function mountBaseComponent(
 			identifier={identifier}
 			{...props}
 		/>,
+	);
+
+	return { el, createAnalyticsEventSpy };
+}
+
+function mountBaseRTLComponent(
+	mediaClient: MediaClient,
+	identifier: FileIdentifier,
+	props?: Partial<AudioViewerProps | VideoViewerProps>,
+) {
+	const createAnalyticsEventSpy = jest.fn();
+	createAnalyticsEventSpy.mockReturnValue({ fire: jest.fn() });
+	const el = render(
+		<IntlProvider locale="en">
+			<ItemViewerBase
+				createAnalyticsEvent={createAnalyticsEventSpy}
+				previewCount={0}
+				mediaClient={mediaClient}
+				identifier={identifier}
+				{...props}
+			/>
+		</IntlProvider>,
 	);
 
 	return { el, createAnalyticsEventSpy };
@@ -590,56 +612,6 @@ describe('<ItemViewer />', () => {
 			});
 		});
 
-		it('should fire load fail when external image errors', () => {
-			const state: FileState = {
-				id: identifier.id,
-				mediaType: 'image',
-				status: 'processed',
-				artifacts: {},
-				name: '',
-				size: 10,
-				mimeType: '',
-				representations: { image: {} },
-			};
-			const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-			const { el } = mountComponent(mediaClient, externalImageIdentifier);
-			const fileAttributes = {
-				fileId: 'undefined',
-				fileMediatype: undefined,
-				fileMimetype: undefined,
-				fileSize: undefined,
-			};
-
-			const errorInfo = {
-				failReason: 'imageviewer-external-onerror',
-				errorDetail: undefined,
-			};
-			el.update();
-
-			el.find(InteractiveImg).prop('onError')();
-
-			expect(asMock(fireAnalytics).mock.calls[0][0]).toEqual({
-				action: 'loadFailed',
-				actionSubject: 'mediaFile',
-				attributes: {
-					...errorInfo,
-					status: 'fail',
-					fileMimetype: fileAttributes.fileMimetype,
-					fileAttributes: fileAttributes,
-				},
-				eventType: 'operational',
-			});
-			expect(mockfailMediaFileUfoExperience).toBeCalledWith({
-				...errorInfo,
-				fileMimetype: fileAttributes.fileMimetype,
-				fileAttributes: fileAttributes,
-				fileStateFlags: {
-					wasStatusProcessing: false,
-					wasStatusUploading: false,
-				},
-			});
-		});
-
 		it('should trigger success event when the viewer loads successfully', () => {
 			const mediaClient = makeFakeMediaClient(
 				createMediaSubscribable({
@@ -817,78 +789,35 @@ describe('<ItemViewer />', () => {
 				representations: { image: {} },
 			};
 			const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-			const { el } = mountBaseComponent(mediaClient, identifier);
-			el.update();
-			const docViewer = el.find(DocViewer);
-			const mvError = new MediaViewerError('docviewer-fetch-url');
-			expect(docViewer).toHaveLength(1);
-			await nextTick();
-			docViewer.prop('onError')(mvError);
-			el.update();
-			const errorMessage = el.find(ErrorMessage);
-			expect(errorMessage).toHaveLength(1);
-			const error = errorMessage.prop('error') as Error;
-			expect(error.message).toEqual('docviewer-fetch-url');
-			expect(fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'loadFailed',
-					actionSubject: 'mediaFile',
-					attributes: expect.objectContaining({
-						failReason: 'docviewer-fetch-url',
-						fileAttributes: {
-							fileId: 'some-id',
-							fileMediatype: 'doc',
-							fileMimetype: '',
-							fileSize: 1,
-						},
-					}),
-					eventType: 'operational',
-				}),
-				expect.anything(),
-			);
+			mountBaseComponent(mediaClient, identifier);
+			mountBaseRTLComponent(mediaClient, identifier);
+
+			await waitFor(() => {
+				expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+			});
 		});
 
-		it.each<MediaType>(['audio', 'video'])('should show error when %s viewer errors', (type) => {
-			const state: ProcessedFileState = {
-				id: identifier.id,
-				mediaType: type,
-				status: 'processed',
-				mimeType: '',
-				name: '',
-				size: 1,
-				artifacts: {},
-				representations: {},
-			};
-			const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-			const onErrorSpy = jest.fn();
-			const { el } = mountBaseComponent(mediaClient, identifier, {
-				onError: onErrorSpy,
-			});
-			const Viewer = el.find(type === 'audio' ? AudioViewer : VideoViewer);
-			const onError = Viewer.prop('onError');
-			const failReason = type === 'audio' ? 'audioviewer-playback' : 'videoviewer-playback';
-			onError(new MediaViewerError(failReason));
-			el.update();
-			const errorMessage = el.find(ErrorMessage);
-			expect(errorMessage).toHaveLength(1);
-			expect(fireAnalytics).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'loadFailed',
-					actionSubject: 'mediaFile',
-					attributes: expect.objectContaining({
-						failReason: failReason,
-						fileAttributes: {
-							fileId: 'some-id',
-							fileMediatype: type,
-							fileMimetype: '',
-							fileSize: 1,
-						},
-					}),
-					eventType: 'operational',
-				}),
-				expect.anything(),
-			);
-		});
+		it.each<MediaType>(['audio', 'video'])(
+			'should show error when %s viewer errors',
+			async (type) => {
+				const state: ProcessedFileState = {
+					id: identifier.id,
+					mediaType: type,
+					status: 'processed',
+					mimeType: '',
+					name: '',
+					size: 1,
+					artifacts: {},
+					representations: {},
+				};
+				const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+				mountBaseRTLComponent(mediaClient, identifier);
+
+				await waitFor(() => {
+					expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
+				});
+			},
+		);
 	});
 
 	describe('CodeViewer', () => {

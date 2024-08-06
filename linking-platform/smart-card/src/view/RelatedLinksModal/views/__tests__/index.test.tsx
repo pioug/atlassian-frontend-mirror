@@ -31,7 +31,7 @@ describe('RelatedLinksModal views', () => {
 
 		// a modal component has role dialog
 		const modal = await screen.findByRole('dialog');
-		const modalTitle = await screen.findByText('Recent Links');
+		const modalTitle = await screen.findByText('Recent links');
 		const closeButton = await screen.findByRole('button', { name: 'Close' });
 
 		expect(modal).toBeInTheDocument();

@@ -1,5 +1,17 @@
 # @atlaskit/editor-card-provider
 
+## 3.5.0
+
+### Minor Changes
+
+- [#126756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126756)
+  [`851ff3f2d8e45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/851ff3f2d8e45) -
+  Tidying FF for default embed for jira dashboard smartlink
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.4
 
 ### Patch Changes

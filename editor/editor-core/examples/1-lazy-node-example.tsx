@@ -255,27 +255,6 @@ export default function LazyNodeComparison() {
 					grow="fill"
 					xcss={direction === 'row' ? editorContainerRowStyles : editorContainerColumnStyles}
 				>
-					<Heading size="medium">Standard Editor</Heading>
-					<SmartCardProvider client={smartCardClient}>
-						<ComposableEditor
-							appearance="full-page"
-							preset={normalEditorPreset}
-							defaultValue={initialEditorValue}
-							media={{ provider: mediaProvider }}
-							linking={{
-								smartLinks: {
-									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
-								},
-							}}
-							onChange={onEditorChange}
-						/>
-					</SmartCardProvider>
-				</Stack>
-				<Stack
-					space="space.200"
-					grow="fill"
-					xcss={direction === 'row' ? editorContainerRowStyles : editorContainerColumnStyles}
-				>
 					<Heading size="medium">Editor using lazy node fallback</Heading>
 
 					<SmartCardProvider client={smartCardClient}>
@@ -290,6 +269,27 @@ export default function LazyNodeComparison() {
 									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
 								},
 							}}
+						/>
+					</SmartCardProvider>
+				</Stack>
+				<Stack
+					space="space.200"
+					grow="fill"
+					xcss={direction === 'row' ? editorContainerRowStyles : editorContainerColumnStyles}
+				>
+					<Heading size="medium">Standard Editor</Heading>
+					<SmartCardProvider client={smartCardClient}>
+						<ComposableEditor
+							appearance="full-page"
+							preset={normalEditorPreset}
+							defaultValue={initialEditorValue}
+							media={{ provider: mediaProvider }}
+							linking={{
+								smartLinks: {
+									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
+								},
+							}}
+							onChange={onEditorChange}
 						/>
 					</SmartCardProvider>
 				</Stack>

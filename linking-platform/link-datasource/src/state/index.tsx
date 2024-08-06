@@ -9,13 +9,17 @@ import {
 } from 'react-sweet-state';
 import { v4 as uuidv4 } from 'uuid';
 
-import { type DatasourceDataResponseItem } from '@atlaskit/linking-types';
+import type { DatasourceDataResponseItem } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 type Actions = typeof actions;
 
+type UniqueIdentifier = string;
 export interface State {
-	items: Record<string, DatasourceDataResponseItem>;
+	items: Record<
+		UniqueIdentifier,
+		{ integrationKey: string | undefined; data: DatasourceDataResponseItem }
+	>;
 }
 
 const getInitialState: () => State = () => ({
@@ -24,12 +28,13 @@ const getInitialState: () => State = () => ({
 
 export const actions = {
 	onAddItems:
-		(items: DatasourceDataResponseItem[]): Action<State, void, string[]> =>
+		(
+			items: DatasourceDataResponseItem[],
+			integrationKey: string | undefined,
+		): Action<State, void, string[]> =>
 		({ setState, getState }) => {
 			const oldItems = { ...getState().items };
-			const [newItemIds, newItems] = items.reduce<
-				[Array<string>, Record<string, DatasourceDataResponseItem>]
-			>(
+			const [newItemIds, newItems] = items.reduce<[Array<string>, State['items']]>(
 				([ids, itemMap], item) => {
 					const ari = typeof item['ari']?.data === 'string' ? item['ari'].data : undefined;
 					const id = ari ?? uuidv4();
@@ -39,8 +44,11 @@ export const actions = {
 						{
 							...itemMap,
 							[id]: {
-								...oldItems[id],
-								...item,
+								integrationKey,
+								data: {
+									...oldItems[id]?.data,
+									...item,
+								},
 							},
 						},
 					];
@@ -68,7 +76,7 @@ export const useDatasourceItem = createStateHook<
 	DatasourceDataResponseItem | undefined,
 	{ id: string }
 >(Store, {
-	selector: (state, { id }) => state.items[id],
+	selector: (state, { id }) => state.items[id]?.data,
 });
 
 export const useDatasourceActions = createActionsHook(Store);

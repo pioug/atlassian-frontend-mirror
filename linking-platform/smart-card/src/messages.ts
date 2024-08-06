@@ -914,7 +914,7 @@ export const messages: Messages = defineMessages({
 	},
 	related_links_modal_title: {
 		id: 'fabric.linking.related_links_modal_title',
-		defaultMessage: 'Recent Links',
+		defaultMessage: 'Recent links',
 		description: 'Shown as the title for the related links modal',
 	},
 	related_links_view_related_urls: {

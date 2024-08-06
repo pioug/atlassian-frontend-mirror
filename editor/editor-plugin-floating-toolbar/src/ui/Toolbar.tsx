@@ -205,11 +205,13 @@ const ToolbarItems = React.memo(
 
 				case 'dropdown':
 					const DropdownIcon = item.icon;
+					const BeforeIcon = item.iconBefore;
 					return (
 						<Dropdown
 							key={idx}
 							title={item.title}
 							icon={DropdownIcon && <DropdownIcon label={item.title} />}
+							iconBefore={BeforeIcon && <BeforeIcon label="" />}
 							dispatchCommand={dispatchCommand}
 							options={item.options}
 							disabled={item.disabled}

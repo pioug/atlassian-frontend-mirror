@@ -1,6 +1,7 @@
 import {
 	ActionOperationStatus,
 	type ActionsDiscoveryResponse,
+	type ActionsServiceDiscoveryResponse,
 	type AtomicActionExecuteResponse,
 	type DatasourceDataResponse,
 	type DatasourceDetailsResponse,
@@ -227,6 +228,13 @@ export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 				isEditable: true,
 			},
 		],
+	},
+};
+
+export const mockActionsDiscoveryEmptyResponse: ActionsServiceDiscoveryResponse = {
+	actions: [],
+	permissions: {
+		data: [],
 	},
 };
 

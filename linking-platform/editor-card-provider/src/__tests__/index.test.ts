@@ -1558,38 +1558,19 @@ describe('providers > editor', () => {
 		],
 	])(
 		'returns embedCard when %s link is inserted, calling /providers and /resolve/batch endpoint',
-		(_, url) => {
-			ffTest(
-				'platform.linking-platform.jira-dashboard-embed_ycjcj',
-				async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () => getMockProvidersResponse(),
-						ok: true,
-					});
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.success, status: 200 }],
-						ok: true,
-					});
-					const adf = await provider.resolve(url, 'embed', false);
-					expect(adf).toEqual(expectedEmbedAdf(url));
-				},
-				async () => {
-					const provider = new EditorCardProvider();
-					mockFetch.mockResolvedValueOnce({
-						json: async () => getMockProvidersResponse(),
-						ok: true,
-					});
-					// Mocking call to /resolve/batch
-					mockFetch.mockResolvedValueOnce({
-						json: async () => [{ body: mocks.success, status: 200 }],
-						ok: true,
-					});
-					const adf = await provider.resolve(url, 'inline', false);
-					expect(adf).toEqual(expectedInlineAdf(url));
-				},
-			);
+		async (_, url) => {
+			const provider = new EditorCardProvider();
+			mockFetch.mockResolvedValueOnce({
+				json: async () => getMockProvidersResponse(),
+				ok: true,
+			});
+			// Mocking call to /resolve/batch
+			mockFetch.mockResolvedValueOnce({
+				json: async () => [{ body: mocks.success, status: 200 }],
+				ok: true,
+			});
+			const adf = await provider.resolve(url, 'embed', false);
+			expect(adf).toEqual(expectedEmbedAdf(url));
 		},
 	);
 });

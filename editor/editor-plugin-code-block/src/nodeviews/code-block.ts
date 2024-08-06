@@ -19,7 +19,7 @@ import { codeBlockClassNames } from '../ui/class-names';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-const toDOM = (node: Node, contentEditable: boolean, isWrapped?: boolean) =>
+const toDOM = (node: Node, contentEditable: boolean) =>
 	[
 		'div',
 		{ class: 'code-block' },
@@ -27,12 +27,18 @@ const toDOM = (node: Node, contentEditable: boolean, isWrapped?: boolean) =>
 		[
 			'div',
 			{ class: codeBlockClassNames.contentWrapper },
-			['div', { class: codeBlockClassNames.gutter, contenteditable: 'false' }],
 			[
 				'div',
-				isWrapped && fg('editor_support_code_block_wrapping')
-					? { class: `${codeBlockClassNames.content} ${codeBlockClassNames.contentWrapped}` }
-					: { class: codeBlockClassNames.content },
+				{
+					class: fg('editor_support_code_block_wrapping')
+						? codeBlockClassNames.gutterFgWrap
+						: codeBlockClassNames.gutter,
+					contenteditable: 'false',
+				},
+			],
+			[
+				'div',
+				{ class: codeBlockClassNames.content },
 				[
 					'code',
 					{
@@ -60,30 +66,31 @@ export class CodeBlockView {
 	getPos: getPosHandlerNode;
 	view: EditorView;
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
-	isWrapped?: boolean;
 
 	constructor(
 		node: Node,
 		view: EditorView,
 		getPos: getPosHandlerNode,
 		api?: ExtractInjectionAPI<CodeBlockPlugin>,
-		isWrapped?: boolean,
 		private cleanupEditorDisabledListener?: () => void,
 	) {
 		const { dom, contentDOM } = DOMSerializer.renderSpec(
 			document,
-			toDOM(node, !api?.editorDisabled?.sharedState.currentState()?.editorDisabled, isWrapped),
+			toDOM(node, !api?.editorDisabled?.sharedState.currentState()?.editorDisabled),
 		);
 		this.getPos = getPos;
 		this.view = view;
 		this.node = node;
 		this.dom = dom as HTMLElement;
 		this.contentDOM = contentDOM as HTMLElement;
-		this.lineNumberGutter = this.dom.querySelector(`.${codeBlockClassNames.gutter}`) as HTMLElement;
+		this.lineNumberGutter = this.dom.querySelector(
+			`.${fg('editor_support_code_block_wrapping') ? codeBlockClassNames.gutterFgWrap : codeBlockClassNames.gutter}`,
+		) as HTMLElement;
 		this.api = api;
-		this.isWrapped = isWrapped;
 
-		this.ensureLineNumbers();
+		if (!fg('editor_support_code_block_wrapping')) {
+			this.ensureLineNumbers();
+		}
 		this.handleEditorDisabledChanged();
 	}
 
@@ -182,7 +189,10 @@ export class CodeBlockView {
 				this.contentDOM.setAttribute('data-language', node.attrs.language || '');
 			}
 			this.node = node;
-			this.ensureLineNumbers();
+
+			if (!fg('editor_support_code_block_wrapping')) {
+				this.ensureLineNumbers();
+			}
 
 			if (browser.android) {
 				this.coalesceDOMElements();
@@ -217,5 +227,4 @@ export const codeBlockNodeView = (
 	view: EditorView,
 	getPos: getPosHandler,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
-	isWrapped: boolean | undefined,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api, isWrapped);
+) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api);

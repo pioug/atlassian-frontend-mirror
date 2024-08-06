@@ -97,7 +97,6 @@ const editorProps: EditorProps = {
 		'enable-stage0-for-ncs': false,
 		'enable-sticky-table-headers': true,
 		'enable.editing.for.single.user': false,
-		'enable.heartbeat-activity': true,
 		'expanded-chart-colors': false,
 		'floating-toolbar-copy-button': true,
 		'hidden-save-indicator': false,

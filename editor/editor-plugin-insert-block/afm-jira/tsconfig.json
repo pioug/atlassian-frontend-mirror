@@ -42,6 +42,9 @@
       "path": "../../editor-plugin-extension/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../editor-plugin-hyperlink/afm-jira/tsconfig.json"
     },
     {
@@ -91,6 +94,9 @@
     },
     {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/primitives/afm-jira/tsconfig.json"

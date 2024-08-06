@@ -1,6 +1,6 @@
 import React from 'react';
 import ImageLoader from 'react-render-image';
-import { Icon, Shimmer } from '../Icon';
+import { Icon, IconResized, Shimmer } from '../Icon';
 import {
 	IconEmptyWrapper,
 	IconPositionWrapper,
@@ -9,9 +9,14 @@ import {
 	TitleWrapper,
 	EmojiWrapper,
 	TitleWrapperClassName,
+	IconEmptyWrapperResized,
+	IconWrapperResized,
+	EmojiWrapperResized,
 } from './styled';
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { LinkAppearance, NoLinkAppearance } from '../styled';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface IconAndTitleLayoutProps {
 	emoji?: React.ReactNode;
@@ -38,14 +43,22 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 		const { icon, emoji } = this.props;
 
 		if (emoji) {
-			return <EmojiWrapper>{emoji}</EmojiWrapper>;
+			return fg('linking-platform-increase-inline-card-icon-size') ? (
+				<EmojiWrapperResized>{emoji}</EmojiWrapperResized>
+			) : (
+				<EmojiWrapper>{emoji}</EmojiWrapper>
+			);
 		}
 
 		if (!icon || typeof icon === 'string') {
 			return null;
 		}
 
-		return <IconWrapper>{icon}</IconWrapper>;
+		return fg('linking-platform-increase-inline-card-icon-size') ? (
+			<IconWrapperResized>{icon}</IconWrapperResized>
+		) : (
+			<IconWrapper>{icon}</IconWrapper>
+		);
 	}
 
 	private renderImageIcon(errored: React.ReactNode, testId: string) {
@@ -55,17 +68,26 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 			return null;
 		}
 
+		const icon = fg('linking-platform-increase-inline-card-icon-size') ? (
+			<IconResized
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="smart-link-icon"
+				src={url}
+				data-testid={`${testId}-image`}
+			/>
+		) : (
+			<Icon
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="smart-link-icon"
+				src={url}
+				data-testid={`${testId}-image`}
+			/>
+		);
+
 		return (
 			<ImageLoader
 				src={url}
-				loaded={
-					<Icon
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className="smart-link-icon"
-						src={url}
-						data-testid={`${testId}-image`}
-					/>
-				}
+				loaded={icon}
 				errored={errored}
 				loading={<Shimmer testId={`${testId}-loading`} />}
 			/>
@@ -79,7 +101,16 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 			return <IconWrapper>{defaultIcon}</IconWrapper>;
 		}
 
-		return (
+		return fg('linking-platform-increase-inline-card-icon-size') ? (
+			<IconWrapperResized data-testid={`${testId}-default`}>
+				<LinkIcon
+					label="link"
+					LEGACY_size="small"
+					testId={`${testId}-default`}
+					color="currentColor"
+				/>
+			</IconWrapperResized>
+		) : (
 			<IconWrapper>
 				<LinkIcon
 					label="link"
@@ -139,16 +170,30 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 			testId = 'inline-card-icon-and-title',
 		} = this.props;
 
+		const iconPart = fg('linking-platform-increase-inline-card-icon-size') ? (
+			<IconPositionWrapper data-testid="icon-position-wrapper">
+				{children || (
+					<>
+						<IconEmptyWrapperResized data-testid="icon-empty-wrapper" />
+						{this.renderIcon(testId)}
+					</>
+				)}
+			</IconPositionWrapper>
+		) : (
+			<IconPositionWrapper>
+				{children || (
+					<>
+						<IconEmptyWrapper />
+						{this.renderIcon(testId)}
+					</>
+				)}
+			</IconPositionWrapper>
+		);
+
 		const titlePart = (
 			<>
-				<IconPositionWrapper>
-					{children || (
-						<>
-							<IconEmptyWrapper />
-							{this.renderIcon(testId)}
-						</>
-					)}
-				</IconPositionWrapper>
+				{iconPart}
+
 				<TitleWrapper
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ color: titleTextColor }}

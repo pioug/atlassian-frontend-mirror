@@ -21,6 +21,9 @@ snapshot(InlineCardDefault, {
 			jiraIssueId: 'TODO-1',
 		},
 	],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardDefault, {
 	description: 'inline card renders correctly when hovering over url',
@@ -32,6 +35,9 @@ snapshot(InlineCardDefault, {
 		},
 	],
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-resolved-view' } }],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardTextWrap, {
 	description: 'inline card with wrapped text renders correctly',
@@ -42,47 +48,86 @@ snapshot(InlineCardTextWrap, {
 			jiraIssueId: 'TODO-1',
 		},
 	],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view renders correctly when hovering over url in errored view',
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-errored-view' } }],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbidden, {
 	description:
 		'inline card forbidden view renders correctly when hovering over url in forbidden view',
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-forbidden-view' } }],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenRequestAccess, {
 	description: 'inline card forbidden view with request access to object',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenSiteRequestAccess, {
 	description: 'inline card forbidden view with request access to site',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenDirectAccess, {
 	description: 'inline card forbidden view with direct access',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenPendingSiteAccess, {
 	description: 'inline card forbidden view with pending site access',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardNotFound, {
 	description: `inline card can't find link view`,
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardNotFound, {
 	description:
 		'inline card not found view renders correctly when hovering over url in not-found view',
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } }],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardUnauthorised, {
 	description: `inline card unauthorised view`,
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardUnauthorised, {
 	description:
@@ -93,11 +138,20 @@ snapshot(InlineCardUnauthorised, {
 			selector: { byTestId: 'inline-card-unauthorized-view' },
 		},
 	],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardUnauthorised, {
 	description: 'inline card unauthorised view renders correctly when hovering over connect account',
 	states: [{ state: 'hovered', selector: { byTestId: 'button-connect-account' } }],
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
 	description: `inline card unauthorised view with no auth`,
+	featureFlags: {
+		'linking-platform-increase-inline-card-icon-size': [true, false],
+	},
 });

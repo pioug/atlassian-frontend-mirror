@@ -6,7 +6,8 @@ import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { fireEvent, waitFor } from '@testing-library/dom';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
+import { act } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -418,7 +419,9 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 		it('should support deriving `creationMethod` and `updateMethod` as `linkpicker_searchResult` when selecting search result', async () => {
 			const { onEvent } = setup();
 
+			await screen.findByRole('option');
 			const urlInput = await screen.findByTestId(testIds.urlInputField);
+
 			await userEvent.keyboard('{arrowdown}');
 			jest.clearAllMocks();
 			await userEvent.keyboard('{enter}');

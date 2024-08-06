@@ -22,9 +22,12 @@ export const CodeBlockSharedCssClassName = {
 	CODEBLOCK_LINE_NUMBER_GUTTER: 'line-number-gutter',
 	CODEBLOCK_CONTENT: 'code-content',
 	DS_CODEBLOCK: '[data-ds--code--code-block]',
+	CODEBLOCK_LINE_NUMBER_GUTTER_FG_WRAP: 'line-number-gutter--fg-wrap',
 	CODEBLOCK_CONTENT_WRAPPED: 'code-content--wrapped',
+	CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED: 'code-content__line-number--wrapped',
 };
 
+// TODO: ED-24222 Remove flex styling and hardcoded word
 export const codeBlockSharedStyles = () => css`
 	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
 		position: relative;
@@ -116,6 +119,13 @@ export const codeBlockSharedStyles = () => css`
 			}
 		}
 
+		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG_WRAP} {
+			background-color: ${token('color.background.neutral', N30)};
+			padding: ${token('space.100', '8px')};
+			position: relative;
+			width: 1rem;
+		}
+
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
 			display: flex;
 			flex: 1;
@@ -135,8 +145,31 @@ export const codeBlockSharedStyles = () => css`
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} {
 			code {
+				counter-reset: line var(--line-num, 0);
 				word-break: break-word;
 				white-space: pre-wrap;
+			}
+		}
+
+		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED} {
+			counter-increment: line;
+			line-height: 1rem;
+			pointer-events: none;
+
+			::before {
+				text-align: right;
+				min-width: 1.5rem;
+				display: block;
+				height: 1rem;
+				position: absolute;
+				padding-right: ${token('space.100', '8px')};
+				padding-left: ${token('space.100', '8px')};
+				margin-top: ${token('space.050', '4px')};
+				margin-right: ${token('space.100', '8px')};
+				left: -0.5rem;
+				color: ${token('color.text.subtlest', N400)};
+				font-size: ${relativeFontSizeToBase16(fontSize())};
+				content: counter(line);
 			}
 		}
 	}

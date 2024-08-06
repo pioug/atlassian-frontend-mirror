@@ -1,6 +1,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerWrapper = css({
 	width: '42px',
@@ -14,4 +16,9 @@ export const triggerWrapper = css({
 	'> div > div': {
 		display: 'flex',
 	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const expandWrapperStyle = css({
+	marginLeft: token('space.050', '4px'),
 });

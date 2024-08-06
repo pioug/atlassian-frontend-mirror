@@ -1,5 +1,13 @@
 # @atlaskit/media-image
 
+## 19.0.3
+
+### Patch Changes
+
+- [#126802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126802)
+  [`75d18a17584f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75d18a17584f4) -
+  Replaced custom error boundary with react-error-boundary
+
 ## 19.0.2
 
 ### Patch Changes

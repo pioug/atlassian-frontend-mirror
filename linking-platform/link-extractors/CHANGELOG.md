@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 1.6.0
+
+### Minor Changes
+
+- [#127351](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127351)
+  [`e87b54903058e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e87b54903058e) -
+  Add React 18 compatability
+
 ## 1.5.2
 
 ### Patch Changes

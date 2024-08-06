@@ -12,6 +12,7 @@ import type { IntlShape } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media';
 import Form, { Field } from '@atlaskit/form';
+import { Text } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -205,7 +206,7 @@ export const FullWidthDisplay = ({ intl: { formatMessage } }: { intl: IntlShape 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={pixelSizingFullWidthLabelStyles}>
-			<span>{formatMessage(messages.fullWidthLabel)}</span>
+			<Text>{formatMessage(messages.fullWidthLabel)}</Text>
 		</div>
 	);
 };

@@ -30,6 +30,18 @@ export const exportedIconTests = [
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
 				messageId: 'cantMigrateReExport',
 			},
 		],
@@ -88,6 +100,18 @@ export const exportedIconTests = [
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
 				messageId: 'cantMigrateReExport',
 			},
 			{
@@ -132,13 +156,13 @@ export const iconMapOrArray = [
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
-				messageId: 'cantMigrateIdentifier',
+				messageId: 'cantMigrateIdentifierMapOrArray',
 			},
 			{
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
-				messageId: 'cantMigrateIdentifier',
+				messageId: 'cantMigrateIdentifierMapOrArray',
 			},
 		],
 	},
@@ -154,7 +178,7 @@ export const iconMapOrArray = [
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
-				messageId: 'cantMigrateIdentifier',
+				messageId: 'cantMigrateIdentifierMapOrArray',
 			},
 		],
 	},
@@ -174,7 +198,7 @@ export const iconMapOrArray = [
 				messageId: 'noLegacyIconsManualMigration',
 			},
 			{
-				messageId: 'cantMigrateIdentifier',
+				messageId: 'cantMigrateIdentifierMapOrArray',
 			},
 		],
 	},
@@ -250,6 +274,18 @@ export const newButtonTests = [
 	   	<DefaultButton icon={DefaultIcon} label="Add"/>
 	   	`,
 		errors: [
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateIdentifier',
+			},
+			{
+				messageId: 'noLegacyIconsManualMigration',
+			},
+			{
+				messageId: 'cantMigrateIdentifier',
+			},
 			{
 				messageId: 'noLegacyIconsAutoMigration',
 			},

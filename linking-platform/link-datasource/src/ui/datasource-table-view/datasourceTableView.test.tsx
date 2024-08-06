@@ -5,6 +5,7 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
 	type DatasourceDataResponseItem,
@@ -127,30 +128,33 @@ const setup = (
 	} as DatasourceTableState);
 
 	const renderResult = render(
-		<DatasourceExperienceIdProvider>
-			<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-				<IntlProvider locale="en">
-					<DatasourceTableView
-						datasourceId={'some-datasource-id'}
-						parameters={{
-							cloudId: 'some-cloud-id',
-							jql: 'some-jql-query',
-						}}
-						visibleColumnKeys={
-							visibleColumnKeys === null
-								? undefined
-								: visibleColumnKeys || ['visible-column-1', 'visible-column-2']
-						}
-						onVisibleColumnKeysChange={
-							onVisibleColumnKeysChange === null
-								? undefined
-								: onVisibleColumnKeysChange || jest.fn()
-						}
-						{...propsOverride}
-					/>
-				</IntlProvider>
-			</AnalyticsListener>
-		</DatasourceExperienceIdProvider>,
+		<DatasourceTableView
+			datasourceId={'some-datasource-id'}
+			parameters={{
+				cloudId: 'some-cloud-id',
+				jql: 'some-jql-query',
+			}}
+			visibleColumnKeys={
+				visibleColumnKeys === null
+					? undefined
+					: visibleColumnKeys || ['visible-column-1', 'visible-column-2']
+			}
+			onVisibleColumnKeysChange={
+				onVisibleColumnKeysChange === null ? undefined : onVisibleColumnKeysChange || jest.fn()
+			}
+			{...propsOverride}
+		/>,
+		{
+			wrapper: ({ children }) => (
+				<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+					<DatasourceExperienceIdProvider>
+						<SmartCardProvider>
+							<IntlProvider locale="en">{children}</IntlProvider>
+						</SmartCardProvider>
+					</DatasourceExperienceIdProvider>
+				</AnalyticsListener>
+			),
+		},
 	);
 
 	return { mockReset, ...renderResult };
@@ -218,6 +222,9 @@ const setupAssetsTable = (
 				/>
 			</IntlProvider>
 		</AnalyticsListener>,
+		{
+			wrapper: ({ children }) => <SmartCardProvider>{children}</SmartCardProvider>,
+		},
 	);
 
 	return { mockReset, ...renderResult };
@@ -377,21 +384,15 @@ describe('DatasourceTableView', () => {
 		};
 
 		rerender(
-			<DatasourceExperienceIdProvider>
-				<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
-					<IntlProvider locale="en">
-						<DatasourceTableView
-							datasourceId={'some-datasource-id'}
-							parameters={newParameters}
-							visibleColumnKeys={['visible-column-1', 'visible-column-2']}
-							onVisibleColumnKeysChange={jest.fn()}
-						/>
-					</IntlProvider>
-				</AnalyticsListener>
-			</DatasourceExperienceIdProvider>,
+			<DatasourceTableView
+				datasourceId={'some-datasource-id'}
+				parameters={newParameters}
+				visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+				onVisibleColumnKeysChange={jest.fn()}
+			/>,
 		);
 
-		expect(mockReset).toBeCalledTimes(1);
+		expect(mockReset).toHaveBeenCalledTimes(1);
 	});
 
 	it('should call reset() when refresh button is preset', () => {
@@ -454,17 +455,15 @@ describe('DatasourceTableView', () => {
 
 		// rerender the component with the new column added
 		rerender(
-			<IntlProvider locale="en">
-				<DatasourceTableView
-					datasourceId={'some-datasource-id'}
-					parameters={{
-						cloudId: 'some-cloud-id',
-						jql: 'some-jql-query',
-					}}
-					visibleColumnKeys={['title', 'id']}
-					onVisibleColumnKeysChange={jest.fn()}
-				/>
-			</IntlProvider>,
+			<DatasourceTableView
+				datasourceId={'some-datasource-id'}
+				parameters={{
+					cloudId: 'some-cloud-id',
+					jql: 'some-jql-query',
+				}}
+				visibleColumnKeys={['title', 'id']}
+				onVisibleColumnKeysChange={jest.fn()}
+			/>,
 		);
 
 		// ensure hook is called with the new column
@@ -654,6 +653,7 @@ describe('DatasourceTableView', () => {
 		expect(getByTestId('item-count').textContent).toEqual('2 items');
 	});
 });
+
 describe('Analytics: DatasourceTableView', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -939,13 +939,11 @@ describe('UFO metrics: DatasourceTableView', () => {
 			};
 
 			rerender(
-				<IntlProvider locale="en">
-					<DatasourceTableView
-						datasourceId={'some-datasource-id'}
-						parameters={newParameters}
-						visibleColumnKeys={['visible-column-1', 'visible-column-2', 'visible-column-3']}
-					/>
-				</IntlProvider>,
+				<DatasourceTableView
+					datasourceId={'some-datasource-id'}
+					parameters={newParameters}
+					visibleColumnKeys={['visible-column-1', 'visible-column-2', 'visible-column-3']}
+				/>,
 			);
 
 			expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(2);
@@ -964,13 +962,11 @@ describe('UFO metrics: DatasourceTableView', () => {
 			setup();
 
 			rerender(
-				<IntlProvider locale="en">
-					<DatasourceTableView
-						datasourceId={'some-datasource-id'}
-						parameters={newParameters}
-						visibleColumnKeys={['visible-column-1']}
-					/>
-				</IntlProvider>,
+				<DatasourceTableView
+					datasourceId={'some-datasource-id'}
+					parameters={newParameters}
+					visibleColumnKeys={['visible-column-1']}
+				/>,
 			);
 
 			expect(mockTableRenderUfoStart).toHaveBeenCalledTimes(1);

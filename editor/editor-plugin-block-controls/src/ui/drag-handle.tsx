@@ -174,26 +174,10 @@ const DragHandleInternal = ({
 		nodeType,
 	]);
 
-	// handleMouseDown required along with onClick to ensure the correct selection
-	// is set immediately when the drag handle is clicked. Otherwise browser native
-	// drag and drop can take over and cause unpredictable behaviour.
-	const handleMouseDown = useCallback(() => {
-		api?.core?.actions.execute(({ tr }) => {
-			if (start === undefined) {
-				return tr;
-			}
-
-			tr = selectNode(tr, start, nodeType);
-			tr.setMeta(key, { pos: start });
-			return tr;
-		});
-		view.focus();
-	}, [start, api, view, nodeType]);
-
 	// TODO - This needs to be investigated further. Drag preview generation is not always working
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
 	// but ensures the preview is generated correctly.
-	const handleMouseDownWrapperRemoved = useCallback(() => {
+	const handleMouseDown = useCallback(() => {
 		api?.core?.actions.execute(({ tr }) => {
 			const startPos = fg('platform_editor_element_drag_and_drop_ed_24304') ? getPos() : start;
 			if (startPos === undefined) {
@@ -328,47 +312,28 @@ const DragHandleInternal = ({
 		}
 
 		if (supportsAnchor) {
-			return fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
-				? {
-						left:
-							hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
-								? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
-								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
+			return {
+				left:
+					hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
+						? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
+						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
 
-						top: fg('platform_editor_elements_dnd_ed_23674')
-							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
-							: anchorName.includes('table')
-								? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-								: `anchor(${anchorName} start)`,
-					}
-				: {
-						left:
-							hasResizer || isExtension || isBlockCard || isEmbedCard
-								? getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)
-								: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
-						top: fg('platform_editor_elements_dnd_ed_23674')
-							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
-							: anchorName.includes('table')
-								? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-								: `anchor(${anchorName} start)`,
-					};
+				top: fg('platform_editor_elements_dnd_ed_23674')
+					? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
+					: anchorName.includes('table')
+						? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
+						: `anchor(${anchorName} start)`,
+			};
 		}
-		return fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
-			? {
-					left:
-						hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
-							? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
-							: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
-					top: fg('platform_editor_elements_dnd_ed_23674')
-						? getTopPosition(dom, nodeType)
-						: getTopPosition(dom),
-				}
-			: {
-					left: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
-					top: fg('platform_editor_elements_dnd_ed_23674')
-						? getTopPosition(dom, nodeType)
-						: getTopPosition(dom),
-				};
+		return {
+			left:
+				hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
+					? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
+					: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
+			top: fg('platform_editor_elements_dnd_ed_23674')
+				? getTopPosition(dom, nodeType)
+				: getTopPosition(dom),
+		};
 	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
 
 	const [newPositionStyles, setNewPositionStyles] = useState<CSSProperties>({ display: 'none' });
@@ -459,11 +424,7 @@ const DragHandleInternal = ({
 				fg('platform_editor_element_drag_and_drop_ed_23896') ? newPositionStyles : positionStyles
 			}
 			onClick={handleOnClick}
-			onMouseDown={
-				fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')
-					? handleMouseDownWrapperRemoved
-					: handleMouseDown
-			}
+			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
 			data-testid="block-ctrl-drag-handle"
 		>

@@ -11,7 +11,7 @@ import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { Slice } from '@atlaskit/editor-prosemirror/dist/types/model';
+import type { NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -20,11 +20,18 @@ import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
 import { selectNode } from '../utils';
+import { canMoveToIndex } from '../utils/validation';
 
-function transformNested(nodeCopy: Slice, destType: string): Slice {
-	const firstChild = nodeCopy.content.firstChild;
-	if (firstChild && firstChild.type.name === 'nestedExpand' && destType === 'doc') {
-		return transformSliceNestedExpandToExpand(nodeCopy, firstChild.type.schema);
+function transformNested(nodeCopy: Slice, destType: NodeType): Slice {
+	const srcNode = nodeCopy.content.firstChild;
+	const schema = srcNode?.type.schema;
+	if (
+		srcNode &&
+		schema &&
+		srcNode.type === schema.nodes.nestedExpand &&
+		destType === schema.nodes.doc
+	) {
+		return transformSliceNestedExpandToExpand(nodeCopy, schema);
 	}
 	return nodeCopy;
 }
@@ -126,7 +133,14 @@ export const moveNode =
 		let mappedTo;
 		if (fg('platform_editor_elements_dnd_nested')) {
 			const nodeCopy = tr.doc.slice(start, end, false); // cut the content
-			const destType = tr.doc.resolve(to).node().type.name;
+			const $to = tr.doc.resolve(to);
+			const $from = tr.doc.resolve(start);
+			const destType = $to.node().type;
+			const srcType = $from.node().child($from.index()).type;
+			const destParent = $to.node($to.depth);
+			if (!canMoveToIndex(destParent, $to.index(), srcType)) {
+				return tr;
+			}
 			const convertedNode = transformNested(nodeCopy, destType).content;
 			tr.delete(start, end); // delete the content from the original position
 			mappedTo = tr.mapping.map(to);

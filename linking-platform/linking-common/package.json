@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "5.8.0",
+	"version": "5.9.0",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,7 +28,8 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "LinkingCommon"
-		}
+		},
+		"runReact18": true
 	},
 	"scripts": {
 		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"
@@ -46,10 +47,10 @@
 		"redux": "^3.7.2"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/link-test-helpers": "^7.2.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",

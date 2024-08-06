@@ -37,7 +37,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/analytics-next": "^9.3.0",
-		"@atlaskit/editor-common": "^87.3.0",
+		"@atlaskit/editor-common": "^87.4.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@atlaskit/editor-plugin-card": "2.9.3",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
@@ -55,7 +55,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/link-test-helpers": "^7.2.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/util-data-test": "^17.9.0",

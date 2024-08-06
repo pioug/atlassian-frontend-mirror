@@ -17,6 +17,7 @@ export interface Props {
 	expanded?: boolean;
 	swatchSize?: SwatchSize;
 	isDisabled?: boolean;
+	id?: string;
 }
 
 const ColorCard = ({
@@ -26,6 +27,7 @@ const ColorCard = ({
 	onClick,
 	swatchSize = 'default',
 	isDisabled,
+	id,
 }: Props) => {
 	const handleMouseDown = useCallback((event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -59,6 +61,7 @@ const ColorCard = ({
 				aria-expanded={expanded}
 				aria-haspopup
 				type="button"
+				id={id}
 			>
 				<span css={colorCardWrapperStyles}>
 					<span

@@ -1,5 +1,14 @@
 # @atlaskit/empty-state
 
+## 7.10.0
+
+### Minor Changes
+
+- [#126756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126756)
+  [`1bb99c2a69e9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1bb99c2a69e9c) -
+  We are testing a visual change behind a feature flag. The letter spacing of empty state title
+  changes. If this change is successful it will be available in a later release.
+
 ## 7.9.2
 
 ### Patch Changes

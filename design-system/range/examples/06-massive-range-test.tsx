@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import { Label } from '@atlaskit/form';
+import { Text } from '@atlaskit/primitives';
 
 import Range from '../src';
 
@@ -46,8 +47,10 @@ function MassiveRangeTest() {
 					margin: '0.5em',
 				}}
 			>
-				Range: 0-{max} | Step: 1 |
-				{value ? ` onChange called with value ${value}` : ' Interact to trigger onChange'}
+				<Text color="color.text.subtlest">
+					Range: 0-{max} | Step: 1 |
+					{value ? ` onChange called with value ${value}` : ' Interact to trigger onChange'}
+				</Text>
 			</div>
 		</div>
 	);

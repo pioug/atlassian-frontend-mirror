@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+import { tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -34,7 +34,6 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
@@ -67,13 +66,13 @@ import {
 	getPluginState as getFlexiResizingPlugin,
 	pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
-import { generateColgroup } from './pm-plugins/table-resizing/utils/colgroup';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import {
 	createPlugin as createTableWidthPlugin,
 	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
+import { tableNodeSpecWithFixedToDOM } from './toDOM';
 import { getToolbarConfig } from './toolbar';
 import type { ColumnResizingPluginState, PluginConfig, TableSharedState } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
@@ -144,55 +143,6 @@ export type TablePlugin = NextEditorPlugin<
 		];
 	}
 >;
-
-// TODO: ED-23944 Move this override to `toDOM` function on table adf-schema nodespec
-const tableNodeSpecWithFixedToDOM = (tableOptions?: PluginConfig): typeof table => {
-	if (!fg('platform_editor_lazy-node-views')) {
-		return table;
-	}
-
-	return {
-		...table,
-		toDOM: (node: PMNode): DOMOutputSpec => {
-			const attrs = {
-				'data-number-column': node.attrs.isNumberColumnEnabled,
-				'data-layout': node.attrs.layout,
-				'data-autosize': node.attrs.__autoSize,
-				'data-table-local-id': node.attrs.localId,
-				'data-table-width': node.attrs.width,
-			};
-
-			let colgroup: DOMOutputSpec = '';
-
-			const { allowColumnResizing } = pluginConfig(tableOptions);
-			if (allowColumnResizing) {
-				colgroup = ['colgroup', {}, ...generateColgroup(node)];
-			}
-
-			return [
-				'div',
-				{
-					class: 'tableView-content-wrap',
-				},
-				[
-					'div',
-					{
-						class: 'pm-table-container',
-					},
-					[
-						'div',
-						{
-							class: 'pm-table-wrapper',
-							'data-number-column': node.attrs.isNumberColumnEnabled,
-							'data-layout': node.attrs.layout,
-						},
-						['table', attrs, colgroup, ['tbody', 0]],
-					],
-				],
-			];
-		},
-	};
-};
 
 /**
  * Table plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -300,8 +250,16 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 		},
 
 		nodes() {
+			const { allowColumnResizing } = pluginConfig(options?.tableOptions);
+
 			return [
-				{ name: 'table', node: tableNodeSpecWithFixedToDOM(options?.tableOptions) },
+				{
+					name: 'table',
+					node: tableNodeSpecWithFixedToDOM({
+						allowColumnResizing: Boolean(allowColumnResizing),
+						tableResizingEnabled: Boolean(options?.tableResizingEnabled),
+					}),
+				},
 				{ name: 'tableHeader', node: tableHeader },
 				{ name: 'tableRow', node: tableRow },
 				{ name: 'tableCell', node: tableCell },

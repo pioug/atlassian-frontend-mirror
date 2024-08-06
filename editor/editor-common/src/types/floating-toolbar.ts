@@ -239,6 +239,10 @@ export type FloatingToolbarDropdown<T extends {}> = {
 	type: 'dropdown';
 	title: string;
 	icon?: Icon;
+	/**
+	 * Places an icon before the title as a representation
+	 */
+	iconBefore?: Icon;
 	options: DropdownOptions<T>;
 	hidden?: boolean;
 	hideExpandIcon?: boolean;

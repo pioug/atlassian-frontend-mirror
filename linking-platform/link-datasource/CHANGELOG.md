@@ -1,5 +1,33 @@
 # @atlaskit/link-datasource
 
+## 2.9.6
+
+### Patch Changes
+
+- [`941edf62401ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/941edf62401ae) -
+  This version removes `platform.design-system-team.use-default-select-in-popup-select_46rmj`
+  feature flag. The `PopupSelect` component now uses the internal `Select` component ensure the
+  accessibility of options with group labels for assistive technologies.
+
+## 2.9.5
+
+### Patch Changes
+
+- [#127170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127170)
+  [`48d23d3dfb9a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48d23d3dfb9a1) -
+  We are testing action discovery for datasources behind a feature flag. If this fix is successful
+  it will be available in a later release.
+- Updated dependencies
+
+## 2.9.4
+
+### Patch Changes
+
+- [#126601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126601)
+  [`d9862e969b400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9862e969b400) -
+  [ux] Adds new InlineEditableCell and InlineEditableTableCell for IssueLikeTable behind feature
+  gate platform-datasources-enable-two-way-sync
+
 ## 2.9.3
 
 ### Patch Changes

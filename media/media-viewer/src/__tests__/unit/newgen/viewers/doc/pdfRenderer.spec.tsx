@@ -185,8 +185,9 @@ describe('PDFRenderer', () => {
 		);
 		// wait for MediaViewer to be fully loaded
 		await waitFor(() => expect(screen.queryByLabelText(spinnerLabel)).not.toBeInTheDocument());
-
-		expect(onSuccess).toHaveBeenCalledTimes(1);
+		await waitFor(() => {
+			expect(onSuccess).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	it('should destroy loading documents on component unmount', async () => {

@@ -12,7 +12,7 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { decisionItemNodeView } from '../nodeviews/decisionItem';
+import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
 import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
 import type { TasksAndDecisionsPlugin } from '../types';
 
@@ -56,7 +56,7 @@ export function createPlugin(
 		props: {
 			nodeViews: {
 				taskItem: lazyTaskView(portalProviderAPI, eventDispatcher, providerFactory, api),
-				decisionItem: decisionItemNodeView(portalProviderAPI, eventDispatcher, api),
+				decisionItem: lazyDecisionView(portalProviderAPI, eventDispatcher, api),
 			},
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				// When a decision item is selected and the user starts typing, the entire node

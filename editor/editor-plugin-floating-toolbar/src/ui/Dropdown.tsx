@@ -48,6 +48,7 @@ const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
 export interface Props {
 	title: string;
 	icon?: ReactElement<any>;
+	iconBefore?: ReactElement<any>;
 	hideExpandIcon?: boolean;
 	options: DropdownOptions<Function>;
 	dispatchCommand: (command: Function) => void;
@@ -84,6 +85,7 @@ export default class Dropdown extends Component<Props, State> {
 		const {
 			title,
 			icon,
+			iconBefore,
 			options,
 			dispatchCommand,
 			mountPoint,
@@ -122,6 +124,7 @@ export default class Dropdown extends Component<Props, State> {
 							<ExpandIcon label="Expand dropdown menu" />
 						</span>
 					}
+					icon={iconBefore}
 					onClick={this.toggleOpen}
 					onKeyDown={this.toggleOpenByKeyboard}
 					selected={isOpen}

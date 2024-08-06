@@ -24,7 +24,7 @@ import {
 	useDatasourceTableState,
 } from '../useDatasourceTableState';
 
-const [mockDatasourceId]: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
+const mockDatasourceId: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 const mockParameterValue: string = 'project=EDM';
 const mockCloudId = 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b';
 const onAnalyticFireEvent = jest.fn();
@@ -190,17 +190,23 @@ describe('useDatasourceTableState', () => {
 							);
 							expect(ari).toEqual(expect.stringMatching(ariRegex));
 							expect(item).toMatchObject({
-								id: { data: expect.any(String) },
-								description: { data: expect.any(String) },
-								createdAt: { data: expect.any(String) },
-								assigned: {
-									data: { displayName: expect.any(String) },
-								},
-								status: {
-									data: {
-										text: expect.any(String),
+								data: {
+									ari: {
+										data: expect.any(String),
+									},
+									id: { data: expect.any(String) },
+									description: { data: expect.any(String) },
+									createdAt: { data: expect.any(String) },
+									assigned: {
+										data: { displayName: expect.any(String) },
+									},
+									status: {
+										data: {
+											text: expect.any(String),
+										},
 									},
 								},
+								integrationKey: 'jira',
 							});
 						});
 					},
@@ -587,7 +593,7 @@ describe('useDatasourceTableState', () => {
 
 					expect(getDatasourceData).toHaveBeenNthCalledWith(
 						1,
-						'1',
+						mockDatasourceId,
 						{
 							parameters: expect.any(Object),
 							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
@@ -600,7 +606,7 @@ describe('useDatasourceTableState', () => {
 
 					expect(getDatasourceData).toHaveBeenNthCalledWith(
 						2,
-						'1',
+						mockDatasourceId,
 						{
 							parameters: expect.any(Object),
 							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
@@ -629,7 +635,7 @@ describe('useDatasourceTableState', () => {
 					expect(getDatasourceData).toBeCalledTimes(2);
 					expect(getDatasourceData).toHaveBeenNthCalledWith(
 						2,
-						'1',
+						mockDatasourceId,
 						{
 							parameters: expect.any(Object),
 							pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,

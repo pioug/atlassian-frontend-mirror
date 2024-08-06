@@ -17,24 +17,37 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
+import CalendarIcon from '@atlaskit/icon/core/migration/calendar--editor-date';
+import CheckboxCheckedIcon from '@atlaskit/icon/core/migration/checkbox-checked--editor-task';
+import DecisionIcon from '@atlaskit/icon/core/migration/decision--editor-decision';
+import EmojiIcon from '@atlaskit/icon/core/migration/emoji--editor-emoji';
+import ImageIcon from '@atlaskit/icon/core/migration/image--editor-image';
+import InformationIcon from '@atlaskit/icon/core/migration/information--editor-info';
+import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
+import MentionIcon from '@atlaskit/icon/core/migration/mention--editor-mention';
+import QuotationMarkIcon from '@atlaskit/icon/core/migration/quotation-mark--quote';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ExpandNodeIcon from '@atlaskit/icon/glyph/chevron-right-circle';
 import CodeIcon from '@atlaskit/icon/glyph/editor/code';
 import DateIcon from '@atlaskit/icon/glyph/editor/date';
-import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
-import EmojiIcon from '@atlaskit/icon/glyph/editor/emoji';
+import { default as DecisionIconLegacy } from '@atlaskit/icon/glyph/editor/decision';
+import { default as EmojiIconLegacy } from '@atlaskit/icon/glyph/editor/emoji';
 import HorizontalRuleIcon from '@atlaskit/icon/glyph/editor/horizontal-rule';
 import EditorImageIcon from '@atlaskit/icon/glyph/editor/image';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
-import LinkIcon from '@atlaskit/icon/glyph/editor/link';
-import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
+import { default as LinkIconLegacy } from '@atlaskit/icon/glyph/editor/link';
+import { default as MentionIconLegacy } from '@atlaskit/icon/glyph/editor/mention';
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import TableIcon from '@atlaskit/icon/glyph/editor/table';
 import TaskIcon from '@atlaskit/icon/glyph/editor/task';
 import PlaceholderTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
 import StatusIcon from '@atlaskit/icon/glyph/status';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { shallowEquals } from './shallow-equals';
 
@@ -84,7 +97,7 @@ export const action = mem((init: CreateInit) => {
 		disabled: init.disabled,
 		name: 'action',
 		shortcut: '[]',
-		Icon: TaskIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? CheckboxCheckedIcon : TaskIcon,
 		'aria-keyshortcuts': '[ ] Space',
 	});
 });
@@ -96,7 +109,7 @@ export const link = mem((init: CreateInit) =>
 		disabled: init.disabled,
 		name: 'link',
 		shortcut: tooltip(addLink),
-		Icon: LinkIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? LinkIcon : LinkIconLegacy,
 		'aria-haspopup': init['aria-haspopup'],
 		'aria-keyshortcuts': getAriaKeyshortcuts(addLink),
 	}),
@@ -108,7 +121,7 @@ export const media = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'media',
-		Icon: EditorImageIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? ImageIcon : EditorImageIcon,
 	}),
 );
 
@@ -118,7 +131,7 @@ export const imageUpload = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'image upload',
-		Icon: EditorImageIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? ImageIcon : EditorImageIcon,
 	}),
 );
 
@@ -128,7 +141,7 @@ export const mention = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'mention',
-		Icon: MentionIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? MentionIcon : MentionIconLegacy,
 		shortcut: '@',
 		'aria-haspopup': init['aria-haspopup'],
 		'aria-keyshortcuts': 'Shift+2 Space',
@@ -141,7 +154,7 @@ export const emoji = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'emoji',
-		Icon: EmojiIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? EmojiIcon : EmojiIconLegacy,
 		shortcut: ':',
 		'aria-haspopup': init['aria-haspopup'],
 		'aria-keyshortcuts': 'Shift+;',
@@ -166,7 +179,9 @@ export const tableSelector = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'table selector',
-		Icon: ExpandIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography')
+			? () => <ChevronDownIcon label="" color="currentColor" />
+			: ExpandIcon,
 	}),
 );
 
@@ -186,7 +201,7 @@ export const codeblock = mem((init: CreateInit & { shortcut?: string }) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'codeblock',
-		Icon: CodeIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? AngleBracketsIcon : CodeIcon,
 		shortcut: init.shortcut,
 		'aria-keyshortcuts': getAriaKeyshortcuts(init.shortcut),
 	}),
@@ -198,7 +213,7 @@ export const panel = mem((init: CreateInit & { shortcut?: string }) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'panel',
-		Icon: InfoIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? InformationIcon : InfoIcon,
 		shortcut: init.shortcut,
 		'aria-keyshortcuts': getAriaKeyshortcuts(init.shortcut),
 	}),
@@ -210,7 +225,7 @@ export const blockquote = mem((init: CreateInit & { shortcut?: string }) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'blockquote',
-		Icon: QuoteIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? QuotationMarkIcon : QuoteIcon,
 		shortcut: init.shortcut,
 		'aria-keyshortcuts': 'Shift+. Space',
 	}),
@@ -222,7 +237,7 @@ export const decision = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'decision',
-		Icon: DecisionIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? DecisionIcon : DecisionIconLegacy,
 		shortcut: '<>',
 		'aria-keyshortcuts': 'Shift+, Shift+. Space',
 	}),
@@ -256,7 +271,7 @@ export const date = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'date',
-		Icon: DateIcon,
+		Icon: fg('platform_editor_migration_icon_and_typography') ? CalendarIcon : DateIcon,
 		shortcut: '//',
 		'aria-keyshortcuts': '/ / Enter',
 	}),
@@ -288,6 +303,11 @@ export const more = mem((init: CreateInit) =>
 		tooltipDescription: init.tooltipDescription,
 		disabled: init.disabled,
 		name: 'macro',
-		Icon: () => <EditorMoreIcon label="" />,
+		Icon: () =>
+			fg('platform_editor_migration_icon_and_typography') ? (
+				<ShowMoreHorizontalIcon label="" color="currentColor" />
+			) : (
+				<EditorMoreIcon label="" />
+			),
 	}),
 );

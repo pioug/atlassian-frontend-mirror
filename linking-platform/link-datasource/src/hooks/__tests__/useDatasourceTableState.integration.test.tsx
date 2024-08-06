@@ -15,7 +15,7 @@ import {
 	useDatasourceTableState,
 } from '../useDatasourceTableState';
 
-const [mockDatasourceId]: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
+const mockDatasourceId: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
 const onAnalyticFireEvent = jest.fn();
 
 const wrapper = ({ children }: React.PropsWithChildren<Partial<DatasourceTableStateProps>>) => (

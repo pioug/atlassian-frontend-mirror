@@ -95,7 +95,7 @@ describe('@atlaskit/checkbox', () => {
 			});
 			const checkbox = screen.getByRole('checkbox');
 			// eslint-disable-next-line jest-dom/prefer-checked
-			expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
+			expect(checkbox).toBeChecked();
 		});
 		it('should set the indeterminate state on the checkbox on update', () => {
 			const { rerender } = renderCheckbox({

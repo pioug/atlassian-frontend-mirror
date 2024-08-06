@@ -23,6 +23,8 @@ import messages from '../messages';
 export interface Props {
 	/** color picker button label */
 	label?: string;
+	/** trigger id for accessability labelling */
+	triggerId?: string;
 	/** list of available colors */
 	palette: Palette;
 	/** selected color */
@@ -115,6 +117,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 			cols,
 			popperProps = defaultPopperProps,
 			label = 'Color picker',
+			triggerId,
 			selectedColourSwatchSize,
 			showDefaultSwatchColor = true,
 			isDisabledSelectedSwatch,
@@ -133,6 +136,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 							expanded={isOpen}
 							swatchSize={selectedColourSwatchSize}
 							isDisabled={isDisabledSelectedSwatch}
+							id={triggerId}
 						/>
 					</div>
 				)}

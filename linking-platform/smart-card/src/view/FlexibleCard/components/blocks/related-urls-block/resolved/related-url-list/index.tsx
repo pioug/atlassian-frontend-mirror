@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-import ChevronUpIcon from '@atlaskit/icon/glyph/chevron-up';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import ChevronUpIcon from '@atlaskit/icon/utility/migration/chevron-up';
 import { Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -35,15 +35,20 @@ const RelatedUrlList = ({
 				backgroundColor="color.background.neutral.subtle"
 				aria-expanded={!!isOpen}
 				padding="space.0"
+				paddingInlineEnd="space.050"
 			>
-				<Inline alignBlock="center" spread="space-between">
+				<Inline alignBlock="center" space="space.050" spread="space-between">
 					<Text
 						overrideCss={css({
 							fontWeight: token('font.weight.medium', '500'),
 						})}
 						message={{ descriptor: title }}
 					/>
-					<ChevronComponent label={getFormattedMessageAsString(intl, title)} size={'medium'} />
+					<ChevronComponent
+						LEGACY_margin="0 -4px"
+						label={getFormattedMessageAsString(intl, title)}
+						color="currentColor"
+					/>
 				</Inline>
 			</Pressable>
 			{isOpen && (

@@ -20,10 +20,7 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 	container.style.pointerEvents = 'none';
 	const parent = document.createElement('div');
 	// ProseMirror class is required to make sure the cloned dom is styled correctly
-	parent.classList.add('ProseMirror');
-	if (fg('platform.editor.elements.drag-and-drop-remove-wrapper_fyqr2')) {
-		parent.classList.add('block-ctrl-drag-preview');
-	}
+	parent.classList.add('ProseMirror', 'block-ctrl-drag-preview');
 
 	const embedCard: HTMLElement | null = dom.querySelector('.embedCardView-content-wrap');
 	let shouldBeGenericPreview = nodeType === 'embedCard' || nodeType === 'extension' || !!embedCard;

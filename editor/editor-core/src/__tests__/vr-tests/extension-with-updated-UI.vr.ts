@@ -12,10 +12,16 @@ import {
 } from './extension-with-updated-UI.fixtures';
 
 snapshot(BlockExtension);
-snapshot(BlockExtensionWithSmartLink);
+snapshot(BlockExtensionWithSmartLink, {
+	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
+});
 snapshot(BodiedExtension);
-snapshot(BodiedExtensionWithSmartLink);
+snapshot(BodiedExtensionWithSmartLink, {
+	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
+});
 snapshot(InlineExtension);
 snapshot(InlineExtensionCenterAligned);
 snapshot(InlineExtensionRightAligned);
-snapshot(InlineExtensionWithSmartLink);
+snapshot(InlineExtensionWithSmartLink, {
+	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
+});

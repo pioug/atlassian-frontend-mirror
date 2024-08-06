@@ -154,6 +154,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Add a note with an emoji and colored background',
 		description: 'Visually distinguishes your panel by adding a emoji icon and background color ',
 	},
+	panel: {
+		id: 'fabric.editor.panel',
+		defaultMessage: 'Panel',
+		description: 'Visually distinguishes your text by adding a panel',
+	},
 	other: {
 		id: 'fabric.editor.other',
 		defaultMessage: 'Others...',

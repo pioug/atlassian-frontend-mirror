@@ -1,0 +1,70 @@
+{
+	"name": "@atlaskit/editor-nodeview-data-provider",
+	"version": "1.1.0",
+	"description": "NodeView data provider for @atlaskit/editor-core plugins",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Core Experiences",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": true
+	},
+	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"main": "dist/cjs/plugin-provider.js",
+	"module": "dist/esm/plugin-provider.js",
+	"module:es2019": "dist/es2019/plugin-provider.js",
+	"types": "dist/types/plugin-provider.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/plugin-provider.ts",
+	"af:exports": {
+		".": "./src/plugin-provider.ts",
+		"./hooks": "./src/hooks.ts",
+		"./provider-cache": "./src/provider-cache.ts"
+	},
+	"exports": {
+		".": "./src/plugin-provider.ts",
+		"./hooks": "./src/hooks.ts",
+		"./provider-cache": "./src/provider-cache.ts"
+	},
+	"dependencies": {
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	}
+}

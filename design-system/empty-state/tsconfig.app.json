@@ -36,6 +36,15 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
+			"path": "../heading/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../spinner/tsconfig.app.json"
 		},
 		{

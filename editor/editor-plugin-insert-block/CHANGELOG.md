@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.8.0
+
+### Minor Changes
+
+- [`3ac0ae73c0d52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ac0ae73c0d52) -
+  [ED-24499] Add Turn into dropdown button to text selection toolbar for
+  platform_editor_basic_text_transformations experiment. This button will be used to provide options
+  to transform selected texts/inline nodes into other elements (e.g. expand) containing the content.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.1
+
+### Patch Changes
+
+- [#126987](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126987)
+  [`e2759b19623a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2759b19623a1) -
+  [ux] Migrate icons in Editor toolbar insert block
+
 ## 1.7.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.9.3",
+	"version": "2.9.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,10 +41,10 @@
 		"@atlaskit/avatar-group": "^9.9.0",
 		"@atlaskit/badge": "^16.3.0",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/datetime-picker": "^13.7.0",
+		"@atlaskit/datetime-picker": "^13.8.0",
 		"@atlaskit/dropdown-menu": "^12.15.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
-		"@atlaskit/empty-state": "^7.9.0",
+		"@atlaskit/empty-state": "^7.10.0",
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.10.0",
@@ -54,9 +54,9 @@
 		"@atlaskit/jql-ast": "^3.3.0",
 		"@atlaskit/jql-editor": "^4.4.0",
 		"@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
-		"@atlaskit/link-client-extension": "^1.11.0",
-		"@atlaskit/linking-common": "^5.8.0",
-		"@atlaskit/linking-types": "^8.12.0",
+		"@atlaskit/link-client-extension": "^1.13.0",
+		"@atlaskit/linking-common": "^5.9.0",
+		"@atlaskit/linking-types": "^8.13.0",
 		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/lozenge": "^11.9.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
@@ -69,7 +69,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/select": "^17.11.0",
-		"@atlaskit/smart-card": "^27.12.0",
+		"@atlaskit/smart-card": "^27.13.0",
 		"@atlaskit/smart-user-picker": "6.10.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tag": "^12.4.0",
@@ -98,7 +98,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/link-provider": "^1.14.0",
-		"@atlaskit/link-test-helpers": "^7.0.0",
+		"@atlaskit/link-test-helpers": "^7.2.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
@@ -158,6 +158,9 @@
 	},
 	"platform-feature-flags": {
 		"enable_datasource_react_sweet_state": {
+			"type": "boolean"
+		},
+		"platform-datasources-enable-two-way-sync": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource.add-timezone-header": {

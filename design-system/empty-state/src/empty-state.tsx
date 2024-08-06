@@ -1,6 +1,9 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
+import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
 import {
@@ -68,6 +71,14 @@ const EmptyState = ({
 			</ActionsContainer>
 		) : null;
 
+	const tag =
+		`h${headingLevel > 0 && headingLevel < 7 ? headingLevel : headingLevel > 6 ? 6 : 4}` as
+			| 'h1'
+			| 'h2'
+			| 'h3'
+			| 'h4'
+			| 'h5'
+			| 'h6';
 	return (
 		<Container testId={testId} width={width || size || 'wide'}>
 			{imageUrl ? (
@@ -81,7 +92,16 @@ const EmptyState = ({
 			) : (
 				renderImage && renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
 			)}
-			<Header level={headingLevel}>{header}</Header>
+			{fg('platform.design-system-team.empty-state-typography-updates_gndrj') ? (
+				<Box paddingBlockEnd="space.200">
+					<Heading size="medium" as={tag}>
+						{header}
+					</Heading>
+				</Box>
+			) : (
+				<Header level={headingLevel}>{header}</Header>
+			)}
+
 			{description && <Description>{description}</Description>}
 			{actionsContainer}
 			{tertiaryAction}

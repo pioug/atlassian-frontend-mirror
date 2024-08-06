@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 87.4.1
+
+### Patch Changes
+
+- [#127369](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127369)
+  [`95ff22b16d347`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/95ff22b16d347) -
+  [ux] ED-24374 Add support for dynamic line number positions on code block nodeview
+
+## 87.4.0
+
+### Minor Changes
+
+- [`3ac0ae73c0d52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ac0ae73c0d52) -
+  [ED-24499] Add Turn into dropdown button to text selection toolbar for
+  platform_editor_basic_text_transformations experiment. This button will be used to provide options
+  to transform selected texts/inline nodes into other elements (e.g. expand) containing the content.
+
+### Patch Changes
+
+- [#126418](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126418)
+  [`dc10688cd20b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc10688cd20b6) -
+  [ux] Migrate typography with new ADS token and primitive
+- Updated dependencies
+
 ## 87.3.5
 
 ### Patch Changes

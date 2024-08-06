@@ -8,15 +8,19 @@ import baseMigrationMap, {
 
 import { getImportName } from '../utils/get-import-name';
 
+export type IconMigrationError = Rule.ReportDescriptor;
 import { upcomingIcons } from './upcoming-icons';
 
-export type iconMigrationError = Rule.ReportDescriptor;
+export type RangeList = {
+	start: number;
+	end: number;
+}[];
 
-export type errorsListManual = {
-	[loc: string]: { errors: iconMigrationError[]; iconName: string; importSource: string };
+export type ErrorListManual = {
+	[loc: string]: { errors: IconMigrationError[]; iconName: string; importSource: string };
 };
-export type errorsListAuto = { [loc: string]: iconMigrationError };
-export type guidanceList = { [loc: string]: string };
+export type ErrorListAuto = { [loc: string]: IconMigrationError };
+export type GuidanceList = { [loc: string]: string };
 
 const sizes = ['small', 'medium', 'large', 'xlarge'] as const;
 export type Size = (typeof sizes)[number];
@@ -124,13 +128,17 @@ export const createGuidance = (
 			} else {
 				guidance += `No equivalent icon for this size, ${size}, in new set.`;
 			}
-			guidance += `${migrationMapObject.sizeGuidance[size] in migrationOutcomeDescriptionMap ? ` Please: ${migrationOutcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
+			guidance += `${Object.keys(migrationOutcomeDescriptionMap).includes(migrationMapObject.sizeGuidance[size]) ? ` Please: ${migrationOutcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
 		} else {
 			guidance = `Use ${newIcon.name} from ${newIcon.package}/${newIcon.type}/${newIcon.name} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
 			Object.entries(migrationMapObject.sizeGuidance).forEach(
 				([size, value]: [string, unknown]) => {
 					guidance += `\t- ${size}: `;
-					if (!((value as IconMigrationSizeGuidance) in migrationOutcomeDescriptionMap)) {
+					if (
+						!Object.keys(migrationOutcomeDescriptionMap).includes(
+							value as IconMigrationSizeGuidance,
+						)
+					) {
 						guidance += 'No migration advice given.\n';
 					} else {
 						guidance += `${migrationOutcomeDescriptionMap[value as IconMigrationSizeGuidance]}.\n`;
@@ -172,18 +180,39 @@ export const canMigrateColor = (color: string) => {
 };
 
 export const locToString = (node: Node) => {
-	return `${node.loc?.start.line}:${node.loc?.start.column}:${node.loc?.end.line}:${node.loc?.end.column}`;
+	if (node.range && node.range.length >= 2) {
+		return `${node.range[0]}:${node.range[1]}`;
+	} else {
+		return '';
+	}
 };
 
 export const createCantMigrateReExportError = (
 	node: Node,
 	packageName: string,
 	exportName: string,
-	errors: errorsListManual,
+	errors: ErrorListManual,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateReExport',
+		data: {
+			packageName,
+			exportName,
+		},
+	};
+	pushManualError(locToString(node), errors, myError, packageName, exportName);
+};
+
+export const createCantMigrateIdentifierMapOrArrayError = (
+	node: Node,
+	packageName: string,
+	exportName: string,
+	errors: ErrorListManual,
+) => {
+	const myError: IconMigrationError = {
+		node,
+		messageId: 'cantMigrateIdentifierMapOrArray',
 		data: {
 			packageName,
 			exportName,
@@ -196,14 +225,14 @@ export const createCantMigrateIdentifierError = (
 	node: Node,
 	packageName: string,
 	exportName: string,
-	errors: errorsListManual,
+	errors: ErrorListManual,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateIdentifier',
 		data: {
-			packageName,
-			exportName,
+			iconSource: packageName,
+			iconName: exportName,
 		},
 	};
 	pushManualError(locToString(node), errors, myError, packageName, exportName);
@@ -213,10 +242,10 @@ export const createCantFindSuitableReplacementError = (
 	node: Node,
 	importSource: string,
 	iconName: string,
-	errors: errorsListManual,
+	errors: ErrorListManual,
 	sizeIssue?: boolean,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantFindSuitableReplacement',
 		data: {
@@ -231,9 +260,9 @@ export const createCantMigrateFunctionUnknownError = (
 	node: Node,
 	importSource: string,
 	iconName: string,
-	errors: errorsListManual,
+	errors: ErrorListManual,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateFunctionUnknown',
 		data: {
@@ -247,11 +276,11 @@ export const createCantMigrateFunctionUnknownError = (
 export const createCantMigrateColorError = (
 	node: Node,
 	colorValue: string,
-	errors: errorsListManual,
+	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateColor',
 		data: {
@@ -264,11 +293,11 @@ export const createCantMigrateColorError = (
 export const createCantMigrateSpreadPropsError = (
 	node: Node,
 	missingProps: string[],
-	errors: errorsListManual,
+	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'cantMigrateSpreadProps',
 		data: {
@@ -280,11 +309,11 @@ export const createCantMigrateSpreadPropsError = (
 
 export const createCantMigrateSizeUnknown = (
 	node: Node,
-	errors: errorsListManual,
+	errors: ErrorListManual,
 	importSource: string,
 	iconName: string,
 ) => {
-	const myError: iconMigrationError = { node, messageId: 'cantMigrateSizeUnknown' };
+	const myError: IconMigrationError = { node, messageId: 'cantMigrateSizeUnknown' };
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
 
@@ -292,9 +321,9 @@ export const createAutoMigrationError = (
 	node: Node,
 	importSource: string,
 	iconName: string,
-	errors: errorsListAuto,
+	errors: ErrorListAuto,
 ) => {
-	const myError: iconMigrationError = {
+	const myError: IconMigrationError = {
 		node,
 		messageId: 'noLegacyIconsAutoMigration',
 		data: {
@@ -307,12 +336,12 @@ export const createAutoMigrationError = (
 
 const pushManualError = (
 	key: string,
-	errors: errorsListManual,
-	myError: iconMigrationError,
+	errors: ErrorListManual,
+	myError: IconMigrationError,
 	importSource: string,
 	iconName: string,
 ) => {
-	if (key in errors) {
+	if (Object.keys(errors).includes(key)) {
 		errors[key].errors.push(myError);
 	} else {
 		errors[key] = { errors: [myError], importSource, iconName };
@@ -374,7 +403,11 @@ export const createHelpers = (context: Rule.RuleContext) => {
 	 * @returns defaultValue if the configuration flag is not set, the defaultValue of the configuration flag otherwise
 	 */
 	const getConfigFlag = (key: string, defaultValue: boolean) => {
-		if (context.options.length > 0 && context.options[0] && key in context.options[0]) {
+		if (
+			context.options.length > 0 &&
+			context.options[0] &&
+			Object.keys(context.options[0]).includes(key)
+		) {
 			return context.options[0][key] === !defaultValue ? !defaultValue : defaultValue;
 		}
 		return defaultValue;
@@ -391,4 +424,21 @@ export const createHelpers = (context: Rule.RuleContext) => {
 		getTokenCallValue,
 		getConfigFlag,
 	};
+};
+
+export const addToListOfRanges = (node: Node, sortedListOfRangesForErrors: RangeList) => {
+	if (node.range && node.range.length >= 2) {
+		sortedListOfRangesForErrors.push({ start: node.range[0], end: node.range[1] });
+	}
+};
+
+export const isInRangeList = (node: Node, sortedListOfRangesForErrors: RangeList): boolean => {
+	const { range } = node;
+	if (!range || range.length < 2) {
+		return false;
+	}
+	const found = sortedListOfRangesForErrors.find(
+		(currRange) => range[0] >= currRange.start && range[1] <= currRange.end,
+	);
+	return !!found;
 };

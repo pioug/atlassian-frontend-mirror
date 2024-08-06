@@ -41,8 +41,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/link-extractors": "^1.5.0",
-		"@atlaskit/linking-common": "^5.8.0",
+		"@atlaskit/link-extractors": "^1.6.0",
+		"@atlaskit/linking-common": "^5.9.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"async-retry": "^1.2.3",

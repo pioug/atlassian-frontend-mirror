@@ -1,5 +1,21 @@
 # @atlaskit/datetime-picker
 
+## 13.8.0
+
+### Minor Changes
+
+- [#126987](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126987)
+  [`bb13421c0a089`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb13421c0a089) -
+  Surface removal of scroll locking behaviour without feature flag.
+
+## 13.7.6
+
+### Patch Changes
+
+- [#125675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125675)
+  [`56a62aafb8d80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56a62aafb8d80) -
+  Refactoring to make locally defined variables that were assigned as spread props explicit.
+
 ## 13.7.5
 
 ### Patch Changes

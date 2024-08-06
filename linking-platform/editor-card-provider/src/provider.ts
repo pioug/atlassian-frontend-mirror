@@ -78,9 +78,6 @@ const isLoomUrl = (url: string) => {
 };
 
 const isJiraDashboard = (url: string) => {
-	if (!getBooleanFF('platform.linking-platform.jira-dashboard-embed_ycjcj')) {
-		return null;
-	}
 	return url.match(/^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/);
 };
 

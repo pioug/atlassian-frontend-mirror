@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.10.5
+
+### Patch Changes
+
+- [#127275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127275)
+  [`45778c5f2adf8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45778c5f2adf8) -
+  ED-24384 Clean up remove wrap feature flag
+- [#127431](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127431)
+  [`8e4cdcd49d713`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e4cdcd49d713) -
+  ED-24475 Clean up feature flags in getSelection.ts
+
+## 1.10.4
+
+### Patch Changes
+
+- [#126929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126929)
+  [`ba2a4b1af84db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba2a4b1af84db) -
+  Clean up FFs
+- Updated dependencies
+
+## 1.10.3
+
+### Patch Changes
+
+- [#127123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127123)
+  [`7a68ab6404094`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a68ab6404094) -
+  [ux] Add validation to node move, only show valid drop targets
+- [#126802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126802)
+  [`2cd334b37d1d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2cd334b37d1d8) -
+  Clean up FFs
+
 ## 1.10.2
 
 ### Patch Changes

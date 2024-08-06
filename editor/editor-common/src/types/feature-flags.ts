@@ -363,6 +363,15 @@ export type FeatureFlags = {
 
 	 */
 	moreElementsInQuickInsertView?: boolean;
+
+	/**
+	 * @description
+	 * Enables basic text transformations options in floating toolbar
+	 *
+	 * @see https://product-fabric.atlassian.net/browse/ED-24447
+	 * @default false
+	 */
+	basicTextTransformations?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

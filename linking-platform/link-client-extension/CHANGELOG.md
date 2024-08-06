@@ -1,5 +1,25 @@
 # @atlaskit/link-client-extension
 
+## 1.13.0
+
+### Minor Changes
+
+- [#127351](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127351)
+  [`e87b54903058e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e87b54903058e) -
+  Add React 18 compatability
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.12.0
+
+### Minor Changes
+
+- [#127170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127170)
+  [`48d23d3dfb9a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48d23d3dfb9a1) -
+  Exposes a new `mockActionsDiscoveryEmptyResponse` mock for datasource action discovery
+
 ## 1.11.0
 
 ### Minor Changes

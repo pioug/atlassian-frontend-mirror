@@ -1,5 +1,14 @@
 # @atlaskit/checkbox
 
+## 13.6.0
+
+### Minor Changes
+
+- [#126756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126756)
+  [`be7f8b7ab5827`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be7f8b7ab5827) -
+  Accessibility changes. Removed `aria-checked` attribute, and set `indeterminate` to `true` if
+  nested checkbox is checked.
+
 ## 13.5.2
 
 ### Patch Changes

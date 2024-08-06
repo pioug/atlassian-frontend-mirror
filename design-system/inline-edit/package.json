@@ -56,7 +56,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/datetime-picker": "^13.7.0",
+		"@atlaskit/datetime-picker": "^13.8.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/section-message": "^6.5.0",

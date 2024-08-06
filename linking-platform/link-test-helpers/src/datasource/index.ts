@@ -1,5 +1,6 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { mockActionsDiscovery, ORS_ACTIONS_DISCOVERY_ENDPOINT } from './actions';
 import { mockAssetsClientFetchRequests } from './assets';
 import { assetsDefaultInitialVisibleColumnKeys } from './assets/data';
 import { successfulRecommendationAPIResponse } from './basic-filters/mocks';
@@ -236,8 +237,12 @@ export const mockDatasourceFetchRequests = ({
 			}, delay);
 		});
 	});
+
+	mockActionsDiscovery();
 };
 
 export const forceBaseUrl = (baseUrl: string) => {
 	fetchMock.post(/^\//, ((url, init) => fetch(`${baseUrl}${url}`, init)) as typeof fetch);
 };
+
+export { ORS_ACTIONS_DISCOVERY_ENDPOINT, mockActionsDiscovery };

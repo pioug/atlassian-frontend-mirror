@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
@@ -15,6 +16,7 @@ import type {
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
 
+import SwitchIcon from './assets/switch';
 import type { InsertBlockPluginDependencies } from './types';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 
@@ -151,6 +153,30 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				}
 
 				toggle();
+			},
+		},
+
+		pluginsOptions: {
+			// This is added for basic text transformations experiment.
+			// This may not be the most ideal plugin to add this to, but it is suitable for experiment purpose
+			// as relevant plugin dependencies are already set up.
+			// If we decide to ship the feature, we will consider a separate plugin if needed.
+			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3931754727/Experiment+Elements+Basic+Text+Transformations
+			selectionToolbar: (_, intl) => {
+				if (!api?.featureFlags?.sharedState.currentState()?.basicTextTransformations) {
+					return;
+				}
+				return {
+					items: [
+						{
+							type: 'dropdown',
+							title: intl.formatMessage(messages.turnInto),
+							iconBefore: SwitchIcon,
+							options: [],
+						},
+					],
+					rank: -9,
+				};
 			},
 		},
 

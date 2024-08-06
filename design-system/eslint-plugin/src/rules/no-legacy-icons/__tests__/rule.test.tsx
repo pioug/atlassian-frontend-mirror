@@ -250,6 +250,18 @@ describe('no-legacy-icons', () => {
 				`,
 				errors: [
 					{
+						messageId: 'noLegacyIconsManualMigration',
+					},
+					{
+						messageId: 'cantMigrateIdentifier',
+					},
+					{
+						messageId: 'noLegacyIconsManualMigration',
+					},
+					{
+						messageId: 'cantMigrateIdentifier',
+					},
+					{
 						messageId: 'noLegacyIconsAutoMigration',
 					},
 				],
@@ -270,6 +282,37 @@ describe('no-legacy-icons', () => {
 					},
 					{
 						messageId: 'cantMigrateFunctionUnknown',
+					},
+				],
+			},
+			{
+				name: 'Icon renamed and used via function/ternary',
+				code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+
+				const value = true;
+				const getAddIcon = ()=>{ return AddIcon; }
+
+				const DefaultIcon = value ? AddIcon : <div/>;
+				const DefaultIcon2 = getAddIcon();
+
+				<>
+					<DefaultIcon label="" />
+					<DefaultIcon2 label="" />
+				</>
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsManualMigration',
+					},
+					{
+						messageId: 'cantMigrateIdentifier',
+					},
+					{
+						messageId: 'noLegacyIconsManualMigration',
+					},
+					{
+						messageId: 'cantMigrateIdentifier',
 					},
 				],
 			},

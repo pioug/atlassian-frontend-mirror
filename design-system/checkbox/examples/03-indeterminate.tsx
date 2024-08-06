@@ -26,7 +26,9 @@ const childrenCheckboxes = [
 
 const getInitialCheckedItems = (): Checkboxes => {
 	const initialChildCheckboxes: Checkboxes = {};
-	childrenCheckboxes.forEach((child) => (initialChildCheckboxes[child.id] = false));
+	childrenCheckboxes.forEach((child) => {
+		initialChildCheckboxes[child.id] = child.id === 'JIRA_SOFTWARE';
+	});
 	return initialChildCheckboxes;
 };
 

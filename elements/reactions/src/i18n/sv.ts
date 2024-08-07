@@ -14,6 +14,7 @@ export default {
   'fabric.reactions.more.info': 'Mer info',
   'fabric.reactions.other.reacted.users': '{count, plural, one {och en annan} other {och {count} andra}}',
   'fabric.reactions.reactwithemoji': 'Reagera med emojin {emoji}',
+  'fabric.reactions.summary': 'Visa alla reaktioner från användare',
   'reactions.dialog.close': 'Stäng',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Vänster navigering',

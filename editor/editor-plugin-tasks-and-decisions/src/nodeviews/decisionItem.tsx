@@ -6,7 +6,6 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TasksAndDecisionsPlugin } from '../types';
 import DecisionItem from '../ui/Decision';
@@ -84,38 +83,17 @@ class Decision extends ReactNodeView {
 	}
 
 	viewShouldUpdate(nextNode: PMNode) {
-		/**
-		 * To ensure the placeholder is correctly toggled we need to allow react to re-render
-		 * on first character insertion or when the last character is deleted.
-		 */
-		if (fg('react_18_tasks_and_decisions_concurrent_mode')) {
-			return (
-				(this.isContentEmpty(this.node) && !this.isContentEmpty(nextNode)) ||
-				(this.isContentEmpty(nextNode) && !this.isContentEmpty(this.node))
-			);
-		} else {
-			return this.isContentEmpty(this.node) && !this.isContentEmpty(nextNode);
-		}
+		return (
+			(this.isContentEmpty(this.node) && !this.isContentEmpty(nextNode)) ||
+			(this.isContentEmpty(nextNode) && !this.isContentEmpty(this.node))
+		);
 	}
 
 	update(node: PMNode, decorations: readonly Decoration[]) {
-		if (fg('react_18_tasks_and_decisions_concurrent_mode')) {
-			return super.update(node, decorations);
-		} else {
-			return super.update(
-				node,
-				decorations,
-				undefined,
-				// Toggle the placeholder based on whether user input exists.
-				(_currentNode, _newNode) => !this.isContentEmpty(_newNode),
-			);
-		}
+		return super.update(node, decorations);
 	}
 
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
-		if (!fg('react_18_tasks_and_decisions_concurrent_mode')) {
-			return false;
-		}
 		if (!this.contentDOM) {
 			return true;
 		}

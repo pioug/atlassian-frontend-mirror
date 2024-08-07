@@ -1,5 +1,21 @@
 # @atlaskit/select
 
+## 17.12.0
+
+### Minor Changes
+
+- [`8b8090800a35d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b8090800a35d) -
+  Bump peer dependency for react-dom to include version 17 and 18.
+
+## 17.11.13
+
+### Patch Changes
+
+- [#127125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127125)
+  [`8ebc56af5f1ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ebc56af5f1ca) -
+  Revert due to HOT-110871 - causing Jira red master
+- Updated dependencies
+
 ## 17.11.12
 
 ### Patch Changes

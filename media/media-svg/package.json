@@ -59,7 +59,7 @@
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/range": "^7.3.0",
 		"@atlaskit/section-message": "^6.5.0",
-		"@atlaskit/select": "^17.11.0",
+		"@atlaskit/select": "^17.12.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/visual-regression": "*",

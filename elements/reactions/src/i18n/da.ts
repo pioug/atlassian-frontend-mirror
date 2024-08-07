@@ -14,6 +14,7 @@ export default {
   'fabric.reactions.more.info': 'Flere oplysninger',
   'fabric.reactions.other.reacted.users': '{count, plural, one {og én anden} other {og {count} andre}}',
   'fabric.reactions.reactwithemoji': 'Reager med emojien {emoji}',
+  'fabric.reactions.summary': 'Se alle brugerreaktioner',
   'reactions.dialog.close': 'Luk',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigation til venstre',

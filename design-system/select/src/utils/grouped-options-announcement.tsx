@@ -4,15 +4,12 @@ import { type GroupType, type OptionType } from '../types';
 
 // Used for overwriting ariaLiveMessages builtin onFocus method.
 // Returns custom built string while focusing each group option. This string is used for screen reader announcement.
-export function onFocus(
-	onFocusProps: AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
-	defaultOptions?: OptionsOrGroups<OptionType, GroupType<OptionType>>,
-) {
-	const { focused } = onFocusProps;
+export function onFocus(props: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) {
+	const { focused, options } = props;
 	const isOptionFocused = (option: OptionType) => {
-		return option.label === focused.label;
+		return option === focused;
 	};
-	const groupData = defaultOptions?.find((option) => {
+	const groupData = options?.find((option) => {
 		return option.options?.some(isOptionFocused);
 	});
 

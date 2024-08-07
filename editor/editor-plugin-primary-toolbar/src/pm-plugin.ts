@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
 import { getToolbarComponents } from './toolbar-configuration';
 import type { ComponentRegistry, PrimaryToolbarPluginState } from './types';
@@ -11,8 +11,8 @@ export const createPlugin = (componentRegistry: ComponentRegistry) => {
 	return new SafePlugin({
 		key: primaryToolbarPluginKey,
 		state: {
-			init: (): PrimaryToolbarPluginState => ({
-				components: getToolbarComponents(componentRegistry),
+			init: (_config: {}, editorState: EditorState): PrimaryToolbarPluginState => ({
+				components: getToolbarComponents(componentRegistry, editorState),
 			}),
 			apply: (
 				_tr: ReadonlyTransaction,

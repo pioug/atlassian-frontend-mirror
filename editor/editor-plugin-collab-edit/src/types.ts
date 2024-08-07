@@ -45,6 +45,10 @@ export type CollabInitializedMetadata = {
 	firstContentBodyChangeAfterInitAt: null | number;
 };
 
+export type LastOrganicChangeMetadata = {
+	lastOrganicChangeAt: null | number;
+};
+
 export type CollabEditPluginSharedState = {
 	initialised: CollabInitializedMetadata;
 	activeParticipants: ReadOnlyParticipants | undefined;

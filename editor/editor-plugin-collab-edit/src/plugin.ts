@@ -1,9 +1,11 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { type PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { collab } from '@atlaskit/prosemirror-collab';
 
 import { addSynchronyErrorAnalytics } from './analytics';
@@ -11,6 +13,10 @@ import { sendTransaction } from './events/send-transaction';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
+import {
+	createPlugin as createLastOrganicChangePlugin,
+	trackLastOrganicChangePluginKey,
+} from './pm-plugins/track-last-organic-change';
 import {
 	createPlugin as createTrackNCSInitializationPlugin,
 	trackNCSInitializationPluginKey,
@@ -83,6 +89,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 						collabInitialisedAt: null,
 						firstChangeAfterInitAt: null,
 						firstContentBodyChangeAfterInitAt: null,
+						lastOrganicChangeAt: null,
 					},
 					activeParticipants: undefined,
 					sessionId: undefined,
@@ -91,6 +98,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 
 			const collabPluginState = mainPluginKey.getState(state);
 			const metadata = trackNCSInitializationPluginKey.getState(state);
+			const lastOrganicChangeState = trackLastOrganicChangePluginKey.getState(state);
 
 			return {
 				activeParticipants: collabPluginState?.activeParticipants,
@@ -99,6 +107,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					collabInitialisedAt: metadata?.collabInitialisedAt || null,
 					firstChangeAfterInitAt: metadata?.firstChangeAfterInitAt || null,
 					firstContentBodyChangeAfterInitAt: metadata?.firstContentBodyChangeAfterInitAt || null,
+					lastOrganicChangeAt: lastOrganicChangeState?.lastOrganicChangeAt || null,
 				},
 			};
 		},
@@ -109,10 +118,11 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) =>
 				tr.getMeta('isRemote') && tr.getMeta('replaceDocument'),
 		},
+
 		pmPlugins() {
 			const { useNativePlugin = false, userId = null } = options || {};
 
-			return [
+			const plugins = [
 				...(useNativePlugin
 					? [
 							{
@@ -130,7 +140,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					: []),
 				{
 					name: 'collab',
-					plugin: ({ dispatch, providerFactory }) => {
+					plugin: ({ dispatch, providerFactory }: PMPluginFactoryParams) => {
 						return createPlugin(
 							dispatch,
 							providerFactory,
@@ -147,6 +157,15 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					plugin: createTrackNCSInitializationPlugin,
 				},
 			];
+
+			if (fg('platform_editor_last_organic_change')) {
+				plugins.push({
+					name: 'collabTrackLastOrganicChangePlugin',
+					plugin: createLastOrganicChangePlugin,
+				});
+			}
+
+			return plugins;
 		},
 
 		onEditorViewStateUpdated(props) {

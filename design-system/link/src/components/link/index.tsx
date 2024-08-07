@@ -51,6 +51,20 @@ const subtleAppearanceStyles = xcss({
 	},
 });
 
+const inverseAppearanceStyles = xcss({
+	textDecoration: 'underline',
+	color: 'color.text.inverse',
+
+	':hover': {
+		color: 'color.text.inverse',
+		textDecoration: 'none',
+	},
+
+	':active': {
+		color: 'color.text.inverse',
+	},
+});
+
 // Prevent the icon from wrapping onto a new line by itself
 // Using this technique involving a zero-width space: https://snook.ca/archives/html_and_css/icon-wrap-after-text
 const iconWrapperStyles = xcss({
@@ -78,9 +92,9 @@ export type LinkProps<RouterLinkConfig extends Record<string, any> = never> = Om
 	> &
 	RouterLinkComponentProps<RouterLinkConfig> & {
 		/**
-		 * The appearance of the link. Defaults to `default`. A `subtle` appearance will render the link with a lighter color and no underline in resting state.
+		 * The appearance of the link. Defaults to `default`. A `subtle` appearance will render the link with a lighter color and no underline in resting state. Use `inverse` when rendering on bold backgrounds to ensure that the link is easily visible.
 		 */
-		appearance?: 'default' | 'subtle';
+		appearance?: 'default' | 'subtle' | 'inverse';
 	};
 
 const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
@@ -109,6 +123,7 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 				commonLinkStyles,
 				appearance === 'default' && defaultAppearanceStyles,
 				appearance === 'subtle' && subtleAppearanceStyles,
+				appearance === 'inverse' && inverseAppearanceStyles,
 			]}
 			testId={testId}
 			componentName="Link"

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.24.8
+
+### Patch Changes
+
+- [#127766](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127766)
+  [`8a9803d7d9555`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a9803d7d9555) -
+  ED-24425: Fixed the drag handle show hover state when hover delete column on the next column/row
+
+## 7.24.7
+
+### Patch Changes
+
+- [#127699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127699)
+  [`7fa3a110dc3b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fa3a110dc3b6) -
+  Add analytics to track usage of dark mode header cell fix.
+- Updated dependencies
+
 ## 7.24.6
 
 ### Patch Changes

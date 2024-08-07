@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.12.0
+
+### Minor Changes
+
+- [#127757](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127757)
+  [`7ebfdd4e7821d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ebfdd4e7821d) -
+  Added logic to track the timestamp of when last organic change happened
+
+## 1.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.1
 
 ### Patch Changes

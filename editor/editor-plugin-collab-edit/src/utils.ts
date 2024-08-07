@@ -1,10 +1,17 @@
+import { AnalyticsStep, SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	type ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { avatarColors } from '@atlaskit/editor-shared-styles/consts';
@@ -168,4 +175,68 @@ export const getPositionOfTelepointer = (
 		}
 	});
 	return scrollPosition;
+};
+
+export const isReplaceStep = (step: Step) => step instanceof ReplaceStep;
+
+export const originalTransactionHasMeta = (
+	transaction: Transaction | ReadonlyTransaction,
+	metaTag: string,
+): boolean => {
+	const hasMetaTag = Boolean(transaction.getMeta(metaTag));
+	if (hasMetaTag) {
+		return true;
+	}
+	const appendedTransaction = transaction.getMeta('appendedTransaction');
+	if (appendedTransaction instanceof Transaction) {
+		return originalTransactionHasMeta(appendedTransaction, metaTag);
+	}
+	return false;
+};
+
+/**
+ * This list contains step attributes that do not result from a user action.
+ * All steps that contain ONLY the blocked attribute are considered automated steps
+ * and should not be recognised as organic change.
+ *
+ * `attr_colwidth` is an exception to above explanation. Resizing the column
+ * currently creates too many steps and is therefore also on this list.
+ *
+ * Steps analycs dashboard: https://atlassian-discover.cloud.databricks.com/dashboardsv3/01ef4d3c8aa916c8b0cb5332a9f37caf/published?o=4482001201517624
+ */
+const blockedAttrsList = ['__contextId', 'localId', '__autoSize', 'attr_colwidth'];
+
+/**
+ * Takes the transaction and editor state and checks if the transaction is considered organic change
+ * @param tr Transaction
+ * @returns boolean
+ */
+export const isOrganicChange = (tr: ReadonlyTransaction) => {
+	// If document has not been marked as `docChanged` by PM, skip the rest of the logic
+	if (!tr.docChanged) {
+		return false;
+	}
+
+	return tr.steps.some((step: Step) => {
+		// If a step is an instance of AnalyticsStep, it is not considered organic
+		if (step instanceof AnalyticsStep) {
+			return false;
+		}
+		// If a step is not an instance of SetAttrsStep, it is considered organic
+		if (!(step instanceof SetAttrsStep)) {
+			return true;
+		}
+
+		const allAttributes = Object.keys(step.attrs);
+		// If a step is an instance of SetAttrsStep, it checks if the attributes in the step
+		// are not in the `blockedAttributes`. If one of the attributes not on the list, it considers the change
+		// organic but only if the entire document is not equal to the previous state.
+		return (
+			allAttributes.some((attr) => {
+				if (!blockedAttrsList.includes(attr)) {
+					return true;
+				}
+			}) && !tr.doc.eq(tr.before)
+		);
+	});
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/radio",
-	"version": "6.4.0",
+	"version": "6.4.1",
 	"description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",

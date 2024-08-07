@@ -1,7 +1,8 @@
 import React, { type KeyboardEvent, useState } from 'react';
 
-import { PrimaryDropdownButton, useOverflowStatus } from '@atlaskit/atlassian-navigation';
+import { useOverflowStatus } from '@atlaskit/atlassian-navigation';
 import Avatar from '@atlaskit/avatar';
+import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import EditorAddIcon from '@atlaskit/icon/glyph/add';
 import EditorPeopleIcon from '@atlaskit/icon/glyph/people-group';
@@ -49,7 +50,7 @@ type PrimaryDropdownProps = {
 };
 
 const PrimaryDropdown = (props: PrimaryDropdownProps) => {
-	const { content, text, isHighlighted } = props;
+	const { content, text } = props;
 	const { isVisible, closeOverflowMenu } = useOverflowStatus();
 	const [isOpen, setIsOpen] = useState(false);
 	const onDropdownItemClick = () => {
@@ -89,16 +90,15 @@ const PrimaryDropdown = (props: PrimaryDropdownProps) => {
 			placement="bottom-start"
 			testId={`${text}-popup`}
 			trigger={(triggerProps) => (
-				<PrimaryDropdownButton
+				<Button
 					onClick={onClick}
 					onKeyDown={onKeyDown}
-					isHighlighted={isHighlighted}
 					isSelected={isOpen}
 					testId={`${text}-popup-trigger`}
 					{...triggerProps}
 				>
 					{text}
-				</PrimaryDropdownButton>
+				</Button>
 			)}
 		/>
 	);

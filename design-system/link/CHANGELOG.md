@@ -1,5 +1,14 @@
 # @atlaskit/link
 
+## 1.1.0
+
+### Minor Changes
+
+- [#127699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127699)
+  [`b2f6eae3ec0b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2f6eae3ec0b0) -
+  Add new "inverse" appearance option, which can be used to make links easier to see on bolder
+  backgrounds.
+
 ## 1.0.3
 
 ### Patch Changes

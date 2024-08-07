@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.8.1
+
+### Patch Changes
+
+- [#127194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127194)
+  [`8d7f9ef047d37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d7f9ef047d37) -
+  [ED-24504] Add dropdown options UI
+
 ## 1.8.0
 
 ### Minor Changes

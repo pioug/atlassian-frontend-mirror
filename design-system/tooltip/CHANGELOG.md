@@ -1,5 +1,22 @@
 # @atlaskit/tooltip
 
+## 18.6.0
+
+### Minor Changes
+
+- [`8b8090800a35d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b8090800a35d) -
+  Bump peer dependency for react-dom to include version 17 and 18.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.5.1
 
 ### Patch Changes

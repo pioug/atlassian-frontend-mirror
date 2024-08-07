@@ -1,5 +1,4 @@
 import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { ExtensionNodeView } from '@atlaskit/editor-common/extensibility';
 import type {
 	Extension,
 	ExtensionHandler,
@@ -32,6 +31,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearEditingContext, updateState } from '../commands';
+import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
 import { createCommand, createPluginState, getPluginState } from '../plugin-factory';
 import { pluginKey } from '../plugin-key';
 import type { ExtensionPlugin } from '../types';
@@ -332,7 +332,8 @@ const createPlugin = (
 			},
 			nodeViews: {
 				// WARNING: referentiality-plugin also creates these nodeviews
-				extension: ExtensionNodeView(
+				extension: lazyExtensionNodeView(
+					'extension',
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
@@ -342,7 +343,8 @@ const createPlugin = (
 					macroInteractionDesignFeatureFlags,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
-				bodiedExtension: ExtensionNodeView(
+				bodiedExtension: lazyExtensionNodeView(
+					'bodiedExtension',
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
@@ -352,7 +354,8 @@ const createPlugin = (
 					macroInteractionDesignFeatureFlags,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
-				inlineExtension: ExtensionNodeView(
+				inlineExtension: lazyExtensionNodeView(
+					'inlineExtension',
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,
@@ -361,7 +364,8 @@ const createPlugin = (
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
 				),
-				multiBodiedExtension: ExtensionNodeView(
+				multiBodiedExtension: lazyExtensionNodeView(
+					'multiBodiedExtension',
 					portalProviderAPI,
 					eventDispatcher,
 					providerFactory,

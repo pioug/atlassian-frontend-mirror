@@ -435,6 +435,7 @@ const DragHandleInternal = ({
 	return fg('platform_editor_element_drag_and_drop_ed_23873') ? (
 		<Tooltip
 			content={<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />}
+			ignoreTooltipPointerEvents={true}
 			onShow={() => {
 				api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
 			}}

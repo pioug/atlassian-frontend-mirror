@@ -8,6 +8,7 @@ import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
 	Command,
+	DropdownOptions,
 	ExtractInjectionAPI,
 	NextEditorPlugin,
 	ToolbarUIComponentFactory,
@@ -19,6 +20,7 @@ import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-ty
 import SwitchIcon from './assets/switch';
 import type { InsertBlockPluginDependencies } from './types';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
+import { transformationOptions } from './ui/transformOptions';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
 	switch (toolbarSize) {
@@ -166,13 +168,24 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				if (!api?.featureFlags?.sharedState.currentState()?.basicTextTransformations) {
 					return;
 				}
+				const { formatMessage } = intl;
+				const options: DropdownOptions<Command> = transformationOptions.map((option) => {
+					const IconBefore = option.icon;
+					return {
+						title: formatMessage(option.title),
+						icon: <IconBefore label="" />,
+						onClick: () => {
+							return true;
+						},
+					};
+				});
 				return {
 					items: [
 						{
 							type: 'dropdown',
-							title: intl.formatMessage(messages.turnInto),
+							title: formatMessage(messages.turnInto),
 							iconBefore: SwitchIcon,
-							options: [],
+							options,
 						},
 					],
 					rank: -9,

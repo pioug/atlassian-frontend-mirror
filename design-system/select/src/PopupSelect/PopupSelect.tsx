@@ -6,7 +6,8 @@ import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import NodeResolver from 'react-node-resolver';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
-import {
+import Select, {
+	type AriaOnFocusProps,
 	type GroupBase,
 	mergeStyles,
 	type OptionsOrGroups,
@@ -15,14 +16,14 @@ import {
 import { uid } from 'react-uid';
 import { shallowEqualObjects } from 'shallow-equal';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import Select from '../Select';
+import DefaultSelect from '../Select';
 import baseStyles from '../styles';
 import {
 	type ActionMeta,
-	type AriaOnFocusProps,
 	type AtlaskitSelectRefType,
 	type GroupType,
 	type OptionType,
@@ -187,8 +188,9 @@ export default class PopupSelect<
 	Modifiers = ModifierList,
 > extends PureComponent<PopupSelectProps<Option, IsMulti, Modifiers>, State> {
 	menuRef: HTMLElement | null = null;
-
-	selectRef: AtlaskitSelectRefType | null = null;
+	// Due to types conflicts between `Select` and `DefaultSelect` components set 'any' type.
+	// After removing the flag feature 'platform.design-system-team.use-default-select-in-popup-select_46rmj' the correct type will be 'AtlaskitSelectRefType',
+	selectRef: any;
 	targetRef: HTMLElement | null = null;
 	unbindWindowClick: UnbindFn | null = null;
 	unbindWindowKeydown: UnbindFn | null = null;
@@ -374,7 +376,9 @@ export default class PopupSelect<
 		this.setState({ isOpen: true });
 
 		if (this.selectRef) {
-			this.selectRef.select?.openMenu('first');
+			fg('platform.design-system-team.use-default-select-in-popup-select_46rmj')
+				? this.selectRef.select?.openMenu('first')
+				: this.selectRef.openMenu('first');
 		}
 
 		if (typeof window === 'undefined') {
@@ -478,7 +482,9 @@ export default class PopupSelect<
 
 		// subtract the control height to maintain consistency
 		const showSearchControl = this.showSearchControl();
-		const controlRef = this.selectRef.select?.controlRef;
+		let controlRef = fg('platform.design-system-team.use-default-select-in-popup-select_46rmj')
+			? this.selectRef.select?.controlRef
+			: this.selectRef.controlRef;
 
 		const offsetHeight = showSearchControl && controlRef ? controlRef.offsetHeight : 0;
 		const maxHeight = maxMenuHeight! - offsetHeight;
@@ -518,16 +524,23 @@ export default class PopupSelect<
 				return placeholder;
 			}
 		};
+
+		const InternalSelect: React.ComponentType<any> = fg(
+			'platform.design-system-team.use-default-select-in-popup-select_46rmj',
+		)
+			? DefaultSelect
+			: Select;
 		const providedAriaLabel = getLabel();
 
 		const updateInputAriaLabel = (ariaLabelText: string) => {
 			// Update aria-label to get first announcement when popup opened.
-			if (this.selectRef?.select?.inputRef) {
+			if (this.selectRef?.select?.inputRef || this.selectRef?.inputRef) {
 				if (providedAriaLabel) {
 					ariaLabelText = `${providedAriaLabel}. ${ariaLabelText}`;
 				}
-
-				this.selectRef?.select.inputRef?.setAttribute('aria-label', ariaLabelText);
+				fg('platform.design-system-team.use-default-select-in-popup-select_46rmj')
+					? this.selectRef?.select.inputRef?.setAttribute('aria-label', ariaLabelText)
+					: this.selectRef?.inputRef?.setAttribute('aria-label', ariaLabelText);
 			}
 		};
 
@@ -537,14 +550,14 @@ export default class PopupSelect<
 		) => {
 			const { focused } = onFocusProps;
 			const options = props?.options || [];
-			const totalLength = options?.length;
+			const totalLength = options?.length + 1;
 			const optionIndex = options?.findIndex((option) => option === focused) ?? 0;
 			const optionName =
 				typeof props?.getOptionLabel === 'function'
 					? props.getOptionLabel(focused as Option)
 					: focused.label;
 
-			const ariaLabelText = `Option ${optionName} focused, ${optionIndex + 1} of ${totalLength}.
+			const ariaLabelText = `Option ${optionName} focused, ${optionIndex} of ${totalLength}.
 			${totalLength} results available.
 			${ariaLabelSuffix}
 			`;
@@ -554,7 +567,9 @@ export default class PopupSelect<
 			return ariaLabelText;
 		};
 
-		const onReactSelectFocus = (onFocusProps: AriaOnFocusProps<Option, GroupBase<Option>>) => {
+		const onReactSelectFocus = (
+			onFocusProps: AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
+		) => {
 			const ariaLabelSuffix =
 				' Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
 			let ariaLabelText = '';
@@ -562,22 +577,15 @@ export default class PopupSelect<
 			if (props.options?.length) {
 				if (isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)) {
 					const totalLength = countAllOptions(props.options as readonly GroupBase<OptionType>[]);
-					ariaLiveMessage = onFocus(
-						onFocusProps as AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
-						props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-					);
+					ariaLiveMessage = onFocus(onFocusProps);
 					ariaLabelText = `${ariaLiveMessage} ${totalLength} results available. ${ariaLabelSuffix}`;
 				} else {
-					ariaLabelText = generateNoGroupsAriaText(
-						onFocusProps as AriaOnFocusProps<OptionType, GroupBase<OptionType>>,
-						ariaLabelSuffix,
-					);
+					ariaLabelText = generateNoGroupsAriaText(onFocusProps, ariaLabelSuffix);
 					ariaLiveMessage = ariaLabelText;
 				}
 				updateInputAriaLabel(ariaLabelText);
 				return ariaLiveMessage;
 			}
-			return ariaLiveMessage;
 		};
 
 		const popper = (
@@ -600,7 +608,7 @@ export default class PopupSelect<
 							testId={testId}
 						>
 							<FocusLock disabled={!focusLockEnabled} returnFocus>
-								<Select<Option, IsMulti>
+								<InternalSelect
 									aria-label={providedAriaLabel}
 									backspaceRemovesValue={false}
 									controlShouldRenderValue={false}

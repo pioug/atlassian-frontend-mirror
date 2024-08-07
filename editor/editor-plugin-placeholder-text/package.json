@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.3.0",
-		"@atlaskit/editor-common": "^87.4.0",
+		"@atlaskit/editor-common": "^87.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
@@ -46,7 +46,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/editor-plugin-floating-toolbar": "^1.10.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

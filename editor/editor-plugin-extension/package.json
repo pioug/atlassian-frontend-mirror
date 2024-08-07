@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "1.12.1",
+	"version": "1.12.4",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,12 +29,12 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/adf-utils": "^19.6.0",
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/avatar": "^21.12.0",
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/checkbox": "^13.6.0",
 		"@atlaskit/datetime-picker": "^13.8.0",
-		"@atlaskit/editor-common": "^87.4.0",
+		"@atlaskit/editor-common": "^87.5.0",
 		"@atlaskit/editor-json-transformer": "^8.17.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@atlaskit/editor-plugin-context-identifier": "^1.2.0",
@@ -52,7 +52,7 @@
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/radio": "^6.4.0",
 		"@atlaskit/section-message": "^6.5.0",
-		"@atlaskit/select": "^17.11.0",
+		"@atlaskit/select": "^17.12.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tabs": "^16.3.0",
@@ -61,7 +61,7 @@
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/tokens": "^1.57.0",
-		"@atlaskit/tooltip": "^18.5.0",
+		"@atlaskit/tooltip": "^18.6.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
@@ -116,6 +116,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.multi-bodied-extension_0rygg": {
+			"type": "boolean"
+		},
+		"platform_editor_lazy-node-views": {
 			"type": "boolean"
 		}
 	}

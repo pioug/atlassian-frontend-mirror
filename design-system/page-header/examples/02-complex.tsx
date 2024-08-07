@@ -4,6 +4,7 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
+import { Text } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -39,9 +40,14 @@ const barContent = (
 
 const PageHeaderComplexExample = () => {
 	return (
-		<PageHeader breadcrumbs={breadcrumbs} actions={actionsContent} bottomBar={barContent}>
-			Introducing the Design System Team
-		</PageHeader>
+		<React.Fragment>
+			<Text as="p">
+				Controls on this page do not have any interactions and are for example only.
+			</Text>
+			<PageHeader breadcrumbs={breadcrumbs} actions={actionsContent} bottomBar={barContent}>
+				Introducing the Design System Team
+			</PageHeader>
+		</React.Fragment>
 	);
 };
 

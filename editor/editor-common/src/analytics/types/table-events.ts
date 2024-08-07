@@ -41,6 +41,8 @@ export enum TABLE_ACTION {
 	ROW_OR_COLUMN_MOVED = 'rowOrColumnMoved',
 	CHANGED_DISPLAY_MODE = 'changedDisplayMode',
 	CHANGED_ALIGNMENT = 'changedAlignment',
+	// Temporary to track usage of CONFCLOUD-78239 bug
+	TABLE_CELL_BACKGROUND_FIXED = 'tableCellBackgroundFixed',
 }
 
 export enum TABLE_BREAKOUT {
@@ -371,6 +373,12 @@ type TableChangedAlignmentAEP = TableAEP<
 	undefined
 >;
 
+type TableBackgroundColorFixAEP = TableAEP<
+	TABLE_ACTION.TABLE_CELL_BACKGROUND_FIXED,
+	undefined,
+	undefined
+>;
+
 export type TableEventPayload =
 	| TableDeleteAEP
 	| TableClearAEP
@@ -396,4 +404,5 @@ export type TableEventPayload =
 	| TableClonedRowOrColumnAEP
 	| TableChangedDisplayModeAEP
 	| TableColumnResizedAEP
+	| TableBackgroundColorFixAEP
 	| TableChangedAlignmentAEP;

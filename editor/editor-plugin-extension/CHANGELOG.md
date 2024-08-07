@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.12.4
+
+### Patch Changes
+
+- [#127640](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127640)
+  [`ccefb817c754a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccefb817c754a) -
+  [ux] Migrate typography with new ADS token and primitive
+
+## 1.12.3
+
+### Patch Changes
+
+- [#127699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127699)
+  [`3c14790d31686`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c14790d31686) -
+  [ux] Wrap extension in lazy node view. Align bodied extension with fallback.
+- Updated dependencies
+
+## 1.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.12.1
 
 ### Patch Changes

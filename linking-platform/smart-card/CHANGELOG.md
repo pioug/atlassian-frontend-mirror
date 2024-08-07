@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 27.13.1
+
+### Patch Changes
+
+- [#127454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127454)
+  [`e869f31dbe200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e869f31dbe200) -
+  [ux] Migrates away from legacy icons behind a feature flag.
+- Updated dependencies
+
 ## 27.13.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.1.10",
+	"version": "195.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,10 +42,10 @@
 		"@atlaskit/activity-provider": "^2.4.0",
 		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/editor-common": "^87.4.0",
+		"@atlaskit/editor-common": "^87.5.0",
 		"@atlaskit/editor-plugins": "^3.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
@@ -58,7 +58,7 @@
 		"@atlaskit/task-decision": "^17.10.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",
-		"@atlaskit/tooltip": "^18.5.0",
+		"@atlaskit/tooltip": "^18.6.0",
 		"@atlaskit/width-detector": "^4.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -80,7 +80,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.1.1",
+		"@af/editor-examples-helpers": "0.1.2",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.6.0",
@@ -256,9 +256,6 @@
 		"platform.confluence.frontend.narrow-full-page-editor-toolbar": {
 			"type": "boolean"
 		},
-		"platform.editor.primary-toolbar-ordering": {
-			"type": "boolean"
-		},
 		"platform.editor.mentions-in-editor-popup-on-click": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -288,10 +285,6 @@
 		},
 		"platform_editor_table_support_in_comment": {
 			"type": "boolean"
-		},
-		"react_18_tasks_and_decisions_concurrent_mode": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"editor_react_18_fix_table_delete_col_decorations": {
 			"type": "boolean",

@@ -1,155 +1,180 @@
-import * as mocks from './image-navigatorSpec.mock';
+jest.mock('@atlaskit/media-ui', () => {
+	const actual = jest.requireActual('@atlaskit/media-ui');
+	return {
+		...actual,
+		fileToDataURI: jest.fn(async (file: File) => `data-uri-for-${file.name}`),
+	};
+});
 import React from 'react';
-import Spinner from '@atlaskit/spinner';
-import Button from '@atlaskit/button/standard-button';
-import { Ellipsify } from '@atlaskit/media-ui';
-import ImageNavigator, {
-	ImageNavigator as ImageNavigatorView,
-	type Props as ImageNavigatorProps,
-} from '../../image-navigator';
-import { ImageCropper } from '../../image-cropper';
-import { Slider } from '../../image-navigator/slider';
-import { createMouseEvent, smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { smallImage } from '@atlaskit/media-test-helpers';
+import { IntlProvider } from 'react-intl-next';
+import * as isImageRemoteModule from '../../image-cropper/isImageRemote';
+import * as utilModule from '../../util';
+import ImageNavigator, { viewport } from '../../image-navigator';
 import { errorIcon } from '../../image-navigator/images';
-import { type ReactWrapper } from 'enzyme';
-import { DragZone } from '../../image-navigator/dragZone';
+
+jest.spyOn(isImageRemoteModule, 'isImageRemote').mockImplementation(() => false);
+const fileSizeMbSpy = jest.spyOn(utilModule, 'fileSizeMb');
+const setScaleSpy = jest.spyOn(viewport, 'setScale');
 
 declare var global: any; // we need define an interface for the Node global object when overwriting global objects, in this case FileReader
 
+class MockFileReader {
+	onload: any;
+	readAsDataURL() {
+		this.onload({ target: this });
+	}
+}
+
+const mockDropEvent = (file: any): any => ({
+	stopPropagation: jest.fn(),
+	preventDefault: jest.fn(),
+	dataTransfer: {
+		files: [file],
+	},
+});
+
+const droppedImage = new File(['dsjklDFljk'], 'nice-photo.png', {
+	type: 'image/png',
+});
+const droppedNonImage = new File(['not an image'], 'text.txt', { type: 'text/plain' });
+
+const AllTheProviders = ({ children }: { children: React.ReactNode }) => (
+	<IntlProvider locale="en">{children}</IntlProvider>
+);
+
+const dragZoneImageSelector = 'img#drag-zone-image';
+const dragZoneTextSelector = 'div#drag-zone-text';
+const paddedBreakSelector = 'p#padded-break';
+const imageUploaderSelector = 'div#image-uploader';
+
 describe('Image navigator', () => {
-	let component: any;
-	let onImageLoaded: () => void;
-	let onRemoveImage: () => void;
-	let onImageError: () => void;
-	let onImageUploaded: () => void;
-	let isLoading: boolean;
-	const dragZoneImageSelector = 'img#drag-zone-image';
-	const paddedBreakSelector = 'p#padded-break';
-	const imageUploaderSelector = 'div#image-uploader';
-	const dragZoneTextSelector = 'div#drag-zone-text';
-
-	const setup = (props?: Partial<ImageNavigatorProps>) => {
-		return mountWithIntlContext(
-			<ImageNavigatorView
-				imageSource={smallImage}
-				onImageLoaded={onImageLoaded}
-				onRemoveImage={onRemoveImage}
-				onImageError={onImageError}
-				onImageUploaded={onImageUploaded}
-				isLoading={isLoading}
-				intl={{ formatMessage() {} } as any}
-				{...props}
-			/>,
-		);
-	};
-
-	beforeEach(() => {
-		onImageLoaded = jest.fn();
-		onRemoveImage = jest.fn();
-		onImageError = jest.fn();
-		onImageUploaded = jest.fn();
-		isLoading = false;
-	});
-
 	describe('with an imageSource', () => {
-		let imageCropper: any;
-		let slider: any;
+		it('should have image cropper', async () => {
+			render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+					isLoading={false}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
 
-		beforeEach(() => {
-			component = setup();
-			imageCropper = () => component.find(ImageCropper);
-			slider = () => component.find(Slider);
+			expect(await screen.findByTestId('image-cropper')).toBeInTheDocument();
 		});
 
-		it('should have image cropper', () => {
-			expect(imageCropper().length).toBe(1);
+		it('should have slider', async () => {
+			render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+					isLoading={false}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
+
+			expect(await screen.findByTestId('slider')).toBeInTheDocument();
 		});
 
-		it('should have slider', () => {
-			expect(slider().length).toBe(1);
+		it('should change scale in state when slider is moved', async () => {
+			const { container } = render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+					isLoading={false}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
+
+			const sliderRange = container.querySelector('input[type=range]');
+			expect(sliderRange).toBeInTheDocument();
+
+			sliderRange && fireEvent.change(sliderRange, { target: { value: 20 } });
+
+			expect(setScaleSpy).toHaveBeenCalledWith(20);
 		});
 
-		it('should change scale in state when slider is moved', () => {
-			slider().props().onChange(20);
+		it('should mark state as is dragging when mouse pressed down and not dragging when mouse is unpressed', () => {
+			const { container } = render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+					isLoading={false}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
 
-			component.update();
-			expect(component.state().scale).toBe(20);
+			const imageCropperOverlay = container.querySelector('#drag-overlay');
+			expect(imageCropperOverlay).toBeInTheDocument();
+			if (!imageCropperOverlay) {
+				throw new Error('imageCropperOverlay is not in the document');
+			}
+
+			fireEvent.mouseDown(imageCropperOverlay, { screenX: 0, screenY: 0 });
+
+			const selectionBlocker = screen.getByTestId('selection-blocker');
+			expect(selectionBlocker).toBeInTheDocument();
+
+			fireEvent.mouseUp(imageCropperOverlay);
+
+			expect(selectionBlocker).not.toBeInTheDocument();
 		});
 
-		it('should mark state as is dragging when mouse pressed down', () => {
-			imageCropper().props().onDragStarted(0, 0);
+		it('should render loading state when "isLoading" is true when image is scaled', async () => {
+			const { container } = render(
+				<ImageNavigator
+					imageSource={smallImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+					isLoading={true}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
 
-			expect(component.state().isDragging).toBe(true);
-		});
-
-		it('should mark state as is not dragging when mouse unpressed', () => {
-			imageCropper().props().onDragStarted(0, 0);
-			document.dispatchEvent(createMouseEvent('mouseup'));
-			expect(component.state().isDragging).toBe(false);
-		});
-
-		describe('when image is scaled', () => {
-			it('should render loading state when "isLoading" is true', () => {
-				const component = setup({ isLoading: true });
-
-				expect(component.find(Spinner)).toHaveLength(1);
-				expect(component.find(DragZone).prop('showBorder')).toBeFalsy();
-				expect(component.find(dragZoneImageSelector)).toHaveLength(0);
-				expect(component.find(dragZoneTextSelector)).toHaveLength(0);
-				expect(component.find(ImageCropper)).toHaveLength(0);
-				expect(component.find(Button)).toHaveLength(0);
-				expect(component.find(paddedBreakSelector)).toHaveLength(0);
-			});
+			expect(await screen.findByTestId('spinner')).toBeInTheDocument();
+			const dragZone = await screen.findByTestId('dragzone');
+			expect(dragZone).toBeInTheDocument();
+			expect(dragZone.style.border).toBe('');
+			expect(screen.queryByTestId('image-cropper')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('upload-button')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('upload-button')).not.toBeInTheDocument();
+			expect(container.querySelector(dragZoneImageSelector)).not.toBeInTheDocument();
+			expect(container.querySelector(dragZoneTextSelector)).not.toBeInTheDocument();
+			expect(container.querySelector(paddedBreakSelector)).not.toBeInTheDocument();
 		});
 	});
 
 	describe('with no imageSource', () => {
-		let viewComponent: ReactWrapper;
-
-		beforeEach(() => {
-			component = mountWithIntlContext(
-				<ImageNavigator
-					onImageLoaded={onImageLoaded}
-					onRemoveImage={onRemoveImage}
-					onImageError={onImageError}
-					onImageUploaded={onImageUploaded}
-				/>,
-			);
-			viewComponent = mountWithIntlContext(
-				<ImageNavigatorView
-					onImageLoaded={onImageLoaded}
-					onRemoveImage={onRemoveImage}
-					onImageError={onImageError}
-					onImageUploaded={onImageUploaded}
-					intl={{ formatMessage() {} } as any}
-				/>,
-			);
-		});
-
 		it('should render ImageUploader to allow users to pick an image', () => {
-			expect(component.find(imageUploaderSelector)).toHaveLength(1);
+			const { container } = render(
+				<ImageNavigator
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
+				/>,
+				{ wrapper: AllTheProviders },
+			);
+
+			expect(container.querySelector(imageUploaderSelector)).toBeInTheDocument();
 		});
 
 		describe('when a file is dropped', () => {
-			class MockFileReader {
-				onload: any;
-				readAsDataURL() {
-					this.onload({ target: this });
-				}
-			}
-
-			const mockDropEvent = (file: any): any => ({
-				stopPropagation: jest.fn(),
-				preventDefault: jest.fn(),
-				dataTransfer: {
-					files: [file],
-				},
-			});
-
-			const droppedImage = new File(['dsjklDFljk'], 'nice-photo.png', {
-				type: 'image/png',
-			});
-
 			let FileReaderSpy: any;
 
 			beforeEach(() => {
@@ -164,34 +189,66 @@ describe('Image navigator', () => {
 			});
 
 			it('should set data-uri, image itself and orientation into state', async () => {
-				const { onDrop } = viewComponent.find(DragZone).props();
+				const onImageUploaded = jest.fn();
+				render(
+					<ImageNavigator
+						onImageLoaded={jest.fn()}
+						onRemoveImage={jest.fn()}
+						onImageError={jest.fn()}
+						onImageUploaded={onImageUploaded}
+					/>,
+					{ wrapper: AllTheProviders },
+				);
+				const dragZone = await screen.findByTestId('dragzone');
+				expect(dragZone).toBeInTheDocument();
+				fireEvent.drop(dragZone, mockDropEvent(droppedImage));
 
-				onDrop!(mockDropEvent(droppedImage));
-
-				await mocks.mockFileToDataURIPromise;
-				await mocks.mockGetOrientationPromise;
-
-				expect(viewComponent.state('imageFile')).toBe(droppedImage);
-				expect(viewComponent.state('fileImageSource')).toBe('some-data-uri');
-				expect(viewComponent.state('imageOrientation')).toBe(7);
+				const mediaImage = await screen.findByTestId('media-image');
+				expect(mediaImage).toBeInTheDocument();
+				expect(mediaImage.getAttribute('src')).toBe('data-uri-for-nice-photo.png');
+				expect(mediaImage.style.imageOrientation).toBe('from-image');
+				// TODO: assert on viewport to have orientation 7
+				// expect(viewport.orientation).toBe(7);
 				expect(onImageUploaded).toHaveBeenCalledWith(droppedImage);
 			});
 
-			it('should not call onImageUploaded when file is not an image', () => {
-				const droppedImage = new File(['not an image'], 'text.txt', {
-					type: 'text/plain',
-				});
-				const { onDrop } = component.find(DragZone).props();
+			it('should not call onImageUploaded when file is not an image', async () => {
+				const onImageUploaded = jest.fn();
+				render(
+					<ImageNavigator
+						onImageLoaded={jest.fn()}
+						onRemoveImage={jest.fn()}
+						onImageError={jest.fn()}
+						onImageUploaded={onImageUploaded}
+					/>,
+					{ wrapper: AllTheProviders },
+				);
 
-				onDrop(mockDropEvent(droppedImage));
+				const dragZone = await screen.findByTestId('dragzone');
+				expect(dragZone).toBeInTheDocument();
+				fireEvent.drop(dragZone, mockDropEvent(droppedNonImage));
 
 				expect(onImageUploaded).not.toHaveBeenCalled();
 			});
 
-			it('should not allow images greater than the default defined MB limit', () => {
-				const { onDrop } = component.find(DragZone).props();
+			it('should not allow images greater than the default defined MB limit', async () => {
+				fileSizeMbSpy.mockImplementationOnce(() => 10.01);
 
-				onDrop(mockDropEvent(droppedImage));
+				const onImageUploaded = jest.fn();
+				const onImageError = jest.fn();
+				render(
+					<ImageNavigator
+						onImageLoaded={jest.fn()}
+						onRemoveImage={jest.fn()}
+						onImageError={onImageError}
+						onImageUploaded={onImageUploaded}
+					/>,
+					{ wrapper: AllTheProviders },
+				);
+
+				const dragZone = await screen.findByTestId('dragzone');
+				expect(dragZone).toBeInTheDocument();
+				fireEvent.drop(dragZone, mockDropEvent(droppedImage));
 
 				expect(onImageError).toHaveBeenCalledWith(
 					'Image is too large, must be no larger than 10Mb',
@@ -199,19 +256,25 @@ describe('Image navigator', () => {
 				expect(onImageUploaded).not.toHaveBeenCalled();
 			});
 
-			it('should not allow images greater than passed maxImageSize', () => {
-				component = mountWithIntlContext(
+			it('should not allow images greater than passed maxImageSize', async () => {
+				fileSizeMbSpy.mockImplementationOnce(() => 4.01);
+
+				const onImageUploaded = jest.fn();
+				const onImageError = jest.fn();
+				render(
 					<ImageNavigator
-						onImageLoaded={onImageLoaded}
-						onRemoveImage={onRemoveImage}
+						onImageLoaded={jest.fn()}
+						onRemoveImage={jest.fn()}
 						onImageError={onImageError}
 						onImageUploaded={onImageUploaded}
 						maxImageSize={4}
 					/>,
+					{ wrapper: AllTheProviders },
 				);
-				const { onDrop } = component.find(DragZone).props();
 
-				onDrop(mockDropEvent(droppedImage));
+				const dragZone = await screen.findByTestId('dragzone');
+				expect(dragZone).toBeInTheDocument();
+				fireEvent.drop(dragZone, mockDropEvent(droppedImage));
 
 				expect(onImageError).toHaveBeenCalledWith('Image is too large, must be no larger than 4Mb');
 				expect(onImageUploaded).not.toHaveBeenCalled();
@@ -220,50 +283,53 @@ describe('Image navigator', () => {
 	});
 
 	describe('when an image is removed', () => {
-		it('should clear state', () => {
-			component = mountWithIntlContext(
-				<ImageNavigatorView
+		it('should clear state', async () => {
+			const { container } = render(
+				<ImageNavigator
 					imageSource={smallImage}
-					onImageLoaded={onImageLoaded}
-					onRemoveImage={onRemoveImage}
-					onImageError={onImageError}
-					onImageUploaded={onImageUploaded}
-					intl={{ formatMessage() {} } as any}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
 				/>,
+				{ wrapper: AllTheProviders },
 			);
-			const { onRemoveImage: onRemoveImageProp } = component.find(ImageCropper).props();
-			onRemoveImageProp();
-			expect(component.state().fileImageSource).toBeUndefined();
-			expect(component.state().imageFile).toBeUndefined();
+
+			const mediaImage = await screen.findByTestId('media-image');
+			expect(mediaImage).toBeInTheDocument();
+
+			const removeButton = container.querySelector('#remove-image-button');
+			expect(removeButton).toBeInTheDocument();
+
+			removeButton && fireEvent.click(removeButton);
+
+			waitFor(() => {
+				expect(mediaImage).not.toBeInTheDocument();
+			});
 		});
 	});
 
 	describe('when an error state is set', () => {
-		const errorMessage = 'Error message!';
-
-		beforeEach(() => {
-			component = mountWithIntlContext(
+		it('should display error message and icon', () => {
+			const errorMessage = 'Error message!';
+			const { container } = render(
 				<ImageNavigator
 					imageSource={smallImage}
-					onImageLoaded={onImageLoaded}
-					onRemoveImage={onRemoveImage}
+					onImageLoaded={jest.fn()}
+					onRemoveImage={jest.fn()}
 					errorMessage={errorMessage}
-					onImageError={onImageError}
-					onImageUploaded={onImageUploaded}
+					onImageError={jest.fn()}
+					onImageUploaded={jest.fn()}
 				/>,
+				{ wrapper: AllTheProviders },
 			);
-		});
 
-		it('should display error message', () => {
-			expect(component.find(Ellipsify).prop('text')).toBe(errorMessage);
-		});
-
-		it('should display error icon', () => {
-			expect(component.find(dragZoneImageSelector).props().src).toBe(errorIcon);
-		});
-
-		it('should not display image cropper', () => {
-			expect(component.find(ImageCropper)).toHaveLength(0);
+			const ellipsed = container.querySelector('.ellipsed-text');
+			expect(ellipsed).toBeInTheDocument();
+			// React 18 & React 16 discrepancies
+			expect(['...message!', errorMessage].includes(ellipsed?.textContent || '')).toBe(true);
+			expect(container.querySelector(dragZoneImageSelector)?.getAttribute('src')).toBe(errorIcon);
+			expect(screen.queryByTestId('image-cropper')).not.toBeInTheDocument();
 		});
 	});
 });

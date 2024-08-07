@@ -23,6 +23,14 @@ const displayVariations: DisplayVariation[] = [
 		},
 	},
 	{
+		name: 'Inverse',
+		props: {
+			href: 'https://www.atlassian.com',
+			children: 'Link',
+			appearance: 'inverse',
+		},
+	},
+	{
 		name: 'Opens in new tab',
 		props: {
 			href: 'https://www.atlassian.com',
@@ -37,6 +45,15 @@ const displayVariations: DisplayVariation[] = [
 			children: 'Link',
 			target: '_blank',
 			appearance: 'subtle',
+		},
+	},
+	{
+		name: 'Opens in new tab, inverse',
+		props: {
+			href: 'https://www.atlassian.com',
+			children: 'Link',
+			target: '_blank',
+			appearance: 'inverse',
 		},
 	},
 ];

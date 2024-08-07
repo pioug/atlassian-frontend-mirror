@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "2.9.3",
+	"version": "2.9.6",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,9 +36,9 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.3.0",
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/custom-steps": "^0.6.0",
-		"@atlaskit/editor-common": "^87.4.0",
+		"@atlaskit/editor-common": "^87.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
@@ -56,7 +56,7 @@
 		"@atlaskit/link-datasource": "^2.9.0",
 		"@atlaskit/linking-common": "^5.9.0",
 		"@atlaskit/linking-types": "^8.13.0",
-		"@atlaskit/menu": "2.9.0",
+		"@atlaskit/menu": "2.10.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/smart-card": "^27.13.0",
@@ -145,6 +145,9 @@
 			"type": "boolean"
 		},
 		"editor_inline_comments_paste_insert_nodes": {
+			"type": "boolean"
+		},
+		"platform_editor_migration_icon_and_typography": {
 			"type": "boolean"
 		}
 	},

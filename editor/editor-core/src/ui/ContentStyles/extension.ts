@@ -99,6 +99,14 @@ export const extensionStyles = css`
 		${extensionLabelStyles}
 	}
 
+	// This is referenced in the toDOM of a bodied extension and is used to put
+	// label content into the bodied extension.
+	// We do this so that we don't serialise the label (which causes the label to be
+	// be copied to the clipboard causing copy-paste issues).
+	.bodied-extension-to-dom-label::after {
+		content: attr(data-bodied-extension-label);
+	}
+
 	.extensionView-content-wrap,
 	.multiBodiedExtensionView-content-wrap,
 	.bodiedExtensionView-content-wrap {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "1.4.13",
+	"version": "1.4.14",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/lozenge": "^11.9.0",
 		"@atlaskit/primitives": "^11.1.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "22.10.4",
+	"version": "22.10.6",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,21 +35,21 @@
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/avatar": "^21.12.0",
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/emoji": "^67.7.0",
 		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
-		"@atlaskit/motion": "^1.7.0",
+		"@atlaskit/motion": "^1.8.0",
 		"@atlaskit/popper": "^6.1.0",
-		"@atlaskit/popup": "1.20.3",
+		"@atlaskit/popup": "1.21.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/spinner": "^16.2.0",
 		"@atlaskit/tabs": "^16.3.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",
-		"@atlaskit/tooltip": "^18.5.0",
+		"@atlaskit/tooltip": "^18.6.0",
 		"@atlaskit/ufo": "^0.2.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",

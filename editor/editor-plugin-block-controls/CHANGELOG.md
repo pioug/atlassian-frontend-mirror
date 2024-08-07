@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.10.6
+
+### Patch Changes
+
+- [#127749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127749)
+  [`2709d717d9040`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2709d717d9040) -
+  [ux] Dismiss dnd tooltip when cursor exits handle
+
 ## 1.10.5
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 2.9.8
+
+### Patch Changes
+
+- [#126628](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126628)
+  [`90125d71e1af2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/90125d71e1af2) -
+  Update prebuilt to contain changes from devmetrics-dev-server and devmetrics-events
+
+## 2.9.7
+
+### Patch Changes
+
+- [#127454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127454)
+  [`e869f31dbe200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e869f31dbe200) -
+  [ux] Migrates away from legacy icons behind a feature flag.
+- [#127125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127125)
+  [`8ebc56af5f1ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ebc56af5f1ca) -
+  Revert due to HOT-110871 - causing Jira red master
+- Updated dependencies
+
 ## 2.9.6
 
 ### Patch Changes

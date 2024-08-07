@@ -1,5 +1,14 @@
 # @atlaskit/analytics-next
 
+## 10.0.0
+
+### Major Changes
+
+- [#127454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127454)
+  [`7d3290f61ac09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d3290f61ac09) -
+  AFO-2278: React-dom 18 resolving yarn build package errors. Introducing react-dom as a peer
+  dependency https://hello.atlassian.net/wiki/x/HtE48
+
 ## 9.3.4
 
 ### Patch Changes

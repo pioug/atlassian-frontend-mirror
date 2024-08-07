@@ -15,6 +15,7 @@ export default {
   'fabric.reactions.other.reacted.users':
     '{count, plural, one {a jeden další} few {a {count} další} many {a {count} dalšího} other {a {count} dalších}}',
   'fabric.reactions.reactwithemoji': 'Reagovat pomocí smajlíku {emoji}',
+  'fabric.reactions.summary': 'Zobrazit všechny reakce uživatelů',
   'reactions.dialog.close': 'Zavřít',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigace doleva',

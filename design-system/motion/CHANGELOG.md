@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 1.8.0
+
+### Minor Changes
+
+- [#125755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125755)
+  [`861f8cfbff102`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/861f8cfbff102) -
+  Refactor internals to better support React 18 strict mode.
+
 ## 1.7.4
 
 ### Patch Changes

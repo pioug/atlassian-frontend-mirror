@@ -9,15 +9,17 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { Participants } from '../../participants';
 import type { ReadOnlyParticipants } from '../../types';
-import { createTelepointers, findPointers, getPositionOfTelepointer } from '../../utils';
-
-const isReplaceStep = (step: Step) => step instanceof ReplaceStep;
+import {
+	createTelepointers,
+	findPointers,
+	getPositionOfTelepointer,
+	isReplaceStep,
+} from '../../utils';
 
 export { TELEPOINTER_DIM_CLASS };
 

@@ -14,14 +14,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import {
-	type ClearIndicatorProps,
-	type ControlProps,
-	type IndicatorSeparatorProps,
-	type MenuProps,
-	type MultiValueRemoveProps,
-	type OptionType,
-} from '../types';
+import { type ControlProps, type MenuProps, type OptionType } from '../types';
 
 // ==============================
 // Styled Components
@@ -101,9 +94,16 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({ innerRef, innerProps, 
 	</div>
 );
 
+// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
+// Remove links that the component does not have (such as usage). If there are no links remove them all.
 /**
  * __Dummy control__
- * Overrides the default DummyControl component in Select.
+ *
+ * A dummy control {description}.
+ *
+ * - [Examples](https://atlassian.design/components/{packageName}/examples)
+ * - [Code](https://atlassian.design/components/{packageName}/code)
+ * - [Usage](https://atlassian.design/components/{packageName}/usage)
  */
 export const DummyControl: FC<ControlProps<OptionType, boolean>> = (props) => (
 	<VisuallyHidden>
@@ -116,21 +116,8 @@ const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
 	<div {...innerProps}>{children}</div>
 );
 
-const IndicatorSeparator = (props: IndicatorSeparatorProps) => (
-	<components.IndicatorSeparator {...props} />
-);
-
-const ClearIndicator = (props: ClearIndicatorProps) => <components.ClearIndicator {...props} />;
-
-const MultiValueRemove = (props: MultiValueRemoveProps) => (
-	<components.MultiValueRemove {...props} />
-);
-
 export const defaultComponents = {
 	Control,
 	DropdownIndicator,
 	Menu,
-	IndicatorSeparator,
-	ClearIndicator,
-	MultiValueRemove,
 };

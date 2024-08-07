@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 87.5.0
+
+### Minor Changes
+
+- [#127699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127699)
+  [`7fa3a110dc3b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fa3a110dc3b6) -
+  Add analytics to track usage of dark mode header cell fix.
+
+## 87.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 87.4.1
 
 ### Patch Changes

@@ -98,11 +98,18 @@ export const lazyTableView = (options: TableViewOptions) => {
 
 type TableCellViewOptions = {
 	eventDispatcher: EventDispatcher;
+	pluginInjectionApi?: PluginInjectionAPI;
 };
 export const lazyTableCellView = (options: TableCellViewOptions) => {
 	if (!fg('platform_editor_lazy-node-views')) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
-			return new TableCell(node, view, getPos, options.eventDispatcher);
+			return new TableCell(
+				node,
+				view,
+				getPos,
+				options.eventDispatcher,
+				options.pluginInjectionApi?.analytics?.actions,
+			);
 		};
 	}
 
@@ -118,9 +125,15 @@ export const lazyTableCellView = (options: TableCellViewOptions) => {
 				decorations: readonly Decoration[],
 				getNodeViewOptions: () => TableCellViewOptions,
 			) => {
-				const { eventDispatcher } = getNodeViewOptions();
+				const { eventDispatcher, pluginInjectionApi } = getNodeViewOptions();
 
-				return new TableCell(node, view, getPos, eventDispatcher);
+				return new TableCell(
+					node,
+					view,
+					getPos,
+					eventDispatcher,
+					pluginInjectionApi?.analytics?.actions,
+				);
 			};
 		});
 
@@ -137,7 +150,13 @@ export const lazyTableCellView = (options: TableCellViewOptions) => {
 export const lazyTableHeaderView = (options: TableCellViewOptions) => {
 	if (!fg('platform_editor_lazy-node-views')) {
 		return (node: PMNode, view: EditorView, getPos: () => number | undefined) => {
-			return new TableCell(node, view, getPos, options.eventDispatcher);
+			return new TableCell(
+				node,
+				view,
+				getPos,
+				options.eventDispatcher,
+				options.pluginInjectionApi?.analytics?.actions,
+			);
 		};
 	}
 
@@ -153,9 +172,15 @@ export const lazyTableHeaderView = (options: TableCellViewOptions) => {
 				decorations: readonly Decoration[],
 				getNodeViewOptions: () => TableCellViewOptions,
 			) => {
-				const { eventDispatcher } = getNodeViewOptions();
+				const { eventDispatcher, pluginInjectionApi } = getNodeViewOptions();
 
-				return new TableCell(node, view, getPos, eventDispatcher);
+				return new TableCell(
+					node,
+					view,
+					getPos,
+					eventDispatcher,
+					pluginInjectionApi?.analytics?.actions,
+				);
 			};
 		});
 

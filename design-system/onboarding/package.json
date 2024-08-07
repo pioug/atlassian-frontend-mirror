@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "11.10.4",
+	"version": "11.11.0",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,15 +44,15 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/ds-lib": "^2.3.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/modal-dialog": "^12.14.0",
-		"@atlaskit/motion": "^1.7.0",
+		"@atlaskit/motion": "^1.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.1.0",
-		"@atlaskit/portal": "^4.6.0",
+		"@atlaskit/portal": "^4.7.0",
 		"@atlaskit/primitives": "^11.1.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",
@@ -69,7 +69,7 @@
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0"
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",

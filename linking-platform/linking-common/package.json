@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/linking-common",
-	"version": "5.9.0",
+	"version": "5.9.1",
 	"description": "Contains utils and interfaces shared across different LP components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
 		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",
 		"@babel/runtime": "^7.0.0",

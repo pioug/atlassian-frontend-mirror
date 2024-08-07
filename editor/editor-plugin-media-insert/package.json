@@ -27,7 +27,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.4.0",
+		"@atlaskit/editor-common": "^87.5.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

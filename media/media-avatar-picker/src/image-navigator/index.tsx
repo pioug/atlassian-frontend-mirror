@@ -324,7 +324,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 				onDrop={this.onDrop}
 			>
 				{isLoading ? (
-					<Spinner size="medium" />
+					<Spinner testId="spinner" size="medium" />
 				) : (
 					<React.Fragment>
 						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
@@ -408,7 +408,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 					<Slider value={scale} onChange={this.onScaleChange} />
 				</div>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				{isDragging ? <div css={selectionBlockerStyles} /> : null}
+				{isDragging ? <div data-testid="selection-blocker" css={selectionBlockerStyles} /> : null}
 			</div>
 		);
 	}

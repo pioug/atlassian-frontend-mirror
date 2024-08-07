@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "1.7.4",
+	"version": "1.8.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -62,7 +62,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0"
@@ -109,9 +108,5 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/motion/",
-	"platform-feature-flags": {
-		"platform.design-system-team.update-motion-for-strict-mode_p6qs0": {
-			"type": "boolean"
-		}
-	}
+	"platform-feature-flags": {}
 }

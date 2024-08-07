@@ -14,6 +14,7 @@ export default {
   'fabric.reactions.more.info': 'ข้อมูลเพิ่มเติม',
   'fabric.reactions.other.reacted.users': '{count, plural, other {และคนอื่น ๆ อีก {count} คน}}',
   'fabric.reactions.reactwithemoji': 'แสดงปฏิกิริยาด้วยเอโมจิ {emoji}',
+  'fabric.reactions.summary': 'ดูการโต้ตอบของผู้ใช้ทั้งหมด',
   'reactions.dialog.close': 'ปิด',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'นำทางไปทางซ้าย',

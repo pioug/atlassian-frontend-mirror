@@ -1,5 +1,11 @@
 # @atlaskit/analytics-listeners
 
+## 8.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.10.1
 
 ### Patch Changes

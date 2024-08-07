@@ -15,6 +15,7 @@ import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace';
 import type { Size } from '@atlaskit/icon';
 import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, N0, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -95,6 +96,12 @@ const iconStyles = css({
 const labelStyles = css({
 	fontSize: '0.875em',
 	fontWeight: '600',
+	width: 'max-content',
+});
+
+const labelStylesWithFontToken = css({
+	font: token('font.body'),
+	fontWeight: token('font.weight.semibold'),
 	width: 'max-content',
 });
 
@@ -283,7 +290,11 @@ const InlineCardOverlay = ({
 								</span>
 								{showLabel && (
 									<span
-										css={labelStyles}
+										css={
+											fg('platform_editor_migration_icon_and_typography')
+												? labelStylesWithFontToken
+												: labelStyles
+										}
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 										className={OVERLAY_LABEL_CLASSNAME}
 										data-testid={`${testId}-label`}

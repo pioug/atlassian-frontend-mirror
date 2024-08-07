@@ -39,6 +39,8 @@ export default {
   'fabric.editor.blockControlDragHandleUsageInfo': '⁣⁢Drag to move⁫⁪⁪‌⁪⁡⁮⁡⁠‌⁡؜‌⁭⁡‍⁫؜⁣⁤',
   'fabric.editor.blockControlMoveDown': '⁣⁢Move down⁠⁯⁬⁡‌⁭⁬‍؜‌‍⁪‌‍⁭⁬⁡⁭⁫⁠⁭⁠⁬⁣⁤',
   'fabric.editor.blockControlMoveUp': '⁣⁢Move up⁠⁮⁬⁯‌⁮⁯⁭⁭⁪⁬‌⁪⁪⁡‍⁡‌⁪‍‍⁣⁤',
+  'fabric.editor.blockControlMovedDown': '⁣⁢Content has been moved down⁡‍⁡⁪‍⁮⁪⁪‍⁫⁠⁬⁪⁪⁡⁭؜⁠⁡⁪⁯⁠⁣⁤',
+  'fabric.editor.blockControlMovedUp': '⁣⁢Content has been moved up⁪‌⁯⁬⁮⁡⁪‍⁮؜⁫⁬‍‍⁪‌⁬⁡‌⁯‍‌⁣⁤',
   'fabric.editor.blockDescription':
     '⁣⁢Display more information about a link, including a summary and actions‍⁭⁯⁫⁪⁬⁭⁬⁬⁯⁯⁫⁬⁠⁬⁬⁫⁫⁮⁮⁡⁮⁮⁣⁤',
   'fabric.editor.blockTitle': '⁣⁢Card‍⁯⁫‌⁮‌؜‌؜⁡‍‍⁮‌‌؜⁭⁫⁬‍⁯⁫؜⁠⁡⁪⁣⁤',
@@ -292,6 +294,8 @@ export default {
     '⁣⁢When autocomplete results are available use up and down arrows to review and enter to select. Touch device users, explore by touch or with swipe gestures.⁫⁫⁬؜‍⁬‍⁪⁮؜⁬⁡⁬⁡⁪‌؜⁬⁬⁣⁤',
   'fabric.editor.insertColumn': '⁣⁢Insert column right⁡‍‌⁭‌⁫⁭‍⁪⁠؜‌‌‍⁪⁡⁭⁡؜⁠⁬⁮⁬‍⁣⁤',
   'fabric.editor.insertColumnDrag': '⁣⁢Insert column؜⁬‌⁯‌⁠⁡⁫⁡‍⁡⁬؜‌⁡‌⁫⁫⁯⁮⁬⁫⁣⁤',
+  'fabric.editor.insertMediaFromUrl': '⁣⁢Image from link⁡⁬‌⁮‌⁯⁭‍‍⁠⁠⁠⁬؜‍‌⁣⁤',
+  'fabric.editor.insertMediaFromUrlDescription': '⁣⁢Add an image or video from a link⁮⁪⁫⁫⁬⁪⁭‍؜⁭⁫‍⁪⁠⁠⁠‌⁣⁤',
   'fabric.editor.insertMenu': '⁣⁢Insert elements⁫⁫⁯؜⁯⁮⁫⁮؜⁭⁯⁫؜⁡‍⁫⁯‍⁫⁠؜⁡⁣⁤',
   'fabric.editor.insertRow': '⁣⁢Insert row below⁯⁮‌⁭⁪؜⁮⁡‌‌⁫⁭‍⁮⁯⁬⁭⁠⁬⁮⁯⁮⁯⁣⁤',
   'fabric.editor.insertRowDrag': '⁣⁢Insert row⁮⁮⁡؜؜‌⁮⁡⁮⁭⁯؜⁬⁫‌⁮⁫⁫⁫⁫⁡‌⁣⁤',
@@ -371,6 +375,7 @@ export default {
   'fabric.editor.other': '⁣⁢Others...⁫⁡⁯⁬⁪⁮‌⁫⁠؜⁠⁫‌⁭‍‌⁬‍⁪؜⁪⁠⁣⁤',
   'fabric.editor.outdent': '⁣⁢Outdent⁮‌⁬⁪⁪‍‌؜؜‍⁪⁯⁫⁯⁬⁡‍‍⁪‌⁮⁪⁫⁬⁣⁤',
   'fabric.editor.pageActionsLabel': '⁣⁢Page actions‌؜؜⁫؜⁭⁫‍⁡⁭⁯‍⁯؜‌⁫‍⁬⁫⁯⁣⁤',
+  'fabric.editor.panel': '⁣⁢Panel‌‍⁫⁭⁭؜‌⁡⁪⁬‌‍⁠⁯⁡⁯⁭⁭⁣⁤',
   'fabric.editor.panel.backgroundColor': '⁣⁢Background color⁯⁭‍⁪‌⁭⁠⁪⁠⁭‌⁪⁫‌⁮⁮‍⁬⁪‍⁮⁠⁫⁠⁣⁤',
   'fabric.editor.panel.emoji': '⁣⁢Add emoji⁠؜‍‍⁪⁯⁫‌⁠⁭؜⁠⁮⁭⁯؜⁪؜⁮⁭⁮⁯‍⁣⁤',
   'fabric.editor.panel.panelsGroup': '⁣⁢Panel Types؜⁬⁯⁮⁬⁡⁮⁯⁮‍⁪؜⁯⁮؜‍‍⁪⁪‌‍⁮⁣⁤',
@@ -492,6 +497,7 @@ export default {
   'fabric.editor.tooltip.defaultBlockNode': '⁣⁢a block node⁬⁭⁠؜⁪‌‌⁪⁡⁡⁬⁡‌⁡⁪⁮‍⁬⁭⁪⁪⁬⁬‌⁣⁤',
   'fabric.editor.tooltip.nestedExpand': '⁣⁢a nested expand⁬⁫⁫‌⁬⁮‌؜؜⁬؜⁪⁫⁪⁡⁡⁠؜⁬؜⁬⁬⁣⁤',
   'fabric.editor.tooltip.taskList': '⁣⁢an action item‍⁬⁫⁫⁫؜⁫⁫؜⁪⁡⁠⁫‌⁠⁯‌؜‍⁣⁤',
+  'fabric.editor.turnInto': '⁣⁢Turn into⁮⁬⁯؜⁪؜⁯‌⁭⁪؜⁠‍‌⁬⁮⁭‍⁫⁭؜⁮⁭⁡⁣⁤',
   'fabric.editor.twoColumns': '⁣⁢Two columns layout⁪⁫‍⁬⁭⁫⁬‍‌؜⁡؜⁠⁮⁪⁡⁫⁯⁭‍⁭⁬⁬⁪⁡⁯⁭‌⁣⁤',
   'fabric.editor.typeAhead.popupLabel': '⁣⁢Typeahead results⁠⁬⁪⁭⁠⁠⁯⁯⁡⁠‍⁬⁭‍؜⁠⁭⁪⁭‌⁬⁣⁤',
   'fabric.editor.typeAhead.quickInsertInputLabel':

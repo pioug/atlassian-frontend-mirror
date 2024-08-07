@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 24.6.12
+
+### Patch Changes
+
+- [#127749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127749)
+  [`01fcd7f133844`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01fcd7f133844) -
+  Added testid to internal DOM elemements
+
 ## 24.6.11
 
 ### Patch Changes

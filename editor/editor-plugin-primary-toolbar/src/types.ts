@@ -1,4 +1,5 @@
 import type { NextEditorPlugin, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export type PrimaryToolbarPlugin = NextEditorPlugin<
 	'primaryToolbar',
@@ -37,7 +38,7 @@ export type ToolbarElementNames =
 
 export type ToolbarElementConfig = {
 	name: ToolbarElementNames;
-	enabled?: (componentRegistry: ComponentRegistry) => boolean;
+	enabled?: (componentRegistry: ComponentRegistry, editorState: EditorState) => boolean;
 };
 
 export type PrimaryToolbarPluginState = {

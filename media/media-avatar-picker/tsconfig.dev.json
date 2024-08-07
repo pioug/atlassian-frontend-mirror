@@ -61,9 +61,6 @@
 			"path": "../../design-system/range/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/spinner/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/textfield/tsconfig.app.json"
 		},
 		{

@@ -13,7 +13,8 @@ import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { LoomIcon } from '@atlaskit/logo';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Text } from '@atlaskit/primitives';
 
 import { recordVideo } from '../commands';
 import type { LoomPlugin } from '../plugin';
@@ -42,6 +43,9 @@ const LoomToolbarButton = ({
 			? toolbarInsertBlockMessages.addLoomVideoComment
 			: toolbarInsertBlockMessages.addLoomVideo,
 	);
+	const shouldShowRecordText =
+		fg('platform.editor.plugin.loom.responsive-menu_4at4a') &&
+		(widthState?.width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT;
 
 	return (
 		<ToolbarButton
@@ -59,10 +63,9 @@ const LoomToolbarButton = ({
 			title={label}
 			iconBefore={<LoomIcon label={label} size="small" />}
 		>
-			{getBooleanFF('platform.editor.plugin.loom.responsive-menu_4at4a') &&
-				(widthState?.width || 0) > LOOM_BUTTON_WIDTH_BREAKPOINT && (
-					<span>{formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}</span>
-				)}
+			{shouldShowRecordText && (
+				<Text>{formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}</Text>
+			)}
 		</ToolbarButton>
 	);
 };

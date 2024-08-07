@@ -106,7 +106,7 @@ export const ColumnPicker = ({
 	useEffect(() => {
 		if (allOptions.length) {
 			// necessary to refocus the search input after the loading state
-			pickerRef?.current?.selectRef?.select?.inputRef?.focus();
+			pickerRef?.current?.selectRef?.inputRef?.focus();
 		}
 	}, [allOptions]);
 

@@ -1,5 +1,11 @@
 import type { CellDomAttrs } from '@atlaskit/adf-schema';
 import { getCellAttrs, getCellDomAttrs } from '@atlaskit/adf-schema';
+import {
+	ACTION_SUBJECT,
+	type EditorAnalyticsAPI,
+	EVENT_TYPE,
+	TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
@@ -35,6 +41,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		view: EditorView,
 		getPos: () => number | undefined,
 		eventDispatcher: EventDispatcher,
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	) {
 		super(node, view, getPos, eventDispatcher);
 
@@ -55,12 +62,17 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 			this.delayHandle = delayUntilIdle(() => {
 				const pos = getPos();
 				if (pos) {
-					view.dispatch(
-						view.state.tr
-							.setNodeAttribute(pos, 'background', node.attrs.background.toLowerCase())
-							// Ensures dispatch does not contribute to undo history (otherwise user requires multiple undo's to revert table)
-							.setMeta('addToHistory', false),
-					);
+					const tr = view.state.tr;
+					tr.setNodeAttribute(pos, 'background', node.attrs.background.toLowerCase())
+						// Ensures dispatch does not contribute to undo history (otherwise user requires multiple undo's to revert table)
+						.setMeta('addToHistory', false);
+					editorAnalyticsAPI?.attachAnalyticsEvent({
+						action: TABLE_ACTION.TABLE_CELL_BACKGROUND_FIXED,
+						actionSubject: ACTION_SUBJECT.TABLE,
+						actionSubjectId: null,
+						eventType: EVENT_TYPE.TRACK,
+					})(tr);
+					view.dispatch(tr);
 				}
 			});
 		}

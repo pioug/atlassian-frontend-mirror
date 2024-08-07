@@ -64,6 +64,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is dropping file 1`] = `
 
 <div
   class="emotion-0"
+  data-testid="dragzone"
 />
 `;
 
@@ -108,5 +109,6 @@ exports[`Avatar Picker Styles image-navigator DragZone is not dropping file 1`] 
 
 <div
   class="emotion-0"
+  data-testid="dragzone"
 />
 `;

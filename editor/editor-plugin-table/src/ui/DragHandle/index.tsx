@@ -77,8 +77,10 @@ const DragHandleComponent = ({
 	const isRow = direction === 'row';
 	const isColumn = direction === 'column';
 
-	const isRowHandleHovered = isRow && hoveredRows.length > 0;
-	const isColumnHandleHovered = isColumn && hoveredColumns.length > 0;
+	// Added !isDragMenuOpen check so when hover 'Delete column/row' from drag menu
+	// the handle of the next column/row does not show the 'hovered' state icon
+	const isRowHandleHovered = isRow && hoveredRows.length > 0 && !isDragMenuOpen;
+	const isColumnHandleHovered = isColumn && hoveredColumns.length > 0 && !isDragMenuOpen;
 
 	const hasMergedCells = useMemo(() => {
 		const table = findTable(selection);

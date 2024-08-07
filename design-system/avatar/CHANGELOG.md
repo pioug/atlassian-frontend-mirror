@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.12.0
 
 ### Minor Changes

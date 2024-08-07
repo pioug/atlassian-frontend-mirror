@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.12.5
+
+### Patch Changes
+
+- [#127454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127454)
+  [`e869f31dbe200`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e869f31dbe200) -
+  No-legacy-icons ESLint rule errors at all references to a legacy icon.
+
 ## 10.12.4
 
 ### Patch Changes

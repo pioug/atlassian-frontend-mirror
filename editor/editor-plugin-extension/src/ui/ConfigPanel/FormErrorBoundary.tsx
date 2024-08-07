@@ -15,6 +15,7 @@ import {
 import type { FieldDefinition } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import { Stack, Text } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 
 interface ErrorInfo {
@@ -117,11 +118,13 @@ class FormErrorBoundaryInner extends React.Component<
 
 		return (
 			<SectionMessage title={intl.formatMessage(messages.errorBoundaryTitle)} appearance="error">
-				<p>
-					<i>{error.message}</i>
-				</p>
+				<Stack>
+					<Text as="p">
+						<i>{error.message}</i>
+					</Text>
 
-				<p>{intl.formatMessage(messages.errorBoundaryNote)}</p>
+					<Text as="p">{intl.formatMessage(messages.errorBoundaryNote)}</Text>
+				</Stack>
 			</SectionMessage>
 		);
 	}

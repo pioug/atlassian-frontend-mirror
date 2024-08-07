@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.3.4
+
+### Patch Changes
+
+- [`17f9128c6a629`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17f9128c6a629) -
+  Cleanup feature flag for tasks and decisions react 18 concurrent mode fix.
+- Updated dependencies
+
+## 2.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.2
 
 ### Patch Changes

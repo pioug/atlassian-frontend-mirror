@@ -364,8 +364,8 @@ export const createPlugin = (
 					isChromelessEditor,
 				}),
 				tableRow: lazyTableRowView({ eventDispatcher }),
-				tableCell: lazyTableCellView({ eventDispatcher }),
-				tableHeader: lazyTableHeaderView({ eventDispatcher }),
+				tableCell: lazyTableCellView({ eventDispatcher, pluginInjectionApi }),
+				tableHeader: lazyTableHeaderView({ eventDispatcher, pluginInjectionApi }),
 			},
 			handleDOMEvents: {
 				focus: handleFocus,

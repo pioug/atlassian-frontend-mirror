@@ -18,7 +18,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import AddCircleIcon from '@atlaskit/icon/glyph/add-circle';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import { N40A } from '@atlaskit/theme/colors';
@@ -309,7 +309,7 @@ function FieldsetError({ message }: { message: string }) {
 	return (
 		<Box xcss={sectionMessageWrapperStyles}>
 			<SectionMessage appearance="error">
-				<p>{message}</p>
+				<Text as="p">{message}</Text>
 			</SectionMessage>
 		</Box>
 	);

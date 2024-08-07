@@ -1,5 +1,4 @@
 import {
-	bodiedExtension,
 	extension,
 	extensionFrame,
 	inlineExtension,
@@ -8,7 +7,7 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	createEditSelectedExtensionAction,
@@ -23,6 +22,7 @@ import { createPlugin as createMacroPlugin } from './pm-plugins/macro';
 import { insertMacroFromMacroBrowser, runMacroAutoConvert } from './pm-plugins/macro/actions';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
+import { bodiedExtensionSpecWithFixedToDOM } from './toDOM-fixes/bodiedExtension';
 import { getToolbarConfig } from './toolbar';
 import type { ExtensionPlugin, InsertOrReplaceExtensionType } from './types';
 
@@ -43,7 +43,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 				},
 				{
 					name: 'bodiedExtension',
-					node: bodiedExtension,
+					node: bodiedExtensionSpecWithFixedToDOM(),
 				},
 				{
 					name: 'inlineExtension',
@@ -52,7 +52,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 			];
 
 			// Revert to returning all nodes without local variable, once FF is removed
-			if (getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+			if (fg('platform.editor.multi-bodied-extension_0rygg')) {
 				extensionNodes.push({
 					name: 'extensionFrame',
 					node: extensionFrame,

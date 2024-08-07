@@ -1,5 +1,11 @@
 # @atlaskit/analytics-namespaced-context
 
+## 6.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.10.1
 
 ### Patch Changes

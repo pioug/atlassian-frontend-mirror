@@ -80,6 +80,7 @@ export default function Example() {
 								onChange={onChange}
 								onSave={SAVE_ACTION}
 								quickInsert={true}
+								allowTables={{ advanced: true }}
 							/>
 						)}
 					/>

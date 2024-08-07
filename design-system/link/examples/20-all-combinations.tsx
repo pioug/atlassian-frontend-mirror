@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import Link from '../src';
 import variations from '../src/utils/variations';
 
@@ -16,9 +18,18 @@ export default function AllCombinationsExample() {
 				<tr>
 					<td>{name}</td>
 					<td>
-						{/* Anchor content will come from the variations file */}
-						{/*eslint-disable-next-line jsx-a11y/anchor-has-content */}
-						<Link {...props} />
+						{/* Inverse appearance requires a different background color to be visible */}
+						<Box
+							backgroundColor={
+								props.appearance === 'inverse'
+									? 'color.background.accent.purple.bolder'
+									: 'color.background.neutral.subtle'
+							}
+						>
+							{/* Anchor content will come from the variations file */}
+							{/*eslint-disable-next-line jsx-a11y/anchor-has-content */}
+							<Link {...props} />
+						</Box>
 					</td>
 				</tr>
 			))}

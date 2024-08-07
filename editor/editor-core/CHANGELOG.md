@@ -1,5 +1,19 @@
 # @atlaskit/editor-core
 
+## 195.2.0
+
+### Minor Changes
+
+- [#127649](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127649)
+  [`0309e1c2b167a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0309e1c2b167a) -
+  [ED-23435] Clean-up primary toolbar plugin feature flag
+
+## 195.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 195.1.10
 
 ### Patch Changes

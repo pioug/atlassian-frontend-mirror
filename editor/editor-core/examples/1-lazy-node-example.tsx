@@ -12,6 +12,7 @@ import { DOMSerializer, type Node as PmNode } from '@atlaskit/editor-prosemirror
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import Heading from '@atlaskit/heading';
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -40,6 +41,9 @@ const optInNodes = [
 	'taskItem',
 	'embedCard',
 	'blockCard',
+	'extension',
+	'bodiedExtension',
+	'inlineExtension',
 ] as const;
 type NodeViewType = Record<(typeof optInNodes)[number], typeof createToDOMNodeView>;
 
@@ -119,6 +123,7 @@ function createToDOMNodeView(node: PmNode) {
 const useBasePreset = () =>
 	useUniversalPreset({
 		props: {
+			allowExtension: { allowBreakout: true, allowExtendFloatingToolbars: true },
 			appearance: 'full-page',
 			media: {
 				allowMediaSingle: true,
@@ -156,6 +161,7 @@ const useBasePreset = () =>
 				'table-preserve-width': true,
 				'sticky-scrollbar': true,
 				'table-duplicate-cell-colouring': true,
+				'macro-interaction-updates': true,
 			},
 		},
 	});
@@ -269,6 +275,7 @@ export default function LazyNodeComparison() {
 									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
 								},
 							}}
+							extensionProviders={[getExampleExtensionProviders(undefined)]}
 						/>
 					</SmartCardProvider>
 				</Stack>
@@ -289,6 +296,7 @@ export default function LazyNodeComparison() {
 									provider: Promise.resolve(new ConfluenceCardProvider('stg')),
 								},
 							}}
+							extensionProviders={[getExampleExtensionProviders(undefined)]}
 							onChange={onEditorChange}
 						/>
 					</SmartCardProvider>

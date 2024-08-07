@@ -8,12 +8,7 @@ import React, {
 	useRef,
 } from 'react';
 
-import {
-	type AriaOnFocusProps,
-	type GroupBase,
-	mergeStyles,
-	type OptionsOrGroups,
-} from 'react-select';
+import { mergeStyles, type OptionsOrGroups } from 'react-select';
 import type BaseSelect from 'react-select/base';
 
 import {
@@ -114,14 +109,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				aria-live="assertive"
 				ariaLiveMessages={
 					isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
-						? {
-								onFocus: (data: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) =>
-									onFocus(
-										data,
-										props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-									),
-								...ariaLiveMessages,
-							}
+						? { onFocus, ...ariaLiveMessages }
 						: { ...ariaLiveMessages }
 				}
 				tabSelectsValue={tabSelectsValue}

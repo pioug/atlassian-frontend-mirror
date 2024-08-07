@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-listeners",
-	"version": "8.10.1",
+	"version": "8.10.2",
 	"description": "Fabric analytics listeners to be used by the products",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-namespaced-context": "^6.10.0",
-		"@atlaskit/analytics-next": "^9.3.0",
+		"@atlaskit/analytics-next": "^10.0.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21"
 	},

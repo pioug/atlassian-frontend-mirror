@@ -1,5 +1,12 @@
 # @atlaskit/portal
 
+## 4.7.0
+
+### Minor Changes
+
+- [`8b8090800a35d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b8090800a35d) -
+  Bump peer dependency for react-dom to include version 17 and 18.
+
 ## 4.6.1
 
 ### Patch Changes

@@ -70,6 +70,7 @@ describe('useDatasourceClientExtension', () => {
 				'ari:cloud:jira:3ac63b37-9bca-435e-9840-eff6f8739dba:issue/10033',
 			],
 			fieldKeys: ['summary', 'issueType', 'status'],
+			entityType: 'issue',
 		};
 
 		const actionsDiscoveryIntegrationParams: ActionsDiscoveryRequest = {

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -147,8 +147,7 @@ const DragHandleInternal = ({
 			const resolvedMovingNode = tr.doc.resolve(startPos);
 			const maybeNode = resolvedMovingNode.nodeAfter;
 
-			fg('platform.editor.elements.drag-and-drop-long-node-scroll') &&
-				tr.setMeta('scrollIntoView', false);
+			tr.setMeta('scrollIntoView', false);
 			api?.analytics?.actions.attachAnalyticsEvent({
 				eventType: EVENT_TYPE.UI,
 				action: ACTION.CLICKED,
@@ -336,12 +335,9 @@ const DragHandleInternal = ({
 		};
 	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
 
-	const [newPositionStyles, setNewPositionStyles] = useState<CSSProperties>({ display: 'none' });
+	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });
 
 	useEffect(() => {
-		if (!fg('platform_editor_element_drag_and_drop_ed_23896')) {
-			return;
-		}
 		let cleanUpTransitionListener: () => void;
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {
@@ -354,26 +350,18 @@ const DragHandleInternal = ({
 			cleanUpTransitionListener = bind(dom, {
 				type: 'transitionend',
 				listener: () => {
-					setNewPositionStyles(calculatePosition());
+					setPositionStyles(calculatePosition());
 				},
 			});
 		}
 		const calcPos = requestAnimationFrame(() => {
-			setNewPositionStyles(calculatePosition());
+			setPositionStyles(calculatePosition());
 		});
 		return () => {
 			cancelAnimationFrame(calcPos);
 			cleanUpTransitionListener?.();
 		};
 	}, [calculatePosition, view.dom, anchorName, nodeType]);
-
-	const positionStyles = useMemo(() => {
-		if (fg('platform_editor_element_drag_and_drop_ed_23896')) {
-			return newPositionStyles;
-		}
-
-		return calculatePosition();
-	}, [calculatePosition, newPositionStyles]);
 
 	useEffect(() => {
 		if (
@@ -420,9 +408,7 @@ const DragHandleInternal = ({
 			css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={
-				fg('platform_editor_element_drag_and_drop_ed_23896') ? newPositionStyles : positionStyles
-			}
+			style={positionStyles}
 			onClick={handleOnClick}
 			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}

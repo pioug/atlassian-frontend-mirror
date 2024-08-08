@@ -7,3 +7,4 @@ export {
 } from './ui/agent-conversation-starters';
 export { ChatPill, type ChatPillProps } from './common/ui/chat-pill';
 export { ChatPillIcon } from './common/ui/chat-icon';
+export { AgentAvatar } from './ui/agent-avatar';

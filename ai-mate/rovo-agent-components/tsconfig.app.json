@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../../design-system/avatar/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{

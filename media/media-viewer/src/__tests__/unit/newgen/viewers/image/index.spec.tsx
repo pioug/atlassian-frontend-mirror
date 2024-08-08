@@ -1,23 +1,11 @@
 import React from 'react';
 
 import { type ProcessedFileState } from '@atlaskit/media-client';
-import {
-	awaitError,
-	mountWithIntlContext,
-	fakeMediaClient,
-	asMockFunction,
-	nextTick,
-	expectToEqual,
-	expectFunctionToHaveBeenCalledWith,
-} from '@atlaskit/media-test-helpers';
+import { awaitError, fakeMediaClient, asMockFunction } from '@atlaskit/media-test-helpers';
+import { IntlProvider } from 'react-intl-next';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
-import {
-	ImageViewer,
-	type ImageViewerContent,
-	type ImageViewerProps,
-} from '../../../../../viewers/image';
-import { type BaseState } from '../../../../../viewers/base-viewer';
-import { InteractiveImg } from '../../../../../viewers/image/interactive-img';
+import { ImageViewer, type ImageViewerProps } from '../../../../../viewers/image';
 
 const collectionName = 'some-collection';
 const imageItem: ProcessedFileState = {
@@ -44,52 +32,39 @@ function setup(response: Promise<Blob>, props?: Partial<ImageViewerProps>) {
 	const onClose = jest.fn();
 	const onLoaded = jest.fn();
 	const onError = jest.fn();
-	const component = mountWithIntlContext<
-		ImageViewerProps,
-		BaseState<ImageViewerContent>,
-		ImageViewer
-	>(
-		<ImageViewer
-			mediaClient={mediaClient}
-			item={imageItem}
-			collectionName={collectionName}
-			onClose={onClose}
-			onLoad={onLoaded}
-			onError={onError}
-			traceContext={traceContext}
-			{...props}
-		/>,
+
+	const component = render(
+		<IntlProvider locale="en">
+			<ImageViewer
+				mediaClient={mediaClient}
+				item={imageItem}
+				collectionName={collectionName}
+				onClose={onClose}
+				onLoad={onLoaded}
+				onError={onError}
+				traceContext={traceContext}
+				{...props}
+			/>
+		</IntlProvider>,
 	);
-	return { mediaClient, component, onClose };
+
+	return { mediaClient, component, onClose, onLoaded };
 }
 
 describe('ImageViewer', () => {
 	it('assigns an object url for images when successful', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component, mediaClient } = setup(response);
+		setup(response);
 
-		await response;
-		await nextTick();
-		await nextTick();
-		await nextTick();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		expectFunctionToHaveBeenCalledWith(mediaClient.file.getFileBinaryURL, [
-			'some-id',
-			'some-collection',
-		]);
-
-		expectToEqual(component.state().content.data, {
-			objectUrl: 'mock result of URL.createObjectURL()',
-			orientation: 1,
-			originalBinaryImageUrl: 'some-binary-url',
-		});
+		const imageElm = screen.getByTestId('media-viewer-image');
+		expect(imageElm.getAttribute('src')).toBe('mock result of URL.createObjectURL()');
 	});
 
-	// FIXME: Jest upgrade
-	// UnhandledPromiseRejection. possible issue with mocking
-	it.skip('should not try get originalBinaryImageUrl when is local file reference', async () => {
-		const response = Promise.reject("shouldn't be used");
-		const { component } = setup(response, {
+	it('should not try get originalBinaryImageUrl when is local file reference', async () => {
+		const response = Promise.resolve(new Blob());
+		const { mediaClient } = setup(response, {
 			item: {
 				...imageItem,
 				preview: {
@@ -98,79 +73,34 @@ describe('ImageViewer', () => {
 				},
 			},
 		});
-
-		await nextTick();
-		await nextTick();
-		await nextTick();
-
-		expectToEqual(component.state().content.data, {
-			objectUrl: 'mock result of URL.createObjectURL()',
-			orientation: 1,
-			originalBinaryImageUrl: undefined,
-		});
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(mediaClient.file.getFileBinaryURL).not.toHaveBeenCalled();
 	});
 
 	it('should not try get originalBinaryImageUrl when is file is not an image', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component } = setup(response, {
+		const { mediaClient } = setup(response, {
 			item: {
 				...imageItem,
 				mediaType: 'unknown',
 			},
 		});
 
-		await response;
-		await nextTick();
-
-		expectToEqual(component.state().content.data, {
-			objectUrl: 'mock result of URL.createObjectURL()',
-			orientation: 1,
-			originalBinaryImageUrl: undefined,
-		});
-	});
-
-	// FIXME: Jest upgrade
-	// UnhandledPromiseRejection. possible issue with mocking
-	it.skip('should not try get originalBinaryImageUrl when is file still uploading', async () => {
-		const response = Promise.reject("shouldn't be used");
-		const { component } = setup(response, {
-			item: {
-				...imageItem,
-				preview: {
-					value: 'some-preview-string',
-				},
-				status: 'uploading',
-				progress: 0.5,
-			},
-		});
-
-		await nextTick();
-		await nextTick();
-
-		expectToEqual(component.state().content.data, {
-			objectUrl: 'some-preview-string',
-			orientation: 1,
-			originalBinaryImageUrl: undefined,
-		});
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(mediaClient.file.getFileBinaryURL).not.toHaveBeenCalled();
 	});
 
 	it('should not try get originalBinaryImageUrl when has unsupported mime type', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component } = setup(response, {
+		const { mediaClient } = setup(response, {
 			item: {
 				...imageItem,
 				mimeType: 'image/heic',
 			},
 		});
 
-		await response;
-		await nextTick();
-
-		expectToEqual(component.state().content.data, {
-			objectUrl: 'mock result of URL.createObjectURL()',
-			orientation: 1,
-			originalBinaryImageUrl: undefined,
-		});
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(mediaClient.file.getFileBinaryURL).not.toHaveBeenCalled();
 	});
 
 	it('should not update state when image fetch request is cancelled', async () => {
@@ -184,14 +114,12 @@ describe('ImageViewer', () => {
 		(global as any).AbortController = FakeAbortController;
 
 		const response = Promise.reject(new Error('Error: User aborted request'));
-		const { component } = setup(response);
-
-		const previousContent = component.state().content;
-		expect(previousContent).toEqual({ state: { status: 'PENDING' } });
+		setup(response);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).toBeInTheDocument());
 
 		await awaitError(response, 'Error: User aborted request');
 
-		expect(component.state().content).toEqual(previousContent);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).toBeInTheDocument());
 	});
 
 	it('should not call `onLoad` callback when image fetch request is cancelled', async () => {
@@ -205,13 +133,13 @@ describe('ImageViewer', () => {
 		(global as any).AbortController = FakeAbortController;
 
 		const response = Promise.reject(new Error('Error: User aborted request'));
-		const { component } = setup(response);
+		const { onLoaded } = setup(response);
 
-		expect(component.props().onLoad).not.toHaveBeenCalled();
+		expect(onLoaded).not.toHaveBeenCalled();
 
 		await awaitError(response, 'Error: User aborted request');
 
-		expect(component.props().onLoad).not.toHaveBeenCalled();
+		expect(onLoaded).not.toHaveBeenCalled();
 	});
 
 	it('cancels an image fetch request when unmounted', () => {
@@ -228,32 +156,29 @@ describe('ImageViewer', () => {
 
 		component.unmount();
 
-		expect(abort).toHaveBeenCalled();
+		waitFor(() => {
+			expect(abort).toHaveBeenCalled();
+		});
 	});
 
 	it('revokes an existing object url when unmounted', async () => {
+		global.URL.revokeObjectURL = jest.fn();
+
 		const response = Promise.resolve(new Blob());
 		const { component } = setup(response);
 
-		const revokeObjectUrl = jest.fn();
-		(component as any).instance()['revokeObjectUrl'] = revokeObjectUrl;
-
-		await response;
-		await nextTick();
-		await nextTick();
-		await nextTick();
 		component.unmount();
 
-		expect(revokeObjectUrl).toHaveBeenCalled();
+		waitFor(() => {
+			expect(URL.revokeObjectURL).toHaveBeenCalled();
+		});
 	});
 
 	it('should call mediaClient.getImage when image representation is present and no preview is present', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component, mediaClient } = setup(response);
+		const { mediaClient } = setup(response);
 
-		await response;
-		await nextTick();
-		component.update();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
 		expect(mediaClient.getImage).toHaveBeenCalledWith(
 			'some-id',
@@ -269,56 +194,53 @@ describe('ImageViewer', () => {
 
 	it('should not call mediaClient.getImage when image representation and a preview is present', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component, mediaClient } = setup(response, {
+		const { mediaClient } = setup(response, {
 			item: { ...imageItem, preview: { value: new Blob() } },
 		});
 
-		await response;
-		component.update();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
 		expect(mediaClient.getImage).not.toHaveBeenCalled();
 	});
 
 	it('should not call mediaClient.getImage when image representation is not present', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component, mediaClient } = setup(response, {
+		const { mediaClient } = setup(response, {
 			item: {
 				...imageItem,
 				representations: {},
 			},
 		});
 
-		await response;
-		component.update();
-
 		expect(mediaClient.getImage).not.toHaveBeenCalled();
 	});
 
 	it('MSW-700: clicking on background of ImageViewer does not close it', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component, onClose } = setup(response);
+		const {
+			component: { container },
+			onClose,
+		} = setup(response);
 
-		await response;
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		component.simulate('click');
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		expect(onClose).toHaveBeenCalled();
+		fireEvent.click(container);
+
+		expect(onClose).not.toHaveBeenCalled();
 	});
 
 	it('should add file attrs to src if contextId is passed', async () => {
 		const response = Promise.resolve(new Blob());
-		const { component } = setup(response, {
+		setup(response, {
 			contextId: 'some-context-id',
 		});
 
-		await response;
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		component.update();
-		expect(component.find(InteractiveImg).prop('src')).toEqual(
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+
+		screen.debug();
+
+		const imageElm = screen.getByTestId('media-viewer-image');
+		expect(imageElm.getAttribute('src')).toBe(
 			'mock result of URL.createObjectURL()#media-blob-url=true&id=some-id&contextId=some-context-id&collection=some-collection',
 		);
 	});

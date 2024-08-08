@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 48.6.15
+
+### Patch Changes
+
+- [#128094](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128094)
+  [`02909d07d7b8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02909d07d7b8d) -
+  Migrate media-viewer image component unit tests from enzyme to RTL for React 18
+
 ## 48.6.14
 
 ### Patch Changes

@@ -42,6 +42,9 @@
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{

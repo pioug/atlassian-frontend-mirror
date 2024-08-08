@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Code } from '@atlaskit/code';
+import Lozenge from '@atlaskit/lozenge';
 import { B200 } from '@atlaskit/theme/colors';
 
 import {
@@ -74,7 +74,7 @@ const buildRows = (Logo?: any, Icon?: any, inheritSupported: boolean = true) => 
 					<tr key={appearance} style={{ background: appearance === 'inverse' ? B200 : '' }}>
 						<td>
 							<span>
-								<Code>{appearance}</Code>
+								<Lozenge isBold>{appearance}</Lozenge>
 							</span>
 						</td>
 						<td>{Logo && <Logo appearance={appearance} />}</td>

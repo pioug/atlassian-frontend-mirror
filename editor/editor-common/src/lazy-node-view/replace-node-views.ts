@@ -55,16 +55,23 @@ export const debouncedReplaceNodeviews = debounce(
 		// From here, we will access the loaded node views by lexical scope
 		cache.set(view, {});
 
-		// eslint-disable-next-line compat/compat
-		const idle = window.requestIdleCallback;
-
 		/*
 		 * For reasons that goes beyond my knowledge
 		 * some Firefox versions aren't calling the requestIdleCallback.
 		 *
 		 * So, we need this check to make sure we use the requestAnimationFrame instead
+		 *
+		 * setting timeout to 2s to ensure this function is called, but not before prosemirror render
+		 * and other important tasks are done - adjust this timeout based on user feedback
 		 */
-		const later = isFirefox || typeof idle !== 'function' ? window.requestAnimationFrame : idle;
+		const later = (callback: any) => {
+			// eslint-disable-next-line compat/compat
+			if (isFirefox || !window.requestIdleCallback) {
+				return window.requestAnimationFrame(callback);
+			}
+			// eslint-disable-next-line compat/compat
+			window.requestIdleCallback(callback, { timeout: 2000 });
+		};
 
 		later(() => {
 			const currentNodeViews = view.props.nodeViews;

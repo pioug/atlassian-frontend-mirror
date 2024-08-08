@@ -3,6 +3,7 @@
 interface ActionsDiscoveryInterface {
 	aris: string[];
 	fieldKeys: string[];
+	entityType: string;
 }
 
 interface DatasourceIntegration extends ActionsDiscoveryInterface {

@@ -308,15 +308,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_element_drag_and_drop_ed_24372": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_elements_dnd_nested": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_element_drag_and_drop_ed_24330": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

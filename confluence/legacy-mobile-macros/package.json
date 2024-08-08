@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-mobile-macros",
-	"version": "2.10.17",
+	"version": "2.10.18",
 	"description": "Higher-order components that optionally add Confluence-specific functionality to editor-mobile-bridge",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,7 @@
 		"@atlaskit/analytics-gas-types": "^5.1.0",
 		"@atlaskit/analytics-next": "^10.0.0",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/editor-common": "87.5.0",
+		"@atlaskit/editor-common": "87.5.1",
 		"@atlaskit/icon": "^22.10.0",
 		"@atlaskit/logo": "^14.1.0",
 		"@atlaskit/spinner": "^16.2.0",

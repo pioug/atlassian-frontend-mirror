@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "1.10.6",
+	"version": "1.10.7",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,6 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.3.0",
 		"@atlaskit/editor-common": "^87.5.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.6.0",
@@ -98,18 +97,9 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.elements.drag-and-drop-long-node-scroll": {
-			"type": "boolean"
-		},
 		"platform.editor.media.extended-resize-experience": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_elements_drag_and_drop_ed_24000": {
-			"type": "boolean"
-		},
-		"platform.editor.elements.drag-and-drop-ed-23816": {
-			"type": "boolean"
 		},
 		"platform_editor_elements_drag_and_drop_ed_23189": {
 			"type": "boolean"
@@ -123,37 +113,22 @@
 		"platform_editor_elements_drag_and_drop_ed_23394": {
 			"type": "boolean"
 		},
-		"platform_editor_element_drag_and_drop_ed_24049": {
-			"type": "boolean"
-		},
-		"platform_editor_element_drag_and_drop_ed_23896": {
-			"type": "boolean"
-		},
 		"platform_editor_element_controls_chrome_input_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_drag_and_drop_target_gap_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_element_drag_and_drop_ed_24150": {
 			"type": "boolean"
 		},
 		"platform_editor_element_drag_and_drop_ed_24321": {
 			"type": "boolean"
 		},
-		"platform_editor_element_drag_and_drop_ed_24330": {
-			"type": "boolean"
-		},
 		"platform_editor_element_drag_and_drop_ed_24227": {
-			"type": "boolean"
-		},
-		"platform_editor_element_drag_and_drop_ed_24372": {
 			"type": "boolean"
 		},
 		"platform_editor_elements_dnd_nested": {
 			"type": "boolean"
 		},
 		"platform_editor_element_drag_and_drop_ed_24304": {
+			"type": "boolean"
+		},
+		"platform_editor_element_drag_and_drop_debug": {
 			"type": "boolean"
 		}
 	}

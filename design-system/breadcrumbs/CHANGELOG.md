@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 12.4.0
+
+### Minor Changes
+
+- [#127858](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127858)
+  [`2a67497c20a7f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a67497c20a7f) -
+  Breadcrumbs is now loaded syncronously by default.
+
 ## 12.3.0
 
 ### Minor Changes

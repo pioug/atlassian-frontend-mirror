@@ -15,7 +15,8 @@ import { DragHandle } from '../ui/drag-handle';
 import { DropTarget } from '../ui/drop-target';
 import { canMoveToIndex } from '../utils/validation';
 
-const IGNORE_NODES = ['tableCell', 'tableHeader', 'tableRow', 'layoutColumn'];
+const IGNORE_NODES = ['tableCell', 'tableHeader', 'tableRow', 'layoutColumn', 'listItem'];
+const IGNORE_NODES_AND_DESCENDANTS = ['listItem'];
 const NESTED_DEPTH = fg('platform_editor_elements_dnd_nested') ? 100 : 0;
 
 export const dropTargetDecorations = (
@@ -31,9 +32,8 @@ export const dropTargetDecorations = (
 	// and allows us to easily map the updated position in the plugin apply method.
 	const decorationState: { id: number; pos: number }[] = [];
 	let prevNode: PMNode | undefined;
-	const state = fg('platform_editor_element_drag_and_drop_ed_24372') ? newState : oldState;
 
-	state.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
+	newState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
 		let depth = 0;
 		const nodeType = newState.doc.type.schema.nodes[activeNodeType];
 		if (fg('platform_editor_elements_dnd_nested')) {
@@ -147,12 +147,13 @@ export const emptyParagraphNodeDecorations = () => {
 };
 export const nodeDecorations = (newState: EditorState) => {
 	const decs: Decoration[] = [];
-	newState.doc.descendants((node, pos, _parent, index) => {
+	newState.doc.descendants((node, pos, parent, index) => {
 		let depth = 0;
 		let anchorName;
 
 		if (fg('platform_editor_elements_dnd_nested')) {
-			if (node.isInline) {
+			// Doesn't descend into a node
+			if (node.isInline || IGNORE_NODES_AND_DESCENDANTS.includes(parent?.type.name || '')) {
 				return false;
 			}
 			if (IGNORE_NODES.includes(node.type.name)) {
@@ -194,11 +195,10 @@ export const dragHandleDecoration = (
 	handleOptions?: HandleOptions,
 ) => {
 	let unbind: UnbindFn;
-	const elementType = fg('platform_editor_element_drag_and_drop_ed_24150') ? 'span' : 'div';
 	return Decoration.widget(
 		pos,
 		(view, getPos) => {
-			const element = document.createElement(elementType);
+			const element = document.createElement('span');
 			// Need to set it to inline to avoid text being split when merging two paragraphs
 			element.style.display = 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
@@ -213,9 +213,7 @@ export const dragHandleDecoration = (
 				});
 			}
 
-			if (fg('platform_editor_element_drag_and_drop_ed_23896')) {
-				unmountDecorations('data-blocks-drag-handle-container');
-			}
+			unmountDecorations('data-blocks-drag-handle-container');
 
 			// There are times when global clear: "both" styles are applied to this decoration causing jumpiness
 			// due to margins applied to other nodes eg. Headings
@@ -241,12 +239,9 @@ export const dragHandleDecoration = (
 		{
 			side: -1,
 			id: 'drag-handle',
-			destroy: (node) => {
+			destroy: () => {
 				if (fg('platform_editor_elements_dnd_nested')) {
 					unbind && unbind();
-				}
-				if (!fg('platform_editor_element_drag_and_drop_ed_23896')) {
-					ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
 				}
 			},
 		},

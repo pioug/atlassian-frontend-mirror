@@ -283,8 +283,13 @@ export const useDatasourceTableState = ({
 								[],
 							);
 
-							if (aris.length) {
-								discoverActions({ aris, integrationKey, fieldKeys });
+							if (aris.length && destinationObjectTypes.length) {
+								discoverActions({
+									aris,
+									integrationKey,
+									fieldKeys,
+									entityType: destinationObjectTypes[0],
+								});
 							}
 						}
 					}

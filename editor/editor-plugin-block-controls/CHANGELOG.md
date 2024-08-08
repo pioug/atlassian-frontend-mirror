@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.10.7
+
+### Patch Changes
+
+- [`7c744eaad4fb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c744eaad4fb6) -
+  ED-24473 Clean up FF in drag-handle and drop-targets
+- [#127997](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127997)
+  [`3d47f12053750`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d47f12053750) -
+  ED-24404 ignore list items in Element DnD
+
 ## 1.10.6
 
 ### Patch Changes

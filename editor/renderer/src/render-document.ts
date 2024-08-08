@@ -32,7 +32,11 @@ export interface ResultWithTime<T> {
 	time: number;
 }
 
-const SUPPORTS_HIRES_TIMER_API = !!(window.performance && performance.now);
+const SUPPORTS_HIRES_TIMER_API = !!(
+	typeof window !== 'undefined' &&
+	window.performance &&
+	performance.now
+);
 
 const withStopwatch = <T>(cb: () => T): ResultWithTime<T> => {
 	const startTime = SUPPORTS_HIRES_TIMER_API ? performance.now() : Date.now();

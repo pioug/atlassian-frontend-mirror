@@ -57,6 +57,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 						access: 'granted',
 						providerName: 'Acme',
 						visibility: 'restricted',
+						destinationObjectTypes: [],
 						...overrides.meta,
 					},
 					data: overrides.data,
@@ -129,6 +130,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					]),
 					meta: {
 						product: 'acme',
+						destinationObjectTypes: ['issue'],
 					},
 				});
 				mockActionsDiscovery(mockActionsDiscoveryEmptyResponse);
@@ -156,6 +158,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					]),
 					meta: {
 						product: 'acme',
+						destinationObjectTypes: ['issue'],
 					},
 				});
 				mockActionsDiscovery({
@@ -196,6 +199,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					]),
 					meta: {
 						product: 'acme',
+						destinationObjectTypes: ['issue'],
 					},
 				});
 				mockActionsDiscovery({
@@ -250,6 +254,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					]),
 					meta: {
 						product: 'acme',
+						destinationObjectTypes: ['issue'],
 					},
 				});
 				mockActionsDiscovery({

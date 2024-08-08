@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.45.2
+
+### Patch Changes
+
+- [#127573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127573)
+  [`ec71eb1c2d1c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec71eb1c2d1c8) -
+  adds an undefined window check to the renderer
+
 ## 109.45.1
 
 ### Patch Changes

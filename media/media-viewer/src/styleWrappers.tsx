@@ -497,7 +497,9 @@ export const ZoomRightControls = ({ children }: Children) => (
 );
 
 export const ZoomLevelIndicator = ({ children }: Children) => (
-	<span css={zoomLevelIndicatorStyles}>{children}</span>
+	<span css={zoomLevelIndicatorStyles} data-testid="zoom-level-indicator">
+		{children}
+	</span>
 );
 
 export const HDIconGroupWrapper = ({ className, children }: ClassName & Children) => (

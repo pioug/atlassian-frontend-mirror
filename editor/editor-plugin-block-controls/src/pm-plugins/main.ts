@@ -1,7 +1,6 @@
 import rafSchedule from 'raf-schd';
 import { type IntlShape } from 'react-intl-next';
 
-import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -13,7 +12,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -134,18 +132,12 @@ export const createPlugin = (
 
 				let activeNodeWithNewNodeType = null;
 				const meta = tr.getMeta(key);
-				// when creating analytics during drag/drop events, PM thinks the doc has changed
-				// so tr.docChange is true and causes some decorations to not render
-				const isAnalyticTr = tr.steps.every((step: Step) => step instanceof AnalyticsStep);
 
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
 				const nodeCountChanged = oldState.doc.childCount !== newState.doc.childCount;
-				let shouldRemoveHandle = true;
-				if (fg('platform_editor_elements_drag_and_drop_ed_24000')) {
-					shouldRemoveHandle = !tr.getMeta('isRemote');
-				}
+				const shouldRemoveHandle = !tr.getMeta('isRemote');
 
 				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
 				// Also remove the handle when the node is moved or the node count changes. This helps prevent incorrect positioning
@@ -170,18 +162,16 @@ export const createPlugin = (
 						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
 				}
 
-				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
-					const dropTargetLen = decorations
-						.find()
-						.filter(({ spec }) => spec.type === 'drop-target-decoration').length;
+				const dropTargetLen = decorations
+					.find()
+					.filter(({ spec }) => spec.type === 'drop-target-decoration').length;
 
-					//TODO: Fix this logic for nested scenarios
-					if (!fg('platform_editor_elements_dnd_nested')) {
-						isDropTargetsMissing =
-							isDragging &&
-							meta?.isDragging !== false &&
-							dropTargetLen !== newState.doc.childCount + 1;
-					}
+				//TODO: Fix this logic for nested scenarios
+				if (!fg('platform_editor_elements_dnd_nested')) {
+					isDropTargetsMissing =
+						isDragging &&
+						meta?.isDragging !== false &&
+						dropTargetLen !== newState.doc.childCount + 1;
 				}
 
 				// This is not targeted enough - it's trying to catch events like expand being set to breakout
@@ -215,14 +205,11 @@ export const createPlugin = (
 
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				if (redrawDecorations && !isResizerResizing && api) {
-					if (fg('platform_editor_elements_drag_and_drop_ed_24000')) {
-						const oldNodeDecs = decorations
-							.find()
-							.filter(({ spec }) => spec.type !== 'drop-target-decoration');
-						decorations = decorations.remove(oldNodeDecs);
-					} else {
-						decorations = DecorationSet.create(newState.doc, []);
-					}
+					const oldNodeDecs = decorations
+						.find()
+						.filter(({ spec }) => spec.type !== 'drop-target-decoration');
+					decorations = decorations.remove(oldNodeDecs);
+
 					const nodeDecs = nodeDecorations(newState);
 					decorations = decorations.add(newState.doc, [...nodeDecs]);
 
@@ -234,11 +221,7 @@ export const createPlugin = (
 
 						// When a node type changed to be nested inside another node, the position of the active node is off by 1
 						// This is a workaround to fix the position of the active node when it is nested
-
-						const shouldUpdateNestedPosition = fg('platform_editor_element_drag_and_drop_ed_24049')
-							? tr.docChanged && !nodeCountChanged
-							: true;
-						if (shouldUpdateNestedPosition && mappedPosisiton === prevMappedPos + 1) {
+						if (tr.docChanged && !nodeCountChanged && mappedPosisiton === prevMappedPos + 1) {
 							mappedPosisiton = prevMappedPos;
 						}
 						const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
@@ -285,110 +268,65 @@ export const createPlugin = (
 					decorations = decorations.add(newState.doc, [decs]);
 				}
 
-				if (fg('platform.editor.elements.drag-and-drop-ed-23816')) {
-					// Remove previous drag handle widget and draw new drag handle widget when node type changes
-					if (
-						activeNodeWithNewNodeType &&
-						activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
-						api
-					) {
-						const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
-						decorations = decorations.remove(oldHandle);
-						const decs = dragHandleDecoration(
-							api,
-							getIntl,
-							activeNodeWithNewNodeType.pos,
-							activeNodeWithNewNodeType.anchorName,
-							activeNodeWithNewNodeType.nodeType,
-						);
-						decorations = decorations.add(newState.doc, [decs]);
-					}
+				// Remove previous drag handle widget and draw new drag handle widget when node type changes
+				if (
+					activeNodeWithNewNodeType &&
+					activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
+					api
+				) {
+					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+					decorations = decorations.remove(oldHandle);
+					const decs = dragHandleDecoration(
+						api,
+						getIntl,
+						activeNodeWithNewNodeType.pos,
+						activeNodeWithNewNodeType.anchorName,
+						activeNodeWithNewNodeType.nodeType,
+					);
+					decorations = decorations.add(newState.doc, [decs]);
 				}
 
 				const shouldUpdateDropTargets = meta?.isDragging || isDropTargetsMissing;
-				let shouldMapDropTargets = false;
 
-				if (fg('platform_editor_element_drag_and_drop_ed_24372')) {
-					shouldMapDropTargets =
-						!shouldUpdateDropTargets &&
-						tr.docChanged &&
-						isDragging &&
-						meta?.isDragging !== false &&
-						!meta?.nodeMoved;
+				const shouldMapDropTargets =
+					!shouldUpdateDropTargets &&
+					tr.docChanged &&
+					isDragging &&
+					meta?.isDragging !== false &&
+					!meta?.nodeMoved;
 
-					if (meta?.isDragging === false || isDropTargetsMissing) {
-						// Remove drop target decoration when dragging stops
-						const dropTargetDecs = decorations
-							.find()
-							.filter(({ spec }) => spec.type === 'drop-target-decoration');
-						decorations = decorations.remove(dropTargetDecs);
-					}
-
-					if (api) {
-						// Add drop targets when node is being dragged
-						// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-						if (shouldUpdateDropTargets || isBlocksDragTargetDebug()) {
-							const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
-								oldState,
-								newState,
-								api,
-								formatMessage,
-								meta?.activeNode?.nodeType,
-							);
-							decorationState = updatedDecorationState;
-							decorations = decorations.add(newState.doc, decs);
-						}
-					}
-
-					//Map drop target decoration positions when the document changes
-					if (shouldMapDropTargets) {
-						decorationState = decorationState.map(({ id, pos }) => {
-							return {
-								id,
-								pos: tr.mapping.map(pos),
-							};
-						});
-					}
-				} else {
-					if (api) {
-						// Add drop targets when node is being dragged
-						// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-						const shouldShowDragTarget =
-							meta?.isDragging && (!tr.docChanged || (tr.docChanged && isAnalyticTr));
-
-						if (shouldShowDragTarget || isBlocksDragTargetDebug()) {
-							const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
-								oldState,
-								newState,
-								api,
-								formatMessage,
-								meta?.activeNode?.nodeType,
-							);
-							decorationState = updatedDecorationState;
-							decorations = decorations.add(newState.doc, decs);
-						}
-					}
-
+				if (meta?.isDragging === false || isDropTargetsMissing) {
 					// Remove drop target decoration when dragging stops
-					if (
-						meta?.isDragging === false &&
-						(fg('platform_editor_element_drag_and_drop_ed_24330') ? true : !tr.docChanged)
-					) {
-						const dropTargetDecs = decorations
-							.find()
-							.filter(({ spec }) => spec.type === 'drop-target-decoration');
-						decorations = decorations.remove(dropTargetDecs);
-					}
+					const dropTargetDecs = decorations
+						.find()
+						.filter(({ spec }) => spec.type === 'drop-target-decoration');
+					decorations = decorations.remove(dropTargetDecs);
+				}
 
-					// Map drop target decoration positions when the document changes
-					if (tr.docChanged && isDragging) {
-						decorationState = decorationState.map(({ id, pos }) => {
-							return {
-								id,
-								pos: tr.mapping.map(pos),
-							};
-						});
+				if (api) {
+					// Add drop targets when node is being dragged
+					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
+					if (shouldUpdateDropTargets || isBlocksDragTargetDebug()) {
+						const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
+							oldState,
+							newState,
+							api,
+							formatMessage,
+							meta?.activeNode?.nodeType,
+						);
+						decorationState = updatedDecorationState;
+						decorations = decorations.add(newState.doc, decs);
 					}
+				}
+
+				//Map drop target decoration positions when the document changes
+				if (shouldMapDropTargets) {
+					decorationState = decorationState.map(({ id, pos }) => {
+						return {
+							id,
+							pos: tr.mapping.map(pos),
+						};
+					});
 				}
 
 				// Map decorations if document changes and node decorations do not need to be redrawn
@@ -407,26 +345,14 @@ export const createPlugin = (
 				}
 
 				// Map active node position when the document changes
-				let mappedActiveNodePos;
-				if (fg('platform.editor.elements.drag-and-drop-ed-23816')) {
-					mappedActiveNodePos =
-						tr.docChanged && activeNode
-							? activeNodeWithNewNodeType || {
-									pos: tr.mapping.map(activeNode.pos),
-									anchorName: activeNode.anchorName,
-									nodeType: activeNode.nodeType,
-								}
-							: activeNode;
-				} else {
-					mappedActiveNodePos =
-						tr.docChanged && activeNode
-							? {
-									pos: tr.mapping.map(activeNode.pos),
-									anchorName: activeNode.anchorName,
-									nodeType: activeNode.nodeType,
-								}
-							: activeNode;
-				}
+				const mappedActiveNodePos =
+					tr.docChanged && activeNode
+						? activeNodeWithNewNodeType || {
+								pos: tr.mapping.map(activeNode.pos),
+								anchorName: activeNode.anchorName,
+								nodeType: activeNode.nodeType,
+							}
+						: activeNode;
 
 				return {
 					decorations,

@@ -3,25 +3,18 @@
  * @jsx jsx
  */
 
-import { type ComponentType, type CSSProperties, memo, useRef } from 'react';
+import { type CSSProperties, memo, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip';
 
 import { type BreadcrumbsItemProps } from '../types';
 
 import Step from './internal/step';
 import useOverflowable from './internal/use-overflowable';
-
-const AKTooltip = lazyForPaint(
-	() => import(/* webpackChunkName: "@atlaskit-internal_Tooltip" */ '@atlaskit/tooltip'),
-	{ ssr: false },
-) as ComponentType<TooltipProps>;
 
 const itemWrapperStyles = css({
 	display: 'flex',
@@ -107,31 +100,12 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
 		</Step>
 	);
 
-	if (
-		getBooleanFF('platform.design-system-team.remove-lazy-loading-of-tooltip-in-breadcrumbs_pki8p')
-	) {
-		return (
-			<li css={itemWrapperStyles}>
-				{showTooltip ? (
-					<Tooltip content={text} position="bottom" onShow={onTooltipShown}>
-						{step}
-					</Tooltip>
-				) : (
-					step
-				)}
-			</li>
-		);
-	}
-
 	return (
 		<li css={itemWrapperStyles}>
 			{showTooltip ? (
-				/* The div exists because of tooltip */
-				<LazySuspense fallback={<div>{step}</div>}>
-					<AKTooltip content={text} position="bottom" onShow={onTooltipShown}>
-						{step}
-					</AKTooltip>
-				</LazySuspense>
+				<Tooltip content={text} position="bottom" onShow={onTooltipShown}>
+					{step}
+				</Tooltip>
 			) : (
 				step
 			)}

@@ -11,7 +11,6 @@ import { type IntlShape } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { layers } from '@atlaskit/theme/constants';
@@ -54,10 +53,6 @@ const getNodeMargins = (node?: PMNode) => {
 };
 
 const getDropTargetPositionStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
-	if (!fg('platform_editor_drag_and_drop_target_gap_fix')) {
-		return null;
-	}
-
 	if (!prevNode || !nextNode) {
 		return null;
 	}

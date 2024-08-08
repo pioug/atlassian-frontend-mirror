@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "3.6.16",
+	"version": "3.6.17",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -232,7 +232,7 @@
 		"@atlaskit/editor-plugin-base": "1.9.1",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.2.0",
 		"@atlaskit/editor-plugin-better-type-history": "1.6.1",
-		"@atlaskit/editor-plugin-block-controls": "1.10.6",
+		"@atlaskit/editor-plugin-block-controls": "1.10.7",
 		"@atlaskit/editor-plugin-block-type": "3.11.0",
 		"@atlaskit/editor-plugin-border": "1.5.1",
 		"@atlaskit/editor-plugin-breakout": "1.6.2",
@@ -486,15 +486,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_element_drag_and_drop_ed_24372": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_elements_dnd_nested": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_element_drag_and_drop_ed_24330": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

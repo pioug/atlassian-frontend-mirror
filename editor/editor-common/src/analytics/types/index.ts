@@ -161,3 +161,5 @@ export type {
 export type { ElementEventPayload } from './element-events';
 
 export type { ViewInlineCommentsButtonEventAEP, ViewEventPayload } from './view-events';
+
+export type { MediaUploadEventPayload } from './upload-media-events';

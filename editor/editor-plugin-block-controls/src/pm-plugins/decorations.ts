@@ -12,12 +12,41 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin, HandleOptions } from '../types';
 import { DragHandle } from '../ui/drag-handle';
-import { DropTarget } from '../ui/drop-target';
+import { DropTarget, type DropTargetProps } from '../ui/drop-target';
+import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 import { canMoveToIndex } from '../utils/validation';
 
 const IGNORE_NODES = ['tableCell', 'tableHeader', 'tableRow', 'layoutColumn', 'listItem'];
 const IGNORE_NODES_AND_DESCENDANTS = ['listItem'];
-const NESTED_DEPTH = fg('platform_editor_elements_dnd_nested') ? 100 : 0;
+const PARENT_WITH_END_DROP_TARGET = [
+	'tableCell',
+	'tableHeader',
+	'panel',
+	'layoutColumn',
+	'expand',
+	'nestedExpand',
+];
+const getNestedDepth = () => (fg('platform_editor_elements_dnd_nested') ? 100 : 0);
+
+const createDropTargetDecoration = (
+	pos: number,
+	dropTargetDec: React.FunctionComponentElement<DropTargetProps>,
+) => {
+	return Decoration.widget(
+		pos,
+		() => {
+			const element = document.createElement('div');
+			element.setAttribute('data-blocks-drop-target-container', 'true');
+			element.style.clear = 'unset';
+			ReactDOM.render(dropTargetDec, element);
+			return element;
+		},
+		{
+			type: 'drop-target-decoration',
+			side: -1,
+		},
+	);
+};
 
 export const dropTargetDecorations = (
 	oldState: EditorState,
@@ -36,52 +65,61 @@ export const dropTargetDecorations = (
 	newState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
 		let depth = 0;
 		const nodeType = newState.doc.type.schema.nodes[activeNodeType];
+		let endDec = null;
 		if (fg('platform_editor_elements_dnd_nested')) {
 			depth = newState.doc.resolve(pos).depth;
-			if (node.isInline) {
+			if (node.isInline || !parent) {
 				return false;
 			}
 			if (IGNORE_NODES.includes(node.type.name)) {
 				return true; //skip over, don't consider it a valid depth
 			}
 
-			const canDrop = parent && activeNodeType && canMoveToIndex(parent, index, nodeType);
+			const canDrop = activeNodeType && canMoveToIndex(parent, index, nodeType);
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
-			if (!canDrop) {
+			if (!canDrop && !isBlocksDragTargetDebug()) {
 				return false; //not valid pos, so nested not valid either
 			}
+
 			decorationState.push({ id: pos, pos });
+			if (parent.lastChild === node && PARENT_WITH_END_DROP_TARGET.includes(parent.type.name)) {
+				const endpos = pos + node.nodeSize;
+				endDec = { id: endpos, pos: endpos };
+				decorationState.push({ id: endpos, pos: endpos });
+			}
 		} else {
 			decorationState.push({ id: index, pos });
 		}
 
-		const dropTargetDec = createElement(DropTarget, {
-			api,
-			id: fg('platform_editor_elements_dnd_nested') ? pos : index,
-			formatMessage,
-			prevNode,
-			nextNode: node,
-		});
-
 		decs.push(
-			Decoration.widget(
+			createDropTargetDecoration(
 				pos,
-				() => {
-					const element = document.createElement('div');
-					element.setAttribute('data-blocks-drop-target-container', 'true');
-					element.style.clear = 'unset';
-					ReactDOM.render(dropTargetDec, element);
-					return element;
-				},
-				{
-					type: 'drop-target-decoration',
-					side: -1,
-				},
+				createElement(DropTarget, {
+					api,
+					id: fg('platform_editor_elements_dnd_nested') ? pos : index,
+					formatMessage,
+					prevNode,
+					nextNode: node,
+				} as DropTargetProps),
 			),
 		);
+
+		if (endDec) {
+			decs.push(
+				createDropTargetDecoration(
+					endDec.pos,
+					createElement(DropTarget, {
+						api,
+						id: endDec.id,
+						formatMessage,
+					} as DropTargetProps),
+				),
+			);
+		}
+
 		prevNode = node;
-		return depth < NESTED_DEPTH;
+		return depth < getNestedDepth();
 	});
 
 	/**
@@ -91,7 +129,6 @@ export const dropTargetDecorations = (
 	 * node and not its size.
 	 *
 	 */
-
 	const lastPos = newState.doc.content.size;
 	if (fg('platform_editor_elements_dnd_nested')) {
 		decorationState.push({
@@ -181,7 +218,7 @@ export const nodeDecorations = (newState: EditorState) => {
 			),
 		);
 
-		return depth < NESTED_DEPTH;
+		return depth < getNestedDepth();
 	});
 	return decs;
 };

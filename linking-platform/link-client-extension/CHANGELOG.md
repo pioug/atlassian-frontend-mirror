@@ -1,5 +1,17 @@
 # @atlaskit/link-client-extension
 
+## 2.0.0
+
+### Major Changes
+
+- [#128149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128149)
+  [`a57b769f35fdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a57b769f35fdc) -
+  Adds `entityType` to `ActionsDiscoveryRequest`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

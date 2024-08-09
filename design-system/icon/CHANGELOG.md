@@ -1,5 +1,21 @@
 # @atlaskit/icon
 
+## 22.11.1
+
+### Patch Changes
+
+- [#128275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128275)
+  [`e1b99e3ce07ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1b99e3ce07ca) -
+  Fixed an invalid path in the migration-map entrypoint.
+
+## 22.11.0
+
+### Minor Changes
+
+- [#128427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128427)
+  [`ade1e717764e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ade1e717764e2) -
+  Updated the `color` prop of alpha icon components to support text design tokens.
+
 ## 22.10.0
 
 ### Minor Changes

@@ -31,6 +31,7 @@ import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import type { PluginInjectionAPI } from '../types';
 import { isTableNested } from '../utils';
 
+import ignoreMutationDelegate from './ignore-mutation-delegate';
 import TableComponent from './TableComponent';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';
 import type { Props } from './types';
@@ -315,32 +316,16 @@ export default class TableView extends ReactNodeView<Props> {
 	}
 
 	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
-		const {
-			type,
-			target: { nodeName, firstChild },
-		} = mutation;
-
-		if (
-			type === 'selection' &&
-			nodeName?.toUpperCase() === 'DIV' &&
-			firstChild?.nodeName.toUpperCase() === 'TABLE'
-		) {
-			return false;
+		const ignoreMutation = ignoreMutationDelegate(mutation);
+		if (fg('platform_editor_react_18_table_insertion_cursor')) {
+			if (ignoreMutation) {
+				if (!this.contentDOM) {
+					return true;
+				}
+				return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
+			}
 		}
-
-		// ED-16668
-		// Do not remove this fixes an issue with windows firefox that relates to
-		// the addition of the shadow sentinels
-		if (
-			type === 'selection' &&
-			nodeName?.toUpperCase() === 'TABLE' &&
-			(firstChild?.nodeName.toUpperCase() === 'COLGROUP' ||
-				firstChild?.nodeName.toUpperCase() === 'SPAN')
-		) {
-			return false;
-		}
-
-		return true;
+		return ignoreMutation;
 	}
 
 	destroy() {

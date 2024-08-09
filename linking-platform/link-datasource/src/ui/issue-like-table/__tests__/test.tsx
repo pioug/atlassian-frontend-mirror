@@ -1886,6 +1886,37 @@ describe('IssueLikeDataTableView', () => {
 			});
 		},
 	);
+
+	ffTest.on('platform-datasources-enable-two-way-sync', 'toggling inline editable cell', () => {
+		ffTest.on('enable_datasource_react_sweet_state', 'with react sweet state on', () => {
+			it('shows editable cell on click', async () => {
+				const items = getComplexItems();
+				const columns = getComplexColumns();
+				const itemIds = store.actions.onAddItems(items, 'jira');
+
+				const visibleColumnKeys = ['id', 'someOtherKey'];
+
+				setup({
+					itemIds,
+					items,
+					columns,
+					visibleColumnKeys,
+				});
+
+				const rowColumnTestIds = (await screen.findAllByTestId(/sometable--cell-.+/)).map((el) =>
+					el.getAttribute('data-testid'),
+				);
+
+				expect(rowColumnTestIds).toEqual(['sometable--cell-0', 'sometable--cell-1']);
+
+				const cell = screen.getByText('someOtherValue');
+				fireEvent.click(cell);
+
+				expect(screen.getByTestId('inline-edit-text')).toBeInTheDocument();
+			});
+		});
+	});
+
 	describe('UFO metrics', () => {
 		beforeEach(() => {
 			jest.clearAllMocks();

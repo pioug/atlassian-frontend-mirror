@@ -1,5 +1,18 @@
 # @atlaskit/link-test-helpers
 
+## 7.3.0
+
+### Minor Changes
+
+- [#126900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126900)
+  [`ded17c9ac6a10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ded17c9ac6a10) -
+  For datasources mock data set summary is now of type string and new column "link" has been added
+  in between summary and assignee
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.2.0
 
 ### Minor Changes

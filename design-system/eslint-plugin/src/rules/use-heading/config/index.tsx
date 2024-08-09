@@ -5,13 +5,15 @@ type Pattern =
 export interface RuleConfig {
 	failSilently: boolean;
 	patterns: Pattern[];
-	enableUnsafeAutofix: false;
+	enableUnsafeAutofix: boolean;
+	enableUnsafeReport: boolean;
 }
 
 const defaults: RuleConfig = {
 	failSilently: false,
 	patterns: ['native-elements'],
 	enableUnsafeAutofix: false,
+	enableUnsafeReport: false,
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

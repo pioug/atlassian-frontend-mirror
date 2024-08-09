@@ -1,31 +1,23 @@
-jest.mock('@atlaskit/media-ui', () => {
-	const actualModule = jest.requireActual('@atlaskit/media-ui');
-	return {
-		...actualModule,
-		CustomMediaPlayer: jest.fn<
-			ReturnType<typeof actualModule.CustomMediaPlayer>,
-			Parameters<typeof actualModule.CustomMediaPlayer>
-		>(() => null),
-	};
-});
+jest.mock('../../../../../utils/isIE', () => ({
+	isIE: () => false,
+}));
 
 import React from 'react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,
 	type ProcessedFileState,
 } from '@atlaskit/media-client';
-import Spinner from '@atlaskit/spinner';
 import {
-	mountWithIntlContext,
 	fakeMediaClient,
 	expectFunctionToHaveBeenCalledWith,
 	expectToEqual,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
-import { CustomMediaPlayer } from '@atlaskit/media-ui';
 import { VideoViewer, type Props } from '../../../../../viewers/video';
-import { ErrorMessage } from '../../../../../errorMessage';
 
 const token = 'some-token';
 const clientId = 'some-client-id';
@@ -73,12 +65,8 @@ interface SetupOptions {
 	shouldInit?: boolean;
 }
 
-const defaultOptions: SetupOptions = { shouldInit: true };
-async function setup(options: SetupOptions = {}) {
-	const { props, item, mockReturnGetArtifactURL, shouldInit } = {
-		...defaultOptions,
-		...options,
-	};
+function setup(options: SetupOptions = {}) {
+	const { props, item, mockReturnGetArtifactURL } = options;
 	const authPromise = Promise.resolve({ token, clientId, baseUrl });
 	const mediaClient = fakeMediaClient({
 		authProvider: () => authPromise,
@@ -90,24 +78,20 @@ async function setup(options: SetupOptions = {}) {
 
 	jest.spyOn(mediaClient.file, 'getArtifactURL').mockReturnValue(getArtifactURLResult);
 
-	const el = mountWithIntlContext(
-		<VideoViewer
-			onCanPlay={() => {}}
-			onError={() => {}}
-			mediaClient={mediaClient}
-			item={item || videoItem}
-			{...props}
-			previewCount={(props && props.previewCount) || 0}
-		/>,
+	const el = render(
+		<IntlProvider locale="en">
+			<VideoViewer
+				onCanPlay={() => {}}
+				onError={() => {}}
+				mediaClient={mediaClient}
+				item={item || videoItem}
+				{...props}
+				previewCount={(props && props.previewCount) || 0}
+			/>
+		</IntlProvider>,
 	);
 
-	if (shouldInit) {
-		await getArtifactURLResult;
-		el.update();
-	}
-
-	const customMediaPlayer = el.find(CustomMediaPlayer);
-	return { mediaClient, el, item: item || videoItem, customMediaPlayer };
+	return { mediaClient, el, item: item || videoItem };
 }
 
 describe('Video viewer', () => {
@@ -123,138 +107,136 @@ describe('Video viewer', () => {
 	});
 
 	it('assigns a src for videos when successful', async () => {
-		const { customMediaPlayer } = await setup();
+		const {
+			el: { container },
+		} = setup();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		expect(customMediaPlayer.props().src).toEqual(
-			'some-base-url/video_hd?client=some-client-id&token=some-token',
+		expect(container.querySelector('video')?.src).toEqual(
+			'http://localhost/some-base-url/video_hd?client=some-client-id&token=some-token',
 		);
 	});
 
 	it('shows spinner when pending', async () => {
-		const { el } = await setup({
-			shouldInit: false,
-			mockReturnGetArtifactURL: new Promise(() => {}),
-		});
-		el.update();
-		expect(el.find(Spinner)).toHaveLength(1);
+		setup();
+		expect(screen.getByLabelText('Loading file...')).toBeInTheDocument();
 	});
 
 	it('shows error message when there are not video artifacts in the media item', async () => {
-		const { el } = await setup({
+		setup({
 			mockReturnGetArtifactURL: Promise.resolve(''),
 		});
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		const errorMessage = el.find(ErrorMessage);
-
-		expect(errorMessage).toHaveLength(1);
-		expect(errorMessage.text()).toContain("We couldn't generate a preview for this file");
+		expect(screen.getByText("We couldn't generate a preview for this file.")).toBeInTheDocument();
 	});
 
 	it('MSW-720: passes collectionName to getArtifactURL', async () => {
 		const collectionName = 'some-collection';
-		const { mediaClient } = await setup({
+		const { mediaClient } = setup({
 			props: { collectionName },
 		});
 
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 		expectToEqual(asMockFunction(mediaClient.file.getArtifactURL).mock.calls[0][2], collectionName);
 	});
 
-	it('should render a custom video player if the feature flag is active', async () => {
-		const { customMediaPlayer } = await setup();
-
-		expect(customMediaPlayer).toHaveLength(1);
-		expect(customMediaPlayer.props().src).toEqual(
-			'some-base-url/video_hd?client=some-client-id&token=some-token',
-		);
-	});
-
 	it('should toggle hd when button is clicked', async () => {
-		const { el, customMediaPlayer } = await setup();
+		setup();
 
-		expect(customMediaPlayer.props().isHDActive).toBeTruthy();
-		const { onHDToggleClick } = customMediaPlayer.props();
-		if (!onHDToggleClick) {
-			return expect(onHDToggleClick).toBeDefined();
-		}
-		onHDToggleClick();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		el.update();
+		expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
 
-		expect(el.find(CustomMediaPlayer).props().isHDActive).toBeFalsy();
+		fireEvent.click(screen.getByTestId('custom-media-player-hd-button'));
+
+		await waitFor(() => {
+			expect(screen.getByLabelText('hd').getAttribute('style')).toBe(
+				'--icon-primary-color: #c7d1db; --icon-secondary-color: #313D52;',
+			);
+		});
 	});
 
-	it('should default to hd if available', async () => {
-		const { customMediaPlayer } = await setup();
-
-		expect(customMediaPlayer.props().isHDActive).toBeTruthy();
+	it('should show hd button if available', async () => {
+		setup();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
 	});
 
-	it('should default to sd if hd is not available', async () => {
-		const { customMediaPlayer } = await setup({
+	it('should not show hd button if hd is not available', async () => {
+		setup({
 			item: sdVideoItem,
 		});
-
-		expect(customMediaPlayer.props().isHDActive).toBeFalsy();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(screen.queryByTestId('custom-media-player-hd-button')).toBeNull();
 	});
 
 	it('should save video quality when changes', async () => {
-		const { customMediaPlayer } = await setup();
+		setup();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(screen.getByTestId('custom-media-player-hd-button')).toBeInTheDocument();
 
-		const { onHDToggleClick } = customMediaPlayer.props();
-		if (!onHDToggleClick) {
-			return expect(onHDToggleClick).toBeDefined();
-		}
-		onHDToggleClick();
+		fireEvent.click(screen.getByTestId('custom-media-player-hd-button'));
 
-		expect(localStorage.setItem).toBeCalledWith('mv_video_player_quality', 'sd');
+		expect(localStorage.setItem).toHaveBeenCalledWith('mv_video_player_quality', 'sd');
 		expect(localStorage.setItem).toHaveBeenCalledTimes(1);
 	});
 
 	it('should default to sd if previous quality was sd', async () => {
 		localStorage.setItem('mv_video_player_quality', 'sd');
-		const { customMediaPlayer } = await setup();
+		setup();
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		expect(customMediaPlayer.props().isHDActive).toBeFalsy();
+		expect(screen.getByLabelText('hd').getAttribute('style')).toBe(
+			'--icon-primary-color: #c7d1db; --icon-secondary-color: #313D52;',
+		);
 	});
 
 	describe('AutoPlay', () => {
 		it('should auto play video viewer when it is the first preview', async () => {
-			const { customMediaPlayer } = await setup({
+			const {
+				el: { container },
+			} = setup({
 				props: {
 					previewCount: 0,
 					item: videoItem,
 				},
 			});
-			expect(customMediaPlayer).toHaveLength(1);
-			expect(customMediaPlayer.props().isAutoPlay).toBe(true);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			expect(container.querySelector('video')?.hasAttribute('autoplay')).toBeTruthy();
 		});
 
 		it('should not auto play video viewer when it is not the first preview', async () => {
-			const { customMediaPlayer } = await setup({
+			const {
+				el: { container },
+			} = await setup({
 				props: {
 					previewCount: 1,
 					item: videoItem,
 				},
 			});
-			expect(customMediaPlayer).toHaveLength(1);
-			expect(customMediaPlayer.props().isAutoPlay).toBe(false);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+			expect(container.querySelector('video')?.hasAttribute('autoplay')).toBeFalsy();
 		});
 	});
 
 	it('should trigger media-viewed when video is first played', async () => {
-		localStorage.setItem('mv_video_player_quality', 'sd');
-		const { customMediaPlayer } = await setup({
+		setup({
 			props: {
-				previewCount: 1,
+				previewCount: 0,
+				item: videoItem,
 			},
 		});
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
-		const { onFirstPlay } = customMediaPlayer.props();
-		if (!onFirstPlay) {
-			return expect(onFirstPlay).toBeDefined();
-		}
-		onFirstPlay();
-		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
+		await waitFor(() => {
+			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
+		});
 		expectFunctionToHaveBeenCalledWith(globalMediaEventEmitter.emit, [
 			'media-viewed',
 			{
@@ -265,10 +247,19 @@ describe('Video viewer', () => {
 	});
 
 	it('should use last watch time feature', async () => {
-		const { item, customMediaPlayer } = await setup();
+		const originLocalStorage = global.localStorage;
+		global.localStorage = {
+			...originLocalStorage,
+			getItem: jest.fn(),
+		};
 
-		expectToEqual(customMediaPlayer.props().lastWatchTimeConfig, {
-			contentId: item.id,
+		setup();
+		await waitFor(() => {
+			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
 		});
+
+		expect(global.localStorage.getItem).toHaveBeenLastCalledWith('time-saver-default-time-some-id');
+
+		global.localStorage = originLocalStorage;
 	});
 });

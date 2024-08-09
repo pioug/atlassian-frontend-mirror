@@ -17,7 +17,9 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { type InsertMethod } from '../types';
 
 import { createCommand } from './pm-plugins/plugin-factory';
 import { findExpand } from './utils';
@@ -89,7 +91,7 @@ export const updateExpandTitle =
 		if (node && node.type === nodeType && dispatch) {
 			const { tr } = state;
 
-			if (getBooleanFF('platform.editor.live-pages-expand-divergence') && __livePage) {
+			if (__livePage && fg('platform.editor.live-pages-expand-divergence')) {
 				tr.step(
 					new SetAttrsStep(pos, {
 						...node.attrs,
@@ -130,7 +132,7 @@ export const toggleExpandExpanded =
 			const { tr } = state;
 			const isExpandedNext = !node.attrs.__expanded;
 
-			if (getBooleanFF('platform.editor.live-pages-expand-divergence') && __livePage) {
+			if (__livePage && fg('platform.editor.live-pages-expand-divergence')) {
 				tr.step(
 					new SetAttrsStep(pos, {
 						...node.attrs,
@@ -153,7 +155,7 @@ export const toggleExpandExpanded =
 			// Move to a right gap cursor, if the toolbar is interacted (or an API),
 			// it will insert below rather than inside (which will be invisible).
 			if (
-				getBooleanFF('platform.editor.live-pages-expand-divergence') && __livePage
+				__livePage && fg('platform.editor.live-pages-expand-divergence')
 					? isExpandedNext === true
 					: isExpandedNext === false && findExpand(state)
 			) {
@@ -172,7 +174,7 @@ export const toggleExpandExpanded =
 					platform: PLATFORMS.WEB,
 					mode: MODE.EDITOR,
 					expanded:
-						getBooleanFF('platform.editor.live-pages-expand-divergence') && __livePage
+						__livePage && fg('platform.editor.live-pages-expand-divergence')
 							? !isExpandedNext
 							: isExpandedNext,
 				},
@@ -195,8 +197,9 @@ export const createExpandNode = (state: EditorState): PMNode | null => {
 	return expandType.createAndFill({});
 };
 
-export const insertExpand =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+export const insertExpandWithInputMethod =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
 		const expandNode = createExpandNode(state);
 
@@ -217,7 +220,7 @@ export const insertExpand =
 				expandNode?.type === state.schema.nodes.expand
 					? ACTION_SUBJECT_ID.EXPAND
 					: ACTION_SUBJECT_ID.NESTED_EXPAND,
-			attributes: { inputMethod: INPUT_METHOD.INSERT_MENU },
+			attributes: { inputMethod },
 			eventType: EVENT_TYPE.TRACK,
 		};
 
@@ -227,6 +230,15 @@ export const insertExpand =
 		}
 
 		return true;
+	};
+
+export const insertExpand =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(state, dispatch) => {
+		return insertExpandWithInputMethod(editorAnalyticsAPI)(INPUT_METHOD.INSERT_MENU)(
+			state,
+			dispatch,
+		);
 	};
 
 export const focusTitle =

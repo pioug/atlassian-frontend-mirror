@@ -39,6 +39,9 @@ const JiraIssuesTableView = ({ parameters }: JiraIssuesTableViewProps) => {
 	} = useCommonTableProps({
 		defaultColumnCustomSizes: {
 			people: 100,
+			summary: 180,
+			link: 350,
+			labels: 100,
 		},
 	});
 

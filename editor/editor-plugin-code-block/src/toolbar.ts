@@ -1,3 +1,4 @@
+import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import commonMessages, { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
 import type {
 	Command,
@@ -55,7 +56,7 @@ export const getToolbarConfig =
 		if (node?.type !== nodeType) {
 			return;
 		}
-
+		const isWrapped = isCodeBlockWordWrapEnabled(node);
 		const language = node?.attrs?.language;
 
 		const options = languageList.map((lang) => ({
@@ -134,8 +135,11 @@ export const getToolbarConfig =
 			type: 'button',
 			icon: WrapIcon,
 			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI), // Hooking up here for demo purposes. To be revisited with ED-24222.
-			title: formatMessage(codeBlockButtonMessages.wrapCode),
+			title: isWrapped
+				? formatMessage(codeBlockButtonMessages.unwrapCode)
+				: formatMessage(codeBlockButtonMessages.wrapCode),
 			tabIndex: null,
+			selected: isWrapped,
 		};
 
 		return {

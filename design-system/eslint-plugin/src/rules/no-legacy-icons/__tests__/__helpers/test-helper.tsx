@@ -507,6 +507,32 @@ export const sizeTests = [
  */
 export const colorTests = [
 	{
+		name: 'Color on icon is supported',
+		code: `
+	  import AddIcon from '@atlaskit/icon/glyph/add';
+		import { token } from '@atlaskit/tokens';
+
+		// Color is using supported string color - can migrate to 'color' via codemod
+		() =>
+			<div>
+				<AddIcon primaryColor={token('color.text.danger')} label="" />
+				<AddIcon primaryColor={token('color.text')} label="" />
+				<AddIcon primaryColor={token('color.link')} label="" />
+			</div>
+	  	`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
 		name: 'Color on icon is unsupported',
 		code: `
 	  import AddIcon from '@atlaskit/icon/glyph/add';
@@ -584,7 +610,7 @@ export const colorTests = [
 		import { token } from '@atlaskit/tokens';
 
 		// Color is using unsupported token - can't set 'color' via codemod
-		(iconProps) => <AddIcon primaryColor={token('color.text.brand')} label="" />
+		(iconProps) => <AddIcon primaryColor={token('color.background.danger')} label="" />
 	  	`,
 		errors: [
 			{
@@ -602,7 +628,7 @@ export const colorTests = [
 		import { token as customToken } from '@atlaskit/tokens';
 
 		// Color is using unsupported token - can't set 'color' via token
-		(iconProps) => <AddIcon primaryColor={customToken('color.text.brand')} label="" />
+		(iconProps) => <AddIcon primaryColor={customToken('color.background.danger')} label="" />
 	  	`,
 		errors: [
 			{

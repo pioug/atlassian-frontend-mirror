@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media-insert",
-	"version": "1.1.2",
+	"version": "1.2.1",
 	"description": "Media Insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,12 +27,21 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.5.0",
-		"@babel/runtime": "^7.0.0"
+		"@atlaskit/button": "^19.1.0",
+		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/icon": "^22.11.0",
+		"@atlaskit/media-card": "^78.0.0",
+		"@atlaskit/media-client": "^27.3.0",
+		"@atlaskit/media-client-react": "^2.0.0",
+		"@atlaskit/primitives": "^12.0.0",
+		"@atlaskit/section-message": "^6.5.0",
+		"@atlaskit/textfield": "^6.4.0",
+		"@babel/runtime": "^7.0.0",
+		"react": "^16.8.0",
+		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"@atlaskit/tokens": "^1.57.0",
-		"react": "^16.8.0"
+		"@atlaskit/tokens": "^1.57.0"
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"
@@ -72,7 +81,6 @@
 			]
 		}
 	},
-	"prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
 	"stricter": {
 		"no-unused-dependencies": {
 			"checkDevDependencies": true

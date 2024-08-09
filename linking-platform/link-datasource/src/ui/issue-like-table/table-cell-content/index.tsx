@@ -8,9 +8,12 @@ import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useDatasourceItem } from '../../../state';
+import { isEditTypeSupported } from '../edit-type';
 import { stringifyType } from '../render-type';
 import { TruncateTextTag } from '../truncate-text-tag';
 import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from '../types';
+
+import { InlineEdit } from './inline-edit';
 
 interface TableCellContentProps {
 	id: string;
@@ -107,6 +110,9 @@ const InlineEditableCell = ({
 		return <></>;
 	}
 
+	// Check if field is editable
+	const isEditable = isEditTypeSupported(columnType);
+
 	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
 	const value = rowData[columnKey]?.data;
 	const values = Array.isArray(value) ? value : [value];
@@ -116,21 +122,27 @@ const InlineEditableCell = ({
 		values,
 	} as DatasourceTypeWithOnlyValues;
 
-	return (
+	const readView = (
 		<TooltipWrapper
 			columnKey={columnKey}
 			datasourceTypeWithValues={datasourceTypeWithValues}
 			wrappedColumnKeys={wrappedColumnKeys}
 		>
 			<Box
-				testId={'inline-edit-read-view'}
-				paddingInline={'space.100'}
-				paddingBlock={'space.050'}
+				testId="inline-edit-read-view"
+				paddingInline={isEditable ? 'space.075' : 'space.100'}
+				paddingBlock="space.050"
 				xcss={truncateTextStyles}
 			>
 				{renderItem(datasourceTypeWithValues)}
 			</Box>
 		</TooltipWrapper>
+	);
+
+	return isEditable ? (
+		<InlineEdit datasourceTypeWithValues={datasourceTypeWithValues} readView={readView} />
+	) : (
+		readView
 	);
 };
 

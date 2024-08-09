@@ -29,48 +29,51 @@ interface ValidHeadingElement extends JSXElement {
 	} & JSXOpeningElement;
 }
 
+type CheckResult = { success: boolean; autoFixable?: boolean };
+
 export const NativeElements = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		// Check whether all criteria needed to make a transformation are met
-		if (!NativeElements._check(node, { context, config })) {
-			return;
+		const { success, autoFixable } = NativeElements._check(node, { context, config });
+		if (success && autoFixable) {
+			const fix = NativeElements._fix(node as ValidHeadingElement, { context, config });
+			context.report({
+				node,
+				messageId: 'preferHeading',
+				...(config.enableUnsafeAutofix
+					? { fix }
+					: { suggest: [{ desc: `Convert to Heading`, fix }] }),
+			});
+		} else if (success && config.enableUnsafeReport) {
+			context.report({ node, messageId: 'preferHeading' });
 		}
-
-		const fix = NativeElements._fix(node, { context, config });
-		context.report({
-			node,
-			messageId: 'preferHeading',
-			...(config.enableUnsafeAutofix
-				? { fix }
-				: { suggest: [{ desc: `Convert to Heading`, fix }] }),
-		});
 	},
 
-	_check(node: Rule.Node, { config }: MetaData): node is ValidHeadingElement {
+	_check(node: Rule.Node, { config }: MetaData): CheckResult {
 		if (!config.patterns.includes('native-elements')) {
-			return false;
+			return { success: false };
 		}
 
 		if (!isNodeOfType(node, 'JSXElement')) {
-			return false;
+			return { success: false };
 		}
 
 		if (!node.children.length) {
-			return false;
-		}
-
-		if (!node.parent) {
-			return false;
+			return { success: false };
 		}
 
 		const elementName = ast.JSXElement.getName(node);
 		if (!Object.keys(tagSizeMap).includes(elementName)) {
-			return false;
+			return { success: false };
+		}
+
+		if (!node.parent) {
+			return { success: true, autoFixable: false };
 		}
 
 		// Element has to be first element of its siblings
 		if (!(isNodeOfType(node.parent, 'JSXElement') || isNodeOfType(node.parent, 'JSXFragment'))) {
-			return false;
+			return { success: true, autoFixable: false };
 		}
 		const siblings = ast.JSXElement.getChildren(node.parent);
 		if (siblings.length > 1) {
@@ -79,15 +82,15 @@ export const NativeElements = {
 				siblings[0].range?.[0] !== node.range?.[0] ||
 				siblings[0].range?.[1] !== node.range?.[1]
 			) {
-				return false;
+				return { success: true, autoFixable: false };
 			}
 		}
 
 		if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
-			return false;
+			return { success: true, autoFixable: false };
 		}
 
-		return true;
+		return { success: true, autoFixable: true };
 	},
 
 	_fix(node: ValidHeadingElement, { context }: MetaData): Rule.ReportFixer {

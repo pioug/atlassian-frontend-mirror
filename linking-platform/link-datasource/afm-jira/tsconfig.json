@@ -57,6 +57,9 @@
       "path": "../../../design-system/image/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/inline-edit/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../helpers/intl-messages-provider/afm-jira/tsconfig.json"
     },
     {

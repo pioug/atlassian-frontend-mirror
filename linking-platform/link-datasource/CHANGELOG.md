@@ -1,5 +1,31 @@
 # @atlaskit/link-datasource
 
+## 2.10.1
+
+### Patch Changes
+
+- [#128613](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128613)
+  [`43d20bcbd9423`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43d20bcbd9423) -
+  [ux] Add text edit component behind FF
+- Updated dependencies
+
+## 2.10.0
+
+### Minor Changes
+
+- [#128347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128347)
+  [`e33566cebd5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e33566cebd5d1) -
+  [ED-24175] bump @atlaskit/adf-schema to 40.8.1 and @atlassian/adf-schema-json to 1.22.0 to
+  promotecodeblocks & media in quotes, and nested expands in expands to full schema, and allow
+  quotes in panels and decisions in lists in stage0 schema, and a validator spec change
+
+### Patch Changes
+
+- [#128149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128149)
+  [`a57b769f35fdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a57b769f35fdc) -
+  Add entityType to discoverActions request
+- Updated dependencies
+
 ## 2.9.8
 
 ### Patch Changes

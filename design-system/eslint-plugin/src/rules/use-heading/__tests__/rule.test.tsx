@@ -299,8 +299,45 @@ ruleTester.run('use-heading', rule, {
 					<div><Heading size='small'>heading 4</Heading></div>
 					<div><Heading size='xsmall'>heading 5</Heading></div>
 					<div><Heading size='xxsmall'>heading 6</Heading></div>
-				</div>
-			`,
+				</div>`,
+		},
+		// Report all elements when unsafe report option is enabled
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: '<h1>text 1</h1>',
+			errors: [{ messageId: 'preferHeading' }],
+		},
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: outdent`
+				import Heading from '@atlaskit/heading';
+				<div>
+					<h1>heading 1</h1>
+					<h2>heading 2</h2>
+					<h3>heading 3</h3>
+					<h4>heading 4</h4>
+					<h5>heading 5</h5>
+					<h6>heading 6</h6>
+				</div>`,
+			errors: [
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+				{ messageId: 'preferHeading' },
+			],
+		},
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: outdent`
+				import Heading from '@atlaskit/heading';
+				<div>
+					<p>text 1</p>
+					{children}
+					<h1>text 2</h1>
+				</div>`,
+			errors: [{ messageId: 'preferHeading' }],
 		},
 	],
 });

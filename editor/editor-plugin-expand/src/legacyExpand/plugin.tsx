@@ -14,7 +14,7 @@ import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 
 import type { ExpandPlugin } from '../types';
 
-import { createExpandNode, insertExpand } from './commands';
+import { createExpandNode, insertExpand, insertExpandWithInputMethod } from './commands';
 import { expandKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
@@ -34,6 +34,7 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 
 		actions: {
 			insertExpand: insertExpand(api?.analytics?.actions),
+			insertExpandWithInputMethod: insertExpandWithInputMethod(api?.analytics?.actions),
 		},
 
 		pmPlugins() {

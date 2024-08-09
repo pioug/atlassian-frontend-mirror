@@ -46,7 +46,7 @@ snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
 			.getByTestId('datasource-table-view--row-DONUT-11740')
-			.getByTestId('datasource-table-view--cell-3')
+			.getByTestId('datasource-table-view--cell-4')
 			.hover();
 	},
 	drawsOutsideBounds: true,
@@ -63,7 +63,7 @@ snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
 			.getByTestId('datasource-table-view--row-DONUT-11770')
-			.getByTestId('datasource-table-view--cell-4')
+			.getByTestId('datasource-table-view--cell-5')
 			.hover();
 	},
 	drawsOutsideBounds: true,
@@ -116,11 +116,11 @@ snapshotInformational(JiraIssuesTableSingleRow, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
 			.getByTestId('datasource-table-view--row-DONUT-11720')
-			.getByTestId('datasource-table-view--cell-9')
+			.getByTestId('datasource-table-view--cell-2')
 			.hover();
 	},
 	drawsOutsideBounds: true,
-	description: 'Hovering over Description',
+	description: 'Hovering over summary',
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -140,10 +140,10 @@ snapshotInformational(JiraIssuesTable, {
 
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
-		await page.getByTestId(`priority-column-heading`).hover();
+		await page.getByTestId(`people-column-heading`).hover();
 	},
 	drawsOutsideBounds: true,
-	description: `Hovering over priority header`,
+	description: `Hovering over people header`,
 	ignoredErrors: [
 		{
 			pattern: /(received unsupported error)|(The above error occurred in the)/,
@@ -201,12 +201,12 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		page.setViewportSize({ height: 800, width: 1500 });
-		for (const key of ['summary', 'description', 'labels']) {
+		for (const key of ['link', 'description', 'labels']) {
 			await page.getByTestId(`${key}-column-dropdown`).click();
 			await page.getByTestId(`${key}-column-dropdown-item-toggle-wrapping`).click();
 		}
 
-		await page.getByTestId(`summary-column-dropdown`).click();
+		await page.getByTestId(`link-column-dropdown`).click();
 	},
 	drawsOutsideBounds: true,
 	description: `Toggle wrapping on several columns`,

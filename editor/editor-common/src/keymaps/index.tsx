@@ -147,6 +147,8 @@ export const showElementDragHandle = makeKeyMapWithCommon(
 	'Ctrl-Shift-h',
 );
 
+export const continueInRovoChat = makeKeyMapWithCommon('Continue in Rovo chat', 'Alt-Enter');
+
 const arrowKeysMap: Record<string, string> = {
 	// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 	ARROWLEFT: '\u2190',
@@ -163,7 +165,7 @@ const tooltipShortcutStyle = css({
 	label: 'tooltip-shortcut',
 });
 
-function formatShortcut(keymap: Keymap): string | undefined {
+export function formatShortcut(keymap: Keymap): string | undefined {
 	let shortcut: string;
 	if (browser.mac) {
 		// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys

@@ -1,5 +1,50 @@
 # @atlaskit/editor-common
 
+## 87.6.1
+
+### Patch Changes
+
+- [#128180](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128180)
+  [`51b4ef21250bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51b4ef21250bf) -
+  [ux] [EDF-1228](https://product-fabric.atlassian.net/browse/EDF-1228) - add shortcut to the
+  `Continue in Chat` button in the Rovo Agent modal
+- [#128458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128458)
+  [`26e17a7d801e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26e17a7d801e4) -
+  ED-24514 Added ignoreMutationDelegate to lazyNodeView
+- [#128180](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128180)
+  [`d6c81622b7636`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6c81622b7636) -
+  [ED-24553] Fix Lazy NodeView race conditions when multiple Editors are running at the same time
+- [#127940](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127940)
+  [`7f340ec35b8a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f340ec35b8a4) -
+  [ux] ED-24320 Hook up decorators for toggled on and toggled off wrapping states in floating
+  toolbar
+- Updated dependencies
+
+## 87.6.0
+
+### Minor Changes
+
+- [#128347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128347)
+  [`e33566cebd5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e33566cebd5d1) -
+  [ED-24175] bump @atlaskit/adf-schema to 40.8.1 and @atlassian/adf-schema-json to 1.22.0 to
+  promotecodeblocks & media in quotes, and nested expands in expands to full schema, and allow
+  quotes in panels and decisions in lists in stage0 schema, and a validator spec change
+- [#128527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128527)
+  [`e9e003a733b63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9e003a733b63) -
+  Add media upload from URL and associated i18n, analytics and test packages
+- [#128333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128333)
+  [`4ad86751ab1d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ad86751ab1d7) -
+  [ED-24505] Implement onClick handler for Turn into dropdown options and update relevant insertion
+  analytics with inputMethod: floatingToolbar when an element is inserted via the dropdown
+
+### Patch Changes
+
+- [#128105](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128105)
+  [`b55614e1ea801`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b55614e1ea801) -
+  added a timeout to the requestIdleCallback inside the LazyNode replacement debounce to ensure it
+  is called eventually, limiting potential issues with infinite re-rendering
+- Updated dependencies
+
 ## 87.5.1
 
 ### Patch Changes

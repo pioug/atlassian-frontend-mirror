@@ -25,10 +25,18 @@ export const CodeBlockSharedCssClassName = {
 	CODEBLOCK_LINE_NUMBER_GUTTER_FG_WRAP: 'line-number-gutter--fg-wrap',
 	CODEBLOCK_CONTENT_WRAPPED: 'code-content--wrapped',
 	CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED: 'code-content__line-number--wrapped',
+	CODEBLOCK_WRAPPED: 'code-block--wrapped',
 };
 
-// TODO: ED-24222 Remove flex styling and hardcoded word
 export const codeBlockSharedStyles = () => css`
+	.${CodeBlockSharedCssClassName.CODEBLOCK_WRAPPED}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}
+		code {
+		word-break: break-word;
+		white-space: pre-wrap;
+	}
+
 	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
 		position: relative;
 		background-color: ${token('elevation.surface.raised', 'transparent')};
@@ -57,6 +65,11 @@ export const codeBlockSharedStyles = () => css`
 			height: 1.5rem;
 			bottom: 0px;
 			right: 0px;
+		}
+
+		.${CodeBlockSharedCssClassName.CODEBLOCK_WRAPPED} {
+			word-break: break-word;
+			white-space: pre-wrap;
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {

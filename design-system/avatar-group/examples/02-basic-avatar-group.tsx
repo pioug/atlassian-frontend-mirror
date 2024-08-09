@@ -23,7 +23,7 @@ export default () => {
 					onAvatarClick={console.log}
 					data={data}
 					size="large"
-					testId="test"
+					testId="stack"
 				/>
 			</ExampleGroup>
 			<ExampleGroup heading="Display as a Grid">
@@ -33,7 +33,7 @@ export default () => {
 					data={data}
 					maxCount={14}
 					size="large"
-					testId="test"
+					testId="grid"
 				/>
 			</ExampleGroup>
 		</div>

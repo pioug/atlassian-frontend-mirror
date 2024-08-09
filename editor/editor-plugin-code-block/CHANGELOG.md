@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.1
+
+### Patch Changes
+
+- [#127940](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127940)
+  [`7f340ec35b8a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f340ec35b8a4) -
+  [ux] ED-24320 Hook up decorators for toggled on and toggled off wrapping states in floating
+  toolbar
+
+## 3.3.0
+
+### Minor Changes
+
+- [#128347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128347)
+  [`e33566cebd5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e33566cebd5d1) -
+  [ED-24175] bump @atlaskit/adf-schema to 40.8.1 and @atlassian/adf-schema-json to 1.22.0 to
+  promotecodeblocks & media in quotes, and nested expands in expands to full schema, and allow
+  quotes in panels and decisions in lists in stage0 schema, and a validator spec change
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.5
 
 ### Patch Changes

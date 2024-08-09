@@ -6,11 +6,7 @@ import {
 	MODE,
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
-import type {
-	AnalyticsEventPayload,
-	EditorAnalyticsAPI,
-	INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { copyToClipboard } from '@atlaskit/editor-common/clipboard';
 import {
 	codeBlockWrappedStates,
@@ -277,14 +273,13 @@ export const toggleWordWrapStateForCodeBlockNode =
 
 		codeBlockWrappedStates.set(codeBlockNode, updatedToggleState);
 
-		// TODO: Remove in ED-24222. Leaving here for demo purposes.
-		// eslint-disable-next-line no-console
-		console.log(
-			`Code Block Word Wrap: Updating codeBlockWrappedStates with: ${updatedToggleState}`,
-		);
+		tr.setMeta(pluginKey, {
+			type: ACTIONS.SET_IS_WRAPPED,
+			data: updatedToggleState,
+		});
 
 		if (dispatch) {
-			const payload: AnalyticsEventPayload = {
+			editorAnalyticsAPI?.attachAnalyticsEvent({
 				action: ACTION.TOGGLE_CODE_BLOCK_WRAP,
 				actionSubject: ACTION_SUBJECT.CODE_BLOCK,
 				attributes: {
@@ -293,11 +288,7 @@ export const toggleWordWrapStateForCodeBlockNode =
 					wordWrapEnabled: updatedToggleState,
 				},
 				eventType: EVENT_TYPE.TRACK,
-			};
-
-			// TODO: ED-24320 should convert this to attachAnalyticsEvent if it is dispatching a transaction here.
-			editorAnalyticsAPI?.fireAnalyticsEvent(payload);
-
+			})(tr);
 			dispatch(tr);
 		}
 

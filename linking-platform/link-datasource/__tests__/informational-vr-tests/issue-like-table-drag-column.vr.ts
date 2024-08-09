@@ -9,7 +9,7 @@ snapshotInformational(IssueLikeTable, {
 	prepare: async (page: Page) => {
 		const source = await page.locator('[data-testid="type-column-heading"]').first();
 		const target = await page
-			.locator('[data-testid="priority-column-heading"] [data-testid="column-drop-target"]')
+			.locator('[data-testid="people-column-heading"] [data-testid="column-drop-target"]')
 			.first();
 
 		await source.dragTo(target, {

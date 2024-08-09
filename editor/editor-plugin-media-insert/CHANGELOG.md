@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.0
+
+### Minor Changes
+
+- [#128527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128527)
+  [`e9e003a733b63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9e003a733b63) -
+  Add media upload from URL and associated i18n, analytics and test packages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

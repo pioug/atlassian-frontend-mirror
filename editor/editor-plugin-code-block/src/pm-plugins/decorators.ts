@@ -4,6 +4,8 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { CodeBlockTextPosition } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
 
+const DECORATION_INLINE_TYPE = 'decorationInlineType';
+
 export const generateTextPositionsFromNode = (pos: number, node: Node) => {
 	// Get content node
 	const contentNode = node.content;
@@ -35,9 +37,14 @@ export const generateTextPositionsFromNode = (pos: number, node: Node) => {
 export const createDecorationSetFromTextPositions = (textPositions: CodeBlockTextPosition[]) => {
 	const decorations = textPositions.map((textPosition) => {
 		const { lineStart, lineEnd } = textPosition;
-		return Decoration.inline(lineStart, lineEnd, {
-			class: codeBlockClassNames.lineNumberWrapped,
-		});
+		return Decoration.inline(
+			lineStart,
+			lineEnd,
+			{
+				class: codeBlockClassNames.lineNumberWrapped,
+			},
+			{ type: DECORATION_INLINE_TYPE },
+		);
 	});
 
 	return decorations;

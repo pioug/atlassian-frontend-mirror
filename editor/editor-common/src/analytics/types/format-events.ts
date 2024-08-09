@@ -70,7 +70,8 @@ type FormatHeadingAEP = FormatAEP<
 			| INPUT_METHOD.KEYBOARD
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.SHORTCUT
-			| INPUT_METHOD.QUICK_INSERT;
+			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.FLOATING_TB;
 		newHeadingLevel: HeadingLevelsAndNormalText;
 		previousHeadingLevel?: HeadingLevelsAndNormalText;
 	}
@@ -85,7 +86,8 @@ type FormatBlockQuoteAEP = FormatAEP<
 			| INPUT_METHOD.KEYBOARD
 			| INPUT_METHOD.FORMATTING
 			| INPUT_METHOD.SHORTCUT
-			| INPUT_METHOD.QUICK_INSERT;
+			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.FLOATING_TB;
 	}
 >;
 

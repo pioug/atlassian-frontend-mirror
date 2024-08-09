@@ -10,4 +10,5 @@ export const codeBlockClassNames = {
 	content: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT,
 	contentWrapped: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED,
 	lineNumberWrapped: CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED,
+	wrapped: CodeBlockSharedCssClassName.CODEBLOCK_WRAPPED,
 };

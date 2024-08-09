@@ -11,6 +11,8 @@ import {
 	updateTestIdAttributeFix,
 } from './common';
 
+type CheckResult = { success: boolean; autoFixable?: boolean };
+
 export const EmphasisElements = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
 		if (!isNodeOfType(node, 'JSXElement')) {
@@ -18,35 +20,36 @@ export const EmphasisElements = {
 		}
 
 		// Check whether all criteria needed to make a transformation are met
-		if (!EmphasisElements._check(node, { context, config })) {
-			return;
+		const { success, autoFixable } = EmphasisElements._check(node, { context, config });
+		if (success && autoFixable) {
+			const fix = EmphasisElements._fix(node, { context, config });
+			context.report({
+				node: node.openingElement,
+				messageId: 'preferPrimitivesText',
+				...(config.enableUnsafeAutofix ? { fix } : { suggest: [{ desc: `Convert to Text`, fix }] }),
+			});
+		} else if (success && config.enableUnsafeReport) {
+			context.report({ node: node.openingElement, messageId: 'preferPrimitivesText' });
 		}
-
-		const fix = EmphasisElements._fix(node, { context, config });
-		context.report({
-			node: node.openingElement,
-			messageId: 'preferPrimitivesText',
-			...(config.enableUnsafeAutofix ? { fix } : { suggest: [{ desc: `Convert to Text`, fix }] }),
-		});
 	},
 
-	_check(node: JSXElement, { context, config }: MetaData): boolean {
+	_check(node: JSXElement, { context, config }: MetaData): CheckResult {
 		if (!config.patterns.includes('emphasis-elements')) {
-			return false;
+			return { success: false };
 		}
 
 		const elementName = ast.JSXElement.getName(node);
 		if (elementName !== 'em') {
-			return false;
+			return { success: false };
 		}
 
 		if (!node.children.length) {
-			return false;
+			return { success: false };
 		}
 
 		// Element has no unallowed props
 		if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
-			return false;
+			return { success: true, autoFixable: false };
 		}
 
 		// If there is more than one `@atlaskit/primitives` import, then it becomes difficult to determine which import to transform
@@ -55,10 +58,10 @@ export const EmphasisElements = {
 			'@atlaskit/primitives',
 		);
 		if (importDeclaration.length > 1) {
-			return false;
+			return { success: true, autoFixable: false };
 		}
 
-		return true;
+		return { success: true, autoFixable: true };
 	},
 
 	_fix(node: JSXElement, { context, config }: MetaData): Rule.ReportFixer {

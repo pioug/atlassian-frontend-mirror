@@ -1,5 +1,19 @@
 # @atlaskit/editor-card-provider
 
+## 3.6.0
+
+### Minor Changes
+
+- [#128578](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128578)
+  [`cafc6755fb65a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cafc6755fb65a) -
+  Add React 18 compatability
+
+## 3.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.0
 
 ### Minor Changes

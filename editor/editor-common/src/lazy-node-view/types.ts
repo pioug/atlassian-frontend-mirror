@@ -9,6 +9,11 @@ import type {
 /**
  * 🧱 Internal: Editor FE Platform
  */
+export type IgnoreMutationParam = MutationRecord | { type: 'selection'; target: Element };
+
+/**
+ * 🧱 Internal: Editor FE Platform
+ */
 export type NodeViewConstructor = (
 	node: PMNode,
 	view: EditorView,

@@ -169,12 +169,13 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					return;
 				}
 				const { formatMessage } = intl;
-				const options: DropdownOptions<Command> = transformationOptions.map((option) => {
+				const options: DropdownOptions<Command> = transformationOptions(api).map((option) => {
 					const IconBefore = option.icon;
 					return {
 						title: formatMessage(option.title),
 						icon: <IconBefore label="" />,
-						onClick: () => {
+						onClick: (state, dispatch) => {
+							option.command?.(INPUT_METHOD.FLOATING_TB)(state, dispatch);
 							return true;
 						},
 					};

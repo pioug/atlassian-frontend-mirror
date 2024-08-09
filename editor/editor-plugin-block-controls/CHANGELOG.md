@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.11.0
+
+### Minor Changes
+
+- [#128347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128347)
+  [`e33566cebd5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e33566cebd5d1) -
+  [ED-24175] bump @atlaskit/adf-schema to 40.8.1 and @atlassian/adf-schema-json to 1.22.0 to
+  promotecodeblocks & media in quotes, and nested expands in expands to full schema, and allow
+  quotes in panels and decisions in lists in stage0 schema, and a validator spec change
+
+### Patch Changes
+
+- [#128138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128138)
+  [`5c7bc23671459`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c7bc23671459) -
+  ED-24471 Clean up feature flags in main.ts apply and long scroll FF
+- [#127946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127946)
+  [`93f225e326474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93f225e326474) -
+  ED-24405 fix drop target not showing at last pos
+- Updated dependencies
+
 ## 1.10.7
 
 ### Patch Changes

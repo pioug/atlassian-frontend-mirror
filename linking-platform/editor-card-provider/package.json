@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "3.5.0",
+	"version": "3.6.0",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -13,7 +13,8 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "EditorCardProvider"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -38,7 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/eslint-plugin-platform": "0.7.3",
-		"@atlaskit/link-client-extension": "^1.13.0",
+		"@atlaskit/link-client-extension": "^2.0.0",
 		"@atlaskit/link-extractors": "^1.6.0",
 		"@atlaskit/linking-common": "^5.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -49,7 +50,7 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "^1.14.0",
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@atlassian/feature-flags-test-utils": "^0.2.0",

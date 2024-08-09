@@ -1,5 +1,11 @@
-import { expect, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 test.describe('DatasourceTableView', () => {
+	const withFeatureFlags = async (page: Page, featureFlags: string[] = []) => {
+		const url = new URL(page.url());
+		featureFlags.forEach((flagKey) => url.searchParams.append('featureFlag', flagKey));
+		await page.goto(url.toString());
+	};
+
 	test('persists column picker when new column added', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await page.getByTestId('column-picker-trigger-button').click();
@@ -65,5 +71,19 @@ test.describe('DatasourceTableView', () => {
 
 		await expect(page.getByRole('table')).toBeVisible();
 		await expect(page.getByTestId('datasource--access-required-with-auth')).toBeHidden();
+	});
+
+	test('toggles edit mode on string column', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-assets-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+		]);
+
+		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
+		await page.getByText('Server 2').click();
+		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
+
+		// Change value and update store here
 	});
 });

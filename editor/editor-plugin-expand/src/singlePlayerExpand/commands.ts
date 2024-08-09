@@ -20,6 +20,8 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
+import { type InsertMethod } from '../types';
+
 // Creates either an expand or a nestedExpand node based on the current selection
 export const createExpandNode = (state: EditorState): PMNode | null => {
 	const { expand, nestedExpand } = state.schema.nodes;
@@ -29,8 +31,9 @@ export const createExpandNode = (state: EditorState): PMNode | null => {
 	return expandNode;
 };
 
-export const insertExpand =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+export const insertExpandWithInputMethod =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
 		const expandNode = createExpandNode(state);
 
@@ -50,7 +53,7 @@ export const insertExpand =
 				expandNode?.type === state.schema.nodes.expand
 					? ACTION_SUBJECT_ID.EXPAND
 					: ACTION_SUBJECT_ID.NESTED_EXPAND,
-			attributes: { inputMethod: INPUT_METHOD.INSERT_MENU },
+			attributes: { inputMethod },
 			eventType: EVENT_TYPE.TRACK,
 		};
 
@@ -60,6 +63,15 @@ export const insertExpand =
 		}
 
 		return true;
+	};
+
+export const insertExpand =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(state, dispatch) => {
+		return insertExpandWithInputMethod(editorAnalyticsAPI)(INPUT_METHOD.INSERT_MENU)(
+			state,
+			dispatch,
+		);
 	};
 
 export const deleteExpand =

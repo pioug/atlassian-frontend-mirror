@@ -36,9 +36,13 @@ ruleTester.run('use-primitives-text', rule, {
 				{Boolean(value) && <p>text</p>}
 			</div>
 		`,
-		// ignore span elements with potentially non-string children
+		// ignore span elements with potentially non-string children, even when unsafe report option is enabled
 		'<span>text<Image src="path/to/image.jpg" /></span>',
 		'<span>{children}</span>',
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: '<span>{children}</span>',
+		},
 		// ignores text elements with unallowed props
 		`
 			import { css } from '@emotion/react';
@@ -62,6 +66,7 @@ ruleTester.run('use-primitives-text', rule, {
 			const paddingStyles = css({ padding: '8px' });
 			<span data-test-id='contentTestId'>content</span>
 		`,
+		,
 	],
 	invalid: [
 		// it suggests Text for span elements with only text as children
@@ -385,6 +390,46 @@ ruleTester.run('use-primitives-text', rule, {
 					<Text testId='contentTestId' as='p'>text 2</Text>
 					<Text as='p'>text 3</Text>
 				</Stack></div>`,
+		},
+		// Report all elements when unsafe report option is enabled
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: outdent`
+				<div>
+					<p>text 1</p>
+					<p>text 2</p>
+					<Box>{children}</Box>
+				</div>`,
+			errors: [{ messageId: 'preferPrimitivesText' }, { messageId: 'preferPrimitivesText' }],
+		},
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: outdent`
+				<div>
+					<p>text 1</p>
+					{children}
+					<p>text 2</p>
+				</div>`,
+			errors: [{ messageId: 'preferPrimitivesText' }, { messageId: 'preferPrimitivesText' }],
+		},
+		{
+			options: [{ enableUnsafeReport: true }],
+			code: outdent`
+				import { css } from '@emotion/react';
+				const paddingStyles = css({ padding: '8px' });
+				<div>
+					<span css={paddingStyles}>content</span>
+					<strong css={paddingStyles}>content</strong>
+					<em css={paddingStyles}>content</em>
+					<p css={paddingStyles}>content</p>
+				</div>
+			`,
+			errors: [
+				{ messageId: 'preferPrimitivesText' },
+				{ messageId: 'preferPrimitivesText' },
+				{ messageId: 'preferPrimitivesText' },
+				{ messageId: 'preferPrimitivesText' },
+			],
 		},
 	],
 });

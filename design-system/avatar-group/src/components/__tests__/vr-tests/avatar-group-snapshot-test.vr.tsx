@@ -1,7 +1,17 @@
 import { snapshot } from '@af/visual-regression';
 
+import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
 import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
 import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
+
+snapshot(BasicAvatarGroup, {
+	states: [
+		{
+			state: 'focused',
+			selector: { byTestId: 'stack--avatar-2--inner' },
+		},
+	],
+});
 
 snapshot(AvatarGroupPlayground, {
 	featureFlags: {

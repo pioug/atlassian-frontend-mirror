@@ -1,14 +1,16 @@
 import type { IntlShape } from 'react-intl-next';
 
+import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import {
-	type Decoration,
+	Decoration,
 	DecorationSet,
 	type EditorView,
 	type EditorProps as PMEditorProps,
@@ -26,12 +28,13 @@ import { ACTIONS } from './actions';
 import { createLineNumbersDecorations } from './decorators';
 import { type CodeBlockState } from './main-state';
 
+const DECORATION_WRAPPED_BLOCK_NODE_TYPE = 'decorationNodeType';
+
 export const createPlugin = ({
 	useLongPressSelection = false,
 	getIntl,
 	allowCompositionInputOverride = false,
 	api,
-	isWrapped = false,
 }: {
 	useLongPressSelection?: boolean;
 	getIntl: () => IntlShape;
@@ -39,10 +42,65 @@ export const createPlugin = ({
 	// Don't want to add an uneccessary listener to web
 	allowCompositionInputOverride?: boolean;
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
-	isWrapped?: boolean;
 	decorations?: DecorationSet;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
+
+	const createWordWrappedDecoratorPluginState = (
+		pluginState: CodeBlockState,
+		tr: ReadonlyTransaction,
+		node: ContentNodeWithPos | undefined,
+	): DecorationSet => {
+		let decorationSetFromState = pluginState.decorations;
+		if (node) {
+			const { pos, node: innerNode } = node;
+			if (pos !== undefined) {
+				const isNodeWrapped = isCodeBlockWordWrapEnabled(innerNode);
+
+				if (!isNodeWrapped) {
+					// Restricts the range of decorators to the current node while not including the previous nodes position in range
+					const codeBlockNodePosition = pos + 1;
+					const currentWrappedBlockDecorationSet = decorationSetFromState.find(
+						codeBlockNodePosition,
+						codeBlockNodePosition,
+						(spec) => spec.type === DECORATION_WRAPPED_BLOCK_NODE_TYPE,
+					);
+
+					decorationSetFromState = decorationSetFromState.remove(currentWrappedBlockDecorationSet);
+				} else {
+					const wrappedBlock = Decoration.node(
+						pos,
+						pos + innerNode.nodeSize,
+						{
+							class: codeBlockClassNames.wrapped,
+						},
+						{ type: DECORATION_WRAPPED_BLOCK_NODE_TYPE }, // Allows for quick filtering of decorations while using `find`
+					);
+					decorationSetFromState = decorationSetFromState.add(tr.doc, [wrappedBlock]);
+				}
+			}
+		}
+		return decorationSetFromState;
+	};
+
+	const createLineDecoratorPluginState = (
+		pluginState: CodeBlockState,
+		tr: ReadonlyTransaction,
+		node: ContentNodeWithPos | undefined,
+	): DecorationSet => {
+		let decorationSetFromState = pluginState.decorations;
+		if (node) {
+			const { pos, node: innerNode } = node;
+			if (pos !== undefined) {
+				// Reset the decorations for the children of the code block node. Wipes all line number decorations.
+				// @ts-ignore
+				decorationSetFromState.children = [];
+				const lineDecorators = createLineNumbersDecorations(pos, innerNode);
+				decorationSetFromState = decorationSetFromState.add(tr.doc, [...lineDecorators]);
+			}
+		}
+		return decorationSetFromState;
+	};
 
 	// ME-1599: Composition on mobile was causing the DOM observer to mutate the code block
 	// incorrecly and lose content when pressing enter in the middle of a code block line.
@@ -115,28 +173,38 @@ export const createPlugin = ({
 				};
 			},
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
-				if (tr.docChanged || tr.selectionSet) {
+				const meta = tr.getMeta(pluginKey);
+
+				if (meta?.type === ACTIONS.SET_IS_WRAPPED && fg('editor_support_code_block_wrapping')) {
 					const node = findCodeBlock(newState, tr.selection);
+					return {
+						...pluginState,
+						decorations: createWordWrappedDecoratorPluginState(pluginState, tr, node),
+					};
+				}
 
-					let lineNumberDecorators: Decoration[] = [];
-					if (fg('editor_support_code_block_wrapping')) {
-						if (node && node.pos !== undefined) {
-							lineNumberDecorators = createLineNumbersDecorations(node.pos, node.node);
-						}
-					}
-
+				if (tr.docChanged) {
+					const node = findCodeBlock(newState, tr.selection);
 					const newPluginState: CodeBlockState = {
 						...pluginState,
 						pos: node ? node.pos : null,
 						isNodeSelected: tr.selection instanceof NodeSelection,
 						decorations: fg('editor_support_code_block_wrapping')
-							? DecorationSet.create(tr.doc, lineNumberDecorators)
+							? createLineDecoratorPluginState(pluginState, tr, node)
 							: DecorationSet.empty,
 					};
 					return newPluginState;
 				}
 
-				const meta = tr.getMeta(pluginKey);
+				if (tr.selectionSet) {
+					const node = findCodeBlock(newState, tr.selection);
+					const newPluginState: CodeBlockState = {
+						...pluginState,
+						pos: node ? node.pos : null,
+						isNodeSelected: tr.selection instanceof NodeSelection,
+					};
+					return newPluginState;
+				}
 
 				if (meta?.type === ACTIONS.SET_COPIED_TO_CLIPBOARD) {
 					return {
@@ -149,7 +217,6 @@ export const createPlugin = ({
 						shouldIgnoreFollowingMutations: meta.data,
 					};
 				}
-
 				return pluginState;
 			},
 		},

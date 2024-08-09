@@ -8,11 +8,14 @@ import { css, jsx } from '@emotion/react';
 import { decisionList, taskItem, taskList } from '@atlaskit/adf-schema';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
+import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages';
 import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
+import { TaskDecisionSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { DOMOutputSpec, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { getListTypes, insertTaskDecisionAction, insertTaskDecisionCommand } from './commands';
 import { getCurrentIndentLevel, getTaskItemIndex, isInsideTask } from './pm-plugins/helpers';
@@ -29,7 +32,7 @@ const taskDecisionToolbarGroupStyles = css({
 	display: 'flex',
 });
 
-type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true' };
+type HTMLInputElementAttrs = { type: 'checkbox'; checked?: 'true'; id: string; name: string };
 
 // @nodeSpecException:toDOM patch
 export const taskItemSpecWithFixedToDOM = () => {
@@ -42,13 +45,78 @@ export const taskItemSpecWithFixedToDOM = () => {
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const checked = node.attrs.state === 'DONE';
 			const inputAttrs: HTMLInputElementAttrs = {
+				name: node.attrs.localId,
+				id: node.attrs.localId,
 				type: 'checkbox',
 			};
 			if (checked) {
 				inputAttrs.checked = 'true';
 			}
-			// TODO: Align styling with `@atlaskit/task-decision`
-			return ['div', { style: 'display: flex;' }, ['input', inputAttrs], ['div', 0]];
+			return [
+				'div',
+				{
+					class: TaskDecisionSharedCssClassName.TASK_CONTAINER,
+					style: convertToInlineCss({
+						listStyleType: 'none',
+						lineHeight: '24px',
+						minWidth: '48px',
+						position: 'relative',
+					}),
+				},
+				[
+					'div',
+					{
+						style: convertToInlineCss({
+							display: 'flex',
+						}),
+					},
+					[
+						'span',
+						{
+							contenteditable: 'false',
+							style: convertToInlineCss({
+								width: '24px',
+								height: '24px',
+								lineHeight: '24px',
+								display: 'grid',
+								placeContent: 'center center',
+							}),
+						},
+						[
+							'input',
+							{
+								...inputAttrs,
+								style: convertToInlineCss({
+									width: '13px',
+									height: '13px',
+									margin: '1px 0 0 0',
+									padding: 0,
+									accentColor: token('color.background.selected.bold'),
+								}),
+							},
+						],
+					],
+					[
+						'div',
+						{
+							'data-component': 'content',
+						},
+						[
+							'div',
+							{
+								class: TaskDecisionSharedCssClassName.TASK_ITEM,
+								style: convertToInlineCss({
+									display: 'block',
+									fontSize: '16px',
+									fontFamily: token('font.body'),
+									color: token('color.text'),
+								}),
+							},
+							0,
+						],
+					],
+				],
+			];
 		},
 	};
 };

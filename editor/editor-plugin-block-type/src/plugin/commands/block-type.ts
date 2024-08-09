@@ -24,7 +24,8 @@ export type InputMethod =
 	| INPUT_METHOD.INSERT_MENU
 	| INPUT_METHOD.SHORTCUT
 	| INPUT_METHOD.FORMATTING
-	| INPUT_METHOD.KEYBOARD;
+	| INPUT_METHOD.KEYBOARD
+	| INPUT_METHOD.FLOATING_TB;
 
 export function setBlockType(name: TextBlockTypes): EditorCommand {
 	return ({ tr }) => {

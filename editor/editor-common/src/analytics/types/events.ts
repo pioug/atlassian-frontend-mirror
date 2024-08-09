@@ -49,6 +49,7 @@ import type { SelectionEventPayload } from './selection-events';
 import type { SubstituteEventPayload } from './substitute-events';
 import type { TableEventPayload } from './table-events';
 import type { TypeAheadPayload } from './type-ahead';
+import type { MediaUploadEventPayload } from './upload-media-events';
 import type { OperationalAEP, OperationalExposureAEP, TrackAEP } from './utils';
 import type { ViewEventPayload } from './view-events';
 
@@ -103,7 +104,8 @@ export type AnalyticsEventPayload<T = void> =
 	| ElementEventPayload
 	| ContextMenuEventPayload
 	| VisitedLinkAEP
-	| ViewEventPayload;
+	| ViewEventPayload
+	| MediaUploadEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

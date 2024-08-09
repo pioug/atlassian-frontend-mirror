@@ -27,7 +27,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.5.0",
+		"@atlaskit/editor-common": "^87.6.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -35,7 +35,7 @@
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-mentions": "^2.2.0",
+		"@atlaskit/editor-plugin-mentions": "^2.3.0",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",

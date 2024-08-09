@@ -101,7 +101,8 @@ type InsertTableAEP = InsertAEP<
 type InsertExpandAEP = InsertAEP<
 	ACTION_SUBJECT_ID.EXPAND | ACTION_SUBJECT_ID.NESTED_EXPAND,
 	{
-		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
+		// TODO: consider removing INPUT_METHOD.FLOATING_TB if not ship `platform_editor_basic_text_transformations`?
+		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU | INPUT_METHOD.FLOATING_TB;
 	},
 	undefined
 >;

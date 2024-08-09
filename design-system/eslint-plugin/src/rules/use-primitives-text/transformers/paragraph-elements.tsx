@@ -14,6 +14,7 @@ import {
 type CheckResult = {
 	success: boolean;
 	refs: { siblings: JSXElement['children'] };
+	autoFixable?: boolean;
 };
 
 export const ParagraphElements = {
@@ -23,42 +24,44 @@ export const ParagraphElements = {
 		}
 
 		// Check whether all criteria needed to make a transformation are met
-		const { success, refs } = ParagraphElements._check(node, {
+		const { success, autoFixable, refs } = ParagraphElements._check(node, {
 			context,
 			config,
 		});
-		if (!success) {
-			return;
-		}
-
-		if (refs.siblings.length > 1) {
-			/**
-			 * Highlighting from first opening element to last closing element
-			 * to indicate fix will change all p elements and wrap them in a Stack,
-			 * falls back to first opening element.
-			 */
-			const startLoc = refs.siblings[0].loc?.start;
-			const endLoc = refs.siblings[refs.siblings.length - 1].loc?.end;
-			const fix = ParagraphElements._fixMultiple(node, {
-				context,
-				config,
-				refs,
-			});
-			context.report({
-				loc: startLoc && endLoc && { start: startLoc, end: endLoc },
-				node: node.openingElement,
-				messageId: 'preferPrimitivesStackedText',
-				...(config.enableUnsafeAutofix
-					? { fix }
-					: { suggest: [{ desc: `Convert to Text and Stack`, fix }] }),
-			});
-		} else {
-			const fix = ParagraphElements._fixSingle(node, { context, config });
-			context.report({
-				node,
-				messageId: 'preferPrimitivesText',
-				...(config.enableUnsafeAutofix ? { fix } : { suggest: [{ desc: `Convert to Text`, fix }] }),
-			});
+		if (success && autoFixable) {
+			if (refs.siblings.length > 1) {
+				/**
+				 * Highlighting from first opening element to last closing element
+				 * to indicate fix will change all p elements and wrap them in a Stack,
+				 * falls back to first opening element.
+				 */
+				const startLoc = refs.siblings[0].loc?.start;
+				const endLoc = refs.siblings[refs.siblings.length - 1].loc?.end;
+				const fix = ParagraphElements._fixMultiple(node, {
+					context,
+					config,
+					refs,
+				});
+				context.report({
+					loc: startLoc && endLoc && { start: startLoc, end: endLoc },
+					node: node.openingElement,
+					messageId: 'preferPrimitivesStackedText',
+					...(config.enableUnsafeAutofix
+						? { fix }
+						: { suggest: [{ desc: `Convert to Text and Stack`, fix }] }),
+				});
+			} else {
+				const fix = ParagraphElements._fixSingle(node, { context, config });
+				context.report({
+					node: node.openingElement,
+					messageId: 'preferPrimitivesText',
+					...(config.enableUnsafeAutofix
+						? { fix }
+						: { suggest: [{ desc: `Convert to Text`, fix }] }),
+				});
+			}
+		} else if (success && config.enableUnsafeReport) {
+			context.report({ node: node.openingElement, messageId: 'preferPrimitivesText' });
 		}
 	},
 
@@ -78,7 +81,11 @@ export const ParagraphElements = {
 
 		// All siblings have to be paragraph elements with no unallowed props
 		if (!isNodeOfType(node.parent, 'JSXElement')) {
-			return { success: false, refs: { siblings: [] } };
+			return {
+				success: true,
+				autoFixable: false,
+				refs: { siblings: [] },
+			};
 		}
 		const siblings = ast.JSXElement.getChildren(node.parent);
 		if (siblings.length > 1) {
@@ -87,7 +94,7 @@ export const ParagraphElements = {
 				siblings[0].range?.[0] !== node.range?.[0] ||
 				siblings[0].range?.[1] !== node.range?.[1]
 			) {
-				return { success: false, refs: { siblings } };
+				return { success: true, autoFixable: false, refs: { siblings } };
 			}
 			// Only report when every sibling is a p element
 			const siblingsMatch = siblings.every((child) => {
@@ -102,10 +109,10 @@ export const ParagraphElements = {
 				return ast.JSXElement.hasAllowedAttrsOnly(child, allowedAttrs);
 			});
 			if (!siblingsMatch) {
-				return { success: false, refs: { siblings } };
+				return { success: true, autoFixable: false, refs: { siblings } };
 			}
 		} else if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
-			return { success: false, refs: { siblings } };
+			return { success: true, autoFixable: false, refs: { siblings } };
 		}
 
 		const importDeclaration = ast.Root.findImportsByModule(
@@ -115,10 +122,10 @@ export const ParagraphElements = {
 
 		// If there is more than one `@atlaskit/primitives` import, then it becomes difficult to determine which import to transform
 		if (importDeclaration.length > 1) {
-			return { success: false, refs: { siblings } };
+			return { success: true, autoFixable: false, refs: { siblings } };
 		}
 
-		return { success: true, refs: { siblings } };
+		return { success: true, autoFixable: true, refs: { siblings } };
 	},
 
 	_fixSingle(

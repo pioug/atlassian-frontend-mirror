@@ -9,23 +9,19 @@ jest.mock('@atlaskit/media-client', () => {
 	};
 });
 import React from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import {
 	globalMediaEventEmitter,
 	type MediaViewedEventPayload,
 	type ProcessedFileState,
 } from '@atlaskit/media-client';
 import {
-	mountWithIntlContext,
 	fakeMediaClient,
 	expectFunctionToHaveBeenCalledWith,
-	nextTick,
-	sleep,
 	asMockFunction,
 } from '@atlaskit/media-test-helpers';
-import { Spinner } from '../../../../../loading';
 import { MediaViewerError } from '../../../../../errors';
-import { type BaseState } from '../../../../../viewers/base-viewer';
-import { type Content } from '../../../../../content';
 import { CodeViewer, type Props } from '../../../../../viewers/codeViewer/index';
 import { msgToText } from '../../../../../viewers/codeViewer/msg-parser';
 
@@ -53,17 +49,19 @@ function createFixture(
 				Promise.resolve('some-base-url/document?client=some-client-id&token=some-token'),
 		);
 
-	const el = mountWithIntlContext<Props, BaseState<Content>>(
-		<CodeViewer
-			item={codeItem}
-			mediaClient={mediaClient}
-			collectionName={collectionName}
-			onSuccess={onSuccess}
-			onError={onError}
-			{...props}
-		/>,
+	const el = render(
+		<IntlProvider locale="en">
+			<CodeViewer
+				item={codeItem}
+				mediaClient={mediaClient}
+				collectionName={collectionName}
+				onSuccess={onSuccess}
+				onError={onError}
+				{...props}
+			/>
+		</IntlProvider>,
 	);
-	(el as any).instance()['fetch'] = jest.fn();
+
 	return { mediaClient, el, onClose, onSuccess, onError };
 }
 
@@ -99,15 +97,6 @@ const emailItem: ProcessedFileState = {
 	representations: {},
 };
 
-const getSuccessDocument = async (item: ProcessedFileState) => {
-	const fetchPromise = Promise.resolve();
-	const { el } = createFixture(fetchPromise, item);
-	await nextTick();
-	await nextTick();
-	await nextTick();
-	return el;
-};
-
 describe('CodeViewer', () => {
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');
@@ -117,27 +106,16 @@ describe('CodeViewer', () => {
 		jest.restoreAllMocks();
 	});
 	it('assigns a document content when successful', async () => {
-		const el = await getSuccessDocument(codeItem);
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		expect(el.state().content.status).toEqual('SUCCESSFUL');
+		const fetchPromise = Promise.resolve();
+		createFixture(fetchPromise, codeItem);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+		expect(screen.getByTestId('code-block')).toBeInTheDocument();
 	});
 
 	it('triggers media-viewed when successful', async () => {
-		await getSuccessDocument(codeItem);
-		// TODO: clean up these awaits, figure out how to express better...
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await nextTick();
+		const fetchPromise = Promise.resolve();
+		createFixture(fetchPromise, codeItem);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 
 		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
 		expectFunctionToHaveBeenCalledWith(globalMediaEventEmitter.emit, [
@@ -150,18 +128,18 @@ describe('CodeViewer', () => {
 	});
 
 	it('shows an indicator while loading', async () => {
-		const fetchPromise = new Promise(() => {});
-		const { el } = createFixture(fetchPromise, codeItem);
-		await (el as any).instance()['init']();
+		const fetchPromise = Promise.resolve();
+		createFixture(fetchPromise, codeItem);
 
-		expect(el.find(Spinner)).toHaveLength(1);
+		expect(screen.queryByLabelText('Loading file...')).toBeInTheDocument();
 	});
 
 	it('MSW-720: passes collectionName to getFileBinaryURL', async () => {
 		const collectionName = 'some-collection';
 		const fetchPromise = Promise.resolve();
-		const { el, mediaClient } = createFixture(fetchPromise, codeItem, collectionName);
-		await (el as any).instance()['init']();
+		const { mediaClient } = createFixture(fetchPromise, codeItem, collectionName);
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+
 		expect((mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0][1]).toEqual(
 			collectionName,
 		);
@@ -170,23 +148,14 @@ describe('CodeViewer', () => {
 	it('should call onError when an error happens', async () => {
 		const error = new MediaViewerError('codeviewer-fetch-src');
 		const fetchPromise = Promise.resolve();
-		const { el, onError } = createFixture(fetchPromise, codeItem, undefined, Promise.reject(error));
-		await (el as any).instance()['init']();
-		expect(onError).toBeCalledWith(error);
+		const { onError } = createFixture(fetchPromise, codeItem, undefined, Promise.reject(error));
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
+
+		expect(onError).toHaveBeenCalledWith(error);
 	});
 });
 
 describe('EmailViewer', () => {
-	const getDocument = async (item: ProcessedFileState) => {
-		const fetchPromise = Promise.resolve();
-		const { el } = createFixture(fetchPromise, item);
-		await nextTick();
-		await nextTick();
-		await nextTick();
-		await sleep(50);
-		return el;
-	};
-
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');
 	});
@@ -200,13 +169,22 @@ describe('EmailViewer', () => {
 			asMockFunction(msgToText).mockImplementation(() => {
 				return { error: 'error message here' };
 			});
-			await getDocument(emailItem);
+			const fetchPromise = Promise.resolve();
+			createFixture(fetchPromise, emailItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
 			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(0);
 		});
 
 		it('assign preview failed content', async () => {
-			const el = await getDocument(emailItem);
-			expect(el.state().content.status).toEqual('FAILED');
+			const fetchPromise = Promise.resolve();
+			createFixture(fetchPromise, emailItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+			expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
 		});
 	});
 
@@ -215,13 +193,21 @@ describe('EmailViewer', () => {
 			asMockFunction(msgToText).mockImplementation(() => {
 				return 'sample email message here';
 			});
-			await getDocument(emailItem);
+			const fetchPromise = Promise.resolve();
+			createFixture(fetchPromise, emailItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
 			expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
 		});
 
 		it('assign successful content', async () => {
-			const el = await getDocument(emailItem);
-			expect(el.state().content.status).toEqual('SUCCESSFUL');
+			const fetchPromise = Promise.resolve();
+			createFixture(fetchPromise, emailItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+			expect(screen.getByText('sample email message here')).toBeInTheDocument();
 		});
 	});
 

@@ -26,7 +26,12 @@ import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
-import { handleMouseOut, isTableInFocus } from '../event-handlers';
+import {
+	handleMouseOut,
+	handleMouseOver,
+	isTableInFocus,
+	withCellTracking,
+} from '../event-handlers';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers';
@@ -194,6 +199,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		return handleMouseOut(this.props.view, event);
 	};
 
+	private handleMouseOver = (event: Event) => {
+		if (!isTableInFocus(this.props.view)) {
+			return false;
+		}
+		return withCellTracking(handleMouseOver)(this.props.view, event);
+	};
+
 	componentDidMount() {
 		const {
 			allowColumnResizing,
@@ -214,6 +226,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 		if (fg('editor_react_18_fix_table_delete_col_decorations')) {
 			this?.table?.addEventListener('mouseout', this.handleMouseOut);
+		}
+		if (fg('platform_editor_react_18_table_column_resize_hover')) {
+			this?.table?.addEventListener('mouseover', this.handleMouseOver);
 		}
 
 		const { tableWithFixedColumnWidthsOption = false, stickyScrollbar } = getEditorFeatureFlags();
@@ -321,6 +336,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 		if (fg('editor_react_18_fix_table_delete_col_decorations')) {
 			this?.table?.removeEventListener('mouseout', this.handleMouseOut);
+		}
+		if (fg('platform_editor_react_18_table_column_resize_hover')) {
+			this?.table?.removeEventListener('mouseover', this.handleMouseOver);
 		}
 
 		if (this.overflowShadowsObserver) {

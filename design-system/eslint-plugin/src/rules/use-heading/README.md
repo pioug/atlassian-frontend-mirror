@@ -30,5 +30,8 @@ instances that are the first child of their siblings.
 
 ## Options
 
-`enableUnsafeAutofix`: Rule creates errors with autofixes instead of suggestions. Defaults to
+`enableUnsafeAutofix`: Rule reports errors with autofixes instead of suggestions. Defaults to
+`false`.
+
+`enableUnsafeReport`: Rule reports errors for native elements that are not autofixable. Defaults to
 `false`.

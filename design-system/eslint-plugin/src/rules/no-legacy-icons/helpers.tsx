@@ -166,11 +166,11 @@ export const createGuidance = (
  * @returns True if the color can be migrated, false otherwise
  */
 export const canMigrateColor = (color: string) => {
-	if (color.match(/^color\.text$/)) {
-		return true;
-	} else if (color.match(/^color\.icon/)) {
+	if (color.match(/^color\.icon/)) {
 		return true;
 	} else if (color.match(/^color\.link/)) {
+		return true;
+	} else if (color.match(/^color\.text/)) {
 		return true;
 	} else if (color === 'currentColor') {
 		return true;

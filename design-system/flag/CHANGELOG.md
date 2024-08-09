@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 15.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.7.4
 
 ### Patch Changes

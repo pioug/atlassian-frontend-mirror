@@ -147,6 +147,9 @@ export enum ACTION {
 	UPDATE_PARAMETERS = 'updateParameters',
 	GET_CHILDERN = 'getChildern',
 	MOVED = 'moved',
+	UPLOAD_COMMENCED = 'uploadCommenced',
+	UPLOAD_SUCCEEDED = 'uploadSucceeded',
+	UPLOAD_FAILED = 'uploadFailed',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
 }
 
@@ -379,6 +382,7 @@ export enum ACTION_SUBJECT_ID {
 	ON_UNSUPPORTED_INLINE = 'onUnsupportedInline',
 	ON_UNSUPPORTED_BLOCK = 'onUnsupportedBlock',
 	MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
+	UPLOAD_MEDIA_FROM_URL = 'uploadMediaFromUrl',
 }
 
 export enum FLOATING_CONTROLS_TITLE {

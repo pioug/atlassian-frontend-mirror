@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.5.0",
+		"@atlaskit/editor-common": "^87.6.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/tokens": "^1.57.0",
 		"@babel/runtime": "^7.0.0",

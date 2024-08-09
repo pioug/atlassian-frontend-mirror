@@ -1,5 +1,18 @@
 # @atlaskit/avatar-group
 
+## 9.10.0
+
+### Minor Changes
+
+- [#128333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128333)
+  [`e8ee91f820e6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8ee91f820e6f) -
+  Refactors the way focus-rings are applied to avatars and avatar-groups in relation to custom
+  border colors.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.9.1
 
 ### Patch Changes

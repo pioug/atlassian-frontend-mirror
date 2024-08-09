@@ -56,7 +56,7 @@
 		"@atlaskit/form": "^10.4.0",
 		"@atlaskit/media-state": "^1.1.0",
 		"@atlaskit/media-test-data": "^2.4.0",
-		"@atlaskit/primitives": "^11.1.0",
+		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/range": "^7.3.0",
 		"@atlaskit/section-message": "^6.5.0",
 		"@atlaskit/select": "^17.12.0",

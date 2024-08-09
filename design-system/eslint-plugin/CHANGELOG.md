@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.13.0
+
+### Minor Changes
+
+- [#128427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128427)
+  [`ade1e717764e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ade1e717764e2) -
+  Update no-legacy-icons eslint rule following changes to color prop of new icon components
+
+### Patch Changes
+
+- [#127303](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127303)
+  [`8c7d9e510fc2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c7d9e510fc2a) -
+  New rule config option `enableUnsafeReport` for `use-primitives-text` and `use-heading` to enable
+  error reporting for native typography elements that are not autofixable.
+- Updated dependencies
+
 ## 10.12.5
 
 ### Patch Changes

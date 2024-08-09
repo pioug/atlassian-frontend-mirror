@@ -29,7 +29,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert as pmSafeInsert, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaState } from '../types';
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
@@ -343,9 +343,7 @@ export const createMediaSingleNode =
 
 		const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
 
-		const extendedMediaSingleAttrs = getBooleanFF(
-			'platform.editor.media.extended-resize-experience',
-		)
+		const extendedMediaSingleAttrs = fg('platform.editor.media.extended-resize-experience')
 			? {
 					...mediaSingleAttrs,
 					width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
@@ -371,9 +369,7 @@ const replaceWithMediaSingleNode =
 			mediaNode.marks,
 		);
 
-		const extendedMediaSingleAttrs = getBooleanFF(
-			'platform.editor.media.extended-resize-experience',
-		)
+		const extendedMediaSingleAttrs = fg('platform.editor.media.extended-resize-experience')
 			? {
 					width: getMediaSingleInitialWidth(width, maxWidth, minWidth),
 					widthType: 'pixel',

@@ -1,5 +1,20 @@
 # @atlaskit/rovo-agent-components
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.1.3
+
+### Patch Changes
+
+- [#128206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128206)
+  [`e1d80191eb460`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1d80191eb460) -
+  Adding generated avatar for agent, moving AgentAvatar to rovo-agent-components package
+- Updated dependencies
+
 ## 0.1.2
 
 ### Patch Changes

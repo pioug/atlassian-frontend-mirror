@@ -58,23 +58,18 @@ export const camelCaseToKebabCase = (str: string) =>
  */
 export const getAttrsFromNodeMediaSingle = (withExtendedWidthTypes: boolean, node: PMNode) => {
 	const { layout, width } = node.attrs;
-	const attrs = {
+	const attrs: Record<string, string> = {
 		'data-node-type': 'mediaSingle',
 		'data-layout': layout,
-		'data-width': '',
 	};
 
 	if (width) {
 		attrs['data-width'] = isFinite(width) && Math.floor(width) === width ? width : width.toFixed(2);
 	}
 
-	if (withExtendedWidthTypes && node.attrs.widthType) {
-		const { widthType } = node.attrs;
-		return {
-			...attrs,
-			'data-width-type': widthType || 'percentage',
-		};
-	}
-
-	return attrs;
+	const { widthType } = node.attrs;
+	return {
+		...attrs,
+		'data-width-type': widthType || 'percentage',
+	};
 };

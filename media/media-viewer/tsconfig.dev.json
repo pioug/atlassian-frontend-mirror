@@ -49,9 +49,6 @@
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/code/tsconfig.app.json"
-		},
-		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{

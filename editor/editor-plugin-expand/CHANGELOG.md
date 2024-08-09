@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.3.0
+
+### Minor Changes
+
+- [#128347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128347)
+  [`e33566cebd5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e33566cebd5d1) -
+  [ED-24175] bump @atlaskit/adf-schema to 40.8.1 and @atlassian/adf-schema-json to 1.22.0 to
+  promotecodeblocks & media in quotes, and nested expands in expands to full schema, and allow
+  quotes in panels and decisions in lists in stage0 schema, and a validator spec change
+- [#128333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128333)
+  [`4ad86751ab1d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ad86751ab1d7) -
+  [ED-24505] Implement onClick handler for Turn into dropdown options and update relevant insertion
+  analytics with inputMethod: floatingToolbar when an element is inserted via the dropdown
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

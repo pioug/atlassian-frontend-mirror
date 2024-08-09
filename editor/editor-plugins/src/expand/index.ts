@@ -4,4 +4,5 @@ export type {
 	ExpandPlugin,
 	ExpandPluginState,
 	ExpandPluginOptions,
+	InsertMethod,
 } from '@atlaskit/editor-plugin-expand';

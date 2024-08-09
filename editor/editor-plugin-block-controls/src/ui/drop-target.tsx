@@ -77,19 +77,15 @@ const styleDropIndicator = css({
 	position: 'relative',
 });
 
-export const DropTarget = ({
-	api,
-	id,
-	prevNode,
-	nextNode,
-	formatMessage,
-}: {
+export type DropTargetProps = {
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
 	id: number;
 	prevNode?: PMNode;
 	nextNode?: PMNode;
 	formatMessage?: IntlShape['formatMessage'];
-}) => {
+};
+
+export const DropTarget = ({ api, id, prevNode, nextNode, formatMessage }: DropTargetProps) => {
 	const ref = useRef(null);
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 

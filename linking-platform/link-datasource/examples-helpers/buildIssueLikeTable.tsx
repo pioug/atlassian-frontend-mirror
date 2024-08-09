@@ -70,7 +70,13 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true, canControlWrapping =
 		onColumnResize,
 		wrappedColumnKeys,
 		onWrappedColumnChange,
-	} = useCommonTableProps();
+	} = useCommonTableProps({
+		defaultColumnCustomSizes: {
+			summary: 180,
+			link: 350,
+			labels: 100,
+		},
+	});
 
 	useEffect(() => {
 		if (visibleColumnKeys.length === 0 && defaultVisibleColumnKeys.length > 0) {
@@ -108,7 +114,6 @@ export const ExampleIssueLikeTable = ({
 	isReadonly,
 	canResizeColumns,
 	canControlWrapping,
-	skipIntl,
 }: Props) => {
 	return (
 		<DatasourceExperienceIdProvider>

@@ -142,7 +142,7 @@ describe('ImageViewer', () => {
 		expect(onLoaded).not.toHaveBeenCalled();
 	});
 
-	it('cancels an image fetch request when unmounted', () => {
+	it('cancels an image fetch request when unmounted', async () => {
 		const abort = jest.fn();
 		class FakeAbortController {
 			abort = abort;
@@ -156,7 +156,7 @@ describe('ImageViewer', () => {
 
 		component.unmount();
 
-		waitFor(() => {
+		await waitFor(() => {
 			expect(abort).toHaveBeenCalled();
 		});
 	});
@@ -167,9 +167,11 @@ describe('ImageViewer', () => {
 		const response = Promise.resolve(new Blob());
 		const { component } = setup(response);
 
+		// make sure unmount happens after loading finish
+		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
 		component.unmount();
 
-		waitFor(() => {
+		await waitFor(() => {
 			expect(URL.revokeObjectURL).toHaveBeenCalled();
 		});
 	});
@@ -236,8 +238,6 @@ describe('ImageViewer', () => {
 		});
 
 		await waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-
-		screen.debug();
 
 		const imageElm = screen.getByTestId('media-viewer-image');
 		expect(imageElm.getAttribute('src')).toBe(

@@ -21,6 +21,7 @@ export default () => {
 	} = useCommonTableProps({
 		defaultColumnCustomSizes: {
 			people: 100,
+			summary: 200,
 		},
 	});
 

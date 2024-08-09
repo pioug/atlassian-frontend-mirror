@@ -32,9 +32,8 @@ Date picker is commonly used in [forms](/patterns/forms).
 
 ## Accessibility
 
-- If using a field with a label other than "Date", use `datePickerSelectProps` to pass the
-  `aria-label` prop. Assistive technologies will announce these along with the label from the field
-  component when activated.
+- If using a field with a label other than "Date", use the `label` prop. Assistive technologies will
+  announce these along with the label from the field component when activated.
 - Allow multiple modes of data entry. Some users prefer entering date and time information by typing
   instead of selection, especially keyboard users.
 - If some dates are `disabled`, provide accurate validation and error messaging for keyboard users,

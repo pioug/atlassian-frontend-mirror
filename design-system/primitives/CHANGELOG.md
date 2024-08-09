@@ -1,5 +1,67 @@
 # @atlaskit/primitives
 
+## 12.0.0
+
+### Major Changes
+
+- [#128232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128232)
+  [`c97dfe9e5b27d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c97dfe9e5b27d) -
+  Box no longer supports usage as an anchor tag (`<a>`). Use
+  [the Anchor primitive](https://atlassian.design/components/primitives/anchor/examples) instead,
+  which is more specialized. This has benefits including:
+
+  - Built-in event tracking support
+  - Default text underlines
+  - Automatic router link configuration from `@atlaskit/app-provider`
+  - Built-in accessible focus styles
+  - Warning screen-readers when links open in new windows
+
+  **Migrating to Anchor**
+
+  - First consider if another ADS link component such as `@atlaskit/link` is better suited rather
+    than building a custom anchor.
+  - Anchor has focus ring styles built-in, so remove existing styles including
+    `@atlaskit/focus-ring`.
+  - Anchor has a default cursor (`cursor: pointer`), so existing styles can be removed.
+  - Anchor has a default link underline, so an existing style can be removed.
+
+  **Before migration**
+
+  ```tsx
+  import { Box, xcss } from '@atlaskit/primitives';
+  import FocusRing from '@atlaskit/focus-ring';
+
+  const anchorStyles = xcss({
+  	cursor: 'pointer',
+  	color: 'color.link',
+  	textDecoration: 'underline',
+  });
+
+  const MyApp = () => (
+  	<FocusRing>
+  		<Box as="a" href="/foo" xcss={anchorStyles}>
+  			Hello
+  		</Box>
+  	</FocusRing>
+  );
+  ```
+
+  **After migration**
+
+  ```tsx
+  import { Anchor, xcss } from '@atlaskit/primitives';
+
+  const anchorStyles = xcss({
+  	color: 'color.link',
+  });
+
+  const MyApp = () => (
+  	<Anchor href="/foo" xcss={anchorStyles}>
+  		Hello
+  	</Anchor>
+  );
+  ```
+
 ## 11.1.2
 
 ### Patch Changes

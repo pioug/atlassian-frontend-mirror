@@ -13,6 +13,7 @@ export interface RuleConfig {
 	patterns: Pattern[];
 	inheritColor: boolean;
 	enableUnsafeAutofix: boolean;
+	enableUnsafeReport: boolean;
 }
 
 const defaults: RuleConfig = {
@@ -20,6 +21,7 @@ const defaults: RuleConfig = {
 	patterns: ['paragraph-elements', 'span-elements', 'strong-elements', 'emphasis-elements'],
 	inheritColor: false,
 	enableUnsafeAutofix: false,
+	enableUnsafeReport: false,
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

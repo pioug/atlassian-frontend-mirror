@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-panel",
-	"version": "2.2.1",
+	"version": "2.3.0",
 	"description": "Panel plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,15 +36,15 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.3.0",
-		"@atlaskit/editor-common": "^87.5.0",
+		"@atlaskit/adf-schema": "^40.8.1",
+		"@atlaskit/editor-common": "^87.6.0",
 		"@atlaskit/editor-palette": "1.6.0",
-		"@atlaskit/editor-plugin-analytics": "^1.6.0",
+		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
-		"@atlaskit/icon": "^22.10.0",
+		"@atlaskit/icon": "^22.11.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@babel/runtime": "^7.0.0"
 	},

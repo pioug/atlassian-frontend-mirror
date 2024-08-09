@@ -62,7 +62,7 @@ import {
 	mediaStore,
 } from '@atlaskit/media-state';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -404,10 +404,7 @@ export class FileFetcherImpl implements FileFetcher {
 		if (content instanceof Blob) {
 			size = content.size;
 			mimeType = content.type;
-			if (
-				isMimeTypeSupportedByBrowser(content.type) ||
-				getBooleanFF('platform.media-svg-rendering')
-			) {
+			if (isMimeTypeSupportedByBrowser(content.type) || fg('platform.media-svg-rendering')) {
 				preview = {
 					value: content,
 					origin: 'local',

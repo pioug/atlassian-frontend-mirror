@@ -16,6 +16,8 @@ const JQLEditor = lazyForPaint<ComponentType<JQLEditorUIProps>>(
 	{ ssr: false },
 );
 
+export const preloadJQLEditor = () => JQLEditor.preload();
+
 export const JQLEditorAsync = withIntlProvider<JQLEditorProps>(
 	withErrorBoundary<JQLEditorUIProps>((props: JQLEditorUIProps) => {
 		return (

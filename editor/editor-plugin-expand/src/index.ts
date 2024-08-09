@@ -1,2 +1,2 @@
-export type { ExpandPlugin, ExpandPluginState, ExpandPluginOptions } from './types';
+export type { ExpandPlugin, ExpandPluginState, ExpandPluginOptions, InsertMethod } from './types';
 export { expandPlugin } from './plugin';

@@ -371,7 +371,9 @@ export const createPlugin = (
 				focus: handleFocus,
 				blur: handleBlur,
 				mousedown: withCellTracking(handleMouseDown),
-				mouseover: withCellTracking(whenTableInFocus(handleMouseOver)),
+				mouseover: fg('platform_editor_react_18_table_column_resize_hover')
+					? undefined
+					: withCellTracking(whenTableInFocus(handleMouseOver)),
 				mouseleave: handleMouseLeave,
 				mouseout: fg('editor_react_18_fix_table_delete_col_decorations')
 					? undefined

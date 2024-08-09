@@ -22,8 +22,9 @@ import { type CSSInterpolation } from '@emotion/serialize';
 import { useUIDSeed } from 'react-uid';
 
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import FocusRing from '@atlaskit/focus-ring';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B300, N0, N70A } from '@atlaskit/theme/colors';
+import { N0, N70A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import AvatarImage from './AvatarImage';
@@ -43,6 +44,9 @@ import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+const getTestId = (testId?: string, children?: AvatarPropTypes['children']) =>
+	!children ? { 'data-testid': `${testId}--inner` } : { testId: `${testId}--inner` };
 
 export interface CustomAvatarProps {
 	/**
@@ -213,16 +217,15 @@ const getStyles = (
 			width: 100%;
 		}
 
+		:focus {
+			box-shadow: none;
+		}
+
 		${stackIndex && `position: relative;`}
 
 		${isInteractive &&
 		`
       cursor: pointer;
-
-      :focus {
-        outline: none;
-        box-shadow: 0 0 0 ${BORDER_WIDTH}px ${token('color.border.focused', B300)}
-      }
 
       :hover {
         &::after {
@@ -350,9 +353,6 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 			[createAnalyticsEvent, isDisabled, onClick],
 		);
 
-		const getTestId = (testId?: string, children?: AvatarPropTypes['children']) =>
-			!children ? { 'data-testid': `${testId}--inner` } : { testId: `${testId}--inner` };
-
 		const componentProps = () => {
 			if (isDisabled) {
 				return { disabled: true };
@@ -427,9 +427,17 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 							ref,
 						};
 
-						return children
-							? children(props)
-							: createElement(getCustomElement(isDisabled, href, onClick), props);
+						if (children) {
+							return children(props);
+						}
+
+						const element = getCustomElement(isDisabled, href, onClick);
+
+						return element === 'a' || element === 'button' ? (
+							<FocusRing>{createElement(element, props)}</FocusRing>
+						) : (
+							createElement(element, props)
+						);
 					}}
 				</ClassNames>
 				{isPresence && (

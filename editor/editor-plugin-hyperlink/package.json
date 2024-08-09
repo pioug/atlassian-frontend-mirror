@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "2.7.6",
+	"version": "2.8.2",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,14 +35,14 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.3.0",
+		"@atlaskit/adf-schema": "^40.8.1",
 		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/editor-common": "^87.5.0",
-		"@atlaskit/editor-plugin-analytics": "^1.6.0",
-		"@atlaskit/editor-plugin-card": "2.9.6",
+		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/editor-plugin-analytics": "^1.7.0",
+		"@atlaskit/editor-plugin-card": "2.11.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
-		"@atlaskit/icon": "^22.10.0",
+		"@atlaskit/icon": "^22.11.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -55,7 +55,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity-provider": "^2.4.0",
-		"@atlaskit/link-test-helpers": "^7.2.0",
+		"@atlaskit/link-test-helpers": "^7.3.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/util-data-test": "^17.9.0",

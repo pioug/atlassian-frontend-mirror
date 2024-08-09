@@ -1,5 +1,5 @@
 export { default as JQLEditor } from './ui';
-export { JQLEditorAsync } from './async';
+export { JQLEditorAsync, preloadJQLEditor } from './async';
 export { JQLEditorReadOnly } from './ui/jql-editor-layout';
 export {
 	JQLEditorAnalyticsListener,

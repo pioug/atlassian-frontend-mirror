@@ -57,6 +57,9 @@
       "path": "../../../design-system/image/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/inline-edit/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../helpers/intl-messages-provider/afm-post-office/tsconfig.json"
     },
     {

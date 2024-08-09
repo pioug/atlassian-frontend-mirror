@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 13.5.0
+
+### Minor Changes
+
+- [#126900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126900)
+  [`b2642337ea44b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2642337ea44b) -
+  update owner team
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.4.2
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { getAttrsFromNodeMediaSingle, getMediaAttrs } from './toDOMAttrs';
+import { getAttrsFromNodeMediaSingle } from './toDOMAttrs';
 
 const skeletonStyling = `background: ${token('color.background.neutral')}; outline: none;`;
 
@@ -146,8 +146,6 @@ export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 			const mediaSingleWidth = mediaSingleAttrs?.width;
 			const widthType = mediaSingleAttrs?.widthType;
 			const dataAttrs = getAttrsFromNodeMediaSingle(mediaSingleOption.withExtendedWidthTypes, node);
-			const mediaAttrs =
-				childNode?.type?.name === 'media' ? getMediaAttrs('media', childNode) : undefined;
 
 			const { width, height } = computeMediaSingleDimensions({
 				childNode,
@@ -159,33 +157,31 @@ export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 
 			const style = `display: block; margin-top: ${token('space.300', '24px')}; margin-bottom: ${token('space.300', '24px')}; ${layoutStyles}`;
 
-			if (childNode?.attrs.type === 'external') {
-				return [
-					'div',
-					dataAttrs,
-					[
-						'img',
-						{
-							...mediaAttrs,
-							src: childNode.attrs.url,
-							style,
-						},
-					],
-				];
-			}
-
-			return [
+			const content = [
 				'div',
-				dataAttrs,
+
+				{
+					class: 'rich-media-item mediaSingleView-content-wrap image-center',
+					...dataAttrs,
+				},
 				[
 					'div',
 					{
-						...mediaAttrs,
+						class: 'css-13f4nzt-MediaWrapper',
 						// Transparent image workaround to control styling
 						style: `width: ${width}px; height: ${height}px; ${style} ${skeletonStyling} border-radius: ${token('border.radius', '3px')};`,
 					},
+					[
+						'figure',
+						{
+							class: 'media-single-node',
+						},
+						['div', {}, ['div', { class: 'media-content-wrap' }, 0]],
+					],
 				],
 			];
+
+			return ['div', { class: 'mediaSingleView-content-wrap' }, content];
 		},
 	};
 };

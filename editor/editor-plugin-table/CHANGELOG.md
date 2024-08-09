@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.2
+
+### Patch Changes
+
+- [#128275](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128275)
+  [`aa76c0502c05d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa76c0502c05d) -
+  Fixes an issue where the cursor doesn't appear within a table upon insertion in react 18
+
+## 7.25.1
+
+### Patch Changes
+
+- [#128458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128458)
+  [`26e17a7d801e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26e17a7d801e4) -
+  ED-24514 Added ignore mutation for lazy node view
+- [#128458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128458)
+  [`f372e089c10cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f372e089c10cf) -
+  Fix an issue where hovering over the column divider does not show the blue hover decoration in
+  React 18
+- Updated dependencies
+
+## 7.25.0
+
+### Minor Changes
+
+- [#128347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128347)
+  [`e33566cebd5d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e33566cebd5d1) -
+  [ED-24175] bump @atlaskit/adf-schema to 40.8.1 and @atlassian/adf-schema-json to 1.22.0 to
+  promotecodeblocks & media in quotes, and nested expands in expands to full schema, and allow
+  quotes in panels and decisions in lists in stage0 schema, and a validator spec change
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.24.8
 
 ### Patch Changes

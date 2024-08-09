@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.24.8",
+	"version": "7.25.2",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,14 +28,14 @@
 		"runReact18": false
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.3.0",
+		"@atlaskit/adf-schema": "^40.8.1",
 		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/custom-steps": "^0.6.0",
-		"@atlaskit/editor-common": "^87.5.0",
+		"@atlaskit/custom-steps": "^0.7.0",
+		"@atlaskit/editor-common": "^87.6.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
-		"@atlaskit/editor-plugin-analytics": "^1.6.0",
-		"@atlaskit/editor-plugin-content-insertion": "^1.6.0",
+		"@atlaskit/editor-plugin-analytics": "^1.7.0",
+		"@atlaskit/editor-plugin-content-insertion": "^1.7.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
 		"@atlaskit/editor-plugin-selection": "^1.3.0",
@@ -43,13 +43,13 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^22.10.0",
+		"@atlaskit/icon": "^22.11.0",
 		"@atlaskit/menu": "^2.10.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/pragmatic-drag-and-drop": "^1.2.0",
+		"@atlaskit/pragmatic-drag-and-drop": "^1.3.0",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.4.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-		"@atlaskit/primitives": "^11.1.0",
+		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/toggle": "^13.2.0",
 		"@atlaskit/tokens": "^1.57.0",
@@ -133,6 +133,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_announce_cell_options_hotkeys": {
+			"type": "boolean"
+		},
+		"platform_editor_react_18_table_column_resize_hover": {
+			"type": "boolean"
+		},
+		"platform_editor_react_18_table_insertion_cursor": {
 			"type": "boolean"
 		}
 	}

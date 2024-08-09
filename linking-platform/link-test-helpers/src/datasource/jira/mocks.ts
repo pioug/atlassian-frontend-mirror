@@ -34,6 +34,11 @@ const columns: DatasourceResponseSchemaProperty[] = [
 	{
 		key: 'summary',
 		title: 'Summary',
+		type: 'string',
+	},
+	{
+		key: 'link',
+		title: 'Link',
 		type: 'link',
 	},
 	{
@@ -239,7 +244,7 @@ const buildDataResponse = ({
 						},
 					},
 					description: idx % 2 === 0 ? adfSample : adfTableSample,
-					summary: {
+					link: {
 						data: {
 							url:
 								idx === 0
@@ -259,6 +264,9 @@ const buildDataResponse = ({
 														: item.link,
 							text: idx % 2 === 1 && idx > 10 ? `[${cloudId}] ${item.summary}` : undefined,
 						},
+					},
+					summary: {
+						data: item.summary,
 					},
 					assignee: {
 						data: {

@@ -1545,7 +1545,7 @@ describe('providers > editor', () => {
 		});
 	});
 
-	describe.each<[string, string]>([
+	it.each<[string, string]>([
 		['Jira Dashboard', 'https://product-fabric.atlassian.net/jira/dashboards/15429'],
 		['Jira Dashboard embed', 'https://product-fabric.atlassian.net/jira/dashboards/15429/embed'],
 		[

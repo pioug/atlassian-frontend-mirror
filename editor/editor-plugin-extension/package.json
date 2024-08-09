@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-extension",
-	"version": "1.12.4",
+	"version": "1.13.1",
 	"description": "editor-plugin-extension plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -27,16 +27,16 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.3.0",
-		"@atlaskit/adf-utils": "^19.6.0",
+		"@atlaskit/adf-schema": "^40.8.1",
+		"@atlaskit/adf-utils": "^19.7.0",
 		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/avatar": "^21.12.0",
+		"@atlaskit/avatar": "^21.13.0",
 		"@atlaskit/button": "^19.1.0",
 		"@atlaskit/checkbox": "^13.6.0",
 		"@atlaskit/datetime-picker": "^13.8.0",
-		"@atlaskit/editor-common": "^87.5.0",
-		"@atlaskit/editor-json-transformer": "^8.17.0",
-		"@atlaskit/editor-plugin-analytics": "^1.6.0",
+		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/editor-json-transformer": "^8.18.0",
+		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-context-identifier": "^1.2.0",
 		"@atlaskit/editor-plugin-context-panel": "^1.2.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
@@ -47,9 +47,9 @@
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/empty-state": "^7.10.0",
 		"@atlaskit/form": "^10.4.0",
-		"@atlaskit/icon": "^22.10.0",
+		"@atlaskit/icon": "^22.11.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^11.1.0",
+		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/radio": "^6.4.0",
 		"@atlaskit/section-message": "^6.5.0",
 		"@atlaskit/select": "^17.12.0",
@@ -75,7 +75,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^18.29.0",
+		"@atlaskit/editor-test-helpers": "^18.30.0",
 		"react-select": "^5.4.0",
 		"typescript": "~5.4.2"
 	},

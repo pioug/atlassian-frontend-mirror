@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugins
 
+## 3.6.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.18
+
+### Patch Changes
+
+- [#128527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128527)
+  [`e9e003a733b63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9e003a733b63) -
+  Add media upload from URL and associated i18n, analytics and test packages
+- Updated dependencies
+
 ## 3.6.17
 
 ### Patch Changes

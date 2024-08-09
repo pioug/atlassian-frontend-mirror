@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "2.9.6",
+	"version": "2.11.0",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -11,7 +11,7 @@
 		"team": "Linking Platform",
 		"singleton": true,
 		"releaseModel": "continuous",
-		"runReact18": false
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -35,11 +35,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^40.3.0",
+		"@atlaskit/adf-schema": "^40.8.1",
 		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/custom-steps": "^0.6.0",
-		"@atlaskit/editor-common": "^87.5.0",
-		"@atlaskit/editor-plugin-analytics": "^1.6.0",
+		"@atlaskit/custom-steps": "^0.7.0",
+		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
@@ -50,15 +50,15 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
-		"@atlaskit/icon": "^22.10.0",
+		"@atlaskit/icon": "^22.11.0",
 		"@atlaskit/link-analytics": "^8.4.0",
-		"@atlaskit/link-client-extension": "^1.13.0",
-		"@atlaskit/link-datasource": "^2.9.0",
+		"@atlaskit/link-client-extension": "^2.0.0",
+		"@atlaskit/link-datasource": "^2.10.0",
 		"@atlaskit/linking-common": "^5.9.0",
-		"@atlaskit/linking-types": "^8.13.0",
-		"@atlaskit/menu": "2.10.0",
+		"@atlaskit/linking-types": "^9.0.0",
+		"@atlaskit/menu": "2.10.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^11.1.0",
+		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/smart-card": "^27.13.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",
@@ -70,7 +70,7 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "^1.14.0",
-		"react": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

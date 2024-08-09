@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.8.2
+
+### Patch Changes
+
+- [#128333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128333)
+  [`4ad86751ab1d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ad86751ab1d7) -
+  [ED-24505] Implement onClick handler for Turn into dropdown options and update relevant insertion
+  analytics with inputMethod: floatingToolbar when an element is inserted via the dropdown
+- Updated dependencies
+
 ## 1.8.1
 
 ### Patch Changes

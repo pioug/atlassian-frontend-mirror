@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/banner",
-	"version": "12.4.5",
+	"version": "12.4.6",
 	"description": "A banner displays a prominent message at the top of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^11.1.0",
+		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/theme": "^12.11.0",
 		"@atlaskit/tokens": "^1.57.0",
 		"@babel/runtime": "^7.0.0",
@@ -55,7 +55,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/icon": "^22.10.0",
+		"@atlaskit/icon": "^22.11.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/react-test-renderer": "^16.8.1",

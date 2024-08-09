@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 4.5.0
+
+### Minor Changes
+
+- [`eeb0648b1667e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb0648b1667e) -
+  Exposing preload function of JQL Editor async package
+
 ## 4.4.1
 
 ### Patch Changes

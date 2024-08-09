@@ -1,3 +1,4 @@
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorAppearance,
 	LongPressSelectionPluginOptions,
@@ -10,7 +11,7 @@ import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabl
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { SelectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 
-import type { insertExpand } from './legacyExpand/commands';
+import type { insertExpand, insertExpandWithInputMethod } from './legacyExpand/commands';
 
 export interface ExpandPluginState {
 	expandRef?: HTMLDivElement | null;
@@ -22,6 +23,11 @@ export type ExpandPluginAction = {
 		ref?: HTMLDivElement | null;
 	};
 };
+
+export type InsertMethod =
+	| INPUT_METHOD.QUICK_INSERT
+	| INPUT_METHOD.INSERT_MENU
+	| INPUT_METHOD.FLOATING_TB;
 
 export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
 	allowInsertion?: boolean;
@@ -56,7 +62,14 @@ export type ExpandPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorDisabledPlugin>,
 		];
 		actions: {
+			/**
+			 * Insert an expand node and dispatch event with `insertMenu` inputMethod
+			 */
 			insertExpand: ReturnType<typeof insertExpand>;
+			/**
+			 * Insert an expand node and dispatch event with inputMethod specified
+			 */
+			insertExpandWithInputMethod: ReturnType<typeof insertExpandWithInputMethod>;
 		};
 	}
 >;

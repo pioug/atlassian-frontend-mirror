@@ -9,7 +9,7 @@ import type { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getRandomHex } from '@atlaskit/media-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  * Ensure correct layout in nested mode
@@ -28,9 +28,7 @@ export function transformSliceForMedia(slice: Slice, schema: Schema) {
 			)
 		) {
 			newSlice = mapSlice(newSlice, (node) => {
-				const extendedOrLegacyAttrs = getBooleanFF(
-					'platform.editor.media.extended-resize-experience',
-				)
+				const extendedOrLegacyAttrs = fg('platform.editor.media.extended-resize-experience')
 					? {
 							layout: node.attrs.layout,
 							widthType: node.attrs.widthType,
@@ -92,7 +90,7 @@ export const transformSliceToMediaSingleWithNewExperience = (slice: Slice, schem
 		// The duplication is in the following file:
 		// packages/editor/editor-plugin-ai/src/prebuilt/content-transformers/markdown-to-pm/markdown-transformer.ts
 		if (node.type === mediaSingle) {
-			return getBooleanFF('platform.editor.media.extended-resize-experience')
+			return fg('platform.editor.media.extended-resize-experience')
 				? mediaSingle.createChecked(
 						{
 							width: node.attrs.width || DEFAULT_IMAGE_WIDTH,

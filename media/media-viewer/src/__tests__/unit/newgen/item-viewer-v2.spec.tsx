@@ -341,7 +341,9 @@ describe('<ItemViewerV2 />', () => {
 			});
 		});
 
-		it('should trigger success event when the file is in processing state and the viewer loads successfully', async () => {
+		// TODO: The processItem intermediate state didn’t update correctly in React 18 RTL tests causing wasStatusProcessing is always false.
+		//  We need to investigate further and find a better way to mock the intermediate state.
+		it.skip('should trigger success event when the file is in processing state and the viewer loads successfully', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 
 			const { MockedMediaClientProvider, processItem } = createMockedMediaClientProvider({
@@ -400,20 +402,19 @@ describe('<ItemViewerV2 />', () => {
 				}),
 				expect.anything(),
 			);
-			// TODO: The processItem intermediate state didn’t update correctly in React 18 RTL tests causing wasStatusProcessing is always false.
-			//  We need to investigate further and find a better way to mock the intermediate state.
-			// expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
-			// 	fileAttributes: {
-			// 		fileId: identifier.id,
-			// 		fileMediatype: 'image',
-			// 		fileMimetype: 'image/png',
-			// 		fileSize: 41811,
-			// 	},
-			// 	fileStateFlags: {
-			// 		wasStatusUploading: false,
-			// 		wasStatusProcessing: true,
-			// 	},
-			// });
+
+			expect(mocksucceedMediaFileUfoExperience).toBeCalledWith({
+				fileAttributes: {
+					fileId: identifier.id,
+					fileMediatype: 'image',
+					fileMimetype: 'image/png',
+					fileSize: 41811,
+				},
+				fileStateFlags: {
+					wasStatusUploading: false,
+					wasStatusProcessing: true,
+				},
+			});
 		});
 
 		it('should fire load success when external image loads', async () => {

@@ -2,6 +2,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import BasicAvatar from '../../../examples/01-basicAvatar';
+import InteractiveAvatar from '../../../examples/09-basicAvatar-interactive';
 
 snapshot(BasicAvatar, {
 	drawsOutsideBounds: true,
@@ -34,4 +35,9 @@ snapshot(BasicAvatar, {
 	description: 'tooltip on hover',
 	states: [{ state: 'hovered', selector: { byTestId: 'avatar' } }],
 	drawsOutsideBounds: true,
+});
+
+snapshot(InteractiveAvatar, {
+	description: 'interactive avatar with focus-ring',
+	states: [{ state: 'focused', selector: { byTestId: 'avatar--inner' } }],
 });

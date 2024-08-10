@@ -16,11 +16,7 @@ const disabledDates = [
 const DatePickerDisabledExample = () => (
 	<>
 		<Label htmlFor="datepicker-disabled">Disabled Dates</Label>
-		<DatePicker
-			defaultValue="2020-12-15"
-			disabled={disabledDates}
-			selectProps={{ inputId: 'datepicker-disabled' }}
-		/>
+		<DatePicker defaultValue="2020-12-15" disabled={disabledDates} id="datepicker-disabled" />
 	</>
 );
 

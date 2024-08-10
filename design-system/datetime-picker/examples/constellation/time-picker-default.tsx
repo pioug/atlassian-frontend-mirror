@@ -7,11 +7,7 @@ import { TimePicker } from '../../src';
 const TimePickerDefaultExample = () => (
 	<>
 		<Label htmlFor="default-time-picker-example">Choose time</Label>
-		<TimePicker
-			selectProps={{
-				inputId: 'default-time-picker-example',
-			}}
-		/>
+		<TimePicker id="default-time-picker-example" />
 	</>
 );
 

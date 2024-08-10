@@ -11,9 +11,9 @@ export default () => {
 			<TimePicker
 				onChange={console.log}
 				testId="timepicker-1"
+				id="timepicker-1--input"
 				selectProps={{
 					classNamePrefix: 'timepicker-select',
-					inputId: 'timepicker-1--input',
 				}}
 			/>
 

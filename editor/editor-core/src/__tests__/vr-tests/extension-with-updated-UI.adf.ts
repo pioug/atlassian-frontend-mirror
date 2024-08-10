@@ -91,7 +91,12 @@ export const bodiedExtensionWithParagraphAboveNodeAdf: DocNode = {
 			content: [
 				{
 					type: 'paragraph',
-					content: [],
+					content: [
+						{
+							type: 'text',
+							text: 'Hello world!',
+						},
+					],
 				},
 			],
 		},
@@ -125,7 +130,12 @@ export const bodiedExtensionWithSmartLinkAdf: DocNode = {
 			content: [
 				{
 					type: 'paragraph',
-					content: [],
+					content: [
+						{
+							type: 'text',
+							text: 'Hello world!',
+						},
+					],
 				},
 			],
 		},
@@ -306,7 +316,12 @@ export const bodiedExtensionWithLayoutElement: DocNode = {
 			content: [
 				{
 					type: 'paragraph',
-					content: [],
+					content: [
+						{
+							type: 'text',
+							text: 'Hello world!',
+						},
+					],
 				},
 			],
 		},

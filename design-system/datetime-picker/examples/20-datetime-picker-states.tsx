@@ -32,8 +32,8 @@ export default () => {
 			<DateTimePicker
 				id="react-select-custom-date--input"
 				onChange={console.log}
-				dateFormat="DD/MMM/YY"
-				datePickerSelectProps={{
+				datePickerProps={{
+					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
 				}}
 			/>
@@ -42,8 +42,8 @@ export default () => {
 			<DateTimePicker
 				id="react-select-custom-value--input"
 				onChange={console.log}
-				dateFormat="DD/MMM/YY"
-				datePickerSelectProps={{
+				datePickerProps={{
+					dateFormat: 'DD/MMM/YY',
 					placeholder: 'e.g. 31/Dec/18',
 				}}
 				defaultValue="2020-10-10"

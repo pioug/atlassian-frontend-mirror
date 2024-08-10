@@ -6,13 +6,13 @@ import { DateTimePicker } from '../../src';
 
 const DateTimePickerFormattingExample = () => (
 	<DateTimePicker
-		dateFormat="YYYY-MM-DD"
-		timeFormat="HH:mm"
 		datePickerProps={{
+			dateFormat: 'YYYY-MM-DD',
 			placeholder: '2021-06-10',
 			parseInputValue: (date: string) => parseISO(date),
 		}}
 		timePickerProps={{
+			timeFormat: 'HH:mm',
 			placeholder: '13:30',
 		}}
 	/>

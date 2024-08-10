@@ -83,7 +83,7 @@ describe.each(['default', 'DeprecatedLazyLinkPickerExport'])(`using export %s`, 
 		it('should render the default root component if nothing was specified', async () => {
 			setupLinkPicker();
 
-			expect(screen.getByTestId(testIds.linkPickerRoot)).toBeInTheDocument();
+			expect(await screen.findByTestId(testIds.linkPickerRoot)).toBeInTheDocument();
 		});
 
 		it('should render a customized root component', async () => {
@@ -94,7 +94,7 @@ describe.each(['default', 'DeprecatedLazyLinkPickerExport'])(`using export %s`, 
 				component: CustomRootComponent,
 			});
 
-			expect(screen.getByTestId('custom-test-id')).toBeInTheDocument();
+			expect(await screen.findByTestId('custom-test-id')).toBeInTheDocument();
 		});
 
 		it('should allow the customized root component to overwrite the plugins prop', async () => {

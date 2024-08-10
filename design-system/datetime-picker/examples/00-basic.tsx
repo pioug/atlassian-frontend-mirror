@@ -139,8 +139,8 @@ export default () => {
 			<Controlled initialValue="14:30">
 				{({ value, onValueChange, isOpen, onBlur }) => (
 					<TimePicker
+						id="react-select-timepicker-2--input"
 						selectProps={{
-							inputId: 'react-select-timepicker-2--input',
 							classNamePrefix: 'timepicker-select',
 						}}
 						value={value}

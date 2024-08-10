@@ -28,8 +28,12 @@ export default () => {
 			<DateTimePicker
 				id="react-select-datetime--input"
 				onChange={console.log}
-				timeFormat="HH:mm"
-				dateFormat="Do MMMM YYYY"
+				timePickerProps={{
+					timeFormat: 'HH:mm',
+				}}
+				datePickerProps={{
+					dateFormat: 'Do MMMM YYYY',
+				}}
 			/>
 		</div>
 	);

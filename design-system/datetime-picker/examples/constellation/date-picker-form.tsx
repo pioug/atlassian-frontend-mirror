@@ -12,7 +12,7 @@ const DatePickerFormExample = () => (
 				<Field name="datepicker-form" label="Start date" isRequired={false} defaultValue="">
 					{({ fieldProps }) => (
 						<>
-							<DatePicker {...fieldProps} selectProps={{ inputId: fieldProps.id }} />
+							<DatePicker {...fieldProps} />
 							<HelperMessage>Help or instruction text goes here</HelperMessage>
 						</>
 					)}

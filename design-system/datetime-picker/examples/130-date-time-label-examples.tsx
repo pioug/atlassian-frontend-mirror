@@ -10,22 +10,13 @@ export default () => (
 
 		<h3>Time - Using explicit label</h3>
 		<Label htmlFor="arrival">Arrival time</Label>
-		<TimePicker
-			selectProps={{
-				inputId: 'arrival',
-			}}
-		/>
+		<TimePicker id="arrival" />
 		<h3>Time - Using label prop only (no visible label)</h3>
 		<TimePicker label="Departure time" />
 
 		<h3>Date - Using explicit label</h3>
 		<Label htmlFor="birthday">Birthday</Label>
-		<DatePicker
-			testId="test"
-			selectProps={{
-				inputId: 'birthday',
-			}}
-		/>
+		<DatePicker testId="test" id="birthday" />
 
 		<h3>Date - Using label prop only (no visible label)</h3>
 		<DatePicker label="End date" />

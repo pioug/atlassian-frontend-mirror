@@ -24,7 +24,7 @@ const DatePickerValidationExample = () => (
 				>
 					{({ fieldProps, error, meta: { valid } }) => (
 						<>
-							<DatePicker {...fieldProps} selectProps={{ inputId: fieldProps.id }} />
+							<DatePicker {...fieldProps} />
 							{valid && <ValidMessage>You have entered a valid date</ValidMessage>}
 							{error === 'REQUIRED' && <ErrorMessage>This field is required</ErrorMessage>}
 						</>

@@ -77,12 +77,7 @@ export default class MyComponent extends Component<{}, State> {
 				/>
 
 				<Label htmlFor={dateId}>Date</Label>
-				<DatePicker
-					value={datePickerValue}
-					isDisabled
-					onChange={console.log}
-					selectProps={{ inputId: dateId }}
-				/>
+				<DatePicker value={datePickerValue} isDisabled onChange={console.log} id={dateId} />
 
 				<h3>Time picker</h3>
 				<Label htmlFor="time-picker-override">Timepicker textfield input</Label>
@@ -94,12 +89,7 @@ export default class MyComponent extends Component<{}, State> {
 				/>
 
 				<Label htmlFor={timeId}>Time</Label>
-				<TimePicker
-					value={timePickerValue}
-					isDisabled
-					onChange={console.log}
-					selectProps={{ inputId: timeId }}
-				/>
+				<TimePicker value={timePickerValue} isDisabled onChange={console.log} id={timeId} />
 
 				<h3>Datetime picker</h3>
 				<Label htmlFor="datetime-picker-override">Datetime picker textfield input</Label>
@@ -115,7 +105,7 @@ export default class MyComponent extends Component<{}, State> {
 					value={dateTimePickerValue}
 					isDisabled
 					onChange={console.log}
-					datePickerSelectProps={{ inputId: datetimeId }}
+					id={datetimeId}
 				/>
 			</div>
 		);

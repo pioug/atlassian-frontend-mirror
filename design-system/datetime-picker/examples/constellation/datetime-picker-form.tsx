@@ -12,7 +12,7 @@ const DateTimePickerFormExample = () => (
 				<Field name="datetime-picker" label="Scheduled run time" isRequired={false}>
 					{({ fieldProps }) => (
 						<>
-							<DateTimePicker {...fieldProps} datePickerSelectProps={{ inputId: fieldProps.id }} />
+							<DateTimePicker {...fieldProps} />
 							<HelperMessage>Help or instruction text goes here</HelperMessage>
 						</>
 					)}

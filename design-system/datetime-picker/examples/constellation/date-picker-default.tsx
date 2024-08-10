@@ -7,11 +7,7 @@ import { DatePicker } from '../../src';
 const DatePickerDefaultExample = () => (
 	<>
 		<Label htmlFor="default-date-picker-example">Choose date</Label>
-		<DatePicker
-			selectProps={{
-				inputId: 'default-date-picker-example',
-			}}
-		/>
+		<DatePicker id="default-date-picker-example" />
 	</>
 );
 

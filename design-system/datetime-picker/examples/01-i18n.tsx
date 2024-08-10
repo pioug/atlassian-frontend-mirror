@@ -76,7 +76,6 @@ export default () => {
 			<TimePicker
 				id="react-select-timepicker-1--input"
 				onChange={onChange}
-				selectProps={{ classNamePrefix: 'time-picker--select' }}
 				locale={locale}
 				testId={'time-picker'}
 				timeIsEditable
@@ -92,9 +91,6 @@ export default () => {
 				defaultValue="2021-01-01"
 				datePickerProps={{
 					weekStartDay,
-				}}
-				datePickerSelectProps={{
-					classNamePrefix: 'date-picker--select',
 				}}
 			/>
 		</div>

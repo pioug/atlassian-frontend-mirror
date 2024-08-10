@@ -13,15 +13,8 @@ const DateTimePickerFormAccessibleExample = () => (
 					{({ fieldProps }) => (
 						<DateTimePicker
 							{...fieldProps}
-							datePickerSelectProps={{
-								inputId: fieldProps.id,
-							}}
-							datePickerProps={{
-								label: 'Select date',
-							}}
-							timePickerProps={{
-								label: 'Select time',
-							}}
+							datePickerProps={{ label: 'Select date' }}
+							timePickerProps={{ label: 'Select time' }}
 						/>
 					)}
 				</Field>

@@ -163,6 +163,13 @@ export class MemoryReactionsStore implements Store {
 		});
 	}
 
+	private displayParticleEffect = (reaction: ReactionSummary): void => {
+		this.setParticleEffectForEmoji(reaction.containerAri, reaction.ari, reaction.emojiId, true);
+		window.setTimeout(() => {
+			this.setParticleEffectForEmoji(reaction.containerAri, reaction.ari, reaction.emojiId, false);
+		}, 1500);
+	};
+
 	private optmisticUpdate =
 		(containerAri: string, ari: string, emojiId: string) => (updater: Updater<ReactionSummary>) => {
 			this.withReadyReaction(
@@ -278,7 +285,7 @@ export class MemoryReactionsStore implements Store {
 		const { containerAri, ari, emojiId } = reaction;
 		this.optmisticUpdate(containerAri, ari, emojiId)(addOne);
 		this.flash(reaction);
-		this.setParticleEffectForEmoji(containerAri, ari, emojiId, true);
+		this.displayParticleEffect(reaction);
 
 		const exp = ufoExperiences.add.getInstance(`${ari}|${emojiId}`);
 		// ufo start reaction experience

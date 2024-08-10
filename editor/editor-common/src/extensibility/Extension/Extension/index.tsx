@@ -116,6 +116,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	const newContentClassNames = classnames({
 		'with-padding-styles': showMacroInteractionDesignUpdates,
+		'with-bodied-padding-styles': hasBody && showMacroInteractionDesignUpdates,
 	});
 
 	const contentClassNames = classnames('extension-content', 'block', {

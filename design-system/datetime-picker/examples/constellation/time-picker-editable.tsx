@@ -8,12 +8,7 @@ export default function App() {
 	return (
 		<>
 			<Label htmlFor="timepicker-editable-time">Editable time example</Label>
-			<TimePicker
-				timeIsEditable
-				selectProps={{
-					inputId: 'timepicker-editable-time',
-				}}
-			/>
+			<TimePicker timeIsEditable id="timepicker-editable-time" />
 		</>
 	);
 }

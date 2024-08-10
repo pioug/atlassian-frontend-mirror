@@ -41,7 +41,7 @@ export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-padding-background-styles': {
-		padding: token('space.100', '8px'),
+		padding: `${token('space.100', '8px')} ${token('space.250', '20px')}`,
 		background: 'transparent',
 	},
 });

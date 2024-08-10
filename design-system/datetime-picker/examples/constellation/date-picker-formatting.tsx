@@ -13,7 +13,7 @@ const DatePickerFormattingExample = () => (
 			dateFormat="YYYY-MM-DD"
 			placeholder="2021-06-10"
 			parseInputValue={(date: string) => parseISO(date)}
-			selectProps={{ inputId: 'datepicker-format' }}
+			id="datepicker-format"
 		/>
 	</>
 );

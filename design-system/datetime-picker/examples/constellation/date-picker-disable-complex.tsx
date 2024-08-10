@@ -17,7 +17,7 @@ const DatePickerDisableComplexExample = () => (
 		<DatePicker
 			defaultValue="2020-12-15"
 			disabledDateFilter={weekendFilter}
-			selectProps={{ inputId: 'datepicker-disable-complex' }}
+			id="datepicker-disable-complex"
 		/>
 	</>
 );

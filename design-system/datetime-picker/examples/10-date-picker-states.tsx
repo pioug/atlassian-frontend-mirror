@@ -35,9 +35,7 @@ export default () => {
 			<DatePicker
 				id="react-select-custom--input"
 				dateFormat="DD/MMM/YY"
-				selectProps={{
-					placeholder: 'e.g. 31/Dec/18',
-				}}
+				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}
 			/>
 		</div>

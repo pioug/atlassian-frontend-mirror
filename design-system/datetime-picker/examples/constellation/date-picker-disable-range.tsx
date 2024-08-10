@@ -11,7 +11,7 @@ const DatePickerDisableRangeExample = () => (
 			defaultValue="2020-12-15"
 			minDate="2020-12-10"
 			maxDate="2020-12-20"
-			selectProps={{ inputId: 'datepicker-disabled-range' }}
+			id="datepicker-disabled-range"
 		/>
 	</>
 );

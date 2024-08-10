@@ -75,6 +75,10 @@ export const contentWrapper = css({
 	'&.with-padding-styles': {
 		padding: token('space.100', '8px'),
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-bodied-padding-styles': {
+		padding: `${token('space.100', '8px')} ${token('space.250', '20px')}`, // account for upcoming editor elements drag & drop feature
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

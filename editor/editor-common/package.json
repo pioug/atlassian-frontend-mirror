@@ -337,6 +337,9 @@
 		},
 		"platform_editor_migration_icon_and_typography": {
 			"type": "boolean"
+		},
+		"cc_page_experiences_live_search_wysiwyg": {
+			"type": "boolean"
 		}
 	}
 }

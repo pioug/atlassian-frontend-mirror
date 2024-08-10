@@ -20,9 +20,7 @@ export default () => {
 				id="react-select-custom-parser--input"
 				dateFormat="DD/MM/YY"
 				parseInputValue={parseInputValue}
-				selectProps={{
-					placeholder: 'e.g. 31/Dec/18',
-				}}
+				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}
 			/>
 		</div>

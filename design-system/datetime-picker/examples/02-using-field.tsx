@@ -8,21 +8,15 @@ export default () => {
 	return (
 		<div>
 			<Field name="date" label="Date">
-				{({ fieldProps }) => (
-					<DatePicker {...fieldProps} selectProps={{ inputId: fieldProps.id }} />
-				)}
+				{({ fieldProps }) => <DatePicker {...fieldProps} />}
 			</Field>
 
 			<Field name="time" label="Time">
-				{({ fieldProps }) => (
-					<TimePicker {...fieldProps} selectProps={{ inputId: fieldProps.id }} />
-				)}
+				{({ fieldProps }) => <TimePicker {...fieldProps} />}
 			</Field>
 
 			<Field name="datetime" label="Datetime">
-				{({ fieldProps }) => (
-					<DateTimePicker {...fieldProps} datePickerSelectProps={{ inputId: fieldProps.id }} />
-				)}
+				{({ fieldProps }) => <DateTimePicker {...fieldProps} />}
 			</Field>
 		</div>
 	);

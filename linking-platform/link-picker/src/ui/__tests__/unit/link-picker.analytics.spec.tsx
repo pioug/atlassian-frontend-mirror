@@ -476,9 +476,8 @@ describe('LinkPicker analytics', () => {
 			const { spy, urlField } = setupWithPlugins();
 
 			const urlFieldElement = await urlField();
-			expect(urlFieldElement).toHaveFocus();
 
-			await screen.findAllByRole('option');
+			expect(urlFieldElement).toHaveFocus();
 			spy.mockClear();
 			await user.keyboard('{arrowdown}');
 			await user.keyboard('{enter}');
@@ -492,7 +491,6 @@ describe('LinkPicker analytics', () => {
 					actionSubjectId: 'displayTextField',
 				},
 			});
-
 			// Should have tracked content as url and input method as searchResult
 			expect(spy).toBeFiredWithAnalyticEventOnce({
 				payload: {

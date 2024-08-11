@@ -13,7 +13,7 @@ import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
-import LinkPicker, { type LinkPickerProps } from '../../../index';
+import { LinkPicker, LinkPickerProps } from '../../../index';
 import { testIds } from '../../link-picker';
 import { MockLinkPickerPromisePlugin } from '../../../__tests__/__helpers/mock-plugins';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -139,7 +139,7 @@ describe('Link Picker Jira Create Discovery (pulse)', () => {
 				expect(await urlField()).toHaveFocus();
 
 				// Expect no tabs to be shown as only one plugin is provided
-				expect(screen.queryAllByRole('tab', { name: 'Jira' })).toEqual([]);
+				expect(await screen.queryAllByRole('tab', { name: 'Jira' })).toEqual([]);
 
 				// Pulsing link picker discovery is visible
 				expect(await screen.findByTestId('link-picker-action-button-discovery-discovery'));
@@ -148,7 +148,7 @@ describe('Link Picker Jira Create Discovery (pulse)', () => {
 				const { urlField } = setupLinkPicker({ plugins: [mockJiraPlugin] });
 				expect(await urlField()).toHaveFocus();
 				// Expect no tabs to be shown as only one plugin is provided
-				expect(screen.queryAllByRole('tab', { name: 'Jira' })).toEqual([]);
+				expect(await screen.queryAllByRole('tab', { name: 'Jira' })).toEqual([]);
 
 				expect(
 					screen.queryAllByTestId('link-picker-action-button-discovery-discovery'),

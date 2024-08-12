@@ -26,19 +26,25 @@ const toDOM = (node: Node, contentEditable: boolean) =>
 		['div', { class: codeBlockClassNames.start, contenteditable: 'false' }],
 		[
 			'div',
-			{ class: codeBlockClassNames.contentWrapper },
+			{
+				class: `${codeBlockClassNames.contentWrapper} ${fg('editor_support_code_block_wrapping') && codeBlockClassNames.contentWrapperFg}`,
+			},
 			[
 				'div',
 				{
 					class: fg('editor_support_code_block_wrapping')
-						? codeBlockClassNames.gutterFgWrap
+						? codeBlockClassNames.gutterFg
 						: codeBlockClassNames.gutter,
 					contenteditable: 'false',
 				},
 			],
 			[
 				'div',
-				{ class: codeBlockClassNames.content },
+				{
+					class: fg('editor_support_code_block_wrapping')
+						? `${codeBlockClassNames.contentFg}`
+						: codeBlockClassNames.content,
+				},
 				[
 					'code',
 					{
@@ -84,7 +90,7 @@ export class CodeBlockView {
 		this.dom = dom as HTMLElement;
 		this.contentDOM = contentDOM as HTMLElement;
 		this.lineNumberGutter = this.dom.querySelector(
-			`.${fg('editor_support_code_block_wrapping') ? codeBlockClassNames.gutterFgWrap : codeBlockClassNames.gutter}`,
+			`.${fg('editor_support_code_block_wrapping') ? codeBlockClassNames.gutterFg : codeBlockClassNames.gutter}`,
 		) as HTMLElement;
 		this.api = api;
 

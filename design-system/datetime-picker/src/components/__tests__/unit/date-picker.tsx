@@ -5,8 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { format, parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { convertTokens } from '../../../internal/parse-tokens';
 import { type DatePickerBaseProps } from '../../../types';
 import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
@@ -28,217 +26,108 @@ const getAllDays = () => {
 };
 
 describe('DatePicker', () => {
-	describe('should call onChange only once when a date is selected and enter is pressed', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const testId = 'onchange';
-			const onChangeSpy = jest.fn();
-			render(createDatePicker({ onChange: onChangeSpy, testId: testId }));
+	it('should call onChange only once when a date is selected and enter is pressed', () => {
+		const testId = 'onchange';
+		const onChangeSpy = jest.fn();
+		render(createDatePicker({ onChange: onChangeSpy, testId: testId }));
 
-			const input = screen.getByTestId(`${testId}--input`);
-			fireEvent.input(input, {
-				target: {
-					value: '06/08/2018',
-				},
-			});
-			expect(onChangeSpy).not.toBeCalled();
-
-			fireEvent.keyDown(input, {
-				key: 'Enter',
-			});
-			expect(onChangeSpy).toBeCalledWith('2018-06-08');
-
-			fireEvent.keyDown(input, {
-				key: 'Enter',
-			});
-			// don't trigger when its closed
-			expect(onChangeSpy).toBeCalledTimes(1);
+		const input = screen.getByTestId(`${testId}--input`);
+		fireEvent.input(input, {
+			target: {
+				value: '06/08/2018',
+			},
 		});
+		expect(onChangeSpy).not.toBeCalled();
+
+		fireEvent.keyDown(input, {
+			key: 'Enter',
+		});
+		expect(onChangeSpy).toBeCalledWith('2018-06-08');
+
+		fireEvent.keyDown(input, {
+			key: 'Enter',
+		});
+		// don't trigger when its closed
+		expect(onChangeSpy).toBeCalledTimes(1);
 	});
 
-	describe('should format the date using the default format', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(createDatePicker({ value: dateValue }));
+	it('should format the date using the default format', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		render(createDatePicker({ value: dateValue }));
 
-				const input = screen.getByRole('combobox');
-				expect(input?.getAttribute('value')).toBe('6/8/2018');
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(createDatePicker({ value: dateValue }));
-
-				const container = screen.getByTestId(testIdContainer);
-				expect(container).toHaveTextContent('6/8/2018');
-			},
-		);
+		const container = screen.getByTestId(testIdContainer);
+		expect(container).toHaveTextContent('6/8/2018');
 	});
 
-	describe('should manually format the display label', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						formatDisplayLabel: () => 'hello world',
-					}),
-				);
-
-				const input = screen.getByRole('combobox');
-
-				expect(input?.getAttribute('value')).toBe('hello world');
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						formatDisplayLabel: () => 'hello world',
-					}),
-				);
-
-				const container = screen.getByTestId(testIdContainer);
-
-				expect(container).toHaveTextContent('hello world');
-			},
+	it('should manually format the display label', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		render(
+			createDatePicker({
+				value: dateValue,
+				formatDisplayLabel: () => 'hello world',
+			}),
 		);
+
+		const container = screen.getByTestId(testIdContainer);
+
+		expect(container).toHaveTextContent('hello world');
 	});
 
-	describe('should manually format the display label using the default dateFormat', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						formatDisplayLabel: (date, dateFormat) =>
-							format(parseISO(date), convertTokens(dateFormat)),
-					}),
-				);
-
-				const input = screen.getByRole('combobox');
-
-				expect(input?.getAttribute('value')).toBe('2018/06/08');
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						formatDisplayLabel: (date, dateFormat) =>
-							format(parseISO(date), convertTokens(dateFormat)),
-					}),
-				);
-
-				const container = screen.getByTestId(testIdContainer);
-
-				expect(container).toHaveTextContent('2018/06/08');
-			},
+	it('should manually format the display label using the default dateFormat', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		render(
+			createDatePicker({
+				value: dateValue,
+				formatDisplayLabel: (date, dateFormat) => format(parseISO(date), convertTokens(dateFormat)),
+			}),
 		);
+
+		const container = screen.getByTestId(testIdContainer);
+
+		expect(container).toHaveTextContent('2018/06/08');
 	});
 
-	describe('should manually format the display label using custom dateFormat', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						formatDisplayLabel: (date, dateFormat) =>
-							format(parseISO(date), convertTokens(dateFormat)),
-						dateFormat: 'MMMM/DD',
-					}),
-				);
-
-				const input = screen.getByRole('combobox');
-
-				expect(input?.getAttribute('value')).toBe('June/08');
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						formatDisplayLabel: (date, dateFormat) =>
-							format(parseISO(date), convertTokens(dateFormat)),
-						dateFormat: 'MMMM/DD',
-					}),
-				);
-
-				const container = screen.getByTestId(testIdContainer);
-
-				expect(container).toHaveTextContent('June/08');
-			},
+	it('should manually format the display label using custom dateFormat', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		render(
+			createDatePicker({
+				value: dateValue,
+				formatDisplayLabel: (date, dateFormat) => format(parseISO(date), convertTokens(dateFormat)),
+				dateFormat: 'MMMM/DD',
+			}),
 		);
+
+		const container = screen.getByTestId(testIdContainer);
+
+		expect(container).toHaveTextContent('June/08');
 	});
 
-	describe('should correctly render values in a custom format', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						dateFormat: 'MMMM/DD',
-					}),
-				);
-
-				const input = screen.getByRole('combobox');
-
-				expect(input?.getAttribute('value')).toBe('June/08');
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						dateFormat: 'MMMM/DD',
-					}),
-				);
-
-				const container = screen.getByTestId(testIdContainer);
-
-				expect(container).toHaveTextContent('June/08');
-			},
+	it('should correctly render values in a custom format', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		render(
+			createDatePicker({
+				value: dateValue,
+				dateFormat: 'MMMM/DD',
+			}),
 		);
+
+		const container = screen.getByTestId(testIdContainer);
+
+		expect(container).toHaveTextContent('June/08');
 	});
 
-	describe('should correctly render values in a complex custom format', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						dateFormat: 'DDDo---dddd---YYYY---hh:mm:ss',
-					}),
-				);
-
-				const input = screen.getByRole('combobox');
-
-				expect(input?.getAttribute('value')).toBe('159th---Friday---2018---12:00:00');
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				render(
-					createDatePicker({
-						value: dateValue,
-						dateFormat: 'DDDo---dddd---YYYY---hh:mm:ss',
-					}),
-				);
-
-				const container = screen.getByTestId(testIdContainer);
-
-				expect(container).toHaveTextContent('159th---Friday---2018---12:00:00');
-			},
+	it('should correctly render values in a complex custom format', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		render(
+			createDatePicker({
+				value: dateValue,
+				dateFormat: 'DDDo---dddd---YYYY---hh:mm:ss',
+			}),
 		);
+
+		const container = screen.getByTestId(testIdContainer);
+
+		expect(container).toHaveTextContent('159th---Friday---2018---12:00:00');
 	});
 
 	describe('locale', () => {
@@ -282,49 +171,45 @@ describe('DatePicker', () => {
 		);
 	});
 
-	describe('should call onChange when a new date is selected', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const onChangeSpy = jest.fn();
-			render(
-				createDatePicker({
-					value: '2018-08-06',
-					onChange: onChangeSpy,
-				}),
-			);
-			fireEvent.click(screen.getByTestId(testIdContainer));
+	it('should call onChange when a new date is selected', () => {
+		const onChangeSpy = jest.fn();
+		render(
+			createDatePicker({
+				value: '2018-08-06',
+				onChange: onChangeSpy,
+			}),
+		);
+		fireEvent.click(screen.getByTestId(testIdContainer));
 
-			const days = getAllDays();
-			const selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
-			const selectedIndex = days.findIndex((day) => day === selectedDay);
-			const nextDay = days[selectedIndex + 1];
+		const days = getAllDays();
+		const selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
+		const selectedIndex = days.findIndex((day) => day === selectedDay);
+		const nextDay = days[selectedIndex + 1];
 
-			fireEvent.click(nextDay);
+		fireEvent.click(nextDay);
 
-			expect(onChangeSpy).toBeCalledWith('2018-08-07');
-		});
+		expect(onChangeSpy).toBeCalledWith('2018-08-07');
 	});
 
-	describe('should call onChange when a new date is selected with custom format', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const onChangeSpy = jest.fn();
-			render(
-				createDatePicker({
-					value: '2018-08-06',
-					dateFormat: 'DDDo-dddd-YYYY',
-					onChange: onChangeSpy,
-				}),
-			);
+	it('should call onChange when a new date is selected with custom format', () => {
+		const onChangeSpy = jest.fn();
+		render(
+			createDatePicker({
+				value: '2018-08-06',
+				dateFormat: 'DDDo-dddd-YYYY',
+				onChange: onChangeSpy,
+			}),
+		);
 
-			fireEvent.click(screen.getByTestId(testIdContainer));
-			const days = getAllDays();
-			const selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
-			const selectedIndex = days.findIndex((day) => day === selectedDay);
-			const nextDay = days[selectedIndex + 1];
+		fireEvent.click(screen.getByTestId(testIdContainer));
+		const days = getAllDays();
+		const selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
+		const selectedIndex = days.findIndex((day) => day === selectedDay);
+		const nextDay = days[selectedIndex + 1];
 
-			fireEvent.click(nextDay);
+		fireEvent.click(nextDay);
 
-			expect(onChangeSpy).toBeCalledWith('2018-08-07');
-		});
+		expect(onChangeSpy).toBeCalledWith('2018-08-07');
 	});
 
 	describe('disabled dates', () => {
@@ -337,22 +222,20 @@ describe('DatePicker', () => {
 		const disabledList = [disabledDate];
 		const disabledFn = (iso: string) => iso === disabledDate;
 
-		describe('should not call onChange when clicking disabled dates', () => {
-			ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-				const onChangeSpy = jest.fn();
+		it('should not call onChange when clicking disabled dates', () => {
+			const onChangeSpy = jest.fn();
 
-				render(
-					createDatePicker({
-						value: `${year}-${month}-${otherDay}`,
-						disabled: disabledList,
-						onChange: onChangeSpy,
-					}),
-				);
+			render(
+				createDatePicker({
+					value: `${year}-${month}-${otherDay}`,
+					disabled: disabledList,
+					onChange: onChangeSpy,
+				}),
+			);
 
-				fireEvent.click(screen.getByTestId(testIdContainer));
-				fireEvent.click(screen.getByText(day));
-				expect(onChangeSpy).not.toHaveBeenCalled();
-			});
+			fireEvent.click(screen.getByTestId(testIdContainer));
+			fireEvent.click(screen.getByText(day));
+			expect(onChangeSpy).not.toHaveBeenCalled();
 		});
 
 		it('should not allow a date entry if date is disabled via disabled array', () => {
@@ -390,116 +273,108 @@ describe('DatePicker', () => {
 		});
 	});
 
-	describe('supplying a custom parseInputValue prop, produces the expected result', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const parseInputValue = () => new Date('01/01/1970');
-			const onChangeSpy = jest.fn();
-			const expectedResult = '1970-01-01';
-			render(
-				createDatePicker({
-					id: 'customDatePicker-ParseInputValue',
-					parseInputValue: parseInputValue,
-					onChange: onChangeSpy,
-				}),
-			);
+	it('supplying a custom parseInputValue prop, produces the expected result', () => {
+		const parseInputValue = () => new Date('01/01/1970');
+		const onChangeSpy = jest.fn();
+		const expectedResult = '1970-01-01';
+		render(
+			createDatePicker({
+				id: 'customDatePicker-ParseInputValue',
+				parseInputValue: parseInputValue,
+				onChange: onChangeSpy,
+			}),
+		);
 
-			const input = screen.getByTestId(testIdInput);
-			fireEvent.input(input, {
-				target: {
-					value: 'asdf', // our custom parseInputValue ignores this
-				},
-			});
-
-			fireEvent.keyDown(input, {
-				key: 'Enter',
-			});
-
-			expect(onChangeSpy).toBeCalledWith(expectedResult);
+		const input = screen.getByTestId(testIdInput);
+		fireEvent.input(input, {
+			target: {
+				value: 'asdf', // our custom parseInputValue ignores this
+			},
 		});
+
+		fireEvent.keyDown(input, {
+			key: 'Enter',
+		});
+
+		expect(onChangeSpy).toBeCalledWith(expectedResult);
 	});
 
-	describe('focused calendar date is reset on open', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const { rerender } = render(
-				createDatePicker({
-					value: '1970-01-01',
-				}),
-			);
+	it('focused calendar date is reset on open', () => {
+		const { rerender } = render(
+			createDatePicker({
+				value: '1970-01-01',
+			}),
+		);
 
-			fireEvent.click(screen.getByTestId(testIdContainer));
-			let selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
-			expect(selectedDay).toHaveAccessibleName(expect.stringContaining('1, Thursday January 1970'));
+		fireEvent.click(screen.getByTestId(testIdContainer));
+		let selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
+		expect(selectedDay).toHaveAccessibleName(expect.stringContaining('1, Thursday January 1970'));
 
-			rerender(
-				createDatePicker({
-					value: '1990-02-02',
-				}),
-			);
+		rerender(
+			createDatePicker({
+				value: '1990-02-02',
+			}),
+		);
 
-			// date doesn't update without focus
-			const select = screen.getByRole('combobox');
-			fireEvent.focus(select);
+		// date doesn't update without focus
+		const select = screen.getByRole('combobox');
+		fireEvent.focus(select);
 
-			// date update after focus
-			fireEvent.click(screen.getByTestId(testIdContainer));
-			selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
-			expect(selectedDay).toHaveAccessibleName(expect.stringContaining('2, Friday February 1990'));
-		});
+		// date update after focus
+		fireEvent.click(screen.getByTestId(testIdContainer));
+		selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
+		expect(selectedDay).toHaveAccessibleName(expect.stringContaining('2, Friday February 1990'));
 	});
 
-	describe('default parseInputValue parses valid dates to the expected value', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const onChangeSpy = jest.fn();
-			const expectedResult = '2018-01-02';
-			render(
-				createDatePicker({
-					id: 'defaultDatePicker-ParseInputValue',
-					onChange: onChangeSpy,
-				}),
-			);
+	it('default parseInputValue parses valid dates to the expected value', () => {
+		const onChangeSpy = jest.fn();
+		const expectedResult = '2018-01-02';
+		render(
+			createDatePicker({
+				id: 'defaultDatePicker-ParseInputValue',
+				onChange: onChangeSpy,
+			}),
+		);
 
-			const input = screen.getByTestId(testIdInput);
-			fireEvent.input(input, {
-				target: {
-					value: '01/02/18',
-				},
-			});
-			expect(onChangeSpy).not.toBeCalled();
-
-			fireEvent.keyDown(input, {
-				key: 'Enter',
-			});
-
-			expect(onChangeSpy).toBeCalledWith(expectedResult);
+		const input = screen.getByTestId(testIdInput);
+		fireEvent.input(input, {
+			target: {
+				value: '01/02/18',
+			},
 		});
+		expect(onChangeSpy).not.toBeCalled();
+
+		fireEvent.keyDown(input, {
+			key: 'Enter',
+		});
+
+		expect(onChangeSpy).toBeCalledWith(expectedResult);
 	});
 
-	describe("should use today's date if year over 9999 is given", () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const onChangeSpy = jest.fn();
-			const today = format(new Date(), 'yyyy-MM-dd');
+	it("should use today's date if year over 9999 is given", () => {
+		const onChangeSpy = jest.fn();
+		const today = format(new Date(), 'yyyy-MM-dd');
 
-			render(
-				createDatePicker({
-					id: 'defaultDatePicker-ParseInputValue',
-					onChange: onChangeSpy,
-				}),
-			);
+		render(
+			createDatePicker({
+				id: 'defaultDatePicker-ParseInputValue',
+				onChange: onChangeSpy,
+			}),
+		);
 
-			const input = screen.getByTestId(testIdInput);
-			fireEvent.input(input, {
-				target: {
-					value: '01/01/10000',
-				},
-			});
-			expect(onChangeSpy).not.toBeCalled();
-
-			fireEvent.keyDown(input, {
-				key: 'Enter',
-			});
-
-			expect(onChangeSpy).toBeCalledWith(today);
+		const input = screen.getByTestId(testIdInput);
+		fireEvent.input(input, {
+			target: {
+				value: '01/01/10000',
+			},
 		});
+		expect(onChangeSpy).not.toBeCalled();
+
+		fireEvent.keyDown(input, {
+			key: 'Enter',
+		});
+
+		expect(onChangeSpy).toBeCalledWith(today);
 	});
 
 	describe('focus', () => {
@@ -628,154 +503,106 @@ describe('DatePicker', () => {
 		});
 	});
 
-	describe('pressing the Backspace key to empty the input should clear the value', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				const onChangeSpy = jest.fn();
-				const testId = 'clear--test';
-				render(
-					createDatePicker({
-						value: dateValue,
-						onChange: onChangeSpy,
-						testId: testId,
-					}),
-				);
-
-				const selectInput = screen.getByRole('combobox');
-				fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
-
-				expect(onChangeSpy).not.toHaveBeenCalled();
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				const onChangeSpy = jest.fn();
-				const testId = 'clear--test';
-				render(
-					createDatePicker({
-						value: dateValue,
-						onChange: onChangeSpy,
-						testId: testId,
-					}),
-				);
-
-				const selectInput = screen.getByDisplayValue('');
-				fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
-
-				expect(onChangeSpy).toBeCalledWith('');
-			},
+	it('pressing the Backspace key to empty the input should clear the value', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		const onChangeSpy = jest.fn();
+		const testId = 'clear--test';
+		render(
+			createDatePicker({
+				value: dateValue,
+				onChange: onChangeSpy,
+				testId: testId,
+			}),
 		);
+
+		const selectInput = screen.getByDisplayValue('');
+		fireEvent.keyDown(selectInput, { key: 'Backspace', keyCode: 8 });
+
+		expect(onChangeSpy).toBeCalledWith('');
 	});
 
-	describe('pressing the Delete key to empty the input should clear the value', () => {
-		ffTest(
-			'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				const onChangeSpy = jest.fn();
-				render(
-					createDatePicker({
-						value: dateValue,
-						onChange: onChangeSpy,
-					}),
-				);
-
-				const selectInput = screen.getByRole('combobox');
-				fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
-
-				expect(onChangeSpy).not.toHaveBeenCalled();
-			},
-			() => {
-				const dateValue = new Date('06/08/2018').toISOString();
-				const onChangeSpy = jest.fn();
-				render(
-					createDatePicker({
-						value: dateValue,
-						onChange: onChangeSpy,
-					}),
-				);
-
-				const selectInput = screen.getByDisplayValue('');
-				fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
-
-				expect(onChangeSpy).toBeCalledWith('');
-			},
+	it('pressing the Delete key to empty the input should clear the value', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		const onChangeSpy = jest.fn();
+		render(
+			createDatePicker({
+				value: dateValue,
+				onChange: onChangeSpy,
+			}),
 		);
+
+		const selectInput = screen.getByDisplayValue('');
+		fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
+
+		expect(onChangeSpy).toBeCalledWith('');
 	});
 
-	describe('pressing the clear button while menu is closed should clear the value and not open the menu', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const dateValue = new Date('06/08/2018').toISOString();
-			const onChangeSpy = jest.fn();
-			const testId = 'clear--test';
+	it('pressing the clear button while menu is closed should clear the value and not open the menu', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		const onChangeSpy = jest.fn();
+		const testId = 'clear--test';
 
-			render(
-				createDatePicker({
-					value: dateValue,
-					onChange: onChangeSpy,
-					testId: testId,
-					selectProps: { testId: testId },
-				}),
-			);
-			const clearButton = screen.getByRole('button', { name: 'clear' });
+		render(
+			createDatePicker({
+				value: dateValue,
+				onChange: onChangeSpy,
+				testId: testId,
+				selectProps: { testId: testId },
+			}),
+		);
+		const clearButton = screen.getByRole('button', { name: 'clear' });
 
-			fireEvent.mouseOver(clearButton);
-			fireEvent.mouseMove(clearButton);
-			fireEvent.mouseDown(clearButton);
+		fireEvent.mouseOver(clearButton);
+		fireEvent.mouseMove(clearButton);
+		fireEvent.mouseDown(clearButton);
 
-			expect(onChangeSpy).toBeCalledWith('');
-			expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeInTheDocument();
-		});
+		expect(onChangeSpy).toBeCalledWith('');
+		expect(screen.queryByTestId(`${testId}--popper--container`)).not.toBeInTheDocument();
 	});
 
-	describe('pressing the clear button while menu is open should clear the value and leave the menu open', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const dateValue = new Date('06/08/2018').toISOString();
-			const onChangeSpy = jest.fn();
-			const testId = 'clear--test';
+	it('pressing the clear button while menu is open should clear the value and leave the menu open', () => {
+		const dateValue = new Date('06/08/2018').toISOString();
+		const onChangeSpy = jest.fn();
+		const testId = 'clear--test';
 
-			render(
-				createDatePicker({
-					value: dateValue,
-					onChange: onChangeSpy,
-					testId: testId,
-					selectProps: { testId: testId },
-					defaultIsOpen: true,
-				}),
-			);
+		render(
+			createDatePicker({
+				value: dateValue,
+				onChange: onChangeSpy,
+				testId: testId,
+				selectProps: { testId: testId },
+				defaultIsOpen: true,
+			}),
+		);
 
-			const clearButton = screen.getByRole('button', { name: 'clear' });
+		const clearButton = screen.getByRole('button', { name: 'clear' });
 
-			fireEvent.mouseOver(clearButton);
-			fireEvent.mouseMove(clearButton);
-			fireEvent.mouseDown(clearButton);
+		fireEvent.mouseOver(clearButton);
+		fireEvent.mouseMove(clearButton);
+		fireEvent.mouseDown(clearButton);
 
-			expect(onChangeSpy).toBeCalledWith('');
-			expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
-		});
+		expect(onChangeSpy).toBeCalledWith('');
+		expect(screen.getByTestId(`${testId}--popper--container`)).toBeInTheDocument();
 	});
 
-	describe('should never apply an ID to the hidden input', () => {
-		ffTest('platform.design-system-team.date-picker-input-a11y-fix_cbbxs', () => {
-			const id = 'test';
-			// const testId = 'testId';
-			const allImplementations = [
-				createDatePicker(),
-				createDatePicker({ id: id }),
-				createDatePicker({ selectProps: { inputId: id } }),
-			];
+	it('should never apply an ID to the hidden input', () => {
+		const id = 'test';
+		// const testId = 'testId';
+		const allImplementations = [
+			createDatePicker(),
+			createDatePicker({ id: id }),
+			createDatePicker({ selectProps: { inputId: id } }),
+		];
 
-			allImplementations.forEach((jsx) => {
-				const { unmount } = render(jsx);
+		allImplementations.forEach((jsx) => {
+			const { unmount } = render(jsx);
 
-				const hiddenInput = screen.getByTestId(testIdInput);
+			const hiddenInput = screen.getByTestId(testIdInput);
 
-				expect(hiddenInput).toHaveAttribute('type', 'hidden');
-				expect(hiddenInput).not.toHaveAttribute('id');
+			expect(hiddenInput).toHaveAttribute('type', 'hidden');
+			expect(hiddenInput).not.toHaveAttribute('id');
 
-				unmount();
-			});
+			unmount();
 		});
 	});
 

@@ -543,14 +543,9 @@ describe('<ItemViewerV2 />', () => {
 				</IntlProvider>,
 			);
 
-			// check if the loading indicator is shown and try to load the binary
-			await waitFor(() => {
-				expect(
-					screen.getByRole('img', {
-						name: /loading file/i,
-					}),
-				).toBeInTheDocument();
-			});
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
 
 			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
 				expect.objectContaining({

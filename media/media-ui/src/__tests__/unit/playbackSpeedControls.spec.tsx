@@ -9,6 +9,7 @@ import PlaybackSpeedControls, {
 } from '../../customMediaPlayer/playbackSpeedControls';
 import MediaButton from '../../MediaButton';
 import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
+import { act } from 'react-dom/test-utils';
 
 describe('<PlaybackSpeedControls />', () => {
 	const mountSetup = (props: Partial<PlaybackSpeedControlsProps> = {}) => {
@@ -112,7 +113,7 @@ describe('<PlaybackSpeedControls />', () => {
 		expect(maxMenuHeight).toEqual(255);
 	});
 
-	it('should change max height when parent width changes', () => {
+	it('should change max height when parent width changes', async () => {
 		const { component } = mountSetup({
 			originalDimensions: {
 				height: 360,
@@ -120,12 +121,14 @@ describe('<PlaybackSpeedControls />', () => {
 			},
 		});
 
-		// Mock WidthObserver resize
-		component.find(WidthObserver).prop('setWidth')(250);
+		act(() => {
+			// Mock WidthObserver resize
+			component.find(WidthObserver).prop('setWidth')(250);
+		});
+
 		component.update();
 
 		const popupSelect = component.find<PopupSelectProps<OptionType>>(PopupSelect);
-
 		expect(popupSelect.prop('maxMenuHeight')).toEqual(100);
 	});
 

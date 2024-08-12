@@ -56,3 +56,32 @@ export const appendPortalContainerIfNotAppended = (container: HTMLDivElement): v
 		getPortalParent().appendChild(container);
 	}
 };
+
+export const isDocumentDefined = () => {
+	return document !== undefined;
+};
+
+export const createAtlaskitPortal = (zIndex: number | string) => {
+	//atlaskit-portal div
+	if (isDocumentDefined()) {
+		const atlaskitportal = document.createElement('div');
+		atlaskitportal.className = portalClassName;
+		atlaskitportal.style.zIndex = `${zIndex}`;
+		return atlaskitportal;
+	}
+};
+
+export const createPortalParent = () => {
+	//atlaskit-portal-container div
+	if (isDocumentDefined()) {
+		const parentElement = document.querySelector(portalParentSelector);
+		if (!parentElement) {
+			const parent = document.createElement('div');
+			parent.className = portalParentClassName;
+			parent.style.display = 'flex';
+			getBody()?.appendChild(parent);
+			return parent;
+		}
+		return parentElement;
+	}
+};

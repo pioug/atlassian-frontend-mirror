@@ -39,6 +39,9 @@ import { PlaybackSpeedControls } from '../../../customMediaPlayer/playbackSpeedC
 import { type ReactWrapper } from 'enzyme';
 import * as getControlsWrapperClassNameModule from '../../../customMediaPlayer/getControlsWrapperClassName';
 import MediaButton from '../../../MediaButton';
+import { act } from 'react-dom/test-utils';
+import { waitFor, render, screen, fireEvent } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 const getControlsWrapperClassName = jest.spyOn(
 	getControlsWrapperClassNameModule,
@@ -193,6 +196,49 @@ describe('<CustomMediaPlayer />', () => {
 			blanket,
 			getUIAnalyticsEventDetails,
 		};
+	};
+
+	const setupRTL = (props?: Partial<CustomMediaPlayerProps>) => {
+		const createAnalyticsEventHandler = jest.fn();
+		createAnalyticsEventHandler.mockReturnValue({ fire: jest.fn() });
+
+		const { container, unmount } = render(
+			<IntlProvider locale="en">
+				<CustomMediaPlayerBase
+					createAnalyticsEvent={createAnalyticsEventHandler}
+					type="video"
+					fileId="some-file-id"
+					isAutoPlay={true}
+					isHDAvailable={false}
+					src="video-src"
+					intl={fakeIntl}
+					{...props}
+				/>
+			</IntlProvider>,
+		);
+
+		const triggerKeydown = (code: string) => {
+			const event = new KeyboardEvent('keydown', {
+				code,
+			});
+			document.dispatchEvent(event);
+		};
+
+		const getUIAnalyticsEventDetails = (callIndex: number = 1) => {
+			//event handler 1st call is screen event, 2nd is ui event
+			const payload = createAnalyticsEventHandler.mock.calls[callIndex][0];
+			const { attributes } = payload || {};
+			return {
+				payload,
+				attributes,
+			};
+		};
+
+		const triggerFullscreen = () => {
+			fireEvent(screen.getByTestId('custom-media-player'), new Event('fullscreenchange'));
+		};
+
+		return { container, triggerKeydown, triggerFullscreen, getUIAnalyticsEventDetails, unmount };
 	};
 
 	beforeAll(() => {
@@ -418,48 +464,11 @@ describe('<CustomMediaPlayer />', () => {
 		});
 
 		describe('when shortcut are disabled', () => {
-			let component: ReturnType<typeof setup>['component'];
-			let triggerFullScreen: ReturnType<typeof setup>['triggerFullscreen'];
-
-			beforeEach(() => {
-				const res = setup({
-					isShortcutEnabled: false,
-				});
-				component = res.component;
-				triggerFullScreen = res.triggerFullscreen;
-			});
-
 			it('should not render any shortcut', () => {
 				const { component } = setup({
 					isShortcutEnabled: false,
 				});
 				expect(component.find(Shortcut)).toHaveLength(0);
-			});
-
-			describe('and in fullscreen mode', () => {
-				beforeEach(() => {
-					triggerFullScreen();
-				});
-
-				it('should render play/pause shortcut ', () => {
-					const shortcut = component.find(Shortcut).filter({ code: keyCodes.space });
-					expect(shortcut).toHaveLength(1);
-				});
-
-				it('should render mute shortcut', () => {
-					const shortcut = component.find(Shortcut).filter({ code: keyCodes.m });
-					expect(shortcut).toHaveLength(1);
-				});
-
-				it('should render skip backward shortcut', () => {
-					const shortcut = component.find(Shortcut).filter({ code: keyCodes.leftArrow });
-					expect(shortcut).toHaveLength(1);
-				});
-
-				it('should render skip forward shortcut', () => {
-					const shortcut = component.find(Shortcut).filter({ code: keyCodes.rightArrow });
-					expect(shortcut).toHaveLength(1);
-				});
 			});
 		});
 	});
@@ -566,12 +575,20 @@ describe('<CustomMediaPlayer />', () => {
 			expect(getVolumeLevel()).toEqual(0.3);
 		});
 
-		it('should update playback speed when speed is changed', () => {
-			const { component } = setup();
+		it('should update playback speed when speed is changed', async () => {
+			setupRTL();
 
-			component.find(PlaybackSpeedControls).prop('onPlaybackSpeedChange')(2);
-			component.update();
-			expect(component.find(PlaybackSpeedControls).prop('playbackSpeed')).toEqual(2);
+			const playbackSpeedButton = await screen.findByTestId(
+				'custom-media-player-playback-speed-toggle-button',
+			);
+
+			fireEvent.click(playbackSpeedButton);
+
+			const twoTimesButton = await screen.findByText('2x');
+
+			fireEvent.click(twoTimesButton);
+
+			expect(await screen.findByText(/2x/i)).toBeInTheDocument();
 		});
 
 		it('should update time position when skip forward is pressed', () => {
@@ -679,54 +696,177 @@ describe('<CustomMediaPlayer />', () => {
 				expect((getVideoElement().getDOMNode() as HTMLVideoElement).pause).toHaveBeenCalledTimes(1);
 			});
 
-			it('should mute and unmute when "m" keypress continuously', () => {
-				const { getVideoElement, triggerKeydown } = setup({
+			it('should mute and unmute when "m" keypress continuously', async () => {
+				const { container, triggerKeydown } = setupRTL({
 					isShortcutEnabled: true,
 				});
 
-				triggerKeydown(keyCodes.m);
-				expect((getVideoElement().getDOMNode() as HTMLVideoElement).volume).toEqual(0);
-				triggerKeydown(keyCodes.m);
-				expect((getVideoElement().getDOMNode() as HTMLVideoElement).volume).toEqual(1);
+				act(() => {
+					triggerKeydown(keyCodes.m);
+				});
+				await waitFor(() => {
+					expect((container.querySelector('video') as HTMLVideoElement).volume).toEqual(0);
+				});
+
+				act(() => {
+					triggerKeydown(keyCodes.m);
+				});
+				await waitFor(() => {
+					expect((container.querySelector('video') as HTMLVideoElement).volume).toEqual(1);
+				});
 			});
 		});
 
 		describe('when fullscreen is enabled', () => {
-			let triggerKeydown: ReturnType<typeof setup>['triggerKeydown'];
-			let getSliderTime: ReturnType<typeof setup>['getSliderTime'];
-
 			beforeEach(() => {
-				const res = setup();
-				const getVideoElement = res.getVideoElement;
-				const triggerFullScreen = res.triggerFullscreen;
-				getSliderTime = res.getSliderTime;
-				triggerKeydown = res.triggerKeydown;
-				triggerFullScreen();
+				const original = jest.requireActual('../../../customMediaPlayer/fullscreen');
+				asMock(toggleFullscreen).mockImplementation(original.toggleFullscreen);
+				asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
+			});
 
-				getVideoElement().simulate('canPlay', {
-					target: {
-						currentTime: 15,
-						volume: 0.5,
-						duration: 40,
-					},
+			it('should start play when space bar is pressed', async () => {
+				const { container, triggerKeydown, triggerFullscreen } = setupRTL({
+					isShortcutEnabled: false,
 				});
 
-				getVideoElement().simulate('timeUpdate', {
-					target: {
-						currentTime: 15,
-						buffered: [],
-					},
+				const video = container.querySelector('video') as HTMLVideoElement;
+
+				triggerFullscreen();
+				expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
+				act(() => {
+					triggerKeydown(keyCodes.space);
+				});
+				await waitFor(() => {
+					expect(video.play).toHaveBeenCalledTimes(1);
 				});
 			});
 
-			it('should skip back when left arrow pressed', () => {
-				triggerKeydown(keyCodes.leftArrow);
-				expect(getSliderTime()).toEqual(5);
+			it('should stop play when space bar is pressed second time', async () => {
+				const { container, triggerKeydown, triggerFullscreen } = setupRTL({
+					isShortcutEnabled: false,
+				});
+
+				const video = container.querySelector('video') as HTMLVideoElement;
+
+				triggerFullscreen();
+				expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
+				// first space key press
+				act(() => {
+					triggerKeydown(keyCodes.space);
+				});
+
+				fireEvent.play(video);
+
+				// second space key press
+				act(() => {
+					triggerKeydown(keyCodes.space);
+				});
+
+				await waitFor(() => {
+					expect(video.pause).toHaveBeenCalledTimes(1);
+				});
 			});
 
-			it('should skip forward when right arrow pressed', () => {
-				triggerKeydown(keyCodes.rightArrow);
-				expect(getSliderTime()).toEqual(25);
+			it('should mute and unmute when "m" keypress continuously', async () => {
+				const { container, triggerKeydown, triggerFullscreen } = setupRTL({
+					isShortcutEnabled: false,
+				});
+
+				triggerFullscreen();
+				expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
+				await waitFor(() => {
+					expect((container.querySelector('video') as HTMLVideoElement).volume).toEqual(1);
+				});
+
+				// first 'm' key press
+				act(() => {
+					triggerKeydown(keyCodes.m);
+				});
+				await waitFor(() => {
+					expect((container.querySelector('video') as HTMLVideoElement).volume).toEqual(0);
+				});
+
+				// second 'm' key press
+				act(() => {
+					triggerKeydown(keyCodes.m);
+				});
+				await waitFor(() => {
+					expect((container.querySelector('video') as HTMLVideoElement).volume).toEqual(1);
+				});
+			});
+
+			it('should skip back when left arrow pressed', async () => {
+				const { container, triggerKeydown, triggerFullscreen } = setupRTL({
+					isShortcutEnabled: false,
+				});
+
+				triggerFullscreen();
+				expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
+				const video = container.querySelector('video') as HTMLVideoElement;
+
+				fireEvent.timeUpdate(video, {
+					target: {
+						currentTime: 15,
+					},
+				});
+
+				await waitFor(() => {
+					expect(video.currentTime).toEqual(15);
+				});
+
+				act(() => {
+					triggerKeydown(keyCodes.leftArrow);
+				});
+
+				await waitFor(() => {
+					expect(video.currentTime).toEqual(5);
+				});
+			});
+
+			it('should skip forward when right arrow pressed', async () => {
+				const { container, triggerKeydown, triggerFullscreen } = setupRTL({
+					isShortcutEnabled: false,
+				});
+
+				triggerFullscreen();
+				expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
+				let video = container.querySelector('video') as HTMLVideoElement;
+
+				Object.defineProperty(video, 'duration', {
+					writable: true,
+					value: 25,
+				});
+				fireEvent.durationChange(video, {
+					target: {
+						duration: 25,
+					},
+				});
+				await waitFor(() => {
+					expect(video.duration).toEqual(25);
+				});
+
+				fireEvent.timeUpdate(video, {
+					target: {
+						currentTime: 0,
+					},
+				});
+
+				await waitFor(() => {
+					expect(video.currentTime).toEqual(0);
+				});
+
+				act(() => {
+					triggerKeydown(keyCodes.rightArrow);
+				});
+
+				await waitFor(() => {
+					expect(video.currentTime).toEqual(10);
+				});
 			});
 		});
 	});
@@ -826,7 +966,9 @@ describe('<CustomMediaPlayer />', () => {
 			const { component, setWidth } = setup();
 
 			// small sized video <160px
-			setWidth(150);
+			act(() => {
+				setWidth(150);
+			});
 			component.update();
 
 			expect(
@@ -839,7 +981,9 @@ describe('<CustomMediaPlayer />', () => {
 
 			// medium sized video >160px & < 400px
 
-			setWidth(250);
+			act(() => {
+				setWidth(250);
+			});
 			component.update();
 
 			expect(
@@ -852,7 +996,9 @@ describe('<CustomMediaPlayer />', () => {
 
 			// large sized video
 
-			setWidth(420);
+			act(() => {
+				setWidth(420);
+			});
 			component.update();
 
 			expect(
@@ -866,19 +1012,25 @@ describe('<CustomMediaPlayer />', () => {
 
 		it('when the playerSize is medium or large (above 160px width), show the timestamp and playback speed controls', async () => {
 			const { component, setWidth } = setup();
-			setWidth(150);
+			act(() => {
+				setWidth(150);
+			});
 			component.update();
 
 			expect(component.find(CurrentTime)).toHaveLength(0);
 			expect(component.find(PlaybackSpeedControls)).toHaveLength(0);
 
-			setWidth(170);
+			act(() => {
+				setWidth(170);
+			});
 			component.update();
 
 			expect(component.find(CurrentTime)).toHaveLength(1);
 			expect(component.find(PlaybackSpeedControls)).toHaveLength(0);
 
-			setWidth(401);
+			act(() => {
+				setWidth(401);
+			});
 			component.update();
 
 			expect(component.find(CurrentTime)).toHaveLength(1);
@@ -888,12 +1040,16 @@ describe('<CustomMediaPlayer />', () => {
 		it('Should show/hide volume controls when video is bigger/smaller than 400px (playerSize is large)', async () => {
 			const { component, setWidth } = setup();
 
-			setWidth(399);
+			act(() => {
+				setWidth(399);
+			});
 			component.update();
 
 			expect(component.find(VolumeTimeRangeWrapper)).toHaveLength(0);
 
-			setWidth(401);
+			act(() => {
+				setWidth(401);
+			});
 			component.update();
 
 			expect(component.find(VolumeTimeRangeWrapper)).toHaveLength(1);
@@ -920,6 +1076,12 @@ describe('<CustomMediaPlayer />', () => {
 				}),
 			);
 		};
+
+		beforeEach(() => {
+			const original = jest.requireActual('../../../customMediaPlayer/fullscreen');
+			asMock(toggleFullscreen).mockImplementation(original.toggleFullscreen);
+			asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
+		});
 
 		it('should fire clicked event when play button is clicked', () => {
 			const { triggerPlay, getUIAnalyticsEventDetails } = setup({
@@ -1294,9 +1456,12 @@ describe('<CustomMediaPlayer />', () => {
 			);
 		});
 
-		it('should fire press event when skip backward is activated by pressing left key', () => {
-			const { getUIAnalyticsEventDetails, triggerFullscreen, triggerKeydown } = setup();
+		it('should fire press event when skip backward is activated by pressing left key', async () => {
+			const { getUIAnalyticsEventDetails, triggerKeydown, triggerFullscreen } = setupRTL();
+
 			triggerFullscreen();
+			expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
 			triggerKeydown(keyCodes.leftArrow);
 
 			const { payload } = getUIAnalyticsEventDetails();
@@ -1316,9 +1481,12 @@ describe('<CustomMediaPlayer />', () => {
 			);
 		});
 
-		it('should fire press event when skip forward is activated by pressing right key', () => {
-			const { getUIAnalyticsEventDetails, triggerFullscreen, triggerKeydown } = setup();
+		it('should fire press event when skip forward is activated by pressing right key', async () => {
+			const { getUIAnalyticsEventDetails, triggerKeydown, triggerFullscreen } = setupRTL();
+
 			triggerFullscreen();
+			expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
 			triggerKeydown(keyCodes.rightArrow);
 
 			const { payload } = getUIAnalyticsEventDetails();
@@ -1389,37 +1557,52 @@ describe('<CustomMediaPlayer />', () => {
 	});
 
 	describe('on toggle fullscreen', () => {
-		it('should fire callback when fullscreen change', () => {
+		beforeEach(() => {
+			const original = jest.requireActual('../../../customMediaPlayer/fullscreen');
+			asMock(toggleFullscreen).mockImplementation(original.toggleFullscreen);
+		});
+
+		it('should fire callback when fullscreen change', async () => {
 			const onFullscreenChange = jest.fn();
-			const res = setup({
+			const { triggerFullscreen } = setupRTL({
 				onFullscreenChange,
 			});
-			const triggerFullScreen = res.triggerFullscreen;
-			triggerFullScreen();
+
+			asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
+			triggerFullscreen();
+
+			expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
 			expect(onFullscreenChange).toHaveBeenCalledWith(true);
-			const triggerExitFullscreen = res.triggerExitFullscreen;
-			triggerExitFullscreen();
+
+			asMockFunction(getFullscreenElement).mockReturnValue(undefined);
+			triggerFullscreen();
+
+			expect(await screen.findByLabelText('fakeIntl["enable fullscreen"]')).toBeInTheDocument();
 			expect(onFullscreenChange).toHaveBeenCalledWith(false);
 		});
 
-		it('should fire callback when in full screen and component unmounted', () => {
+		it('should fire callback when in full screen and component unmounted', async () => {
 			const onFullscreenChange = jest.fn();
-			const res = setup({
+			const { triggerFullscreen, unmount } = setupRTL({
 				onFullscreenChange,
 			});
-			const triggerFullScreen = res.triggerFullscreen;
-			triggerFullScreen();
-			if (componentToBeUnmounted && componentToBeUnmounted.length) {
-				componentToBeUnmounted.unmount();
-			}
+
+			asMockFunction(getFullscreenElement).mockReturnValue({} as HTMLElement);
+			triggerFullscreen();
+
+			expect(await screen.findByLabelText('fakeIntl["disable fullscreen"]')).toBeInTheDocument();
+
+			unmount();
+
 			expect(onFullscreenChange).toHaveBeenCalledWith(false);
 		});
 
 		it('should not fire callback when not in full screen and component unmounted', () => {
 			const onFullscreenChange = jest.fn();
-			if (componentToBeUnmounted && componentToBeUnmounted.length) {
-				componentToBeUnmounted.unmount();
-			}
+			const { unmount } = setupRTL({
+				onFullscreenChange,
+			});
+			unmount();
 			expect(onFullscreenChange).toHaveBeenCalledTimes(0);
 		});
 	});
@@ -1592,40 +1775,85 @@ describe('<CustomMediaPlayer />', () => {
 	});
 	it('ControlsWrapper should be visible when a video does not have autoplay, until it has been played for the first time as then it should be hidden', async () => {
 		getControlsWrapperClassName.mockClear();
-		const component = mountWithIntlContext<
-			CustomMediaPlayerProps,
-			CustomMediaPlayerState,
-			CustomMediaPlayerBase
-		>(
-			<CustomMediaPlayerBase
-				type="video"
-				fileId="some-file-id"
-				isHDAvailable={false}
-				src="video-src"
-				intl={fakeIntl}
-				isAutoPlay={false}
-				// The test won't pass if we don't pass this prop
-				onFirstPlay={() => {}}
-			/>,
+
+		const { rerender } = render(
+			<IntlProvider locale="en">
+				<CustomMediaPlayerBase
+					type="video"
+					fileId="some-file-id"
+					isHDAvailable={false}
+					src="video-src"
+					intl={fakeIntl}
+					isAutoPlay={false}
+					// The test won't pass if we don't pass this prop
+					onFirstPlay={() => {}}
+				/>
+			</IntlProvider>,
 		);
+
 		expect(getControlsWrapperClassName).not.toHaveBeenCalledWith(true);
-		(component.instance() as any).play();
-		// We need to force an update to make ControlsWrapper rerender after play
-		component.instance().forceUpdate();
-		expect(getControlsWrapperClassName).toHaveBeenLastCalledWith(true);
+
+		const playButton = await screen.findByRole('button', {
+			name: /fakeintl\["play"\]/i,
+		});
+
+		fireEvent.click(playButton);
+
+		// We need to force a rerender to make ControlsWrapper rerender after play
+		rerender(
+			<IntlProvider locale="en">
+				<CustomMediaPlayerBase
+					type="video"
+					fileId="some-file-id"
+					isHDAvailable={false}
+					src="video-src"
+					intl={fakeIntl}
+					isAutoPlay={false}
+					// The test won't pass if we don't pass this prop
+					onFirstPlay={() => {}}
+				/>
+			</IntlProvider>,
+		);
+
+		await waitFor(() => {
+			expect(getControlsWrapperClassName).toHaveBeenLastCalledWith(true);
+		});
 	});
 
 	it('ControlsWrapper should be hidden when a video has autoplay', async () => {
-		mountWithIntlContext<CustomMediaPlayerProps, CustomMediaPlayerState, CustomMediaPlayerBase>(
-			<CustomMediaPlayerBase
-				type="video"
-				fileId="some-file-id"
-				isHDAvailable={false}
-				src="video-src"
-				intl={fakeIntl}
-				isAutoPlay={true}
-			/>,
+		const { rerender } = render(
+			<IntlProvider locale="en">
+				<CustomMediaPlayerBase
+					type="video"
+					fileId="some-file-id"
+					isHDAvailable={false}
+					src="video-src"
+					intl={fakeIntl}
+					isAutoPlay={true}
+					// The test won't pass if we don't pass this prop
+					onFirstPlay={() => {}}
+				/>
+			</IntlProvider>,
 		);
-		expect(getControlsWrapperClassName).toHaveBeenCalledWith(true);
+
+		// We need to force a rerender to make ControlsWrapper rerender
+		rerender(
+			<IntlProvider locale="en">
+				<CustomMediaPlayerBase
+					type="video"
+					fileId="some-file-id"
+					isHDAvailable={false}
+					src="video-src"
+					intl={fakeIntl}
+					isAutoPlay={true}
+					// The test won't pass if we don't pass this prop
+					onFirstPlay={() => {}}
+				/>
+			</IntlProvider>,
+		);
+
+		await waitFor(() => {
+			expect(getControlsWrapperClassName).toHaveBeenLastCalledWith(true);
+		});
 	});
 });

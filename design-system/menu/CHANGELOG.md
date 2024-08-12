@@ -1,5 +1,30 @@
 # @atlaskit/menu
 
+## 2.12.0
+
+### Minor Changes
+
+- [#128489](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128489)
+  [`a88a2fe454eb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a88a2fe454eb9) -
+  Updated LinkItem to not render a router link when the href is empty (e.g. href="" or
+  href={undefined}).
+
+## 2.11.0
+
+### Minor Changes
+
+- [#127511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127511)
+  [`db30e29344013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db30e29344013) -
+  Widening range of `react` and `react-dom` peer dependencies from `^16.8.0 || ^17.0.0 || ~18.2.0`
+  to the wider range of ``^16.8.0 || ^17.0.0 || ^18.0.0` (where applicable).
+
+  This change has been done to enable usage of `react@18.3` as well as to have a consistent peer
+  dependency range for `react` and `react-dom` for `/platform` packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.10.1
 
 ### Patch Changes

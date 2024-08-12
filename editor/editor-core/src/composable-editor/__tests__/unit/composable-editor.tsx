@@ -12,7 +12,11 @@ import { ComposableEditor } from '../../editor';
 describe('ComposableEditor', () => {
 	describe('render with presets passed in', () => {
 		it('should render correctly with the preset prop', () => {
-			const preset = createUniversalPreset('full-page', { paste: {} }, {});
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {} },
+				featureFlags: {},
+			});
 			const { container } = render(<ComposableEditor preset={preset} />);
 			const editorElement = container.getElementsByClassName('akEditor');
 			expect(editorElement.length).toBe(1);

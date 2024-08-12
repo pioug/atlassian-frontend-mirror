@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-expand",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "Expand plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,8 +37,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/button": "^19.2.0",
+		"@atlaskit/editor-common": "^87.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
@@ -47,9 +47,9 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^22.11.0",
+		"@atlaskit/icon": "^22.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tooltip": "^18.6.0",
+		"@atlaskit/tooltip": "^18.7.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"w3c-keyname": "^2.1.8"
@@ -60,7 +60,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/analytics-next": "^10.0.0",
+		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/editor-plugin-content-insertion": "^1.7.0",
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.2.0",
@@ -112,6 +112,9 @@
 			"type": "boolean"
 		},
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
+			"type": "boolean"
+		},
+		"platform_editor_single_player_expand_ed_24536": {
 			"type": "boolean"
 		}
 	}

@@ -1,7 +1,10 @@
 import type { LintRuleMeta } from '@atlaskit/eslint-utils/create-rule';
+
 import { getRuleUrl } from './utils/create-rule';
 
-/** External rules must be scoped, have a display name, and external urls. */
+/**
+ * External rules must be scoped, have a display name, and external urls.
+ */
 export type ExternalRuleMeta = LintRuleMeta & {
 	isExternal: true;
 	name: `@${string}/${string}`;
@@ -122,36 +125,6 @@ export const externalRules: ExternalRuleMeta[] = [
 			url: getRuleUrl('no-empty-styled-expression'),
 			externalUrl:
 				'https://atlassian.design/components/eslint-plugin-design-system/no-empty-styled-expression/usage',
-			recommended: true,
-			severity: 'error',
-			pluginConfig: { importSources },
-		},
-	},
-	{
-		name: '@atlaskit/design-system/no-exported-css',
-		displayName: 'no-exported-css',
-		isExternal: true,
-		docs: {
-			description:
-				'Forbid exporting `css` function calls. Exporting `css` function calls can result in unexpected behaviour at runtime, and is not statically analysable.',
-			url: getRuleUrl('no-exported-css'),
-			externalUrl:
-				'https://atlassian.design/components/eslint-plugin-design-system/no-exported-css/usage',
-			recommended: true,
-			severity: 'error',
-			pluginConfig: { importSources },
-		},
-	},
-	{
-		name: '@atlaskit/design-system/no-exported-keyframes',
-		displayName: 'no-exported-keyframes',
-		isExternal: true,
-		docs: {
-			description:
-				'Forbid exporting `keyframes` function calls. Exporting `css` function calls can result in unexpected behaviour at runtime, and is not statically analysable.',
-			url: getRuleUrl('no-exported-keyframes'),
-			externalUrl:
-				'https://atlassian.design/components/eslint-plugin-design-system/no-exported-keyframes/usage',
 			recommended: true,
 			severity: 'error',
 			pluginConfig: { importSources },

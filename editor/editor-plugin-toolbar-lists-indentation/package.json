@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/editor-common": "^87.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-block-type": "^3.12.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
@@ -46,7 +46,7 @@
 		"@atlaskit/editor-plugin-tasks-and-decisions": "^2.4.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
-		"@atlaskit/icon": "^22.11.0",
+		"@atlaskit/icon": "^22.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -59,7 +59,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/analytics-next": "^10.0.0",
+		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/editor-plugin-base": "^1.10.0",
 		"@atlaskit/editor-plugin-text-formatting": "^1.13.0",
 		"@atlaskit/ssr": "*",

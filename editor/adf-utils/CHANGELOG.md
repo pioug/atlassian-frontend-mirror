@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.8.0
+
+### Minor Changes
+
+- [#129049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129049)
+  [`57be9a9345656`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57be9a9345656) -
+  [ED-24281] Node nesting v2 - Update validator
+
 ## 19.7.0
 
 ### Minor Changes

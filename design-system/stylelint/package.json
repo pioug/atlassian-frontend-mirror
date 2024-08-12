@@ -47,7 +47,7 @@
 		".": "./index.js"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^1.57.0",
+		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"postcss-value-parser": "^4.2.0"
 	},

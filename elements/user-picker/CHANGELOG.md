@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.22.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.22.4
 
 ### Patch Changes

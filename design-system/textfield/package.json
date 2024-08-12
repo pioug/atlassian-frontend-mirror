@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textfield",
-	"version": "6.4.3",
+	"version": "6.5.0",
 	"description": "A text field is an input that allows a user to write or edit text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,21 +27,21 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.57.0",
+		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/codemod-utils": "^4.2.3",
-		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ds-lib": "^2.4.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

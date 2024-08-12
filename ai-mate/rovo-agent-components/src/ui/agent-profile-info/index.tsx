@@ -42,10 +42,17 @@ export const AgentProfileCreator = ({
 }: {
 	creator?:
 		| {
+				type: 'CUSTOMER';
 				name: string;
 				profileLink: string;
 		  }
-		| 'SYSTEM';
+		| {
+				type: 'SYSTEM';
+		  }
+		| {
+				type: 'THIRD_PARTY';
+				name: string;
+		  };
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
 }) => {
@@ -70,7 +77,7 @@ export const AgentProfileCreator = ({
 			return null;
 		}
 
-		if (creator === 'SYSTEM') {
+		if (creator.type === 'SYSTEM') {
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: (
 					<Inline alignBlock="center" testId="atlassian-icon">
@@ -81,13 +88,23 @@ export const AgentProfileCreator = ({
 			});
 		}
 
-		return formatMessage(messages.agentCreatedBy, {
-			creatorNameWithLink: (
-				<a href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
-					{creator.name}
-				</a>
-			),
-		});
+		if (creator.type === 'CUSTOMER') {
+			return formatMessage(messages.agentCreatedBy, {
+				creatorNameWithLink: (
+					<a href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
+						{creator.name}
+					</a>
+				),
+			});
+		}
+
+		if (creator.type === 'THIRD_PARTY') {
+			return formatMessage(messages.agentCreatedBy, {
+				creatorNameWithLink: creator.name,
+			});
+		}
+
+		return null;
 	};
 
 	const creatorRender = getCreatorRender();

@@ -63,13 +63,13 @@ const MyRouterLinkComponent = forwardRef(
 describe('<LinkItem />', () => {
 	it('should callback on click', () => {
 		const callback = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<LinkItem href="http://www.atlassian.com" onClick={callback} testId="target">
 				Atlassian
 			</LinkItem>,
 		);
 
-		fireEvent.click(getByTestId('target'));
+		fireEvent.click(screen.getByTestId('target'));
 
 		expect(callback).toHaveBeenCalled();
 	});
@@ -78,13 +78,13 @@ describe('<LinkItem />', () => {
 	// When we remove the ability for spread props in a future major version
 	// This test can be deleted.
 	it('should take a data-testid directly', () => {
-		const { getByTestId } = render(
+		render(
 			<LinkItem href="http://www.atlassian.com" data-testid="link">
 				Atlassian
 			</LinkItem>,
 		);
 
-		expect(getByTestId('link')).toBeInTheDocument();
+		expect(screen.getByTestId('link')).toBeInTheDocument();
 	});
 
 	// The purpose of this test is to confirm that this functionality still
@@ -98,7 +98,7 @@ describe('<LinkItem />', () => {
 			backgroundColor: 'red',
 		});
 
-		const { getByTestId } = render(
+		render(
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 			// @ts-ignore
 			<LinkItem href="http://www.atlassian.com" css={hackStyles} testId="link">
@@ -107,12 +107,14 @@ describe('<LinkItem />', () => {
 			/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 		);
 
-		expect(getByTestId('link')).toHaveStyleRule('background-color', 'red');
-		expect(getByTestId('link')).toHaveStyleRule('color', 'currentColor');
+		const link = screen.getByTestId('link');
+
+		expect(link).toHaveStyleRule('background-color', 'red');
+		expect(link).toHaveStyleRule('color', 'currentColor');
 	});
 
 	it('should not gain focus on mouse down when it had no initial focus', () => {
-		const { getByTestId } = render(
+		render(
 			<div>
 				<button type="button" data-testid="focused-button">
 					Button
@@ -124,27 +126,32 @@ describe('<LinkItem />', () => {
 			</div>,
 		);
 
-		getByTestId('focused-button').focus();
-		expect(getByTestId('focused-button')).toHaveFocus();
-		const allowed: boolean = fireEvent.mouseDown(getByTestId('target'));
+		const focusedButton = screen.getByTestId('focused-button');
+		const target = screen.getByTestId('target');
+
+		focusedButton.focus();
+		expect(focusedButton).toHaveFocus();
+		const allowed: boolean = fireEvent.mouseDown(target);
 
 		// target didn't get focus
-		expect(getByTestId('target')).not.toHaveFocus();
+		expect(target).not.toHaveFocus();
 		// mousedown event not prevented
 		expect(allowed).toBe(true);
 	});
 
 	it('should persist focus if it was focused during mouse down', () => {
-		const { getByTestId } = render(
+		render(
 			<LinkItem href="http://www.atlassian.com" testId="target">
 				Atlassian
 			</LinkItem>,
 		);
 
-		getByTestId('target').focus();
-		fireEvent.mouseDown(getByTestId('target'));
+		const target = screen.getByTestId('target');
 
-		expect(getByTestId('target') === document.activeElement).toBe(true);
+		target.focus();
+		fireEvent.mouseDown(target);
+
+		expect(target === document.activeElement).toBe(true);
 	});
 
 	describe('LinkItem used as a button (for legacy purposes only, do not do this!)', () => {
@@ -153,7 +160,7 @@ describe('<LinkItem />', () => {
 		// be using a ButtonItem.
 		it('should callback to user supplied mouse down prop', () => {
 			const onMouseDown = jest.fn();
-			const { getByTestId } = render(
+			render(
 				// TODO: Ensure LinkItems are not used as buttons (DSP-11468)
 				// eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions
 				<LinkItem onMouseDown={onMouseDown} testId="target">
@@ -161,21 +168,21 @@ describe('<LinkItem />', () => {
 				</LinkItem>,
 			);
 
-			fireEvent.mouseDown(getByTestId('target'));
+			fireEvent.mouseDown(screen.getByTestId('target'));
 
 			expect(onMouseDown).toHaveBeenCalled();
 		});
 
 		it('should not callback on click when disabled', () => {
 			const callback = jest.fn();
-			const { getByTestId } = render(
+			render(
 				// eslint-disable-next-line jsx-a11y/click-events-have-key-events
 				<LinkItem href="http://www.atlassian.com" isDisabled onClick={callback} testId="target">
 					Atlassian
 				</LinkItem>,
 			);
 
-			fireEvent.click(getByTestId('target'));
+			fireEvent.click(screen.getByTestId('target'));
 
 			expect(callback).not.toHaveBeenCalled();
 		});
@@ -210,7 +217,7 @@ describe('<LinkItem />', () => {
 	it('should prevent dragging so the transparent artefact isnt shown', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
-		const { getByTestId } = render(
+		render(
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target">
@@ -219,9 +226,11 @@ describe('<LinkItem />', () => {
 			</div>,
 		);
 
-		fireEvent.dragStart(getByTestId('target'));
+		const target = screen.getByTestId('target');
 
-		expect(getByTestId('target')).toHaveAttribute('draggable', 'false');
+		fireEvent.dragStart(target);
+
+		expect(target).toHaveAttribute('draggable', 'false');
 		//  Default was prevented?
 		expect(dragStartEvent.mock.results[0].value).toEqual(true);
 	});
@@ -229,7 +238,7 @@ describe('<LinkItem />', () => {
 	it('should not prevent dragging when UNSAFE_isDraggable is true', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
-		const { getByTestId } = render(
+		render(
 			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target" UNSAFE_isDraggable>
@@ -238,19 +247,19 @@ describe('<LinkItem />', () => {
 			</div>,
 		);
 
-		fireEvent.dragStart(getByTestId('target'));
+		fireEvent.dragStart(screen.getByTestId('target'));
 
 		expect(dragStartEvent.mock.results[0].value).toEqual(false);
 	});
 
 	it('should have "aria-current=page" when link item is selected', () => {
-		const { getByTestId } = render(
+		render(
 			<LinkItem href="http://www.atlassian.com" isSelected testId="target">
 				Atlassian
 			</LinkItem>,
 		);
 
-		expect(getByTestId('target')).toHaveAttribute('aria-current', 'page');
+		expect(screen.getByTestId('target')).toHaveAttribute('aria-current', 'page');
 	});
 
 	describe('should conditionally render router links or standard <a> anchors', () => {
@@ -328,6 +337,32 @@ describe('<LinkItem />', () => {
 			it('should render a standard <a> anchor for hash links on the current page', () => {
 				render(
 					<LinkItem href="#hash" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor when href is an empty string', () => {
+				render(
+					// Disabling this rule because we want to test the behaviour of this component
+					// when the href is an empty string.
+					// eslint-disable-next-line jsx-a11y/anchor-is-valid
+					<LinkItem href="" testId="link-item">
+						Link item
+					</LinkItem>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor when href is undefined', () => {
+				render(
+					// Disabling this rule because we want to test the behaviour of this component
+					// when the href is undefined.
+					// eslint-disable-next-line jsx-a11y/anchor-is-valid
+					<LinkItem href={undefined} testId="link-item">
 						Link item
 					</LinkItem>,
 				);
@@ -443,6 +478,36 @@ describe('<LinkItem />', () => {
 				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
 			});
 
+			it('should render a standard <a> anchor when href is an empty string', () => {
+				render(
+					<AppProvider>
+						{/* Disabling this rule because we want to test the behaviour of this component */}
+						{/* when the href is an empty string. */}
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						<LinkItem href="" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor when href is undefined', () => {
+				render(
+					<AppProvider>
+						{/* Disabling this rule because we want to test the behaviour of this component */}
+						{/* when the href is undefined. */}
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						<LinkItem href={undefined} testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
 			it('should render a standard <a> anchor for hash links on internal pages', () => {
 				render(
 					<AppProvider>
@@ -545,6 +610,36 @@ describe('<LinkItem />', () => {
 				render(
 					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
 						<LinkItem href="#hash" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor when href is an empty string', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						{/* Disabling this rule because we want to test the behaviour of this component */}
+						{/* when the href is an empty string. */}
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						<LinkItem href="" testId="link-item">
+							Link item
+						</LinkItem>
+					</AppProvider>,
+				);
+
+				expect(screen.getByTestId('link-item')).toHaveAttribute('data-is-router-link', 'false');
+			});
+
+			it('should render a standard <a> anchor when href is undefined', () => {
+				render(
+					<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+						{/* Disabling this rule because we want to test the behaviour of this component */}
+						{/* when the href is undefined. */}
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+						<LinkItem href={undefined} testId="link-item">
 							Link item
 						</LinkItem>
 					</AppProvider>,

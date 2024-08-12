@@ -2,12 +2,12 @@ import { expandPlugin } from '@atlaskit/editor-plugins/expand';
 
 import type { EditorProps } from '../../../types';
 import createPluginsListBase from '../../create-plugins-list';
-import { createPreset } from '../../create-preset';
+import { createUniversalPreset } from '../../create-universal-preset';
 
 jest.mock('@atlaskit/editor-plugins/expand');
 
 const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
-	return createPluginsListBase(createPreset(props, prevProps), props);
+	return createPluginsListBase(createUniversalPreset({ props, prevProps }), props);
 };
 
 describe('create-plugins-list without mock tests', () => {

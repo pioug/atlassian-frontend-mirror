@@ -27,7 +27,9 @@ export default function () {
 						onStarToggle={() => {}}
 						creatorRender={
 							<AgentProfileCreator
-								creator="SYSTEM"
+								creator={{
+									type: 'SYSTEM',
+								}}
 								isLoading={false}
 								onCreatorLinkClick={() => {
 									console.log('Creator link clicked');
@@ -46,6 +48,7 @@ export default function () {
 						creatorRender={
 							<AgentProfileCreator
 								creator={{
+									type: 'CUSTOMER',
 									name: 'Creator Name',
 									profileLink: 'https://example.com',
 								}}
@@ -87,6 +90,27 @@ export default function () {
 						creatorRender={
 							<AgentProfileCreator
 								creator={undefined}
+								isLoading={false}
+								onCreatorLinkClick={() => {
+									console.log('Creator link clicked');
+								}}
+							/>
+						}
+						starCountRender={<AgentStarCount starCount={undefined} isLoading={false} />}
+					/>
+				</Box>
+
+				<Box xcss={wrapperStyles}>
+					<AgentProfileInfo
+						agentName="Forge agent example"
+						isStarred={false}
+						onStarToggle={() => {}}
+						creatorRender={
+							<AgentProfileCreator
+								creator={{
+									type: 'THIRD_PARTY',
+									name: 'Opsgenie Incident Timeline Lab',
+								}}
 								isLoading={false}
 								onCreatorLinkClick={() => {
 									console.log('Creator link clicked');

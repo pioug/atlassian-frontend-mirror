@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 87.8.0
+
+### Minor Changes
+
+- [#129049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129049)
+  [`6b1533d389c9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1533d389c9d) -
+  [ux] ED-24511 - Convert code block line numbers inline decorations to widget decorations. The line
+  number gutter on editor code blocks should now reflect the number of lines of code, including when
+  the code block has word wrap enabled. Minor for editor-common as new analytics attribute added.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 87.7.0
+
+### Minor Changes
+
+- [#128669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128669)
+  [`99576bbe6eb8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99576bbe6eb8d) -
+  Inject experiment as feature flag in editor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 87.6.2
+
+### Patch Changes
+
+- [#128785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128785)
+  [`175fd06e412c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/175fd06e412c2) -
+  [ux] Increase bodied macro padding to account for new editor resize controller future feature
+- [#128413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128413)
+  [`2df8a92126a8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2df8a92126a8d) -
+  [ux] We are testing input behavior change inside of an extension body. Now when attempting to
+  register inputs, like typing, from an element inside an extension body, it should not accidently
+  instead register in the editor body. If this fix is successful it will be available in a later
+  release.
+
 ## 87.6.1
 
 ### Patch Changes

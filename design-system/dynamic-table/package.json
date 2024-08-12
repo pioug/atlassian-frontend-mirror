@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dynamic-table",
-	"version": "14.19.0",
+	"version": "14.20.0",
 	"description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,27 +46,27 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/pagination": "^14.7.0",
+		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/pagination": "^14.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/spinner": "^16.2.0",
-		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.57.0",
+		"@atlaskit/spinner": "^16.3.0",
+		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-beautiful-dnd": "^12.2.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.2.0",
+		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^12.1.5",

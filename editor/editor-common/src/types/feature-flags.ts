@@ -309,12 +309,12 @@ export type FeatureFlags = {
 	macroInteractionButtonUpdates?: boolean;
 
 	/**
-   * @description
-   * Enables bug fix on media comments
-   *
-  //  * @see https://product-fabric.atlassian.net/browse/ED-23093
-   * @default false
-   */
+	 * @description
+	 * Enables bug fix on media comments
+	 *
+	//  * @see https://product-fabric.atlassian.net/browse/ED-23093
+	 * @default false
+	 */
 	commentsOnMediaBugFix?: boolean;
 
 	/**
@@ -372,6 +372,15 @@ export type FeatureFlags = {
 	 * @default false
 	 */
 	basicTextTransformations?: boolean;
+
+	/**
+	 * @description
+	 * Enables nesting nested expands in expands
+	 *
+	 * @see https://hello.jira.atlassian.cloud/browse/FD-72082
+	 * @default false
+	 */
+	nestedExpandInExpandEx?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

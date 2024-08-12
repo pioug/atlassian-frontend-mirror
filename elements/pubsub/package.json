@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/pubsub",
-	"version": "6.6.6",
+	"version": "6.7.0",
 	"description": "Interacts with Atlassian Frontend PubSub service to receive pubsub events.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,7 +57,7 @@
 		"exponential-backoff": "^3.1.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"es6-promise": "^4.0.5",

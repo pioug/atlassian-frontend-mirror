@@ -1,8 +1,10 @@
-import React, { type ReactNode, useEffect } from 'react';
+import React, { type ReactNode, StrictMode, useEffect } from 'react';
 
 import { act, cleanup, render, screen } from '@testing-library/react';
 import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
+
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
 import Portal from '../../index';
@@ -102,6 +104,7 @@ describe('Portal container', () => {
 				</Portal>
 			</App>,
 		);
+
 		const elements = document.getElementsByClassName('atlaskit-portal');
 		expect(elements).toHaveLength(2);
 
@@ -423,5 +426,26 @@ describe('Portal container', () => {
 				</Portal>,
 			);
 		}).not.toThrow();
+	});
+});
+
+describe('new portal logic enable test', () => {
+	ffTest.on('dsp-19516-design-system-portal-logic-update', 'new portal logic enable test', () => {
+		test('should be able to render a portal', () => {
+			const { container } = render(
+				<StrictMode>
+					<App>
+						<Portal>
+							<div>Hi</div>
+						</Portal>
+					</App>
+				</StrictMode>,
+			);
+
+			const elements = document.getElementsByClassName('atlaskit-portal');
+			expect(container.innerHTML).toBe('<div></div>');
+			expect(elements).toHaveLength(1);
+			expect(elements[0].innerHTML).toBe('<div>Hi</div>');
+		});
 	});
 });

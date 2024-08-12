@@ -84,6 +84,9 @@ const noInvalidCssMapRule: Rule.RuleModule = createLintRule({
 				"Checks the validity of a CSS map created through cssMap. This is intended to be used alongside TypeScript's type-checking.",
 			recommended: true,
 			severity: 'error',
+			pluginConfig: {
+				allowedFunctionCalls: [['@atlaskit/tokens', 'token']],
+			},
 		},
 		messages: {
 			mustBeTopLevelScope: 'cssMap must only be used in the top-most scope of the module.',

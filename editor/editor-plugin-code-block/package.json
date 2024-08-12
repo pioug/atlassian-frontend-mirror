@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block",
-	"version": "3.3.1",
+	"version": "3.3.2",
 	"description": "Code block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,14 +37,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/code": "^15.4.0",
-		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/code": "^15.5.0",
+		"@atlaskit/editor-common": "^87.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-composition": "^1.2.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
-		"@atlaskit/icon": "^22.11.0",
+		"@atlaskit/icon": "^22.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -100,9 +100,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
-			"type": "boolean"
-		},
-		"platform.editor.codeblock-preserve-newlines_54r3m": {
 			"type": "boolean"
 		}
 	}

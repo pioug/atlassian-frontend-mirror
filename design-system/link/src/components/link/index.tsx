@@ -11,7 +11,7 @@ import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { Box, xcss } from '@atlaskit/primitives';
 import Anchor, { type AnchorProps } from '@atlaskit/primitives/anchor';
 
-const commonLinkStyles = xcss({
+const visitedLinkStyles = xcss({
 	':visited': {
 		color: 'color.link.visited',
 	},
@@ -120,10 +120,11 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 			xcss={[
-				commonLinkStyles,
 				appearance === 'default' && defaultAppearanceStyles,
 				appearance === 'subtle' && subtleAppearanceStyles,
 				appearance === 'inverse' && inverseAppearanceStyles,
+				// Visited styles are not supported for inverse links due to contrast issues
+				appearance !== 'inverse' && visitedLinkStyles,
 			]}
 			testId={testId}
 			componentName="Link"

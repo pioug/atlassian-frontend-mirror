@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.37.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.37.0
 
 ### Minor Changes

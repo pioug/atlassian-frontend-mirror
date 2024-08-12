@@ -1,5 +1,19 @@
 # @atlaskit/reactions
 
+## 22.10.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.10.8
+
+### Patch Changes
+
+- [#128413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128413)
+  [`cc1157d1b37f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc1157d1b37f9) -
+  [ux] Ensure that particle animations only appear once after adding reaction
+
 ## 22.10.7
 
 ### Patch Changes

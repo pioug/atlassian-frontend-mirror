@@ -69,9 +69,11 @@ export const dropTargetDecorations = (
 		if (fg('platform_editor_elements_dnd_nested')) {
 			depth = newState.doc.resolve(pos).depth;
 			if (node.isInline || !parent) {
+				prevNode = node;
 				return false;
 			}
 			if (IGNORE_NODES.includes(node.type.name)) {
+				prevNode = node;
 				return true; //skip over, don't consider it a valid depth
 			}
 
@@ -79,6 +81,7 @@ export const dropTargetDecorations = (
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
 			if (!canDrop && !isBlocksDragTargetDebug()) {
+				prevNode = node;
 				return false; //not valid pos, so nested not valid either
 			}
 
@@ -101,6 +104,7 @@ export const dropTargetDecorations = (
 					formatMessage,
 					prevNode,
 					nextNode: node,
+					parentNode: parent,
 				} as DropTargetProps),
 			),
 		);
@@ -112,6 +116,7 @@ export const dropTargetDecorations = (
 					createElement(DropTarget, {
 						api,
 						id: endDec.id,
+						parentNode: parent,
 						formatMessage,
 					} as DropTargetProps),
 				),

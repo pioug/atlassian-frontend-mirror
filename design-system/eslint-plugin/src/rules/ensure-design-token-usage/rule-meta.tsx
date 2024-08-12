@@ -4,7 +4,7 @@ import { type Domains } from './types';
 
 const domainsToLint: Domains = ['color', 'spacing', 'shape'];
 
-const ruleMeta: LintRuleMeta = {
+const ruleMeta = {
 	name: 'ensure-design-token-usage',
 	hasSuggestions: true,
 	schema: {
@@ -49,6 +49,6 @@ const ruleMeta: LintRuleMeta = {
 		hardCodedColor: `Colors can be sourced from the global theme using the token function.`,
 		legacyElevation: `Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.`,
 	},
-};
+} as const satisfies LintRuleMeta;
 
 export default ruleMeta;

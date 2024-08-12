@@ -1,5 +1,35 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.15.0
+
+### Minor Changes
+
+- [#127511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127511)
+  [`db30e29344013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db30e29344013) -
+  Widening range of `react` and `react-dom` peer dependencies from `^16.8.0 || ^17.0.0 || ~18.2.0`
+  to the wider range of ``^16.8.0 || ^17.0.0 || ^18.0.0` (where applicable).
+
+  This change has been done to enable usage of `react@18.3` as well as to have a consistent peer
+  dependency range for `react` and `react-dom` for `/platform` packages.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.14.0
+
+### Minor Changes
+
+- [#128926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128926)
+  [`5df26d24db3c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5df26d24db3c7) - -
+  Remove config for rules that do not belong in this plugin long-term:
+  '@atlaskit/design-system/no-empty-styled-expression', '@atlaskit/design-system/no-exported-css',
+  '@atlaskit/design-system/no-exported-keyframes' — they may be removed in a future release and
+  prefer `@atlaskit/eslint-plugin/ui-styling-standard/recommended` for this type of rules in the
+  future.
+  - Reconfigure '@atlaskit/design-system/no-invalid-css-map' to work properly of the box alongside
+    ADS.
+
 ## 10.13.0
 
 ### Minor Changes

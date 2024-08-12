@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.11.1
+
+### Patch Changes
+
+- [#128476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128476)
+  [`e6ccffdd6fe90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6ccffdd6fe90) -
+  ED-24408 fix nested drop target indicator location and appearance
+
 ## 1.11.0
 
 ### Minor Changes

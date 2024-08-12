@@ -5,7 +5,7 @@ import * as FeatureFlagsPlugin from '@atlaskit/editor-plugins/feature-flags';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import { createPreset } from '../../create-preset';
+import { createUniversalPreset } from '../../create-universal-preset';
 import ReactEditorView from '../../ReactEditorView';
 
 jest.mock('@atlaskit/editor-plugins/feature-flags', () => ({
@@ -41,7 +41,7 @@ describe('ReactEditorView/reconfigureState', () => {
 				<ReactEditorView
 					{...defaultProps}
 					editorProps={editorProps}
-					preset={createPreset(editorProps)}
+					preset={createUniversalPreset({ props: editorProps })}
 				/>,
 			);
 
@@ -65,7 +65,7 @@ describe('ReactEditorView/reconfigureState', () => {
 				<ReactEditorView
 					{...defaultProps}
 					editorProps={editorProps}
-					preset={createPreset(editorProps)}
+					preset={createUniversalPreset({ props: editorProps })}
 				/>,
 			);
 
@@ -85,7 +85,7 @@ describe('ReactEditorView/reconfigureState', () => {
 				<ReactEditorView
 					{...defaultProps}
 					editorProps={nextEditorProps}
-					preset={createPreset(nextEditorProps)}
+					preset={createUniversalPreset({ props: nextEditorProps })}
 				/>,
 			);
 

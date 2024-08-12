@@ -7,7 +7,6 @@ import React, { type FC, memo, useCallback, useEffect, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
-import NodeResolver from 'react-node-resolver';
 
 import {
 	createAndFireEvent,
@@ -21,6 +20,7 @@ import { Manager, Popper, Reference } from '@atlaskit/popper';
 
 import type { InlineDialogProps } from '../types';
 
+import NodeResolverWrapper from './node-resolver-wrapper';
 import { Container } from './styled/container';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -185,7 +185,7 @@ const InlineDialogComponent: FC<InlineDialogProps> = memo<InlineDialogProps>(fun
 		<Manager>
 			<Reference>
 				{({ ref }) => (
-					<NodeResolver
+					<NodeResolverWrapper
 						innerRef={(node: HTMLElement) => {
 							triggerRef.current = node;
 							if (typeof ref === 'function') {
@@ -193,10 +193,12 @@ const InlineDialogComponent: FC<InlineDialogProps> = memo<InlineDialogProps>(fun
 							} else {
 								(ref as React.MutableRefObject<HTMLElement>).current = node;
 							}
+							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						}}
+						hasNodeResolver={!fg('dsp-19516-design-system-portal-logic-update')}
 					>
 						<React.Fragment>{children}</React.Fragment>
-					</NodeResolver>
+					</NodeResolverWrapper>
 				)}
 			</Reference>
 			{isLayeringEnabled ? (

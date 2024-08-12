@@ -35,18 +35,18 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.6.0",
+		"@atlaskit/editor-common": "^87.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-decorations": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
-		"@atlaskit/icon": "^22.11.0",
+		"@atlaskit/icon": "^22.12.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/analytics-next": "^10.0.0",
+		"@atlaskit/analytics-next": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2"

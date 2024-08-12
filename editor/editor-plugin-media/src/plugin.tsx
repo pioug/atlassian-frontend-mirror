@@ -75,6 +75,7 @@ const MediaPickerFunctionalComponent = ({
 };
 
 export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, api }) => {
+	let previousMediaProvider: Promise<MediaProvider> | undefined;
 	return {
 		name: 'media',
 
@@ -89,6 +90,11 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			insertMediaAsMediaSingle: (view, node, inputMethod) =>
 				insertMediaAsMediaSingle(view, node, inputMethod, api?.analytics?.actions),
 			setProvider: (provider) => {
+				// Prevent someone trying to set the exact same provider twice for performance reasons
+				if (previousMediaProvider === provider) {
+					return false;
+				}
+				previousMediaProvider = provider;
 				return (
 					api?.core.actions.execute(({ tr }) =>
 						tr.setMeta(stateKey, { mediaProvider: provider }),

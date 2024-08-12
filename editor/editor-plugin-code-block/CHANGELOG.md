@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.2
+
+### Patch Changes
+
+- [#128111](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128111)
+  [`9863ffeb3e73e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9863ffeb3e73e) -
+  remove codeblock preserve newlines ff
+- [#129049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129049)
+  [`6b1533d389c9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1533d389c9d) -
+  [ux] ED-24511 - Convert code block line numbers inline decorations to widget decorations. The line
+  number gutter on editor code blocks should now reflect the number of lines of code, including when
+  the code block has word wrap enabled. Minor for editor-common as new analytics attribute added.
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

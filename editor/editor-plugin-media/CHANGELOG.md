@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.28.2
+
+### Patch Changes
+
+- [#128977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128977)
+  [`bfcf3686fbc97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfcf3686fbc97) -
+  Improvement to setting media provider performance to only set it once.
+
 ## 1.28.1
 
 ### Patch Changes

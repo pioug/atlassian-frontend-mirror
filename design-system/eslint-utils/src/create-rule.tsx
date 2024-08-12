@@ -25,22 +25,30 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
 		 */
 		url?: string | undefined;
 		/**
+		 * If this rule should be removed from all presets entirely (regardless of `recommended` setting).
+		 * This rule will still show up in documentation, etc., just not in the preset configs.
+		 */
+		removeFromPresets?: true | never;
+		/**
 		 * If this rule should be in the recommended preset or not.
 		 * Set to `false` to exclude it from the recommended preset.
 		 */
-		recommended: boolean;
+		recommended?: boolean;
 		/**
 		 * The severity level to be applied to this rule.
 		 * When setting to `"error"` it will mean releasing a breaking change.
 		 */
-		severity: 'error' | 'warn';
+		severity?: 'error' | 'warn';
 		/**
 		 * This is configuration passed into the plugin to configure the rule.
 		 *
 		 * Eg. `{ excludeReactComponents: true }` would be passed into the plugin config
 		 */
 		pluginConfig?: Record<string, any>;
-	};
+	} & (
+		| { removeFromPresets?: never; recommended: boolean; severity: 'error' | 'warn' }
+		| { removeFromPresets: true; recommended?: never; severity?: never }
+	);
 }
 
 /**

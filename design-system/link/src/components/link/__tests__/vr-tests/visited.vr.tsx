@@ -15,7 +15,7 @@ snapshot(VisitedExample, {
 	states: [
 		{
 			state: 'hovered',
-			selector: { byTestId: 'link' },
+			selector: { byTestId: 'Default' },
 		},
 	],
 });
@@ -26,7 +26,7 @@ snapshot(VisitedExample, {
 	states: [
 		{
 			state: 'focused',
-			selector: { byTestId: 'link' },
+			selector: { byTestId: 'Default' },
 		},
 	],
 });

@@ -72,7 +72,7 @@ export const createPlugin = ({
 						pos,
 						pos + innerNode.nodeSize,
 						{
-							class: codeBlockClassNames.wrapped,
+							class: codeBlockClassNames.contentFgWrapped,
 						},
 						{ type: DECORATION_WRAPPED_BLOCK_NODE_TYPE }, // Allows for quick filtering of decorations while using `find`
 					);

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 195.4.0
+
+### Minor Changes
+
+- [#128976](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128976)
+  [`e9213be1f6540`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9213be1f6540) -
+  [ED-24560] Support adding new plugin configuration from Confluence when using useUniversalPreset
+
+## 195.3.2
+
+### Patch Changes
+
+- [#128785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128785)
+  [`175fd06e412c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/175fd06e412c2) -
+  [ux] Increase bodied macro padding to account for new editor resize controller future feature
+
 ## 195.3.0
 
 ### Minor Changes

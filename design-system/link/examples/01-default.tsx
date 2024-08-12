@@ -9,7 +9,7 @@ export default function DefaultExample() {
 		<Box padding="space.100">
 			<Link href="#link" testId="link">
 				Default link
-			</Link>
+			</Link>{' '}
 			<Link href="#link" appearance="default">
 				Default link with explicit appearance
 			</Link>

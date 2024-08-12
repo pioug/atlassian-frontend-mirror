@@ -1,5 +1,20 @@
 # @atlaskit/rovo-agent-components
 
+## 0.2.0
+
+### Minor Changes
+
+- [#129071](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129071)
+  [`0ebc7d96cc310`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ebc7d96cc310) -
+  Support forge agent type (THIRD_PARTY) and render profile based on that. Add product and
+  experienceId to useViewAgentDetails hook
+
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.1.4
 
 ### Patch Changes

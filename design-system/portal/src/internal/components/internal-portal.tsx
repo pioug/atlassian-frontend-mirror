@@ -12,6 +12,7 @@ interface InternalPortalProps {
 	children: React.ReactNode;
 	zIndex: number | string;
 }
+
 export default function InternalPortal(props: InternalPortalProps): ReactPortal {
 	const { zIndex, children } = props;
 	const container = useMemo(() => createContainer(zIndex), [zIndex]);

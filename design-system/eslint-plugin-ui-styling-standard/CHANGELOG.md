@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.19.0
+
+### Minor Changes
+
+- [#128926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128926)
+  [`5df26d24db3c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5df26d24db3c7) -
+  Remove configuration for '@atlaskit/design-system/no-exported-css' and
+  '@atlaskit/design-system/no-exported-keyframes' as we expect
+  '@atlaskit/ui-styling-standard/no-exported-styles' to cover these cases now.
+
 ## 0.18.4
 
 ### Patch Changes

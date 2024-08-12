@@ -286,6 +286,7 @@ export const toggleWordWrapStateForCodeBlockNode =
 					platform: PLATFORMS.WEB,
 					mode: MODE.EDITOR,
 					wordWrapEnabled: updatedToggleState,
+					codeBlockNodeSize: codeBlockNode.nodeSize,
 				},
 				eventType: EVENT_TYPE.TRACK,
 			})(tr);

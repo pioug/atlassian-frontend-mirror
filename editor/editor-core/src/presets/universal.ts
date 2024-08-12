@@ -70,6 +70,12 @@ type UniversalPresetProps = DefaultPresetPluginOptions &
 	EditorProviderProps;
 
 /**
+ * Mechanism to configuring plugins as the universal preset blocks direct access
+ * to configuring plugins.
+ */
+export type InitialPluginConfiguration = {};
+
+/**
  * Creates a preset with all of the available plugins.
  * Basis for create-plugins-list and can be used to migrate from Editor -> EditorNext (Presets project)
  * with minimal friction.
@@ -80,13 +86,25 @@ type UniversalPresetProps = DefaultPresetPluginOptions &
  * @param prevAppearance The appearance of the editor in the previous render
  * @returns a full featured preset configured according to the provided props - basis for create-plugins-list
  */
-export default function createUniversalPreset(
-	appearance: EditorAppearance | undefined,
-	props: UniversalPresetProps,
-	featureFlags: FeatureFlags,
-	prevAppearance?: EditorAppearance,
-	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) {
+export default function createUniversalPresetInternal({
+	appearance,
+	props,
+	featureFlags,
+	initialPluginConfiguration,
+	prevAppearance,
+	createAnalyticsEvent,
+}: {
+	appearance: EditorAppearance | undefined;
+	props: UniversalPresetProps;
+	featureFlags: FeatureFlags;
+	/**
+	 * Allows configuring plugins as the universal preset blocks direct access
+	 * to configuring plugins.
+	 */
+	initialPluginConfiguration?: InitialPluginConfiguration;
+	prevAppearance?: EditorAppearance;
+	createAnalyticsEvent?: CreateUIAnalyticsEvent;
+}) {
 	const isMobile = appearance === 'mobile';
 	const isComment = appearance === 'comment';
 	const isChromeless = appearance === 'chromeless';

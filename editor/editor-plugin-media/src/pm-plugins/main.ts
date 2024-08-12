@@ -218,7 +218,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		);
 	}
 
-	setMediaProvider = async (mediaProvider?: Promise<MediaProvider>) => {
+	private previousMediaProvider: Promise<MediaProvider> | undefined;
+
+	async setMediaProvider(mediaProvider?: Promise<MediaProvider>) {
+		// Prevent someone trying to set the exact same provider twice for performance reasons
+		if (this.previousMediaProvider === mediaProvider) {
+			return;
+		}
+		this.previousMediaProvider = mediaProvider;
 		if (!mediaProvider) {
 			this.destroyPickers();
 
@@ -296,7 +303,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		} else {
 			this.destroyPickers();
 		}
-	};
+	}
 
 	getMediaOptions = () => this.options;
 

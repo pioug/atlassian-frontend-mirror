@@ -57,8 +57,7 @@ const noEmptyStyledExpressionRule: Rule.RuleModule = createLintRule({
 		docs: {
 			description:
 				'Forbids any styled expression to be used when passing empty arguments to styled.div() (or other JSX elements).',
-			recommended: true,
-			severity: 'warn',
+			removeFromPresets: true, // effectively disable this rule here, this is configured by `@atlaskit/ui-styling-standard` instead
 		},
 		messages: {
 			unexpected:

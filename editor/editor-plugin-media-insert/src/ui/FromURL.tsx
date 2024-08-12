@@ -101,61 +101,95 @@ export function MediaFromURL({
 		warning: intl.formatMessage(mediaInsertMessages.warning),
 	};
 
-	const [url, setUrl] = React.useState(placeholders[1]);
+	const [inputUrl, setUrl] = React.useState(placeholders[1]);
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
+	const pasteFlag = React.useRef(false);
 
 	const { onUploadAnalytics, onUploadSuccessAnalytics, onUploadFailureAnalytics } =
 		useAnalyticsEvents(dispatchAnalyticsEvent);
 
-	const onURLChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		setUrl(e.target.value);
-		dispatch({ type: 'reset' });
-	}, []);
-
-	const uploadExternalMedia = React.useCallback(async () => {
-		dispatch({ type: 'loading' });
-		const { uploadMediaClientConfig, uploadParams } = await mediaProvider;
-		if (!uploadMediaClientConfig) {
-			return;
-		}
-
-		const mediaClient = getMediaClient(uploadMediaClientConfig);
-		const collection = uploadParams?.collection;
-
-		onUploadAnalytics();
-		try {
-			const { uploadableFileUpfrontIds, dimensions } = await mediaClient.file.uploadExternal(
-				url,
-				collection,
-			);
-			onUploadSuccessAnalytics();
-			dispatch({
-				type: 'success',
-				payload: {
-					id: uploadableFileUpfrontIds.id,
-					collection,
-					height: dimensions.height,
-					width: dimensions.width,
-					occurrenceKey: uploadableFileUpfrontIds.occurrenceKey,
-				},
-			});
-		} catch (e) {
-			if (typeof e === 'string' && e === 'Could not download remote file') {
-				// TODO: Make sure this gets good unit test coverage with the actual
-				// media plugin. This hard coded error message could be changed at any
-				// point and we need a unit test to break to stop people changing it.
-				onUploadFailureAnalytics(e);
-				dispatch({ type: 'warning', warning: e, url });
-			} else if (e instanceof Error) {
-				const message = 'Image preview fetch failed';
-				onUploadFailureAnalytics(message);
-				dispatch({ type: 'error', error: message });
-			} else {
-				onUploadFailureAnalytics('Unknown error');
-				dispatch({ type: 'error', error: 'Unknown error' });
+	const uploadExternalMedia = React.useCallback(
+		async (url: string) => {
+			dispatch({ type: 'loading' });
+			const { uploadMediaClientConfig, uploadParams } = await mediaProvider;
+			if (!uploadMediaClientConfig) {
+				return;
 			}
-		}
-	}, [mediaProvider, onUploadAnalytics, onUploadFailureAnalytics, onUploadSuccessAnalytics, url]);
+
+			const mediaClient = getMediaClient(uploadMediaClientConfig);
+			const collection = uploadParams?.collection;
+
+			onUploadAnalytics();
+			try {
+				const { uploadableFileUpfrontIds, dimensions } = await mediaClient.file.uploadExternal(
+					url,
+					collection,
+				);
+				onUploadSuccessAnalytics();
+				dispatch({
+					type: 'success',
+					payload: {
+						id: uploadableFileUpfrontIds.id,
+						collection,
+						height: dimensions.height,
+						width: dimensions.width,
+						occurrenceKey: uploadableFileUpfrontIds.occurrenceKey,
+					},
+				});
+			} catch (e) {
+				if (typeof e === 'string' && e === 'Could not download remote file') {
+					// TODO: Make sure this gets good unit test coverage with the actual
+					// media plugin. This hard coded error message could be changed at any
+					// point and we need a unit test to break to stop people changing it.
+					onUploadFailureAnalytics(e);
+					dispatch({ type: 'warning', warning: e, url: inputUrl });
+				} else if (e instanceof Error) {
+					const message = 'Image preview fetch failed';
+					onUploadFailureAnalytics(message);
+					dispatch({ type: 'error', error: message });
+				} else {
+					onUploadFailureAnalytics('Unknown error');
+					dispatch({ type: 'error', error: 'Unknown error' });
+				}
+			}
+		},
+		[
+			mediaProvider,
+			onUploadAnalytics,
+			onUploadFailureAnalytics,
+			onUploadSuccessAnalytics,
+			inputUrl,
+		],
+	);
+
+	const onURLChange = React.useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			const url = e.target.value;
+			setUrl(url);
+			dispatch({ type: 'reset' });
+
+			if (pasteFlag.current === true) {
+				pasteFlag.current = false;
+				uploadExternalMedia(url);
+			}
+		},
+		[uploadExternalMedia],
+	);
+
+	const onPaste = React.useCallback(
+		(e: React.ClipboardEvent<HTMLInputElement>) => {
+			// Note: this is a little weird, but the paste event will always be
+			// fired before the change event when pasting. We don't really want to
+			// duplicate logic by handling pastes separately to changes, so we're
+			// just noting paste occured to then be handled in the onURLChange fn
+			// above. The one exception to this is where paste inputs exactly what was
+			// already in the input, in which case we want to ignore it.
+			if (e.clipboardData.getData('text') !== inputUrl) {
+				pasteFlag.current = true;
+			}
+		},
+		[inputUrl],
+	);
 
 	const onInsertClick = React.useCallback(() => {
 		if (previewState.previewInfo) {
@@ -163,23 +197,24 @@ export function MediaFromURL({
 		}
 
 		if (previewState.warning) {
-			return onExternalInsert(url);
+			return onExternalInsert(inputUrl);
 		}
-	}, [onExternalInsert, onInsert, previewState.previewInfo, previewState.warning, url]);
+	}, [onExternalInsert, onInsert, previewState.previewInfo, previewState.warning, inputUrl]);
 
 	return (
 		<form
 			onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
 				e.preventDefault();
-				uploadExternalMedia();
+				uploadExternalMedia(inputUrl);
 			}}
 		>
 			<Stack space="space.150">
 				<TextField
 					autoFocus
-					value={url}
+					value={inputUrl}
 					placeholder={strings.pasteLinkToUpload}
 					onChange={onURLChange}
+					onPaste={onPaste}
 				/>
 				{previewState.previewInfo && (
 					<Inline
@@ -202,7 +237,7 @@ export function MediaFromURL({
 						<Button
 							type="submit"
 							isLoading={previewState.isLoading}
-							isDisabled={!url}
+							isDisabled={!inputUrl}
 							iconBefore={EditorFilePreviewIcon}
 						>
 							{strings.loadPreview}

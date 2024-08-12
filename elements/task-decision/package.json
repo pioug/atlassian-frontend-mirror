@@ -46,11 +46,11 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-namespaced-context": "^6.10.0",
-		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/icon": "^22.11.0",
-		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.57.0",
+		"@atlaskit/analytics-namespaced-context": "^6.11.0",
+		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/icon": "^22.12.0",
+		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/tokens": "^1.58.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -63,7 +63,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-listeners": "^8.10.0",
+		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/elements-test-helpers": "^0.7.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/util-data-test": "^17.9.0",

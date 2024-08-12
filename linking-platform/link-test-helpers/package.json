@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-test-helpers",
-	"version": "7.3.0",
+	"version": "7.4.0",
 	"description": "Collection of test helpers used in linking platform examples and specs",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -57,7 +57,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"react-dom": "^16.8.0",

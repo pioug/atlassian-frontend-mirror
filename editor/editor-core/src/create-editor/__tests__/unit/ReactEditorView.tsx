@@ -118,7 +118,7 @@ import {
 	PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
 	PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
 } from '../../consts';
-import { createPreset } from '../../create-preset';
+import { createUniversalPreset } from '../../create-universal-preset';
 import { editorMessages } from '../../messages';
 import { ReactEditorView } from '../../ReactEditorView';
 
@@ -136,7 +136,7 @@ const requiredProps = () => ({
 	onEditorDestroyed: () => {},
 	editorProps: {},
 	intl: createIntl({ locale: 'en' }),
-	preset: createPreset({}),
+	preset: createUniversalPreset({ props: {} }),
 });
 
 const analyticsProps = () => ({
@@ -629,7 +629,7 @@ describe('@atlaskit/editor-core', () => {
 						{...analyticsProps()}
 						setEditorApi={(api) => (editorAPI = api as PublicPluginAPI<[AnalyticsPlugin]>)}
 						editorProps={editorProps}
-						preset={createPreset(editorProps)}
+						preset={createUniversalPreset({ props: editorProps })}
 						render={({ editor, view, config: { pluginHooks } }) => {
 							return (
 								<>
@@ -1094,7 +1094,7 @@ describe('@atlaskit/editor-core', () => {
 							const wrapper = mountWithIntl(
 								<ReactEditorView
 									{...requiredProps()}
-									preset={createPreset(editorProps)}
+									preset={createUniversalPreset({ props: editorProps })}
 									editorProps={editorProps}
 								/>,
 							);
@@ -1235,7 +1235,7 @@ describe('@atlaskit/editor-core', () => {
 				<ReactEditorView
 					{...requiredProps()}
 					editorProps={editorProps}
-					preset={createPreset(editorProps)}
+					preset={createUniversalPreset({ props: editorProps })}
 					providerFactory={ProviderFactory.create({ mentionProvider })}
 				/>,
 			);
@@ -1258,7 +1258,7 @@ describe('@atlaskit/editor-core', () => {
 				<ReactEditorView
 					{...requiredProps()}
 					editorProps={editorProps}
-					preset={createPreset(editorProps)}
+					preset={createUniversalPreset({ props: editorProps })}
 					providerFactory={ProviderFactory.create({ mentionProvider })}
 				/>,
 			);
@@ -1278,7 +1278,7 @@ describe('@atlaskit/editor-core', () => {
 				<ReactEditorView
 					{...requiredProps()}
 					editorProps={editorProps}
-					preset={createPreset(editorProps)}
+					preset={createUniversalPreset({ props: editorProps })}
 					providerFactory={ProviderFactory.create({ mentionProvider })}
 				/>,
 			);
@@ -1387,7 +1387,7 @@ describe('@atlaskit/editor-core', () => {
 					<ReactEditorView
 						{...requiredProps()}
 						onEditorCreated={onEditorCreated}
-						preset={createPreset(editorProps)}
+						preset={createUniversalPreset({ props: editorProps })}
 						editorProps={editorProps}
 					/>,
 				);
@@ -1423,7 +1423,7 @@ describe('@atlaskit/editor-core', () => {
 					{...requiredProps()}
 					{...analyticsProps()}
 					allowAnalyticsGASV3={true}
-					preset={createPreset(editorProps)}
+					preset={createUniversalPreset({ props: editorProps })}
 					editorProps={editorProps}
 				/>,
 			);

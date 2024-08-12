@@ -40,10 +40,16 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../adf-utils/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
       "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

@@ -12,8 +12,7 @@ const noExportedCssRule: Rule.RuleModule = createLintRule({
 		docs: {
 			description:
 				'Forbid exporting `css` function calls. Exporting `css` function calls can result in unexpected behaviour at runtime, and is not statically analysable.',
-			recommended: true,
-			severity: 'warn',
+			removeFromPresets: true, // effectively disable this rule here, this is overriden by `@atlaskit/ui-styling-standard` instead
 		},
 		messages: {
 			unexpected:

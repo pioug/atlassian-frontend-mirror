@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tag",
-	"version": "12.4.4",
+	"version": "12.5.0",
 	"description": "A tag labels UI objects for quick recognition and navigation.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,26 +46,26 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.0.0",
-		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/icon": "^22.11.0",
-		"@atlaskit/motion": "^1.8.0",
+		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/icon": "^22.12.0",
+		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.57.0",
+		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/avatar": "^21.13.0",
+		"@atlaskit/avatar": "^21.14.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tag-group": "^10.4.0",
+		"@atlaskit/tag-group": "^10.5.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/dom": "^10.1.0",

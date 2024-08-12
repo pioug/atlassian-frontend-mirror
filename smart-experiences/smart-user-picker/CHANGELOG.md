@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.10.1
 
 ### Patch Changes

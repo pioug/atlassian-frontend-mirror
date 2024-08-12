@@ -17,17 +17,23 @@ import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type InsertMethod } from '../types';
 
 // Creates either an expand or a nestedExpand node based on the current selection
-export const createExpandNode = (state: EditorState): PMNode | null => {
+export const createExpandNode = (
+	state: EditorState,
+	setExpandedState: boolean = true,
+): PMNode | null => {
 	const { expand, nestedExpand } = state.schema.nodes;
 	const expandType = findTable(state.selection) ? nestedExpand : expand;
 	const expandNode = expandType.createAndFill({});
-	expandedState.set(expandNode!, true);
+	if (setExpandedState) {
+		expandedState.set(expandNode!, true);
+	}
 	return expandNode;
 };
 
@@ -35,17 +41,38 @@ export const insertExpandWithInputMethod =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
-		const expandNode = createExpandNode(state);
+		const expandNode = fg('platform_editor_single_player_expand_ed_24536')
+			? createExpandNode(state, false)
+			: createExpandNode(state);
 
 		if (!expandNode) {
 			return false;
 		}
-		const tr = state.selection.empty
-			? safeInsert(expandNode)(state.tr).scrollIntoView()
-			: createWrapSelectionTransaction({
+
+		let tr;
+		if (fg('platform_editor_single_player_expand_ed_24536')) {
+			if (state.selection.empty) {
+				tr = safeInsert(expandNode)(state.tr).scrollIntoView();
+				expandedState.set(expandNode!, true);
+			} else {
+				tr = createWrapSelectionTransaction({
 					state,
 					type: expandNode.type,
 				});
+				const wrapperNode = findParentNodeOfType(expandNode.type)(tr.selection);
+				if (wrapperNode) {
+					expandedState.set(wrapperNode.node, true);
+				}
+			}
+		} else {
+			tr = state.selection.empty
+				? safeInsert(expandNode)(state.tr).scrollIntoView()
+				: createWrapSelectionTransaction({
+						state,
+						type: expandNode.type,
+					});
+		}
+
 		const payload: AnalyticsEventPayload = {
 			action: ACTION.INSERTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,

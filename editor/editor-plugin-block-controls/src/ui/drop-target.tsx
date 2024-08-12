@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -33,9 +33,16 @@ const styleDropTarget = css({
 	zIndex: layers.card(),
 });
 
+const nestedDropIndicatorStyle = css({
+	position: 'relative',
+});
+
 const marginLookupMap = Object.fromEntries(
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-	Object.entries(spaceLookupMap).map(([key, value], i) => [key, css({ marginTop: value })]),
+	Object.entries(spaceLookupMap).map(([key, value], i) => [
+		key,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		css({ marginTop: value }),
+	]),
 );
 
 const BASE_LINE_MARGIN = -8;
@@ -70,11 +77,13 @@ const getDropTargetPositionStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
 	}
 };
 
+const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
+
 const styleDropIndicator = css({
 	height: '100%',
-	width: '100%',
 	margin: '0 auto',
 	position: 'relative',
+	width: `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH}, 100%)`,
 });
 
 export type DropTargetProps = {
@@ -82,16 +91,24 @@ export type DropTargetProps = {
 	id: number;
 	prevNode?: PMNode;
 	nextNode?: PMNode;
+	parentNode?: PMNode;
 	formatMessage?: IntlShape['formatMessage'];
 };
 
-export const DropTarget = ({ api, id, prevNode, nextNode, formatMessage }: DropTargetProps) => {
+export const DropTarget = ({
+	api,
+	id,
+	prevNode,
+	nextNode,
+	parentNode,
+	formatMessage,
+}: DropTargetProps) => {
 	const ref = useRef(null);
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
 	const { widthState } = useSharedPluginState(api, ['width']);
 
-	const lineLength = widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH;
+	const isNestedDropTarget = parentNode?.type.name !== 'doc';
 
 	useEffect(() => {
 		const element = ref.current;
@@ -128,25 +145,36 @@ export const DropTarget = ({ api, id, prevNode, nextNode, formatMessage }: DropT
 	}, [id, api, formatMessage]);
 
 	const topTargetMarginStyle = useMemo(() => {
+		/**
+		 * First child of a nested node.
+		 * Disable the position adjustment for the nested node temporarily
+		 */
+		if (parentNode === prevNode || isNestedDropTarget) {
+			return null;
+		}
 		return getDropTargetPositionStyle(prevNode, nextNode);
-	}, [prevNode, nextNode]);
+	}, [prevNode, nextNode, parentNode, isNestedDropTarget]);
+
+	const widthStyle = {
+		[EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH]: isNestedDropTarget
+			? '100%'
+			: `${widthState?.lineLength || DEFAULT_DROP_INDICATOR_WIDTH}px`,
+	} as CSSProperties;
 
 	return (
 		// Note: Firefox has trouble with using a button element as the handle for drag and drop
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={[styleDropTarget, topTargetMarginStyle]}
+			css={[styleDropTarget, topTargetMarginStyle, isNestedDropTarget && nestedDropIndicatorStyle]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={widthStyle}
 			ref={ref}
 			data-testid="block-ctrl-drop-target"
 		>
 			{
 				// 4px gap to clear expand node border
 				(isDraggedOver || isBlocksDragTargetDebug()) && (
-					<div
-						css={styleDropIndicator}
-						style={{ width: `${lineLength}px` }}
-						data-testid="block-ctrl-drop-indicator"
-					>
+					<div css={styleDropIndicator} data-testid="block-ctrl-drop-indicator">
 						<DropIndicator edge="bottom" gap="4px" />
 					</div>
 				)

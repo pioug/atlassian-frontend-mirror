@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "15.4.2",
+	"version": "15.5.0",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,25 +28,25 @@
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.57.0",
-		"@atlaskit/tooltip": "^18.6.0",
-		"@atlaskit/visually-hidden": "^1.4.0",
+		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/tokens": "^1.58.0",
+		"@atlaskit/tooltip": "^18.7.0",
+		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"memoize-one": "^6.0.0",
 		"refractor": "^3.6.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ds-lib": "^2.4.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.2.0",
+		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/jscodeshift": "^0.11.0",

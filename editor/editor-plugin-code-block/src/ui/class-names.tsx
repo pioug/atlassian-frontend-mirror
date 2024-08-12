@@ -6,9 +6,12 @@ export const codeBlockClassNames = {
 	end: CodeBlockSharedCssClassName.CODEBLOCK_END,
 	contentWrapper: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER,
 	gutter: CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER,
-	gutterFgWrap: CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG_WRAP,
 	content: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT,
-	contentWrapped: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED,
-	lineNumberWrapped: CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED,
-	wrapped: CodeBlockSharedCssClassName.CODEBLOCK_WRAPPED,
+
+	// Feature Gate editor_support_code_block_wrapping:
+	contentWrapperFg: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG,
+	contentFg: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG,
+	contentFgWrapped: CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG_WRAPPED,
+	lineNumberWidget: CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET,
+	gutterFg: CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG,
 };

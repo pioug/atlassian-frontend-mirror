@@ -2,7 +2,6 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { sizes } from '@atlaskit/icon';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Popper, type PopperChildrenProps, Reference } from '@atlaskit/popper';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, layers } from '@atlaskit/theme/constants';
@@ -61,9 +60,6 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
 				containerRef.getBoundingClientRect().width -
 				parseInt(sizes.small.slice(0, -2)) -
 				gridSize(),
-			...(fg('platform.design-system-team.date-picker-input-a11y-fix_cbbxs') && {
-				pointerEvents: 'none',
-			}),
 		};
 
 		return (

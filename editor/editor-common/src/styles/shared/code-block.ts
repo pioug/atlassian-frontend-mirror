@@ -22,19 +22,38 @@ export const CodeBlockSharedCssClassName = {
 	CODEBLOCK_LINE_NUMBER_GUTTER: 'line-number-gutter',
 	CODEBLOCK_CONTENT: 'code-content',
 	DS_CODEBLOCK: '[data-ds--code--code-block]',
-	CODEBLOCK_LINE_NUMBER_GUTTER_FG_WRAP: 'line-number-gutter--fg-wrap',
-	CODEBLOCK_CONTENT_WRAPPED: 'code-content--wrapped',
-	CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED: 'code-content__line-number--wrapped',
-	CODEBLOCK_WRAPPED: 'code-block--wrapped',
+
+	// Feature Gate editor_support_code_block_wrapping:
+	CODEBLOCK_CONTENT_WRAPPER_FG: 'code-block-content-wrapper--fg',
+	CODEBLOCK_CONTENT_FG: 'code-content--fg',
+	CODEBLOCK_CONTENT_FG_WRAPPED: 'code-content--fg-wrapped',
+	CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET: 'code-content__line-number--wrapped',
+	CODEBLOCK_LINE_NUMBER_GUTTER_FG: 'line-number-gutter--fg',
 };
 
 export const codeBlockSharedStyles = () => css`
-	.${CodeBlockSharedCssClassName.CODEBLOCK_WRAPPED}
-		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
-		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT}
+	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG_WRAPPED}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG} {
+		margin-right: ${token('space.100', '8px')};
+
 		code {
-		word-break: break-word;
-		white-space: pre-wrap;
+			display: block;
+			word-break: break-word;
+			white-space: pre-wrap;
+		}
+	}
+
+	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG} {
+		display: flex;
+		flex: 1;
+
+		code {
+			flex-grow: 1;
+
+			white-space: pre;
+		}
 	}
 
 	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
@@ -65,11 +84,6 @@ export const codeBlockSharedStyles = () => css`
 			height: 1.5rem;
 			bottom: 0px;
 			right: 0px;
-		}
-
-		.${CodeBlockSharedCssClassName.CODEBLOCK_WRAPPED} {
-			word-break: break-word;
-			white-space: pre-wrap;
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
@@ -109,6 +123,11 @@ export const codeBlockSharedStyles = () => css`
 			overflow-y: hidden;
 		}
 
+		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG} {
+			// relative position set so number gutter remains absolute on horizontal scroll.
+			position: relative;
+		}
+
 		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
 			flex-shrink: 0;
 			text-align: right;
@@ -132,11 +151,11 @@ export const codeBlockSharedStyles = () => css`
 			}
 		}
 
-		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG_WRAP} {
+		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG} {
 			background-color: ${token('color.background.neutral', N30)};
-			padding: ${token('space.100', '8px')};
 			position: relative;
-			width: 1rem;
+			width: 2rem;
+			flex-shrink: 0;
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
@@ -156,34 +175,28 @@ export const codeBlockSharedStyles = () => css`
 			}
 		}
 
-		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED} {
+		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG} {
 			code {
-				counter-reset: line var(--line-num, 0);
-				word-break: break-word;
-				white-space: pre-wrap;
+				tab-size: 4;
+				cursor: text;
+				color: ${token('color.text', N800)};
+				border-radius: ${token('border.radius', '3px')};
+				margin: ${token('space.100', '8px')};
+				font-size: ${relativeFontSizeToBase16(fontSize())};
+				line-height: 1.5rem;
 			}
 		}
 
-		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WRAPPED} {
-			counter-increment: line;
-			line-height: 1rem;
+		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET} {
 			pointer-events: none;
-
-			::before {
-				text-align: right;
-				min-width: 1.5rem;
-				display: block;
-				height: 1rem;
-				position: absolute;
-				padding-right: ${token('space.100', '8px')};
-				padding-left: ${token('space.100', '8px')};
-				margin-top: ${token('space.050', '4px')};
-				margin-right: ${token('space.100', '8px')};
-				left: -0.5rem;
-				color: ${token('color.text.subtlest', N400)};
-				font-size: ${relativeFontSizeToBase16(fontSize())};
-				content: counter(line);
-			}
+			user-select: none;
+			width: 2rem;
+			left: 0;
+			position: absolute;
+			font-size: ${relativeFontSizeToBase16(fontSize())};
+			line-height: 1.5rem;
+			text-align: center;
+			color: ${token('color.text.subtlest', '#505F79')};
 		}
 	}
 `;

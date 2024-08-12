@@ -34,6 +34,10 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-nodeview-data-provider/app"
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../adf-utils/tsconfig.app.json"
+    }
+  ],
   "files": []
 }

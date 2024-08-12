@@ -1,2 +1,3 @@
 export { default as useUniversalPreset } from './presets/useUniversalPreset';
-export { default as createUniversalPreset } from './presets/universal';
+export { type InitialPluginConfiguration } from './presets/universal';
+export { default as createUniversalPresetInternal } from './presets/universal';

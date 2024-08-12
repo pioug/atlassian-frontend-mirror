@@ -93,6 +93,7 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
         ${pluginList.join(',\n')}],
       rules: {
         ${rules
+					.filter((rule) => rule.module.meta?.docs?.removeFromPresets !== true)
 					.map((rule) => {
 						const { severity, recommended, pluginConfig } = rule.module.meta?.docs || {};
 

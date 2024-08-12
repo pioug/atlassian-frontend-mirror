@@ -20,7 +20,6 @@ describe('validate valid schema', () => {
 		'panel-with-codeBlock.json',
 		// is failing in master https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/3619620
 		'list-item-with-decision.json',
-		'panel-with-blockquote.json',
 	];
 	const valid = fullValidJsonSchema.concat(stage0ValidJsonSchema);
 

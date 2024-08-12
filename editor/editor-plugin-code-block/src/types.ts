@@ -5,4 +5,4 @@ export interface CodeBlockOptions extends LongPressSelectionPluginOptions {
 	allowCompositionInputOverride?: boolean;
 }
 
-export type CodeBlockTextPosition = { lineStart: number; lineEnd: number };
+export type CodeBlockLineAttributes = { lineStart: number; lineNumber: number };

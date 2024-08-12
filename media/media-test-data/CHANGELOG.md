@@ -1,5 +1,13 @@
 # @atlaskit/media-test-data
 
+## 2.5.0
+
+### Minor Changes
+
+- [#128667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128667)
+  [`5317f4568993d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5317f4568993d) -
+  Add excel spreadsheet doc sample
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 1.2.2
+
+### Patch Changes
+
+- [#128111](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128111)
+  [`5d65c0d1d28c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d65c0d1d28c8) -
+  [ux] [ED-24322] Add onPaste UX improvements to url upload
+- Updated dependencies
+
 ## 1.2.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/grid",
-	"version": "0.13.6",
+	"version": "0.14.0",
 	"description": "A responsive layout grid is a component designed to manage the content of a page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,13 +40,13 @@
 		"tiny-invariant": "^1.2.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/table": "*",
-		"@atlaskit/textfield": "^6.4.0",
+		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"typescript": "~5.4.2"

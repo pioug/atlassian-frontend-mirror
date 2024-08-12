@@ -1,4 +1,4 @@
-import { type NestedExpandDefinition, type NestedExpandContent } from '@atlaskit/adf-schema';
+import type { NestedExpandDefinition, NestedExpandContent } from '@atlaskit/adf-schema';
 
 export const nestedExpand =
 	(attrs: NestedExpandDefinition['attrs']) =>

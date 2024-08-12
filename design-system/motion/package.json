@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "1.8.0",
+	"version": "1.9.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -61,13 +61,13 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^2.3.0",
+		"@atlaskit/ds-lib": "^2.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/ssr": "*",

@@ -1,5 +1,11 @@
 # @atlaskit/smart-hooks
 
+## 0.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.12
 
 ### Patch Changes

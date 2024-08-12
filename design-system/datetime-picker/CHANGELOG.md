@@ -1,5 +1,29 @@
 # @atlaskit/datetime-picker
 
+## 13.10.0
+
+### Minor Changes
+
+- [#128236](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128236)
+  [`84388abdd587a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84388abdd587a) -
+  The platform.design-system-team.date-picker-input-a11y-fix_cbbxs feature flag has been removed.
+
+## 13.9.0
+
+### Minor Changes
+
+- [#127511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127511)
+  [`db30e29344013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db30e29344013) -
+  Widening range of `react` and `react-dom` peer dependencies from `^16.8.0 || ^17.0.0 || ~18.2.0`
+  to the wider range of ``^16.8.0 || ^17.0.0 || ^18.0.0` (where applicable).
+
+  This change has been done to enable usage of `react@18.3` as well as to have a consistent peer
+  dependency range for `react` and `react-dom` for `/platform` packages.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.8.1
 
 ### Patch Changes

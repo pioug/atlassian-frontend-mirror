@@ -1,12 +1,14 @@
 import React from 'react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import type {
 	Decoration,
 	DecorationSource,
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsDispatch, AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -162,10 +164,59 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 
 	private _handleRef(node: HTMLElement | null) {
 		const contentDOM = this.contentDOMWrapper || this.contentDOM;
+		// @ts-ignore
+		let oldIgnoreMutation: any;
+
+		let selectionBookmark: SelectionBookmark;
+		let parentOffset = 0;
+		let mutationsIgnored = false;
 
 		// move the contentDOM node inside the inner reference after rendering
 		if (node && contentDOM && !node.contains(contentDOM)) {
+			if (fg('platform_editor_react_18_prosemirror_sel_resync')) {
+				// @ts-ignore - ignoreMutation may not be declared
+				oldIgnoreMutation = this.ignoreMutation; // store ref to previous ignoreMutation
+
+				// ignore all mutations caused by ProseMirror's MutationObserver triggering
+				// after DOM change, except selection changes
+				// @ts-ignore ProseMirror adds selection type to MutationRecord
+				this.ignoreMutation = (m) => {
+					const isSelectionMutation = m.type === 'selection';
+					if (!isSelectionMutation) {
+						mutationsIgnored = true;
+					}
+					return !isSelectionMutation;
+				};
+
+				// capture document selection state before React DOM changes triggers ProseMirror selection change transaction
+				if (this.view.state.selection.visible) {
+					selectionBookmark = this.view.state.selection.getBookmark();
+				}
+
+				// ... and capture parent offset before DOM change
+				if (this.view.state.selection?.ranges.length > 0) {
+					parentOffset = this.view.state.selection?.ranges[0].$from?.parentOffset ?? 0;
+				}
+			}
+
 			node.appendChild(contentDOM);
+
+			if (fg('platform_editor_react_18_prosemirror_sel_resync')) {
+				requestAnimationFrame(() => {
+					// Reset ignoreMutation after frame ....
+					// @ts-ignore - this may not have been declared by implementing class
+					this.ignoreMutation = oldIgnoreMutation;
+
+					// only trigger selection re-sync if the selection is not at the start of the
+					// node, and DOM mutations were ignored
+					if (selectionBookmark && mutationsIgnored && parentOffset > 0) {
+						// ... and dispatch expected selection state
+						this.view.dispatch(
+							this.view.state.tr.setSelection(selectionBookmark.resolve(this.view.state.tr.doc)),
+						);
+					}
+				});
+			}
 		}
 	}
 

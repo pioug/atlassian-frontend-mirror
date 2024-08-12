@@ -437,6 +437,7 @@ type CodeBlockWordWrapToggleAEP = TrackAEP<
 		platform: PLATFORMS;
 		mode: MODE;
 		wordWrapEnabled: boolean;
+		codeBlockNodeSize: number;
 	},
 	undefined
 >;

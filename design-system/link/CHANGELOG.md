@@ -1,5 +1,25 @@
 # @atlaskit/link
 
+## 1.2.1
+
+### Patch Changes
+
+- [#126471](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/126471)
+  [`072422c87cc97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/072422c87cc97) -
+  [ux] Visited inverse links no longer support visited styles due to color contrast limitations.
+
+## 1.2.0
+
+### Minor Changes
+
+- [#127511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127511)
+  [`db30e29344013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db30e29344013) -
+  Widening range of `react` and `react-dom` peer dependencies from `^16.8.0 || ^17.0.0 || ~18.2.0`
+  to the wider range of ``^16.8.0 || ^17.0.0 || ^18.0.0` (where applicable).
+
+  This change has been done to enable usage of `react@18.3` as well as to have a consistent peer
+  dependency range for `react` and `react-dom` for `/platform` packages.
+
 ## 1.1.1
 
 ### Patch Changes

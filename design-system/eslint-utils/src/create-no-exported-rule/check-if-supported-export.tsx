@@ -147,14 +147,26 @@ export const checkIfSupportedExport = (
 	// Find the reference to the variable declarator
 	const reference = scope.references.find(({ identifier }) => identifier === root.id);
 	if (!reference) {
-		return {
-			isExport: false,
-		};
+		return { isExport: false };
 	}
 
-	// Iterate through all of the references to the resolved variable declarator node
-	const { resolved } = reference;
-	for (const { identifier } of resolved?.references ?? []) {
+	// Iterate through all of the references to collect all identifiers and find the variable declarator node
+	const identifiers = reference?.resolved?.references?.map(({ identifier }) => identifier) ?? [];
+
+	// If we have multiple variable declarations, eg. `const styles = css(…); const styles = css(…);` from bade code or overlapping rules, just exit…
+	const uniqueVariableDeclarations = identifiers.filter((identifier) => {
+		const i = identifier as Rule.Node;
+		// Basically in `const styles = …;`, `parent.id` points to itself, while `styles2` in `const styles1 = styles2` will point to `styles1`…
+		// Surely there's a better way to detect this, but this scenario is a bit nonsensical.
+		return i.parent.type === 'VariableDeclarator' && i === i.parent.id;
+	});
+
+	if (uniqueVariableDeclarations.length > 1) {
+		// It could be…it might not be.  I think we have to give up, this code isn't valid.
+		return { isExport: false };
+	}
+
+	for (const identifier of identifiers) {
 		// Skip references to the root, since it has already been processed above
 		if (identifier === root.id) {
 			continue;
@@ -163,6 +175,7 @@ export const checkIfSupportedExport = (
 		const { nodes: refs, scope: nextScope } = getStack(context, (identifier as Rule.Node).parent);
 
 		// Only validate the resolved reference if it accesses the definition node
+		// We avoid bad code where AST blows up due to `nodes=[]` === `refs=[]`
 		if (matches(nodes, refs.reverse())) {
 			// Now validate the identifier reference as a definition
 			const validity = checkIfSupportedExport(
@@ -171,6 +184,7 @@ export const checkIfSupportedExport = (
 				importSources,
 				nextScope,
 			);
+
 			if (validity.isExport) {
 				return validity;
 			}

@@ -39,7 +39,10 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 		actions: {
 			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;
 			/**
-			 * Used to update the initial provider passed to the media plugin
+			 * Used to update the initial provider passed to the media plugin.
+			 *
+			 * For performance reasons if you attempt to set the same provider more
+			 * than once this method will fail and return false.
 			 *
 			 * @param provider Promise<MediaProvider>
 			 * @returns {boolean} if setting the provider was successful or not

@@ -60,8 +60,9 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
       plugins: ['@atlaskit/design-system'],
       rules: {
         ${rules
+					.filter((rule) => rule.module.meta?.docs?.removeFromPresets !== true)
 					.map((rule) => {
-						const { severity, recommended } = rule.module.meta?.docs || {};
+						const { severity, recommended, pluginConfig } = rule.module.meta?.docs || {};
 
 						// `recommended` is a snowflake at this stage ... it can be a string at runtime
 						// because of legacy `import { createRule } from 'utils/create-rule'` so we take
@@ -70,7 +71,13 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
 						const calculatedSeverity =
 							severity ?? (typeof recommended === 'string' ? String(recommended) : 'error');
 
-						return `'@atlaskit/design-system/${rule.ruleName}': '${calculatedSeverity}'`;
+						const ruleName = `@atlaskit/design-system/${rule.ruleName}`;
+
+						if (typeof pluginConfig === 'object' && pluginConfig) {
+							return `'${ruleName}': ['${calculatedSeverity}', ${JSON.stringify(pluginConfig)}]`;
+						}
+
+						return `'${ruleName}': '${calculatedSeverity}'`;
 					})
 					.join(',')}
       },

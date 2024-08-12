@@ -68,16 +68,22 @@ const LinkItem = memo(
 
 			const isExternal = typeof href === 'string' && IS_EXTERNAL_LINK_REGEX.test(href);
 			const isNonHttpBased = typeof href === 'string' && IS_NON_HTTP_BASED.test(href);
+			const isEmptyHref = href == null || href === '';
 
 			/**
 			 * Renders a router link if:
 			 *
 			 * - a link component is set in the app provider
 			 * - it's not an external link (starting with `http://` or `https://`)
-			 * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.).
+			 * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.)
+			 * - it doesn't have an empty href (e.g. href="" or href={undefined})
 			 */
 			const isRouterLink =
-				!UNSAFE_shouldDisableRouterLink && RouterLink && !isExternal && !isNonHttpBased;
+				!UNSAFE_shouldDisableRouterLink &&
+				RouterLink &&
+				!isExternal &&
+				!isNonHttpBased &&
+				!isEmptyHref;
 
 			const Component =
 				isRouterLink && fg('platform.wanjel.use-router-links-for-the-linkitem-component')

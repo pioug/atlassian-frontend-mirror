@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.3.1
+
+### Patch Changes
+
+- [#128418](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128418)
+  [`8f46a682011a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f46a682011a7) -
+  [ux][ED-24536] Fix: when a single player expand is inserted via main toolbar while selection is
+  not empty, it is inserted in closed state
+
 ## 2.3.0
 
 ### Minor Changes

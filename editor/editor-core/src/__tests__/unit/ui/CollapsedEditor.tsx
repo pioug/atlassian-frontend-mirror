@@ -8,7 +8,7 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import { ComposableEditor } from '../../../composable-editor';
 import Editor from '../../../editor';
-import createUniversalPreset from '../../../presets/universal';
+import createUniversalPresetInternal from '../../../presets/universal';
 import CollapsedEditor from '../../../ui/CollapsedEditor';
 
 describe('CollapsedEditor', () => {
@@ -105,7 +105,11 @@ describe('CollapsedEditor', () => {
 });
 
 describe('CollapsedEditor with ComposableEditor', () => {
-	const preset = createUniversalPreset('full-page', { paste: {} }, {});
+	const preset = createUniversalPresetInternal({
+		appearance: 'full-page',
+		props: { paste: {} },
+		featureFlags: {},
+	});
 	it('should load even if IntlProvider is not provided', () => {
 		const { container } = render(
 			<CollapsedEditor isExpanded={false}>

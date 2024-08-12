@@ -21,7 +21,11 @@ describe('createUniversalPreset', () => {
 	});
 
 	it('should be default have all the plugins', () => {
-		const preset = createUniversalPreset('full-page', { paste: {} }, {});
+		const preset = createUniversalPreset({
+			appearance: 'full-page',
+			props: { paste: {} },
+			featureFlags: {},
+		});
 		const plugins = preset.build();
 
 		// TODO: We need to uncomment the modules here in https://product-fabric.atlassian.net/browse/ED-16575
@@ -90,7 +94,11 @@ describe('createUniversalPreset', () => {
 			// TODO: We need to remove the allowTables prop passed here in https://product-fabric.atlassian.net/browse/ED-16575
 			// This is because we should be allow tables by default
 			jest.spyOn(table, 'tablesPlugin');
-			const preset = createUniversalPreset('full-page', { paste: {}, allowTables: true }, {});
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {}, allowTables: true },
+				featureFlags: {},
+			});
 			expect(tablesPlugin).toHaveBeenCalledTimes(0);
 			preset.build();
 			expect(tablesPlugin).toHaveBeenCalledTimes(1);
@@ -106,12 +114,12 @@ describe('createUniversalPreset', () => {
 			// TODO: We need to remove the allowTables prop passed here in https://product-fabric.atlassian.net/browse/ED-16575
 			// This is because we should be allow tables by default
 			jest.spyOn(table, 'tablesPlugin');
-			const preset = createUniversalPreset(
-				'full-page',
-				{ paste: {}, allowTables: true },
-				{},
-				'full-width',
-			);
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {}, allowTables: true },
+				featureFlags: {},
+				prevAppearance: 'full-width',
+			});
 			expect(tablesPlugin).toHaveBeenCalledTimes(0);
 			preset.build();
 			expect(tablesPlugin).toHaveBeenCalledTimes(1);
@@ -131,7 +139,11 @@ describe('createUniversalPreset', () => {
 
 		it('should add datePlugin if allowDate is true', () => {
 			jest.spyOn(date, 'datePlugin');
-			const preset = createUniversalPreset('full-page', { paste: {}, allowDate: true }, {});
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {}, allowDate: true },
+				featureFlags: {},
+			});
 			expect(datePlugin).toHaveBeenCalledTimes(0);
 			preset.build();
 			expect(datePlugin).toHaveBeenCalledTimes(1);
@@ -139,7 +151,11 @@ describe('createUniversalPreset', () => {
 
 		it('should NOT add datePlugin if allowDate is false', () => {
 			jest.spyOn(date, 'datePlugin');
-			const preset = createUniversalPreset('full-page', { paste: {}, allowDate: false }, {});
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {}, allowDate: false },
+				featureFlags: {},
+			});
 			expect(datePlugin).toHaveBeenCalledTimes(0);
 			preset.build();
 			expect(datePlugin).toHaveBeenCalledTimes(0);
@@ -147,11 +163,11 @@ describe('createUniversalPreset', () => {
 
 		it('should add datePlugin if allowDate is is an object with weekStartDay', () => {
 			jest.spyOn(date, 'datePlugin');
-			const preset = createUniversalPreset(
-				'full-page',
-				{ paste: {}, allowDate: { weekStartDay: 0 } },
-				{},
-			);
+			const preset = createUniversalPreset({
+				appearance: 'full-page',
+				props: { paste: {}, allowDate: { weekStartDay: 0 } },
+				featureFlags: {},
+			});
 			expect(datePlugin).toHaveBeenCalledTimes(0);
 			preset.build();
 			expect(datePlugin).toHaveBeenCalledTimes(1);

@@ -17,7 +17,6 @@ import {
 import { type CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -267,9 +266,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				break;
 			case 'backspace':
 			case 'delete': {
-				const inputCount = fg('platform.design-system-team.date-picker-input-a11y-fix_cbbxs')
-					? 1
-					: 0;
+				const inputCount = 0;
 
 				if (
 					value &&
@@ -442,11 +439,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		let actualSelectInputValue;
 
-		if (fg('platform.design-system-team.date-picker-input-a11y-fix_cbbxs')) {
-			actualSelectInputValue = selectInputValue || (value ? this.formatDate(value) : undefined);
-		} else {
-			actualSelectInputValue = selectInputValue;
-		}
+		actualSelectInputValue = selectInputValue;
 
 		const menuIsOpen = isOpen && !isDisabled;
 

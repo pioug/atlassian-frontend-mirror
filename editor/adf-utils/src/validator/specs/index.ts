@@ -6,6 +6,7 @@ export {
 	blockCard,
 	block_content,
 	blockquote,
+	blockquote_without_nested_codeblock_or_media,
 	bodiedExtension,
 	bodiedExtension_with_marks,
 	border,
@@ -26,6 +27,7 @@ export {
 	embedCard,
 	emoji,
 	expand,
+	expand_without_nested_expand,
 	expand_with_breakout_mark,
 	expand_with_no_mark,
 	extension,
@@ -65,6 +67,7 @@ export {
 	non_nestable_block_content,
 	orderedList,
 	panel,
+	panel_with_nested_blockquote, // Stage-0
 	paragraph,
 	paragraph_with_alignment,
 	paragraph_with_indentation,

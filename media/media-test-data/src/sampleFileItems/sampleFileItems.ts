@@ -264,6 +264,47 @@ const workingPdfWithLocalPreview = createGenerator({
 	},
 });
 
+const workingExcelWithLocalPreview = createGenerator({
+	type: 'file',
+	id: 'e776b56f-e1b6-4d25-94f5-21253d469677',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'doc',
+		mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+		name: 'test-doc.xlsx',
+		size: 2975434,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'document.pdf': {
+				url: '/file/e776b56f-e1b6-4d25-94f5-21253d469677/artifact/document.pdf/binary',
+				processingStatus: 'succeeded',
+			},
+			'document.txt': {
+				url: '/file/e776b56f-e1b6-4d25-94f5-21253d469677/artifact/document.txt/binary',
+				processingStatus: 'succeeded',
+			},
+			'thumb_120.jpg': {
+				url: '/file/e776b56f-e1b6-4d25-94f5-21253d469677/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+			'thumb.jpg': {
+				url: '/file/e776b56f-e1b6-4d25-94f5-21253d469677/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+			'thumb_320.jpg': {
+				url: '/file/e776b56f-e1b6-4d25-94f5-21253d469677/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+			'thumb_large.jpg': {
+				url: '/file/e776b56f-e1b6-4d25-94f5-21253d469677/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+		},
+		representations: {},
+		createdAt: 1691113227581, // '04 Aug 2023, 01:40 AM' UTC
+	},
+});
+
 const workingVideo = createGenerator({
 	type: 'file',
 	id: '1b01a476-83b4-4f44-8192-f83b2d00913a',
@@ -637,6 +678,7 @@ export const generateSampleFileItem = {
 	workingGif,
 	workingCode,
 	workingCodeLarge,
+	workingExcelWithLocalPreview,
 	processingPdf,
 	failedPdf,
 	failedDoc,

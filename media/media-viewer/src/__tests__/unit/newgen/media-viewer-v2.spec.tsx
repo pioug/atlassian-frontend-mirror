@@ -2,6 +2,35 @@ jest.mock('@atlaskit/media-client-react', () => {
 	const actualModule = jest.requireActual('@atlaskit/media-client-react');
 	return { __esModule: true, ...actualModule };
 });
+
+jest.mock('pdfjs-dist/legacy/build/pdf', () => ({
+	__esModule: true,
+	getDocument: jest.fn().mockImplementation(() => {
+		return jest.fn();
+	}),
+	GlobalWorkerOptions: {
+		workerSrc: '',
+	},
+	version: '',
+}));
+
+jest.mock('pdfjs-dist/legacy/web/pdf_viewer', () => ({
+	__esModule: true,
+	PDFViewer: jest.fn().mockImplementation(() => {
+		return {
+			setDocument: jest.fn(),
+			firstPagePromise: new Promise(() => {}),
+		};
+	}),
+	EventBus: jest.fn(),
+	PDFLinkService: jest.fn().mockImplementation(() => {
+		return {
+			setDocument: jest.fn(),
+			setViewer: jest.fn(),
+		};
+	}),
+}));
+
 import React, { useState } from 'react';
 import { type MediaClient, getFileStreamsCache } from '@atlaskit/media-client';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
@@ -26,6 +55,7 @@ const mockstartMediaFileUfoExperience = jest.spyOn(ufoWrapper, 'startMediaFileUf
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { getDocument } from 'pdfjs-dist/legacy/build/pdf';
 
 describe('<MediaViewer />', () => {
 	const user = userEvent.setup();
@@ -57,6 +87,153 @@ describe('<MediaViewer />', () => {
 			'.media-viewer-popup[data-testid="media-viewer-popup"]',
 		);
 		expect(blanketComponent).toBeInTheDocument();
+	});
+
+	describe('Opening Media Viewer', () => {
+		it('should render local preview for pdf documents', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithLocalPreview();
+			const { MockedMediaClientProvider, uploadItem } = createMockedMediaClientProvider({});
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+			};
+			// Adds a local preview to the state
+			uploadItem(fileItem, 0.8);
+
+			render(
+				<MockedMediaClientProvider>
+					<MediaViewerV2 selectedItem={identifier} items={[identifier]} />
+				</MockedMediaClientProvider>,
+			);
+
+			const pdfContent = await screen.findByTestId('media-viewer-pdf-content');
+			expect(pdfContent).toBeInTheDocument();
+			expect(getDocument).toHaveBeenCalledWith(
+				expect.objectContaining({
+					url: expect.stringMatching('mock result of URL.createObjectURL()'),
+					CMapReaderFactory: expect.any(Function),
+					isEvalSupported: false,
+				}),
+			);
+
+			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'commenced',
+					actionSubject: 'mediaFile',
+					attributes: {
+						fileAttributes: {
+							fileId: identifier.id,
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
+			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadSucceeded',
+					actionSubject: 'mediaFile',
+					attributes: {
+						fileAttributes,
+						fileMediatype: fileAttributes.fileMediatype,
+						fileMimetype: fileAttributes.fileMimetype,
+						status: 'success',
+						traceContext: undefined,
+					},
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
+			expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
+				expect.objectContaining({
+					fileAttributes,
+					fileStateFlags: { wasStatusProcessing: false, wasStatusUploading: true },
+				}),
+			);
+		});
+
+		it('should not render local preview for non-pdf docs', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingExcelWithLocalPreview();
+			const { MockedMediaClientProvider, uploadItem, processItem } =
+				createMockedMediaClientProvider({});
+			const fileAttributes = {
+				fileId: identifier.id,
+				fileMediatype: fileItem.details.mediaType,
+				fileMimetype: fileItem.details.mimeType,
+				fileSize: fileItem.details.size,
+			};
+			// Adds a local preview to the state
+			uploadItem(fileItem, 0.8);
+
+			render(
+				<MockedMediaClientProvider>
+					<MediaViewerV2 selectedItem={identifier} items={[identifier]} />
+				</MockedMediaClientProvider>,
+			);
+
+			// Check if the loading indicator is shown
+			expect(
+				await screen.findByRole('img', {
+					name: /loading file/i,
+				}),
+			).toBeInTheDocument();
+
+			expect(getDocument).toHaveBeenCalledTimes(0);
+
+			uploadItem(fileItem, 1);
+			processItem(fileItem, 1);
+
+			const pdfContent = await screen.findByTestId('media-viewer-pdf-content');
+			expect(pdfContent).toBeInTheDocument();
+			expect(getDocument).toHaveBeenCalledWith(
+				expect.objectContaining({
+					url: expect.stringMatching('artifact/document.pdf/binary'),
+					CMapReaderFactory: expect.any(Function),
+					isEvalSupported: false,
+				}),
+			);
+
+			expect(analytics.fireAnalytics).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'commenced',
+					actionSubject: 'mediaFile',
+					attributes: {
+						fileAttributes: {
+							fileId: identifier.id,
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
+			expect(analytics.fireAnalytics).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					action: 'loadSucceeded',
+					actionSubject: 'mediaFile',
+					attributes: {
+						fileAttributes,
+						fileMediatype: fileAttributes.fileMediatype,
+						fileMimetype: fileAttributes.fileMimetype,
+						status: 'success',
+						traceContext: undefined,
+					},
+					eventType: 'operational',
+				}),
+				expect.anything(),
+			);
+			expect(mockstartMediaFileUfoExperience).toHaveBeenCalledTimes(1);
+			expect(mocksucceedMediaFileUfoExperience).toHaveBeenCalledWith(
+				expect.objectContaining({
+					fileAttributes,
+					fileStateFlags: { wasStatusProcessing: true, wasStatusUploading: true },
+				}),
+			);
+		});
 	});
 
 	describe('Closing Media Viewer', () => {

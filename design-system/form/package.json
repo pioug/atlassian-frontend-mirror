@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "10.4.8",
+	"version": "10.5.0",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,11 +29,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.11.0",
+		"@atlaskit/icon": "^22.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/theme": "^12.11.0",
-		"@atlaskit/tokens": "^1.57.0",
+		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"final-form": "^4.20.3",
@@ -43,23 +43,23 @@
 		"tiny-invariant": "^1.2.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/banner": "^12.4.0",
-		"@atlaskit/button": "^19.1.0",
-		"@atlaskit/checkbox": "^13.6.0",
-		"@atlaskit/ds-lib": "^2.3.0",
-		"@atlaskit/modal-dialog": "^12.14.0",
-		"@atlaskit/radio": "^6.4.0",
-		"@atlaskit/range": "^7.3.0",
-		"@atlaskit/select": "^17.12.0",
+		"@atlaskit/banner": "^12.5.0",
+		"@atlaskit/button": "^19.2.0",
+		"@atlaskit/checkbox": "^13.7.0",
+		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/radio": "^6.5.0",
+		"@atlaskit/range": "^7.4.0",
+		"@atlaskit/select": "^17.13.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/textfield": "^6.4.0",
-		"@atlaskit/toggle": "^13.2.0",
+		"@atlaskit/textfield": "^6.5.0",
+		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",

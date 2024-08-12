@@ -42,10 +42,10 @@ import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
 import type { EditorProps } from '../../../types';
 import createPluginsListBase, { getScrollGutterOptions } from '../../create-plugins-list';
-import { createPreset } from '../../create-preset';
+import { createUniversalPreset } from '../../create-universal-preset';
 
 const createPluginsList = (props: EditorProps, prevProps?: EditorProps) => {
-	createPluginsListBase(createPreset(props, prevProps), props);
+	createPluginsListBase(createUniversalPreset({ props, prevProps }), props);
 };
 
 describe('createPluginsList', () => {

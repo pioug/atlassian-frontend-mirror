@@ -226,6 +226,9 @@ const buildDataResponse = ({
 		data: {
 			items: mockJiraData.data.slice(0, maxItems).map((item, idx): DatasourceDataResponseItem => {
 				return {
+					ari: {
+						data: item.ari.data + numberOfLoads,
+					},
 					// Fake identifier attribute that is a primitive value.
 					// Adding number of pages to make all issueNumbers unique
 					id: {

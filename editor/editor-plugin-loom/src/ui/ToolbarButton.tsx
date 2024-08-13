@@ -14,7 +14,6 @@ import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-com
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { LoomIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Text } from '@atlaskit/primitives';
 
 import { recordVideo } from '../commands';
 import type { LoomPlugin } from '../plugin';
@@ -63,9 +62,7 @@ const LoomToolbarButton = ({
 			title={label}
 			iconBefore={<LoomIcon label={label} size="small" />}
 		>
-			{shouldShowRecordText && (
-				<Text>{formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}</Text>
-			)}
+			{shouldShowRecordText && formatMessage(toolbarInsertBlockMessages.recordLoomShortTitle)}
 		</ToolbarButton>
 	);
 };

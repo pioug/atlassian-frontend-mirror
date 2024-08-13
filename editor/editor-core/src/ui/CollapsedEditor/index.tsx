@@ -2,9 +2,7 @@ import React from 'react';
 
 import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 
-import { ComposableEditor } from '../../composable-editor';
 import Editor from '../../editor';
-import EditorWithActions from '../../EditorWithActions';
 import ChromeCollapsed from '../ChromeCollapsed';
 
 export interface Props {
@@ -43,15 +41,7 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 
 	render() {
 		const child = React.Children.only(this.props.children);
-		if (
-			child.type !== Editor &&
-			child.type !== EditorWithActions &&
-			child.type !== ComposableEditor
-		) {
-			throw new Error('Expected child to be of type `Editor`');
-		}
-
-		this.functionalEditor = child.type === ComposableEditor;
+		this.functionalEditor = typeof child.type === 'function';
 
 		if (!this.props.isExpanded) {
 			return (

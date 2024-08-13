@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 195.4.5
+
+### Patch Changes
+
+- [#129496](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129496)
+  [`5776cd6d4856e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5776cd6d4856e) -
+  remove no editor selection in view mode ff
+
+## 195.4.4
+
+### Patch Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`080325d254926`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/080325d254926) -
+  Added PTW 40% scale to comment editor and renderer in confluence
+- [#129415](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129415)
+  [`f5c556c716ddf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5c556c716ddf) -
+  Allow collapsed editor to have any child as its child may be a wrapper.
+- Updated dependencies
+
+## 195.4.3
+
+### Patch Changes
+
+- [`46b889c01d03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b889c01d03e) -
+  [ux] Clean up Reaact 18 Feature Flags
+
 ## 195.4.0
 
 ### Minor Changes

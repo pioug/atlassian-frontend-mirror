@@ -315,7 +315,7 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
 
 	if (isTableHovered) {
 		if (isDragAndDropEnabled) {
-			const { isDragMenuOpen } = getDragDropPluginState(state);
+			const { isDragMenuOpen = false } = getDragDropPluginState(state);
 			!isDragMenuOpen && setTableHovered(false)(state, dispatch);
 		} else {
 			setTableHovered(false)(state, dispatch);
@@ -588,6 +588,7 @@ export const withCellTracking =
 	(view: EditorView, mouseEvent: Event): boolean => {
 		if (
 			getPluginState(view.state).isDragAndDropEnabled &&
+			getDragDropPluginState(view.state) &&
 			!getDragDropPluginState(view.state).isDragging
 		) {
 			trackCellLocation(view, mouseEvent);

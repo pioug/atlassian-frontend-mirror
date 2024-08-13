@@ -59,7 +59,7 @@
 		"@atlaskit/docs": "^9.1.0",
 		"@atlaskit/media-test-data": "^2.5.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^12.1.5",

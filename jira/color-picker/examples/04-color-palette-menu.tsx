@@ -7,6 +7,8 @@ import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
 
+import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
+
 class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 	state = {
 		color: token('color.background.accent.purple.subtle', colors.P200),
@@ -28,5 +30,11 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
 }
 
 const Story = () => <ColorPaletteMenuExample />;
+
+Story.decorators = [
+	withPlatformFeatureFlags({
+		platform_color_palette_menu_timeline_bar_a11y: true,
+	}),
+];
 
 export default Story;

@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.20.0
 
 ### Minor Changes

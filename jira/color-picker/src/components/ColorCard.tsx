@@ -2,9 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+	type KeyboardEventHandler,
+	useCallback,
+	useEffect,
+	useRef,
+	useImperativeHandle,
+	forwardRef,
+} from 'react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { KEY_ENTER, KEY_SPACE } from '../constants';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -16,15 +24,20 @@ export interface Props {
 	value: string;
 	label: string;
 	onClick?: (value: string) => void;
-	onKeyDown?: (value: string) => void;
+	onKeyDown?: KeyboardEventHandler<HTMLElement>;
 	checkMarkColor?: string;
 	selected?: boolean;
 	focused?: boolean;
 	isOption?: boolean;
 	isTabbing?: boolean;
+	onTabPress?: (backwards: boolean) => void;
 }
 
-const ColorCard = (props: Props) => {
+export type ColorCardRef = {
+	focus: () => void;
+};
+
+const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const {
 		value,
 		label,
@@ -34,9 +47,10 @@ const ColorCard = (props: Props) => {
 		isTabbing,
 		onClick,
 		onKeyDown,
+		onTabPress,
 	} = props;
 
-	const ref = useRef<null | HTMLInputElement>(null);
+	const ref = useRef<HTMLDivElement | null>(null);
 	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 	}, []);
@@ -51,40 +65,73 @@ const ColorCard = (props: Props) => {
 		[onClick, value],
 	);
 
-	const handleKeyDown = useCallback(
+	const handleKeyDownOld = useCallback(
 		(event: React.KeyboardEvent<HTMLElement>) => {
 			const { key } = event;
 
 			if (
 				(isTabbing === undefined || isTabbing) &&
-				onKeyDown &&
+				onClick &&
 				(key === KEY_ENTER || key === KEY_SPACE)
 			) {
 				event.preventDefault();
 				if (isTabbing) {
 					event.stopPropagation();
 				}
-				onKeyDown(value);
+				onClick(value);
 			}
 		},
-		[isTabbing, onKeyDown, value],
+		[isTabbing, onClick, value],
 	);
 
-	useEffect(() => {
-		const refCurrent = ref.current;
-		const handleKeyDown = (e: KeyboardEvent) => {
-			if (e.key === 'Tab') {
-				e.stopPropagation();
-				e.preventDefault();
+	const handleKeyDown = useCallback(
+		(event: React.KeyboardEvent<HTMLDivElement>) => {
+			const { key } = event;
+			if (key === 'Tab') {
+				onTabPress?.(event.shiftKey);
 			}
-		};
 
-		refCurrent?.addEventListener('keydown', handleKeyDown);
+			if ((isTabbing === undefined || isTabbing) && (key === KEY_ENTER || key === KEY_SPACE)) {
+				event.preventDefault();
+				if (isTabbing) {
+					event.stopPropagation();
+				}
+				onClick?.(value);
+			}
 
-		return () => {
-			refCurrent?.removeEventListener('keydown', handleKeyDown);
-		};
+			onKeyDown?.(event);
+		},
+		[isTabbing, onTabPress, onClick, onKeyDown, value],
+	);
+
+	// TODO: Remove this useEffect when the feature flag 'platform_color_palette_menu_timeline_bar_a11y' is cleaned up
+	useEffect(() => {
+		if (!fg('platform_color_palette_menu_timeline_bar_a11y')) {
+			const refCurrent = ref.current;
+			const handleTabKey = (e: KeyboardEvent) => {
+				if (e.key === 'Tab') {
+					e.stopPropagation();
+					e.preventDefault();
+				}
+			};
+
+			refCurrent?.addEventListener('keydown', handleTabKey);
+
+			return () => {
+				refCurrent?.removeEventListener('keydown', handleTabKey);
+			};
+		}
 	}, []);
+
+	useImperativeHandle(
+		componentRef,
+		() => ({
+			focus: () => {
+				ref.current?.focus();
+			},
+		}),
+		[],
+	);
 
 	return (
 		<Tooltip content={label}>
@@ -100,8 +147,10 @@ const ColorCard = (props: Props) => {
 						]}
 						onClick={handleClick}
 						onMouseDown={handleMouseDown}
-						onKeyDown={handleKeyDown}
-						role="radio"
+						onKeyDown={
+							fg('platform_color_palette_menu_timeline_bar_a11y') ? handleKeyDown : handleKeyDownOld
+						}
+						role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'menuitemradio' : 'radio'}
 						aria-checked={selected}
 						aria-label={label}
 						tabIndex={0}
@@ -126,7 +175,7 @@ const ColorCard = (props: Props) => {
 			}}
 		</Tooltip>
 	);
-};
+});
 
 export default ColorCard;
 

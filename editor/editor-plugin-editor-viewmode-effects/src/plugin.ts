@@ -6,7 +6,7 @@ import {
 	type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type EditorViewModeEffectsPlugin } from './types';
 import { ViewModeNodeStep, ViewModeStep } from './viewModeStep';
@@ -26,7 +26,7 @@ const createFilterStepsPlugin =
 				}
 
 				const viewModeSteps = tr.steps.reduce<(ViewModeStep | ViewModeNodeStep)[]>((acc, s) => {
-					if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+					if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
 						if (s instanceof ViewModeNodeStep || s instanceof ViewModeStep) {
 							acc.push(s);
 						}
@@ -51,7 +51,7 @@ const createFilterStepsPlugin =
 					}
 
 					if (step.mark.type.name === 'annotation') {
-						if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+						if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
 							if (step instanceof ViewModeNodeStep) {
 								api.collabEdit?.actions.addInlineCommentNodeMark({
 									mark: step.mark,
@@ -94,10 +94,6 @@ const createReplaceDocumentTransactionPlugin =
 					return;
 				}
 
-				if (!getBooleanFF('platform.editor.live-view.no-editor-selection-in-view-mode')) {
-					return;
-				}
-
 				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 				if (!isViewMode) {
 					return;
@@ -130,7 +126,7 @@ export const editorViewModeEffectsPlugin: EditorViewModeEffectsPlugin = ({ api }
 				(AddMarkStep | AddNodeMarkStep)[]
 			>((acc, s) => {
 				// TODO: We probably want to check the RemoveMarkStep flow too.
-				if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+				if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
 					if (s instanceof AddMarkStep || s instanceof AddNodeMarkStep) {
 						acc.push(s);
 					}
@@ -148,7 +144,7 @@ export const editorViewModeEffectsPlugin: EditorViewModeEffectsPlugin = ({ api }
 			}
 
 			marksSteps.reverse().map((s) => {
-				if (getBooleanFF('platform.editor.live-view.comments-in-media-toolbar-button')) {
+				if (fg('platform.editor.live-view.comments-in-media-toolbar-button')) {
 					s instanceof AddNodeMarkStep
 						? tr.step(ViewModeNodeStep.from(s))
 						: tr.step(ViewModeStep.from(s));

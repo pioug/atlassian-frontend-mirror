@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 5.11.0
+
+### Minor Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`c9cd233ada48c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9cd233ada48c) -
+  EDM-10579 Fix smart-card SSR loading shimmer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.10.0
 
 ### Minor Changes

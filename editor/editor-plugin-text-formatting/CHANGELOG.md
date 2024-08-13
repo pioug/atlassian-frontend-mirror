@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.13.1
+
+### Patch Changes
+
+- [#129365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129365)
+  [`ccb6fdd9283db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccb6fdd9283db) -
+  remove editor simplify inline cards ff
+- Updated dependencies
+
 ## 1.13.0
 
 ### Minor Changes

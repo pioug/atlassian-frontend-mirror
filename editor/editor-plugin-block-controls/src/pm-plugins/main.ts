@@ -162,9 +162,11 @@ export const createPlugin = (
 						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
 				}
 
-				const dropTargetLen = decorations
-					.find()
-					.filter(({ spec }) => spec.type === 'drop-target-decoration').length;
+				const dropTargetLen = decorations.find(
+					undefined,
+					undefined,
+					(spec) => spec.type === 'drop-target-decoration',
+				).length;
 
 				//TODO: Fix this logic for nested scenarios
 				if (!fg('platform_editor_elements_dnd_nested')) {
@@ -205,9 +207,12 @@ export const createPlugin = (
 
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				if (redrawDecorations && !isResizerResizing && api) {
-					const oldNodeDecs = decorations
-						.find()
-						.filter(({ spec }) => spec.type !== 'drop-target-decoration');
+					const oldNodeDecs = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.type !== 'drop-target-decoration',
+					);
+
 					decorations = decorations.remove(oldNodeDecs);
 
 					const nodeDecs = nodeDecorations(newState);
@@ -255,7 +260,11 @@ export const createPlugin = (
 						meta?.activeNode.anchorName !== activeNode?.anchorName) ||
 						meta?.activeNode.handleOptions?.isFocused)
 				) {
-					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+					const oldHandle = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.id === 'drag-handle',
+					);
 					decorations = decorations.remove(oldHandle);
 					const decs = dragHandleDecoration(
 						api,
@@ -274,7 +283,11 @@ export const createPlugin = (
 					activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
 					api
 				) {
-					const oldHandle = decorations.find().filter(({ spec }) => spec.id === 'drag-handle');
+					const oldHandle = decorations.find(
+						undefined,
+						undefined,
+						(spec) => spec.id === 'drag-handle',
+					);
 					decorations = decorations.remove(oldHandle);
 					const decs = dragHandleDecoration(
 						api,
@@ -292,15 +305,26 @@ export const createPlugin = (
 					!shouldUpdateDropTargets &&
 					tr.docChanged &&
 					isDragging &&
-					meta?.isDragging !== false &&
+					meta?.isDragging === false &&
 					!meta?.nodeMoved;
 
 				if (meta?.isDragging === false || isDropTargetsMissing) {
-					// Remove drop target decoration when dragging stops
-					const dropTargetDecs = decorations
-						.find()
-						.filter(({ spec }) => spec.type === 'drop-target-decoration');
-					decorations = decorations.remove(dropTargetDecs);
+					if (fg('platform_editor_elements_dnd_nested')) {
+						const remainingDecs = decorations.find(
+							undefined,
+							undefined,
+							(spec) => spec.type !== 'drop-target-decoration',
+						);
+						decorations = DecorationSet.create(newState.doc, remainingDecs);
+					} else {
+						// Remove drop target decoration when dragging stops
+						const dropTargetDecs = decorations.find(
+							undefined,
+							undefined,
+							(spec) => spec.type === 'drop-target-decoration',
+						);
+						decorations = decorations.remove(dropTargetDecs);
+					}
 				}
 
 				if (api) {

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.4
+
+### Patch Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`080325d254926`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/080325d254926) -
+  Added PTW 40% scale to comment editor and renderer in confluence
+- [`79a3024b0907a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79a3024b0907a) -
+  ED-24535 Reverted ignoreMutation changes for table as we will use a blanket approach
+- Updated dependencies
+
+## 7.25.3
+
+### Patch Changes
+
+- [`46b889c01d03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b889c01d03e) -
+  [ux] Clean up Reaact 18 Feature Flags
+
 ## 7.25.2
 
 ### Patch Changes

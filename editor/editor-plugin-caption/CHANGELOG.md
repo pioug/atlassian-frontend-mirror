@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-caption
 
+## 1.9.1
+
+### Patch Changes
+
+- [`46b889c01d03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b889c01d03e) -
+  [ux] Clean up Reaact 18 Feature Flags
+
 ## 1.9.0
 
 ### Minor Changes

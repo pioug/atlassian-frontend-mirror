@@ -31,6 +31,21 @@
           "text": " "
         }
       ]
+    },
+    {
+	  "type": "paragraph",
+	  "content": [
+	    {
+		  "type": "inlineCard",
+		  "attrs": {
+		  	"url": "https://team.atlassian.com/project/CGFCFBKQ-45/about"
+		  }
+	    },
+	    {
+		  "type": "text",
+		  "text": " "
+	    }
+	  ]
     }
   ]
 }

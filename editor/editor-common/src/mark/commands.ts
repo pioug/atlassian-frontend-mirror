@@ -159,9 +159,7 @@ export const applyMarkOnRange = (
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
 	if (mark.type === code) {
-		fg('platform.editor.simplify-inline-cards-in-code-blocks_jw6t1')
-			? transformNonTextNodesToText(from, to, tr)
-			: transformSmartCharsMentionsAndEmojis(from, to, tr);
+		transformNonTextNodesToText(from, to, tr);
 	}
 
 	tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {

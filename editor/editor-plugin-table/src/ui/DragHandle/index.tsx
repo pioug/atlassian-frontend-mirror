@@ -72,7 +72,7 @@ const DragHandleComponent = ({
 		state: { selection },
 	} = editorView;
 	const { hoveredColumns, hoveredRows } = getPluginState(state);
-	const { isDragMenuOpen } = getDnDPluginState(state);
+	const { isDragMenuOpen = false } = getDnDPluginState(state);
 
 	const isRow = direction === 'row';
 	const isColumn = direction === 'column';

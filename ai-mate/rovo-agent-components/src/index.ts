@@ -8,3 +8,4 @@ export {
 export { ChatPill, type ChatPillProps } from './common/ui/chat-pill';
 export { ChatPillIcon } from './common/ui/chat-icon';
 export { AgentAvatar } from './ui/agent-avatar';
+export { AgentBanner } from './ui/agent-avatar/generated-avatars';

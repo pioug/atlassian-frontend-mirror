@@ -36,12 +36,12 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.8.0",
+		"@atlaskit/editor-common": "^87.10.0",
 		"@atlaskit/editor-markdown-transformer": "^5.11.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-annotation": "^1.19.0",
 		"@atlaskit/editor-plugin-better-type-history": "^1.7.0",
-		"@atlaskit/editor-plugin-card": "^2.12.0",
+		"@atlaskit/editor-plugin-card": "^2.13.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
 		"@atlaskit/editor-plugin-media": "^1.28.0",

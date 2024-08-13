@@ -1,5 +1,96 @@
 # @atlaskit/theme
 
+## 13.0.0
+
+### Major Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`300b0a472d9ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/300b0a472d9ce) -
+  Removes deprecated theme mixins and variables. These mixins and variables can be directly replaced
+  with design tokens from `@atlaskit/tokens` and `@atlaskit/theme/colors`.
+
+  This change can be automated by running the following codemod:
+
+  ```
+  npx @atlaskit/codemod-cli -n theme-remove-deprecated-mixins --extensions tsx --parser tsx path/to/src
+  ```
+
+  Here is a mapping of the old mixins and variables to the new design tokens:
+
+  ```diff
+  import styled from 'styled-components';
+  +import { token } from '@atlaskit/tokens'
+  +import {
+  + B200
+  + B300
+  + B400
+  + B50
+  + B500
+  + G300
+  + N0
+  + N200
+  + N20A
+  + N30
+  + N800
+  + N900
+  + P300
+  + R300
+  + T300
+  + Y300
+  +} from '@atlaskit/theme/colors';
+
+  const Box = styled.div`
+  -  background-color: ${background};
+  +  background-color: ${token('elevation.surface', N0)};
+  -  background-color: ${backgroundActive};
+  +  background-color: ${token('color.background.selected', B50)};
+  -  background-color: ${backgroundHover};
+  +  background-color: ${token('color.background.neutral.hovered', N30)};
+  -  background-color: ${backgroundOnLayer};
+  +  background-color: ${token('elevation.surface.overlay', N0)};
+  -  color: ${text};
+  +  color: ${token('color.text', N900)};
+  -  color: ${textHover};
+  +  color: ${token('color.text', N800)};
+  -  color: ${textActive};
+  +  color: ${token('color.text.selected', B400)};
+  -  color: ${subtleText};
+  +  color: ${token('color.text.subtlest', N200)};
+  -  color: ${placeholderText};
+  +  color: ${token('color.text.subtlest', N200)};
+  -  color: ${heading};
+  +  color: ${token('color.text', N800)};
+  -  color: ${subtleHeading};
+  +  color: ${token('color.text.subtlest', N200)};
+  -  color: ${codeBlock};
+  +  color: ${N20};
+  -  color: ${link};
+  +  color: ${token('color.link', B400)};
+  -  color: ${linkHover};
+  +  color: ${token('color.link.pressed', B300)};
+  -  color: ${linkActive};
+  +  color: ${token('color.link.pressed', B500)};
+  -  border-color: ${linkOutline};
+  +  border-color: ${token('color.border.focused', B200)};
+  -  background-color: ${primary};
+  +  background-color: ${token('color.background.brand.bold', B400)};
+  -  background-color: ${skeleton};
+  +  background-color: ${token('color.skeleton', N20A)};
+  -  color: ${blue};
+  +  color: ${B400};
+  -  color: ${teal};
+  +  color: ${T300};
+  -  color: ${purple};
+  +  color: ${P300};
+  -  color: ${red};
+  +  color: ${R300};
+  -  color: ${yellow};
+  +  color: ${Y300};
+  -  color: ${green};
+  +  color: ${G300};
+  `;
+  ```
+
 ## 12.12.0
 
 ### Minor Changes

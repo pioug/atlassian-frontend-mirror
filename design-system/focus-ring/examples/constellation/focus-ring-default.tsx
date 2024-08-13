@@ -36,7 +36,7 @@ export default () => {
 		<Box xcss={spacerStyles}>
 			<FocusRing>
 				<button type="button" ref={buttonRef} css={buttonStyles}>
-					Native Button
+					Keyboard focus to show ring
 				</button>
 			</FocusRing>
 		</Box>

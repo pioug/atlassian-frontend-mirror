@@ -189,12 +189,12 @@ export const useExecuteAtomicAction = ({
 	const { executeAtomicAction: executeAction } = useDatasourceClientExtension();
 
 	const execute = useCallback(
-		(value: AtomicActionInterface['type']) => {
+		(value: string | number) => {
 			if (!schema) {
 				throw new Error('No action schema found.');
 			}
 
-			executeAction({
+			return executeAction({
 				integrationKey,
 				actionKey: schema.actionKey,
 				parameters: { inputs: { [fieldKey]: value }, target: { ari } },
@@ -204,7 +204,7 @@ export const useExecuteAtomicAction = ({
 	);
 
 	if (!schema) {
-		return null;
+		return {};
 	}
 
 	return {

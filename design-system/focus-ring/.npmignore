@@ -4,6 +4,7 @@ examples/
 index.ts
 docs/
 build/
+constellation/
 __tests__/
 tsconfig.json
 tsconfig.app.json

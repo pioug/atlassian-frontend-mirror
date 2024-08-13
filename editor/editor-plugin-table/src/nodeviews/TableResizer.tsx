@@ -450,6 +450,7 @@ export const TableResizer = ({
 				editorView.domAtPos.bind(editorView),
 				isTableScalingEnabled,
 				isTableWithFixedColumnWidthsOptionEnabled,
+				isCommentEditor,
 			);
 
 			const editorContainerWidth = isFullWidthModeEnabled

@@ -4,13 +4,12 @@
  */
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
-import { token } from '@atlaskit/tokens';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import Popup from '../src';
 
@@ -23,9 +22,14 @@ const data = [
 	`Be careful what you say to someone today.`,
 ];
 
-const quoteStyles = css({
-	maxWidth: 300,
-	padding: token('space.200', '16px'),
+const quoteStyles = xcss({
+	maxWidth: '600px',
+	padding: 'space.200',
+	textAlign: 'center',
+});
+
+const buttonGroupContainer = xcss({
+	width: '100%',
 	textAlign: 'center',
 });
 
@@ -36,12 +40,16 @@ const Quotes = ({ onUpdate }: { onUpdate: () => void }) => {
 		const intervalId = setInterval(() => {
 			setTextIndex((prevIndex) => (prevIndex + 1) % data.length);
 			onUpdate();
-		}, 1000);
+		}, 5000);
 
 		return () => clearInterval(intervalId);
 	}, [onUpdate]);
 
-	return <div css={quoteStyles}>{data[textIndex]}</div>;
+	return (
+		<Box as="blockquote" xcss={quoteStyles} aria-live="assertive" aria-atomic="true">
+			<Text>{data[textIndex]}</Text>
+		</Box>
+	);
 };
 
 export default () => {
@@ -49,8 +57,7 @@ export default () => {
 	const [isUpdateOn, setIsUpdateOn] = useState(true);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		<div style={{ width: '100%', textAlign: 'center' }}>
+		<Box xcss={buttonGroupContainer}>
 			<ButtonGroup label="Content updates">
 				<Popup
 					isOpen={isOpen}
@@ -66,6 +73,6 @@ export default () => {
 					{isUpdateOn ? 'Will schedule update' : 'Will not schedule update'}
 				</Button>
 			</ButtonGroup>
-		</div>
+		</Box>
 	);
 };

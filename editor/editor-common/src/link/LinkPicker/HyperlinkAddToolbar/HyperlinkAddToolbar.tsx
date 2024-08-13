@@ -19,10 +19,8 @@ import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Pressable, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
-import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -83,15 +81,11 @@ const textLabelMargin = css({
 	marginTop: token('space.150', '12px'),
 });
 
-const inputLabelFontToken = css({
-	font: token('font.body.small'),
-	fontWeight: token('font.weight.medium'),
-});
-const inputLabelFont = css({ fontSize: `${fontSizeSmall()}px`, fontWeight: 500 });
-
 const inputLabel = css({
 	color: token('color.text.subtlest', N200),
 	paddingBottom: token('space.050', '4px'),
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.medium'),
 });
 
 const inputWrapperPosition = css({
@@ -592,15 +586,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 					css={[container, !!activityProvider && containerWithProvider, containerPadding]}
 					ref={this.wrapperRef}
 				>
-					<label
-						htmlFor={linkSearchInputId}
-						css={[
-							inputLabel,
-							fg('platform_editor_migration_icon_and_typography')
-								? inputLabelFontToken
-								: inputLabelFont,
-						]}
-					>
+					<label htmlFor={linkSearchInputId} css={inputLabel}>
 						{formatMessage(messages.linkVisibleLabel)}
 					</label>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
@@ -646,16 +632,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 							</div>
 						)}
 					</div>
-					<label
-						htmlFor={displayTextInputId}
-						css={[
-							inputLabel,
-							textLabelMargin,
-							fg('platform_editor_migration_icon_and_typography')
-								? inputLabelFontToken
-								: inputLabelFont,
-						]}
-					>
+					<label htmlFor={displayTextInputId} css={[inputLabel, textLabelMargin]}>
 						{formatMessage(messages.textVisibleLabel)}
 					</label>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}

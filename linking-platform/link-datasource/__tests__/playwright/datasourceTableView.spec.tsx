@@ -74,14 +74,14 @@ test.describe('DatasourceTableView', () => {
 	});
 
 	test('toggles edit mode on string column', async ({ page }) => {
-		await page.visitExample('linking-platform', 'link-datasource', 'basic-assets-issues-table');
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync',
 		]);
 
 		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
-		await page.getByText('Server 2').click();
+		await page.getByText('FIRST! This level contains five Dragon coins').click();
 		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
 
 		// Change value and update store here

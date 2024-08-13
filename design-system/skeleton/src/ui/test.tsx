@@ -23,26 +23,4 @@ describe('Skeleton', () => {
 			height: '8px',
 		});
 	});
-
-	it('should not animate when isShimmering is not specified', () => {
-		const testId = 'skeleton';
-
-		const { getByTestId } = render(<Skeleton width={200} height="8px" testId={testId} />);
-
-		expect(getByTestId(testId)).not.toHaveStyle({
-			animationName: 'animation-tt09e5',
-		});
-	});
-
-	it('should animate when isShimmering is true', () => {
-		const testId = 'skeleton';
-
-		const { getByTestId } = render(
-			<Skeleton width={200} height="8px" isShimmering testId={testId} />,
-		);
-
-		expect(getByTestId(testId)).toHaveStyle({
-			animationName: 'animation-tt09e5',
-		});
-	});
 });

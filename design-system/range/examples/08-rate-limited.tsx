@@ -4,8 +4,15 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
 import { Label } from '@atlaskit/form';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import Range from '../src';
+
+const styles = xcss({
+	padding: 'space.100',
+	display: 'flex',
+	flexDirection: 'column',
+});
 
 function RateLimitedRange() {
 	const [value, setValue] = useState(50);
@@ -45,7 +52,15 @@ function RateLimitedRange() {
 
 	return (
 		<Fragment>
-			<Label htmlFor="range-limited">Range limited</Label>
+			<Box xcss={styles}>
+				<Text>
+					The content displayed beneath the range slider dynamically updates as you adjust the
+					slider's range.
+				</Text>
+			</Box>
+			<Box xcss={styles}>
+				<Label htmlFor="range-limited">Range limited</Label>
+			</Box>
 			<Range
 				id="range-limited"
 				step={1}
@@ -57,10 +72,12 @@ function RateLimitedRange() {
 					throttled();
 				}}
 			/>
-			<p>The current value is: {value}</p>
-			<p>onChange called: {onChangeCallCount}</p>
-			<p>debounced called: {debouncedCallCount}</p>
-			<p>throttled called: {throttledCallCount}</p>
+			<Box aria-live="assertive" aria-atomic="true" xcss={styles}>
+				<Text>The current value is: {value}</Text>
+				<Text>onChange called: {onChangeCallCount}</Text>
+				<Text>debounced called: {debouncedCallCount}</Text>
+				<Text>throttled called: {throttledCallCount}</Text>
+			</Box>
 		</Fragment>
 	);
 }

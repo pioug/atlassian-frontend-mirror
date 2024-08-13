@@ -865,9 +865,11 @@ describe('Provider', () => {
 		beforeEach(() => {
 			sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
 			provider = createSocketIOCollabProvider(testProviderConfig);
+			jest.spyOn(global.Math, 'random').mockRestore();
 		});
 
 		it('when the consumer sends a telepointer message', () => {
+			jest.spyOn(global.Math, 'random').mockReturnValue(0.00006); // mock to trigger the sampling event
 			jest.spyOn(Telepointer, 'telepointerCallback').mockImplementationOnce(() => {
 				throw fakeError;
 			});

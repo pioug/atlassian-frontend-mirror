@@ -1,15 +1,8 @@
 import { type MutableRefObject, useEffect, useRef } from 'react';
 
-import {
-	heading,
-	link,
-	linkActive,
-	linkHover,
-	linkOutline,
-	subtleHeading,
-	subtleText,
-	text,
-} from '../../colors';
+import { token } from '@atlaskit/tokens';
+
+import { B100, B300, B400, B500, N200, N800, N900 } from '../../colors';
 
 export const SELECTOR = 'old-ds-theme-mode';
 
@@ -18,32 +11,32 @@ const baseResetStyles = [{ mode: 'light' }, { mode: 'dark' }]
 	.map(
 		(theme) => `
   .${theme.mode}-${SELECTOR} {
-    color: ${text({ theme })};
+    color: ${token('color.text', N900)};
   }
   .${theme.mode}-${SELECTOR} a {
-    color: ${link({ theme })};
+    color: ${token('color.link', B400)};
   }
   .${theme.mode}-${SELECTOR} a:hover {
-    color: ${linkHover({ theme })};
+    color: ${token('color.link.pressed', B300)};
   }
   .${theme.mode}-${SELECTOR} a:active {
-    color: ${linkActive({ theme })};
+    color: ${token('color.link.pressed', B500)};
   }
   .${theme.mode}-${SELECTOR} a:focus {
-    outlineColor: ${linkOutline({ theme })};
+    outlineColor: ${token('color.border.focused', B100)};
   }
   .${theme.mode}-${SELECTOR} h1,
   .${theme.mode}-${SELECTOR} h2,
   .${theme.mode}-${SELECTOR} h3,
   .${theme.mode}-${SELECTOR} h4,
   .${theme.mode}-${SELECTOR} h5 {
-    color: ${heading({ theme })};
+    color: ${token('color.text', N800)};
   }
   .${theme.mode}-${SELECTOR} h6 {
-    color: ${subtleHeading({ theme })};
+    color: ${token('color.text.subtlest', N200)};
   }
   .${theme.mode}-${SELECTOR} small {
-    color: ${subtleText({ theme })};
+    color: ${token('color.text.subtlest', N200)};
   }`,
 	)
 	.join('\n');

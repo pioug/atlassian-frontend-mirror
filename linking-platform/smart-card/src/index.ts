@@ -20,6 +20,7 @@ export { CardAction } from './view/Card/types';
 export { SmartCardContext as Context } from '@atlaskit/link-provider';
 export type { CardContext } from '@atlaskit/link-provider';
 export { EmbedResizeMessageListener } from './view/EmbedCard/EmbedResizeMessageListener';
+export { ExpandedFrame } from './view/EmbedCard/components/ExpandedFrame';
 export { embedHeaderHeight } from './view/EmbedCard/components/styled';
 export { SmartLinkEvents } from './utils/analytics/analytics';
 export { useSmartLinkEvents } from './view/SmartLinkEvents/useSmartLinkEvents';

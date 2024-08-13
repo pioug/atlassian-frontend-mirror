@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 13.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.3.0
 
 ### Minor Changes

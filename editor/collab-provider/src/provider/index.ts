@@ -39,6 +39,7 @@ import { INTERNAL_ERROR_CODE } from '../errors/internal-errors';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { getCollabProviderFeatureFlag } from '../feature-flags';
 import { Api } from '../api/api';
+import { shouldTelepointerBeSampled } from '../analytics/performance';
 
 const logger = createLogger('Provider', 'black');
 
@@ -428,7 +429,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 						...basePayload,
 						selection: data.selection,
 					},
-					telepointerCallback(this.config.documentAri),
+					shouldTelepointerBeSampled() ? telepointerCallback(this.config.documentAri) : undefined,
 				);
 			} else if (data?.type === 'activity:join' || data?.type === 'activity:ack') {
 				this.channel.broadcast(

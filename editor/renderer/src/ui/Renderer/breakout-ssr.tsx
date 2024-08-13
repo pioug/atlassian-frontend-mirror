@@ -1,6 +1,8 @@
 import React from 'react';
 import { breakoutConsts } from '@atlaskit/editor-common/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { FullPagePadding } from './style';
 /**
  * Inline Script that updates breakout node width on client side,
  * before main JavaScript bundle is ready.
@@ -30,10 +32,11 @@ export function BreakoutSSRInlineScript() {
 }
 
 export function createBreakoutInlineScript(id: number) {
+	const shouldFixTableResizing = String(Boolean(fg('platform-fix-table-ssr-resizing')));
 	return `
   (function(window){
     ${breakoutInlineScriptContext};
-    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts);
+    (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${shouldFixTableResizing});
   })(window);
 `;
 }
@@ -45,9 +48,10 @@ export const breakoutInlineScriptContext = `
   breakoutConsts.calcBreakoutWidth = ${breakoutConsts.calcBreakoutWidth.toString()};
   breakoutConsts.calcLineLength = ${breakoutConsts.calcLineLength.toString()};
   breakoutConsts.calcWideWidth = ${breakoutConsts.calcWideWidth.toString()};
+  breakoutConsts.FullPagePadding = ${FullPagePadding.toString()};
 `;
 
-function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
+function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableResizing: boolean) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
 
@@ -95,7 +99,18 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
 					}
 
 					if (node.classList.contains('pm-table-container') && mode === 'custom') {
-						const effectiveWidth = renderer!.offsetWidth - breakoutConsts.padding;
+						const isFullPage = renderer!.classList.contains('is-full-page');
+						const rendererWidth = renderer!.offsetWidth;
+
+						let effectiveWidth;
+						if (shouldFixTableResizing) {
+							// Logic from https://stash.atlassian.com/projects/atlassian/repos/atlassian-frontend-monorepo/browse/platform/packages/editor/renderer/src/react/nodes/table.tsx?at=d3af2ef54521ccf10e9b094996ad9528ec05c7e3#610
+							effectiveWidth = isFullPage
+								? rendererWidth - 2 * breakoutConsts.FullPagePadding
+								: rendererWidth;
+						} else {
+							effectiveWidth = rendererWidth - breakoutConsts.padding;
+						}
 						width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
 					} else {
 						width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
@@ -135,6 +150,16 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any) {
 				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
+
+		// Renderer is initially set to hidden until we figure out the proper width in packages/editor/editor-common/src/ui/WidthProvider/index.tsx
+		if (renderer.style.visibility === 'hidden') {
+			// Hiding until we get the correct width. But didn't remove them from the DOM so vertical scrollbar can still be correctly calculated.
+			renderer.style.visibility = '';
+			// Since we don't have a screen width to use as initial value.
+			// The width is set to a fix number. This will cause horizontal scrollbar to appear.
+			// Hide it until we have the correct width.
+			renderer.style.overflowX = '';
+		}
 	});
 
 	const applyMediaBreakout = (card: HTMLElement) => {

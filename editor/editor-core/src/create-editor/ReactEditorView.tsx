@@ -62,7 +62,6 @@ import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
@@ -600,47 +599,30 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 		let selection: Selection | undefined;
 
-		if (fg('platform.editor.live-view.no-editor-selection-in-view-mode')) {
-			if (doc) {
-				if (isViewMode) {
-					const emptySelection = new TextSelection(doc.resolve(0));
-					return EditorState.create({
-						schema,
-						plugins: plugins as Plugin[],
-						doc,
-						selection: emptySelection,
-					});
-				} else {
-					selection = options.selectionAtStart ? Selection.atStart(doc) : Selection.atEnd(doc);
-				}
-			}
-			// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
-			const patchedSelection = selection
-				? Selection.findFrom(selection.$head, -1, true) || undefined
-				: undefined;
-
-			return EditorState.create({
-				schema,
-				plugins: plugins as Plugin[],
-				doc,
-				selection: patchedSelection,
-			});
-		} else {
-			if (doc) {
+		if (doc) {
+			if (isViewMode) {
+				const emptySelection = new TextSelection(doc.resolve(0));
+				return EditorState.create({
+					schema,
+					plugins: plugins as Plugin[],
+					doc,
+					selection: emptySelection,
+				});
+			} else {
 				selection = options.selectionAtStart ? Selection.atStart(doc) : Selection.atEnd(doc);
 			}
-			// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
-			const patchedSelection = selection
-				? Selection.findFrom(selection.$head, -1, true) || undefined
-				: undefined;
-
-			return EditorState.create({
-				schema,
-				plugins: plugins as Plugin[],
-				doc,
-				selection: patchedSelection,
-			});
 		}
+		// Workaround for ED-3507: When media node is the last element, scrollIntoView throws an error
+		const patchedSelection = selection
+			? Selection.findFrom(selection.$head, -1, true) || undefined
+			: undefined;
+
+		return EditorState.create({
+			schema,
+			plugins: plugins as Plugin[],
+			doc,
+			selection: patchedSelection,
+		});
 	};
 
 	private onEditorViewStateUpdated = ({

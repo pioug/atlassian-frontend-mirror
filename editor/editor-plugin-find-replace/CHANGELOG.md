@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.2
+
+### Patch Changes
+
+- [`46b889c01d03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b889c01d03e) -
+  [ux] Clean up Reaact 18 Feature Flags
+
 ## 1.6.1
 
 ### Patch Changes

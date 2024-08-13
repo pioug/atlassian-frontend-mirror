@@ -25,6 +25,12 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
@@ -41,6 +47,9 @@
         },
         {
             "path": "../../../design-system/section-message/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/tabs/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/textfield/afm-cc/tsconfig.json"

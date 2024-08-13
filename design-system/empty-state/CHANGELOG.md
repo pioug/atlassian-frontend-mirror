@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.11.0
 
 ### Minor Changes

@@ -3,20 +3,27 @@ import ReactDOMServer from 'react-dom/server';
 import {
 	ssrCodeBlockDoc,
 	ssrExpandDoc,
+	ssrNestedExpandInExpandDoc,
 	ssrLayoutDoc,
 	ssrTableDoc,
 } from '../__fixtures__/renderer-ssr.adf';
 import { resizedImagedoc } from '../__fixtures__/ssr-resized-image.adf';
 import { resizedMedia, mediaInTable } from '../__fixtures__/ssr-resized-media.adf';
-import { smartCardAdf } from '../__fixtures__/ssr-smart-card.adf';
+import { smartCardAdf, smartCardAtlassianProjectAdf } from '../__fixtures__/ssr-smart-card.adf';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
 import Loadable from 'react-loadable';
 import { ReactRenderer } from '../../index';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { DocNode } from '@atlaskit/adf-schema';
-import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
+import {
+	url,
+	cardState,
+	atlassianProjectCardState,
+	atlassianProjectUrl,
+} from '@atlaskit/media-test-helpers/smart-card-state';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RendererWrapper = ({ adf }: { adf: DocNode }) => (
 	<IntlProvider locale="en">
 		<SmartCardProvider storeOptions={storeOptions} client={new CardClient('staging')}>
@@ -67,6 +74,10 @@ export const RendererSSRExpand = () => {
 	return <RendererSSR adf={ssrExpandDoc} />;
 };
 
+export const RendererSSRNestedExpandInExpand = () => {
+	return <RendererSSR adf={ssrNestedExpandInExpandDoc} />;
+};
+
 export const RendererSSRCodeblock = () => {
 	return <RendererSSR adf={ssrCodeBlockDoc} />;
 };
@@ -86,9 +97,14 @@ export const RendererSSRResizedMediaInTable = () => {
 const storeOptions = {
 	initialState: {
 		[url]: cardState,
+		[atlassianProjectUrl]: atlassianProjectCardState,
 	},
 };
 
 export const RendererSSRSmartCard = () => {
 	return <RendererSSR adf={smartCardAdf} />;
+};
+
+export const RendererSSRSmartCardUrlIcon = () => {
+	return <RendererSSR adf={smartCardAtlassianProjectAdf} />;
 };

@@ -39,6 +39,12 @@
 			"path": "../editor-common/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-analytics/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-shared-styles/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -55,6 +61,9 @@
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tabs/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/textfield/tsconfig.app.json"

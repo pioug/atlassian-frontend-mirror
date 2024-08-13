@@ -1,5 +1,11 @@
 # @atlaskit/email-renderer
 
+## 8.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.13.0
 
 ### Minor Changes

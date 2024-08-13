@@ -234,7 +234,9 @@ export default function createUniversalPresetInternal({
 						featureFlags?.tableDragAndDrop &&
 						(isFullPage ||
 							((isComment || isChromeless) && fg('platform_editor_table_support_in_comment'))),
-					isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
+					isTableScalingEnabled:
+						featureFlags?.tablePreserveWidth &&
+						(isFullPage || (isComment && fg('platform_editor_table_support_in_comment'))),
 					allowContextualMenu: !isMobile,
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',

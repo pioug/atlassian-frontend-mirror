@@ -47,6 +47,11 @@ export interface Team {
 	}[];
 }
 
+export interface RovoAgent {
+	id: string;
+	name: string;
+}
+
 export interface ProfileCardClientData {
 	isBot: boolean;
 	isCurrentUser: boolean;

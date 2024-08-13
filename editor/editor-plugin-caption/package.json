@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-caption",
-	"version": "1.9.0",
+	"version": "1.9.1",
 	"description": "Caption plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/editor-common": "^87.8.0",
+		"@atlaskit/editor-common": "^87.10.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
@@ -90,9 +90,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
-			"type": "boolean"
-		},
-		"react_18_caption_concurrent_mode": {
 			"type": "boolean"
 		}
 	}

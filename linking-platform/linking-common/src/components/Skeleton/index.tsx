@@ -54,6 +54,48 @@ const ShimmerSkeleton = styled.div<SkeletonProps>`
 	animation: ${placeholderShimmer} 1s linear infinite forwards;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+const ShimmerSkeletonSpan = styled.span<SkeletonProps>`
+	height: ${({ height }) => height || 'auto'};
+	width: ${({ width }) => width || 'auto'};
+	border-radius: ${({ borderRadius }) => borderRadius || 0};
+	user-select: none;
+	background: ${({ appearance = 'gray' }) => appearanceValues[appearance].background};
+
+	background-image: ${({ appearance = 'gray' }) => `linear-gradient(
+    to right,
+    transparent 0%,
+   ${appearanceValues[appearance].animation} 20%,
+    transparent 40%,
+    transparent 100%
+  )`};
+	background-repeat: no-repeat;
+	background-size: ${({ height, isShimmering }) => (isShimmering ? `40px ${height};` : '0px')};
+
+	animation: ${placeholderShimmer} 1s linear infinite forwards;
+`;
+
+export const SpanSkeleton = ({
+	width,
+	appearance = 'gray',
+	height = 14,
+	borderRadius = 0,
+	isShimmering = true,
+	testId,
+	style = {},
+}: SkeletonProps) => (
+	<ShimmerSkeletonSpan
+		width={typeof width === 'number' ? `${width}px` : width}
+		height={typeof height === 'number' ? `${height}px` : height}
+		borderRadius={typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius}
+		appearance={appearance}
+		isShimmering={isShimmering}
+		data-testid={testId}
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		style={style}
+	/>
+);
+
 export const Skeleton = ({
 	width,
 	appearance = 'gray',

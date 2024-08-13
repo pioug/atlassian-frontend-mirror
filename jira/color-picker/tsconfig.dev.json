@@ -53,6 +53,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
 		}
 	]
 }

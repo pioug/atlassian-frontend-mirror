@@ -34,6 +34,7 @@ const destroyFn = (
 	editorAnalyticsAPI: any,
 	isTableScalingEnabled: boolean,
 	isTableFixedColumnWidthsOptionEnabled: boolean,
+	isCommentEditor: boolean,
 ) => {
 	const editorPageScrollContainer = document.querySelector('.fabric-editor-popup-scroll-parent');
 
@@ -224,8 +225,10 @@ const destroyFn = (
 							}
 
 							const shouldUseIncreasedScalingPercent =
-								isTableScalingWithFixedColumnWidthsOptionEnabled &&
-								fg('platform.editor.table.use-increased-scaling-percent');
+								(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+									fg('platform.editor.table.use-increased-scaling-percent')) ||
+								// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+								(isTableScalingEnabled && isCommentEditor);
 
 							insertColgroupFromNode(
 								tableRef,
@@ -249,6 +252,7 @@ export const createPlugin = (
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
+	isCommentEditor = false,
 ) => {
 	return new SafePlugin({
 		state: createPluginState(dispatch, (state) => ({
@@ -264,7 +268,7 @@ export const createPlugin = (
 		appendTransaction: (transactions, oldState, newState) => {
 			const { targetCellPosition: oldTargetCellPosition } = getTablePluginState(oldState);
 			const { targetCellPosition: newTargetCellPosition } = getTablePluginState(newState);
-			const { isDragMenuOpen, dragMenuIndex } = getPluginState(newState);
+			const { isDragMenuOpen = false, dragMenuIndex } = getPluginState(newState);
 
 			transactions.forEach((transaction) => {
 				if (transaction.getMeta('selectedRowViaKeyboard')) {
@@ -323,6 +327,7 @@ export const createPlugin = (
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
 					isTableFixedColumnWidthsOptionEnabled,
+					isCommentEditor,
 				),
 			};
 		},
@@ -361,7 +366,7 @@ export const createPlugin = (
 				].includes(((event.target as HTMLElement) || null)?.id);
 				const keysToTrap = ['Enter', ' '];
 
-				const { isDragMenuOpen } = getPluginState(view.state);
+				const { isDragMenuOpen = false } = getPluginState(view.state);
 
 				// drag handle is focused, and user presses any key return them back to editing
 				if (isDragHandleFocused && !isDragMenuOpen && !keysToTrap.includes(event.key)) {

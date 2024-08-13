@@ -15,7 +15,7 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { dialogHeader, header, toolbarButton } from './styles';
+import { header, toolbarButton } from './styles';
 
 interface ModalHeaderProps extends WrappedComponentProps {
 	onClose: OnCloseHandler | undefined;
@@ -25,16 +25,9 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={header}>
-			{fg('platform_editor_migration_icon_and_typography') ? (
-				<Heading size="large">
-					<FormattedMessage {...messages.editorHelp} />
-				</Heading>
-			) : (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<h1 css={dialogHeader}>
-					<FormattedMessage {...messages.editorHelp} />
-				</h1>
-			)}
+			<Heading size="large">
+				<FormattedMessage {...messages.editorHelp} />
+			</Heading>
 
 			<div>
 				<ToolbarButton

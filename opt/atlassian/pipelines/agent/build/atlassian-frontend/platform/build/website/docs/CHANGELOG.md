@@ -1,5 +1,14 @@
 # @atlaskit/docs
 
+## 9.1.6
+
+### Patch Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`300b0a472d9ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/300b0a472d9ce) -
+  Removes deprecated usage of ak/theme mixin functions and replaces them with their direct outputs
+- Updated dependencies
+
 ## 9.1.5
 
 ### Patch Changes

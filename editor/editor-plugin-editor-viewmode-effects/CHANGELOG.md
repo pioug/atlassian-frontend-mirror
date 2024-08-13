@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 1.1.2
+
+### Patch Changes
+
+- [#129496](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129496)
+  [`5776cd6d4856e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5776cd6d4856e) -
+  remove no editor selection in view mode ff
+
 ## 1.1.1
 
 ### Patch Changes

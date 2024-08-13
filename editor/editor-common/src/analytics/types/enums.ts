@@ -346,6 +346,7 @@ export enum ACTION_SUBJECT_ID {
 	PASTE_TABLE_ROW = 'tableRow',
 	PASTE_TASK_LIST = 'taskList',
 	PICKER_CLOUD = 'cloudPicker',
+	PICKER_MEDIA = 'mediaPicker',
 	PICKER_COLOR = 'colorPicker',
 	PICKER_EMOJI = 'emojiPicker',
 	PLACEHOLDER_TEXT = 'placeholderText',

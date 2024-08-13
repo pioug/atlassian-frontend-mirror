@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.8.4
+
+### Patch Changes
+
+- [#128285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128285)
+  [`3524d5de72b7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3524d5de72b7d) -
+  [ED-24545] Hide Turn into dropdown when selection is nested
+- Updated dependencies
+
 ## 1.8.3
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/color-picker
 
+## 3.2.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.23
+
+### Patch Changes
+
+- [`4dc0d700605ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4dc0d700605ab) -
+  added keyboard navigation to color palette menu
+
 ## 3.2.22
 
 ### Patch Changes

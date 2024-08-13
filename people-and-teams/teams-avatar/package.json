@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-avatar",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "A team avatar is a visual representation of a team.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@atlaskit/avatar": "^21.14.0",
 		"@atlaskit/icon": "^22.12.0",
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

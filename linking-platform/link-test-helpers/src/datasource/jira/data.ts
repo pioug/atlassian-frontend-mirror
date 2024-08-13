@@ -21,12 +21,16 @@ const generateMockPeopleResponse = (size: number) => {
 	}));
 };
 
+let mocks = 0;
 // It is not in a particular format. IT is transformed into expected format when consumed.
 export const mockJiraData = {
 	nextPageCursor: 'c3RhcnRBdD01',
 	totalIssues: 1357,
 	data: [
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -54,6 +58,9 @@ export const mockJiraData = {
 			labels: ['label', 'another', 'third'],
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'story',
 				source: questionMark,
@@ -77,6 +84,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'bug',
 				source: bug,
@@ -100,6 +110,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -123,6 +136,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'story',
 				source: story,
@@ -150,6 +166,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'epic',
 				source: epic,
@@ -173,6 +192,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -196,6 +218,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'epic',
 				source: epic,
@@ -222,6 +247,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'story',
 				source: story,
@@ -245,6 +273,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -268,6 +299,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -294,6 +328,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -320,6 +357,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'story',
 				source: story,
@@ -343,6 +383,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -366,6 +409,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'story',
 				source: story,
@@ -393,6 +439,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -416,6 +465,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -439,6 +491,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,
@@ -465,6 +520,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'story',
 				source: story,
@@ -488,6 +546,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'epic',
 				source: epic,
@@ -511,6 +572,9 @@ export const mockJiraData = {
 			link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
 		},
 		{
+			ari: {
+				data: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${mocks++}`,
+			},
 			type: {
 				label: 'task',
 				source: task,

@@ -44,7 +44,6 @@ import {
 	handleMouseEnter,
 	handleMouseLeave,
 	handleMouseMove,
-	handleMouseOut,
 	handleMouseOver,
 	handleMouseUp,
 	handleTripleClick,
@@ -375,9 +374,6 @@ export const createPlugin = (
 					? undefined
 					: withCellTracking(whenTableInFocus(handleMouseOver)),
 				mouseleave: handleMouseLeave,
-				mouseout: fg('editor_react_18_fix_table_delete_col_decorations')
-					? undefined
-					: whenTableInFocus(handleMouseOut),
 				mousemove: whenTableInFocus(handleMouseMove),
 				mouseenter: handleMouseEnter,
 				mouseup: whenTableInFocus(handleMouseUp),

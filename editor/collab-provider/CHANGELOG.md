@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 9.37.2
+
+### Patch Changes
+
+- [#129573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129573)
+  [`9e66ad571558c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e66ad571558c) -
+  To heavily sample the collab-provider.telepointer performance portal SLO
+
 ## 9.37.1
 
 ### Patch Changes

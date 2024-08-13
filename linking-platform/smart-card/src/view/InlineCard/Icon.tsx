@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { Skeleton } from '@atlaskit/linking-common';
+import { SpanSkeleton } from '@atlaskit/linking-common';
 import { token } from '@atlaskit/tokens';
 import { fg } from '@atlaskit/platform-feature-flags';
 import React from 'react';
@@ -57,7 +57,7 @@ export const Shimmer = ({ testId }: { testId: string }) => {
 	};
 
 	return (
-		<Skeleton
+		<SpanSkeleton
 			width={fg('linking-platform-increase-inline-card-icon-size') ? 16 : 14}
 			height={fg('linking-platform-increase-inline-card-icon-size') ? 16 : 14}
 			borderRadius={2}

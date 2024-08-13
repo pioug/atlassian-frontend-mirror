@@ -249,6 +249,15 @@ type ContentComponentErrorAEP = OperationalAEP<
 	}
 >;
 
+type PickerErrorAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.PICKER,
+	ACTION_SUBJECT_ID,
+	{
+		error: string;
+	}
+>;
+
 export type ErrorEventAttributes = {
 	error: Error;
 	errorInfo: React.ErrorInfo;
@@ -300,6 +309,7 @@ export type ErrorEventPayload =
 	| InvalidDocumentEncounteredAEP
 	| SynchronyEntityErrorAEP
 	| ContentComponentErrorAEP
+	| PickerErrorAEP
 	| ComponentCrashErrorAEP
 	| ComponentCrashAdditionalInfoErrorAEP
 	| SmartLinkErrorAEP;

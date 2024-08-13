@@ -11,6 +11,10 @@ import Editor from '../../../editor';
 import createUniversalPresetInternal from '../../../presets/universal';
 import CollapsedEditor from '../../../ui/CollapsedEditor';
 
+function ComposableEditorWrapped(props: Parameters<typeof ComposableEditor>[0]) {
+	return <ComposableEditor {...props} />;
+}
+
 describe('CollapsedEditor', () => {
 	it('should load even if IntlProvider is not provided', () => {
 		const { container } = render(
@@ -186,5 +190,36 @@ describe('CollapsedEditor with ComposableEditor', () => {
 			</IntlProvider>,
 		);
 		expect(onExpand).toHaveBeenCalledTimes(1);
+	});
+
+	describe('for a wrapped editor (ie. Editor variant is a child)', () => {
+		it('should not call onExpand when the editor is initially expanded', () => {
+			const onExpand = jest.fn();
+			renderWithIntl(
+				<CollapsedEditor isExpanded={true} onExpand={onExpand}>
+					<ComposableEditorWrapped preset={preset} />
+				</CollapsedEditor>,
+			);
+			expect(onExpand).toHaveBeenCalledTimes(0);
+		});
+
+		it('should call onExpand after the editor is expanded and mounted', () => {
+			const onExpand = jest.fn();
+			const { rerender } = render(
+				<IntlProvider locale="en">
+					<CollapsedEditor isExpanded={false} onExpand={onExpand}>
+						<ComposableEditorWrapped preset={preset} />
+					</CollapsedEditor>
+				</IntlProvider>,
+			);
+			rerender(
+				<IntlProvider locale="en">
+					<CollapsedEditor isExpanded={true} onExpand={onExpand}>
+						<ComposableEditorWrapped preset={preset} />
+					</CollapsedEditor>
+				</IntlProvider>,
+			);
+			expect(onExpand).toHaveBeenCalledTimes(1);
+		});
 	});
 });

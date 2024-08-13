@@ -2,19 +2,21 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 import rafSchedule from 'raf-schd';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 const styles = css({
 	position: 'relative',
 	width: '100%',
 });
+
 export type Breakpoints = 'S' | 'M' | 'L';
 
 export type WidthConsumerContext = {
@@ -67,7 +69,7 @@ type WidthProviderProps = {
  *
  * @returns {number} The width of the document body or 0 if the document is undefined.
  */
-const getBodyWidth = memoizeOne(() => {
+export const getBodyWidth = memoizeOne(() => {
 	return typeof document !== 'undefined' ? document.body?.offsetWidth ?? 0 : 0;
 });
 
@@ -76,13 +78,16 @@ export const WidthProvider = ({
 	shouldCheckExistingValue,
 	children,
 }: WidthProviderProps) => {
-	const existingContextValue: WidthConsumerContext = React.useContext(WidthContext);
-	const [width, setWidth] = React.useState(getBodyWidth);
-	const widthRef = React.useRef(width);
-	const isMountedRef = React.useRef(true);
-	const providerValue = React.useMemo(() => createWidthContext(width), [width]);
+	const shouldFixTableResizing = Boolean(fg('platform-fix-table-ssr-resizing'));
+	const containerRef = useRef<HTMLDivElement>(null);
+	const existingContextValue: WidthConsumerContext = useContext(WidthContext);
+	const [isInitialWidthUpdated, setIsInitialWidthUpdated] = useState(false);
+	const [width, setWidth] = useState<number>(getBodyWidth);
+	const widthRef = useRef(width);
+	const isMountedRef = useRef(true);
+	const providerValue = useMemo(() => createWidthContext(width), [width]);
 
-	const updateWidth = React.useMemo(() => {
+	const updateWidth = useMemo(() => {
 		return rafSchedule((nextWidth: number) => {
 			const currentWidth = widthRef.current || 0;
 			// Ignore changes that are less than SCROLLBAR_WIDTH, otherwise it can cause infinite re-scaling
@@ -101,17 +106,45 @@ export const WidthProvider = ({
 
 	const skipWidthDetection = shouldCheckExistingValue && existingContextValue.width > 0;
 
-	React.useLayoutEffect(() => {
+	useLayoutEffect(() => {
 		isMountedRef.current = true;
-
+		if (shouldFixTableResizing && !isInitialWidthUpdated) {
+			// useLayoutEffect is not run in SSR mode
+			// The visibility change for SSR is done in packages/editor/renderer/src/ui/Renderer/breakout-ssr.tsx
+			setIsInitialWidthUpdated(true);
+			if (containerRef.current) {
+				setWidth(containerRef.current.offsetWidth);
+			}
+		}
 		return () => {
 			isMountedRef.current = false;
 		};
-	}, []);
+	}, [isInitialWidthUpdated, shouldFixTableResizing, width]);
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<div css={styles} className={className}>
+		<div
+			css={styles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={className}
+			ref={containerRef}
+			// Using style not css prop because we need to also reset these style in SSR
+			// It is done in packages/editor/renderer/src/ui/Renderer/breakout-ssr.tsx
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Intended
+			style={
+				shouldFixTableResizing && !isInitialWidthUpdated
+					? {
+							// Width is initialized with body width but in Confluence this is too wide as side nav takes some space.
+							// Putting the div into hidden until we can get the correct width.
+							// Only setting the visibility so children still takes space which will make scrollbar to correct appear.
+							// Scrollbar has width too it needs to be taken into account otherwise table is going to shrink after appeared.
+							visibility: 'hidden',
+							// Because the body width is too wide, the horizontal scrollbar gonna shown
+							// Temporary hide it until we get the correct width
+							overflowX: 'hidden',
+						}
+					: {}
+			}
+		>
 			{!skipWidthDetection && (
 				<Fragment>
 					<WidthObserver setWidth={updateWidth} offscreen />

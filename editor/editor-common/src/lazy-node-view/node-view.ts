@@ -2,8 +2,6 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
-import type { IgnoreMutationParam } from './types';
-
 /**
  * 🧱 Internal: Editor FE Platform
  *
@@ -12,17 +10,10 @@ import type { IgnoreMutationParam } from './types';
 export class LazyNodeView implements NodeView {
 	dom: Node;
 	contentDOM?: HTMLElement;
-	private ignoreMutationDelegate?: (mutation: IgnoreMutationParam) => boolean;
+	private node: PMNode;
 
-	constructor(
-		node: PMNode,
-		view: EditorView,
-		getPos: () => number | undefined,
-		options: {
-			ignoreMutationDelegate?: (mutation: IgnoreMutationParam) => boolean;
-		} = {},
-	) {
-		this.ignoreMutationDelegate = options?.ignoreMutationDelegate;
+	constructor(node: PMNode, view: EditorView, getPos: () => number | undefined) {
+		this.node = node;
 
 		if (typeof node.type?.spec?.toDOM !== 'function') {
 			this.dom = document.createElement('div');
@@ -45,7 +36,11 @@ export class LazyNodeView implements NodeView {
 		}
 	}
 
-	ignoreMutation(mutation: IgnoreMutationParam) {
-		return !!this.ignoreMutationDelegate?.(mutation);
+	ignoreMutation(mutation: MutationRecord | { type: 'selection'; target: Element }) {
+		if (this.node.type.isTextblock) {
+			return false;
+		}
+
+		return true;
 	}
 }

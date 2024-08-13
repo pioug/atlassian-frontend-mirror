@@ -162,10 +162,13 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
 	const isTableFixedColumnWidthsOptionEnabled =
 		options?.getEditorFeatureFlags?.().tableWithFixedColumnWidthsOption || false;
+
 	const shouldUseIncreasedScalingPercent =
 		options?.isTableScalingEnabled &&
-		isTableFixedColumnWidthsOptionEnabled &&
-		fg('platform.editor.table.use-increased-scaling-percent');
+		((isTableFixedColumnWidthsOptionEnabled &&
+			fg('platform.editor.table.use-increased-scaling-percent')) ||
+			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+			options?.isCommentEditor);
 
 	const isCellBackgroundDuplicated =
 		options?.getEditorFeatureFlags?.().tableDuplicateCellColouring || false;
@@ -338,6 +341,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									isTableScalingEnabled || false,
 									isNewColumnResizingEnabled,
 									isTableAlignmentEnabled,
+									!!options?.isCommentEditor,
 								)
 							: undefined;
 					},
@@ -415,6 +419,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									editorAnalyticsAPI,
 									options?.isTableScalingEnabled,
 									isTableFixedColumnWidthsOptionEnabled,
+									options.isCommentEditor,
 								)
 							: undefined;
 					},
@@ -610,6 +615,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
 											}
 											isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
+											isCommentEditor={options?.isCommentEditor}
 										/>
 									)}
 									{isDragAndDropEnabled && (

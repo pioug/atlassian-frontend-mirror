@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/color-picker",
-	"version": "3.2.22",
+	"version": "3.2.24",
 	"description": "Jira Color Picker Component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,8 +35,9 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/icon": "^22.12.0",
+		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@atlaskit/select": "^17.13.0",
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@atlaskit/tooltip": "^18.7.0",
 		"@babel/runtime": "^7.0.0",
@@ -79,6 +80,11 @@
 				"color",
 				"spacing"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_color_palette_menu_timeline_bar_a11y": {
+			"type": "boolean"
 		}
 	}
 }

@@ -16,7 +16,6 @@ import { TRIGGER_METHOD } from '@atlaskit/editor-common/analytics';
 import { findReplaceMessages as messages } from '@atlaskit/editor-common/messages';
 import { Label } from '@atlaskit/form';
 import MatchCaseIcon from '@atlaskit/icon/glyph/emoji/keyboard';
-import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 
 import type { MatchCaseProps } from '../types';
@@ -111,24 +110,13 @@ class Find extends React.Component<FindProps & WrappedComponentProps, State> {
 		if (this.props.findText === this.state?.localFindText) {
 			this.focusFindTextfield();
 		}
-		if (fg('react_18_find_replace_concurrent_mode')) {
-			if (this.props.findText !== prevProps.findText && this.props.shouldFocus) {
-				this.syncFindText(() => {
-					// focus after input is synced if find text provided
-					if (this.props.findText) {
-						this.focusFindTextfield();
-					}
-				});
-			}
-		} else {
-			if (this.props.findText !== prevProps.findText) {
-				this.syncFindText(() => {
-					// focus after input is synced if find text provided
-					if (this.props.findText) {
-						this.focusFindTextfield();
-					}
-				});
-			}
+		if (this.props.findText !== prevProps.findText && this.props.shouldFocus) {
+			this.syncFindText(() => {
+				// focus after input is synced if find text provided
+				if (this.props.findText) {
+					this.focusFindTextfield();
+				}
+			});
 		}
 	}
 

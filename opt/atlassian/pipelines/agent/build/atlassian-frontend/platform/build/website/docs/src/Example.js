@@ -143,14 +143,14 @@ export const ToggleTitle = styled.h4((props) => ({
 }));
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-const Showcase = styled.div((props) => ({
+const Showcase = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: colors.background(props),
+	backgroundColor: colors.N0,
 	borderRadius: '3px',
 	boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.1)',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	padding: `${gridSize()}px`,
-}));
+});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
 const CodeWrapper = styled.div({

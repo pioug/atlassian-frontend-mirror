@@ -2,13 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { useState, useCallback, useEffect, type KeyboardEvent, useMemo } from 'react';
 import { Mode, type Palette } from '../types';
 import {
 	createAndFireEvent,
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import ColorCard from './ColorCard';
+import ColorCard, { type ColorCardRef } from './ColorCard';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { getOptions, getWidth } from '../utils';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -62,6 +64,8 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 		return undefined;
 	};
 
+	const colorCardRefs = useMemo<(ColorCardRef | null)[]>(() => [], []);
+
 	const handleChange = (value: string) => {
 		onChange(value, changeAnalyticsCaller());
 	};
@@ -69,10 +73,42 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	const { options, value: selectedValue } = getOptions(palette, selectedColor);
 	const fullLabel = `${label}, ${selectedValue.label} selected`;
 
+	const [focusedIndex, setFocusedIndex] = useState(
+		selectedValue.value ? options.findIndex(({ value }) => value === selectedValue.value) : 0,
+	);
+
+	useEffect(() => {
+		colorCardRefs[focusedIndex]?.focus();
+	}, [focusedIndex, colorCardRefs]);
+
+	const handleKeyDown = useCallback(
+		(event: KeyboardEvent) => {
+			const numItems = options.length;
+
+			switch (event.key) {
+				case 'ArrowRight':
+				case 'ArrowDown':
+					setFocusedIndex((prevIndex) => (prevIndex + 1) % numItems);
+					break;
+				case 'ArrowLeft':
+				case 'ArrowUp':
+					setFocusedIndex((prevIndex) => (prevIndex - 1 + numItems) % numItems);
+					break;
+				default:
+					break;
+			}
+		},
+		[setFocusedIndex, options],
+	);
+
+	const onTabPress = (backwards = false) => {
+		setFocusedIndex(backwards ? 0 : options.length - 1);
+	};
+
 	return (
 		<div
 			aria-label={fullLabel}
-			role="radiogroup"
+			role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'group' : 'radiogroup'}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={[colorPaletteMenuStyles, mode === Mode.Standard && colorPaletteMenuStandardStyles]}
 			style={{
@@ -87,7 +123,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 					mode === Mode.Compact && colorPaletteContainerCompactStyles,
 				]}
 			>
-				{options.map(({ label, value }) => (
+				{options.map(({ label, value }, index) => (
 					<div css={colorCardWrapperStyles} key={value}>
 						<ColorCard
 							label={label}
@@ -96,7 +132,11 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							isOption
 							selected={value === selectedValue.value}
 							onClick={handleChange}
-							onKeyDown={handleChange}
+							{...(fg('platform_color_palette_menu_timeline_bar_a11y') && {
+								ref: (ref) => (colorCardRefs[index] = ref),
+								onTabPress,
+								onKeyDown: handleKeyDown,
+							})}
 						/>
 					</div>
 				))}

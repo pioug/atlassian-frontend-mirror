@@ -15,11 +15,15 @@ import { fg } from '@atlaskit/platform-feature-flags';
 type Actions = typeof actions;
 
 type UniqueIdentifier = string;
+
+interface DatasourceItem {
+	ari: string | undefined;
+	integrationKey: string | undefined;
+	data: DatasourceDataResponseItem;
+}
+
 export interface State {
-	items: Record<
-		UniqueIdentifier,
-		{ integrationKey: string | undefined; data: DatasourceDataResponseItem }
-	>;
+	items: Record<UniqueIdentifier, DatasourceItem>;
 }
 
 const getInitialState: () => State = () => ({
@@ -27,6 +31,27 @@ const getInitialState: () => State = () => ({
 });
 
 export const actions = {
+	onUpdateItem:
+		(id: string, data: DatasourceDataResponseItem): Action<State, void, void> =>
+		({ setState, getState }) => {
+			const oldItems = { ...getState().items };
+			const oldItem = oldItems[id];
+			if (!oldItem) {
+				return;
+			}
+			setState({
+				items: {
+					...oldItems,
+					[id]: {
+						...oldItem,
+						data: {
+							...data,
+							ari: oldItem.data.ari,
+						},
+					},
+				},
+			});
+		},
 	onAddItems:
 		(
 			items: DatasourceDataResponseItem[],
@@ -44,6 +69,7 @@ export const actions = {
 						{
 							...itemMap,
 							[id]: {
+								ari,
 								integrationKey,
 								data: {
 									...oldItems[id]?.data,
@@ -73,10 +99,10 @@ export const Store = createStore<State, Actions>({
 export const useDatasourceItem = createStateHook<
 	State,
 	Actions,
-	DatasourceDataResponseItem | undefined,
+	DatasourceItem | undefined,
 	{ id: string }
 >(Store, {
-	selector: (state, { id }) => state.items[id]?.data,
+	selector: (state, { id }) => state.items[id],
 });
 
 export const useDatasourceActions = createActionsHook(Store);

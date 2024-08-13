@@ -1,34 +1,52 @@
 # @atlaskit/quick-search
 
+## 8.1.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.10
 
 ### Patch Changes
 
-- [#83176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83176) [`5c64e4657ef3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c64e4657ef3) - [ux] Minor changes to replace deprecated font tokens with new tokens. There may be some very slight differences in font size if the previous value was incorrectly applied, and slight differences in line height to match the new typography system.
+- [#83176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83176)
+  [`5c64e4657ef3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c64e4657ef3) -
+  [ux] Minor changes to replace deprecated font tokens with new tokens. There may be some very
+  slight differences in font size if the previous value was incorrectly applied, and slight
+  differences in line height to match the new typography system.
 
 ## 8.1.9
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 8.1.8
 
 ### Patch Changes
 
-- [#72162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72162) [`dadc682d36ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dadc682d36ba) - Replace hardcoded values with space tokens
+- [#72162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72162)
+  [`dadc682d36ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dadc682d36ba) -
+  Replace hardcoded values with space tokens
 
 ## 8.1.7
 
 ### Patch Changes
 
-- [#66003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66003) [`9d097306f2e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d097306f2e7) - Migrate @atlaskit/quick-search to use declarative entry points
+- [#66003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/66003)
+  [`9d097306f2e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d097306f2e7) -
+  Migrate @atlaskit/quick-search to use declarative entry points
 
 ## 8.1.6
 
 ### Patch Changes
 
-- [#59897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59897) [`48e22f03d838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48e22f03d838) - Converted spacing values to corresponding space tokens
+- [#59897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/59897)
+  [`48e22f03d838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48e22f03d838) -
+  Converted spacing values to corresponding space tokens
 
 ## 8.1.5
 
@@ -40,32 +58,42 @@
 
 ### Patch Changes
 
-- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787) [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+- [#39787](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/39787)
+  [`6900f89eb0e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6900f89eb0e) - Internal
+  changes to use space tokens. There is no expected visual or behaviour change.
 
 ## 8.1.3
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 - Updated dependencies
 
 ## 8.1.2
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 8.1.1
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 8.1.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ### Patch Changes
 
@@ -75,25 +103,33 @@
 
 ### Patch Changes
 
-- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004) [`be610dca836`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be610dca836) - [ux] replace deprecated placeholder theme with tokens
+- [#33004](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33004)
+  [`be610dca836`](https://bitbucket.org/atlassian/atlassian-frontend/commits/be610dca836) - [ux]
+  replace deprecated placeholder theme with tokens
 
 ## 8.0.14
 
 ### Patch Changes
 
-- [#32031](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32031) [`1378b2a7308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1378b2a7308) - Migrated use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
+- [#32031](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/32031)
+  [`1378b2a7308`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1378b2a7308) - Migrated
+  use of `gridSize` to space tokens where possible. There is no expected visual or behaviour change.
 
 ## 8.0.13
 
 ### Patch Changes
 
-- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 8.0.12
 
 ### Patch Changes
 
-- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 8.0.11
 
@@ -105,7 +141,9 @@
 
 ### Patch Changes
 
-- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
 
 ## 8.0.9
 
@@ -117,37 +155,50 @@
 
 ### Patch Changes
 
-- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864) [`ea354666ca2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea354666ca2) - Added testid to default ObjectResult's AvatarImage.
+- [#13864](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13864)
+  [`ea354666ca2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea354666ca2) - Added
+  testid to default ObjectResult's AvatarImage.
 - Updated dependencies
 
 ## 8.0.7
 
 ### Patch Changes
 
-- [#13136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13136) [`524b20aff9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524b20aff9a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
-- [`3c0349f272a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0349f272a) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
-- [`591d34f966f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/591d34f966f) - Update package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
+- [#13136](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/13136)
+  [`524b20aff9a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/524b20aff9a) - Update
+  package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
+- [`3c0349f272a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0349f272a) - Update
+  package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
+- [`591d34f966f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/591d34f966f) - Update
+  package.jsons to remove unused dependencies. Also excludes tests from some build tsconfigs
 
 ## 8.0.6
 
 ### Patch Changes
 
-- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113) [`7fc13cf50a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc13cf50a2) - Fixes interal test referencing a compponent directly.
+- [#11113](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/11113)
+  [`7fc13cf50a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fc13cf50a2) - Fixes
+  interal test referencing a compponent directly.
 - Updated dependencies
 
 ## 8.0.5
 
 ### Patch Changes
 
-- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 8.0.4
 
 ### Patch Changes
 
-- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
-  This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
-  Also add `typescript` to `devDependencies` to denote version that the package was built with.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
+  [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
+  types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
+  compiler option. This requires version 3.8 of Typescript, read more about how we handle Typescript
+  versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
+  `devDependencies` to denote version that the package was built with.
 
 ## 8.0.3
 
@@ -159,10 +210,12 @@
 
 ### Patch Changes
 
-- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
+  [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
+  to TypeScript 3.9.6 and tslib to 2.0.0
 
-  Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
-  to prevent duplicates of tslib being bundled.
+  Since tslib is a dependency for all our packages we recommend that products also follow this tslib
+  upgrade to prevent duplicates of tslib being bundled.
 
 ## 8.0.1
 
@@ -174,8 +227,11 @@
 
 ### Major Changes
 
-- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
-  For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
+  [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially
+  dropping IE11 support, from this version onwards there are no warranties of the package working in
+  IE11. For more information see:
+  https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ### Patch Changes
 
@@ -197,13 +253,17 @@
 
 ### Patch Changes
 
-- [#2430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2430) [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all packages that are used by confluence that have a broken es2019 dist
+- [#2430](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2430)
+  [`649f69b6d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/649f69b6d7) - Patch all
+  packages that are used by confluence that have a broken es2019 dist
 
 ## 7.8.6
 
 ### Patch Changes
 
-- [#2099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2099) [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add missing tslib dependency
+- [#2099](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/2099)
+  [`131cee6d7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/131cee6d7a) - Add
+  missing tslib dependency
 
 ## 7.8.5
 
@@ -211,7 +271,8 @@
 
 - [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
+  [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
   - @atlaskit/docs@8.3.2
   - @atlaskit/analytics@7.0.1
@@ -227,8 +288,10 @@
 
 ### Patch Changes
 
-- Updated dependencies [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
-- Updated dependencies [b9dc265bc9](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9dc265bc9):
+- Updated dependencies
+  [c0102a3ea2](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0102a3ea2):
+- Updated dependencies
+  [b9dc265bc9](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9dc265bc9):
   - @atlaskit/analytics@7.0.0
   - @atlaskit/icon@20.0.0
   - @atlaskit/item@11.0.0
@@ -253,8 +316,10 @@
 
   Fix quicksearch text input when using an IME (affects Japanese/Chinese users)
 
-- Updated dependencies [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
-- Updated dependencies [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+- Updated dependencies
+  [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
+- Updated dependencies
+  [24865cfaff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/24865cfaff):
   - @atlaskit/avatar@17.1.5
   - @atlaskit/drawer@5.2.0
   - @atlaskit/item@10.2.0
@@ -286,7 +351,8 @@
 
 ## 7.7.1
 
-- Updated dependencies [8d0f37c23e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8d0f37c23e):
+- Updated dependencies
+  [8d0f37c23e](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8d0f37c23e):
   - @atlaskit/drawer@5.0.10
   - @atlaskit/item@10.1.5
   - @atlaskit/navigation@35.2.2
@@ -310,7 +376,8 @@
 
 - [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
 
-  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving non-relative imports as relative imports
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
+  non-relative imports as relative imports
 
 ## 7.6.7
 
@@ -322,7 +389,8 @@
 
 ## 7.6.6
 
-- Updated dependencies [75c64ee36a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/75c64ee36a):
+- Updated dependencies
+  [75c64ee36a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/75c64ee36a):
   - @atlaskit/drawer@5.0.0
 
 ## 7.6.5
@@ -353,8 +421,10 @@
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
   - Creating folders at the root for entry-points
-  - Removing the generation of the entry-points at the root
-    Please see this [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points) for further details
+  - Removing the generation of the entry-points at the root Please see this
+    [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this
+    [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points)
+    for further details
 
 ## 7.6.2
 
@@ -362,7 +432,8 @@
 
 - [patch][5427f7028a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5427f7028a):
 
-  Fixing problem with subtext colours not matching between pages and people in the Quick Search complex experiment.
+  Fixing problem with subtext colours not matching between pages and people in the Quick Search
+  complex experiment.
 
 ## 7.6.1
 
@@ -382,7 +453,8 @@
 
 ## 7.5.1
 
-- Updated dependencies [06326ef3f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06326ef3f7):
+- Updated dependencies
+  [06326ef3f7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/06326ef3f7):
   - @atlaskit/docs@8.1.3
   - @atlaskit/avatar@16.0.6
   - @atlaskit/drawer@4.2.1
@@ -401,7 +473,8 @@
 
 ## 7.4.1
 
-- Updated dependencies [cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
+- Updated dependencies
+  [cfc3c8adb3](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cfc3c8adb3):
   - @atlaskit/docs@8.1.2
   - @atlaskit/avatar@16.0.3
   - @atlaskit/drawer@4.1.3
@@ -440,7 +513,8 @@
 
 - [major][7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
 
-  - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use this package, please ensure you use at least this version of react and react-dom.
+  - Updates react and react-dom peer dependencies to react@^16.8.0 and react-dom@^16.8.0. To use
+    this package, please ensure you use at least this version of react and react-dom.
 
 ## 6.1.2
 
@@ -450,7 +524,8 @@
 
 ## 6.1.1
 
-- Updated dependencies [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
+- Updated dependencies
+  [9c0b4744be](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9c0b4744be):
   - @atlaskit/docs@7.0.3
   - @atlaskit/avatar@15.0.4
   - @atlaskit/drawer@3.0.7
@@ -480,7 +555,8 @@
 
 ## 5.4.1
 
-- Updated dependencies [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
+- Updated dependencies
+  [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
   - @atlaskit/icon@16.0.4
   - @atlaskit/docs@7.0.0
   - @atlaskit/analytics@5.0.0
@@ -505,7 +581,8 @@
 
 ## 5.2.5
 
-- Updated dependencies [d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
+- Updated dependencies
+  [d7ef59d432](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d7ef59d432):
   - @atlaskit/docs@6.0.1
   - @atlaskit/avatar@14.1.8
   - @atlaskit/drawer@2.7.1
@@ -584,27 +661,35 @@
 
 - [major][2da04ed](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2da04ed):
 
-  - Migrate component from flow to TypeScript. Upgrading should not cause any problems but we are releasing a new major version because of the amount of changes that were being made internally. Please reach out to the maintainers in case you are having trouble uprading to the latest version.
+  - Migrate component from flow to TypeScript. Upgrading should not cause any problems but we are
+    releasing a new major version because of the amount of changes that were being made internally.
+    Please reach out to the maintainers in case you are having trouble uprading to the latest
+    version.
 
 ## 4.2.13
 
-- [patch] Fixes styling of item captions and subtext [d0d45ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d0d45ff)
+- [patch] Fixes styling of item captions and subtext
+  [d0d45ff](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d0d45ff)
 
 ## 4.2.12
 
-- [patch] Fix sub text style. [5bdb0bb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5bdb0bb)
+- [patch] Fix sub text style.
+  [5bdb0bb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/5bdb0bb)
 
 ## 4.2.11
 
-- [patch] Add link to advanced issue search at the top of the jira pre query screen. [f0f66b7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f0f66b7)
+- [patch] Add link to advanced issue search at the top of the jira pre query screen.
+  [f0f66b7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f0f66b7)
 
 ## 4.2.10
 
-- [patch] Fixing selected style for Item and Fixing focus on Quick search when component is not remounted [9532a1b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9532a1b)
+- [patch] Fixing selected style for Item and Fixing focus on Quick search when component is not
+  remounted [9532a1b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9532a1b)
 
 ## 4.2.9
 
-- [patch] Updated dependencies [65c6514](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65c6514)
+- [patch] Updated dependencies
+  [65c6514](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65c6514)
   - @atlaskit/docs@5.0.8
   - @atlaskit/avatar@14.0.11
   - @atlaskit/field-base@11.0.8
@@ -614,11 +699,13 @@
 
 ## 4.2.8
 
-- [patch] Add support for Jira default icons for boards, filters and issues [deb791d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/deb791d)
+- [patch] Add support for Jira default icons for boards, filters and issues
+  [deb791d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/deb791d)
 
 ## 4.2.7
 
-- [patch] Updated dependencies [df22ad8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df22ad8)
+- [patch] Updated dependencies
+  [df22ad8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/df22ad8)
   - @atlaskit/theme@6.0.0
   - @atlaskit/navigation@33.1.5
   - @atlaskit/item@8.0.5
@@ -629,8 +716,11 @@
 
 ## 4.2.6
 
-- [patch] update the dependency of react-dom to 16.4.2 due to vulnerability in previous versions read https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html for details [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
-- [none] Updated dependencies [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
+- [patch] update the dependency of react-dom to 16.4.2 due to vulnerability in previous versions
+  read https://reactjs.org/blog/2018/08/01/react-v-16-4-2.html for details
+  [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
+- [none] Updated dependencies
+  [a4bd557](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/a4bd557)
   - @atlaskit/navigation@33.1.3
   - @atlaskit/field-base@11.0.3
   - @atlaskit/theme@5.1.3
@@ -641,12 +731,15 @@
 
 ## 4.2.5
 
-- [patch] Make context prop optional [3f902d5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f902d5)
-- [none] Updated dependencies [3f902d5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f902d5)
+- [patch] Make context prop optional
+  [3f902d5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f902d5)
+- [none] Updated dependencies
+  [3f902d5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f902d5)
 
 ## 4.2.4
 
-- [patch] Updated dependencies [acd86a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acd86a1)
+- [patch] Updated dependencies
+  [acd86a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acd86a1)
   - @atlaskit/navigation@33.1.2
   - @atlaskit/item@8.0.3
   - @atlaskit/icon@13.2.2
@@ -658,38 +751,53 @@
 
 ## 4.2.3
 
-- [patch] add missing attributes to analytics [2a0346a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a0346a)
-- [patch] Updated dependencies [2a0346a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a0346a)
+- [patch] add missing attributes to analytics
+  [2a0346a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a0346a)
+- [patch] Updated dependencies
+  [2a0346a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2a0346a)
 
 ## 4.2.2
 
-- [patch] fix keyboard navigation [2dbff95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2dbff95)
-- [patch] Updated dependencies [2dbff95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2dbff95)
+- [patch] fix keyboard navigation
+  [2dbff95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2dbff95)
+- [patch] Updated dependencies
+  [2dbff95](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2dbff95)
 
 ## 4.2.1
 
-- [patch] reduce number of updates/rendering in quick-search [9fbaafd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9fbaafd)
-- [patch] Updated dependencies [9fbaafd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9fbaafd)
+- [patch] reduce number of updates/rendering in quick-search
+  [9fbaafd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9fbaafd)
+- [patch] Updated dependencies
+  [9fbaafd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9fbaafd)
 
 ## 4.2.0
 
-- [minor] Rewrite internal keyboard handling implementation. [0ebfc9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ebfc9a)
-- [none] Updated dependencies [0ebfc9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ebfc9a)
+- [minor] Rewrite internal keyboard handling implementation.
+  [0ebfc9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ebfc9a)
+- [none] Updated dependencies
+  [0ebfc9a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0ebfc9a)
 
 ## 4.1.0
 
-- [minor] Passes the keyboard event from quick search to the submit event handler to ensure global search redirects with the complete search query. [2d6668f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d6668f)
-- [none] Updated dependencies [2d6668f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d6668f)
+- [minor] Passes the keyboard event from quick search to the submit event handler to ensure global
+  search redirects with the complete search query.
+  [2d6668f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d6668f)
+- [none] Updated dependencies
+  [2d6668f](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/2d6668f)
 
 ## 4.0.1
 
-- [patch] Add extra analytics event for highlight and selection of a search result [12e79bf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12e79bf)
-- [patch] Updated dependencies [12e79bf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12e79bf)
+- [patch] Add extra analytics event for highlight and selection of a search result
+  [12e79bf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12e79bf)
+- [patch] Updated dependencies
+  [12e79bf](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/12e79bf)
 
 ## 4.0.0
 
-- [major] Updates to React ^16.4.0 [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
-- [major] Updated dependencies [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
+- [major] Updates to React ^16.4.0
+  [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
+- [major] Updated dependencies
+  [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
   - @atlaskit/field-base@11.0.0
   - @atlaskit/theme@5.0.0
   - @atlaskit/docs@5.0.0
@@ -698,7 +806,8 @@
   - @atlaskit/item@8.0.0
   - @atlaskit/icon@13.0.0
   - @atlaskit/avatar@14.0.0
-- [major] Updated dependencies [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
+- [major] Updated dependencies
+  [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
   - @atlaskit/navigation@33.0.0
   - @atlaskit/field-base@11.0.0
   - @atlaskit/theme@5.0.0
@@ -710,68 +819,89 @@
 
 ## 3.0.2
 
-- [patch] Move tests under src and club unit, integration, visual regression [39c427d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/39c427d)
-- [none] Updated dependencies [39c427d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/39c427d)
+- [patch] Move tests under src and club unit, integration, visual regression
+  [39c427d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/39c427d)
+- [none] Updated dependencies
+  [39c427d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/39c427d)
 
 ## 3.0.1
 
-- [none] Updated dependencies [da63331](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/da63331)
+- [none] Updated dependencies
+  [da63331](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/da63331)
   - @atlaskit/item@7.0.8
   - @atlaskit/navigation@32.3.3
   - @atlaskit/avatar@13.0.0
-- [patch] Updated dependencies [7724115](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7724115)
+- [patch] Updated dependencies
+  [7724115](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7724115)
   - @atlaskit/avatar@13.0.0
   - @atlaskit/navigation@32.3.3
   - @atlaskit/item@7.0.8
 
 ## 3.0.0
 
-- [major] Search header is now sticky. Needs navigation 32.3.0 or higher to work properly. [8bf8e51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8bf8e51)
-- [minor] Support sticky header and footer [8b8ace1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8b8ace1)
-- [none] Updated dependencies [8bf8e51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8bf8e51)
+- [major] Search header is now sticky. Needs navigation 32.3.0 or higher to work properly.
+  [8bf8e51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8bf8e51)
+- [minor] Support sticky header and footer
+  [8b8ace1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8b8ace1)
+- [none] Updated dependencies
+  [8bf8e51](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8bf8e51)
   - @atlaskit/navigation@32.3.2
-- [none] Updated dependencies [8b8ace1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8b8ace1)
+- [none] Updated dependencies
+  [8b8ace1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8b8ace1)
   - @atlaskit/navigation@32.3.2
 
 ## 2.3.4
 
-- [patch] Updated dependencies [8a01bcd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8a01bcd)
+- [patch] Updated dependencies
+  [8a01bcd](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/8a01bcd)
   - @atlaskit/avatar@12.0.0
   - @atlaskit/navigation@32.3.1
   - @atlaskit/item@7.0.7
 
 ## 2.3.3
 
-- [patch] Replace faker with lightweight internal functions [1c3352a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c3352a)
-- [none] Updated dependencies [1c3352a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c3352a)
+- [patch] Replace faker with lightweight internal functions
+  [1c3352a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c3352a)
+- [none] Updated dependencies
+  [1c3352a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c3352a)
 
 ## 2.3.2
 
-- [patch] Decreasing padding on items and fix analytics.' [0f73740](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f73740)
-- [none] Updated dependencies [0f73740](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f73740)
+- [patch] Decreasing padding on items and fix analytics.'
+  [0f73740](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f73740)
+- [none] Updated dependencies
+  [0f73740](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/0f73740)
 
 ## 2.3.1
 
-- [patch] Minor bugfixes and UI tweaks. [80899e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80899e1)
-- [none] Updated dependencies [80899e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80899e1)
+- [patch] Minor bugfixes and UI tweaks.
+  [80899e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80899e1)
+- [none] Updated dependencies
+  [80899e1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/80899e1)
 
 ## 2.3.0
 
-- [minor] Fixes types for Flow 0.74 [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
-- [none] Updated dependencies [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
+- [minor] Fixes types for Flow 0.74
+  [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
+- [none] Updated dependencies
+  [dc50cd2](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc50cd2)
   - @atlaskit/navigation@32.2.0
   - @atlaskit/icon@12.2.0
   - @atlaskit/avatar@11.2.0
 
 ## 2.2.0
 
-- [minor] onSearchSubmit prop also triggers on Shift+Enter [745b283](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/745b283)
-- [none] Updated dependencies [745b283](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/745b283)
+- [minor] onSearchSubmit prop also triggers on Shift+Enter
+  [745b283](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/745b283)
+- [none] Updated dependencies
+  [745b283](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/745b283)
 
 ## 2.1.1
 
-- [patch] Update changelogs to remove duplicate [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
-- [none] Updated dependencies [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
+- [patch] Update changelogs to remove duplicate
+  [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
+- [none] Updated dependencies
+  [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
   - @atlaskit/theme@4.0.3
   - @atlaskit/item@7.0.4
   - @atlaskit/icon@12.1.1
@@ -782,7 +912,8 @@
 
 ## 2.1.0
 
-- [none] Updated dependencies [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
+- [none] Updated dependencies
+  [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
   - @atlaskit/navigation@32.1.0
   - @atlaskit/item@7.0.3
   - @atlaskit/avatar@11.1.0
@@ -794,8 +925,10 @@
 
 ## 2.0.0
 
-- [major] makes styled-components a peer dependency and upgrades version range from 1.4.6 - 3 to ^3.2.6 [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
-- [patch] Updated dependencies [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
+- [major] makes styled-components a peer dependency and upgrades version range from 1.4.6 - 3 to
+  ^3.2.6 [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
+- [patch] Updated dependencies
+  [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
   - @atlaskit/navigation@32.0.0
   - @atlaskit/item@7.0.0
   - @atlaskit/icon@12.0.0
@@ -807,31 +940,39 @@
 
 ## 1.7.2
 
-- [patch] Updated dependencies [1c87e5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c87e5a)
+- [patch] Updated dependencies
+  [1c87e5a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c87e5a)
   - @atlaskit/navigation@31.0.5
 
 ## 1.7.1
 
-- [patch] Fix searchbox height. [586f868](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/586f868)
-- [none] Updated dependencies [586f868](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/586f868)
+- [patch] Fix searchbox height.
+  [586f868](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/586f868)
+- [none] Updated dependencies
+  [586f868](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/586f868)
 
 ## 1.7.0
 
-- [minor] Change subText rendering of ObjectResult [dc6bfd7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc6bfd7)
-- [none] Updated dependencies [dc6bfd7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc6bfd7)
+- [minor] Change subText rendering of ObjectResult
+  [dc6bfd7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc6bfd7)
+- [none] Updated dependencies
+  [dc6bfd7](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dc6bfd7)
 
 ## 1.6.0
 
 - [minor] UI Polish [65392e5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65392e5)
-- [none] Updated dependencies [65392e5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65392e5)
+- [none] Updated dependencies
+  [65392e5](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/65392e5)
 
 ## 1.5.0
 
-- [minor] Add Avatar prop to quick search result types [aefb12d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aefb12d)
+- [minor] Add Avatar prop to quick search result types
+  [aefb12d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/aefb12d)
 
 ## 1.4.2
 
-- [patch] Updated dependencies [d662caa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d662caa)
+- [patch] Updated dependencies
+  [d662caa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d662caa)
   - @atlaskit/icon@11.3.0
   - @atlaskit/navigation@31.0.4
   - @atlaskit/item@6.0.3
@@ -845,26 +986,32 @@
 
 ## 1.4.0
 
-- [minor] Add support for linkComponent prop [4c9e683](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c9e683)
+- [minor] Add support for linkComponent prop
+  [4c9e683](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/4c9e683)
 
 ## 1.3.2
 
-- [patch] Remove dependency on navigation [756d26b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/756d26b)
+- [patch] Remove dependency on navigation
+  [756d26b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/756d26b)
 
 ## 1.3.1
 
 ## 1.3.0
 
-- [minor] Remove unecessary dependencies [3bd4dd8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3bd4dd8)
+- [minor] Remove unecessary dependencies
+  [3bd4dd8](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3bd4dd8)
 
 ## 1.2.0
 
-- [minor] Add missing AkSearch legacy export [1b40786](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b40786)
+- [minor] Add missing AkSearch legacy export
+  [1b40786](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1b40786)
 
 ## 1.1.0
 
-- [minor] Fix wrongly named legacy exports [e7baf6b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7baf6b)
+- [minor] Fix wrongly named legacy exports
+  [e7baf6b](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e7baf6b)
 
 ## 1.0.0
 
-- [major] Extract quick-search from @atlaskit/navigation [dda7e32](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dda7e32)
+- [major] Extract quick-search from @atlaskit/navigation
+  [dda7e32](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dda7e32)

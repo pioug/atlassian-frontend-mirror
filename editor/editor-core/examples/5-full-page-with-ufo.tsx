@@ -5,7 +5,7 @@ import { DeletedExample } from '@af/editor-examples-helpers/utils';
 export default function Example() {
 	return (
 		<DeletedExample
-			commitId="78a5c9a16a37548a049b84f555459d60c41388a0"
+			commitId="ac132e0d53b412102a2565fe4ec860a80f91607d"
 			alternativeExample="Confluence basic"
 		/>
 	);

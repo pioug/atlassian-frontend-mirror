@@ -21,3 +21,25 @@ export const smartCardAdf: DocNode = {
 		},
 	],
 };
+
+export const smartCardAtlassianProjectAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'inlineCard',
+					attrs: {
+						url: 'https://team.atlassian.com/project/CGFCFBKQ-45/about',
+					},
+				},
+				{
+					type: 'text',
+					text: ' ',
+				},
+			],
+		},
+	],
+};

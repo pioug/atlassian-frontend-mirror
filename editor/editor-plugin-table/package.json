@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.25.2",
+	"version": "7.25.4",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
 		"@atlaskit/adf-schema": "^40.8.1",
 		"@atlaskit/button": "^19.2.0",
 		"@atlaskit/custom-steps": "^0.7.0",
-		"@atlaskit/editor-common": "^87.8.0",
+		"@atlaskit/editor-common": "^87.10.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
@@ -50,7 +50,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.4.0",
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@atlaskit/tooltip": "^18.7.0",
@@ -124,9 +124,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.table.live-pages-sorting_4malx": {
-			"type": "boolean"
-		},
-		"editor_react_18_fix_table_delete_col_decorations": {
 			"type": "boolean"
 		},
 		"platform_editor_a11y_table_context_menu": {

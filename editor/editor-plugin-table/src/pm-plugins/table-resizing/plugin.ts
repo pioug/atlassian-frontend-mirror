@@ -24,6 +24,7 @@ export function createPlugin(
 	isTableScalingEnabled?: boolean,
 	isNewColumnResizingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
+	isCommentEditor?: boolean,
 ) {
 	return new SafePlugin({
 		key: pluginKey,
@@ -76,6 +77,7 @@ export function createPlugin(
 								editorAnalyticsAPI,
 								isNewColumnResizingEnabled,
 								isTableAlignmentEnabled,
+								isCommentEditor,
 							)
 						) {
 							const { state, dispatch } = view;

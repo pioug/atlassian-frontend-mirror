@@ -45,6 +45,7 @@ type AgentAvatarProps = {
 	name?: string;
 	agentNamedId?: string;
 	agentId?: string;
+	showBorder?: boolean;
 };
 
 export const AgentAvatar = ({
@@ -54,6 +55,7 @@ export const AgentAvatar = ({
 	name,
 	agentId,
 	agentNamedId,
+	showBorder = true,
 }: AgentAvatarProps) => {
 	return (
 		<Box
@@ -65,7 +67,7 @@ export const AgentAvatar = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values
 				width: AVATAR_SIZES[size],
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/ensure-design-token-usage
-				backgroundColor: '#fff',
+				...(showBorder ? { backgroundColor: '#fff' } : {}),
 			}}
 		>
 			<Box xcss={innerShapeStyles}>

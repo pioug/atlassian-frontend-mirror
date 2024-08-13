@@ -50,6 +50,7 @@ export const handleMouseDown = (
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isNewColumnResizingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
+	isCommentEditor?: boolean,
 ): boolean => {
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;
@@ -112,8 +113,10 @@ export const handleMouseDown = (
 		domAtPos,
 		isTableScalingEnabled: shouldScale,
 		shouldUseIncreasedScalingPercent:
-			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			fg('platform.editor.table.use-increased-scaling-percent'),
+			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+			(isTableScalingEnabled && !!isCommentEditor),
 	});
 
 	if (
@@ -211,8 +214,9 @@ export const handleMouseDown = (
 
 				const resizedDelta = clientX - startX;
 				const shouldUseIncreasedScalingPercent =
-					isTableScalingWithFixedColumnWidthsOptionEnabled &&
-					fg('platform.editor.table.use-increased-scaling-percent');
+					(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+						fg('platform.editor.table.use-increased-scaling-percent')) ||
+					(isTableScalingEnabled && !!isCommentEditor);
 
 				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
 					const newResizeState = resizeColumnAndTable({
@@ -345,8 +349,9 @@ export const handleMouseDown = (
 		let shouldScale = tableDepth === 0 && isTableScalingEnabled;
 
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			fg('platform.editor.table.use-increased-scaling-percent');
+			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			(isTableScalingEnabled && isCommentEditor);
 
 		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 			shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';

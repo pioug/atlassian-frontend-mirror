@@ -3,9 +3,18 @@ order: 0
 ---
 
 import FocusRingDefault from '../../examples/constellation/focus-ring-default';
+import FocusRingInset from '../../examples/constellation/focus-ring-inset';
 
 ## Default
 
-A focus ring is used to indicate the currently focused item.
+A focus ring indicates the currently focused item. The default focus ring shows a line around the
+outside of the focused item.
 
 <Example Component={FocusRingDefault} packageName="@atlaskit/focus-ring" />
+
+## Inset line
+
+You can toggle the focus ring to show inside the focused item. This is for cases when an inset line
+is more visible than the default line or to avoid overlapping other UI.
+
+<Example Component={FocusRingInset} packageName="@atlaskit/focus-ring" />

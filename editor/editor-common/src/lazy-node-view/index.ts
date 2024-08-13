@@ -5,7 +5,7 @@ import type { DispatchAnalyticsEvent } from '../analytics';
 
 import { LazyNodeView } from './node-view';
 import { queueReplaceNodeViews } from './replace-node-views';
-import type { IgnoreMutationParam, NodeViewConstructor } from './types';
+import type { NodeViewConstructor } from './types';
 
 export { convertToInlineCss } from './css-helper';
 
@@ -33,9 +33,6 @@ export type LazyLoadingProps<NodeViewOptions> = {
 	loader: () => Promise<CreateReactNodeViewProps<NodeViewOptions>>;
 	getNodeViewOptions: () => NodeViewOptions;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	lazyNodeViewOptions?: {
-		ignoreMutationDelegate?: (mutation: IgnoreMutationParam) => boolean;
-	};
 };
 
 /**
@@ -93,7 +90,6 @@ export const withLazyLoading = <Options>({
 	loader,
 	getNodeViewOptions,
 	dispatchAnalyticsEvent,
-	lazyNodeViewOptions: { ignoreMutationDelegate } = {},
 }: LazyLoadingProps<Options>): NodeViewConstructor => {
 	const createLazyNodeView = (
 		node: PMNode,
@@ -108,7 +104,7 @@ export const withLazyLoading = <Options>({
 
 		const wasAlreadyRequested = requestedNodes.has(nodeName);
 		if (wasAlreadyRequested) {
-			return new LazyNodeView(node, view, getPos, { ignoreMutationDelegate });
+			return new LazyNodeView(node, view, getPos);
 		}
 
 		requestedNodes.add(nodeName);
@@ -142,7 +138,7 @@ export const withLazyLoading = <Options>({
 			// });
 		}
 
-		return new LazyNodeView(node, view, getPos, { ignoreMutationDelegate });
+		return new LazyNodeView(node, view, getPos);
 	};
 
 	return createLazyNodeView;

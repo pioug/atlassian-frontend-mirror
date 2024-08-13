@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/progress-bar",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "A progress bar communicates the status of a system process.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -35,7 +35,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

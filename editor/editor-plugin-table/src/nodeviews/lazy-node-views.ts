@@ -9,7 +9,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../types';
 
-import ignoreMutationDelegate from './ignore-mutation-delegate';
 // TODO: Clean up ED-23976
 import { createTableView } from './table';
 import TableCell from './TableCell';
@@ -94,9 +93,6 @@ export const lazyTableView = (options: TableViewOptions) => {
 		nodeName: 'table',
 		getNodeViewOptions: () => options,
 		loader,
-		lazyNodeViewOptions: {
-			ignoreMutationDelegate,
-		},
 	});
 };
 

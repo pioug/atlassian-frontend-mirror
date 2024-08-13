@@ -48,6 +48,14 @@ type PickerAEP<ActionSubjectID, Attributes> = UIAEP<
 	undefined
 >;
 
+type PickerClosedAEP<ActionSubjectID, Attributes> = UIAEP<
+	ACTION.CLOSED,
+	ACTION_SUBJECT.PICKER,
+	ActionSubjectID,
+	Attributes,
+	undefined
+>;
+
 type FeedbackAEP = UIAEP<
 	ACTION.OPENED,
 	ACTION_SUBJECT.FEEDBACK_DIALOG,
@@ -304,6 +312,20 @@ type PickerImageAEP = PickerAEP<
 	}
 >;
 
+type PickerMediaInsertAEP = PickerAEP<
+	ACTION_SUBJECT_ID.PICKER_MEDIA,
+	{
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.INSERT_MENU;
+	}
+>;
+
+type PickerMediaInsertClosedAEP = PickerClosedAEP<
+	ACTION_SUBJECT_ID.PICKER_MEDIA,
+	{
+		exitMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.MOUSE;
+	}
+>;
+
 type HelpQuickInsertAEP = UIAEP<
 	ACTION.HELP_OPENED,
 	ACTION_SUBJECT.HELP,
@@ -464,6 +486,8 @@ export type GeneralEventPayload<T = void> =
 	| InputPerfSamplingAvgAEP
 	| PickerEmojiAEP
 	| PickerImageAEP
+	| PickerMediaInsertAEP
+	| PickerMediaInsertClosedAEP
 	| ReactNodeViewRenderedAEP
 	| RichMediaLayoutAEP
 	| SelectionAEP

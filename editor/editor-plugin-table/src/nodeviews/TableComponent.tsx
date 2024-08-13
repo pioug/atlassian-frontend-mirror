@@ -224,9 +224,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
 			}
 		}
-		if (fg('editor_react_18_fix_table_delete_col_decorations')) {
-			this?.table?.addEventListener('mouseout', this.handleMouseOut);
-		}
+
+		this?.table?.addEventListener('mouseout', this.handleMouseOut);
+
 		if (fg('platform_editor_react_18_table_column_resize_hover')) {
 			this?.table?.addEventListener('mouseover', this.handleMouseOver);
 		}
@@ -334,9 +334,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		if (fg('platform.editor.table.live-pages-sorting_4malx')) {
 			this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
 		}
-		if (fg('editor_react_18_fix_table_delete_col_decorations')) {
-			this?.table?.removeEventListener('mouseout', this.handleMouseOut);
-		}
+
+		this?.table?.removeEventListener('mouseout', this.handleMouseOut);
+
 		if (fg('platform_editor_react_18_table_column_resize_hover')) {
 			this?.table?.removeEventListener('mouseover', this.handleMouseOver);
 		}
@@ -438,12 +438,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
 			const isTableScalingWithFixedColumnWidthsOptionEnabled =
-				this.props.options?.isTableScalingEnabled && tableWithFixedColumnWidthsOption;
+				!!this.props.options?.isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 
 			const shouldUseIncreasedScalingPercent =
 				(isTableScalingWithFixedColumnWidthsOptionEnabled &&
 					fg('platform.editor.table.use-increased-scaling-percent')) ||
-				false;
+				// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+				(!!this.props.options?.isTableScalingEnabled && !!this.props.options?.isCommentEditor);
 
 			if (force || (!isResizing && shouldUpdateColgroup)) {
 				const resizeState = getResizeState({
@@ -517,10 +518,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		const isTableScalingWithFixedColumnWidthsOptionEnabled =
-			isTableScalingEnabled && tableWithFixedColumnWidthsOption;
+			!!isTableScalingEnabled && tableWithFixedColumnWidthsOption;
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			fg('platform.editor.table.use-increased-scaling-percent');
+			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			(!!isTableScalingEnabled && !!this.props.options?.isCommentEditor);
 
 		if (
 			isTableScalingWithFixedColumnWidthsOptionEnabled &&
@@ -808,9 +810,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { stickyScrollbar, tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingEnabled &&
-			tableWithFixedColumnWidthsOption &&
-			fg('platform.editor.table.use-increased-scaling-percent');
+			!!isTableScalingEnabled &&
+			((tableWithFixedColumnWidthsOption &&
+				fg('platform.editor.table.use-increased-scaling-percent')) ||
+				!!this.props.options?.isCommentEditor);
 
 		return (
 			<TableContainer

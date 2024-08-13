@@ -61,7 +61,6 @@ export const telepointerCallback = (
 		documentAri,
 	});
 	telepointerExperience.start();
-
 	return (response: AcknowledgementPayload) => {
 		if (response.type === AcknowledgementResponseTypes.SUCCESS) {
 			telepointerExperience.success();

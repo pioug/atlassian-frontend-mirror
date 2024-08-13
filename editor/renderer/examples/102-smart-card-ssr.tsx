@@ -5,7 +5,12 @@ import ReactDOM from 'react-dom';
 import Loadable from 'react-loadable';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import ReactDOMServer from 'react-dom/server';
-import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
+import {
+	url,
+	cardState,
+	atlassianProjectUrl,
+	atlassianProjectCardState,
+} from '@atlaskit/media-test-helpers/smart-card-state';
 import { token } from '@atlaskit/tokens';
 import { default as Renderer } from '../src/ui/Renderer';
 import smartCardAdf from './helper/ssr-smart-card.json';
@@ -24,6 +29,7 @@ const Page = ({ title }: PageProps) => {
 	const storeOptions = {
 		initialState: {
 			[url]: cardState,
+			[atlassianProjectUrl]: atlassianProjectCardState,
 		},
 	};
 	return (

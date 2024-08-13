@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 109.46.1
+
+### Patch Changes
+
+- [#119417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119417)
+  [`8cb3eccfd2a71`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8cb3eccfd2a71) -
+  Fix table resizing in SSR and hydration
+- Updated dependencies
+
 ## 109.46.0
 
 ### Minor Changes

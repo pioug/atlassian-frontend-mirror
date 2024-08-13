@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-picker",
-	"version": "66.4.5",
+	"version": "66.4.6",
 	"description": "Library for handling file uploads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/media-client-react": "^2.0.0",
 		"@atlaskit/media-common": "^11.3.0",
 		"@atlaskit/media-ui": "^25.10.0",
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@atlaskit/ufo": "^0.3.0",
 		"@babel/runtime": "^7.0.0",

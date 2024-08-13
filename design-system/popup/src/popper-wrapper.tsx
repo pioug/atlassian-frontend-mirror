@@ -28,6 +28,10 @@ const popupStyles = css({
 	backgroundColor: token('elevation.surface.overlay', N0),
 	borderRadius: token('border.radius', '3px'),
 	boxShadow: token('elevation.shadow.overlay', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+	// Resetting text color for portal content.
+	// Otherwise, when rendering into the parent (not using a portal),
+	// the text color can be inherited from the parent.
+	color: token('color.text'),
 	[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay', N0),
 	'&:focus': {
 		outline: 'none',

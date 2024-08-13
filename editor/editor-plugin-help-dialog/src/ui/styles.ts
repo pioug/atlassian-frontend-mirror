@@ -2,17 +2,12 @@
 import { css } from '@emotion/react';
 
 import { akEditorUnitZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import * as colors from '@atlaskit/theme/colors';
 import { B300, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const headerFont = fg('platform_editor_migration_icon_and_typography')
-	? { font: token('font.heading.large') }
-	: { fontSize: relativeFontSizeToBase16(24) };
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const header = css(headerFont, {
+export const header = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
 	minHeight: token('space.300', '24px'),
@@ -21,6 +16,7 @@ export const header = css(headerFont, {
 	justifyContent: 'space-between',
 	alignItems: 'center',
 	boxShadow: "'none'",
+	font: token('font.heading.large'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N400),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -28,16 +24,13 @@ export const header = css(headerFont, {
 	borderRadius: token('border.radius', '3px'),
 });
 
-const footerFont = fg('platform_editor_migration_icon_and_typography')
-	? { font: token('font.body') }
-	: { fontSize: relativeFontSizeToBase16(14), lineHeight: token('space.250', '20px') };
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const footer = css(footerFont, {
+export const footer = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: akEditorUnitZIndex,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtlest', colors.N300),
+	font: token('font.body'),
 	padding: token('space.300', '24px'),
 	textAlign: 'right',
 	boxShadow: "'none'",
@@ -95,15 +88,6 @@ export const row = css({
 export const dialogHeader = {
 	'&': {
 		fontSize: relativeFontSizeToBase16(24),
-		fontWeight: 400,
-		color: token('color.text.subtle', N400),
-		letterSpacing: 'normal',
-		lineHeight: 1.42857142857143,
-	},
-};
-export const title = {
-	'&': {
-		fontSize: relativeFontSizeToBase16(18),
 		fontWeight: 400,
 		color: token('color.text.subtle', N400),
 		letterSpacing: 'normal',

@@ -1,5 +1,8 @@
 import type AnalyticsHelper from './analytics-helper';
 
+// Initialize the random sampling rate
+const TELEPOINTER_SAMPLE_RATE = 0.0001;
+
 export enum MEASURE_NAME {
 	SOCKET_CONNECT = 'socketConnect',
 	DOCUMENT_INIT = 'documentInit',
@@ -98,3 +101,10 @@ function clearMeasure(measureName: string) {
 	performance.clearMarks(`${measureName}::end`);
 	performance.clearMeasures(measureName);
 }
+
+export const shouldTelepointerBeSampled = () =>
+	// At peak usage, telepointer we had 200M events per day. The goal is to sample 1:10000 of the events. (20k per day)
+	// Math.random() generates a random floating-point number between 0 (inclusive) and 1 (exclusive).
+	// The condition Math.random() < TELEPOINTER_SAMPLE_RATE (0.0001) will be true approximately 0.01% of the time.
+	// This means that approximately 1 in 10,000 events will be sampled.
+	Math.random() < TELEPOINTER_SAMPLE_RATE;

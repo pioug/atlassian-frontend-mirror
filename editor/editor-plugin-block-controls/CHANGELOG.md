@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.11.2
+
+### Patch Changes
+
+- [#129108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129108)
+  [`c3bcb8b4001bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3bcb8b4001bd) -
+  ED-24540 Clean up droptarget decorations after dropping in nested nodes to fix node splitting
+  issue
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`2cfee5779f921`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2cfee5779f921) -
+  ED-24456 improve drop target vertical position for nested nodes
+- Updated dependencies
+
 ## 1.11.1
 
 ### Patch Changes

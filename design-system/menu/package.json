@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/menu",
-	"version": "2.12.0",
+	"version": "2.12.1",
 	"description": "A list of options to help users navigate, or perform actions.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,7 +48,7 @@
 		"@atlaskit/focus-ring": "^1.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/theme": "^12.12.0",
+		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

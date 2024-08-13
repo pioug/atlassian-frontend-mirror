@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 27.16.0
+
+### Minor Changes
+
+- [#129529](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129529)
+  [`a7b1b7fe14871`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7b1b7fe14871) -
+  export ExpandedFrame from the package
+
+## 27.15.0
+
+### Minor Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`c9cd233ada48c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9cd233ada48c) -
+  EDM-10579 Fix smart-card SSR loading shimmer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.14.0
 
 ### Minor Changes

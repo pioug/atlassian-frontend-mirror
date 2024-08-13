@@ -3,10 +3,12 @@ import {
 	RendererSSRLayout,
 	RendererSSRCodeblock,
 	RendererSSRExpand,
+	RendererSSRNestedExpandInExpand,
 	RendererSSRResizedImage,
 	RendererSSRResizedMedia,
 	RendererSSRSmartCard,
 	RendererSSRResizedMediaInTable,
+	RendererSSRSmartCardUrlIcon,
 } from './ssr.fixture';
 import { snapshot, type ErrorFilterOption } from '@af/visual-regression';
 
@@ -44,6 +46,11 @@ if (process.env.IS_REACT_18 !== 'true') {
 		ignoredErrors,
 	});
 
+	snapshot(RendererSSRNestedExpandInExpand, {
+		description: 'SRR rendering of a nested expand nodes in expand',
+		ignoredErrors,
+	});
+
 	snapshot(RendererSSRResizedImage, {
 		description: 'SSR renderering of images',
 		ignoredErrors,
@@ -65,5 +72,10 @@ if (process.env.IS_REACT_18 !== 'true') {
 		featureFlags: {
 			'linking-platform-increase-inline-card-icon-size': [true, false],
 		},
+	});
+
+	snapshot(RendererSSRSmartCardUrlIcon, {
+		description: 'SSR renderering of smart card using URL icon',
+		ignoredErrors,
 	});
 }

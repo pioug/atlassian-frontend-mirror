@@ -1,6 +1,8 @@
 import React, { type FC, memo } from 'react';
 
-import { background as bg } from '../colors';
+import { token } from '@atlaskit/tokens';
+
+import { N0 } from '../colors';
 import { DEFAULT_THEME_MODE } from '../constants';
 import type { AKThemeProviderProps, ThemeModes } from '../types';
 
@@ -39,10 +41,10 @@ const themeFnMap: Record<ThemeModes, GetMode> = {
  * ```
  */
 const AtlaskitThemeProvider: FC<AKThemeProviderProps> = memo<AKThemeProviderProps>(
-	({ mode = DEFAULT_THEME_MODE, background = bg, children }) => {
+	({ mode = DEFAULT_THEME_MODE, background, children }) => {
 		// background color is extracted here is it conditionally applied on the <body>
 		const themeObj = { theme: { mode } };
-		const backgroundColor = background(themeObj);
+		const backgroundColor = background ? background(themeObj) : token('elevation.surface', N0);
 
 		useThemeResetStyles(backgroundColor);
 		return (
@@ -50,6 +52,7 @@ const AtlaskitThemeProvider: FC<AKThemeProviderProps> = memo<AKThemeProviderProp
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={`${mode}-${SELECTOR}`}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={{ backgroundColor }}
 					data-testid="theme-provider"
 				>

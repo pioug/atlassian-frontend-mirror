@@ -38,10 +38,10 @@ describe('onAddItems', () => {
 		expect(newAris).toEqual(['ari1', 'ari2', 'ari3', 'ari4']);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari2: { integrationKey: 'jira', data: { ari: { data: 'ari2' } } },
-				ari3: { integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
-				ari4: { integrationKey: 'jira', data: { ari: { data: 'ari4' } } },
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari2: { ari: 'ari2', integrationKey: 'jira', data: { ari: { data: 'ari2' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari4: { ari: 'ari4', integrationKey: 'jira', data: { ari: { data: 'ari4' } } },
 			},
 		});
 	});
@@ -50,8 +50,8 @@ describe('onAddItems', () => {
 		expect(store.storeState.getState()).toEqual({ items: {} });
 		store.storeState.setState({
 			items: {
-				ari1: { integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
 			},
 		});
 
@@ -76,10 +76,10 @@ describe('onAddItems', () => {
 		expect(newAris).toEqual(['ari1', 'ari2', 'ari3', 'ari4']);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari2: { integrationKey: 'jira', data: { ari: { data: 'ari2' } } },
-				ari3: { integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
-				ari4: { integrationKey: 'jira', data: { ari: { data: 'ari4' } } },
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari2: { ari: 'ari2', integrationKey: 'jira', data: { ari: { data: 'ari2' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari4: { ari: 'ari4', integrationKey: 'jira', data: { ari: { data: 'ari4' } } },
 			},
 		});
 	});
@@ -107,8 +107,8 @@ describe('onAddItems', () => {
 		expect(newAris).toEqual(['ari1', 'ari1', 'ari3', 'ari3']);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
-				ari3: { integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
 			},
 		});
 	});
@@ -139,9 +139,9 @@ describe('onAddItems', () => {
 		invariant(newAris[3]);
 		expect(store.storeState.getState()).toEqual({
 			items: {
-				ari1: { integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
 				[newAris[1]]: { integrationKey: 'jira', data: { field: { data: 'field1' } } },
-				ari3: { integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
 				[newAris[3]]: { integrationKey: 'jira', data: { field: { data: 'field2' } } },
 			},
 		});
@@ -152,6 +152,7 @@ describe('onAddItems', () => {
 		store.storeState.setState({
 			items: {
 				ari1: {
+					ari: 'ari1',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari1' },
@@ -160,6 +161,7 @@ describe('onAddItems', () => {
 					},
 				},
 				ari2: {
+					ari: 'ari2',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari2' },
@@ -167,8 +169,8 @@ describe('onAddItems', () => {
 					},
 				},
 				ari3: {
+					ari: 'ari3',
 					integrationKey: 'jira',
-
 					data: {
 						ari: { data: 'ari3' },
 						attr1: { data: 'old_abc3' },
@@ -176,6 +178,7 @@ describe('onAddItems', () => {
 					},
 				},
 				ari4: {
+					ari: 'ari4',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari4' },
@@ -216,6 +219,7 @@ describe('onAddItems', () => {
 		expect(store.storeState.getState()).toEqual({
 			items: {
 				ari1: {
+					ari: 'ari1',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari1' },
@@ -225,6 +229,7 @@ describe('onAddItems', () => {
 					},
 				},
 				ari2: {
+					ari: 'ari2',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari2' },
@@ -233,6 +238,7 @@ describe('onAddItems', () => {
 					},
 				},
 				ari3: {
+					ari: 'ari3',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari3' },
@@ -243,6 +249,7 @@ describe('onAddItems', () => {
 					},
 				},
 				ari4: {
+					ari: 'ari4',
 					integrationKey: 'jira',
 					data: {
 						ari: { data: 'ari4' },
@@ -250,6 +257,96 @@ describe('onAddItems', () => {
 						attr3: { data: 'new_efg5' },
 					},
 				},
+			},
+		});
+	});
+});
+
+describe('onUpdateItem', () => {
+	beforeEach(() => {
+		store.storeState.resetState();
+	});
+
+	const storeApi = {
+		getState: store.storeState.getState,
+		setState: store.storeState.setState,
+		dispatch: jest.fn(),
+	};
+
+	it('should keep the state empty when calling on an empty state', () => {
+		expect(store.storeState.getState()).toEqual({ items: {} });
+		actions.onUpdateItem('ari-blah', {
+			ari: { data: 'ari4' },
+		})(storeApi);
+
+		expect(store.storeState.getState()).toEqual({
+			items: {},
+		});
+	});
+
+	it('should keep the state the same when calling onUpdateItem with a non-existent ari key', () => {
+		store.storeState.setState({
+			items: {
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+			},
+		});
+		actions.onUpdateItem('ari-4444', {
+			ari: { data: 'ari4' },
+		})(storeApi);
+
+		expect(store.storeState.getState()).toEqual({
+			items: {
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+			},
+		});
+	});
+
+	it('should update the item with the new response value', () => {
+		store.storeState.setState({
+			items: {
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+			},
+		});
+		actions.onUpdateItem('ari1', {
+			ari: { data: 'ari1' },
+			fieldValue: { data: 'ABCDEF' },
+		})(storeApi);
+
+		expect(store.storeState.getState()).toEqual({
+			items: {
+				ari1: {
+					ari: 'ari1',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' }, fieldValue: { data: 'ABCDEF' } },
+				},
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+			},
+		});
+	});
+
+	it('should update the item with the new response value, but ari key updates are NOT allowed', () => {
+		store.storeState.setState({
+			items: {
+				ari1: { ari: 'ari1', integrationKey: 'jira', data: { ari: { data: 'ari1' } } },
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
+			},
+		});
+		actions.onUpdateItem('ari1', {
+			ari: { data: 'ari123' },
+			fieldValue: { data: 'ABCDEF' },
+		})(storeApi);
+
+		expect(store.storeState.getState()).toEqual({
+			items: {
+				ari1: {
+					ari: 'ari1',
+					integrationKey: 'jira',
+					data: { ari: { data: 'ari1' }, fieldValue: { data: 'ABCDEF' } },
+				},
+				ari3: { ari: 'ari3', integrationKey: 'jira', data: { ari: { data: 'ari3' } } },
 			},
 		});
 	});

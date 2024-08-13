@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 1.3.0
+
+### Minor Changes
+
+- [#129365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129365)
+  [`0cb229e53ad8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cb229e53ad8f) -
+  [ux] [ED-24249] Added popup dialog for inserting media using editor-plugin-media-insert
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.2
 
 ### Patch Changes

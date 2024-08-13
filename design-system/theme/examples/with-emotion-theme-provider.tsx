@@ -7,16 +7,15 @@ import { ThemeProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
+import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
-
-import { colors } from '../src';
 
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Description = styled.p`
 	padding: ${token('space.100', '8px')};
 	margin: ${token('space.500', '40px')} 0 ${token('space.100', '8px')};
-	background-color: ${(props) => colors.background(props)};
-	color: ${(props) => colors.text(props)};
+	background-color: ${token('elevation.surface', colors.N0)};
+	color: ${token('color.text', colors.N900)};
 `;
 
 export default () => (

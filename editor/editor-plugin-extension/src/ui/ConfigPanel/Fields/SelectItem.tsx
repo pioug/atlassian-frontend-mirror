@@ -52,11 +52,12 @@ export const formatOptionLabel = (
 					icon
 				)}
 			</span>
-			<div style={{ paddingLeft: icon ? token('space.100', '8px') : 0 }}>
-				<p>
-					{label}
-					{description && context !== 'value' && <small>{description}</small>}
-				</p>
+			<div
+				style={{ paddingLeft: icon ? token('space.100', '8px') : 0 }}
+				data-testid="extension-option-label"
+			>
+				{label}
+				{description && context !== 'value' && <small>{description}</small>}
 			</div>
 		</div>
 	);

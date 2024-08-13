@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-editor-viewmode-effects",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Editor-Viewmode effects plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.8.0",
+		"@atlaskit/editor-common": "^87.10.0",
 		"@atlaskit/editor-plugin-collab-edit": "^1.13.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
@@ -82,9 +82,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.editor.live-view.no-editor-selection-in-view-mode": {
-			"type": "boolean"
-		},
 		"platform.editor.live-view.comments-in-media-toolbar-button": {
 			"type": "boolean"
 		}

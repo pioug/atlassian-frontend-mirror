@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 87.10.0
+
+### Minor Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`175fc1454a8a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/175fc1454a8a4) -
+  [ux] Migrate typography with new ADS token and primitive and remove feature gate
+
+### Patch Changes
+
+- [#119417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/119417)
+  [`8cb3eccfd2a71`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8cb3eccfd2a71) -
+  Fix table resizing in SSR and hydration
+- [`79a3024b0907a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79a3024b0907a) -
+  ED-24535 Used generic ignore mutation for lazy node view
+- Updated dependencies
+
+## 87.9.1
+
+### Patch Changes
+
+- [`46b889c01d03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b889c01d03e) -
+  [ux] Clean up Reaact 18 Feature Flags
+
+## 87.9.0
+
+### Minor Changes
+
+- [#129365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129365)
+  [`0cb229e53ad8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cb229e53ad8f) -
+  [ED-24249] **@atlaskit/editor-common**: Added enums and event definitions for
+  editor-plugin-media-insert popup dialog **@atlaskit/editor-plugins**: Export
+  MediaInsertPluginState from editor-media-insert-plugin
+
+### Patch Changes
+
+- [#129365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129365)
+  [`ccb6fdd9283db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccb6fdd9283db) -
+  remove editor simplify inline cards ff
+
 ## 87.8.0
 
 ### Minor Changes

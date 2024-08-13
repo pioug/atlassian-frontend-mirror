@@ -73,7 +73,7 @@ const ReadOnlyCell = ({
 	renderItem,
 	columnKey,
 }: TableCellContentProps) => {
-	const rowData = useDatasourceItem({ id });
+	const rowData = useDatasourceItem({ id })?.data;
 	if (!rowData || !columnKey || !rowData[columnKey]) {
 		return <></>;
 	}
@@ -105,13 +105,17 @@ const InlineEditableCell = ({
 	renderItem,
 	wrappedColumnKeys,
 }: TableCellContentProps) => {
-	const rowData = useDatasourceItem({ id });
+	const item = useDatasourceItem({ id });
+	if (!item) {
+		return <></>;
+	}
+	const { data: rowData, integrationKey, ari } = item;
 	if (!rowData || !columnKey || !rowData[columnKey]) {
 		return <></>;
 	}
 
 	// Check if field is editable
-	const isEditable = isEditTypeSupported(columnType);
+	const isEditable = !!ari && !!integrationKey && isEditTypeSupported(columnType);
 
 	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
 	const value = rowData[columnKey]?.data;
@@ -140,7 +144,12 @@ const InlineEditableCell = ({
 	);
 
 	return isEditable ? (
-		<InlineEdit datasourceTypeWithValues={datasourceTypeWithValues} readView={readView} />
+		<InlineEdit
+			ari={ari}
+			columnKey={columnKey}
+			datasourceTypeWithValues={datasourceTypeWithValues}
+			readView={readView}
+		/>
 	) : (
 		readView
 	);

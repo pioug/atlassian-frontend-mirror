@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 0.3.0
+
+### Minor Changes
+
+- [#129108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129108)
+  [`62b35c6098cf0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62b35c6098cf0) -
+  Use generated agent avatar in browse-agent, view-agent and agent-selector
+
 ## 0.2.0
 
 ### Minor Changes

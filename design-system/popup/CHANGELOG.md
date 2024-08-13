@@ -1,5 +1,22 @@
 # @atlaskit/popup
 
+## 1.22.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.22.1
+
+### Patch Changes
+
+- [`49e0363439f7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49e0363439f7c) -
+  [ux] Content inside of a Popup will now always have it's text color reset to `color.text`.
+  Previously, the text color of Popup content would be `color.text` if rendering into a
+  [portal](https://react.dev/reference/react-dom/createPortal) `shouldRenderToParent={true}` or
+  `shouldFitContainer={true}`, but otherwise would inherit the text color of the parent element. We
+  have made this change to improve consistency and avoid surprises when working with Popup.
+
 ## 1.22.0
 
 ### Minor Changes

@@ -7,7 +7,6 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { LinkButton } from '@atlaskit/button/new';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -21,14 +20,7 @@ export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element 
 	return (
 		<div css={emptyStateWrapper} data-testid="empty-state-wrapper">
 			<NotFoundIllustration />
-			<div
-				css={[
-					emptyStateHeading,
-					fg('platform_editor_migration_icon_and_typography')
-						? emptyStateHeadingFontToken
-						: emptyStateHeadingFont,
-				]}
-			>
+			<div css={emptyStateHeading}>
 				<FormattedMessage
 					id="fabric.editor.elementbrowser.search.empty-state.heading"
 					defaultMessage="Nothing matches your search"
@@ -62,15 +54,8 @@ export default function EmptyState({ onExternalLinkClick }: Props): JSX.Element 
 	);
 }
 
-const emptyStateHeadingFontToken = css({ font: token('font.heading.medium') });
-const emptyStateHeadingFont = css({
-	fontSize: '1.42857em',
-	lineHeight: 1.2,
-	fontWeight: 500,
-	letterSpacing: '-0.008em',
-});
-
 const emptyStateHeading = css({
+	font: token('font.heading.medium'),
 	color: token('color.text', 'rgb(23, 43, 77)'),
 	marginTop: token('space.300', '24px'),
 });

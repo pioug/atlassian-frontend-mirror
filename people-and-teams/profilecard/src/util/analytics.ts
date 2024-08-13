@@ -50,6 +50,7 @@ export const fireEvent = (
 
 const TEAM_SUBJECT = 'teamProfileCard';
 const USER_SUBJECT = 'profilecard';
+const RovoAgent = 'rovoAgenrProfilecard';
 
 const createEvent = (
 	eventType: 'ui' | 'operational',
@@ -151,3 +152,8 @@ export const moreMembersClicked = (attributes: { duration: number; memberCount: 
 
 export const errorRetryClicked = (attributes: { duration: number }) =>
 	createEvent('ui', 'clicked', TEAM_SUBJECT, 'errorRetry', attributes);
+
+export const agentRequestAnalytics = (
+	action: 'triggered' | 'succeeded' | 'failed',
+	attributes?: { duration: number } & GenericAttributes,
+) => createEvent('operational', action, RovoAgent, 'request', attributes);

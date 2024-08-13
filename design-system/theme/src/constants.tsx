@@ -1,7 +1,7 @@
 import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
 import { token } from '@atlaskit/tokens';
 
-import { B200, N30A, skeleton as skeletonColor } from './colors';
+import { B200, N20A, N30A } from './colors';
 import type { Layers } from './types';
 
 export const CHANNEL = '__ATLASKIT_THEME__';
@@ -140,7 +140,7 @@ export const assistive = visuallyHidden;
 export const skeletonShimmer = () =>
 	({
 		css: {
-			backgroundColor: token('color.skeleton', skeletonColor()),
+			backgroundColor: token('color.skeleton', N20A),
 			animationDuration: '1.5s',
 			animationIterationCount: 'infinite',
 			animationTimingFunction: 'linear',
@@ -148,7 +148,7 @@ export const skeletonShimmer = () =>
 		},
 		keyframes: {
 			from: {
-				backgroundColor: token('color.skeleton', skeletonColor()),
+				backgroundColor: token('color.skeleton', N20A),
 			},
 			to: {
 				backgroundColor: token('color.skeleton.subtle', N30A),

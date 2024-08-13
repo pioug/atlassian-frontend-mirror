@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugins
 
+## 3.6.28
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.27
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.26
+
+### Patch Changes
+
+- [`46b889c01d03e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46b889c01d03e) -
+  [ux] Clean up Reaact 18 Feature Flags
+- Updated dependencies
+
+## 3.6.25
+
+### Patch Changes
+
+- [#129365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129365)
+  [`0cb229e53ad8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cb229e53ad8f) -
+  [ED-24249] **@atlaskit/editor-common**: Added enums and event definitions for
+  editor-plugin-media-insert popup dialog **@atlaskit/editor-plugins**: Export
+  MediaInsertPluginState from editor-media-insert-plugin
+- Updated dependencies
+
 ## 3.6.24
 
 ### Patch Changes

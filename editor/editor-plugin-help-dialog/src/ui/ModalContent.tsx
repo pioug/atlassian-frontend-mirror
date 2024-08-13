@@ -13,13 +13,12 @@ import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages
 import { browser } from '@atlaskit/editor-common/utils';
 import Heading from '@atlaskit/heading';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Text } from '@atlaskit/primitives';
 
 import type { Format } from './Format';
 import ModalFooter from './ModalFooter';
 import ModalHeader from './ModalHeader';
-import { column, content, contentWrapper, line, row, title } from './styles';
+import { column, content, contentWrapper, line, row } from './styles';
 import { getComponentFromKeymap, shortcutNamesWithoutKeymap } from './utils';
 
 interface ModalContentProps {
@@ -39,17 +38,9 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 				<div css={content}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={column}>
-						{fg('platform_editor_migration_icon_and_typography') ? (
-							<Heading size="medium">
-								<FormattedMessage {...messages.keyboardShortcuts} />
-							</Heading>
-						) : (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							<h2 css={title}>
-								<FormattedMessage {...messages.keyboardShortcuts} />
-							</h2>
-						)}
-
+						<Heading size="medium">
+							<FormattedMessage {...messages.keyboardShortcuts} />
+						</Heading>
 						<ul>
 							{formatting
 								.filter((form) => {
@@ -59,11 +50,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 								.map((form) => (
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									<li css={row} key={`textFormatting-${form.name}`}>
-										{fg('platform_editor_migration_icon_and_typography') ? (
-											<Text>{form.name}</Text>
-										) : (
-											<span>{form.name}</span>
-										)}
+										<Text>{form.name}</Text>
 										{getComponentFromKeymap(form.keymap!())}
 									</li>
 								))}
@@ -74,11 +61,7 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 								.map((form) => (
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 									<li css={row} key={`autoFormatting-${form.name}`}>
-										{fg('platform_editor_migration_icon_and_typography') ? (
-											<Text>{form.name}</Text>
-										) : (
-											<span>{form.name}</span>
-										)}
+										<Text>{form.name}</Text>
 										{form.autoFormatting!()}
 									</li>
 								))}
@@ -88,16 +71,9 @@ export const ModalContent = ({ formatting, onClose }: ModalContentProps) => {
 					<div css={line} />
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div css={column}>
-						{fg('platform_editor_migration_icon_and_typography') ? (
-							<Heading size="medium">
-								<FormattedMessage {...messages.markdown} />
-							</Heading>
-						) : (
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							<h2 css={title}>
-								<FormattedMessage {...messages.markdown} />
-							</h2>
-						)}
+						<Heading size="medium">
+							<FormattedMessage {...messages.markdown} />
+						</Heading>
 						<ul>
 							{formatting
 								.filter((form) => shortcutNamesWithoutKeymap.indexOf(form.type) === -1)

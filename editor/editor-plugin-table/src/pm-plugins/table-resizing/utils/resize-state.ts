@@ -5,7 +5,7 @@ import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getSelectedTableInfo } from '../../../utils';
 
@@ -326,6 +326,7 @@ export const getNewResizeStateFromSelectedColumns = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
+	isCommentEditor = false,
 ): ResizeStateWithAnalytics | undefined => {
 	// Fail early so that we don't do complex calculations for no reason
 	const numColumnsSelected = rect.right - rect.left;
@@ -381,8 +382,9 @@ export const getNewResizeStateFromSelectedColumns = (
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
 		shouldUseIncreasedScalingPercent:
-			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			getBooleanFF('platform.editor.table.use-increased-scaling-percent'),
+			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			(isTableScalingEnabled && isCommentEditor),
 	});
 
 	const newResizeState = evenSelectedColumnsWidths(resizeState, rect);

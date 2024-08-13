@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.10.3
+
+### Patch Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`63af9b6ab2314`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63af9b6ab2314) -
+  [ux] Add text edit component behind FF
+- Updated dependencies
+
 ## 2.10.2
 
 ### Patch Changes

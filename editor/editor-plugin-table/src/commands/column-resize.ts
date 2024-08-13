@@ -250,6 +250,7 @@ export const changeColumnWidthByStep =
 		getEditorContainerWidth,
 		isTableScalingEnabled,
 		isTableFixedColumnWidthsOptionEnabled,
+		isCommentEditor,
 		ariaNotify,
 		getIntl,
 	}: {
@@ -257,6 +258,7 @@ export const changeColumnWidthByStep =
 		getEditorContainerWidth: GetEditorContainerWidth;
 		isTableScalingEnabled: boolean;
 		isTableFixedColumnWidthsOptionEnabled: boolean;
+		isCommentEditor: boolean;
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
 		getIntl?: () => IntlShape;
 		originalTr?: Transaction;
@@ -318,9 +320,12 @@ export const changeColumnWidthByStep =
 		if (isTableScalingWithFixedColumnWidthsOptionEnabled) {
 			isTableScalingEnabledOnCurrentTable = originalTable.attrs.displayMode !== 'fixed';
 		}
+
 		const shouldUseIncreasedScalingPercent =
-			isTableScalingWithFixedColumnWidthsOptionEnabled &&
-			fg('platform.editor.table.use-increased-scaling-percent');
+			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+				fg('platform.editor.table.use-increased-scaling-percent')) ||
+			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+			(isTableScalingEnabled && isCommentEditor);
 
 		const initialResizeState = getResizeState({
 			minWidth: tableCellMinWidth,

@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/focus-ring",
 	"version": "1.6.0",
-	"description": "A focus ring is used to indicate the currently focused item.",
+	"description": "A focus ring clearly indicates which item has keyboard focus.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -78,5 +78,5 @@
 			"deprecation": "no-deprecated-imports"
 		}
 	},
-	"homepage": "https://atlaskit.atlassian.com/packages/design-system/focus-ring"
+	"homepage": "https://atlassian.design/components/focus-ring"
 }

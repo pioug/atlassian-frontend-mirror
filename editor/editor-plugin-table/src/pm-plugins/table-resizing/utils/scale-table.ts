@@ -4,7 +4,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { updateColumnWidths } from '../../../transforms';
 import { getTableWidth } from '../../../utils';
@@ -154,6 +154,7 @@ export const previewScaleTable = (
 	domAtPos: DomAtPos,
 	isTableScalingEnabled: boolean = false,
 	isTableWithFixedColumnWidthsOptionEnabled: boolean = false,
+	isCommentEditor: boolean = false,
 ) => {
 	const { node, start, parentWidth } = options;
 
@@ -185,8 +186,10 @@ export const previewScaleTable = (
 	}
 
 	const shouldUseIncreasedScalingPercent =
-		isTableScalingWithFixedColumnWidthsOptionEnabled &&
-		getBooleanFF('platform.editor.table.use-increased-scaling-percent');
+		(isTableScalingWithFixedColumnWidthsOptionEnabled &&
+			fg('platform.editor.table.use-increased-scaling-percent')) ||
+		// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
+		(isTableScalingEnabled && isCommentEditor);
 
 	const resizeState = parentWidth
 		? scaleWithParent(

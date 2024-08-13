@@ -164,8 +164,15 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 			// as relevant plugin dependencies are already set up.
 			// If we decide to ship the feature, we will consider a separate plugin if needed.
 			// Experiment one-pager: https://hello.atlassian.net/wiki/spaces/ETM/pages/3931754727/Experiment+Elements+Basic+Text+Transformations
-			selectionToolbar: (_, intl) => {
-				if (!api?.featureFlags?.sharedState.currentState()?.basicTextTransformations) {
+			selectionToolbar: (state, intl) => {
+				const {
+					selection: { $from },
+				} = state;
+
+				if (
+					!api?.featureFlags?.sharedState.currentState()?.basicTextTransformations ||
+					$from.depth !== 1
+				) {
 					return;
 				}
 				const { formatMessage } = intl;

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 2.13.0
+
+### Minor Changes
+
+- [#129411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129411)
+  [`175fc1454a8a4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/175fc1454a8a4) -
+  [ux] Migrate typography with new ADS token and primitive and remove feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.1
 
 ### Patch Changes

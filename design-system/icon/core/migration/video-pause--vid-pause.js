@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::5a6abf1487bf98fb3580d03f42dcbc8b>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _videoPause = _interopRequireDefault(require("@atlaskit/icon/core/video-paus
 var _vidPause = _interopRequireDefault(require("@atlaskit/icon/glyph/vid-pause"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for VideoPauseIcon.
  * This component is VideoPauseIcon, with `UNSAFE_fallbackIcon` set to "VidPauseIcon".
  *
- * Category: Single-purpose
- * Location: Icon contributions
+ * Category: single-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for pause video in Media.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

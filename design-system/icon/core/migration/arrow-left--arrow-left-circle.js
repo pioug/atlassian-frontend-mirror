@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::a0bd1e9988640d8f6348bcf3c9e35352>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _arrowLeft = _interopRequireDefault(require("@atlaskit/icon/core/arrow-left"
 var _arrowLeftCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/arrow-left-circle"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ArrowLeftIcon.
  * This component is ArrowLeftIcon, with `UNSAFE_fallbackIcon` set to "ArrowLeftCircleIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: back to previous screen, previous slide.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

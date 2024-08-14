@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::50fec9ceb2ceaa4ab99512867103f8fe>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _showMoreHorizontal = _interopRequireDefault(require("@atlaskit/icon/utility
 var _more = _interopRequireDefault(require("@atlaskit/icon/glyph/more"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ShowMoreHorizontalIcon.
  * This component is ShowMoreHorizontalIcon, with `UNSAFE_fallbackIcon` set to "MoreIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: utility
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for secondary/tertiary more action menus.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

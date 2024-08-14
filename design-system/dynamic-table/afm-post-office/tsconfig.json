@@ -27,9 +27,6 @@
       "path": "../../pagination/afm-post-office/tsconfig.json"
     },
     {
-      "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
-    },
-    {
       "path": "../../spinner/afm-post-office/tsconfig.json"
     },
     {

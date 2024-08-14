@@ -231,7 +231,7 @@ describe('Testing AsyncPopupSelect', () => {
 		);
 		invariant(input);
 
-		expect(mockFetchFilterOptions).toBeCalledTimes(1);
+		expect(mockFetchFilterOptions).toHaveBeenCalledTimes(1);
 		expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
 			searchString: '',
 		});
@@ -252,7 +252,7 @@ describe('Testing AsyncPopupSelect', () => {
 		);
 		invariant(input);
 
-		expect(mockFetchFilterOptions).toBeCalledTimes(1);
+		expect(mockFetchFilterOptions).toHaveBeenCalledTimes(1);
 		expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
 			searchString: '',
 		});
@@ -313,7 +313,7 @@ describe('Testing AsyncPopupSelect', () => {
 		const showMoreButton = getByTestId('jlol-basic-filter-assignee--show-more-button');
 		fireEvent.click(showMoreButton);
 
-		expect(mockFetchFilterOptions).toBeCalledTimes(1);
+		expect(mockFetchFilterOptions).toHaveBeenCalledTimes(1);
 		expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
 			pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
 			searchString: '',
@@ -343,7 +343,7 @@ describe('Testing AsyncPopupSelect', () => {
 		const showMoreButton = getByTestId('jlol-basic-filter-assignee--show-more-button');
 		fireEvent.click(showMoreButton);
 
-		expect(mockFetchFilterOptions).toBeCalledTimes(1);
+		expect(mockFetchFilterOptions).toHaveBeenCalledTimes(1);
 		expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
 			pageCursor: 'YXJyYXljb25uZWN0aW9uOjk=',
 			searchString: 'a',
@@ -369,7 +369,7 @@ describe('Testing AsyncPopupSelect', () => {
 
 		jest.advanceTimersByTime(350);
 
-		expect(mockFetchFilterOptions).toBeCalledTimes(2);
+		expect(mockFetchFilterOptions).toHaveBeenCalledTimes(2);
 		expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(2, {
 			searchString: 'projects',
 		});

@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.27.6
+
+### Patch Changes
+
+- [#128880](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128880)
+  [`eb643a54fc192`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb643a54fc192) -
+  Migrated usages of depracated `link` and `subtle-link` appearances and `none` spacing.
+- Updated dependencies
+
 ## 0.27.5
 
 ### Patch Changes

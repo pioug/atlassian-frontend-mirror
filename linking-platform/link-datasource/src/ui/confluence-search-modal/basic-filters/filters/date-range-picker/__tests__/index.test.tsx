@@ -528,7 +528,7 @@ describe('DateRangePicker', () => {
 			const triggerButton = await screen.findByTestId('confluence-search-modal--date-range-button');
 
 			expect(triggerButton).toBeInTheDocument();
-			expect(onAnalyticFireEvent).not.toBeCalled();
+			expect(onAnalyticFireEvent).not.toHaveBeenCalled();
 		});
 
 		it('should fire "ui.dropdown.opened.basicSearchDropdown" analytics event when the picker is opened', async () => {

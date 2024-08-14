@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::d003f149b34f107135eed557d0f38a32>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 
 import React from 'react';
 import Icon from '@atlaskit/icon/UNSAFE_base-new';

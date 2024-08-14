@@ -326,6 +326,14 @@ type PickerMediaInsertClosedAEP = PickerClosedAEP<
 	}
 >;
 
+type PickerMediaInsertCancelledAEP = UIAEP<
+	ACTION.CANCELLED,
+	ACTION_SUBJECT.PICKER,
+	ACTION_SUBJECT_ID.PICKER_MEDIA,
+	undefined,
+	undefined
+>;
+
 type HelpQuickInsertAEP = UIAEP<
 	ACTION.HELP_OPENED,
 	ACTION_SUBJECT.HELP,
@@ -488,6 +496,7 @@ export type GeneralEventPayload<T = void> =
 	| PickerImageAEP
 	| PickerMediaInsertAEP
 	| PickerMediaInsertClosedAEP
+	| PickerMediaInsertCancelledAEP
 	| ReactNodeViewRenderedAEP
 	| RichMediaLayoutAEP
 	| SelectionAEP

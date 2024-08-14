@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 25.11.0
+
+### Minor Changes
+
+- [#129943](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129943)
+  [`91186b2860822`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91186b2860822) -
+  Updates media-ui to support React 18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.10.14
 
 ### Patch Changes

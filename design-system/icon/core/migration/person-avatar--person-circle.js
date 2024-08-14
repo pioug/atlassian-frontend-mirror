@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::efabdcbec6a139fb383c48ecf6037f05>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _personAvatar = _interopRequireDefault(require("@atlaskit/icon/core/person-a
 var _personCircle = _interopRequireDefault(require("@atlaskit/icon/glyph/person-circle"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for PersonAvatarIcon.
  * This component is PersonAvatarIcon, with `UNSAFE_fallbackIcon` set to "PersonCircleIcon".
  *
- * Category: Single-purpose
- * Location: ADS
+ * Category: single-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for user avatar.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

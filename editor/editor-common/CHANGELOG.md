@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 87.10.2
+
+### Patch Changes
+
+- [#130061](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130061)
+  [`bdad694cb2c24`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdad694cb2c24) -
+  [ux] [ED-24566] **@atlaskit/editor-plugin-media-insert**: When user clicks "Cancel" button on
+  insert media popup the focus is returned to the editor **@atlaskit/editor-common**: Added event
+  type for media insert cancelled analytics
+
+## 87.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 87.10.0
 
 ### Minor Changes

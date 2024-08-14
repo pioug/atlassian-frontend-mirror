@@ -352,7 +352,6 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			const modalTitleTextContent = modalTitle?.textContent;
 
 			const siteSelectorText = getSiteSelectorText();
-
 			if (!siteSelectorText) {
 				return modalTitleTextContent;
 			}
@@ -419,8 +418,10 @@ export const setupFactory = <Parameters extends DatasourceParameters, InsertArgs
 			args: InsertArgs,
 			analyticsExpectedOverride?: AnalyticsPayloadOverride,
 		) => {
-			const button = component.getByTestId(`${providerType}-datasource-modal--insert-button`);
-			button.click();
+			act(() => {
+				const button = component.getByTestId(`${providerType}-datasource-modal--insert-button`);
+				button.click();
+			});
 
 			expect(onInsert).toHaveBeenCalledWith(
 				insertArgs(args),

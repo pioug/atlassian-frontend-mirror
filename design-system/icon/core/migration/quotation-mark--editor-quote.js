@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::bdfd5b5fc642223f6034928d837038b9>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _quotationMark = _interopRequireDefault(require("@atlaskit/icon/core/quotati
 var _quote = _interopRequireDefault(require("@atlaskit/icon/glyph/editor/quote"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for QuotationMarkIcon.
  * This component is QuotationMarkIcon, with `UNSAFE_fallbackIcon` set to "EditorQuoteIcon".
  *
- * Category: Multi-purpose
- * Location: Icon contributions
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: blockquote, comment, testimonial, blogs in Confluence.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::aaac407d8aed5f784d062b21a244ca36>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _retry = _interopRequireDefault(require("@atlaskit/icon/core/retry"));
 var _retry2 = _interopRequireDefault(require("@atlaskit/icon/glyph/retry"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for RetryIcon.
  * This component is RetryIcon, with `UNSAFE_fallbackIcon` set to "RetryIcon".
  *
- * Category: Single-purpose
- * Location: ADS
+ * Category: single-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for retry.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

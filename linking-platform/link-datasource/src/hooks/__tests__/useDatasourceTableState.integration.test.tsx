@@ -5,7 +5,6 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
-import { flushPromises } from '@atlaskit/link-test-helpers';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { EVENT_CHANNEL } from '../../analytics';
@@ -37,8 +36,6 @@ jest.mock('@atlaskit/linking-common/sentry', () => {
 describe('useDatasourceTableState', () => {
 	describe('concurrency control', () => {
 		const setup = (initialProps: Partial<DatasourceTableStateProps> = {}) => {
-			useDatasourceTableState;
-
 			return renderHook(
 				(props: Partial<DatasourceTableStateProps> = {}) =>
 					useDatasourceTableState({
@@ -58,7 +55,7 @@ describe('useDatasourceTableState', () => {
 		});
 
 		it('should not see results from multiple renders of changed props + calling reset', async () => {
-			const { result, rerender } = setup({
+			const { result, rerender, waitForNextUpdate } = setup({
 				parameters: {
 					// This cloud ID is mocked to return 1 item
 					cloudId: '11111',
@@ -90,9 +87,7 @@ describe('useDatasourceTableState', () => {
 			expect(result.current.responseItems).toHaveLength(0);
 			expect(result.current.status).toBe('loading');
 
-			await act(async () => {
-				await flushPromises();
-			});
+			await waitForNextUpdate();
 
 			expect(result.current.responseItems).toHaveLength(1);
 			expect(result.current.responseItems[0].id.data).toBe('DONUT-11721');

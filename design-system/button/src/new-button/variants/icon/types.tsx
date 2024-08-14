@@ -14,7 +14,7 @@ export type CommonIconButtonProps = {
 	 */
 	icon: IconProp;
 	/**
-	 * Prevent a tooltip from showing. Use sparingly.
+	 * Prevents a tooltip with the label text from showing. Use sparingly, as most icon-only buttons benefit from a tooltip or some other text clarifying the action.
 	 */
 	isTooltipDisabled?: boolean;
 	/**

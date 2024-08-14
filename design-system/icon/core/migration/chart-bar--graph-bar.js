@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::5ec07297aa1c8ffd086e5183b7a6ea57>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _chartBar = _interopRequireDefault(require("@atlaskit/icon/core/chart-bar"))
 var _graphBar = _interopRequireDefault(require("@atlaskit/icon/glyph/graph-bar"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ChartBarIcon.
  * This component is ChartBarIcon, with `UNSAFE_fallbackIcon` set to "GraphBarIcon".
  *
- * Category: Multi-purpose
- * Location: Icon contributions
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: Reports in JSM, Space Analytics in Confluence, and other graph charts.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

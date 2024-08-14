@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 21.15.0
+
+### Minor Changes
+
+- [#129060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129060)
+  [`8613836cba783`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8613836cba783) -
+  updating data-vc attribute to use test-id
+
 ## 21.14.1
 
 ### Patch Changes

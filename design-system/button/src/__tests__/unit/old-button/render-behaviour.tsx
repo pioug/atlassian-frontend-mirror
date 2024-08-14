@@ -18,6 +18,6 @@ forEachType(({ name, Component }) => {
 			</Component>,
 		);
 
-		expect(mock).toHaveBeenCalledTimes(1);
+		expect(mock).toHaveBeenCalledTimes(process.env.IS_REACT_18_STRICT_MODE ? 2 : 1);
 	});
 });

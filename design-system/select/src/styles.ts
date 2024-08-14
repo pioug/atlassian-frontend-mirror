@@ -1,4 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B100,
 	B400,
@@ -29,11 +28,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 	return {
 		container: (css, { isDisabled }) => ({
 			...css,
-			...(fg('platform.design-system-team.select-new-typography_7m89c')
-				? {
-						font: token('font.body'),
-					}
-				: { fontFamily: token('font.family.body') }),
+			font: token('font.body'),
 			// react-select disables pointer events when isDisabled is true.
 			// We override this and make the inner container turn it off instead.
 			pointerEvents: 'all',
@@ -234,9 +229,6 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		singleValue: (css, { isDisabled }) => ({
 			...css,
 			color: isDisabled ? token('color.text.disabled', N70) : token('color.text', N800),
-			...(!fg('platform.design-system-team.select-new-typography_7m89c') && {
-				lineHeight: '1rem',
-			}),
 		}),
 		menu: (css) => ({
 			...css,
@@ -286,9 +278,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		},
 		multiValueLabel: (css, { isDisabled }) => ({
 			...css,
-			...(fg('platform.design-system-team.select-new-typography_7m89c') && {
-				font: token('font.body.UNSAFE_small'),
-			}),
+			font: token('font.body.UNSAFE_small'),
 			padding: token('space.025', '2px'),
 			color: isDisabled ? token('color.text.disabled', N70) : 'inherit',
 			paddingRight: token('space.025', '2px'),
@@ -313,9 +303,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 		}),
 		groupHeading: (css) => ({
 			...css,
-			...(fg('platform.design-system-team.select-new-typography_7m89c') && {
-				font: token('font.body.small'),
-			}),
+			font: token('font.body.small'),
 			color: token('color.text.subtle', N200),
 		}),
 	};

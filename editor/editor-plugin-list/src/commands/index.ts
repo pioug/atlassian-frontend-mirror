@@ -28,7 +28,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
 import { findPositionOfNodeBefore, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
@@ -139,11 +139,9 @@ export const toggleList =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(inputMethod: InputMethod, listType: 'bulletList' | 'orderedList'): EditorCommand => {
 		return function ({ tr }) {
-			if (getBooleanFF('platform.editor.allow-action-in-list')) {
-				const { taskList } = tr.doc.type.schema.nodes;
-				if (hasParentNodeOfType(taskList)(tr.selection)) {
-					return tr;
-				}
+			const { taskList } = tr.doc.type.schema.nodes;
+			if (hasParentNodeOfType(taskList)(tr.selection)) {
+				return tr;
 			}
 
 			const listInsideSelection = selectionContainsList(tr);
@@ -397,7 +395,7 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
 			) {
 				const firstList = $postCut.nodeBefore;
 				const secondList = $postCut.nodeAfter;
-				if (getBooleanFF('platform.editor.ordered-list-auto-join-improvements_mrlv5')) {
+				if (fg('platform.editor.ordered-list-auto-join-improvements_mrlv5')) {
 					// If lists are ordered, only join if second list continues from the first
 					if (
 						!isOrderedList(firstList) || // both lists have the same type so one check is sufficient

@@ -4,7 +4,25 @@ import { type DropdownIndicatorProps, type OptionType, type SelectProps } from '
 export type Appearance = 'default' | 'subtle' | 'none';
 export type Spacing = 'compact' | 'default';
 
-export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
+// Similar to {...A, ...B}
+// 1. Remove all overlapping types from First
+// 2. Add properties from Second
+// https://codesandbox.io/s/native-button-with-nested-elementsclick-bnpjg?file=/src/index.ts
+/* This type is intentionally not exported to prevent it from being explicitly referenced in the resulting button types. The alternative would
+ * be making this public API and re-exporting from the root */
+type Combine<First, Second> = Omit<First, keyof Second> & Second;
+
+interface PickerSelectProps {
+	/**
+	 * Props to apply to the select. These include all of [the props from our
+	 * `Select` component](/components/select).
+	 */
+	// This hack makes the types actually work. Don't ask why, we don't know.
+	// See DSP-20292 for more information.
+	selectProps?: Combine<SelectProps<OptionType>, {}>;
+}
+
+export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSelectProps {
 	/**
 	 * Set the appearance of the picker.
 	 * `subtle` will remove the borders, background, and icon.
@@ -105,11 +123,6 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	previousMonthLabel?: string;
 	/**
-	 * Props to apply to the select. This can be used to set options such as placeholder text.
-	 *  See [the `Select` documentation for further information](/components/select).
-	 */
-	selectProps?: SelectProps<any>;
-	/**
 	 * The spacing for the select control.
 	 *
 	 * Compact is `gridSize() * 4`, default is `gridSize * 5`.
@@ -159,7 +172,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
 	weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
+export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSelectProps {
 	/**
 	 * Set the appearance of the picker.
 	 * `subtle` will remove the borders, background, and icon.
@@ -230,10 +243,7 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
 	 * By default parses the string based off the locale.
 	 */
 	parseInputValue?: (time: string, timeFormat: string) => string | Date;
-	/**
-	 * Props to apply to the select.
-	 */
-	selectProps?: SelectProps<any>;
+
 	/**
 	 * The spacing for the select control.
 	 *

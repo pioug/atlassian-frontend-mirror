@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::99e76df97a250a6f3c0ecb9c9981e6ae>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _lightbulb = _interopRequireDefault(require("@atlaskit/icon/core/lightbulb")
 var _objects = _interopRequireDefault(require("@atlaskit/icon/glyph/emoji/objects"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for LightbulbIcon.
  * This component is LightbulbIcon, with `UNSAFE_fallbackIcon` set to "EmojiObjectsIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: learnings in Atlas, initiatives in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

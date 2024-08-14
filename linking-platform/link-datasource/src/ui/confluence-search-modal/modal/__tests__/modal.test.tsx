@@ -186,7 +186,7 @@ describe('ConfluenceSearchConfigModal', () => {
 			});
 
 			it('should update title with new site name when cloudId updates', async () => {
-				const { getConfigModalTitleText, rerender } = await setup();
+				const { getConfigModalTitleText, rerender, findByTestId } = await setup();
 				const modalTitle = await getConfigModalTitleText();
 				expect(modalTitle).toEqual('Insert Confluence list from hello');
 
@@ -203,6 +203,8 @@ describe('ConfluenceSearchConfigModal', () => {
 						/>
 					</IntlProvider>,
 				);
+
+				await findByTestId(`confluence-search-datasource-modal--site-selector--trigger`);
 
 				const modalTitle2 = await getConfigModalTitleText();
 				expect(modalTitle2).toEqual('Insert Confluence list from test1');
@@ -505,7 +507,7 @@ describe('ConfluenceSearchConfigModal', () => {
 							});
 
 							it('should call insert with correct parameters when `Edited or created by` selection is made', async () => {
-								const { assertInsertResult, findByText, getByTestId } = await setup({
+								const { assertInsertResult, findByText, findByTestId } = await setup({
 									parameters: {
 										cloudId: '67899',
 										searchString: 'some-query',
@@ -513,10 +515,12 @@ describe('ConfluenceSearchConfigModal', () => {
 								});
 
 								// Select option from edited/created by filter list
-								fireEvent.click(getByTestId(`clol-basic-filter-editedOrCreatedBy-trigger`));
+								fireEvent.click(await findByTestId(`clol-basic-filter-editedOrCreatedBy-trigger`));
 								fireEvent.click(await findByText(`Mike Scott`));
 
-								jest.advanceTimersByTime(500);
+								act(() => {
+									jest.advanceTimersByTime(500);
+								});
 
 								assertInsertResult(
 									{
@@ -1269,7 +1273,10 @@ describe('ConfluenceSearchConfigModal', () => {
 					const { updateVisibleColumnList, assertInsertResult, searchWithNewBasic } = await setup();
 
 					searchWithNewBasic('some query');
-					updateVisibleColumnList(['someColumn']);
+
+					act(() => {
+						updateVisibleColumnList(['someColumn']);
+					});
 
 					assertInsertResult(
 						{

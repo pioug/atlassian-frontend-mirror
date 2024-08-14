@@ -137,6 +137,9 @@ When validating text fields in real-time, the message icons will switch dependin
 type. For example, the helper text turns into an error message when the user input doesn't fit the
 criteria. These error and warning messages disappear when the criteria is met.
 
+To ensure error messages are rendered through assistive technologies, like a screen reader, use
+`MessageWrapper` to wrap error messages. This must be in the DOM at the time the form is rendered.
+
 ### Field-level validation
 
 Validate a field’s value using the `validate` prop. This accepts a function that receives the

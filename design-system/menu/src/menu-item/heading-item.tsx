@@ -9,33 +9,17 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N300 } from '@atlaskit/theme/colors';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import type { HeadingItemProps } from '../types';
 
-const itemHeadingContentHeight = headingSizes.h100.lineHeight;
-const itemHeadingFontSize = headingSizes.h100.size;
-
 const headingStyles = css({
 	color: token('color.text.subtle', N300),
+	font: token('font.heading.xxsmall'),
 	paddingBlock: token('space.0', '0px'),
 	paddingInline: token('space.200', '16px'),
 	textTransform: 'uppercase',
-});
-
-const baseHeadingStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: itemHeadingFontSize,
-	fontWeight: token('font.weight.bold'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
-});
-
-const tokenizedHeadingStyles = css({
-	font: token('font.heading.xxsmall'),
 });
 
 /**
@@ -74,10 +58,6 @@ const HeadingItem = memo(
 			<div
 				css={[
 					headingStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					fg('platform.design-system-team.menu-tokenised-typography-styles')
-						? tokenizedHeadingStyles
-						: baseHeadingStyles,
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 					UNSAFE_overrides,
 				]}

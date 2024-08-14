@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tmp-editor-statsig",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Temp plugin to ease use of statsig feature flags until platform feature flags are available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,26 +17,26 @@
 		}
 	},
 	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
-	"main": "dist/cjs/feature-gate-js-client.js",
-	"module": "dist/esm/feature-gate-js-client.js",
-	"module:es2019": "dist/es2019/feature-gate-js-client.js",
-	"types": "dist/types/feature-gate-js-client.d.ts",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
 	"typesVersions": {
 		">=4.5 <5.4": {
 			"*": [
 				"dist/types-ts4.5/*",
-				"dist/types-ts4.5/feature-gate-js-client.d.ts"
+				"dist/types-ts4.5/index.d.ts"
 			]
 		}
 	},
-	"atlaskit:src": "src/feature-gate-js-client.ts",
+	"atlaskit:src": "src/index.ts",
 	"af:exports": {
-		"./feature-gate-js-client": "./src/feature-gate-js-client.ts",
-		"./feature-gates-react": "./src/feature-gates-react.tsx"
+		"./experiments": "./src/experiments.ts",
+		"./test-runner": "./src/test-runner.ts"
 	},
 	"exports": {
-		"./feature-gate-js-client": "./src/feature-gate-js-client.ts",
-		"./feature-gates-react": "./src/feature-gates-react.tsx"
+		"./experiments": "./src/experiments.ts",
+		"./test-runner": "./src/test-runner.ts"
 	},
 	"dependencies": {
 		"@atlaskit/feature-gate-js-client": "^4.17.0",

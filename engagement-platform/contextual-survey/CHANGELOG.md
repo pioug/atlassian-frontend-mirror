@@ -1,5 +1,20 @@
 # @atlaskit/contextual-survey
 
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.3.0
+
+### Minor Changes
+
+- [#129844](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129844)
+  [`654f46d9b38cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/654f46d9b38cc) -
+  Typography migration (https://product-fabric.atlassian.net/browse/PYX-881) for engagement-platform
+  package
+
 ## 2.2.20
 
 ### Patch Changes

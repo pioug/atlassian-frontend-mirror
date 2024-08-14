@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
@@ -10,6 +11,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	HelperMessage,
+	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
 } from '../src';
@@ -31,8 +33,15 @@ const colors = [
 	{ label: 'Orange', value: 'orange' },
 	{ label: 'Teal', value: 'teal' },
 ];
+const FormContainerStyle = xcss({
+	display: 'flex',
+	width: '400px',
+	maxWidth: '100%',
+	margin: '0 auto',
+	flexDirection: 'column',
+});
 
-// eslint-disable-next-line import/no-anonymous-default-export
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends Component<{}> {
 	getUser = async (value: string) => {
 		await sleep(300);
@@ -60,27 +69,14 @@ export default class extends Component<{}> {
 
 	render() {
 		return (
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'flex',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: '400px',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					maxWidth: '100%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '0 auto',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					flexDirection: 'column',
-				}}
-			>
+			<Box xcss={FormContainerStyle}>
 				<Form onSubmit={this.handleSubmit}>
 					{({ formProps }) => (
 						<form {...formProps}>
 							<FormHeader title="Register and select a color">
-								<p aria-hidden="true">
+								<Text as="p" aria-hidden={true}>
 									Required fields are marked with an asterisk <RequiredAsterisk />
-								</p>
+								</Text>
 							</FormHeader>
 							<Field
 								name="username"
@@ -92,22 +88,24 @@ export default class extends Component<{}> {
 								{({ fieldProps, error, valid }) => (
 									<Fragment>
 										<TextField {...fieldProps} autoComplete="username" />
-										{!error && !valid && (
-											<HelperMessage>Should be more than 4 characters</HelperMessage>
-										)}
-										{!error && valid && (
-											<ValidMessage>Nice one, this username is available.</ValidMessage>
-										)}
-										{error === 'TOO_SHORT' && (
-											<ErrorMessage>
-												Please enter a username that's longer than 4 characters.
-											</ErrorMessage>
-										)}
-										{error === 'IN_USE' && (
-											<ErrorMessage>
-												This username is already taken, please enter a different username.
-											</ErrorMessage>
-										)}
+										<MessageWrapper>
+											{!error && !valid && (
+												<HelperMessage>Should be more than 4 characters</HelperMessage>
+											)}
+											{!error && valid && (
+												<ValidMessage>Nice one, this username is available.</ValidMessage>
+											)}
+											{error === 'TOO_SHORT' && (
+												<ErrorMessage>
+													Please enter a username that's longer than 4 characters.
+												</ErrorMessage>
+											)}
+											{error === 'IN_USE' && (
+												<ErrorMessage>
+													This username is already taken, please enter a different username.
+												</ErrorMessage>
+											)}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -129,7 +127,7 @@ export default class extends Component<{}> {
 								{({ fieldProps: { id, ...rest }, error }) => (
 									<Fragment>
 										<Select<Option> inputId={id} {...rest} options={colors} isClearable />
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -139,7 +137,7 @@ export default class extends Component<{}> {
 						</form>
 					)}
 				</Form>
-			</div>
+			</Box>
 		);
 	}
 }

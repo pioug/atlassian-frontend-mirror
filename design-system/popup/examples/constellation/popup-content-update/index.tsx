@@ -5,26 +5,27 @@
 import { useEffect, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
+import Heading from '@atlaskit/heading';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-import { token } from '@atlaskit/tokens';
 
 import Popup from '../../../src';
 
 import { data } from './data';
 
-const wrapperStyles = css({
+const wrapperStyles = xcss({
 	display: 'flex',
 	alignItems: 'center',
 	justifyContent: 'space-between',
 });
 
-const contentStyles = css({
-	maxWidth: 350,
-	padding: token('space.200', '16px'),
+const contentStyles = xcss({
+	maxWidth: '350px',
+	padding: 'space.200',
 	textAlign: 'center',
 });
 
@@ -35,16 +36,20 @@ const Values = ({ onUpdate }: { onUpdate: () => void }) => {
 		const intervalId = setInterval(() => {
 			setTextIndex((prevIndex) => (prevIndex + 1) % data.length);
 			onUpdate();
-		}, 1000);
+		}, 15000);
 
 		return () => clearInterval(intervalId);
 	}, [onUpdate]);
 
 	return (
-		<div css={contentStyles}>
-			<h3>{data[textIndex].title}</h3>
-			<p>{data[textIndex].description}</p>
-		</div>
+		<Box xcss={contentStyles} aria-live="assertive" aria-atomic="true">
+			<Stack space="space.100">
+				<Heading size="large">{data[textIndex].title}</Heading>
+				<Box as="blockquote">
+					<Text>{data[textIndex].description}</Text>
+				</Box>
+			</Stack>
+		</Box>
 	);
 };
 
@@ -53,7 +58,7 @@ const PopupContentUpdateExample = () => {
 	const [isUpdateOn, setIsUpdateOn] = useState(true);
 
 	return (
-		<div css={wrapperStyles}>
+		<Box xcss={wrapperStyles}>
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
@@ -70,16 +75,16 @@ const PopupContentUpdateExample = () => {
 					</Button>
 				)}
 			/>
-			<div>
-				<p>Updates {isUpdateOn ? 'on' : 'off'}</p>
+			<Box>
+				<Text>Updates {isUpdateOn ? 'on' : 'off'}</Text>
 				<Toggle
 					size="large"
 					label="Updates toggle switch controls"
 					isChecked={isUpdateOn}
 					onChange={(e) => setIsUpdateOn(e.currentTarget.checked)}
 				/>
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 };
 

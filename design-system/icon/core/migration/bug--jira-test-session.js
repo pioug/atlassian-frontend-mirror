@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::2c58032634d9fbc4641a8e6273509c71>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _bug = _interopRequireDefault(require("@atlaskit/icon/core/bug"));
 var _testSession = _interopRequireDefault(require("@atlaskit/icon/glyph/jira/test-session"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for BugIcon.
  * This component is BugIcon, with `UNSAFE_fallbackIcon` set to "JiraTestSessionIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: Request types in JSM, bugs in Jira.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

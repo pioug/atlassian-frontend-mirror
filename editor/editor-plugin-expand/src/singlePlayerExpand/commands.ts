@@ -12,7 +12,7 @@ import {
 import { expandedState } from '@atlaskit/editor-common/expand';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { findExpand } from '@atlaskit/editor-common/transforms';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -27,9 +27,16 @@ import { type InsertMethod } from '../types';
 export const createExpandNode = (
 	state: EditorState,
 	setExpandedState: boolean = true,
+	featureFlags?: FeatureFlags,
 ): PMNode | null => {
 	const { expand, nestedExpand } = state.schema.nodes;
-	const expandType = findTable(state.selection) ? nestedExpand : expand;
+
+	const isSelectionInTable = !!findTable(state.selection);
+	const isSelectionInExpand =
+		featureFlags?.nestedExpandInExpandEx && !!findExpand(state, state.selection);
+
+	const expandType = isSelectionInTable || isSelectionInExpand ? nestedExpand : expand;
+
 	const expandNode = expandType.createAndFill({});
 	if (setExpandedState) {
 		expandedState.set(expandNode!, true);
@@ -38,12 +45,12 @@ export const createExpandNode = (
 };
 
 export const insertExpandWithInputMethod =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, featureFlags?: FeatureFlags) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
 		const expandNode = fg('platform_editor_single_player_expand_ed_24536')
-			? createExpandNode(state, false)
-			: createExpandNode(state);
+			? createExpandNode(state, false, featureFlags)
+			: createExpandNode(state, undefined, featureFlags);
 
 		if (!expandNode) {
 			return false;
@@ -93,9 +100,9 @@ export const insertExpandWithInputMethod =
 	};
 
 export const insertExpand =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, featureFlags?: FeatureFlags): Command =>
 	(state, dispatch) => {
-		return insertExpandWithInputMethod(editorAnalyticsAPI)(INPUT_METHOD.INSERT_MENU)(
+		return insertExpandWithInputMethod(editorAnalyticsAPI, featureFlags)(INPUT_METHOD.INSERT_MENU)(
 			state,
 			dispatch,
 		);

@@ -393,7 +393,7 @@ describe('@atlaskit/tabs', () => {
 					</Tabs>,
 				);
 
-				expect(renderCount).toBe(1);
+				expect(renderCount).toBe(process.env.IS_REACT_18_STRICT_MODE ? 2 : 1);
 			});
 
 			it('should function correctly if components are wrapped in divs', () => {

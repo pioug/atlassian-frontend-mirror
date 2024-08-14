@@ -49,11 +49,11 @@ export default class DragDropTree extends Component<void, State> {
 	) {
 		if (item.children && item.children.length > 0) {
 			return item.isExpanded ? (
-				<Button spacing="none" appearance="subtle" onClick={() => onCollapse(item.id)}>
+				<Button appearance="subtle" onClick={() => onCollapse(item.id)}>
 					<ChevronDownIcon label="" size="medium" />
 				</Button>
 			) : (
-				<Button spacing="none" appearance="subtle" onClick={() => onExpand(item.id)}>
+				<Button appearance="subtle" onClick={() => onExpand(item.id)}>
 					<ChevronRightIcon label="" size="medium" />
 				</Button>
 			);

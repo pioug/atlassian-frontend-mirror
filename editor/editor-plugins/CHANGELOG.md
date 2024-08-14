@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugins
 
+## 4.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.0.0
+
+### Major Changes
+
+- [#129869](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129869)
+  [`48b31a6b8fb5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48b31a6b8fb5a) -
+  [ux] [ED-24566] Integrated Media URL UI into the Insert Media Popup [ED-24589] Removed export of
+  UI component from `editor-plugin-media-insert`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.6.29
+
+### Patch Changes
+
+- [#129252](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129252)
+  [`d4ea158a91fde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4ea158a91fde) -
+  Cleaned up FF platform.editor.allow-action-in-list
+- Updated dependencies
+
 ## 3.6.28
 
 ### Patch Changes

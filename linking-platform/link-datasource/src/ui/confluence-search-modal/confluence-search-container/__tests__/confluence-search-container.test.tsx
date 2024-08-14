@@ -392,7 +392,7 @@ describe('Testing: Basic Filters', () => {
 						},
 					});
 
-					expect(mockHydrateUsersFromAccountIds).toBeCalledTimes(1);
+					expect(mockHydrateUsersFromAccountIds).toHaveBeenCalledTimes(1);
 					expect(mockHydrateUsersFromAccountIds).toHaveBeenCalledWith([
 						'655363:d8dff7fe-efb7-4073-a3cd-12463ac79e1c',
 					]);
@@ -411,7 +411,7 @@ describe('Testing: Basic Filters', () => {
 						},
 					});
 
-					expect(mockHydrateUsersFromAccountIds).toBeCalledTimes(0);
+					expect(mockHydrateUsersFromAccountIds).toHaveBeenCalledTimes(0);
 				});
 
 				it('should hydrate and populate correct values in the filter', () => {

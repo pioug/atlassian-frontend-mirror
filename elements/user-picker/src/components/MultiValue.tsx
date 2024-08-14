@@ -35,7 +35,8 @@ const groupTagContainer = xcss({
 });
 
 const nameWrapper = css({
-	paddingLeft: `${token('space.050', '4px')}`,
+	font: token('font.body'),
+	paddingLeft: token('space.050', '4px'),
 });
 
 type Props = MultiValueProps<OptionType> & {

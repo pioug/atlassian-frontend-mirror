@@ -1,5 +1,18 @@
 # @atlaskit/button
 
+## 20.0.0
+
+### Major Changes
+
+- [#128880](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128880)
+  [`eb643a54fc192`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb643a54fc192) -
+  Removed `link` and `subtle-link` options in the `appearance` prop for the LinkButton. Removed
+  `none` option in the `spacing` prop for the new Buttons.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.2.1
 
 ### Patch Changes

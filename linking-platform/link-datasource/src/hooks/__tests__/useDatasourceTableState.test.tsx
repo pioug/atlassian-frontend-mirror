@@ -528,7 +528,7 @@ describe('useDatasourceTableState', () => {
 						fieldKeys: ['issue'],
 					});
 
-					expect(getDatasourceData).toBeCalledTimes(1);
+					expect(getDatasourceData).toHaveBeenCalledTimes(1);
 				});
 
 				it('should call getDatasourceData a second time when requesting a new column without existing data', async () => {
@@ -542,7 +542,7 @@ describe('useDatasourceTableState', () => {
 
 					await waitForNextUpdate();
 
-					expect(getDatasourceData).toBeCalledTimes(2);
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
 				});
 
 				it('should not call getDatasourceData a second time when requesting a new column with existing data', async () => {
@@ -554,7 +554,7 @@ describe('useDatasourceTableState', () => {
 						fieldKeys: ['due'],
 					});
 
-					expect(getDatasourceData).toBeCalledTimes(1);
+					expect(getDatasourceData).toHaveBeenCalledTimes(1);
 				});
 
 				it('should overwrite exiting columns when requesting first page info', async () => {
@@ -589,7 +589,7 @@ describe('useDatasourceTableState', () => {
 					});
 
 					await waitForNextUpdate();
-					expect(getDatasourceData).toBeCalledTimes(2);
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
 
 					expect(getDatasourceData).toHaveBeenNthCalledWith(
 						1,
@@ -632,7 +632,7 @@ describe('useDatasourceTableState', () => {
 
 					await waitForNextUpdate();
 
-					expect(getDatasourceData).toBeCalledTimes(2);
+					expect(getDatasourceData).toHaveBeenCalledTimes(2);
 					expect(getDatasourceData).toHaveBeenNthCalledWith(
 						2,
 						mockDatasourceId,

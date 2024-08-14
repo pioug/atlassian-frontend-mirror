@@ -41,7 +41,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/smart-card';
 // TODO: ED-20519 Needs Macro extraction
 
@@ -1313,7 +1312,6 @@ export const handleSelectedTable =
 export function checkTaskListInList(state: EditorState, slice: Slice) {
 	return Boolean(
 		isInListItem(state) &&
-			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || '') &&
-			fg('platform.editor.allow-action-in-list'),
+			['taskList', 'taskItem'].includes(slice.content.firstChild?.type?.name || ''),
 	);
 }

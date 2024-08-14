@@ -1,5 +1,25 @@
 # @atlaskit/comment
 
+## 10.13.0
+
+### Minor Changes
+
+- [#129941](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129941)
+  [`80b5875f4290c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80b5875f4290c) -
+  Migrate comment to use new typography system internally.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.12.2
+
+### Patch Changes
+
+- [#128833](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128833)
+  [`643cfe103a305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/643cfe103a305) -
+  Fix comment styles with xcss
+
 ## 10.12.1
 
 ### Patch Changes

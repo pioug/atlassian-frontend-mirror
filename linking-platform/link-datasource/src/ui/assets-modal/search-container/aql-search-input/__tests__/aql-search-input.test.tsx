@@ -66,7 +66,7 @@ describe('AqlSearchInput', () => {
 			});
 			const button = await findByTestId('assets-datasource-modal--aql-search-button');
 			await button.click();
-			expect(onSubmitMock).toBeCalled();
+			expect(onSubmitMock).toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit on button click when aql string is invalid', async () => {
@@ -79,7 +79,7 @@ describe('AqlSearchInput', () => {
 			});
 			const button = await findByTestId('assets-datasource-modal--aql-search-button');
 			await button.click();
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit on button click when validation is loading', async () => {
@@ -91,7 +91,7 @@ describe('AqlSearchInput', () => {
 			});
 			const button = await findByTestId('assets-datasource-modal--aql-search-button');
 			await button.click();
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit on button click when validation is idle', async () => {
@@ -103,7 +103,7 @@ describe('AqlSearchInput', () => {
 			});
 			const button = await findByTestId('assets-datasource-modal--aql-search-button');
 			await button.click();
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit on enter keypress when aql string is invalid', async () => {
@@ -117,7 +117,7 @@ describe('AqlSearchInput', () => {
 			const textInput = getByTestId(searchInputTestId);
 			fireEvent.focus(textInput);
 			fireEvent.keyPress(textInput, { key: 'Enter', code: 13, charCode: 13 });
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit on enter keypress when validation is loading', async () => {
@@ -130,7 +130,7 @@ describe('AqlSearchInput', () => {
 			const textInput = getByTestId(searchInputTestId);
 			fireEvent.focus(textInput);
 			fireEvent.keyPress(textInput, { key: 'Enter', code: 13, charCode: 13 });
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit on enter keypress when validation is idle', async () => {
@@ -143,7 +143,7 @@ describe('AqlSearchInput', () => {
 			const textInput = getByTestId(searchInputTestId);
 			fireEvent.focus(textInput);
 			fireEvent.keyPress(textInput, { key: 'Enter', code: 13, charCode: 13 });
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 
 		it('should show a validation error message when a message is given', async () => {
@@ -156,7 +156,7 @@ describe('AqlSearchInput', () => {
 			});
 			const button = await findByTestId('assets-datasource-modal--aql-search-button');
 			await button.click();
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 			expect(getByText('A validation error message')).toBeInTheDocument();
 		});
 	});

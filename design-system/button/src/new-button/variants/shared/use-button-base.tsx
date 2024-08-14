@@ -286,66 +286,12 @@ const subtleInteractiveRefreshedStyles = xcss({
 	},
 });
 
-const linkStyles = xcss({
-	// @ts-expect-error
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	color: token('color.link', colors.B400),
-	background: token('color.background.neutral.subtle', 'transparent'),
-	textDecoration: 'none',
-	':hover': {
-		// @ts-expect-error
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		color: token('color.link', colors.B300),
-		background: token('color.background.neutral.subtle', 'transparent'),
-	},
-	':active': {
-		// @ts-expect-error
-		color: token('color.link.pressed'),
-		background: token('color.background.neutral.subtle', 'transparent'),
-	},
-	':visited': {
-		// @ts-expect-error
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		color: token('color.link', colors.B400),
-	},
-});
-
-const subtleLinkStyles = xcss({
-	// @ts-expect-error
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	color: token('color.text.subtle', colors.N200),
-	background: token('color.background.neutral.subtle', 'transparent'),
-	textDecoration: 'none',
-	':hover': {
-		// @ts-expect-error
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		color: token('color.text.subtle', colors.N90),
-		background: token('color.background.neutral.subtle', 'transparent'),
-	},
-	':active': {
-		// @ts-expect-error
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		color: token('color.text', colors.N400),
-		background: token('color.background.neutral.subtle', 'transparent'),
-	},
-	':visited': {
-		// @ts-expect-error
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		color: token('color.text.subtle', colors.N200),
-	},
-});
-
 // Required due to Jira's AUI CSS reset: https://product-fabric.atlassian.net/browse/DSP-15687
 const linkDecorationUnsetStyles = xcss({
 	textDecoration: 'none',
 	':hover': { textDecoration: 'none' },
 	':active': { textDecoration: 'none' },
 	':focus': { textDecoration: 'none' },
-});
-
-const linkDecorationStyles = xcss({
-	':hover': { textDecoration: 'underline' },
-	':focus': { textDecoration: 'underline' },
 });
 
 const disabledStyles = xcss({
@@ -502,19 +448,6 @@ const tokenizedSpacingCompactStyles = xcss({
 	paddingBlock: 'space.025',
 });
 
-const spacingNoneStyles = xcss({
-	columnGap: 'space.0',
-	height: 'auto',
-	lineHeight: 'inherit',
-	paddingInlineEnd: 'space.0',
-	paddingInlineStart: 'space.0',
-	verticalAlign: 'baseline',
-});
-
-const tokenizedSpacingNoneStyles = xcss({
-	paddingBlock: 'space.0',
-});
-
 const circleStyles = xcss({ borderRadius: 'border.radius.circle' });
 const fullWidthStyles = xcss({ width: '100%' });
 const loadingStyles = xcss({ cursor: 'progress' });
@@ -644,11 +577,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 				(fg('platform-component-visual-refresh')
 					? subtleInteractiveRefreshedStyles
 					: subtleInteractiveStyles),
-			appearance === 'link' && linkStyles,
-			appearance === 'subtle-link' && subtleLinkStyles,
-			!isSelected && (appearance === 'link' || appearance === 'subtle-link')
-				? linkDecorationStyles
-				: linkDecorationUnsetStyles,
+			linkDecorationUnsetStyles,
 			isSelected &&
 				(fg('platform-component-visual-refresh') ? selectedRefreshedStyles : selectedStyles),
 			isSelected && isSplitButton && selectedInsideSplitButtonStyles,
@@ -666,12 +595,8 @@ const useButtonBase = <TagName extends HTMLElement>({
 				(fg('platform.design-system-team.button-tokenised-typography-styles')
 					? tokenizedSpacingCompactStyles
 					: baseSpacingCompactStyles),
-			spacing === 'none' && spacingNoneStyles,
-			spacing === 'none' &&
-				fg('platform.design-system-team.button-tokenised-typography-styles') &&
-				tokenizedSpacingNoneStyles,
-			spacing !== 'none' && hasIconBefore && buttonIconBeforeStyles,
-			spacing !== 'none' && hasIconAfter && buttonIconAfterStyles,
+			hasIconBefore && buttonIconBeforeStyles,
+			hasIconAfter && buttonIconAfterStyles,
 			isIconButton && iconButtonStyles,
 			isIconButton && spacing === 'compact' && iconButtonCompactStyles,
 			shouldFitContainer && fullWidthStyles,

@@ -210,9 +210,11 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					expect(fetchMock.called(ORS_ACTIONS_DISCOVERY_ENDPOINT)).toBe(true);
 				});
 
-				expect(actionsStore.storeState.getState()).toStrictEqual({
-					actionsByIntegration: {},
-					permissions: {},
+				await waitFor(() => {
+					expect(actionsStore.storeState.getState()).toStrictEqual({
+						actionsByIntegration: {},
+						permissions: {},
+					});
 				});
 			});
 
@@ -236,16 +238,18 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					expect(fetchMock.called(ORS_ACTIONS_DISCOVERY_ENDPOINT)).toBe(true);
 				});
 
-				expect(actionsStore.storeState.getState()).toStrictEqual({
-					actionsByIntegration: {
-						acme: {
-							summary: {
-								actionKey: mockActionKey('summary'),
-								type: 'string',
+				await waitFor(() => {
+					expect(actionsStore.storeState.getState()).toStrictEqual({
+						actionsByIntegration: {
+							acme: {
+								summary: {
+									actionKey: mockActionKey('summary'),
+									type: 'string',
+								},
 							},
 						},
-					},
-					permissions: {},
+						permissions: {},
+					});
 				});
 			});
 
@@ -270,26 +274,29 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 					expect(fetchMock.called(ORS_ACTIONS_DISCOVERY_ENDPOINT)).toBe(true);
 				});
 
-				expect(actionsStore.storeState.getState()).toStrictEqual({
-					actionsByIntegration: {
-						acme: {
-							summary: {
-								actionKey: mockActionKey('summary'),
-								type: 'string',
+				await waitFor(() => {
+					expect(actionsStore.storeState.getState()).toStrictEqual({
+						actionsByIntegration: {
+							acme: {
+								summary: {
+									actionKey: mockActionKey('summary'),
+									type: 'string',
+								},
 							},
 						},
-					},
-					permissions: {
-						[ari]: {
-							summary: {
-								isEditable: true,
+						permissions: {
+							[ari]: {
+								summary: {
+									isEditable: true,
+								},
 							},
 						},
-					},
+					});
 				});
 			});
 
 			describe('when scrolling', () => {
+				jest.useFakeTimers();
 				let systemIntersectionObserver: any;
 				let mockGetEntries: any;
 

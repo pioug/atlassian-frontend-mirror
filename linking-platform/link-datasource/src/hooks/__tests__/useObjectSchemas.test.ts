@@ -55,7 +55,7 @@ describe('useObjectSchemas', () => {
 			fetchObjectSchemasResponse = await fetchObjectSchemas(schemaQuery);
 		});
 		await waitFor(() => {
-			expect(mockFetchObjectSchemas).toBeCalledWith(workspaceId, schemaQuery);
+			expect(mockFetchObjectSchemas).toHaveBeenCalledWith(workspaceId, schemaQuery);
 			expect(fetchObjectSchemasResponse).toMatchObject({
 				objectSchemas: mockFetchObjectSchemasResponse.values,
 				totalObjectSchemas: mockFetchObjectSchemasResponse.total,

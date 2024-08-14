@@ -5,13 +5,10 @@
 import { type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
-import { h700 } from '@atlaskit/theme/typography';
-import { token } from '@atlaskit/tokens';
 
 export interface FormHeaderProps {
 	/**
@@ -37,38 +34,6 @@ const formHeaderDescriptionStyles = xcss({
 	marginBlockStart: 'space.100',
 });
 
-const formHeaderTitleStyles = css({
-	lineHeight: token('font.lineHeight.500', '32px'),
-	marginBlockStart: 0,
-	marginInlineEnd: token('space.400', '32px'),
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-});
-
-const formHeaderWrapperStyles = css({
-	fontFamily: token('font.family.body'),
-});
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const lightH700Styles = css(h700({ theme: { mode: 'light' } }));
-
-const FormHeaderContent = ({ children }: { children: ReactNode }) => {
-	return <Box xcss={formHeaderContentStyles}>{children}</Box>;
-};
-
-const FormHeaderDescription = ({ children }: { children: ReactNode }) => {
-	return <Box xcss={formHeaderDescriptionStyles}>{children}</Box>;
-};
-
-const FormHeaderTitle = ({ children }: { children: ReactNode }) => {
-	return <h2 css={[lightH700Styles, formHeaderTitleStyles]}>{children}</h2>;
-};
-
-const FormHeaderWrapper = ({ children }: { children?: ReactNode }) => {
-	return <div css={formHeaderWrapperStyles}>{children}</div>;
-};
-
 /**
  * __Form header__.
  *
@@ -80,20 +45,13 @@ const FormHeaderWrapper = ({ children }: { children?: ReactNode }) => {
  * - [Usage](https://atlaskit.atlassian.com/packages/design-system/form/docs/layout).
  */
 const FormHeader = ({ children, description, title }: FormHeaderProps) => {
-	return getBooleanFF('platform.design-system-team.form-header-typography-updates_4f1g6') ? (
+	return (
 		<Box>
 			{title && <Heading size="large">{title}</Heading>}
-			{description && <FormHeaderDescription>{description}</FormHeaderDescription>}
-			{children && <FormHeaderContent>{children}</FormHeaderContent>}
+			{description && <Box xcss={formHeaderDescriptionStyles}>{description}</Box>}
+			{children && <Box xcss={formHeaderContentStyles}>{children}</Box>}
 		</Box>
-	) : (
-		<FormHeaderWrapper>
-			{title && <FormHeaderTitle>{title}</FormHeaderTitle>}
-			{description && <FormHeaderDescription>{description}</FormHeaderDescription>}
-			{children && <FormHeaderContent>{children}</FormHeaderContent>}
-		</FormHeaderWrapper>
 	);
 };
 
 export default FormHeader;
-export { FormHeaderContent, FormHeaderDescription, FormHeaderTitle };

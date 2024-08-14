@@ -105,6 +105,12 @@ const ModalWrapper = (props: ModalDialogProps) => {
 		[shouldCloseOnOverlayClick, onCloseHandler],
 	);
 
+	// This ensures to prevent additional re-renders while nothing is passed to focusLockAllowlist explicitly.
+	const allowListCallback = useCallback(
+		(element: HTMLElement) => allowlistElements(element, focusLockAllowlist),
+		[focusLockAllowlist],
+	);
+
 	usePreventProgrammaticScroll();
 
 	const modalDialogWithBlanket = (
@@ -154,7 +160,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
 								autoFocus={autoFocusLock}
 								returnFocus={returnFocus}
 								onDeactivation={onDeactivation}
-								whiteList={(element) => allowlistElements(element, focusLockAllowlist)}
+								whiteList={allowListCallback}
 							>
 								{/* Ensures scroll events are blocked on the document body and locked */}
 								<ScrollLock />

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 
 import { DatasourceTableView } from '../src';
@@ -55,12 +54,6 @@ const AssetsTableView = () => {
 export const ExampleAssetsIssuesTableView = ({
 	mockDatasourceFetchRequest = true,
 }: AssetsTableViewProps) => {
-	useEffect(() => {
-		if (mockDatasourceFetchRequest) {
-			mockAssetsClientFetchRequests();
-		}
-	}, [mockDatasourceFetchRequest]);
-
 	return (
 		<IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
 			<SmartCardProvider client={new SmartLinkClient()}>

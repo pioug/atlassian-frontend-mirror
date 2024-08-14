@@ -116,7 +116,7 @@ describe('TableFooter', () => {
 		const { getByTestId } = renderFooter(false, 25, mockOnRefresh);
 		const button = getByTestId('refresh-button');
 		fireEvent.click(button);
-		expect(mockOnRefresh).toBeCalledTimes(1);
+		expect(mockOnRefresh).toHaveBeenCalledTimes(1);
 	});
 
 	it('should not show item count if not passed in', async () => {

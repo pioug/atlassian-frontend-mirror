@@ -62,9 +62,10 @@ export const MediaInsertPicker = ({
 }: MediaInsertPickerProps) => {
 	const targetRef = getDomRefFromSelection(editorView, dispatchAnalyticsEvent);
 
-	const { mediaInsertState } = useSharedPluginState(api, ['mediaInsert']);
+	const isOpen = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState?.isOpen;
+	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
 
-	if (!mediaInsertState || !mediaInsertState.isOpen) {
+	if (!isOpen || !mediaProvider) {
 		return null;
 	}
 
@@ -91,15 +92,22 @@ export const MediaInsertPicker = ({
 			offset={[0, 12]}
 			target={targetRef}
 			zIndex={akEditorFloatingDialogZIndex}
+			fitHeight={390}
+			fitWidth={340}
 			mountTo={popupsMountPoint}
 			boundariesElement={popupsBoundariesElement}
 			handleClickOutside={handleClose(INPUT_METHOD.MOUSE)}
 			handleEscapeKeydown={handleClose(INPUT_METHOD.KEYBOARD)}
 			scrollableElement={popupsScrollableElement}
+			preventOverflow={true}
 			focusTrap
 		>
 			<MediaInsertWrapper>
-				<MediaInsertContent />
+				<MediaInsertContent
+					mediaProvider={mediaProvider}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					closeMediaInsertPicker={closeMediaInsertPicker}
+				/>
 			</MediaInsertWrapper>
 		</PopupWithListeners>
 	);

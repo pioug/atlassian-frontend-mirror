@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.15.2
+
+### Patch Changes
+
+- [#130061](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130061)
+  [`b2c47a625a6bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2c47a625a6bb) -
+  Fixed bug where component could cause infinite re-render
+
 ## 12.15.1
 
 ### Patch Changes

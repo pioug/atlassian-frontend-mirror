@@ -9,8 +9,6 @@ import SectionMessage from '@atlaskit/section-message';
 import LinkButton from '../../examples/constellation/new-button/link-button/link-button';
 import LinkButtonWithRouting from '../../examples/constellation/new-button/link-button/link-button-with-routing';
 import LinkButtonPrimary from '../../examples/constellation/new-button/link-button/link-button-primary';
-import LinkButtonLink from '../../examples/constellation/new-button/link-button/link-button-link';
-import LinkButtonSubtleLink from '../../examples/constellation/new-button/link-button/link-button-subtle-link';
 import LinkButtonSubtle from '../../examples/constellation/new-button/link-button/link-button-subtle';
 import LinkButtonWarning from '../../examples/constellation/new-button/link-button/link-button-warning';
 import LinkButtonDanger from '../../examples/constellation/new-button/link-button/link-button-danger';
@@ -62,31 +60,6 @@ Use subtle buttons when the surrounding context makes it clear the text is inter
 navigation areas.
 
 <Example Component={LinkButtonSubtle} packageName="@atlaskit/button" />
-
-### Link
-
-<SectionMessage title="Updates to link handling" appearance="information">
-	<p>
-		Link appearances now only support semantically correct links using link button. If you have a
-		legacy button that's used as a link, consider replacing it with a link button or using another
-		approach.
-	</p>
-</SectionMessage>
-
-Use a link appearance for buttons that look and behave like inline text links.
-
-<Example Component={LinkButtonLink} packageName="@atlaskit/button" />
-
-### Subtle link
-
-Similar to a subtle button, but looks like a link. Use subtle link buttons with caution. Because
-there isn't any color or other visual affordance built in, this style relies on the context around
-it to show that it can be interacted with.
-
-This can make subtle link buttons less accessible than other link buttons. Make sure designs have
-clear visual affordances for interactive areas and elements.
-
-<Example Component={LinkButtonSubtleLink} packageName="@atlaskit/button" />
 
 ### Warning
 

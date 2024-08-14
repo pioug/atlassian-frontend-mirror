@@ -1,24 +1,36 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/new';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
-export const MediaInsertContent = () => {
+import { MediaFromURL } from './FromURL';
+
+export const MediaInsertContent = ({
+	mediaProvider,
+	dispatchAnalyticsEvent,
+	closeMediaInsertPicker,
+}: {
+	mediaProvider: MediaProvider;
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	closeMediaInsertPicker: () => void;
+}) => {
 	return (
 		<Tabs id="media-insert-tab-navigation">
 			<Box paddingBlockEnd="space.150">
 				<TabList>
-					<Tab>
-						<Button autoFocus appearance="subtle">
-							{/* TODO: i18n */}
-							Link
-						</Button>
-					</Tab>
+					<Tab>Link</Tab>
 				</TabList>
 			</Box>
 			<TabPanel>
-				<p>InsertLinkPanel here</p>
+				<MediaFromURL
+					mediaProvider={mediaProvider}
+					onExternalInsert={() => {}}
+					onInsert={() => {}}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					closeMediaInsertPicker={closeMediaInsertPicker}
+				/>
 			</TabPanel>
 		</Tabs>
 	);

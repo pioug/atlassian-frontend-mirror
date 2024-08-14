@@ -15,7 +15,7 @@ import { ContextualSurvey, type OnDismissArgs, SurveyMarshal } from '../src';
 
 const styles = css({
 	paddingTop: token('space.100', '8px'),
-	fontSize: '16px',
+	font: token('font.body.large'),
 });
 export default function BasicUsage() {
 	const [showSurvey, setShowSurvey] = useState(false);

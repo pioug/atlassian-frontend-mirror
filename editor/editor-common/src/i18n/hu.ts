@@ -39,6 +39,8 @@ export default {
   'fabric.editor.blockControlDragHandleUsageInfo': 'Az áthelyezéshez húzd át',
   'fabric.editor.blockControlMoveDown': 'Mozgatás le',
   'fabric.editor.blockControlMoveUp': 'Mozgatás fel',
+  'fabric.editor.blockControlMovedDown': 'A tartalom lejjebb lett helyezve',
+  'fabric.editor.blockControlMovedUp': 'A tartalom feljebb lett helyezve',
   'fabric.editor.blockDescription':
     'Több információ, többek között az összefoglaló és a műveletek megjelenítése egy linkről',
   'fabric.editor.blockTitle': 'Kártya',
@@ -285,6 +287,8 @@ export default {
     'Amikor elérhetők az automatikus kiegészítés eredményei, a fel- és lefelé mutató nyilakat használhatod az áttekintéshez, az Entert pedig a kiválasztáshoz. Az érintőképernyős eszközt használó felhasználók érintéssel vagy pöccintéssel ismerhetik meg őket.',
   'fabric.editor.insertColumn': 'Oszlop beszúrása jobbra',
   'fabric.editor.insertColumnDrag': 'Oszlop beszúrása',
+  'fabric.editor.insertMediaFromUrl': 'Kép linkből',
+  'fabric.editor.insertMediaFromUrlDescription': 'Kép vagy videó hozzáadása egy linkből',
   'fabric.editor.insertMenu': 'Elemek beszúrása',
   'fabric.editor.insertRow': 'Sor beszúrása alább',
   'fabric.editor.insertRowDrag': 'Sor beszúrása',
@@ -359,6 +363,7 @@ export default {
   'fabric.editor.other': 'Egyebek...',
   'fabric.editor.outdent': 'Kihúzás',
   'fabric.editor.pageActionsLabel': 'Oldalműveletek',
+  'fabric.editor.panel': 'Panel',
   'fabric.editor.panel.backgroundColor': 'Háttérszín',
   'fabric.editor.panel.emoji': 'Emoji hozzáadása',
   'fabric.editor.panel.panelsGroup': 'Paneltípusok',
@@ -477,6 +482,7 @@ export default {
   'fabric.editor.tooltip.defaultBlockNode': 'blokk csomópont',
   'fabric.editor.tooltip.nestedExpand': 'beágyazott kibontás',
   'fabric.editor.tooltip.taskList': 'műveleti elem',
+  'fabric.editor.turnInto': 'Átalakítás',
   'fabric.editor.twoColumns': 'Kétoszlopos elrendezés',
   'fabric.editor.typeAhead.popupLabel': 'Előre gépelt eredmények',
   'fabric.editor.typeAhead.quickInsertInputLabel':

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-table",
-	"version": "15.0.22",
+	"version": "15.1.0",
 	"description": "Table UI component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,16 +34,17 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "Media Client"
-		}
+		},
+		"runReact18": true
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/button": "^19.2.0",
+		"@atlaskit/button": "^20.0.0",
 		"@atlaskit/dynamic-table": "^14.20.0",
-		"@atlaskit/icon": "^22.12.0",
+		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/media-client": "^27.3.0",
 		"@atlaskit/media-client-react": "^2.0.0",
-		"@atlaskit/media-ui": "^25.10.0",
+		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/media-viewer": "^48.7.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
@@ -54,8 +55,8 @@
 	"peerDependencies": {
 		"@atlaskit/media-core": "^34.2.0",
 		"@emotion/react": "^11.7.1",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
@@ -64,6 +65,8 @@
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/range": "^7.4.0",
 		"@emotion/react": "^11.7.1",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/user-event": "^14.4.3",
 		"date-fns": "^2.17.0",
 		"enzyme": "^3.10.0",
 		"react": "^16.8.0",

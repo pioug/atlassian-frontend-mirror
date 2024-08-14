@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import { type ReactNode } from 'react';
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx, type SerializedStyles } from '@emotion/react';
@@ -37,7 +37,6 @@ interface InternalMessageProps {
 	appearance?: MessageAppearance;
 	fieldId?: string;
 }
-
 /**
  * Public API of the various message components.
  */
@@ -78,6 +77,15 @@ const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 
 const Message = ({ children, appearance = 'default', fieldId, testId }: InternalMessageProps) => {
 	const icon = messageIcons[appearance];
+	const messageRef = useRef<HTMLDivElement>(null);
+	const [hasMessageWrapper, setHasMessageWrapper] = useState(false);
+	const { isWrapper } = useContext(MessageWrapperContext);
+
+	useEffect(() => {
+		if (messageRef.current) {
+			setHasMessageWrapper(isWrapper);
+		}
+	}, [isWrapper]);
 
 	/**
 	 * The wrapping span is necessary to preserve spaces between children.
@@ -94,7 +102,9 @@ const Message = ({ children, appearance = 'default', fieldId, testId }: Internal
 			css={[messageStyles, messageAppearanceStyles[appearance]]}
 			data-testid={testId}
 			id={fieldId}
-			aria-live="polite"
+			ref={messageRef}
+			// For backwards compatability, if there is a wrapper, aria-live is not needed
+			aria-live={!hasMessageWrapper ? 'polite' : undefined}
 		>
 			{icon && <IconWrapper>{icon}</IconWrapper>}
 			{content}
@@ -160,3 +170,36 @@ export const ValidMessage = ({ children, testId }: MessageProps) => (
 		)}
 	</FieldId.Consumer>
 );
+
+/**
+ * __Message wrapper context__
+ *
+ * A message wrapper context allows the children to check
+ * if it is contained within the MessageWrapper.
+ */
+export const MessageWrapperContext = createContext<{ isWrapper: boolean }>({
+	isWrapper: false,
+});
+
+/**
+ * __Message wrapper __
+ *
+ * A message wrapper is used to allow assistive technologies, like screen readers, to announce error or
+ * valid messages. This must be loaded into the DOM before the
+ * ErrorMessage, ValidMessage is loaded. Otherwise, assistive technologies
+ * may not render the message.
+ *
+ */
+export const MessageWrapper = ({ children }: MessageProps) => {
+	const contextValue = {
+		isWrapper: true,
+	};
+
+	return (
+		<MessageWrapperContext.Provider value={contextValue}>
+			<div aria-live="polite" data-testid="message-wrapper">
+				{children}
+			</div>
+		</MessageWrapperContext.Provider>
+	);
+};

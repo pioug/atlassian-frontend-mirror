@@ -10,7 +10,7 @@ import {
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -191,17 +191,26 @@ export const toggleExpandExpanded =
 	};
 
 // Creates either an expand or a nestedExpand node based on the current selection
-export const createExpandNode = (state: EditorState): PMNode | null => {
+export const createExpandNode = (
+	state: EditorState,
+	featureFlags?: FeatureFlags,
+): PMNode | null => {
 	const { expand, nestedExpand } = state.schema.nodes;
-	const expandType = findTable(state.selection) ? nestedExpand : expand;
+
+	const isSelectionInTable = !!findTable(state.selection);
+	const isSelectionInExpand =
+		featureFlags?.nestedExpandInExpandEx && !!findExpand(state, state.selection);
+
+	const expandType = isSelectionInTable || isSelectionInExpand ? nestedExpand : expand;
+
 	return expandType.createAndFill({});
 };
 
 export const insertExpandWithInputMethod =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, featureFlags?: FeatureFlags) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
-		const expandNode = createExpandNode(state);
+		const expandNode = createExpandNode(state, featureFlags);
 
 		if (!expandNode) {
 			return false;
@@ -233,9 +242,9 @@ export const insertExpandWithInputMethod =
 	};
 
 export const insertExpand =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, featureFlags?: FeatureFlags): Command =>
 	(state, dispatch) => {
-		return insertExpandWithInputMethod(editorAnalyticsAPI)(INPUT_METHOD.INSERT_MENU)(
+		return insertExpandWithInputMethod(editorAnalyticsAPI, featureFlags)(INPUT_METHOD.INSERT_MENU)(
 			state,
 			dispatch,
 		);

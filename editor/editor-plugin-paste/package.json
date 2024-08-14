@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "1.8.0",
+	"version": "1.8.1",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -113,9 +113,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.media.extended-resize-experience": {
-			"type": "boolean"
-		},
-		"platform.editor.allow-action-in-list": {
 			"type": "boolean"
 		},
 		"platform.editor.media.fix-copy-paste-excel_62g4s": {

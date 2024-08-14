@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::3ffae7595d19ba2915d87ea4f4a7814a>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _bulletedList = _interopRequireDefault(require("@atlaskit/icon/core/bulleted
 var _bulletList = _interopRequireDefault(require("@atlaskit/icon/glyph/bullet-list"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for BulletedListIcon.
  * This component is BulletedListIcon, with `UNSAFE_fallbackIcon` set to "BulletListIcon".
  *
- * Category: Multi-purpose
- * Location: Icon contributions
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: bulleted lists, view all.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

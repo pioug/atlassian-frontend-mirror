@@ -1,5 +1,15 @@
 # @atlaskit/form
 
+## 10.5.2
+
+### Patch Changes
+
+- [#129726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129726)
+  [`778c15c1d279a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/778c15c1d279a) -
+  [ux] Removed feature flag `platform.design-system-team.form-header-typography-updates_4f1g6` and
+  `platform.design-system-team.form-label-typography-updates` feature flags resulting in minor
+  visual changes to typography.
+
 ## 10.5.1
 
 ### Patch Changes

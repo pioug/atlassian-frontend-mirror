@@ -20,10 +20,10 @@ import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
+	type GroupType,
 	type InputActionMeta,
 	mergeStyles,
 	type OptionType,
-	type ValueType,
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -331,7 +331,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		this.props.onChange('');
 	};
 
-	onSelectChange = (_value: ValueType<OptionType>, action: ActionMeta) => {
+	// `unknown` is used because `value` is unused so it does not matter.
+	onSelectChange = (_value: unknown, action: ActionMeta) => {
 		// Used for native clear event in React Select
 		// Triggered when clicking ClearIndicator or backspace with no value
 		if (action.action === 'clear') {
@@ -482,6 +483,25 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			shouldSetFocusOnCurrentDay: this.state.shouldSetFocusOnCurrentDay,
 		};
 
+		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
+			control: (base: any) => ({
+				...base,
+				...disabledStyle,
+			}),
+			indicatorsContainer: (base) => ({
+				...base,
+				paddingLeft: token('space.025', '2px'), // ICON_PADDING = 2
+				paddingRight: token('space.075', '6px'), // 8 - ICON_PADDING = 6
+			}),
+		});
+
+		const initialValue = value
+			? {
+					label: this.formatDate(value),
+					value,
+				}
+			: null;
+
 		return (
 			// These event handlers must be on this element because the events come
 			// from different child elements.
@@ -514,24 +534,9 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 					components={selectComponents}
 					onChange={this.onSelectChange}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					styles={mergeStyles(selectStyles, {
-						control: (base: any) => ({
-							...base,
-							...disabledStyle,
-						}),
-						indicatorsContainer: (base) => ({
-							...base,
-							paddingLeft: token('space.025', '2px'), // ICON_PADDING = 2
-							paddingRight: token('space.075', '6px'), // 8 - ICON_PADDING = 6
-						}),
-					})}
+					styles={mergedStyles}
 					placeholder={this.getPlaceholder()}
-					value={
-						value && {
-							label: this.formatDate(value),
-							value,
-						}
-					}
+					value={initialValue}
 					{...selectProps}
 					{...calendarProps}
 					isClearable

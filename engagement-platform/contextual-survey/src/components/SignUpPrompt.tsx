@@ -8,16 +8,12 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { fontFallback } from '@atlaskit/theme/typography';
+import Heading from '@atlaskit/heading';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';
 
-const styles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.heading.xsmall', fontFallback.heading.xsmall),
-	margin: 0,
-});
 interface Props {
 	onAnswer: (answer: boolean) => Promise<void>;
 }
@@ -40,14 +36,17 @@ export default ({ onAnswer }: Props) => {
 
 	return (
 		<SuccessContainer>
-			<h1 css={styles}>Thanks for your feedback</h1>
-			<p>Are you interested in participating in our research?</p>
-			<p>
-				Sign up for the{' '}
-				<a href="https://www.atlassian.com/research-group">Atlassian Research Group</a> and we may
-				contact you in the future with research opportunities.
-			</p>
-
+			<Heading size="xsmall">Thanks for your feedback</Heading>
+			<Box paddingBlockStart="space.150">
+				<Stack space="space.150">
+					<Text as="p">Are you interested in participating in our research?</Text>
+					<Text as="p">
+						Sign up for the{' '}
+						<a href="https://www.atlassian.com/research-group">Atlassian Research Group</a> and we
+						may contact you in the future with research opportunities.
+					</Text>
+				</Stack>
+			</Box>
 			<div
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={css({

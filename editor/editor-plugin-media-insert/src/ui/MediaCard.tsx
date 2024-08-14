@@ -15,17 +15,12 @@ const maxDimensions = {
 
 type Props = {
 	attrs: OnInsertAttrs;
-	mediaProvider: Promise<MediaProvider>;
+	mediaProvider: MediaProvider;
 };
 
-export const MediaCard = ({ attrs, mediaProvider: mediaProviderPromise }: Props) => {
+export const MediaCard = ({ attrs, mediaProvider }: Props) => {
 	const intl = useIntl();
 	const mediaAlt = intl.formatMessage(mediaInsertMessages.mediaAlt);
-	const [mediaProvider, setMediaProvider] = React.useState<MediaProvider | undefined>();
-
-	React.useEffect(() => {
-		mediaProviderPromise.then(setMediaProvider);
-	}, [mediaProviderPromise]);
 
 	const dimensions = React.useMemo(() => {
 		return {

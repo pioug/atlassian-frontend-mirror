@@ -8,7 +8,7 @@ export const data: {
 	},
 	{
 		title: 'Build with heart and balance',
-		description: `“Measure twice, cut once.” Whether you're building a birdhouse or a business, this is good advice. Passion and urgency infuse everything we do, alongside the wisdom to consider options fully and with care. Then we make the cut, and we get to work.`,
+		description: `Measure twice, cut once. Whether you're building a birdhouse or a business, this is good advice. Passion and urgency infuse everything we do, alongside the wisdom to consider options fully and with care. Then we make the cut, and we get to work.`,
 	},
 	{
 		title: `Don't #@!% the customer`,

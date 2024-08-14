@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 
 import Form, {
@@ -9,6 +10,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	HelperMessage,
+	MessageWrapper,
 	RequiredAsterisk,
 } from '../src';
 
@@ -30,7 +32,15 @@ const createUser = async (data: { username: string; email: string }) => {
 	return errors;
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
+const FormContainerStyle = xcss({
+	display: 'flex',
+	width: '400px',
+	maxWidth: '100%',
+	margin: '0 auto',
+	flexDirection: 'column',
+});
+
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends Component<{}> {
 	handleSubmit = (data: { username: string; email: string }) => {
 		return createUser(data);
@@ -38,34 +48,23 @@ export default class extends Component<{}> {
 
 	render() {
 		return (
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'flex',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: '400px',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					maxWidth: '100%',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '0 auto',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					flexDirection: 'column',
-				}}
-			>
+			<Box xcss={FormContainerStyle}>
 				<Form onSubmit={this.handleSubmit}>
 					{({ formProps, submitting }) => (
 						<form {...formProps}>
 							<FormHeader title="Create an account">
-								<p aria-hidden="true">
+								<Text as="p" aria-hidden={true}>
 									Required fields are marked with an asterisk <RequiredAsterisk />
-								</p>
+								</Text>
 							</FormHeader>
 							<Field name="username" label="Username" defaultValue="" isRequired>
 								{({ fieldProps, error }) => (
 									<Fragment>
 										<TextField autoComplete="username" {...fieldProps} />
-										{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
-										{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
+										<MessageWrapper>
+											{!error && <HelperMessage>Try 'jsmith' or 'mchan'</HelperMessage>}
+											{error && <ErrorMessage testId="userSubmissionError">{error}</ErrorMessage>}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -73,8 +72,10 @@ export default class extends Component<{}> {
 								{({ fieldProps, error }) => (
 									<Fragment>
 										<TextField autoComplete="email" {...fieldProps} />
-										{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
-										{error && <ErrorMessage>{error}</ErrorMessage>}
+										<MessageWrapper>
+											{!error && <HelperMessage>Must contain @ symbol</HelperMessage>}
+											{error && <ErrorMessage>{error}</ErrorMessage>}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -86,7 +87,7 @@ export default class extends Component<{}> {
 						</form>
 					)}
 				</Form>
-			</div>
+			</Box>
 		);
 	}
 }

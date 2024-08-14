@@ -13,6 +13,7 @@ import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit
 import Select, {
 	type ActionMeta,
 	CreatableSelect,
+	type GroupType,
 	mergeStyles,
 	type OptionType,
 	type SelectComponentsConfig,
@@ -267,10 +268,12 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 			};
 		});
 
-		const labelAndValue = value && {
-			label: formatTime(value),
-			value,
-		};
+		const initialValue = value
+			? {
+					label: formatTime(value),
+					value,
+				}
+			: null;
 
 		const SingleValue = makeSingleValue({ lang: this.props.locale });
 
@@ -283,7 +286,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 
 		const renderIconContainer = Boolean(!hideIcon && value);
 
-		const mergedStyles = mergeStyles(selectStyles, {
+		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
 			control: (base) => ({
 				...base,
 			}),
@@ -335,7 +338,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 					onMenuClose={this.onMenuClose}
 					placeholder={placeholder || l10n.formatTime(placeholderDatetime)}
 					styles={mergedStyles}
-					value={labelAndValue}
+					value={initialValue}
 					spacing={spacing}
 					// @ts-ignore caused by prop not part of @atlaskit/select
 					fixedLayerRef={this.containerRef}

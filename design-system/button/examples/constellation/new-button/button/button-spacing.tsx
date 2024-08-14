@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ButtonGroup } from '../../../../src';
-import Button, { LinkButton } from '../../../../src/new';
+import Button from '../../../../src/new';
 
 const ButtonSpacingExample = () => {
 	return (
@@ -10,9 +10,6 @@ const ButtonSpacingExample = () => {
 			<Button appearance="primary" spacing="compact">
 				Compact
 			</Button>
-			<LinkButton href="/" spacing="none" appearance="subtle-link">
-				None
-			</LinkButton>
 		</ButtonGroup>
 	);
 };

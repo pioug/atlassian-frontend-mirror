@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::d319ef8d75f936934f80524fc57eb7bc>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _zoomIn = _interopRequireDefault(require("@atlaskit/icon/core/zoom-in"));
 var _zoomIn2 = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/zoom-in"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ZoomInIcon.
  * This component is ZoomInIcon, with `UNSAFE_fallbackIcon` set to "MediaServicesZoomInIcon".
  *
- * Category: Single-purpose
- * Location: Icon contributions
+ * Category: single-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for zooming in of an object or view.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

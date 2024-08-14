@@ -1,3 +1,6 @@
+import { waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react-hooks';
+
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -52,28 +55,30 @@ ffTest.both('platform-datasources-use-refactored-config-modal', 'After refactori
 				dontWaitForSitesToLoad: false,
 			});
 
-			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						eventType: 'ui',
-						action: 'ready',
-						actionSubject: 'modal',
-						actionSubjectId: 'datasource',
-						attributes: {
-							instancesCount: 8,
-							schemasCount: null,
+			await waitFor(() => {
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							eventType: 'ui',
+							action: 'ready',
+							actionSubject: 'modal',
+							actionSubjectId: 'datasource',
+							attributes: {
+								instancesCount: 8,
+								schemasCount: null,
+							},
 						},
+						context: [
+							{
+								component: 'datasourceConfigModal',
+								source: 'datasourceConfigModal',
+								attributes: { dataProvider: 'confluence-search' },
+							},
+						],
 					},
-					context: [
-						{
-							component: 'datasourceConfigModal',
-							source: 'datasourceConfigModal',
-							attributes: { dataProvider: 'confluence-search' },
-						},
-					],
-				},
-				EVENT_CHANNEL,
-			);
+					EVENT_CHANNEL,
+				);
+			});
 		});
 
 		it('should fire "ui.emptyResult.shown.datasource" when datasource results are empty', async () => {
@@ -677,10 +682,16 @@ ffTest.both('platform-datasources-use-refactored-config-modal', 'After refactori
 						}),
 						EVENT_CHANNEL,
 					);
-					expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+
+					// All rendering is finished when analytics has been fired three times
+					await waitFor(() => {
+						expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+					});
 
 					// adding a new column
-					updateVisibleColumnList(['myColumn', 'secondColumn', 'other column']);
+					act(() => {
+						updateVisibleColumnList(['myColumn', 'secondColumn', 'other column']);
+					});
 					expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
 					expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
 						getEventPayload(tableActionSubject, datasourceConfigModalActionSubjectId, {
@@ -691,7 +702,10 @@ ffTest.both('platform-datasources-use-refactored-config-modal', 'After refactori
 					);
 
 					// re-arranging the columns
-					updateVisibleColumnList(['secondColumn', 'myColumn', 'other column']);
+					act(() => {
+						updateVisibleColumnList(['secondColumn', 'myColumn', 'other column']);
+					});
+
 					expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
 					expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
 						getEventPayload(tableActionSubject, datasourceConfigModalActionSubjectId, {
@@ -702,7 +716,10 @@ ffTest.both('platform-datasources-use-refactored-config-modal', 'After refactori
 					);
 
 					// removing 2 columns
-					updateVisibleColumnList(['secondColumn']);
+					act(() => {
+						updateVisibleColumnList(['secondColumn']);
+					});
+
 					expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
 					expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(
 						getEventPayload(tableActionSubject, datasourceConfigModalActionSubjectId, {

@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::de052bc81c90a82ee281ea08409da377>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _chartTrend = _interopRequireDefault(require("@atlaskit/icon/core/chart-tren
 var _graphLine = _interopRequireDefault(require("@atlaskit/icon/glyph/graph-line"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ChartTrendIcon.
  * This component is ChartTrendIcon, with `UNSAFE_fallbackIcon` set to "GraphLineIcon".
  *
- * Category: Multi-purpose
- * Location: Icon contributions
+ * Category: multi-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Known uses: charts, reports in Jira, and sprint insights.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

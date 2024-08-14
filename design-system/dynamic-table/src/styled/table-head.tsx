@@ -8,7 +8,6 @@ import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -67,20 +66,12 @@ const headCellBaseStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderBlockEnd: `2px solid ${tableBorder.borderColor}`,
 	color: token('color.text.subtlest', `var(${CSS_VAR_TEXT_COLOR})`),
+	font: token('font.heading.xxsmall'),
 	textAlign: 'left',
 	verticalAlign: 'top',
 	'&:focus-visible': {
 		outline: `solid 2px ${token('color.border.focused', B100)}`,
 	},
-});
-
-const headCellOldStyles = css({
-	fontSize: '0.75rem',
-	fontWeight: token('font.weight.semibold'),
-});
-
-const headCellNewStyles = css({
-	font: token('font.heading.xxsmall'),
 });
 
 const onClickStyles = css({
@@ -224,10 +215,6 @@ export const HeadCell = forwardRef<HTMLTableCellElement, HeadCellProps>(
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					cellStyles,
 					headCellBaseStyles,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					getBooleanFF('platform.design-system-team.dynamic-table-typography_7zio6')
-						? headCellNewStyles
-						: headCellOldStyles,
 					onClick && onClickStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					truncationWidthStyles,

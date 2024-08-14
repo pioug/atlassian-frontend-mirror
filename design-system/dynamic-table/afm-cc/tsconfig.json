@@ -28,9 +28,6 @@
             "path": "../../pagination/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../spinner/afm-cc/tsconfig.json"
         },
         {

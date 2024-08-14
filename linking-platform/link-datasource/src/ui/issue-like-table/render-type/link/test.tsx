@@ -83,13 +83,13 @@ describe('Link Type', () => {
 	});
 
 	it('renders errored view when smart link does not resolve', async () => {
-		const { queryByTestId } = setup({
+		const { findByTestId } = setup({
 			url: 'https://link-that-does-not-resolve.com',
 		});
 
 		await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
 
-		const card = queryByTestId(`${LINK_TYPE_TEST_ID}-errored-view`);
+		const card = await findByTestId(`${LINK_TYPE_TEST_ID}-errored-view`);
 
 		expect(card).toBeInTheDocument();
 		expect(card).toHaveTextContent('https://link-that-does-not-resolve.com');
@@ -97,13 +97,13 @@ describe('Link Type', () => {
 	});
 
 	it('renders fallback when smart link resolves with ResolveUnsupportedError', async () => {
-		const { queryByRole } = setup({
+		const { findByRole } = setup({
 			url: 'https://link-that-is-unsupported.com',
 		});
 
 		await waitFor(() => expect(spyFetchData).toHaveBeenCalled());
 
-		const anchor = queryByRole('link');
+		const anchor = await findByRole('link');
 
 		expect(anchor).toBeInTheDocument();
 		expect(anchor).toHaveTextContent('https://link-that-is-unsupported.com');

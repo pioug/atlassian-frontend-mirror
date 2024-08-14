@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { expand, nestedExpand } from '@atlaskit/adf-schema';
+import { expand, expandWithNestedExpand, nestedExpand } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -22,19 +22,26 @@ import { getToolbarConfig } from './toolbar';
 export { pluginKey } from './pm-plugins/plugin-factory';
 
 export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
+	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
 	return {
 		name: 'expand',
 
 		nodes() {
 			return [
-				{ name: 'expand', node: expand },
+				{
+					name: 'expand',
+					node: featureFlags.nestedExpandInExpandEx ? expandWithNestedExpand : expand,
+				},
 				{ name: 'nestedExpand', node: nestedExpand },
 			];
 		},
 
 		actions: {
-			insertExpand: insertExpand(api?.analytics?.actions),
-			insertExpandWithInputMethod: insertExpandWithInputMethod(api?.analytics?.actions),
+			insertExpand: insertExpand(api?.analytics?.actions, featureFlags),
+			insertExpandWithInputMethod: insertExpandWithInputMethod(
+				api?.analytics?.actions,
+				featureFlags,
+			),
 		},
 
 		pmPlugins() {
@@ -76,7 +83,7 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 						priority: 600,
 						icon: () => <IconExpand />,
 						action(insert, state) {
-							const node = createExpandNode(state);
+							const node = createExpandNode(state, featureFlags);
 							if (!node) {
 								return false;
 							}

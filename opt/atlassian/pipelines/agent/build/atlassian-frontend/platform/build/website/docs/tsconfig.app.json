@@ -46,6 +46,9 @@
 		},
 		{
 			"path": "../../../packages/design-system/theme/tsconfig.app.json"
+		},
+		{
+			"path": "../../../packages/design-system/tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

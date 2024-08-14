@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 
 import Form, {
@@ -12,9 +13,18 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	HelperMessage,
+	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
 } from '../src';
+
+const FormContainerStyle = xcss({
+	display: 'flex',
+	width: '400px',
+	maxWidth: '100%',
+	margin: '0 auto',
+	flexDirection: 'column',
+});
 
 export default () => {
 	const simpleMemoize = <T, U>(fn: (arg: T) => U): ((arg: T) => U) => {
@@ -44,20 +54,7 @@ export default () => {
 	});
 
 	return (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				display: 'flex',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '400px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				maxWidth: '100%',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				margin: '0 auto',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				flexDirection: 'column',
-			}}
-		>
+		<Box xcss={FormContainerStyle}>
 			<Form<{ username: string; password: string; remember: boolean }>
 				onSubmit={(data) => {
 					console.log('form data', data);
@@ -69,9 +66,9 @@ export default () => {
 				{({ formProps, submitting }) => (
 					<form {...formProps}>
 						<FormHeader title="Sign in">
-							<p aria-hidden="true">
+							<Text as="p" aria-hidden={true}>
 								Required fields are marked with an asterisk <RequiredAsterisk />
-							</p>
+							</Text>
 						</FormHeader>
 						<Field
 							name="username"
@@ -83,17 +80,19 @@ export default () => {
 							{({ fieldProps, error }) => (
 								<Fragment>
 									<TextField autoComplete="username" {...fieldProps} />
-									{!error && (
-										<HelperMessage>You can use letters, numbers, and periods.</HelperMessage>
-									)}
-									{error === 'TOO_SHORT' && (
-										<ErrorMessage>
-											Please enter a username that's longer than 4 characters.
-										</ErrorMessage>
-									)}
-									{error === 'IN_USE' && (
-										<ErrorMessage>This username is already in use, try another one.</ErrorMessage>
-									)}
+									<MessageWrapper>
+										{!error && (
+											<HelperMessage>You can use letters, numbers, and periods.</HelperMessage>
+										)}
+										{error === 'TOO_SHORT' && (
+											<ErrorMessage>
+												Please enter a username that's longer than 4 characters.
+											</ErrorMessage>
+										)}
+										{error === 'IN_USE' && (
+											<ErrorMessage>This username is already in use, try another one.</ErrorMessage>
+										)}
+									</MessageWrapper>
 								</Fragment>
 							)}
 						</Field>
@@ -107,17 +106,19 @@ export default () => {
 							{({ fieldProps, error, valid, meta }) => (
 								<Fragment>
 									<TextField type="password" {...fieldProps} />
-									{error === 'TOO_SHORT' && (
-										<ErrorMessage>
-											Please enter a password that's longer than 8 characters.
-										</ErrorMessage>
-									)}
-									{meta.validating && meta.dirty ? (
-										<HelperMessage>Checking......</HelperMessage>
-									) : null}
-									{!meta.validating && valid && meta.dirty ? (
-										<ValidMessage>Awesome password!</ValidMessage>
-									) : null}
+									<MessageWrapper>
+										{error === 'TOO_SHORT' && (
+											<ErrorMessage>
+												Please enter a password that's longer than 8 characters.
+											</ErrorMessage>
+										)}
+										{meta.validating && meta.dirty ? (
+											<HelperMessage>Checking......</HelperMessage>
+										) : null}
+										{!meta.validating && valid && meta.dirty ? (
+											<ValidMessage>Awesome password!</ValidMessage>
+										) : null}
+									</MessageWrapper>
 								</Fragment>
 							)}
 						</Field>
@@ -137,6 +138,6 @@ export default () => {
 					</form>
 				)}
 			</Form>
-		</div>
+		</Box>
 	);
 };

@@ -20,8 +20,6 @@ const linkButtonAppearances: LinkButtonAppearance[] = [
 	'warning',
 	'danger',
 	'discovery',
-	'link',
-	'subtle-link',
 ];
 
 const iconButtonAppearances: IconButtonAppearance[] = ['default', 'primary', 'discovery', 'subtle'];

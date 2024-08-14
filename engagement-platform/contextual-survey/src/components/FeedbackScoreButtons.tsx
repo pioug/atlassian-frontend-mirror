@@ -6,13 +6,10 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { N200 } from '@atlaskit/theme/colors';
+import { Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-const styles = css({
-	textAlign: 'right',
-});
 interface Props {
 	onChange: (value: number) => void;
 	value: number | undefined;
@@ -72,12 +69,10 @@ export default ({ onChange, value }: Props) => (
 		<div
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
-				fontSize: '12px',
-				fontWeight: 600,
-				color: token('color.text.subtlest', N200),
 				display: 'flex',
 				marginTop: token('space.100', '8px'),
 				marginBottom: token('space.300', '24px'),
+				justifyContent: 'space-between',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'& > span': {
 					width: token('space.1000', '80px'),
@@ -85,18 +80,15 @@ export default ({ onChange, value }: Props) => (
 			})}
 			aria-hidden
 		>
-			<span>Strongly disagree</span>
-			<span
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={css({
-					textAlign: 'center',
-					margin: '0 auto',
-					padding: `0 ${token('space.600', '48px')}`,
-				})}
-			>
+			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="start">
+				Strongly disagree
+			</Text>
+			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="center">
 				Neutral
-			</span>
-			<span css={styles}>Strongly agree</span>
+			</Text>
+			<Text color="color.text.subtlest" size="UNSAFE_small" weight="semibold" align="end">
+				Strongly agree
+			</Text>
 		</div>
 	</div>
 );

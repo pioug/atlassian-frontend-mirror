@@ -7,7 +7,11 @@ import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, type ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import {
+	type EditorState,
+	NodeSelection,
+	type ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { type ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import {
 	Decoration,
@@ -25,7 +29,7 @@ import { codeBlockClassNames } from '../ui/class-names';
 import { findCodeBlock } from '../utils';
 
 import { ACTIONS } from './actions';
-import { createLineNumbersDecorations } from './decorators';
+import { createLineNumbersDecorations, DECORATION_WIDGET_TYPE } from './decorators';
 import { type CodeBlockState } from './main-state';
 
 const DECORATION_WRAPPED_BLOCK_NODE_TYPE = 'decorationNodeType';
@@ -45,6 +49,20 @@ export const createPlugin = ({
 	decorations?: DecorationSet;
 }) => {
 	const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
+
+	const createLineNumberDecoratorsFromDecendants = (editorState: EditorState) => {
+		let lineNumberDecorators: Decoration[] = [];
+
+		editorState.doc.descendants((node, pos) => {
+			if (node.type === editorState.schema.nodes.codeBlock) {
+				lineNumberDecorators.push(...createLineNumbersDecorations(pos, node));
+				return false;
+			}
+			return true;
+		});
+
+		return lineNumberDecorators;
+	};
 
 	const createWordWrappedDecoratorPluginState = (
 		pluginState: CodeBlockState,
@@ -86,19 +104,22 @@ export const createPlugin = ({
 	const createLineDecoratorPluginState = (
 		pluginState: CodeBlockState,
 		tr: ReadonlyTransaction,
-		node: ContentNodeWithPos | undefined,
+		state: EditorState,
 	): DecorationSet => {
 		let decorationSetFromState = pluginState.decorations;
-		if (node) {
-			const { pos, node: innerNode } = node;
-			if (pos !== undefined) {
-				// Reset the decorations for the children of the code block node. Wipes all line number decorations.
-				// @ts-ignore
-				decorationSetFromState.children = [];
-				const lineDecorators = createLineNumbersDecorations(pos, innerNode);
-				decorationSetFromState = decorationSetFromState.add(tr.doc, [...lineDecorators]);
-			}
-		}
+		// remove all the line number children from the decorations set. 'undefined, undefined' is used to find() the whole doc.
+		const children = decorationSetFromState.find(
+			undefined,
+			undefined,
+			(spec) => spec.type === DECORATION_WIDGET_TYPE,
+		);
+		decorationSetFromState = decorationSetFromState.remove(children);
+
+		// regenerate all the line number for the documents code blocks
+		const lineDecorators = createLineNumberDecoratorsFromDecendants(state);
+
+		// add the newly generated line numbers to the decorations set
+		decorationSetFromState = decorationSetFromState.add(tr.doc, [...lineDecorators]);
 		return decorationSetFromState;
 	};
 
@@ -164,12 +185,16 @@ export const createPlugin = ({
 			init(_, state): CodeBlockState {
 				const node = findCodeBlock(state, state.selection);
 
+				const lineNumberDecorators = fg('editor_support_code_block_wrapping')
+					? createLineNumberDecoratorsFromDecendants(state)
+					: [];
+
 				return {
 					pos: node ? node.pos : null,
 					contentCopied: false,
 					isNodeSelected: false,
 					shouldIgnoreFollowingMutations: false,
-					decorations: DecorationSet.empty,
+					decorations: DecorationSet.create(state.doc, lineNumberDecorators),
 				};
 			},
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
@@ -190,7 +215,7 @@ export const createPlugin = ({
 						pos: node ? node.pos : null,
 						isNodeSelected: tr.selection instanceof NodeSelection,
 						decorations: fg('editor_support_code_block_wrapping')
-							? createLineDecoratorPluginState(pluginState, tr, node)
+							? createLineDecoratorPluginState(pluginState, tr, newState)
 							: DecorationSet.empty,
 					};
 					return newPluginState;

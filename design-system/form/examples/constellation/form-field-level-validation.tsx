@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
@@ -9,6 +10,7 @@ import Form, {
 	Field,
 	FormFooter,
 	FormHeader,
+	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
 } from '../../src';
@@ -38,6 +40,14 @@ const errorMessages = {
 	usernameInUse: 'This username is already taken, try entering another one',
 	selectError: 'Please select a color',
 };
+
+const FormContainerStyle = xcss({
+	display: 'flex',
+	width: '400px',
+	maxWidth: '100%',
+	margin: '0 auto',
+	flexDirection: 'column',
+});
 
 const { shortUsername, validUsername, usernameInUse, selectError } = errorMessages;
 
@@ -93,27 +103,14 @@ export default function FieldLevelValidationExample() {
 	}, [errorMessageText]);
 
 	return (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				display: 'flex',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '400px',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				maxWidth: '100%',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				margin: '0 auto',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				flexDirection: 'column',
-			}}
-		>
+		<Box xcss={FormContainerStyle}>
 			<Form onSubmit={handleSubmit}>
 				{({ formProps }) => (
 					<form {...formProps}>
 						<FormHeader title="Log In">
-							<p aria-hidden="true">
+							<Text as="p" aria-hidden={true}>
 								Required fields are marked with an asterisk <RequiredAsterisk />
-							</p>
+							</Text>
 						</FormHeader>
 						<Field
 							name="username"
@@ -131,19 +128,21 @@ export default function FieldLevelValidationExample() {
 									<Fragment>
 										<TextField
 											{...rest}
-											aria-describedby={`${id}${messageId}`}
+											aria-describedby={fieldHasError ? `${id}${messageId}` : undefined}
 											isInvalid={fieldHasError}
 											onBlur={handleBlurEvent}
 										/>
-										{!fieldHasError && errorMessageText === 'IS_VALID' && (
-											<ValidMessage>{validUsername}</ValidMessage>
-										)}
-										{fieldHasError && errorMessageText === 'TOO_SHORT' && (
-											<ErrorMessage>{shortUsername}</ErrorMessage>
-										)}
-										{fieldHasError && errorMessageText === 'IN_USE' && (
-											<ErrorMessage>{usernameInUse}</ErrorMessage>
-										)}
+										<MessageWrapper>
+											{!fieldHasError && errorMessageText === 'IS_VALID' && (
+												<ValidMessage>{validUsername}</ValidMessage>
+											)}
+											{fieldHasError && errorMessageText === 'TOO_SHORT' && (
+												<ErrorMessage>{shortUsername}</ErrorMessage>
+											)}
+											{fieldHasError && errorMessageText === 'IN_USE' && (
+												<ErrorMessage>{usernameInUse}</ErrorMessage>
+											)}
+										</MessageWrapper>
 									</Fragment>
 								);
 							}}
@@ -169,7 +168,9 @@ export default function FieldLevelValidationExample() {
 											aria-describedby={selectHasError && `${id}-error`}
 											onBlur={handleSelectBlurEvent}
 										/>
-										{selectHasError && <ErrorMessage>{selectError}</ErrorMessage>}
+										<MessageWrapper>
+											{selectHasError && <ErrorMessage>{selectError}</ErrorMessage>}
+										</MessageWrapper>
 									</Fragment>
 								);
 							}}
@@ -180,6 +181,6 @@ export default function FieldLevelValidationExample() {
 					</form>
 				)}
 			</Form>
-		</div>
+		</Box>
 	);
 }

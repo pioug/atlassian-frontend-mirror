@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.3
+
+### Patch Changes
+
+- [`0f58d3a82867c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f58d3a82867c) -
+  ED-24500 Add decorators on init of code block and on document updates
+
 ## 3.3.2
 
 ### Patch Changes

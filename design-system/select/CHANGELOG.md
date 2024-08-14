@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 17.13.2
+
+### Patch Changes
+
+- [#129726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129726)
+  [`778c15c1d279a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/778c15c1d279a) -
+  [ux] Removed feature flag `platform.design-system-team.select-new-typography_7m89c` resulting in
+  minor visual changes to typography.
+
 ## 17.13.1
 
 ### Patch Changes

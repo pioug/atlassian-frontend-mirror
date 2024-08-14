@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 
 import Form, {
@@ -9,6 +10,7 @@ import Form, {
 	FormFooter,
 	FormHeader,
 	HelperMessage,
+	MessageWrapper,
 	RequiredAsterisk,
 	ValidMessage,
 } from '../src';
@@ -34,7 +36,15 @@ const createUser = async (data: FormData) => {
 	return errors;
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
+const FormContainerStyle = xcss({
+	display: 'flex',
+	width: '400px',
+	maxWidth: '100%',
+	margin: '0 auto',
+	flexDirection: 'column',
+});
+
+// eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
 export default class extends Component<{}> {
 	handleSubmit = (data: FormData) => {
 		return createUser(data);
@@ -56,25 +66,14 @@ export default class extends Component<{}> {
 
 	render() {
 		return (
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					display: 'flex',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					width: '400px',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '0 auto',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					flexDirection: 'column',
-				}}
-			>
+			<Box xcss={FormContainerStyle}>
 				<Form<FormData> onSubmit={this.handleSubmit}>
 					{({ formProps, submitting }) => (
 						<form {...formProps}>
 							<FormHeader title="Create an account">
-								<p aria-hidden="true">
+								<Text as="p" aria-hidden={true}>
 									Required fields are marked with an asterisk <RequiredAsterisk />
-								</p>
+								</Text>
 							</FormHeader>
 							<Field
 								name="username"
@@ -86,22 +85,24 @@ export default class extends Component<{}> {
 								{({ fieldProps, error, valid }) => (
 									<Fragment>
 										<TextField autoComplete="username" {...fieldProps} />
-										{!error && !valid && (
-											<HelperMessage>Should be more than 4 characters</HelperMessage>
-										)}
-										{!error && valid && (
-											<ValidMessage>Nice one, this username is available</ValidMessage>
-										)}
-										{error === 'TOO_SHORT' && (
-											<ErrorMessage>
-												Please enter a username that's longer than 4 characters.
-											</ErrorMessage>
-										)}
-										{error === 'IN_USE' && (
-											<ErrorMessage>
-												This username is already in use, please enter a different username.
-											</ErrorMessage>
-										)}
+										<MessageWrapper>
+											{!error && !valid && (
+												<HelperMessage>Should be more than 4 characters</HelperMessage>
+											)}
+											{!error && valid && (
+												<ValidMessage>Nice one, this username is available</ValidMessage>
+											)}
+											{error === 'TOO_SHORT' && (
+												<ErrorMessage>
+													Please enter a username that's longer than 4 characters.
+												</ErrorMessage>
+											)}
+											{error === 'IN_USE' && (
+												<ErrorMessage>
+													This username is already in use, please enter a different username.
+												</ErrorMessage>
+											)}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -115,18 +116,20 @@ export default class extends Component<{}> {
 								{({ fieldProps, error, valid }) => (
 									<Fragment>
 										<TextField autoComplete="email" {...fieldProps} />
-										{!error && !valid && <HelperMessage>Must contain @ symbol</HelperMessage>}
-										{!error && valid && <ValidMessage>Nice email!</ValidMessage>}
-										{error === 'INVALID_EMAIL' && (
-											<ErrorMessage>
-												Please enter your email in a valid format, like: name@example.com.
-											</ErrorMessage>
-										)}
-										{error === 'IN_USE' && (
-											<ErrorMessage>
-												This email is already in use, please enter a different email.
-											</ErrorMessage>
-										)}
+										<MessageWrapper>
+											{!error && !valid && <HelperMessage>Must contain @ symbol</HelperMessage>}
+											{!error && valid && <ValidMessage>Nice email!</ValidMessage>}
+											{error === 'INVALID_EMAIL' && (
+												<ErrorMessage>
+													Please enter your email in a valid format, like: name@example.com.
+												</ErrorMessage>
+											)}
+											{error === 'IN_USE' && (
+												<ErrorMessage>
+													This email is already in use, please enter a different email.
+												</ErrorMessage>
+											)}
+										</MessageWrapper>
 									</Fragment>
 								)}
 							</Field>
@@ -138,7 +141,7 @@ export default class extends Component<{}> {
 						</form>
 					)}
 				</Form>
-			</div>
+			</Box>
 		);
 	}
 }

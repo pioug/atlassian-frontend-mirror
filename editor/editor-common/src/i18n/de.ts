@@ -39,6 +39,8 @@ export default {
   'fabric.editor.blockControlDragHandleUsageInfo': 'Zum Verschieben ziehen',
   'fabric.editor.blockControlMoveDown': 'Nach unten verschieben',
   'fabric.editor.blockControlMoveUp': 'Nach oben verschieben',
+  'fabric.editor.blockControlMovedDown': 'Inhalt wurde nach unten verschoben',
+  'fabric.editor.blockControlMovedUp': 'Inhalt wurde nach oben verschoben',
   'fabric.editor.blockDescription':
     'Weitere Informationen zu einem Link anzeigen, darunter eine Zusammenfassung und Aktionen',
   'fabric.editor.blockTitle': 'Karte',
@@ -285,6 +287,8 @@ export default {
     'Wenn Autovervollständigungen angezeigt werden, navigieren Sie mit den Pfeiltasten nach oben und unten und drücken Sie die Eingabetaste zur Auswahl eines Ergebnisses. Benutzer mit Touchscreen-Geräten können mit Berührungen und Wischgesten navigieren.',
   'fabric.editor.insertColumn': 'Spalte rechts einfügen',
   'fabric.editor.insertColumnDrag': 'Spalte einfügen',
+  'fabric.editor.insertMediaFromUrl': 'Bild per Link',
+  'fabric.editor.insertMediaFromUrlDescription': 'Bild oder Video per Link hinzufügen',
   'fabric.editor.insertMenu': 'Elemente einfügen',
   'fabric.editor.insertRow': 'Zeile unten einfügen',
   'fabric.editor.insertRowDrag': 'Zeile einfügen',
@@ -361,6 +365,7 @@ export default {
   'fabric.editor.other': 'Sonstige …',
   'fabric.editor.outdent': 'Einzug verkleinern',
   'fabric.editor.pageActionsLabel': 'Seitenaktionen',
+  'fabric.editor.panel': 'Panel',
   'fabric.editor.panel.backgroundColor': 'Hintergrundfarbe',
   'fabric.editor.panel.emoji': 'Emoji hinzufügen',
   'fabric.editor.panel.panelsGroup': 'Panel-Typen',
@@ -480,6 +485,7 @@ export default {
   'fabric.editor.tooltip.defaultBlockNode': 'ein Blockknoten',
   'fabric.editor.tooltip.nestedExpand': 'eine verschachtelte Erweiterung',
   'fabric.editor.tooltip.taskList': 'eine Aufgabe',
+  'fabric.editor.turnInto': 'Verwandeln in',
   'fabric.editor.twoColumns': 'Layout mit zwei Spalten',
   'fabric.editor.typeAhead.popupLabel': 'Ergebnisse der Vorschlagsfunktion',
   'fabric.editor.typeAhead.quickInsertInputLabel':

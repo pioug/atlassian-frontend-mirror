@@ -9,6 +9,10 @@ import {
 	type MediaType,
 	type MediaSubscribable,
 	createMediaSubscribable,
+	createMediaSubject,
+	type FileState,
+	fromObservable,
+	FileFetcherImpl,
 } from '@atlaskit/media-client';
 import {
 	fakeMediaClient,
@@ -18,15 +22,17 @@ import {
 	nextTick,
 	asMockFunction,
 	expectFunctionToHaveBeenCalledWith,
-	defaultCollectionName,
 	mountWithIntlContext,
 	mountWithIntlWrapper,
+	asMock,
 } from '@atlaskit/media-test-helpers';
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { toHumanReadableMediaSize } from '@atlaskit/media-ui';
 import { type MediaTableProps, type MediaTableItem } from '../types';
 import { MediaTable } from '../component/mediaTable';
 import { NameCell } from '../component/nameCell';
+import { act, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 let mockMediaClient: MediaClient;
 
@@ -41,24 +47,57 @@ describe('MediaTable', () => {
 	const onPreviewOpenMock = jest.fn();
 	const onPreviewCloseMock = jest.fn();
 
+	let observables = [createMediaSubject(), createMediaSubject()];
+
+	const mediaClient = fakeMediaClient();
+
+	const defaultFileStates: FileState[] = [
+		{
+			id: audioFileId.id,
+			status: 'processed',
+			name: 'audio_file_name',
+			size: 10,
+			artifacts: {},
+			mediaType: 'audio',
+			mimeType: '',
+			createdAt: 1476238235395,
+		},
+		{
+			id: imageFileId.id,
+			status: 'processed',
+			name: 'image_file_name',
+			size: 10,
+			artifacts: {},
+			mediaType: 'image',
+			mimeType: '',
+			createdAt: 1476238235395,
+		},
+	];
+
 	beforeEach(() => {
 		jest.spyOn(console, 'warn').mockImplementation(() => {});
 		jest.clearAllMocks();
+
+		jest.spyOn(FileFetcherImpl.prototype, 'getFileState').mockImplementation((id: string) => {
+			return id === audioFileId.id
+				? fromObservable(observables[0])
+				: fromObservable(observables[1]);
+		});
+
+		asMock(mediaClient.file.getFileState).mockImplementation((id: string) => {
+			return id === audioFileId.id
+				? fromObservable(observables[0])
+				: fromObservable(observables[1]);
+		});
+
+		observables[0].next(defaultFileStates[0]);
+		observables[1].next(defaultFileStates[1]);
 	});
 
-	const defaultFileState = createMediaSubscribable({
-		id: imageFileId.id,
-		status: 'processed',
-		name: 'file_name',
-		size: 10,
-		artifacts: {},
-		mediaType: 'image',
-		mimeType: '',
-		createdAt: 1476238235395,
-	});
+	const defaultFileStateSubscribable = createMediaSubscribable(defaultFileStates[0]);
 
 	const getDefaultMediaClient = (
-		fileStateSubscribable: MediaSubscribable = defaultFileState,
+		fileStateSubscribable: MediaSubscribable = defaultFileStateSubscribable,
 	): MediaClient => {
 		const mediaClient = fakeMediaClient();
 		mockMediaClient = mediaClient;
@@ -109,7 +148,7 @@ describe('MediaTable', () => {
 		{
 			identifier: audioFileId,
 			data: {
-				file: createMockFileData('file_name', 'audio'),
+				file: createMockFileData('audio_file_name', 'audio'),
 				size: toHumanReadableMediaSize(10),
 				date: 'some date',
 			},
@@ -117,7 +156,7 @@ describe('MediaTable', () => {
 		{
 			identifier: imageFileId,
 			data: {
-				file: createMockFileData('file_name', 'image'),
+				file: createMockFileData('image_file_name', 'image'),
 				size: toHumanReadableMediaSize(10),
 				date: 'some date',
 			},
@@ -165,31 +204,57 @@ describe('MediaTable', () => {
 		};
 	};
 
+	const setupRTL = (props?: Omit<MediaTableProps, 'mediaClient'>) => {
+		const mediaClientConfig = mediaClient.config;
+
+		const { container } = render(
+			<IntlProvider locale="en">
+				<MediaTable mediaClient={mediaClient} {...defaultProps} {...props} />,
+			</IntlProvider>,
+		);
+
+		return {
+			user: userEvent.setup(),
+			mediaClient,
+			container,
+			mediaClientConfig,
+			createAnalyticsEventSpy,
+		};
+	};
+
 	it('should open MediaViewer and call onPreviewOpen when a row is clicked', async () => {
-		const { mediaTable } = await setup();
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+		const { user } = setupRTL();
 
-		if (rows && rows[0].onClick) {
-			rows[0].onClick({} as any);
-		}
+		// wait for table to appear
+		expect(await screen.findByRole('table')).toBeInTheDocument();
 
-		mediaTable.update();
+		const rows = await screen.findAllByRole('row');
 
-		expect(mediaTable.find(MediaViewer)).toHaveLength(1);
+		// click first non-header row
+		user.click(rows[1]);
+
+		const mediaViewer = await screen.findByTestId('media-viewer-popup');
+
+		expect(mediaViewer).toBeInTheDocument();
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 	});
 
 	it('should open MediaViewer and call onPreviewOpen when pressing enter on a row', async () => {
-		const { mediaTable } = await setup();
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+		const { user } = setupRTL();
 
-		if (rows && rows[0].onKeyPress) {
-			rows[0].onKeyPress({ key: 'Enter' } as any);
-		}
+		// wait for table to appear
+		expect(await screen.findByRole('table')).toBeInTheDocument();
 
-		mediaTable.update();
+		const rows = await screen.findAllByRole('row');
 
-		expect(mediaTable.find(MediaViewer)).toHaveLength(1);
+		// key press on first non-header row
+		rows[1].focus();
+		expect(rows[1]).toHaveFocus();
+		user.keyboard('[Enter]');
+
+		const mediaViewer = await screen.findByTestId('media-viewer-popup');
+
+		expect(mediaViewer).toBeInTheDocument();
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 	});
 
@@ -202,57 +267,62 @@ describe('MediaTable', () => {
 	});
 
 	it('should close the MediaViwer and call onPreviewClose when the preview is closed', async () => {
-		const { mediaTable } = await setup();
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+		const { user } = setupRTL();
+
+		// wait for table to appear
+		expect(await screen.findByRole('table')).toBeInTheDocument();
+
+		const rows = await screen.findAllByRole('row');
 
 		// Open the MediaViewer
-		if (rows && rows[0].onClick) {
-			rows[0].onClick({} as any);
-		}
-		mediaTable.update();
+		// click first non-header row
+		user.click(rows[1]);
+
+		const mediaViewer = await screen.findByTestId('media-viewer-popup');
 
 		// Close the MediaViewer
-		const onCloseProp = mediaTable.find(MediaViewer).props().onClose;
-		onCloseProp && onCloseProp();
-		mediaTable.update();
+		const closeButton = await screen.findByLabelText('Close');
+		user.click(closeButton);
 
-		expect(mediaTable.find(MediaViewer)).toHaveLength(0);
+		await waitFor(() => {
+			expect(mediaViewer).not.toBeInTheDocument();
+		});
+
 		expect(onPreviewOpenMock).toHaveBeenCalledTimes(1);
 		expect(onPreviewCloseMock).toHaveBeenCalledTimes(1);
 	});
 
-	it('should pass right options to MediaViewer', async () => {
-		const { mediaTable, mediaClientConfig } = await setup();
-		const rows = mediaTable.find(DynamicTableStateless).prop('rows');
+	it('MediaViewer should display the correct items, and have the correct selected item', async () => {
+		const { user } = setupRTL();
 
-		if (rows && rows[1].onClick) {
-			rows[1].onClick({} as any);
-		}
+		// wait for table to appear
+		expect(await screen.findByRole('table')).toBeInTheDocument();
 
-		mediaTable.update();
+		const rows = await screen.findAllByRole('row');
 
-		expect(mediaTable.find(MediaViewer).props()).toEqual(
-			expect.objectContaining({
-				items: [
-					{
-						id: audioFileId.id,
-						mediaItemType: 'file',
-						collectionName: audioFileId.collectionName,
-					},
-					{
-						id: imageFileId.id,
-						mediaItemType: 'file',
-						collectionName: imageFileId.collectionName,
-					},
-				],
-				mediaClientConfig,
-				selectedItem: {
-					id: imageFileId.id,
-					mediaItemType: 'file',
-					collectionName: imageFileId.collectionName,
-				},
-				collectionName: defaultCollectionName,
-			}),
+		// click first non-header row
+		user.click(rows[1]);
+
+		await screen.findByTestId('media-viewer-popup');
+
+		// selected item
+		expect(await screen.findByTestId('media-viewer-file-name')).toHaveTextContent(
+			'audio_file_name',
+		);
+		expect(await screen.findByTestId('media-viewer-file-metadata-text')).toHaveTextContent(
+			/audio/i,
+		);
+
+		const nextButton = await screen.findByTestId('media-viewer-navigation-next');
+
+		act(() => nextButton.click());
+
+		// next item
+		expect(await screen.findByTestId('media-viewer-file-name')).toHaveTextContent(
+			'image_file_name',
+		);
+		expect(await screen.findByTestId('media-viewer-file-metadata-text')).toHaveTextContent(
+			/image/i,
 		);
 	});
 
@@ -264,7 +334,7 @@ describe('MediaTable', () => {
 		expect(mediaClient.file.downloadBinary).toBeCalledTimes(1);
 		expectFunctionToHaveBeenCalledWith(mediaClient.file.downloadBinary, [
 			audioFileId.id,
-			'file_name',
+			'audio_file_name',
 			audioFileId.collectionName,
 		]);
 	});
@@ -273,7 +343,7 @@ describe('MediaTable', () => {
 		const processingFileSubscribable = createMediaSubscribable({
 			id: imageFileId.id,
 			status: 'processing',
-			name: 'file_name',
+			name: 'image_file_name',
 			size: 10,
 			mediaType: 'image',
 			mimeType: '',
@@ -358,7 +428,7 @@ describe('MediaTable', () => {
 			{
 				identifier: audioFileId,
 				data: {
-					file: createMockFileData('file_name', 'audio'),
+					file: createMockFileData('audio_file_name', 'audio'),
 					size: toHumanReadableMediaSize(10),
 				},
 			},

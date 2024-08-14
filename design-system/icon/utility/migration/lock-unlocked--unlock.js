@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::70d2f89c088a71b0765e549487e2e44e>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _lockUnlocked = _interopRequireDefault(require("@atlaskit/icon/utility/lock-
 var _unlock = _interopRequireDefault(require("@atlaskit/icon/glyph/unlock"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for LockUnlockedIcon.
  * This component is LockUnlockedIcon, with `UNSAFE_fallbackIcon` set to "UnlockIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: utility
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for indicating something is locked in the side navigation Menu Item.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

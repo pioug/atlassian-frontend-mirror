@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::80c39ebb3a358a4cb28ca8e692f5fb04>>
+ * @codegen <<SignedSource::914b6c6395ca9d7b512ce211f508eded>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::30c668dc994f1624c2cfd94e07742e85>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::2614bb0623343a7132980ff0621ea10a>>
  */
 import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/new';
 
@@ -371,6 +371,20 @@ type IconType = Icon;
 
 
 export type ButtonProps = Pick<
-PlatformButtonProps,
-'children' | 'autoFocus' | 'isDisabled' | 'isSelected' | 'onBlur' | 'onClick' | 'onFocus' | 'spacing' | 'testId' | 'shouldFitContainer' | 'appearance' | 'type'
-> & { iconBefore?: IconType, iconAfter?: IconType };
+	PlatformButtonProps,
+	| 'children'
+	| 'autoFocus'
+	| 'isDisabled'
+	| 'isSelected'
+	| 'onBlur'
+	| 'onClick'
+	| 'onFocus'
+	| 'testId'
+	| 'shouldFitContainer'
+	| 'appearance'
+	| 'type'
+> & {
+	iconBefore?: IconType;
+	iconAfter?: IconType;
+	spacing?: PlatformButtonProps['spacing'] | 'none';
+};

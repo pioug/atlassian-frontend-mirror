@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.4.5",
+	"version": "195.4.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,13 +44,13 @@
 		"@atlaskit/analytics-namespaced-context": "^6.11.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
-		"@atlaskit/button": "^19.2.0",
+		"@atlaskit/button": "^20.0.0",
 		"@atlaskit/editor-common": "^87.10.0",
-		"@atlaskit/editor-plugins": "^3.6.0",
+		"@atlaskit/editor-plugins": "^4.0.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
-		"@atlaskit/icon": "^22.12.0",
+		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/media-card": "^78.0.0",
 		"@atlaskit/mention": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -80,7 +80,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.1.5",
+		"@af/editor-examples-helpers": "0.2.0",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
@@ -108,7 +108,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.104",
+		"@atlassian/search-provider": "2.4.106",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -178,10 +178,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.multi-bodied-extension_0rygg": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.allow-action-in-list": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

@@ -68,7 +68,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-json-transformer": "^8.18.0",
-		"@atlaskit/editor-plugins": "^3.6.0",
+		"@atlaskit/editor-plugins": "^4.0.0",
 		"@emotion/react": "^11.7.1",
 		"pretty-data": "^0.40.0",
 		"typescript": "~5.4.2"

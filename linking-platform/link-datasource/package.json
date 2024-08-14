@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.10.3",
+	"version": "2.11.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,7 +29,8 @@
 		"i18n": true,
 		"website": {
 			"name": "Link Datasource"
-		}
+		},
+		"runReact18": true
 	},
 	"scripts": {
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
@@ -37,17 +38,17 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/avatar": "^21.14.0",
+		"@atlaskit/avatar": "^21.15.0",
 		"@atlaskit/avatar-group": "^9.11.0",
 		"@atlaskit/badge": "^16.4.0",
-		"@atlaskit/button": "^19.2.0",
-		"@atlaskit/datetime-picker": "^13.10.0",
+		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/datetime-picker": "^13.11.0",
 		"@atlaskit/dropdown-menu": "^12.17.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/empty-state": "^7.11.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.12.0",
+		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/icon-object": "^6.5.0",
 		"@atlaskit/image": "^1.3.0",
 		"@atlaskit/inline-edit": "^13.6.0",
@@ -92,7 +93,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {

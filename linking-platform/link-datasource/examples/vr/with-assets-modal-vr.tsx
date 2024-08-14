@@ -9,6 +9,8 @@ import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID, type AssetsDatasourceParameters } from '../../src';
 import JSMAssetsConfigModal from '../../src/ui/assets-modal';
 
+mockAssetsClientFetchRequests({ delayedResponse: false });
+
 const mockParameters: AssetsDatasourceParameters = {
 	aql: 'dummy aql',
 	workspaceId: '',
@@ -30,7 +32,6 @@ const visibleColumnKeys = [
 ];
 
 export default () => {
-	mockAssetsClientFetchRequests({ delayedResponse: false });
 	return (
 		<IntlProvider locale="en">
 			<SmartCardProvider client={new SmartLinkClient()}>

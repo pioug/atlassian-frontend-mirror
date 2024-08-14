@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.0.1
+
+### Patch Changes
+
+- [#130061](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130061)
+  [`bdad694cb2c24`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdad694cb2c24) -
+  [ux] [ED-24566] **@atlaskit/editor-plugin-media-insert**: When user clicks "Cancel" button on
+  insert media popup the focus is returned to the editor **@atlaskit/editor-common**: Added event
+  type for media insert cancelled analytics
+
+## 2.0.0
+
+### Major Changes
+
+- [#129869](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129869)
+  [`48b31a6b8fb5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48b31a6b8fb5a) -
+  [ux] [ED-24566] Integrated Media URL UI into the Insert Media Popup [ED-24589] Removed export of
+  UI component from `editor-plugin-media-insert`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

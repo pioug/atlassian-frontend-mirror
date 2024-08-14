@@ -4,7 +4,15 @@ import { useIntl } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	type AnalyticsEventPayload,
+	type DispatchAnalyticsEvent,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import EditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
@@ -31,6 +39,10 @@ const PreviewImageStyles = xcss({
 
 const ButtonGroupStyles = xcss({
 	alignSelf: 'end',
+});
+
+const FormStyles = xcss({
+	flexGrow: 1,
 });
 
 type PreviewState = {
@@ -72,10 +84,11 @@ const previewStateReducer = (state: PreviewState, action: PreviewStateAction) =>
 };
 
 type Props = {
-	mediaProvider: Promise<MediaProvider>;
+	mediaProvider: MediaProvider;
 	onInsert: (attrs: OnInsertAttrs) => void;
 	onExternalInsert: (url: string) => void;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+	closeMediaInsertPicker: () => void;
 };
 
 // TODO: Delete these before rollout
@@ -90,6 +103,7 @@ export function MediaFromURL({
 	onInsert,
 	onExternalInsert,
 	dispatchAnalyticsEvent,
+	closeMediaInsertPicker,
 }: Props) {
 	const intl = useIntl();
 	const strings = {
@@ -111,7 +125,7 @@ export function MediaFromURL({
 	const uploadExternalMedia = React.useCallback(
 		async (url: string) => {
 			dispatch({ type: 'loading' });
-			const { uploadMediaClientConfig, uploadParams } = await mediaProvider;
+			const { uploadMediaClientConfig, uploadParams } = mediaProvider;
 			if (!uploadMediaClientConfig) {
 				return;
 			}
@@ -201,19 +215,54 @@ export function MediaFromURL({
 		}
 	}, [onExternalInsert, onInsert, previewState.previewInfo, previewState.warning, inputUrl]);
 
+	const onInputKeyPress = React.useCallback(
+		(event: React.KeyboardEvent<HTMLInputElement> | undefined) => {
+			if (event && event.key === 'Esc') {
+				if (dispatchAnalyticsEvent) {
+					const payload: AnalyticsEventPayload = {
+						action: ACTION.CLOSED,
+						actionSubject: ACTION_SUBJECT.PICKER,
+						actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
+						eventType: EVENT_TYPE.UI,
+						attributes: { exitMethod: INPUT_METHOD.KEYBOARD },
+					};
+					dispatchAnalyticsEvent(payload);
+				}
+				closeMediaInsertPicker();
+			}
+		},
+		[dispatchAnalyticsEvent, closeMediaInsertPicker],
+	);
+
+	const onCancel = React.useCallback(() => {
+		if (dispatchAnalyticsEvent) {
+			const payload: AnalyticsEventPayload = {
+				action: ACTION.CANCELLED,
+				actionSubject: ACTION_SUBJECT.PICKER,
+				actionSubjectId: ACTION_SUBJECT_ID.PICKER_MEDIA,
+				eventType: EVENT_TYPE.UI,
+			};
+			dispatchAnalyticsEvent(payload);
+		}
+		closeMediaInsertPicker();
+	}, [closeMediaInsertPicker, dispatchAnalyticsEvent]);
+
 	return (
-		<form
+		<Box
+			as="form"
 			onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
 				e.preventDefault();
 				uploadExternalMedia(inputUrl);
 			}}
+			xcss={FormStyles}
 		>
-			<Stack space="space.150">
+			<Stack space="space.150" grow="fill">
 				<TextField
 					autoFocus
 					value={inputUrl}
 					placeholder={strings.pasteLinkToUpload}
 					onChange={onURLChange}
+					onKeyPress={onInputKeyPress}
 					onPaste={onPaste}
 				/>
 				{previewState.previewInfo && (
@@ -246,7 +295,9 @@ export function MediaFromURL({
 				)}
 				<Box xcss={ButtonGroupStyles}>
 					<ButtonGroup>
-						<Button appearance="subtle">{strings.cancel}</Button>
+						<Button appearance="subtle" onClick={onCancel}>
+							{strings.cancel}
+						</Button>
 						<Button
 							appearance="primary"
 							isDisabled={!previewState.previewInfo && !previewState.warning}
@@ -257,6 +308,6 @@ export function MediaFromURL({
 					</ButtonGroup>
 				</Box>
 			</Stack>
-		</form>
+		</Box>
 	);
 }

@@ -97,7 +97,7 @@ describe('AssetsObjectSchemaSelect', () => {
 	it('should not call fetchObjectSchemas on mount', async () => {
 		await renderDefaultObjectSchemaSelect();
 		await waitFor(() => {
-			expect(mockFetchObjectSchemas).not.toBeCalled();
+			expect(mockFetchObjectSchemas).not.toHaveBeenCalled();
 		});
 	});
 
@@ -106,11 +106,11 @@ describe('AssetsObjectSchemaSelect', () => {
 		const selectInput = document.getElementsByClassName(objectSchemaSelectInput)[0];
 		fireEvent.change(selectInput, { target: { value: 'test' } });
 		fireEvent.change(selectInput, { target: { value: 'test updated' } });
-		expect(mockFetchObjectSchemas).toBeCalledTimes(0);
+		expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(0);
 		jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
 		await waitFor(() => {
-			expect(mockFetchObjectSchemas).toBeCalledTimes(1);
-			expect(mockFetchObjectSchemas).toBeCalledWith('test updated');
+			expect(mockFetchObjectSchemas).toHaveBeenCalledTimes(1);
+			expect(mockFetchObjectSchemas).toHaveBeenCalledWith('test updated');
 		});
 	});
 
@@ -127,13 +127,13 @@ describe('AssetsObjectSchemaSelect', () => {
 			const selectOption = await screen.findAllByText('schemaTwo');
 			fireEvent.click(selectOption[0]);
 			fireEvent.submit(screen.getByTestId('object-schema-select-form'));
-			expect(onSubmitMock).toBeCalled();
+			expect(onSubmitMock).toHaveBeenCalled();
 		});
 
 		it('should not call onSubmit when schema is empty', async () => {
 			await renderDefaultObjectSchemaSelect();
 			fireEvent.submit(screen.getByTestId('object-schema-select-form'));
-			expect(onSubmitMock).not.toBeCalled();
+			expect(onSubmitMock).not.toHaveBeenCalled();
 		});
 	});
 });

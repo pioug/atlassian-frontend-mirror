@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { bulletList, listItem, listItemWithTask, orderedListWithOrder } from '@atlaskit/adf-schema';
+import { bulletList, listItemWithTask, orderedListWithOrder } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -11,7 +11,6 @@ import {
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
 import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
 	indentList,
@@ -60,9 +59,7 @@ export const listPlugin: ListPlugin = ({ config: options, api }) => {
 		},
 
 		nodes() {
-			const listItemNode = getBooleanFF('platform.editor.allow-action-in-list')
-				? listItemWithTask
-				: listItem;
+			const listItemNode = listItemWithTask;
 			return [
 				{ name: 'bulletList', node: bulletList },
 				{

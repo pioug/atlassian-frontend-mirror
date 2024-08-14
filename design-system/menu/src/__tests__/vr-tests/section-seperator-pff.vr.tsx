@@ -5,6 +5,5 @@ import MenuGroupExample from '../../../examples/05-menu-group';
 snapshot(MenuGroupExample, {
 	featureFlags: {
 		'platform.design-system-team.section-1px-seperator-borders': [true, false],
-		'platform.design-system-team.menu-tokenised-typography-styles': [false, true],
 	},
 });

@@ -4,7 +4,7 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
 
-const DECORATION_WIDGET_TYPE = 'decorationWidgetType';
+export const DECORATION_WIDGET_TYPE = 'decorationWidgetType';
 
 export const generateLineAttributesFromNode = (pos: number, node: Node) => {
 	// Get content node
@@ -12,6 +12,12 @@ export const generateLineAttributesFromNode = (pos: number, node: Node) => {
 
 	// Get node text content
 	let lineAttributes: CodeBlockLineAttributes[] = [];
+
+	// Early exit if content size is 0
+	if (contentNode.size === 0) {
+		return [{ lineStart: pos + 1, lineNumber: 1 }];
+	}
+
 	contentNode.forEach((child) => {
 		const nodeTextContent = child.textContent;
 		const nodeStartPos = pos;

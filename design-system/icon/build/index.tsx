@@ -1,17 +1,21 @@
 import path from 'path';
+
+import fs from 'fs-extra';
+import pkgDir from 'pkg-dir';
+
 import buildIcons, {
 	UNSAFE_buildNew as buildIconsNew,
-	UNSAFE_createIconDocsNew,
 	createIconDocs,
+	type IconBuildConfig,
+	UNSAFE_createIconDocsNew,
+	type UNSAFE_NewIconBuildConfig,
 } from '@af/icon-build-process';
-import type { UNSAFE_NewIconBuildConfig, IconBuildConfig } from '@af/icon-build-process';
-import pkgDir from 'pkg-dir';
-import fs from 'fs-extra';
-import synonyms from '../utils/synonyms';
-import migrationMap from '../src/migration-map';
-import legacyMetadata from '../src/metadata';
+
 import coreIconMetadata from '../icons_raw/metadata-core';
 import utilityIconMetadata from '../icons_raw/metadata-utility';
+import legacyMetadata from '../src/metadata';
+import migrationMap from '../src/migration-map';
+import synonyms from '../utils/synonyms';
 
 const root = pkgDir.sync();
 

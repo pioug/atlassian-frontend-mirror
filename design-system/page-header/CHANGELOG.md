@@ -1,5 +1,15 @@
 # @atlaskit/page-header
 
+## 10.9.2
+
+### Patch Changes
+
+- [#129726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129726)
+  [`778c15c1d279a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/778c15c1d279a) -
+  [ux] Removed feature flag
+  `platform.design-system-team.page-header-tokenised-typography-styles_lj1ix`. Title line height
+  visually changes as part of the internal typography changes.
+
 ## 10.9.1
 
 ### Patch Changes

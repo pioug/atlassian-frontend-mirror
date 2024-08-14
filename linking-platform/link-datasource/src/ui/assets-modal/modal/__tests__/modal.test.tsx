@@ -683,7 +683,7 @@ describe('AssetsConfigModal', () => {
 				});
 				await searchButton.click();
 				await waitFor(() => {
-					expect(mockReset).toBeCalledTimes(1);
+					expect(mockReset).toHaveBeenCalledTimes(1);
 					expect(mockReset).toHaveBeenCalledWith({
 						shouldResetColumns: true,
 						shouldForceRequest: true,
@@ -723,7 +723,7 @@ describe('AssetsConfigModal', () => {
 
 				// Reset of columns should be applied because query has changed
 				await waitFor(() => {
-					expect(mockReset).toBeCalledTimes(1);
+					expect(mockReset).toHaveBeenCalledTimes(1);
 					expect(mockReset).toHaveBeenCalledWith({
 						shouldResetColumns: true,
 						shouldForceRequest: true,
@@ -761,7 +761,7 @@ describe('AssetsConfigModal', () => {
 
 				// Reset of columns should not be applied because query is the same.
 				await waitFor(() => {
-					expect(mockReset).toBeCalledTimes(0);
+					expect(mockReset).toHaveBeenCalledTimes(0);
 				});
 			});
 		});

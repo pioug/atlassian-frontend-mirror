@@ -1,5 +1,14 @@
 # @atlaskit/docs
 
+## 9.1.7
+
+### Patch Changes
+
+- [#129902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129902)
+  [`36d615f5dc79c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36d615f5dc79c) -
+  switched text color to use tokens due to warnings
+- Updated dependencies
+
 ## 9.1.6
 
 ### Patch Changes

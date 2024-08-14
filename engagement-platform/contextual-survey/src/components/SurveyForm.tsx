@@ -11,17 +11,13 @@ import { Transition } from 'react-transition-group';
 import { LoadingButton as Button } from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Field, FormFooter, type OnSubmitHandler } from '@atlaskit/form';
+import Heading from '@atlaskit/heading';
+import { Stack, Text } from '@atlaskit/primitives';
 import Textarea from '@atlaskit/textarea';
-import { fontSize } from '@atlaskit/theme/constants';
 
 import { type FormValues } from '../types';
 
 import FeedbackScoreButtons from './FeedbackScoreButtons';
-
-const headingStyles = css({
-	fontSize: `${fontSize()}px`,
-	fontWeight: 600,
-});
 
 interface Props {
 	question: string;
@@ -74,10 +70,16 @@ export default ({ question, statement, textPlaceholder, textLabel, onSubmit }: P
 
 	return (
 		<section aria-labelledby="contextualSurveyQuestion">
-			<h1 id="contextualSurveyQuestion" css={headingStyles}>
-				{question}
-			</h1>
-			{statement && <p id="contextualSurveyStatement">{statement}</p>}
+			<Stack space="space.150">
+				<Heading id="contextualSurveyQuestion" size="xsmall">
+					{question}
+				</Heading>
+				{statement && (
+					<Text as="p" id="contextualSurveyStatement">
+						{statement}
+					</Text>
+				)}
+			</Stack>
 			<Form onSubmit={onSubmit}>
 				{({ formProps, submitting }) => (
 					<form {...formProps}>

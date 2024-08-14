@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::a52f286e4a27d4b7e43aaaf43b54d6e4>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _department = _interopRequireDefault(require("@atlaskit/icon/core/department
 var _department2 = _interopRequireDefault(require("@atlaskit/icon/glyph/department"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for DepartmentIcon.
  * This component is DepartmentIcon, with `UNSAFE_fallbackIcon` set to "DepartmentIcon".
  *
- * Category: Single-purpose
- * Location: Icon contributions
+ * Category: single-purpose
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for departments, reporting lines, or other tree chart representations.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

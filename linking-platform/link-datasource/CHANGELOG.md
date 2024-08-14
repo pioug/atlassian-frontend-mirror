@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 2.11.0
+
+### Minor Changes
+
+- [#129983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129983)
+  [`02069a897926b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02069a897926b) -
+  Add React 18 to peer dependencies and upgrade react-dom dependency to same versions as well
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.10.3
 
 ### Patch Changes

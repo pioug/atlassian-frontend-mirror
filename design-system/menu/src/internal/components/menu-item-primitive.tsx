@@ -9,7 +9,6 @@ import { ClassNames, css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import FocusRing from '@atlaskit/focus-ring';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Inline, type InlineProps, Stack, xcss } from '@atlaskit/primitives';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -40,10 +39,6 @@ const contentStyles = xcss({
 	textAlign: 'left',
 });
 
-const baseContentStyles = xcss({
-	lineHeight: '16px',
-});
-
 const truncateStyles = css({
 	display: 'block',
 	overflow: 'hidden',
@@ -61,14 +56,6 @@ const wordBreakStyles = css({
 
 const descriptionStyles = css({
 	color: token('color.text.subtlest', N200),
-});
-
-const baseDescriptionStyles = css({
-	fontSize: '12px',
-	marginBlockStart: token('space.050', '4px'),
-});
-
-const tokenizedDescriptionStyles = css({
 	font: token('font.body.UNSAFE_small'),
 });
 
@@ -98,10 +85,6 @@ const primitiveStyles = css({
 	'&:hover': {
 		textDecoration: 'none',
 	},
-});
-
-const primitiveBaseStyles = css({
-	fontSize: '14px',
 });
 
 const spacingMapStyles = {
@@ -245,9 +228,6 @@ const MenuItemPrimitive = ({
 								cn([
 									positionRelativeStyles,
 									primitiveStyles,
-									fg('platform.design-system-team.menu-tokenised-typography-styles')
-										? undefined
-										: primitiveBaseStyles,
 									spacingMapStyles[spacing],
 									!isDisabled && !isSelected && unselectedStyles,
 									!isDisabled &&
@@ -281,22 +261,11 @@ const MenuItemPrimitive = ({
 										</span>
 									)}
 									{title && (
-										<Stack
-											alignBlock="center"
-											grow="fill"
-											xcss={
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-												fg('platform.design-system-team.menu-tokenised-typography-styles')
-													? contentStyles
-													: [contentStyles, baseContentStyles]
-											}
-										>
+										<Stack alignBlock="center" grow="fill" xcss={contentStyles}>
 											{renderTitle('span', {
 												children: title,
 												className: cn(
-													fg('platform.design-system-team.menu-tokenised-typography-styles')
-														? titleStyles
-														: undefined,
+													titleStyles,
 													shouldTitleWrap ? wordBreakStyles : truncateStyles,
 												),
 												'data-item-title': true,
@@ -306,10 +275,6 @@ const MenuItemPrimitive = ({
 													data-item-description
 													css={[
 														descriptionStyles,
-														// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-														fg('platform.design-system-team.menu-tokenised-typography-styles')
-															? tokenizedDescriptionStyles
-															: baseDescriptionStyles,
 														isDisabled && disabledDescriptionStyles,
 														shouldDescriptionWrap ? wordBreakStyles : truncateStyles,
 													]}

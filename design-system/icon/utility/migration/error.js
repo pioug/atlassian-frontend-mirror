@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::7b5353aefb8b927c75a9255a7f4f860a>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _error = _interopRequireDefault(require("@atlaskit/icon/utility/error"));
 var _error2 = _interopRequireDefault(require("@atlaskit/icon/glyph/error"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ErrorIcon.
  * This component is ErrorIcon, with `UNSAFE_fallbackIcon` set to "ErrorIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: utility
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for Helper Messages in Forms.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

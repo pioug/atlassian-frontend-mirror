@@ -8,7 +8,6 @@ import { type FC, forwardRef, type HTMLProps, type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { row, tableBorder } from '../theme';
@@ -77,31 +76,12 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 const captionStyles = css({
 	font: token('font.heading.medium'),
 	marginBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.300'),
 	willChange: 'transform',
 });
 
-const oldCaptionStyles = css({
-	fontWeight: token('font.weight.regular'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	marginBlockStart: 28,
-});
-
-const newCaptionStyles = css({
-	marginBlockStart: token('space.300'),
-});
-
 export const Caption: FC<{ children: ReactNode }> = ({ children }) => (
-	<caption
-		css={[
-			captionStyles,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			getBooleanFF('platform.design-system-team.dynamic-table-typography_7zio6')
-				? newCaptionStyles
-				: oldCaptionStyles,
-		]}
-	>
-		{children}
-	</caption>
+	<caption css={captionStyles}>{children}</caption>
 );
 
 const paginationWrapperStyles = css({

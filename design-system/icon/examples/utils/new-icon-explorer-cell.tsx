@@ -2,24 +2,26 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useRef, useState, type ComponentType, type FC } from 'react';
+import { type ComponentType, type FC, useRef, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Textfield from '@atlaskit/textfield';
-import { Box, Inline, Stack, Text, Pressable, xcss } from '@atlaskit/primitives';
 import Button from '@atlaskit/button/new';
 import Modal, {
+	ModalBody,
+	ModalFooter,
 	ModalHeader,
 	ModalTitle,
 	ModalTransition,
-	ModalBody,
-	ModalFooter,
 } from '@atlaskit/modal-dialog';
+import { Box, Inline, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 import Tooltip from '@atlaskit/tooltip';
+
 import { IconTile } from '../../src';
-import type newIconMetadata from '../../src/metadata-core';
 import legacyIconMetadata from '../../src/metadata';
+import type newIconMetadata from '../../src/metadata-core';
 
 const pressableStyles = xcss({
 	borderRadius: 'border.radius.100',
@@ -86,9 +88,9 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		: `import ${componentName} from '${packageName}';`;
 
 	const metadata: { [index: string]: string } = {
+		'Icon Type': type || 'TBD',
 		Category: categorization || 'TBD',
 		'Owning team': team || 'TBD',
-		'Icon Type': type || 'TBD',
 		'Recommended Usage': usage || '',
 	};
 
@@ -115,7 +117,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 		<Modal onClose={closeModal}>
 			<ModalHeader>
 				<Inline space="space.100" alignBlock="center">
-					{type !== 'Utility' ? (
+					{type !== 'utility' ? (
 						<IconTile label={componentName} appearance={'blue'} icon={Icon} size="32" />
 					) : (
 						<Icon label={componentName} />

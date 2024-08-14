@@ -613,7 +613,7 @@ describe('JiraSearchContainer', () => {
 		});
 
 		// should be called with the default query if empty
-		expect(mockSetSearchBarJql).toBeCalledWith('ORDER BY created DESC');
+		expect(mockSetSearchBarJql).toHaveBeenCalledWith('ORDER BY created DESC');
 
 		// re-render the component with new search bar jql since the state is stored and updated in the parent
 		rerenderHelper(rerender, {
@@ -663,14 +663,16 @@ describe('JiraSearchContainer', () => {
 			() => {
 				const { getLatestJQLEditorProps, getByTestId, rerender, mockSetSearchBarJql } = setup();
 
-				getLatestJQLEditorProps().onUpdate!(
-					'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
-					{
-						represents: '',
-						errors: [],
-						query: undefined,
-					},
-				);
+				act(() => {
+					getLatestJQLEditorProps().onUpdate!(
+						'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
+						{
+							represents: '',
+							errors: [],
+							query: undefined,
+						},
+					);
+				});
 
 				expect(mockSetSearchBarJql).toHaveBeenCalledWith(
 					'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
@@ -681,11 +683,13 @@ describe('JiraSearchContainer', () => {
 					searchBarJql: 'text ~ "wrong" or summary ~ "value" ORDER BY status ASC',
 				});
 
-				// triggers search
-				getLatestJQLEditorProps().onSearch!('', {
-					represents: '',
-					errors: [],
-					query: undefined,
+				act(() => {
+					// triggers search
+					getLatestJQLEditorProps().onSearch!('', {
+						represents: '',
+						errors: [],
+						query: undefined,
+					});
 				});
 
 				expect(getByTestId('mode-toggle-basic').querySelector('input')).toBeDisabled();
@@ -1419,7 +1423,7 @@ describe('Analytics: JiraSearchContainer', () => {
 					});
 				});
 
-				expect(mockSetSearchBarJql).toBeCalledWith('resoulution=none');
+				expect(mockSetSearchBarJql).toHaveBeenCalledWith('resoulution=none');
 
 				// re-render the component with new search bar jql since the state is stored and updated in the parent
 				rerenderHelper(rerender, { searchBarJql: 'resoulution=none' });

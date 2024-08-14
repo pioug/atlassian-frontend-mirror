@@ -34,9 +34,6 @@ test.describe('List inside a blockquote', () => {
 		editorProps: {
 			appearance: 'full-page',
 		},
-		platformFeatureFlags: {
-			'platform.editor.allow-list-in-blockquote': true,
-		},
 	});
 	test.describe('List in a non-nested blockquote', () => {
 		test.use({
@@ -80,8 +77,7 @@ test.describe('List inside a blockquote', () => {
 			// action item should be inserted outside the blockquote
 			await expect(editor).toMatchDocument(
 				doc(
-					blockquote(ul(li(p('item 1')), li(p('')))),
-					taskList({})(taskItem({ state: 'TODO' })('')),
+					blockquote(ul(li(p('item 1')), li(p(''), taskList({})(taskItem({ state: 'TODO' })(''))))),
 				),
 			);
 		});

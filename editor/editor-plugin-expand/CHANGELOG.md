@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.4.0
+
+### Minor Changes
+
+- [#129865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129865)
+  [`dcf004629249a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcf004629249a) -
+  [ED-24280] Added the capability to nest nestedExpands in expands
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

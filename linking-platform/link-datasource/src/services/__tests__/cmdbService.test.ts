@@ -32,7 +32,7 @@ describe('cmdbService', () => {
 			expect(mock.calls()).toHaveLength(1);
 			expect(mock.done()).toBe(true);
 			expect(response).toEqual(mockResponse.results[0].id);
-			expect(fireEventMock).toBeCalledWith('operational.getWorkspaceId.success', {});
+			expect(fireEventMock).toHaveBeenCalledWith('operational.getWorkspaceId.success', {});
 		});
 
 		it('should throw PermissionError if response results is empty', async () => {
@@ -65,7 +65,7 @@ describe('cmdbService', () => {
 				await expect(getWorkspaceId(fireEventMock)).rejects.toThrow(errorType);
 				expect(mock.calls()).toHaveLength(1);
 				expect(mock.done()).toBe(true);
-				expect(fireEventMock).toBeCalledWith('operational.getWorkspaceId.failed', {
+				expect(fireEventMock).toHaveBeenCalledWith('operational.getWorkspaceId.failed', {
 					statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)),
 				});
 			},
@@ -101,7 +101,7 @@ describe('cmdbService', () => {
 				expect(mock.calls()).toHaveLength(1);
 				expect(mock.done()).toBe(true);
 				expect(response).toEqual(expectedMockResponse);
-				expect(fireEventMock).toBeCalledWith('operational.validateAql.success', {});
+				expect(fireEventMock).toHaveBeenCalledWith('operational.validateAql.success', {});
 			},
 		);
 
@@ -124,7 +124,7 @@ describe('cmdbService', () => {
 				await expect(validateAql(workspaceId, query, fireEventMock)).rejects.toThrow(errorType);
 				expect(mock.calls()).toHaveLength(1);
 				expect(mock.done()).toBe(true);
-				expect(fireEventMock).toBeCalledWith('operational.validateAql.failed', {
+				expect(fireEventMock).toHaveBeenCalledWith('operational.validateAql.failed', {
 					statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)),
 				});
 			},
@@ -147,7 +147,7 @@ describe('cmdbService', () => {
 			expect(mock.calls()).toHaveLength(1);
 			expect(mock.done()).toBe(true);
 			expect(response).toEqual(mockResponseObjectSchema);
-			expect(fireEventMock).toBeCalledWith('operational.objectSchema.success', {});
+			expect(fireEventMock).toHaveBeenCalledWith('operational.objectSchema.success', {});
 		});
 
 		it.each([
@@ -166,7 +166,7 @@ describe('cmdbService', () => {
 				);
 				expect(mock.calls()).toHaveLength(1);
 				expect(mock.done()).toBe(true);
-				expect(fireEventMock).toBeCalledWith('operational.objectSchema.failed', {
+				expect(fireEventMock).toHaveBeenCalledWith('operational.objectSchema.failed', {
 					statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)),
 				});
 			},
@@ -211,7 +211,7 @@ describe('cmdbService', () => {
 				expect(mock.calls()).toHaveLength(1);
 				expect(mock.done()).toBe(true);
 				expect(response).toEqual(expectedMockResponse);
-				expect(fireEventMock).toBeCalledWith('operational.objectSchemas.success', {});
+				expect(fireEventMock).toHaveBeenCalledWith('operational.objectSchemas.success', {});
 			},
 		);
 
@@ -231,7 +231,7 @@ describe('cmdbService', () => {
 				);
 				expect(mock.calls()).toHaveLength(1);
 				expect(mock.done()).toBe(true);
-				expect(fireEventMock).toBeCalledWith('operational.objectSchemas.failed', {
+				expect(fireEventMock).toHaveBeenCalledWith('operational.objectSchemas.failed', {
 					statusCodeGroup: getStatusCodeGroup(new FetchError(statusCode)),
 				});
 			},

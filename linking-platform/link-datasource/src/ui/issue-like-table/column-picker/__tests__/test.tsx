@@ -118,8 +118,8 @@ describe('Column picker', () => {
 			invariant(checkbox);
 			fireEvent.click(checkbox);
 
-			expect(mockOnChange).toBeCalledTimes(1);
-			expect(mockOnChange).toBeCalledWith(['type', 'blah']);
+			expect(mockOnChange).toHaveBeenCalledTimes(1);
+			expect(mockOnChange).toHaveBeenCalledWith(['type', 'blah']);
 		});
 	});
 

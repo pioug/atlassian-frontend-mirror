@@ -15,7 +15,6 @@ import { type Spacing } from '../../variants/types';
 const heights: { [key in Spacing]: string } = {
 	default: `${32 / 14}em`,
 	compact: `${24 / 14}em`,
-	none: 'auto',
 };
 
 import { SplitButtonContext } from './split-button-context';

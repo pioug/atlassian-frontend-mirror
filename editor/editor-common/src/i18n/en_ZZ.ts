@@ -325,6 +325,15 @@ export default {
   'fabric.editor.media.DefaultMediaWidthIncreased':
     '{newMediaWidth, plural, one {⁣⁢Media width increased to {newMediaWidth,number} pixel.⁡⁮؜⁯⁮⁠⁬؜‌⁭⁫⁮⁫⁡⁮⁠⁫⁭⁡⁫⁬؜⁮⁬⁣⁤} other {⁣⁢Media width increased to {newMediaWidth,number} pixels.⁡⁮؜⁯⁮⁠⁬؜‌⁭⁫⁮⁫⁡⁮⁠⁫⁭⁡⁫⁬؜⁮⁬⁣⁤}}',
   'fabric.editor.media.MediaWidthIsMin': '⁣⁢Media decreased to the minimum size⁡⁡؜⁪⁭⁮⁯⁬‌⁭⁬⁯‌⁡⁯⁯⁪‌⁭⁪؜⁪⁠⁮⁡‌⁣⁤',
+  'fabric.editor.media.insert.cancel': '⁣⁢Cancel⁯‍⁭⁡⁫⁭⁡⁮⁬؜؜⁪⁬⁯‌‍⁯⁪؜؜⁡؜⁮⁣⁤',
+  'fabric.editor.media.insert.errorMessage':
+    '⁣⁢Unfortunately, we can’t add this image link. Download the image, then drag and drop onto the page.‌⁡؜⁭⁬‌⁮؜⁮‌⁯⁡⁭⁮⁠⁭⁮؜؜⁫⁭⁡⁡⁣⁤',
+  'fabric.editor.media.insert.insert': '⁣⁢Insert⁠⁡⁯؜⁬‌⁫؜⁪⁡⁯⁯⁫⁪⁬⁬⁡⁮⁭؜؜⁣⁤',
+  'fabric.editor.media.insert.loadPreview': '⁣⁢Load preview⁪؜⁠⁫⁪⁯⁯‌⁯⁫⁪؜⁪⁯⁭⁭⁭‍⁭⁫‍⁣⁤',
+  'fabric.editor.media.insert.mediaAlt': '⁣⁢Preview for uploaded image or video file⁡⁬⁪⁮‍‌⁠⁡⁡⁬⁪؜⁯⁠⁫⁯⁭⁬⁠⁡⁡⁭⁮⁪⁣⁤',
+  'fabric.editor.media.insert.pasteLinkToUpload': '⁣⁢Paste link to upload⁡⁬⁪⁮⁯⁭⁪⁭⁠⁯‍⁮⁪⁡⁮⁬⁫⁮؜⁯⁡‍⁪⁪⁣⁤',
+  'fabric.editor.media.insert.warning':
+    '⁣⁢This image might not be visible to others due to source restrictions. Consider uploading the file instead.⁠‍؜⁮‍؜⁠⁭⁫⁫؜⁫⁫⁠⁫‍⁭⁫⁪‍⁣⁤',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': '⁣⁢Media increased to the maximum size⁯⁡⁫؜⁬⁪؜⁠⁬‍⁯⁯‍⁪⁬‍⁮⁪‌⁮‌⁭‍⁡⁯⁠⁣⁤',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': '⁣⁢height input⁬⁭؜⁯⁭⁭⁠؜⁫⁫⁫⁭⁬⁯⁬⁮‍؜‌⁭؜⁪‍⁪⁣⁤',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': '⁣⁢Height⁫⁪⁫⁡⁯⁪⁪⁠⁮⁮⁭⁮⁪⁠⁡⁫⁠⁮⁮⁪؜⁠⁠⁫⁪⁪⁣⁤',

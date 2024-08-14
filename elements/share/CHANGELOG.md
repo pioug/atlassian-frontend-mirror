@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.19.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.19.4
 
 ### Patch Changes

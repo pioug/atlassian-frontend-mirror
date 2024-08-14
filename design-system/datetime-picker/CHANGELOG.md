@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 13.11.0
+
+### Minor Changes
+
+- [#129307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129307)
+  [`8f67a01e4e56f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f67a01e4e56f) -
+  Fix internal type issues with regard to forwarding types from underlying `select` package.
+
 ## 13.10.1
 
 ### Patch Changes

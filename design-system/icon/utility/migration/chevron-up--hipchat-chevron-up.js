@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::e77d274563a7d744facd9e5201e6c48b>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _chevronUp = _interopRequireDefault(require("@atlaskit/icon/utility/chevron-
 var _chevronUp2 = _interopRequireDefault(require("@atlaskit/icon/glyph/hipchat/chevron-up"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for ChevronUpIcon.
  * This component is ChevronUpIcon, with `UNSAFE_fallbackIcon` set to "HipchatChevronUpIcon".
  *
- * Category: Multi-purpose
- * Location: ADS
+ * Category: utility
+ * Location: @atlaskit/icon
  * Usage guidance: Reserved for accordions.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)

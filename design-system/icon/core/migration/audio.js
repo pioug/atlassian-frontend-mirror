@@ -1,3 +1,8 @@
+/**
+ * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::bd69b7cfada02387d44f07e86e65cf52>>
+ * @codegenCommand yarn build:icon-glyphs
+ */
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9,14 +14,13 @@ var _audio = _interopRequireDefault(require("@atlaskit/icon/core/audio"));
 var _audio2 = _interopRequireDefault(require("@atlaskit/icon/glyph/audio"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 /**
- * ⚠️ EXPERIMENTAL ⚠️ - New icons are a work in progress and subject to change or removal in future minor or patch releases.
- * Please reach out in #help-design-system before using these in production.
+ * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  *
  * Migration Icon component for AudioIcon.
  * This component is AudioIcon, with `UNSAFE_fallbackIcon` set to "AudioIcon".
  *
- * Category: Single-purpose
- * Location: Icon contributions
+ * Category: single-purpose
+ * Location: @atlaskit/icon
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

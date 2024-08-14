@@ -2,20 +2,22 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState, type SyntheticEvent, type ComponentType, useCallback, useEffect } from 'react';
+import { type ComponentType, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import Textfield from '@atlaskit/textfield';
-import objectIconMetadata from '@atlaskit/icon-object/metadata';
 import fileTypeIconMetadata from '@atlaskit/icon-file-type/metadata';
+import objectIconMetadata from '@atlaskit/icon-object/metadata';
+import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 import metadata from '../src/metadata';
+import logoIcons from '../utils/logo-icons';
+
 import IconExplorerCell from './utils/icon-explorer-cell';
 import type { IconCommonProps } from './utils/icon-explorer-cell';
-import logoIcons from '../utils/logo-icons';
-import { token } from '@atlaskit/tokens';
 
 type IconsList = Record<string, IconData>;
 
@@ -192,7 +194,7 @@ const IconAllExample = () => {
 			/>
 			<div css={gridWrapperStyles}>
 				<p>
-					<Button appearance="subtle" onClick={() => setIconsShowing((old) => !old)} spacing="none">
+					<Button appearance="subtle" onClick={() => setIconsShowing((old) => !old)}>
 						{areIconsShowing ? 'Hide icons' : 'Show all icons'}
 					</Button>
 				</p>

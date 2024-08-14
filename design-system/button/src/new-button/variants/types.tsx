@@ -14,10 +14,8 @@ export type ButtonAppearance =
 export type LinkButtonAppearance =
 	| 'default'
 	| 'danger'
-	| 'link'
 	| 'primary'
 	| 'subtle'
-	| 'subtle-link'
 	| 'warning'
 	| 'discovery';
 
@@ -25,7 +23,7 @@ export type IconButtonAppearance = 'default' | 'primary' | 'discovery' | 'subtle
 
 export type Appearance = ButtonAppearance | LinkButtonAppearance | IconButtonAppearance;
 
-export type ButtonSpacing = 'compact' | 'default' | 'none';
+export type ButtonSpacing = 'compact' | 'default';
 
 export type IconButtonSpacing = 'compact' | 'default';
 

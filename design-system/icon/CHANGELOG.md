@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 22.13.0
+
+### Minor Changes
+
+- [#129428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129428)
+  [`668728e77517f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/668728e77517f) -
+  Updated metadata format for /core and /utility icons, tightening types and moving to lowercase
+  format.
+
 ## 22.12.0
 
 ### Minor Changes

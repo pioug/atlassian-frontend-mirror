@@ -11,7 +11,7 @@ export { default as RangeField } from './range-field';
 export type { RangeFieldProps } from './range-field';
 export { Label, Legend } from './label';
 export type { LabelProps, LegendProps } from './label';
-export { HelperMessage, ErrorMessage, ValidMessage } from './messages';
+export { HelperMessage, ErrorMessage, MessageWrapper, ValidMessage } from './messages';
 export { default as Fieldset } from './fieldset';
 export { default as RequiredAsterisk } from './required-asterisk';
 // eslint-disable-next-line import/no-unresolved

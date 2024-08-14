@@ -13,9 +13,7 @@ import React, { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
-import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 const truncateStyles = css({
@@ -32,12 +30,6 @@ const titleStyles = css({
 	color: token('color.text'),
 	font: token('font.heading.large'),
 	letterSpacing: 'normal',
-	marginBlockStart: 0,
-	outline: 'none',
-});
-
-const styledTitleStyles = css({
-	lineHeight: token('font.lineHeight.500', '32px'),
 	marginBlockStart: 0,
 	outline: 'none',
 });
@@ -93,9 +85,6 @@ export const OuterWrapper = ({ children }: { children: ReactNode }) => {
 	return <div css={outerStyles}>{children}</div>;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const h700Styles = css(h700());
-
 interface StyledTitleWrapperProps {
 	children?: React.ReactNode;
 	id?: string;
@@ -111,20 +100,7 @@ interface StyledTitleWrapperProps {
 export const StyledTitleWrapper = React.forwardRef<HTMLHeadingElement, StyledTitleWrapperProps>(
 	({ children, id, truncateTitle }, ref) => {
 		return (
-			<h1
-				css={[
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					...(getBooleanFF(
-						'platform.design-system-team.page-header-tokenised-typography-styles_lj1ix',
-					)
-						? [titleStyles]
-						: [h700Styles, styledTitleStyles]),
-					truncateTitle && truncateStyles,
-				]}
-				ref={ref}
-				tabIndex={-1}
-				id={id}
-			>
+			<h1 css={[titleStyles, truncateTitle && truncateStyles]} ref={ref} tabIndex={-1} id={id}>
 				{children}
 			</h1>
 		);

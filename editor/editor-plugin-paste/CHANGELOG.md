@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.8.1
+
+### Patch Changes
+
+- [#129252](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129252)
+  [`d4ea158a91fde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4ea158a91fde) -
+  Cleaned up FF platform.editor.allow-action-in-list
+
 ## 1.8.0
 
 ### Minor Changes

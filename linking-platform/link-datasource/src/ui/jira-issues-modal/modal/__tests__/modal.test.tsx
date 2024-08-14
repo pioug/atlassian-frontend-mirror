@@ -139,7 +139,7 @@ describe('JiraIssuesConfigModal', () => {
 			});
 
 			it('should update title with new site name when cloudId updates', async () => {
-				const { getConfigModalTitleText, rerender } = await setup();
+				const { getConfigModalTitleText, rerender, findByTestId } = await setup();
 				const modalTitle = await getConfigModalTitleText();
 				expect(modalTitle).toEqual('Insert Jira issues from hello');
 
@@ -156,6 +156,8 @@ describe('JiraIssuesConfigModal', () => {
 						/>
 					</IntlProvider>,
 				);
+
+				await findByTestId(`jira-datasource-modal--site-selector--trigger`);
 
 				const modalTitle2 = await getConfigModalTitleText();
 				expect(modalTitle2).toEqual('Insert Jira issues from test1');
@@ -253,7 +255,10 @@ describe('JiraIssuesConfigModal', () => {
 						// open the status dropdown
 						const triggerButton = queryByTestId(`jlol-basic-filter-status-trigger`);
 						invariant(triggerButton);
-						fireEvent.click(triggerButton);
+
+						act(() => {
+							fireEvent.click(triggerButton);
+						});
 
 						const statusSelectMenu = await findByTestId(
 							'jlol-basic-filter-status-popup-select--menu',
@@ -261,10 +266,16 @@ describe('JiraIssuesConfigModal', () => {
 						const [firstStatus, secondStatus] = within(statusSelectMenu).queryAllByTestId(
 							'basic-filter-popup-select-option--lozenge',
 						);
-						fireEvent.click(firstStatus); // select the first status
-						fireEvent.click(secondStatus); // select the second status
 
-						jest.advanceTimersByTime(500);
+						act(() => {
+							fireEvent.click(firstStatus); // select the first status
+						});
+						act(() => {
+							fireEvent.click(secondStatus); // select the second status
+						});
+						act(() => {
+							jest.advanceTimersByTime(500);
+						});
 
 						assertInsertResult(
 							{
@@ -1262,7 +1273,9 @@ describe('JiraIssuesConfigModal', () => {
 				it('should use new columnKeyList in resulting ADF', async () => {
 					const { updateVisibleColumnList, assertInsertResult } = await setup();
 
-					updateVisibleColumnList(['someColumn']);
+					act(() => {
+						updateVisibleColumnList(['someColumn']);
+					});
 
 					assertInsertResult(
 						{

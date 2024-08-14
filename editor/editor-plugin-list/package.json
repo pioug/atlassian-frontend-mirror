@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-list",
-	"version": "3.8.0",
+	"version": "3.8.1",
 	"description": "List plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -91,9 +91,6 @@
 	},
 	"platform-feature-flags": {
 		"platform.editor.ordered-list-auto-join-improvements_mrlv5": {
-			"type": "boolean"
-		},
-		"platform.editor.allow-action-in-list": {
 			"type": "boolean"
 		}
 	}

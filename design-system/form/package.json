@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "10.5.1",
+	"version": "10.5.2",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,8 +29,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/heading": "^2.4.0",
-		"@atlaskit/icon": "^22.12.0",
-		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "^1.58.0",
@@ -50,7 +49,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/banner": "^12.5.0",
-		"@atlaskit/button": "^19.2.0",
+		"@atlaskit/button": "^20.0.0",
 		"@atlaskit/checkbox": "^13.7.0",
 		"@atlaskit/ds-lib": "^2.4.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
@@ -135,13 +134,5 @@
 		"./Label": "./src/entry-points/label.tsx",
 		".": "./src/index.tsx"
 	},
-	"homepage": "https://atlassian.design/components/form/",
-	"platform-feature-flags": {
-		"platform.design-system-team.form-header-typography-updates_4f1g6": {
-			"type": "boolean"
-		},
-		"platform.design-system-team.form-label-typography-updates": {
-			"type": "boolean"
-		}
-	}
+	"homepage": "https://atlassian.design/components/form/"
 }

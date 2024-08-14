@@ -1,1 +1,1 @@
-export { HelperMessage, ErrorMessage, ValidMessage } from '../messages';
+export { HelperMessage, ErrorMessage, MessageWrapper, ValidMessage } from '../messages';

@@ -19,13 +19,7 @@
     ],
     "references": [
         {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../primitives/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../theme/afm-cc/tsconfig.json"
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"

@@ -20,6 +20,7 @@ const IgnoredWarnings: IgnoredWarningPredicate[] = [
 	([_1, _2]) =>
 		_1 === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && _2 === 'style',
 	([_1]) => _1.startsWith('Warning: useLayoutEffect does nothing on the server,'),
+	([_1]) => _1.startsWith('Warning: ReactDOM.hydrate is no longer supported in React 18'),
 ];
 
 test('should ssr then hydrate example component correctly', async () => {

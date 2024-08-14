@@ -39,6 +39,8 @@ export default {
   'fabric.editor.blockControlDragHandleUsageInfo': 'Faites glisser pour déplacer',
   'fabric.editor.blockControlMoveDown': 'Déplacer vers le bas',
   'fabric.editor.blockControlMoveUp': 'Déplacer vers le haut',
+  'fabric.editor.blockControlMovedDown': 'Le contenu a été déplacé vers le bas',
+  'fabric.editor.blockControlMovedUp': 'Le contenu a été déplacé vers le haut',
   'fabric.editor.blockDescription':
     "Affichez plus d'informations concernant un lien, y compris un résumé et des actions",
   'fabric.editor.blockTitle': 'Carte',
@@ -286,6 +288,8 @@ export default {
     "Lorsque les résultats de la saisie semi-automatique sont disponibles, utilisez les flèches vers le haut et le bas pour les passer en revue, et appuyez sur Entrée pour en sélectionner un. Les utilisateurs d'appareils tactiles peuvent parcourir les résultats en touchant l'écran ou en le balayant.",
   'fabric.editor.insertColumn': 'Insérer une colonne à droite',
   'fabric.editor.insertColumnDrag': 'Insérer une colonne',
+  'fabric.editor.insertMediaFromUrl': 'Image du lien',
+  'fabric.editor.insertMediaFromUrlDescription': "Ajouter une image ou une vidéo à partir d'un lien",
   'fabric.editor.insertMenu': 'Insérer des éléments',
   'fabric.editor.insertRow': 'Insérer une ligne en dessous',
   'fabric.editor.insertRowDrag': 'Insérer une ligne',
@@ -364,6 +368,7 @@ export default {
   'fabric.editor.other': 'Autres…',
   'fabric.editor.outdent': 'Retrait négatif',
   'fabric.editor.pageActionsLabel': 'Actions de page',
+  'fabric.editor.panel': 'Volet',
   'fabric.editor.panel.backgroundColor': "Couleur d'arrière-plan",
   'fabric.editor.panel.emoji': 'Ajouter une émoticône',
   'fabric.editor.panel.panelsGroup': 'Types de panneaux',
@@ -483,6 +488,7 @@ export default {
   'fabric.editor.tooltip.defaultBlockNode': 'un nœud de bloc',
   'fabric.editor.tooltip.nestedExpand': 'une extension imbriquée',
   'fabric.editor.tooltip.taskList': 'une mesure',
+  'fabric.editor.turnInto': 'Transformer en',
   'fabric.editor.twoColumns': 'Disposition en deux colonnes',
   'fabric.editor.typeAhead.popupLabel': 'Résultats de la saisie semi-automatique',
   'fabric.editor.typeAhead.quickInsertInputLabel':

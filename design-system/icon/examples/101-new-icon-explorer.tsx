@@ -2,26 +2,27 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState, type SyntheticEvent, useCallback, useEffect, Fragment } from 'react';
+import { Fragment, type SyntheticEvent, useCallback, useEffect, useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Heading from '@atlaskit/heading';
-import Textfield from '@atlaskit/textfield';
-import { Inline, Box, Stack } from '@atlaskit/primitives';
 import { Code } from '@atlaskit/code';
+import Heading from '@atlaskit/heading';
+import { Box, Inline, Stack } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import iconLabsMetadata from '@atlassian/icon-lab/metadata';
 
-import iconMetadata from '../src/metadata-core';
-import utilityIconMetadata from '../src/metadata-utility';
-import IconExplorerCell from './utils/new-icon-explorer-cell';
-import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
-import metadata from '../src/entry-points/metadata';
-import migrationMap from '../src/entry-points/migration-map';
-
 import FlaskIcon from '../core/flask';
 import { IconTile } from '../src';
+import metadata from '../src/entry-points/metadata';
+import migrationMap from '../src/entry-points/migration-map';
+import iconMetadata from '../src/metadata-core';
+import utilityIconMetadata from '../src/metadata-utility';
+
+import IconExplorerCell from './utils/new-icon-explorer-cell';
+import type { IconExplorerCellProps } from './utils/new-icon-explorer-cell';
 
 type IconsList = Record<string, IconExplorerCellProps>;
 
@@ -146,12 +147,12 @@ const IconAllExample = () => {
 			// Filter icons object into two categories
 			setSinglePurposeAdsIcons(
 				Object.fromEntries(
-					Object.entries(icons).filter(([_, icon]) => icon.categorization === 'Single-purpose'),
+					Object.entries(icons).filter(([_, icon]) => icon.categorization === 'single-purpose'),
 				),
 			);
 			setMultiPurposeAdsIcons(
 				Object.fromEntries(
-					Object.entries(icons).filter(([_, icon]) => icon.categorization !== 'Single-purpose'),
+					Object.entries(icons).filter(([_, icon]) => icon.categorization !== 'single-purpose'),
 				),
 			);
 		});
@@ -160,12 +161,12 @@ const IconAllExample = () => {
 			// Filter icons object into two categories
 			setSinglePurposeLabIcons(
 				Object.fromEntries(
-					Object.entries(icons).filter(([_, icon]) => icon.categorization === 'Single-purpose'),
+					Object.entries(icons).filter(([_, icon]) => icon.categorization === 'single-purpose'),
 				),
 			);
 			setMultiPurposeLabIcons(
 				Object.fromEntries(
-					Object.entries(icons).filter(([_, icon]) => icon.categorization !== 'Single-purpose'),
+					Object.entries(icons).filter(([_, icon]) => icon.categorization !== 'single-purpose'),
 				),
 			);
 		});

@@ -103,7 +103,7 @@ describe('AssetsSearchContainer', () => {
 		const button = await findByTestId(searchButtonTestId);
 		await button.click();
 		await waitFor(() => {
-			expect(mockOnSearch).toBeCalledTimes(1);
+			expect(mockOnSearch).toHaveBeenCalledTimes(1);
 			expect(mockOnSearch).toHaveBeenCalledWith(validAqlQuery, objectSchema.id);
 		});
 	});
@@ -140,7 +140,7 @@ describe('AssetsSearchContainer', () => {
 		const button = await findByTestId(searchButtonTestId);
 		await button.click();
 		await waitFor(() => {
-			expect(mockOnSearch).not.toBeCalled();
+			expect(mockOnSearch).not.toHaveBeenCalled();
 		});
 	});
 });

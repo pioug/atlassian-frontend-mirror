@@ -174,9 +174,9 @@ describe('IssueLikeDataTableView', () => {
 
 		let wasColumnPickerOpenBefore = false;
 		const openColumnPicker = async () => {
-			const { getByTestId, getByText, baseElement } = renderResult;
+			const { findByTestId, getByText, baseElement } = renderResult;
 
-			const triggerButton = getByTestId('column-picker-trigger-button');
+			const triggerButton = await findByTestId('column-picker-trigger-button');
 
 			// open popup
 			act(() => {
@@ -782,7 +782,6 @@ describe('IssueLikeDataTableView', () => {
 
 						it('should not call nextPage when scrolled to the bottom and next page is already loading', async () => {
 							jest.useFakeTimers();
-
 							const items = getSimpleItems();
 							const itemIds = setupItemIds(items);
 							const columns = getSimpleColumns();
@@ -885,7 +884,6 @@ describe('IssueLikeDataTableView', () => {
 
 						it('should not show column picker button if onColumnsChange is not passed in', async () => {
 							jest.useFakeTimers();
-
 							const items = getSimpleItems();
 							const itemIds = setupItemIds(items);
 							const columns = getSimpleColumns();
@@ -919,7 +917,6 @@ describe('IssueLikeDataTableView', () => {
 
 						describe('column picker integration', () => {
 							it('should call onLoadDatasourceDetails when opening the picker for the first time', async () => {
-								jest.useFakeTimers();
 								const items = getSimpleItems();
 								const itemIds = setupItemIds(items);
 								const columns = getSimpleColumns();
@@ -936,7 +933,6 @@ describe('IssueLikeDataTableView', () => {
 							});
 
 							it('should not call onLoadDatasourceDetails after opening the picker for the first time', async () => {
-								jest.useFakeTimers();
 								const items = getSimpleItems();
 								const itemIds = setupItemIds(items);
 								const columns = getSimpleColumns();
@@ -960,7 +956,6 @@ describe('IssueLikeDataTableView', () => {
 							});
 
 							it('should show all columns', async () => {
-								jest.useFakeTimers();
 								const items = getComplexItems();
 								const itemIds = setupItemIds(items);
 								const columns = getComplexColumns();
@@ -979,7 +974,6 @@ describe('IssueLikeDataTableView', () => {
 							});
 
 							it('should have visible columns selected', async () => {
-								jest.useFakeTimers();
 								const items = getComplexItems();
 								const itemIds = setupItemIds(items);
 								const columns = getComplexColumns();
@@ -998,12 +992,11 @@ describe('IssueLikeDataTableView', () => {
 							});
 
 							it('should update visible columns when column is unselected', async () => {
-								jest.useFakeTimers();
 								const items = getComplexItems();
 								const itemIds = setupItemIds(items);
 								const columns = getComplexColumns();
 
-								const { onVisibleColumnKeysChange, openColumnPicker, getByTestId } = setup({
+								const { onVisibleColumnKeysChange, openColumnPicker, findByTestId } = setup({
 									items,
 									itemIds,
 									columns,
@@ -1013,19 +1006,18 @@ describe('IssueLikeDataTableView', () => {
 
 								const { selectedOptions } = await openColumnPicker();
 
-								expect(getByTestId('someKey-column-heading')).toHaveTextContent('Some key');
-								expect(getByTestId('someOtherKey-column-heading')).toHaveTextContent(
-									'Some Other key',
-								);
+								const someKeyColumn = await findByTestId('someKey-column-heading');
+								const someOtherKeyColumn = await findByTestId('someOtherKey-column-heading');
+
+								expect(someKeyColumn).toHaveTextContent('Some key');
+								expect(someOtherKeyColumn).toHaveTextContent('Some Other key');
 
 								const otherKeyItem = Array.from(selectedOptions).find(
 									(el) => (el as HTMLElement).innerText === 'Some Other key',
 								);
 								invariant(otherKeyItem);
 
-								act(() => {
-									fireEvent.click(otherKeyItem);
-								});
+								fireEvent.click(otherKeyItem);
 
 								expect(onVisibleColumnKeysChange).toHaveBeenLastCalledWith(['someKey']);
 							});
@@ -1730,15 +1722,20 @@ describe('IssueLikeDataTableView', () => {
 								const items = getComplexItems();
 								const itemIds = setupItemIds(items);
 
-								const { onWrappedColumnChange, getByTestId } = setup({
+								const { onWrappedColumnChange, findByTestId } = setup({
 									items,
 									itemIds,
 									columns: getComplexColumns(),
 									visibleColumnKeys: ['id', 'someOtherKey'],
 								});
 
-								getByTestId('someOtherKey-column-dropdown').click();
-								screen.getByTestId('someOtherKey-column-dropdown-item-toggle-wrapping').click();
+								const someOtherKeyColumn = await findByTestId('someOtherKey-column-dropdown');
+								fireEvent.click(someOtherKeyColumn);
+
+								const toggleWrappingButton = await findByTestId(
+									'someOtherKey-column-dropdown-item-toggle-wrapping',
+								);
+								fireEvent.click(toggleWrappingButton);
 
 								expect(onWrappedColumnChange).toHaveBeenCalledWith('someOtherKey', true);
 							});
@@ -1821,16 +1818,20 @@ describe('IssueLikeDataTableView', () => {
 								const items = getComplexItems();
 								const itemIds = setupItemIds(items);
 
-								const { onWrappedColumnChange, getByTestId } = setup({
+								const { onWrappedColumnChange, findByTestId } = setup({
 									wrappedColumnKeys: ['someOtherKey'],
 									items,
 									itemIds,
 									columns: getComplexColumns(),
 									visibleColumnKeys: ['id', 'someOtherKey'],
 								});
+								const someOtherKeyColumn = await findByTestId('someOtherKey-column-dropdown');
+								fireEvent.click(someOtherKeyColumn);
 
-								getByTestId('someOtherKey-column-dropdown').click();
-								screen.getByTestId('someOtherKey-column-dropdown-item-toggle-wrapping').click();
+								const toggleWrappingButton = await findByTestId(
+									'someOtherKey-column-dropdown-item-toggle-wrapping',
+								);
+								fireEvent.click(toggleWrappingButton);
 
 								expect(onWrappedColumnChange).toHaveBeenCalledWith('someOtherKey', false);
 							});

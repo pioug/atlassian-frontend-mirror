@@ -34,7 +34,7 @@ const secondaryAction = (
 );
 
 const tertiaryAction = (
-	<LinkButton appearance="subtle-link" href="#" target="_blank">
+	<LinkButton appearance="subtle" href="#" target="_blank">
 		Tertiary action
 	</LinkButton>
 );

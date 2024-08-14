@@ -8,8 +8,6 @@ function getIconSpacing(spacing?: ButtonSpacing) {
 	switch (spacing) {
 		case 'compact':
 			return 'small';
-		case 'none':
-			return 'xsmall';
 		default:
 			return 'medium';
 	}

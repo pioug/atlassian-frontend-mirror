@@ -13,6 +13,13 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+export type ActiveNode = {
+	pos: number;
+	anchorName: string;
+	nodeType: string;
+	handleOptions?: HandleOptions;
+};
+
 export interface PluginState {
 	decorations: DecorationSet;
 	decorationState: DecorationState;
@@ -21,12 +28,7 @@ export interface PluginState {
 	editorHeight: number;
 	editorWidthLeft: number;
 	editorWidthRight: number;
-	activeNode: {
-		pos: number;
-		anchorName: string;
-		nodeType: string;
-		handleOptions?: HandleOptions;
-	} | null;
+	activeNode: ActiveNode | null;
 	isResizerResizing: boolean;
 	/**
 	 * @private
@@ -44,7 +46,7 @@ export type ReleaseHiddenDecoration = () => boolean | undefined;
 export type BlockControlsSharedState =
 	| {
 			isMenuOpen: boolean;
-			activeNode: { pos: number; anchorName: string } | null;
+			activeNode: ActiveNode | null;
 			decorationState: DecorationState;
 			isDragging: boolean;
 			isPMDragging: boolean;
@@ -88,7 +90,7 @@ export type DecorationState = {
 }[];
 
 export type BlockControlsMeta = {
-	activeNode: { pos: number; anchorName: string; nodeType: string };
+	activeNode: ActiveNode;
 	type: string;
 	dom: HTMLElement;
 	editorHeight: number;

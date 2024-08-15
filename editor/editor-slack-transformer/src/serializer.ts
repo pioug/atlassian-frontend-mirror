@@ -79,8 +79,13 @@ const unsupportedNodes = {
 		state.write('[task list]');
 		state.closeBlock(node);
 	},
-	nestedExpand(state: MarkdownSerializerState) {
+	expand(state: MarkdownSerializerState, node: PMNode) {
+		state.write('[expand]');
+		state.closeBlock(node);
+	},
+	nestedExpand(state: MarkdownSerializerState, node: PMNode) {
 		state.write('[nested expand]');
+		state.closeBlock(node);
 	},
 	confluenceUnsupportedBlock(state: MarkdownSerializerState) {
 		state.write('');

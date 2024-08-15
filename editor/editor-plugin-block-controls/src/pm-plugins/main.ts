@@ -332,11 +332,10 @@ export const createPlugin = (
 					// if the transaction is only for analytics and user is dragging, continue to draw drop targets
 					if (shouldUpdateDropTargets || isBlocksDragTargetDebug()) {
 						const { decs, decorationState: updatedDecorationState } = dropTargetDecorations(
-							oldState,
 							newState,
 							api,
 							formatMessage,
-							meta?.activeNode?.nodeType,
+							meta?.activeNode,
 						);
 						decorationState = updatedDecorationState;
 						decorations = decorations.add(newState.doc, decs);

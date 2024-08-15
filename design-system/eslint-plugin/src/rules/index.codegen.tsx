@@ -1,11 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::402e6eb5433560b1032e5ed926bb5564>>
+ * @codegen <<SignedSource::c2a140a3f690737dd938e746ef8fb9d5>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
 import ensureDesignTokenUsage from './ensure-design-token-usage';
 import ensureDesignTokenUsagePreview from './ensure-design-token-usage-preview';
+import ensureIconColor from './ensure-icon-color';
 import iconLabel from './icon-label';
 import noBannedImports from './no-banned-imports';
 import noCssTaggedTemplateExpression from './no-css-tagged-template-expression';
@@ -49,6 +50,7 @@ export default {
 	'consistent-css-prop-usage': consistentCssPropUsage,
 	'ensure-design-token-usage': ensureDesignTokenUsage,
 	'ensure-design-token-usage/preview': ensureDesignTokenUsagePreview,
+	'ensure-icon-color': ensureIconColor,
 	'icon-label': iconLabel,
 	'no-banned-imports': noBannedImports,
 	'no-css-tagged-template-expression': noCssTaggedTemplateExpression,

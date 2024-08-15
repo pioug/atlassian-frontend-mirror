@@ -21,7 +21,7 @@ import { useDatasourceContext } from '../datasource-context';
 import { useViewModeContext } from '../mode-switcher/useViewModeContext';
 
 export type InsertButtonProps<Parameters extends DatasourceParameters> = PropsWithChildren<{
-	testId: string;
+	testId?: string;
 	url: string | undefined;
 	getAnalyticsPayload: () => Record<string, any>;
 	overwriteParameters?: (parameters: Parameters) => Parameters;

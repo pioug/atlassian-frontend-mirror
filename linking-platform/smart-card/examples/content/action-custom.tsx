@@ -6,6 +6,7 @@
 import { css, jsx } from '@emotion/react';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import { token } from '@atlaskit/tokens';
 import { ActionName, FooterBlock } from '../../src';
 import ExampleContainer from './example-container';
 
@@ -29,13 +30,13 @@ export default () => (
 				},
 				{
 					name: ActionName.CustomAction,
-					icon: <PremiumIcon label="magic" />,
+					icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
 					content: 'Magic!',
 					onClick: () => {},
 				},
 				{
 					name: ActionName.CustomAction,
-					icon: <PremiumIcon label="magic" />,
+					icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
 					content:
 						'This is an example of a custom action with hidden content. Note how the content still appears in the tooltip.',
 					hideContent: true,

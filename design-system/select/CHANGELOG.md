@@ -1,5 +1,21 @@
 # @atlaskit/select
 
+## 17.15.0
+
+### Minor Changes
+
+- [`0d3bdaf1e3d68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d3bdaf1e3d68) -
+  [ux] Set the color.text.subtle token for 'No options' text to meet a 4.5:1 color contrast.
+
+## 17.14.0
+
+### Minor Changes
+
+- [#130406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130406)
+  [`9d04736c97bfe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d04736c97bfe) -
+  Added feature flag for fixing react18 bug(https://product-fabric.atlassian.net/browse/DSP-19701)
+  for handling menu triggers
+
 ## 17.13.2
 
 ### Patch Changes

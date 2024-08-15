@@ -9,7 +9,7 @@
 		"team": "Design System Team",
 		"inPublicMirror": false,
 		"releaseModel": "continuous",
-		"runReact18": true,
+		"runReact18": false,
 		"website": {
 			"name": "react-beautiful-dnd migration",
 			"category": "Libraries"

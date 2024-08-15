@@ -58,7 +58,7 @@
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/radio": "^6.5.0",
 		"@atlaskit/section-message": "^6.6.0",
-		"@atlaskit/select": "^17.13.0",
+		"@atlaskit/select": "^17.15.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textarea": "^5.6.0",
 		"@atlaskit/textfield": "^6.5.0",

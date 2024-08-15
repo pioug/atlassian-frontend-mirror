@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "4.0.1",
+	"version": "4.0.3",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -232,8 +232,8 @@
 		"@atlaskit/editor-plugin-base": "1.10.0",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.2.0",
 		"@atlaskit/editor-plugin-better-type-history": "1.7.0",
-		"@atlaskit/editor-plugin-block-controls": "1.11.2",
-		"@atlaskit/editor-plugin-block-type": "3.12.1",
+		"@atlaskit/editor-plugin-block-controls": "1.12.0",
+		"@atlaskit/editor-plugin-block-type": "3.12.2",
 		"@atlaskit/editor-plugin-border": "1.6.0",
 		"@atlaskit/editor-plugin-breakout": "1.7.1",
 		"@atlaskit/editor-plugin-caption": "1.9.1",
@@ -241,7 +241,7 @@
 		"@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.2.1",
 		"@atlaskit/editor-plugin-clipboard": "1.2.1",
 		"@atlaskit/editor-plugin-code-bidi-warning": "1.2.1",
-		"@atlaskit/editor-plugin-code-block": "3.3.3",
+		"@atlaskit/editor-plugin-code-block": "3.3.5",
 		"@atlaskit/editor-plugin-collab-edit": "1.13.0",
 		"@atlaskit/editor-plugin-composition": "1.2.1",
 		"@atlaskit/editor-plugin-content-insertion": "1.7.0",
@@ -278,7 +278,7 @@
 		"@atlaskit/editor-plugin-list": "3.8.1",
 		"@atlaskit/editor-plugin-loom": "2.7.0",
 		"@atlaskit/editor-plugin-max-content-size": "1.2.1",
-		"@atlaskit/editor-plugin-media": "1.28.4",
+		"@atlaskit/editor-plugin-media": "1.28.5",
 		"@atlaskit/editor-plugin-media-insert": "2.0.1",
 		"@atlaskit/editor-plugin-mentions": "2.3.1",
 		"@atlaskit/editor-plugin-panel": "2.3.1",
@@ -296,7 +296,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.2.1",
 		"@atlaskit/editor-plugin-status": "2.4.1",
 		"@atlaskit/editor-plugin-submit-editor": "1.2.1",
-		"@atlaskit/editor-plugin-table": "7.25.5",
+		"@atlaskit/editor-plugin-table": "7.25.6",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "2.4.0",
 		"@atlaskit/editor-plugin-text-color": "1.12.1",
 		"@atlaskit/editor-plugin-text-formatting": "1.13.1",
@@ -449,10 +449,6 @@
 		"platform.editor.table.use-increased-scaling-percent": {
 			"type": "boolean",
 			"referenceOnly": "true"
-		},
-		"platform.editor.table.live-pages-sorting_4malx": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform.editor.mentions-in-editor-popup-on-click": {
 			"type": "boolean",

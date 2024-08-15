@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.4.6",
+	"version": "195.4.8",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.0.0",
-		"@atlaskit/editor-common": "^87.10.0",
+		"@atlaskit/editor-common": "^87.11.0",
 		"@atlaskit/editor-plugins": "^4.0.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
@@ -74,7 +74,7 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "^1.12.0",
-		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-core": "^34.3.0",
 		"react": "^16.8.0",
 		"react-dom": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -95,12 +95,12 @@
 		"@atlaskit/editor-test-helpers": "*",
 		"@atlaskit/link-provider": "^1.14.0",
 		"@atlaskit/logo": "^14.2.0",
-		"@atlaskit/media-core": "^34.2.0",
-		"@atlaskit/media-integration-test-helpers": "^3.0.0",
+		"@atlaskit/media-core": "^34.3.0",
+		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/renderer": "^109.46.0",
+		"@atlaskit/renderer": "^109.47.0",
 		"@atlaskit/smart-card": "^27.16.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.3.0",
@@ -108,7 +108,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.106",
+		"@atlassian/search-provider": "2.4.107",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -235,10 +235,6 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
-		"platform.editor.table.live-pages-sorting_4malx": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"platform.editor.table.allow-table-alignment": {
 			"type": "boolean"
 		},
@@ -294,6 +290,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_drag_and_drop_expand_style_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_element_padding_changes_gate": {
 			"type": "boolean"
 		}
 	},

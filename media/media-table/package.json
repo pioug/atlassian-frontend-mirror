@@ -43,7 +43,7 @@
 		"@atlaskit/dynamic-table": "^14.20.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/media-client": "^27.3.0",
-		"@atlaskit/media-client-react": "^2.0.0",
+		"@atlaskit/media-client-react": "^2.1.0",
 		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/media-viewer": "^48.7.0",
 		"@atlaskit/theme": "^13.0.0",
@@ -53,7 +53,7 @@
 		"memoize-one": "^6.0.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-core": "^34.3.0",
 		"@emotion/react": "^11.7.1",
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
@@ -61,7 +61,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/icon-file-type": "^6.4.0",
-		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/range": "^7.4.0",
 		"@emotion/react": "^11.7.1",

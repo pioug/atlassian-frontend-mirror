@@ -73,8 +73,14 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
 		'primaryToolbar',
 	]);
 	let primaryToolbarComponents = props.primaryToolbarComponents;
-	if (Array.isArray(primaryToolbarState?.components) && Array.isArray(primaryToolbarComponents)) {
-		primaryToolbarComponents = primaryToolbarState.components.concat(primaryToolbarComponents);
+
+	if (Array.isArray(primaryToolbarComponents)) {
+		// The primary toolbar state may be undefined if we are in SSR environment - in which case fallback to the current state (useLayoutEffect doesn't work in SSR)
+		const additionalComponents =
+			primaryToolbarState?.components ??
+			editorAPI?.primaryToolbar?.sharedState.currentState()?.components ??
+			[];
+		primaryToolbarComponents = additionalComponents.concat(primaryToolbarComponents);
 	}
 
 	const isEditorToolbarHidden = editorViewModeState?.mode === 'view';

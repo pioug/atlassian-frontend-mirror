@@ -19,6 +19,7 @@ import {
 	gridMediumMaxWidth,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -30,7 +31,8 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 		${columnLayoutSharedStyle} [data-layout-section] {
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
-			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset}px 0;
+			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +
+				(fg('platform_editor_element_padding_changes_gate') ? 8 : 0)}px 0;
 			transition: border-color 0.3s ${akEditorSwoopCubicBezier};
 			cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 
@@ -41,7 +43,8 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
 					${token('color.border', N40A)};
 				border-radius: 4px;
-				padding: ${LAYOUT_COLUMN_PADDING}px;
+				padding: ${LAYOUT_COLUMN_PADDING}px ${LAYOUT_COLUMN_PADDING}px ${LAYOUT_COLUMN_PADDING}px
+					${LAYOUT_COLUMN_PADDING + (fg('platform_editor_element_padding_changes_gate') ? 8 : 0)}px;
 				box-sizing: border-box;
 
 				> div {

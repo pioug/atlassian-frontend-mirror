@@ -39,10 +39,19 @@
 			"path": "../accessibility-testing/tsconfig.app.json"
 		},
 		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
+			"path": "../banner/tsconfig.app.json"
+		},
+		{
 			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../code/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
@@ -61,6 +70,9 @@
 		},
 		{
 			"path": "../menu/tsconfig.app.json"
+		},
+		{
+			"path": "../modal-dialog/tsconfig.app.json"
 		},
 		{
 			"path": "../popper/tsconfig.app.json"
@@ -94,6 +106,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

@@ -1,6 +1,7 @@
 import { mediaSingleSpec } from '@atlaskit/adf-schema';
 import type { RichMediaLayout } from '@atlaskit/adf-schema/schema';
-import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { LazyNodeViewToDOMConfiguration } from '@atlaskit/editor-common/lazy-node-view';
+import type { DOMOutputSpec, NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -71,15 +72,13 @@ function computeMediaSingleDimensions({
 	childNode,
 	mediaSingleWidth,
 	widthType,
+	editorWidth,
 }: {
 	childNode: PMNode | null;
 	mediaSingleWidth: number | undefined;
 	widthType: string | undefined;
+	editorWidth: number;
 }) {
-	// TODO: We can't retrieve the editor width from here easily.
-	// For now we're using the default line length here, but this will be
-	// incorrect on smaller devices.
-	const editorWidth = 760;
 	const width = childNode?.attrs.width;
 	const height = childNode?.attrs.height;
 
@@ -131,7 +130,7 @@ function computeLayoutStyles(width: number, layout: RichMediaLayout) {
 export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 	withCaption?: boolean;
 	withExtendedWidthTypes: boolean;
-}) => {
+}): NodeSpec => {
 	const mediaSingleNode = mediaSingleSpec(mediaSingleOption);
 	if (!fg('platform_editor_lazy-node-views')) {
 		return mediaSingleNode;
@@ -139,49 +138,60 @@ export const mediaSingleSpecWithFixedToDOM = (mediaSingleOption: {
 
 	return {
 		...mediaSingleNode,
-		toDOM: (node: PMNode): DOMOutputSpec => {
-			const childNode = node.firstChild;
+		toDOM: (node: PMNode, lazyNodeViewOptions?: LazyNodeViewToDOMConfiguration): DOMOutputSpec => {
 			const mediaSingleAttrs = node.attrs;
 			const layout = mediaSingleAttrs?.layout ?? 'center';
 			const mediaSingleWidth = mediaSingleAttrs?.width;
 			const widthType = mediaSingleAttrs?.widthType;
+			const childNode = node.firstChild;
 			const dataAttrs = getAttrsFromNodeMediaSingle(mediaSingleOption.withExtendedWidthTypes, node);
 
 			const { width, height } = computeMediaSingleDimensions({
 				childNode,
 				widthType,
 				mediaSingleWidth,
+				editorWidth: lazyNodeViewOptions?.editorLineWidth || 760,
 			});
 
-			const layoutStyles = computeLayoutStyles(width, layout);
+			const sizes =
+				width && height ? `width: ${width}px; height: ${height}px; ${skeletonStyling}` : '';
+
+			const layoutStyles = computeLayoutStyles(mediaSingleWidth, layout);
 
 			const style = `display: block; margin-top: ${token('space.300', '24px')}; margin-bottom: ${token('space.300', '24px')}; ${layoutStyles}`;
 
+			const layoutClass = `image-${layout}`;
+
+			const centerLayout = `display: flex; justify-content: center;`;
+			const endLayout = `display: flex; justify-content: end;`;
+			const startLayout = `display: flex; justify-content: start;`;
+			const layoutStyle =
+				layout === 'align-end' ? endLayout : layout === 'align-start' ? startLayout : centerLayout;
+
 			const content = [
 				'div',
-
 				{
-					class: 'rich-media-item mediaSingleView-content-wrap image-center',
+					class: `rich-media-item mediaSingleView-content-wrap ${layoutClass}`,
 					...dataAttrs,
 				},
 				[
 					'div',
 					{
-						class: 'css-13f4nzt-MediaWrapper',
 						// Transparent image workaround to control styling
-						style: `width: ${width}px; height: ${height}px; ${style} ${skeletonStyling} border-radius: ${token('border.radius', '3px')};`,
+						style: `${sizes}; ${style}; max-width: 100%; border-radius: ${token('border.radius', '3px')}; ${layoutStyle}`,
 					},
 					[
 						'figure',
 						{
 							class: 'media-single-node',
+							style: 'margin: 0px',
 						},
 						['div', {}, ['div', { class: 'media-content-wrap' }, 0]],
 					],
 				],
 			];
 
-			return ['div', { class: 'mediaSingleView-content-wrap' }, content];
+			return ['div', { class: 'mediaSingleView-content-wrap', layout }, content];
 		},
 	};
 };

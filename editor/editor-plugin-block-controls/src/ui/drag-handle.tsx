@@ -284,6 +284,14 @@ const DragHandleInternal = ({
 	const macroInteractionUpdates = featureFlagsState?.macroInteractionUpdates;
 
 	const calculatePosition = useCallback(() => {
+		let parentNodeType;
+		if (fg('platform_editor_elements_dnd_nested')) {
+			const pos = getPos();
+			const $pos = pos && view.state.doc.resolve(pos);
+			const parentPos = $pos && $pos.depth ? $pos.before() : undefined;
+			const node = parentPos !== undefined ? view.state.doc.nodeAt(parentPos) : undefined;
+			parentNodeType = node?.type.name;
+		}
 		const supportsAnchor =
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
@@ -314,8 +322,8 @@ const DragHandleInternal = ({
 			return {
 				left:
 					hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
-						? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
-						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType)}px)`,
+						? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
+						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
 
 				top: fg('platform_editor_elements_dnd_ed_23674')
 					? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
@@ -327,13 +335,13 @@ const DragHandleInternal = ({
 		return {
 			left:
 				hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
-					? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates)})`
-					: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates),
+					? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
+					: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType),
 			top: fg('platform_editor_elements_dnd_ed_23674')
 				? getTopPosition(dom, nodeType)
 				: getTopPosition(dom),
 		};
-	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates]);
+	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates, getPos]);
 
 	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });
 

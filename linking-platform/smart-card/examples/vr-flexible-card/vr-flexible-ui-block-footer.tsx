@@ -7,6 +7,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 
 import { FooterBlock } from '../../src/view/FlexibleCard/components/blocks';
 import { SmartLinkSize } from '../../src/constants';
@@ -56,7 +57,7 @@ export default () => (
 				makeCustomActionItem(),
 				makeDeleteActionItem(),
 				makeCustomActionItem({
-					icon: <PremiumIcon label="magic" />,
+					icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
 					testId: 'third-action-item',
 					content: 'Magic!',
 				}),

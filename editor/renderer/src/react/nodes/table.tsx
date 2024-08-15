@@ -382,7 +382,8 @@ export class TableContainer extends React.Component<
 				isTableResizingEnabled(rendererAppearance) &&
 				!tableNode?.attrs.width
 			) {
-				return renderWidth;
+				const tableContainerWidth = getTableContainerWidth(tableNode);
+				return isRenderWidthValid ? renderWidth : tableContainerWidth;
 			} else {
 				// custom width, or width mapped to breakpoint
 				const tableContainerWidth = getTableContainerWidth(tableNode);
@@ -394,9 +395,14 @@ export class TableContainer extends React.Component<
 
 		const tableWidth = calcDefaultLayoutWidthByAppearance(rendererAppearance, tableNode);
 
+		const isCommentAppearanceAndTableAlignmentEnabled =
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			isCommentAppearance(rendererAppearance) && fg('platform_editor_table_support_in_comment');
+
 		// Logic for table alignment in renderer
 		const isTableAlignStart =
-			isFullWidthOrFullPageAppearance(rendererAppearance) &&
+			(isFullWidthOrFullPageAppearance(rendererAppearance) ||
+				isCommentAppearanceAndTableAlignmentEnabled) &&
 			tableNode &&
 			tableNode.attrs &&
 			tableNode.attrs.layout === 'align-start' &&
@@ -406,15 +412,20 @@ export class TableContainer extends React.Component<
 			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
 			: akEditorFullWidthLayoutWidth;
 
-		const lineLength = isFullWidthAppearance(rendererAppearance)
+		const commentLineLength = isRenderWidthValid ? renderWidth : lineLengthFixedWidth;
+
+		let lineLength = isFullWidthAppearance(rendererAppearance)
 			? fullWidthLineLength
-			: lineLengthFixedWidth;
+			: isCommentAppearanceAndTableAlignmentEnabled
+				? commentLineLength
+				: lineLengthFixedWidth;
 
 		const shouldCalculateLeftForAlignment =
 			!isInsideOfBlockNode &&
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidth <= lineLengthFixedWidth) ||
-				isFullWidthAppearance(rendererAppearance));
+				isFullWidthAppearance(rendererAppearance) ||
+				isCommentAppearanceAndTableAlignmentEnabled);
 
 		if (shouldCalculateLeftForAlignment) {
 			left = (tableWidth - lineLength) / 2;
@@ -444,6 +455,13 @@ export class TableContainer extends React.Component<
 			updatedLayout = layout;
 		}
 
+		let finalTableContainerWidth = isTableResizingEnabled(rendererAppearance)
+			? tableWidth
+			: 'inherit';
+		if (rendererAppearance === 'comment' && isTableResizingEnabled(rendererAppearance)) {
+			finalTableContainerWidth = tableNode?.attrs.width ? tableWidth : 'inherit';
+		}
+
 		return (
 			<>
 				<div
@@ -454,7 +472,7 @@ export class TableContainer extends React.Component<
 					data-layout={updatedLayout}
 					ref={this.props.handleRef}
 					style={{
-						width: isTableResizingEnabled(rendererAppearance) ? tableWidth : 'inherit',
+						width: finalTableContainerWidth,
 						left: left,
 						marginLeft: shouldCalculateLeftForAlignment && left !== undefined ? -left : undefined,
 					}}

@@ -24,16 +24,17 @@ export const Table = React.memo(
 		isInsideOfBlockNode,
 		isinsideMultiBodiedExtension,
 	}: TableProps) => {
-		let tableWidth: number = tableNode
+		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
 			: akEditorDefaultLayoutWidth;
+
 		if (
 			rendererAppearance === 'comment' &&
 			isTableResizingEnabled(rendererAppearance) &&
 			tableNode &&
-			!tableNode.attrs.width
+			!tableNode.attrs?.width
 		) {
-			tableWidth = renderWidth; // we could set it to 'inherit' here
+			tableWidth = 'inherit';
 		}
 
 		const tableLayout = tableNode?.attrs.layout;

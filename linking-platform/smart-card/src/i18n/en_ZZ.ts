@@ -152,7 +152,7 @@ export default {
   'fabric.linking.related_links_modal_error_header': '⁣⁢Something went wrong‌⁪⁯؜⁡⁬⁠‍⁠⁬⁡⁬⁭‌‌‌‍‍⁭⁮⁣⁤',
   'fabric.linking.related_links_modal_error_message':
     '⁣⁢We ran into an issue trying to load recent links. Check your connection or refresh to try again.⁬‍⁡⁠؜⁪⁪‌‍⁪⁯⁮⁭‍⁠⁯⁬⁠⁮⁭⁣⁤',
-  'fabric.linking.related_links_modal_title': '⁣⁢Recent Links‌⁡⁡‌⁡‍‌⁫⁪⁯⁡؜⁯؜⁪؜⁠⁯⁣⁤',
+  'fabric.linking.related_links_modal_title': '⁣⁢Recent links⁫⁯؜⁡⁫⁮⁬⁠⁯‍‌⁠⁠‌⁭؜⁪⁯‍⁪⁯⁯⁣⁤',
   'fabric.linking.related_links_modal_unavailable_header': '⁣⁢No recent links‌⁡؜⁪⁡⁠⁪⁬⁠⁭⁪⁮⁪⁬‍⁬‌‍⁪⁡⁮⁪⁡⁯⁣⁤',
   'fabric.linking.related_links_modal_unavailable_message':
     "⁣⁢We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.⁭⁬⁭؜⁠؜‌‍‍⁯⁭‍⁡⁡⁭⁪⁡⁣⁤",

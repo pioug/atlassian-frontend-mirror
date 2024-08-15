@@ -60,7 +60,6 @@ export const createPlugin = ({
 			}
 			return true;
 		});
-
 		return lineNumberDecorators;
 	};
 
@@ -101,26 +100,24 @@ export const createPlugin = ({
 		return decorationSetFromState;
 	};
 
-	const createLineDecoratorPluginState = (
-		pluginState: CodeBlockState,
+	const updateLineDecorationSet = (
 		tr: ReadonlyTransaction,
 		state: EditorState,
+		decorationSet: DecorationSet,
 	): DecorationSet => {
-		let decorationSetFromState = pluginState.decorations;
 		// remove all the line number children from the decorations set. 'undefined, undefined' is used to find() the whole doc.
-		const children = decorationSetFromState.find(
+		const children = decorationSet.find(
 			undefined,
 			undefined,
 			(spec) => spec.type === DECORATION_WIDGET_TYPE,
 		);
-		decorationSetFromState = decorationSetFromState.remove(children);
+		decorationSet = decorationSet.remove(children);
 
 		// regenerate all the line number for the documents code blocks
 		const lineDecorators = createLineNumberDecoratorsFromDecendants(state);
 
 		// add the newly generated line numbers to the decorations set
-		decorationSetFromState = decorationSetFromState.add(tr.doc, [...lineDecorators]);
-		return decorationSetFromState;
+		return decorationSet.add(tr.doc, [...lineDecorators]);
 	};
 
 	// ME-1599: Composition on mobile was causing the DOM observer to mutate the code block
@@ -210,12 +207,20 @@ export const createPlugin = ({
 
 				if (tr.docChanged) {
 					const node = findCodeBlock(newState, tr.selection);
+
+					// Updates mapping position of all existing decorations to new positions
+					// specifically used for updating word wrap node decorators
+					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
+
+					// Wipe and regenerate all line numbers in the document
+					updatedDecorationSet = updateLineDecorationSet(tr, newState, updatedDecorationSet);
+
 					const newPluginState: CodeBlockState = {
 						...pluginState,
 						pos: node ? node.pos : null,
 						isNodeSelected: tr.selection instanceof NodeSelection,
 						decorations: fg('editor_support_code_block_wrapping')
-							? createLineDecoratorPluginState(pluginState, tr, newState)
+							? updatedDecorationSet
 							: DecorationSet.empty,
 					};
 					return newPluginState;
@@ -260,10 +265,15 @@ export const createPlugin = ({
 			handleClickOn: createSelectionClickHandler(
 				['codeBlock'],
 				(target) =>
-					!!(
-						target.closest(`.${codeBlockClassNames.gutter}`) ||
-						target.classList.contains(codeBlockClassNames.content)
-					),
+					fg('editor_support_code_block_wrapping')
+						? !!(
+								target.classList.contains(codeBlockClassNames.lineNumberWidget) ||
+								target.classList.contains(codeBlockClassNames.gutterFg)
+							)
+						: !!(
+								target.closest(`.${codeBlockClassNames.gutter}`) ||
+								target.classList.contains(codeBlockClassNames.content)
+							),
 				{ useLongPressSelection },
 			),
 			handleDOMEvents,

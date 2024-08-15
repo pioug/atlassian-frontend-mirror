@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type FC, type ReactNode } from 'react';
+import { type CSSProperties, type FC, forwardRef, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -40,32 +40,28 @@ const menuDialogStyles = css({
  * Wrapper for PopupSelect component.
  *
  */
-export const MenuDialog: FC<MenuDialogProps> = ({
-	maxWidth,
-	minWidth,
-	children,
-	id,
-	style,
-	testId,
-}) => (
-	<div
-		css={[
-			menuDialogStyles,
-			// There is not a limited amount of values for the widths, so they need
-			// to remain dynamic.
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			{
-				maxWidth,
-				minWidth,
-			},
-		]}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={style}
-		id={id}
-		data-testid={testId && `${testId}--menu`}
-	>
-		{children}
-	</div>
+export const MenuDialog = forwardRef<HTMLDivElement, MenuDialogProps>(
+	({ maxWidth, minWidth, children, id, style, testId }, ref) => (
+		<div
+			ref={ref}
+			css={[
+				menuDialogStyles,
+				// There is not a limited amount of values for the widths, so they need
+				// to remain dynamic.
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				{
+					maxWidth,
+					minWidth,
+				},
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={style}
+			id={id}
+			data-testid={testId && `${testId}--menu`}
+		>
+			{children}
+		</div>
+	),
 );
 
 // ==============================

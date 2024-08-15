@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "2.0.3",
+	"version": "2.1.0",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -9,7 +9,8 @@
 	},
 	"atlassian": {
 		"team": "Media Experience",
-		"releaseModel": "continuous"
+		"releaseModel": "continuous",
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -41,8 +42,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/media-state": "^1.1.0",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"peerDependenciesMeta": {
 		"@atlaskit/media-state": {

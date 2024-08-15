@@ -4,6 +4,7 @@ export const DRAG_HANDLE_WIDTH = 12;
 export const DRAG_HANDLE_BORDER_RADIUS = 4;
 export const DRAG_HANDLE_ZINDEX = akRichMediaResizeZIndex + akEditorUnitZIndex; //place above legacy resizer
 export const DRAG_HANDLE_DEFAULT_GAP = 8;
+export const DRAG_HANDLE_NARROW_GAP = 4;
 export const DRAG_HANDLE_MAX_GAP = 12;
 export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
 import { token } from '@atlaskit/tokens';
@@ -12,7 +13,10 @@ export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT = 4 + 2; // 4px for the divider 
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
-export const dragHandleGap = (nodeType: string) => {
+export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
+	if (parentNodeType && parentNodeType !== 'doc') {
+		return DRAG_HANDLE_NARROW_GAP;
+	}
 	if (nodeTypeExcludeList.includes(nodeType)) {
 		return DRAG_HANDLE_MAX_GAP;
 	}

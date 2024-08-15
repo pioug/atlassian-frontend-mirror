@@ -5,10 +5,10 @@
 import { type FC, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Popup from '../src';
 
@@ -16,23 +16,29 @@ interface PopupContentProps {
 	hasTitle?: boolean;
 }
 
-const sizedContentStyles = css({
+const sizedContentStyles = xcss({
 	height: '80px',
-	padding: token('space.400', '32px'),
+	padding: 'space.400',
 	alignItems: 'center',
 	overflow: 'auto',
 	textAlign: 'center',
 	verticalAlign: 'center',
 });
 
+const spacerStyles = xcss({
+	display: 'flex',
+	margin: 'space.1000',
+	gap: 'space.150',
+});
+
 const PopupContent: FC<PopupContentProps> = ({ hasTitle }) => {
 	return (
-		<div id="popup-content" css={sizedContentStyles}>
+		<Box id="popup-content" xcss={sizedContentStyles}>
 			{hasTitle && <h2 id="a11y-props-popup-title">Popup accessible title</h2>}
 			<h3>Popup content</h3>
 			<Button>Button 1</Button>
 			<Button>Button 2</Button>
-		</div>
+		</Box>
 	);
 };
 
@@ -77,8 +83,11 @@ const PopupExampleWithTitleId = () => {
 };
 
 export default () => (
-	<div>
+	<Box xcss={spacerStyles}>
+		<Button appearance="subtle">Button 1</Button>
 		<PopupExampleWithLabel />
+		<Button appearance="subtle">Button 2</Button>
 		<PopupExampleWithTitleId />
-	</div>
+		<Button appearance="subtle">Button 3</Button>
+	</Box>
 );

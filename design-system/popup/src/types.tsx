@@ -15,7 +15,7 @@ export interface TriggerProps {
 	ref: Ref<any>;
 	'aria-controls'?: string;
 	'aria-expanded': boolean;
-	'aria-haspopup': boolean;
+	'aria-haspopup': boolean | 'dialog';
 }
 
 export type PopupRef = HTMLDivElement | null;
@@ -207,7 +207,7 @@ interface BaseProps {
 	shouldFitContainer?: boolean;
 
 	/**
-	 * This allows the popup disable focus lock. It will only work when `shouldRenderToParent` is `true`.
+	 * This makes the popup close on Tab key press. It will only work when `shouldRenderToParent` is `true`.
 	 * The default is `false`.
 	 */
 	shouldDisableFocusLock?: boolean;
@@ -281,12 +281,18 @@ export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {
 	triggerRef: TriggerRef;
 	shouldUseCaptureOnOutsideClick?: boolean;
 	shouldCloseOnTab?: boolean;
+	shouldDisableFocusTrap: boolean;
+	shouldRenderToParent?: boolean;
+	autoFocus: boolean;
 };
 
 export type FocusManagerHook = {
 	initialFocusRef: HTMLElement | null;
 	popupRef: PopupRef;
 	shouldCloseOnTab?: boolean;
+	triggerRef: TriggerRef;
+	autoFocus: boolean;
+	shouldDisableFocusTrap: boolean;
 };
 
 export type RepositionOnUpdateProps = PropsWithChildren<{

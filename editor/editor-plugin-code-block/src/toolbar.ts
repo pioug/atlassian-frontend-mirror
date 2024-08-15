@@ -133,6 +133,7 @@ export const getToolbarConfig =
 		const codeBlockWrapButton: FloatingToolbarButton<Command> = {
 			id: 'editor.codeBlock.wrap',
 			type: 'button',
+			supportsViewMode: true,
 			icon: WrapIcon,
 			onClick: toggleWordWrapStateForCodeBlockNode(editorAnalyticsAPI), // Hooking up here for demo purposes. To be revisited with ED-24222.
 			title: isWrapped

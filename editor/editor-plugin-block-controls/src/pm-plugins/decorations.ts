@@ -10,14 +10,21 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { BlockControlsPlugin, HandleOptions } from '../types';
+import type { ActiveNode, BlockControlsPlugin, HandleOptions } from '../types';
 import { DragHandle } from '../ui/drag-handle';
 import { DropTarget, type DropTargetProps } from '../ui/drop-target';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
-import { canMoveToIndex } from '../utils/validation';
+import { canMoveNodeToIndex } from '../utils/validation';
 
-const IGNORE_NODES = ['tableCell', 'tableHeader', 'tableRow', 'layoutColumn', 'listItem'];
-const IGNORE_NODES_AND_DESCENDANTS = ['listItem'];
+const IGNORE_NODES = [
+	'tableCell',
+	'tableHeader',
+	'tableRow',
+	'layoutColumn',
+	'listItem',
+	'caption',
+];
+const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList'];
 const PARENT_WITH_END_DROP_TARGET = [
 	'tableCell',
 	'tableHeader',
@@ -49,11 +56,10 @@ const createDropTargetDecoration = (
 };
 
 export const dropTargetDecorations = (
-	oldState: EditorState,
 	newState: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 	formatMessage: IntlShape['formatMessage'],
-	activeNodeType: string,
+	activeNode?: ActiveNode,
 ) => {
 	const decs: Decoration[] = [];
 	unmountDecorations('data-blocks-drop-target-container');
@@ -61,10 +67,12 @@ export const dropTargetDecorations = (
 	// and allows us to easily map the updated position in the plugin apply method.
 	const decorationState: { id: number; pos: number }[] = [];
 	let prevNode: PMNode | undefined;
+	const activeNodePos = activeNode?.pos;
+	const activePMNode =
+		typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos).nodeAfter;
 
 	newState.doc.nodesBetween(0, newState.doc.nodeSize - 2, (node, pos, parent, index) => {
 		let depth = 0;
-		const nodeType = newState.doc.type.schema.nodes[activeNodeType];
 		let endDec = null;
 		if (fg('platform_editor_elements_dnd_nested')) {
 			depth = newState.doc.resolve(pos).depth;
@@ -77,7 +85,7 @@ export const dropTargetDecorations = (
 				return true; //skip over, don't consider it a valid depth
 			}
 
-			const canDrop = activeNodeType && canMoveToIndex(parent, index, nodeType);
+			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode);
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
 			if (!canDrop && !isBlocksDragTargetDebug()) {
@@ -192,16 +200,19 @@ export const nodeDecorations = (newState: EditorState) => {
 	newState.doc.descendants((node, pos, parent, index) => {
 		let depth = 0;
 		let anchorName;
+		const shouldDescend = !IGNORE_NODE_DESCENDANTS.includes(node.type.name);
 
 		if (fg('platform_editor_elements_dnd_nested')) {
 			// Doesn't descend into a node
-			if (node.isInline || IGNORE_NODES_AND_DESCENDANTS.includes(parent?.type.name || '')) {
+			if (node.isInline) {
 				return false;
 			}
 			if (IGNORE_NODES.includes(node.type.name)) {
-				return true; //skip over, don't consider it a valid depth
+				return shouldDescend; //skip over, don't consider it a valid depth
 			}
+
 			depth = newState.doc.resolve(pos).depth;
+
 			anchorName = `--node-anchor-${node.type.name}-${pos}`;
 		} else {
 			anchorName = `--node-anchor-${node.type.name}-${index}`;
@@ -223,7 +234,7 @@ export const nodeDecorations = (newState: EditorState) => {
 			),
 		);
 
-		return depth < getNestedDepth();
+		return shouldDescend && depth < getNestedDepth();
 	});
 	return decs;
 };

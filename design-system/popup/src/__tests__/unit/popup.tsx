@@ -11,6 +11,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
 import Button from '@atlaskit/button/new';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Popup } from '../../popup';
 import { type ContentProps, type PopupComponentProps, type TriggerProps } from '../../types';
@@ -149,6 +150,54 @@ describe('Popup', () => {
 			'aria-expanded': 'false',
 			'aria-haspopup': 'true',
 		});
+	});
+
+	describe('aria-haspopup set to "dialog" when role is "dialog"', () => {
+		ffTest(
+			'platform_dst_popup-disable-focuslock',
+			() => {
+				const trigger = (props: TriggerProps) => (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						// @ts-ignore
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
+				const triggerEl = screen.getByText('trigger');
+
+				expect({
+					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+				}).toEqual({
+					'aria-haspopup': 'dialog',
+				});
+			},
+			() => {
+				const trigger = (props: TriggerProps) => (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						// @ts-ignore
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
+				const triggerEl = screen.getByText('trigger');
+
+				expect({
+					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+				}).toEqual({
+					'aria-haspopup': 'true',
+				});
+			},
+		);
 	});
 
 	describe('`aria-controls`', () => {

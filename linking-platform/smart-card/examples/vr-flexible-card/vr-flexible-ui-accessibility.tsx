@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { token } from '@atlaskit/tokens';
 
 import {
 	type ActionItem,
@@ -32,7 +33,7 @@ const actions: ActionItem[] = [
 		content: 'Open',
 		hideContent: true,
 		name: ActionName.CustomAction,
-		icon: <ShortcutIcon label="open in new tab" />,
+		icon: <ShortcutIcon label="open in new tab" color={token('color.icon', '#44546F')} />,
 		iconPosition: 'before',
 		onClick: () => console.log('Custom action!'),
 		testId: 'action-item-custom',

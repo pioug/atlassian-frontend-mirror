@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.7.0
+
+### Minor Changes
+
+- [#130406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130406)
+  [`2132e67c92d0f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2132e67c92d0f) -
+  Updates media-file-preview to support React 18
+
 ## 0.6.0
 
 ### Minor Changes

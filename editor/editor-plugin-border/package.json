@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/editor-common": "^87.10.0",
+		"@atlaskit/editor-common": "^87.11.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

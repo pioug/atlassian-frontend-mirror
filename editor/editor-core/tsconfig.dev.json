@@ -101,13 +101,28 @@
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-extension/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-grid/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-guideline/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-list/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-media/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-paste/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-selection-marker/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-tasks-and-decisions/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugins/tsconfig.app.json"

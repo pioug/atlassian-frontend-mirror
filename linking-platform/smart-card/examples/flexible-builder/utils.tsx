@@ -42,7 +42,9 @@ export const handleOnChange = <T extends object>(
 	onChange(updateObj(template, propName, defaultValue, value));
 };
 
-export const getCustomActionIcon = () => <PremiumIcon label="" />;
+export const getCustomActionIcon = () => (
+	<PremiumIcon label="" color={token('color.icon', '#44546F')} />
+);
 
 export const getExampleFromLocalStorage = () => {
 	try {

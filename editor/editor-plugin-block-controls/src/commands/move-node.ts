@@ -20,19 +20,30 @@ import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
 import { selectNode } from '../utils';
-import { canMoveToIndex } from '../utils/validation';
+import {
+	canMoveNodeToIndex,
+	isInsideTable,
+	transformSliceExpandToNestedExpand,
+} from '../utils/validation';
 
-function transformNested(nodeCopy: Slice, destType: NodeType): Slice {
+/**
+ * This function transforms the slice to move
+ * @param nodeCopy The slice contains the node to be moved
+ * @param destType The type of the destiation node
+ * @returns transformed slice or null if unable to
+ */
+function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null {
 	const srcNode = nodeCopy.content.firstChild;
 	const schema = srcNode?.type.schema;
-	if (
-		srcNode &&
-		schema &&
-		srcNode.type === schema.nodes.nestedExpand &&
-		destType === schema.nodes.doc
-	) {
-		return transformSliceNestedExpandToExpand(nodeCopy, schema);
+	if (srcNode && schema) {
+		const { doc, layoutColumn } = schema.nodes;
+		if (srcNode.type === schema.nodes.nestedExpand && [doc, layoutColumn].includes(destType)) {
+			return transformSliceNestedExpandToExpand(nodeCopy, schema);
+		} else if (srcNode.type === schema.nodes.expand && isInsideTable(destType)) {
+			return transformSliceExpandToNestedExpand(nodeCopy);
+		}
 	}
+
 	return nodeCopy;
 }
 
@@ -136,12 +147,14 @@ export const moveNode =
 			const $to = tr.doc.resolve(to);
 			const $from = tr.doc.resolve(start);
 			const destType = $to.node().type;
-			const srcType = $from.node().child($from.index()).type;
 			const destParent = $to.node($to.depth);
-			if (!canMoveToIndex(destParent, $to.index(), srcType)) {
+			if (!canMoveNodeToIndex(destParent, $to.index(), $from.node().child($from.index()))) {
 				return tr;
 			}
-			const convertedNode = transformNested(nodeCopy, destType).content;
+			const convertedNode = transformSourceSlice(nodeCopy, destType)?.content;
+			if (!convertedNode) {
+				return tr;
+			}
 			tr.delete(start, end); // delete the content from the original position
 			mappedTo = tr.mapping.map(to);
 			tr.insert(mappedTo, convertedNode); // insert the content at the new position

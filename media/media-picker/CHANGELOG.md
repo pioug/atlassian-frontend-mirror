@@ -1,5 +1,13 @@
 # @atlaskit/media-picker
 
+## 66.5.0
+
+### Minor Changes
+
+- [#130377](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130377)
+  [`8bf07f7a7cab6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8bf07f7a7cab6) -
+  add React 18 support for media-picker
+
 ## 66.4.6
 
 ### Patch Changes

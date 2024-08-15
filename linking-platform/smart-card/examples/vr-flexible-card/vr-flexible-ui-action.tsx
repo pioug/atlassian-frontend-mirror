@@ -96,13 +96,25 @@ export default () => (
 										<DeleteAction
 											size={size}
 											onClick={onClick}
-											icon={<TrashIcon label="Trash" spacing="spacious" />}
+											icon={
+												<TrashIcon
+													label="Trash"
+													spacing="spacious"
+													color={token('color.icon', '#44546F')}
+												/>
+											}
 											testId="vr-test-delete-action"
 										/>
 										<DeleteAction
 											size={size}
 											onClick={onClick}
-											icon={<TrashIcon label="Trash" spacing="spacious" />}
+											icon={
+												<TrashIcon
+													label="Trash"
+													spacing="spacious"
+													color={token('color.icon', '#44546F')}
+												/>
+											}
 											appearance="default"
 											testId="vr-test-delete-action"
 										/>

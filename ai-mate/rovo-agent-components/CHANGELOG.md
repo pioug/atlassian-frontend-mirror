@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 0.3.2
+
+### Patch Changes
+
+- [#129284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129284)
+  [`c469f37faf409`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c469f37faf409) -
+  Replace chat button icon with rovo icon
+
 ## 0.3.1
 
 ### Patch Changes

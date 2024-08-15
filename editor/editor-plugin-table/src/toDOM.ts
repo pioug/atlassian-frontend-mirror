@@ -1,5 +1,7 @@
 import { table } from '@atlaskit/adf-schema';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/src/types';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { generateColgroup } from './pm-plugins/table-resizing/utils/colgroup';
@@ -7,6 +9,7 @@ import { generateColgroup } from './pm-plugins/table-resizing/utils/colgroup';
 type Config = {
 	allowColumnResizing: boolean;
 	tableResizingEnabled: boolean;
+	getEditorContainerWidth: GetEditorContainerWidth;
 };
 export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 	if (!fg('platform_editor_lazy-node-views')) {
@@ -16,12 +19,17 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 	return {
 		...table,
 		toDOM: (node: PMNode): DOMOutputSpec => {
+			const editorWidthFromGetter = Math.min(
+				config.getEditorContainerWidth().width - akEditorGutterPaddingDynamic() * 2,
+				node.attrs.width,
+			);
 			const attrs = {
 				'data-number-column': node.attrs.isNumberColumnEnabled,
 				'data-layout': node.attrs.layout,
 				'data-autosize': node.attrs.__autoSize,
 				'data-table-local-id': node.attrs.localId,
 				'data-table-width': node.attrs.width,
+				style: `width: ${node.attrs.width}px;`,
 			};
 
 			let colgroup: DOMOutputSpec = '';
@@ -56,6 +64,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 					'div',
 					{
 						class: 'pm-table-with-left-shadow',
+						style: 'visibility: hidden',
 					},
 				],
 				[
@@ -76,6 +85,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 					'div',
 					{
 						class: 'pm-table-with-right-shadow',
+						style: 'visibility: hidden',
 					},
 				],
 				[
@@ -101,16 +111,19 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 				'div',
 				{
 					'data-testid': 'table-alignment-container',
+					style: 'display: flex; justify-content: center;',
 				},
 				[
 					'div',
 					{
 						class: 'pm-table-resizer-container',
+						style: `width: ${node.attrs.width}px`,
 					},
 					[
 						'div',
 						{
 							class: 'resizer-item display-handle',
+							style: `position: relative; user-select: auto;  height: auto;  min-width: 145px; box-sizing: border-box; max-width: ${editorWidthFromGetter}px; width: ${editorWidthFromGetter}px;`,
 						},
 						[
 							'span',

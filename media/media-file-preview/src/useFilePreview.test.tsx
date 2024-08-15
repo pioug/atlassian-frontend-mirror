@@ -44,7 +44,7 @@ const createMediaBlobUrlAttrsObject = ({
 
 // TODO: TEST Race conditions, dimension update, status and error handling, retina display
 // Make sure the props work ok:
-/* 
+/*
   - identifier
   - resizeMode
   - dimensions
@@ -52,7 +52,7 @@ const createMediaBlobUrlAttrsObject = ({
   - mediaBlobUrlAttrs
   - traceContext
   - previewDidRender
-  - skipRemote 
+  - skipRemote
 */
 
 describe('useFilePreview', () => {
@@ -184,17 +184,17 @@ describe('useFilePreview', () => {
 			});
 
 			await waitFor(() => expect(result?.current.status).toBe('loading'));
-			expect(getImageSpy).toBeCalledTimes(1);
+			expect(getImageSpy).toHaveBeenCalledTimes(1);
 			// This call throws an error, but it should not change the status till getImage resolves
-			expect(getItemsSpy).toBeCalledTimes(1);
+			await waitFor(() => expect(getItemsSpy).toHaveBeenCalledTimes(1));
 			expect(result?.current.error).toBeUndefined();
 
 			rejectImagePromise(new Error('some-getItems-error'));
 
 			// Error should be set after the getImage is rejected
 			await waitFor(() => expect(result?.current.status).toBe('error'));
-			expect(getItemsSpy).toBeCalledTimes(1);
-			expect(getImageSpy).toBeCalledTimes(1);
+			expect(getItemsSpy).toHaveBeenCalledTimes(1);
+			expect(getImageSpy).toHaveBeenCalledTimes(1);
 			expect(result?.current.error?.message).toBe('metadata-fetch');
 		});
 
@@ -224,17 +224,17 @@ describe('useFilePreview', () => {
 			});
 
 			await waitFor(() => expect(result?.current.status).toBe('loading'));
-			expect(getImageSpy).toBeCalledTimes(1);
+			expect(getImageSpy).toHaveBeenCalledTimes(1);
 			// This call throws an error, but it should not change the status till getImage resolves
-			expect(getItemsSpy).toBeCalledTimes(1);
+			await waitFor(() => expect(getItemsSpy).toHaveBeenCalledTimes(1));
 			expect(result?.current.error).toBeUndefined();
 
 			resolveGetImage(new Blob([], { type: 'image/png' }));
 
 			// Complete should be set after the getImage is resolved
 			await waitFor(() => expect(result?.current.status).toBe('complete'));
-			expect(getItemsSpy).toBeCalledTimes(1);
-			expect(getImageSpy).toBeCalledTimes(1);
+			expect(getItemsSpy).toHaveBeenCalledTimes(1);
+			expect(getImageSpy).toHaveBeenCalledTimes(1);
 			expect(result?.current.error).toBeUndefined();
 		});
 	});

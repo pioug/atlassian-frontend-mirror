@@ -59,8 +59,14 @@ const ExampleToolbarItem = styled.div({
 });
 
 const idToIcon: Record<string, JSX.Element> = {
-	'download-content': <DownloadIcon label="download" LEGACY_fallbackIcon={DownloadIconLegacy} />,
-	'preview-content': <PreviewIcon label="preview" />,
+	'download-content': (
+		<DownloadIcon
+			label="download"
+			LEGACY_fallbackIcon={DownloadIconLegacy}
+			color={token('color.icon', '#44546F')}
+		/>
+	),
+	'preview-content': <PreviewIcon label="preview" color={token('color.icon', '#44546F')} />,
 };
 
 const ExampleToolbar = () => {

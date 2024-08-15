@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 27.16.2
+
+### Patch Changes
+
+- [#130413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130413)
+  [`1a796c4acf4e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a796c4acf4e9) -
+  Internal update to icons after dependency bump
+- Updated dependencies
+
 ## 27.16.1
 
 ### Patch Changes

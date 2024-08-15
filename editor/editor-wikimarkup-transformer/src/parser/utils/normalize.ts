@@ -1,18 +1,38 @@
 import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { createParagraphNodeFromInlineNodes, createEmptyParagraphNode } from '../nodes/paragraph';
-import { TableBuilder } from '../builder/table-builder';
 
 export function normalizePMNodes(nodes: PMNode[], schema: Schema, parentNode?: string): PMNode[] {
-	return [normalizeMediaGroups, normalizeInlineNodes].reduce(
+	return [normalizeMediaGroups, normalizeNestedExpands, normalizeInlineNodes].reduce(
 		(currentNodes, normFunc) => normFunc(currentNodes, schema, parentNode),
 		nodes,
 	);
 }
 
-export function normalizeInlineNodes(
+export function normalizeNestedExpands(
 	nodes: PMNode[],
 	schema: Schema,
 	parentNode?: string,
+): PMNode[] {
+	// When we round-trip through ADF - WikiMarkup - ADF, expands get replaced by strong text.
+	// That would result in the nested expand being in an invalid situation as it's no longer
+	// nested in either a table or expand
+	// This solves the issue for nested expands that sit in the root, which should cover every
+	// case for Jira software
+	const output: PMNode[] = [];
+	for (const node of nodes) {
+		if (node?.type?.name === 'nestedExpand' && parentNode === 'doc') {
+			output.push(convertNodeToExpand(node, schema));
+		} else {
+			output.push(node);
+		}
+	}
+	return output;
+}
+
+export function normalizeInlineNodes(
+	nodes: PMNode[],
+	schema: Schema,
+	_parentNode?: string,
 ): PMNode[] {
 	const output: PMNode[] = [];
 	let inlineNodeBuffer: PMNode[] = [];
@@ -25,12 +45,7 @@ export function normalizeInlineNodes(
 			output.push(...createParagraphNodeFromInlineNodes(inlineNodeBuffer, schema));
 		}
 		inlineNodeBuffer = []; // clear buffer
-		if (node?.type?.name === 'nestedExpand' && parentNode === 'doc') {
-			//ADFEXP-227 handle nested expand at root level
-			output.push(wrapNestedExpandInTable(node, schema));
-		} else {
-			output.push(node);
-		}
+		output.push(node);
 	}
 	if (inlineNodeBuffer.length > 0) {
 		output.push(...createParagraphNodeFromInlineNodes(inlineNodeBuffer, schema));
@@ -49,7 +64,7 @@ export function normalizeInlineNodes(
  * @param nodes list of nodes to normalize. Must not be null
  * @param schema
  */
-function normalizeMediaGroups(nodes: PMNode[], schema: Schema, parentNode?: string): PMNode[] {
+function normalizeMediaGroups(nodes: PMNode[], schema: Schema, _parentNode?: string): PMNode[] {
 	const output: PMNode[] = [];
 	let mediaGroupBuffer: PMNode[] = [];
 	let separatorBuffer: PMNode[] = [];
@@ -128,13 +143,7 @@ export function isNextLineEmpty(input: string) {
 	return input.trim().length === 0;
 }
 
-function wrapNestedExpandInTable(node: PMNode, schema: Schema) {
-	const builder = new TableBuilder(schema);
-	const cell = {
-		style: '|',
-		content: [node],
-	};
-	builder.add([cell]);
-	const tableNode = builder.buildPMNode();
-	return tableNode;
+function convertNodeToExpand(node: PMNode, schema: Schema) {
+	const { expand } = schema.nodes;
+	return expand.createChecked(node.attrs, node.content);
 }

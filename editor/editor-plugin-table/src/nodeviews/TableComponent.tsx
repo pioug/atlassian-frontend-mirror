@@ -217,12 +217,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled,
 		} = this.props;
 
-		if (fg('platform.editor.table.live-pages-sorting_4malx')) {
-			const { mode } =
-				this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState() || {};
-			if (mode === 'view') {
-				this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
-			}
+		const { mode } =
+			this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState() || {};
+		if (mode === 'view') {
+			this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
 		}
 
 		this?.table?.addEventListener('mouseout', this.handleMouseOut);
@@ -331,9 +329,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
 		}
 
-		if (fg('platform.editor.table.live-pages-sorting_4malx')) {
-			this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
-		}
+		this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
 
 		this?.table?.removeEventListener('mouseout', this.handleMouseOut);
 

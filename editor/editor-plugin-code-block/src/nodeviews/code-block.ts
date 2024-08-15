@@ -94,7 +94,9 @@ export class CodeBlockView {
 		) as HTMLElement;
 		this.api = api;
 
-		if (!fg('editor_support_code_block_wrapping')) {
+		if (fg('editor_support_code_block_wrapping')) {
+			this.maintainDynamicGutterSize();
+		} else {
 			this.ensureLineNumbers();
 		}
 		this.handleEditorDisabledChanged();
@@ -182,6 +184,23 @@ export class CodeBlockView {
 		}
 	});
 
+	/**
+	 * As the code block updates we get the maximum amount of digits in a line number and expand the number gutter to reflect this.
+	 */
+	private maintainDynamicGutterSize = () => {
+		let totalLineCount = 1;
+		this.node.forEach((node) => {
+			const text = node.text;
+			if (text) {
+				totalLineCount += (node.text!.match(MATCH_NEWLINES) || []).length;
+			}
+		});
+
+		const maxDigits = totalLineCount.toString().length;
+
+		this.dom.style.setProperty('--lineNumberGutterWidth', `${maxDigits}ch`);
+	};
+
 	update(node: Node) {
 		if (node.type !== this.node.type) {
 			return false;
@@ -196,7 +215,9 @@ export class CodeBlockView {
 			}
 			this.node = node;
 
-			if (!fg('editor_support_code_block_wrapping')) {
+			if (fg('editor_support_code_block_wrapping')) {
+				this.maintainDynamicGutterSize();
+			} else {
 				this.ensureLineNumbers();
 			}
 

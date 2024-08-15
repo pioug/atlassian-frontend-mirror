@@ -1,9 +1,6 @@
 import { mediaGroup } from '@atlaskit/adf-schema';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
-
-const skeletonStyling = `background: ${token('color.background.neutral')};`;
 
 /**
  * Duplicate consts from `media-card`.
@@ -68,31 +65,21 @@ export const mediaGroupSpecWithFixedToDOM = () => {
 	return {
 		...mediaGroup,
 		toDOM: (node: PMNode): DOMOutputSpec => {
-			const childNodes: (string | object)[] = [];
-			for (let i = 0; i < node.childCount; i++) {
-				const { width, height } = getDefaultCardDimensions();
-				const nodeHolder = [
-					'img',
-					{
-						width,
-						height,
-						// Transparent image workaround to control styling
-						src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-						style: `margin-left: ${i !== 0 ? `4px` : '0'}; margin-right: 4px; border-radius: ${token('border.radius', '3px')}; ${skeletonStyling}`,
-					},
-				];
-				childNodes.push(nodeHolder);
-			}
-
 			// Margin margin that consolidates the margin in the
 			return [
 				'div',
 				{
-					style: 'margin: "3px 5px";',
-					// From adf-schema
+					style: `
+						margin: 3px 5px;
+						display: flex;
+						gap: 8px;
+						--media-card-background-color: #EBECF0;
+						--media-card-width: ${defaultImageCardDimensions.width}px;
+						--media-card-height: ${defaultImageCardDimensions.height}px;
+					`,
 					'data-node-type': 'mediaGroup',
 				},
-				...childNodes,
+				0,
 			];
 		},
 	};

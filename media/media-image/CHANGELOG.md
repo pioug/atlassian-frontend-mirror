@@ -1,5 +1,23 @@
 # @atlaskit/media-image
 
+## 19.1.0
+
+### Minor Changes
+
+- [#130435](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130435)
+  [`c3ee11ca89274`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3ee11ca89274) -
+  add React 18 support
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.0.3
 
 ### Patch Changes

@@ -26,3 +26,7 @@ export type LoadedReactNodeViews = Record<string, NodeViewConstructor>;
  * 🧱 Internal: Editor FE Platform
  */
 export type CacheLoadedReactNodeViews = WeakMap<EditorView, LoadedReactNodeViews>;
+
+export type LazyNodeViewToDOMConfiguration = {
+	editorLineWidth: number;
+};

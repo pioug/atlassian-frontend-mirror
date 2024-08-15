@@ -1,6 +1,14 @@
+import memoize from 'lodash/memoize';
+
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+
+import type { LazyNodeViewToDOMConfiguration } from './types';
+
+const getEditorLineWidth = memoize((view: EditorView): number => {
+	return view.dom?.clientWidth;
+});
 
 /**
  * 🧱 Internal: Editor FE Platform
@@ -20,7 +28,19 @@ export class LazyNodeView implements NodeView {
 			return;
 		}
 
-		const fallback = DOMSerializer.renderSpec(document, node.type.spec.toDOM(node));
+		const toDOMConfiguration: LazyNodeViewToDOMConfiguration = {
+			editorLineWidth: getEditorLineWidth(view),
+		};
+
+		const fallback = DOMSerializer.renderSpec(
+			document,
+			node.type.spec.toDOM(
+				node,
+				// We are injecting a second parameter to be used by the toDOM lazy node view implementations
+				// @ts-expect-error
+				toDOMConfiguration,
+			),
+		);
 
 		this.dom = fallback.dom;
 		this.contentDOM = fallback.contentDOM;

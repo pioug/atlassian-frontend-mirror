@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 87.11.0
+
+### Minor Changes
+
+- [#130260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130260)
+  [`d338ce6e4ff6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d338ce6e4ff6e) -
+  [ux] Add padding to blockquote and panel nodes to allow space for element controls
+
+### Patch Changes
+
+- [#129804](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129804)
+  [`790a6fe6bc9e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/790a6fe6bc9e8) -
+  [ED-24516] Fix VR test helpers for fallback LazyNodeViews
+- Updated dependencies
+
 ## 87.10.2
 
 ### Patch Changes

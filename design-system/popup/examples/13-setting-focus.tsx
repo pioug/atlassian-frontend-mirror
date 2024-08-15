@@ -8,17 +8,17 @@ import { type FC, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
 const radioValues = [
-	{ name: 'None', value: '-1', label: 'None' },
-	{ name: 'Button 0', value: '0', label: 'Button 0' },
-	{ name: 'Button 1', value: '1', label: 'Button 1' },
-	{ name: 'Button 2', value: '2', label: 'Button 2' },
+	{ name: 'Button', value: '-1', label: 'None' },
+	{ name: 'Button', value: '0', label: 'Button 0' },
+	{ name: 'Button', value: '1', label: 'Button 1' },
+	{ name: 'Button', value: '2', label: 'Button 2' },
 ];
 
 const spacerStyles = xcss({
@@ -63,13 +63,16 @@ export default () => {
 
 	return (
 		<Box xcss={spacerStyles}>
-			<p>
-				<strong>Choose a button to focus initially:</strong>
-			</p>
+			<Text as="p">
+				<Text as="strong" id="radiogroup-label">
+					Choose a button to focus initially:
+				</Text>
+			</Text>
 			<RadioGroup
 				onChange={({ currentTarget: { value } }) => setButtonToFocus(value)}
 				defaultValue={radioValues[0].value}
 				options={radioValues}
+				aria-labelledby="radiogroup-label"
 			/>
 			<Popup
 				isOpen={isOpen}

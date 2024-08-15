@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.6
+
+### Patch Changes
+
+- [#130414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130414)
+  [`eceafead51291`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eceafead51291) -
+  ED-24568 Adjusted table lazy loading DOM to match node view
+- [#130331](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130331)
+  [`8408c22cc75ef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8408c22cc75ef) -
+  clean up live view sort table ff
+- Updated dependencies
+
 ## 7.25.5
 
 ### Patch Changes

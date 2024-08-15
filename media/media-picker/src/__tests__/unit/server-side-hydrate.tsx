@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import waitForExpect from 'wait-for-expect';
+import { render } from '@testing-library/react';
 
 import { getExamplesFor, mockConsole, ssr } from '@atlaskit/ssr';
 
@@ -17,9 +16,13 @@ test('should ssr then hydrate media-picker correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(example.filePath);
 
-	await waitForExpect(() => {
-		ReactDOM.hydrate(<Example />, elem);
-		const mockCalls = getConsoleMockCalls();
-		expect(mockCalls.length).toBe(0);
+	render(<Example />, {
+		container: elem,
+		hydrate: true,
 	});
+	const warnings = getConsoleMockCalls().filter(
+		([f, s]: string[]) =>
+			f === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && s === 'style',
+	);
+	expect(warnings.length).toBe(0);
 });

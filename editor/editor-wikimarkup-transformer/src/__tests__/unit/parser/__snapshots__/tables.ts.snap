@@ -2861,74 +2861,7 @@ exports[`JIRA wiki markup - Tables HOT-87510 should respect emoji first in table
 }
 `;
 
-exports[`JIRA wiki markup - Tables macros ADFEXP-227 Should keep nestedExpand inside a table 1`] = `
-{
-  "content": [
-    {
-      "attrs": {
-        "__autoSize": false,
-        "displayMode": null,
-        "isNumberColumnEnabled": false,
-        "layout": "default",
-        "localId": "",
-        "width": null,
-      },
-      "content": [
-        {
-          "content": [
-            {
-              "attrs": {
-                "background": null,
-                "colspan": 1,
-                "colwidth": null,
-                "rowspan": 1,
-              },
-              "content": [
-                {
-                  "attrs": {
-                    "localId": null,
-                  },
-                  "content": [
-                    {
-                      "text": "test table",
-                      "type": "text",
-                    },
-                  ],
-                  "type": "paragraph",
-                },
-              ],
-              "type": "tableCell",
-            },
-            {
-              "attrs": {
-                "background": null,
-                "colspan": 1,
-                "colwidth": null,
-                "rowspan": 1,
-              },
-              "content": [
-                {
-                  "attrs": {
-                    "__expanded": true,
-                    "title": "title",
-                  },
-                  "type": "nestedExpand",
-                },
-              ],
-              "type": "tableCell",
-            },
-          ],
-          "type": "tableRow",
-        },
-      ],
-      "type": "table",
-    },
-  ],
-  "type": "doc",
-}
-`;
-
-exports[`JIRA wiki markup - Tables macros ADFEXP-227 Should wrap nestedExpand inside a table 1`] = `
+exports[`JIRA wiki markup - Tables macros should convert a nestedExpand into an expand if not nested in table 1`] = `
 {
   "content": [
     {
@@ -2997,39 +2930,18 @@ exports[`JIRA wiki markup - Tables macros ADFEXP-227 Should wrap nestedExpand in
     },
     {
       "attrs": {
-        "__autoSize": false,
-        "displayMode": null,
-        "isNumberColumnEnabled": false,
-        "layout": "default",
-        "localId": "",
-        "width": null,
+        "__expanded": true,
+        "title": "title",
       },
       "content": [
         {
-          "content": [
-            {
-              "attrs": {
-                "background": null,
-                "colspan": 1,
-                "colwidth": null,
-                "rowspan": 1,
-              },
-              "content": [
-                {
-                  "attrs": {
-                    "__expanded": true,
-                    "title": "title",
-                  },
-                  "type": "nestedExpand",
-                },
-              ],
-              "type": "tableCell",
-            },
-          ],
-          "type": "tableRow",
+          "attrs": {
+            "localId": null,
+          },
+          "type": "paragraph",
         },
       ],
-      "type": "table",
+      "type": "expand",
     },
     {
       "attrs": {
@@ -3042,6 +2954,73 @@ exports[`JIRA wiki markup - Tables macros ADFEXP-227 Should wrap nestedExpand in
         },
       ],
       "type": "paragraph",
+    },
+  ],
+  "type": "doc",
+}
+`;
+
+exports[`JIRA wiki markup - Tables macros should keep nestedExpand inside a table 1`] = `
+{
+  "content": [
+    {
+      "attrs": {
+        "__autoSize": false,
+        "displayMode": null,
+        "isNumberColumnEnabled": false,
+        "layout": "default",
+        "localId": "",
+        "width": null,
+      },
+      "content": [
+        {
+          "content": [
+            {
+              "attrs": {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": [
+                {
+                  "attrs": {
+                    "localId": null,
+                  },
+                  "content": [
+                    {
+                      "text": "test table",
+                      "type": "text",
+                    },
+                  ],
+                  "type": "paragraph",
+                },
+              ],
+              "type": "tableCell",
+            },
+            {
+              "attrs": {
+                "background": null,
+                "colspan": 1,
+                "colwidth": null,
+                "rowspan": 1,
+              },
+              "content": [
+                {
+                  "attrs": {
+                    "__expanded": true,
+                    "title": "title",
+                  },
+                  "type": "nestedExpand",
+                },
+              ],
+              "type": "tableCell",
+            },
+          ],
+          "type": "tableRow",
+        },
+      ],
+      "type": "table",
     },
   ],
   "type": "doc",

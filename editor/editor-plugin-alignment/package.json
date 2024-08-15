@@ -22,7 +22,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/editor-common": "^87.10.0",
+		"@atlaskit/editor-common": "^87.11.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-tables": "^2.8.0",

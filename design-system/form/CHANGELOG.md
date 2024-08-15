@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 10.5.3
+
+### Patch Changes
+
+- [`34d8c0a75098e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34d8c0a75098e) -
+  [ux] accessibility improvements to the error validation
+
 ## 10.5.2
 
 ### Patch Changes

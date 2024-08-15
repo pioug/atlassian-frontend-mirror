@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "1.11.2",
+	"version": "1.12.0",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^87.10.0",
+		"@atlaskit/editor-common": "^87.11.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.2.0",
@@ -54,6 +54,7 @@
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",
+		"memoize-one": "^6.0.0",
 		"raf-schd": "^4.0.3"
 	},
 	"peerDependencies": {

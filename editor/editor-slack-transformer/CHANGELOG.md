@@ -1,5 +1,13 @@
 # @atlaskit/editor-slack-transformer
 
+## 3.7.0
+
+### Minor Changes
+
+- [#130284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130284)
+  [`0d9df059ffdf5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d9df059ffdf5) -
+  Explicitly log not supported nodes in slack transformer for expand and nestedExpand
+
 ## 3.6.0
 
 ### Minor Changes

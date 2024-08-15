@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-file-preview",
-	"version": "0.6.0",
+	"version": "0.7.0",
 	"description": "A React Hook to fetch and render file previews. It's overloaded with fancy features like SSR, lazy loading, memory cache and local preview.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -14,7 +14,8 @@
 		"website": {
 			"name": "MediaFilePreview",
 			"category": "Components"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -39,15 +40,16 @@
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "^27.3.0",
-		"@atlaskit/media-client-react": "^2.0.1",
-		"@atlaskit/media-common": "^11.3.0",
+		"@atlaskit/media-client-react": "^2.1.0",
+		"@atlaskit/media-common": "^11.4.0",
 		"@atlaskit/media-ui": "^25.11.0",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"lru_map": "^0.4.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",

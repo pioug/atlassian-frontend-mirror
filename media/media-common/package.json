@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-common",
-	"version": "11.3.2",
+	"version": "11.4.0",
 	"description": "Includes common utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,7 +46,8 @@
 		"releaseModel": "continuous",
 		"website": {
 			"name": "Media Common"
-		}
+		},
+		"runReact18": true
 	},
 	"scripts": {},
 	"dependencies": {
@@ -60,8 +61,8 @@
 	},
 	"peerDependencies": {
 		"enzyme": ">=3.10.0",
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"peerDependenciesMeta": {
 		"enzyme": {

@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import { emojiImage, emojiSprite } from '@atlaskit/emoji';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B100,
 	B400,
@@ -257,7 +258,9 @@ export const panelSharedStylesWithoutPrefix = () => css`
 		height: ${token('space.300', '24px')};
 		width: ${token('space.300', '24px')};
 		box-sizing: content-box;
-		padding-right: ${token('space.100', '8px')};
+		padding-right: ${fg('platform_editor_element_padding_changes_gate')
+			? token('space.150', '12px')
+			: token('space.100', '8px')};
 		text-align: center;
 		user-select: none;
 		-moz-user-select: none;

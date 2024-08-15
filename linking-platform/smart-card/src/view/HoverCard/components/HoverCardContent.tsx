@@ -7,6 +7,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import CopyIcon from '@atlaskit/icon/core/migration/copy';
+import { token } from '@atlaskit/tokens';
 import { type CardState } from '../../../state/types';
 import { type JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -39,7 +40,14 @@ export const hoverCardClassName = 'smart-links-hover-preview';
 export const getCopyAction = (url: string): ActionItem =>
 	({
 		name: ActionName.CustomAction,
-		icon: <CopyIcon label="copy url" LEGACY_size="medium" spacing="spacious" />,
+		icon: (
+			<CopyIcon
+				label="copy url"
+				LEGACY_size="medium"
+				spacing="spacious"
+				color={token('color.icon', '#44546F')}
+			/>
+		),
 		iconPosition: 'before',
 		onClick: async () => await navigator.clipboard.writeText(url),
 		tooltipMessage: <FormattedMessage {...messages.copy_url_to_clipboard} />,

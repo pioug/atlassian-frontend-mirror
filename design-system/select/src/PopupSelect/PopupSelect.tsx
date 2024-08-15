@@ -1,4 +1,10 @@
-import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
+import React, {
+	type KeyboardEventHandler,
+	PureComponent,
+	type ReactNode,
+	type ReactElement,
+	type FC,
+} from 'react';
 
 import { type Placement } from '@popperjs/core';
 import { bind, type UnbindFn } from 'bind-event-listener';
@@ -362,7 +368,7 @@ export default class PopupSelect<
 	 * @param options.controlOverride  - Force the popup to open when it's open state is being controlled
 	 */
 	open = (options?: { controlOverride?: boolean }) => {
-		const { onOpen } = this.props;
+		const { onOpen, onMenuOpen } = this.props;
 
 		if (!options?.controlOverride && this.isOpenControlled) {
 			// Prevent popup opening if it's open state is already being controlled
@@ -371,6 +377,10 @@ export default class PopupSelect<
 
 		if (onOpen) {
 			onOpen();
+		}
+
+		if (onMenuOpen && fg('platform-design-system-dsp-19701-no-node-resolver')) {
+			onMenuOpen();
 		}
 
 		this.setState({ isOpen: true });
@@ -397,7 +407,7 @@ export default class PopupSelect<
 	 * @param options.controlOverride  - Force the popup to close when it's open state is being controlled
 	 */
 	close = (options?: { controlOverride?: boolean }) => {
-		const { onClose } = this.props;
+		const { onClose, onMenuClose } = this.props;
 
 		if (!options?.controlOverride && this.isOpenControlled) {
 			// Prevent popup closing if it's open state is already being controlled
@@ -406,6 +416,10 @@ export default class PopupSelect<
 
 		if (onClose) {
 			onClose();
+		}
+
+		if (onMenuClose && fg('platform-design-system-dsp-19701-no-node-resolver')) {
+			onMenuClose();
 		}
 
 		this.setState({ isOpen: false });
@@ -439,7 +453,7 @@ export default class PopupSelect<
 		}
 	};
 
-	resolveMenuRef = (popperRef: React.Ref<HTMLElement>) => (ref: HTMLElement) => {
+	resolveMenuRef = (popperRef: React.Ref<HTMLElement>) => (ref: HTMLDivElement) => {
 		this.menuRef = ref;
 
 		if (typeof popperRef === 'function') {
@@ -502,8 +516,22 @@ export default class PopupSelect<
 	// ==============================
 
 	renderSelect = () => {
-		const { footer, label, maxMenuWidth, minMenuWidth, placeholder, target, testId, ...props } =
-			this.props;
+		const {
+			footer,
+			label,
+			maxMenuWidth,
+			minMenuWidth,
+			placeholder,
+			target,
+			testId,
+			onMenuOpen,
+			onMenuClose,
+			...props
+		} = this.props;
+		const menuHandlers = !fg('platform-design-system-dsp-19701-no-node-resolver')
+			? { onMenuOpen, onMenuClose }
+			: {};
+
 		const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } = this.state;
 		const showSearchControl = this.showSearchControl();
 		const portalDestination = canUseDOM() ? document.body : null;
@@ -597,7 +625,12 @@ export default class PopupSelect<
 				}}
 			>
 				{({ placement, ref, style }) => (
-					<NodeResolver innerRef={this.resolveMenuRef(ref)}>
+					// When the feature flag 'platform-design-system-dsp-19701-no-node-resolver' is enabled,
+					// we directly pass the ref to MenuDialog instead of wrapping it with NodeResolver.
+					<ConditionalNodeResolverWrapper
+						hasNodeResolver={!fg('platform-design-system-dsp-19701-no-node-resolver')}
+						innerRef={this.resolveMenuRef(ref)}
+					>
 						<MenuDialog
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={style}
@@ -606,6 +639,11 @@ export default class PopupSelect<
 							maxWidth={maxMenuWidth}
 							id={this.popperWrapperId}
 							testId={testId}
+							ref={
+								!fg('platform-design-system-dsp-19701-no-node-resolver')
+									? null
+									: this.resolveMenuRef(ref)
+							}
 						>
 							<FocusLock disabled={!focusLockEnabled} returnFocus>
 								<InternalSelect
@@ -618,6 +656,7 @@ export default class PopupSelect<
 									placeholder={placeholder}
 									ref={this.getSelectRef}
 									{...props}
+									{...menuHandlers}
 									isSearchable={showSearchControl}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									styles={mergeStyles(this.defaultStyles, props.styles || {})}
@@ -637,7 +676,7 @@ export default class PopupSelect<
 								{footer}
 							</FocusLock>
 						</MenuDialog>
-					</NodeResolver>
+					</ConditionalNodeResolverWrapper>
 				)}
 			</Popper>
 		);
@@ -671,3 +710,31 @@ export default class PopupSelect<
 		);
 	}
 }
+
+interface ConditionalNodeResolverWrapperProps {
+	hasNodeResolver: boolean;
+	innerRef: (instance: HTMLDivElement) => void;
+	children: ReactElement;
+}
+
+/**
+ * A wrapper component that conditionally applies a NodeResolver to its children.
+ *
+ * Note: NodeResolver should not be used in React 18 concurrent mode. This component
+ * is intended to be removed once the feature flag  is removed.
+ * @param {boolean} props.hasNodeResolver - Determines whether to apply the NodeResolver.
+ * @param {ReactElement} props.children - The child elements to be wrapped.
+ * @param {(instance: HTMLDivElement) => void} props.innerRef - A ref callback to get the instance of the HTMLDivElement.
+ * @returns {ReactElement} The children wrapped with NodeResolver if hasNodeResolver is true, otherwise just the children.
+ */
+const ConditionalNodeResolverWrapper: FC<ConditionalNodeResolverWrapperProps> = ({
+	hasNodeResolver,
+	children,
+	innerRef,
+}) => {
+	if (hasNodeResolver) {
+		return <NodeResolver innerRef={innerRef}>{children}</NodeResolver>;
+	}
+
+	return children;
+};

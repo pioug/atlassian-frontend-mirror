@@ -1,0 +1,48 @@
+{
+	"type": "doc",
+	"content": [
+		{
+			"type": "expand",
+			"attrs": {
+				"title": "Parent Expand"
+			},
+			"marks": [
+				{
+					"type": "breakout",
+					"attrs": {
+						"mode": "wide"
+					}
+				}
+			],
+			"content": [
+				{
+					"type": "paragraph",
+					"content": [
+						{
+							"text": "Parent Expand Content",
+							"type": "text"
+						}
+					]
+				},
+				{
+					"type": "nestedExpand",
+					"attrs": {
+						"title": "Nested Expand"
+					},
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"text": "Nested Expand Content",
+									"type": "text"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"version": 1
+}

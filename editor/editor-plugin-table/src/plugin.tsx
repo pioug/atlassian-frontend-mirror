@@ -261,6 +261,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 					node: tableNodeSpecWithFixedToDOM({
 						allowColumnResizing: Boolean(allowColumnResizing),
 						tableResizingEnabled: Boolean(options?.tableResizingEnabled),
+						getEditorContainerWidth: defaultGetEditorContainerWidth,
 					}),
 				},
 				{ name: 'tableHeader', node: tableHeader },
@@ -427,9 +428,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tableViewModeSort',
 					plugin: () => {
-						return api?.editorViewMode && fg('platform.editor.table.live-pages-sorting_4malx')
-							? createViewModeSortPlugin(api.editorViewMode)
-							: undefined;
+						return api?.editorViewMode ? createViewModeSortPlugin(api.editorViewMode) : undefined;
 					},
 				},
 				{

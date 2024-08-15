@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.4.0
+
+### Minor Changes
+
+- [#130435](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130435)
+  [`c3ee11ca89274`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3ee11ca89274) -
+  add React 18 support
+
 ## 11.3.2
 
 ### Patch Changes

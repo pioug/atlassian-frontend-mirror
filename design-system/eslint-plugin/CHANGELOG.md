@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.16.0
+
+### Minor Changes
+
+- [#130413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130413)
+  [`1a796c4acf4e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a796c4acf4e9) -
+  Added new eslint plugin, ensure-icon-color
+
 ## 10.15.0
 
 ### Minor Changes

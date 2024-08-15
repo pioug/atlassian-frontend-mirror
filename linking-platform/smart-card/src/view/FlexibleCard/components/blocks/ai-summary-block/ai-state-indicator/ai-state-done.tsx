@@ -139,6 +139,7 @@ const AIStateDone = ({ appearance, testId }: Partial<AIStateIndicatorProps>) => 
 										label="Info"
 										LEGACY_size="small"
 										testId={`${testId}-done-info`}
+										color={token('color.icon', '#44546F')}
 									/>
 								}
 							/>

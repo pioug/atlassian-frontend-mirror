@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.5
+
+### Patch Changes
+
+- [#130377](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130377)
+  [`3dad41b881f45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3dad41b881f45) -
+  [ux] ED-24613 add support for decorator mapping on new transactions and live view button enable
+- Updated dependencies
+
+## 3.3.4
+
+### Patch Changes
+
+- [#128388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128388)
+  [`0ea0f81d30dcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ea0f81d30dcc) -
+  ED-24501 Add a CSS var to maintain a dynamic line number gutter size on the code block based on
+  the max number length. ED-24573 update handleClickOn in the code block plugin to work with new
+  line number gutter.
+
 ## 3.3.3
 
 ### Patch Changes

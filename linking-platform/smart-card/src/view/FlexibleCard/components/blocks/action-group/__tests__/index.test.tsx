@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
+import { token } from '@atlaskit/tokens';
 import ActionGroup from '..';
 import { ActionName } from '../../../../../../constants';
 import { type ActionItem, type CustomActionItem } from '../../types';
@@ -143,7 +144,7 @@ describe('ActionGroup', () => {
 					? ({
 							name: ActionName.CustomAction,
 							...commonProps,
-							icon: <PremiumIcon label="magic" />,
+							icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
 							content: 'Magic!',
 						} as CustomActionItem)
 					: {

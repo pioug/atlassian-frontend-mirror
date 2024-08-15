@@ -19,12 +19,13 @@ export const getLeftPosition = (
 	type: string,
 	innerContainer?: HTMLElement | null,
 	macroInteractionUpdates?: boolean,
+	parentType?: string,
 ) => {
 	if (!dom) {
 		return 'auto';
 	}
 	if (!innerContainer) {
-		return `${dom.offsetLeft - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
+		return `${dom.offsetLeft - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`;
 	}
 
 	// There is a showMacroInteractionDesignUpdates prop in extension node wrapper that can add a relative span under the top level div
@@ -35,6 +36,6 @@ export const getLeftPosition = (
 	const leftAdjustment = relativeSpan ? relativeSpan.offsetLeft : 0;
 
 	return getComputedStyle(innerContainer).transform === 'none'
-		? `${innerContainer.offsetLeft + leftAdjustment - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`
-		: `${innerContainer.offsetLeft + leftAdjustment - innerContainer.offsetWidth / 2 - dragHandleGap(type) - DRAG_HANDLE_WIDTH}px`;
+		? `${innerContainer.offsetLeft + leftAdjustment - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`
+		: `${innerContainer.offsetLeft + leftAdjustment - innerContainer.offsetWidth / 2 - dragHandleGap(type, parentType) - DRAG_HANDLE_WIDTH}px`;
 };

@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react';
 import { useUID } from 'react-uid';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -96,7 +97,8 @@ export const Popup: FC<PopupProps> = memo(
 							ref: getMergedTriggerRef(ref, setTriggerRef, isOpen),
 							'aria-controls': isOpen ? id : undefined,
 							'aria-expanded': isOpen,
-							'aria-haspopup': true,
+							'aria-haspopup':
+								role === 'dialog' && fg('platform_dst_popup-disable-focuslock') ? 'dialog' : true,
 						});
 					}}
 				</Reference>

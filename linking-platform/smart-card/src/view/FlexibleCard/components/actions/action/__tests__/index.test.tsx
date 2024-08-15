@@ -7,6 +7,7 @@ import Action from '../index';
 import userEvent from '@testing-library/user-event';
 import { SmartLinkSize } from '../../../../../../constants';
 import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
+import { token } from '@atlaskit/tokens';
 import type { ActionProps } from '../types';
 
 describe('Action', () => {
@@ -65,7 +66,7 @@ describe('Action', () => {
 				[SmartLinkSize.Medium, '1rem'],
 				[SmartLinkSize.Small, '1rem'],
 			])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-				const testIcon = <TestIcon label="test" />;
+				const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
 				const { findByTestId } = render(
 					<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />,
 				);

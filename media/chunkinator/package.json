@@ -44,7 +44,7 @@
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/media-common": "^11.3.0",
+		"@atlaskit/media-common": "^11.4.0",
 		"mockdate": "^3.0.5",
 		"react": "^16.8.0",
 		"react-dom": "^16.8.0",

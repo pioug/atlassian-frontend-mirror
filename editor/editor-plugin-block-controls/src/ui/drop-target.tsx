@@ -73,13 +73,13 @@ const getDropTargetOffsetStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
 	const top = getNodeMargins(nextNode).top;
 	const bottom = getNodeMargins(prevNode).bottom;
 
-	const merginDiff = Math.round((top - bottom) / 2);
+	const marginDiff = Math.round((top - bottom) / 2);
 
-	if (merginDiff === 0) {
+	if (marginDiff === 0) {
 		return null;
 	}
 
-	const offset = Math.max(Math.min(merginDiff, 24), -24);
+	const offset = Math.max(Math.min(marginDiff, 24), -24);
 
 	return marginLookupMap[offset];
 };

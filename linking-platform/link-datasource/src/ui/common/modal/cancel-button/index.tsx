@@ -17,7 +17,7 @@ import { cancelButtonMessages } from './messages';
 export interface CancelButtonProps {
 	getAnalyticsPayload: () => ButtonClickedCancelAttributesType;
 	onCancel: () => void;
-	testId: string;
+	testId?: string;
 }
 
 export const CancelButton = ({ getAnalyticsPayload, onCancel, testId }: CancelButtonProps) => {

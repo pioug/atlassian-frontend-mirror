@@ -49,6 +49,7 @@ import * as blockquoteWithList from './__fixtures__/blockquote-with-list.json';
 import * as actionInsideList from './__fixtures__/action-inside-list.adf.json';
 import * as extendedPanel from './__fixtures__/extended-panel.adf.json';
 import * as nestedExpand from './__fixtures__/extended-nested-expand.adf.json';
+import * as nestedExpandInExpand from './__fixtures__/nested-expand-in-expand.adf.json';
 import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
@@ -430,8 +431,14 @@ describe('Renderer - EmailSerializer', () => {
 		const { result } = render(extendedPanel, undefined, mediaContext);
 		expect(result).toMatchSnapshot('html');
 	});
+
 	it('should render list, action, code-block, panel, quote, decision, rule inside nested expand', () => {
 		const { result } = render(nestedExpand, undefined, mediaContext);
+		expect(result).toMatchSnapshot('html');
+	});
+
+	it('should render nestedExpand nested in expand', () => {
+		const { result } = render(nestedExpandInExpand);
 		expect(result).toMatchSnapshot('html');
 	});
 });

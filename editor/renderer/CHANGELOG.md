@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 109.47.0
+
+### Minor Changes
+
+- [#130260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130260)
+  [`d338ce6e4ff6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d338ce6e4ff6e) -
+  [ux] Add padding to left side of blockquote content to allow space for element drag handle
+
+### Patch Changes
+
+- [#129828](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129828)
+  [`814b77933fedc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/814b77933fedc) -
+  [ux] Enable Table Alignmnent in Renderer
+- Updated dependencies
+
 ## 109.46.2
 
 ### Patch Changes

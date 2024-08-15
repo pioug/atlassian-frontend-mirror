@@ -83,6 +83,8 @@ class MultiPopupSelectExample extends Component<{}, State> {
 							</Button>
 						)}
 						isMulti
+						onMenuOpen={() => console.log('menu opened')}
+						onMenuClose={() => console.log('menu closed')}
 					/>
 				</p>
 			</div>

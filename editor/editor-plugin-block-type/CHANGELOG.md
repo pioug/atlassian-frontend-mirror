@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.12.2
+
+### Patch Changes
+
+- [#130260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130260)
+  [`d338ce6e4ff6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d338ce6e4ff6e) -
+  Use blockquoteSharedStylesNew when feature gate for increase padding is enabled
+- Updated dependencies
+
 ## 3.12.1
 
 ### Patch Changes

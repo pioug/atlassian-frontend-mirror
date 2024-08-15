@@ -154,8 +154,10 @@ export const codeBlockSharedStyles = () => css`
 		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG} {
 			background-color: ${token('color.background.neutral', N30)};
 			position: relative;
-			width: 2rem;
+			width: var(--lineNumberGutterWidth, 2rem);
+			padding: 0px ${token('space.100', '8px')};
 			flex-shrink: 0;
+			font-size: ${relativeFontSizeToBase16(fontSize())};
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
@@ -190,12 +192,13 @@ export const codeBlockSharedStyles = () => css`
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET} {
 			pointer-events: none;
 			user-select: none;
-			width: 2rem;
+			width: var(--lineNumberGutterWidth, 2rem);
 			left: 0;
 			position: absolute;
 			font-size: ${relativeFontSizeToBase16(fontSize())};
+			padding: 0px ${token('space.100', '8px')};
 			line-height: 1.5rem;
-			text-align: center;
+			text-align: right;
 			color: ${token('color.text.subtlest', '#505F79')};
 		}
 	}

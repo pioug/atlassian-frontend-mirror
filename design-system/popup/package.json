@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "1.22.2",
+	"version": "1.23.0",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -67,6 +67,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.0.0",
 		"@atlaskit/icon": "^22.13.0",
@@ -113,6 +114,9 @@
 	},
 	"platform-feature-flags": {
 		"platform.design-system-team.iframe_gojiv": {
+			"type": "boolean"
+		},
+		"platform_dst_popup-disable-focuslock": {
 			"type": "boolean"
 		}
 	},

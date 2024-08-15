@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import { DeleteAction, EditAction } from '../index';
 import { SmartLinkSize } from '../../../../../constants';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
+import { token } from '@atlaskit/tokens';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
@@ -84,7 +85,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 							onClick={() => {}}
 							size={size}
 							testId={testId}
-							icon={<CrossIcon label="test" />}
+							icon={<CrossIcon label="test" color={token('color.icon', '#44546F')} />}
 						/>
 					</IntlProvider>,
 				);

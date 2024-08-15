@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.0
+
+### Minor Changes
+
+- [#130247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130247)
+  [`c331860f119e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c331860f119e6) -
+  ED-24455 add suport for drag expand drop into table
+
+### Patch Changes
+
+- [#130406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130406)
+  [`487b48abdae42`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/487b48abdae42) -
+  ED-24554 Don't show handle for indented tasks
+- [#130260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130260)
+  [`d338ce6e4ff6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d338ce6e4ff6e) -
+  Reduce drag handle gap for nested elements
+- Updated dependencies
+
 ## 1.11.2
 
 ### Patch Changes

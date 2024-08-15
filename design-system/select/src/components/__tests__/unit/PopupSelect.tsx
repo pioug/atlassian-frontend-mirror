@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type OptionsType, PopupSelect } from '../../../index';
 
@@ -515,6 +516,42 @@ describe('Popup Select', () => {
 
 			const popupWrapper = body.querySelector(`#${controledId}`);
 			expect(popupWrapper).toBeDefined();
+		});
+	});
+
+	describe('should trigger onMenuOpen and onMenuClose once when the menu is opened and closed', () => {
+		ffTest('platform-design-system-dsp-19701-no-node-resolver', async () => {
+			const onMenuOpenMock = jest.fn();
+			const onMenuCloseMock = jest.fn();
+			render(
+				<React.Fragment>
+					<PopupSelect
+						options={OPTIONS}
+						value={OPTIONS[0]}
+						testId={'PopupSelect'}
+						onMenuOpen={onMenuOpenMock}
+						onMenuClose={onMenuCloseMock}
+						target={({ ref }) => (
+							<button ref={ref} data-testid="select-trigger">
+								Target
+							</button>
+						)}
+						label="Options"
+					/>
+					<button data-testid="focus-decoy">Focus decoy</button>
+				</React.Fragment>,
+			);
+
+			const selectTrigger = screen.getByText('Target');
+
+			await user.click(selectTrigger);
+
+			expect(screen.getByText('Select...')).toBeInTheDocument();
+
+			await user.click(selectTrigger);
+
+			expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
+			expect(onMenuCloseMock).toHaveBeenCalledTimes(1);
 		});
 	});
 });

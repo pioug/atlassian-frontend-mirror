@@ -170,11 +170,11 @@ this is a new line text, not in the table`,
 			['should parse quote', `|{quote}foo{quote}|`],
 			['should parse anchor', `|{anchor}foo{anchor}|`],
 			[
-				'ADFEXP-227 Should wrap nestedExpand inside a table',
-				`|test table|test table\r\n\r\n{adf:display=block}{"type":"nestedExpand","attrs":{"title":"title"}}{adf}\r\nsample text`,
+				'should convert a nestedExpand into an expand if not nested in table',
+				`|test table|test table\r\n\r\n{adf:display=block}{"type":"nestedExpand","attrs":{"title":"title"},"content":[{"type":"paragraph"}]}{adf}\r\nsample text`,
 			],
 			[
-				'ADFEXP-227 Should keep nestedExpand inside a table',
+				'should keep nestedExpand inside a table',
 				`|test table|{adf:display=block}{"type":"nestedExpand","attrs":{"title":"title"}}{adf}`,
 			],
 		];

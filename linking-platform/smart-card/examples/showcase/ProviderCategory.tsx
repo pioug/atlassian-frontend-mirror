@@ -105,7 +105,14 @@ export const ProviderCategory = ({ category, examples, config }: ProviderCategor
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 				<div className="right">
 					<Button
-						iconBefore={<CopyIcon LEGACY_size="small" label="" spacing="spacious" />}
+						iconBefore={
+							<CopyIcon
+								LEGACY_size="small"
+								label=""
+								spacing="spacious"
+								color={token('color.icon', '#44546F')}
+							/>
+						}
 						onClick={handleCopyToClipboard}
 						style={{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

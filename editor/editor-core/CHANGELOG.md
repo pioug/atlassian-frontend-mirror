@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 195.4.8
+
+### Patch Changes
+
+- [#130260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130260)
+  [`d338ce6e4ff6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d338ce6e4ff6e) -
+  [ux] Add padding to layout nodes to allow space for element controls
+- Updated dependencies
+
+## 195.4.7
+
+### Patch Changes
+
+- [#128388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128388)
+  [`d265cdbd7a602`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d265cdbd7a602) -
+  Render primary toolbar in SSR environment
+
 ## 195.4.6
 
 ### Patch Changes

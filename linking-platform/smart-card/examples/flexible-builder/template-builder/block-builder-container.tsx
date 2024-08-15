@@ -59,7 +59,7 @@ const BlockBuilderContainer = ({
 	return (
 		<div css={containerStyles}>
 			<div css={headerStyles}>
-				<DragHandlerIcon label="" spacing="spacious" />
+				<DragHandlerIcon label="" spacing="spacious" color={token('color.icon', '#44546F')} />
 				<h5>
 					{name} {internal && <Lozenge>INTERNAL</Lozenge>}
 				</h5>

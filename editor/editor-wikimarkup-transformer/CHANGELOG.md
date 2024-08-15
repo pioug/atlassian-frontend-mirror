@@ -1,5 +1,13 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.10.0
+
+### Minor Changes
+
+- [#130284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130284)
+  [`0d9df059ffdf5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d9df059ffdf5) -
+  Switched WikiMarkup logic to convert nestedExpands at the root to expands instead of tables
+
 ## 11.9.1
 
 ### Patch Changes

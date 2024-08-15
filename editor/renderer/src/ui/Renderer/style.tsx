@@ -15,6 +15,7 @@ import {
 	tableSharedStyle,
 	columnLayoutSharedStyle,
 	blockquoteSharedStyles,
+	blockquoteSharedStylesNew,
 	headingsSharedStyles,
 	ruleSharedStyles,
 	whitespaceSharedStyles,
@@ -547,7 +548,9 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 		${telepointerStyles(colorMode)}
 		${whitespaceSharedStyles};
-		${blockquoteSharedStyles};
+		${fg('platform_editor_element_padding_changes_gate')
+			? blockquoteSharedStylesNew
+			: blockquoteSharedStyles};
 		${headingsSharedStyles()};
 		${ruleSharedStyles()};
 		${paragraphSharedStyles};

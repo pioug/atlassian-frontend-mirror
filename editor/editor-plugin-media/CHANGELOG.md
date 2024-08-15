@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.28.5
+
+### Patch Changes
+
+- [#129804](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129804)
+  [`790a6fe6bc9e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/790a6fe6bc9e8) -
+  [ED-24516] Fix VR test helpers for fallback LazyNodeViews
+- Updated dependencies
+
 ## 1.28.4
 
 ### Patch Changes

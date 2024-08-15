@@ -146,7 +146,7 @@ export default {
   'fabric.linking.related_links_modal_error_header': 'Bir hata oluştu',
   'fabric.linking.related_links_modal_error_message':
     'En son bağlantılar yüklenmeye çalışılırken bir sorunla karşılaştık. Bağlantınızı kontrol edin veya yeniden denemek için yenileyin.',
-  'fabric.linking.related_links_modal_title': 'En Son Bağlantılar',
+  'fabric.linking.related_links_modal_title': 'En son bağlantılar',
   'fabric.linking.related_links_modal_unavailable_header': 'En son bağlantı yok',
   'fabric.linking.related_links_modal_unavailable_message':
     'Burada gösterecek herhangi bir bağlantı bulunamadı. Güncellenen sayfalar veya diğer içerik türleri için en son bağlantıları sürekli olarak ekliyor ve bunları inceliyoruz.',

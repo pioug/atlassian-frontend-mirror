@@ -268,7 +268,7 @@ const AvatarGroup = ({
 			props: {
 				'aria-controls'?: string;
 				'aria-expanded'?: boolean;
-				'aria-haspopup'?: boolean;
+				'aria-haspopup'?: boolean | 'dialog';
 			} & {
 				onClick: MouseEventHandler;
 			},

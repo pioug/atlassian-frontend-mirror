@@ -59,7 +59,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/media-core": "^34.2.0",
+		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

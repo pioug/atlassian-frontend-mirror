@@ -210,36 +210,34 @@ const stickyHeaderMarginTop = () => {
 };
 
 const viewModeSortStyles = () => {
-	if (fg('platform.editor.table.live-pages-sorting_4malx')) {
-		return css`
-			th {
-				.${SORTING_ICON_CLASS_NAME} {
-					+ p {
-						margin-top: 0 !important;
-					}
-				}
-
-				&:has(.is-active) {
-					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-						opacity: 1;
-					}
-				}
-
-				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-					opacity: 0;
-					&:focus {
-						opacity: 1;
-					}
-				}
-
-				&:hover {
-					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-						opacity: 1;
-					}
+	return css`
+		th {
+			.${SORTING_ICON_CLASS_NAME} {
+				+ p {
+					margin-top: 0 !important;
 				}
 			}
-		`;
-	}
+
+			&:has(.is-active) {
+				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+					opacity: 1;
+				}
+			}
+
+			.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+				opacity: 0;
+				&:focus {
+					opacity: 1;
+				}
+			}
+
+			&:hover {
+				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+					opacity: 1;
+				}
+			}
+		}
+	`;
 };
 
 const tableBorderStyles = () => {

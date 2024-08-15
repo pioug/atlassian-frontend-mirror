@@ -35,6 +35,8 @@ import {
 	underline,
 	caption,
 	backgroundColor,
+	expand,
+	nestedExpand,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
@@ -796,5 +798,26 @@ describe('tables', () => {
 				)(defaultSchema),
 			),
 		).toEqual('[table]');
+	});
+});
+
+describe('expands', () => {
+	it('should serialize an expand to an unsupported node indicator', () => {
+		expect(
+			markdownSerializer.serialize(doc(expand({ title: 'Title' })(p('Content')))(defaultSchema)),
+		).toEqual('[expand]');
+	});
+
+	it('should serialize an expand with a nestedExpand to an unsupported node indicator', () => {
+		expect(
+			markdownSerializer.serialize(
+				doc(
+					expand({ title: 'Parent title' })(
+						p('Parent content'),
+						nestedExpand({ title: 'Child title' })(p('Child content')),
+					),
+				)(defaultSchema),
+			),
+		).toEqual('[expand]');
 	});
 });

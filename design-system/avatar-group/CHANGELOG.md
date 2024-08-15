@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 9.11.2
+
+### Patch Changes
+
+- [#128022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128022)
+  [`1495b8f9c9253`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1495b8f9c9253) -
+  Modified popup trigger's aria-haspopup types to support the 'dialog' value.
+- Updated dependencies
+
 ## 9.11.1
 
 ### Patch Changes

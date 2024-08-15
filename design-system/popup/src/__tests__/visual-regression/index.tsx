@@ -3,7 +3,7 @@ import { getExampleUrl, loadPage, takeElementScreenShot } from '@atlaskit/visual
 const button = '#popup-trigger';
 const spinner = '#spinner';
 const popup = '#popup-content';
-const button0 = '[name="Button 0"]';
+const button0 = '[value="0"]';
 const popupPositionButton = '[data-testid="popup-position"]';
 const container = '#container';
 

@@ -114,7 +114,7 @@ const mountTable = (
 	);
 };
 
-const mountTableWidthFF = (
+const mountTableWithFF = (
 	featureFlags: RendererContextProps['featureFlags'],
 	node: PMNode,
 	rendererWidth: number,
@@ -1196,7 +1196,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const tableNode = createDefaultTable('fixed');
 			const rendererWidth = 700;
 
-			const wrap = mountTableWidthFF(
+			const wrap = mountTableWithFF(
 				{ tablePreserveWidth: true, tableWithFixedColumnWidthsOption: true },
 				tableNode,
 				rendererWidth,
@@ -1217,7 +1217,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const colWidths = [420, 220, 620];
 			const expectedScaleWidths = colWidths.map((w) => w * scale);
 
-			const wrap = mountTableWidthFF(
+			const wrap = mountTableWithFF(
 				{ tablePreserveWidth: true, tableWithFixedColumnWidthsOption: false },
 				tableNode,
 				rendererWidth,
@@ -1284,7 +1284,7 @@ describe('Renderer - React/Nodes/Table', () => {
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
-				expect(tableContainer.prop('style')!.width).toBe(rendererWidth);
+				expect(tableContainer.prop('style')!.width).toBe('inherit');
 				wrap.unmount();
 			},
 			() => {
@@ -1324,6 +1324,36 @@ describe('Renderer - React/Nodes/Table', () => {
 				expect(tableContainer.prop('style')!.width).toBe('inherit');
 				wrap.unmount();
 			},
+		);
+
+		// Should have correct styles when table alignment is enabled in Comment Renderer
+		ffTest(
+			'platform.editor.table.allow-table-alignment',
+			() => {
+				const tableNode = createTable(600, 'align-start');
+				const rendererWidth = 1000;
+
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.left).toBe(-200);
+
+				wrap.unmount();
+			},
+			() => {
+				const tableNode = createTable(600, 'align-start');
+				const rendererWidth = 1000;
+
+				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+
+				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+				expect(tableContainer.prop('style')!.left).toBe(undefined);
+
+				wrap.unmount();
+			},
+			{ platform_editor_table_support_in_comment: true },
 		);
 	});
 

@@ -1,5 +1,15 @@
 # @atlaskit/popup
 
+## 1.23.0
+
+### Minor Changes
+
+- [#128022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128022)
+  [`1495b8f9c9253`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1495b8f9c9253) -
+  [ux] We are testing new focus behavior in non-dialog popup instances behind a feature flag. With
+  that in place, all popup instances that don't have role="dialog" applied will have focus traps
+  disabled by default. If this fix is successful, it will be available in a later release.
+
 ## 1.22.2
 
 ### Patch Changes

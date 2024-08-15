@@ -55,12 +55,20 @@ const subHeaderCSS = css({
 
 const resolvedViewDetails = [
 	{
-		icon: <AttachmentIcon LEGACY_size="small" label="attachment" />,
+		icon: (
+			<AttachmentIcon
+				LEGACY_size="small"
+				label="attachment"
+				color={token('color.icon', '#44546F')}
+			/>
+		),
 		text: '2',
 		tooltip: '2 attachments',
 	},
 	{
-		icon: <CommentIcon LEGACY_size="small" label="comment" />,
+		icon: (
+			<CommentIcon LEGACY_size="small" label="comment" color={token('color.icon', '#44546F')} />
+		),
 		text: '5',
 		tooltip: '5 attachments',
 	},

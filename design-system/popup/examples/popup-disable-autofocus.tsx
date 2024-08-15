@@ -47,18 +47,24 @@ export default () => {
 	return (
 		<div id="container" css={spacerStyles}>
 			<Popup
+				testId="popup"
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				content={() => <PopupContent />}
 				trigger={(triggerProps) => (
-					<Button id="popup-trigger" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
+					<Button
+						id="popup-trigger"
+						{...triggerProps}
+						onClick={() => setIsOpen(!isOpen)}
+						testId="popup-trigger"
+					>
 						{isOpen ? 'Close' : 'Open'} Popup
 					</Button>
 				)}
 				placement="bottom"
 				autoFocus={false}
 			/>
-			<input placeholder="This should keep focus" />
+			<input data-testid="focused-input" placeholder="This should keep focus" />
 		</div>
 	);
 };

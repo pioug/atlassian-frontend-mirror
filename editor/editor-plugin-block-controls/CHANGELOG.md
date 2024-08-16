@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.1
+
+### Patch Changes
+
+- [#130485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130485)
+  [`5b6725b15e18e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b6725b15e18e) -
+  Update node decorations when document changes for nested dnd scenarios
+- [#130711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130711)
+  [`f878c5be1ed97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f878c5be1ed97) -
+  ED-24455 additional fix and tests
+- Updated dependencies
+
 ## 1.12.0
 
 ### Minor Changes

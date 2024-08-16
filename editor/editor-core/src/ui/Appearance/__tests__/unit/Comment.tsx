@@ -34,6 +34,7 @@ describe('comment editor', () => {
 		const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
 		const fullPage = mountWithIntl(
 			<Comment
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -49,6 +50,7 @@ describe('comment editor', () => {
 		const { editorView } = editor(doc(p('Hello world'), p('')));
 		const fullPage = mountWithIntl(
 			<Comment
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -66,6 +68,7 @@ describe('comment editor', () => {
 		const { editorView } = editor(doc(p('Hello world')));
 		const fullPage = mountWithIntl(
 			<Comment
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -104,6 +107,7 @@ describe('comment editor', () => {
 			const comment = mountWithIntl(
 				<EditorContext editorActions={EditorActions.from(editorView, eventDispatcher)}>
 					<Comment
+						editorAPI={undefined}
 						onSave={jest.fn()}
 						editorView={editorView}
 						providerFactory={providerFactory}
@@ -142,6 +146,7 @@ describe('comment editor', () => {
 			const EditorComment = ({ disabled = true }) => (
 				<EditorContext editorActions={EditorActions.from(editorView, eventDispatcher)}>
 					<Comment
+						editorAPI={undefined}
 						onSave={jest.fn()}
 						editorView={editorView}
 						providerFactory={providerFactory}
@@ -183,6 +188,7 @@ describe('comment editor', () => {
 			const { editorView } = editor(doc(p('Hello world')));
 			const fullPage = mountWithIntl(
 				<Comment
+					editorAPI={undefined}
 					editorView={editorView}
 					onSave={true as any}
 					providerFactory={{} as any}
@@ -197,6 +203,7 @@ describe('comment editor', () => {
 			const { editorView } = editor(doc(p('Hello world')));
 			const fullPage = mountWithIntl(
 				<Comment
+					editorAPI={undefined}
 					editorView={editorView}
 					onCancel={true as any}
 					providerFactory={{} as any}
@@ -212,6 +219,7 @@ describe('comment editor', () => {
 			const { editorView } = editor(doc(p('Hello world')));
 			const fullPage = mountWithIntl(
 				<Comment
+					editorAPI={undefined}
 					editorView={editorView}
 					customSecondaryToolbarComponents={true as any}
 					providerFactory={{} as any}
@@ -226,6 +234,7 @@ describe('comment editor', () => {
 			const { editorView } = editor(doc(p('Hello world')));
 			const fullPage = mountWithIntl(
 				<Comment
+					editorAPI={undefined}
 					editorView={editorView}
 					providerFactory={{} as any}
 					editorDOMElement={<div />}
@@ -283,6 +292,7 @@ describe('comment editor', () => {
 				const { editorView } = editor(doc(p('Hello world')));
 				const commentComponent = mountWithIntl(
 					<Comment
+						editorAPI={undefined}
 						editorView={editorView}
 						providerFactory={{} as any}
 						editorDOMElement={<div />}

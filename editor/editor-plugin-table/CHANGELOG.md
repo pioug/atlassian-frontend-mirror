@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.7
+
+### Patch Changes
+
+- [`ccee8f7d5cdfe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccee8f7d5cdfe) -
+  ED-24623 Added alignment logic to fallback DOM
+
 ## 7.25.6
 
 ### Patch Changes

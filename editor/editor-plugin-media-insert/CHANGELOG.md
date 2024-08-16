@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 2.1.0
+
+### Minor Changes
+
+- [#129457](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129457)
+  [`171c73d4033f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/171c73d4033f0) -
+  [ux] [ED-24566]
+
+  - Internationalisation strings in editor-common for editor-plugin-media-insert
+  - Removed default pre-filled URL for editor-plugin-media-insert popup
+  - Added background color for editor-plugin-media-insert popup
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

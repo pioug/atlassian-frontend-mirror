@@ -24,4 +24,5 @@ export {
 	currentMediaNodeWithPos,
 } from './utils';
 export { CommentBadge } from './CommentBadge';
+export { ExternalImageBadge } from './ExternalImageBadge';
 export type { CommentBadgeProps } from './CommentBadge';

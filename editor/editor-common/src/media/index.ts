@@ -8,3 +8,4 @@ export { dropPlaceholderMessages } from './messages/dropPlaceholder';
 export { altTextMessages } from './messages/altText';
 export { mediaResizeAnnouncerMessMessages } from './messages/mediaResizeAnnouncerMess';
 export { commentMessages } from './messages/comments';
+export { externalMediaMessages } from './messages/externalMedia';

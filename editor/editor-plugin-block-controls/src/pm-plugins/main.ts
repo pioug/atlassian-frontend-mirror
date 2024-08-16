@@ -87,6 +87,14 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 	return combine(...cleanupFn);
 };
 
+function getDocChildrenCount(newState: EditorState): number {
+	let size = 0;
+	newState.doc.descendants((node) => {
+		size += node.childCount;
+	});
+	return size;
+}
+
 const initialState: PluginState = {
 	decorations: DecorationSet.empty,
 	decorationState: [],
@@ -99,6 +107,7 @@ const initialState: PluginState = {
 	isResizerResizing: false,
 	isDocSizeLimitEnabled: null,
 	isPMDragging: false,
+	childCount: 0,
 };
 
 export const createPlugin = (
@@ -128,15 +137,21 @@ export const createPlugin = (
 					isResizerResizing,
 					isDragging,
 					isPMDragging,
+					childCount,
 				} = currentState;
 
 				let activeNodeWithNewNodeType = null;
 				const meta = tr.getMeta(key);
-
+				const newChildCount =
+					tr.docChanged && fg('platform_editor_elements_dnd_nested')
+						? getDocChildrenCount(newState)
+						: childCount;
 				// If tables or media are being resized, we want to hide the drag handle
 				const resizerMeta = tr.getMeta('is-resizer-resizing');
 				isResizerResizing = resizerMeta ?? isResizerResizing;
-				const nodeCountChanged = oldState.doc.childCount !== newState.doc.childCount;
+				const nodeCountChanged = fg('platform_editor_elements_dnd_nested')
+					? childCount !== newChildCount
+					: oldState.doc.childCount !== newState.doc.childCount;
 				const shouldRemoveHandle = !tr.getMeta('isRemote');
 
 				// During resize, remove the drag handle widget so its dom positioning doesn't need to be maintained
@@ -152,12 +167,16 @@ export const createPlugin = (
 				// Ensure decorations stay in sync when nodes are added or removed from the doc
 				const isHandleMissing =
 					!meta?.activeNode && !decorations.find().some(({ spec }) => spec.id === 'drag-handle');
-				const decsLength = decorations
-					.find()
-					.filter(({ spec }) => spec.id !== 'drag-handle').length;
+				const decsLength = fg('platform_editor_elements_dnd_nested')
+					? decorations.find().filter(({ spec }) => spec.type === 'node-decoration').length
+					: decorations.find().filter(({ spec }) => spec.id !== 'drag-handle').length;
 
-				//TODO: Fix this logic for nested scenarios
-				if (!fg('platform_editor_elements_dnd_nested')) {
+				let newNodeDecs;
+				if (fg('platform_editor_elements_dnd_nested')) {
+					// naive solution while we work on performance optimised approach under ED-24503
+					newNodeDecs = nodeDecorations(newState);
+					isDecsMissing = !(isDragging || meta?.isDragging) && decsLength !== newNodeDecs.length;
+				} else {
 					isDecsMissing =
 						!(isDragging || meta?.isDragging) && decsLength !== newState.doc.childCount;
 				}
@@ -168,7 +187,7 @@ export const createPlugin = (
 					(spec) => spec.type === 'drop-target-decoration',
 				).length;
 
-				//TODO: Fix this logic for nested scenarios
+				const { formatMessage } = getIntl();
 				if (!fg('platform_editor_elements_dnd_nested')) {
 					isDropTargetsMissing =
 						isDragging &&
@@ -203,8 +222,6 @@ export const createPlugin = (
 					isDecsMissing ||
 					(!!meta?.nodeMoved && tr.docChanged);
 
-				const { formatMessage } = getIntl();
-
 				// Draw node and mouseWrapper decorations at top level node if decorations is empty, editor height changes or node is moved
 				if (redrawDecorations && !isResizerResizing && api) {
 					const oldNodeDecs = decorations.find(
@@ -212,11 +229,10 @@ export const createPlugin = (
 						undefined,
 						(spec) => spec.type !== 'drop-target-decoration',
 					);
-
 					decorations = decorations.remove(oldNodeDecs);
 
-					const nodeDecs = nodeDecorations(newState);
-					decorations = decorations.add(newState.doc, [...nodeDecs]);
+					newNodeDecs = newNodeDecs ?? nodeDecorations(newState);
+					decorations = decorations.add(newState.doc, [...newNodeDecs]);
 
 					// Note: Quite often the handle is not in the right position after a node is moved
 					// it is safer for now to not show it when a node is moved
@@ -357,7 +373,11 @@ export const createPlugin = (
 					decorations = decorations.map(tr.mapping, tr.doc);
 				}
 
-				const isEmptyDoc = newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
+				const isEmptyDoc = fg('platform_editor_elements_dnd_nested')
+					? newState.doc.childCount === 1 &&
+						newState.doc.nodeSize <= 4 &&
+						(newState.doc.firstChild === null || newState.doc.firstChild.nodeSize <= 2)
+					: newState.doc.childCount === 1 && newState.doc.nodeSize <= 4;
 
 				const hasNodeDecoration = decorations
 					.find()
@@ -390,6 +410,7 @@ export const createPlugin = (
 					isResizerResizing: isResizerResizing,
 					isDocSizeLimitEnabled: initialState.isDocSizeLimitEnabled,
 					isPMDragging: meta?.isPMDragging ?? isPMDragging,
+					childCount: newChildCount,
 				};
 			},
 		},

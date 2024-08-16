@@ -36,7 +36,7 @@ import type {
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
-import type { Transformer } from '@atlaskit/editor-common/types';
+import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
 import {
 	EditorExperience,
 	ExperienceStore,
@@ -65,6 +65,7 @@ import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
+import { EditorAPIContext } from '../presets/context';
 import type { SetEditorAPI } from '../presets/context';
 import type {
 	EditorAppearance,
@@ -120,6 +121,9 @@ export interface EditorViewProps {
 		transformer?: Transformer<string>;
 		dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 		editorRef: React.RefObject<HTMLDivElement>;
+		// We can't know this type at runtime
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		editorAPI: PublicPluginAPI<any> | undefined;
 	}) => JSX.Element;
 	onEditorCreated: (instance: {
 		view: EditorView;
@@ -1024,17 +1028,24 @@ export class ReactEditorView<T = {}> extends React.Component<
 						useShallow={useShallow}
 					/>
 				)}
-				{this.props.render
-					? this.props.render({
-							editor: this.editor,
-							view: this.view,
-							config: this.config,
-							eventDispatcher: this.eventDispatcher,
-							transformer: this.contentTransformer,
-							dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-							editorRef: this.editorRef,
-						})
-					: this.editor}
+				{this.props.render ? (
+					<EditorAPIContext.Consumer>
+						{({ editorApi }) =>
+							this.props.render?.({
+								editor: this.editor,
+								view: this.view,
+								config: this.config,
+								eventDispatcher: this.eventDispatcher,
+								transformer: this.contentTransformer,
+								dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
+								editorRef: this.editorRef,
+								editorAPI: editorApi,
+							}) ?? this.editor
+						}
+					</EditorAPIContext.Consumer>
+				) : (
+					this.editor
+				)}
 			</ReactEditorViewContext.Provider>
 		);
 	}

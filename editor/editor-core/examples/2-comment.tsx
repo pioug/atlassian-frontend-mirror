@@ -5,6 +5,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import { DevTools } from '@af/editor-examples-helpers/utils';
+import { getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -16,6 +17,8 @@ import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
 import type { EditorProps } from '../src';
 import { Editor } from '../src';
+import enMessages from '../src/i18n/en';
+import languages from '../src/i18n/languages';
 import CollapsedEditor from '../src/ui/CollapsedEditor';
 import EditorContext from '../src/ui/EditorContext';
 import ToolbarFeedback from '../src/ui/ToolbarFeedback';
@@ -61,12 +64,14 @@ export type Props = {
 export type State = {
 	hasJquery?: boolean;
 	isExpanded?: boolean;
+	intlState: { locale: string; messages: { [key: string]: string } };
 };
 
 export class CommentEditorWithFeedback extends React.Component<Props, State> {
 	state = {
 		hasJquery: false,
 		isExpanded: false,
+		intlState: { locale: 'en', messages: enMessages },
 	};
 
 	componentDidMount() {
@@ -76,13 +81,22 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 
 	onFocus = () => this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
+	private loadLocale = async (locale: string) => {
+		const messages = await getTranslations(locale);
+		this.setState({ ...this.state, intlState: { locale, messages } });
+	};
+
+	private getProperLanguageKey = (locale: string) => locale.replace('_', '-');
+
 	render() {
 		if (!this.state.hasJquery) {
 			return <h3>Please wait, loading jQuery ...</h3>;
 		}
 
+		const { locale, messages } = this.state.intlState;
+
 		return (
-			<IntlProvider locale="en">
+			<IntlProvider locale={this.getProperLanguageKey(locale)} messages={messages}>
 				<EditorContext>
 					<div>
 						<WithEditorActions
@@ -96,6 +110,11 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 										Load Document
 									</Button>
 									<Button onClick={() => actions.clear()}>Clear</Button>
+									<LanguagePicker
+										languages={languages}
+										locale={this.state.intlState.locale}
+										onChange={this.loadLocale}
+									/>
 								</ButtonGroup>
 							)}
 						/>

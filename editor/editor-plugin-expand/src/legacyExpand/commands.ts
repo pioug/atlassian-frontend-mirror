@@ -10,7 +10,7 @@ import {
 	PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
-import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -19,7 +19,8 @@ import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type InsertMethod } from '../types';
+import type { InsertMethod } from '../types';
+import { isNestedInExpand } from '../utils';
 
 import { createCommand } from './pm-plugins/plugin-factory';
 import { findExpand } from './utils';
@@ -193,13 +194,12 @@ export const toggleExpandExpanded =
 // Creates either an expand or a nestedExpand node based on the current selection
 export const createExpandNode = (
 	state: EditorState,
-	featureFlags?: FeatureFlags,
+	isNestingExpandsSupported?: boolean,
 ): PMNode | null => {
 	const { expand, nestedExpand } = state.schema.nodes;
 
 	const isSelectionInTable = !!findTable(state.selection);
-	const isSelectionInExpand =
-		featureFlags?.nestedExpandInExpandEx && !!findExpand(state, state.selection);
+	const isSelectionInExpand = isNestingExpandsSupported && isNestedInExpand(state);
 
 	const expandType = isSelectionInTable || isSelectionInExpand ? nestedExpand : expand;
 
@@ -207,10 +207,10 @@ export const createExpandNode = (
 };
 
 export const insertExpandWithInputMethod =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, featureFlags?: FeatureFlags) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingExpandsSupported?: boolean) =>
 	(inputMethod: InsertMethod): Command =>
 	(state, dispatch) => {
-		const expandNode = createExpandNode(state, featureFlags);
+		const expandNode = createExpandNode(state, isNestingExpandsSupported);
 
 		if (!expandNode) {
 			return false;
@@ -242,12 +242,15 @@ export const insertExpandWithInputMethod =
 	};
 
 export const insertExpand =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, featureFlags?: FeatureFlags): Command =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+		isNestingExpandsSupported?: boolean,
+	): Command =>
 	(state, dispatch) => {
-		return insertExpandWithInputMethod(editorAnalyticsAPI, featureFlags)(INPUT_METHOD.INSERT_MENU)(
-			state,
-			dispatch,
-		);
+		return insertExpandWithInputMethod(
+			editorAnalyticsAPI,
+			isNestingExpandsSupported,
+		)(INPUT_METHOD.INSERT_MENU)(state, dispatch);
 	};
 
 export const focusTitle =
@@ -271,7 +274,7 @@ export const focusTitle =
 // Used to clear any node or cell selection when expand title is focused
 export const setSelectionInsideExpand =
 	(expandPos: number): Command =>
-	(state, dispatch, editorView) => {
+	(_state, dispatch, editorView) => {
 		if (editorView) {
 			if (!editorView.hasFocus()) {
 				editorView.focus();

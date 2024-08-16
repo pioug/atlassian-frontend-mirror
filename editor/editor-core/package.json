@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.4.8",
+	"version": "195.4.10",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.0.0",
-		"@atlaskit/editor-common": "^87.11.0",
+		"@atlaskit/editor-common": "^87.12.0",
 		"@atlaskit/editor-plugins": "^4.0.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
@@ -100,7 +100,7 @@
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/renderer": "^109.47.0",
+		"@atlaskit/renderer": "^109.48.0",
 		"@atlaskit/smart-card": "^27.16.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.3.0",
@@ -224,10 +224,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.editor.table.use-increased-scaling-percent": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.editor.preserve-whitespace-clipboard-text-serialization": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},

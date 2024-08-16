@@ -7,6 +7,7 @@ import {
 	type TeamCentralReportingLinesData,
 } from '../types';
 
+import RovoAgentCardClient from './RovoAgentCardClient';
 import TeamCentralCardClient from './TeamCentralCardClient';
 import TeamProfileCardClient from './TeamProfileCardClient';
 import UserProfileCardClient from './UserProfileCardClient';
@@ -15,10 +16,12 @@ class ProfileCardClient {
 	userClient: UserProfileCardClient;
 	teamClient: TeamProfileCardClient;
 	tcClient?: TeamCentralCardClient;
+	rovoAgentClient: RovoAgentCardClient;
 
 	constructor(config: ProfileClientOptions, clients?: ClientOverrides) {
 		this.userClient = clients?.userClient || new UserProfileCardClient(config);
 		this.teamClient = clients?.teamClient || new TeamProfileCardClient(config);
+		this.rovoAgentClient = clients?.rovoAgentClient || new RovoAgentCardClient(config);
 		this.tcClient = maybeCreateTeamCentralClient(config, clients);
 	}
 
@@ -26,6 +29,7 @@ class ProfileCardClient {
 		this.userClient.flushCache();
 		this.teamClient.flushCache();
 		this.tcClient?.flushCache();
+		this.rovoAgentClient?.flushCache();
 	}
 
 	getProfile(
@@ -59,6 +63,10 @@ class ProfileCardClient {
 			return Promise.resolve(false);
 		}
 		return this.tcClient.checkWorkspaceExists();
+	}
+
+	getRovoAgentProfile(agentId: string, analytics?: (event: AnalyticsEventPayload) => void) {
+		return this.rovoAgentClient?.getProfile(agentId, analytics);
 	}
 }
 

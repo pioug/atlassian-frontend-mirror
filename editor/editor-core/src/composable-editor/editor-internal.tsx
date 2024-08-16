@@ -140,10 +140,12 @@ export const EditorInternal = memo(
 												config,
 												dispatchAnalyticsEvent,
 												editorRef,
+												editorAPI,
 											}) => (
 												<BaseTheme baseFontSize={getBaseFontSize(props.appearance)}>
 													<Component
 														innerRef={editorRef}
+														editorAPI={editorAPI}
 														appearance={props.appearance!}
 														disabled={props.disabled}
 														editorActions={editorActions}

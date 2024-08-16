@@ -22,7 +22,7 @@ export default function Mobile({
 	innerRef,
 	pluginHooks,
 	featureFlags,
-}: EditorAppearanceComponentProps) {
+}: EditorAppearanceComponentProps<any>) {
 	return (
 		<MobileAppearance
 			ref={innerRef}

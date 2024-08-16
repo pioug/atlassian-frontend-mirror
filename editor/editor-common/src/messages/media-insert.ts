@@ -44,4 +44,14 @@ export const mediaInsertMessages = defineMessages({
 		defaultMessage: 'Preview for uploaded image or video file',
 		description: 'Alt text describing a preview of an image uploaded.',
 	},
+	linkTabTitle: {
+		id: 'fabric.editor.media.insert.linkTabTitle',
+		defaultMessage: 'Link',
+		description: 'Title of the navigation tab that allows users to insert media from a URL or link',
+	},
+	mediaPickerPopupAriaLabel: {
+		id: 'fabric.editor.media.insert.mediaPickerPopupAriaLabel',
+		defaultMessage: 'Media picker',
+		description: 'Accessibility label for the media picker popup',
+	},
 });

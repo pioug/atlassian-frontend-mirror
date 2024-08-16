@@ -45,7 +45,7 @@ import {
 	TableHeading,
 	withTablePluginHeaderPrefix,
 } from './styled';
-import { TableCellContent } from './table-cell-content';
+import { ReadOnlyCell, TableCellContent } from './table-cell-content';
 import { TruncateTextTag } from './truncate-text-tag';
 import {
 	type DatasourceTypeWithOnlyValues,
@@ -572,8 +572,17 @@ export const IssueLikeDataTableView = ({
 								return {
 									key,
 									columnKey: key,
-									content: (
+									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+									content: fg('platform-datasources-enable-two-way-sync') ? (
 										<TableCellContent
+											id={id}
+											columnKey={key}
+											columnType={type}
+											wrappedColumnKeys={wrappedColumnKeys}
+											renderItem={renderItem}
+										/>
+									) : (
+										<ReadOnlyCell
 											id={id}
 											columnKey={key}
 											columnType={type}

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 87.12.0
+
+### Minor Changes
+
+- [#129457](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129457)
+  [`171c73d4033f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/171c73d4033f0) -
+  [ux] [ED-24566]
+
+  - Internationalisation strings in editor-common for editor-plugin-media-insert
+  - Removed default pre-filled URL for editor-plugin-media-insert popup
+  - Added background color for editor-plugin-media-insert popup
+
+- [#130065](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130065)
+  [`e71a357ea40dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e71a357ea40dd) -
+  [ux] [ED-24323] Add external image badge for externally hosted images
+
 ## 87.11.0
 
 ### Minor Changes

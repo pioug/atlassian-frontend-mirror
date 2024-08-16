@@ -91,13 +91,6 @@ type Props = {
 	closeMediaInsertPicker: () => void;
 };
 
-// TODO: Delete these before rollout
-const placeholders = [
-	'https://picsum.photos/200/300', // has cors
-	'https://placedog.net/500/280', // has cors
-	'https://preview.redd.it/gabriel-medina-at-the-olympics-after-riding-a-nearly-v0-dbyczz2fkifd1.jpeg?auto=webp&s=045550d672718427b67fb929bc6efc57116a7596', // no cors
-];
-
 export function MediaFromURL({
 	mediaProvider,
 	onInsert,
@@ -115,7 +108,7 @@ export function MediaFromURL({
 		warning: intl.formatMessage(mediaInsertMessages.warning),
 	};
 
-	const [inputUrl, setUrl] = React.useState(placeholders[1]);
+	const [inputUrl, setUrl] = React.useState<string>('');
 	const [previewState, dispatch] = React.useReducer(previewStateReducer, INITIAL_PREVIEW_STATE);
 	const pasteFlag = React.useRef(false);
 
@@ -286,7 +279,7 @@ export function MediaFromURL({
 						<Button
 							type="submit"
 							isLoading={previewState.isLoading}
-							isDisabled={!inputUrl}
+							isDisabled={inputUrl.length === 0}
 							iconBefore={EditorFilePreviewIcon}
 						>
 							{strings.loadPreview}

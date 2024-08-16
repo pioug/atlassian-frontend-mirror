@@ -1,9 +1,12 @@
+import kebabCase from 'lodash/kebabCase';
+
 import { table } from '@atlaskit/adf-schema';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/src/types';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { getAlignmentStyle } from './nodeviews/table-container-styles';
 import { generateColgroup } from './pm-plugins/table-resizing/utils/colgroup';
 
 type Config = {
@@ -23,6 +26,10 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 				config.getEditorContainerWidth().width - akEditorGutterPaddingDynamic() * 2,
 				node.attrs.width,
 			);
+			const alignmentStyle = Object.entries(getAlignmentStyle(node.attrs.layout))
+				.map(([k, v]) => `${kebabCase(k)}: ${kebabCase(v)}`)
+				.join(';');
+
 			const attrs = {
 				'data-number-column': node.attrs.isNumberColumnEnabled,
 				'data-layout': node.attrs.layout,
@@ -111,7 +118,7 @@ export const tableNodeSpecWithFixedToDOM = (config: Config): typeof table => {
 				'div',
 				{
 					'data-testid': 'table-alignment-container',
-					style: 'display: flex; justify-content: center;',
+					style: alignmentStyle,
 				},
 				[
 					'div',

@@ -61,6 +61,7 @@ describe('InlineEdit', () => {
 		const { getByTestId } = render(
 			<InlineEdit
 				ari={ari}
+				execute={execute}
 				columnKey="date"
 				readView={<MockReadView ari={ari} />}
 				datasourceTypeWithValues={dataValues}
@@ -77,43 +78,5 @@ describe('InlineEdit', () => {
 
 		expect(store.storeState.getState().items[ari].data.date.data).toEqual('FoobarFoobar');
 		expect(getByTestId(testIds.readView)).toHaveTextContent('FoobarFoobar');
-	});
-
-	it('should respond to the commit click but should not trigger update if execute is `undefined` from `useExecuteAtomicAction`', () => {
-		const ari = 'ari/test';
-		store.storeState.setState({
-			items: {
-				[ari]: {
-					ari,
-					integrationKey: 'jira',
-					data: {
-						ari: { data: ari },
-						date: { data: 'Blahblah' },
-					},
-				},
-			},
-		});
-		mockUseExecuteAtomicAction.mockReturnValue({});
-
-		const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
-		const { getByTestId } = render(
-			<InlineEdit
-				ari={ari}
-				columnKey="date"
-				readView={<MockReadView ari={ari} />}
-				datasourceTypeWithValues={dataValues}
-			/>,
-		);
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
-		expect(getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
-		fireEvent.click(getByTestId(testIds.readView));
-
-		expect(getByTestId(testIds.editView)).toBeInTheDocument();
-
-		fireEvent.change(getByTestId(testIds.editView), { target: { value: 'FoobarFoobar' } });
-		fireEvent.submit(getByTestId(testIds.editView));
-
-		expect(store.storeState.getState().items[ari].data.date.data).toEqual('Blahblah');
-		expect(getByTestId(testIds.readView)).toHaveTextContent('Blahblah');
 	});
 });

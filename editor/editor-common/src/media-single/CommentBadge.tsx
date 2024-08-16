@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useMemo, useState } from 'react';
+import { forwardRef, useEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -38,7 +38,7 @@ const commentBadgeEditorOverrides = (
 		zIndex: layers.card(),
 	});
 
-const getBadgeSize = (width?: number, height?: number) => {
+export const getBadgeSize = (width?: number, height?: number) => {
 	// width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
 	return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
 };
@@ -58,88 +58,94 @@ export type CommentBadgeProps = {
 	commentsOnMediaBugFixEnabled?: boolean;
 };
 
-export const CommentBadge = ({
-	intl,
-	width,
-	height,
-	status = 'default',
-	mediaSingleElement,
-	onClick,
-	onMouseEnter,
-	onMouseLeave,
-	badgeOffsetRight,
-	commentsOnMediaBugFixEnabled,
-}: CommentBadgeProps) => {
-	const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(getBadgeSize(width, height));
-	const title = intl.formatMessage(messages.viewCommentsOnMedia);
+export const CommentBadge = forwardRef<HTMLDivElement, CommentBadgeProps>(
+	(
+		{
+			intl,
+			width,
+			height,
+			status = 'default',
+			mediaSingleElement,
+			onClick,
+			onMouseEnter,
+			onMouseLeave,
+			badgeOffsetRight,
+			commentsOnMediaBugFixEnabled,
+		},
+		ref,
+	) => {
+		const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(getBadgeSize(width, height));
+		const title = intl.formatMessage(messages.viewCommentsOnMedia);
 
-	useEffect(() => {
-		const observer = new ResizeObserver(
-			debounce((entries) => {
-				const [entry] = entries;
-				const { width, height } = entry.contentRect;
-				setBadgeSize(getBadgeSize(width, height));
-			}),
-		);
+		useEffect(() => {
+			const observer = new ResizeObserver(
+				debounce((entries) => {
+					const [entry] = entries;
+					const { width, height } = entry.contentRect;
+					setBadgeSize(getBadgeSize(width, height));
+				}),
+			);
 
-		if (mediaSingleElement) {
-			observer.observe(mediaSingleElement as HTMLElement);
-		}
-		return () => {
-			observer.disconnect();
-		};
-	}, [mediaSingleElement]);
-
-	const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
-
-	const colourToken = useMemo(() => {
-		switch (status) {
-			case 'active':
-				return token('color.background.accent.yellow.subtlest.pressed', '#F5CD47');
-			case 'entered':
-				return token('color.background.accent.yellow.subtlest.hovered', '#F8E6A0');
-			default:
-				return token('color.background.accent.yellow.subtlest', '#FFF7D6');
-		}
-	}, [status]);
-
-	return (
-		<div
-			css={
-				badgeOffsetRight
-					? [
-							commentBadgeWrapper,
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-							commentBadgeEditorOverrides(commentsOnMediaBugFixEnabled, badgeOffsetRight),
-						]
-					: commentBadgeWrapper
+			if (mediaSingleElement) {
+				observer.observe(mediaSingleElement as HTMLElement);
 			}
-			// This is needed so that mediaWrapperStyle in editor/editor-common/src/ui/MediaSingle/styled.tsx
-			// can target the correct div
-			data-comment-badge="true"
-		>
-			<Tooltip position="top" content={title}>
-				{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
-				<CustomThemeButton
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						height: badgeDimensions,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						width: badgeDimensions,
-						background: colourToken,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						display: 'flex',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						justifyContent: 'center',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						alignItems: 'center',
-					}}
-					onClick={onClick}
-					onMouseEnter={onMouseEnter}
-					onMouseLeave={onMouseLeave}
-					iconAfter={<CommentIcon label={title} size={badgeSize} />}
-				/>
-			</Tooltip>
-		</div>
-	);
-};
+			return () => {
+				observer.disconnect();
+			};
+		}, [mediaSingleElement]);
+
+		const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
+
+		const colourToken = useMemo(() => {
+			switch (status) {
+				case 'active':
+					return token('color.background.accent.yellow.subtlest.pressed', '#F5CD47');
+				case 'entered':
+					return token('color.background.accent.yellow.subtlest.hovered', '#F8E6A0');
+				default:
+					return token('color.background.accent.yellow.subtlest', '#FFF7D6');
+			}
+		}, [status]);
+
+		return (
+			<div
+				ref={ref}
+				css={
+					badgeOffsetRight
+						? [
+								commentBadgeWrapper,
+								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+								commentBadgeEditorOverrides(commentsOnMediaBugFixEnabled, badgeOffsetRight),
+							]
+						: commentBadgeWrapper
+				}
+				// This is needed so that mediaWrapperStyle in editor/editor-common/src/ui/MediaSingle/styled.tsx
+				// can target the correct div
+				data-comment-badge="true"
+			>
+				<Tooltip position="top" content={title}>
+					{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
+					<CustomThemeButton
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							height: badgeDimensions,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							width: badgeDimensions,
+							background: colourToken,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							display: 'flex',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							justifyContent: 'center',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							alignItems: 'center',
+						}}
+						onClick={onClick}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
+						iconAfter={<CommentIcon label={title} size={badgeSize} />}
+					/>
+				</Tooltip>
+			</div>
+		);
+	},
+);

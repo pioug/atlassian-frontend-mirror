@@ -7,8 +7,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -28,7 +27,6 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../../messages';
-import { usePresetContext } from '../../../presets/context';
 import type { EditorAppearance, EditorAppearanceComponentProps } from '../../../types';
 import { ClickAreaBlock } from '../../Addon';
 import { createEditorContentStyle } from '../../ContentStyles';
@@ -97,20 +95,22 @@ const secondaryToolbarStyles = css({
 
 const appearance: EditorAppearance = 'comment';
 
-const Editor = (props: EditorAppearanceComponentProps & WrappedComponentProps) => {
-	const api =
-		usePresetContext<
-			[
-				OptionalPlugin<MediaPlugin>,
-				OptionalPlugin<MaxContentSizePlugin>,
-				OptionalPlugin<PrimaryToolbarPlugin>,
-			]
-		>();
-	const { mediaState, maxContentSizeState, primaryToolbarState } = useSharedPluginState(api, [
+type ComponentProps = EditorAppearanceComponentProps<
+	[
+		OptionalPlugin<MediaPlugin>,
+		OptionalPlugin<MaxContentSizePlugin>,
+		OptionalPlugin<PrimaryToolbarPlugin>,
+	]
+>;
+
+export const CommentEditorWithIntl = (props: ComponentProps) => {
+	const { editorAPI } = props;
+	const { mediaState, maxContentSizeState, primaryToolbarState } = useSharedPluginState(editorAPI, [
 		'media',
 		'maxContentSize',
 		'primaryToolbar',
 	]);
+	const intl = useIntl();
 	const {
 		editorDOMElement,
 		editorView,
@@ -131,7 +131,6 @@ const Editor = (props: EditorAppearanceComponentProps & WrappedComponentProps) =
 		onCancel,
 		disabled,
 		dispatchAnalyticsEvent,
-		intl,
 		useStickyToolbar,
 		pluginHooks,
 		featureFlags,
@@ -319,6 +318,4 @@ const Editor = (props: EditorAppearanceComponentProps & WrappedComponentProps) =
 	);
 };
 
-Editor.displayName = 'CommentEditorAppearance';
-
-export const CommentEditorWithIntl = injectIntl(Editor);
+CommentEditorWithIntl.displayName = 'CommentEditorAppearance';

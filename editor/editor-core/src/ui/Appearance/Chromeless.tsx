@@ -8,6 +8,7 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { type OptionalPlugin } from '@atlaskit/editor-common/types';
 import type {
 	MaxContentSizePlugin,
 	MaxContentSizePluginState,
@@ -15,7 +16,6 @@ import type {
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { token } from '@atlaskit/tokens';
 
-import { usePresetContext } from '../../presets/context';
 import type { EditorAppearance, EditorAppearanceComponentProps } from '../../types';
 import { createEditorContentStyle } from '../ContentStyles';
 import PluginSlot from '../PluginSlot';
@@ -51,7 +51,9 @@ const chromelessEditorStyles = css(
 const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
 
-export default class Editor extends React.Component<EditorAppearanceComponentProps, any> {
+type AppearanceProps = EditorAppearanceComponentProps<[OptionalPlugin<MaxContentSizePlugin>]>;
+
+export default class Editor extends React.Component<AppearanceProps, any> {
 	static displayName = 'ChromelessEditorAppearance';
 
 	private appearance: EditorAppearance = 'chromeless';
@@ -133,20 +135,22 @@ export default class Editor extends React.Component<EditorAppearanceComponentPro
 	};
 
 	render() {
-		return <RenderWithPluginState renderChrome={this.renderChrome} />;
+		return (
+			<RenderWithPluginState editorAPI={this.props.editorAPI} renderChrome={this.renderChrome} />
+		);
 	}
 }
 
 interface PluginStates {
 	maxContentSize?: MaxContentSizePluginState;
 }
-interface RenderChromeProps {
+
+interface RenderChromeProps extends Pick<AppearanceProps, 'editorAPI'> {
 	renderChrome: (props: PluginStates) => React.ReactNode;
 }
 
-function RenderWithPluginState({ renderChrome }: RenderChromeProps) {
-	const api = usePresetContext<[MaxContentSizePlugin]>();
-	const { maxContentSizeState } = useSharedPluginState(api, ['maxContentSize']);
+function RenderWithPluginState({ renderChrome, editorAPI }: RenderChromeProps) {
+	const { maxContentSizeState } = useSharedPluginState(editorAPI, ['maxContentSize']);
 
 	return <Fragment>{renderChrome({ maxContentSize: maxContentSizeState })}</Fragment>;
 }

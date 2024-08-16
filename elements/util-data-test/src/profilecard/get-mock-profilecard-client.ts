@@ -111,5 +111,9 @@ export function simpleMockProfilecardClient(): ProfileClient {
 		getTeamCentralBaseUrl: () => 'teamCentralUrl',
 
 		shouldShowGiveKudos: () => Promise.resolve(true),
+
+		getRovoAgentProfile: (_agentId: string, _analytics?: (event: Record<string, any>) => void) => {
+			return Promise.reject({ reason: 'not built yet' });
+		},
 	};
 }

@@ -39,7 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.0.0",
-		"@atlaskit/editor-common": "^87.11.0",
+		"@atlaskit/editor-common": "^87.12.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",

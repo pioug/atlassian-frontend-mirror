@@ -7,6 +7,7 @@ const styles = xcss({
 	width: '340px',
 	padding: 'space.200',
 	borderRadius: 'border.radius',
+	backgroundColor: 'elevation.surface.overlay',
 });
 
 export const MediaInsertWrapper = ({ children }: { children?: React.ReactNode }) => {

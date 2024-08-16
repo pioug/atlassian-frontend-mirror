@@ -39,6 +39,7 @@ export interface PluginState {
 	 * is dragging the node without using drag handle, i,e, native prosemirror DnD
 	 */
 	isPMDragging: boolean;
+	childCount: number;
 }
 
 export type ReleaseHiddenDecoration = () => boolean | undefined;

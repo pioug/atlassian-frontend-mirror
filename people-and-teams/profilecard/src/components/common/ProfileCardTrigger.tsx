@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
+import { useProfileInfo } from '../../util/useProfileInfo';
+
 import { PopupTrigger } from './PopupTrigger';
 import { type ProfileCardTriggerProps } from './types';
 
@@ -17,13 +19,20 @@ function ProfileCardTrigger<T>({
 	fetchProfile,
 	disabledAriaAttributes,
 	...popupProps
-}: ProfileCardTriggerProps) {
+}: ProfileCardTriggerProps<T>) {
 	const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
 	const hideDelay = trigger === 'click' ? 0 : DELAY_MS_HIDE;
 
 	const showTimer = useRef<number>(0);
 	const hideTimer = useRef<number>(0);
 	const [visible, setVisible] = useState<boolean>(false);
+
+	const {
+		profileData,
+		isLoading,
+		// hasError: Boolean(error) || cannotLoadUser,
+		getProfileData,
+	} = useProfileInfo<T>({ fetchUserProfile: fetchProfile });
 
 	useEffect(() => {
 		return () => {
@@ -40,16 +49,16 @@ function ProfileCardTrigger<T>({
 		}, hideDelay);
 	}, [hideDelay]);
 
-	const showProfilecard = useCallback(() => {
+	const showProfilecard = useCallback(async () => {
 		clearTimeout(hideTimer.current);
 		clearTimeout(showTimer.current);
-		showTimer.current = window.setTimeout(() => {
+		showTimer.current = window.setTimeout(async () => {
 			if (!visible) {
-				void fetchProfile?.();
+				await getProfileData?.();
 				setVisible(true);
 			}
 		}, showDelay);
-	}, [showDelay, visible, fetchProfile]);
+	}, [showDelay, visible, getProfileData]);
 
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
@@ -67,7 +76,7 @@ function ProfileCardTrigger<T>({
 			trigger={(triggerProps) => {
 				const { 'aria-expanded': _, 'aria-haspopup': __, ...restInnerProps } = triggerProps;
 				return (
-					<PopupTrigger
+					<PopupTrigger<T>
 						{...(disabledAriaAttributes ? restInnerProps : triggerProps)}
 						forwardRef={triggerProps.ref}
 						hideProfilecard={hideProfilecard}
@@ -80,7 +89,7 @@ function ProfileCardTrigger<T>({
 			}}
 			content={() => (
 				<div onMouseEnter={onMouseEnter} onMouseLeave={hideProfilecard} onFocus={showProfilecard}>
-					{renderProfileCard()}
+					{renderProfileCard({ profileData, isLoading })}
 				</div>
 			)}
 		/>

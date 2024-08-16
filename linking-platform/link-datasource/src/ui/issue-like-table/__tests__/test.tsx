@@ -28,6 +28,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
 import { Store } from '../../../state';
+import { ActionsStore } from '../../../state/actions';
 import { getOrderedColumns, IssueLikeDataTableView } from '../index';
 import { ScrollableContainerHeight } from '../styled';
 import { type IssueLikeDataTableViewProps, type TableViewPropsRenderType } from '../types';
@@ -136,6 +137,7 @@ describe('IssueLikeDataTableView', () => {
 		typeof Element.prototype.getBoundingClientRect
 	>;
 	const store = defaultRegistry.getStore(Store);
+	const actionStore = defaultRegistry.getStore(ActionsStore);
 
 	const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
 		const onAnalyticsEvent = jest.fn();
@@ -1890,12 +1892,27 @@ describe('IssueLikeDataTableView', () => {
 
 	ffTest.on('platform-datasources-enable-two-way-sync', 'toggling inline editable cell', () => {
 		ffTest.on('enable_datasource_react_sweet_state', 'with react sweet state on', () => {
-			it('shows editable cell on click', async () => {
+			it('shows editable cell on click when field is editable', async () => {
 				const items = getComplexItems();
 				const columns = getComplexColumns();
 				const itemIds = store.actions.onAddItems(items, 'jira');
+				actionStore.storeState.setState({
+					actionsByIntegration: {
+						jira: {
+							someKey: {
+								actionKey: 'atlassian:issue:update:someKey',
+								type: 'string',
+							},
+						},
+					},
+					permissions: {
+						'ari/blah': {
+							someKey: { isEditable: true },
+						},
+					},
+				});
 
-				const visibleColumnKeys = ['id', 'someOtherKey'];
+				const visibleColumnKeys = ['id', 'someKey', 'someOtherKey'];
 
 				setup({
 					itemIds,
@@ -1908,12 +1925,95 @@ describe('IssueLikeDataTableView', () => {
 					el.getAttribute('data-testid'),
 				);
 
-				expect(rowColumnTestIds).toEqual(['sometable--cell-0', 'sometable--cell-1']);
+				expect(rowColumnTestIds).toEqual([
+					'sometable--cell-0',
+					'sometable--cell-1',
+					'sometable--cell-2',
+				]);
 
-				const cell = screen.getByText('someOtherValue');
+				const cell = screen.getByText('someData');
 				fireEvent.click(cell);
 
 				expect(screen.getByTestId('inline-edit-text')).toBeInTheDocument();
+			});
+
+			it('does not show editable cell on click when field is NOT editable', async () => {
+				const items = getComplexItems();
+				const columns = getComplexColumns();
+				const itemIds = store.actions.onAddItems(items, 'jira');
+				actionStore.storeState.setState({
+					actionsByIntegration: {
+						jira: {
+							someKey: {
+								actionKey: 'atlassian:issue:update:someKey',
+								type: 'string',
+							},
+						},
+					},
+					permissions: {
+						'ari/blah': {
+							someKey: { isEditable: false },
+						},
+					},
+				});
+
+				const visibleColumnKeys = ['id', 'someKey', 'someOtherKey'];
+
+				setup({
+					itemIds,
+					items,
+					columns,
+					visibleColumnKeys,
+				});
+
+				const rowColumnTestIds = (await screen.findAllByTestId(/sometable--cell-.+/)).map((el) =>
+					el.getAttribute('data-testid'),
+				);
+
+				expect(rowColumnTestIds).toEqual([
+					'sometable--cell-0',
+					'sometable--cell-1',
+					'sometable--cell-2',
+				]);
+
+				const cell = screen.getByText('someData');
+				fireEvent.click(cell);
+
+				expect(screen.queryByTestId('inline-edit-text')).not.toBeInTheDocument();
+			});
+
+			it('does not show editable cell on click when there are no actions available', async () => {
+				const items = getComplexItems();
+				const columns = getComplexColumns();
+				const itemIds = store.actions.onAddItems(items, 'jira');
+				actionStore.storeState.setState({
+					actionsByIntegration: {},
+					permissions: {},
+				});
+
+				const visibleColumnKeys = ['id', 'someKey', 'someOtherKey'];
+
+				setup({
+					itemIds,
+					items,
+					columns,
+					visibleColumnKeys,
+				});
+
+				const rowColumnTestIds = (await screen.findAllByTestId(/sometable--cell-.+/)).map((el) =>
+					el.getAttribute('data-testid'),
+				);
+
+				expect(rowColumnTestIds).toEqual([
+					'sometable--cell-0',
+					'sometable--cell-1',
+					'sometable--cell-2',
+				]);
+
+				const cell = screen.getByText('someData');
+				fireEvent.click(cell);
+
+				expect(screen.queryByTestId('inline-edit-text')).not.toBeInTheDocument();
 			});
 		});
 	});

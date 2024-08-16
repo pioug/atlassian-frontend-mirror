@@ -94,6 +94,9 @@ function ComposableEditorPage() {
 			},
 			__livePage: true,
 			defaultValue: getDefaultValue(),
+			featureFlags: {
+				'nested-expand-in-expand-ex': true,
+			},
 		},
 	});
 

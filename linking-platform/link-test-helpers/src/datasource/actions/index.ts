@@ -17,10 +17,10 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 				},
 			],
 			permissions: {
-				data: new Array(5).fill(null).map((_, i) => ({
-					ari: `ari:cloud:jira:63cecfe3-16fa-4ee1-8e8d-047cc4b18980:issue/${i}`,
+				data: new Array(10).fill(null).map((_, i) => ({
+					ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10}`,
 					fieldKey: 'summary',
-					isEditable: i % 2 === 0,
+					isEditable: i % 2 === 1,
 				})),
 			},
 			...overrides,

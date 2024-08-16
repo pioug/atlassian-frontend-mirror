@@ -14,12 +14,13 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
 
-import { usePresetContext } from '../../../presets/context';
 import type { EditorAppearanceComponentProps } from '../../../types';
 
 import { FullPageContentArea } from './FullPageContentArea';
 import { FullPageToolbar } from './FullPageToolbar';
+import type { ToolbarEditorPlugins } from './FullPageToolbar';
 import { fullPageEditorWrapper } from './StyledComponents';
+import { type ScrollContainerRefs } from './types';
 
 const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRefs | null>) => {
 	const [showKeyline, setShowKeyline] = useState<boolean>(false);
@@ -55,19 +56,19 @@ const useShowKeyline = (contentAreaRef: React.MutableRefObject<ScrollContainerRe
 	return showKeyline;
 };
 
-type ScrollContainerRefs = {
-	scrollContainer: HTMLDivElement | null;
-	contentArea: HTMLDivElement | null;
-};
+type ComponentProps = EditorAppearanceComponentProps<
+	[
+		OptionalPlugin<EditorViewModePlugin>,
+		OptionalPlugin<PrimaryToolbarPlugin>,
+		...ToolbarEditorPlugins,
+	]
+>;
 
-export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
+export const FullPageEditor = (props: ComponentProps) => {
 	const wrapperElementRef = useMemo(() => props.innerRef, [props.innerRef]);
 	const scrollContentContainerRef = useRef<ScrollContainerRefs | null>(null);
 	const showKeyline = useShowKeyline(scrollContentContainerRef);
-	const editorAPI =
-		usePresetContext<
-			[OptionalPlugin<EditorViewModePlugin>, OptionalPlugin<PrimaryToolbarPlugin>]
-		>();
+	const editorAPI = props.editorAPI;
 	const { editorViewModeState, primaryToolbarState } = useSharedPluginState(editorAPI, [
 		'editorViewMode',
 		'primaryToolbar',
@@ -86,9 +87,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
 	const isEditorToolbarHidden = editorViewModeState?.mode === 'view';
 
 	const popupsBoundariesElement =
-		props.popupsBoundariesElement ||
-		scrollContentContainerRef?.current?.scrollContainer ||
-		undefined;
+		props.popupsBoundariesElement || scrollContentContainerRef?.current?.containerArea || undefined;
 
 	return (
 		<ContextPanelWidthProvider>
@@ -102,6 +101,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
 				{!isEditorToolbarHidden && (
 					<FullPageToolbar
 						appearance={props.appearance}
+						editorAPI={editorAPI}
 						beforeIcon={props.primaryToolbarIconBefore}
 						collabEdit={props.collabEdit}
 						containerElement={scrollContentContainerRef.current?.scrollContainer ?? null}

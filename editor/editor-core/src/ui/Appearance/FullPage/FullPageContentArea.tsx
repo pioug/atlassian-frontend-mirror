@@ -39,6 +39,7 @@ import {
 	ScrollContainer,
 	sidebarArea,
 } from './StyledComponents';
+import { type ScrollContainerRefs } from './types';
 
 interface FullPageEditorContentAreaProps {
 	appearance: EditorAppearance | undefined;
@@ -63,11 +64,6 @@ interface FullPageEditorContentAreaProps {
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 
-type ScrollContainerRefs = {
-	scrollContainer: HTMLDivElement | null;
-	contentArea: HTMLDivElement | null;
-};
-
 const Content = React.forwardRef<
 	ScrollContainerRefs,
 	FullPageEditorContentAreaProps & WrappedComponentProps
@@ -76,6 +72,7 @@ const Content = React.forwardRef<
 	const fullWidthMode = props.appearance === 'full-width';
 	const scrollContainerRef = useRef(null);
 	const contentAreaRef = useRef(null);
+	const containerRef = useRef(null);
 
 	useImperativeHandle(
 		ref,
@@ -85,6 +82,9 @@ const Content = React.forwardRef<
 			},
 			get contentArea() {
 				return contentAreaRef.current;
+			},
+			get containerArea() {
+				return containerRef.current;
 			},
 		}),
 		[],
@@ -105,6 +105,7 @@ const Content = React.forwardRef<
 								positionedOverEditor && positionedOverEditorStyle,
 							]}
 							data-testid={CONTENT_AREA_TEST_ID}
+							ref={containerRef}
 						>
 							<ScrollContainer
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

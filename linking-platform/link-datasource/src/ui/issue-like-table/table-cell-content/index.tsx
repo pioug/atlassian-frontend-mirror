@@ -3,11 +3,11 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type DatasourceType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useDatasourceItem } from '../../../state';
+import { useExecuteAtomicAction } from '../../../state/actions';
 import { isEditTypeSupported } from '../edit-type';
 import { stringifyType } from '../render-type';
 import { TruncateTextTag } from '../truncate-text-tag';
@@ -66,7 +66,7 @@ const TooltipWrapper = ({
 	return <>{children}</>;
 };
 
-const ReadOnlyCell = ({
+export const ReadOnlyCell = ({
 	id,
 	columnType,
 	wrappedColumnKeys = [],
@@ -75,7 +75,7 @@ const ReadOnlyCell = ({
 }: TableCellContentProps) => {
 	const rowData = useDatasourceItem({ id })?.data;
 	if (!rowData || !columnKey || !rowData[columnKey]) {
-		return <></>;
+		return null;
 	}
 
 	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
@@ -99,37 +99,33 @@ const ReadOnlyCell = ({
 };
 
 const InlineEditableCell = ({
-	id,
+	ari,
+	values,
 	columnKey,
-	columnType,
 	renderItem,
+	integrationKey,
 	wrappedColumnKeys,
-}: TableCellContentProps) => {
-	const item = useDatasourceItem({ id });
-	if (!item) {
-		return <></>;
-	}
-	const { data: rowData, integrationKey, ari } = item;
-	if (!rowData || !columnKey || !rowData[columnKey]) {
-		return <></>;
-	}
+}: {
+	ari: string;
+	columnKey: string;
+	integrationKey: string;
+	wrappedColumnKeys: string[] | undefined;
+	values: DatasourceTypeWithOnlyValues;
+	renderItem: TableViewPropsRenderType;
+}) => {
+	// Execute fn is only returned when the field is editable and the action schema exists
+	const { execute } = useExecuteAtomicAction({
+		ari,
+		fieldKey: columnKey,
+		integrationKey,
+	});
 
-	// Check if field is editable
-	const isEditable = !!ari && !!integrationKey && isEditTypeSupported(columnType);
-
-	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-	const value = rowData[columnKey]?.data;
-	const values = Array.isArray(value) ? value : [value];
-
-	const datasourceTypeWithValues = {
-		type: columnType,
-		values,
-	} as DatasourceTypeWithOnlyValues;
+	const isEditable = !!execute;
 
 	const readView = (
 		<TooltipWrapper
 			columnKey={columnKey}
-			datasourceTypeWithValues={datasourceTypeWithValues}
+			datasourceTypeWithValues={values}
 			wrappedColumnKeys={wrappedColumnKeys}
 		>
 			<Box
@@ -138,48 +134,78 @@ const InlineEditableCell = ({
 				paddingBlock="space.050"
 				xcss={truncateTextStyles}
 			>
-				{renderItem(datasourceTypeWithValues)}
+				{renderItem(values)}
 			</Box>
 		</TooltipWrapper>
 	);
 
-	return isEditable ? (
+	if (!isEditable) {
+		return readView;
+	}
+
+	return (
 		<InlineEdit
 			ari={ari}
-			columnKey={columnKey}
-			datasourceTypeWithValues={datasourceTypeWithValues}
+			execute={execute}
 			readView={readView}
+			columnKey={columnKey}
+			datasourceTypeWithValues={values}
 		/>
-	) : (
-		readView
 	);
 };
 
 export const TableCellContent = ({
+	id,
 	columnKey,
 	columnType,
-	id,
 	renderItem,
 	wrappedColumnKeys,
 }: TableCellContentProps): JSX.Element => {
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-	const renderedContent = fg('platform-datasources-enable-two-way-sync') ? (
-		<InlineEditableCell
-			id={id}
-			columnKey={columnKey}
-			columnType={columnType}
-			renderItem={renderItem}
-			wrappedColumnKeys={wrappedColumnKeys}
-		/>
-	) : (
-		<ReadOnlyCell
-			id={id}
-			columnKey={columnKey}
-			columnType={columnType}
-			wrappedColumnKeys={wrappedColumnKeys}
-			renderItem={renderItem}
-		/>
-	);
+	const item = useDatasourceItem({ id });
 
-	return renderedContent;
+	if (item) {
+		const { integrationKey, ari, data: rowData } = item;
+
+		const isEditType =
+			!!ari && !!integrationKey && rowData[columnKey] && isEditTypeSupported(columnType);
+
+		if (isEditType) {
+			// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+			const value = rowData[columnKey]?.data;
+			const values = Array.isArray(value) ? value : [value];
+
+			const datasourceTypeWithValues = {
+				type: columnType,
+				values,
+			} as DatasourceTypeWithOnlyValues;
+
+			return (
+				<InlineEditableCell
+					ari={ari}
+					columnKey={columnKey}
+					renderItem={renderItem}
+					integrationKey={integrationKey}
+					values={datasourceTypeWithValues}
+					wrappedColumnKeys={wrappedColumnKeys}
+				/>
+			);
+		}
+	}
+
+	return (
+		<Box
+			testId="inline-edit-read-view"
+			paddingInline="space.100"
+			paddingBlock="space.050"
+			xcss={truncateTextStyles}
+		>
+			<ReadOnlyCell
+				id={id}
+				columnKey={columnKey}
+				columnType={columnType}
+				wrappedColumnKeys={wrappedColumnKeys}
+				renderItem={renderItem}
+			/>
+		</Box>
+	);
 };

@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.48.0
+
+### Minor Changes
+
+- [#130065](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130065)
+  [`e71a357ea40dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e71a357ea40dd) -
+  [ux] [ED-24323] Add external image badge for externally hosted images
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.47.0
 
 ### Minor Changes

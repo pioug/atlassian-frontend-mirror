@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.5.1
+
+### Patch Changes
+
+- [#129932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129932)
+  [`d6a093f919beb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6a093f919beb) -
+  [ED-24588] When inserting an expand with an existing expand selected, insert expand below the
+  expand
+
+## 2.5.0
+
+### Minor Changes
+
+- [#130725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130725)
+  [`87a6f9ef9fecf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87a6f9ef9fecf) -
+  [ED-24279] Add Jira feature flag for the nesting nestedExpand in Expand change
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

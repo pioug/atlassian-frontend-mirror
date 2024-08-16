@@ -1,0 +1,81 @@
+{
+	"name": "@atlaskit/node-data-provider",
+	"version": "2.0.0",
+	"description": "Node data provider for @atlaskit/editor-core plugins and @atlaskit/renderer",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Core Experiences",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": true
+	},
+	"repository": "https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts",
+		"./plugin-hooks": "./src/plugin-hooks.ts",
+		"./content": "./src/consumption/content.tsx",
+		"./cache": "./src/cache.ts",
+		"./emoji-provider": "./src/providers/emoji.ts",
+		"./get-confluence-page-providers": "./src/get-providers/confluence-page.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./plugin-hooks": "./src/plugin-hooks.ts",
+		"./content": "./src/consumption/content.tsx",
+		"./cache": "./src/cache.ts",
+		"./emoji-provider": "./src/providers/emoji.ts",
+		"./get-confluence-page-providers": "./src/get-providers/confluence-page.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^40.8.1",
+		"@atlaskit/adf-utils": "^19.8.0",
+		"@atlaskit/emoji": "^67.7.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-test-helpers": "*",
+		"@testing-library/react": "^12.1.5",
+		"@testing-library/react-hooks": "^8.0.1",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	},
+	"stricter": {
+		"no-unused-dependencies": {
+			"checkDevDependencies": true
+		}
+	}
+}

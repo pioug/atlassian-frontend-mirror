@@ -5,4 +5,5 @@ export {
 	simpleMockTeamClient,
 	simpleMockUserClient,
 	simpleProfileClient,
+	simpleMockAgentClient,
 } from './simple-mock-clients';

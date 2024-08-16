@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import AKInlineEdit from '@atlaskit/inline-edit';
+import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceType,
@@ -8,7 +9,6 @@ import {
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceActions, useDatasourceItem } from '../../../state';
-import { useExecuteAtomicAction } from '../../../state/actions';
 import { editType } from '../edit-type';
 import type { DatasourceTypeWithOnlyValues } from '../types';
 
@@ -19,8 +19,9 @@ const containerStyles = xcss({
 interface InlineEditProps {
 	ari: string;
 	columnKey: string;
-	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
 	readView: React.ReactNode;
+	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
+	execute: (value: string | number) => Promise<AtomicActionExecuteResponse>;
 }
 
 const mapUpdatedItem = (
@@ -44,23 +45,19 @@ const mapUpdatedItem = (
 
 export const InlineEdit = ({
 	ari,
+	execute,
+	readView,
 	columnKey,
 	datasourceTypeWithValues,
-	readView,
 }: InlineEditProps) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const item = useDatasourceItem({ id: ari });
 	const { onUpdateItem } = useDatasourceActions();
-	const { execute } = useExecuteAtomicAction({
-		ari,
-		fieldKey: columnKey,
-		integrationKey: item?.integrationKey ?? '',
-	});
 
 	const onCommitUpdate = useCallback(
 		(value: string) => {
-			if (!execute || !item) {
+			if (!item) {
 				setIsEditing(false);
 				return;
 			}

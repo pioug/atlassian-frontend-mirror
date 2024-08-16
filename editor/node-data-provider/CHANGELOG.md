@@ -1,0 +1,24 @@
+# @atlaskit/node-data-provider
+
+## 2.0.0
+
+### Major Changes
+
+- [#130776](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130776)
+  [`78ef8af3a4eb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78ef8af3a4eb6) -
+  ED-23237 rename to node data provider
+
+### Minor Changes
+
+- [#130350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130350)
+  [`ec22c30b952b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec22c30b952b8) -
+  [ED-23237] Implement logic to avoid overlapping resolves for the same node, and introduce
+  consumption apis.
+
+## 1.2.0
+
+### Minor Changes
+
+- [#127511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/127511)
+  [`af3041afea66f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af3041afea66f) -
+  ED-23237 iniital nodeview data provider functionality

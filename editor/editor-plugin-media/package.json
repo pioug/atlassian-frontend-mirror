@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.28.5",
+	"version": "1.29.0",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -41,7 +41,7 @@
 		"@atlaskit/analytics-namespaced-context": "^6.11.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.0.0",
-		"@atlaskit/editor-common": "^87.11.0",
+		"@atlaskit/editor-common": "^87.12.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.7.0",
 		"@atlaskit/editor-plugin-annotation": "1.19.0",
@@ -155,6 +155,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_lazy-node-views": {
+			"type": "boolean"
+		},
+		"platform_editor_insert_media_plugin_phase_one": {
 			"type": "boolean"
 		}
 	},

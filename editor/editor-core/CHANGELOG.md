@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 195.4.10
+
+### Patch Changes
+
+- [#130747](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130747)
+  [`299678481fe83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/299678481fe83) -
+  improve popupsBoundariesElement for full page editor
+- Updated dependencies
+
+## 195.4.9
+
+### Patch Changes
+
+- [`01ab0e352a73e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01ab0e352a73e) -
+  Decoupling editor appearances from preset context.
+
 ## 195.4.8
 
 ### Patch Changes

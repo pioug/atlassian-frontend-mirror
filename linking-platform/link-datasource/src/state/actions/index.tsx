@@ -150,7 +150,7 @@ const getFieldUpdateActionByAri = (
 ) => {
 	const isEditable = state.permissions[ari]?.[fieldKey]?.isEditable;
 
-	if (isEditable === false) {
+	if (!isEditable) {
 		return;
 	}
 

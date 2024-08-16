@@ -4,6 +4,7 @@ import { type IntlShape } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
+import type RovoAgentCardClient from './client/RovoAgentCardClient';
 import type TeamCentralCardClient from './client/TeamCentralCardClient';
 import type TeamProfileCardClient from './client/TeamProfileCardClient';
 import type UserProfileCardClient from './client/UserProfileCardClient';
@@ -49,9 +50,35 @@ export interface Team {
 
 export interface RovoAgent {
 	id: string;
+	identity_account_id?: string | null;
+	named_id: string;
 	name: string;
+	description: string | null;
+	system_prompt_template?: string | null;
+	creator_type: 'SYSTEM' | 'CUSTOMER' | 'THIRD_PARTY';
+	creator?: string | null;
+	visibility?: 'PUBLIC' | 'PRIVATE' | null;
+	is_default: boolean;
+	actor_type: 'AGENT';
+	creator_cloud_id?: string | null;
+	follow_up_prompt_template?: string | null;
+	plugin_routing_type?: 'DEFAULT' | 'SKIP' | null;
+	user_defined_conversation_starters: string[] | null;
+	favourite: boolean;
+	deactivated: boolean;
+	deactivatedAt?: string;
+	favourite_count: number;
 }
 
+export interface RovoAgentCreatorInfo {
+	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY';
+	name?: string;
+	profileLink?: string;
+}
+
+export interface RovoAgentProfileCardInfo extends RovoAgent {
+	creatorInfo: RovoAgentCreatorInfo | undefined;
+}
 export interface ProfileCardClientData {
 	isBot: boolean;
 	isCurrentUser: boolean;
@@ -412,6 +439,10 @@ export interface ProfileClient {
 	getReportingLines: (userId: string) => Promise<TeamCentralReportingLinesData>;
 	shouldShowGiveKudos: () => Promise<boolean>;
 	getTeamCentralBaseUrl: () => string | undefined;
+	getRovoAgentProfile: (
+		agentId: string,
+		fireAnalytics?: (event: AnalyticsEventPayload) => void,
+	) => Promise<RovoAgent>;
 }
 
 export type ProfilecardTriggerPosition =
@@ -454,6 +485,7 @@ export interface ClientOverrides {
 	userClient?: UserProfileCardClient;
 	teamClient?: TeamProfileCardClient;
 	teamCentralClient?: TeamCentralCardClient;
+	rovoAgentClient?: RovoAgentCardClient;
 }
 
 /** This interface represents the data that is prepopulated in the profile card. **/

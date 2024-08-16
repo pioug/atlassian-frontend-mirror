@@ -39,6 +39,7 @@ describe('full page editor', () => {
 		const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -62,6 +63,7 @@ describe('full page editor', () => {
 		);
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -86,6 +88,7 @@ describe('full page editor', () => {
 		const { editorView } = editor(doc(p('Hello world'), p('')));
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -102,6 +105,7 @@ describe('full page editor', () => {
 		const { editorView } = editor(doc(p('Hello world')));
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -116,6 +120,7 @@ describe('full page editor', () => {
 		const { editorView, sel } = editor(doc(p('Hello {<>}')));
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -132,6 +137,7 @@ describe('full page editor', () => {
 		const { editorView, sel } = editor(doc(p('Hello {<>}'), p('')));
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}
@@ -148,6 +154,7 @@ describe('full page editor', () => {
 		const { editorView } = editor(doc(p('Hello world'), p('Hello world')));
 		mountWithContext(
 			<FullPage
+				editorAPI={undefined}
 				editorView={editorView}
 				providerFactory={{} as any}
 				editorDOMElement={<div />}

@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 2.11.1
+
+### Patch Changes
+
+- [#125506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/125506)
+  [`2c38223755a99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c38223755a99) -
+  Fix isEditable field validation behind FF
+
 ## 2.11.0
 
 ### Minor Changes

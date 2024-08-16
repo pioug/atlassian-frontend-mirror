@@ -8,6 +8,10 @@ export const isInsideTable = (nodeType: NodeType): Boolean => {
 	return [tableCell, tableHeader].indexOf(nodeType) >= 0;
 };
 
+export const isLayoutColumn = (nodeType: NodeType): Boolean => {
+	return nodeType === nodeType.schema.nodes.layoutColumn;
+};
+
 export const isDoc = (nodeType: NodeType): Boolean => {
 	return nodeType === nodeType.schema.nodes.doc;
 };
@@ -74,7 +78,10 @@ export function canMoveNodeToIndex(destParent: PMNode, indexIntoParent: number, 
 		} else {
 			return false;
 		}
-	} else if (isDoc(destParent.type) && isNestedExpand(srcNodeType)) {
+	} else if (
+		(isDoc(destParent.type) || isLayoutColumn(destParent.type)) &&
+		isNestedExpand(srcNodeType)
+	) {
 		srcNodeType = srcNodeType.schema.nodes.expand;
 	}
 	return destParent.canReplaceWith(indexIntoParent, indexIntoParent, srcNodeType);

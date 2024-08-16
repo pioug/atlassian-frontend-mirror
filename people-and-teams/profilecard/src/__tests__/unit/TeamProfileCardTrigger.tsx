@@ -43,6 +43,21 @@ const sampleProfile = {
 	members: [],
 };
 
+const sampleAgent = {
+	id: 'agentId',
+	name: 'Profile card agent',
+	description: 'this is a agent to use in profile card',
+	favourite: true,
+	favourite_count: 1234,
+
+	named_id: '',
+	creator_type: 'CUSTOMER',
+	is_default: false,
+	actor_type: 'AGENT',
+	user_defined_conversation_starters: [],
+	deactivated: false,
+};
+
 const mockResourceClient: unknown = {
 	getTeamProfile: () => {
 		return Promise.resolve(sampleProfile);
@@ -52,6 +67,9 @@ const mockResourceClient: unknown = {
 	},
 	getTeamCentralBaseUrl: () => {
 		return 'http://dummy-url';
+	},
+	getRovoAgentProfile: () => {
+		return Promise.resolve(sampleAgent);
 	},
 };
 

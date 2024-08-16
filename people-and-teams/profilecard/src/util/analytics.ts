@@ -87,7 +87,7 @@ export const userRequestAnalytics = (
 ) => createEvent('operational', action, USER_SUBJECT, 'request', attributes);
 
 export const profileCardRendered = (
-	type: 'user' | 'team',
+	type: 'user' | 'team' | 'agent',
 	actionSubjectId: 'spinner' | 'content' | 'error' | 'errorBoundary',
 	attributes?: {
 		duration?: number;

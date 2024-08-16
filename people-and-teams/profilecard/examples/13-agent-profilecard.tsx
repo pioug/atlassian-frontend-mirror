@@ -1,54 +1,73 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
-import { token } from '@atlaskit/tokens';
+import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
 
 import AgentProfileCard from '../src/components/Agent/AgentProfileCard';
 import ProfileCardTrigger from '../src/components/common/ProfileCardTrigger';
+import { type RovoAgentProfileCardInfo } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
-import { CardWrapper } from './helper/wrapper';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const MainStage = styled.div({
-	margin: token('space.200', '16px'),
-});
+const styles = xcss({ marginBlock: 'space.200' });
+const Section = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<Box padding="space.200" xcss={styles}>
+			<Inline space="space.100">{children}</Inline>
+		</Box>
+	);
+};
 
 export default function Example() {
+	const agent: RovoAgentProfileCardInfo = {
+		id: 'agentId',
+		name: 'Profile card agent',
+		description: 'this is a agent to use in profile card',
+		favourite: true,
+		favourite_count: 1234,
+		creatorInfo: {
+			type: 'CUSTOMER',
+			name: 'Creator Name',
+			profileLink: 'https://example.com',
+		},
+		named_id: '',
+		creator_type: 'CUSTOMER',
+		is_default: false,
+		actor_type: 'AGENT',
+		user_defined_conversation_starters: [],
+		deactivated: false,
+	};
 	return (
 		<ExampleWrapper>
 			<div>
-				<MainStage>
-					<CardWrapper>
-						<AgentProfileCard agent={undefined} />
-					</CardWrapper>
-				</MainStage>
-				<MainStage>
-					<CardWrapper>
-						<h4>Profilecard triggered by hover</h4>
-						<span>
-							<ProfileCardTrigger
-								trigger={'hover'}
-								renderProfileCard={() => <AgentProfileCard agent={undefined} />}
-							>
-								<strong>hover over me</strong>
-							</ProfileCardTrigger>{' '}
-						</span>
-					</CardWrapper>
-					<CardWrapper>
-						<h4>Profilecard triggered by clivk</h4>
-						<span>
-							<ProfileCardTrigger
-								trigger={'click'}
-								renderProfileCard={() => <AgentProfileCard agent={undefined} />}
-							>
-								<strong>hover over me</strong>
-							</ProfileCardTrigger>{' '}
-						</span>
-					</CardWrapper>
-				</MainStage>
+				<Section>
+					<AgentProfileCard agent={agent} />
+				</Section>
+				<Section>
+					<Text>Agent profile card loading state</Text>
+					<AgentProfileCard agent={agent} isLoading={true} />
+				</Section>
+				<Section>
+					<Text>Profilecard triggered by hover</Text>
+					<span>
+						<ProfileCardTrigger
+							trigger={'hover'}
+							renderProfileCard={() => <AgentProfileCard agent={agent} />}
+						>
+							<Text as="strong">hover over me</Text>
+						</ProfileCardTrigger>{' '}
+					</span>
+				</Section>
+				<Section>
+					<Text>Profilecard triggered by click</Text>
+					<span>
+						<ProfileCardTrigger
+							trigger={'click'}
+							renderProfileCard={() => <AgentProfileCard agent={agent} />}
+						>
+							<Text as="strong">Click me</Text>
+						</ProfileCardTrigger>
+					</span>
+				</Section>
 			</div>
 		</ExampleWrapper>
 	);

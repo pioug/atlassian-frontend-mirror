@@ -27,6 +27,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 * Set the appearance of the picker.
 	 * `subtle` will remove the borders, background, and icon.
 	 * **NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
+	 *
+	 * @deprecated
 	 */
 	appearance?: Appearance;
 	/**
@@ -39,6 +41,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	autoFocus?: boolean;
 	/**
 	 * The default for `isOpen`. Will be `false` if not provided.
+	 *
+	 * @deprecated
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	defaultIsOpen?: boolean;
@@ -70,6 +74,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	minDate?: string;
 	/**
 	 * The icon shown in the picker.
+	 *
+	 * @deprecated
 	 */
 	icon?: React.ComponentType<DropdownIndicatorProps<OptionType>>;
 	/**
@@ -79,6 +85,9 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	id?: string;
 	/**
 	 * Props to apply to the container.
+	 *
+	 * @deprecated If you are looking to set your width, use a `Box` from
+	 * `@atlaskit/primitives` around the picker to achieve the same effect.
 	 */
 	innerProps?: React.AllHTMLAttributes<HTMLElement>;
 	/**
@@ -138,6 +147,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	isInvalid?: boolean;
 	/**
 	 * Hides icon for dropdown indicator.
+	 *
+	 * @deprecated
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideIcon?: boolean;
@@ -190,6 +201,8 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	autoFocus?: boolean;
 	/**
 	 * The default for `isOpen`.
+	 *
+	 * @deprecated
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	defaultIsOpen?: boolean;
@@ -207,7 +220,10 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	id?: string;
 	/**
-	 * Props to apply to the container. *
+	 * Props to apply to the container.
+	 *
+	 * @deprecated If you are looking to set your width, use a `Box` from
+	 * `@atlaskit/primitives` around the picker to achieve the same effect.
 	 */
 	innerProps?: React.AllHTMLAttributes<HTMLElement>;
 	/**
@@ -318,7 +334,10 @@ export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
 	 */
 	id?: string;
 	/**
-	 * Props to apply to the container. *
+	 * Props to apply to the container.
+	 *
+	 * @deprecated If you are looking to set your width, use a `Box` from
+	 * `@atlaskit/primitives` around the picker to achieve the same effect.
 	 */
 	innerProps?: React.AllHTMLAttributes<HTMLElement>;
 	/**

@@ -30,6 +30,7 @@ import type { PluginInjectionAPI, TableSharedState } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import { ALIGN_CENTER, ALIGN_START } from '../utils/alignment';
 
+import { getAlignmentStyle } from './table-container-styles';
 import { TableResizer } from './TableResizer';
 
 type InnerContainerProps = {
@@ -59,10 +60,6 @@ export const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<Inner
 		);
 	},
 );
-
-const centerAlignStyle = { display: 'flex', justifyContent: 'center' };
-
-const leftAlignStyle = { display: 'flex', justifyContent: 'flex-start' };
 
 type AlignmentTableContainerProps = {
 	node: PMNode;
@@ -114,7 +111,7 @@ const AlignmentTableContainer = ({
 	}, [editorView, tableState, node]);
 
 	const style = useMemo(() => {
-		return alignment === 'align-start' ? leftAlignStyle : centerAlignStyle;
+		return getAlignmentStyle(alignment);
 	}, [alignment]);
 
 	return (

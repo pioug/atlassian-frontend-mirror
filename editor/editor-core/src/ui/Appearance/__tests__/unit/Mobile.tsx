@@ -53,6 +53,7 @@ describe('mobile editor', () => {
 
 		render(
 			<Mobile
+				editorAPI={undefined}
 				editorView={editorView}
 				editorDOMElement={<span>Editor Slot</span>}
 				providerFactory={{} as ProviderFactory}

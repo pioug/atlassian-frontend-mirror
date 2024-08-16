@@ -4,9 +4,13 @@ import Comment from '../ui/Appearance/Comment';
 import FullPage from '../ui/Appearance/FullPage';
 import Mobile from '../ui/Appearance/Mobile';
 
-export default function getUiComponent(
-	appearance: EditorAppearance,
-): React.ComponentType<React.PropsWithChildren<EditorAppearanceComponentProps>> {
+type ReturnType = React.ComponentType<
+	// Can't compute editor api at run time
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	React.PropsWithChildren<EditorAppearanceComponentProps<any[]>>
+>;
+
+export default function getUiComponent(appearance: EditorAppearance): ReturnType {
 	appearance = appearance || 'comment';
 
 	switch (appearance) {

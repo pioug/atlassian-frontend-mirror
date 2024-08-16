@@ -40,14 +40,17 @@ import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
 import { AnnotationsDraftContext, ProvidersContext } from '../../../ui/annotations/context';
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
-import { CommentBadge as CommentBadgeComponent } from '@atlaskit/editor-common/media-single';
-import { injectIntl } from 'react-intl-next';
+import {
+	CommentBadge as CommentBadgeComponent,
+	ExternalImageBadge,
+} from '@atlaskit/editor-common/media-single';
+import { useIntl, injectIntl } from 'react-intl-next';
 import {
 	useInlineCommentSubscriberContext,
 	useInlineCommentsFilter,
 } from '../../../ui/annotations/hooks';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export type MediaProps = MediaCardProps & {
 	providers?: ProviderFactory;
@@ -237,8 +240,7 @@ const CommentBadgeWrapper = ({
 					const isMediaCaption = parentNode?.closest('[data-media-caption="true"]');
 					const elementHasFocus =
 						parentNode?.querySelector('[data-has-focus="true"]') &&
-						(!getBooleanFF('platform.comments-on-media.bug.incorrect-badge-highlight') ||
-							!isMediaCaption);
+						(!fg('platform.comments-on-media.bug.incorrect-badge-highlight') || !isMediaCaption);
 					elementHasFocus ? setStatus('active') : setStatus('default');
 				}
 			});
@@ -285,12 +287,89 @@ const CommentBadgeWrapper = ({
 	);
 };
 
+// This is a copy of above component with adding forwardRef.
+// Clean this up when removing fg('platform_editor_insert_media_plugin_phase_one') flag.
+const CommentBadgeWrapperWithRef = React.forwardRef<
+	HTMLDivElement,
+	Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
+		marks?: AnnotationMarkDefinition[];
+	}
+>(({ marks, mediaSingleElement, isDrafting = false, ...rest }, ref) => {
+	const intl = useIntl();
+	const [status, setStatus] = useState<'default' | 'active'>('default');
+	const [entered, setEntered] = useState(false);
+	const updateSubscriber = useInlineCommentSubscriberContext();
+	const activeParentIds = useInlineCommentsFilter({
+		annotationIds: marks?.map((mark) => mark.attrs.id) ?? [''],
+		filter: {
+			state: AnnotationMarkStates.ACTIVE,
+		},
+	});
+
+	useEffect(() => {
+		const observer = new MutationObserver((mutationList) => {
+			mutationList.forEach((mutation) => {
+				const parentNode = mutation.target.parentNode as Element | null;
+				if (mutation.attributeName === 'data-has-focus') {
+					const isMediaCaption = parentNode?.closest('[data-media-caption="true"]');
+					const elementHasFocus =
+						parentNode?.querySelector('[data-has-focus="true"]') &&
+						(!fg('platform.comments-on-media.bug.incorrect-badge-highlight') || !isMediaCaption);
+					elementHasFocus ? setStatus('active') : setStatus('default');
+				}
+			});
+		});
+
+		if (mediaSingleElement) {
+			observer.observe(mediaSingleElement, {
+				attributes: true,
+				subtree: true,
+				attributeFilter: ['data-has-focus'],
+			});
+		}
+
+		return () => {
+			observer.disconnect();
+		};
+	}, [mediaSingleElement, setStatus]);
+
+	if (!isDrafting && !activeParentIds.length) {
+		return null;
+	}
+
+	const onClick = (e: React.MouseEvent) => {
+		e.preventDefault();
+		if (updateSubscriber) {
+			updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
+				annotationIds: activeParentIds,
+				eventTarget: e.target as HTMLElement,
+				// use mediaSingle here to align with annotation viewed event dispatched in editor
+				eventTargetType: 'mediaSingle',
+				viewMethod: VIEW_METHOD.BADGE,
+			});
+		}
+	};
+
+	return (
+		<CommentBadgeComponent
+			ref={ref}
+			intl={intl}
+			onMouseEnter={() => setEntered(true)}
+			onMouseLeave={() => setEntered(false)}
+			status={entered ? 'entered' : status}
+			onClick={onClick}
+			mediaSingleElement={mediaSingleElement}
+			{...rest}
+		/>
+	);
+});
+
 class Media extends PureComponent<MediaProps, {}> {
 	constructor(props: MediaProps) {
 		super(props);
 		this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
 	}
-
+	commentBadgeRef = React.createRef<HTMLDivElement>();
 	private handleMediaLinkClickFn;
 
 	private renderCard = (providers: Providers = {}) => {
@@ -330,6 +409,16 @@ class Media extends PureComponent<MediaProps, {}> {
 			(!featureFlags?.commentsOnMediaIncludePage || !isInPageInclude) &&
 			(!featureFlags?.commentsOnMediaInsertExcerpt || !isIncludeExcerpt);
 
+		const insertMediaPluginPhaseOneFlag = fg('platform_editor_insert_media_plugin_phase_one');
+		const shouldShowExternalMediaBadge =
+			this.props.type === 'external' && insertMediaPluginPhaseOneFlag;
+		const commentBadgeOffset = () => {
+			if (this.commentBadgeRef.current) {
+				return this.commentBadgeRef.current.offsetWidth + 2;
+			}
+			return 0;
+		};
+
 		return (
 			<MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>
 				<MediaAnnotations marks={annotationMarks}>
@@ -341,15 +430,33 @@ class Media extends PureComponent<MediaProps, {}> {
 								},
 							}}
 						>
-							{showCommentBadge && (
-								<CommentBadgeWrapper
-									marks={annotationMarks}
-									mediaSingleElement={mediaSingleElement}
-									width={width}
-									height={height}
-									isDrafting={isDrafting}
+							{shouldShowExternalMediaBadge && (
+								<ExternalImageBadge
+									commentBadgeRightOffset={commentBadgeOffset()}
+									mediaElement={mediaSingleElement}
+									mediaWidth={width}
+									mediaHeight={height}
 								/>
 							)}
+							{showCommentBadge &&
+								(insertMediaPluginPhaseOneFlag ? (
+									<CommentBadgeWrapperWithRef
+										ref={this.commentBadgeRef}
+										marks={annotationMarks}
+										mediaSingleElement={mediaSingleElement}
+										width={width}
+										height={height}
+										isDrafting={isDrafting}
+									/>
+								) : (
+									<CommentBadgeWrapper
+										marks={annotationMarks}
+										mediaSingleElement={mediaSingleElement}
+										width={width}
+										height={height}
+										isDrafting={isDrafting}
+									/>
+								))}
 							<MediaCard
 								contextIdentifierProvider={contextIdentifierProvider}
 								{...this.props}

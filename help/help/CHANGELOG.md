@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.6.0
+
+### Minor Changes
+
+- [#129139](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129139)
+  [`f148277402ccc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f148277402ccc) -
+  [ux] Highlights title and description on ArticlesListItem
+
 ## 7.5.6
 
 ### Patch Changes

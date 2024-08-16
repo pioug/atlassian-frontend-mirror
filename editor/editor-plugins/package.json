@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "4.0.3",
+	"version": "4.0.6",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -232,7 +232,7 @@
 		"@atlaskit/editor-plugin-base": "1.10.0",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.2.0",
 		"@atlaskit/editor-plugin-better-type-history": "1.7.0",
-		"@atlaskit/editor-plugin-block-controls": "1.12.0",
+		"@atlaskit/editor-plugin-block-controls": "1.12.1",
 		"@atlaskit/editor-plugin-block-type": "3.12.2",
 		"@atlaskit/editor-plugin-border": "1.6.0",
 		"@atlaskit/editor-plugin-breakout": "1.7.1",
@@ -257,7 +257,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "2.1.1",
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "1.1.2",
 		"@atlaskit/editor-plugin-emoji": "2.3.0",
-		"@atlaskit/editor-plugin-expand": "2.4.0",
+		"@atlaskit/editor-plugin-expand": "2.5.1",
 		"@atlaskit/editor-plugin-extension": "1.14.1",
 		"@atlaskit/editor-plugin-feature-flags": "1.2.1",
 		"@atlaskit/editor-plugin-feedback-dialog": "1.0.11",
@@ -278,11 +278,11 @@
 		"@atlaskit/editor-plugin-list": "3.8.1",
 		"@atlaskit/editor-plugin-loom": "2.7.0",
 		"@atlaskit/editor-plugin-max-content-size": "1.2.1",
-		"@atlaskit/editor-plugin-media": "1.28.5",
-		"@atlaskit/editor-plugin-media-insert": "2.0.1",
+		"@atlaskit/editor-plugin-media": "1.29.0",
+		"@atlaskit/editor-plugin-media-insert": "2.1.0",
 		"@atlaskit/editor-plugin-mentions": "2.3.1",
 		"@atlaskit/editor-plugin-panel": "2.3.1",
-		"@atlaskit/editor-plugin-paste": "1.8.1",
+		"@atlaskit/editor-plugin-paste": "1.8.2",
 		"@atlaskit/editor-plugin-paste-options-toolbar": "1.2.1",
 		"@atlaskit/editor-plugin-placeholder": "1.2.1",
 		"@atlaskit/editor-plugin-placeholder-text": "1.7.1",
@@ -296,7 +296,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.2.1",
 		"@atlaskit/editor-plugin-status": "2.4.1",
 		"@atlaskit/editor-plugin-submit-editor": "1.2.1",
-		"@atlaskit/editor-plugin-table": "7.25.6",
+		"@atlaskit/editor-plugin-table": "7.25.7",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "2.4.0",
 		"@atlaskit/editor-plugin-text-color": "1.12.1",
 		"@atlaskit/editor-plugin-text-formatting": "1.13.1",
@@ -435,10 +435,6 @@
 			"referenceOnly": true
 		},
 		"platform.editor.live-view.comments-in-media-toolbar-button": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform.editor.preserve-whitespace-clipboard-text-serialization": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

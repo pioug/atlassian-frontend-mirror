@@ -15,7 +15,7 @@ import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -28,7 +28,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorActions } from '../../../index';
-import { usePresetContext } from '../../../presets/context';
 import type {
 	EditorAppearance,
 	PrimaryToolbarComponents,
@@ -47,6 +46,15 @@ import {
 	MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
 	nonCustomToolbarWrapperStyle,
 } from './MainToolbar';
+
+export type ToolbarEditorPlugins = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<FindReplacePlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<CollabEditPlugin>,
+	OptionalPlugin<AvatarGroupPlugin>,
+	OptionalPlugin<BeforePrimaryToolbarPlugin>,
+];
 
 export interface FullPageToolbarProps {
 	appearance?: EditorAppearance;
@@ -69,21 +77,12 @@ export interface FullPageToolbarProps {
 	hasMinWidth?: boolean;
 	featureFlags: FeatureFlags;
 	hideAvatarGroup?: boolean;
+	editorAPI: PublicPluginAPI<ToolbarEditorPlugins> | undefined;
 }
 
 export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedComponentProps) => {
 	const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
-	const editorAPI =
-		usePresetContext<
-			[
-				OptionalPlugin<AnalyticsPlugin>,
-				OptionalPlugin<FindReplacePlugin>,
-				OptionalPlugin<FeatureFlagsPlugin>,
-				OptionalPlugin<CollabEditPlugin>,
-				OptionalPlugin<AvatarGroupPlugin>,
-				OptionalPlugin<BeforePrimaryToolbarPlugin>,
-			]
-		>();
+	const { editorAPI } = props;
 
 	// When primary toolbar components is undefined, do not show two line editor toolbar
 	const twoLineEditorToolbar =

@@ -16,7 +16,7 @@ import { isEmptyNode, isPositionNearTableRow } from '@atlaskit/editor-common/uti
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusTitle } from '../commands';
@@ -131,7 +131,8 @@ export function expandKeymap(
 				nodeBefore &&
 				(nodeBefore.type === schema.nodes.expand ||
 					nodeBefore.type === schema.nodes.nestedExpand) &&
-				(getBooleanFF('platform.editor.live-pages-expand-divergence') && options.__livePage
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+				(fg('platform.editor.live-pages-expand-divergence') && options.__livePage
 					? nodeBefore.attrs.__expanded
 					: !nodeBefore.attrs.__expanded)
 			) {
@@ -163,7 +164,8 @@ export function expandKeymap(
 				if (sel && expandBefore) {
 					// moving cursor from outside of an expand to the title when it is collapsed
 					if (
-						getBooleanFF('platform.editor.live-pages-expand-divergence') && options.__livePage
+						// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+						fg('platform.editor.live-pages-expand-divergence') && options.__livePage
 							? expandBefore.node.attrs.__expanded
 							: !expandBefore.node.attrs.__expanded
 					) {
@@ -197,7 +199,8 @@ export function expandKeymap(
 				selection.side === Side.LEFT &&
 				nodeAfter &&
 				(nodeAfter.type === expand || nodeAfter.type === nestedExpand) &&
-				(getBooleanFF('platform.editor.live-pages-expand-divergence') && options.__livePage
+				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+				(fg('platform.editor.live-pages-expand-divergence') && options.__livePage
 					? nodeAfter.attrs.__expanded
 					: !nodeAfter.attrs.__expanded)
 			) {
@@ -241,7 +244,8 @@ export function expandKeymap(
 				if (
 					expandBefore &&
 					(expandBefore.node.type === expand || expandBefore.node.type === nestedExpand) &&
-					(getBooleanFF('platform.editor.live-pages-expand-divergence') && options.__livePage
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+					(fg('platform.editor.live-pages-expand-divergence') && options.__livePage
 						? expandBefore.node.attrs.__expanded
 						: !expandBefore.node.attrs.__expanded)
 				) {

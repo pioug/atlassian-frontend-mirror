@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.8.2
+
+### Patch Changes
+
+- [#130724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130724)
+  [`a54f1d5c8a0eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a54f1d5c8a0eb) -
+  remove preserve whitespace clipboard text serialization ff
+- Updated dependencies
+
 ## 1.8.1
 
 ### Patch Changes

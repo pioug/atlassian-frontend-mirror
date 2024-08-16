@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useIntl } from 'react-intl-next';
+
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -12,6 +14,7 @@ import type {
 	DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -64,6 +67,7 @@ export const MediaInsertPicker = ({
 
 	const isOpen = useSharedPluginState(api, ['mediaInsert'])?.mediaInsertState?.isOpen;
 	const mediaProvider = useSharedPluginState(api, ['media'])?.mediaState?.mediaProvider;
+	const intl = useIntl();
 
 	if (!isOpen || !mediaProvider) {
 		return null;
@@ -87,8 +91,7 @@ export const MediaInsertPicker = ({
 
 	return (
 		<PopupWithListeners
-			// TODO: i18n
-			ariaLabel={'Media Insert'}
+			ariaLabel={intl.formatMessage(mediaInsertMessages.mediaPickerPopupAriaLabel)}
 			offset={[0, 12]}
 			target={targetRef}
 			zIndex={akEditorFloatingDialogZIndex}

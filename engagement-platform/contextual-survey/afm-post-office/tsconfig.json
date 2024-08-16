@@ -27,7 +27,13 @@
       "path": "../../../design-system/form/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/heading/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
     },
     {
       "path": "../../../design-system/textarea/afm-post-office/tsconfig.json"

@@ -63,6 +63,9 @@
       "path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../ai-mate/rovo-agent-components/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
     },
     {

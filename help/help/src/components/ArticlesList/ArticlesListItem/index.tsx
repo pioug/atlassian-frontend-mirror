@@ -37,6 +37,25 @@ interface Props {
 	onClick?: (event: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => void;
 }
 
+const highlightText = (text?: string) => {
+	if (!text) {
+		return;
+	}
+
+	const html = new DOMParser().parseFromString(text, 'text/html').body.childNodes;
+	const sections: (string | JSX.Element | null)[] = [];
+
+	html.forEach((node, i) => {
+		if (node.nodeName === 'SPAN') {
+			sections.push(<mark key={i}>{node.textContent}</mark>);
+		} else {
+			sections.push(node.textContent);
+		}
+	});
+
+	return sections;
+};
+
 export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedComponentProps> = ({
 	styles,
 	title,
@@ -79,7 +98,7 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 		>
 			<ArticlesListItemContainer>
 				<ArticlesListItemTitleSection>
-					<ArticlesListItemTitleText>{title}</ArticlesListItemTitleText>
+					<ArticlesListItemTitleText>{highlightText(title)}</ArticlesListItemTitleText>
 					{isLastPublishedVisible && (
 						<ArticlesListItemLastModified>
 							Last modified: {lastPublished}
@@ -98,7 +117,7 @@ export const ArticlesListItem: React.FC<Props & Partial<ArticleItem> & WrappedCo
 				)}
 			</ArticlesListItemContainer>
 
-			<ArticlesListItemDescription>{description}</ArticlesListItemDescription>
+			<ArticlesListItemDescription>{highlightText(description)}</ArticlesListItemDescription>
 			{isSourceVisible && <ArticlesListItemSource>{source}</ArticlesListItemSource>}
 			{isTrustFactorVisible && (
 				<ArticlesListItemTrustFactor>

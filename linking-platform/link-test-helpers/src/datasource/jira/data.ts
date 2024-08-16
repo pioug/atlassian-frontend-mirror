@@ -21,7 +21,7 @@ const generateMockPeopleResponse = (size: number) => {
 	}));
 };
 
-let mocks = 0;
+let mocks = 1;
 // It is not in a particular format. IT is transformed into expected format when consumed.
 export const mockJiraData = {
 	nextPageCursor: 'c3RhcnRBdD01',

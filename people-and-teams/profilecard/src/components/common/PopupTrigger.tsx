@@ -4,7 +4,7 @@ import { type TriggerProps } from '@atlaskit/popup';
 
 import { type ProfileCardTriggerProps } from './types';
 
-export const PopupTrigger = ({
+export const PopupTrigger = <T,>({
 	children,
 	trigger,
 	forwardRef,
@@ -16,7 +16,7 @@ export const PopupTrigger = ({
 	showProfilecard: () => void;
 	hideProfilecard: () => void;
 	forwardRef: React.Ref<HTMLSpanElement>;
-} & Pick<ProfileCardTriggerProps, 'ariaLabelledBy' | 'trigger' | 'children'>) => {
+} & Pick<ProfileCardTriggerProps<T>, 'ariaLabelledBy' | 'trigger' | 'children'>) => {
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
 	}, [showProfilecard]);

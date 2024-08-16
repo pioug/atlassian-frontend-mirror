@@ -1,8 +1,10 @@
 import ProfileCardClient from '../client/ProfileCardClient';
+import RovoAgentCardClient from '../client/RovoAgentCardClient';
 import TeamProfileCardClient from '../client/TeamProfileCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
-import { type ProfileCardClientData, type Team } from '../types';
+import { type ProfileCardClientData, type RovoAgent, type Team } from '../types';
 
+import agentData from './agent-data';
 import profiles from './profile-data';
 import teamData from './team-data';
 import { getTimeString, getWeekday } from './util';
@@ -35,11 +37,19 @@ class SimpleMockUserClient extends UserProfileCardClient {
 	}
 }
 
+class SimpleMockAgentClient extends RovoAgentCardClient {
+	makeRequest(userId: string): Promise<RovoAgent> {
+		return Promise.resolve(agentData);
+	}
+}
+
 const args = { cacheSize: 10, maxCacheAge: 0, url: '/graphql/directory' };
 export const simpleMockUserClient = new SimpleMockUserClient(args);
 export const simpleMockTeamClient = new SimpleMockTeamClient(args);
+export const simpleMockAgentClient = new SimpleMockAgentClient(args);
 
 export const simpleProfileClient = new ProfileCardClient(args, {
 	userClient: simpleMockUserClient,
 	teamClient: simpleMockTeamClient,
+	rovoAgentClient: simpleMockAgentClient,
 });

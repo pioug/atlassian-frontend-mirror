@@ -4,7 +4,11 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import type {
+	NextEditorPlugin,
+	PublicPluginAPI,
+	ReactHookFactory,
+} from '@atlaskit/editor-common/types';
 import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -22,7 +26,8 @@ import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import type { EditorAppearance } from './editor-appearance';
 import type { FeatureFlags } from './feature-flags';
 
-export interface EditorAppearanceComponentProps {
+export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin<any, any>[]> {
+	editorAPI: PublicPluginAPI<Plugins> | undefined;
 	appearance?: EditorAppearance;
 	onSave?: (editorView: EditorView) => void;
 	onCancel?: (editorView: EditorView) => void;

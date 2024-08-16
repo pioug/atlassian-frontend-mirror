@@ -95,18 +95,9 @@ const mockPlugin = new Plugin({
 });
 
 describe('safer-runtime-transactions', () => {
-	const createMockEditor = (
-		saferDispatchedTransactions = true,
-		saferDispatchedTransactionsAnalyticsOnly = false,
-	) =>
+	const createMockEditor = () =>
 		createEditor({
 			doc: doc(p('{<>}')),
-			editorProps: {
-				featureFlags: {
-					'safer-dispatched-transactions': saferDispatchedTransactions,
-					'safer-dispatched-transactions-analytics-only': saferDispatchedTransactionsAnalyticsOnly,
-				},
-			},
 			editorPlugins: [
 				{
 					name: 'aMockEditorPlugin',

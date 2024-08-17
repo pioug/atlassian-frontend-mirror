@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "0.3.2",
+	"version": "0.4.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,12 +44,10 @@
 		"@atlaskit/heading": "^2.4.3",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/logo": "^14.2.0",
-		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/skeleton": "^0.5.0",
 		"@atlaskit/tokens": "^1.58.0",
 		"@babel/runtime": "^7.0.0",
-		"bind-event-listener": "^3.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
@@ -103,14 +101,6 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
-		}
-	},
-	"platform-feature-flags": {
-		"rovo_chat_new_create_agent": {
-			"type": "boolean"
-		},
-		"rovo_chat_page_context_static_convo_starters": {
-			"type": "boolean"
 		}
 	}
 }

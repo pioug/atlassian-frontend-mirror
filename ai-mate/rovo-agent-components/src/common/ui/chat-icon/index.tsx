@@ -4,8 +4,8 @@ import Icon, { type CustomGlyphProps, type IconProps } from '@atlaskit/icon';
 
 const CustomGlyph = (props: CustomGlyphProps) => (
 	<svg
-		width="20"
-		height="20"
+		width="16"
+		height="16"
 		viewBox="0 0 20 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
@@ -25,5 +25,5 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 );
 
 export const ChatPillIcon = (props: Omit<IconProps, 'label' | 'glyph'>) => (
-	<Icon {...props} glyph={CustomGlyph} label="" />
+	<Icon {...props} glyph={CustomGlyph} label="" size="small" />
 );

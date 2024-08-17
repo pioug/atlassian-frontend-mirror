@@ -18,6 +18,26 @@ Inline edit can use data input components such as a [text field](/components/tex
 [datetime picker](https://atlaskit.atlassian.com/packages/design-system/datetime-picker). The
 appearance of the inline edit will vary depending on which components it is used with.
 
+### Read view
+
+![An inline edit in read view. The example label is "Team name" and the content of the field is "Design System Team".](./images/inline-edit-anatomy.png)
+
+1. ** Label: ** Labels are concise, sentence case text describing what to enter in the field.
+
+2. ** Field: ** When in read view, the field is hidden and aligned with the label. When in an empty
+   state, you can customise what placeholder text is shown here.
+
+### Edit view
+
+![An inline edit in edit view. The example label is "Team name" and the field is a dropdown menu with the placeholder text "Select a team". At the bottom right there are two controls with a tick icon and a cross icon.](./images/inline-edit-anatomy-edit-view.png)
+
+1. ** Label: ** Labels are concise, sentence case text describing what to enter in the field.
+
+2. ** Field: ** When in edit view, the field snaps to the width of the column and the text remains
+   aligned with the label.
+
+3. ** Controls: ** Options to save or cancel the current data entry appear at the end of the field.
+
 ## Accessibility
 
 - For larger areas of text, set `keepEditViewOpenOnBlur` to true. This ensures that inline edit
@@ -27,28 +47,6 @@ appearance of the inline edit will vary depending on which components it is used
   navigates away from the element, but this isn't immediately obvious on its' own.
 - Make sure that inline edit fields have enough visual affordance that sighted people recognise them
   as editable, especially if you are using custom font sizing.
-
-## Anatomy
-
-### Read view
-
-![An inline edit in read view. The example label is "Team name" and the content of the field is "Design System Team".](/images/inline-edit-anatomy-read.png)
-
-1. ** Label: ** Labels are concise, sentence case text describing what to enter in the field.
-
-2. ** Field: ** When in read view, the field is hidden and aligned with the label. When in an empty
-   state, you can customise what placeholder text is shown here.
-
-### Edit view
-
-![An inline edit in edit view. The example label is "Team name" and the field is a dropdown menu with the placeholder text "Select a team". At the bottom right there are two controls with a tick icon and a cross icon.](/images/inline-edit-anatomy-edit.png)
-
-1. ** Label: ** Labels are concise, sentence case text describing what to enter in the field.
-
-2. ** Field: ** When in edit view, the field snaps to the width of the column and the text remains
-   aligned with the label.
-
-3. ** Controls: ** Options to save or cancel the current data entry appear at the end of the field.
 
 ## Behavior
 

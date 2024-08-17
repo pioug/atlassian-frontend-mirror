@@ -100,7 +100,7 @@
 		"@atlaskit/media-test-helpers": "^34.0.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/renderer": "^109.48.0",
+		"@atlaskit/renderer": "^109.49.0",
 		"@atlaskit/smart-card": "^27.16.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.3.0",

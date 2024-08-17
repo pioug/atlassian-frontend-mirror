@@ -2,6 +2,7 @@ export { AgentProfileInfo, AgentProfileCreator, AgentStarCount } from './ui/agen
 export { StarIconButton } from './common/ui/star-icon-button';
 export {
 	AgentConversationStarters,
+	ConversationStarters,
 	type AgentConversationStartersProps,
 	getConversationStarters,
 } from './ui/agent-conversation-starters';

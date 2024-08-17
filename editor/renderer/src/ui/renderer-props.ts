@@ -126,4 +126,5 @@ export interface RendererProps {
 	featureFlags?: { [featureFlag: string]: boolean } | Partial<RawObjectFeatureFlags>;
 
 	UNSTABLE_textHighlighter?: TextHighlighter;
+	UNSTABLE_allowTableAlignment?: boolean;
 }

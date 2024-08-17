@@ -11,7 +11,7 @@ const buttonStyles = xcss({
 	padding: 'space.100',
 	borderRadius: 'border.radius.200',
 	borderBottomRightRadius: token('border.radius.050', '2px'),
-	lineHeight: '20px',
+	lineHeight: '16px',
 	fontWeight: '500',
 	fontSize: '14px',
 	textOverflow: 'ellipsis',
@@ -39,11 +39,6 @@ const whiteSpacePreWrapStyles = xcss({
 	whiteSpace: 'pre-wrap',
 });
 
-const iconWrapper = xcss({
-	minWidth: '20px',
-	height: '20px',
-});
-
 export type ChatPillProps = Omit<ButtonProps, 'iconBefore'> & {
 	whiteSpacePreWrap?: boolean;
 };
@@ -52,9 +47,7 @@ export const ChatPill = React.forwardRef<HTMLButtonElement, ChatPillProps>(
 	({ children, whiteSpacePreWrap = true, ...props }, ref) => (
 		<Pressable ref={ref} {...props} xcss={buttonStyles}>
 			<Inline space="space.050" xcss={buttonInlineStyles}>
-				<Box xcss={iconWrapper}>
-					<ChatPillIcon />
-				</Box>
+				<ChatPillIcon />
 				<Box xcss={[queryTextStyles, whiteSpacePreWrap && whiteSpacePreWrapStyles]}>{children}</Box>
 			</Inline>
 		</Pressable>

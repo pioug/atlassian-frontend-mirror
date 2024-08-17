@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.49.0
+
+### Minor Changes
+
+- [`3ee11b74099d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ee11b74099d5) -
+  [ux] Adds UNSTABLE_allowTableAlignment prop on Renderer to allow consumers enable Table Alignment
+  feature (for now available only for Confluence)
+
 ## 109.48.0
 
 ### Minor Changes

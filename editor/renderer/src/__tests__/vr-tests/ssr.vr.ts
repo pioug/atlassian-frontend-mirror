@@ -2,6 +2,8 @@ import {
 	RendererSSRTable,
 	RendererSSRLayout,
 	RendererSSRCodeblock,
+	RendererSSRCodeblockInBlockquote,
+	RendererSSRMediaInBlockquote,
 	RendererSSRExpand,
 	RendererSSRNestedExpandInExpand,
 	RendererSSRResizedImage,
@@ -41,13 +43,23 @@ if (process.env.IS_REACT_18 !== 'true') {
 		ignoredErrors,
 	});
 
+	snapshot(RendererSSRCodeblockInBlockquote, {
+		description: 'SSR renderering of code block node in blockquote node',
+		ignoredErrors,
+	});
+
+	snapshot(RendererSSRMediaInBlockquote, {
+		description: 'SSR renderering of media single and media group in blockquote node',
+		ignoredErrors,
+	});
+
 	snapshot(RendererSSRExpand, {
 		description: 'SSR renderering of expand nodes',
 		ignoredErrors,
 	});
 
 	snapshot(RendererSSRNestedExpandInExpand, {
-		description: 'SRR rendering of a nested expand nodes in expand',
+		description: 'SRR rendering of a nested expand in an expand',
 		ignoredErrors,
 	});
 

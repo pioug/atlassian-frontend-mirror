@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {
 	ssrCodeBlockDoc,
+	ssrCodeBlockInBlockquoteDoc,
 	ssrExpandDoc,
 	ssrNestedExpandInExpandDoc,
 	ssrLayoutDoc,
 	ssrTableDoc,
+	ssrMediaInBlockquoteDoc,
 } from '../__fixtures__/renderer-ssr.adf';
 import { resizedImagedoc } from '../__fixtures__/ssr-resized-image.adf';
 import { resizedMedia, mediaInTable } from '../__fixtures__/ssr-resized-media.adf';
@@ -80,6 +82,14 @@ export const RendererSSRNestedExpandInExpand = () => {
 
 export const RendererSSRCodeblock = () => {
 	return <RendererSSR adf={ssrCodeBlockDoc} />;
+};
+
+export const RendererSSRCodeblockInBlockquote = () => {
+	return <RendererSSR adf={ssrCodeBlockInBlockquoteDoc} />;
+};
+
+export const RendererSSRMediaInBlockquote = () => {
+	return <RendererSSR adf={ssrMediaInBlockquoteDoc} />;
 };
 
 export const RendererSSRResizedImage = () => {

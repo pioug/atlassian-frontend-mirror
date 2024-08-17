@@ -42,6 +42,25 @@ Use the inline props to customize the spacing and styling on any child elements.
 - `rowSpace`
 - `separator`
 
+## Accessibility
+
+If you need to hide the markers of an inline list, don't use the `list-style-type: none` CSS
+property, as this strips the list out of its semantics in Safari, causing VoiceOver users not to get
+it announced as such.
+
+There are a few options to get around this. Using CSS, you can target the `::marker` pseudoclass of
+the list items and set the font size to zero to get the same visual results while preserving the
+semantics across browsers and assistive technologies.
+
+```tsx
+<Box as="li" xcss={xcss({ '::marker': { fontSize: 0 } })}>
+	Example
+</Box>
+```
+
+Alternatively, if you do need to use `list-style-type: none` you can add add `role="list"` to the
+`Inline` element.
+
 ## Related
 
 - [Use box for a generic container with access to design tokens](/components/primitives/box/usage)

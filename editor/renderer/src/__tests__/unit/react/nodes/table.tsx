@@ -89,6 +89,7 @@ const mountTable = (
 	columnWidths?: number[],
 	appearance: RendererAppearance = 'full-page',
 	isInsideOfBlockNode = false,
+	allowTableAlignment = false,
 ) => {
 	return mountWithIntl(
 		<Table
@@ -99,6 +100,7 @@ const mountTable = (
 			tableNode={node}
 			columnWidths={columnWidths}
 			isInsideOfBlockNode={isInsideOfBlockNode}
+			allowTableAlignment={allowTableAlignment}
 		>
 			<TableRow>
 				<TableHeader />
@@ -1236,7 +1238,15 @@ describe('Renderer - React/Nodes/Table', () => {
 				const tableNode = createTable(600, 'align-start');
 				const rendererWidth = 1000;
 
-				const wrap = mountTable(tableNode, rendererWidth);
+				const allowTableAlignment = true;
+				const wrap = mountTable(
+					tableNode,
+					rendererWidth,
+					undefined,
+					'full-page',
+					false,
+					allowTableAlignment,
+				);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1263,7 +1273,8 @@ describe('Renderer - React/Nodes/Table', () => {
 			const tableNode = createTable(600, 'align-start');
 			const rendererWidth = 1000;
 
-			const wrap = mountTable(tableNode, rendererWidth, [], undefined, true);
+			const allowTableAlignment = true;
+			const wrap = mountTable(tableNode, rendererWidth, [], undefined, true, allowTableAlignment);
 
 			const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 
@@ -1333,7 +1344,15 @@ describe('Renderer - React/Nodes/Table', () => {
 				const tableNode = createTable(600, 'align-start');
 				const rendererWidth = 1000;
 
-				const wrap = mountTable(tableNode, rendererWidth, undefined, 'comment');
+				const allowTableAlignment = true;
+				const wrap = mountTable(
+					tableNode,
+					rendererWidth,
+					undefined,
+					'comment',
+					false,
+					allowTableAlignment,
+				);
 
 				const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
 

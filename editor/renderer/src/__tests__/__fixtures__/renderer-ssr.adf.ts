@@ -390,6 +390,48 @@ export const ssrCodeBlockDoc: DocNode = {
 	],
 };
 
+export const ssrCodeBlockInBlockquoteDoc: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'blockquote',
+			content: [
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'Start of Quote',
+						},
+					],
+				},
+				{
+					type: 'codeBlock',
+					attrs: {
+						language: 'typescript',
+					},
+					content: [
+						{
+							type: 'text',
+							text: 'console.log("Hello World");\n\nif (something) {\n  console.log("Lorem ipsum odor amet, consectetuer adipiscing elit. Nisl elementum curae semper pulvinar fermentum scelerisque. Pharetra praesent ornare dolor dis, facilisi eleifend tempus.")\n  return false;\n}',
+						},
+					],
+				},
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'End of Quote',
+						},
+					],
+				},
+			],
+		},
+	],
+};
+
 export const ssrLayoutDoc: DocNode = {
 	version: 1,
 	type: 'doc',
@@ -657,6 +699,74 @@ export const ssrNestedExpandInExpandDoc: DocNode = {
 					attrs: {
 						mode: 'full-width',
 					},
+				},
+			],
+		},
+	],
+};
+
+export const ssrMediaInBlockquoteDoc: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'blockquote',
+			content: [
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'Start of Quote',
+						},
+					],
+				},
+				{
+					type: 'mediaSingle',
+					attrs: {
+						layout: 'center',
+					},
+					content: [
+						{
+							type: 'media',
+							attrs: {
+								url: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgYmFzZVByb2ZpbGU9ImZ1bGwiIHdpZHRoPSIzMjAiIGhlaWdodD0iMjQwIj4gPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iZ3JleSIvPiAgPHRleHQgeD0iMCIgeT0iMjAiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJzdGFydCIgZmlsbD0id2hpdGUiPjMyMHgyNDA8L3RleHQ+IDwvc3ZnPg==',
+								type: 'external',
+								width: 1604,
+								height: 1868,
+							},
+						},
+					],
+				},
+				{
+					type: 'mediaGroup',
+					content: [
+						{
+							type: 'media',
+							attrs: {
+								id: '5556346b-b081-482b-bc4a-4faca8ecd2de',
+								type: 'file',
+								collection: 'MediaServicesSample',
+							},
+						},
+						{
+							type: 'media',
+							attrs: {
+								id: '5556346b-b081-482b-bc4a-4faca8ecd2de',
+								type: 'file',
+								collection: 'MediaServicesSample',
+							},
+						},
+					],
+				},
+				{
+					type: 'paragraph',
+					content: [
+						{
+							type: 'text',
+							text: 'End of Quote',
+						},
+					],
 				},
 			],
 		},

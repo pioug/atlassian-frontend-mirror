@@ -202,6 +202,36 @@ describe('Renderer - TextSerializer', () => {
 		expect(render(doc).indexOf('📎 ')).toEqual(0);
 	});
 
+	it('should render media items inside blockquote prefixed with attachment unicode emoji', () => {
+		const doc = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'blockquote',
+					content: [
+						{
+							type: 'mediaGroup',
+							content: [
+								{
+									type: 'media',
+									attrs: {
+										type: 'file',
+										id: 'id',
+										collection: 'collection',
+									},
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+
+		// index 2 because of the "> " prefix
+		expect(render(doc).indexOf('📎 ')).toEqual(2);
+	});
+
 	it('should render media items as NUMBER files (one file)', () => {
 		const doc = {
 			type: 'doc',
@@ -217,6 +247,35 @@ describe('Renderer - TextSerializer', () => {
 								id: 'id',
 								collection: 'collection',
 							},
+						},
+					],
+				},
+			],
+		};
+
+		expect(render(doc)).toContain('1 File');
+	});
+
+	it('should render media items inside blockquote as NUMBER files (one file)', () => {
+		const doc = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'blockquote',
+					content: [
+						{
+							type: 'mediaGroup',
+							content: [
+								{
+									type: 'media',
+									attrs: {
+										type: 'file',
+										id: 'id',
+										collection: 'collection',
+									},
+								},
+							],
 						},
 					],
 				},
@@ -249,6 +308,43 @@ describe('Renderer - TextSerializer', () => {
 								id: 'id2',
 								collection: 'collection',
 							},
+						},
+					],
+				},
+			],
+		};
+
+		expect(render(doc)).toContain('2 Files');
+	});
+
+	it('should render media items inside blockquote as NUMBER files (multiple files)', () => {
+		const doc = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'blockquote',
+					content: [
+						{
+							type: 'mediaGroup',
+							content: [
+								{
+									type: 'media',
+									attrs: {
+										type: 'file',
+										id: 'id',
+										collection: 'collection',
+									},
+								},
+								{
+									type: 'media',
+									attrs: {
+										type: 'file',
+										id: 'id2',
+										collection: 'collection',
+									},
+								},
+							],
 						},
 					],
 				},
@@ -404,6 +500,35 @@ describe('Renderer - TextSerializer', () => {
 		};
 
 		expect(render(doc)).toEqual('foobar');
+	});
+
+	it('should render codeBlock contents inside blockquote as simple text', () => {
+		const doc = {
+			type: 'doc',
+			version: 1,
+			content: [
+				{
+					type: 'blockquote',
+					content: [
+						{
+							type: 'codeBlock',
+							content: [
+								{
+									type: 'text',
+									text: 'foo',
+								},
+								{
+									type: 'text',
+									text: 'bar',
+								},
+							],
+						},
+					],
+				},
+			],
+		};
+
+		expect(render(doc)).toEqual('> foobar');
 	});
 
 	it('should divide block elements with a new line', () => {

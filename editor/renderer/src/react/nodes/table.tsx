@@ -138,6 +138,7 @@ export type TableProps = SharedTableProps & {
 	rendererAppearance?: RendererAppearance;
 	allowColumnSorting?: boolean;
 	stickyHeaders?: StickyHeaderConfig;
+	allowTableAlignment?: boolean;
 };
 
 const isHeaderRowEnabled = (
@@ -356,6 +357,7 @@ export class TableContainer extends React.Component<
 			rendererAppearance,
 			isInsideOfBlockNode,
 			isinsideMultiBodiedExtension,
+			allowTableAlignment,
 		} = this.props;
 
 		const { stickyMode } = this.state;
@@ -397,7 +399,7 @@ export class TableContainer extends React.Component<
 
 		const isCommentAppearanceAndTableAlignmentEnabled =
 			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-			isCommentAppearance(rendererAppearance) && fg('platform_editor_table_support_in_comment');
+			allowTableAlignment && fg('platform_editor_table_support_in_comment');
 
 		// Logic for table alignment in renderer
 		const isTableAlignStart =
@@ -406,7 +408,8 @@ export class TableContainer extends React.Component<
 			tableNode &&
 			tableNode.attrs &&
 			tableNode.attrs.layout === 'align-start' &&
-			fg('platform.editor.table.allow-table-alignment');
+			allowTableAlignment &&
+			fg('platform.editor.table.allow-table-alignment'); // allowTableAlignment should be used instead of fg('platform.editor.table.allow-table-alignment') after this fg cleanup
 
 		const fullWidthLineLength = isRenderWidthValid
 			? Math.min(akEditorFullWidthLayoutWidth, renderWidth)

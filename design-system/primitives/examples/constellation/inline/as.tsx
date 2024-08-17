@@ -5,11 +5,14 @@ import { Code } from '@atlaskit/code';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const listStyles = xcss({ padding: 'space.0' });
-const listItemStyles = xcss({ listStyle: 'none' });
+// Disabling the typography rule because this is a valid use case
+// to ensure the semantics of the list are preserved in Safari.
+// eslint-disable-next-line @atlaskit/design-system/use-latest-xcss-syntax-typography
+const listItemStyles = xcss({ '::marker': { fontSize: 0 } });
 const definitionListStyles = xcss({ paddingInlineStart: 'space.0' });
 const definitionListItemStyles = xcss({ margin: 'space.0' });
 
-const InlineLink = ({ children }: { children: ReactNode }) => (
+const InlineListItem = ({ children }: { children: ReactNode }) => (
 	<Box as="li" xcss={listItemStyles}>
 		{children}
 	</Box>
@@ -51,19 +54,19 @@ export default function Example() {
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ul</Code>:
 				<Inline as="ul" xcss={listStyles} separator="·" space="space.100">
-					<InlineLink>Jira</InlineLink>
-					<InlineLink>Confluence</InlineLink>
-					<InlineLink>BitBucket</InlineLink>
-					<InlineLink>Trello</InlineLink>
+					<InlineListItem>Jira</InlineListItem>
+					<InlineListItem>Confluence</InlineListItem>
+					<InlineListItem>BitBucket</InlineListItem>
+					<InlineListItem>Trello</InlineListItem>
 				</Inline>
 			</Box>
 			<Box>
 				<Code>Inline</Code> rendering as <Code>ol</Code>:
 				<Inline as="ol" xcss={listStyles} separator="·" space="space.100">
-					<InlineLink>Jira</InlineLink>
-					<InlineLink>Confluence</InlineLink>
-					<InlineLink>BitBucket</InlineLink>
-					<InlineLink>Trello</InlineLink>
+					<InlineListItem>Jira</InlineListItem>
+					<InlineListItem>Confluence</InlineListItem>
+					<InlineListItem>BitBucket</InlineListItem>
+					<InlineListItem>Trello</InlineListItem>
 				</Inline>
 			</Box>
 			<Box>

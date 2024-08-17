@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 0.4.0
+
+### Minor Changes
+
+- [#122546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/122546)
+  [`b40f5bb07ebcb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b40f5bb07ebcb) -
+  Added LLM-generated contextual conversation starters (feature gated)
+
 ## 0.3.2
 
 ### Patch Changes

@@ -4,7 +4,8 @@
 
 ### Minor Changes
 
-- [`3ee11b74099d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ee11b74099d5) -
+- [#131048](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131048)
+  [`b6d65a4ed682d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6d65a4ed682d) -
   [ux] Adds UNSTABLE_allowTableAlignment prop on Renderer to allow consumers enable Table Alignment
   feature (for now available only for Confluence)
 

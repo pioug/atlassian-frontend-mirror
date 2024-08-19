@@ -12,6 +12,7 @@ import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
+import { FlagsProvider } from '@atlaskit/flag';
 import { Skeleton } from '@atlaskit/linking-common';
 import {
 	type DatasourceResponseSchemaProperty,
@@ -707,7 +708,7 @@ export const IssueLikeDataTableView = ({
 
 	const isEditable = onVisibleColumnKeysChange && hasData;
 
-	return (
+	const view = (
 		<div
 			/* There is required contentEditable={true} in editor-card-plugin
 			 * But this brakes how DND works. We set contentEditable={false} to allow DND to work
@@ -863,6 +864,12 @@ export const IssueLikeDataTableView = ({
 				</tbody>
 			</Table>
 		</div>
+	);
+
+	return fg('platform-datasources-enable-two-way-sync') ? (
+		<FlagsProvider>{view}</FlagsProvider>
+	) : (
+		view
 	);
 };
 

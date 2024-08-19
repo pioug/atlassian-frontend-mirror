@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.17.0
+
+### Minor Changes
+
+- [#131211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131211)
+  [`9877a261592a7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9877a261592a7) -
+  Added an autofixer for `no-legacy-icons` eslint rule which migrates icons in the "Auto Migration"
+  category to new icons. Use `shouldUseMigrationPath` option to control the import path of the new
+  icon.
+
 ## 10.16.0
 
 ### Minor Changes

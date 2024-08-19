@@ -31,6 +31,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__ds-lib/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

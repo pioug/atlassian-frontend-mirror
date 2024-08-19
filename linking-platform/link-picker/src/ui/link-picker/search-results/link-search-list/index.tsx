@@ -8,7 +8,7 @@ import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'r
 import { css, jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -147,7 +147,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 		);
 
 		if (items?.length === 0) {
-			if (getBooleanFF('platform.linking-platform.link-picker.enable-empty-state')) {
+			if (fg('platform.linking-platform.link-picker.enable-empty-state')) {
 				if (hasSearchTerm) {
 					return <NoResults />;
 				} else {
@@ -218,7 +218,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 			loadingContent = (
 				<MinHeightContainer
 					minHeight={
-						getBooleanFF('platform.linking-platform.link-picker.fixed-height-search-results')
+						fg('platform.linking-platform.link-picker.fixed-height-search-results')
 							? '50px'
 							: '80px'
 					}

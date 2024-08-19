@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -8,6 +8,8 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import Popup from '@atlaskit/popup';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import type { LinkCreatePlugin, LinkCreateProps, LinkCreateWithModalProps } from '../common/types';
@@ -101,26 +103,36 @@ const createPlugins = (createError?: Error) => {
 	];
 };
 
-const setupModalCreate = (props?: Partial<LinkCreateWithModalProps>, createError?: Error) => {
+const renderWithWrapper = (ui: React.ReactElement) => {
 	const onAnalyticsEventMock = jest.fn();
 
-	const Component = (props?: Partial<LinkCreateWithModalProps>) => {
-		return (
+	const result = render(ui, {
+		wrapper: ({ children }) => (
 			<IntlProvider locale="en">
 				<AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
-					<LinkCreate
-						testId={DEFAULT_TEST_ID}
-						plugins={createPlugins(createError)}
-						entityKey="entity-key"
-						active={true}
-						{...props}
-					/>
+					{children}
 				</AnalyticsListener>
 			</IntlProvider>
+		),
+	});
+
+	return { ...result, onAnalyticsEventMock };
+};
+
+const setupModalCreate = (props?: Partial<LinkCreateWithModalProps>, createError?: Error) => {
+	const Component = (props?: Partial<LinkCreateWithModalProps>) => {
+		return (
+			<LinkCreate
+				testId={DEFAULT_TEST_ID}
+				plugins={createPlugins(createError)}
+				entityKey="entity-key"
+				active={true}
+				{...props}
+			/>
 		);
 	};
 
-	const renderResult = render(<Component {...props} />);
+	const { onAnalyticsEventMock, ...renderResult } = renderWithWrapper(<Component {...props} />);
 
 	const rerender = (props?: Partial<LinkCreateWithModalProps>) =>
 		renderResult.rerender(<Component {...props} />);
@@ -135,26 +147,20 @@ const setupModalCreate = (props?: Partial<LinkCreateWithModalProps>, createError
 };
 
 const setupInlineCreate = (props?: Partial<LinkCreateProps>, createError?: Error) => {
-	const onAnalyticsEventMock = jest.fn();
-
 	const Component = (props?: Partial<LinkCreateProps>) => {
 		return (
-			<IntlProvider locale="en">
-				<AnalyticsListener channel={'media'} onEvent={onAnalyticsEventMock}>
-					<ExitWarningModalProvider>
-						<InlineCreate
-							testId={DEFAULT_TEST_ID}
-							plugins={createPlugins(createError)}
-							entityKey="entity-key"
-							{...props}
-						/>
-					</ExitWarningModalProvider>
-				</AnalyticsListener>
-			</IntlProvider>
+			<ExitWarningModalProvider>
+				<InlineCreate
+					testId={DEFAULT_TEST_ID}
+					plugins={createPlugins(createError)}
+					entityKey="entity-key"
+					{...props}
+				/>
+			</ExitWarningModalProvider>
 		);
 	};
 
-	const renderResult = render(<Component {...props} />);
+	const { onAnalyticsEventMock, ...renderResult } = renderWithWrapper(<Component {...props} />);
 
 	const rerender = (props?: Partial<LinkCreateProps>) =>
 		renderResult.rerender(<Component {...props} />);
@@ -465,6 +471,95 @@ describe('Confirm dismiss dialog', () => {
 
 	describe('Modal create', () => {
 		runTests(setupModalCreate);
+	});
+
+	describe('when modal create is inside popup', () => {
+		const PopupWithCreate = () => {
+			const [isOpen, setIsOpen] = useState(true);
+
+			return (
+				<Popup
+					testId="popup"
+					autoFocus={false}
+					onClose={() => setIsOpen(false)}
+					isOpen={isOpen}
+					content={() => (
+						<LinkCreate
+							testId={DEFAULT_TEST_ID}
+							plugins={createPlugins()}
+							entityKey="plugin-with-create-form"
+							active
+						/>
+					)}
+					trigger={(triggerProps) => <Button {...triggerProps}>Open</Button>}
+				/>
+			);
+		};
+
+		ffTest.on(
+			'linking-platform-link-create-nest-exit-warning',
+			'when exit warning modal is rendered nested in create modal',
+			() => {
+				it('should not close popup when pressing escape in modal after dismissing exit warning', async () => {
+					renderWithWrapper(<PopupWithCreate />);
+
+					// dirty form
+					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+					await userEvent.keyboard('Hello');
+					// try exit the form by pressing escape
+					await userEvent.keyboard('{Escape}');
+
+					// should see exit warning
+					expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+
+					// close exit warning
+					await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
+					await waitForElementToBeRemoved(screen.getByTestId(dismissDialogTestId));
+
+					// refocus on the text field
+					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+					await userEvent.keyboard(' world');
+					// try exit again
+					await userEvent.keyboard('{Escape}');
+
+					// should see exit warning
+					expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+					// popup should still be open
+					expect(await screen.findByTestId('popup')).toBeInTheDocument();
+				});
+			},
+		);
+
+		ffTest.off(
+			'linking-platform-link-create-nest-exit-warning',
+			'when exit warning modal is rendered parallel to create modal',
+			() => {
+				it('will close popup when pressing escape in modal after dismissing exit warning', async () => {
+					renderWithWrapper(<PopupWithCreate />);
+
+					// dirty form
+					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+					await userEvent.keyboard('title text content');
+					// try exit the form by pressing escape
+					await userEvent.keyboard('{Escape}');
+
+					// should see exit warning
+					expect(await screen.findByTestId(dismissDialogTestId)).toBeInTheDocument();
+
+					// close exit warning
+					await userEvent.click(await screen.findByRole('button', { name: 'Go back' }));
+					await waitForElementToBeRemoved(screen.getByTestId(dismissDialogTestId));
+
+					// refocus on the text field
+					await userEvent.click(await screen.findByLabelText(/Enter some Text/i));
+
+					// link create modal is removed undesireably
+					expect(screen.queryByTestId(DEFAULT_TEST_ID)).not.toBeInTheDocument();
+					// popup component is removed undesireably
+					expect(screen.queryByTestId('popup')).not.toBeInTheDocument();
+				});
+			},
+		);
 	});
 
 	describe('Inline create', () => {

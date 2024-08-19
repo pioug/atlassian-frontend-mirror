@@ -83,7 +83,19 @@ test.describe('DatasourceTableView', () => {
 		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
 		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
+	});
 
-		// Change value and update store here
+	test('shows flag after edit fail', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+		]);
+
+		await page.getByText('FIRST! This level contains five Dragon coins').click();
+		await page.getByTestId('inline-edit-text').fill('new value');
+		await page.getByTestId('inline-edit-text').evaluate((e) => e.blur());
+
+		await expect(page.getByRole('alert')).toBeVisible();
 	});
 });

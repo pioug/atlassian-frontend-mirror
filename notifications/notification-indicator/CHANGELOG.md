@@ -1,5 +1,14 @@
 # @atlaskit/notification-indicator
 
+## 9.3.0
+
+### Minor Changes
+
+- [#131276](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131276)
+  [`d1e9aa7522cac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1e9aa7522cac) -
+  Typography migration (https://product-fabric.atlassian.net/browse/PYX-881) for Notifications
+  packages
+
 ## 9.2.4
 
 ### Patch Changes

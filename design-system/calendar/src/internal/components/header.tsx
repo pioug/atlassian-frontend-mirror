@@ -8,12 +8,12 @@ import { memo, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
 import { Box, Inline } from '@atlaskit/primitives';
 
-import useUniqueId from '../../internal/hooks/use-unique-id';
 import { type TabIndex } from '../../types';
 
 interface HeaderProps {
@@ -43,7 +43,7 @@ const Header = memo<HeaderProps>(function Header({
 	tabIndex,
 	testId,
 }) {
-	const announceId = useUniqueId('month-year-announce');
+	const announceId = useId();
 
 	// All of this is because `aria-atomic` is not fully supported for different
 	// assistive technologies. We want the value of the current month and year to

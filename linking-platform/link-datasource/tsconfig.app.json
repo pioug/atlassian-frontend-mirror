@@ -58,6 +58,9 @@
 			"path": "../../design-system/empty-state/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/flag/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{

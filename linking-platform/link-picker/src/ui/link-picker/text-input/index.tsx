@@ -66,6 +66,7 @@ const clearTextButtonStyles = xcss({
 	marginRight: 'space.050',
 	backgroundColor: 'color.background.neutral.subtle',
 	border: 'none',
+	verticalAlign: 'middle',
 });
 
 export const TextInput = ({

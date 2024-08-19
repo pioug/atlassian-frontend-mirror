@@ -3,6 +3,13 @@ import { breakoutConsts } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';
+
+declare global {
+	interface Window {
+		__SSR_BREAKOUT_OBSERVED?: boolean;
+	}
+}
+
 /**
  * Inline Script that updates breakout node width on client side,
  * before main JavaScript bundle is ready.
@@ -193,6 +200,9 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 		childList: true,
 		subtree: true,
 	});
+	if (shouldFixTableResizing) {
+		window.__SSR_BREAKOUT_OBSERVED = true;
+	}
 
 	/**
 	 * Using window load event to unsubscribe from mutation observer, as at this stage document is fully rendered.

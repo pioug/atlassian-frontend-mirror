@@ -81,7 +81,6 @@ export const LoaderFallback = (props: LoaderFallbackProps) => {
 		<MinHeightContainer
 			minHeight={minHeight}
 			data-testid="link-picker-root-loader-boundary-ui"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={styles}
 		>
 			<Spinner testId="link-picker.component-loading-indicator" size="medium" />

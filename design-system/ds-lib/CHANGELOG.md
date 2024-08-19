@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 2.5.0
+
+### Minor Changes
+
+- [#131099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131099)
+  [`d0ed540a6bc17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0ed540a6bc17) -
+  Add a new hook userUniqueId
+
 ## 2.4.0
 
 ### Minor Changes

@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 2.11.3
+
+### Patch Changes
+
+- [#131211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131211)
+  [`35d5f222a8212`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35d5f222a8212) -
+  Prevents inline-edit to fire execute callback on blur or with an empty string
+- Updated dependencies
+
+## 2.11.2
+
+### Patch Changes
+
+- [#131099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131099)
+  [`9762a9622c0a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9762a9622c0a9) -
+  [ux] Add error flag on update inline edit fails
+
 ## 2.11.1
 
 ### Patch Changes

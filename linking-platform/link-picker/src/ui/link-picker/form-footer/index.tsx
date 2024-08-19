@@ -5,7 +5,7 @@
 import { memo, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
 import uuid from 'uuid';
 
@@ -23,8 +23,16 @@ import {
 import { UnauthenticatedError } from '../../../common/utils/errors';
 
 import FeatureDiscovery from './feature-discovery';
-import { formFooterActionStyles, formFooterStyles } from './styled';
 import { checkSubmitDisabled } from './utils';
+
+const formFooterStyles = css({
+	display: 'flex',
+	justifyContent: 'flex-end',
+});
+
+const formFooterActionStyles = css({
+	marginRight: 'auto',
+});
 
 export const messages = defineMessages({
 	cancelButton: {
@@ -132,7 +140,6 @@ export const FormFooter = memo(
 		);
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<footer css={formFooterStyles} {...restProps}>
 				{isSubmitting && (
 					<VisuallyHidden
@@ -144,7 +151,6 @@ export const FormFooter = memo(
 					</VisuallyHidden>
 				)}
 				{action && (
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={formFooterActionStyles}>
 						{createFeatureDiscovery ? (
 							<FeatureDiscovery testId={testIds.actionButtonDiscovery}>

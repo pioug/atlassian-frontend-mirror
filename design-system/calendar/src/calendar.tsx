@@ -9,6 +9,7 @@ import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import Header from './internal/components/header';
@@ -22,7 +23,6 @@ import useGetWeeks from './internal/hooks/use-get-weeks';
 import useHandleDateChange from './internal/hooks/use-handle-date-change';
 import useHandleDateSelect from './internal/hooks/use-handle-date-select';
 import useLocale from './internal/hooks/use-locale';
-import useUniqueId from './internal/hooks/use-unique-id';
 import type { CalendarProps } from './types';
 
 const boxStyles = xcss({
@@ -170,7 +170,7 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 		return `${monthsLong[previousMonth]} ${showPreviousYear ? yearValue - 1 : yearValue}`;
 	};
 
-	const headerId = useUniqueId('month-year-header');
+	const headerId = useId();
 
 	return (
 		<div

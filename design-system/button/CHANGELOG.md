@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 20.1.0
+
+### Minor Changes
+
+- [#131274](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131274)
+  [`1a59a1dc3f2f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a59a1dc3f2f2) -
+  Correct hover states for old loading button
+
 ## 20.0.0
 
 ### Major Changes

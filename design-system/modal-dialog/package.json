@@ -33,7 +33,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/blanket": "^13.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/focus-ring": "^1.6.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/layering": "^0.4.0",

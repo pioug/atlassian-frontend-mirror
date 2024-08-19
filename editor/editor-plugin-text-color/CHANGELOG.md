@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.13.0
+
+### Minor Changes
+
+- [#130825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130825)
+  [`d8a00de5637ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8a00de5637ff) -
+  ENGHEALTH-9890: Bumps React peer dependency for Lego editor plugins
+
 ## 1.12.1
 
 ### Patch Changes

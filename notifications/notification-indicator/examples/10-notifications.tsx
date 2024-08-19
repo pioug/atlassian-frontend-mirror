@@ -1,4 +1,5 @@
 import React from 'react';
+import Heading from '@atlaskit/heading';
 
 import {
 	NotificationLogClient,
@@ -56,25 +57,25 @@ export default function Example() {
 
 	return (
 		<div>
-			<h5>Has new notifications</h5>
+			<Heading size="xsmall">Has new notifications</Heading>
 			{renderNotificationIndicator(returnCount(5))}
 
-			<h5>Has too many new notifications</h5>
+			<Heading size="xsmall">Has too many new notifications</Heading>
 			{renderNotificationIndicator(returnCount(99))}
 
-			<h5>New notifications with higher max</h5>
+			<Heading size="xsmall">New notifications with higher max</Heading>
 			{renderNotificationIndicator(returnCount(99), { max: 20 })}
 
-			<h5>New notifications with different appearance</h5>
+			<Heading size="xsmall">New notifications with different appearance</Heading>
 			{renderNotificationIndicator(returnCount(99), { appearance: 'primary' })}
 
-			<h5>Auto refresh with new notifications every 1 second</h5>
+			<Heading size="xsmall">Auto refresh with new notifications every 1 second</Heading>
 			{renderNotificationIndicator(returnCount(count), { refreshRate: 1000 }, refreshingClient)}
 
-			<h5>No new notification (Should not render anything)</h5>
+			<Heading size="xsmall">No new notification (Should not render anything)</Heading>
 			{renderNotificationIndicator(returnCount(0))}
 
-			<h5>Has error fetching notifications (Should not render anything)</h5>
+			<Heading size="xsmall">Has error fetching notifications (Should not render anything)</Heading>
 			{renderNotificationIndicator(returnError())}
 		</div>
 	);

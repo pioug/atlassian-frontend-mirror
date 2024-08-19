@@ -1,6 +1,7 @@
 import { tester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
+import { migrationPathTests } from './__helpers/migration-path-helper';
 import {
 	colorTests,
 	exportedIconTests,
@@ -149,7 +150,105 @@ describe('no-legacy-icons', () => {
 				code: `
 				import AddIcon from '@atlaskit/icon/glyph/add';
 
-				<AddIcon label="" />
+				<AddIcon label="" size="medium" />
+				`,
+				output: `
+				import AddIcon from '@atlaskit/icon/core/migration/add';
+
+				<AddIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				options: [{ shouldUseMigrationPath: false }],
+				name: 'Basic, auto-migratable small icon, import from the final core path',
+				code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+
+				<AddIcon label="" size="small" />
+				`,
+				output: `
+				import AddIcon from '@atlaskit/icon/core/add';
+
+				<AddIcon color="currentColor" label=""  />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				options: [{ shouldUseMigrationPath: false }],
+				name: 'Basic, auto-migratable medium icon, import from the final core path',
+				code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+
+				<AddIcon label="" size="medium" />
+				`,
+				output: `
+				import AddIcon from '@atlaskit/icon/core/add';
+
+				<AddIcon color="currentColor" label=""  spacing="spacious" />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				options: [{ shouldUseMigrationPath: false }],
+				name: 'Basic, auto-migratable icon, import from the final utility path',
+				code: `
+				import ChevronLeftIcon from '@atlaskit/icon/glyph/chevron-left';
+
+				<ChevronLeftIcon label="" size="medium" />
+				`,
+				output: `
+				import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
+
+				<ChevronLeftIcon color="currentColor" label=""  />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				name: 'Basic, auto-migratable icon, import from migration path, the new icon name has been changed',
+				code: `
+				import DocumentIcon from '@atlaskit/icon/glyph/document';
+
+				<DocumentIcon label="" />
+				`,
+				output: `
+				import DocumentIcon from '@atlaskit/icon/core/migration/page--document';
+
+				<DocumentIcon color="currentColor" spacing="spacious" label="" />
+				`,
+				errors: [
+					{
+						messageId: 'noLegacyIconsAutoMigration',
+					},
+				],
+			},
+			{
+				name: 'Basic, auto-migratable medium size icon',
+				code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+
+				<AddIcon label="" size="medium" />
+				`,
+				output: `
+				import AddIcon from '@atlaskit/icon/core/migration/add';
+
+				<AddIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -165,6 +264,13 @@ describe('no-legacy-icons', () => {
 				import ReposIcon from '@atlaskit/icon/glyph/bitbucket/repos';
 
 				<ReposIcon size="small" label="" />
+				`,
+				output: `
+				// Icon Tile usage
+				import { IconTile } from '@atlaskit/icon';
+				import ReposIcon from '@atlaskit/icon/core/migration/angle-brackets--bitbucket-repos';
+
+				<ReposIcon color="currentColor" LEGACY_size="small" label="" />
 				`,
 				errors: [
 					{
@@ -193,9 +299,14 @@ describe('no-legacy-icons', () => {
 			{
 				name: 'Basic, auto-migratable icon - renamed import',
 				code: `
-				import {default as AddIcon} from '@atlaskit/icon/glyph/add';
+				import {default as ChevronDownIcon} from '@atlaskit/icon/glyph/chevron-down';
 
-				<AddIcon label="" />
+				<ChevronDownIcon label="" />
+				`,
+				output: `
+				import {default as ChevronDownIcon} from '@atlaskit/icon/utility/migration/chevron-down';
+
+				<ChevronDownIcon color="currentColor" label="" />
 				`,
 				errors: [
 					{
@@ -210,17 +321,20 @@ describe('no-legacy-icons', () => {
 
 				<div>
 					<AddIcon label="" />
-					<AddIcon2 label=""/>
+					<AddIcon2 label="" />
 				</div>
 				`,
-				errors: [
-					{
-						messageId: 'noLegacyIconsAutoMigration',
-					},
-					{
-						messageId: 'noLegacyIconsAutoMigration',
-					},
-				],
+				output: `
+				import AddIcon, {default as AddIcon2} from '@atlaskit/icon/core/migration/add';
+
+				<div>
+					<AddIcon color="currentColor" spacing="spacious" label="" />
+					<AddIcon2 color="currentColor" spacing="spacious" label="" />
+				</div>
+				`,
+				errors: Array(4).fill({
+					messageId: 'noLegacyIconsAutoMigration',
+				}),
 			},
 			{
 				name: 'Icon object with no migration advice',
@@ -349,5 +463,9 @@ describe('no-legacy-icons', () => {
 	tester.run('Icons with color props', rule, {
 		valid: [],
 		invalid: [...colorTests],
+	});
+	tester.run('Icons imported from migration paths and with shouldUseMigrationPath=false', rule, {
+		valid: [],
+		invalid: [...migrationPathTests],
 	});
 });

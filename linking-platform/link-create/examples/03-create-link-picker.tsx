@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { LinkPicker } from '@atlaskit/link-picker';
@@ -67,28 +67,31 @@ const LinkPickerCreate = () => {
 			<Popup
 				isOpen={showPicker}
 				autoFocus={false}
+				onClose={() => setShowPicker(false)}
 				content={() => (
-					<LinkPicker plugins={pickerPlugins} onSubmit={onSubmit} onCancel={onCancel} />
+					<Fragment>
+						<LinkPicker plugins={pickerPlugins} onSubmit={onSubmit} onCancel={onCancel} />
+						<LinkCreate
+							plugins={createPlugins}
+							onCancel={() => setShowCreateModal(false)}
+							onCreate={(payload: CreatePayload) => {
+								setLink(payload.url);
+								console.log('payload is', payload);
+							}}
+							onComplete={() => {
+								setShowCreateModal(false);
+								setShowPicker(false);
+							}}
+							entityKey={ENTITY_KEY}
+							active={showCreateModal}
+						/>
+					</Fragment>
 				)}
 				trigger={(props) => (
 					<Button {...props} appearance="primary" onClick={() => setShowPicker(!showPicker)}>
 						Toggle
 					</Button>
 				)}
-			/>
-			<LinkCreate
-				plugins={createPlugins}
-				onCancel={() => setShowCreateModal(false)}
-				onCreate={(payload: CreatePayload) => {
-					setLink(payload.url);
-					console.log('payload is', payload);
-				}}
-				onComplete={() => {
-					setShowCreateModal(false);
-					setShowPicker(false);
-				}}
-				entityKey={ENTITY_KEY}
-				active={showCreateModal}
 			/>
 		</div>
 	);

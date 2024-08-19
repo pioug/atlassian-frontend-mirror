@@ -5,7 +5,7 @@
 import React, { Fragment, memo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { LazySuspense } from 'react-loosely-lazy';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -20,7 +20,6 @@ import { LinkPickerSessionProvider } from '../controllers/session-provider';
 import { ErrorBoundary } from './error-boundary';
 import { LoaderFallback } from './loader-fallback';
 import { MessagesProvider } from './messages-provider';
-import { fixedWidthContainerStyles } from './styled';
 
 export const testIds = {
 	linkPickerRoot: 'link-picker-root',
@@ -39,8 +38,11 @@ const DefaultRootComponent = ({
 	return <div data-testid={testIds.linkPickerRoot}>{children}</div>;
 };
 
+const fixedWidthContainerStyles = css({
+	width: 'var(--link-picker-width)',
+});
+
 const FixedWidthContainer = (props: React.HTMLAttributes<HTMLDivElement>) => {
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 	return <div css={fixedWidthContainerStyles} {...props} />;
 };
 

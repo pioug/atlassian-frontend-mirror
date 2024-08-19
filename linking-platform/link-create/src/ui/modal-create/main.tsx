@@ -8,7 +8,9 @@ import { useLayoutEffect, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { ModalBody, ModalHeader, ModalTitle, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX, DEFAULT_TEST_ID, SCREEN_ID } from '../../common/constants';
@@ -95,11 +97,22 @@ const LinkCreateWithModal = ({
 					activePlugin={activePlugin}
 				/>
 			)}
-			<ConfirmDismissDialog
-				active={showExitWarning}
-				onClose={handleCloseExitWarning}
-				onCancel={onCancel}
-			/>
+			{!fg('linking-platform-link-create-nest-exit-warning') && (
+				<ConfirmDismissDialog
+					active={showExitWarning}
+					onClose={handleCloseExitWarning}
+					onCancel={onCancel}
+				/>
+			)}
+			{fg('linking-platform-link-create-nest-exit-warning') && (
+				<UNSAFE_LAYERING isDisabled={false}>
+					<ConfirmDismissDialog
+						active={showExitWarning}
+						onClose={handleCloseExitWarning}
+						onCancel={onCancel}
+					/>
+				</UNSAFE_LAYERING>
+			)}
 		</LinkCreateCallbackProvider>
 	);
 };

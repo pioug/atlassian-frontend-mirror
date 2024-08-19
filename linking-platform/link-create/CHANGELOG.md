@@ -1,5 +1,23 @@
 # @atlaskit/link-create
 
+## 2.11.4
+
+### Patch Changes
+
+- [#130886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130886)
+  [`6eca3df7a5fb0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6eca3df7a5fb0) -
+  Tests fixing avoid bug where create placed in modal closes popup when pressing escape after
+  closing exit warning modal (behind feature flag).
+- Updated dependencies
+
+## 2.11.3
+
+### Patch Changes
+
+- [#131099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131099)
+  [`9df8c5e6d9886`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9df8c5e6d9886) -
+  Accessibility and minor UI bug fixes
+
 ## 2.11.2
 
 ### Patch Changes

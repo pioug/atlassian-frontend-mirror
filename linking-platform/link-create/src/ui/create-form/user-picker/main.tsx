@@ -42,6 +42,7 @@ export function UserPicker({
 						productKey={productKey}
 						siteId={siteId}
 						fieldId={fieldId}
+						inputId={fieldId}
 						debounceTime={DEFAULT_DEBOUNCE_TIME}
 						prefetch
 						isClearable={false}

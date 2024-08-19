@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "2.11.2",
+	"version": "2.11.4",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,14 +45,16 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.0",
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/empty-state": "^7.11.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/icon-file-type": "^6.4.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
+		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/linking-common": "^5.11.0",
 		"@atlaskit/modal-dialog": "^12.15.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/select": "^17.15.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
@@ -76,6 +78,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/drawer": "^7.14.0",
 		"@atlaskit/link-test-helpers": "^7.4.0",
+		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",
@@ -126,5 +129,9 @@
 			]
 		}
 	},
-	"platform-feature-flags": {}
+	"platform-feature-flags": {
+		"linking-platform-link-create-nest-exit-warning": {
+			"type": "boolean"
+		}
+	}
 }

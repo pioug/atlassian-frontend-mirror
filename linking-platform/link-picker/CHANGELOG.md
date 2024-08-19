@@ -1,5 +1,22 @@
 # @atlaskit/link-picker
 
+## 1.42.4
+
+### Patch Changes
+
+- [#128698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/128698)
+  [`0a846f1404337`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a846f1404337) -
+  Small css refactor. No expected observable changes.
+- Updated dependencies
+
+## 1.42.3
+
+### Patch Changes
+
+- [#131099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131099)
+  [`9df8c5e6d9886`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9df8c5e6d9886) -
+  Accessibility and minor UI bug fixes
+
 ## 1.42.2
 
 ### Patch Changes

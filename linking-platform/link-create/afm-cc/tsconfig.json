@@ -43,10 +43,16 @@
             "path": "../../../helpers/intl-messages-provider/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/layering/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../linking-common/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"

@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 195.5.0
+
+### Minor Changes
+
+- [#130806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130806)
+  [`0354a6dc7bfb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0354a6dc7bfb9) -
+  ENGHEALTH-9888 : Bumps React 18 in Editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 195.4.10
 
 ### Patch Changes

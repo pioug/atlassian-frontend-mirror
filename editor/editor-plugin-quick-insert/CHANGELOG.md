@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.3.0
+
+### Minor Changes
+
+- [#130825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130825)
+  [`d8a00de5637ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8a00de5637ff) -
+  ENGHEALTH-9890: Bumps React peer dependency for Lego editor plugins
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.3
 
 ### Patch Changes

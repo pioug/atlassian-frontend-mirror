@@ -5,8 +5,9 @@
 import { Fragment, type KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 
@@ -17,8 +18,20 @@ import { LinkSearchError, testIds as searchErrorTestIds } from './link-search-er
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
 import { ScrollingTabList } from './scrolling-tabs';
 import { SearchResultsContainer } from './search-results-container';
-import { spinnerContainerStyles, tabsWrapperStyles } from './styled';
 import { TrackTabViewed } from './track-tab-viewed';
+
+const tabsWrapperStyles = xcss({
+	marginTop: 'space.150',
+});
+
+const spinnerContainerStyles = css({
+	minHeight: '80px',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	alignSelf: 'center',
+	flexGrow: 1,
+});
 
 export const testIds = {
 	...searchErrorTestIds,
@@ -87,7 +100,6 @@ export const SearchResults = ({
 	return (
 		<SearchResultsContainer hasTabs={!!tabs.length || isLoadingPlugins} {...fixListHeightProps}>
 			{isLoadingPlugins && !!queryState && (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={spinnerContainerStyles}>
 					<Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
 				</div>
@@ -95,8 +107,7 @@ export const SearchResults = ({
 			{!isLoadingPlugins && isActivePlugin && !!queryState && (
 				<Fragment>
 					{tabs.length > 0 && (
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						<div css={tabsWrapperStyles}>
+						<Box xcss={tabsWrapperStyles}>
 							<Tabs
 								id={testIds.tabList}
 								testId={testIds.tabList}
@@ -110,7 +121,7 @@ export const SearchResults = ({
 								)}
 							</Tabs>
 							<TrackTabViewed activePlugin={activePlugin} />
-						</div>
+						</Box>
 					)}
 					{!error && (
 						<LinkSearchList

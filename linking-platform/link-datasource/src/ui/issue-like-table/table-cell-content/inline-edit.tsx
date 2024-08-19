@@ -8,6 +8,8 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { Box, xcss } from '@atlaskit/primitives';
 
+import { getResourceUrl } from '../../../common/utils/response-item';
+import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
 import { useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
 import type { DatasourceTypeWithOnlyValues } from '../types';
@@ -43,6 +45,14 @@ const mapUpdatedItem = (
 	return null;
 };
 
+const isNewValue = (
+	columnKey: string,
+	newItem: DatasourceDataResponseItem,
+	existingData: DatasourceDataResponseItem,
+) => {
+	return newItem[columnKey].data && newItem[columnKey].data !== existingData[columnKey].data;
+};
+
 export const InlineEdit = ({
 	ari,
 	execute,
@@ -53,6 +63,10 @@ export const InlineEdit = ({
 	const [isEditing, setIsEditing] = useState(false);
 
 	const item = useDatasourceItem({ id: ari });
+
+	const url = getResourceUrl(item?.data);
+	const { showErrorFlag } = useDatasourceTableFlag({ url });
+
 	const { onUpdateItem } = useDatasourceActions();
 
 	const onCommitUpdate = useCallback(
@@ -62,21 +76,23 @@ export const InlineEdit = ({
 				return;
 			}
 			const existingData = item.data;
+
 			const newItem = mapUpdatedItem(datasourceTypeWithValues.type, item.data, columnKey, value);
-			if (!newItem) {
+
+			if (!newItem || !isNewValue(columnKey, newItem, existingData)) {
 				setIsEditing(false);
 				return;
 			}
+
 			onUpdateItem(ari, newItem);
 
 			execute(value).catch((error) => {
-				// eslint-disable-next-line no-console
-				console.error(error);
+				showErrorFlag();
 				onUpdateItem(ari, existingData);
 			});
 			setIsEditing(false);
 		},
-		[ari, execute, datasourceTypeWithValues, item, columnKey, onUpdateItem],
+		[ari, execute, datasourceTypeWithValues, item, columnKey, onUpdateItem, showErrorFlag],
 	);
 
 	return (

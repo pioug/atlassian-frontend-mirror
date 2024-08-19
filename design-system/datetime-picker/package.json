@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/calendar": "^14.5.0",
-		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/layering": "^0.4.0",
 		"@atlaskit/locale": "^2.8.0",
@@ -65,7 +65,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/modal-dialog": "^12.15.0",

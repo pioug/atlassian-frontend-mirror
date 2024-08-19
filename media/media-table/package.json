@@ -39,7 +39,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/dynamic-table": "^14.20.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/media-client": "^27.3.0",

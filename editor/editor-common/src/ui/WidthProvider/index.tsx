@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useContext, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { Fragment, useContext, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -11,6 +11,15 @@ import rafSchedule from 'raf-schd';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { WidthObserver } from '@atlaskit/width-detector';
+
+import { isSSR } from './isSSR';
+import { isSsrButNoBreakoutScriptObserved } from './isSsrButNoBreakoutScriptObserved';
+
+declare global {
+	interface Window {
+		__SSR_BREAKOUT_OBSERVED?: boolean;
+	}
+}
 
 const styles = css({
 	position: 'relative',
@@ -70,7 +79,7 @@ type WidthProviderProps = {
  * @returns {number} The width of the document body or 0 if the document is undefined.
  */
 export const getBodyWidth = memoizeOne(() => {
-	return typeof document !== 'undefined' ? document.body?.offsetWidth ?? 0 : 0;
+	return isSSR() ? 0 : document.body?.offsetWidth ?? 0;
 });
 
 export const WidthProvider = ({
@@ -106,7 +115,7 @@ export const WidthProvider = ({
 
 	const skipWidthDetection = shouldCheckExistingValue && existingContextValue.width > 0;
 
-	useLayoutEffect(() => {
+	React.useLayoutEffect(() => {
 		isMountedRef.current = true;
 		if (shouldFixTableResizing && !isInitialWidthUpdated) {
 			// useLayoutEffect is not run in SSR mode
@@ -131,7 +140,9 @@ export const WidthProvider = ({
 			// It is done in packages/editor/renderer/src/ui/Renderer/breakout-ssr.tsx
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Intended
 			style={
-				shouldFixTableResizing && !isInitialWidthUpdated
+				// The hidden visibility is relying on the observer in breakout-ssr.tsx to clear.
+				// Do not hide if the observer is not observed. This happens in editor SSR.
+				shouldFixTableResizing && !isSsrButNoBreakoutScriptObserved() && !isInitialWidthUpdated
 					? {
 							// Width is initialized with body width but in Confluence this is too wide as side nav takes some space.
 							// Putting the div into hidden until we can get the correct width.

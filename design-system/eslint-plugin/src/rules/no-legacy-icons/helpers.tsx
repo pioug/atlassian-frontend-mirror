@@ -1,5 +1,12 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType, type JSXAttribute, type Node } from 'eslint-codemod-utils';
+import {
+	type ImportDeclaration,
+	isNodeOfType,
+	type JSXAttribute,
+	type JSXSpreadAttribute,
+	literal,
+	type Node,
+} from 'eslint-codemod-utils';
 
 import baseMigrationMap, {
 	type IconMigrationSizeGuidance,
@@ -78,13 +85,48 @@ export const canAutoMigrateNewIconBasedOnSize = (guidance?: string) => {
 };
 
 /**
+ *
+ * @param iconPackage string
+ * @returns object of new icon name and import path
+ */
+export const getNewIconNameAndImportPath = (
+	iconPackage: string,
+	shouldUseMigrationPath?: boolean,
+): { iconName?: string; importPath?: string } => {
+	const legacyIconName = getIconKey(iconPackage);
+
+	const migrationMapObject = getMigrationMapObject(iconPackage);
+	if (!migrationMapObject || !migrationMapObject.newIcon) {
+		return {};
+	}
+	const { newIcon } = migrationMapObject;
+
+	const migrationPath =
+		newIcon.name === legacyIconName
+			? `${newIcon.package}/${newIcon.type}/migration/${newIcon.name}`
+			: `${newIcon.package}/${newIcon.type}/migration/${newIcon.name}--${legacyIconName.replaceAll('/', '-')}`;
+	return {
+		iconName: newIcon.name,
+		importPath: shouldUseMigrationPath
+			? migrationPath
+			: `${newIcon.package}/${newIcon.type}/${newIcon.name}`,
+	};
+};
+
+/**
  * Creates the written guidance for migrating a legacy icon to a new icon
  */
-export const createGuidance = (
-	iconPackage: string,
-	insideNewButton: boolean = false,
-	size?: Size,
-) => {
+export const createGuidance = ({
+	iconPackage,
+	insideNewButton,
+	size,
+	shouldUseMigrationPath,
+}: {
+	iconPackage: string;
+	insideNewButton?: boolean;
+	size?: Size;
+	shouldUseMigrationPath?: boolean;
+}) => {
 	const migrationMapObject = getMigrationMapObject(iconPackage);
 	const upcomingIcon = getUpcomingIcons(iconPackage);
 	if (upcomingIcon) {
@@ -116,6 +158,12 @@ export const createGuidance = (
 		if (!newIcon) {
 			return 'No equivalent icon in new set. An option is to contribute a custom icon into icon-labs package instead.\n';
 		}
+
+		const { iconName, importPath } = getNewIconNameAndImportPath(
+			iconPackage,
+			shouldUseMigrationPath,
+		);
+
 		const buttonGuidanceStr =
 			"Please set 'spacing' property of the new icon to 'none', to ensure appropriate spacing inside `@atlaskit/button`.\n";
 		let guidance = '';
@@ -124,13 +172,13 @@ export const createGuidance = (
 				migrationMapObject.sizeGuidance[size] &&
 				canAutoMigrateNewIconBasedOnSize(migrationMapObject.sizeGuidance[size])
 			) {
-				guidance += `Fix: Use ${newIcon.name} from ${newIcon.package}/${newIcon.type}/${newIcon.name} instead.`;
+				guidance += `Fix: Use ${iconName} from ${importPath} instead.`;
 			} else {
 				guidance += `No equivalent icon for this size, ${size}, in new set.`;
 			}
 			guidance += `${Object.keys(migrationOutcomeDescriptionMap).includes(migrationMapObject.sizeGuidance[size]) ? ` Please: ${migrationOutcomeDescriptionMap[migrationMapObject.sizeGuidance[size]]}` : ' No migration size advice given.'}\n`;
 		} else {
-			guidance = `Use ${newIcon.name} from ${newIcon.package}/${newIcon.type}/${newIcon.name} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
+			guidance = `Use ${iconName} from ${importPath} instead.\nMigration suggestions, depending on the legacy icon size:\n`;
 			Object.entries(migrationMapObject.sizeGuidance).forEach(
 				([size, value]: [string, unknown]) => {
 					guidance += `\t- ${size}: `;
@@ -317,18 +365,30 @@ export const createCantMigrateSizeUnknown = (
 	pushManualError(locToString(node), errors, myError, importSource, iconName);
 };
 
-export const createAutoMigrationError = (
-	node: Node,
-	importSource: string,
-	iconName: string,
-	errors: ErrorListAuto,
-) => {
+export const createAutoMigrationError = ({
+	node,
+	importSource,
+	iconName,
+	errors,
+	shouldAddSpaciousSpacing,
+	insideNewButton,
+}: {
+	node: Node;
+	importSource: string;
+	iconName: string;
+	errors: ErrorListAuto;
+	shouldAddSpaciousSpacing?: boolean;
+	insideNewButton?: boolean;
+}) => {
 	const myError: IconMigrationError = {
 		node,
 		messageId: 'noLegacyIconsAutoMigration',
 		data: {
 			importSource,
 			iconName,
+			spacing: shouldAddSpaciousSpacing ? 'spacious' : '',
+			// value type need to be a string in Rule.ReportDescriptor
+			insideNewButton: String(insideNewButton),
 		},
 	};
 	errors[locToString(node)] = myError;
@@ -441,4 +501,231 @@ export const isInRangeList = (node: Node, sortedListOfRangesForErrors: RangeList
 		(currRange) => range[0] >= currRange.start && range[1] <= currRange.end,
 	);
 	return !!found;
+};
+
+/**
+ *
+ * @param node Icon JSXelement
+ * @param newButtonImports list of new button import specifiers
+ * @returns if Icon is inside a new button
+ */
+export const isInsideNewButton = (node: Rule.Node, newButtonImports: Set<string>): boolean => {
+	let insideNewButton = false;
+	if (
+		node.parent &&
+		isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
+		node.parent?.parent?.parent &&
+		isNodeOfType(node.parent.parent.parent, 'JSXAttribute') &&
+		isNodeOfType(node.parent.parent.parent.name, 'JSXIdentifier') &&
+		node.parent?.parent?.parent?.parent &&
+		isNodeOfType(node.parent.parent.parent.parent, 'JSXOpeningElement') &&
+		isNodeOfType(node.parent.parent.parent.parent.name, 'JSXIdentifier') &&
+		newButtonImports.has(node.parent.parent.parent.parent.name.name)
+	) {
+		insideNewButton = true;
+	}
+	return insideNewButton;
+};
+
+/**
+ *
+ * @param node Icon JSXelement
+ * @param newButtonImports list of legacy button import specifiers
+ * @returns if Icon is inside a legacy button
+ */
+export const isInsideLegacyButton = (
+	node: Rule.Node,
+	legacyButtonImports: Set<string>,
+): boolean => {
+	let insideLegacyButton = false;
+	if (
+		node.parent &&
+		isNodeOfType(node.parent, 'JSXExpressionContainer') &&
+		node.parent?.parent &&
+		isNodeOfType(node.parent.parent, 'JSXAttribute') &&
+		(node.parent.parent.name.name === 'iconBefore' ||
+			node.parent.parent.name.name === 'iconAfter') &&
+		isNodeOfType(node.parent?.parent?.parent, 'JSXOpeningElement') &&
+		isNodeOfType(node.parent?.parent?.parent.name, 'JSXIdentifier') &&
+		legacyButtonImports.has(node.parent?.parent?.parent.name.name)
+	) {
+		insideLegacyButton = true;
+	}
+	return insideLegacyButton;
+};
+
+const findProp = (attributes: (JSXAttribute | JSXSpreadAttribute)[], propName: string) =>
+	attributes.find(
+		(attr: JSXAttribute | JSXSpreadAttribute) =>
+			attr.type === 'JSXAttribute' && attr.name.name === propName,
+	);
+
+/**
+ *
+ * Creates a list of fixers to update the icon import path
+ * @param metadata Metadata including the import source and spacing
+ * @param fixer The original fix function
+ * @param legacyImportNode The import declaration node to replace
+ * @param shouldUseMigrationPath The eslint rule config, whether to use migration entrypoint or not
+ * @param migrationImportNode The migration import declaration node to replace, only present if shouldUseMigrationPath is false
+ * @returns A list of fixers to migrate the icon
+ */
+export const createImportFix = ({
+	fixer,
+	legacyImportNode,
+	metadata,
+	shouldUseMigrationPath,
+	migrationImportNode,
+}: {
+	fixer: Rule.RuleFixer;
+	metadata: { importSource: string; spacing: string };
+	legacyImportNode?: ImportDeclaration;
+	shouldUseMigrationPath: boolean;
+	migrationImportNode?: ImportDeclaration;
+}) => {
+	const fixes: Rule.Fix[] = [];
+	const { importSource } = metadata;
+
+	const importPath = migrationImportNode
+		? importSource.replace('/migration', '').split('--')[0]
+		: getNewIconNameAndImportPath(importSource, shouldUseMigrationPath).importPath;
+
+	// replace old icon import with icon import
+	if (legacyImportNode && importPath) {
+		fixes.push(fixer.replaceText(legacyImportNode.source, `'${literal(importPath)}'`));
+	}
+
+	if (migrationImportNode && !shouldUseMigrationPath && importPath) {
+		fixes.push(fixer.replaceText(migrationImportNode.source, `'${literal(importPath)}'`));
+	}
+	return fixes;
+};
+
+/**
+ * Creates a list of fixers to update the icon props
+ * @param node The Icon element to migrate
+ * @param metadata Metadata including the import source and spacing
+ * @param fixer The original fix function
+ * @param legacyImportNode The import declaration node to replace
+ * @param shouldUseMigrationPath The eslint rule config, whether to use migration entrypoint or not
+ * @param migrationImportNode The migration import declaration node to replace, only present if shouldUseMigrationPath is false
+ * @returns A list of fixers to migrate the icon
+ */
+export const createPropFixes = ({
+	node,
+	fixer,
+	legacyImportNode,
+	metadata,
+	shouldUseMigrationPath,
+	migrationImportNode,
+}: {
+	node: Node;
+	fixer: Rule.RuleFixer;
+	metadata: { importSource: string; spacing: string; insideNewButton: string };
+	legacyImportNode?: ImportDeclaration;
+	shouldUseMigrationPath: boolean;
+	migrationImportNode?: ImportDeclaration;
+}) => {
+	const fixes: Rule.Fix[] = [];
+
+	const { importSource, spacing, insideNewButton } = metadata;
+
+	if (shouldUseMigrationPath && !legacyImportNode) {
+		return fixes;
+	}
+
+	const importPath = migrationImportNode
+		? importSource.replace('/migration', '').split('--')[0]
+		: getNewIconNameAndImportPath(importSource, shouldUseMigrationPath).importPath;
+
+	const iconType = importPath?.startsWith('@atlaskit/icon/core') ? 'core' : 'utility';
+
+	if (node.type === 'JSXElement') {
+		const { openingElement } = node;
+		const { attributes } = openingElement;
+
+		// replace primaryColor prop with color
+		const primaryColor = findProp(attributes, 'primaryColor');
+
+		if (primaryColor && primaryColor.type === 'JSXAttribute') {
+			fixes.push(fixer.replaceText(primaryColor.name, 'color'));
+		}
+
+		// add color="currentColor" if
+		// 1. primaryColor prop is not set
+		// 2. icon is not imported from migration entrypoint
+		// 3. icon element is not inside a new button
+		if (
+			legacyImportNode &&
+			!primaryColor &&
+			!migrationImportNode &&
+			// value type need to be a string in Rule.ReportDescriptor
+			insideNewButton !== 'true'
+		) {
+			fixes.push(fixer.insertTextAfter(openingElement.name, ` color="currentColor"`));
+		}
+
+		// rename or remove size prop based on shouldUseMigrationPath,
+		// add spacing="spacious" if
+		// 1. it's in error metadata, which means size is medium
+		// 2. no existing spacing prop
+		// 3. iconType is "core"
+		// 4. icon is not imported from migration entrypoint
+		const sizeProp = findProp(attributes, 'size');
+		const spacingProp = findProp(attributes, 'spacing');
+
+		if (spacing && !spacingProp && iconType === 'core' && !migrationImportNode) {
+			fixes.push(fixer.insertTextAfter(sizeProp || openingElement.name, ` spacing="${spacing}"`));
+		}
+
+		if (sizeProp && sizeProp.type === 'JSXAttribute') {
+			fixes.push(
+				shouldUseMigrationPath
+					? // replace size prop with LEGACY_size,
+						fixer.replaceText(sizeProp.name, 'LEGACY_size')
+					: // remove size prop if shouldUseMigrationPath is false
+						fixer.remove(sizeProp),
+			);
+		}
+
+		// rename or remove secondaryColor prop based on shouldUseMigrationPath
+		const secondaryColorProp = findProp(attributes, 'secondaryColor');
+
+		if (secondaryColorProp && secondaryColorProp.type === 'JSXAttribute') {
+			fixes.push(
+				shouldUseMigrationPath
+					? // replace secondaryColor prop with LEGACY_secondaryColor
+						fixer.replaceText(secondaryColorProp.name, 'LEGACY_secondaryColor')
+					: // remove secondaryColor prop if shouldUseMigrationPath is false
+						fixer.remove(secondaryColorProp),
+			);
+		}
+
+		// remove LEGACY props
+		if (!shouldUseMigrationPath) {
+			['LEGACY_size', 'LEGACY_margin', 'LEGACY_fallbackIcon', 'LEGACY_secondaryColor'].forEach(
+				(propName) => {
+					const legacyProp = findProp(attributes, propName);
+					if (legacyProp && legacyProp.type === 'JSXAttribute') {
+						fixes.push(fixer.remove(legacyProp));
+					}
+				},
+			);
+		}
+	}
+
+	return fixes;
+};
+
+/**
+ * Check if the new icon exists in the migration map
+ */
+export const checkIfNewIconExist = (error: { data?: { importSource?: string } }) => {
+	if (!error.data?.importSource) {
+		return false;
+	}
+	const iconKey = getIconKey(error.data.importSource);
+	const { newIcon } = baseMigrationMap[iconKey] || {};
+
+	return Boolean(newIcon);
 };

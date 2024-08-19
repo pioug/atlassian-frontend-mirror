@@ -88,6 +88,10 @@ const defaultStyles: CSSObject = {
 	'&:active': {
 		background: token('color.background.neutral.pressed'),
 	},
+
+	'&[data-has-overlay="true"]:not([disabled]):hover': {
+		background: token('color.background.neutral.subtle'),
+	},
 };
 
 const primaryStyles: CSSObject = {
@@ -100,6 +104,10 @@ const primaryStyles: CSSObject = {
 
 	'&:active': {
 		background: token('color.background.brand.bold.pressed'),
+	},
+
+	'&[data-has-overlay="true"]:not([disabled]):hover': {
+		background: token('color.background.brand.bold'),
 	},
 };
 
@@ -128,6 +136,10 @@ const subtleStyles: CSSObject = {
 
 	'&:active': {
 		background: token('color.background.neutral.subtle.pressed'),
+	},
+
+	'&[data-has-overlay="true"]:not([disabled]):hover': {
+		background: 'transparent',
 	},
 };
 
@@ -159,6 +171,10 @@ const warningStyles: CSSObject = {
 	'&:active': {
 		background: token('color.background.warning.bold.pressed'),
 	},
+
+	'&[data-has-overlay="true"]:not([disabled]):hover': {
+		background: token('color.background.warning.bold'),
+	},
 };
 
 const dangerStyles: CSSObject = {
@@ -171,6 +187,10 @@ const dangerStyles: CSSObject = {
 
 	'&:active': {
 		background: token('color.background.danger.bold.pressed'),
+	},
+
+	'&[data-has-overlay="true"]:not([disabled]):hover': {
+		background: token('color.background.danger.bold'),
 	},
 };
 
@@ -389,12 +409,6 @@ export function getCss({
 						},
 
 						...hasOverlayStyles,
-
-						// disabling hover and active color changes when there is an overlay, but the button is not disabled
-						'&[data-has-overlay="true"]:not([disabled]):hover, &[data-has-overlay="true"]:not([disabled]):active':
-							{
-								background: 'inherit',
-							},
 					})),
 
 		'&::-moz-focus-inner': {

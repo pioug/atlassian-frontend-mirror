@@ -14,6 +14,7 @@ import {
 	addToListOfRanges,
 	canAutoMigrateNewIconBasedOnSize,
 	canMigrateColor,
+	checkIfNewIconExist,
 	createAutoMigrationError,
 	createCantFindSuitableReplacementError,
 	createCantMigrateColorError,
@@ -25,12 +26,16 @@ import {
 	createCantMigrateSpreadPropsError,
 	createGuidance,
 	createHelpers,
+	createImportFix,
+	createPropFixes,
 	type ErrorListAuto,
 	type ErrorListManual,
 	getMigrationMapObject,
 	getUpcomingIcons,
 	type GuidanceList,
 	isInRangeList,
+	isInsideLegacyButton,
+	isInsideNewButton,
 	isSize,
 	locToString,
 	type RangeList,
@@ -55,18 +60,29 @@ type ReturnObject = {
 export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	//create global variables to be shared by the checks
 	const { getPrimaryColor, getConfigFlag } = createHelpers(context);
-	const legacyIconImports: { [key: string]: { packageName: string; exported: boolean } } = {};
+	const legacyIconImports: {
+		[key: string]: { packageName: string; exported: boolean; importNode?: ImportDeclaration };
+	} = {};
+
+	const migrationIconImports: {
+		[key: string]: { packageName: string; exported: boolean; importNode?: ImportDeclaration };
+	} = {};
+
 	const newButtonImports = new Set<string>();
+	const legacyButtonImports = new Set<string>();
 
 	const errorsManual: ErrorListManual = {};
 	const errorsAuto: ErrorListAuto = {};
 
 	let guidance: GuidanceList = {};
 
+	let autoIconJSXElementOccurrenceCount = 0;
+
 	// Extract parameters
 	const shouldErrorForManualMigration = getConfigFlag('shouldErrorForManualMigration', true);
 	const shouldErrorForAutoMigration = getConfigFlag('shouldErrorForAutoMigration', true);
 	const isQuietMode = getConfigFlag('quiet', false);
+	const shouldUseMigrationPath = getConfigFlag('shouldUseMigrationPath', true);
 
 	// Sorted list of ranges
 	let errorRanges: RangeList = [];
@@ -92,9 +108,29 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					legacyIconImports[spec.local.name] = {
 						packageName: moduleSource,
 						exported: false,
+						importNode: node,
 					};
 				}
 			}
+		}
+
+		// Find the imports for icons that import from migration path
+		if (
+			moduleSource &&
+			typeof moduleSource === 'string' &&
+			(moduleSource.startsWith('@atlaskit/icon/core/migration/') ||
+				moduleSource.startsWith('@atlaskit/icon/utility/migration/')) &&
+			node.specifiers.length
+		) {
+			node.specifiers.forEach((spec) => {
+				if (spec.local.name) {
+					migrationIconImports[spec.local.name] = {
+						packageName: moduleSource,
+						exported: false,
+						importNode: node,
+					};
+				}
+			});
 		}
 
 		// Find the imports for new button and IconButton
@@ -108,6 +144,22 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					newButtonImports.add(spec.local.name);
 				} else if (spec.type === 'ImportSpecifier' && spec.imported.name === 'IconButton') {
 					newButtonImports.add(spec.local.name);
+				}
+			}
+		}
+
+		// Find the imports for legacy default button
+		if (
+			typeof moduleSource === 'string' &&
+			(moduleSource === '@atlaskit/button' ||
+				moduleSource === '@atlaskit/button/standard-button' ||
+				moduleSource === '@atlaskit/button/loading-button' ||
+				moduleSource === '@atlaskit/button/custom-theme-button') &&
+			node.specifiers.length
+		) {
+			for (const spec of node.specifiers) {
+				if (spec.type === 'ImportDefaultSpecifier') {
+					legacyButtonImports.add(spec.local.name);
 				}
 			}
 		}
@@ -178,7 +230,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		}
 		createCantMigrateReExportError(node, packageName, exportName, errorsManual);
 		addToListOfRanges(node, errorRanges);
-		guidance[locToString(node)] = createGuidance(packageName);
+		guidance[locToString(node)] = createGuidance({
+			iconPackage: packageName,
+			shouldUseMigrationPath,
+		});
 	};
 
 	/**
@@ -205,7 +260,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				for (const spec of node.specifiers) {
 					createCantMigrateReExportError(spec, moduleSource, spec.exported.name, errorsManual);
 					addToListOfRanges(spec, errorRanges);
-					guidance[locToString(spec)] = createGuidance(moduleSource);
+					guidance[locToString(spec)] = createGuidance({
+						iconPackage: moduleSource,
+						shouldUseMigrationPath,
+					});
 				}
 			}
 		} else if (node.declaration && isNodeOfType(node.declaration, 'VariableDeclaration')) {
@@ -225,9 +283,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						errorsManual,
 					);
 					addToListOfRanges(node, errorRanges);
-					guidance[locToString(node)] = createGuidance(
-						legacyIconImports[decl.init.name].packageName,
-					);
+					guidance[locToString(node)] = createGuidance({
+						iconPackage: legacyIconImports[decl.init.name].packageName,
+						shouldUseMigrationPath,
+					});
 				}
 			}
 		} else if (!node.source && node.specifiers && node.specifiers.length > 0) {
@@ -251,9 +310,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						errorsManual,
 					);
 					addToListOfRanges(spec, errorRanges);
-					guidance[locToString(spec)] = createGuidance(
-						legacyIconImports[spec.local.name].packageName,
-					);
+					guidance[locToString(spec)] = createGuidance({
+						iconPackage: legacyIconImports[spec.local.name].packageName,
+						shouldUseMigrationPath,
+					});
 				}
 			}
 		}
@@ -279,7 +339,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				errorsManual,
 			);
 			addToListOfRanges(node, errorRanges);
-			guidance[locToString(node)] = createGuidance(legacyIconImports[node.name].packageName);
+			guidance[locToString(node)] = createGuidance({
+				iconPackage: legacyIconImports[node.name].packageName,
+				shouldUseMigrationPath,
+			});
 		}
 	};
 
@@ -320,18 +383,19 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				(newIcon && isInNewButton && isNewIconMigratable) ||
 				(upcomingIcon && isInNewButton && isNewIconMigratable)
 			) {
-				createAutoMigrationError(
+				createAutoMigrationError({
 					node,
-					legacyIconImports[node.name].packageName,
-					node.name,
-					errorsAuto,
-				);
+					importSource: legacyIconImports[node.name].packageName,
+					iconName: node.name,
+					errors: errorsAuto,
+				});
 				addToListOfRanges(node, errorRanges);
-				guidance[locToString(node)] = createGuidance(
-					legacyIconImports[node.name].packageName,
-					isInNewButton,
-					'medium',
-				);
+				guidance[locToString(node)] = createGuidance({
+					iconPackage: legacyIconImports[node.name].packageName,
+					insideNewButton: true,
+					size: 'medium',
+					shouldUseMigrationPath,
+				});
 			} else if ((!newIcon && !upcomingIcon) || !isNewIconMigratable) {
 				createCantFindSuitableReplacementError(
 					node,
@@ -340,10 +404,11 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					errorsManual,
 				);
 				addToListOfRanges(node, errorRanges);
-				guidance[locToString(node)] = createGuidance(
-					legacyIconImports[node.name].packageName,
-					isInNewButton,
-				);
+				guidance[locToString(node)] = createGuidance({
+					iconPackage: legacyIconImports[node.name].packageName,
+					insideNewButton: isInNewButton,
+					shouldUseMigrationPath,
+				});
 			} else if (!isInNewButton) {
 				createCantMigrateFunctionUnknownError(
 					node,
@@ -352,19 +417,16 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					errorsManual,
 				);
 				addToListOfRanges(node, errorRanges);
-				guidance[locToString(node)] = createGuidance(
-					legacyIconImports[node.name].packageName,
-					isInNewButton,
-				);
+				guidance[locToString(node)] = createGuidance({
+					iconPackage: legacyIconImports[node.name].packageName,
+					insideNewButton: false,
+					shouldUseMigrationPath,
+				});
 			}
 		}
 	};
 
 	const checkIconReference = (node: Identifier & Rule.NodeParentExtension): void => {
-		//check the reference to see if it's a legacy icon, if not exit early
-		if (!Object.keys(legacyIconImports).includes(node.name)) {
-			return;
-		}
 		//if this is an import statement then exit early
 		if (
 			node.parent &&
@@ -373,6 +435,22 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		) {
 			return;
 		}
+
+		// Flag icons imported from migration path
+		if (!shouldUseMigrationPath && Object.keys(migrationIconImports).includes(node.name)) {
+			createAutoMigrationError({
+				node,
+				importSource: migrationIconImports[node.name].packageName,
+				iconName: node.name,
+				errors: errorsAuto,
+			});
+		}
+
+		//check the reference to see if it's a legacy icon, if not exit early
+		if (!Object.keys(legacyIconImports).includes(node.name)) {
+			return;
+		}
+
 		//if in Fallback prop, do not error
 		if (
 			node.parent &&
@@ -413,24 +491,47 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		}
 
 		const name = node.openingElement.name.name;
+
+		// Flag icons imported from migration path
+		if (!shouldUseMigrationPath && Object.keys(migrationIconImports).includes(name)) {
+			const sizeProp = node.openingElement.attributes.find(
+				(attribute) =>
+					attribute.type === 'JSXAttribute' &&
+					(attribute.name.name === 'size' || attribute.name.name === 'LEGACY_size'),
+			);
+
+			const insideNewButton = isInsideNewButton(node, newButtonImports);
+			// Add spacious spacing if:
+			// 1. size is medium, or not set (default is medium)
+			// 2. not inside a new or legacy button
+			const shouldAddSpaciousSpacing =
+				((sizeProp &&
+					sizeProp.type === 'JSXAttribute' &&
+					sizeProp.value?.type === 'Literal' &&
+					sizeProp.value.value === 'medium') ||
+					!sizeProp) &&
+				!isInsideNewButton(node, newButtonImports) &&
+				!isInsideLegacyButton(node, legacyButtonImports);
+
+			createAutoMigrationError({
+				node,
+				importSource: migrationIconImports[name].packageName,
+				iconName: name,
+				errors: errorsAuto,
+				shouldAddSpaciousSpacing,
+				insideNewButton,
+			});
+		}
+
 		// Legacy icons rendered as JSX elements
 		if (Object.keys(legacyIconImports).includes(name)) {
 			// Determine if inside a new button - if so:
 			// - Assume spread props are safe - still error if props explicitly set to unmigratable values
-			let insideNewButton = false;
-			if (
-				node.parent &&
-				isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
-				node.parent?.parent?.parent &&
-				isNodeOfType(node.parent.parent.parent, 'JSXAttribute') &&
-				isNodeOfType(node.parent.parent.parent.name, 'JSXIdentifier') &&
-				node.parent?.parent?.parent?.parent &&
-				isNodeOfType(node.parent.parent.parent.parent, 'JSXOpeningElement') &&
-				isNodeOfType(node.parent.parent.parent.parent.name, 'JSXIdentifier') &&
-				newButtonImports.has(node.parent.parent.parent.parent.name.name)
-			) {
-				insideNewButton = true;
-			}
+			const insideNewButton = isInsideNewButton(node, newButtonImports);
+
+			// Determine if inside a legacy default button - if so:
+			// the auto fixer will add spacing prop to the medium size icon
+			const insideLegacyButton = isInsideLegacyButton(node, legacyButtonImports);
 
 			// Find size prop on node
 			let size: Size | null = 'medium';
@@ -540,8 +641,34 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					? upcomingIcon.sizeGuidance[size ?? 'medium']
 					: migrationMapObject?.sizeGuidance[size ?? 'medium'],
 			);
+
+			// Add spacious spacing if:
+			// 1. size is medium, or not set (default is medium)
+			// 2. not inside a new or legacy button
+			const sizeProp = node.openingElement.attributes.find(
+				(attribute) =>
+					attribute.type === 'JSXAttribute' &&
+					(attribute.name.name === 'size' || attribute.name.name === 'LEGACY_size'),
+			);
+			const shouldAddSpaciousSpacing =
+				((sizeProp &&
+					sizeProp.type === 'JSXAttribute' &&
+					sizeProp.value?.type === 'Literal' &&
+					sizeProp.value.value === 'medium') ||
+					!sizeProp) &&
+				!insideNewButton &&
+				!insideLegacyButton;
+
 			if (!hasManualMigration && (newIcon || upcomingIcon) && isNewIconMigratable) {
-				createAutoMigrationError(node, legacyIconImports[name].packageName, name, errorsAuto);
+				autoIconJSXElementOccurrenceCount++;
+				createAutoMigrationError({
+					node,
+					importSource: legacyIconImports[name].packageName,
+					iconName: name,
+					errors: errorsAuto,
+					shouldAddSpaciousSpacing,
+					insideNewButton,
+				});
 			} else if (((!newIcon && !upcomingIcon) || !isNewIconMigratable) && size) {
 				createCantFindSuitableReplacementError(
 					node,
@@ -552,11 +679,12 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				);
 			}
 			addToListOfRanges(node, errorRanges);
-			guidance[locToString(node)] = createGuidance(
-				legacyIconImports[name].packageName,
+			guidance[locToString(node)] = createGuidance({
+				iconPackage: legacyIconImports[name].packageName,
 				insideNewButton,
-				size && isSize(size) ? size : undefined,
-			);
+				size: size && isSize(size) ? size : undefined,
+				shouldUseMigrationPath,
+			});
 		}
 	};
 
@@ -579,7 +707,10 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						errorsManual,
 					);
 					addToListOfRanges(node, errorRanges);
-					guidance[locToString(node)] = createGuidance(legacyIconImports[arg.name].packageName);
+					guidance[locToString(node)] = createGuidance({
+						iconPackage: legacyIconImports[arg.name].packageName,
+						shouldUseMigrationPath,
+					});
 				}
 			}
 		}
@@ -631,6 +762,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				}
 			}
 		}
+
 		if (shouldErrorForAutoMigration) {
 			for (const [key, error] of Object.entries(errorsAuto)) {
 				// If there's a manual error that exists for this same component,
@@ -653,7 +785,65 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 					if (Object.keys(error).includes('data') && error.data) {
 						error.data.guidance = guidanceMessage;
 					}
-					context.report(error);
+
+					context.report({
+						...error,
+						fix: (fixer) => {
+							// don't migration if the new icon is not available
+							if (!error.data || (shouldUseMigrationPath && !checkIfNewIconExist(error))) {
+								return [];
+							}
+
+							const fixArguments = {
+								metadata: error.data as {
+									importSource: string;
+									spacing: string;
+									insideNewButton: string;
+								},
+								legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
+								migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
+								shouldUseMigrationPath,
+							};
+
+							const propsFixes = createPropFixes({
+								...fixArguments,
+								node,
+								fixer,
+							});
+
+							let importFixes: Rule.Fix[] = [];
+							// Otherwise if there are multiple occurrences of the icon, import path will be handled after the prop fix
+							if (autoIconJSXElementOccurrenceCount <= 1) {
+								importFixes = createImportFix({
+									...fixArguments,
+									fixer,
+								});
+							}
+							return [...propsFixes, ...importFixes];
+						},
+					});
+				}
+			}
+
+			// Update import path at the end if there are multiple occurrences of the icon
+			if (autoIconJSXElementOccurrenceCount > 1) {
+				for (const [_, error] of Object.entries(errorsAuto)) {
+					context.report({
+						...error,
+						fix: (fixer) => {
+							if (!error.data || (shouldUseMigrationPath && !checkIfNewIconExist(error))) {
+								return [];
+							}
+
+							return createImportFix({
+								metadata: error.data as { importSource: string; spacing: string },
+								fixer,
+								legacyImportNode: legacyIconImports[error.data.iconName]?.importNode,
+								migrationImportNode: migrationIconImports[error.data.iconName]?.importNode,
+								shouldUseMigrationPath,
+							});
+						},
+					});
 				}
 			}
 		}

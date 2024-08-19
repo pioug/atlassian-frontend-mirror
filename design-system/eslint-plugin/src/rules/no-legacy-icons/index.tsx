@@ -7,6 +7,7 @@ import { createHelpers } from './helpers';
 const rule = createLintRule({
 	meta: {
 		name: 'no-legacy-icons',
+		fixable: 'code',
 		type: 'problem',
 		docs: {
 			description: 'Enforces no legacy icons are used.',
@@ -24,6 +25,9 @@ const rule = createLintRule({
 						type: 'boolean',
 					},
 					quiet: {
+						type: 'boolean',
+					},
+					shouldUseMigrationPath: {
 						type: 'boolean',
 					},
 				},

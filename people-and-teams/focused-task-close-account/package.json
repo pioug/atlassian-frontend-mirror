@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/avatar": "^21.15.0",
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/drawer": "^7.14.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/inline-dialog": "^14.3.0",

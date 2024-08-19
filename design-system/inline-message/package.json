@@ -37,7 +37,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/icon": "^22.13.0",
 		"@atlaskit/inline-dialog": "^14.3.0",
 		"@atlaskit/primitives": "^12.0.0",
@@ -53,7 +53,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",

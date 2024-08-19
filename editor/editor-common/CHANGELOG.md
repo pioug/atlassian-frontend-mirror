@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 87.13.1
+
+### Patch Changes
+
+- [#131172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131172)
+  [`4b528c8da4120`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b528c8da4120) -
+  No putting visibility hidden on width detector childen if in SSR but no breakout inline script
+- Updated dependencies
+
+## 87.13.0
+
+### Minor Changes
+
+- [#130806](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130806)
+  [`0354a6dc7bfb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0354a6dc7bfb9) -
+  ENGHEALTH-9888 : Bumps React 18 in Editor
+
 ## 87.12.0
 
 ### Minor Changes

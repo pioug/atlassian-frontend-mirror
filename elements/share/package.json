@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/dropdown-menu": "^12.17.0",
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/icon": "^22.13.0",
@@ -75,7 +75,7 @@
 		"react": "^16.8.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^18.30.0",
+		"@atlaskit/editor-test-helpers": "^18.31.0",
 		"@atlaskit/flag": "^15.8.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

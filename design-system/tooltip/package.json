@@ -52,7 +52,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/ds-lib": "^2.4.0",
+		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/popper": "^6.2.0",
 		"@atlaskit/portal": "^4.9.0",
@@ -69,7 +69,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
-		"@atlaskit/button": "^20.0.0",
+		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",

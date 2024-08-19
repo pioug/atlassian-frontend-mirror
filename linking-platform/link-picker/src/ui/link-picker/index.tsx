@@ -420,14 +420,16 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 					onSubmitCapture={handleSubmit}
 				>
 					<TrackMount />
-					{isActivePlugin && screenReaderText && (
+					{isActivePlugin && (
 						<Fragment>
-							<Announcer
-								ariaLive="assertive"
-								text={screenReaderText}
-								ariaRelevant="additions"
-								delay={250}
-							/>
+							{screenReaderText && (
+								<Announcer
+									ariaLive="assertive"
+									text={screenReaderText}
+									ariaRelevant="additions"
+									delay={250}
+								/>
+							)}
 							<VisuallyHidden id={screenReaderDescriptionId}>
 								{customMessages?.linkAriaLabel ? (
 									<FormattedMessage {...customMessages.linkAriaLabel} />

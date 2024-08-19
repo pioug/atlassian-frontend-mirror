@@ -216,6 +216,12 @@ export const iconsInCustomComponent = [
 
 		<CustomComponent myIcon={<AddIcon/>}/>
 		`,
+		output: `
+		import AddIcon from '@atlaskit/icon/core/migration/add';
+		import CustomComponent from '@atlaskit/custom';
+
+		<CustomComponent myIcon={<AddIcon color="currentColor" spacing="spacious"/>}/>
+		`,
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
@@ -252,6 +258,12 @@ export const newButtonTests = [
 		name: 'Icon in IconButton',
 		code: `
 	   	import AddIcon from '@atlaskit/icon/glyph/add';
+	   	import { IconButton } from '@atlaskit/button/new';
+
+	   	<IconButton icon={AddIcon} />
+		 `,
+		output: `
+	   	import AddIcon from '@atlaskit/icon/core/migration/add';
 	   	import { IconButton } from '@atlaskit/button/new';
 
 	   	<IconButton icon={AddIcon} />
@@ -296,9 +308,18 @@ export const newButtonTests = [
 		code: `
 	   	// Basic, auto-migratable new Button
 	   	import AddIcon from '@atlaskit/icon/glyph/add';
+		import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 		import Button from '@atlaskit/button/new';
 
-	   	<Button iconBefore={AddIcon} iconAfter={AddIcon} > Add </Button>
+	   	<Button iconBefore={AddIcon} iconAfter={ChevronDown}>Add</Button>
+	   	`,
+		output: `
+	   	// Basic, auto-migratable new Button
+	   	import AddIcon from '@atlaskit/icon/core/migration/add';
+		import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
+		import Button from '@atlaskit/button/new';
+
+	   	<Button iconBefore={AddIcon} iconAfter={ChevronDown}>Add</Button>
 	   	`,
 		errors: [
 			{
@@ -310,10 +331,37 @@ export const newButtonTests = [
 		],
 	},
 	{
+		name: 'Icons rendered in new button with medium size',
+		code: `
+	   	import AddIcon from '@atlaskit/icon/glyph/add';
+		import Button from '@atlaskit/button/new';
+
+	   	<Button iconBefore={(iconProps) => <AddIcon {...iconProps} size="medium" />}>Add</Button>
+	   	`,
+		output: `
+	   	import AddIcon from '@atlaskit/icon/core/migration/add';
+		import Button from '@atlaskit/button/new';
+
+	   	<Button iconBefore={(iconProps) => <AddIcon {...iconProps} LEGACY_size="medium" />}>Add</Button>
+	   	`,
+		errors: [
+			{
+				messageId: 'noLegacyIconsAutoMigration',
+			},
+		],
+	},
+	{
 		name: 'Basic, auto-migratable Button with render props',
 		code: `
 	   	// Basic, auto-migratable new Button (with render props)
 		import AddIcon from '@atlaskit/icon/glyph/add';
+	   	import Button from '@atlaskit/button/new';
+
+	   	<Button iconBefore={(iconProps) => <AddIcon {...iconProps} />} > Add </Button>
+		 `,
+		output: `
+	   	// Basic, auto-migratable new Button (with render props)
+		import AddIcon from '@atlaskit/icon/core/migration/add';
 	   	import Button from '@atlaskit/button/new';
 
 	   	<Button iconBefore={(iconProps) => <AddIcon {...iconProps} />} > Add </Button>
@@ -333,6 +381,13 @@ export const newButtonTests = [
 
 	   	<IconButton icon={(iconProps) => <AddIcon {...iconProps} />} label="Add" />
 		 `,
+		output: `
+	   	// Basic, auto-migratable IconButton (render props)
+		import AddIcon from '@atlaskit/icon/core/migration/add';
+	   	import { IconButton } from '@atlaskit/button/new';
+
+	   	<IconButton icon={(iconProps) => <AddIcon {...iconProps} />} label="Add" />
+		 `,
 		errors: [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
@@ -344,6 +399,13 @@ export const newButtonTests = [
 		code: `
 	   	// Basic, auto-migratable IconButton
 		import AddIcon from '@atlaskit/icon/glyph/add';
+	   	import { IconButton } from '@atlaskit/button/new';
+
+	   	<IconButton icon={AddIcon} label="Add" />
+		 `,
+		output: `
+	   	// Basic, auto-migratable IconButton
+		import AddIcon from '@atlaskit/icon/core/migration/add';
 	   	import { IconButton } from '@atlaskit/button/new';
 
 	   	<IconButton icon={AddIcon} label="Add" />
@@ -361,12 +423,52 @@ export const newButtonTests = [
  */
 export const oldButtonTests = [
 	{
-		name: 'Icon rendered in old button',
+		name: 'Icon rendered in legacy buttons',
+		code: `
+		import AddIcon from '@atlaskit/icon/glyph/add';
+		import Button from '@atlaskit/button';
+		import StandardButton from '@atlaskit/button/standard-button';
+		import LoadingButton from '@atlaskit/button/loading-button';
+		import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+
+		<div>
+			<Button iconBefore={<AddIcon label="" />} > Add </Button>
+			<StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
+			<LoadingButton iconBefore={<AddIcon label="" />} > Add </LoadingButton>
+			<CustomThemeButton iconBefore={<AddIcon label="" />} > Add </CustomThemeButton>
+		</div>
+		`,
+		output: `
+		import AddIcon from '@atlaskit/icon/core/migration/add';
+		import Button from '@atlaskit/button';
+		import StandardButton from '@atlaskit/button/standard-button';
+		import LoadingButton from '@atlaskit/button/loading-button';
+		import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+
+		<div>
+			<Button iconBefore={<AddIcon color="currentColor" label="" />} > Add </Button>
+			<StandardButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </StandardButton>
+			<LoadingButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </LoadingButton>
+			<CustomThemeButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </CustomThemeButton>
+		</div>
+		`,
+		errors: Array(8).fill({
+			messageId: 'noLegacyIconsAutoMigration',
+		}),
+	},
+	{
+		name: 'Icon rendered in old button with medium size',
 		code: `
 		import AddIcon from '@atlaskit/icon/glyph/add';
 		import Button from '@atlaskit/button';
 
-		<Button iconBefore={<AddIcon label="" />} > Add </Button>
+		<Button iconBefore={<AddIcon label="" size="medium" />}>Add</Button>
+		`,
+		output: `
+		import AddIcon from '@atlaskit/icon/core/migration/add';
+		import Button from '@atlaskit/button';
+
+		<Button iconBefore={<AddIcon color="currentColor" label="" LEGACY_size="medium" />}>Add</Button>
 		`,
 		errors: [
 			{
@@ -400,7 +502,6 @@ export const spreadPropsTests = [
 		name: 'Spread Props on Icon but all required props are re-assigned',
 		code: `
 		// Spread props, but migratable
-		import { IconTile } from '@atlaskit/icon';
 		import { token } from '@atlaskit/tokens';
 		import AddIcon from '@atlaskit/icon/glyph/add';
 
@@ -412,6 +513,25 @@ export const spreadPropsTests = [
 					primaryColor={token('color.link')}
 					secondaryColor={token('color.icon.inverse')}
 					size="medium"
+				>
+					Add
+				</AddIcon>
+			}
+		/>
+		`,
+		output: `
+		// Spread props, but migratable
+		import { token } from '@atlaskit/tokens';
+		import AddIcon from '@atlaskit/icon/core/migration/add';
+
+		<Component
+			icon={ (iconProps) =>
+				<AddIcon
+					label=""
+					{...iconProps}
+					color={token('color.link')}
+					LEGACY_secondaryColor={token('color.icon.inverse')}
+					LEGACY_size="medium" spacing="spacious"
 				>
 					Add
 				</AddIcon>
@@ -509,7 +629,7 @@ export const colorTests = [
 	{
 		name: 'Color on icon is supported',
 		code: `
-	  import AddIcon from '@atlaskit/icon/glyph/add';
+	    import AddIcon from '@atlaskit/icon/glyph/add';
 		import { token } from '@atlaskit/tokens';
 
 		// Color is using supported string color - can migrate to 'color' via codemod
@@ -520,17 +640,21 @@ export const colorTests = [
 				<AddIcon primaryColor={token('color.link')} label="" />
 			</div>
 	  	`,
-		errors: [
-			{
-				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'noLegacyIconsAutoMigration',
-			},
-			{
-				messageId: 'noLegacyIconsAutoMigration',
-			},
-		],
+		output: `
+	    import AddIcon from '@atlaskit/icon/core/migration/add';
+		import { token } from '@atlaskit/tokens';
+
+		// Color is using supported string color - can migrate to 'color' via codemod
+		() =>
+			<div>
+				<AddIcon spacing="spacious" color={token('color.text.danger')} label="" />
+				<AddIcon spacing="spacious" color={token('color.text')} label="" />
+				<AddIcon spacing="spacious" color={token('color.link')} label="" />
+			</div>
+	  	`,
+		errors: Array(6).fill({
+			messageId: 'noLegacyIconsAutoMigration',
+		}),
 	},
 	{
 		name: 'Color on icon is unsupported',

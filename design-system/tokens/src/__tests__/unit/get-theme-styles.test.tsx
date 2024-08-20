@@ -385,6 +385,10 @@ describe('getThemeStyles', () => {
 						id: 'typography-modernized',
 						attrs: { 'data-theme': 'typography-modernized' },
 					},
+					{
+						id: 'typography-refreshed',
+						attrs: { 'data-theme': 'typography-refreshed' },
+					},
 				]);
 			},
 			(ff) => {
@@ -412,6 +416,10 @@ describe('getThemeStyles', () => {
 						{
 							id: 'typography-modernized',
 							attrs: { 'data-theme': 'typography-modernized' },
+						},
+						{
+							id: 'typography-refreshed',
+							attrs: { 'data-theme': 'typography-refreshed' },
 						},
 					]);
 				};

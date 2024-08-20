@@ -49,7 +49,7 @@ import { moveSourceWithAnalytics } from '../pm-plugins/drag-and-drop/commands-wi
 import { getPluginState as getTablePluginState } from '../pm-plugins/plugin-factory';
 import { getNewResizeStateFromSelectedColumns } from '../pm-plugins/table-resizing/utils/resize-state';
 import { getClosestSelectionRect } from '../toolbar';
-import type { DraggableData, DraggableType, TableDirection } from '../types';
+import type { DraggableData, DraggableType, PluginInjectionAPI, TableDirection } from '../types';
 import { AddColLeftIcon, AddColRightIcon, AddRowAboveIcon, AddRowBelowIcon } from '../ui/icons';
 
 import {
@@ -139,6 +139,7 @@ export const getDragMenuConfig = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	hasMergedCellsInTable: boolean,
 	editorView: EditorView,
+	api: PluginInjectionAPI | undefined | null,
 	tableMap?: TableMap,
 	index?: number,
 	targetCellPosition?: number,
@@ -275,6 +276,7 @@ export const getDragMenuConfig = (
 					)(state, dispatch);
 				} else {
 					insertColumnWithAnalytics(
+						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
 						tableDuplicateCellColouring,
@@ -304,7 +306,7 @@ export const getDragMenuConfig = (
 							);
 
 							if (newResizeState) {
-								distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
+								distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
 									INPUT_METHOD.TABLE_CONTEXT_MENU,
 									newResizeState,
 								)(state, dispatch);
@@ -343,6 +345,7 @@ export const getDragMenuConfig = (
 				} else {
 					deleteColumnsWithAnalytics(
 						editorAnalyticsAPI,
+						api,
 						isTableScalingEnabled,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,

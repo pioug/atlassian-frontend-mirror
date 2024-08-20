@@ -42,9 +42,6 @@
 			"path": "../banner/tsconfig.app.json"
 		},
 		{
-			"path": "../button/tsconfig.app.json"
-		},
-		{
 			"path": "../code/tsconfig.app.json"
 		},
 		{
@@ -54,10 +51,10 @@
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{
-			"path": "../link/tsconfig.app.json"
+			"path": "../icon/tsconfig.app.json"
 		},
 		{
-			"path": "../logo/tsconfig.app.json"
+			"path": "../link/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

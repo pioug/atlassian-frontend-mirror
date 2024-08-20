@@ -1,6 +1,9 @@
 import React from 'react';
 
+import Banner from '@atlaskit/banner';
 import { Code } from '@atlaskit/code';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Link from '@atlaskit/link';
 
 import Page, { Grid, GridColumn } from '../src';
 
@@ -10,6 +13,14 @@ import VerticalSpace from './common/vertical-space';
 const BasicExample = () => {
 	return (
 		<Page>
+			<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
+				We are planning on deprecating Page component. We recommend using the Page layout component
+				instead.
+				<Link target="_blank" href="https://atlassian.design/components/page-layout">
+					{' '}
+					View page layout documentation
+				</Link>
+			</Banner>
 			<Grid spacing="comfortable" layout="fluid" testId="column-none">
 				<Dummy>
 					This container is not wrapped in a <Code>GridColumn</Code>.

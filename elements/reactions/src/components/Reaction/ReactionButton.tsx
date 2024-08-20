@@ -40,6 +40,7 @@ interface ReactionButtonProps extends Pick<ReactionProps, 'flash'> {
 	className?: string;
 	additionalStyles?: Array<XCSS>;
 	ariaLabel: string;
+	ariaPressed?: boolean;
 	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	dataAttributes?: { [key: string]: string };
@@ -51,6 +52,7 @@ export const ReactionButton = ({
 	flash = false,
 	additionalStyles = [],
 	ariaLabel,
+	ariaPressed,
 	onMouseEnter,
 	onFocus,
 	children,
@@ -63,6 +65,7 @@ export const ReactionButton = ({
 			onMouseEnter={onMouseEnter}
 			onFocus={onFocus}
 			aria-label={ariaLabel}
+			aria-pressed={ariaPressed}
 			testId={testId}
 			xcss={[reactionStyles, ...additionalStyles]}
 			{...dataAttributes}

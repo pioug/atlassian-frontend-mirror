@@ -72,6 +72,7 @@ import { pluginKey as tablePluginKey } from '../../pm-plugins/plugin-key';
 import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
 import { canMergeCells } from '../../transforms';
 import { TableCssClassName as ClassName } from '../../types';
+import type { PluginInjectionAPI } from '../../types';
 import {
 	getMergedCellsPositions,
 	getSelectedColumnIndexes,
@@ -97,6 +98,7 @@ export interface Props {
 	allowBackgroundColor?: boolean;
 	boundariesElement?: HTMLElement;
 	offset?: Array<number>;
+	api: PluginInjectionAPI | undefined | null;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	getEditorContainerWidth: GetEditorContainerWidth;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
@@ -722,7 +724,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				);
 
 				if (newResizeStateWithAnalytics) {
-					distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
+					distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, this.props.api)(
 						INPUT_METHOD.CONTEXT_MENU,
 						newResizeStateWithAnalytics,
 					)(state, dispatch);
@@ -738,6 +740,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				break;
 			case 'insert_column':
 				insertColumnWithAnalytics(
+					this.props.api,
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
 					tableDuplicateCellColouring,
@@ -759,6 +762,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 			case 'delete_column':
 				deleteColumnsWithAnalytics(
 					editorAnalyticsAPI,
+					this.props.api,
 					isTableScalingEnabled,
 					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,

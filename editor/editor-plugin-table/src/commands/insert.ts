@@ -25,6 +25,7 @@ import {
 import { updateRowOrColumnMovedTransform } from '../pm-plugins/analytics/commands';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import { rescaleColumns } from '../transforms/column-width';
+import type { PluginInjectionAPI } from '../types';
 import { checkIfHeaderRowEnabled, copyPreviousRow, createTableWithWidth } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
 
@@ -39,6 +40,7 @@ function addColumnAtCustomStep(column: number) {
 }
 
 export function addColumnAt(
+	api: PluginInjectionAPI | undefined | null,
 	isTableScalingEnabled = false,
 	isCellBackgroundDuplicated?: boolean,
 	isTableFixedColumnWidthsOptionEnabled?: boolean,
@@ -63,6 +65,7 @@ export function addColumnAt(
 					isTableScalingEnabled,
 					isTableFixedColumnWidthsOptionEnabled,
 					shouldUseIncreasedScalingPercent,
+					api,
 				)(
 					table,
 					view,
@@ -89,6 +92,7 @@ export function addColumnAt(
 // Command to add a column before the column with the selection.
 export const addColumnBefore =
 	(
+		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isCellBackgroundDuplicated = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
@@ -103,6 +107,7 @@ export const addColumnBefore =
 			let rect = selectedRect(state);
 			dispatch(
 				addColumnAt(
+					api,
 					isTableScalingEnabled,
 					isCellBackgroundDuplicated,
 					isTableFixedColumnWidthsOptionEnabled,
@@ -121,6 +126,7 @@ export const addColumnBefore =
 // Command to add a column after the column with the selection.
 export const addColumnAfter =
 	(
+		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled?: boolean,
 		isCellBackgroundDuplicated?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
@@ -136,6 +142,7 @@ export const addColumnAfter =
 			let rect = selectedRect(state);
 			dispatch(
 				addColumnAt(
+					api,
 					isTableScalingEnabled,
 					isCellBackgroundDuplicated,
 					isTableFixedColumnWidthsOptionEnabled,
@@ -152,6 +159,7 @@ export const addColumnAfter =
 
 export const insertColumn =
 	(
+		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isCellBackgroundDuplicated?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
@@ -160,6 +168,7 @@ export const insertColumn =
 	(column: number): Command =>
 	(state, dispatch, view) => {
 		let tr = addColumnAt(
+			api,
 			isTableScalingEnabled,
 			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,

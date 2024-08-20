@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.2
+
+### Patch Changes
+
+- [#131777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131777)
+  [`3c12389d16342`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c12389d16342) -
+  [ux] ED-24410 Fix drag handle position for nested nodes
+
 ## 1.12.1
 
 ### Patch Changes

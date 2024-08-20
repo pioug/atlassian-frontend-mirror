@@ -21,7 +21,7 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
-import type { PluginConfig } from '../../types';
+import type { PluginConfig, PluginInjectionAPI } from '../../types';
 import {
 	contextualMenuDropdownWidth,
 	contextualMenuDropdownWidthDnD,
@@ -36,6 +36,7 @@ export interface Props {
 	editorView: EditorView;
 	isOpen: boolean;
 	getEditorContainerWidth: GetEditorContainerWidth;
+	api: PluginInjectionAPI | undefined | null;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	targetCellPosition?: number;
 	mountPoint?: HTMLElement;
@@ -59,6 +60,7 @@ const FloatingContextualMenu = ({
 	getEditorFeatureFlags,
 	isCellMenuOpenByKeyboard,
 	isCommentEditor,
+	api,
 }: Props) => {
 	// TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
 	const { targetCellPosition, isDragAndDropEnabled } = getPluginState(editorView.state);
@@ -117,6 +119,7 @@ const FloatingContextualMenu = ({
 					getEditorFeatureFlags={getEditorFeatureFlags}
 					isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 					isCommentEditor={isCommentEditor}
+					api={api}
 				/>
 			</div>
 		</Popup>

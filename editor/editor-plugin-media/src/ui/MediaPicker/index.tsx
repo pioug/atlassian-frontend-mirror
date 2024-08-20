@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -50,9 +49,7 @@ const MediaPicker = ({
 	 * so editor-paste-plugin can use stopPropagation,
 	 * as stopImmediatePropagation could cause race condition issues
 	 */
-	const container = getBooleanFF('platform.editor.media.fix-copy-paste-excel_62g4s')
-		? editorParent
-		: editorDom;
+	const container = editorParent;
 
 	const clipboard = focusState?.hasFocus ? (
 		<ClipboardWrapper mediaState={mediaState} featureFlags={featureFlags} container={container} />

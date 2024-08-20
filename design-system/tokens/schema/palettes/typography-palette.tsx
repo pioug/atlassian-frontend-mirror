@@ -43,6 +43,7 @@ export type FontFamilyPaletteValues =
 	| 'FontFamilyCharlieDisplay'
 	| 'FontFamilyCharlieText'
 	| 'FontFamilyWebSans'
+	| 'FontFamilyWebSansRefreshed'
 	| 'LegacyFontFamilyWebSans'
 	| 'FontFamilyiOSSans'
 	| 'FontFamilyAndroidSans'
@@ -236,6 +237,12 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
 		 */
 		FontFamilyWebSans: {
 			value: `ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
+			attributes: {
+				group: 'fontFamily',
+			},
+		},
+		FontFamilyWebSansRefreshed: {
+			value: `\"Inter Variable\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
 			attributes: {
 				group: 'fontFamily',
 			},

@@ -1,11 +1,8 @@
 /**
  * @jsxRuntime classic
- */
-/**
- * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { type FC, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -35,7 +32,11 @@ const spacerStyles = xcss({
 	gap: 'space.150',
 });
 
-const NestedPopup = () => {
+interface NestedPopupProps {
+	level: number;
+}
+
+const NestedPopup: FC<NestedPopupProps> = ({ level }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -50,7 +51,7 @@ const NestedPopup = () => {
 				testId="nested-popup"
 				placement="right-start"
 				onClose={() => setIsOpen(false)}
-				content={() => <NestedPopup />}
+				content={() => <NestedPopup level={level + 1} />}
 				trigger={(triggerProps) => (
 					<Box xcss={lastButtonWrapperStyles}>
 						<ButtonItem
@@ -60,7 +61,7 @@ const NestedPopup = () => {
 							onClick={() => setIsOpen(true)}
 							iconAfter={<ArrowRight label="" />}
 						>
-							More actions
+							More actions (Level {level})
 						</ButtonItem>
 					</Box>
 				)}
@@ -82,7 +83,7 @@ export default () => {
 				shouldRenderToParent
 				testId="popup"
 				onClose={() => setIsOpen(false)}
-				content={() => <NestedPopup />}
+				content={() => <NestedPopup level={1} />}
 				placement="bottom-start"
 				trigger={(triggerProps) => (
 					<Button

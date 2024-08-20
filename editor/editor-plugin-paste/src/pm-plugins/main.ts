@@ -34,7 +34,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes } from '../actions';
 import { splitParagraphs, upgradeTextToLists } from '../commands';
@@ -240,9 +239,7 @@ export function createPlugin(
 					 * stopImmediatePropagation will run the first event attached to the same element
 					 * Which chould have race condition issue
 					 */
-					fg('platform.editor.media.fix-copy-paste-excel_62g4s')
-						? event.stopPropagation()
-						: event.stopImmediatePropagation();
+					event.stopPropagation();
 				}
 
 				const { state } = view;

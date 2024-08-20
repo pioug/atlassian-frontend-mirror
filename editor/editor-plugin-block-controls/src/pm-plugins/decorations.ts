@@ -24,7 +24,7 @@ const IGNORE_NODES = [
 	'listItem',
 	'caption',
 ];
-const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList'];
+const IGNORE_NODE_DESCENDANTS = ['listItem', 'taskList', 'decisionList', 'mediaSingle'];
 const PARENT_WITH_END_DROP_TARGET = [
 	'tableCell',
 	'tableHeader',

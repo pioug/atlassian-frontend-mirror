@@ -18,7 +18,7 @@ import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
 import { deleteColumnsWithAnalytics, deleteRowsWithAnalytics } from '../../commands-with-analytics';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
-import type { TableDirection } from '../../types';
+import type { PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
 	getColumnDeleteButtonParams,
@@ -35,6 +35,7 @@ import type { CellSelectionType } from './types';
 export interface Props {
 	editorView: EditorView;
 	selection: Selection;
+	api: PluginInjectionAPI | undefined | null;
 	tableRef?: HTMLTableElement;
 	mountPoint?: HTMLElement;
 	boundariesElement?: HTMLElement;
@@ -257,7 +258,7 @@ class FloatingDeleteButton extends Component<Props, State> {
 		if (rect) {
 			switch (this.state.selectionType) {
 				case 'column': {
-					deleteColumnsWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.BUTTON, rect)(
+					deleteColumnsWithAnalytics(editorAnalyticsAPI, this.props.api)(INPUT_METHOD.BUTTON, rect)(
 						state,
 						dispatch,
 						this.props.editorView,

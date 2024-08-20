@@ -55,7 +55,7 @@ import {
 import { toggleDragMenu } from '../../pm-plugins/drag-and-drop/commands';
 import { getPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
-import type { PluginConfig, TableDirection } from '../../types';
+import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
 	checkIfHeaderColumnEnabled,
@@ -86,6 +86,7 @@ type DragMenuProps = {
 	targetCellPosition?: number;
 	pluginConfig?: PluginConfig;
 	getEditorContainerWidth: GetEditorContainerWidth;
+	api: PluginInjectionAPI | undefined | null;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	fitWidth?: number;
 	fitHeight?: number;
@@ -270,6 +271,7 @@ export const DragMenu = React.memo(
 		tableNode,
 		targetCellPosition,
 		getEditorContainerWidth,
+		api,
 		editorAnalyticsAPI,
 		pluginConfig,
 		intl: { formatMessage },
@@ -303,6 +305,7 @@ export const DragMenu = React.memo(
 			getEditorContainerWidth,
 			hasMergedCellsInTable,
 			editorView,
+			api,
 			tableMap,
 			index,
 			targetCellPosition,

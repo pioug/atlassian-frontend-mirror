@@ -55,10 +55,11 @@ import {
 	createTable,
 } from '../commands/insert';
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
-import type { PluginInjectionAPIWithA11y } from '../types';
+import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
 
 export function keymapPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	dragAndDropEnabled?: boolean,
 	isTableScalingEnabled = false,
@@ -124,6 +125,7 @@ export function keymapPlugin(
 	bindKeymapWithCommand(
 		addColumnBefore.common!,
 		addColumnBeforeCommand(
+			api,
 			isTableScalingEnabled,
 			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
@@ -135,6 +137,7 @@ export function keymapPlugin(
 	bindKeymapWithCommand(
 		addColumnAfter.common!,
 		addColumnAfterCommand(
+			api,
 			isTableScalingEnabled,
 			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
@@ -158,6 +161,7 @@ export function keymapPlugin(
 	bindKeymapWithCommand(
 		addColumnBeforeVO.common!,
 		addColumnBeforeCommand(
+			api,
 			isTableScalingEnabled,
 			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
@@ -169,6 +173,7 @@ export function keymapPlugin(
 	bindKeymapWithCommand(
 		addColumnAfterVO.common!,
 		addColumnAfterCommand(
+			api,
 			isTableScalingEnabled,
 			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
@@ -231,6 +236,7 @@ export function keymapPlugin(
 			deleteColumn.common!,
 			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
+				api,
 				isTableScalingEnabled,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
@@ -242,6 +248,7 @@ export function keymapPlugin(
 			deleteRow.common!,
 			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
+				api,
 				isTableScalingEnabled,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
@@ -281,7 +288,7 @@ export function keymapPlugin(
 
 	bindKeymapWithCommand(
 		decreaseMediaSize.common!,
-		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
+		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI, api)(
 			-10,
 			getEditorContainerWidth,
 			isTableScalingEnabled,
@@ -296,7 +303,7 @@ export function keymapPlugin(
 
 	bindKeymapWithCommand(
 		increaseMediaSize.common!,
-		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
+		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI, api)(
 			10,
 			getEditorContainerWidth,
 			isTableScalingEnabled,

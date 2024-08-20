@@ -88,6 +88,7 @@ import { canMergeCells } from './transforms';
 import type {
 	AlignmentOptions,
 	PluginConfig,
+	PluginInjectionAPI,
 	ToolbarMenuConfig,
 	ToolbarMenuContext,
 	ToolbarMenuState,
@@ -192,6 +193,7 @@ export const getToolbarCellOptionsConfig = (
 	initialSelectionRect: Rect,
 	{ formatMessage }: ToolbarMenuContext,
 	getEditorContainerWidth: GetEditorContainerWidth,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
 	isCellBackgroundDuplicated = false,
@@ -213,6 +215,7 @@ export const getToolbarCellOptionsConfig = (
 				const index = selectionRect?.right;
 				if (index) {
 					insertColumnWithAnalytics(
+						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
 						isCellBackgroundDuplicated,
@@ -256,6 +259,7 @@ export const getToolbarCellOptionsConfig = (
 				if (selectionRect) {
 					deleteColumnsWithAnalytics(
 						editorAnalyticsAPI,
+						api,
 						isTableScalingEnabled,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
@@ -330,7 +334,7 @@ export const getToolbarCellOptionsConfig = (
 
 		const distributeColumnWidths: Command = (state, dispatch) => {
 			if (newResizeStateWithAnalytics) {
-				distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
+				distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
 					INPUT_METHOD.FLOATING_TB,
 					newResizeStateWithAnalytics,
 				)(state, dispatch);
@@ -460,6 +464,7 @@ export const getClosestSelectionOrTableRect = (state: EditorState): Rect | undef
 export const getToolbarConfig =
 	(
 		getEditorContainerWidth: GetEditorContainerWidth,
+		api: PluginInjectionAPI | undefined | null,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		getEditorFeatureFlags: GetEditorFeatureFlags,
 		getEditorView: () => EditorView | null,
@@ -546,6 +551,7 @@ export const getToolbarConfig =
 						editorView,
 						intl,
 						getEditorContainerWidth,
+						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
 						isCellBackgroundDuplicated,
@@ -560,6 +566,7 @@ export const getToolbarConfig =
 						editorView,
 						intl,
 						getEditorContainerWidth,
+						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
 						isTableFixedColumnWidthsOptionEnabled,
@@ -660,6 +667,7 @@ const getCellItems = (
 	view: EditorView | null,
 	{ formatMessage }: ToolbarMenuContext,
 	getEditorContainerWidth: GetEditorContainerWidth,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
 	isCellBackgroundDuplicated = false,
@@ -675,6 +683,7 @@ const getCellItems = (
 			initialSelectionRect,
 			{ formatMessage },
 			getEditorContainerWidth,
+			api,
 			editorAnalyticsAPI,
 			isTableScalingEnabled,
 			isCellBackgroundDuplicated,
@@ -690,6 +699,7 @@ const getCellItems = (
 export const getDistributeConfig =
 	(
 		getEditorContainerWidth: GetEditorContainerWidth,
+		api: PluginInjectionAPI | undefined | null,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
@@ -712,7 +722,7 @@ export const getDistributeConfig =
 		);
 
 		if (newResizeStateWithAnalytics) {
-			distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI)(
+			distributeColumnsWidthsWithAnalytics(editorAnalyticsAPI, api)(
 				INPUT_METHOD.FLOATING_TB,
 				newResizeStateWithAnalytics,
 			)(state, dispatch);
@@ -728,6 +738,7 @@ const getColumnSettingItems = (
 	editorView: EditorView | undefined | null,
 	{ formatMessage }: ToolbarMenuContext,
 	getEditorContainerWidth: GetEditorContainerWidth,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
@@ -760,6 +771,7 @@ const getColumnSettingItems = (
 			onClick: (state, dispatch, view) =>
 				getDistributeConfig(
 					getEditorContainerWidth,
+					api,
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
 					isTableFixedColumnWidthsOptionEnabled,

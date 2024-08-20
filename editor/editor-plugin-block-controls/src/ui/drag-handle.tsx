@@ -321,7 +321,7 @@ const DragHandleInternal = ({
 		if (supportsAnchor) {
 			return {
 				left:
-					hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
+					(hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer
 						? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
 						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
 
@@ -334,7 +334,7 @@ const DragHandleInternal = ({
 		}
 		return {
 			left:
-				hasResizer || isExtension || isEmbedCard || (isBlockCard && innerContainer)
+				(hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer
 					? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
 					: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType),
 			top: fg('platform_editor_elements_dnd_ed_23674')

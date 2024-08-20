@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 22.10.14
+
+### Patch Changes
+
+- [#131670](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131670)
+  [`cf2674202fc67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf2674202fc67) -
+  CCA11Y-1062 - Introduced aria-pressed in reaction button for a11y reasons
+
 ## 22.10.13
 
 ### Patch Changes

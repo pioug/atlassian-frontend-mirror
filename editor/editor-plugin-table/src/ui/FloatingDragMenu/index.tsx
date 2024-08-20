@@ -14,7 +14,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
-import type { PluginConfig, TableDirection } from '../../types';
+import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
 
 import DragMenu from './DragMenu';
@@ -31,6 +31,7 @@ export interface Props {
 	index?: number;
 	targetCellPosition?: number;
 	getEditorContainerWidth: GetEditorContainerWidth;
+	api: PluginInjectionAPI | undefined | null;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	stickyHeaders?: RowStickyState;
 	pluginConfig?: PluginConfig;
@@ -59,6 +60,7 @@ const FloatingDragMenu = ({
 	isTableScalingEnabled,
 	getEditorFeatureFlags,
 	ariaNotifyPlugin,
+	api,
 }: Props) => {
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
@@ -127,6 +129,7 @@ const FloatingDragMenu = ({
 				isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				tableSortColumnReorder={tableSortColumnReorder}
 				ariaNotifyPlugin={ariaNotifyPlugin}
+				api={api}
 			/>
 		</Popup>
 	);

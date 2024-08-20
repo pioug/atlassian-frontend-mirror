@@ -46,10 +46,17 @@ Object.defineProperty(exports, "typographyAdg3", {
     return _atlassianTypographyAdg.default;
   }
 });
+Object.defineProperty(exports, "typographyRefreshed", {
+  enumerable: true,
+  get: function get() {
+    return _atlassianTypographyRefreshed.default;
+  }
+});
 var _atlassianLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-light"));
 var _atlassianLegacyLight = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-legacy-light"));
 var _atlassianDark = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-dark"));
 var _atlassianSpacing = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-spacing"));
 var _atlassianTypographyModernized = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-modernized"));
+var _atlassianTypographyRefreshed = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-refreshed"));
 var _atlassianTypographyAdg = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-typography-adg3"));
 var _atlassianShape = _interopRequireDefault(require("../artifacts/tokens-raw/atlassian-shape"));

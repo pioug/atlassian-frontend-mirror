@@ -1,0 +1,87 @@
+{
+  "name": "Typography refreshed",
+  "tokens": {
+    "Typography refreshed/font.weight.regular": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Default font weight for body text styles."
+      },
+      "value": "400"
+    },
+    "Typography refreshed/font.weight.medium": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "For all text that may appear beside iconography, such as in a button."
+      },
+      "value": "500"
+    },
+    "Typography refreshed/font.weight.semibold": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Use with caution as fallback fonts do not support this font weight and will default to bold weight."
+      },
+      "value": "600"
+    },
+    "Typography refreshed/font.weight.bold": {
+      "attributes": {
+        "group": "fontWeight",
+        "state": "active",
+        "introduced": "0.10.33",
+        "description": "Use sparingly for emphasising text, such as in a lozenge."
+      },
+      "value": "700"
+    },
+    "Typography refreshed/font.family.heading": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "For our default product UI heading text."
+      },
+      "value": "\"Inter Variable\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography refreshed/font.family.body": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "For our default product UI body text."
+      },
+      "value": "\"Inter Variable\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography refreshed/font.family.code": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "For representing code only."
+      },
+      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
+    },
+    "Typography refreshed/font.family.brand.heading": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "For our brand heading text. Uses Charlie Display."
+      },
+      "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography refreshed/font.family.brand.body": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "For our brand body text. Uses Charlie Text."
+      },
+      "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
+    }
+  },
+  "renameMap": {}
+}

@@ -115,6 +115,7 @@ export const Reaction = ({
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const [emojiName, setEmojiName] = useState<string>();
 	const [isTooltipEnabled, setIsTooltipEnabled] = useState(true);
+	const { reacted } = reaction;
 
 	const emojiId: EmojiId = { id: reaction.emojiId, shortName: '' };
 
@@ -194,6 +195,7 @@ export const Reaction = ({
 					ariaLabel={intl.formatMessage(messages.reactWithEmoji, {
 						emoji: emojiName,
 					})}
+					ariaPressed={reacted}
 					onMouseEnter={handleMouseEnter}
 					onFocus={handleFocused}
 					testId={RENDER_REACTION_TESTID}

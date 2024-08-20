@@ -16,6 +16,7 @@ import {
 import { isMinCellWidthTable } from '../pm-plugins/table-resizing/utils/colgroup';
 import { getResizeState } from '../pm-plugins/table-resizing/utils/resize-state';
 import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
+import type { PluginInjectionAPI } from '../types';
 
 /**
  * Given a new ResizeState object, create a transaction that replaces and updates the table node based on new state.
@@ -25,7 +26,13 @@ import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
  * @returns
  */
 export const updateColumnWidths =
-	(resizeState: ResizeState, table: PMNode, start: number) =>
+	(
+		resizeState: ResizeState,
+		table: PMNode,
+		start: number,
+		// TODO: ED-24636 To be used in a follow up change
+		_api: PluginInjectionAPI | undefined | null,
+	) =>
 	(tr: Transaction): Transaction => {
 		const map = TableMap.get(table);
 		const updatedCellsAttrs: { [key: number]: CellAttributes } = {};
@@ -107,6 +114,7 @@ export const rescaleColumns =
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
+		api: PluginInjectionAPI | undefined | null,
 	) =>
 	(table: ContentNodeWithPos, view: EditorView | undefined) =>
 	(tr: Transaction): Transaction => {
@@ -195,7 +203,7 @@ export const rescaleColumns =
 				tableWidth: previousTableInfo.width,
 				overflow: wasTableInOverflow,
 			};
-			return updateColumnWidths(minWidthResizeState, table.node, table.start)(tr);
+			return updateColumnWidths(minWidthResizeState, table.node, table.start, api)(tr);
 		}
 
 		let resizeState = getResizeState({
@@ -219,5 +227,5 @@ export const rescaleColumns =
 			resizeState = scaleTableTo(resizeState, previousTableInfo.possibleMaxWidth);
 		}
 
-		return updateColumnWidths(resizeState, table.node, table.start)(tr);
+		return updateColumnWidths(resizeState, table.node, table.start, api)(tr);
 	};

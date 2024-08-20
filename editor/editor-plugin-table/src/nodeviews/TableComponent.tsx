@@ -1093,6 +1093,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				...options,
 			},
 			domAtPos,
+			this.props.pluginInjectionApi,
 			false, // isTableScalingEnabled doesn't change the behavior of nested tables
 			false, // shouldUseIncreasedScalingPercent set to false for nested tables
 		)(state.tr);

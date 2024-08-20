@@ -7,6 +7,7 @@ import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { updateColumnWidths } from '../../../transforms';
+import type { PluginInjectionAPI } from '../../../types';
 import { getTableWidth } from '../../../utils';
 import { getLayoutSize } from '../utils/misc';
 import { reduceSpace } from '../utils/resize-logic';
@@ -214,6 +215,7 @@ export const scaleTable =
 		tableRef: HTMLTableElement | null | undefined,
 		options: ScaleOptions,
 		domAtPos: DomAtPos,
+		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabledOnCurrentTable = false,
 		shouldUseIncreasedScalingPercent = false,
 	) =>
@@ -256,7 +258,7 @@ export const scaleTable =
 		}
 
 		if (resizeState) {
-			tr = updateColumnWidths(resizeState, node, start)(tr);
+			tr = updateColumnWidths(resizeState, node, start, api)(tr);
 
 			if (tr.docChanged) {
 				tr.setMeta('scrollIntoView', false);

@@ -478,8 +478,6 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			onCalendarSelect: this.onCalendarSelect,
 			calendarLocale: locale,
 			calendarWeekStartDay: weekStartDay,
-			nextMonthLabel,
-			previousMonthLabel,
 			shouldSetFocusOnCurrentDay: this.state.shouldSetFocusOnCurrentDay,
 		};
 
@@ -518,31 +516,47 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			>
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
 				<Select
+					appearance={this.props.appearance}
 					aria-describedby={ariaDescribedBy}
 					aria-label={label || undefined}
-					appearance={this.props.appearance}
-					enableAnimation={false}
-					menuIsOpen={menuIsOpen}
-					closeMenuOnSelect
 					autoFocus={autoFocus}
-					inputId={id}
-					isDisabled={isDisabled}
-					onBlur={this.onSelectBlur}
-					onFocus={this.onSelectFocus}
-					inputValue={actualSelectInputValue}
-					onInputChange={this.handleSelectInputChange}
+					closeMenuOnSelect
 					components={selectComponents}
+					enableAnimation={false}
+					inputId={id}
+					inputValue={actualSelectInputValue}
+					isDisabled={isDisabled}
+					menuIsOpen={menuIsOpen}
+					onBlur={this.onSelectBlur}
 					onChange={this.onSelectChange}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					styles={mergedStyles}
+					onFocus={this.onSelectFocus}
+					onInputChange={this.handleSelectInputChange}
 					placeholder={this.getPlaceholder()}
+					styles={mergedStyles}
 					value={initialValue}
 					{...selectProps}
-					{...calendarProps}
+					// These are below the spread because I don't know what is in
+					// selectProps or not and what wil be overwritten
 					isClearable
-					spacing={spacing}
 					isInvalid={isInvalid}
+					spacing={spacing}
 					testId={testId}
+					// These aren't part of `Select`'s API, but we're using them here.
+					calendarContainerRef={calendarProps.calendarContainerRef}
+					calendarDisabled={calendarProps.calendarDisabled}
+					calendarDisabledDateFilter={calendarProps.calendarDisabledDateFilter}
+					calendarLocale={calendarProps.calendarLocale}
+					calendarMaxDate={calendarProps.calendarMaxDate}
+					calendarMinDate={calendarProps.calendarMinDate}
+					calendarRef={calendarProps.calendarRef}
+					calendarValue={calendarProps.calendarValue}
+					calendarView={calendarProps.calendarView}
+					calendarWeekStartDay={calendarProps.calendarWeekStartDay}
+					nextMonthLabel={nextMonthLabel}
+					onCalendarChange={calendarProps.onCalendarChange}
+					onCalendarSelect={calendarProps.onCalendarSelect}
+					previousMonthLabel={previousMonthLabel}
+					shouldSetFocusOnCurrentDay={calendarProps.shouldSetFocusOnCurrentDay}
 				/>
 			</div>
 		);

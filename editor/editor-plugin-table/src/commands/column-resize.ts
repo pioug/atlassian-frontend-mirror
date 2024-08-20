@@ -37,7 +37,7 @@ import {
 } from '../pm-plugins/table-resizing/utils';
 import { updateColumnWidths } from '../transforms';
 import { TableDecorations } from '../types';
-import type { TablePluginAction } from '../types';
+import type { PluginInjectionAPI, TablePluginAction } from '../types';
 import { createColumnLineResize, getSelectedColumnIndexes, updateDecorations } from '../utils';
 
 const getTablePluginCommand = (
@@ -252,6 +252,7 @@ export const changeColumnWidthByStep =
 		isTableFixedColumnWidthsOptionEnabled,
 		isCommentEditor,
 		ariaNotify,
+		api,
 		getIntl,
 	}: {
 		stepSize: number;
@@ -259,6 +260,7 @@ export const changeColumnWidthByStep =
 		isTableScalingEnabled: boolean;
 		isTableFixedColumnWidthsOptionEnabled: boolean;
 		isCommentEditor: boolean;
+		api: PluginInjectionAPI | undefined | null;
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
 		getIntl?: () => IntlShape;
 		originalTr?: Transaction;
@@ -356,7 +358,7 @@ export const changeColumnWidthByStep =
 			shouldUseIncreasedScalingPercent,
 		);
 
-		customTr = updateColumnWidths(newResizeState, originalTable, tableStartPosition)(customTr);
+		customTr = updateColumnWidths(newResizeState, originalTable, tableStartPosition, api)(customTr);
 
 		if (dispatch) {
 			dispatch(customTr);

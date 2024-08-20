@@ -42,6 +42,7 @@ import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
 import { deleteColumns, deleteRows } from './transforms';
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from './types';
+import type { PluginInjectionAPI } from './types';
 import {
 	convertHTMLCellIndexToColumnIndex,
 	getColumnIndexMappedToColumnIndexInFirstRow,
@@ -463,6 +464,7 @@ export const handleCut = (
 	oldTr: Transaction,
 	oldState: EditorState,
 	newState: EditorState,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	editorView?: EditorView,
 	isTableScalingEnabled = false,
@@ -513,6 +515,7 @@ export const handleCut = (
 						tr = deleteColumns(
 							rect,
 							getAllowAddColumnCustomStep(oldState),
+							api,
 							editorView,
 							isTableScalingEnabled,
 							isTableFixedColumnWidthsOptionEnabled,

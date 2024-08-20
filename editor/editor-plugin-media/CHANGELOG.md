@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.29.1
+
+### Patch Changes
+
+- [#131711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131711)
+  [`00a61b846f2a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00a61b846f2a1) -
+  Cleanup FF platform.editor.media.fix-copy-paste-excel_62g4s
+
 ## 1.29.0
 
 ### Minor Changes

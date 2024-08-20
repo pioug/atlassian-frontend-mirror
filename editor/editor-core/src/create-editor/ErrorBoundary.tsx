@@ -16,7 +16,7 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
-import { isOutdatedBrowser, sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
+import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CustomData } from '@atlaskit/ufo/types';
 
@@ -174,13 +174,18 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 		});
 	}
 
-	async componentDidMount() {
-		this.browserExtensions = await sniffUserBrowserExtensions({
-			extensions: ['grammarly'],
-			async: true,
-			asyncTimeoutMs: 20000,
-		});
-	}
+	// FIXME: This is causing more problems then it's solving. The async check to sniff the browser extensions is block some
+	// react unit tests. Essentially jest never completes and just hangs. This was code was added 3yrs ago so that errors
+	// would detail if the browser had grammarly extension installed or not. I'm not sure if anyone has every inspecting this
+	// as it doesn't look like any dashboards exist for it.
+	// You can see the open handles that are block tests if you run unit tests with --detectOpenHandles
+	// async componentDidMount() {
+	// 	this.browserExtensions = await sniffUserBrowserExtensions({
+	// 		extensions: ['grammarly'],
+	// 		async: true,
+	// 		asyncTimeoutMs: 20000,
+	// 	});
+	// }
 
 	render() {
 		return <IntlErrorBoundary>{this.props.children}</IntlErrorBoundary>;

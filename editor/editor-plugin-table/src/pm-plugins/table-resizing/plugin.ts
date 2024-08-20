@@ -6,7 +6,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 import { TableCssClassName as ClassName } from '../../types';
-import type { ColumnResizingPluginState } from '../../types';
+import type { ColumnResizingPluginState, PluginInjectionAPI } from '../../types';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 
 import { setResizeHandlePos } from './commands';
@@ -20,6 +20,7 @@ export function createPlugin(
 	{ lastColumnResizable = true }: ColumnResizingPluginState,
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getEditorFeatureFlags: GetEditorFeatureFlags,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled?: boolean,
 	isNewColumnResizingEnabled?: boolean,
@@ -74,6 +75,7 @@ export function createPlugin(
 								getEditorContainerWidth,
 								getEditorFeatureFlags,
 								isTableScalingEnabled || false,
+								api,
 								editorAnalyticsAPI,
 								isNewColumnResizingEnabled,
 								isTableAlignmentEnabled,

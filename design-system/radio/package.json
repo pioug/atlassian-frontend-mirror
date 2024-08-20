@@ -50,7 +50,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ds-lib": "^2.5.0",
 		"@atlaskit/theme": "^13.0.0",
-		"@atlaskit/tokens": "^1.58.0",
+		"@atlaskit/tokens": "^1.59.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

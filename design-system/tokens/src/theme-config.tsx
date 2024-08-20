@@ -20,6 +20,7 @@ export type Themes =
 	| 'atlassian-legacy-dark'
 	| 'atlassian-shape'
 	| 'atlassian-spacing'
+	| 'atlassian-typography-refreshed'
 	| 'atlassian-typography-modernized'
 	| 'atlassian-typography-adg3';
 export type ThemeFileNames = Themes;
@@ -77,6 +78,7 @@ export const themeIds = [
 	'shape',
 	'typography-adg3',
 	'typography-modernized',
+	'typography-refreshed',
 ] as const;
 
 export type ThemeIds = (typeof themeIds)[number];
@@ -264,6 +266,14 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
 	'atlassian-typography-modernized': {
 		id: 'typography-modernized',
 		displayName: 'Atlassian Typography (Modernized)',
+		palette: 'typographyPalette',
+		attributes: {
+			type: 'typography',
+		},
+	},
+	'atlassian-typography-refreshed': {
+		id: 'typography-refreshed',
+		displayName: 'Atlassian Typography (Refreshed)',
 		palette: 'typographyPalette',
 		attributes: {
 			type: 'typography',

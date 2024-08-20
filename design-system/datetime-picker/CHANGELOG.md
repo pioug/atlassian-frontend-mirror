@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 13.11.2
+
+### Patch Changes
+
+- [#130953](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130953)
+  [`a6c1f10b9f4b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6c1f10b9f4b7) -
+  Refactor internal types to make spread props explicit.
+
 ## 13.11.1
 
 ### Patch Changes

@@ -583,6 +583,7 @@ export const TableResizer = ({
 						parentWidth: newWidth,
 					},
 					editorView.domAtPos.bind(editorView),
+					pluginInjectionApi,
 					isTableScalingEnabled,
 					shouldUseIncreasedScalingPercent || false,
 				)(tr);

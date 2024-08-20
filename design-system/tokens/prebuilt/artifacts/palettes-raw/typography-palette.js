@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d0f067fcc82edf831afe2fd039ca0a0c>>
+ * @codegen <<SignedSource::4f3e5bd6ca1dd12d81d074b2f03cb0aa>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -99,6 +99,21 @@ var tokens = [{
   },
   "name": "typography.fontFamily.FontFamilyWebSans",
   "path": ["typography", "fontFamily", "FontFamilyWebSans"]
+}, {
+  "value": "\"Inter Variable\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "attributes": {
+    "group": "fontFamily"
+  },
+  "filePath": "schema/palettes/typography-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "\"Inter Variable\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "attributes": {
+      "group": "fontFamily"
+    }
+  },
+  "name": "typography.fontFamily.FontFamilyWebSansRefreshed",
+  "path": ["typography", "fontFamily", "FontFamilyWebSansRefreshed"]
 }, {
   "value": "SF Mono",
   "attributes": {

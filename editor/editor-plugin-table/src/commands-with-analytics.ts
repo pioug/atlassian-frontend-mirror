@@ -57,6 +57,7 @@ import type {
 	AlignmentOptions,
 	InsertRowMethods,
 	InsertRowOptions,
+	PluginInjectionAPI,
 	RowInsertPosition,
 } from './types';
 import { checkIfNumberColumnEnabled, getSelectedCellInfo, getSelectedTableInfo } from './utils';
@@ -232,7 +233,10 @@ export const insertRowWithAnalytics =
 		);
 
 export const changeColumnWidthByStepWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		api: PluginInjectionAPI | undefined | null,
+	) =>
 	(
 		stepSize: number,
 		getEditorContainerWidth: GetEditorContainerWidth,
@@ -272,11 +276,13 @@ export const changeColumnWidthByStepWithAnalytics =
 				isCommentEditor,
 				ariaNotify: ariaNotify,
 				getIntl: getIntl,
+				api,
 			}),
 		);
 
 export const insertColumnWithAnalytics =
 	(
+		api: PluginInjectionAPI | undefined | null,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isCellbackgroundDuplicated = false,
@@ -308,6 +314,7 @@ export const insertColumnWithAnalytics =
 			};
 		})(editorAnalyticsAPI)(
 			insertColumn(
+				api,
 				isTableScalingEnabled,
 				isCellbackgroundDuplicated,
 				isTableFixedColumnWidthsOptionEnabled,
@@ -353,6 +360,7 @@ export const deleteRowsWithAnalytics =
 export const deleteColumnsWithAnalytics =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
@@ -385,6 +393,7 @@ export const deleteColumnsWithAnalytics =
 		})(editorAnalyticsAPI)(
 			deleteColumnsCommand(
 				rect,
+				api,
 				isTableScalingEnabled,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
@@ -394,6 +403,7 @@ export const deleteColumnsWithAnalytics =
 export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
@@ -423,6 +433,7 @@ export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
 		} else if (selectionType === 'column') {
 			return deleteColumnsWithAnalytics(
 				editorAnalyticsAPI,
+				api,
 				isTableScalingEnabled,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
@@ -575,7 +586,10 @@ export const sortColumnWithAnalytics =
 		})(editorAnalyticsAPI)(sortByColumn(columnIndex, sortOrder));
 
 export const distributeColumnsWidthsWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+	(
+		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+		api: PluginInjectionAPI | undefined | null,
+	) =>
 	(
 		inputMethod:
 			| INPUT_METHOD.CONTEXT_MENU
@@ -596,7 +610,7 @@ export const distributeColumnsWidthsWithAnalytics =
 			};
 		})(editorAnalyticsAPI)((state, dispatch) => {
 			if (dispatch) {
-				distributeColumnsWidths(resizeState, table)(state, dispatch);
+				distributeColumnsWidths(resizeState, table, api)(state, dispatch);
 			}
 			return true;
 		});

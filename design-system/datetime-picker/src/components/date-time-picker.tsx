@@ -276,41 +276,75 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 				<div css={datePickerContainerStyles}>
 					<DatePicker
 						appearance={appearance}
-						autoFocus={autoFocus}
-						dateFormat={dateFormat}
-						hideIcon
-						id={id}
-						isDisabled={isDisabled}
-						isInvalid={isInvalid}
-						locale={locale}
-						onBlur={this.onBlur}
-						onChange={this.onDateChange}
-						onFocus={this.onFocus}
+						autoFocus={datePickerProps.autoFocus || autoFocus}
+						dateFormat={datePickerProps.dateFormat || dateFormat}
+						defaultIsOpen={datePickerProps.defaultIsOpen}
+						defaultValue={datePickerProps.defaultValue}
+						disabled={datePickerProps.disabled}
+						disabledDateFilter={datePickerProps.disabledDateFilter}
+						formatDisplayLabel={datePickerProps.formatDisplayLabel}
+						hideIcon={datePickerProps.hideIcon || true}
+						icon={datePickerProps.icon}
+						id={datePickerProps.id || id}
+						innerProps={datePickerProps.innerProps}
+						isDisabled={datePickerProps.isDisabled || isDisabled}
+						isInvalid={datePickerProps.isInvalid || isInvalid}
+						// If you set this or `value` explicitly like
+						// `isOpen={datePickerProps.isOpen}`, the date picker will set
+						// `isOpen` to `undefined` forever. I believe this has to do with
+						// the `getSafeState` function in the picker, since it overwrites
+						// state with values from the props.
+						{...(datePickerProps.isOpen ? { isOpen: datePickerProps.isOpen } : {})}
+						locale={datePickerProps.locale || locale}
+						maxDate={datePickerProps.maxDate}
+						minDate={datePickerProps.minDate}
+						name={datePickerProps.name}
+						nextMonthLabel={datePickerProps.nextMonthLabel}
+						onBlur={datePickerProps.onBlur || this.onBlur}
+						onChange={datePickerProps.onChange || this.onDateChange}
+						onFocus={datePickerProps.onFocus || this.onFocus}
+						parseInputValue={datePickerProps.parseInputValue}
+						placeholder={datePickerProps.placeholder}
+						previousMonthLabel={datePickerProps.previousMonthLabel}
 						selectProps={mergedDatePickerSelectProps}
-						spacing={spacing}
-						testId={testId && `${testId}--datepicker`}
+						spacing={datePickerProps.spacing || spacing}
+						testId={(testId && `${testId}--datepicker`) || datePickerProps.testId}
 						value={dateValue}
-						{...datePickerProps}
+						weekStartDay={datePickerProps.weekStartDay}
 					/>
 				</div>
 				<div css={timePickerContainerStyles}>
 					<TimePicker
-						appearance={appearance}
-						hideIcon
-						isDisabled={isDisabled}
-						isInvalid={isInvalid}
-						locale={locale}
-						onBlur={this.onBlur}
-						onChange={this.onTimeChange}
-						onFocus={this.onFocus}
+						appearance={timePickerProps.appearance || appearance}
+						autoFocus={timePickerProps.autoFocus}
+						defaultIsOpen={timePickerProps.defaultIsOpen}
+						defaultValue={timePickerProps.defaultValue}
+						formatDisplayLabel={timePickerProps.formatDisplayLabel}
+						hideIcon={timePickerProps.hideIcon || true}
+						id={timePickerProps.id}
+						innerProps={timePickerProps.innerProps}
+						isDisabled={timePickerProps.isDisabled || isDisabled}
+						isInvalid={timePickerProps.isInvalid || isInvalid}
+						// If you set this or `value` explicitly like
+						// `isOpen={datePickerProps.isOpen}`, the date picker will set
+						// `isOpen` to `undefined` forever. I believe this has to do with
+						// the `getSafeState` function in the picker, since it overwrites
+						// state with values from the props.
+						{...(timePickerProps.isOpen ? { isOpen: timePickerProps.isOpen } : {})}
+						locale={timePickerProps.locale || locale}
+						name={timePickerProps.name}
+						onBlur={timePickerProps.onBlur || this.onBlur}
+						onChange={timePickerProps.onChange || this.onTimeChange}
+						onFocus={timePickerProps.onFocus || this.onFocus}
+						parseInputValue={timePickerProps.parseInputValue}
+						placeholder={timePickerProps.placeholder}
 						selectProps={mergedTimePickerSelectProps}
-						spacing={spacing}
-						testId={testId && `${testId}--timepicker`}
-						timeFormat={timeFormat}
-						timeIsEditable={timeIsEditable}
-						times={times}
+						spacing={timePickerProps.spacing || spacing}
+						testId={timePickerProps.testId || (testId && `${testId}--timepicker`)}
+						timeFormat={timePickerProps.timeFormat || timeFormat}
+						timeIsEditable={timePickerProps.timeIsEditable || timeIsEditable}
+						times={timePickerProps.times || times}
 						value={timeValue}
-						{...timePickerProps}
 					/>
 				</div>
 				{isClearable && !isDisabled ? (

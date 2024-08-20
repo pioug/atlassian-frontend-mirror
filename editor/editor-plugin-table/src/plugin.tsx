@@ -338,6 +338,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									} as ColumnResizingPluginState,
 									defaultGetEditorContainerWidth,
 									getEditorFeatureFlags || defaultGetEditorFeatureFlags,
+									api,
 									editorAnalyticsAPI,
 									isTableScalingEnabled || false,
 									isNewColumnResizingEnabled,
@@ -364,6 +365,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
 						return keymapPlugin(
 							defaultGetEditorContainerWidth,
+							api,
 							editorAnalyticsAPI,
 							dragAndDropEnabled,
 							isTableScalingEnabled,
@@ -598,6 +600,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
 											}
 											isChromelessEditor={options?.isChromelessEditor}
+											api={api}
 										/>
 									)}
 									{options?.allowContextualMenu && (
@@ -615,6 +618,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											}
 											isCellMenuOpenByKeyboard={isCellMenuOpenByKeyboard}
 											isCommentEditor={options?.isCommentEditor}
+											api={api}
 										/>
 									)}
 									{isDragAndDropEnabled && (
@@ -637,6 +641,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 												options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags
 											}
 											ariaNotifyPlugin={ariaNotifyPlugin}
+											api={api}
 										/>
 									)}
 									{allowControls && !isDragAndDropEnabled && !isResizing && (
@@ -650,6 +655,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											stickyHeaders={stickyHeader}
 											isNumberColumnEnabled={tableNode && tableNode.attrs.isNumberColumnEnabled}
 											editorAnalyticsAPI={editorAnalyticsAPI}
+											api={api}
 										/>
 									)}
 									{(options?.isTableScalingEnabled ||
@@ -718,6 +724,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 			],
 			floatingToolbar: getToolbarConfig(
 				defaultGetEditorContainerWidth,
+				api,
 				editorAnalyticsAPI,
 				options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 				() => editorViewRef.current,

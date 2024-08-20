@@ -10,6 +10,7 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { META_KEYS } from '../pm-plugins/table-analytics';
+import type { PluginInjectionAPI } from '../types';
 
 import { rescaleColumns } from './column-width';
 import { splitCellsInColumns } from './split';
@@ -243,6 +244,7 @@ export const deleteColumns =
 	(
 		rect: Rect,
 		allowCustomStep: boolean,
+		api: PluginInjectionAPI | undefined | null,
 		view?: EditorView,
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
@@ -265,6 +267,7 @@ export const deleteColumns =
 				isTableScalingEnabled,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
+				api,
 			)(
 				table,
 				view,

@@ -340,7 +340,6 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 					styles={mergedStyles}
 					value={initialValue}
 					spacing={spacing}
-					// @ts-ignore caused by prop not part of @atlaskit/select
 					fixedLayerRef={this.containerRef}
 					isInvalid={isInvalid}
 					testId={testId}

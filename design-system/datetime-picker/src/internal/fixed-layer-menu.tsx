@@ -12,12 +12,68 @@ import FixedLayer from '../internal/fixed-layer';
 /**
  * This is the fixed layer menu used in the time picker.
  */
-export const FixedLayerMenu = ({ selectProps, ...rest }: MenuProps<OptionType>) => (
+export const FixedLayerMenu = ({
+	className,
+	clearValue,
+	cx,
+	getStyles,
+	getValue,
+	hasValue,
+	innerProps,
+	innerRef,
+	isLoading,
+	isMulti,
+	isRtl,
+	maxMenuHeight,
+	menuPlacement,
+	menuPosition,
+	menuShouldScrollIntoView,
+	minMenuHeight,
+	options,
+	placement,
+	selectOption,
+	selectProps,
+	setValue,
+	theme,
+	children,
+	...rest
+}: MenuProps<OptionType>) => (
 	<FixedLayer
 		inputValue={selectProps.inputValue}
 		containerRef={selectProps.fixedLayerRef}
 		content={
-			<components.Menu {...(rest as MenuProps<OptionType>)} menuShouldScrollIntoView={false} />
+			<components.Menu
+				// We have to have this because `getClassNames` is missing. Can't define
+				// it in here, for some reason.
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
+				// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-classname-prop
+				className={className}
+				clearValue={clearValue}
+				cx={cx}
+				getStyles={getStyles}
+				getValue={getValue}
+				hasValue={hasValue}
+				innerProps={innerProps}
+				innerRef={innerRef}
+				isLoading={isLoading}
+				isMulti={isMulti}
+				isRtl={isRtl}
+				maxMenuHeight={maxMenuHeight}
+				menuPlacement={menuPlacement}
+				menuPosition={menuPosition}
+				menuShouldScrollIntoView={false || menuShouldScrollIntoView}
+				minMenuHeight={minMenuHeight}
+				options={options}
+				placement={placement}
+				selectOption={selectOption}
+				selectProps={selectProps}
+				setValue={setValue}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
+				theme={theme}
+			>
+				{children}
+			</components.Menu>
 		}
 		testId={selectProps.testId}
 	/>

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.8
+
+### Patch Changes
+
+- [#131711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131711)
+  [`e5f5f9807ef27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5f5f9807ef27) -
+  [ED-24636] Prop drilling the EditorAPI into the scaleTable and resizeColumn commands (not usage at
+  this point)
+
 ## 7.25.7
 
 ### Patch Changes

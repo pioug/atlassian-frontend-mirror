@@ -167,6 +167,7 @@ export const createPlugin = (
 					tr,
 					oldState,
 					newState,
+					pluginInjectionApi,
 					editorAnalyticsAPI,
 					editorViewRef || undefined,
 					isTableScalingEnabled,

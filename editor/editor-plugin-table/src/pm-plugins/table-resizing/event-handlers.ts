@@ -18,6 +18,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { stopKeyboardColumnResizing } from '../../commands/column-resize';
 import { updateResizeHandleDecorations } from '../../commands/misc';
 import { updateColumnWidths } from '../../transforms';
+import type { PluginInjectionAPI } from '../../types';
 import { getSelectedColumnIndexes, isTableNested } from '../../utils';
 import {
 	ALIGN_CENTER,
@@ -47,6 +48,7 @@ export const handleMouseDown = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	isTableScalingEnabled: boolean,
+	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isNewColumnResizingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
@@ -125,6 +127,7 @@ export const handleMouseDown = (
 			table: originalTable,
 			start,
 			event,
+			api,
 		})(state, dispatch)
 	) {
 		finish(event);
@@ -230,7 +233,7 @@ export const handleMouseDown = (
 						isTableAlignmentEnabled,
 					});
 
-					tr = updateColumnWidths(newResizeState, table, start)(tr);
+					tr = updateColumnWidths(newResizeState, table, start, api)(tr);
 
 					// If the table is aligned to the start and the table width is greater than the line length, we should change the alignment to center
 					const shouldChangeAlignment = shouldChangeAlignmentToCenterResized(
@@ -276,7 +279,7 @@ export const handleMouseDown = (
 						shouldScale,
 						shouldUseIncreasedScalingPercent,
 					);
-					tr = updateColumnWidths(newResizeState, table, start)(tr);
+					tr = updateColumnWidths(newResizeState, table, start, api)(tr);
 				}
 
 				if (colIndex === map.width - 1) {

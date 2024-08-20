@@ -44,7 +44,7 @@ var themeContrastModes = exports.themeContrastModes = ['more', 'no-preference', 
  *
  * These ids must be kebab case
  */
-var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'light-brand-refresh', 'dark', 'dark-future', 'dark-increased-contrast', 'dark-brand-refresh', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography-adg3', 'typography-modernized'];
+var themeIds = exports.themeIds = ['light-increased-contrast', 'light', 'light-future', 'light-brand-refresh', 'dark', 'dark-future', 'dark-increased-contrast', 'dark-brand-refresh', 'legacy-light', 'legacy-dark', 'spacing', 'shape', 'typography-adg3', 'typography-modernized', 'typography-refreshed'];
 /**
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
@@ -175,6 +175,14 @@ var themeConfig = {
   'atlassian-typography-modernized': {
     id: 'typography-modernized',
     displayName: 'Atlassian Typography (Modernized)',
+    palette: 'typographyPalette',
+    attributes: {
+      type: 'typography'
+    }
+  },
+  'atlassian-typography-refreshed': {
+    id: 'typography-refreshed',
+    displayName: 'Atlassian Typography (Refreshed)',
     palette: 'typographyPalette',
     attributes: {
       type: 'typography'

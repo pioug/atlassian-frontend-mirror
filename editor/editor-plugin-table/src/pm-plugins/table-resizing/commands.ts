@@ -6,6 +6,7 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { updateColumnWidths } from '../../transforms';
+import type { PluginInjectionAPI } from '../../types';
 import { META_KEYS } from '../table-analytics';
 
 import { createCommand, getPluginState } from './plugin-factory';
@@ -18,7 +19,9 @@ export const evenColumns =
 		table,
 		start,
 		event,
+		api,
 	}: {
+		api: PluginInjectionAPI | undefined | null;
 		resizeState: ResizeState;
 		table: PMNode;
 		start: number;
@@ -35,7 +38,10 @@ export const evenColumns =
 		const now = Date.now();
 		if (lastClick && now - lastClick.time < 500 && isClickNear(event, lastClick)) {
 			const newState = evenAllColumnsWidths(resizeState);
-			setLastClick(null, (tr) => updateColumnWidths(newState, table, start)(tr))(state, dispatch);
+			setLastClick(null, (tr) => updateColumnWidths(newState, table, start, api)(tr))(
+				state,
+				dispatch,
+			);
 
 			return true;
 		}
@@ -46,10 +52,14 @@ export const evenColumns =
 	};
 
 export const distributeColumnsWidths =
-	(newResizeState: ResizeState, table: ContentNodeWithPos): Command =>
+	(
+		newResizeState: ResizeState,
+		table: ContentNodeWithPos,
+		api: PluginInjectionAPI | undefined | null,
+	): Command =>
 	(state, dispatch) => {
 		if (dispatch) {
-			const tr = updateColumnWidths(newResizeState, table.node, table.start)(state.tr);
+			const tr = updateColumnWidths(newResizeState, table.node, table.start, api)(state.tr);
 			tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
 				name: TABLE_OVERFLOW_CHANGE_TRIGGER.DISTRIBUTED_COLUMNS,
 			});

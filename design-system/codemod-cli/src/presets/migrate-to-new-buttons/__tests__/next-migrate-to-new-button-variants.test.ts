@@ -41,14 +41,30 @@ describe('Migrate to icon buttons', () => {
 	});
 
 	check({
-		it: 'should replace default button with icon button, rename the iconBefore prop, and move the props from the icon component to IconButton props',
+		it: 'should replace default button with icon button, rename the iconBefore prop, and move the icon label prop from the new icon component to IconButton',
 		original: `
       import Button from '@atlaskit/button/standard-button';
-      const App = () => (<Button iconBefore={<MoreIcon size="small" primaryColor="red" label="more icon" />} />);
+      import MoreIcon from '@atlaskit/icon/core/migration/more';
+      const App = () => (<Button iconBefore={<MoreIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="more icon" />} />);
     `,
 		expected: `
       import { IconButton } from '@atlaskit/button/new';
-      const App = () => (<IconButton label="more icon" icon={iconProps => <MoreIcon {...iconProps} size="small" primaryColor="red" />} />);
+      import MoreIcon from '@atlaskit/icon/core/migration/more';
+      const App = () => (<IconButton label="more icon" icon={iconProps => <MoreIcon {...iconProps} color="currentColor" LEGACY_size="medium" spacing="spacious" />} />);
+    `,
+	});
+
+	check({
+		it: 'should replace default button with icon button, rename the iconBefore prop, and move the icon label prop from the legacy icon component to IconButton',
+		original: `
+      import Button from '@atlaskit/button/standard-button';
+      import MoreIcon from '@atlaskit/icon/glyph/more';
+      const App = () => (<Button iconBefore={<MoreIcon size="small" label="more icon" />} />);
+    `,
+		expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      import MoreIcon from '@atlaskit/icon/glyph/more';
+      const App = () => (<IconButton label="more icon" icon={iconProps => <MoreIcon {...iconProps} size="small" />} />);
     `,
 	});
 
@@ -226,32 +242,32 @@ describe('Migrate to loading buttons', () => {
 
 	check({
 		it: `should rename the custom theme button import specifier,
-	  and replace the loading button with default button`,
+    and replace the loading button with default button`,
 		original: `
-	  import Button from '@atlaskit/button/custom-theme-button';
-	  import LoadingButton from '@atlaskit/button/loading-button';
-	  const App = () => (
-	    <>
-	      <Button>Custom theme button</Button>
-	      <LoadingButton isLoading={isLoading}>loading button</LoadingButton>
-	    </>
-	  );
+    import Button from '@atlaskit/button/custom-theme-button';
+    import LoadingButton from '@atlaskit/button/loading-button';
+    const App = () => (
+      <>
+        <Button>Custom theme button</Button>
+        <LoadingButton isLoading={isLoading}>loading button</LoadingButton>
+      </>
+    );
     render(Button);
     render(LoadingButton);
-	`,
+  `,
 		expected: `
-	  import LegacyButton from '@atlaskit/button/custom-theme-button';
-	  import Button from '@atlaskit/button/new';
-	  const App = () => (
-	    <>
-	      /* TODO: (from codemod) ${customThemeButtonComment} */
-	      <LegacyButton>Custom theme button</LegacyButton>
-	      <Button isLoading={isLoading}>loading button</Button>
-	    </>
-	  );
+    import LegacyButton from '@atlaskit/button/custom-theme-button';
+    import Button from '@atlaskit/button/new';
+    const App = () => (
+      <>
+        /* TODO: (from codemod) ${customThemeButtonComment} */
+        <LegacyButton>Custom theme button</LegacyButton>
+        <Button isLoading={isLoading}>loading button</Button>
+      </>
+    );
     render(LegacyButton);
     render(Button);
-	`,
+  `,
 	});
 
 	check({
@@ -412,142 +428,142 @@ describe('Migrate to link buttons', () => {
 	check({
 		it: 'should import and replace default standard button with new link button',
 		original: `
-	    import StandardButton from '@atlaskit/button/standard-button';
-	    const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
-	  `,
+      import StandardButton from '@atlaskit/button/standard-button';
+      const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
+    `,
 		expected: `
-	    import { LinkButton } from '@atlaskit/button/new';
-	    const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
-	  `,
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
+    `,
 	});
 
 	check({
 		it: 'should replace default button with link button if it has both href and icon prop',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (<Button href='/#' iconBefore={icon}>Link button</Button>);
-	  `,
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button href='/#' iconBefore={icon}>Link button</Button>);
+    `,
 		expected: `
-	    import { LinkButton } from '@atlaskit/button/new';
-	    const App = () => (<LinkButton href='/#' iconBefore={icon}>Link button</LinkButton>);
-	  `,
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#' iconBefore={icon}>Link button</LinkButton>);
+    `,
 	});
 
 	check({
 		it: 'should import and replace default standard button with new link button',
 		original: `
-	    import StandardButton from '@atlaskit/button/standard-button';
-	    const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
-	  `,
+      import StandardButton from '@atlaskit/button/standard-button';
+      const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
+    `,
 		expected: `
-	    import { LinkButton } from '@atlaskit/button/new';
-	    const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
-	  `,
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
+    `,
 	});
 
 	check({
 		it: 'should replace default button with link button, and move size prop from the icon component to LinkButton props',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (<Button href='/#' iconAfter={<MoreIcon label="" size="small" />}>Link button</Button>);
-	  `,
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button href='/#' iconAfter={<MoreIcon label="" size="small" />}>Link button</Button>);
+    `,
 		expected: `
-	    import { LinkButton } from '@atlaskit/button/new';
-	    const App = () => (
-	      <LinkButton
-	        href='/#'
-	        iconAfter={iconProps => <MoreIcon {...iconProps} size="small" />}
-	      >
-	        Link button
-	      </LinkButton>
-	    );
-	  `,
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (
+        <LinkButton
+          href='/#'
+          iconAfter={iconProps => <MoreIcon {...iconProps} size="small" />}
+        >
+          Link button
+        </LinkButton>
+      );
+    `,
 	});
 
 	check({
 		it: 'should migrate legacy button with link appearance and spacing="none" to Link components',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (
-	      <Button
-	        href='/#'
-	        spacing='none'
-	        appearance='link'
-	      >
-	        Link button
-	      </Button>
-	    );
-	  `,
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          href='/#'
+          spacing='none'
+          appearance='link'
+        >
+          Link button
+        </Button>
+      );
+    `,
 		expected: `
-	    import Link from '@atlaskit/link';
-	    const App = () => (
-	      <Link href='/#'>
-	        Link button
-	      </Link>
-	    );
-	  `,
+      import Link from '@atlaskit/link';
+      const App = () => (
+        <Link href='/#'>
+          Link button
+        </Link>
+      );
+    `,
 	});
 
 	check({
 		it: 'should migrate legacy button with subtle-link appearance and spacing="none" to Link components with appearance="subtle"',
 		original: `
-	  import Button from '@atlaskit/button/standard-button';
-	  const App = () => (
-	    <Button
-	      href='/#'
-	      spacing='none'
-	      appearance='subtle-link'
-	    >
-	      Link button
-	    </Button>
-	  );
-	`,
+    import Button from '@atlaskit/button/standard-button';
+    const App = () => (
+      <Button
+        href='/#'
+        spacing='none'
+        appearance='subtle-link'
+      >
+        Link button
+      </Button>
+    );
+  `,
 		expected: `
-	    import Link from '@atlaskit/link';
-	    const App = () => (
-	      <Link
-	        href='/#'
-	        appearance="subtle"
-	      >
-	        Link button
-	      </Link>
-	    );
-	  `,
+      import Link from '@atlaskit/link';
+      const App = () => (
+        <Link
+          href='/#'
+          appearance="subtle"
+        >
+          Link button
+        </Link>
+      );
+    `,
 	});
 
 	check({
 		it: 'should migrate legacy button with link appearance and spacing="none" to Link components, and move the icon component to Link children',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (
-	    <Button
-	      href='/#'
-	      spacing='none'
-	      appearance='link'
-	      iconAfter={<MoreIcon label="" size="small" />}
-	    >
-	      Link button
-	    </Button>
-	  );
-	  `,
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+      <Button
+        href='/#'
+        spacing='none'
+        appearance='link'
+        iconAfter={<MoreIcon label="" size="small" />}
+      >
+        Link button
+      </Button>
+    );
+    `,
 		expected: `
-	    import Link from '@atlaskit/link';
-	    const App = () => (
-	      <Link
-	        href='/#'
-	      >
-	        Link button
-	        <MoreIcon label="" size="small" />
-	      </Link>
-	    );
-	  `,
+      import Link from '@atlaskit/link';
+      const App = () => (
+        <Link
+          href='/#'
+        >
+          Link button
+          <MoreIcon label="" size="small" />
+        </Link>
+      );
+    `,
 	});
 
 	check({
 		it: 'should migrate legacy button with link appearance and spacing="none" to Link components, and migrate the default buttons to new buttons',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
       <div>
         <Button
           href='/#'
@@ -560,13 +576,13 @@ describe('Migrate to link buttons', () => {
         <Button href="/#" appearance='link'>Link button</Button>
         <Button href="/#" appearance='subtle-link'>Link button</Button>
       </div>
-	  );
-	  `,
+    );
+    `,
 		expected: `
-	    import Link from '@atlaskit/link';
-	    import Button, { LinkButton } from '@atlaskit/button/new';
-	    const App = () => (
-	    <div>
+      import Link from '@atlaskit/link';
+      import Button, { LinkButton } from '@atlaskit/button/new';
+      const App = () => (
+      <div>
         <Link href='/#'>
           Link button
         </Link>
@@ -586,15 +602,15 @@ describe('Migrate to link buttons', () => {
           Link button
         </LinkButton>
       </div>
-	    );
-	  `,
+      );
+    `,
 	});
 
 	check({
 		it: 'should migrate legacy button with link appearance and spacing="none" to Link components, and keep the un-migratable button',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
       <div>
         <Button
           href='/#'
@@ -605,13 +621,13 @@ describe('Migrate to link buttons', () => {
         </Button>
         <Button css={{}}>Default button</Button>
       </div>
-	  );
-	  `,
+    );
+    `,
 		expected: `
-	    import Link from '@atlaskit/link';
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (
-	    <div>
+      import Link from '@atlaskit/link';
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+      <div>
         <Link
           href='/#'
         >
@@ -621,52 +637,52 @@ describe('Migrate to link buttons', () => {
           css={{}}
         >Default button</Button>
       </div>
-	    );
-	  `,
+      );
+    `,
 	});
 
 	check({
 		it: 'should migrate link or subtle-link default button to subtle LinkButton if spacing is not none',
 		original: `
-	    import Button from '@atlaskit/button/standard-button';
-	    const App = () => (
-	      <div>
-	        <Button
-	          href='/#'
-	          appearance='link'
-	        >
-	          Link button
-	        </Button>
-	        <Button
-	          href='/#'
-	          appearance='subtle-link'
-	        >
-	          Link button
-	        </Button>
-	      </div>
-	    )
-	  `,
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <div>
+          <Button
+            href='/#'
+            appearance='link'
+          >
+            Link button
+          </Button>
+          <Button
+            href='/#'
+            appearance='subtle-link'
+          >
+            Link button
+          </Button>
+        </div>
+      )
+    `,
 		expected: `
-	    import { LinkButton } from '@atlaskit/button/new';
-	    const App = () => (
-	     <div>
-	        <LinkButton
-	          href='/#'
-	          // TODO: (from codemod) ${migrateButtonToSubtleLinkButton}
-	          appearance='subtle'
-	        >
-	          Link button
-	        </LinkButton>
-	        <LinkButton
-	          href='/#'
-	          // TODO: (from codemod) ${migrateSubtleButtonToSubtleLinkButton}
-	          appearance='subtle'
-	        >
-	          Link button
-	        </LinkButton>
-	      </div>
-	    );
-	  `,
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (
+       <div>
+          <LinkButton
+            href='/#'
+            // TODO: (from codemod) ${migrateButtonToSubtleLinkButton}
+            appearance='subtle'
+          >
+            Link button
+          </LinkButton>
+          <LinkButton
+            href='/#'
+            // TODO: (from codemod) ${migrateSubtleButtonToSubtleLinkButton}
+            appearance='subtle'
+          >
+            Link button
+          </LinkButton>
+        </div>
+      );
+    `,
 	});
 });
 
@@ -1469,11 +1485,11 @@ describe('Add comment for deprecated overlay prop', () => {
       const App = () => (
 
         <Button
-					/* TODO: (from codemod) ${overlayPropComment} */
-					overlay="Loading..."
-				>
-					Hello
-				</Button>
+          /* TODO: (from codemod) ${overlayPropComment} */
+          overlay="Loading..."
+        >
+          Hello
+        </Button>
       );
     `,
 	});
@@ -1486,13 +1502,13 @@ describe('Add comment for deprecated overlay prop', () => {
 		expected: `
       import CustomThemeButton from '@atlaskit/button/custom-theme-button';
       const App = () => (
-				/* TODO: (from codemod) ${customThemeButtonComment} */
+        /* TODO: (from codemod) ${customThemeButtonComment} */
         <CustomThemeButton
-					/* TODO: (from codemod) ${overlayPropComment} */
-					overlay="Loading..."
-				>
-					Hello
-				</CustomThemeButton>
+          /* TODO: (from codemod) ${overlayPropComment} */
+          overlay="Loading..."
+        >
+          Hello
+        </CustomThemeButton>
       );
     `,
 	});

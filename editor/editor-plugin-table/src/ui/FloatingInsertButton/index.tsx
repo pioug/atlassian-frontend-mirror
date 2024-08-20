@@ -29,6 +29,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { insertColumnWithAnalytics, insertRowWithAnalytics } from '../../commands-with-analytics';
 import { TableCssClassName as ClassName } from '../../types';
+import type { PluginInjectionAPI } from '../../types';
 import { checkIfNumberColumnEnabled } from '../../utils';
 
 import getPopupOptions from './getPopupOptions';
@@ -49,6 +50,7 @@ export interface Props {
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
 	hasStickyHeaders?: boolean;
+	api: PluginInjectionAPI | undefined | null;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
@@ -280,6 +282,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 			const { state, dispatch } = editorView;
 			insertColumnWithAnalytics(
+				this.props.api,
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
 				tableDuplicateCellColouring,

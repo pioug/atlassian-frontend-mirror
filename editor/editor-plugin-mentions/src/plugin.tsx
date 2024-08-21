@@ -37,6 +37,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 		sanitizePrivateContent: options?.sanitizePrivateContent,
 		mentionInsertDisplayName: options?.insertDisplayName,
 		HighlightComponent: options?.HighlightComponent,
+		handleMentionsInserted: options?.handleMentionsInserted,
 		fireEvent,
 		api,
 	});
@@ -77,6 +78,11 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 						inputMethod,
 					}),
 				);
+			},
+			announceMentionsInsertion: (mentionIds: { localId: string; id: string }[]) => {
+				if (options?.handleMentionsInserted) {
+					options.handleMentionsInserted(mentionIds);
+				}
 			},
 		},
 

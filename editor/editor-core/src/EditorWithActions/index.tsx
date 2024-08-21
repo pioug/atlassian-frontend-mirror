@@ -8,12 +8,8 @@ import Editor from '../editor';
 import EditorContext from '../ui/EditorContext';
 import WithEditorActions from '../ui/WithEditorActions';
 
-export interface EditorWithActionsPropsOverride extends EditorProps {
-	onSave?: any;
-	onChange?: any;
-	onCancel?: any;
-}
-export interface EditorWithActionsProps extends EditorWithActionsPropsOverride {
+export interface EditorWithActionsProps
+	extends Omit<EditorProps, 'onSave' | 'onChange' | 'onCancel'> {
 	onSave?: (actions: EditorActions) => void;
 	onChange?: (actions: EditorActions) => void;
 	onCancel?: (actions: EditorActions) => void;

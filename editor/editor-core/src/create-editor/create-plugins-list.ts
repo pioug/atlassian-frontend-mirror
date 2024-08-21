@@ -117,6 +117,7 @@ export function getDefaultPresetOptionsFromEditorProps(
  * their placement in the editor toolbar.
  */
 export default function createPluginsList(
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	preset: EditorPresetBuilder<any, any>,
 	props: EditorProps,
 	pluginInjectionAPI?: EditorPluginInjectionAPI,

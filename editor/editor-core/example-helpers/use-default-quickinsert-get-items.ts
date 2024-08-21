@@ -17,7 +17,6 @@ import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions'
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
 const ACTIONS = {} as EditorActions;
-const EMPTY: any[] = [];
 
 // Copied and simplified from `editor-plugin-extension/src/ui/ConfigPanel/use-state-from-promise/index.ts`
 export function useStateFromPromise<S>(
@@ -58,7 +57,7 @@ export const useDefaultQuickInsertGetItems = () => {
 	const quickInsertProvider = useDefaultQuickInsertProvider(providers);
 
 	const [items] = useStateFromPromise<QuickInsertItem[]>(
-		() => quickInsertProvider?.getItems() ?? Promise.resolve(EMPTY),
+		() => quickInsertProvider?.getItems() ?? Promise.resolve([]),
 		[quickInsertProvider],
 		[],
 	);

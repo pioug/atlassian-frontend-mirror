@@ -63,7 +63,7 @@ export interface Props {
 	labels?: string[];
 }
 
-const deprecations: Array<DeprecationWarning> = [
+const deprecations: Array<DeprecationWarning<ToolbarFeedbackInternalProps>> = [
 	{
 		property: 'packageVersion',
 		description:
@@ -92,7 +92,9 @@ export interface State {
 
 declare global {
 	interface Window {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		jQuery: any;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		ATL_JQ_PAGE_PROPS: any;
 	}
 }
@@ -106,6 +108,7 @@ type ToolbarFeedbackInternalProps = Props & {
 };
 
 class ToolbarFeedbackInternal extends PureComponent<ToolbarFeedbackInternalProps, State> {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	context: any;
 	static contextTypes = {
 		editorActions: PropTypes.object.isRequired,

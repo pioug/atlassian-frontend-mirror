@@ -28,7 +28,7 @@ const clickWrapper = ({ isExpanded, minHeight }: { isExpanded?: boolean; minHeig
 export interface Props {
 	editorView?: EditorView;
 	minHeight: number;
-	children?: any;
+	children?: React.ReactNode;
 	persistScrollGutter?: boolean;
 	isExpanded?: boolean;
 	editorDisabled?: boolean;
@@ -51,7 +51,7 @@ export interface Props {
 export default class ClickAreaMobile extends React.Component<Props> {
 	private clickElementRef = React.createRef<HTMLDivElement>();
 
-	private handleClick = (event: React.MouseEvent<any>) => {
+	private handleClick = (event: React.MouseEvent<HTMLElement>) => {
 		const { editorView: view, editorDisabled } = this.props;
 		if (!view) {
 			return;

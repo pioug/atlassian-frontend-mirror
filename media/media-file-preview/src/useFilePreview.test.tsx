@@ -602,6 +602,68 @@ describe('useFilePreview', () => {
 			resolveItemsPromise();
 		});
 
+		it('should not call image endpoint twice if the items response is received before upfront image response', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+				initialItems: fileItem,
+			});
+			let resolveImagePromise: (...params: any) => void = () => {};
+			const getImageSpy = jest.spyOn(mediaApi, 'getImage').mockImplementation(
+				() =>
+					new Promise((resolve) => {
+						resolveImagePromise = resolve;
+					}),
+			);
+
+			let resolveItemsPromise: (...params: any) => void = () => {};
+			const getItemsSpy = jest.spyOn(mediaApi, 'getItems').mockImplementation(
+				() =>
+					new Promise((resolve) => {
+						resolveItemsPromise = () => {
+							resolve({ data: { items: [fileItem] } });
+						};
+					}),
+			);
+
+			const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
+				fileItem,
+				identifier,
+			});
+
+			const initialProps: UseFilePreviewParams = {
+				identifier,
+				skipRemote: false,
+				dimensions: { width: 500, height: 500 },
+				mediaBlobUrlAttrs,
+			};
+
+			const { result, rerender, waitForNextUpdate } = renderHook(useFilePreview, {
+				wrapper: ({ children }) => (
+					<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+				),
+				initialProps,
+			});
+
+			expect(result?.current.status).toBe('loading');
+			expect(result?.current.preview).toBeUndefined();
+
+			// unskip remote
+			rerender({ ...initialProps, skipRemote: false });
+
+			// Items call should be performed, but we are delaying the response artificialy withing getItemsSpy
+			await waitFor(() => expect(getItemsSpy).toHaveBeenCalledTimes(1));
+
+			resolveItemsPromise();
+			await waitForNextUpdate();
+
+			resolveImagePromise();
+			await waitForNextUpdate();
+
+			expect(result?.current.status).toBe('complete');
+
+			expect(getImageSpy).toHaveBeenCalledTimes(1);
+		});
+
 		describe('should not use upfront remote preview if there is a', () => {
 			it.each([undefined, 'crop'] as MediaStoreGetFileImageParams['mode'][])(
 				'cached preview (resize mode %s)',

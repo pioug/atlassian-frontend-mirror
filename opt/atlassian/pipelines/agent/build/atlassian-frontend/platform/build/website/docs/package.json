@@ -24,7 +24,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/code": "^15.5.0",
-		"@atlaskit/icon": "^22.13.0",
+		"@atlaskit/icon": "^22.14.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/theme": "^13.0.0",
 		"@atlaskit/tokens": "1.59.0",

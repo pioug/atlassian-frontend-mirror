@@ -4,7 +4,7 @@ import type { Collection } from 'jscodeshift/src/Collection';
 import { findImportFromPackage } from '../utils';
 
 const createRemoveComponentPropTransform = (pkg: string, component: string, propName: string) => {
-	return (j: core.JSCodeshift, source: Collection<any>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>) => {
 		// Find regular or renamed imports
 		const importedNames: string[] = findImportFromPackage(j, source, pkg, component);
 

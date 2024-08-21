@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "27.3.4",
+	"version": "27.4.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/chunkinator": "^6.0.0",
+		"@atlaskit/chunkinator": "^6.1.0",
 		"@atlaskit/media-common": "^11.4.0",
 		"@atlaskit/platform-feature-flags": "0.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -93,6 +93,9 @@
 			"type": "boolean"
 		},
 		"platform.media-cdn-delivery": {
+			"type": "boolean"
+		},
+		"platform.media-card-performance-observer_lgc7b": {
 			"type": "boolean"
 		}
 	}

@@ -217,6 +217,7 @@ exports[`BackButton Should match snapshot 1`] = `
       <span
         aria-hidden="true"
         class="emotion-0"
+        data-vc="icon-undefined"
         style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
       >
         <svg

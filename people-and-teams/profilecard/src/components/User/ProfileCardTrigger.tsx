@@ -40,6 +40,7 @@ export default function ProfilecardTriggerNext({
 	prepopulatedData,
 	disabledAriaAttributes,
 	onVisibilityChange,
+	offset,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -310,6 +311,7 @@ export default function ProfilecardTriggerNext({
 					handleKeyboardClose(event);
 				}}
 				placement={position}
+				offset={offset ?? [0, 8]}
 				content={() => (
 					<div {...wrapperProps}>
 						{showLoading ? (

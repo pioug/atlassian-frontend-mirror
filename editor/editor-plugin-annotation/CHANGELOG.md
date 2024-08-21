@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.19.1
+
+### Patch Changes
+
+- [`5f08e90d0ca00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f08e90d0ca00) -
+  [ED-24638] Fix: comment button in selection toolbar disappears after dropping
+
 ## 1.19.0
 
 ### Minor Changes

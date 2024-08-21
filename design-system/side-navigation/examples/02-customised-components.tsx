@@ -24,7 +24,8 @@ import SampleHeader from './common/sample-header';
 const CustomComponent = (props: CustomItemComponentProps) => {
 	const { children, ...rest } = props;
 	return (
-		<div
+		<button
+			type="button"
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 			css={{
 				position: 'relative',
@@ -50,7 +51,7 @@ const CustomComponent = (props: CustomItemComponentProps) => {
 			{...rest}
 		>
 			{children}
-		</div>
+		</button>
 	);
 };
 

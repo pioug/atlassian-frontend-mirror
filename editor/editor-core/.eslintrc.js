@@ -1,5 +1,6 @@
 module.exports = {
 	rules: {
+		'@typescript-eslint/no-explicit-any': 'error',
 		'@atlaskit/design-system/ensure-design-token-usage/preview': [
 			'error',
 			{ domains: ['spacing'], shouldEnforceFallbacks: false },
@@ -33,6 +34,7 @@ module.exports = {
 			],
 			rules: {
 				'import/no-restricted-paths': ['off'],
+				'@typescript-eslint/no-explicit-any': ['off'],
 			},
 		},
 	],

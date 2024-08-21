@@ -8,7 +8,7 @@ import { findImportFromPackage } from '../utils';
  * Ref: ED-15849
  */
 const createRemoveAllowMoreTextColorsPropTransform = (pkg: string, component: string) => {
-	return (j: core.JSCodeshift, source: Collection<any>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>) => {
 		// Find regular or renamed imports
 		// of <Editor/> component from '@atlaskit/editor-core' package
 		const importedNames: string[] = findImportFromPackage(

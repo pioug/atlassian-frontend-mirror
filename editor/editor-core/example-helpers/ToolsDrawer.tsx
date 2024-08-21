@@ -33,7 +33,7 @@ import { buttonGroup, content } from './styles';
 
 const mediaMock = createEditorMediaMock();
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));
-const pendingPromise = new Promise<any>(() => {});
+const pendingPromise = new Promise<unknown>(() => {});
 
 // https://pug.jira-dev.com
 const testCloudId = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
@@ -146,13 +146,27 @@ export interface State {
 	enabledFeatures: ToolbarFeatures;
 }
 
+interface RenderEditorProps {
+	disabled: boolean;
+	enabledFeatures: ToolbarFeatures;
+	mentionProvider: (typeof providers)['mentionProvider'][ProviderState];
+	imageUploadProvider: (typeof providers)['imageUploadProvider'][ProviderState];
+	mediaProvider: (typeof providers)['mediaProvider'][ProviderState];
+	emojiProvider: (typeof providers)['emojiProvider'][ProviderState];
+	taskDecisionProvider: (typeof providers)['taskDecisionProvider'][ProviderState];
+	contextIdentifierProvider: (typeof providers)['contextIdentifierProvider'][ProviderState];
+	activityProvider: (typeof providers)['activityProvider'][ProviderState];
+	onChange: (editorView: EditorView) => void;
+}
+
 export interface Props {
 	imageUploadProvider?: ProviderState;
+	renderEditor: (props: RenderEditorProps) => React.ReactNode;
 }
 
 export type ProviderState = 'resolved' | 'pending' | 'rejected' | 'undefined';
 
-export default class ToolsDrawer extends React.Component<Props & any, State> {
+export default class ToolsDrawer extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
 
@@ -178,8 +192,8 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 		}
 	}
 
-	private switchProvider = (providerType: string, providerName: string) => {
-		this.setState({ [providerType]: providerName } as any);
+	private switchProvider = (providerType: keyof typeof providers, providerName: string) => {
+		this.setState({ [providerType]: providerName } as Pick<State, typeof providerType>);
 	};
 
 	private reloadEditor = () => {
@@ -232,9 +246,9 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
 			enabledFeatures,
 		} = this.state;
 		return (
-			<AnalyticsListener channel="atlaskit" onEvent={(e: any) => console.log(e)}>
-				<AnalyticsListener channel="media" onEvent={(e: any) => console.log(e)}>
-					<AnalyticsListener channel="fabric-elements" onEvent={(e: any) => console.log(e)}>
+			<AnalyticsListener channel="atlaskit" onEvent={(e) => console.log(e)}>
+				<AnalyticsListener channel="media" onEvent={(e) => console.log(e)}>
+					<AnalyticsListener channel="fabric-elements" onEvent={(e) => console.log(e)}>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 						<div css={content}>
 							<div style={{ padding: `${token('space.150', '4px')} 0` }}>

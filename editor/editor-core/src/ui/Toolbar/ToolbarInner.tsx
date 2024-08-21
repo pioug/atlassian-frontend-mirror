@@ -58,7 +58,6 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 		return (
 			<div css={toolbarComponentsWrapper}>
 				{items.map((component, key) => {
-					const props: any = { key };
 					const element = component({
 						editorView,
 						editorActions: editorActions as EditorActions,
@@ -76,7 +75,7 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 						dispatchAnalyticsEvent,
 						wrapperElement: null,
 					});
-					return element && React.cloneElement(element, props);
+					return element && React.cloneElement(element, { key });
 				})}
 			</div>
 		);

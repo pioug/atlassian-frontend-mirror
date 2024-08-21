@@ -31,7 +31,7 @@
 		"@atlaskit/adf-schema": "^40.8.1",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/editor-common": "^87.13.0",
-		"@atlaskit/icon": "^22.13.0",
+		"@atlaskit/icon": "^22.14.0",
 		"@babel/runtime": "^7.0.0",
 		"@types/gapi": "0.0.44"
 	},

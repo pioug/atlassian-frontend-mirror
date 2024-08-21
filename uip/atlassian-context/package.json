@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-context",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"description": "Provides FedRAMP-friendly URLs and helps to identify if product is running in FedRAMP environment.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

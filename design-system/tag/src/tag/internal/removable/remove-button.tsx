@@ -112,7 +112,7 @@ const RemoveButton = ({
 			onMouseOut={onMouseOut}
 			testId={testId}
 		>
-			<EditorCloseIcon label="close tag" size="small" />
+			<EditorCloseIcon label="" size="small" />
 		</Pressable>
 	);
 };

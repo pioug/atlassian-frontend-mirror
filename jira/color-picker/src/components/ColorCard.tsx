@@ -4,6 +4,7 @@
  */
 import React, {
 	type KeyboardEventHandler,
+	type Ref,
 	useCallback,
 	useEffect,
 	useRef,
@@ -21,6 +22,7 @@ import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { mergeRefs } from 'use-callback-ref';
 
 export interface Props {
+	initialFocusRef?: Ref<HTMLDivElement>;
 	value: string;
 	label: string;
 	onClick?: (value: string) => void;
@@ -30,7 +32,6 @@ export interface Props {
 	focused?: boolean;
 	isOption?: boolean;
 	isTabbing?: boolean;
-	onTabPress?: (backwards: boolean) => void;
 }
 
 export type ColorCardRef = {
@@ -39,6 +40,7 @@ export type ColorCardRef = {
 
 const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const {
+		initialFocusRef,
 		value,
 		label,
 		selected,
@@ -47,10 +49,11 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		isTabbing,
 		onClick,
 		onKeyDown,
-		onTabPress,
 	} = props;
 
 	const ref = useRef<HTMLDivElement | null>(null);
+	const isInitialFocus = useRef<boolean>(true);
+
 	const handleMouseDown = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
 		event.preventDefault();
 	}, []);
@@ -87,9 +90,6 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 	const handleKeyDown = useCallback(
 		(event: React.KeyboardEvent<HTMLDivElement>) => {
 			const { key } = event;
-			if (key === 'Tab') {
-				onTabPress?.(event.shiftKey);
-			}
 
 			if ((isTabbing === undefined || isTabbing) && (key === KEY_ENTER || key === KEY_SPACE)) {
 				event.preventDefault();
@@ -101,7 +101,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 
 			onKeyDown?.(event);
 		},
-		[isTabbing, onTabPress, onClick, onKeyDown, value],
+		[isTabbing, onClick, onKeyDown, value],
 	);
 
 	// TODO: Remove this useEffect when the feature flag 'platform_color_palette_menu_timeline_bar_a11y' is cleaned up
@@ -127,10 +127,17 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		componentRef,
 		() => ({
 			focus: () => {
-				ref.current?.focus();
+				if (fg('platform_color_palette_menu_timeline_bar_a11y')) {
+					if (isInitialFocus.current) {
+						!initialFocusRef && ref.current?.focus();
+						isInitialFocus.current = false;
+					} else {
+						ref.current?.focus();
+					}
+				}
 			},
 		}),
-		[],
+		[initialFocusRef],
 	);
 
 	return (
@@ -140,6 +147,15 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 				return (
 					<div
 						{...tooltipProps}
+						ref={
+							initialFocusRef
+								? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
+								: mergeRefs([ref, tooltipProps.ref])
+						}
+						tabIndex={fg('platform_color_palette_menu_timeline_bar_a11y') ? (selected ? 0 : -1) : 0}
+						role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'menuitemradio' : 'radio'}
+						aria-checked={selected}
+						aria-label={label}
 						css={[
 							sharedColorContainerStyles,
 							(isTabbing === undefined || isTabbing) && colorCardOptionTabbingStyles,
@@ -150,11 +166,6 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 						onKeyDown={
 							fg('platform_color_palette_menu_timeline_bar_a11y') ? handleKeyDown : handleKeyDownOld
 						}
-						role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'menuitemradio' : 'radio'}
-						aria-checked={selected}
-						aria-label={label}
-						tabIndex={0}
-						ref={mergeRefs([ref, tooltipProps.ref])}
 					>
 						<div css={colorCardWrapperStyles}>
 							<div

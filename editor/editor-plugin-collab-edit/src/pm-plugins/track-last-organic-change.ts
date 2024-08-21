@@ -16,12 +16,12 @@ export const createPlugin = () => {
 		state: {
 			init() {
 				return {
-					lastOrganicChangeAt: null,
+					lastLocalOrganicChangeAt: null,
+					lastRemoteOrganicChangeAt: null,
 				};
 			},
 			apply(transaction: ReadonlyTransaction, prevPluginState: LastOrganicChangeMetadata) {
 				const isRemote = originalTransactionHasMeta(transaction, 'isRemote');
-
 				const isDocumentReplaceFromRemote =
 					isRemote && originalTransactionHasMeta(transaction, 'replaceDocument');
 
@@ -29,13 +29,20 @@ export const createPlugin = () => {
 					return prevPluginState;
 				}
 
-				if (isRemote || isDirtyTransaction(transaction)) {
+				if (isDirtyTransaction(transaction)) {
 					return prevPluginState;
 				}
 
 				if (isOrganicChange(transaction)) {
+					if (isRemote) {
+						return {
+							lastLocalOrganicChangeAt: prevPluginState.lastLocalOrganicChangeAt,
+							lastRemoteOrganicChangeAt: Date.now(),
+						};
+					}
 					return {
-						lastOrganicChangeAt: Date.now(),
+						lastLocalOrganicChangeAt: Date.now(),
+						lastRemoteOrganicChangeAt: prevPluginState.lastRemoteOrganicChangeAt,
 					};
 				}
 

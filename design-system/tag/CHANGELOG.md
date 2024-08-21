@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 12.5.2
+
+### Patch Changes
+
+- [`a2113e5c2f721`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2113e5c2f721) -
+  Remove unnecessary alt attribute.
+
 ## 12.5.1
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import type { Collection } from 'jscodeshift/src/Collection';
  * Ref: ED-16826
  */
 export const createUpdateEditorToMigrationComponent = (pkg: string, component: string) => {
-	return (j: core.JSCodeshift, source: Collection<any>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>) => {
 		source
 			.find(j.ImportDeclaration, { source: { value: pkg } })
 			.filter(

@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode } from 'react';
+import React, { type FC, forwardRef, type ReactNode } from 'react';
 
 import {
 	createAndFireEvent,
@@ -38,28 +38,30 @@ export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const ActionItemComponent: FC<CommentActionItemProps> = ({
-	children,
-	onClick,
-	onFocus,
-	onMouseOver,
-	isDisabled,
-}) => {
-	return (
-		/**
-		 * It is not normally acceptable to add click and key handlers to non-interactive
-		 * elements as this is an accessibility anti-pattern. However, because this
-		 * instance is to add support for analytics instead of creating an inaccessible
-		 * custom element, we can add role="presentation" so that there are no negative
-		 * impacts to assistive technologies.
-		 */
-		<span role="presentation" onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
-			<Button appearance="subtle-link" spacing="none" type="button" isDisabled={isDisabled}>
-				{children}
-			</Button>
-		</span>
-	);
-};
+const ActionItemComponent: FC<CommentActionItemProps> = forwardRef(
+	({ children, onClick, onFocus, onMouseOver, isDisabled }, ref) => {
+		return (
+			/**
+			 * It is not normally acceptable to add click and key handlers to non-interactive
+			 * elements as this is an accessibility anti-pattern. However, because this
+			 * instance is to add support for analytics instead of creating an inaccessible
+			 * custom element, we can add role="presentation" so that there are no negative
+			 * impacts to assistive technologies.
+			 */
+			<span role="presentation" onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
+				<Button
+					ref={ref}
+					appearance="subtle-link"
+					spacing="none"
+					type="button"
+					isDisabled={isDisabled}
+				>
+					{children}
+				</Button>
+			</span>
+		);
+	},
+);
 
 export { ActionItemComponent as CommentActionWithoutAnalytics };
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');

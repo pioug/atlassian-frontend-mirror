@@ -1,5 +1,20 @@
 # @atlaskit/media-file-preview
 
+## 0.8.0
+
+### Minor Changes
+
+- [#130787](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130787)
+  [`64a680780dc57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64a680780dc57) -
+  Add performance observer metrics for Media Card to assist investigation into hot-110955
+
+### Patch Changes
+
+- [#131947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131947)
+  [`871136a343690`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/871136a343690) -
+  Fixed issue with images being refetched if the items responded before upfront preview resolved
+- Updated dependencies
+
 ## 0.7.0
 
 ### Minor Changes

@@ -52,7 +52,7 @@
 	"devDependencies": {
 		"@atlaskit/docs": "*",
 		"@atlaskit/link-test-helpers": "^7.4.0",
-		"@atlaskit/media-test-helpers": "^34.0.0",
+		"@atlaskit/media-test-helpers": "^34.1.0",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"typescript": "~5.4.2"
 	},

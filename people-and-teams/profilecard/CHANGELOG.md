@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 19.18.0
+
+### Minor Changes
+
+- [#131601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131601)
+  [`ab382e4004e40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab382e4004e40) -
+  [ux] Profile card added for Rovo agents
+
+### Patch Changes
+
+- Updated dependencies
+
+## 19.17.7
+
+### Patch Changes
+
+- [#131947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131947)
+  [`fb3bce1b8c769`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb3bce1b8c769) -
+  [ux] Restore usage of offsetprop in ProfileCardTrigger
+
 ## 19.17.6
 
 ### Patch Changes

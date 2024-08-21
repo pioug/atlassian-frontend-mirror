@@ -33,6 +33,7 @@ import {
 	isMediaFileStateError,
 } from '../../errors';
 import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
+import { type SSR } from '@atlaskit/media-common';
 
 export type CardPreviewAttributes = {
 	fileId: string;
@@ -44,6 +45,27 @@ export type CardPreviewAttributes = {
 
 type WithCardPreviewCacheAttributes = {
 	cardPreviewAttributes: CardPreviewAttributes;
+};
+
+type WithCardPerfAttributes = {
+	ssr: SSR;
+	fileId: string;
+	mediaClientId?: string;
+	url: string;
+	transferSize: number;
+	decodedBodySize: number;
+	totalDuration: number;
+	tcpHandshakeTime: number;
+	dnsLookupTime: number;
+	redirectTimeTaken: number;
+	tlsConnectNegotiationTime: number;
+	timeTakenToFetchWithoutRedirect: number;
+	browserCacheHit: boolean;
+	interimRequestTime: number;
+	requestInvocationTime?: number;
+	cdnCacheHit: boolean;
+	cdnDownstreamFBL?: number;
+	cdnUpstreamFBL?: number;
 };
 
 export type FileUriFailReason = 'local-uri' | 'remote-uri' | `unknown-uri`;
@@ -171,6 +193,12 @@ export type RemoteSuccessEventPayload = OperationalEventPayload<
 	WithCardPreviewCacheAttributes,
 	'Remote-success',
 	'mediaCardCache'
+>;
+
+export type MediaCardPerfObserverPayload = OperationalEventPayload<
+	WithCardPerfAttributes,
+	'succeeded',
+	'mediaCardPerfObserver'
 >;
 
 export type CopiedFileEventPayload = UIEventPayload<{}, 'copied', string>;

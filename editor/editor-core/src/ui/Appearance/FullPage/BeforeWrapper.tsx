@@ -17,7 +17,7 @@ const beforePrimaryToolbarPluginWrapperStyles = css({
 	alignItems: 'center',
 });
 
-type ReactComponents = ReactElement<any> | ReactElement<any>[];
+type ReactComponents = ReactElement | ReactElement[];
 
 // Duplicate of the wrapper from `editor-plugins/before-primary-toolbar` used
 // only in `FullPageToolbar` to decouple the plugin from the main toolbar

@@ -13,6 +13,7 @@ import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-toolbar';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
 
@@ -75,12 +76,15 @@ export const FullPageEditor = (props: ComponentProps) => {
 	]);
 	let primaryToolbarComponents = props.primaryToolbarComponents;
 
+	const toolbarComponentsSSR = fg('platform_editor_toolbar_ssr')
+		? editorAPI?.primaryToolbar?.sharedState.currentState()?.components
+		: [];
 	if (Array.isArray(primaryToolbarComponents)) {
+		let additionalComponents = primaryToolbarState?.components ?? [];
 		// The primary toolbar state may be undefined if we are in SSR environment - in which case fallback to the current state (useLayoutEffect doesn't work in SSR)
-		const additionalComponents =
-			primaryToolbarState?.components ??
-			editorAPI?.primaryToolbar?.sharedState.currentState()?.components ??
-			[];
+		if (additionalComponents.length === 0) {
+			additionalComponents = toolbarComponentsSSR ?? [];
+		}
 		primaryToolbarComponents = additionalComponents.concat(primaryToolbarComponents);
 	}
 

@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type ProfileClient, type RovoAgentProfileCardInfo, type TriggerType } from '../../types';
+import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ErrorMessage from '../Error/ErrorMessage';
 
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
@@ -12,11 +13,21 @@ export interface AgentProfileCardResourcedProps {
 	resourceClient: ProfileClient;
 	trigger?: TriggerType;
 	children?: React.ReactNode;
+	viewingUserId?: string;
+	product?: string;
 }
 export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps) => {
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState();
+
+	const creatorUserId = useMemo(
+		() =>
+			agentData?.creator_type === 'CUSTOMER' && agentData.creator
+				? getAAIDFromARI(agentData.creator)
+				: '',
+		[agentData?.creator_type, agentData?.creator],
+	);
 
 	const getCreator = useCallback(
 		async (creator_type: string, creator?: string) => {
@@ -31,18 +42,21 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					return { type: 'THIRD_PARTY' as const, name: creator ?? '' };
 
 				case 'CUSTOMER':
-					const creatorInfo = await props.resourceClient.getProfile(creator, props.cloudId || '');
+					const creatorInfo = await props.resourceClient.getProfile(
+						creatorUserId || '',
+						props.cloudId || '',
+					);
 					return {
 						type: 'CUSTOMER' as const,
 						name: creatorInfo.fullName,
-						profileLink: `/people/${creator}`,
+						profileLink: `/people/${creatorUserId}`,
 					};
 
 				default:
 					return undefined;
 			}
 		},
-		[props.cloudId, props.resourceClient],
+		[creatorUserId, props.cloudId, props.resourceClient],
 	);
 
 	const getAgentInfo = useCallback(() => {
@@ -92,7 +106,15 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 	}
 
 	if (agentData) {
-		return <AgentProfileCardLazy agent={agentData} isLoading={isLoading} hasError={!!error} />;
+		return (
+			<AgentProfileCardLazy
+				agent={agentData}
+				isLoading={isLoading}
+				hasError={!!error}
+				isCreatedByViewingUser={creatorUserId === props.viewingUserId}
+				product={props.product}
+			/>
+		);
 	}
 
 	return null;

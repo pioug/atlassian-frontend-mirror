@@ -2,7 +2,6 @@ import {
 	type FlagWrapper,
 	type Reason,
 	type ErrorKind,
-	type AutomaticExposureHandler,
 	type FlagValue,
 	type CustomAttributes,
 	type FlagShape,
@@ -17,25 +16,10 @@ export const MISSING_FLAG_EXPLANATION = {
  * This class handles the evaluations for flags that do not exist in the collection given to the client.
  */
 export default class MissingFlag implements FlagWrapper {
-	public evaluationCount: number;
-
-	private readonly flagKey: string;
-	private readonly sendAutomaticExposure: AutomaticExposureHandler | null;
-
-	constructor(flagKey: string, sendAutomaticExposure: AutomaticExposureHandler | null) {
-		this.flagKey = flagKey;
-		this.sendAutomaticExposure = sendAutomaticExposure;
-		this.evaluationCount = 0;
-	}
+	// Unused but required for type
+	evaluationCount = -1;
 
 	private evaluate<T = FlagValue>(defaultValue: T) {
-		this.sendAutomaticExposure != null &&
-			this.sendAutomaticExposure(
-				this.flagKey,
-				defaultValue as unknown as FlagValue,
-				MISSING_FLAG_EXPLANATION,
-			);
-		this.evaluationCount++;
 		return defaultValue;
 	}
 

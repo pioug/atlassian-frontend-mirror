@@ -26,6 +26,7 @@ import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import type { EditorAppearance } from './editor-appearance';
 import type { FeatureFlags } from './feature-flags';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin<any, any>[]> {
 	editorAPI: PublicPluginAPI<Plugins> | undefined;
 	appearance?: EditorAppearance;

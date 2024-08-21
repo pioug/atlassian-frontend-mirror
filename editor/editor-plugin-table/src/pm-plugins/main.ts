@@ -25,7 +25,6 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { addBoldInEmptyHeaderCells, clearHoverSelection, setTableRef } from '../commands';
 import { stopKeyboardColumnResizing } from '../commands/column-resize';
@@ -44,7 +43,6 @@ import {
 	handleMouseEnter,
 	handleMouseLeave,
 	handleMouseMove,
-	handleMouseOver,
 	handleMouseUp,
 	handleTripleClick,
 	whenTableInFocus,
@@ -371,9 +369,6 @@ export const createPlugin = (
 				focus: handleFocus,
 				blur: handleBlur,
 				mousedown: withCellTracking(handleMouseDown),
-				mouseover: fg('platform_editor_react_18_table_column_resize_hover')
-					? undefined
-					: withCellTracking(whenTableInFocus(handleMouseOver)),
 				mouseleave: handleMouseLeave,
 				mousemove: whenTableInFocus(handleMouseMove),
 				mouseenter: handleMouseEnter,

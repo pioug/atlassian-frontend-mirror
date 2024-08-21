@@ -177,7 +177,7 @@ export const evaluateDocBuilderExpression = (
 		const fn = new Function(`{${args}}`, `return ${docBuilderExpression}`);
 		const result = fn(context) ?? (() => ({}));
 		return result;
-	} catch (err: any) {
-		return err;
+	} catch (err: unknown) {
+		return err as Error;
 	}
 };

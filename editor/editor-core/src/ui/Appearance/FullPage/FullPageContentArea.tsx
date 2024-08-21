@@ -6,7 +6,7 @@ import type { ReactElement } from 'react';
 import React, { useImperativeHandle, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, useTheme } from '@emotion/react';
+import { jsx, type Theme, useTheme } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -68,7 +68,7 @@ const Content = React.forwardRef<
 	ScrollContainerRefs,
 	FullPageEditorContentAreaProps & WrappedComponentProps
 >((props, ref) => {
-	const theme: { [index: string]: any } = useTheme();
+	const theme: Theme = useTheme();
 	const fullWidthMode = props.appearance === 'full-width';
 	const scrollContainerRef = useRef(null);
 	const contentAreaRef = useRef(null);

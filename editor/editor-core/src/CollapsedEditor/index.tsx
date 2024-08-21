@@ -3,11 +3,14 @@ import React from 'react';
 import type * as EditorImports from '../index';
 import ChromeCollapsed from '../ui/ChromeCollapsed';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type EditorModules = { [x: string]: any };
+
 export type EditorModule = {
 	// Subset of most common imports expected to be used
 	EditorContext: typeof EditorImports.EditorContext;
 	WithEditorActions: typeof EditorImports.WithEditorActions;
-} & { [x: string]: any };
+} & EditorModules;
 
 export interface Props {
 	placeholder?: string;
@@ -17,11 +20,11 @@ export interface Props {
 }
 
 export interface State {
-	editorModules?: { [x: string]: any };
+	editorModules?: EditorModules;
 }
 
 export default class CollapsedEditor extends React.Component<Props, State> {
-	static editorModules: any;
+	static editorModules: EditorModules;
 	state = { editorModules: CollapsedEditor.editorModules } as State;
 
 	componentDidMount() {
@@ -48,6 +51,6 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 		}
 
 		const { Editor, ...rest } = this.state.editorModules;
-		return this.props.renderEditor(Editor, rest as any);
+		return this.props.renderEditor(Editor, rest as EditorModule);
 	}
 }

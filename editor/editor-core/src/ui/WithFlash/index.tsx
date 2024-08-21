@@ -48,7 +48,7 @@ const flashWrapperAnimated = css({
 
 export interface Props {
 	animate: boolean;
-	children?: any;
+	children?: React.ReactNode;
 }
 
 export default class WithFlash extends React.Component<Props> {

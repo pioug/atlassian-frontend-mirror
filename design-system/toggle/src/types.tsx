@@ -66,9 +66,9 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
 	isChecked?: boolean;
 
 	/**
-	 * Text to be used as an `aria-label` for the toggle component.
+	 * Text value which will be associated with toggle input using aria-labelledby attribute.
 	 *
-	 * Use this when there is no visible label for the toggle.
+	 * Use only when you can't use a visible label for the toggle.
 	 */
 	label?: string;
 

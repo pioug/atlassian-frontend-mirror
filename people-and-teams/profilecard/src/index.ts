@@ -5,6 +5,7 @@ import ProfileCardClient from './client/ProfileCardClient';
 import TeamProfileClient from './client/TeamProfileCardClient';
 // Note: when generating and updating Flow types in Jira, `UserProfileClient` and `UserProfileCardClient` are the same type
 import UserProfileClient, { modifyResponse } from './client/UserProfileCardClient';
+import AgentProfileCard from './components/Agent/AgentProfileCard';
 import TeamProfileCardTrigger from './components/Team/TeamProfileCardTrigger';
 import ProfileCard from './components/User/ProfileCard';
 import ProfileCardResourced from './components/User/ProfileCardResourced';
@@ -36,6 +37,7 @@ export type {
 	ProfilecardProps,
 	PrepopulatedData,
 	Team,
+	AgentProfileCardTriggerProps,
 } from './types';
 
 // We cannot export this component inside `./components/Team/index.ts` because it breaks the lazyload
@@ -45,7 +47,9 @@ export { default as TeamProfileCard } from './components/Team/TeamProfileCard';
 export { ProfileCard };
 export { ProfileCardTrigger };
 export { TeamProfileCardTrigger };
+export { AgentProfileCard };
 export { ProfileCardClient as ProfileClient, TeamProfileClient, UserProfileClient, modifyResponse };
 export { DELAY_MS_SHOW, DELAY_MS_HIDE };
-
+export { AgentProfileCardTrigger } from './components/Agent/AgentProfileCardTrigger';
+export { AgentProfileCardResourced } from './components/Agent/AgentProfileCardResourced';
 export default ProfileCardResourced;

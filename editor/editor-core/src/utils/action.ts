@@ -11,6 +11,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 const mediaPluginKey = {
 	key: 'mediaPlugin$',
 	getState: (state: EditorState) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (state as any)['mediaPlugin$'];
 	},
 } as PluginKey;

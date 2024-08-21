@@ -16,11 +16,11 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 		this.options = options;
 	}
 
-	makeRequest(agentId: string): Promise<RovoAgent> {
+	makeRequest(agentId: string, cloudId: string): Promise<RovoAgent> {
 		if (!this.options.productIdentifier) {
 			throw new Error('Trying to fetch agents data with no specified config.productIdentifier');
 		}
-		return getAgentDetailsByAgentId(agentId, this.options.productIdentifier);
+		return getAgentDetailsByAgentId(agentId, this.options.productIdentifier, cloudId);
 	}
 
 	getProfile(
@@ -29,6 +29,10 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 	): Promise<RovoAgent> {
 		if (!agentId) {
 			return Promise.reject(new Error('agentId is missing'));
+		}
+
+		if (!this.options.cloudId) {
+			return Promise.reject(new Error('cloudId is missing'));
 		}
 
 		const cache = this.getCachedProfile(agentId);
@@ -44,7 +48,7 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 				analytics(agentRequestAnalytics('triggered'));
 			}
 
-			this.makeRequest(agentId)
+			this.makeRequest(agentId, this.options.cloudId || '')
 				.then((data: RovoAgent) => {
 					if (this.cache) {
 						this.setCachedProfile(agentId, data);

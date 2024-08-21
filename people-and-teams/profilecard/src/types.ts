@@ -60,20 +60,19 @@ export interface RovoAgent {
 	visibility?: 'PUBLIC' | 'PRIVATE' | null;
 	is_default: boolean;
 	actor_type: 'AGENT';
-	creator_cloud_id?: string | null;
 	follow_up_prompt_template?: string | null;
 	plugin_routing_type?: 'DEFAULT' | 'SKIP' | null;
 	user_defined_conversation_starters: string[] | null;
 	favourite: boolean;
-	deactivated: boolean;
-	deactivatedAt?: string;
 	favourite_count: number;
+	deactivated?: boolean;
 }
 
 export interface RovoAgentCreatorInfo {
 	type: 'CUSTOMER' | 'SYSTEM' | 'THIRD_PARTY';
 	name?: string;
 	profileLink?: string;
+	id?: string;
 }
 
 export interface RovoAgentProfileCardInfo extends RovoAgent {
@@ -167,6 +166,7 @@ export interface ProfileCardTriggerProps {
 	onVisibilityChange?: (isVisible: boolean) => void;
 	isVisible?: boolean;
 	offset?: [number, number];
+	product?: string;
 }
 
 export interface ProfileCardTriggerState {
@@ -304,6 +304,28 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	 * Optional cloudId. Pass this if rendering card within a sited context.
 	 */
 	cloudId?: string;
+}
+
+export interface AgentProfileCardTriggerProps {
+	userId: string;
+	cloudId?: string;
+	autoFocus?: boolean;
+	resourceClient: ProfileClient;
+	actions?: ProfileCardAction[];
+	onOpenChat?: (agentId: string) => void;
+	position?: ProfilecardTriggerPosition;
+	trigger?: TriggerType;
+	children: React.ReactNode;
+	testId?: string;
+	addFlag?: (flag: any) => void;
+	ariaLabel?: string;
+	ariaLabelledBy?: string;
+	prepopulatedData?: PrepopulatedData;
+	disabledAriaAttributes?: boolean;
+	isVisible?: boolean;
+	offset?: [number, number];
+	product?: string;
+	viewingUserId?: string;
 }
 
 export type StatusType = 'active' | 'inactive' | 'closed';

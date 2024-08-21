@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "87.13.1",
+	"version": "87.13.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -173,7 +173,7 @@
 		"@atlaskit/analytics-listeners": "^8.11.0",
 		"@atlaskit/analytics-namespaced-context": "^6.11.0",
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/atlassian-context": "^0.0.0",
+		"@atlaskit/atlassian-context": "^0.0.1",
 		"@atlaskit/button": "^20.1.0",
 		"@atlaskit/code": "^15.5.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
@@ -185,15 +185,15 @@
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/emoji": "^67.7.0",
-		"@atlaskit/icon": "^22.13.0",
+		"@atlaskit/icon": "^22.14.0",
 		"@atlaskit/icon-object": "^6.5.0",
 		"@atlaskit/link-datasource": "^2.11.0",
 		"@atlaskit/link-picker": "^1.42.0",
-		"@atlaskit/media-card": "^78.0.0",
-		"@atlaskit/media-client": "^27.3.0",
+		"@atlaskit/media-card": "^78.1.0",
+		"@atlaskit/media-client": "^27.4.0",
 		"@atlaskit/media-client-react": "^2.1.0",
 		"@atlaskit/media-common": "^11.4.0",
-		"@atlaskit/media-file-preview": "^0.7.0",
+		"@atlaskit/media-file-preview": "^0.8.0",
 		"@atlaskit/media-picker": "^66.5.0",
 		"@atlaskit/media-ui": "^25.11.0",
 		"@atlaskit/media-viewer": "48.7.2",
@@ -201,7 +201,7 @@
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^12.0.0",
-		"@atlaskit/profilecard": "^19.17.0",
+		"@atlaskit/profilecard": "^19.18.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/smart-card": "^27.16.0",
 		"@atlaskit/smart-user-picker": "^6.10.0",
@@ -247,7 +247,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/media-core": "^34.3.0",
-		"@atlaskit/media-test-helpers": "^34.0.0",
+		"@atlaskit/media-test-helpers": "^34.1.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",
@@ -339,6 +339,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_element_padding_changes_gate": {
+			"type": "boolean"
+		},
+		"use-effect-in-use-previous-props": {
 			"type": "boolean"
 		}
 	}

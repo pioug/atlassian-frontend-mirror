@@ -53,7 +53,7 @@ ContentArea.displayName = 'ContentArea';
 
 type AppearanceProps = EditorAppearanceComponentProps<[OptionalPlugin<MaxContentSizePlugin>]>;
 
-export default class Editor extends React.Component<AppearanceProps, any> {
+export default class Editor extends React.Component<AppearanceProps> {
 	static displayName = 'ChromelessEditorAppearance';
 
 	private appearance: EditorAppearance = 'chromeless';

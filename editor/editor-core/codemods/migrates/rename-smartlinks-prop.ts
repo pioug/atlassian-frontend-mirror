@@ -14,7 +14,7 @@ export const createJSXRenameVariableToNestedKeyTransform = (
 	toObjectName: string,
 	toObjectKey: string,
 ) => {
-	return (j: core.JSCodeshift, source: Collection<any>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>) => {
 		source
 			.find(j.JSXAttribute, { name: { type: 'JSXIdentifier', name: from } })
 			.forEach((fromAttribute) => {

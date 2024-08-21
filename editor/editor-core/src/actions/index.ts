@@ -33,10 +33,12 @@ import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 const fakePluginKey = {
 	key: 'nativeCollabProviderPlugin$',
 	getState: (state: EditorState) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (state as any)['nativeCollabProviderPlugin$'];
 	},
 } as PluginKey;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	private editorView?: EditorView;
 	private contentTransformer?: Transformer<T>;
@@ -229,6 +231,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	}
 
 	replaceDocument(
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		rawValue: any,
 		shouldScrollToBottom = true,
 		/** @deprecated [ED-14158] shouldAddToHistory is not being used in this function */

@@ -40,7 +40,7 @@ export const checkForModal = (target: HTMLElement | null) => {
 	return true;
 };
 
-const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<any>) => {
+const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLElement>) => {
 	const isEditorFocused = !!view?.hasFocus?.();
 
 	if (!(event.target instanceof HTMLElement)) {
@@ -132,7 +132,7 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<any>) =
 
 const outsideProsemirrorEditorClickHandler = (
 	view: EditorView,
-	event: React.MouseEvent<any, MouseEvent>,
+	event: React.MouseEvent<HTMLElement, MouseEvent>,
 ) => {
 	const { dispatch, dom, state } = view;
 	const { tr } = state;

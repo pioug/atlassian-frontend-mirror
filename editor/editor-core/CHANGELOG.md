@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 195.6.1
+
+### Patch Changes
+
+- [#131374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131374)
+  [`9ef24a0e887b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ef24a0e887b2) -
+  Fix type definitions for `any` type in editor-core.
+
+## 195.6.0
+
+### Minor Changes
+
+- [#131937](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131937)
+  [`64414d9668409`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64414d9668409) -
+  Adding configuration to mentions plugin from confluence
+
+## 195.5.1
+
+### Patch Changes
+
+- [#131033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131033)
+  [`725d9e6250c83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/725d9e6250c83) -
+  Add feature flag to show or hide editor toolbar in SSR
+
 ## 195.5.0
 
 ### Minor Changes

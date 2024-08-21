@@ -46,6 +46,7 @@ export const AllowedDomains = [
 	'team',
 	'wac-cdn',
 	'xxid',
+	'home',
 ] as const;
 // List of SubDomains: https://hello.atlassian.net/wiki/spaces/FEDRAMP/pages/2567950844/List+of+SubDomains
 export type DomainKey = (typeof AllowedDomains)[number];

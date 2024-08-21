@@ -1,5 +1,16 @@
 # @atlaskit/color-picker
 
+## 3.2.25
+
+### Patch Changes
+
+- [#132178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132178)
+  [`93caf7dc621cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93caf7dc621cc) -
+  Add support for consumers to set initial focus in color picker
+- [#132178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132178)
+  [`93caf7dc621cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93caf7dc621cc) -
+  Implemented roving tabIndex for color palatte menu
+
 ## 3.2.24
 
 ### Patch Changes

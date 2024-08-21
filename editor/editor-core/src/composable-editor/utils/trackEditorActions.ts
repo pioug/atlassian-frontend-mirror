@@ -62,7 +62,7 @@ export default function trackEditorActions(
 					}
 					samplingCounters.success++;
 					return value;
-				} catch (err: any) {
+				} catch (err: unknown) {
 					if (
 						samplingCounters.failure ===
 						(performanceTracking?.contentRetrievalTracking?.failureSamplingRate ??
@@ -74,9 +74,9 @@ export default function trackEditorActions(
 								actionSubject: ACTION_SUBJECT.EDITOR,
 								attributes: {
 									success: false,
-									errorInfo: err.toString(),
+									errorInfo: (err as Error).toString(),
 									errorStack: performanceTracking?.contentRetrievalTracking?.reportErrorStack
-										? err.stack
+										? (err as Error).stack
 										: undefined,
 								},
 								eventType: EVENT_TYPE.OPERATIONAL,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-file-preview",
-	"version": "0.7.0",
+	"version": "0.8.0",
 	"description": "A React Hook to fetch and render file previews. It's overloaded with fancy features like SSR, lazy loading, memory cache and local preview.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,10 +39,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^27.3.0",
+		"@atlaskit/media-client": "^27.4.0",
 		"@atlaskit/media-client-react": "^2.1.0",
 		"@atlaskit/media-common": "^11.4.0",
 		"@atlaskit/media-ui": "^25.11.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"eventemitter2": "^4.1.0",
 		"lru_map": "^0.4.1"
@@ -55,7 +56,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/media-state": "^1.1.0",
-		"@atlaskit/media-test-data": "^2.5.0",
+		"@atlaskit/media-test-data": "^2.6.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
@@ -98,6 +99,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform.media-card-performance-observer_lgc7b": {
+			"type": "boolean"
 		}
 	}
 }

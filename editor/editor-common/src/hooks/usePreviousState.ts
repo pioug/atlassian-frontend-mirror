@@ -1,4 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  *
@@ -12,6 +14,15 @@ import { useRef } from 'react';
  */
 export default function usePreviousState<T>(value: T, initialValue?: T): T | undefined {
 	const ref = useRef<T | undefined>(initialValue);
+
+	if (fg('use-effect-in-use-previous-props')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		useEffect(() => {
+			ref.current = value;
+		}, [value]);
+		return ref.current;
+	}
+
 	const prevValue = ref.current;
 	ref.current = value;
 	return prevValue;

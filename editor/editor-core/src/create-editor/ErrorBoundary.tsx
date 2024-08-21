@@ -41,6 +41,7 @@ export type ErrorBoundaryState = {
 type AnalyticsErrorBoundaryAttributes = {
 	error: Error;
 	info?: ErrorInfo;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 };
 
@@ -80,7 +81,7 @@ export class ErrorBoundaryWithEditorView extends React.Component<
 		const attributes: ErrorEventAttributes = {
 			product,
 			browserInfo,
-			error: error.toString() as any as Error,
+			error: error.toString() as unknown as Error,
 			errorInfo,
 			errorId: sharedId,
 			browserExtensions: this.browserExtensions,

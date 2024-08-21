@@ -38,6 +38,7 @@ export class InstrumentedPlugin<PluginState> extends SafePlugin<PluginState> {
 				oldState: EditorState,
 				newState: EditorState,
 			) => {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const self = this as any;
 				const tr = new Proxy(
 					aTr,
@@ -69,6 +70,7 @@ export class InstrumentedPlugin<PluginState> extends SafePlugin<PluginState> {
 			const originalView = spec.view.bind(spec);
 
 			spec.view = (editorView: EditorView) => {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const self = this as any;
 				const measure = `🦉${self.key}::view::update`;
 

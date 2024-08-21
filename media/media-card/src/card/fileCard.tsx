@@ -255,6 +255,7 @@ export const FileCard = ({
 		dimensions: previewDimensions,
 		traceContext,
 		skipRemote: !isCardVisible,
+		source: 'mediaCard',
 	});
 
 	const [error, setError] = useState<MediaCardError | undefined>();

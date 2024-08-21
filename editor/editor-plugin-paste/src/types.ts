@@ -9,6 +9,7 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { MediaPlugin } from '@atlaskit/editor-plugin-media';
+import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export interface PastePluginState {
@@ -47,6 +48,7 @@ export type PastePlugin = NextEditorPlugin<
 			OptionalPlugin<MediaPlugin>,
 			OptionalPlugin<ExtensionPlugin>,
 			OptionalPlugin<AnnotationPlugin>,
+			OptionalPlugin<MentionsPlugin>,
 		];
 		sharedState: {
 			lastContentPasted: LastContentPasted | null;

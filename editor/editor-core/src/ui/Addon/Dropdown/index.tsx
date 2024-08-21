@@ -20,11 +20,11 @@ export interface Props {
 	togglePopup: () => void;
 }
 
-export default class DropdownWrapper extends React.Component<Props, any> {
+export default class DropdownWrapper extends React.Component<Props> {
 	render() {
 		// adding onClick handler to each DropdownItem component
 		const children = React.Children.map(this.props.children, (child) =>
-			React.cloneElement(child as React.ReactElement<any>, {
+			React.cloneElement(child as React.ReactElement, {
 				onClick: this.handleClick,
 			}),
 		);

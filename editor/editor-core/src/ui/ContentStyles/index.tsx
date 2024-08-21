@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { SerializedStyles } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, useTheme } from '@emotion/react';
+import { css, jsx, type Theme, useTheme } from '@emotion/react';
 
 import { telepointerStyle } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
@@ -87,7 +87,7 @@ export const linkStyles = css`
 `;
 
 type ContentStylesProps = {
-	theme?: any;
+	theme?: Theme;
 	colorMode?: 'light' | 'dark';
 	featureFlags?: FeatureFlags;
 	viewMode?: 'view' | 'edit';
@@ -351,7 +351,7 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<div className={className} ref={ref as any} css={[memoizedStyle, styles]}>
+			<div className={className} ref={ref} css={[memoizedStyle, styles]}>
 				{children}
 			</div>
 		);

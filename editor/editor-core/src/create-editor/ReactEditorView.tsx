@@ -250,6 +250,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 	}
 
 	private getPluginNames() {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return this.editorState.plugins.map((p: any) => p.key);
 	}
 

@@ -50,7 +50,7 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
-		"@atlaskit/icon": "^22.13.0",
+		"@atlaskit/icon": "^22.14.0",
 		"@atlaskit/link-analytics": "^8.5.0",
 		"@atlaskit/link-client-extension": "^2.1.0",
 		"@atlaskit/link-datasource": "^2.11.0",

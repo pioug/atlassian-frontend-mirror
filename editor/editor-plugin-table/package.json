@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "7.25.8",
+	"version": "7.25.9",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^22.13.0",
+		"@atlaskit/icon": "^22.14.0",
 		"@atlaskit/menu": "^2.12.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.3.0",
@@ -127,12 +127,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_announce_cell_options_hotkeys": {
-			"type": "boolean"
-		},
-		"platform_editor_react_18_table_column_resize_hover": {
-			"type": "boolean"
-		},
-		"platform_editor_react_18_table_insertion_cursor": {
 			"type": "boolean"
 		}
 	}

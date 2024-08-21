@@ -220,6 +220,7 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
 					}}
 				>
 					<p>Paragraph node's content:</p>
+					{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 					{code`${JSON.stringify((adf as any).content[0].content, null, 2)}`}
 				</div>
 			</div>

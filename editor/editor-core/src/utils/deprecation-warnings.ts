@@ -1,15 +1,15 @@
-export interface DeprecationWarning {
+export interface DeprecationWarning<Props> {
 	property: string;
 	description?: string;
 	type?: string;
-	condition?: (props: any) => boolean;
+	condition?: (props: Props) => boolean;
 }
 
-const deprecationWarnings = (
+function deprecationWarnings<Props extends object>(
 	className: string,
-	props: any,
-	deprecations: Array<DeprecationWarning>,
-): void => {
+	props: Props,
+	deprecations: Array<DeprecationWarning<Props>>,
+): void {
 	if (process.env.NODE_ENV === 'production') {
 		return;
 	}
@@ -30,6 +30,6 @@ const deprecationWarnings = (
 			}
 		}
 	}
-};
+}
 
 export default deprecationWarnings;

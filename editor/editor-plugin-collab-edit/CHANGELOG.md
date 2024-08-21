@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.14.0
+
+### Minor Changes
+
+- [#130280](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130280)
+  [`48d1e33c0076a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48d1e33c0076a) -
+  Split lastOrganicchange in two fields `lastLocalOrganicChange` and `lastRemoteOrganicChange`
+
 ## 1.13.0
 
 ### Minor Changes

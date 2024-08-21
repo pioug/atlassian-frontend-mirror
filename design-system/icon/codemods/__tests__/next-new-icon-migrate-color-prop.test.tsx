@@ -1,4 +1,4 @@
-import transformer from '../next-new-icon-migrate-color-prop';
+import transformer from '../22.14.0-new-icon-migrate-color-prop';
 
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 

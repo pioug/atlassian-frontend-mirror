@@ -46,11 +46,12 @@ export type CollabInitializedMetadata = {
 };
 
 export type LastOrganicChangeMetadata = {
-	lastOrganicChangeAt: null | number;
+	lastLocalOrganicChangeAt: null | number;
+	lastRemoteOrganicChangeAt: null | number;
 };
 
 export type CollabEditPluginSharedState = {
-	initialised: CollabInitializedMetadata;
+	initialised: CollabInitializedMetadata & LastOrganicChangeMetadata;
 	activeParticipants: ReadOnlyParticipants | undefined;
 	sessionId: string | undefined;
 };

@@ -12,6 +12,7 @@ import {
 	type MediaTraceContext,
 	type SSR,
 } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createFailedSSRObject, extractErrorInfo, type SSRStatus } from './analytics';
 import { ensureMediaFilePreviewError, ImageLoadError, MediaFilePreviewError } from './errors';
@@ -57,6 +58,8 @@ export interface UseFilePreviewParams {
 	/** Make the client receive the response with the given max-age cache control header. Minimum: 0, maximum: 9223372036854776000.
 	 */
 	readonly maxAge?: number;
+	/** Defines the source component */
+	readonly source?: string;
 }
 
 export const useFilePreview = ({
@@ -70,6 +73,7 @@ export const useFilePreview = ({
 	allowAnimated = true,
 	upscale,
 	maxAge,
+	source,
 }: UseFilePreviewParams) => {
 	const mediaClient = useMediaClient();
 	const [status, setStatus] = useState<MediaFilePreviewStatus>('loading');
@@ -90,7 +94,7 @@ export const useFilePreview = ({
 	);
 	const requestDimensionsRef = useCurrentValueRef(requestDimensions);
 
-	const imageURLParams = {
+	let imageURLParams: MediaStoreGetFileImageParams = {
 		collection: identifier.collectionName,
 		mode: resizeMode,
 		...requestDimensions,
@@ -98,6 +102,10 @@ export const useFilePreview = ({
 		upscale,
 		'max-age': maxAge,
 	};
+
+	if (fg('platform.media-card-performance-observer_lgc7b')) {
+		imageURLParams = { ...imageURLParams, source, ssr };
+	}
 
 	const previewInitializer = (): MediaFilePreview | undefined => {
 		const preview = mediaFilePreviewCache.get(identifier.id, resizeMode);
@@ -283,7 +291,7 @@ export const useFilePreview = ({
 				// We always refetch SSR preview to be able to browser-cache a version without the token in the query parameters
 				isSSRPreview(preview)) &&
 			!skipRemote &&
-			upfrontPreviewStatus !== 'not-resolved' &&
+			upfrontPreviewStatus === 'resolved' &&
 			isBackendPreviewReady
 		) {
 			getAndCacheRemotePreviewRef

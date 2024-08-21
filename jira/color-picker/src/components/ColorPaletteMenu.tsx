@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState, useCallback, useEffect, type KeyboardEvent, useMemo } from 'react';
+import { useState, useCallback, useEffect, useMemo, type KeyboardEvent, type Ref } from 'react';
 import { Mode, type Palette } from '../types';
 import {
 	createAndFireEvent,
@@ -34,6 +34,8 @@ export type Props = {
 	createAnalyticsEvent?: any;
 	/** style of the color-picker, either 'Compact' or 'Standard', default value is 'Standard' */
 	mode?: Mode;
+	/** the ref object (usually the currently selected color palette) that consumer can leverage to focus on load */
+	initialFocusRef?: Ref<HTMLDivElement>;
 };
 
 export const ColorPaletteMenuWithoutAnalytics = ({
@@ -45,6 +47,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	label = 'Color picker',
 	cols = 6,
 	mode = Mode.Standard,
+	initialFocusRef,
 }: Props) => {
 	const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
@@ -101,10 +104,6 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 		[setFocusedIndex, options],
 	);
 
-	const onTabPress = (backwards = false) => {
-		setFocusedIndex(backwards ? 0 : options.length - 1);
-	};
-
 	return (
 		<div
 			aria-label={fullLabel}
@@ -134,7 +133,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							onClick={handleChange}
 							{...(fg('platform_color_palette_menu_timeline_bar_a11y') && {
 								ref: (ref) => (colorCardRefs[index] = ref),
-								onTabPress,
+								initialFocusRef: value === selectedValue.value ? initialFocusRef : undefined,
 								onKeyDown: handleKeyDown,
 							})}
 						/>

@@ -8,7 +8,11 @@ import type {
 } from 'jscodeshift';
 import type { Collection } from 'jscodeshift/src/Collection';
 
-function hasImportDeclaration(j: core.JSCodeshift, source: Collection<any>, importPath: string) {
+function hasImportDeclaration(
+	j: core.JSCodeshift,
+	source: Collection<unknown>,
+	importPath: string,
+) {
 	const imports = source
 		.find(j.ImportDeclaration)
 		.filter((path: ASTPath<ImportDeclaration>) => path.node.source.value === importPath);
@@ -17,7 +21,10 @@ function hasImportDeclaration(j: core.JSCodeshift, source: Collection<any>, impo
 }
 
 export const createTransformer =
-	(packageName: string, migrations: { (j: core.JSCodeshift, source: Collection<any>): void }[]) =>
+	(
+		packageName: string,
+		migrations: { (j: core.JSCodeshift, source: Collection<unknown>): void }[],
+	) =>
 	(fileInfo: FileInfo, { jscodeshift: j }: API, options: Options) => {
 		const source = j(fileInfo.source);
 
@@ -42,7 +49,7 @@ export const createTransformer =
  */
 export const findImportFromPackage = (
 	j: core.JSCodeshift,
-	source: Collection<any>,
+	source: Collection<unknown>,
 	pkg: string,
 	importName: string,
 ): string[] => {
@@ -89,7 +96,7 @@ export const findImportFromPackage = (
  * @param toName String
  */
 export const createRenameVariableTransform = (from: string, toName: string) => {
-	return (j: core.JSCodeshift, source: Collection<any>) => {
+	return (j: core.JSCodeshift, source: Collection<unknown>) => {
 		source.find(j.Identifier, { name: from }).forEach((x) => {
 			x.replace(j.identifier(toName));
 		});

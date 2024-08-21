@@ -3,7 +3,7 @@ import React, { type ComponentProps } from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import SettingsIcon from '@atlaskit/icon/core/migration/settings';
 
 import ButtonGroup from '../../../containers/button-group';
 import { SplitButton } from '../../../new-button/containers/split-button';

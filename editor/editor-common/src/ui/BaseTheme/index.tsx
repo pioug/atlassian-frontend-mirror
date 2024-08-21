@@ -25,6 +25,13 @@ type BaseThemeWrapperProps = {
 	baseFontSize?: number;
 };
 
+declare module '@emotion/react' {
+	export interface Theme {
+		baseFontSize: number;
+		layoutMaxWidth: number;
+	}
+}
+
 export function BaseThemeWrapper({ baseFontSize, children }: BaseThemeWrapperProps) {
 	const memoizedTheme = useMemo(
 		() => ({

@@ -3,7 +3,7 @@ import type EditorActions from '../../actions';
 export type RenderOnClickHandler = (
 	editorActions: EditorActions,
 	closePopup: () => void,
-) => React.ReactElement<any>;
+) => React.ReactElement;
 
 export interface AddonActions {
 	actionOnClick?: (editorActions: EditorActions) => void;
@@ -11,12 +11,12 @@ export interface AddonActions {
 }
 
 export interface AddonCommonProps extends AddonActions {
-	icon: React.ReactElement<any>;
+	icon: React.ReactElement;
 }
 
 export interface AddonProps extends AddonCommonProps {
 	onClick?: (actions: AddonActions) => void;
-	children?: React.ReactElement<any>[];
+	children?: React.ReactElement[];
 }
 
 export interface AddonConfiguration extends AddonCommonProps {

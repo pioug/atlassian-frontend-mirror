@@ -4,7 +4,7 @@ import {
 	type AuthContext,
 	type ClientAltBasedAuth,
 } from '@atlaskit/media-core';
-import { type MediaTraceContext } from '@atlaskit/media-common';
+import { type SSR, type MediaTraceContext } from '@atlaskit/media-common';
 
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 
@@ -57,6 +57,7 @@ export type MediaStoreRequestOptions = RequestMetadata & {
 	readonly clientOptions?: ClientOptions;
 	readonly traceContext?: MediaTraceContext;
 	readonly ChunkhashAlgorithm?: ChunkHashAlgorithm;
+	readonly addMediaClientParam?: boolean;
 };
 
 export type MediaStoreCreateFileFromUploadParams = {
@@ -125,6 +126,12 @@ export type MediaStoreGetFileImageParams = {
 	readonly mode?: 'fit' | 'full-fit' | 'crop';
 	readonly upscale?: boolean;
 	readonly 'max-age'?: number;
+	/*
+	The below parameters aren't accepted by the endpoint, 
+	but are required by hot-110955 to communicate information to the PerformanceObserver
+	*/
+	readonly source?: string;
+	readonly ssr?: SSR;
 };
 
 export interface SourceFile {

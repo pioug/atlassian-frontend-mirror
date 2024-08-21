@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import SettingsIcon from '@atlaskit/icon/glyph/settings';
+import SettingsIcon from '@atlaskit/icon/core/migration/settings';
 
 import { SplitButton } from '../../../new-button/containers/split-button';
 import Button from '../../../new-button/variants/default/button';

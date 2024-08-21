@@ -249,6 +249,7 @@ function createPasteAnalyticsPayloadBySelection(
 	event: ClipboardEvent,
 	slice: Slice,
 	pasteContext: PasteContext,
+	pluginInjectionApi?: ExtractInjectionAPI<PastePlugin>,
 ) {
 	return (selection: Selection): AnalyticsEventPayload => {
 		const text = event.clipboardData
@@ -288,12 +289,15 @@ function createPasteAnalyticsPayloadBySelection(
 
 		const mentionIds: string[] = [];
 		const mentionLocalIds: string[] = [];
+		const mentionsInserted: { id: string; localId: string }[] = [];
 		slice.content.descendants((node) => {
 			if (node.type.name === 'mention') {
 				mentionIds.push(node.attrs.id);
 				mentionLocalIds.push(node.attrs.localId);
+				mentionsInserted.push({ id: node.attrs.id, localId: node.attrs.localId });
 			}
 		});
+		pluginInjectionApi?.mention?.actions?.announceMentionsInsertion(mentionsInserted);
 
 		if (pasteContext.type === PasteTypes.plain) {
 			return createPastePayload(actionSubjectId, {
@@ -445,9 +449,14 @@ export const handleRichTextWithAnalytics = (
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
 ): Command =>
 	injectAnalyticsPayloadBeforeCommand(pluginInjectionApi?.analytics?.actions)(
-		createPasteAnalyticsPayloadBySelection(event, slice, {
-			type: PasteTypes.richText,
-		}),
+		createPasteAnalyticsPayloadBySelection(
+			event,
+			slice,
+			{
+				type: PasteTypes.richText,
+			},
+			pluginInjectionApi,
+		),
 	)(handleRichText(slice, pluginInjectionApi?.card?.actions?.queueCardsFromChangedTr));
 
 const injectAnalyticsPayloadBeforeCommand =

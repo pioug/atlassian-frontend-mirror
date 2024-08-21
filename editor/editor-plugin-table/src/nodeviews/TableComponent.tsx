@@ -225,9 +225,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this?.table?.addEventListener('mouseout', this.handleMouseOut);
 
-		if (fg('platform_editor_react_18_table_column_resize_hover')) {
-			this?.table?.addEventListener('mouseover', this.handleMouseOver);
-		}
+		this?.table?.addEventListener('mouseover', this.handleMouseOver);
 
 		const { tableWithFixedColumnWidthsOption = false, stickyScrollbar } = getEditorFeatureFlags();
 
@@ -333,9 +331,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		this?.table?.removeEventListener('mouseout', this.handleMouseOut);
 
-		if (fg('platform_editor_react_18_table_column_resize_hover')) {
-			this?.table?.removeEventListener('mouseover', this.handleMouseOver);
-		}
+		this?.table?.removeEventListener('mouseover', this.handleMouseOver);
 
 		if (this.overflowShadowsObserver) {
 			this.overflowShadowsObserver.dispose();

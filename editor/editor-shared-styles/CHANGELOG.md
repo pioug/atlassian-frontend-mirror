@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 2.13.3
+
+### Patch Changes
+
+- [#131374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131374)
+  [`9ef24a0e887b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ef24a0e887b2) -
+  Fix type definitions for `any` type in editor-core.
+
 ## 2.13.2
 
 ### Patch Changes

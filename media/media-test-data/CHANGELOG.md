@@ -1,5 +1,13 @@
 # @atlaskit/media-test-data
 
+## 2.6.0
+
+### Minor Changes
+
+- [#132147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132147)
+  [`580c0e6f55a69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/580c0e6f55a69) -
+  Updates to support React 18
+
 ## 2.5.0
 
 ### Minor Changes

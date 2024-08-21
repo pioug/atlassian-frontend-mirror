@@ -83,8 +83,7 @@ describe('smart-card: prefetching of content', () => {
 		expect(resolvedView).toBeTruthy();
 		expect(resolvedView.textContent).toBe('I love cheese');
 		// - Assertions that fetch was called ⬇️
-		expect(mockFetch).toBeCalled();
-		expect(mockFetch).toBeCalledTimes(1);
+		expect(mockFetch).toHaveBeenCalledTimes(1);
 		// - Assertions that prefetch was not called ⬇️
 		expect(mockPrefetch).not.toHaveBeenCalled();
 
@@ -92,8 +91,8 @@ describe('smart-card: prefetching of content', () => {
 		// So I skipped 100ms to run properly the tests.
 		jest.advanceTimersByTime(100);
 		// - Assertions that we started and finished the UFO render experience in that order.
-		expect(mockStartUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1');
-		expect(mockSucceedUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1', {
+		expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+		expect(mockSucceedUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1', {
 			display: 'inline',
 			extensionKey: 'object-provider',
 		});
@@ -114,11 +113,10 @@ describe('smart-card: prefetching of content', () => {
 		// - Assertions that we rendered the correct Smart Link ⬇️.
 		expect(lazyPlaceholderView).toBeTruthy();
 		// - Assertions that fetch was not called ⬇️
-		expect(mockFetch).not.toBeCalled();
+		expect(mockFetch).not.toHaveBeenCalled();
 		// - Assertions that prefetch was called ⬇️
 		await waitFor(() => {
-			expect(mockPrefetch).toBeCalled();
-			expect(mockPrefetch).toBeCalledTimes(1);
+			expect(mockPrefetch).toHaveBeenCalledTimes(1);
 		});
 
 		// - Assertions that UFO experience has not been started or succeeded since
@@ -141,10 +139,9 @@ describe('smart-card: prefetching of content', () => {
 		expect(lazyPlaceholderView).toBeTruthy();
 		expect(lazyPlaceholderView.textContent).toBe('spaghetti');
 		// - Assertions that fetch was not called ⬇️
-		expect(mockFetch).not.toBeCalled();
+		expect(mockFetch).not.toHaveBeenCalled();
 		// - Assertions that prefetch was called ⬇️
-		expect(mockPrefetch).toBeCalled();
-		expect(mockPrefetch).toBeCalledTimes(1);
+		expect(mockPrefetch).toHaveBeenCalledTimes(1);
 
 		// - Assertions that UFO experience has not been started or succeeded since
 		// it is not in the viewport
@@ -178,11 +175,15 @@ describe('smart-card: prefetching of content', () => {
 		expect(resolvedView.textContent).toBe('I love cheese');
 
 		// - Assertions that we started and finished the UFO render experience in that order.
-		expect(mockStartUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1');
-		expect(mockSucceedUfoExperience).toBeCalledWith('smart-link-rendered', 'some-uuid-1', {
-			display: 'inline',
-			extensionKey: 'object-provider',
+		await waitFor(() => {
+			expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
 		});
-		expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(mockStartUfoExperience as jest.Mock);
+		await waitFor(() => {
+			expect(mockSucceedUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1', {
+				display: 'inline',
+				extensionKey: 'object-provider',
+			});
+		});
+		expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(jest.mocked(mockStartUfoExperience));
 	});
 });

@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.14.0
+
+### Minor Changes
+
+- [#131906](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131906)
+  [`9fd3fdb9e3b02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fd3fdb9e3b02) -
+  Adding 'data-vc' attribute to icon for instrumenting TTVC (go/ttvc).
+
 ## 22.13.0
 
 ### Minor Changes

@@ -32,10 +32,14 @@ export interface State {
 	jsonDocument?: string;
 }
 
-export default class ToolsDrawer extends React.Component<any, State> {
+interface Props {
+	renderEditor: (props: {}) => React.ReactNode;
+}
+
+export default class ToolsDrawer extends React.Component<Props, State> {
 	private providerFactory: ProviderFactory;
 
-	constructor(props: any) {
+	constructor(props: Props) {
 		super(props);
 
 		this.providerFactory = new ProviderFactory();
@@ -58,11 +62,11 @@ export default class ToolsDrawer extends React.Component<any, State> {
 
 	private renderRenderer(doc: string = '') {
 		try {
-			const props: any = {
+			const props = {
 				document: JSON.parse(doc),
 				dataProviders: this.providerFactory,
 				appearance: 'comment',
-			};
+			} as const;
 			return (
 				<div>
 					<div

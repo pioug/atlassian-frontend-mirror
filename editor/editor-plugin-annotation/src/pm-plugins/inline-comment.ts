@@ -230,6 +230,13 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					}
 					return false;
 				},
+				dragstart: (view: EditorView, event: MouseEvent) => {
+					// Mouseup won't be triggered after dropping
+					// Hence, update the mouse data to cancel selecting when drag starts
+					if (fg('platform_editor_element_drag_and_drop_ed_24638')) {
+						return onMouseUp(view.state, view.dispatch)(event);
+					}
+				},
 			},
 			decorations(state: EditorState) {
 				// highlight comments, depending on state

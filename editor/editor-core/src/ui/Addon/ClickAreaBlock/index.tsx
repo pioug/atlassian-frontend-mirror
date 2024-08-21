@@ -18,7 +18,7 @@ const clickWrapper = css({
 
 export interface Props {
 	editorView?: EditorView;
-	children?: any;
+	children?: React.ReactNode;
 	editorDisabled?: boolean;
 }
 

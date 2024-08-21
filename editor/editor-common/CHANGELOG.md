@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 87.13.3
+
+### Patch Changes
+
+- [#131374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131374)
+  [`9ef24a0e887b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ef24a0e887b2) -
+  Fix type definitions for `any` type in editor-core.
+- [#131601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131601)
+  [`ca5f723c23abb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca5f723c23abb) -
+  Use useEffect in usePreviousProps hook to match react dev mode behaviour with prod and staging
+  [GRAVITYAI-1097]
+- Updated dependencies
+
+## 87.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 87.13.1
 
 ### Patch Changes

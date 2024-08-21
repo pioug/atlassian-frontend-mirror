@@ -59,7 +59,7 @@ export async function extensionProviderToQuickInsertProvider(
 			const quickInsertItems = getQuickInsertItemsFromModule<QuickInsertItem>(
 				extensions,
 				(item) => {
-					const Icon = Loadable<{ label: string }, any>({
+					const Icon = Loadable<{ label: string }, {}>({
 						loader: item.icon,
 						loading: () => null,
 					});

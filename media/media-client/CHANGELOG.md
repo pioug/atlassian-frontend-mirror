@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 27.4.0
+
+### Minor Changes
+
+- [#130787](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130787)
+  [`64a680780dc57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64a680780dc57) -
+  Add performance observer metrics for Media Card to assist investigation into hot-110955
+
 ## 27.3.4
 
 ### Patch Changes

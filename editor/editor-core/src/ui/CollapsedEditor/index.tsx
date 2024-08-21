@@ -2,11 +2,12 @@ import React from 'react';
 
 import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 
-import Editor from '../../editor';
+import type Editor from '../../editor';
 import ChromeCollapsed from '../ChromeCollapsed';
 
 export interface Props {
 	placeholder?: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: any;
 	isExpanded?: boolean;
 
@@ -32,7 +33,10 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 		this.previouslyExpanded = this.props.isExpanded;
 	}
 
-	handleEditorRef = (editorRef?: Editor, editorRefCallback?: any) => {
+	handleEditorRef = (
+		editorRef?: Editor,
+		editorRefCallback?: (editor: Editor | undefined) => void,
+	) => {
 		if (editorRefCallback && typeof editorRefCallback === 'function') {
 			editorRefCallback(editorRef);
 		}
@@ -56,7 +60,7 @@ export default class CollapsedEditor extends React.Component<Props, State> {
 			return child;
 		}
 		return React.cloneElement(child, {
-			ref: (editorComponent: Editor) => this.handleEditorRef(editorComponent, (child as any).ref),
+			ref: (editorComponent: Editor) => this.handleEditorRef(editorComponent, child.ref),
 		});
 	}
 }

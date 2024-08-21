@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+import ShowMoreHorizontalIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { type IconProps } from '@atlaskit/icon/types';
 
 import { IconButton } from '../../../new';
@@ -21,7 +21,9 @@ describe(`Buttons should not throw away events due to re-renders when using vari
 				trigger={({ triggerRef, ...props }) => (
 					<IconButton
 						{...props}
-						icon={(iconProps) => <MoreIcon {...iconProps} testId="icon" />}
+						icon={(iconProps) => (
+							<ShowMoreHorizontalIcon {...iconProps} testId="icon" color="currentColor" />
+						)}
 						label="more"
 						ref={triggerRef}
 						testId="button"
@@ -45,7 +47,13 @@ describe(`Buttons should not throw away events due to re-renders when using vari
 		render(
 			<DropdownMenu<HTMLButtonElement>
 				trigger={({ triggerRef, ...props }) => (
-					<IconButton {...props} icon={MoreIcon} label="more" ref={triggerRef} testId="button" />
+					<IconButton
+						{...props}
+						icon={ShowMoreHorizontalIcon}
+						label="more"
+						ref={triggerRef}
+						testId="button"
+					/>
 				)}
 				shouldRenderToParent
 				testId="dropdown"
@@ -64,11 +72,12 @@ describe(`Buttons should not throw away events due to re-renders when using vari
 
 	it(`forwardRef`, async () => {
 		const ForwardRefIcon = React.forwardRef<HTMLSpanElement, IconProps>((props, ref) => (
-			<MoreIcon
+			<ShowMoreHorizontalIcon
 				{...props}
 				// @ts-ignore
 				ref={ref}
 				testId="icon"
+				color="currentColor"
 			/>
 		));
 

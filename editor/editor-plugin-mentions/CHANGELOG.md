@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.4.0
+
+### Minor Changes
+
+- [#131937](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131937)
+  [`64414d9668409`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64414d9668409) -
+  Adding configuration to mentions plugin from confluence
+
 ## 2.3.1
 
 ### Patch Changes

@@ -71,6 +71,7 @@ export const EditorInternal = memo(
 		const Component = getUiComponent(props.appearance!);
 
 		const setEditorApi = useCallback(
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(api: PublicPluginAPI<any>) => {
 				// This is an workaround to unblock Editor Lego Decoupling project, if you have questions ping us #cc-editor-lego
 				// We may clean up this code when EditorActions deprecation process starts
@@ -209,6 +210,7 @@ function ReactEditorViewContextWrapper(props: EditorViewProps) {
 	 * `EditorInternal`.
 	 */
 	const setEditorAPI = useCallback(
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(api: PublicPluginAPI<any>) => {
 			setInternalEditorAPI?.(api);
 			setExternalEditorAPI?.(api);

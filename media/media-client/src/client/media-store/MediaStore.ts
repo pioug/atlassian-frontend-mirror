@@ -1,4 +1,9 @@
-import { type AuthContext, type MediaApiConfig, type Auth } from '@atlaskit/media-core';
+import {
+	type AuthContext,
+	type MediaApiConfig,
+	type Auth,
+	isClientBasedAuth,
+} from '@atlaskit/media-core';
 import { getRandomHex, type MediaTraceContext } from '@atlaskit/media-common';
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 import type {
@@ -362,6 +367,7 @@ export class MediaStore implements MediaApi {
 			params: extendImageParams(params, fetchMaxRes),
 			headers,
 			traceContext,
+			addMediaClientParam: fg('platform.media-card-performance-observer_lgc7b') && true,
 		};
 
 		return this.request(`/file/${id}/${imageEndpoint}`, options, controller).then(
@@ -471,9 +477,19 @@ export class MediaStore implements MediaApi {
 		},
 		controller?: AbortController,
 	): Promise<Response> {
-		const { method, endpoint, authContext, params, headers, body, clientOptions, traceContext } =
-			options;
+		const {
+			method,
+			endpoint,
+			authContext,
+			params,
+			headers,
+			body,
+			clientOptions,
+			traceContext,
+			addMediaClientParam,
+		} = options;
 		const auth = await this.resolveAuth(authContext);
+		const clientId = isClientBasedAuth(auth) ? auth.clientId : undefined;
 		const extendedTraceContext = traceContext
 			? {
 					...traceContext,
@@ -487,7 +503,7 @@ export class MediaStore implements MediaApi {
 				method,
 				endpoint,
 				auth,
-				params,
+				params: addMediaClientParam ? { ...params, clientId } : params,
 				headers,
 				body,
 				clientOptions,

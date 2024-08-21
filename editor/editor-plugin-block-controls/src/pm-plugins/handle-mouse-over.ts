@@ -39,7 +39,20 @@ export const handleMouseOver = (
 		if (fg('platform_editor_elements_dnd_nested')) {
 			const $rootPos = view.state.doc.resolve(pos);
 			const depth = $rootPos.depth;
-			rootPos = depth ? $rootPos.before() : $rootPos.pos;
+
+			const isParentAnIsolatingNode =
+				$rootPos.parent?.type.name !== 'doc' && $rootPos.parent?.type.spec.isolating;
+			const isCurrentNodeAtom = $rootPos.nodeAfter?.isAtom;
+			/**
+			 * If the parent node is an isolating node, the sides of nodes of this type are considered boundaries, such as a table cell.
+			 * And the current node, as a direct child, is an atom node, meaning it does not have directly editable content.
+			 * e.g. a card or an extension
+			 * We maintain the original position by adding 1 to the depth.
+			 * This prevents the decoration from being inserted in the wrong position, like between table cells.
+			 */
+			const posDepth = isParentAnIsolatingNode && isCurrentNodeAtom ? depth + 1 : depth;
+
+			rootPos = depth ? $rootPos.before(posDepth) : $rootPos.pos;
 		} else {
 			rootPos = view.state.doc.resolve(pos).start(1) - 1;
 		}

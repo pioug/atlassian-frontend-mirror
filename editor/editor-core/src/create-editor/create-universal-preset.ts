@@ -35,6 +35,7 @@ function withDangerouslyAppendPlugins(
 ): (plugins: EditorPlugin[] | undefined) => ReturnType<typeof createUniversalPresetInternal> {
 	function createEditorNextPluginsFromDangerouslyAppended(
 		plugins: EditorPlugin[],
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	): NextEditorPlugin<any, any>[] {
 		return plugins ? plugins.map((plugin) => () => plugin) : [];
 	}

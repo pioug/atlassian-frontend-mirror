@@ -73,7 +73,11 @@ type UniversalPresetProps = DefaultPresetPluginOptions &
  * Mechanism to configuring plugins as the universal preset blocks direct access
  * to configuring plugins.
  */
-export type InitialPluginConfiguration = {};
+export type InitialPluginConfiguration = {
+	mentionsPlugin?: {
+		handleMentionsInserted?: (mentionIds: { localId: string; id: string }[]) => void;
+	};
+};
 
 /**
  * Creates a preset with all of the available plugins.
@@ -217,6 +221,7 @@ export default function createUniversalPresetInternal({
 					allowZeroWidthSpaceAfter: !isMobile,
 					HighlightComponent: props.mention?.HighlightComponent,
 					profilecardProvider: props.mention?.profilecardProvider,
+					...initialPluginConfiguration?.mentionsPlugin,
 				},
 			],
 			Boolean(props.mentionProvider),

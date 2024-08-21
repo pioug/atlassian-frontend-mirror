@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.9
+
+### Patch Changes
+
+- [#131697](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131697)
+  [`b62fbe67743eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62fbe67743eb) -
+  Clean up React 18 feature flags
+
 ## 7.25.8
 
 ### Patch Changes

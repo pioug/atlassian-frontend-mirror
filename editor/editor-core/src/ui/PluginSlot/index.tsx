@@ -43,7 +43,7 @@ export interface Props {
 	wrapperElement: HTMLElement | null;
 }
 
-export default class PluginSlot extends React.Component<Props, any> {
+export default class PluginSlot extends React.Component<Props> {
 	static displayName = 'PluginSlot';
 
 	transitionEvent = whichTransitionEvent<'transitionend'>();
@@ -148,7 +148,7 @@ export default class PluginSlot extends React.Component<Props, any> {
 				/>
 				<div css={pluginsComponentsWrapper}>
 					{items?.map((component, key) => {
-						const props: any = { key };
+						const props = { key };
 						const element = component({
 							editorView: editorView as EditorView,
 							editorActions: editorActions as EditorActions,

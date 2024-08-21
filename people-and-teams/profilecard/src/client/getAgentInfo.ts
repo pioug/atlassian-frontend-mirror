@@ -1,23 +1,12 @@
 import { type RovoAgent } from '../types';
-
-const createHeaders = (product: string): Headers => {
-	const config = {
-		headers: {
-			'x-product': product,
-			'x-experience-id': 'profile-card',
-		},
-	};
-
-	return new Headers({
-		...(config.headers || {}),
-	});
-};
+import { createHeaders } from '../util/rovoAgentUtils';
 
 export async function getAgentDetailsByAgentId(
 	agentId: string,
 	product: string,
+	cloudId: string,
 ): Promise<RovoAgent> {
-	const headers = createHeaders(product);
+	const headers = createHeaders(product, cloudId);
 
 	return await fetch(
 		new Request(`assist/agents/v1/${agentId}`, {
@@ -29,8 +18,12 @@ export async function getAgentDetailsByAgentId(
 	).then((response) => response.json());
 }
 
-export async function getAgentDetailsByUserId(userId: string, product: string): Promise<RovoAgent> {
-	const headers = createHeaders(product);
+export async function getAgentDetailsByUserId(
+	userId: string,
+	product: string,
+	cloudId: string,
+): Promise<RovoAgent> {
+	const headers = createHeaders(product, cloudId);
 
 	return await fetch(
 		new Request(`assist/agents/v1/accountid/${userId}`, {

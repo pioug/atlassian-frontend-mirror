@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.12.3
+
+### Patch Changes
+
+- [#131601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131601)
+  [`80035567d3d2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80035567d3d2e) -
+  ED-24614 fix cards flickering inside a table cell
+
 ## 1.12.2
 
 ### Patch Changes

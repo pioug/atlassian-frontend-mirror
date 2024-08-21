@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 10.13.1
+
+### Patch Changes
+
+- [#132150](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132150)
+  [`1095b6e65e08a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1095b6e65e08a) -
+  Forward ref to the comment action button
+
 ## 10.13.0
 
 ### Minor Changes

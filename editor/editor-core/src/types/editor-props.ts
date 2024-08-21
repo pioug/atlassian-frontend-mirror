@@ -52,7 +52,7 @@ import type { PerformanceTracking } from './performance-tracking';
 
 export type { UseStickyToolbarType };
 
-export type ReactComponents = ReactElement<any> | ReactElement<any>[];
+export type ReactComponents = ReactElement | ReactElement[];
 
 type ExtensionProviders = (ExtensionProvider | Promise<ExtensionProvider>)[];
 type ExtensionProvidersWithEditorAction = (editorActions?: EditorActions) => ExtensionProviders;
@@ -339,6 +339,7 @@ export interface EditorProviderProps {
 	annotationProviders?: AnnotationProviders;
 
 	collabEditProvider?: Providers['collabEditProvider'];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	presenceProvider?: Promise<any>;
 	emojiProvider?: Providers['emojiProvider'];
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;

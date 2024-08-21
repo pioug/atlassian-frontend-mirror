@@ -90,6 +90,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
   <span
     aria-label="Activity"
     class="emotion-0"
+    data-vc="icon-undefined"
     role="img"
     style="--icon-primary-color: currentColor; --icon-secondary-color: var(--ds-surface, #FFFFFF);"
   >

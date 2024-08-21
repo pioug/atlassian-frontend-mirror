@@ -32,7 +32,6 @@ export default class FeatureFlagClient {
 	private analyticsHandler?: AnalyticsHandler;
 
 	private isAutomaticExposuresEnabled: boolean;
-	private isMissingFlagEventsDisabled: boolean;
 
 	private readonly trackedFlags: Set<string>;
 	private readonly customAttributesExposuresCache: Set<string>;
@@ -40,20 +39,13 @@ export default class FeatureFlagClient {
 
 	constructor(options: ClientOptions) {
 		enforceAttributes(options, ['analyticsHandler'], 'Feature Flag Client');
-		const {
-			flags,
-			analyticsHandler,
-			isAutomaticExposuresEnabled,
-			isMissingFlagEventsDisabled,
-			ignoreTypes,
-		} = options;
+		const { flags, analyticsHandler, isAutomaticExposuresEnabled, ignoreTypes } = options;
 
 		this.flags = new Map();
 		this.flagWrapperCache = new Map();
 		this.customAttributesExposuresCache = new Set();
 		this.trackedFlags = new Set();
 		this.isAutomaticExposuresEnabled = isAutomaticExposuresEnabled || false;
-		this.isMissingFlagEventsDisabled = isMissingFlagEventsDisabled ?? false;
 		this.ignoreTypes = ignoreTypes || false;
 
 		this.setFlags(flags || {});
@@ -113,23 +105,11 @@ export default class FeatureFlagClient {
 				this.ignoreTypes,
 			);
 		} else {
-			wrapper = new MissingFlag(
-				flagKey,
-				this.shouldSendMissingFlagAutomaticExposure(flagKey)
-					? this.sendAutomaticExposure.bind(this)
-					: null,
-			);
+			wrapper = new MissingFlag();
 		}
 
 		this.flagWrapperCache.set(flagKey, wrapper);
 		return wrapper;
-	}
-
-	private shouldSendMissingFlagAutomaticExposure(flagKey: string): boolean {
-		// Skip sending automatic exposure for platform flags as they are often released to a single product,
-		// and registering them for all products that consume platform components is costly.
-		const isPlatform = flagKey.startsWith('platform.');
-		return !this.isMissingFlagEventsDisabled && !isPlatform;
 	}
 
 	clear() {

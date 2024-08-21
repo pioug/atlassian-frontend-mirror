@@ -20,7 +20,7 @@ interface WithHelpTriggerProps {
 	render: (openHelp: () => void) => React.ReactNode;
 }
 
-export default class WithHelpTrigger extends React.Component<WithHelpTriggerProps, any> {
+export default class WithHelpTrigger extends React.Component<WithHelpTriggerProps> {
 	static contextTypes = {
 		editorActions: PropTypes.object.isRequired,
 	};
@@ -29,6 +29,7 @@ export default class WithHelpTrigger extends React.Component<WithHelpTriggerProp
 	openHelp = () => {
 		const { editorActions } = this.context!;
 
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const dispatch: AnalyticsDispatch = createDispatch((editorActions as any).eventDispatcher);
 		dispatch(analyticsEventKey, {
 			payload: {

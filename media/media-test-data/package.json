@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-data",
-	"version": "2.5.0",
+	"version": "2.6.0",
 	"description": "Sample data to be used in Media tests",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -14,7 +14,8 @@
 		"website": {
 			"name": "MediaTestData",
 			"category": "Components"
-		}
+		},
+		"runReact18": true
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "dist/cjs/index.js",
@@ -38,11 +39,11 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^27.3.0",
+		"@atlaskit/media-client": "^27.4.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"@af/integration-testing": "*",

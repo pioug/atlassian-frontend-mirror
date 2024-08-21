@@ -25,7 +25,7 @@ export default {
 };
 
 const groupId = 'GROUP-ID1';
-const Template = (args: any) => (
+const Template = (args: EditorProps) => (
 	<WrapperEditorComponent
 		allowUndoRedoButtons={boolean('Undo/Redo Buttons', false, groupId)}
 		allowPanel={boolean('Panel', false, groupId)}

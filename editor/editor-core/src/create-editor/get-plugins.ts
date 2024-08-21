@@ -1,5 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ReactHookFactory, UIComponentFactory } from '@atlaskit/editor-common/types';
@@ -20,9 +22,9 @@ export type LightPMPluginFactoryParams = {
 	// We dont use this for now
 	props: {};
 	prevProps?: {};
-	portalProviderAPI: any;
+	portalProviderAPI: PortalProviderAPI;
 	reactContext: () => EditorReactContext;
-	dispatchAnalyticsEvent: any;
+	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;
 };
@@ -43,9 +45,11 @@ export interface LightEditorPlugin {
 	name: string;
 	marks?: () => MarkConfig[];
 	nodes?: () => NodeConfig[];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	pmPlugins?: (pluginOptions?: any) => Array<LightPMPlugin>;
 	contentComponent?: UIComponentFactory;
 	usePluginHook?: ReactHookFactory;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	pluginsOptions?: Record<string, any>;
 	onEditorViewStateUpdated?: OnEditorViewStateUpdated;
 }

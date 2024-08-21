@@ -253,6 +253,7 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 const widthPluginKey = {
 	key: 'widthPlugin$',
 	getState: (state: EditorState) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (state as any)['widthPlugin$'];
 	},
 } as PluginKey;
@@ -261,6 +262,7 @@ const widthPluginKey = {
 const contextPanelPluginKey = {
 	key: 'contextPanelPluginKey$',
 	getState: (state: EditorState) => {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (state as any)['contextPanelPluginKey$'];
 	},
 } as PluginKey;

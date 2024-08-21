@@ -22,6 +22,7 @@ export default function Mobile({
 	innerRef,
 	pluginHooks,
 	featureFlags,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: EditorAppearanceComponentProps<any>) {
 	return (
 		<MobileAppearance

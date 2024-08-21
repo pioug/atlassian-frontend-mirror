@@ -7,8 +7,8 @@ import { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
@@ -61,7 +61,7 @@ const TitleIcon = ({ appearance }: Required<Pick<ModalTitleProps, 'appearance'>>
 
 	return (
 		<span css={iconStyles}>
-			<Icon label={appearance} primaryColor={iconColor[appearance]} />
+			<Icon label={appearance} color={iconColor[appearance]} spacing="spacious" />
 		</span>
 	);
 };

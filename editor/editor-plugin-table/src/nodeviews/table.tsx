@@ -340,14 +340,10 @@ export default class TableView extends ReactNodeView<Props> {
 			return false;
 		}
 
-		if (fg('platform_editor_react_18_table_insertion_cursor')) {
-			if (!this.contentDOM) {
-				return true;
-			}
-			return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
+		if (!this.contentDOM) {
+			return true;
 		}
-
-		return true;
+		return !this.contentDOM.contains(mutation.target) && mutation.type !== 'selection';
 	}
 
 	destroy() {

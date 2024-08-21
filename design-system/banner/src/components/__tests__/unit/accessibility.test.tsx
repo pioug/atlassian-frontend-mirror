@@ -3,14 +3,14 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 
 import Banner from '../../banner';
 
 describe('a11y', () => {
 	it('Default banner with icon should not fail an aXe audit', async () => {
 		const { container } = render(
-			<Banner icon={<WarningIcon label="" secondaryColor="inherit" size="medium" />}>
+			<Banner icon={<WarningIcon label="" color="currentColor" />}>
 				Your license is about to expire.
 			</Banner>,
 		);

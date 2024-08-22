@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.14.1
+
+### Patch Changes
+
+- [#132551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132551)
+  [`847dae7fdc9f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/847dae7fdc9f3) -
+  Upgrade svgo to `3.3.1`
+
 ## 22.14.0
 
 ### Minor Changes

@@ -37,7 +37,6 @@ export const PopupTrigger = <T,>({
 			// propagate out to parent containers. For example when clicking a mention
 			// lozenge in an inline-edit.
 			event.stopPropagation();
-
 			showProfilecard();
 		},
 		[showProfilecard],

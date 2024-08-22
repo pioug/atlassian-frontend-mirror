@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { type OptionsType, PopupSelect } from '../../../index';
@@ -9,15 +10,62 @@ import { type OptionsType, PopupSelect } from '../../../index';
 const user = userEvent.setup();
 
 const OPTIONS: OptionsType = [
-	{ label: '0', value: 'zero' },
 	{ label: '1', value: 'one' },
 	{ label: '2', value: 'two' },
 	{ label: '3', value: 'three' },
 	{ label: '4', value: 'four' },
+	{ label: '5', value: 'five' },
 ];
 
 const ariaLabelSuffix =
-	'Option 0 focused, 0 of 6. 6 results available. Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
+	'Option 1 focused, 1 of 5. 5 results available. Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
+
+const groupOptions = [
+	{
+		label: 'First',
+		options: OPTIONS,
+	},
+];
+
+const currentBoards = [
+	{
+		key: 'strawberry-service',
+		text: 'Strawberry Service',
+		subText: 'in Business project',
+	},
+];
+const otherBoards = [
+	{
+		key: 'vanilla-business',
+		text: 'Vanilla business',
+		subText: 'in Business project',
+	},
+	{
+		key: 'cell',
+		text: 'Cell',
+		subText: 'in Business project',
+	},
+	{
+		key: 'another',
+		text: 'Another',
+		subText: 'in Business project',
+	},
+	{
+		key: 'new',
+		text: 'Board',
+		subText: 'in Business project',
+	},
+];
+const customOptions = [
+	{
+		label: 'Boards in random project',
+		options: currentBoards,
+	},
+	{
+		label: 'Other boards',
+		options: otherBoards,
+	},
+];
 
 const addedListeners = () => {
 	//@ts-ignore
@@ -552,6 +600,113 @@ describe('Popup Select', () => {
 
 			expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
 			expect(onMenuCloseMock).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('accessible labels and group labels', () => {
+		it('screen reader should announce the option labels, option serial number, and number of all options', async () => {
+			const renderDefaultPopupSelect = () => {
+				const renderResult = render(
+					<PopupSelect
+						options={OPTIONS}
+						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+						label="Options"
+					/>,
+				);
+
+				return { ...renderResult, trigger: screen.getByText('Target') };
+			};
+
+			const { trigger } = renderDefaultPopupSelect();
+
+			await userEvent.click(trigger);
+
+			await waitFor(() => {
+				expect(
+					screen.getByText(/Option 1 focused, 1 of 5. 5 results available/, { exact: false }),
+				).toBeVisible();
+			});
+
+			await userEvent.keyboard('{ArrowDown>}');
+
+			await waitFor(() => {
+				expect(
+					screen.getByText(/Option 2 focused, 2 of 5. 5 results available/, { exact: false }),
+				).toBeVisible();
+			});
+		});
+
+		it('screen reader should announce the group labels, option serial number in the group, and number of options in the group', async () => {
+			const renderPopupSelectGpoupsOptions = () => {
+				const renderResult = render(
+					<PopupSelect
+						options={groupOptions}
+						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+						label="Options"
+					/>,
+				);
+
+				return { ...renderResult, trigger: screen.getByText('Target') };
+			};
+
+			const { trigger } = renderPopupSelectGpoupsOptions();
+
+			await userEvent.click(trigger);
+
+			await waitFor(() => {
+				expect(
+					screen.getByText(/Option 1, First group, item 1 out of 5./, { exact: false }),
+				).toBeVisible();
+			});
+
+			await userEvent.keyboard('{ArrowDown>}');
+
+			await waitFor(() => {
+				expect(
+					screen.getByText(/Option 2, First group, item 2 out of 5./, { exact: false }),
+				).toBeVisible();
+			});
+
+			await userEvent.keyboard('{ArrowDown>}');
+
+			await waitFor(() => {
+				expect(
+					screen.getByText(/Option 3, First group, item 3 out of 5./, {
+						exact: false,
+					}),
+				).toBeVisible();
+			});
+		});
+
+		it('Should be the correct ariaLiveMessages text if options with groups have custom fields', async () => {
+			const renderPopupSelectCustomOptions = () => {
+				const renderResult = render(
+					<PopupSelect
+						options={customOptions}
+						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+						label="Options"
+						ariaLiveMessages={{
+							onFocus: () =>
+								`Option Strawberry Service in Business project , Boards in random project group, item 1 out of 1. All in all  5 results available.`,
+						}}
+					/>,
+				);
+
+				return { ...renderResult, trigger: screen.getByText('Target') };
+			};
+
+			const { trigger } = renderPopupSelectCustomOptions();
+
+			await userEvent.click(trigger);
+
+			await waitFor(async () => {
+				expect(
+					screen.getByText(
+						/Option Strawberry Service in Business project , Boards in random project group, item 1 out of 1./,
+						{ exact: false },
+					),
+				).toBeVisible();
+			});
 		});
 	});
 });

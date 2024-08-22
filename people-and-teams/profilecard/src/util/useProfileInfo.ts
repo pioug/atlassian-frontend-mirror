@@ -6,6 +6,7 @@ export const useProfileInfo = <T>({
 	fetchUserProfile?: () => Promise<T>;
 }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [error, setError] = useState(null);
 	const [profileData, setProfileData] = useState<T>();
 
 	const getProfileData = async () => {
@@ -14,7 +15,8 @@ export const useProfileInfo = <T>({
 			const profileData = await fetchUserProfile?.();
 			setProfileData(profileData);
 			setIsLoading(false);
-		} catch (error) {
+		} catch (error: any) {
+			setError(error);
 			setIsLoading(true);
 		}
 	};
@@ -22,7 +24,7 @@ export const useProfileInfo = <T>({
 	return {
 		profileData,
 		isLoading,
-		// hasError: Boolean(error) || cannotLoadUser,
+		error,
 		getProfileData,
 	};
 };

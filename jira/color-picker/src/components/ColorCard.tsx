@@ -152,8 +152,8 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 								? mergeRefs([ref, tooltipProps.ref, initialFocusRef])
 								: mergeRefs([ref, tooltipProps.ref])
 						}
-						tabIndex={fg('platform_color_palette_menu_timeline_bar_a11y') ? (selected ? 0 : -1) : 0}
 						role={fg('platform_color_palette_menu_timeline_bar_a11y') ? 'menuitemradio' : 'radio'}
+						tabIndex={fg('platform_color_palette_menu_timeline_bar_a11y') ? (selected ? 0 : -1) : 0}
 						aria-checked={selected}
 						aria-label={label}
 						css={[

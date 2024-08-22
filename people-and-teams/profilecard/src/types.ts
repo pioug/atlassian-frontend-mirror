@@ -167,6 +167,7 @@ export interface ProfileCardTriggerProps {
 	isVisible?: boolean;
 	offset?: [number, number];
 	product?: string;
+	viewingUserId?: string;
 }
 
 export interface ProfileCardTriggerState {
@@ -446,6 +447,7 @@ export type RelativeDateKeyType =
 	| 'MoreThanAYear'
 	| null;
 
+export type AgentIdType = { type: 'agent' | 'identity'; value: string };
 export interface ProfileClient {
 	flushCache: () => void;
 	getProfile: (
@@ -462,7 +464,7 @@ export interface ProfileClient {
 	shouldShowGiveKudos: () => Promise<boolean>;
 	getTeamCentralBaseUrl: () => string | undefined;
 	getRovoAgentProfile: (
-		agentId: string,
+		id: AgentIdType,
 		fireAnalytics?: (event: AnalyticsEventPayload) => void,
 	) => Promise<RovoAgent>;
 }

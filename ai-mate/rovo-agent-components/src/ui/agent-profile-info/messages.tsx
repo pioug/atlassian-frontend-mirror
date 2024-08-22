@@ -11,4 +11,19 @@ export const messages = defineMessages({
 		defaultMessage: '{count} starred',
 		description: 'Message to show how many times this agent has been starred by users',
 	},
+	hiddenIcon: {
+		id: 'ai-mate.agent-profile-info.hidden-icon',
+		defaultMessage: 'Hidden',
+		description: 'Icon to show that this agent is hidden',
+	},
+	hiddenTooltip: {
+		id: 'ai-mate.agent-profile-info.hidden-tooltip',
+		defaultMessage: "Agent won't show in search results",
+		description: 'Tooltip to explain what strikethough eye icon means',
+	},
+	starAgentTooltip: {
+		id: 'ai-mate.agent-profile-info.star-agent-tooltip',
+		defaultMessage: 'Star Agent',
+		description: 'Tooltip to explain what star icon does',
+	},
 });

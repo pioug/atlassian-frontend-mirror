@@ -18,6 +18,7 @@ describe('ProfileCardTrigger', () => {
 				trigger={trigger}
 				renderProfileCard={renderProfileCard}
 				fetchProfile={fetchProfile}
+				profileCardType="user"
 			>
 				<Text>Profile card Trigger</Text>
 			</ProfileCardTrigger>,

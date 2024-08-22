@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import Tag from '../src/tag/simple-tag';
 
 export default () => (
-	<div id="simpleTags">
+	<Box id="simpleTags" role="group" aria-label="Simple tag examples">
 		<Tag text="standard Tag" color="standard" />
 		<Tag text="blue Tag" color="blue" />
 		<Tag text="green Tag" color="green" />
@@ -25,5 +27,5 @@ export default () => (
 		<Tag text="magentaLight Tag" color="magentaLight" />
 		<Tag text="limeLight Tag" color="limeLight" />
 		<Tag text="greyLight Tag" color="greyLight" />
-	</div>
+	</Box>
 );

@@ -41,4 +41,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Add 2024-08-14
+	'basic-text-transformations': {
+		productKeys: {
+			confluence: 'platform_editor_basic_text_transformations',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 };

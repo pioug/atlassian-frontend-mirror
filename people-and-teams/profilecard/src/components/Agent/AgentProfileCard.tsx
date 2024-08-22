@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
+import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import {
 	AgentAvatar,
@@ -9,8 +10,10 @@ import {
 	AgentStarCount,
 } from '@atlaskit/rovo-agent-components';
 
-import { type RovoAgentProfileCardInfo } from '../../types';
+import { type ProfileCardErrorType, type RovoAgentProfileCardInfo } from '../../types';
+import { fireEvent, profileCardRendered } from '../../util/analytics';
 import LoadingState from '../common/LoadingState';
+import { ErrorMessage } from '../Error';
 
 import { AgentActions } from './Actions';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
@@ -26,13 +29,14 @@ const avatarStyles = xcss({
 	left: 'space.200',
 });
 type AgentProfileCardProps = {
-	agent: RovoAgentProfileCardInfo;
+	agent?: RovoAgentProfileCardInfo;
 	isLoading?: boolean;
 	hasError?: boolean;
 	isCreatedByViewingUser?: boolean;
 	cloudId?: string;
 	onOpenChat?: (agentId: string) => void;
 	product?: string;
+	errorType?: ProfileCardErrorType;
 };
 
 const cardContainerStyles = xcss({
@@ -48,22 +52,49 @@ const AgentProfileCard = ({
 	cloudId,
 	onOpenChat,
 	product = 'rovo',
+	hasError,
+	errorType,
 }: AgentProfileCardProps) => {
 	const { onEditAgent, onCopyAgent, onDuplicateAgent } = useAgentUrlActions({
 		cloudId: cloudId || '',
 	});
 
 	const { isStarred, setFavourite } = useSetFavouriteAgent({
-		agentId: agent.id,
-		cloudId: cloudId || '',
-		isStarred: agent.favourite,
+		agentId: agent?.id,
+		cloudId: cloudId,
+		isStarred: !!agent?.favourite,
 		product,
 	});
+
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+
+	const fireAnalytics = useCallback(
+		(payload: AnalyticsEventPayload) => {
+			if (createAnalyticsEvent) {
+				fireEvent(createAnalyticsEvent, payload);
+			}
+		},
+		[createAnalyticsEvent],
+	);
+
+	useEffect(() => {
+		if (!isLoading && agent) {
+			fireAnalytics(profileCardRendered('agent', 'content'));
+		}
+	}, [agent, fireAnalytics, isLoading]);
 
 	if (isLoading) {
 		return (
 			<AgentProfileCardWrapper>
-				<LoadingState profileType="agent" />
+				<LoadingState profileType="agent" fireAnalytics={fireAnalytics} />
+			</AgentProfileCardWrapper>
+		);
+	}
+
+	if (hasError || !agent) {
+		return (
+			<AgentProfileCardWrapper>
+				<ErrorMessage errorType={errorType} fireAnalytics={fireAnalytics} />
 			</AgentProfileCardWrapper>
 		);
 	}
@@ -81,6 +112,7 @@ const AgentProfileCard = ({
 						agentName={agent.name}
 						isStarred={isStarred}
 						onStarToggle={setFavourite}
+						isHidden={agent.visibility === 'PRIVATE'}
 						creatorRender={
 							agent.creatorInfo?.type && (
 								<AgentProfileCreator

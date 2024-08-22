@@ -7,7 +7,6 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { format, isValid, parseISO } from 'date-fns';
-import pick from 'lodash/pick';
 
 import {
 	createAndFireEvent,
@@ -130,26 +129,36 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 
 	// All state needs to be accessed via this function so that the state is mapped from props
 	// correctly to allow controlled/uncontrolled usage.
-	getSafeState = () => {
-		const mappedState = {
-			...this.state,
-			...pick(this.props, ['value']),
-		};
+	getParsedValues = () =>
+		this.parseValue(
+			this.getValue(),
+			this.state.dateValue,
+			this.state.timeValue,
+			this.state.zoneValue,
+		);
+	getValue = () => this.props.value ?? this.state.value;
 
-		return {
-			...mappedState,
-			...this.parseValue(
-				mappedState.value,
-				mappedState.dateValue,
-				mappedState.timeValue,
-				mappedState.zoneValue,
-			),
-		};
-	};
-
-	parseValue(value: string, dateValue: string, timeValue: string, zoneValue: string) {
+	parseValue(
+		value: string,
+		dateValue: string,
+		timeValue: string,
+		zoneValue: string,
+	): { dateValue: string; timeValue: string; zoneValue: string } {
 		if (this.props.parseValue) {
-			return this.props.parseValue(value, dateValue, timeValue, zoneValue);
+			const parsedFromFn = this.props.parseValue(value, dateValue, timeValue, zoneValue);
+			// This handles cases found in Jira where the parse function actually does
+			// nothing and returns undefined. The previous `getSafeState` function
+			// just spread the values over the state, but if it returned `undefined`,
+			// it would just rely on the previous state values. Considering this is
+			// what is input to this function anyway, this is a safe way to handle
+			// this, colocate the behavior, and not rely on `getSafeState`.
+			return (
+				parsedFromFn || {
+					dateValue,
+					timeValue,
+					zoneValue,
+				}
+			);
 		}
 
 		const parsed = parseISO(value);
@@ -174,18 +183,29 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 	};
 
 	onDateChange = (dateValue: string) => {
-		this.onValueChange({ ...this.getSafeState(), dateValue });
+		const parsedValues = this.getParsedValues();
+		this.onValueChange({
+			dateValue,
+			timeValue: parsedValues.timeValue,
+			zoneValue: parsedValues.zoneValue,
+		});
 	};
 
 	onTimeChange = (timeValue: string) => {
-		this.onValueChange({ ...this.getSafeState(), timeValue });
+		const parsedValues = this.getParsedValues();
+		this.onValueChange({
+			dateValue: parsedValues.dateValue,
+			timeValue,
+			zoneValue: parsedValues.zoneValue,
+		});
 	};
 
 	onClear = () => {
+		const parsedValues = this.getParsedValues();
 		this.onValueChange({
-			...this.getSafeState(),
-			timeValue: '',
 			dateValue: '',
+			timeValue: '',
+			zoneValue: parsedValues.zoneValue,
 		});
 	};
 
@@ -206,7 +226,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 			this.setState({ value: valueWithValidZone });
 			this.props.onChange(valueWithValidZone);
 			// If the date or time value was cleared when there is an existing datetime value, then clear the value.
-		} else if (this.getSafeState().value) {
+		} else if (this.getValue()) {
 			this.setState({ value: '' });
 			this.props.onChange('');
 		}
@@ -234,7 +254,11 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 			timePickerSelectProps,
 			times,
 		} = this.props;
-		const { isFocused, value, dateValue, timeValue } = this.getSafeState();
+		const value = this.getValue();
+		const { isFocused } = this.state;
+		const parsedValues = this.getParsedValues();
+		const dateValue = parsedValues?.dateValue;
+		const timeValue = parsedValues?.timeValue;
 
 		const { styles: datePickerStyles = {} } = datePickerSelectProps;
 		const { styles: timePickerStyles = {} } = timePickerSelectProps;
@@ -289,12 +313,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 						innerProps={datePickerProps.innerProps}
 						isDisabled={datePickerProps.isDisabled || isDisabled}
 						isInvalid={datePickerProps.isInvalid || isInvalid}
-						// If you set this or `value` explicitly like
-						// `isOpen={datePickerProps.isOpen}`, the date picker will set
-						// `isOpen` to `undefined` forever. I believe this has to do with
-						// the `getSafeState` function in the picker, since it overwrites
-						// state with values from the props.
-						{...(datePickerProps.isOpen ? { isOpen: datePickerProps.isOpen } : {})}
+						isOpen={datePickerProps.isOpen}
 						locale={datePickerProps.locale || locale}
 						maxDate={datePickerProps.maxDate}
 						minDate={datePickerProps.minDate}
@@ -325,12 +344,7 @@ class DateTimePickerComponent extends React.Component<DateTimePickerProps, State
 						innerProps={timePickerProps.innerProps}
 						isDisabled={timePickerProps.isDisabled || isDisabled}
 						isInvalid={timePickerProps.isInvalid || isInvalid}
-						// If you set this or `value` explicitly like
-						// `isOpen={datePickerProps.isOpen}`, the date picker will set
-						// `isOpen` to `undefined` forever. I believe this has to do with
-						// the `getSafeState` function in the picker, since it overwrites
-						// state with values from the props.
-						{...(timePickerProps.isOpen ? { isOpen: timePickerProps.isOpen } : {})}
+						isOpen={timePickerProps.isOpen}
 						locale={timePickerProps.locale || locale}
 						name={timePickerProps.name}
 						onBlur={timePickerProps.onBlur || this.onBlur}

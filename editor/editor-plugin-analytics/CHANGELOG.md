@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.8.0
+
+### Minor Changes
+
+- [#132504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132504)
+  [`3e181dc6ccb20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e181dc6ccb20) -
+  ENGHEALTH-9890: bumps react peer dependency version
+
 ## 1.7.0
 
 ### Minor Changes

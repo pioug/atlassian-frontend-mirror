@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { Box } from '@atlaskit/primitives';
 
 import Tag, { SimpleTag } from '../src';
 
 export default () => (
-	<div>
+	<Box role="group" aria-label="Overview examples">
 		<SimpleTag text="Text only" />
 		<SimpleTag href="https://some.link" text="Linked text" />
 		<Tag text="Removable" removeButtonLabel="Remove me" />
@@ -50,5 +51,5 @@ export default () => (
 
 		<Tag isRemovable text="blue color" color="blue" />
 		<SimpleTag text="blue color" color="blue" href="https://atlaskit.atlassian.com/" />
-	</div>
+	</Box>
 );

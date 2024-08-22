@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import Tag from '../src/tag/removable-tag';
 
 export default () => (
-	<div>
+	<Box role="group" aria-label="Removable tag examples">
 		<Tag text="Removable button" removeButtonLabel="Remove" testId="removableTag" />
 		<Tag
 			text="Removal halted"
@@ -28,5 +30,5 @@ export default () => (
 			testId="removableTagColor"
 			removeButtonLabel="Remove"
 		/>
-	</div>
+	</Box>
 );

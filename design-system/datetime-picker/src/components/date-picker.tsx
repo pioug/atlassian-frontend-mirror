@@ -7,7 +7,6 @@ import { Component, type CSSProperties } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
-import pick from 'lodash/pick';
 
 import {
 	createAndFireEvent,
@@ -119,13 +118,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 	// All state needs to be accessed via this function so that the state is mapped from props
 	// correctly to allow controlled/uncontrolled usage.
-	getSafeState = () => {
-		return {
-			...this.state,
-			...pick(this.props, ['value', 'isOpen']),
-			...pick(this.props.selectProps, ['inputValue']),
-		};
-	};
+	getValue = () => this.props.value ?? this.state.value;
+	getIsOpen = () => this.props.isOpen ?? this.state.isOpen;
 
 	isDateDisabled = (date: string) => {
 		return this.props.disabled.indexOf(date) > -1;
@@ -177,7 +171,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	};
 
 	onInputClick = () => {
-		if (!this.props.isDisabled && !this.getSafeState().isOpen) {
+		if (!this.props.isDisabled && !this.getIsOpen()) {
 			this.setState({ isOpen: true });
 		}
 	};
@@ -198,7 +192,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
-		if (this.getSafeState().clearingFromIcon) {
+		if (this.state.clearingFromIcon) {
 			// Don't close menu if blurring after the user has clicked clear
 			this.setState({ clearingFromIcon: false });
 		} else if (!this.containerRef?.contains(newlyFocusedElement)) {
@@ -209,7 +203,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	};
 
 	onSelectFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-		const { clearingFromIcon, value } = this.getSafeState();
+		const { clearingFromIcon } = this.state;
+		const value = this.getValue();
 
 		if (clearingFromIcon) {
 			// Don't open menu if focussing after the user has clicked clear
@@ -242,7 +237,8 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	};
 
 	onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-		const { value, calendarValue } = this.getSafeState();
+		const { calendarValue } = this.state;
+		const value = this.getValue();
 
 		const keyPressed = event.key.toLowerCase();
 
@@ -375,7 +371,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			return parseInputValue(date, dateFormat || defaultDateFormat);
 		}
 
-		const { l10n } = this.getSafeState();
+		const { l10n } = this.state;
 
 		return l10n.parseDate(date);
 	};
@@ -389,7 +385,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	 */
 	formatDate = (value: string) => {
 		const { formatDisplayLabel, dateFormat } = this.props;
-		const { l10n } = this.getSafeState();
+		const { l10n } = this.state;
 
 		if (formatDisplayLabel) {
 			return formatDisplayLabel(value, dateFormat || defaultDateFormat);
@@ -406,7 +402,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			return placeholder;
 		}
 
-		const { l10n } = this.getSafeState();
+		const { l10n } = this.state;
 		return l10n.formatDate(placeholderDatetime);
 	};
 
@@ -435,14 +431,14 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			testId,
 			weekStartDay,
 		} = this.props;
-
-		const { value, calendarValue, isOpen, selectInputValue } = this.getSafeState();
+		const { calendarValue, selectInputValue } = this.state;
+		const value = this.getValue();
 
 		let actualSelectInputValue;
 
 		actualSelectInputValue = selectInputValue;
 
-		const menuIsOpen = isOpen && !isDisabled;
+		const menuIsOpen = this.getIsOpen() && !isDisabled;
 
 		const showClearIndicator = Boolean((value || selectInputValue) && !hideIcon);
 

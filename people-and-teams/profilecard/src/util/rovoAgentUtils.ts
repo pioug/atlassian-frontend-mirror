@@ -1,3 +1,5 @@
+export const USER_ARI_PREFIX = 'ari:cloud:identity::user/';
+
 export const createHeaders = (product: string, cloudId: string): Headers => {
 	const config = {
 		headers: {
@@ -13,6 +15,5 @@ export const createHeaders = (product: string, cloudId: string): Headers => {
 };
 
 export const getAAIDFromARI = (ari: string): string | undefined => {
-	const matched = ari.match(/\/([a-zA-Z0-9_\|\-\:]{1,128})$/);
-	return matched ? matched[1] : undefined;
+	return ari.replace(USER_ARI_PREFIX, '');
 };

@@ -34,7 +34,7 @@
 		"@atlaskit/editor-common": "^87.13.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
-		"@atlaskit/editor-plugin-analytics": "^1.7.0",
+		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-content-insertion": "^1.8.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",

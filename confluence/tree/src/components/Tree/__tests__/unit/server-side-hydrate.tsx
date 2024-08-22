@@ -1,19 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import ReactDOM from 'react-dom';
 import waitForExpect from 'wait-for-expect';
+
+import { ssr } from '@atlaskit/ssr';
+
+import Example from '../../../../../examples/0-static-tree';
 
 afterEach(() => {
 	jest.resetAllMocks();
 });
 // TODO: https://ecosystem.atlassian.net/browse/AK-6450
 test.skip('should ssr then hydrate tree correctly', async () => {
-	const [example] = await getExamplesFor('tree');
-	const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(example.filePath);
+	elem.innerHTML = await ssr(Example);
 
 	ReactDOM.hydrate(<Example />, elem);
 	await waitForExpect(() => {

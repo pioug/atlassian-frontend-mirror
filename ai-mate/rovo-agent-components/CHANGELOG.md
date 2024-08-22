@@ -1,5 +1,21 @@
 # @atlaskit/rovo-agent-components
 
+## 0.4.2
+
+### Patch Changes
+
+- [#132411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132411)
+  [`097911d8bb135`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/097911d8bb135) -
+  Added hidden icon to agent profile
+
+## 0.4.1
+
+### Patch Changes
+
+- [#131878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131878)
+  [`053f5c138b283`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/053f5c138b283) -
+  Add hide/show buttons to agent create dropdown
+
 ## 0.4.0
 
 ### Minor Changes

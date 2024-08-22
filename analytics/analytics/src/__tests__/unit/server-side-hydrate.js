@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { ssr } from '@atlaskit/ssr';
 import waitForExpect from 'wait-for-expect';
+
+import Example from '../../../examples/01-basic-example';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
@@ -11,13 +13,8 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate analytics correctly', async () => {
-	const [example] = await getExamplesFor('@atlaskit/analytics');
-
-	const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
 	const elem = document.createElement('div');
-
-	elem.innerHTML = await ssr(example.filePath);
+	elem.innerHTML = await ssr(Example);
 
 	ReactDOM.hydrate(<Example />, elem);
 	await waitForExpect(() => {

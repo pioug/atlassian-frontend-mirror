@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { ssr } from '@atlaskit/ssr';
+
+import Example from '../../../examples/10-basic-create-and-fire';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
@@ -19,11 +21,8 @@ try {
 }
 
 test('should ssr then hydrate analytics-next correctly', async () => {
-	const [example] = await getExamplesFor('analytics-next');
-	const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(example.filePath);
+	elem.innerHTML = await ssr(Example);
 
 	if (typeof hydrateRoot === 'function') {
 		hydrateRoot(elem, <Example />);

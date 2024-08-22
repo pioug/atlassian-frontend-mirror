@@ -1,8 +1,22 @@
 import React from 'react';
 
-import { Box, Stack, Text } from '@atlaskit/primitives';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../src';
+
+const definitionListStyles = xcss({
+	display: 'flex',
+	justifyContent: 'stretch',
+	gap: 'space.100',
+	flexDirection: 'column',
+	marginBlockStart: 'space.0',
+	paddingInlineStart: 'space.0',
+});
+
+const definitionListItemStyles = xcss({
+	margin: 'space.0',
+	marginInlineStart: 'space.0',
+});
 
 const Example = () => (
 	<Box padding="space.100">
@@ -24,15 +38,23 @@ const Example = () => (
 					<Text as="p">
 						Atlassian provides the tools to help every team unleash their full potential.
 					</Text>
-
-					<Text weight="bold">Bitbucket:</Text>
-					<Text as="p">
-						Bitbucket is more than just Git code management. Bitbucket gives teams one place to plan
-						projects, collaborate on code, test, and deploy.
-					</Text>
-
-					<Text weight="bold">Jira:</Text>
-					<Text as="p">The #1 software development tool used by agile teams.</Text>
+					<Box as="dl" xcss={definitionListStyles}>
+						<Box as="dt" xcss={definitionListItemStyles}>
+							<Text weight="bold">Bitbucket:</Text>
+						</Box>
+						<Box as="dd" xcss={definitionListItemStyles}>
+							<Text as="p">
+								Bitbucket is more than just Git code management. Bitbucket gives teams one place to
+								plan projects, collaborate on code, test, and deploy.
+							</Text>
+						</Box>
+						<Box as="dt" xcss={definitionListItemStyles}>
+							<Text weight="bold">Jira:</Text>
+						</Box>
+						<Box as="dd" xcss={definitionListItemStyles}>
+							<Text as="p">The #1 software development tool used by agile teams.</Text>
+						</Box>
+					</Box>
 				</Stack>
 			</SectionMessage>
 			<SectionMessage

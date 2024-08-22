@@ -3,7 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import waitForExpect from 'wait-for-expect';
 
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { ssr } from '@atlaskit/ssr';
+
+import Example from '../../examples/00-basic';
 
 // @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
@@ -13,11 +15,8 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate example component correctly', async () => {
-	const [example] = await getExamplesFor('media-svg');
-	const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(example.filePath);
+	elem.innerHTML = await ssr(Example);
 
 	await waitForExpect(() => {
 		ReactDOM.hydrate(<Example />, elem);

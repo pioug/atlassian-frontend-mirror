@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
+import { cardTriggered } from '../../util/analytics';
 import { useProfileInfo } from '../../util/useProfileInfo';
 
 import { PopupTrigger } from './PopupTrigger';
@@ -18,6 +19,8 @@ function ProfileCardTrigger<T>({
 	renderProfileCard,
 	fetchProfile,
 	disabledAriaAttributes,
+	profileCardType,
+	fireAnalytics,
 	...popupProps
 }: ProfileCardTriggerProps<T>) {
 	const showDelay = trigger === 'click' ? 0 : DELAY_MS_SHOW;
@@ -27,12 +30,9 @@ function ProfileCardTrigger<T>({
 	const hideTimer = useRef<number>(0);
 	const [visible, setVisible] = useState<boolean>(false);
 
-	const {
-		profileData,
-		isLoading,
-		// hasError: Boolean(error) || cannotLoadUser,
-		getProfileData,
-	} = useProfileInfo<T>({ fetchUserProfile: fetchProfile });
+	const { profileData, isLoading, error, getProfileData } = useProfileInfo<T>({
+		fetchUserProfile: fetchProfile,
+	});
 
 	useEffect(() => {
 		return () => {
@@ -56,9 +56,12 @@ function ProfileCardTrigger<T>({
 			if (!visible) {
 				await getProfileData?.();
 				setVisible(true);
+				if (fireAnalytics) {
+					fireAnalytics(cardTriggered(profileCardType, trigger));
+				}
 			}
 		}, showDelay);
-	}, [showDelay, visible, getProfileData]);
+	}, [showDelay, visible, getProfileData, fireAnalytics, profileCardType, trigger]);
 
 	const onMouseEnter = useCallback(() => {
 		showProfilecard();
@@ -89,7 +92,7 @@ function ProfileCardTrigger<T>({
 			}}
 			content={() => (
 				<div onMouseEnter={onMouseEnter} onMouseLeave={hideProfilecard} onFocus={showProfilecard}>
-					{renderProfileCard({ profileData, isLoading })}
+					{renderProfileCard({ profileData, isLoading, error })}
 				</div>
 			)}
 		/>

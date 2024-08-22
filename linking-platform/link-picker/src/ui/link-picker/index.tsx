@@ -10,17 +10,20 @@ import {
 	memo,
 	useCallback,
 	useLayoutEffect,
+	useMemo,
 	useReducer,
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
+import uuid from 'uuid';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -42,6 +45,7 @@ import { useSearchQuery } from '../../services/use-search-query';
 
 import { Announcer } from './announcer';
 import { FormFooter, testIds as formFooterTestIds } from './form-footer';
+import { LinkPickerSubmitButton } from './form-footer/link-picker-submit-button';
 import { formMessages, linkMessages, linkTextMessages, searchMessages } from './messages';
 import { SearchResults, testIds as searchTestIds } from './search-results';
 import { formFooterMargin, rootContainerStyles } from './styled';
@@ -70,6 +74,12 @@ const initState: PickerState = {
 	/** This only allows the feature discovery pulse - to be shown the ff must be on and active tab be Jira */
 	allowCreateFeatureDiscovery: true,
 };
+
+const FullWidthSubmitButtonStyles = xcss({
+	marginTop: 'space.200',
+	display: 'flex',
+	flexDirection: 'column',
+});
 
 function reducer(state: PickerState, payload: Partial<PickerState>): PickerState {
 	if (payload.url && state.url !== payload.url) {
@@ -118,6 +128,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			featureFlags,
 			customMessages,
 			isSubmitting = false,
+			UNSAFE_moveSubmitButton = false,
 		}: LinkPickerProps) => {
 			const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -156,6 +167,8 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			const isSelectedItem = selectedItem?.url === url;
 
 			const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
+
+			const submitMessageId = useMemo(() => uuid(), []);
 
 			useLayoutEffect(() => {
 				if (onContentResize) {
@@ -410,6 +423,9 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 			// for details: https://a11y-internal.atlassian.net/browse/AK-740
 			const screenReaderText =
 				browser().safari && getScreenReaderText(items ?? [], selectedIndex, intl);
+			const customSubmitButtonLabel = customMessages?.submitButtonLabel
+				? customMessages.submitButtonLabel
+				: undefined;
 
 			return (
 				<form
@@ -486,6 +502,22 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							onChange={handleChangeText}
 						/>
 					)}
+					{UNSAFE_moveSubmitButton && (
+						<Box xcss={FullWidthSubmitButtonStyles}>
+							<LinkPickerSubmitButton
+								isEditing={isEditing}
+								isLoading={isLoadingResults || !!isLoadingPlugins}
+								isSubmitting={isSubmitting}
+								customSubmitButtonLabel={customSubmitButtonLabel}
+								error={error}
+								items={items}
+								queryState={queryState}
+								submitMessageId={submitMessageId}
+								testId={testIds.insertButton}
+								url={url}
+							/>
+						</Box>
+					)}
 					{!!queryState && (isLoadingPlugins || isActivePlugin) && (
 						<SearchResults
 							activeTab={activeTab}
@@ -528,9 +560,9 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 							allowCreateFeatureDiscovery &&
 							fg('platform.linking-platform.link-picker.enable-jira-create')
 						}
-						customSubmitButtonLabel={
-							customMessages?.submitButtonLabel ? customMessages.submitButtonLabel : undefined
-						}
+						customSubmitButtonLabel={customSubmitButtonLabel}
+						submitMessageId={submitMessageId}
+						hideSubmitButton={UNSAFE_moveSubmitButton}
 					/>
 				</form>
 			);

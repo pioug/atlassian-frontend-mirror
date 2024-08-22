@@ -42,10 +42,16 @@
       "path": "../../../helpers/intl-messages-provider/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/layering/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../linking-common/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/primitives/afm-jira/tsconfig.json"

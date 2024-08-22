@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-common": "^87.13.0",
-		"@atlaskit/editor-plugin-analytics": "^1.7.0",
+		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

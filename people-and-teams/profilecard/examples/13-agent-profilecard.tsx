@@ -57,6 +57,7 @@ export default function Example() {
 						<ProfileCardTrigger
 							trigger={'hover'}
 							renderProfileCard={() => <AgentProfileCard agent={agent} />}
+							profileCardType={'agent'}
 						>
 							<Text as="strong">hover over me</Text>
 						</ProfileCardTrigger>{' '}
@@ -68,6 +69,7 @@ export default function Example() {
 						<ProfileCardTrigger
 							trigger={'click'}
 							renderProfileCard={() => <AgentProfileCard agent={agent} />}
+							profileCardType={'agent'}
 						>
 							<Text as="strong">Click me</Text>
 						</ProfileCardTrigger>

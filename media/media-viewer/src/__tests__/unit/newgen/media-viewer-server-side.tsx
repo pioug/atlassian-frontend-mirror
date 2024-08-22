@@ -1,11 +1,14 @@
 import waitForExpect from 'wait-for-expect';
 
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { ssr } from '@atlaskit/ssr';
+
+import Example from '../../../../examples/0-basic-example';
 
 test('media-viewer server side rendering', async () => {
-	const [example] = await getExamplesFor('media-viewer');
+	const elem = document.createElement('div');
+	elem.innerHTML = await ssr(Example);
 
 	await waitForExpect(() => {
-		expect(() => ssr(example.filePath)).not.toThrow();
+		expect(() => ssr(Example)).not.toThrow();
 	});
 });

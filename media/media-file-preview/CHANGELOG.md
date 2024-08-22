@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.8.1
+
+### Patch Changes
+
+- [#132551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132551)
+  [`19eb1d802c7f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19eb1d802c7f9) -
+  Fixed the dual fetching of image when medaiBlobUrlAttributes change
+
 ## 0.8.0
 
 ### Minor Changes

@@ -1,7 +1,10 @@
 import React from 'react';
+
 import waitForExpect from 'wait-for-expect';
 import { render } from '@testing-library/react';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { ssr } from '@atlaskit/ssr';
+
+import Example from '../../../../examples/0-basic-example';
 
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
 
@@ -10,10 +13,8 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate media-viewer correctly', async () => {
-	const [example] = await getExamplesFor('media-viewer');
-	const Example = require(example.filePath).default;
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(example.filePath);
+	elem.innerHTML = await ssr(Example);
 
 	await waitForExpect(() => {
 		render(<Example />, {

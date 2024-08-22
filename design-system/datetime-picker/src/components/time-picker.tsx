@@ -2,7 +2,6 @@ import React, { type CSSProperties } from 'react';
 
 // eslint-disable-next-line no-restricted-imports
 import { format, isValid } from 'date-fns';
-import pick from 'lodash/pick';
 
 import {
 	createAndFireEvent,
@@ -102,12 +101,8 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 
 	// All state needs to be accessed via this function so that the state is mapped from props
 	// correctly to allow controlled/uncontrolled usage.
-	getSafeState = (): State => {
-		return {
-			...this.state,
-			...pick(this.props, ['value', 'isOpen']),
-		};
-	};
+	getValue = () => this.props.value ?? this.state.value;
+	getIsOpen = () => this.props.isOpen ?? this.state.isOpen;
 
 	onChange = (newValue: ValueType<OptionType> | string, action?: ActionMeta<OptionType>): void => {
 		const rawValue = newValue ? (newValue as OptionType).value || newValue : '';
@@ -153,7 +148,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 
 	onMenuOpen = () => {
 		// Don't open menu after the user has clicked clear
-		if (this.getSafeState().clearingFromIcon) {
+		if (this.state.clearingFromIcon) {
 			this.setState({ clearingFromIcon: false });
 		} else {
 			this.setState({ isOpen: true });
@@ -162,7 +157,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 
 	onMenuClose = () => {
 		// Don't close menu after the user has clicked clear
-		if (this.getSafeState().clearingFromIcon) {
+		if (this.state.clearingFromIcon) {
 			this.setState({ clearingFromIcon: false });
 		} else {
 			this.setState({ isOpen: false });
@@ -192,10 +187,7 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 	onSelectKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		const { key } = event;
 		const keyPressed = key.toLowerCase();
-		if (
-			this.getSafeState().clearingFromIcon &&
-			(keyPressed === 'backspace' || keyPressed === 'delete')
-		) {
+		if (this.state.clearingFromIcon && (keyPressed === 'backspace' || keyPressed === 'delete')) {
 			// If being cleared from keyboard, don't change behaviour
 			this.setState({ clearingFromIcon: false });
 		}
@@ -227,7 +219,8 @@ class TimePickerComponent extends React.Component<TimePickerProps, State> {
 
 		const l10n: LocalizationProvider = createLocalizationProvider(locale);
 
-		const { value = '', isOpen } = this.getSafeState();
+		const value = this.getValue() || '';
+		const isOpen = this.getIsOpen();
 
 		const { styles: selectStyles = {}, ...otherSelectProps } = selectProps;
 		const SelectComponent = timeIsEditable ? CreatableSelect : Select;

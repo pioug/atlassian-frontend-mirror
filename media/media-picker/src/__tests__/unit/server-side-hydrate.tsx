@@ -1,7 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { getExamplesFor, mockConsole, ssr } from '@atlaskit/ssr';
+import { mockConsole, ssr } from '@atlaskit/ssr';
+
+import Example from '../../../examples/1-dropzone';
 
 const getConsoleMockCalls = mockConsole(console);
 
@@ -11,10 +13,8 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate media-picker correctly', async () => {
-	const [example] = await getExamplesFor('media-picker');
-	const Example = require(example.filePath).default;
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(example.filePath);
+	elem.innerHTML = await ssr(Example);
 
 	render(<Example />, {
 		container: elem,

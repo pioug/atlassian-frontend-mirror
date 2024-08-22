@@ -8,8 +8,8 @@ export const useSetFavouriteAgent = ({
 	isStarred,
 	product,
 }: {
-	agentId: string;
-	cloudId: string;
+	agentId?: string;
+	cloudId?: string;
 	isStarred: boolean;
 	product: string;
 }) => {
@@ -17,13 +17,16 @@ export const useSetFavouriteAgent = ({
 	const [isFavourite, setIsFavourite] = useState(isStarred);
 
 	const setFavourite = async () => {
+		if (!agentId || !cloudId) {
+			return;
+		}
 		setIsLoading(true);
 		try {
 			const headers = createHeaders(product, cloudId);
 
 			if (isFavourite) {
 				await fetch(
-					new Request(`/agents/v1/${agentId}/favourite`, {
+					new Request(`/gateway/api/assist/agents/v1/${agentId}/favourite`, {
 						method: 'POST',
 						credentials: 'include',
 						mode: 'cors',
@@ -34,7 +37,7 @@ export const useSetFavouriteAgent = ({
 				});
 			} else {
 				await fetch(
-					new Request(`/agents/v1/${agentId}/favourite`, {
+					new Request(`/gateway/api/assist/agents/v1/${agentId}/favourite`, {
 						method: 'DELETE',
 						credentials: 'include',
 						mode: 'cors',

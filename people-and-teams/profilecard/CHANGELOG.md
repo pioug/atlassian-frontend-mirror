@@ -1,5 +1,26 @@
 # @atlaskit/profilecard
 
+## 19.19.0
+
+### Minor Changes
+
+- [#131656](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131656)
+  [`9c7dc5b037f60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c7dc5b037f60) -
+  Add analyticts and update apis
+
+### Patch Changes
+
+- [#132411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132411)
+  [`097911d8bb135`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/097911d8bb135) -
+  Added hidden icon to agent profile
+- Updated dependencies
+
+## 19.18.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.18.0
 
 ### Minor Changes

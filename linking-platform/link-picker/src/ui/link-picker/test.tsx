@@ -1646,6 +1646,50 @@ describe('<LinkPicker />', () => {
 				expect(insertButton).toHaveAttribute('disabled');
 			});
 		});
+
+		describe('moving the submit button with the UNSAFE_moveSubmitButton prop', () => {
+			it('should render the submit button below the search result by default', async () => {
+				const { testIds } = setupWithGenericPlugin();
+				const searchResultList = await screen.findByTestId(testIds.searchResultList);
+				const insertButton = screen.getByTestId(testIds.insertButton);
+
+				/**
+				 * Using compareDocumentPosition to check if the insertButton is after the searchResultList.
+				 * https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition#return_value
+				 */
+				expect(searchResultList.compareDocumentPosition(insertButton)).toBe(
+					Node.DOCUMENT_POSITION_FOLLOWING,
+				);
+			});
+
+			it('should render the submit button in between the plugin tab list and the input field when the UNSAFE_moveSubmitButton is passed', async () => {
+				const plugin1 = new MockLinkPickerPromisePlugin({
+					tabKey: 'tab1',
+					tabTitle: 'tab1',
+				});
+
+				const plugin2 = new MockLinkPickerPromisePlugin({
+					tabKey: 'tab2',
+					tabTitle: 'tab2',
+				});
+
+				const { testIds } = setupWithGenericPlugin({
+					plugins: [plugin1, plugin2],
+					UNSAFE_moveSubmitButton: true,
+				});
+
+				const tabList = await screen.findByTestId(testIds.tabList);
+				const insertButton = screen.getByTestId(testIds.insertButton);
+
+				/**
+				 * Using compareDocumentPosition to check if the insertButton is before the tabList.
+				 * https://developer.mozilla.org/en-US/docs/Web/API/Node/compareDocumentPosition#return_value
+				 */
+				expect(tabList.compareDocumentPosition(insertButton)).toBe(
+					Node.DOCUMENT_POSITION_PRECEDING,
+				);
+			});
+		});
 	});
 
 	it('should use scrolling tabs if feature flag is specified', async () => {

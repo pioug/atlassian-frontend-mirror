@@ -77,6 +77,10 @@ export default {
     'Connect your {providerName} account to collaborate on work across Atlassian products.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Connect your {providerName} account',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Learn more about Smart Links.',
+  'linkDataSource.issue-line-table.error-generic-description.nonfinal':
+    'We had an issue trying to complete the update. Refresh the page and try again.',
+  'linkDataSource.issue-line-table.error-generic-title.nonfinal': 'Something went wrong',
+  'linkDataSource.issue-line-table.go-to-resource.nonfinal': 'Go to item',
   'linkDataSource.issue-line-table.unwrap-text': 'Unwrap text',
   'linkDataSource.issue-line-table.wrap-text': 'Wrap text',
   'linkDataSource.jira-issues.accessInstructions': 'To request access, contact your site administrator.',

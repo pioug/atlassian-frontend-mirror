@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.2.26
+
+### Patch Changes
+
+- [#132551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132551)
+  [`793d8a11244a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/793d8a11244a8) -
+  Improve initial focus on the color picker when loaded
+
 ## 3.2.25
 
 ### Patch Changes

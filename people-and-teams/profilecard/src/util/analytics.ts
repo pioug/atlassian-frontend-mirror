@@ -50,7 +50,7 @@ export const fireEvent = (
 
 const TEAM_SUBJECT = 'teamProfileCard';
 const USER_SUBJECT = 'profilecard';
-const RovoAgent = 'rovoAgenrProfilecard';
+const AGENT_SUBJECT = 'rovoAgenrProfilecard';
 
 const createEvent = (
 	eventType: 'ui' | 'operational',
@@ -71,10 +71,23 @@ const createEvent = (
 	},
 });
 
-export const cardTriggered = (type: 'user' | 'team', method: 'hover' | 'click') =>
-	createEvent('ui', 'triggered', type === 'user' ? USER_SUBJECT : TEAM_SUBJECT, undefined, {
+export const cardTriggered = (type: 'user' | 'team' | 'agent', method: 'hover' | 'click') => {
+	const getActionSubject = (type: string) => {
+		switch (type) {
+			case 'user':
+				return USER_SUBJECT;
+			case 'team':
+				return TEAM_SUBJECT;
+			case 'agent':
+				return AGENT_SUBJECT;
+			default:
+				return 'user';
+		}
+	};
+	return createEvent('ui', 'triggered', getActionSubject(type), undefined, {
 		method,
 	});
+};
 
 export const teamRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
@@ -156,4 +169,4 @@ export const errorRetryClicked = (attributes: { duration: number }) =>
 export const agentRequestAnalytics = (
 	action: 'triggered' | 'succeeded' | 'failed',
 	attributes?: { duration: number } & GenericAttributes,
-) => createEvent('operational', action, RovoAgent, 'request', attributes);
+) => createEvent('operational', action, AGENT_SUBJECT, 'request', attributes);

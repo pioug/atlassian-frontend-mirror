@@ -2,7 +2,7 @@ import ProfileCardClient from '../client/ProfileCardClient';
 import RovoAgentCardClient from '../client/RovoAgentCardClient';
 import TeamProfileCardClient from '../client/TeamProfileCardClient';
 import UserProfileCardClient from '../client/UserProfileCardClient';
-import { type ProfileCardClientData, type RovoAgent, type Team } from '../types';
+import { type AgentIdType, type ProfileCardClientData, type RovoAgent, type Team } from '../types';
 
 import agentData from './agent-data';
 import profiles from './profile-data';
@@ -38,7 +38,7 @@ class SimpleMockUserClient extends UserProfileCardClient {
 }
 
 class SimpleMockAgentClient extends RovoAgentCardClient {
-	makeRequest(userId: string): Promise<RovoAgent> {
+	makeRequest(id: AgentIdType, cloudId: string): Promise<RovoAgent> {
 		return Promise.resolve(agentData);
 	}
 }

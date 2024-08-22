@@ -2,6 +2,7 @@ import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { isFedRamp } from '@atlaskit/atlassian-context';
 
 import {
+	type AgentIdType,
 	type ClientOverrides,
 	type ProfileClientOptions,
 	type TeamCentralReportingLinesData,
@@ -65,8 +66,8 @@ class ProfileCardClient {
 		return this.tcClient.checkWorkspaceExists();
 	}
 
-	getRovoAgentProfile(agentId: string, analytics?: (event: AnalyticsEventPayload) => void) {
-		return this.rovoAgentClient?.getProfile(agentId, analytics);
+	getRovoAgentProfile(id: AgentIdType, analytics?: (event: AnalyticsEventPayload) => void) {
+		return this.rovoAgentClient?.getProfile(id, analytics);
 	}
 }
 

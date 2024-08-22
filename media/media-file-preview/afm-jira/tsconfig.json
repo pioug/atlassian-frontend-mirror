@@ -28,6 +28,9 @@
     },
     {
       "path": "../../media-ui/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
     }
   ]
 }

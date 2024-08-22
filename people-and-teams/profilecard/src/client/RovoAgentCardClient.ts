@@ -1,12 +1,12 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
-import type { ProfileClientOptions, RovoAgent } from '../types';
+import type { AgentIdType, ProfileClientOptions, RovoAgent } from '../types';
 import { agentRequestAnalytics } from '../util/analytics';
 import { getPageTime } from '../util/performance';
 
 import CachingClient from './CachingClient';
 import { getErrorAttributes } from './errorUtils';
-import { getAgentDetailsByAgentId } from './getAgentInfo';
+import { getAgentDetailsByAgentId, getAgentDetailsByUserId } from './getAgentInfo';
 
 export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 	options: ProfileClientOptions;
@@ -16,26 +16,29 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 		this.options = options;
 	}
 
-	makeRequest(agentId: string, cloudId: string): Promise<RovoAgent> {
+	makeRequest(id: AgentIdType, cloudId: string): Promise<RovoAgent> {
 		if (!this.options.productIdentifier) {
 			throw new Error('Trying to fetch agents data with no specified config.productIdentifier');
 		}
-		return getAgentDetailsByAgentId(agentId, this.options.productIdentifier, cloudId);
+		if (id.type === 'identity') {
+			return getAgentDetailsByUserId(id.value, this.options.productIdentifier, cloudId);
+		}
+		return getAgentDetailsByAgentId(id.value, this.options.productIdentifier, cloudId);
 	}
 
 	getProfile(
-		agentId: string,
+		id: AgentIdType,
 		analytics?: (event: AnalyticsEventPayload) => void,
 	): Promise<RovoAgent> {
-		if (!agentId) {
-			return Promise.reject(new Error('agentId is missing'));
+		if (!id.value) {
+			return Promise.reject(new Error('IF is missing'));
 		}
 
 		if (!this.options.cloudId) {
 			return Promise.reject(new Error('cloudId is missing'));
 		}
 
-		const cache = this.getCachedProfile(agentId);
+		const cache = this.getCachedProfile(id.value);
 
 		if (cache) {
 			return Promise.resolve(cache);
@@ -48,10 +51,10 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 				analytics(agentRequestAnalytics('triggered'));
 			}
 
-			this.makeRequest(agentId, this.options.cloudId || '')
+			this.makeRequest(id, this.options.cloudId || '')
 				.then((data: RovoAgent) => {
 					if (this.cache) {
-						this.setCachedProfile(agentId, data);
+						this.setCachedProfile(id.value, data);
 					}
 					if (analytics) {
 						analytics(

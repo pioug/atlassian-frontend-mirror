@@ -1,5 +1,14 @@
 # @atlaskit/embedded-confluence
 
+## 2.18.2
+
+### Patch Changes
+
+- [#132191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132191)
+  [`39b8eb0b3a100`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39b8eb0b3a100) -
+  [ux] [CBT-3460] Fixes for ViewPage content sizing when isHeightSetFromContent is both true and
+  false
+
 ## 2.18.1
 
 ### Patch Changes

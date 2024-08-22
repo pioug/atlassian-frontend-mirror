@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
+import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+
 import { type ProfileClient, type RovoAgentProfileCardInfo, type TriggerType } from '../../types';
+import { fireEvent } from '../../util/analytics';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ErrorMessage from '../Error/ErrorMessage';
 
@@ -8,7 +11,7 @@ import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
 export interface AgentProfileCardResourcedProps {
-	agentId: string;
+	accountId: string;
 	cloudId: string;
 	resourceClient: ProfileClient;
 	trigger?: TriggerType;
@@ -20,6 +23,16 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 	const [agentData, setAgentData] = useState<RovoAgentProfileCardInfo>();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState();
+
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const fireAnalytics = useCallback(
+		(payload: AnalyticsEventPayload) => {
+			if (createAnalyticsEvent) {
+				fireEvent(createAnalyticsEvent, payload);
+			}
+		},
+		[createAnalyticsEvent],
+	);
 
 	const creatorUserId = useMemo(
 		() =>
@@ -42,26 +55,40 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 					return { type: 'THIRD_PARTY' as const, name: creator ?? '' };
 
 				case 'CUSTOMER':
-					const creatorInfo = await props.resourceClient.getProfile(
-						creatorUserId || '',
-						props.cloudId || '',
-					);
-					return {
-						type: 'CUSTOMER' as const,
-						name: creatorInfo.fullName,
-						profileLink: `/people/${creatorUserId}`,
-					};
+					try {
+						if (!creatorUserId || !props.cloudId) {
+							return undefined;
+						}
+
+						const creatorInfo = await props.resourceClient.getProfile(
+							creatorUserId,
+							props.cloudId,
+							fireAnalytics,
+						);
+
+						return {
+							type: 'CUSTOMER' as const,
+							name: creatorInfo.fullName,
+							profileLink: `/people/${creatorUserId}`,
+							id: creatorUserId,
+						};
+					} catch (error) {
+						return undefined;
+					}
 
 				default:
 					return undefined;
 			}
 		},
-		[creatorUserId, props.cloudId, props.resourceClient],
+		[creatorUserId, fireAnalytics, props.cloudId, props.resourceClient],
 	);
 
 	const getAgentInfo = useCallback(() => {
-		return props.resourceClient.getRovoAgentProfile(props.agentId);
-	}, [props.agentId, props.resourceClient]);
+		return props.resourceClient.getRovoAgentProfile(
+			{ type: 'identity', value: props.accountId },
+			fireAnalytics,
+		);
+	}, [fireAnalytics, props.accountId, props.resourceClient]);
 
 	const fetchData = useCallback(async () => {
 		setIsLoading(true);
@@ -89,7 +116,7 @@ export const AgentProfileCardResourced = (props: AgentProfileCardResourcedProps)
 			setIsLoading(false);
 			setError(error);
 		}
-	}, [fetchData, getAgentInfo, getCreator, props.agentId, props.cloudId, props.resourceClient]);
+	}, [fetchData, getAgentInfo, getCreator, props.accountId, props.cloudId, props.resourceClient]);
 
 	if (error || (!isLoading && !agentData)) {
 		return (

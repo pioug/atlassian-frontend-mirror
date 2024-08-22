@@ -1,9 +1,9 @@
 import React from 'react';
 
 import ReactDOM from 'react-dom';
-import ReactDOMServer from 'react-dom/server';
+import { ssr } from '@atlaskit/ssr';
 
-import { getExamplesFor } from '@atlaskit/ssr';
+import Example from '../../../examples/14-ssr';
 
 // @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
@@ -13,17 +13,8 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate example component correctly', async () => {
-	const examples = await getExamplesFor('smart-card');
-
-	const filepath = examples.find((example) =>
-		example.filePath.endsWith('examples/14-ssr.tsx'),
-	)!.filePath;
-
-	const Example = require(filepath).default; // eslint-disable-line import/no-dynamic-require
-
 	const elem = document.createElement('div');
-
-	elem.innerHTML = ReactDOMServer.renderToString(React.createElement(Example));
+	elem.innerHTML = await ssr(Example);
 
 	ReactDOM.hydrate(<Example />, elem);
 

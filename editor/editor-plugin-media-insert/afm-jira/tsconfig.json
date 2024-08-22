@@ -24,6 +24,15 @@
       "path": "../../editor-common/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-plugin-media/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../editor-shared-styles/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
     },
     {
@@ -40,6 +49,9 @@
     },
     {
       "path": "../../../design-system/section-message/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/tabs/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/textfield/afm-jira/tsconfig.json"

@@ -16,6 +16,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { InputMethod as BlockTypeInputMethod } from '@atlaskit/editor-plugin-block-type';
 import { BLOCK_QUOTE, CODE_BLOCK, PANEL } from '@atlaskit/editor-plugin-block-type/consts';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import SwitchIcon from './assets/switch';
 import type { InsertBlockPluginDependencies } from './types';
@@ -168,36 +169,40 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 				const {
 					selection: { $from },
 				} = state;
+				const isEligible =
+					// basicTextTransformations is used to present AI enablement status to avoid adding editor props
+					api?.featureFlags?.sharedState.currentState()?.basicTextTransformations &&
+					$from.depth === 1;
 
-				if (
-					!api?.featureFlags?.sharedState.currentState()?.basicTextTransformations ||
-					$from.depth !== 1
-				) {
+				if (!isEligible) {
 					return;
 				}
-				const { formatMessage } = intl;
-				const options: DropdownOptions<Command> = transformationOptions(api).map((option) => {
-					const IconBefore = option.icon;
+
+				if (editorExperiment('basic-text-transformations', true, { exposure: true })) {
+					const { formatMessage } = intl;
+					const options: DropdownOptions<Command> = transformationOptions(api).map((option) => {
+						const IconBefore = option.icon;
+						return {
+							title: formatMessage(option.title),
+							icon: <IconBefore label="" />,
+							onClick: (state, dispatch) => {
+								option.command?.(INPUT_METHOD.FLOATING_TB)(state, dispatch);
+								return true;
+							},
+						};
+					});
 					return {
-						title: formatMessage(option.title),
-						icon: <IconBefore label="" />,
-						onClick: (state, dispatch) => {
-							option.command?.(INPUT_METHOD.FLOATING_TB)(state, dispatch);
-							return true;
-						},
+						items: [
+							{
+								type: 'dropdown',
+								title: formatMessage(messages.turnInto),
+								iconBefore: SwitchIcon,
+								options,
+							},
+						],
+						rank: -9,
 					};
-				});
-				return {
-					items: [
-						{
-							type: 'dropdown',
-							title: formatMessage(messages.turnInto),
-							iconBefore: SwitchIcon,
-							options,
-						},
-					],
-					rank: -9,
-				};
+				}
 			},
 		},
 

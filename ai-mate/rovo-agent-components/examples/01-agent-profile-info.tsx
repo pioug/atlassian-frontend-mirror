@@ -37,6 +37,7 @@ export default function () {
 							/>
 						}
 						starCountRender={<AgentStarCount starCount={14253} isLoading={false} />}
+						isHidden={false}
 					/>
 				</Box>
 
@@ -60,6 +61,7 @@ export default function () {
 						}
 						starCountRender={<AgentStarCount starCount={512} isLoading={false} />}
 						agentDescription="Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice."
+						isHidden={false}
 					/>
 				</Box>
 
@@ -79,6 +81,7 @@ export default function () {
 						}
 						starCountRender={<AgentStarCount starCount={undefined} isLoading={true} />}
 						agentDescription="Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice. Craft and refine all things blogs, external comms, and announcements. Align with your brand's voice."
+						isHidden={false}
 					/>
 				</Box>
 
@@ -97,6 +100,7 @@ export default function () {
 							/>
 						}
 						starCountRender={<AgentStarCount starCount={undefined} isLoading={false} />}
+						isHidden={false}
 					/>
 				</Box>
 
@@ -118,6 +122,7 @@ export default function () {
 							/>
 						}
 						starCountRender={<AgentStarCount starCount={undefined} isLoading={false} />}
+						isHidden={false}
 					/>
 				</Box>
 			</Inline>

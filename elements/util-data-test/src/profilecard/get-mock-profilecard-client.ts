@@ -1,5 +1,5 @@
 import { modifyResponse } from '@atlaskit/profilecard';
-import { type ProfileClient } from '@atlaskit/profilecard/types';
+import { type AgentIdType, type ProfileClient } from '@atlaskit/profilecard/types';
 import {
 	type ProfileCardClientData,
 	type ReportingLinesUser,
@@ -112,7 +112,7 @@ export function simpleMockProfilecardClient(): ProfileClient {
 
 		shouldShowGiveKudos: () => Promise.resolve(true),
 
-		getRovoAgentProfile: (_agentId: string, _analytics?: (event: Record<string, any>) => void) => {
+		getRovoAgentProfile: (_Id: AgentIdType, _analytics?: (event: Record<string, any>) => void) => {
 			return Promise.reject({ reason: 'not built yet' });
 		},
 	};

@@ -1,12 +1,13 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { Box } from '@atlaskit/primitives';
 
 import RemovableTag from '../src/tag/removable-tag';
 import Tag from '../src/tag/simple-tag';
 
 export default () => (
-	<div id="appearance">
+	<Box id="appearance" role="group" aria-label="Appearance examples">
 		<Tag text="Base Tag" appearance="rounded" />
 		<Tag
 			appearance="rounded"
@@ -20,5 +21,5 @@ export default () => (
 			elemBefore={<Avatar borderColor="transparent" size="xsmall" />}
 		/>
 		<Tag text="Linked Tag" href="/components/tag" appearance="rounded" />
-	</div>
+	</Box>
 );

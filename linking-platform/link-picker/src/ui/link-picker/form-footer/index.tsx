@@ -2,15 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl-next';
-import uuid from 'uuid';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
-import LoadingButton from '@atlaskit/button/loading-button';
 import EditorAddIconLegacy from '@atlaskit/icon/glyph/editor/add';
 import EditorAddIcon from '@atlaskit/icon/utility/add';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -23,7 +21,7 @@ import {
 import { UnauthenticatedError } from '../../../common/utils/errors';
 
 import FeatureDiscovery from './feature-discovery';
-import { checkSubmitDisabled } from './utils';
+import { LinkPickerSubmitButton } from './link-picker-submit-button';
 
 const formFooterStyles = css({
 	display: 'flex',
@@ -39,16 +37,6 @@ export const messages = defineMessages({
 		id: 'fabric.linkPicker.button.cancel',
 		defaultMessage: 'Cancel',
 		description: 'Button to cancel and dismiss the link picker',
-	},
-	saveButton: {
-		id: 'fabric.linkPicker.button.save',
-		defaultMessage: 'Save',
-		description: 'Button to save edited link',
-	},
-	insertButton: {
-		id: 'fabric.linkPicker.button.insert',
-		defaultMessage: 'Insert',
-		description: 'Button to insert searched or selected link',
 	},
 	submittingStatusMessage: {
 		id: 'fabric.linkPicker.status.submitting',
@@ -81,6 +69,8 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 	action?: LinkPickerPluginAction;
 	createFeatureDiscovery?: boolean;
 	customSubmitButtonLabel?: MessageDescriptor;
+	submitMessageId?: string;
+	hideSubmitButton?: boolean;
 }
 
 export const FormFooter = memo(
@@ -96,26 +86,15 @@ export const FormFooter = memo(
 		action,
 		createFeatureDiscovery = false,
 		customSubmitButtonLabel,
+		submitMessageId,
+		hideSubmitButton,
 		...restProps
 	}: FormFooterProps) => {
 		const intl = useIntl();
 
-		const submitMessageId = useMemo(() => uuid(), []);
-
 		if (error && error instanceof UnauthenticatedError) {
 			return null;
 		}
-
-		const isSubmitDisabled = checkSubmitDisabled(
-			isLoading,
-			isSubmitting,
-			error,
-			url,
-			queryState,
-			items,
-		);
-
-		const insertButtonMsg = isEditing ? messages.saveButton : messages.insertButton;
 
 		const createButton = (pluginAction: LinkPickerPluginAction) => (
 			<Button
@@ -173,18 +152,20 @@ export const FormFooter = memo(
 							{intl.formatMessage(messages.cancelButton)}
 						</Button>
 					)}
-					<LoadingButton
-						type="submit"
-						appearance="primary"
-						testId={testIds.insertButton}
-						isDisabled={isSubmitDisabled}
-						aria-labelledby={isSubmitting ? submitMessageId : undefined}
-						isLoading={isSubmitting}
-					>
-						{customSubmitButtonLabel
-							? intl.formatMessage(customSubmitButtonLabel)
-							: intl.formatMessage(insertButtonMsg)}
-					</LoadingButton>
+					{!hideSubmitButton && (
+						<LinkPickerSubmitButton
+							isEditing={isEditing}
+							isLoading={isLoading}
+							isSubmitting={isSubmitting}
+							customSubmitButtonLabel={customSubmitButtonLabel}
+							error={error}
+							items={items}
+							queryState={queryState}
+							submitMessageId={submitMessageId}
+							testId={testIds.insertButton}
+							url={url}
+						/>
+					)}
 				</ButtonGroup>
 			</footer>
 		);

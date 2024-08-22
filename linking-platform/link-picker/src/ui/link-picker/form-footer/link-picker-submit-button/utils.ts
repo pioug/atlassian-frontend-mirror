@@ -1,6 +1,6 @@
 import { normalizeUrl } from '@atlaskit/linking-common/url';
 
-import { type LinkPickerState, type LinkSearchListItemData } from '../../../common/types';
+import { type LinkPickerState, type LinkSearchListItemData } from '../../../../common/types';
 
 export const checkSubmitDisabled = (
 	isLoading: boolean,

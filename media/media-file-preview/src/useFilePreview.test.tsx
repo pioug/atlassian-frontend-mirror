@@ -664,6 +664,66 @@ describe('useFilePreview', () => {
 			expect(getImageSpy).toHaveBeenCalledTimes(1);
 		});
 
+		it('should not call image endpoint three times if the dimensions increase and blobAttributes are added', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+				initialItems: fileItem,
+			});
+			let resolveImagePromise: (...params: any) => void = () => {};
+			const getImageSpy = jest.spyOn(mediaApi, 'getImage').mockImplementation(
+				() =>
+					new Promise((resolve) => {
+						resolveImagePromise = resolve;
+					}),
+			);
+
+			const getItemsSpy = jest.spyOn(mediaApi, 'getItems').mockImplementation(
+				() =>
+					new Promise((resolve) => {
+						resolve({ data: { items: [fileItem] } });
+					}),
+			);
+
+			const initialProps: UseFilePreviewParams = {
+				identifier,
+				skipRemote: false,
+				dimensions: { width: 500, height: 500 },
+			};
+
+			const { result, rerender, waitForNextUpdate } = renderHook(useFilePreview, {
+				wrapper: ({ children }) => (
+					<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+				),
+				initialProps,
+			});
+
+			expect(result?.current.status).toBe('loading');
+			expect(result?.current.preview).toBeUndefined();
+
+			// resolve upfront preview
+			rerender({ ...initialProps, skipRemote: false });
+			resolveImagePromise();
+			await waitForNextUpdate();
+			await waitFor(() => expect(getItemsSpy).toHaveBeenCalledTimes(1));
+
+			// update the dimensions (simulating confluence hydration)
+			const newDimensions = { width: 600, height: 600 };
+			rerender({ ...initialProps, dimensions: newDimensions });
+
+			// update the mediaBlobUrlAttributes simulating what media card does on Items call resolving
+			const mediaBlobUrlAttrs = createMediaBlobUrlAttrsObject({
+				fileItem,
+				identifier,
+			});
+
+			rerender({ ...initialProps, dimensions: newDimensions, mediaBlobUrlAttrs });
+
+			expect(result?.current.status).toBe('complete');
+
+			// image should not be called again for media blob url change
+			expect(getImageSpy).toHaveBeenCalledTimes(2);
+		});
+
 		describe('should not use upfront remote preview if there is a', () => {
 			it.each([undefined, 'crop'] as MediaStoreGetFileImageParams['mode'][])(
 				'cached preview (resize mode %s)',

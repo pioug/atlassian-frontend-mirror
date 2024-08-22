@@ -27,7 +27,13 @@
       "path": "../../../design-system/form/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/heading/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../../design-system/icon/afm-jira/tsconfig.json"
+    },
+    {
+      "path": "../../../design-system/primitives/afm-jira/tsconfig.json"
     },
     {
       "path": "../../../design-system/textarea/afm-jira/tsconfig.json"

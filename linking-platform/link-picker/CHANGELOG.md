@@ -1,5 +1,15 @@
 # @atlaskit/link-picker
 
+## 1.43.0
+
+### Minor Changes
+
+- [#131465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131465)
+  [`df8ea6dec9bdc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df8ea6dec9bdc) -
+  [ux] Added in a new temporary prop, UNSAFE_moveSubmitButton, to the LinkPicker. This prop moves
+  the submit button below the input field and is only to be used in an experiment being run within
+  Confluence.
+
 ## 1.42.5
 
 ### Patch Changes

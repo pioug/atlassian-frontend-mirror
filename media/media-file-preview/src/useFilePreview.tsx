@@ -249,6 +249,7 @@ export const useFilePreview = ({
 	// Cache, Local & Remote Preview
 	//----------------------------------------------------------------
 
+	const mediaBlobUrlAttrsRef = useCurrentValueRef(mediaBlobUrlAttrs);
 	useEffect(() => {
 		const cachedPreview = mediaFilePreviewCache.get(identifier.id, resizeMode);
 
@@ -273,7 +274,7 @@ export const useFilePreview = ({
 				localBinary,
 				requestDimensions || {},
 				resizeMode,
-				mediaBlobUrlAttrs,
+				mediaBlobUrlAttrsRef.current,
 			)
 				.then(setPreview)
 				.catch((e) => {
@@ -315,7 +316,7 @@ export const useFilePreview = ({
 		identifier.id,
 		resizeMode,
 		isBannedLocalPreview,
-		mediaBlobUrlAttrs,
+		mediaBlobUrlAttrsRef,
 		preview,
 		requestDimensions,
 		skipRemote,

@@ -1,6 +1,13 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useCallback } from 'react';
 
-import { type AgentProfileCardTriggerProps, type RovoAgentProfileCardInfo } from '../../types';
+import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
+
+import {
+	type AgentProfileCardTriggerProps,
+	type ProfileCardErrorType,
+	type RovoAgentProfileCardInfo,
+} from '../../types';
+import { fireEvent } from '../../util/analytics';
 import { getAAIDFromARI } from '../../util/rovoAgentUtils';
 import ProfileCardTrigger from '../common/ProfileCardTrigger';
 
@@ -13,6 +20,16 @@ export const AgentProfileCardTrigger = ({
 	...props
 }: AgentProfileCardTriggerProps) => {
 	const { resourceClient, userId, cloudId } = props;
+
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const fireAnalytics = useCallback(
+		(payload: AnalyticsEventPayload) => {
+			if (createAnalyticsEvent) {
+				fireEvent(createAnalyticsEvent, payload);
+			}
+		},
+		[createAnalyticsEvent],
+	);
 
 	const getCreator = async (creator_type: string, creator?: string) => {
 		if (!creator) {
@@ -28,13 +45,22 @@ export const AgentProfileCardTrigger = ({
 
 			case 'CUSTOMER':
 				const userId = getAAIDFromARI(creator) || '';
-				const creatorInfo = await props.resourceClient.getProfile(userId, cloudId || '');
-				return {
-					type: 'CUSTOMER' as const,
-					name: creatorInfo.fullName,
-					profileLink: `/people/${userId}`,
-					id: userId,
-				};
+				try {
+					if (!userId || !cloudId) {
+						return undefined;
+					}
+
+					const creatorInfo = await props.resourceClient.getProfile(cloudId, userId, fireAnalytics);
+
+					return {
+						type: 'CUSTOMER' as const,
+						name: creatorInfo.fullName,
+						profileLink: `/people/${userId}`,
+						id: userId,
+					};
+				} catch (error) {
+					return undefined;
+				}
 
 			default:
 				return undefined;
@@ -42,7 +68,10 @@ export const AgentProfileCardTrigger = ({
 	};
 
 	const fetchAgentProfile = async (): Promise<RovoAgentProfileCardInfo> => {
-		const agentInfo = await resourceClient.getRovoAgentProfile(userId);
+		const agentInfo = await resourceClient.getRovoAgentProfile(
+			{ type: 'agent', value: userId },
+			fireAnalytics,
+		);
 		const agentCreatorInfo = await getCreator(
 			agentInfo.creator_type,
 			agentInfo.creator || undefined,
@@ -55,33 +84,35 @@ export const AgentProfileCardTrigger = ({
 	const renderProfileCard = ({
 		profileData,
 		isLoading,
+		error,
 	}: {
 		profileData?: RovoAgentProfileCardInfo;
 		isLoading: boolean;
+		error?: ProfileCardErrorType;
 	}) => {
-		if (!profileData) {
-			return <></>;
-		}
-
 		return (
 			<Suspense fallback={null}>
 				<AgentProfileCardLazy
 					agent={profileData}
 					isLoading={isLoading}
-					isCreatedByViewingUser={profileData.creatorInfo?.id === viewingUserId}
+					hasError={!!error}
+					isCreatedByViewingUser={profileData?.creatorInfo?.id === viewingUserId}
 					cloudId={props.cloudId}
 					product={product}
+					errorType={error}
 				/>
 			</Suspense>
 		);
 	};
 
 	return (
-		<ProfileCardTrigger
+		<ProfileCardTrigger<RovoAgentProfileCardInfo>
 			{...props}
+			trigger="hover"
 			renderProfileCard={renderProfileCard}
-			trigger={trigger}
 			fetchProfile={fetchAgentProfile}
+			fireAnalytics={fireAnalytics}
+			profileCardType="agent"
 		/>
 	);
 };

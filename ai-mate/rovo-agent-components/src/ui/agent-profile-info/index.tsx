@@ -7,7 +7,9 @@ import StarIcon from '@atlaskit/icon/glyph/star';
 import { AtlassianIcon, RovoIcon } from '@atlaskit/logo';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Skeleton from '@atlaskit/skeleton';
+import Tooltip from '@atlaskit/tooltip';
 
+import { HiddenIcon } from '../../common/ui/hidden-icon';
 import { StarIconButton } from '../../common/ui/star-icon-button';
 
 import { messages } from './messages';
@@ -152,12 +154,24 @@ const wrapperStyles = xcss({
 	marginBottom: 'space.100',
 });
 
+const tooltipWrapperStyles = xcss({
+	display: 'inline-flex',
+	marginInline: 'space.100',
+	position: 'relative',
+	bottom: 'space.025',
+});
+
+const headingWrapperStyles = xcss({
+	position: 'relative',
+});
+
 export const AgentProfileInfo = ({
 	agentName,
 	agentDescription,
 	creatorRender,
 	starCountRender,
 	isStarred,
+	isHidden,
 	onStarToggle,
 }: {
 	agentName: string;
@@ -165,12 +179,25 @@ export const AgentProfileInfo = ({
 	creatorRender: React.ReactNode;
 	starCountRender: React.ReactNode;
 	isStarred: boolean;
+	isHidden: boolean;
 	onStarToggle: () => void;
 }) => {
+	const { formatMessage } = useIntl();
 	return (
 		<Stack space="space.100" xcss={wrapperStyles}>
 			<Inline xcss={nameStyles} space="space.100" alignBlock="center">
-				<Heading size="xlarge">{agentName}</Heading>
+				<Box xcss={headingWrapperStyles}>
+					<Heading as="span" size="xlarge">
+						{agentName}
+					</Heading>
+					{isHidden && (
+						<Box xcss={tooltipWrapperStyles}>
+							<Tooltip content={formatMessage(messages.hiddenTooltip)} position="top">
+								<HiddenIcon label={formatMessage(messages.hiddenIcon)} />
+							</Tooltip>
+						</Box>
+					)}
+				</Box>
 				<StarIconButton isStarred={isStarred} handleToggle={onStarToggle} />
 			</Inline>
 			{creatorRender}

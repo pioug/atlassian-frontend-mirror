@@ -9,7 +9,7 @@ export async function getAgentDetailsByAgentId(
 	const headers = createHeaders(product, cloudId);
 
 	return await fetch(
-		new Request(`assist/agents/v1/${agentId}`, {
+		new Request(`/gateway/api/assist/agents/v1/${agentId}`, {
 			method: 'GET',
 			credentials: 'include',
 			mode: 'cors',
@@ -25,12 +25,14 @@ export async function getAgentDetailsByUserId(
 ): Promise<RovoAgent> {
 	const headers = createHeaders(product, cloudId);
 
-	return await fetch(
-		new Request(`assist/agents/v1/accountid/${userId}`, {
+	return fetch(
+		new Request(`/gateway/api/assist/agents/v1/accountid/${userId}`, {
 			method: 'GET',
 			credentials: 'include',
 			mode: 'cors',
 			headers,
 		}),
-	).then((response) => response.json());
+	).then((response) => {
+		return response.json();
+	});
 }

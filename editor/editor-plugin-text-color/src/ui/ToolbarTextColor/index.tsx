@@ -28,7 +28,6 @@ import { SteppedRainbowIconDecoration } from '@atlaskit/editor-common/icons';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import {
 	expandIconContainerStyle,
-	expandIconWrapperStyle,
 	separatorStyles,
 	triggerWrapperStyles,
 	wrapperStyle,
@@ -48,9 +47,7 @@ import {
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changeColor as changeColorWithAnalytics } from '../../commands/change-color';
 import type { TextColorPluginState } from '../../pm-plugins/main';
@@ -180,17 +177,12 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 										disabled={pluginState.disabled}
 										icon={<EditorTextColorIcon />}
 									/>
-									{fg('platform_editor_migration_icon_and_typography') ? (
+									{
 										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon label="" color="currentColor" />
+											<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
 										</span>
-									) : (
-										//  eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-										<span css={expandIconWrapperStyle}>
-											<ExpandIcon label="" />
-										</span>
-									)}
+									}
 								</div>
 							}
 						/>

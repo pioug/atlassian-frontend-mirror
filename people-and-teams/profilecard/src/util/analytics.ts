@@ -71,19 +71,20 @@ const createEvent = (
 	},
 });
 
+const getActionSubject = (type: string) => {
+	switch (type) {
+		case 'user':
+			return USER_SUBJECT;
+		case 'team':
+			return TEAM_SUBJECT;
+		case 'agent':
+			return AGENT_SUBJECT;
+		default:
+			return 'user';
+	}
+};
+
 export const cardTriggered = (type: 'user' | 'team' | 'agent', method: 'hover' | 'click') => {
-	const getActionSubject = (type: string) => {
-		switch (type) {
-			case 'user':
-				return USER_SUBJECT;
-			case 'team':
-				return TEAM_SUBJECT;
-			case 'agent':
-				return AGENT_SUBJECT;
-			default:
-				return 'user';
-		}
-	};
 	return createEvent('ui', 'triggered', getActionSubject(type), undefined, {
 		method,
 	});
@@ -112,14 +113,7 @@ export const profileCardRendered = (
 		descriptionLength?: number;
 		titleLength?: number;
 	},
-) =>
-	createEvent(
-		'ui',
-		'rendered',
-		type === 'user' ? USER_SUBJECT : TEAM_SUBJECT,
-		actionSubjectId,
-		attributes,
-	);
+) => createEvent('ui', 'rendered', getActionSubject(type), actionSubjectId, attributes);
 
 export const actionClicked = (
 	type: 'user' | 'team',
@@ -130,8 +124,7 @@ export const actionClicked = (
 		index: number;
 		actionId: string;
 	},
-) =>
-	createEvent('ui', 'clicked', type === 'user' ? USER_SUBJECT : TEAM_SUBJECT, 'action', attributes);
+) => createEvent('ui', 'clicked', getActionSubject(type), 'action', attributes);
 
 export const reportingLinesClicked = (attributes: {
 	userType: 'manager' | 'direct-report';
@@ -144,14 +137,7 @@ export const moreActionsClicked = (
 		duration: number;
 		numActions: number;
 	},
-) =>
-	createEvent(
-		'ui',
-		'clicked',
-		type === 'user' ? USER_SUBJECT : TEAM_SUBJECT,
-		'moreActions',
-		attributes,
-	);
+) => createEvent('ui', 'clicked', getActionSubject(type), 'moreActions', attributes);
 
 export const teamAvatarClicked = (attributes: {
 	duration: number;

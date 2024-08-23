@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 195.7.0
+
+### Minor Changes
+
+- [#132259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132259)
+  [`f5e633e11af26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5e633e11af26) -
+  [ux] Expose the context panel state from the context panel plugin. Simplify and consolidate the
+  context panel logic such that it always opens in the same manner. Previously there was a small
+  number of cases in which the context panel overlaps.
+- [#133191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133191)
+  [`78a1927084934`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78a1927084934) -
+  [ux] Remove icon migration feature gate and migrate new icons on primary toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 195.6.2
+
+### Patch Changes
+
+- [#131378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131378)
+  [`04848ee5982e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04848ee5982e0) -
+  Remove `reactContext` from `PMPluginFactoryParams` type. This was an unused property and so
+  shouldn't have any upgrade friction.
+- [#131548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131548)
+  [`1b9034d028442`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b9034d028442) -
+  [ux] Fix extension label button text size and update VR tests
+- Updated dependencies
+
 ## 195.6.1
 
 ### Patch Changes

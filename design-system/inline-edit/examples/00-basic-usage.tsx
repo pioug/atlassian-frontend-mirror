@@ -1,53 +1,44 @@
-import React, { useState } from 'react';
+import React, { type FC, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ReadViewContainer = styled.div({
+const readViewContainerStyles = xcss({
 	display: 'flex',
-	fontSize: `${fontSize()}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: (gridSize() * 2.5) / fontSize(),
 	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	minHeight: `${(gridSize() * 2.5) / fontSize()}em`,
-	padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
 	wordBreak: 'break-word',
 });
 
+const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
+	<Box
+		paddingBlockStart="space.150"
+		paddingBlockEnd="space.150"
+		padding="space.100"
+		xcss={readViewContainerStyles}
+		testId="read-view"
+	>
+		{children}
+	</Box>
+);
+
 const InlineEditExample = () => {
+	const initialValue = 'Basic Field value';
 	const [editValue, setEditValue] = useState('Field value');
 
 	return (
-		<div
-			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
-			}}
-		>
+		<Box paddingInlineStart="space.100" paddingInlineEnd="space.600">
 			<InlineEdit
 				testId="inline-edit"
 				defaultValue={editValue}
 				label="Inline edit"
+				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
-				readView={() => (
-					<ReadViewContainer data-testid="read-view">
-						{editValue || 'Click to enter value'}
-					</ReadViewContainer>
-				)}
+				readView={() => <ReadViewContainer>{editValue || initialValue}</ReadViewContainer>}
 				onConfirm={(value) => setEditValue(value)}
 			/>
-		</div>
+		</Box>
 	);
 };
 

@@ -67,13 +67,7 @@ import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { Dispatch } from '../event-dispatcher';
 import { EditorAPIContext } from '../presets/context';
 import type { SetEditorAPI } from '../presets/context';
-import type {
-	EditorAppearance,
-	EditorConfig,
-	EditorPlugin,
-	EditorProps,
-	EditorReactContext,
-} from '../types';
+import type { EditorAppearance, EditorConfig, EditorPlugin, EditorProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
 import { getNodesCount } from '../utils/document';
@@ -181,7 +175,6 @@ function handleEditorFocus(view: EditorView): number | undefined {
 
 interface CreateEditorStateOptions {
 	props: EditorViewProps;
-	context: EditorReactContext;
 	doc?: string | Object | PMNode;
 	resetting?: boolean;
 	selectionAtStart?: boolean;
@@ -189,8 +182,7 @@ interface CreateEditorStateOptions {
 
 export class ReactEditorView<T = {}> extends React.Component<
 	EditorViewProps & WrappedComponentProps & T,
-	{},
-	EditorReactContext
+	{}
 > {
 	view?: EditorView;
 	eventDispatcher: EventDispatcher;
@@ -209,8 +201,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 	static contextTypes = {
 		getAtlaskitAnalyticsEventHandlers: PropTypes.func,
 	};
-
-	context!: EditorReactContext;
 
 	// ProseMirror is instantiated prior to the initial React render cycle,
 	// so we allow transactions by default, to avoid discarding the initial one.
@@ -265,8 +255,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 		return this.props.editorProps?.performanceTracking?.transactionTracking?.enabled === false;
 	}
 
-	constructor(props: EditorViewProps & WrappedComponentProps & T, context: EditorReactContext) {
-		super(props, context);
+	constructor(props: EditorViewProps & WrappedComponentProps & T) {
+		super(props);
 
 		this.pluginInjectionAPI = new EditorPluginInjectionAPI({
 			getEditorState: this.getEditorState,
@@ -310,7 +300,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 		this.editorState = this.createEditorState({
 			props,
-			context,
 			doc: props.editorProps.defaultValue,
 			// ED-4759: Don't set selection at end for full-page editor - should be at start.
 			selectionAtStart: isFullPage(props.editorProps.appearance),
@@ -407,7 +396,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 
 		this.editorState = this.createEditorState({
 			props: this.props,
-			context: this.context,
 			doc: doc,
 			resetting: true,
 			selectionAtStart: !shouldScrollToBottom,
@@ -459,7 +447,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 			eventDispatcher: this.eventDispatcher,
 			providerFactory: props.providerFactory,
 			portalProviderAPI: props.portalProviderAPI,
-			reactContext: () => this.context,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 			performanceTracking: props.editorProps.performanceTracking,
 			transactionTracker: this.transactionTracker,
@@ -574,7 +561,6 @@ export class ReactEditorView<T = {}> extends React.Component<
 			eventDispatcher: this.eventDispatcher,
 			providerFactory: options.props.providerFactory,
 			portalProviderAPI: this.props.portalProviderAPI,
-			reactContext: () => options.context,
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 			performanceTracking: this.props.editorProps.performanceTracking,
 			transactionTracker: this.transactionTracker,

@@ -8,6 +8,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import __noop from '@atlaskit/ds-lib/noop';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
 import Pressable from '@atlaskit/primitives/pressable';
@@ -29,8 +30,6 @@ const analyticsAttributes = {
 	packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const noop = () => {};
-
 const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<FieldValue>) => {
 	const {
 		startWithEditViewOpen = false,
@@ -39,6 +38,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		isRequired = false,
 		readViewFitContainerWidth = false,
 		editButtonLabel = 'Edit',
+		editLabel = 'edit',
 		confirmButtonLabel = 'Confirm',
 		cancelButtonLabel = 'Cancel',
 		defaultValue,
@@ -49,8 +49,8 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		editView,
 		analyticsContext,
 		onConfirm: providedOnConfirm,
-		onCancel: providedOnCancel = noop,
-		onEdit: providedOnEdit = noop,
+		onCancel: providedOnCancel = __noop,
+		onEdit: providedOnEdit = __noop,
 		testId,
 	} = props;
 
@@ -115,7 +115,8 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		[doNotFocusOnEditButton],
 	);
 
-	/** If keepEditViewOpenOnBlur prop is set to false, will call confirmIfUnfocused() which
+	/**
+	 * If keepEditViewOpenOnBlur prop is set to false, will call confirmIfUnfocused() which
 	 *  confirms the value, if the focus is not transferred to the action buttons.
 	 *
 	 *  When you're in `editing` state, the focus will be on the input field. And if you use keyboard
@@ -145,7 +146,8 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		[keepEditViewOpenOnBlur, tryAutoSubmitWhenBlur],
 	);
 
-	/** Gets called when focus is transferred to the editView, or action buttons.
+	/**
+	 * Gets called when focus is transferred to the editView, or action buttons.
 	 *
 	 * There are three paths here the function can be called:
 	 *
@@ -157,10 +159,17 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 		wasFocusReceivedSinceLastBlurRef.current = true;
 	}, []);
 
+	const concatenatedEditButtonLabel = () => {
+		if (label) {
+			return `${editButtonLabel}, ${label}, ${editLabel}`;
+		}
+		return `${editButtonLabel}, ${editLabel}`;
+	};
+
 	const renderReadView = () => {
 		return (
 			<ReadView
-				editButtonLabel={editButtonLabel}
+				editButtonLabel={concatenatedEditButtonLabel()}
 				onEditRequested={onEditRequested}
 				postReadViewClick={doNotFocusOnEditButton}
 				editButtonRef={editButtonRef}
@@ -222,7 +231,9 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 											cancelButtonLabel={cancelButtonLabel}
 											confirmButtonLabel={confirmButtonLabel}
 											onMouseDown={() => {
-												/** Prevents focus on edit button only if mouse is used to click button, but not when keyboard is used */
+												/**
+												 * Prevents focus on edit button only if mouse is used to click button, but not when keyboard is used
+												 */
 												doNotFocusOnEditButton();
 											}}
 											onCancelClick={(e) => {
@@ -231,7 +242,9 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 											}}
 										/>
 									) : (
-										/** This is to allow Ctrl + Enter to submit without action buttons */
+										/**
+										 * This is to allow Ctrl + Enter to submit without action buttons
+										 */
 										<Pressable hidden type="submit">
 											<VisuallyHidden>Submit</VisuallyHidden>
 										</Pressable>
@@ -240,7 +253,9 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 							)}
 						</Field>
 					) : (
-						/** Field is used here only for the label and spacing */
+						/**
+						 * Field is used here only for the label and spacing
+						 */
 						<Field
 							name="inlineEdit"
 							label={label}
@@ -258,7 +273,9 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 };
 
 const InlineEdit = <FieldValue extends unknown = string>(props: InlineEditProps<FieldValue>) => {
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 	return <InnerInlineEdit<FieldValue> {...props} />;
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default InlineEdit;

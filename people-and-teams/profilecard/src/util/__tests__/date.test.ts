@@ -10,8 +10,9 @@ describe('localTime', () => {
 		jest.useRealTimers();
 	});
 
-	test('should return null for empty timezone', () => {
+	test('should return null for empty or unknown timezone', () => {
 		expect(dateUtil.localTime('', 'format')).toEqual(null);
+		expect(dateUtil.localTime('somewhere', 'format')).toEqual(null);
 	});
 
 	test('should return null for unknown format', () => {
@@ -22,5 +23,6 @@ describe('localTime', () => {
 		expect(dateUtil.localTime('Australia/Sydney', 'i')).toEqual('1');
 		expect(dateUtil.localTime('Australia/Sydney', 'eee')).toEqual('Mon');
 		expect(dateUtil.localTime('Australia/Sydney', `h:mmbbb (OOOO)`)).toEqual('11:40am (GMT+10:00)');
+		expect(dateUtil.localTime('Australia/Sydney', `h:mmbbb`)).toEqual('11:40am');
 	});
 });

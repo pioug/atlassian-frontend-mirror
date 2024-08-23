@@ -20,8 +20,8 @@ import { buttonGroupStyle, separatorStyles } from '@atlaskit/editor-common/style
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import RedoIcon from '@atlaskit/icon/glyph/redo';
-import UndoIcon from '@atlaskit/icon/glyph/undo';
+import RedoIcon from '@atlaskit/icon/core/migration/redo';
+import UndoIcon from '@atlaskit/icon/core/migration/undo';
 
 import { redoFromToolbar, undoFromToolbar } from '../../commands';
 import type { UndoRedoPlugin } from '../../types';
@@ -92,7 +92,7 @@ export const ToolbarUndoRedo = ({
 				aria-label={tooltip(undoKeymap, labelUndo)}
 				aria-keyshortcuts={getAriaKeyshortcuts(undoKeymap)}
 				title={<ToolTipContent description={labelUndo} keymap={undoKeymap} />}
-				iconBefore={<UndoIcon label="" />}
+				iconBefore={<UndoIcon label="" color="currentColor" spacing="spacious" />}
 				testId="ak-editor-toolbar-button-undo"
 			/>
 			<ToolbarButton
@@ -101,7 +101,7 @@ export const ToolbarUndoRedo = ({
 				onClick={handleRedo}
 				disabled={!canRedo || disabled}
 				title={<ToolTipContent description={labelRedo} keymap={redoKeymap} />}
-				iconBefore={<RedoIcon label="" />}
+				iconBefore={<RedoIcon label="" color="currentColor" spacing="spacious" />}
 				testId="ak-editor-toolbar-button-redo"
 				aria-label={tooltip(redoKeymap, labelRedo)}
 				aria-keyshortcuts={getAriaKeyshortcuts(redoKeymap)}

@@ -153,7 +153,6 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 				providerFactory: config.providerFactory,
 				errorReporter: config.errorReporter,
 				portalProviderAPI: config.portalProviderAPI,
-				reactContext: config.reactContext,
 				dispatchAnalyticsEvent: config.dispatchAnalyticsEvent,
 				featureFlags: config.featureFlags || {},
 				getIntl: config.getIntl,

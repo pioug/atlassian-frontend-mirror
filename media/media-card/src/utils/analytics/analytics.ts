@@ -48,10 +48,9 @@ type WithCardPreviewCacheAttributes = {
 };
 
 type WithCardPerfAttributes = {
-	ssr: SSR;
+	ssr?: SSR;
 	fileId: string;
 	mediaClientId?: string;
-	url: string;
 	transferSize: number;
 	decodedBodySize: number;
 	totalDuration: number;
@@ -61,8 +60,11 @@ type WithCardPerfAttributes = {
 	tlsConnectNegotiationTime: number;
 	timeTakenToFetchWithoutRedirect: number;
 	browserCacheHit: boolean;
+	nextHopProtocol: string;
 	interimRequestTime: number;
 	requestInvocationTime?: number;
+	contentDownloadTime: number;
+	userAgent: string;
 	cdnCacheHit: boolean;
 	cdnDownstreamFBL?: number;
 	cdnUpstreamFBL?: number;

@@ -47,6 +47,7 @@ export const AgentProfileCreator = ({
 				type: 'CUSTOMER';
 				name: string;
 				profileLink: string;
+				status?: 'active' | 'inactive';
 		  }
 		| {
 				type: 'SYSTEM';
@@ -94,7 +95,8 @@ export const AgentProfileCreator = ({
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: (
 					<a href={creator.profileLink} onClick={() => onCreatorLinkClick()} target="_blank">
-						{creator.name}
+						{creator.name}{' '}
+						{creator.status === 'inactive' && formatMessage(messages.agentDeactivated)}
 					</a>
 				),
 			});

@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
+	CustomEmptyStateExample,
 	DefaultExample,
 	DisableWidth300Example,
 	DisableWidth500Example,
@@ -86,3 +87,10 @@ snapshot(LargePaddingUsingTokensExample, {
 	],
 });
 snapshot(VaryingPaddingsExample);
+
+/** Custom empty state */
+snapshot(CustomEmptyStateExample, {
+	featureFlags: {
+		'platform.linking-platform.link-picker.enable-empty-state': [true, false],
+	},
+});

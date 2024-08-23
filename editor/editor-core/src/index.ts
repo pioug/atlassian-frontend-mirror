@@ -7,7 +7,13 @@ export { default as WithHelpTrigger } from './ui/WithHelpTrigger';
 export { default as CollapsedEditor } from './ui/CollapsedEditor';
 export { default as ToolbarHelp } from './ui/ToolbarHelp';
 export { default as ToolbarFeedback } from './ui/ToolbarFeedback';
-export { default as ContextPanel } from './ui/ContextPanel';
+export {
+	/**
+	 * @deprecated
+	 * DO NOT USE THIS WILL BE REMOVED SOON. This was intended for internal usage only
+	 */
+	default as ContextPanel,
+} from './ui/ContextPanel/deprecated';
 export { EmojiResource } from '@atlaskit/emoji/resource';
 export { MentionResource } from '@atlaskit/mention/resource';
 export type { MentionProvider, PresenceProvider } from '@atlaskit/mention/resource';

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 1.29.3
+
+### Patch Changes
+
+- [#131378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131378)
+  [`04848ee5982e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04848ee5982e0) -
+  Remove `reactContext` from `PMPluginFactoryParams` type. This was an unused property and so
+  shouldn't have any upgrade friction.
+- Updated dependencies
+
 ## 1.29.2
 
 ### Patch Changes

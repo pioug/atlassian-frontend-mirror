@@ -14,8 +14,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
-import { default as QuestionCircleIconLegacy } from '@atlaskit/icon/glyph/question-circle';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { openHelpCommand } from './commands';
 import { pluginKey } from './plugin-key';
@@ -71,12 +69,7 @@ export const helpDialogPlugin: HelpDialogPlugin = ({
 				keywords: ['?'],
 				priority: 4000,
 				keyshortcut: tooltip(openHelp),
-				icon: () =>
-					fg('platform_editor_migration_icon_and_typography') ? (
-						<QuestionCircleIcon label="" color="currentColor" />
-					) : (
-						<QuestionCircleIconLegacy label="" />
-					),
+				icon: () => <QuestionCircleIcon label="" color="currentColor" />,
 				action(insert) {
 					const tr = insert('');
 					openHelpCommand(tr);

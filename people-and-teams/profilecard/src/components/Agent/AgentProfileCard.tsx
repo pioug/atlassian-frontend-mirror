@@ -18,8 +18,9 @@ import { ErrorMessage } from '../Error';
 import { AgentActions } from './Actions';
 import { AgentProfileCardWrapper } from './AgentProfileCardWrapper';
 import { ConversationStarters } from './ConversationStarters';
-import { useAgentUrlActions } from './useAgentActions';
-import { useSetFavouriteAgent } from './useSetFavouriteAgent';
+import { useAgentUrlActions } from './hooks/useAgentActions';
+import { useDeleteAgent } from './hooks/useDeleteAgent';
+import { useSetFavouriteAgent } from './hooks/useSetFavouriteAgent';
 
 const styles = xcss({ paddingBlockStart: 'space.400', paddingInline: 'space.200' });
 
@@ -55,7 +56,13 @@ const AgentProfileCard = ({
 	hasError,
 	errorType,
 }: AgentProfileCardProps) => {
-	const { onEditAgent, onCopyAgent, onDuplicateAgent } = useAgentUrlActions({
+	const {
+		onEditAgent,
+		onCopyAgent,
+		onDuplicateAgent,
+		onOpenChat: onOpenChatFullScreecn,
+		onConversationStarter,
+	} = useAgentUrlActions({
 		cloudId: cloudId || '',
 	});
 
@@ -65,6 +72,8 @@ const AgentProfileCard = ({
 		isStarred: !!agent?.favourite,
 		product,
 	});
+
+	const { deleteAgent } = useDeleteAgent({ cloudId, product });
 
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -77,6 +86,11 @@ const AgentProfileCard = ({
 		[createAnalyticsEvent],
 	);
 
+	const handleOnDelete = async () => {
+		if (agent) {
+			await deleteAgent(agent.id);
+		}
+	};
 	useEffect(() => {
 		if (!isLoading && agent) {
 			fireAnalytics(profileCardRendered('agent', 'content'));
@@ -133,8 +147,8 @@ const AgentProfileCard = ({
 					<ConversationStarters
 						isAgentDefault={agent.is_default}
 						userDefinedConversationStarters={agent.user_defined_conversation_starters}
-						onConversationStarterClick={function (conversationStarter: string): void {
-							throw new Error('Function not implemented.');
+						onConversationStarterClick={(conversationStarter: string) => {
+							onConversationStarter({ agentId: agent.id, prompt: 'conversationStarter' });
 						}}
 					/>
 				</Stack>
@@ -143,10 +157,8 @@ const AgentProfileCard = ({
 					onEditAgent={() => onEditAgent(agent.id)}
 					onCopyAgent={() => onCopyAgent(agent.id)}
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
-					onDeleteAgent={function (): void {
-						throw new Error('Function not implemented.');
-					}}
-					onChatClick={() => onOpenChat?.(agent.id)}
+					onDeleteAgent={handleOnDelete}
+					onChatClick={() => (onOpenChat ? onOpenChat(agent.id) : onOpenChatFullScreecn())}
 				/>
 			</Box>
 		</AgentProfileCardWrapper>

@@ -5,7 +5,6 @@ import type { Match } from '@atlaskit/adf-schema';
 import { isSafeUrl, linkify, normalizeUrl as normaliseLinkHref } from '@atlaskit/adf-schema';
 import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload, InputMethodInsertLink } from '../analytics/types';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics/types';
@@ -73,60 +72,10 @@ export function normalizeUrl(url?: string | null) {
 	return normaliseLinkHref(url);
 }
 
+/**
+ * Linkify content in a slice (eg. after a rich text paste)
+ */
 export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
-	if (getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')) {
-		return linkifyContentNew(schema);
-	}
-
-	return linkifyContentOld(schema);
-}
-
-/**
- * Linkify content in a slice (eg. after a rich text paste)
- */
-export function linkifyContentOld(schema: Schema): (slice: Slice) => Slice {
-	return (slice: Slice): Slice =>
-		mapSlice(slice, (node, parent) => {
-			const isAllowedInParent = !parent || parent.type !== schema.nodes.codeBlock;
-			const link = node.type.schema.marks.link;
-			if (link === undefined) {
-				throw new Error('Link not in schema - unable to linkify content');
-			}
-			if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
-				const linkified = [] as Node[];
-				const text = node.text!;
-				const matches = findLinkMatchesOld(text);
-
-				let pos = 0;
-				const filepaths = findFilepaths(text);
-				matches.forEach((match) => {
-					if (isLinkInMatches(match.start, filepaths)) {
-						return;
-					}
-
-					if (match.start > 0) {
-						linkified.push(node.cut(pos, match.start));
-					}
-					linkified.push(
-						node
-							.cut(match.start, match.end)
-							.mark(link.create({ href: normalizeUrl(match.href) }).addToSet(node.marks)),
-					);
-					pos = match.end;
-				});
-				if (pos < text.length) {
-					linkified.push(node.cut(pos));
-				}
-				return linkified;
-			}
-			return node;
-		});
-}
-
-/**
- * Linkify content in a slice (eg. after a rich text paste)
- */
-export function linkifyContentNew(schema: Schema): (slice: Slice) => Slice {
 	return (slice: Slice): Slice =>
 		mapSlice(slice, (node, parent) => {
 			const isAllowedInParent = !parent || parent.type !== schema.nodes.codeBlock;
@@ -194,29 +143,6 @@ function findLinkMatches(text: string): Match[] {
 		return [];
 	}
 	return linkify.match(text) || [];
-}
-
-interface LinkMatch {
-	start: number;
-	end: number;
-	title: string;
-	href: string;
-}
-
-function findLinkMatchesOld(text: string): LinkMatch[] {
-	const matches: LinkMatch[] = [];
-	let linkMatches: '' | null | Match[] = text && linkify.match(text);
-	if (linkMatches && linkMatches.length > 0) {
-		linkMatches.forEach((match) => {
-			matches.push({
-				start: match.index,
-				end: match.lastIndex,
-				title: match.raw,
-				href: match.url,
-			});
-		});
-	}
-	return matches;
 }
 
 interface filepathMatch {

@@ -113,6 +113,9 @@
 	"platform-feature-flags": {
 		"platform-design-system-dsp-19701-no-node-resolver": {
 			"type": "boolean"
+		},
+		"platform-component-visual-refresh": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/select/"

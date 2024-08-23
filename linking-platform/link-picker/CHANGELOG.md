@@ -1,5 +1,19 @@
 # @atlaskit/link-picker
 
+## 1.44.0
+
+### Minor Changes
+
+- [#132649](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132649)
+  [`b99bd2fb0aeeb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b99bd2fb0aeeb) -
+  Fixes support for plugin empty state behind ff. If successful will be made available in future
+  release.
+- [#131548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131548)
+  [`282ddb3575504`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/282ddb3575504) -
+  [ux] Allow custom subtitle content in the link picker, and allow link item names to extend over
+  multiple lines. Both changes are opt-in via a LinkPickerPlugin, so these new features will only
+  appear if the plugin is changed to consume them.
+
 ## 1.43.0
 
 ### Minor Changes

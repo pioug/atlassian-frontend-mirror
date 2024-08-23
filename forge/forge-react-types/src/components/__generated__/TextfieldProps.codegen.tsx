@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TextfieldProps
  *
- * @codegen <<SignedSource::b607d734def411a588141e55868fe7c9>>
+ * @codegen <<SignedSource::45c617e56bc06c911a5944941288beba>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/__generated__/index.partial.tsx <<SignedSource::b1cc4fd107a1b6c756f2daaf460121fc>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/index.tsx <<SignedSource::3cab13a24ee050b7fe926e8e6a19858b>>
  */
 import React from 'react';
 import PlatformTextfield from '@atlaskit/textfield';
@@ -14,7 +14,31 @@ import type { EventHandlerProps } from './types.codegen';
 type PlatformTextfieldProps = React.ComponentProps<typeof PlatformTextfield>;
 
 export type TextfieldProps = Pick<
-  PlatformTextfieldProps,
-  'appearance' | 'elemAfterInput' | 'elemBeforeInput' | 'isCompact' | 'autoFocus' | 'isReadOnly' | 'isMonospaced' | 'placeholder' | 'testId' | 'width' | 'type' | 'defaultValue' | 'min' | 'max' | 'maxLength' | 'minLength' | 'pattern'
- | 'id' | 'isRequired' | 'isDisabled' | 'isInvalid' | 'onChange' | 'onBlur' | 'onFocus' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
-> & Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;
+	PlatformTextfieldProps,
+	| 'appearance'
+	| 'elemAfterInput'
+	| 'elemBeforeInput'
+	| 'isCompact'
+	| 'autoFocus'
+	| 'isReadOnly'
+	| 'isMonospaced'
+	| 'placeholder'
+	| 'testId'
+	| 'width'
+	| 'type'
+	| 'defaultValue'
+	| 'min'
+	| 'max'
+	| 'maxLength'
+	| 'minLength'
+	| 'pattern'
+	| 'id'
+	| 'isRequired'
+	| 'isDisabled'
+	| 'isInvalid'
+	| 'value'
+	| 'aria-invalid'
+	| 'aria-labelledby'
+	| 'name'
+> &
+	Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;

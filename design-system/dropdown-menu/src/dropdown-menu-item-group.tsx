@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { useUID } from 'react-uid';
-
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { Section, type SectionProps } from '@atlaskit/menu';
 
 import GroupTitle from './internal/components/group-title';
@@ -27,7 +26,7 @@ const DropdownMenuItemGroup = forwardRef<HTMLElement, SectionProps>(
 		}: SectionProps,
 		ref,
 	) => {
-		const uid = useUID();
+		const uid = useId();
 		const titleId = `dropdown-menu-item-group-title-${uid}`;
 
 		return (

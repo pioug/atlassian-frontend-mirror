@@ -157,7 +157,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						providerFactory,
 						errorReporter,
 						portalProviderAPI,
-						reactContext,
 						dispatchAnalyticsEvent,
 					}: PMPluginFactoryParams) => {
 						return createPlugin(
@@ -201,7 +200,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 								customMediaPicker: options && options.customMediaPicker,
 								allowResizing: !!(options && options.allowResizing),
 							},
-							reactContext,
 							getIntl,
 							api,
 							dispatch,

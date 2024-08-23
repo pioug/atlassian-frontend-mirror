@@ -4,13 +4,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { IntlProvider } from 'react-intl-next';
 
-import { type CreateFlagArgs, FlagsProvider } from '@atlaskit/flag';
+import { FlagsProvider } from '@atlaskit/flag';
 
 import { useDatasourceTableFlag } from '../useDatasourceTableFlag';
 
 interface ConsumerProps {
 	options?: Parameters<typeof useDatasourceTableFlag>[0];
-	flag?: Partial<CreateFlagArgs>;
+	flag?: Parameters<ReturnType<typeof useDatasourceTableFlag>['showErrorFlag']>[0];
 }
 const Consumer = (props?: ConsumerProps) => {
 	const { showErrorFlag } = useDatasourceTableFlag(props?.options);
@@ -50,8 +50,18 @@ describe('useDatasourceTableFlag', () => {
 		expect(screen.queryByText('Something went wrong')).toBeInTheDocument();
 		expect(
 			screen.queryByText(
-				'We had an issue trying to complete the update. Refresh the page and try again.',
+				'We had an issue trying to complete the update. Wait a few minutes, then try again. Contact support if this keeps happening.',
 			),
+		).toBeInTheDocument();
+	});
+
+	it('shows 403 error flag', () => {
+		setup({ flag: { status: 403 } });
+
+		expect(screen.getByRole('alert')).toBeInTheDocument();
+		expect(screen.queryByText('Changes not saved')).toBeInTheDocument();
+		expect(
+			screen.queryByText('You need the right permissions to edit this item.'),
 		).toBeInTheDocument();
 	});
 
@@ -66,14 +76,5 @@ describe('useDatasourceTableFlag', () => {
 		expect(screen.getByRole('alert')).toBeInTheDocument();
 		expect(screen.queryByText('custom title')).toBeInTheDocument();
 		expect(screen.queryByText('custom description')).toBeInTheDocument();
-	});
-
-	it('shows link to resource when url is provided', () => {
-		setup({ options: { url: 'some-url' } });
-
-		const link = screen.queryByRole('link');
-
-		expect(link).toBeInTheDocument();
-		expect(link?.textContent).toEqual('Go to item');
 	});
 });

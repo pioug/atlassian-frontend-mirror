@@ -8,16 +8,12 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import AddIcon from '@atlaskit/icon/core/migration/add--editor-add';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { default as AddIconLegacy } from '@atlaskit/icon/glyph/editor/add';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 
-import { expandWrapperStyle, triggerWrapper } from './styles';
+import { triggerWrapper } from './styles';
 
 export interface DropDownButtonProps {
 	label: string;
@@ -35,22 +31,12 @@ export interface DropDownButtonProps {
 const DropDownButtonIcon = React.memo((props: { label: string }) => (
 	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	<span css={triggerWrapper}>
-		{fg('platform_editor_migration_icon_and_typography') ? (
-			<AddIcon label={props.label} color="currentColor" />
-		) : (
-			<AddIconLegacy label={props.label} />
-		)}
-		{fg('platform_editor_migration_icon_and_typography') ? (
-			//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<span css={expandWrapperStyle}>
-				<ChevronDownIcon label="" color="currentColor" />
+		{<AddIcon label={props.label} color="currentColor" spacing="spacious" />}
+		{
+			<span>
+				<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
 			</span>
-		) : (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<span css={expandIconWrapperStyle}>
-				<ExpandIcon label="" />
-			</span>
-		)}
+		}
 	</span>
 ));
 

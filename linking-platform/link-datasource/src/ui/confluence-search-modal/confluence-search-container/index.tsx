@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useDebouncedCallback } from 'use-debounce';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
@@ -107,7 +107,7 @@ const ConfluenceSearchContainer = ({
 	}, [cloudId, resetHydrationHook]);
 
 	const showBasicFilters = useMemo(() => {
-		if (getBooleanFF('platform.linking-platform.datasource.show-clol-basic-filters')) {
+		if (fg('platform.linking-platform.datasource.show-clol-basic-filters')) {
 			return true;
 		}
 		return false;

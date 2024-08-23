@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 
-import { useUID } from 'react-uid';
-
 import noop from '@atlaskit/ds-lib/noop';
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import { Section, type SectionProps } from '@atlaskit/menu';
 
 import GroupTitle from '../internal/components/group-title';
@@ -47,7 +46,7 @@ const DropdownItemRadioGroup = ({
 	...rest
 }: DropdownItemRadioGroupProps) => {
 	const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
-	const uid = useUID();
+	const uid = useId();
 	const titleId = `dropdown-menu-item-radio-group-title-${uid}`;
 
 	/**

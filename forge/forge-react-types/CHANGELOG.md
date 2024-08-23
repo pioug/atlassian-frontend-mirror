@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.27.7
+
+### Patch Changes
+
+- [#133080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133080)
+  [`99d1f02563769`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99d1f02563769) -
+  Fix input component types, fix controlled states losing cursor state for Textfield and Textarea
+
 ## 0.27.6
 
 ### Patch Changes

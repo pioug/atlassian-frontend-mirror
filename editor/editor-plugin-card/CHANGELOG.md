@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 2.13.2
+
+### Patch Changes
+
+- [#132782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132782)
+  [`1b37050a2f07e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b37050a2f07e) -
+  Fix inline edit inside datasource table replace entire node
+- Updated dependencies
+
 ## 2.13.1
 
 ### Patch Changes

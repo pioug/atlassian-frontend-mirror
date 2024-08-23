@@ -17,13 +17,10 @@ export default class RovoAgentCardClient extends CachingClient<RovoAgent> {
 	}
 
 	makeRequest(id: AgentIdType, cloudId: string): Promise<RovoAgent> {
-		if (!this.options.productIdentifier) {
-			throw new Error('Trying to fetch agents data with no specified config.productIdentifier');
-		}
 		if (id.type === 'identity') {
-			return getAgentDetailsByUserId(id.value, this.options.productIdentifier, cloudId);
+			return getAgentDetailsByUserId(id.value, this.options.productIdentifier || 'rovo', cloudId);
 		}
-		return getAgentDetailsByAgentId(id.value, this.options.productIdentifier, cloudId);
+		return getAgentDetailsByAgentId(id.value, this.options.productIdentifier || 'rovo', cloudId);
 	}
 
 	getProfile(

@@ -17,13 +17,13 @@ import {
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
-import { expandIconWrapperStyle } from '@atlaskit/editor-common/styles';
+import { expandIconContainerStyle } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { Flex } from '@atlaskit/primitives';
 
 import { setPalette } from '../commands';
@@ -124,9 +124,12 @@ const PrimaryToolbarHighlightColor = ({
 									selectedColor={activeColorToken}
 									disabled={highlightState.disabled}
 								/>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<span css={expandIconWrapperStyle}>
-									<ExpandIcon label="" />
+
+								<span
+									// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+									css={expandIconContainerStyle}
+								>
+									<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
 								</span>
 							</Flex>
 						}

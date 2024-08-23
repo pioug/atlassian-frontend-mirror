@@ -15,7 +15,6 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { toolbarKey } from './toolbar-buttons';
@@ -36,27 +35,23 @@ export function createLinkInputRule(
 		const link = match as unknown as Match;
 		let url: string;
 
-		if (getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')) {
-			// Property 'url' does not exist on type 'RegExpExecArray', the type of `match`.
-			// This check is in case the match is not a Linkify match, which has a url property.
-			if (link.url === undefined) {
-				return null;
-			}
+		// Property 'url' does not exist on type 'RegExpExecArray', the type of `match`.
+		// This check is in case the match is not a Linkify match, which has a url property.
+		if (link.url === undefined) {
+			return null;
+		}
 
-			if (!shouldAutoLinkifyMatch(link)) {
-				return null;
-			}
+		if (!shouldAutoLinkifyMatch(link)) {
+			return null;
+		}
 
-			url = normalizeUrl(link.url);
+		url = normalizeUrl(link.url);
 
-			// Not previously handled; don't create a link if the URL is empty.
-			// This will only happen if the `regexp` matches more links than the normalizeUrl validation;
-			// if they both use the same linkify instance this shouldn't happen.
-			if (url === '') {
-				return null;
-			}
-		} else {
-			url = normalizeUrl(link.url);
+		// Not previously handled; don't create a link if the URL is empty.
+		// This will only happen if the `regexp` matches more links than the normalizeUrl validation;
+		// if they both use the same linkify instance this shouldn't happen.
+		if (url === '') {
+			return null;
 		}
 		const markType = schema.mark('link', { href: url });
 

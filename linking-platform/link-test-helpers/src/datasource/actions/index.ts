@@ -1,8 +1,13 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import type { ActionsServiceDiscoveryResponse } from '@atlaskit/linking-types';
+import {
+	ActionOperationStatus,
+	type ActionsServiceDiscoveryResponse,
+	type AtomicActionExecuteResponse,
+} from '@atlaskit/linking-types';
 
 export const ORS_ACTIONS_DISCOVERY_ENDPOINT = /\/gateway\/api\/object-resolver\/actions$/;
+export const ORS_ACTIONS_EXECUTION_ENDPOINT = /\/gateway\/api\/object-resolver\/actions\/execute$/;
 
 export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscoveryResponse>) => {
 	fetchMock.post(
@@ -24,6 +29,20 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 				})),
 			},
 			...overrides,
+		}),
+		{
+			delay: 10,
+			overwriteRoutes: true,
+		},
+	);
+};
+
+export const mockActionsExecution = () => {
+	fetchMock.post(
+		ORS_ACTIONS_EXECUTION_ENDPOINT,
+		async (): Promise<AtomicActionExecuteResponse> => ({
+			operationStatus: ActionOperationStatus.SUCCESS,
+			errors: [],
 		}),
 		{
 			delay: 10,

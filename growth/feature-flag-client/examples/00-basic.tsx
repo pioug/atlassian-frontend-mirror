@@ -1,4 +1,6 @@
 import React from 'react';
+import Heading from '@atlaskit/heading';
+import { Stack, Text } from '@atlaskit/primitives';
 import FeatureFlagClient from '../src/index';
 import { type ExposureEvent } from '../src/types';
 
@@ -44,27 +46,30 @@ const client = new FeatureFlagClient({
 const JSONFlag: any = client.getJSONValue('my.json.flag');
 
 export default () => (
-	<div>
-		<h2>Feature flag client</h2>
-
-		<h4>getVariantValue</h4>
-		<p>
-			Value for flag "my.experiment" is "
-			{client.getVariantValue('my.experiment', {
-				default: 'control',
-				oneOf: ['control', 'experiment'],
-			})}
-			"
-		</p>
-
-		<h4>getBooleanValue</h4>
-		<p>
-			Value for flag "my.boolean.flag" is "
-			{JSON.stringify(client.getBooleanValue('my.boolean.flag', { default: true }))}"
-		</p>
-
-		<h4>getJSONFlag</h4>
-		<p>Nav color is {JSONFlag.nav}</p>
-		<p>Footer color is {JSONFlag.footer}</p>
-	</div>
+	<Stack space="space.300">
+		<Heading size="large">Feature flag client</Heading>
+		<Stack space="space.150">
+			<Heading size="small">getVariantValue</Heading>
+			<Text as="p">
+				Value for flag "my.experiment" is "
+				{client.getVariantValue('my.experiment', {
+					default: 'control',
+					oneOf: ['control', 'experiment'],
+				})}
+				"
+			</Text>
+		</Stack>
+		<Stack space="space.150">
+			<Heading size="small">getBooleanValue</Heading>
+			<Text as="p">
+				Value for flag "my.boolean.flag" is "
+				{JSON.stringify(client.getBooleanValue('my.boolean.flag', { default: true }))}"
+			</Text>
+		</Stack>
+		<Stack space="space.150">
+			<Heading size="small">getJSONFlag</Heading>
+			<Text as="p">Nav color is {JSONFlag.nav}</Text>
+			<Text as="p">Footer color is {JSONFlag.footer}</Text>
+		</Stack>
+	</Stack>
 );

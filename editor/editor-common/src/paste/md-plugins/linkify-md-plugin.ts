@@ -7,7 +7,6 @@ import LinkifyIt from 'linkify-it';
 
 import type { Match } from '@atlaskit/adf-schema';
 import { linkifyMatch } from '@atlaskit/adf-schema';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { findFilepaths, isLinkInMatches, shouldAutoLinkifyMatch } from '../../utils';
 
@@ -71,9 +70,7 @@ const linkify = (state: any) => {
 				if (!links.length) {
 					links = linkify.match(text) || [];
 				}
-				if (getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')) {
-					links = links.filter((link) => shouldAutoLinkifyMatch(link));
-				}
+				links = links.filter((link) => shouldAutoLinkifyMatch(link));
 
 				// Now split string to nodes
 				const nodes: object[] = [];

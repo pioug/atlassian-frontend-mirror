@@ -402,9 +402,7 @@ export const PlainConfluenceSearchConfigModal = (
 								<ConfluenceSearchContainer
 									isSearching={status === 'loading'}
 									onSearch={onSearch}
-									parameters={
-										parameters && isValidParameters(parameters) ? parameters : { cloudId: '' }
-									}
+									parameters={parameters ?? { cloudId: '' }}
 								/>
 							</Box>
 							{currentViewMode === 'inline'

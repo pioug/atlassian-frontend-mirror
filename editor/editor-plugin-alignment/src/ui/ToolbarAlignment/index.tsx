@@ -18,7 +18,6 @@ import {
 	DropdownContainer as Dropdown,
 	ToolbarButton,
 } from '@atlaskit/editor-common/ui-menu';
-import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
@@ -27,7 +26,7 @@ import type { AlignmentPluginState, AlignmentState } from '../../pm-plugins/type
 import Alignment from '../Alignment';
 
 import { IconMap } from './icon-map';
-import { expandIconWrapper, triggerWrapper, wrapper } from './styles';
+import { triggerWrapper, wrapper } from './styles';
 
 export interface State {
 	isOpen: boolean;
@@ -107,17 +106,18 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								<div css={triggerWrapper}>
 									<IconMap alignment={alignment} />
-									{fg('platform_editor_migration_icon_and_typography') ? (
-										//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-										<span css={expandIconContainerStyle}>
-											<ChevronDownIcon label="" color="currentColor" />
+									{
+										<span
+											css={[
+												// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+												fg('platform.design-system-team.enable-new-icons') &&
+													//eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+													expandIconContainerStyle,
+											]}
+										>
+											<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
 										</span>
-									) : (
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-										<span css={expandIconWrapper}>
-											<ExpandIcon label="" />
-										</span>
-									)}
+									}
 								</div>
 							}
 							ref={this.toolbarItemRef}

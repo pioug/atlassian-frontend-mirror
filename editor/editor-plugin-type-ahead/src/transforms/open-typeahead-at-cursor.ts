@@ -1,7 +1,7 @@
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { ACTIONS } from '../pm-plugins/actions';
 import { pluginKey } from '../pm-plugins/key';
@@ -36,8 +36,15 @@ export const openTypeAheadAtCursor =
 		})(tr);
 
 		const { selection } = tr;
+		const isInline = selection instanceof NodeSelection && selection.node.type.isInline;
 
-		if (!(selection instanceof TextSelection || selection instanceof GapCursorSelection)) {
+		if (
+			!(
+				selection instanceof TextSelection ||
+				selection instanceof GapCursorSelection ||
+				selection instanceof NodeSelection
+			)
+		) {
 			return tr;
 		}
 
@@ -47,6 +54,14 @@ export const openTypeAheadAtCursor =
 			// delete 1 pos before wherever selection is now - that will delete the empty space
 			tr.delete(tr.selection.from - 1, tr.selection.from);
 		} else {
+			if (selection instanceof NodeSelection) {
+				if (isInline) {
+					tr.deleteSelection();
+					return tr;
+				}
+				return tr;
+			}
+
 			if (!selection.$cursor) {
 				tr.deleteSelection();
 				return tr;

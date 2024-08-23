@@ -1,39 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
-import ErrorIcon from '@atlaskit/icon/glyph/error';
-import InlineDialog from '@atlaskit/inline-dialog';
+import Button from '@atlaskit/button/new';
+import { ErrorMessage } from '@atlaskit/form';
+import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
+// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
 interface Props {
 	isCompact?: boolean;
+	children: string;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-const ReadViewContainer = styled.div<Props>((props) => ({
+const readViewContainerStyles = xcss({
 	display: 'flex',
-	fontSize: `${fontSize()}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: (gridSize() * 2.5) / fontSize(),
 	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	minHeight: `${(gridSize() * 2.5) / fontSize()}em`,
-	padding: `${
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		props.isCompact ? token('space.050', '4px') : token('space.100', '8px')
-	} ${token('space.075', '6px')}`,
 	wordBreak: 'break-word',
-}));
+});
+
+const ReadViewContainer: FC<Props> = ({ children, isCompact }) => (
+	<Box
+		paddingBlockStart="space.150"
+		paddingBlockEnd="space.150"
+		padding={isCompact ? 'space.050' : 'space.100'}
+		xcss={readViewContainerStyles}
+		testId="read-view"
+	>
+		{children}
+	</Box>
+);
+
+const editContainerStyles = xcss({
+	width: '50%',
+});
 
 const InlineEditExample = () => {
-	const [editValue, setEditValue] = useState('Field Value');
+	const initialValue = 'Default field value';
+	const [editValue, setEditValue] = useState('Field value');
 
 	let validateValue = '';
 	let validateTimeoutId: number | undefined;
@@ -68,56 +72,30 @@ const InlineEditExample = () => {
 	};
 
 	return (
-		<div
-			style={{
-				padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '50%',
-			}}
-		>
-			<button data-testid="clear-button" onClick={clearInlineEditContent}>
-				Click to clear
-			</button>
+		<Box padding="space.100" xcss={editContainerStyles}>
+			<Button testId="clear-button" onClick={clearInlineEditContent}>
+				Clear inline edit validation
+			</Button>
 			<InlineEdit
 				testId="validation"
 				defaultValue={editValue}
 				label="Inline edit validation"
+				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => (
-					<InlineDialog
-						isOpen={fieldProps.isInvalid}
-						content={<div id="error-message">{errorMessage}</div>}
-						placement="right"
-					>
-						<TextField
-							testId="edit-view"
-							{...fieldProps}
-							elemAfterInput={
-								fieldProps.isInvalid && (
-									<div
-										style={{
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											paddingRight: token('space.075', '6px'),
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											lineHeight: '100%',
-										}}
-									>
-										<ErrorIcon label="error" primaryColor={token('color.icon.danger')} />
-									</div>
-								)
-							}
-							autoFocus
-						/>
-					</InlineDialog>
+					<>
+						<TextField testId="edit-view" {...fieldProps} autoFocus />
+						{fieldProps.isInvalid && (
+							<Box id="error-message">
+								<ErrorMessage>{errorMessage}</ErrorMessage>
+							</Box>
+						)}
+					</>
 				)}
-				readView={() => (
-					<ReadViewContainer data-testid="read-view">
-						{editValue || 'Click to enter value'}
-					</ReadViewContainer>
-				)}
+				readView={() => <ReadViewContainer>{editValue || initialValue}</ReadViewContainer>}
 				onConfirm={(value) => setEditValue(value)}
 				validate={validate}
 			/>
-		</div>
+		</Box>
 	);
 };
 

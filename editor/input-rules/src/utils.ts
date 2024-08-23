@@ -1,7 +1,7 @@
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { isGapCursorSelection } from './editor-common';
 import { createInputRulePlugin } from './plugin';
@@ -51,10 +51,13 @@ export const createPlugin = (
 		const unsupportedMarks = isBlockNodeRule ? ['code', 'link', 'typeAheadQuery'] : ['code'];
 
 		const $from = state.selection.$from;
+		const isInline = state.selection instanceof NodeSelection && state.selection.node.type.isInline;
 
 		if (
 			$from.parent.type.spec.code ||
-			(!(state.selection instanceof TextSelection) && !isGapCursorSelection(state.selection)) ||
+			(!(state.selection instanceof TextSelection) &&
+				!isGapCursorSelection(state.selection) &&
+				!isInline) ||
 			hasUnsupportedMarks(state, from, to, unsupportedMarks) ||
 			(isBlockNodeRule && isCursorInsideUnsupportedMarks(state, unsupportedMarks))
 		) {

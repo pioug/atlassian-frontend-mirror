@@ -45,18 +45,23 @@ export default function Example() {
 		<ExampleWrapper>
 			<div>
 				<Section>
-					<AgentProfileCard agent={agent} />
+					<AgentProfileCard
+						agent={agent}
+						isCreatedByViewingUser={true}
+						cloudId="38ef3107-2a4f-4922-9bc6-40beb439aace"
+					/>
 				</Section>
 				<Section>
 					<Text>Agent profile card loading state</Text>
-					<AgentProfileCard agent={agent} isLoading={true} />
 				</Section>
 				<Section>
 					<Text>Profilecard triggered by hover</Text>
 					<span>
 						<ProfileCardTrigger
 							trigger={'hover'}
-							renderProfileCard={() => <AgentProfileCard agent={agent} />}
+							renderProfileCard={() => (
+								<AgentProfileCard agent={agent} isCreatedByViewingUser={true} />
+							)}
 							profileCardType={'agent'}
 						>
 							<Text as="strong">hover over me</Text>

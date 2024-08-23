@@ -13,8 +13,13 @@ import { injectIntl } from 'react-intl-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import type {
+	OptionalPlugin,
+	PublicPluginAPI,
+	ReactHookFactory,
+} from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer, WidthConsumer } from '@atlaskit/editor-common/ui';
+import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type EditorActions from '../../../actions';
@@ -42,6 +47,7 @@ import {
 import { type ScrollContainerRefs } from './types';
 
 interface FullPageEditorContentAreaProps {
+	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
 	appearance: EditorAppearance | undefined;
 	contentComponents: UIComponentFactory[] | undefined;
 	pluginHooks: ReactHookFactory[] | undefined;
@@ -93,6 +99,7 @@ const Content = React.forwardRef<
 	return (
 		<WidthConsumer>
 			{({ width }) => (
+				// Cleaned up with: platform_editor_context-panel_simplify_behaviour
 				<ContextPanelConsumer>
 					{({ positionedOverEditor }) => (
 						<div
@@ -164,7 +171,9 @@ const Content = React.forwardRef<
 								</ClickAreaBlock>
 							</ScrollContainer>
 							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<div css={sidebarArea}>{props.contextPanel || <ContextPanel visible={false} />}</div>
+							<div css={sidebarArea}>
+								{props.contextPanel || <ContextPanel editorAPI={props.editorAPI} visible={false} />}
+							</div>
 						</div>
 					)}
 				</ContextPanelConsumer>

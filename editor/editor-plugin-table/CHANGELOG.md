@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.10
+
+### Patch Changes
+
+- [#133080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133080)
+  [`ad996e0558acc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad996e0558acc) -
+  EO2024-19: Fixed table insert row dot finickiness"
+- Updated dependencies
+
 ## 7.25.9
 
 ### Patch Changes

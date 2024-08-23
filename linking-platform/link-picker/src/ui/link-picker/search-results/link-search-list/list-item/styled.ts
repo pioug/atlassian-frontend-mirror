@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { B100, B400, B50, N20, N200, N300, N800 } from '@atlaskit/theme/colors';
+import { B100, B400, B50, N20, N200, N300 } from '@atlaskit/theme/colors';
 import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
@@ -72,15 +72,7 @@ export const composeListItemStyles = (selected = false) => {
 export const itemNameStyles = css({
 	overflow: 'hidden',
 	alignContent: 'center',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const listItemNameStyles = css({
-	color: token('color.text', N800),
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-	lineHeight: '20px',
+	width: '100%',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

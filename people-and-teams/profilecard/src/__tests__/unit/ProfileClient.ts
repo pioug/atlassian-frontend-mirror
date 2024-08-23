@@ -5,7 +5,6 @@ import fetchMock from 'fetch-mock/cjs/client';
 import * as sinon from 'sinon';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import ProfileClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
@@ -20,8 +19,6 @@ jest.mock('@atlaskit/atlassian-context', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context'),
 	isFedRamp: jest.fn(),
 }));
-
-jest.mock('@atlaskit/platform-feature-flags');
 
 describe('Profilecard', () => {
 	describe('UserProfileCardClient', () => {
@@ -61,7 +58,6 @@ describe('Profilecard', () => {
 		});
 
 		it('should not have tcClinet initialised if isFedRamp is true', async () => {
-			(getBooleanFF as jest.Mock).mockReturnValue(true);
 			mockIsFedRamp.mockReturnValue(true);
 
 			const client = new ProfileClient({
@@ -76,7 +72,6 @@ describe('Profilecard', () => {
 		});
 
 		it('should have tcClinet initialised if isFedRamp is false', () => {
-			(getBooleanFF as jest.Mock).mockReturnValue(true);
 			mockIsFedRamp.mockReturnValue(false);
 
 			const client = new ProfileClient({

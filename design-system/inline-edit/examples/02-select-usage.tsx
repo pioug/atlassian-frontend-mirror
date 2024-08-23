@@ -1,39 +1,38 @@
-import React, { useState } from 'react';
+import React, { type FC, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
-import Select, { type ValueType } from '@atlaskit/select';
+import { Box, xcss } from '@atlaskit/primitives';
+import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ReadViewContainer = styled.div({
+const readViewContainerStyles = xcss({
 	display: 'flex',
-	fontSize: `${fontSize()}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `${(gridSize() * 2.5) / fontSize()}em`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: (gridSize() * 2.5) / fontSize(),
 	maxWidth: '100%',
-	padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
+	wordBreak: 'break-word',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const EditViewContainer = styled.div({
-	zIndex: 300,
+const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
+	<Box
+		paddingBlockStart="space.150"
+		paddingBlockEnd="space.150"
+		padding="space.100"
+		xcss={readViewContainerStyles}
+		testId="read-view"
+	>
+		{children}
+	</Box>
+);
+
+const EditViewContainerStyles = xcss({
+	// zIndex: 300,
 	position: 'relative',
 });
 
-interface OptionType {
-	label: string;
-	value: string;
-}
+const EditViewContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
+	<Box xcss={EditViewContainerStyles}>{children}</Box>
+);
 
 const selectOptions = [
 	{ label: 'Apple', value: 'Apple' },
@@ -47,6 +46,8 @@ const selectOptions = [
 
 const InlineEditExample = () => {
 	const [editValue, setEditValue] = useState<ValueType<OptionType, true>>([]);
+	const selectLabel = 'Select fruit';
+	const inlineEditLabel = 'Inline Edit select';
 
 	const onConfirm = (value: ValueType<OptionType, true>) => {
 		if (!value) {
@@ -57,17 +58,11 @@ const InlineEditExample = () => {
 	};
 
 	return (
-		<div
-			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
-			}}
-		>
+		<Box paddingInlineStart="space.100" paddingInlineEnd="space.600">
 			<InlineEdit<ValueType<OptionType, true>>
 				defaultValue={editValue}
-				label="Inline edit select"
+				label={inlineEditLabel}
+				editButtonLabel={editValue.length > 0 ? inlineEditLabel : selectLabel}
 				editView={(fieldProps) => (
 					<EditViewContainer>
 						<Select {...fieldProps} options={selectOptions} isMulti autoFocus openMenuOnFocus />
@@ -75,22 +70,21 @@ const InlineEditExample = () => {
 				)}
 				readView={() =>
 					editValue && editValue.length === 0 ? (
-						<ReadViewContainer>Click to choose options</ReadViewContainer>
+						<ReadViewContainer>{selectLabel}</ReadViewContainer>
 					) : (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<div style={{ padding: token('space.050', '4px') }}>
+						<Box padding="space.050">
 							<Group>
 								{editValue &&
 									editValue.map((option: OptionType) => (
 										<Tag text={option.label} key={option.label} />
 									))}
 							</Group>
-						</div>
+						</Box>
 					)
 				}
 				onConfirm={onConfirm}
 			/>
-		</div>
+		</Box>
 	);
 };
 

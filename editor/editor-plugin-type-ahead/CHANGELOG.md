@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.8.1
+
+### Patch Changes
+
+- [#132619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132619)
+  [`492710c431738`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/492710c431738) -
+  [ux] [EO2024-22] Fix typeahead interaction when node or table selection
+- Updated dependencies
+
 ## 1.8.0
 
 ### Minor Changes

@@ -22,7 +22,6 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { hideLinkToolbar, showLinkToolbar } from '../commands';
 import { stateKey } from '../pm-plugins/main';
@@ -86,10 +85,8 @@ const mayConvertLastWordToHyperlink: (
 		const match: Match | null = getLinkMatch(lastWord);
 
 		if (match) {
-			if (getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')) {
-				if (!shouldAutoLinkifyMatch(match)) {
-					return false;
-				}
+			if (!shouldAutoLinkifyMatch(match)) {
+				return false;
 			}
 
 			const hyperlinkedText = match.raw;

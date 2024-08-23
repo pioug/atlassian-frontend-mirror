@@ -10,7 +10,8 @@ export const expandIconWrapperStyle = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const expandIconContainerStyle = css({
-	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0 0`,
+	display: 'flex',
+	alignItems: 'center',
 });
 
 const prefix = 'ak-editor-expand';

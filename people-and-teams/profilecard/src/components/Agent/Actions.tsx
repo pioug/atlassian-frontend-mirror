@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
@@ -7,6 +7,8 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdow
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { ChatPillIcon } from '@atlaskit/rovo-agent-components';
+
+import { AgentDeleteConfirmationModal } from './AgentDeleteConfirmationModal';
 
 type AgentActionsProps = {
 	isAgentCreatedByCurrentUser?: boolean;
@@ -118,46 +120,43 @@ export const AgentActions = ({
 	onChatClick,
 }: AgentActionsProps) => {
 	const { formatMessage } = useIntl();
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 	const agentActions = buildAgentActions({ onDuplicateAgent, onCopyAgent });
-	const agentSetting = buildAgentSettings({ onEditAgent, onDeleteAgent });
+	const agentSetting = buildAgentSettings({
+		onEditAgent,
+		onDeleteAgent: () => {
+			setIsDeleteModalOpen(true);
+		},
+	});
 
 	return (
-		<Inline space="space.100" xcss={actopnsWrapperStyles}>
-			<Box xcss={[chatToAgentButtonContainer, buttonStyles]}>
-				<Button shouldFitContainer onClick={onChatClick}>
-					<Box xcss={chatToAgentButtonWrapper}>
-						<Inline space="space.050" xcss={chatPillButtonInlineStyles}>
-							<Box xcss={chatPillIconWrapper}>
-								<ChatPillIcon />
-							</Box>
-							<Box xcss={chatPillTextStyles}>{formatMessage(messages.actionChatToAgent)}</Box>
-						</Inline>
-					</Box>
-				</Button>
-			</Box>
-			{/* <ChatToAgentButton onClick={(_, analyticsEvents) => handleClickChat(analyticsEvents)} /> */}
+		<>
+			<Inline space="space.100" xcss={actopnsWrapperStyles}>
+				<Box xcss={[chatToAgentButtonContainer, buttonStyles]}>
+					<Button shouldFitContainer onClick={onChatClick}>
+						<Box xcss={chatToAgentButtonWrapper}>
+							<Inline space="space.050" xcss={chatPillButtonInlineStyles}>
+								<Box xcss={chatPillIconWrapper}>
+									<ChatPillIcon />
+								</Box>
+								<Box xcss={chatPillTextStyles}>{formatMessage(messages.actionChatToAgent)}</Box>
+							</Inline>
+						</Box>
+					</Button>
+				</Box>
+				{/* <ChatToAgentButton onClick={(_, analyticsEvents) => handleClickChat(analyticsEvents)} /> */}
 
-			<DropdownMenu<HTMLButtonElement>
-				trigger={({ triggerRef, ...props }) => (
-					<Box xcss={buttonStyles}>
-						<IconButton {...props} icon={MoreIcon} label="more" ref={triggerRef} />
-					</Box>
-				)}
-				placement="bottom-end"
-			>
-				<DropdownItemGroup>
-					{agentActions.map(({ text, onClick }, idx) => {
-						return (
-							<DropdownItem key={idx} onClick={onClick}>
-								{text}
-							</DropdownItem>
-						);
-					})}
-				</DropdownItemGroup>
-				{isAgentCreatedByCurrentUser && (
-					<DropdownItemGroup hasSeparator>
-						{agentSetting.map(({ text, onClick }, idx) => {
+				<DropdownMenu<HTMLButtonElement>
+					trigger={({ triggerRef, ...props }) => (
+						<Box xcss={buttonStyles}>
+							<IconButton {...props} icon={MoreIcon} label="more" ref={triggerRef} />
+						</Box>
+					)}
+					placement="bottom-end"
+				>
+					<DropdownItemGroup>
+						{agentActions.map(({ text, onClick }, idx) => {
 							return (
 								<DropdownItem key={idx} onClick={onClick}>
 									{text}
@@ -165,9 +164,29 @@ export const AgentActions = ({
 							);
 						})}
 					</DropdownItemGroup>
-				)}
-			</DropdownMenu>
-		</Inline>
+					{isAgentCreatedByCurrentUser && (
+						<DropdownItemGroup hasSeparator>
+							{agentSetting.map(({ text, onClick }, idx) => {
+								return (
+									<DropdownItem key={idx} onClick={onClick}>
+										{text}
+									</DropdownItem>
+								);
+							})}
+						</DropdownItemGroup>
+					)}
+				</DropdownMenu>
+			</Inline>
+			<AgentDeleteConfirmationModal
+				isOpen={isDeleteModalOpen}
+				onClose={() => {
+					setIsDeleteModalOpen(false);
+				}}
+				onSubmit={onDeleteAgent}
+				agentId={'some Id'}
+				agentName="agentName"
+			/>
+		</>
 	);
 };
 

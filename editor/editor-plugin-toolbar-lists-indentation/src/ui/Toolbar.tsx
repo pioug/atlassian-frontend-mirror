@@ -21,11 +21,9 @@ import { indentationMessages, listMessages as messages } from '@atlaskit/editor-
 import { buttonGroupStyle, separatorStyles } from '@atlaskit/editor-common/styles';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import BulletedListIcon from '@atlaskit/icon/core/migration/bulleted-list--editor-bullet-list';
-import BulletListIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import IndentIcon from '@atlaskit/icon/glyph/editor/indent';
 import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
 import OutdentIcon from '@atlaskit/icon/glyph/editor/outdent';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ButtonName, ToolbarProps } from '../types';
 
@@ -92,13 +90,7 @@ export function Toolbar(props: ToolbarProps) {
 					title={
 						<ToolTipContent description={labelUnorderedList} keymap={toggleBulletListKeymap} />
 					}
-					iconBefore={
-						fg('platform_editor_migration_icon_and_typography') ? (
-							<BulletedListIcon label="" color="currentColor" />
-						) : (
-							<BulletListIcon label="" />
-						)
-					}
+					iconBefore={<BulletedListIcon label="" color="currentColor" spacing="spacious" />}
 				/>
 				<ToolbarButton
 					buttonId={TOOLBAR_BUTTON.ORDERED_LIST}

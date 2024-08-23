@@ -8,6 +8,8 @@ import { forwardRef, Fragment, type KeyboardEvent } from 'react';
 import { jsx } from '@emotion/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
+import { Text } from '@atlaskit/primitives';
+
 import { type LinkSearchListItemData } from '../../../../../common/types';
 /* eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports */
 import { transformTimeStamp } from '../../../transformTimeStamp';
@@ -20,7 +22,6 @@ import {
 	listItemContainerInnerStyles,
 	listItemContainerStyles,
 	listItemContextStyles,
-	listItemNameStyles,
 } from './styled';
 
 export const testIds = {
@@ -66,6 +67,49 @@ const ListItemIcon = (props: { item: LinkSearchListItemData; intl: IntlShape }) 
 	);
 };
 
+type SubtitleProps = {
+	items: NonNullable<LinkSearchListItemData['subtitleItems']>;
+};
+
+const ListItemSubtitle = ({ items: [firstItem, secondItem] }: SubtitleProps) => {
+	return (
+		/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
+		<div data-testid={`${testIds.searchResultItem}-subtitle`} css={listItemContextStyles}>
+			<div css={listItemContainerStyles}>
+				<span css={listItemContainerInnerStyles}>{firstItem}</span>
+			</div>
+			{secondItem && (
+				<div css={listItemContainerInnerStyles}>
+					<Fragment>&nbsp; •&nbsp; </Fragment>
+					<Fragment>{secondItem}</Fragment>
+				</div>
+			)}
+		</div>
+	);
+	/* eslint-enable @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */
+};
+
+const getDefaultSubtitleItems = (
+	item: LinkSearchListItemData,
+	intl: IntlShape,
+): LinkSearchListItemData['subtitleItems'] => {
+	const container = item.container;
+	const date = transformTimeStamp(intl, item.lastViewedDate, item.lastUpdatedDate);
+
+	if (container) {
+		if (date) {
+			return [container, date];
+		}
+		return [container];
+	}
+
+	if (date) {
+		return [date];
+	}
+
+	return undefined;
+};
+
 export interface LinkSearchListItemProps {
 	item: LinkSearchListItemData;
 	selected: boolean;
@@ -76,14 +120,14 @@ export interface LinkSearchListItemProps {
 	onFocus: () => void;
 	id?: string;
 	role?: string;
+	nameMaxLines?: number;
 }
 
 export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
-	({ item, selected, id, role, onSelect, tabIndex, onKeyDown, onFocus }, ref) => {
+	({ item, selected, id, role, onSelect, tabIndex, onKeyDown, onFocus, nameMaxLines = 1 }, ref) => {
 		const intl = useIntl();
 		const handleSelect = () => onSelect(item.objectId);
-		const container = item.container || null;
-		const date = transformTimeStamp(intl, item.lastViewedDate, item.lastUpdatedDate);
+		const subtitleItems = item.subtitleItems || getDefaultSubtitleItems(item, intl);
 
 		return (
 			<div
@@ -102,31 +146,12 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 				<ListItemIcon item={item} intl={intl} />
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={itemNameStyles}>
-					<div
-						data-testid={`${testIds.searchResultItem}-title`}
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={listItemNameStyles}
-						title={item.name}
-					>
-						{item.name}
-					</div>
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<div data-testid={`${testIds.searchResultItem}-subtitle`} css={listItemContextStyles}>
-						{container && (
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							<div css={listItemContainerStyles}>
-								{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-								<span css={listItemContainerInnerStyles}>{container}</span>
-							</div>
-						)}
-						{date && (
-							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-							<div css={listItemContainerInnerStyles}>
-								{container && <Fragment>&nbsp; •&nbsp; </Fragment>}
-								<Fragment>{date}</Fragment>
-							</div>
-						)}
-					</div>
+					<Text maxLines={nameMaxLines}>
+						<span data-testid={`${testIds.searchResultItem}-title`} title={item.name}>
+							{item.name}
+						</span>
+					</Text>
+					{subtitleItems && <ListItemSubtitle items={subtitleItems} />}
 				</div>
 			</div>
 		);

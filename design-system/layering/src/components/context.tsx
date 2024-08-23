@@ -45,8 +45,11 @@ const LevelProvider: FC<{
 	children: ReactNode;
 	currentLevel: number;
 }> = ({ children, currentLevel }) => {
-	const { setTopLevel } = useContext(TopLevelContext);
-	setTopLevel(currentLevel);
+	const { setTopLevel, topLevelRef } = useContext(TopLevelContext);
+
+	if (topLevelRef.current === null || currentLevel > topLevelRef.current) {
+		setTopLevel(currentLevel);
+	}
 	useEffect(() => {
 		// avoid immediate cleanup using setTimeout when component unmount
 		// this will make sure non-top layer components can get the correct top level value

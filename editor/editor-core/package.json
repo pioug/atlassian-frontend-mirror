@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.6.1",
+	"version": "195.7.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,8 +45,8 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.1.0",
-		"@atlaskit/editor-common": "^87.13.0",
-		"@atlaskit/editor-plugins": "^4.1.0",
+		"@atlaskit/editor-common": "^88.1.0",
+		"@atlaskit/editor-plugins": "^4.2.0",
 		"@atlaskit/editor-prosemirror": "5.0.1",
 		"@atlaskit/editor-shared-styles": "^2.13.0",
 		"@atlaskit/emoji": "^67.7.0",
@@ -80,14 +80,14 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.3.0",
+		"@af/editor-examples-helpers": "0.3.1",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
 		"@atlaskit/analytics-listeners": "^8.11.0",
-		"@atlaskit/collab-provider": "9.37.2",
+		"@atlaskit/collab-provider": "9.37.3",
 		"@atlaskit/editor-json-transformer": "^8.18.0",
-		"@atlaskit/editor-plugin-annotation": "1.19.1",
+		"@atlaskit/editor-plugin-annotation": "1.19.2",
 		"@atlaskit/editor-plugin-card": "^2.13.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-list": "^3.8.0",
@@ -108,7 +108,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.109",
+		"@atlassian/search-provider": "2.4.111",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -155,10 +155,6 @@
 			"referenceOnly": "true"
 		},
 		"platform.linking-platform.enable-datasource-edit-dropdown-toolbar": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
-		"platform.linking-platform.prevent-suspicious-linkification": {
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
@@ -227,6 +223,9 @@
 			"type": "boolean",
 			"referenceOnly": "true"
 		},
+		"platform_editor_context-panel_simplify_behaviour": {
+			"type": "boolean"
+		},
 		"platform.editor.table.allow-table-alignment": {
 			"type": "boolean"
 		},
@@ -239,10 +238,6 @@
 		},
 		"platform.editor.core.increase-full-page-guttering": {
 			"type": "boolean"
-		},
-		"platform.editor.no-telecursors-for-viewmode-users_hok8o": {
-			"type": "boolean",
-			"referenceOnly": "true"
 		},
 		"platform_editor_tables_padding_increase": {
 			"type": "boolean",
@@ -268,10 +263,6 @@
 		},
 		"platform_editor_media_provider_from_plugin_config": {
 			"type": "boolean"
-		},
-		"platform_editor_migration_icon_and_typography": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_elements_dnd_nested": {
 			"type": "boolean",

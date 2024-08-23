@@ -34,6 +34,7 @@ import {
 	createMapResponseToJson,
 	createMapResponseToBlob,
 } from '../../utils/request/helpers';
+import { mapToMediaCdnUrl } from '../../utils/mediaCdn';
 import {
 	type RequestHeaders,
 	type RequestMetadata,
@@ -264,7 +265,7 @@ export class MediaStore implements MediaApi {
 
 		const imageEndpoint = fg('platform.media-cdn-delivery') ? 'image/cdn' : 'image';
 
-		return createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options);
+		return mapToMediaCdnUrl(createUrl(`${auth.baseUrl}/file/${id}/${imageEndpoint}`, options));
 	}
 
 	async getFileBinary(
@@ -291,7 +292,7 @@ export class MediaStore implements MediaApi {
 			},
 		};
 
-		return this.request(`/file/${id}/${binaryEndpoint}`, options).then(
+		return this.request(`/file/${id}/${binaryEndpoint}`, options, undefined, true).then(
 			createMapResponseToBlob(metadata),
 		);
 	}
@@ -314,7 +315,7 @@ export class MediaStore implements MediaApi {
 
 		const binaryEndpoint = fg('platform.media-cdn-delivery') ? 'binary/cdn' : 'binary';
 
-		return createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options);
+		return mapToMediaCdnUrl(createUrl(`${auth.baseUrl}/file/${id}/${binaryEndpoint}`, options));
 	}
 
 	async getArtifactURL(
@@ -370,7 +371,7 @@ export class MediaStore implements MediaApi {
 			addMediaClientParam: fg('platform.media-card-performance-observer_lgc7b') && true,
 		};
 
-		return this.request(`/file/${id}/${imageEndpoint}`, options, controller).then(
+		return this.request(`/file/${id}/${imageEndpoint}`, options, controller, true).then(
 			createMapResponseToBlob(metadata),
 		);
 	}
@@ -476,6 +477,7 @@ export class MediaStore implements MediaApi {
 			authContext: {},
 		},
 		controller?: AbortController,
+		useMediaCdn?: boolean,
 	): Promise<Response> {
 		const {
 			method,
@@ -497,8 +499,14 @@ export class MediaStore implements MediaApi {
 				}
 			: undefined;
 
+		let url = `${auth.baseUrl}${path}`;
+
+		if (useMediaCdn) {
+			url = mapToMediaCdnUrl(url);
+		}
+
 		const response = await request(
-			`${auth.baseUrl}${path}`,
+			url,
 			{
 				method,
 				endpoint,

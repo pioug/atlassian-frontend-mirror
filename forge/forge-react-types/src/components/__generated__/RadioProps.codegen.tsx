@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RadioProps
  *
- * @codegen <<SignedSource::1303c992c8290ac8eb77a65ac992ea0b>>
+ * @codegen <<SignedSource::e022f493d36ef87f3f686367c3344680>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::976f491e97f339079c101ed752756cb5>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::f8ac68c1f51a8a6ea746a657fc9ee4da>>
  */
 import React from 'react';
 import { Radio as PlatformRadio } from '@atlaskit/radio';
@@ -16,5 +16,5 @@ type PlatformRadioProps = React.ComponentProps<typeof PlatformRadio>;
 export type RadioProps = Pick<
   PlatformRadioProps,
   'label' | 'testId' | 'isChecked' | 'ariaLabel' | 'onInvalid'
- | 'id' | 'isRequired' | 'isDisabled' | 'isInvalid' | 'onChange' | 'onBlur' | 'onFocus' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
+ | 'id' | 'isRequired' | 'isDisabled' | 'isInvalid' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
 > & Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;

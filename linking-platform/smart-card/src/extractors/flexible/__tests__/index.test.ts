@@ -42,7 +42,7 @@ describe('extractFlexibleUiContext', () => {
 			createdBy: 'Angie Mccarthy',
 			createdOn: '2022-07-04T12:04:10.182Z',
 			linkIcon: {
-				icon: 'BitBucket:PullRequest',
+				url: 'https://icon-url',
 				label: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
 			},
 			modifiedBy: 'Angie Mccarthy',
@@ -196,7 +196,7 @@ describe('extractFlexibleUiContext', () => {
 			commentCount: 1,
 			createdBy: 'Fluffy Fluffington',
 			createdOn: '2021-10-19T11:35:10.027+1100',
-			linkIcon: { url: 'https://icon-url' },
+			linkIcon: { url: 'https://icon-url', label: 'Flexible UI Task' },
 			modifiedOn: '2021-12-16T10:47:20.054+1100',
 			priority: {
 				label: 'Major',
@@ -389,7 +389,7 @@ describe('extractFlexibleUiContext', () => {
 				},
 				PreviewAction: {
 					linkIcon: {
-						label: 'YouTube',
+						label: 'The Atlassian Business Model',
 						url: 'https://icon-url',
 					},
 					isSupportTheming: false,
@@ -400,7 +400,7 @@ describe('extractFlexibleUiContext', () => {
 				},
 			},
 			linkIcon: {
-				label: 'YouTube',
+				label: 'The Atlassian Business Model',
 				url: 'https://icon-url',
 			},
 			modifiedOn: '2015-12-10T14:30:00.000Z',
@@ -435,7 +435,7 @@ describe('extractFlexibleUiContext', () => {
 				PreviewAction: {
 					downloadUrl: 'https://download-url',
 					linkIcon: {
-						label: 'Dropbox',
+						label: 'Happy Guy.gif',
 						render: undefined,
 						url: 'https://icon-url',
 					},
@@ -447,7 +447,7 @@ describe('extractFlexibleUiContext', () => {
 				},
 			},
 			linkIcon: {
-				label: 'Dropbox',
+				label: 'Happy Guy.gif',
 				render: undefined,
 				url: 'https://icon-url',
 			},

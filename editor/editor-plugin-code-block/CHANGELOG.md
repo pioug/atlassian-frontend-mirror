@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.3.7
+
+### Patch Changes
+
+- [`193f8c85e1a39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/193f8c85e1a39) -
+  [ux] [ED-24635]
+
+  - Disable Turn into dropdown options when wrapping is not supported
+  - Update expand icon so that it can show disabled status
+  - Update Turn into icon to show active status when dropdown is open
+
+- Updated dependencies
+
+## 3.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.5
 
 ### Patch Changes

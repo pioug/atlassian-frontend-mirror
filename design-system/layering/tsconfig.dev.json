@@ -35,6 +35,12 @@
 	"references": [
 		{
 			"path": "tsconfig.app.json"
+		},
+		{
+			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../modal-dialog/tsconfig.app.json"
 		}
 	],
 	"files": []

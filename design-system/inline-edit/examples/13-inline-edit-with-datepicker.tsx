@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 import { DateTimePicker } from '@atlaskit/datetime-picker';
+import { Box } from '@atlaskit/primitives';
 
 import InlineEdit from '../src';
 
 const ReadView = ({ data }: { data: string }) => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-	<div style={{ padding: 10 }} data-testid="readview">
+	<Box padding="space.100" testId="readview">
 		{data || 'Select date'}
-	</div>
+	</Box>
 );
 
 export default function InlineEditWithDatepicker() {
@@ -27,15 +27,19 @@ export default function InlineEditWithDatepicker() {
 	);
 
 	return (
-		<InlineEdit
-			defaultValue={() => <ReadView data={data} />}
-			readView={() => <ReadView data={data} />}
-			editView={EditView}
-			onConfirm={() => setIsEditing(false)}
-			onEdit={() => setIsEditing(true)}
-			isEditing={isEditing}
-			hideActionButtons
-			readViewFitContainerWidth
-		/>
+		<Box paddingInlineStart="space.100" paddingInlineEnd="space.600">
+			<InlineEdit
+				defaultValue={() => <ReadView data={data} />}
+				readView={() => <ReadView data={data} />}
+				editView={EditView}
+				label="Inline edit datepicker"
+				editButtonLabel={data || 'Select date'}
+				onConfirm={() => setIsEditing(false)}
+				onEdit={() => setIsEditing(true)}
+				isEditing={isEditing}
+				hideActionButtons
+				readViewFitContainerWidth
+			/>
+		</Box>
 	);
 }

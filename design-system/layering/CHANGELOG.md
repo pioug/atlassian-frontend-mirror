@@ -1,5 +1,13 @@
 # @atlaskit/layering
 
+## 0.4.1
+
+### Patch Changes
+
+- [#132554](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132554)
+  [`bdc51b8c87640`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdc51b8c87640) -
+  Only set top level when the value is larger
+
 ## 0.4.0
 
 ### Minor Changes

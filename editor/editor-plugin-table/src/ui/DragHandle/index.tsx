@@ -212,6 +212,8 @@ const DragHandleComponent = ({
 					bottom: isColumn ? `${token('space.0', '0px')}` : undefined,
 					alignSelf: isColumn ? 'none' : 'center',
 					zIndex: isColumn ? '-1' : 'auto',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					pointerEvents: 'auto',
 				}}
 				onMouseUp={(e) => {
 					// should toggle menu if current drag menu open.

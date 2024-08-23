@@ -10,6 +10,8 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { type Placement } from '@atlaskit/popper';
+import { Box, Text } from '@atlaskit/primitives';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Popup from '../src';
 
@@ -18,8 +20,15 @@ type PopupProps = {
 	setPosition(): void;
 	position: string;
 	update?(): void;
-	setButtonWidth: any;
+	updateButtonWidth(newWidth: number): void;
 	buttonWidth: number;
+	updateA11YMessage(message: string): void;
+};
+
+type AnnouncerMessageCase = 'positionUpdate' | 'buttonResize' | 'buttonReset';
+type AnnouncerMessageInfo = {
+	type: AnnouncerMessageCase;
+	value?: string | number;
 };
 
 const containerStyles = css({
@@ -43,11 +52,22 @@ const expanderStyles = css({
 	display: 'inline-block',
 });
 
+const getA11YMessage = ({ type, value }: AnnouncerMessageInfo) => {
+	const messages = {
+		positionUpdate: `Current popup position: ${value}`,
+		buttonResize: `The trigger button width was expanded. Additional width: ${value}`,
+		buttonReset: `The trigger button width was reset. Additional width: ${value}`,
+	};
+	const message = type in messages ? messages[type] : '';
+	return message;
+};
+
 const PopupContent: FC<PopupProps> = ({
 	isLoading,
 	setPosition,
 	position,
-	setButtonWidth,
+	updateButtonWidth,
+	updateA11YMessage,
 	buttonWidth,
 	update,
 }) => {
@@ -56,14 +76,12 @@ const PopupContent: FC<PopupProps> = ({
 	);
 	const addContent = () => {
 		setContent(`${content}Lorem Ipsum dolor sit amet. `);
-
 		// Reposition the popup
 		typeof update === 'function' && update();
 	};
 
 	const clearContent = () => {
 		setContent('');
-
 		// Reposition the popup
 		typeof update === 'function' && update();
 	};
@@ -74,13 +92,31 @@ const PopupContent: FC<PopupProps> = ({
 		</div>
 	) : (
 		<div id="popup-content" css={contentStyles}>
-			<Button onClick={() => setPosition()}>Toggle Position</Button>
-			<p>
-				Current position: <strong>{position}</strong>
-			</p>
+			<Button
+				onClick={() => {
+					setPosition();
+				}}
+			>
+				Toggle Position
+			</Button>
+			<Text as="p">
+				Current position: <Text as="strong">{position}</Text>
+			</Text>
 			<hr />
-			<Button onClick={() => setButtonWidth(buttonWidth + 15)}>Expand Button</Button>
-			<Button onClick={() => setButtonWidth(0)}>Reset Button</Button>
+			<Button
+				onClick={() => {
+					updateButtonWidth(buttonWidth + 15);
+				}}
+			>
+				Expand Button
+			</Button>
+			<Button
+				onClick={() => {
+					updateButtonWidth(0);
+				}}
+			>
+				Reset Button
+			</Button>
 			<hr />
 			<Button onClick={addContent}>Add Content</Button>
 			<Button onClick={clearContent}>Clear Content</Button>
@@ -113,6 +149,7 @@ export default () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [buttonWidth, setButtonWidth] = useState(0);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [a11yMessage, setA11YMessage] = useState('');
 	useEffect(() => {
 		if (isOpen) {
 			window.setTimeout(() => setIsLoaded(true), 600);
@@ -122,16 +159,38 @@ export default () => {
 	}, [isOpen]);
 	const position = positions[idx];
 
-	const setPosition = () => {
-		if (idx !== positions.length - 1) {
-			setIdx(idx + 1);
-		} else {
-			setIdx(0);
+	const updateA11YMessage = (message: string) => {
+		let updatedMessage = message;
+		if (message === a11yMessage) {
+			// replacing regular space by NO-BREAK SPACE to trigger screen reader announce
+			updatedMessage = a11yMessage.includes('\u00a0')
+				? a11yMessage.replace(/\u00a0/, ' ')
+				: a11yMessage.replace(/ /, '\u00a0');
 		}
+		setA11YMessage(updatedMessage);
+	};
+
+	const setPosition = () => {
+		const nextPositionIdx = idx !== positions.length - 1 ? idx + 1 : 0;
+		setIdx(nextPositionIdx);
+		updateA11YMessage(
+			getA11YMessage({ type: 'positionUpdate', value: positions[nextPositionIdx] }),
+		);
+	};
+
+	const updateButtonWidth = (newWidth: number) => {
+		setButtonWidth(newWidth);
+		const type = newWidth === 0 ? 'buttonReset' : 'buttonResize';
+		updateA11YMessage(getA11YMessage({ type, value: newWidth }));
 	};
 
 	return (
 		<div css={containerStyles}>
+			<VisuallyHidden>
+				<Box aria-live="polite" aria-atomic="true" aria-relevant="all">
+					{a11yMessage}
+				</Box>
+			</VisuallyHidden>
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
@@ -141,9 +200,10 @@ export default () => {
 						isLoading={!isLoaded}
 						setPosition={setPosition}
 						position={position}
-						setButtonWidth={setButtonWidth}
+						updateButtonWidth={updateButtonWidth}
 						buttonWidth={buttonWidth}
 						update={update}
+						updateA11YMessage={updateA11YMessage}
 					/>
 				)}
 				trigger={(triggerProps) => (

@@ -17,10 +17,10 @@ interface ExampleProps {
 	values: string[];
 }
 
-type Sizes = 'small' | 'default' | 'large';
+type Sizes = 'default' | 'large';
 type Spacing = 'comfortable' | 'cozy' | 'compact';
 
-const sizes: Sizes[] = ['small', 'default', 'large'];
+const sizes: Sizes[] = ['default', 'large'];
 const spacings: Spacing[] = ['comfortable', 'cozy', 'compact'];
 
 const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {

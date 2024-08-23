@@ -195,6 +195,8 @@ const DragControlsComponent = ({
 					position: 'relative',
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					right: '-0.5px',
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					pointerEvents: 'none',
 				}}
 				data-testid={`table-floating-row-${isHover ? rowIndex : selectedRowIndexes[0]}-drag-handle`}
 			>

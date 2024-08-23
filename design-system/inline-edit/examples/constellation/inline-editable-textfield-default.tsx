@@ -5,7 +5,8 @@ import { token } from '@atlaskit/tokens';
 import { InlineEditableTextfield } from '../../src';
 
 const InlineEditableTextfieldDefault = () => {
-	const [editValue, setEditValue] = useState('');
+	const placeholderLabel = 'Initial description value';
+	const [editValue, setEditValue] = useState('Default description value');
 
 	const validate = (value: string) => {
 		if (value.length <= 6) {
@@ -26,8 +27,9 @@ const InlineEditableTextfieldDefault = () => {
 			<InlineEditableTextfield
 				defaultValue={editValue}
 				label="Description"
+				editButtonLabel={editValue || placeholderLabel}
 				onConfirm={(value) => setEditValue(value)}
-				placeholder="Add a description"
+				placeholder={placeholderLabel}
 				validate={validate}
 			/>
 		</div>

@@ -2,41 +2,36 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import {
-	fontSize as getFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-const fontSize = getFontSize();
-const gridSize = getGridSize();
-
-const readViewContainerStyles = css({
+const readViewContainerStyles = xcss({
 	display: 'flex',
 	maxWidth: '100%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	minHeight: `${(gridSize * 2.5) / fontSize}em`,
-	padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: (gridSize * 2.5) / fontSize,
 	wordBreak: 'break-word',
 });
 
 const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
-	<div css={readViewContainerStyles}>{children}</div>
+	<Box
+		paddingBlockStart="space.150"
+		paddingBlockEnd="space.150"
+		padding="space.100"
+		xcss={readViewContainerStyles}
+		testId="read-view"
+	>
+		{children}
+	</Box>
 );
 
-const wrapperStyles = css({
-	padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
+const wrapperStyles = xcss({
 	font: token('font.heading.large'),
 });
 
@@ -52,14 +47,22 @@ const textFieldStyles = css({
 	},
 });
 
-const InlineEditExample = () => (
-	<div css={wrapperStyles}>
-		<InlineEdit
-			defaultValue="Field value"
-			onConfirm={() => {}}
-			editView={(fieldProps) => <Textfield {...fieldProps} autoFocus css={textFieldStyles} />}
-			readView={() => <ReadViewContainer>Field value</ReadViewContainer>}
-		/>
-	</div>
-);
+const InlineEditExample = () => {
+	const initialValue = 'Initial Large text field value';
+	const [editValue, setEditValue] = useState('Field value');
+
+	return (
+		<Box padding="space.100" xcss={wrapperStyles}>
+			<InlineEdit
+				defaultValue={editValue}
+				label="Larger text inline edit"
+				editButtonLabel={editValue || initialValue}
+				onConfirm={(value) => setEditValue(value)}
+				editView={(fieldProps) => <Textfield {...fieldProps} autoFocus css={textFieldStyles} />}
+				readView={() => <ReadViewContainer>{editValue || initialValue}</ReadViewContainer>}
+			/>
+		</Box>
+	);
+};
+
 export default InlineEditExample;

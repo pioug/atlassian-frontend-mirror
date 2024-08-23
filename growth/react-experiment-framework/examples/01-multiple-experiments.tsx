@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types,react/no-multi-comp */
 
 import React, { Component, type ComponentType } from 'react';
+import Heading from '@atlaskit/heading';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import asExperiment from '../src/asExperiment';
 import ExperimentController from '../src/ExperimentController';
@@ -53,7 +55,7 @@ export const createNestedExperiment = (experimentKey: string, children: Componen
 			),
 			fallback: () => (
 				<div>
-					<span>fallback. This should not show!</span>
+					<Text>fallback. This should not show!</Text>
 				</div>
 			),
 		},
@@ -109,17 +111,19 @@ export default class extends Component<{}> {
 		]);
 
 		return (
-			<div>
-				<h2>Multiple experiments in a single controller</h2>
+			<Stack space="space.300">
+				<Heading size="large">Multiple experiments in a single controller</Heading>
 				<ExperimentController experimentEnrollmentConfig={experimentEnrollmentConfig}>
-					<h3>Sibling Experiments</h3>
-					{siblings.map((Experiment: ComponentType, key: number) => (
-						<Experiment key={key} />
-					))}
-					<h3>Nested Experiments</h3>
+					<Box>
+						<Heading size="medium">Sibling Experiments</Heading>
+						{siblings.map((Experiment: ComponentType, key: number) => (
+							<Experiment key={key} />
+						))}
+					</Box>
+					<Heading size="medium">Nested Experiments</Heading>
 					<Nested />
 				</ExperimentController>
-			</div>
+			</Stack>
 		);
 	}
 }

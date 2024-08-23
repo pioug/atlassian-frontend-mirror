@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.10.0
+
+### Minor Changes
+
+- [#133191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133191)
+  [`78a1927084934`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78a1927084934) -
+  [ux] Remove icon migration feature gate and migrate new icons on primary toolbar
+
+### Patch Changes
+
+- [`193f8c85e1a39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/193f8c85e1a39) -
+  [ux] [ED-24635]
+
+  - Disable Turn into dropdown options when wrapping is not supported
+  - Update expand icon so that it can show disabled status
+  - Update Turn into icon to show active status when dropdown is open
+
+- Updated dependencies
+
+## 1.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.1
 
 ### Patch Changes

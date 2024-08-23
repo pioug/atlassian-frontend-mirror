@@ -5,6 +5,7 @@ import { token } from '@atlaskit/tokens';
 import { InlineEditableTextfield } from '../../src';
 
 const InlineEditMandatoryFieldExample = () => {
+	const placeholderLabel = 'Initial full name value';
 	const [editValue, setEditValue] = useState('');
 
 	return (
@@ -19,9 +20,9 @@ const InlineEditMandatoryFieldExample = () => {
 			<InlineEditableTextfield
 				testId="editable-text-field"
 				defaultValue={editValue}
-				label="Full name"
+				editButtonLabel={editValue || placeholderLabel}
 				onConfirm={(value) => setEditValue(value)}
-				placeholder="Enter your full name"
+				placeholder={placeholderLabel}
 				isRequired
 			/>
 		</div>

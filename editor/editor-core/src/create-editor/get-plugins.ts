@@ -9,7 +9,6 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { Dispatch, EventDispatcher } from '../event-dispatcher';
-import type { EditorReactContext } from '../types/editor-react-context';
 import type { FeatureFlags } from '../types/feature-flags';
 import type { MarkConfig, NodeConfig } from '../types/pm-config';
 
@@ -23,7 +22,6 @@ export type LightPMPluginFactoryParams = {
 	props: {};
 	prevProps?: {};
 	portalProviderAPI: PortalProviderAPI;
-	reactContext: () => EditorReactContext;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;

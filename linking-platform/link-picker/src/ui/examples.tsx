@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Heading from '@atlaskit/heading';
+import { Flex, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -139,5 +141,44 @@ export const UnauthenticatedErrorExample = createExample({
 			tabTitle: 'Unauth',
 			errorFallback: (_, __) => null,
 		}),
+	],
+});
+
+const containerStyles = xcss({
+	marginBlockStart: 'space.600',
+	marginBlockEnd: 'space.600',
+	textAlign: 'center',
+});
+
+const mockImageStyles = xcss({
+	borderRadius: '50%',
+	height: '120px',
+	width: '120px',
+	backgroundColor: 'color.background.information',
+});
+
+export const CustomEmptyStateExample = createExample({
+	plugins: [
+		{
+			resolve: () =>
+				Promise.resolve({
+					data: [],
+				}),
+			emptyStateNoResults: () => (
+				<Flex xcss={containerStyles} direction="column" alignItems="center" gap="space.300">
+					<Flex direction="column" alignItems="center" gap="space.200">
+						<Flex justifyContent="center">
+							<Flex justifyContent="center" alignItems="center" xcss={mockImageStyles}>
+								<Text>:)</Text>
+							</Flex>
+						</Flex>
+						<Heading size="medium">Custom empty state</Heading>
+						<Text as="p" color="color.text">
+							Looks like you're new here
+						</Text>
+					</Flex>
+				</Flex>
+			),
+		},
 	],
 });

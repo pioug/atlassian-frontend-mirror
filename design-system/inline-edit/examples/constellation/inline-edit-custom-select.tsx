@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { Box, xcss } from '@atlaskit/primitives';
-import Select, { type ValueType } from '@atlaskit/select';
+import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
 import {
@@ -35,8 +35,9 @@ const readViewContainerStyles = xcss({
 	height: `${(gridSize * 2.5) / fontSize}em`,
 	paddingBlock: 'space.100',
 	paddingInline: 'space.075',
+	// eslint-disable-next-line @atlaskit/design-system/use-latest-xcss-syntax-typography
 	fontSize: `${fontSize}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-latest-xcss-syntax-typography -- Ignored via go/DSP-18766
 	lineHeight: `${(gridSize * 2.5) / fontSize}`,
 });
 
@@ -46,11 +47,6 @@ const editViewContainerStyles = xcss({
 });
 
 const tagGroupContainerStyles = xcss({ padding: 'space.050' });
-interface OptionType {
-	label: string;
-	value: string;
-}
-
 const selectOptions = [
 	{ label: 'CSS', value: 'CSS' },
 	{ label: 'Design', value: 'Design' },
@@ -62,6 +58,8 @@ const selectOptions = [
 
 const InlineEditCustomSelectExample = () => {
 	const [editValue, setEditValue] = useState<ValueType<OptionType, true>>([]);
+	const inlineEditLabel = 'Skills required';
+	const selectLabel = 'Select skills';
 
 	const onConfirm = (value: ValueType<OptionType, true>) => {
 		if (!value) {
@@ -75,7 +73,8 @@ const InlineEditCustomSelectExample = () => {
 		<Box xcss={containerStyles}>
 			<InlineEdit<ValueType<OptionType, true>>
 				defaultValue={editValue}
-				label="Skills required"
+				label={inlineEditLabel}
+				editButtonLabel={editValue.length > 0 ? inlineEditLabel : selectLabel}
 				editView={(fieldProps) => (
 					<Box xcss={editViewContainerStyles}>
 						<Select {...fieldProps} options={selectOptions} isMulti autoFocus openMenuOnFocus />
@@ -83,7 +82,7 @@ const InlineEditCustomSelectExample = () => {
 				)}
 				readView={() =>
 					editValue && editValue.length === 0 ? (
-						<Box xcss={readViewContainerStyles}>Select options</Box>
+						<Box xcss={readViewContainerStyles}>{selectLabel}</Box>
 					) : (
 						<Box xcss={tagGroupContainerStyles}>
 							<Group>

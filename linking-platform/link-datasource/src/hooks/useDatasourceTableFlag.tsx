@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 import uuid from 'uuid';
@@ -13,34 +13,37 @@ interface DatasourceTableFlagOptions {
 	url?: string;
 }
 
+const getGenericErrorMessage = (status?: number) => {
+	switch (status) {
+		case 403:
+			return {
+				title: <FormattedMessage {...issueLikeTableMessages.updateError403Title} />,
+				description: <FormattedMessage {...issueLikeTableMessages.updateError403Description} />,
+			};
+		default:
+			return {
+				title: <FormattedMessage {...issueLikeTableMessages.updateErrorGenericTitle} />,
+				description: <FormattedMessage {...issueLikeTableMessages.updateErrorGenericDescription} />,
+			};
+	}
+};
+
 export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => {
 	const { showFlag } = useFlags();
 
-	const actions = useMemo(() => {
-		const resourceLink = options?.url && {
-			content: <FormattedMessage {...issueLikeTableMessages.goToResourceLink} />,
-			href: options?.url,
-			target: '_blank',
-		};
-
-		return resourceLink ? [resourceLink] : undefined;
-	}, [options?.url]);
-
 	const showErrorFlag = useCallback(
-		(args?: Partial<CreateFlagArgs>) => {
+		(args?: Partial<CreateFlagArgs> & { status?: number }) => {
 			showFlag({
-				actions,
-				description: <FormattedMessage {...issueLikeTableMessages.updateErrorGenericDescription} />,
-				// We need IconTile (currently in beta) in order to scale the new icon to 24px
+				// We need IconTile in order to scale the new icon to 24px
 				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
 				icon: <CrossCircleIcon label="Error" primaryColor={token('color.icon.danger')} />,
 				id: uuid(),
 				isAutoDismiss: true,
-				title: <FormattedMessage {...issueLikeTableMessages.updateErrorGenericTitle} />,
+				...getGenericErrorMessage(args?.status),
 				...args,
 			});
 		},
-		[actions, showFlag],
+		[showFlag],
 	);
 
 	return { showErrorFlag };

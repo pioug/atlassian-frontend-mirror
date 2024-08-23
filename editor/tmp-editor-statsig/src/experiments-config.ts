@@ -2,6 +2,12 @@ function isBoolean(value: unknown): value is boolean {
 	return typeof value === 'boolean';
 }
 
+function oneOf<T extends string>(values: T[]): (value: unknown) => value is T {
+	return (value: unknown): value is T => {
+		return values.includes(value as T);
+	};
+}
+
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 
 /**
@@ -26,7 +32,7 @@ export const editorExperimentsConfig = {
 			confluence: 'confluence_editor_experiment_test_new_package_multivariate',
 		},
 		param: 'variant',
-		typeGuard: isBoolean,
+		typeGuard: oneOf(['one', 'two', 'three']),
 		// Note -- you need to specify the type of the default value as the union of all possible values
 		// This is used to provide type safety on consumption
 		defaultValue: 'one' as 'one' | 'two' | 'three',

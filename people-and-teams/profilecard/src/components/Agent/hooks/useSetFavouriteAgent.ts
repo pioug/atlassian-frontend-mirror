@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { createHeaders } from '../../util/rovoAgentUtils';
+import { createHeaders } from '../../../util/rovoAgentUtils';
 
 export const useSetFavouriteAgent = ({
 	agentId,

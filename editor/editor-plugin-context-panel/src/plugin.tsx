@@ -59,7 +59,10 @@ function contextPanelPluginFactory(
 
 export type ContextPanelPlugin = NextEditorPlugin<
 	'contextPanel',
-	{ actions: { applyChange: typeof applyChange } }
+	{
+		actions: { applyChange: typeof applyChange };
+		sharedState: { contents: React.ReactNode[] | undefined } | undefined;
+	}
 >;
 
 /**
@@ -71,6 +74,16 @@ export const contextPanelPlugin: ContextPanelPlugin = () => ({
 
 	actions: {
 		applyChange: applyChange,
+	},
+
+	getSharedState(state) {
+		if (!state) {
+			return undefined;
+		}
+		const { contents } = pluginKey.getState(state) ?? {};
+		return {
+			contents,
+		};
 	},
 
 	pmPlugins(contextPanels: Array<ContextPanelHandler> = []) {

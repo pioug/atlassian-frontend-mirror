@@ -75,6 +75,9 @@
       "path": "../../../jql/jql-editor-autocomplete-rest/afm-jira/tsconfig.json"
     },
     {
+      "path": "../../../design-system/layering/afm-jira/tsconfig.json"
+    },
+    {
       "path": "../../link-client-extension/afm-jira/tsconfig.json"
     },
     {

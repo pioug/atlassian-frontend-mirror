@@ -63,9 +63,6 @@
 			"path": "../../design-system/inline-edit/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -76,6 +73,9 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../ptc-test-utils/tsconfig.app.json"

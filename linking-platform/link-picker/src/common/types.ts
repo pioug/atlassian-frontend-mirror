@@ -30,6 +30,11 @@ export interface LinkSearchListItemData {
 		/** The data source that provided the result */
 		source?: string;
 	};
+	/**
+	 * Optionally override the strings shown in the link result's subtitle
+	 * (by default, the subtitle is the container and date). Provide translated strings.
+	 */
+	subtitleItems?: Readonly<[string, string?]>;
 }
 
 export interface LinkPickerState {
@@ -39,6 +44,11 @@ export interface LinkPickerState {
 
 export interface ResolveResult {
 	data: LinkSearchListItemData[];
+}
+
+export interface LinkPickerUiOptions {
+	/** Maximum number of lines to display for the item name */
+	listItemNameMaxLines?: number;
 }
 
 export interface LinkPickerPlugin {
@@ -62,6 +72,8 @@ export interface LinkPickerPlugin {
 	UNSAFE_onActivation?: () => void;
 	/** Register Plugin Actions */
 	action?: LinkPickerPluginAction;
+	/** Options to override certain configurable styles in the link picker */
+	uiOptions?: LinkPickerUiOptions;
 }
 
 export interface LinkPickerPluginAction {

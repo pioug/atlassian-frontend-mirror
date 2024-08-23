@@ -300,7 +300,36 @@ export const inlineExtensionWithSmartlinkAdf: DocNode = {
 	],
 };
 
-export const bodiedExtensionWithLayoutElement: DocNode = {
+export const headingWithInlineExtensionAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'heading',
+			attrs: {
+				level: 1,
+			},
+			content: [
+				{
+					type: 'text',
+					text: 'Heading ',
+				},
+				{
+					type: 'inlineExtension',
+					attrs: {
+						extensionKey: 'inline-eh',
+						extensionType: 'com.atlassian.confluence.macro.core',
+						parameters: {},
+						text: 'Inline extension demo',
+						localId: 'c9f15284-c921-4aed-9004-14306b4d6655',
+					},
+				},
+			],
+		},
+	],
+};
+
+export const bodiedExtensionWithLayoutElementAdf: DocNode = {
 	version: 1,
 	type: 'doc',
 	content: [

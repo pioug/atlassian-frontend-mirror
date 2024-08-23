@@ -1,5 +1,14 @@
 # @atlaskit/progress-indicator
 
+## 11.0.0
+
+### Major Changes
+
+- [#132492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132492)
+  [`47c7e60baaa05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47c7e60baaa05) -
+  Removes the `small` size from the `size` prop. Using the small size contributed to accessibility
+  issues and was unused in the majority of Atlassian products.
+
 ## 10.4.0
 
 ### Minor Changes

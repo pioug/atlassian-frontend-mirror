@@ -77,7 +77,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/drawer": "^7.14.0",
-		"@atlaskit/link-test-helpers": "^7.4.0",
+		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/popup": "^1.20.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

@@ -5,7 +5,8 @@ import { token } from '@atlaskit/tokens';
 import { InlineEditableTextfield } from '../../src';
 
 const InlineEditStartEditExample = () => {
-	const [editValue, setEditValue] = useState('');
+	const placeholderLabel = 'Initial Team name value';
+	const [editValue, setEditValue] = useState('Pyxis');
 
 	return (
 		<div
@@ -20,8 +21,9 @@ const InlineEditStartEditExample = () => {
 				testId="editable-text-field"
 				defaultValue={editValue}
 				label="Team name"
+				editButtonLabel={editValue || placeholderLabel}
 				onConfirm={(value) => setEditValue(value)}
-				placeholder="Enter your team name"
+				placeholder={placeholderLabel}
 				startWithEditViewOpen
 			/>
 		</div>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-color",
-	"version": "1.13.0",
+	"version": "1.14.0",
 	"description": "Text color plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^40.8.1",
-		"@atlaskit/editor-common": "^87.13.0",
+		"@atlaskit/editor-common": "^88.1.0",
 		"@atlaskit/editor-palette": "1.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.8.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
@@ -99,9 +99,6 @@
 	},
 	"platform-feature-flags": {
 		"editor_use_removeMark": {
-			"type": "boolean"
-		},
-		"platform_editor_migration_icon_and_typography": {
 			"type": "boolean"
 		}
 	}

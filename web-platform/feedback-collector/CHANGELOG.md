@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 13.6.0
+
+### Minor Changes
+
+- [#132935](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132935)
+  [`17c7225688fa0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17c7225688fa0) -
+  [ux] return focus to calling element on modal close
+
 ## 13.5.2
 
 ### Patch Changes

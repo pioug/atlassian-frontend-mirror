@@ -6,6 +6,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Rovo agent by {creatorNameWithLink}',
 		description: 'Message to show who created this Rovo agent',
 	},
+	agentDeactivated: {
+		id: 'ai-mate.agent-profile-info.deactivated',
+		defaultMessage: '(deactivated)',
+		description: 'Message to show that this agent is deactivated',
+	},
 	starredCount: {
 		id: 'ai-mate.agent-profile-info.starred-count',
 		defaultMessage: '{count} starred',

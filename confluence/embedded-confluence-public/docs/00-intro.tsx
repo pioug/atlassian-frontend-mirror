@@ -36,6 +36,16 @@ export default md`
 	### A note on limitations
 
 	When a [Forge](https://developer.atlassian.com/platform/forge/) app uses embedded Confluence
-	pages, hyperlinks in the page will not work correctly. Learn more
-	[here](https://jira.atlassian.com/browse/ECO-205).
+	pages:
+
+	1. Hyperlinks in the page will not work correctly.
+	   [Learn more about hyperlinks in Forge](https://jira.atlassian.com/browse/ECO-205).
+	2. The login flow for Embedded pages may encounter issues even after the user has granted storage
+	   access.
+	   - Forge apps operate within their own sandboxed (outer) iframe, and this outer iframe imposes
+	     restrictions on pop-up windows for security reasons.
+	     [Learn more about pop-up restrictions in Forge](https://ecosystem.atlassian.net/browse/ECOHELP-21573)
+	   - Since pop-ups are necessary for the login page to function properly and enable users to log
+	     in to their Atlassian account, the flow will be disrupted at this stage, potentially
+	     preventing users from advancing further.
 `;

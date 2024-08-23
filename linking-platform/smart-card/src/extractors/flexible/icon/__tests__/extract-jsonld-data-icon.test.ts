@@ -3,7 +3,6 @@ import extractJsonldDataIcon from '../extract-jsonld-data-icon';
 import { IconType } from '../../../../constants';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../../../constants';
 import extractDocumentTypeIcon from '../extract-document-type-icon';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const itIf = (condition: boolean) => (condition ? it : it.skip);
 const isDocument = (type: string) => type === 'Document';
@@ -72,6 +71,7 @@ describe('extractJsonldDataIcon', () => {
 			const data: JsonLd.Data.BaseData = {
 				...baseData,
 				'@type': ['Document', 'schema:BlogPosting'],
+				icon: expectUrl,
 				generator: {
 					'@type': 'Object',
 					url: 'https://some-url.com',
@@ -106,28 +106,24 @@ describe('extractJsonldDataIcon', () => {
 				'@type': type,
 			};
 
-			ffTest.on(
-				'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-				'provider is Confluence (native)',
-				() => {
-					it('still returns url icon when url icon, file format icon, document icon and provider icon are defined', () => {
-						const providerIconUrl = 'https://some-provider-icon-url.com';
-						const backendIconUrl = 'https://backend-jsonld-icon-url.com';
-						const data = {
-							...baseTypeData,
-							icon: backendIconUrl,
-							generator: {
-								'@type': 'Object',
-								'@id': CONFLUENCE_GENERATOR_ID,
-								icon: providerIconUrl,
-							},
-							'schema:fileFormat': 'image/png',
-						} as JsonLd.Data.BaseData;
-						const { url } = extractJsonldDataIcon(data) || {};
-						expect(url).toBe(backendIconUrl);
-					});
-				},
-			);
+			describe('provider is Confluence (native)', () => {
+				it('still returns url icon when url icon, file format icon, document icon and provider icon are defined', () => {
+					const providerIconUrl = 'https://some-provider-icon-url.com';
+					const backendIconUrl = 'https://backend-jsonld-icon-url.com';
+					const data = {
+						...baseTypeData,
+						icon: backendIconUrl,
+						generator: {
+							'@type': 'Object',
+							'@id': CONFLUENCE_GENERATOR_ID,
+							icon: providerIconUrl,
+						},
+						'schema:fileFormat': 'image/png',
+					} as JsonLd.Data.BaseData;
+					const { url } = extractJsonldDataIcon(data) || {};
+					expect(url).toBe(backendIconUrl);
+				});
+			});
 
 			describe.each([
 				['Confluence', CONFLUENCE_GENERATOR_ID, IconType.Confluence],
@@ -175,6 +171,7 @@ describe('extractJsonldDataIcon', () => {
 					const data = {
 						...baseData,
 						'@type': type,
+						icon: providerIconUrl,
 						generator: {
 							'@type': 'Object',
 							'@id': 'some-provider',
@@ -226,116 +223,112 @@ describe('extractJsonldDataIcon', () => {
 			});
 			const providerIconUrl = 'https://some-provider-icon-url.com';
 			const backendIconUrl = 'https://backend-jsonld-icon-url.com';
-			ffTest.on(
-				'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-				'provider is not native',
-				() => {
-					it('returns url icon when it is defined', () => {
-						const data = {
+			describe('provider is not native', () => {
+				it('returns url icon when it is defined', () => {
+					const data = {
+						...baseData,
+						'@type': type,
+						icon: backendIconUrl,
+						generator: {
+							'@type': 'Object',
+							'@id': 'some-provider',
+							icon: undefined,
+						},
+						'schema:fileFormat': 'image/png',
+						url: undefined,
+					} as JsonLd.Data.BaseData;
+
+					const { icon, url } = extractJsonldDataIcon(data) || {};
+
+					expect(icon).toBeUndefined();
+					expect(url).toBe(backendIconUrl);
+				});
+				it('returns file format icon when it is defined and icon url is undefined', () => {
+					const data = {
+						...baseData,
+						'@type': type,
+						generator: {
+							'@type': 'Object',
+							'@id': 'someprovider',
+							icon: undefined,
+						},
+						'schema:fileFormat': 'image/png',
+						url: undefined,
+					} as JsonLd.Data.BaseData;
+
+					const { icon } = extractJsonldDataIcon(data) || {};
+
+					expect(icon).toBe(IconType.Image);
+				});
+
+				it('returns file format icon when url icon is undefined', () => {
+					const data = {
+						...baseData,
+						'@type': type,
+						generator: {
+							'@type': 'Object',
+						},
+						url: undefined,
+						'schema:fileFormat': 'image/png',
+					} as JsonLd.Data.BaseData;
+
+					const { icon, url } = extractJsonldDataIcon(data) || {};
+					expect(icon).toBe(IconType.Image);
+					expect(url).toBe(undefined);
+				});
+
+				it('returns provider icon when icon url, fileFormat, and document type are undefined', () => {
+					const data = {
+						...baseData,
+						generator: {
+							'@type': 'Object',
+							'@id': 'some-provider',
+							icon: providerIconUrl,
+						},
+					} as JsonLd.Data.BaseData;
+
+					const { icon, url } = extractJsonldDataIcon(data) || {};
+					expect(url).toBe(providerIconUrl);
+					expect(icon).toBeUndefined();
+				});
+
+				itIf(extractDocumentTypeIcon(type) !== undefined)(
+					'returns document type icon when type is recognised but provider, icon url and file format are undefined',
+					() => {
+						const data: JsonLd.Data.BaseData = {
 							...baseData,
 							'@type': type,
-							icon: backendIconUrl,
 							generator: {
-								'@type': 'Object',
 								'@id': 'some-provider',
 								icon: undefined,
 							},
-							'schema:fileFormat': 'image/png',
-							url: undefined,
 						} as JsonLd.Data.BaseData;
+						const { icon: iconType } = extractJsonldDataIcon(data) || {};
 
-						const { icon, url } = extractJsonldDataIcon(data) || {};
+						const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
 
-						expect(icon).toBeUndefined();
-						expect(url).toBe(backendIconUrl);
-					});
-					it('returns file format icon when it is defined and icon url is undefined', () => {
-						const data = {
-							...baseData,
-							'@type': type,
-							generator: {
-								'@type': 'Object',
-								'@id': 'someprovider',
-								icon: undefined,
-							},
-							'schema:fileFormat': 'image/png',
-							url: undefined,
-						} as JsonLd.Data.BaseData;
+						expect(iconType).toBe(documentIconType);
+					},
+				);
 
-						const { icon } = extractJsonldDataIcon(data) || {};
-
-						expect(icon).toBe(IconType.Image);
-					});
-
-					it('returns file format icon when url icon is undefined', () => {
-						const data = {
-							...baseData,
-							'@type': type,
-							generator: {
-								'@type': 'Object',
-							},
-							url: undefined,
-							'schema:fileFormat': 'image/png',
-						} as JsonLd.Data.BaseData;
-
-						const { icon, url } = extractJsonldDataIcon(data) || {};
-						expect(icon).toBe(IconType.Image);
-						expect(url).toBe(undefined);
-					});
-
-					it('returns provider icon when icon url, fileFormat, and document type are undefined', () => {
+				itIf(extractDocumentTypeIcon(type) === undefined)(
+					'returns no icon when when provider, icon url, file format is undefined and document type is not recognised',
+					() => {
 						const data = {
 							...baseData,
 							generator: {
 								'@type': 'Object',
 								'@id': 'some-provider',
-								icon: providerIconUrl,
 							},
 						} as JsonLd.Data.BaseData;
 
 						const { icon, url } = extractJsonldDataIcon(data) || {};
-						expect(url).toBe(providerIconUrl);
+
+						expect(url).toBeUndefined();
 						expect(icon).toBeUndefined();
-					});
-
-					itIf(extractDocumentTypeIcon(type) !== undefined)(
-						'returns document type icon when type is recognised but provider, icon url and file format are undefined',
-						() => {
-							const data: JsonLd.Data.BaseData = {
-								...baseData,
-								'@type': type,
-								generator: {
-									'@id': 'some-provider',
-									icon: undefined,
-								},
-							} as JsonLd.Data.BaseData;
-							const { icon: iconType } = extractJsonldDataIcon(data) || {};
-
-							const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
-
-							expect(iconType).toBe(documentIconType);
-						},
-					);
-
-					itIf(extractDocumentTypeIcon(type) === undefined)(
-						'returns no icon when when provider, icon url, file format is undefined and document type is not recognised',
-						() => {
-							const data = {
-								...baseData,
-								generator: {
-									'@type': 'Object',
-									'@id': 'some-provider',
-								},
-							} as JsonLd.Data.BaseData;
-
-							const { icon, url } = extractJsonldDataIcon(data) || {};
-
-							expect(url).toBeUndefined();
-							expect(icon).toBeUndefined();
-						},
-					);
-				},
-			);
+					},
+				);
+			});
 
 			it('returns no icon when when icon url, fileFormat, document type and generator url are undefined', () => {
 				const data = {
@@ -374,21 +367,17 @@ describe('extractJsonldDataIcon', () => {
 	);
 
 	describe('when type is atlassian:Task and provider is Jira', () => {
-		ffTest.on(
-			'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-			'returns type icon for Task (using default) as no url is supplied',
-			() => {
-				it('returns type icon for Task (using default) as no url is supplied', () => {
-					const data: JsonLd.Data.BaseData = {
-						...baseData,
-						'@type': 'atlassian:Task',
-					};
-					const { icon } = extractJsonldDataIcon(data) || {};
+		describe('returns type icon for Task (using default) as no url is supplied', () => {
+			it('returns type icon for Task (using default) as no url is supplied', () => {
+				const data: JsonLd.Data.BaseData = {
+					...baseData,
+					'@type': 'atlassian:Task',
+				};
+				const { icon } = extractJsonldDataIcon(data) || {};
 
-					expect(icon).toBe(IconType.Task);
-				});
-			},
-		);
+				expect(icon).toBe(IconType.Task);
+			});
+		});
 
 		it('returns icon for Task - using default', () => {
 			const data: JsonLd.Data.BaseData = {
@@ -400,24 +389,20 @@ describe('extractJsonldDataIcon', () => {
 			expect(icon).toBe(IconType.Task);
 		});
 
-		ffTest.on(
-			'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-			'returns url icon for Task when icon url is passed',
-			() => {
-				it('should be correct', () => {
-					const iconUrl = 'https://some-icon-url.com';
-					const data = {
-						...baseData,
-						'@type': 'atlassian:Task',
-						icon: iconUrl,
-					} as JsonLd.Data.Task;
+		describe('returns url icon for Task when icon url is passed', () => {
+			it('should be correct', () => {
+				const iconUrl = 'https://some-icon-url.com';
+				const data = {
+					...baseData,
+					'@type': 'atlassian:Task',
+					icon: iconUrl,
+				} as JsonLd.Data.Task;
 
-					const { icon, url } = extractJsonldDataIcon(data) || {};
-					expect(url).toBe(iconUrl);
-					expect(icon).toBeUndefined();
-				});
-			},
-		);
+				const { icon, url } = extractJsonldDataIcon(data) || {};
+				expect(url).toBe(iconUrl);
+				expect(icon).toBeUndefined();
+			});
+		});
 
 		describe('JiraCustomTaskType', () => {
 			const iconUrl = 'https://some-icon-url.com';
@@ -477,7 +462,7 @@ describe('extractJsonldDataIcon', () => {
 
 				const { icon, url } = extractJsonldDataIcon(data) || {};
 
-				expect(icon).toBe(IconType.Jira);
+				expect(icon).toBe(IconType.Task);
 				expect(url).toBeUndefined();
 			});
 

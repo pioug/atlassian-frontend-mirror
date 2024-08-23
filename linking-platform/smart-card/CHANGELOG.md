@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 27.16.3
+
+### Patch Changes
+
+- [#132637](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132637)
+  [`6f006eb423da7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f006eb423da7) -
+  [ux] cleaning up link icon standardisation feature flag
+
 ## 27.16.2
 
 ### Patch Changes

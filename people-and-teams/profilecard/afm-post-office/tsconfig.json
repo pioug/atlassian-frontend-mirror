@@ -54,6 +54,9 @@
       "path": "../../../design-system/menu/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/modal-dialog/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
     },
     {

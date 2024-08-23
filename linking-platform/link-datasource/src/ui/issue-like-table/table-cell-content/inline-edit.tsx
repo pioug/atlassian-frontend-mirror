@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { getResourceUrl } from '../../../common/utils/response-item';
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
 import { useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
@@ -64,8 +63,7 @@ export const InlineEdit = ({
 
 	const item = useDatasourceItem({ id: ari });
 
-	const url = getResourceUrl(item?.data);
-	const { showErrorFlag } = useDatasourceTableFlag({ url });
+	const { showErrorFlag } = useDatasourceTableFlag();
 
 	const { onUpdateItem } = useDatasourceActions();
 
@@ -87,7 +85,8 @@ export const InlineEdit = ({
 			onUpdateItem(ari, newItem);
 
 			execute(value).catch((error) => {
-				showErrorFlag();
+				const status = error && typeof error === 'object' ? error.status : undefined;
+				showErrorFlag({ status });
 				onUpdateItem(ari, existingData);
 			});
 			setIsEditing(false);

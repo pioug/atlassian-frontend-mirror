@@ -434,7 +434,10 @@ export function isInEmptyLine(state: EditorState) {
 
 export { dedupe } from './dedupe';
 
-export { createWrapSelectionTransaction } from './create-wrap-selection-transaction';
+export {
+	createWrapSelectionTransaction,
+	getWrappingOptions,
+} from './create-wrap-selection-transaction';
 export { transformNodeIntoListItem } from './insert-node-into-ordered-list';
 
 export { wrapSelectionIn } from './wrap-selection-in';

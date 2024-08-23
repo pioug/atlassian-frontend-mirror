@@ -40,7 +40,7 @@ const BasicExample = () => {
 	return (
 		<Box xcss={containerStyles} onClick={(e: MouseEvent) => e.preventDefault()}>
 			<NestableNavigationContent>
-				<Section>
+				<Section title="Nesting items">
 					<NestingItem id="0" title="Settings">
 						<Fragment />
 					</NestingItem>

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ToggleProps
  *
- * @codegen <<SignedSource::f45908137974384e57d5a017c6d4a83c>>
+ * @codegen <<SignedSource::9fae69dce4ff6b99dfdeaff9a08a72f4>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/toggle/__generated__/index.partial.tsx <<SignedSource::3dde2148a204d806089d1f512ae6afdb>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/toggle/__generated__/index.partial.tsx <<SignedSource::c3ddcdd89af4be8543231a1ab89d8f45>>
  */
 import React from 'react';
 import PlatformToggle from '@atlaskit/toggle';
@@ -16,5 +16,5 @@ type PlatformToggleProps = React.ComponentProps<typeof PlatformToggle>;
 export type ToggleProps = Pick<
   PlatformToggleProps,
   'size' | 'testId' | 'defaultChecked' | 'isChecked' | 'label'
- | 'id' | 'isDisabled' | 'onChange' | 'onBlur' | 'onFocus' | 'value' | 'name'
+ | 'id' | 'isDisabled' | 'value' | 'name'
 > & Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
 	type Symbol,
@@ -136,9 +137,11 @@ class ImportDeclarationProxy {
 	}
 }
 
+// handles type imports from platform/packages/forge/forge-ui/src/components/UIKit/types.ts
 const isSharedUIKit2TypesImport = (importDeclaration: ImportDeclaration) => {
 	return (
-		importDeclaration.isTypeOnly() && importDeclaration.getModuleSpecifierValue() === '../../types'
+		importDeclaration.isTypeOnly() &&
+		importDeclaration.getModuleSpecifierValue().split('/').pop() === 'types'
 	);
 };
 

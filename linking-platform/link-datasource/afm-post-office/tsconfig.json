@@ -75,6 +75,9 @@
       "path": "../../../jql/jql-editor-autocomplete-rest/afm-post-office/tsconfig.json"
     },
     {
+      "path": "../../../design-system/layering/afm-post-office/tsconfig.json"
+    },
+    {
       "path": "../../link-client-extension/afm-post-office/tsconfig.json"
     },
     {

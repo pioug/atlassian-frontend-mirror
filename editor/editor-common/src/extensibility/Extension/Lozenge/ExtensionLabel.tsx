@@ -76,6 +76,8 @@ const buttonLabelStyles = css({
 	'&.remove-nested-left-margin': {
 		marginLeft: 0,
 	},
+	fontSize: '16px',
+	fontWeight: token('font.weight.regular', '400'),
 });
 
 const spacerStyles = css({
@@ -85,7 +87,7 @@ const spacerStyles = css({
 
 const textStyles = css({
 	fontSize: '14px',
-	fontWeight: 'normal',
+	fontWeight: token('font.weight.regular', '400'),
 	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 });
 

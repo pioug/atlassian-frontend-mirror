@@ -1,5 +1,15 @@
 # @atlaskit/profilecard
 
+## 19.20.0
+
+### Minor Changes
+
+- [#132782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132782)
+  [`8f20b4bc9526a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f20b4bc9526a) -
+  Added default open chat action and delete agent functionality
+- [`3c1c3ee3b4f32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c1c3ee3b4f32) -
+  PTC-9673 Migrate profile card from CloudUser to AGG user
+
 ## 19.19.0
 
 ### Minor Changes

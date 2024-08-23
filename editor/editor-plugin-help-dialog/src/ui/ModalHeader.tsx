@@ -11,9 +11,7 @@ import { helpDialogMessages as messages } from '@atlaskit/editor-common/messages
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import Heading from '@atlaskit/heading';
 import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
 import type { OnCloseHandler } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { header, toolbarButton } from './styles';
 
@@ -36,15 +34,11 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 					title={formatMessage(messages.closeHelpDialog)}
 					spacing="compact"
 					iconBefore={
-						fg('platform_editor_migration_icon_and_typography') ? (
-							<CloseIcon
-								label={formatMessage(messages.closeHelpDialog)}
-								color="currentColor"
-								spacing="spacious"
-							/>
-						) : (
-							<CrossIcon label={formatMessage(messages.closeHelpDialog)} size="medium" />
-						)
+						<CloseIcon
+							label={formatMessage(messages.closeHelpDialog)}
+							color="currentColor"
+							spacing="spacious"
+						/>
 					}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					css={toolbarButton}

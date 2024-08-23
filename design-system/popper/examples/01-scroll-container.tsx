@@ -21,7 +21,7 @@ const Popup = styled.div`
 	max-width: 160px;
 	padding: ${token('space.100', '8px')};
 	transition: opacity 200ms ease-in-out;
-	opacity: ${(p: PopupProps) => (p.isReferenceHidden ? 0 : 1)};
+	opacity: ${(p: PopupProps) => (p.isReferenceHidden === false ? 1 : 0)};
 	box-shadow: ${token('elevation.shadow.overlay')};
 `;
 

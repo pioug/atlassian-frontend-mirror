@@ -10,22 +10,14 @@ import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 import { FormattedMessage } from 'react-intl-next';
 
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { wrapperStyle } from '@atlaskit/editor-common/styles';
+import { expandIconContainerStyle, wrapperStyle } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import TextStyleIcon from '@atlaskit/icon/core/migration/text-style--editor-text-style';
-import { default as ExpandIcon } from '@atlaskit/icon/glyph/chevron-down';
-import { default as TextStyleIconLegacy } from '@atlaskit/icon/glyph/editor/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { NORMAL_TEXT } from '../../block-types';
 
-import {
-	buttonContentReducedSpacingStyle,
-	buttonContentStyle,
-	expandIconWrapperStyle,
-	wrapperSmallStyle,
-} from './styled';
+import { buttonContentReducedSpacingStyle, buttonContentStyle, wrapperSmallStyle } from './styled';
 
 export interface BlockTypeButtonProps {
 	isSmall?: boolean;
@@ -67,24 +59,19 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 					css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}
 					data-testid="toolbar-block-type-text-styles-icon"
 				>
-					{fg('platform_editor_migration_icon_and_typography') ? (
+					{
 						<React.Fragment>
 							{props.isSmall && (
 								<TextStyleIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
 							)}
-							<ChevronDownIcon label="" color="currentColor" />
-						</React.Fragment>
-					) : (
-						<React.Fragment>
-							{props.isSmall && <TextStyleIconLegacy label={labelTextStyles} />}
 							<span
 								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								css={expandIconWrapperStyle}
+								css={expandIconContainerStyle}
 							>
-								<ExpandIcon label="" />
+								<ChevronDownIcon label="" color="currentColor" LEGACY_margin="0 0 0 -8px" />
 							</span>
 						</React.Fragment>
-					)}
+					}
 				</span>
 			}
 		>

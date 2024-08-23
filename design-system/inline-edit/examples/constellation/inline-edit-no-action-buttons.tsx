@@ -5,7 +5,8 @@ import { token } from '@atlaskit/tokens';
 import { InlineEditableTextfield } from '../../src';
 
 const InlineEditNoActionsExample = () => {
-	const [editValue, setEditValue] = useState('');
+	const placeholderLabel = 'Initial postcode value';
+	const [editValue, setEditValue] = useState('94538');
 
 	return (
 		<div
@@ -20,8 +21,9 @@ const InlineEditNoActionsExample = () => {
 				testId="editable-text-field"
 				defaultValue={editValue}
 				label="Postcode"
+				editButtonLabel={editValue || placeholderLabel}
 				onConfirm={(value) => setEditValue(value)}
-				placeholder="Enter your postcode"
+				placeholder={placeholderLabel}
 				hideActionButtons
 			/>
 		</div>

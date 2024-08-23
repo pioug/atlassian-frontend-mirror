@@ -10,7 +10,6 @@ import {
 	type LinkPreview,
 	extractUrlFromIconJsonLd,
 } from '@atlaskit/link-extractors';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
@@ -67,11 +66,7 @@ export const extractEmbedProps = (
 ): EmbedCardResolvedViewProps => ({
 	link: extractLink(jsonLd) || '',
 	title: extractTitle(jsonLd),
-	context: getBooleanFF(
-		'platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour',
-	)
-		? generateContext(jsonLd)
-		: extractProvider(jsonLd),
+	context: generateContext(jsonLd),
 	preview: extractEmbedPreview(jsonLd, platform, iframeUrlType),
 	isTrusted: extractIsTrusted(meta),
 	isSupportTheming: extractIsSupportTheming(meta),

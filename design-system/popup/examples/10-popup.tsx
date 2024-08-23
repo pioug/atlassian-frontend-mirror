@@ -2,12 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, useState } from 'react';
+import { type FC, Fragment, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Banner from '@atlaskit/banner';
 import Button from '@atlaskit/button/new';
+import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Link from '@atlaskit/link';
 import { type Placement } from '@atlaskit/popper';
 import { token } from '@atlaskit/tokens';
 
@@ -27,6 +30,10 @@ const sizedContentStyles = css({
 	verticalAlign: 'center',
 });
 
+const textWrapperStyles = css({
+	marginBlockStart: token('space.150', '12px'),
+});
+
 type PopupProps = {
 	setPosition(): void;
 	placement: string;
@@ -38,9 +45,11 @@ const PopupContent: FC<PopupProps> = ({ setPosition, placement }) => {
 			<Button testId="popup-position" onClick={() => setPosition()}>
 				Toggle Position
 			</Button>
-			<p>
-				Current placement: <strong>{placement}</strong>
-			</p>
+			<div aria-live="polite" aria-atomic="true" css={textWrapperStyles}>
+				<p>
+					Current placement: <strong>{placement}</strong>
+				</p>
+			</div>
 			<hr />
 			<p>Scroll down.</p>
 			<Button>Button 5</Button>
@@ -82,19 +91,29 @@ const PopupPlacementExample = () => {
 	};
 
 	return (
-		<div css={spacerStyles}>
-			<Popup
-				isOpen={isOpen}
-				onClose={() => setIsOpen(false)}
-				content={() => <PopupContent setPosition={setPlacement} placement={placement} />}
-				trigger={(triggerProps) => (
-					<Button id="popup-trigger" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
-						{isOpen ? 'Close' : 'Open'} Popup
-					</Button>
-				)}
-				placement={placement}
-			/>
-		</div>
+		<Fragment>
+			<Banner appearance="warning" icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
+				This is an example for tests only -
+				<Link target="_blank" href="https://atlassian.design/components/popup/usage#accessibility">
+					{' '}
+					don’t use scrolling popups
+				</Link>{' '}
+				in products.
+			</Banner>
+			<div css={spacerStyles}>
+				<Popup
+					isOpen={isOpen}
+					onClose={() => setIsOpen(false)}
+					content={() => <PopupContent setPosition={setPlacement} placement={placement} />}
+					trigger={(triggerProps) => (
+						<Button id="popup-trigger" {...triggerProps} onClick={() => setIsOpen(!isOpen)}>
+							{isOpen ? 'Close' : 'Open'} Popup
+						</Button>
+					)}
+					placement={placement}
+				/>
+			</div>
+		</Fragment>
 	);
 };
 

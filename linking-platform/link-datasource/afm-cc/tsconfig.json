@@ -76,6 +76,9 @@
             "path": "../../../jql/jql-editor-autocomplete-rest/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/layering/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../link-client-extension/afm-cc/tsconfig.json"
         },
         {

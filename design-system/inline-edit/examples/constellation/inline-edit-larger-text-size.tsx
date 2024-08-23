@@ -34,7 +34,7 @@ const readViewContainerStyles = xcss({
 	minHeight: `${(gridSize * 2.5) / fontSize}em`,
 	paddingBlock: 'space.100',
 	paddingInline: 'space.075',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-latest-xcss-syntax-typography -- Ignored via go/DSP-18766
 	lineHeight: (gridSize * 2.5) / fontSize,
 	wordBreak: 'break-word',
 });
@@ -52,18 +52,21 @@ const textFieldStyles = css({
 });
 
 const InlineEditExample = () => {
-	const [editValue, setEditValue] = useState('');
+	const initialValue = 'Enter text';
+	const [editValue, setEditValue] = useState('Default value');
 
 	return (
 		<Box xcss={wrapperStyles}>
 			<InlineEdit
 				defaultValue={editValue}
+				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => (
+					// eslint-disable-next-line jsx-a11y/no-autofocus, @atlaskit/design-system/no-unsafe-style-overrides
 					<Textfield {...fieldProps} autoFocus css={textFieldStyles} />
 				)}
 				readView={() => (
 					<Box xcss={readViewContainerStyles} testId="read-view">
-						{editValue || 'Click to enter text'}
+						{editValue || initialValue}
 					</Box>
 				)}
 				onConfirm={(value) => {

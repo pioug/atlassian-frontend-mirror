@@ -352,3 +352,29 @@ export const shouldSplitSelectedNodeOnNodeInsertion = ({
 	}
 	return false;
 };
+
+/**
+ * Check if the current selection contains any nodes that are not permitted
+ * as codeBlock child nodes. Note that this allows paragraphs and inline nodes
+ * as we extract their text content.
+ */
+export function contentAllowedInCodeBlock(state: EditorState): boolean {
+	const { $from, $to } = state.selection;
+	let isAllowedChild = true;
+	state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+		if (!isAllowedChild) {
+			return false;
+		}
+
+		return (isAllowedChild =
+			node.type === state.schema.nodes.listItem ||
+			node.type === state.schema.nodes.bulletList ||
+			node.type === state.schema.nodes.orderedList ||
+			node.type === state.schema.nodes.paragraph ||
+			node.isInline ||
+			node.type === state.schema.nodes.panel ||
+			node.isText);
+	});
+
+	return isAllowedChild;
+}

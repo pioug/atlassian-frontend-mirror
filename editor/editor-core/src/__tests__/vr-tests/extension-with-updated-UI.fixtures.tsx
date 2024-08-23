@@ -16,7 +16,7 @@ import {
 	blockExtensionWithLayoutElement,
 	blockExtensionWithParagraphAboveNodeAdf,
 	blockExtensionWithSmartLinkAdf,
-	bodiedExtensionWithLayoutElement,
+	bodiedExtensionWithLayoutElementAdf,
 	bodiedExtensionWithParagraphAboveNodeAdf,
 	bodiedExtensionWithSmartLinkAdf,
 	inlineExtensionCenterAlignedAdf,
@@ -141,7 +141,7 @@ export function BodiedExtensionWithLayout() {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor
-			defaultValue={bodiedExtensionWithLayoutElement}
+			defaultValue={bodiedExtensionWithLayoutElementAdf}
 			preset={preset}
 			appearance="full-page"
 		/>

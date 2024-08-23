@@ -9,7 +9,6 @@ import type { ProviderFactory } from '../provider-factory';
 import type { SafePlugin } from '../safe-plugin';
 import type { ErrorReporter } from '../utils';
 
-import type { EditorReactContext } from './editor-react-context';
 import type { FeatureFlags } from './feature-flags';
 
 export type PMPluginFactoryParams = {
@@ -19,7 +18,6 @@ export type PMPluginFactoryParams = {
 	providerFactory: ProviderFactory;
 	errorReporter?: ErrorReporter;
 	portalProviderAPI: PortalProviderAPI;
-	reactContext: () => EditorReactContext;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	featureFlags: FeatureFlags;
 	getIntl: () => IntlShape;

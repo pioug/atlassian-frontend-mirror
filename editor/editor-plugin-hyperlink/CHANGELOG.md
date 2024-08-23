@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 2.9.0
+
+### Minor Changes
+
+- [#132800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132800)
+  [`7868d12fa96a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7868d12fa96a1) -
+  EDM-9074 Remove platform.linking-platform.prevent-suspicious-linkification feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.6
 
 ### Patch Changes

@@ -80,7 +80,12 @@ export interface RovoAgentProfileCardInfo extends RovoAgent {
 }
 export interface ProfileCardClientData {
 	isBot: boolean;
-	isCurrentUser: boolean;
+	/**
+	 * Mark it as optional as part of the migration from cloud user to AGG user
+	 * This field will be calculated based on the user id and the principal user id props
+	 * This will be removed once the migration is complete
+	 */
+	isCurrentUser?: boolean;
 	avatarUrl?: string;
 	email?: string;
 	fullName?: string;
@@ -492,7 +497,15 @@ export type TeamProfileCardErrorType = {
 } | null;
 
 export interface ProfileClientOptions {
-	url: string;
+	/**
+	 * pf-directory url
+	 * When we clean up CloudUser migration FF, we should remove this prop
+	 */
+	url?: string;
+	/**
+	 * AGG url
+	 * When we clean up CloudUser migration FF, we should mark this prop as required
+	 */
 	gatewayGraphqlUrl?: string;
 	cacheSize?: number;
 	cacheMaxAge?: number;
@@ -515,4 +528,26 @@ export interface ClientOverrides {
 /** This interface represents the data that is prepopulated in the profile card. **/
 export interface PrepopulatedData {
 	fullName?: string;
+}
+
+export type TeamsUserQueryResponse = {
+	id: string;
+	name: string;
+	picture: string;
+	accountStatus: StatusType;
+	__typename: 'AppUser' | string;
+	email?: string;
+	nickname?: string;
+	zoneinfo?: string;
+	extendedProfile?: {
+		jobTitle?: string;
+		organization?: string;
+		location?: string;
+		closedDate?: number;
+		inactiveDate?: number;
+	};
+};
+
+export interface UserInSiteUserbase {
+	isPresent: boolean;
 }

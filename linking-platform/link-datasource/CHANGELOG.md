@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 2.11.6
+
+### Patch Changes
+
+- [#130683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130683)
+  [`c61bb13127c88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c61bb13127c88) -
+  Add datasource table inline edit 403 error message behind feature flag
+- [#132566](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132566)
+  [`3e30b62782282`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e30b62782282) -
+  Fix datasource modal close on pressing escape (ESC) from inline edit behind feature flag
+
+## 2.11.5
+
+### Patch Changes
+
+- [`2206c4285ada1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2206c4285ada1) -
+  Fixes bug in Confluence datasource modal found behind ff.
+
 ## 2.11.4
 
 ### Patch Changes

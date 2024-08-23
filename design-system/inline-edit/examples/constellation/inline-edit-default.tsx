@@ -45,17 +45,19 @@ const readViewContainerStyles = xcss({
 });
 
 const InlineEditDefaultExample = () => {
-	const [editValue, setEditValue] = useState('');
+	const initialValue = 'Default team name value';
+	const [editValue, setEditValue] = useState('Pyxis');
 
 	return (
 		<Box xcss={containerStyles}>
 			<InlineEdit
 				defaultValue={editValue}
 				label="Team name"
+				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
 				readView={() => (
 					<Box xcss={readViewContainerStyles} testId="read-view">
-						{editValue || 'Enter your team name'}
+						{editValue || initialValue}
 					</Box>
 				)}
 				onConfirm={(value) => setEditValue(value)}

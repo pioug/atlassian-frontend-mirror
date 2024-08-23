@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RangeProps
  *
- * @codegen <<SignedSource::29369b32657e6c81309ff665daa656d6>>
+ * @codegen <<SignedSource::b8d42e64b587e4e3daad0988c1fe339e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::fe3a73ec4482a0c291418670ef7939ae>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::47b47ae1505ae1df985d952d77e858e8>>
  */
 import React from 'react';
 import PlatformRange from '@atlaskit/range';
@@ -16,5 +16,5 @@ type PlatformRangeProps = React.ComponentProps<typeof PlatformRange>;
 export type RangeProps = Pick<
   PlatformRangeProps,
   'defaultValue' | 'max' | 'min' | 'step' | 'testId' | 'onChange'
- | 'id' | 'isDisabled' | 'onBlur' | 'onFocus' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
+ | 'id' | 'isDisabled' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
 > & Pick<EventHandlerProps, 'onBlur' | 'onFocus'>;

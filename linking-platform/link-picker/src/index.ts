@@ -9,6 +9,7 @@ export type {
 	LinkSearchListItemData,
 	LinkPickerPluginErrorFallback,
 	LinkPickerPluginEmptyStateNoResults,
+	LinkPickerUiOptions,
 } from './common/types';
 export { UnauthenticatedError } from './common/utils/errors';
 export { LoaderFallback } from './ui/loader-fallback';

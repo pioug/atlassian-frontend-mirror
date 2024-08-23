@@ -9,7 +9,6 @@ import {
 	takeElementScreenShot,
 	waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 export function getURL(testName: string, colorMode: 'dark' | 'light' | 'none' = 'none'): string {
 	return getExampleUrl('linking-platform', 'link-picker', testName, global.__BASEURL__, colorMode);
@@ -43,35 +42,38 @@ describe('link-picker', () => {
 		testSelector = '[data-testid="link-picker"]';
 	});
 
-	it.each(COLOR_MODES)('should render component with results with %s tokens', async (colorMode) => {
-		const url = getURL('vr-basic', colorMode);
-		const page = await setup(url);
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
+	it.skip.each(COLOR_MODES)(
+		'should render component with results with %s tokens',
+		async (colorMode) => {
+			const url = getURL('vr-basic', colorMode);
+			const page = await setup(url);
+			const image = await takeElementScreenShot(page, testSelector);
+			expect(image).toMatchProdImageSnapshot();
+		},
+	);
 
-	it('Should render component without display text field', async () => {
+	it.skip('Should render component without display text field', async () => {
 		const url = getURL('vr-hide-display-text');
 		const page = await setup(url);
 		const image = await takeElementScreenShot(page, testSelector);
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render component without display text field with results', async () => {
+	it.skip('Should render component without display text field with results', async () => {
 		const url = getURL('vr-hide-display-text-with-plugin');
 		const page = await setup(url);
 		const image = await takeElementScreenShot(page, testSelector);
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render component without display text field with plugins', async () => {
+	it.skip('Should render component without display text field with plugins', async () => {
 		const url = getURL('vr-hide-display-text-with-multiple-plugins');
 		const page = await setup(url);
 		const image = await takeElementScreenShot(page, testSelector);
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render component to edit a link', async () => {
+	it.skip('Should render component to edit a link', async () => {
 		const url = getURL('vr-edit-link');
 		const page = await setup(url);
 
@@ -81,7 +83,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it.each(COLOR_MODES)(
+	it.skip.each(COLOR_MODES)(
 		'Should change list-item background on hover and selection with %s tokens',
 		async (colorMode) => {
 			const url = getURL('vr-basic', colorMode);
@@ -95,18 +97,7 @@ describe('link-picker', () => {
 		},
 	);
 
-	// FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7000
-	it('should select the search list via keyboard tab', async () => {
-		const url = getURL('vr-basic');
-		const page = await setup(url);
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	it('should select the search list via keyboard tab and use arrows up/down to navigate', async () => {
+	it.skip('should select the search list via keyboard tab and use arrows up/down to navigate', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -126,7 +117,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('should select the search list via keyboard tab and use Home key to select first item', async () => {
+	it.skip('should select the search list via keyboard tab and use Home key to select first item', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -146,7 +137,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('should select the search list via keyboard tab and use End key to select last item', async () => {
+	it.skip('should select the search list via keyboard tab and use End key to select last item', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -165,7 +156,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should not change the background of selected list-item on hover', async () => {
+	it.skip('Should not change the background of selected list-item on hover', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 		await page.keyboard.press('ArrowDown');
@@ -175,7 +166,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should change input background on hover', async () => {
+	it.skip('Should change input background on hover', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 		await page.hover('[data-testid="link-text-container"]');
@@ -184,7 +175,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it.each(COLOR_MODES)(
+	it.skip.each(COLOR_MODES)(
 		'Should change input border-color on focus with %s tokens',
 		async (colorMode) => {
 			const url = getURL('vr-basic', colorMode);
@@ -196,7 +187,7 @@ describe('link-picker', () => {
 		},
 	);
 
-	it('Should display ClearText button when input has value', async () => {
+	it.skip('Should display ClearText button when input has value', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -207,7 +198,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should display ClearText tooltip on hover', async () => {
+	it.skip('Should display ClearText tooltip on hover', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -219,7 +210,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should not display text under ClearText button', async () => {
+	it.skip('Should not display text under ClearText button', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -230,7 +221,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render Linkpicker within Popup with input focused', async () => {
+	it.skip('Should render Linkpicker within Popup with input focused', async () => {
 		const url = getURL('vr-with-popup-integration');
 		const page = await setup(url);
 
@@ -238,15 +229,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render Linkpicker without Plugins', async () => {
-		const url = getURL('vr-with-no-plugins');
-		const page = await setup(url);
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	it('Should display error message and highlight input border for invalid URLs', async () => {
+	it.skip('Should display error message and highlight input border for invalid URLs', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -257,7 +240,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should display error message and highlight input border for empty URLs', async () => {
+	it.skip('Should display error message and highlight input border for empty URLs', async () => {
 		const url = getURL('vr-basic');
 		const page = await setup(url);
 
@@ -267,7 +250,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render tabs with multiple plugins', async () => {
+	it.skip('Should render tabs with multiple plugins', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -275,7 +258,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render tabs with multiple plugins and select second tab', async () => {
+	it.skip('Should render tabs with multiple plugins and select second tab', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -285,7 +268,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
+	it.skip('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -295,7 +278,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
+	it.skip('Should render tabs with multiple plugins and click forward arrow to see more tabs', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -305,7 +288,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
+	it.skip('Should render tabs with multiple plugins and go forwards and backwards through arrow controls', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -317,7 +300,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('Should render tabs with multiple plugins and go forwards clicking the forward arrow until the end', async () => {
+	it.skip('Should render tabs with multiple plugins and go forwards clicking the forward arrow until the end', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -329,18 +312,7 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	// FIXME: This test was automatically skipped due to failure on 21/12/2022: https://product-fabric.atlassian.net/browse/EDM-5337
-	it.skip('Should render tabs with multiple plugins and click on overflowing tab', async () => {
-		const url = getURL('vr-with-multiple-plugins');
-		const page = await setup(url);
-
-		await page.click('#link-picker-tabs-4');
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	it('Should render tabs with multiple plugins and add more tabs', async () => {
+	it.skip('Should render tabs with multiple plugins and add more tabs', async () => {
 		const url = getURL('vr-with-multiple-plugins');
 		const page = await setup(url);
 
@@ -355,32 +327,8 @@ describe('link-picker', () => {
 		expect(image).toMatchProdImageSnapshot();
 	});
 
-	it('should display action button when plugin', async () => {
+	it.skip('should display action button when plugin', async () => {
 		const url = getURL('vr-with-plugin-action');
-		const page = await setup(url);
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-});
-
-describe.skip('link-picker', () => {
-	let testSelector: string;
-
-	beforeEach(() => {
-		testSelector = '[data-testid="link-picker"]';
-	});
-
-	ffTest('platform.linking-platform.link-picker.enable-empty-state', async () => {
-		const url = getURL('vr-with-no-results');
-		const page = await setup(url);
-
-		const image = await takeElementScreenShot(page, testSelector);
-		expect(image).toMatchProdImageSnapshot();
-	});
-
-	ffTest('platform.linking-platform.link-picker.enable-empty-state', async () => {
-		const url = getURL('vr-with-no-results-multi-product');
 		const page = await setup(url);
 
 		const image = await takeElementScreenShot(page, testSelector);

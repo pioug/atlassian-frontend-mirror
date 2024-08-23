@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 13.7.0
+
+### Minor Changes
+
+- [#132894](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132894)
+  [`83b955d2f3259`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83b955d2f3259) -
+  [ux] update button label to improve accessibility
+
 ## 13.6.2
 
 ### Patch Changes

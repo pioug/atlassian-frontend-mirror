@@ -12,6 +12,7 @@ import {
 	BodiedExtension,
 	BodiedExtensionWithLayout,
 	BodiedExtensionWithSmartLink,
+	HeadingWithInlineExtension,
 	InlineExtension,
 	InlineExtensionCenterAligned,
 	InlineExtensionRightAligned,
@@ -25,7 +26,7 @@ snapshotInformational(BlockExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.click();
@@ -39,7 +40,7 @@ snapshotInformational(BlockExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.click();
@@ -54,7 +55,7 @@ snapshotInformational(BlockExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.hover();
@@ -66,7 +67,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.click();
@@ -80,7 +81,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.click();
@@ -95,7 +96,7 @@ snapshotInformational(InlineExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.click();
@@ -109,7 +110,7 @@ snapshotInformational(InlineExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.click();
@@ -124,7 +125,7 @@ snapshotInformational(InlineExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.hover();
@@ -136,7 +137,7 @@ snapshotInformational(InlineExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.click();
@@ -150,7 +151,7 @@ snapshotInformational(InlineExtensionCenterAligned, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.click();
@@ -164,7 +165,21 @@ snapshotInformational(InlineExtensionRightAligned, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
+		const editor = await EditorPageModel.from({ page });
+		const nodes = EditorNodeContainerModel.from(editor);
+		await nodes.inlineExtension.click();
+		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
+		await toolbarModel.waitForStable();
+	},
+});
+
+snapshotInformational(HeadingWithInlineExtension, {
+	description: 'Extension label showing proper styles inline with a heading',
+	selector: {
+		byTestId: CONTENT_AREA_TEST_ID,
+	},
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.inlineExtension.click();
@@ -178,7 +193,7 @@ snapshotInformational(BodiedExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.click();
@@ -192,7 +207,7 @@ snapshotInformational(BodiedExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.click();
@@ -207,7 +222,7 @@ snapshotInformational(BodiedExtension, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.hover();
@@ -219,7 +234,7 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.click();
@@ -233,7 +248,7 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.click();
@@ -248,7 +263,7 @@ snapshotInformational(BodiedExtensionWithLayout, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.bodiedExtension.click();
@@ -262,7 +277,7 @@ snapshotInformational(BlockExtensionWithLayout, {
 	selector: {
 		byTestId: CONTENT_AREA_TEST_ID,
 	},
-	prepare: async (page, component) => {
+	prepare: async (page) => {
 		const editor = await EditorPageModel.from({ page });
 		const nodes = EditorNodeContainerModel.from(editor);
 		await nodes.extension.click();

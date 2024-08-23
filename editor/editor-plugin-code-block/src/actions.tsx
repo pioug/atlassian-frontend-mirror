@@ -13,7 +13,10 @@ import {
 	isCodeBlockWordWrapEnabled,
 } from '@atlaskit/editor-common/code-block';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
+import {
+	contentAllowedInCodeBlock,
+	shouldSplitSelectedNodeOnNodeInsertion,
+} from '@atlaskit/editor-common/insert';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -206,32 +209,6 @@ export function createInsertCodeBlockTransaction({ state }: { state: EditorState
 	}
 
 	return tr;
-}
-
-/**
- * Check if the current selection contains any nodes that are not permitted
- * as codeBlock child nodes. Note that this allows paragraphs and inline nodes
- * as we extract their text content.
- */
-function contentAllowedInCodeBlock(state: EditorState): boolean {
-	const { $from, $to } = state.selection;
-	let isAllowedChild = true;
-	state.doc.nodesBetween($from.pos, $to.pos, (node) => {
-		if (!isAllowedChild) {
-			return false;
-		}
-
-		return (isAllowedChild =
-			node.type === state.schema.nodes.listItem ||
-			node.type === state.schema.nodes.bulletList ||
-			node.type === state.schema.nodes.orderedList ||
-			node.type === state.schema.nodes.paragraph ||
-			node.isInline ||
-			node.type === state.schema.nodes.panel ||
-			node.isText);
-	});
-
-	return isAllowedChild;
 }
 
 export function insertCodeBlockWithAnalytics(

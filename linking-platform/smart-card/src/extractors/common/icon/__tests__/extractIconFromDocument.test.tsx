@@ -69,6 +69,7 @@ describe('extractors.icon.document', () => {
 			provider: { icon: TEST_URL, text: 'favicon' },
 			priority: 'provider',
 		});
-		expect(icon).toBe(TEST_URL);
+		render(withIntl(icon));
+		expect(await screen.findByTestId('document-file-format-icon')).toBeVisible();
 	});
 });

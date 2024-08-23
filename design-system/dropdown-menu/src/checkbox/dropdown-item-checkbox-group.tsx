@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { useUID } from 'react-uid';
-
+import { useId } from '@atlaskit/ds-lib/react-uid';
 import type { SectionProps } from '@atlaskit/menu';
 import Section from '@atlaskit/menu/section';
 
@@ -33,7 +32,7 @@ const DropdownItemCheckboxGroup = ({
 	// DSP-13312 TODO: remove spread props in future major release
 	...rest
 }: DropdownItemCheckboxGroupProps) => {
-	const uid = useUID();
+	const uid = useId();
 	const titleId = `dropdown-menu-item-checkbox-group-title-${uid}`;
 
 	return (

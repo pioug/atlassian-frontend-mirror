@@ -38,9 +38,11 @@ export type CorePlugin = NextEditorPlugin<
 			 * Calls the focus method of the `EditorView` and scrolls the
 			 * current selection into view.
 			 *
+			 * @param options
+			 * @param options.scrollIntoView (boolean) if the view should also scroll when focusing. True by default
 			 * @returns (boolean) if the focus was successful
 			 */
-			focus: () => boolean;
+			focus: (options?: { scrollIntoView: boolean }) => boolean;
 			/**
 			 * Blurs the editor.
 			 *

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.14.2
+
+### Patch Changes
+
+- [#132735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132735)
+  [`aeedd1a35ba9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aeedd1a35ba9f) -
+  [ED-23805] Cleanup FF platform.editor.no-telecursors-for-viewmode-users_hok8o
+- Updated dependencies
+
 ## 1.14.1
 
 ### Patch Changes

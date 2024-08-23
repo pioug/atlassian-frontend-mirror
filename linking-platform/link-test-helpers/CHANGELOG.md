@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 7.5.0
+
+### Minor Changes
+
+- [#132782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132782)
+  [`1b37050a2f07e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b37050a2f07e) -
+  Fix inline edit inside datasource table replace entire node
+
 ## 7.4.0
 
 ### Minor Changes

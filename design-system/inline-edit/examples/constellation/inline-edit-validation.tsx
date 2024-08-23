@@ -50,7 +50,8 @@ const readViewContainerStyles = xcss({
 });
 
 const InlineEditValidationExample = () => {
-	const [editValue, setEditValue] = useState('');
+	const initialValue = 'Initial description value';
+	const [editValue, setEditValue] = useState('Default description value');
 
 	let validateValue = '';
 	let validateTimeoutId: number | undefined;
@@ -95,6 +96,7 @@ const InlineEditValidationExample = () => {
 			<InlineEdit
 				defaultValue={editValue}
 				label="Description"
+				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => (
 					<InlineDialog
 						isOpen={fieldProps.isInvalid}
@@ -117,7 +119,7 @@ const InlineEditValidationExample = () => {
 				)}
 				readView={() => (
 					<Box xcss={readViewContainerStyles} testId="read-view">
-						{editValue || 'Add a description'}
+						{editValue}
 					</Box>
 				)}
 				onConfirm={(value) => setEditValue(value)}

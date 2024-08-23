@@ -5,12 +5,12 @@
 import { forwardRef, Fragment, type KeyboardEvent, useCallback, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
-import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type LinkPickerPlugin, type LinkSearchListItemData } from '../../../../common/types';
@@ -69,8 +69,8 @@ export interface LinkSearchListProps
 	activePlugin?: LinkPickerPlugin;
 }
 
-const emptyStateNoResultsWrapper = css({
-	minHeight: token('space.200', '16px'),
+const emptyStateNoResultsWrapper = xcss({
+	minHeight: 'space.200',
 });
 
 export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
@@ -148,20 +148,18 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 
 		if (items?.length === 0) {
 			if (fg('platform.linking-platform.link-picker.enable-empty-state')) {
-				if (hasSearchTerm) {
-					return <NoResults />;
-				} else {
-					return (
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						<div css={emptyStateNoResultsWrapper}>
-							{activePlugin?.emptyStateNoResults ? activePlugin.emptyStateNoResults() : null}
-						</div>
-					);
+				if (!hasSearchTerm) {
+					const emptyState = activePlugin?.emptyStateNoResults?.();
+					if (emptyState) {
+						return <Box xcss={emptyStateNoResultsWrapper}>{emptyState}</Box>;
+					}
 				}
-			} else {
-				return <NoResults />;
 			}
+
+			return <NoResults />;
 		}
+
+		const listItemNameMaxLines = activePlugin?.uiOptions?.listItemNameMaxLines;
 
 		if (items && items.length > 0) {
 			itemsContent = (
@@ -207,6 +205,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 								key={item.objectId}
 								tabIndex={getTabIndex(index)}
 								ref={(el) => itemRefCallback(el, item.objectId)}
+								nameMaxLines={listItemNameMaxLines}
 							/>
 						))}
 					</ul>

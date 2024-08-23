@@ -40,7 +40,8 @@ const readViewContainerStyles = xcss({
 });
 
 const InlineEditStatelessExample = () => {
-	const [editValue, setEditValue] = useState('');
+	const initialValue = 'Initial description value';
+	const [editValue, setEditValue] = useState('Default description value');
 	const [isEditing, setEditing] = useState(true);
 
 	return (
@@ -48,11 +49,12 @@ const InlineEditStatelessExample = () => {
 			<InlineEdit
 				defaultValue={editValue}
 				label="Description"
+				editButtonLabel={editValue || initialValue}
 				isEditing={isEditing}
 				editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
 				readView={() => (
 					<Box xcss={readViewContainerStyles} testId="read-view">
-						{editValue || 'Add a description'}
+						{editValue}
 					</Box>
 				)}
 				onCancel={() => setEditing(false)}

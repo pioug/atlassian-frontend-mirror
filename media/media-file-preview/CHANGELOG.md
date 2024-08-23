@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.8.2
+
+### Patch Changes
+
+- [#132917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132917)
+  [`c940f8ae45182`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c940f8ae45182) -
+  Removed the additional `ssr` parameter to the image endpoint
+
 ## 0.8.1
 
 ### Patch Changes

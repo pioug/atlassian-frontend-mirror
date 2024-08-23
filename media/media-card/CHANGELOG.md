@@ -1,5 +1,16 @@
 # @atlaskit/media-card
 
+## 78.1.1
+
+### Patch Changes
+
+- [#132917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132917)
+  [`c940f8ae45182`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c940f8ae45182) -
+  Include additional attributes in the mediaCardPerfObserver metrics: `contentDownloadTime`,
+  `nextHopProtocol`, `userAgent`
+
+  And remove the `url` attribute.
+
 ## 78.1.0
 
 ### Minor Changes

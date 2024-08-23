@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Grid, xcss } from '@atlaskit/primitives';
 
 import {
 	AgentProfileCreator,
@@ -19,7 +19,7 @@ const wrapperStyles = xcss({
 export default function () {
 	return (
 		<IntlProvider locale="en">
-			<Inline space="space.200">
+			<Grid templateColumns="1fr 1fr 1fr" gap="space.200">
 				<Box xcss={wrapperStyles}>
 					<AgentProfileInfo
 						agentName="Gday Bot Agent"
@@ -125,7 +125,31 @@ export default function () {
 						isHidden={false}
 					/>
 				</Box>
-			</Inline>
+
+				<Box xcss={wrapperStyles}>
+					<AgentProfileInfo
+						agentName="Agent with deactivated creator"
+						isStarred={false}
+						onStarToggle={() => {}}
+						creatorRender={
+							<AgentProfileCreator
+								creator={{
+									type: 'CUSTOMER',
+									name: 'Creator Name',
+									status: 'inactive',
+									profileLink: 'https://example.com',
+								}}
+								isLoading={false}
+								onCreatorLinkClick={() => {
+									console.log('Creator link clicked');
+								}}
+							/>
+						}
+						starCountRender={<AgentStarCount starCount={undefined} isLoading={false} />}
+						isHidden={false}
+					/>
+				</Box>
+			</Grid>
 		</IntlProvider>
 	);
 }

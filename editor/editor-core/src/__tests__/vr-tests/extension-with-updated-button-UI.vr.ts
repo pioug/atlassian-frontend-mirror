@@ -5,6 +5,7 @@ import {
 	BlockExtensionWithSmartLink,
 	BodiedExtension,
 	BodiedExtensionWithSmartLink,
+	HeadingWithInlineExtension,
 	InlineExtension,
 	InlineExtensionCenterAligned,
 	InlineExtensionRightAligned,
@@ -25,3 +26,4 @@ snapshot(InlineExtensionRightAligned);
 snapshot(InlineExtensionWithSmartLink, {
 	featureFlags: { 'linking-platform-increase-inline-card-icon-size': [true, false] },
 });
+snapshot(HeadingWithInlineExtension);

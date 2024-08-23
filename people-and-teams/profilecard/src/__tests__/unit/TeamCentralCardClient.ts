@@ -1,7 +1,6 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import ProfileCardClient from '../../client/ProfileCardClient';
 import TeamCentralCardClient from '../../client/TeamCentralCardClient';
@@ -27,8 +26,6 @@ jest.mock('@atlaskit/atlassian-context', () => ({
 	...jest.requireActual('@atlaskit/atlassian-context'),
 	isFedRamp: jest.fn(),
 }));
-
-jest.mock('@atlaskit/platform-feature-flags');
 
 function mockReportingLines(promise: Promise<string>) {
 	fetchMock.post(EXAMPLE_TEAM_CENTRAL_REPORTING_LINES_URL, () => promise, {
@@ -187,7 +184,6 @@ describe('TeamCentralCardClient', () => {
 	});
 
 	it('workspace should not be called if fedramp', () => {
-		(getBooleanFF as jest.Mock).mockReturnValue(true);
 		mockIsFedRamp.mockReturnValue(true);
 
 		initProfileCardClient(hasWorkspaceCloudId);
@@ -195,7 +191,6 @@ describe('TeamCentralCardClient', () => {
 	});
 
 	it('workspace should be called if not fedramp', () => {
-		(getBooleanFF as jest.Mock).mockReturnValue(true);
 		mockIsFedRamp.mockReturnValue(false);
 
 		initProfileCardClient(hasWorkspaceCloudId);

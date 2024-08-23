@@ -162,9 +162,8 @@ const updatePackageJsonWithADSComponentDependencies = (componentOutputDir: strin
 		}, {});
 
 	packageJson.dependencies = updatedDependencies;
-	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, '\t'));
+	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, '\t') + '\n');
 };
-
 /**
  * This copies types file from the types file in UIKit
  * to __generated__ folder.

@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 1.3.0
+
+### Minor Changes
+
+- [#132259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132259)
+  [`f5e633e11af26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5e633e11af26) -
+  [ux] Expose the context panel state from the context panel plugin. Simplify and consolidate the
+  context panel logic such that it always opens in the same manner. Previously there was a small
+  number of cases in which the context panel overlaps.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.1
 
 ### Patch Changes

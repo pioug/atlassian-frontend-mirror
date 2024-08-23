@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.8.0
+
+### Minor Changes
+
+- [#133191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133191)
+  [`78a1927084934`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78a1927084934) -
+  [ux] Remove icon migration feature gate and migrate new icons on primary toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

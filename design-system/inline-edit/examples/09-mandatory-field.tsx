@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import { InlineEditableTextfield } from '../src';
 
 const InlineEditExample = () => {
+	const initialValue = 'Enter text';
 	const [editValue, setEditValue] = useState('Field value');
 
 	return (
-		<div
-			style={{
-				padding: `${token('space.100', '8px')} ${token(
-					'space.100',
-					'8px',
-				)} ${token('space.600', '48px')}`,
-			}}
-		>
+		<Box paddingInlineStart="space.100" paddingInlineEnd="space.600">
 			<InlineEditableTextfield
 				testId="editable-text-field"
 				defaultValue={editValue}
 				label="Inline editable textfield"
+				editButtonLabel={editValue || initialValue}
 				onConfirm={(value) => setEditValue(value)}
-				placeholder="Click to enter text"
+				placeholder={initialValue}
 				isRequired
 			/>
-		</div>
+		</Box>
 	);
 };
 export default InlineEditExample;

@@ -50,7 +50,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/link-test-helpers": "^7.4.0",
+		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/media-test-helpers": "^34.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",

@@ -16,9 +16,10 @@ import {
 	blockExtensionWithLayoutElement,
 	blockExtensionWithParagraphAboveNodeAdf,
 	blockExtensionWithSmartLinkAdf,
-	bodiedExtensionWithLayoutElement,
+	bodiedExtensionWithLayoutElementAdf,
 	bodiedExtensionWithParagraphAboveNodeAdf,
 	bodiedExtensionWithSmartLinkAdf,
+	headingWithInlineExtensionAdf,
 	inlineExtensionCenterAlignedAdf,
 	inlineExtensionRightAlignedAdf,
 	inlineExtensionWithParagraphAboveAdf,
@@ -137,11 +138,24 @@ export function InlineExtensionWithSmartLink() {
 	);
 }
 
+export function HeadingWithInlineExtension() {
+	const { preset } = usePreset(createPreset);
+	return (
+		<SmartCardProvider client={cardClient}>
+			<ComposableEditor
+				defaultValue={headingWithInlineExtensionAdf}
+				preset={preset}
+				appearance="full-page"
+			/>
+		</SmartCardProvider>
+	);
+}
+
 export function BodiedExtensionWithLayout() {
 	const { preset } = usePreset(createPreset);
 	return (
 		<ComposableEditor
-			defaultValue={bodiedExtensionWithLayoutElement}
+			defaultValue={bodiedExtensionWithLayoutElementAdf}
 			preset={preset}
 			appearance="full-page"
 		/>

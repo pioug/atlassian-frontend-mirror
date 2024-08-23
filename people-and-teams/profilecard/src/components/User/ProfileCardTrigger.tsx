@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl-next';
 
 import { type AnalyticsEventPayload, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
@@ -41,6 +42,7 @@ export default function ProfilecardTriggerNext({
 	disabledAriaAttributes,
 	onVisibilityChange,
 	offset,
+	viewingUserId,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -289,7 +291,9 @@ export default function ProfilecardTriggerNext({
 	const profilecardProps: ProfilecardProps = {
 		userId: userId,
 		fullName: prepopulatedData?.fullName,
-		isCurrentUser: data?.isCurrentUser,
+		isCurrentUser: fg('migrate_cloud_user_to_agg_user_query')
+			? userId === viewingUserId
+			: data?.isCurrentUser,
 		clientFetchProfile: clientFetchProfile,
 		...data,
 		reportingLines: reportingLinesData,

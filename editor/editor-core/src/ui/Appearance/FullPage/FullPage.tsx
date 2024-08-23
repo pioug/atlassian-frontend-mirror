@@ -128,6 +128,7 @@ export const FullPageEditor = (props: ComponentProps) => {
 					/>
 				)}
 				<FullPageContentArea
+					editorAPI={editorAPI}
 					ref={scrollContentContainerRef}
 					appearance={props.appearance}
 					contentComponents={props.contentComponents}

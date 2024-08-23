@@ -15,11 +15,11 @@ import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import { ProgressIndicator } from '../src';
 
 type Appearances = 'default' | 'help' | 'inverted' | 'primary';
-type Sizes = 'small' | 'default' | 'large';
+type Sizes = 'default' | 'large';
 type Spacing = 'comfortable' | 'cozy' | 'compact';
 
 const appearances: Appearances[] = ['default', 'primary', 'help', 'inverted'];
-const sizes: Sizes[] = ['small', 'default', 'large'];
+const sizes: Sizes[] = ['default', 'large'];
 const spacing: Spacing[] = ['comfortable', 'cozy', 'compact'];
 const values = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'];
 

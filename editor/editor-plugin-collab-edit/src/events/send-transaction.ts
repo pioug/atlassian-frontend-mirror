@@ -1,6 +1,5 @@
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getSendableSelection } from '../actions';
 import { pluginKey } from '../pm-plugins/main/plugin-key';
@@ -52,11 +51,8 @@ export const sendTransaction =
 
 		if (
 			sessionId &&
-			(getBooleanFF('platform.editor.no-telecursors-for-viewmode-users_hok8o')
-				? viewMode === 'edit' &&
-					((selectionChanged && !docChangedTransaction) || participantsChanged)
-				: (sessionId && selectionChanged && !docChangedTransaction) ||
-					(sessionId && participantsChanged))
+			viewMode === 'edit' &&
+			((selectionChanged && !docChangedTransaction) || participantsChanged)
 		) {
 			const selection = getSendableSelection(newEditorState.selection);
 			const message: CollabTelepointerPayload = {

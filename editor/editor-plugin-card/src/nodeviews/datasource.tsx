@@ -292,6 +292,31 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 		return domRef;
 	}
 
+	/**
+	 * Node views may render interactive elements that should not have their events reach editor
+	 *
+	 * We should the stop editor from handling events from following elements:
+	 * - typing in input
+	 * - activating buttons via spacebar
+	 *
+	 * Can be used to prevent the editor view from trying to handle some or all DOM events that bubble up from the node view.
+	 * Events for which this returns true are not handled by the editor.
+	 * @see {@link https://prosemirror.net/docs/ref/#view.NodeView.stopEvent}
+	 */
+	stopEvent(event: Event) {
+		if (fg('platform-datasources-enable-two-way-sync')) {
+			const isFormElement = [HTMLButtonElement, HTMLInputElement].some(
+				(element) => event.target instanceof element,
+			);
+
+			if (isFormElement) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	render() {
 		const { attrs } = this.node;
 

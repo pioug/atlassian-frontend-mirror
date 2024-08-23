@@ -234,6 +234,7 @@ describe('extractState', () => {
 					isSupportTheming: true,
 					linkIcon: {
 						url: 'https://icon-url',
+						label: 'Flexible UI Task',
 					},
 					providerName: 'Jira',
 					src: 'https://jira-url/browse/id',

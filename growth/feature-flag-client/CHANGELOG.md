@@ -1,5 +1,13 @@
 # @atlaskit/feature-flag-client
 
+## 5.6.0
+
+### Minor Changes
+
+- [#130824](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/130824)
+  [`25171e868b831`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25171e868b831) -
+  Tokenize growth (https://product-fabric.atlassian.net/browse/PYX-881)
+
 ## 5.5.1
 
 ### Patch Changes

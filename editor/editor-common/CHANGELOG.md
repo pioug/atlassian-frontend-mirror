@@ -1,5 +1,46 @@
 # @atlaskit/editor-common
 
+## 88.1.0
+
+### Minor Changes
+
+- [`193f8c85e1a39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/193f8c85e1a39) -
+  [ux] [ED-24635]
+
+  - Disable Turn into dropdown options when wrapping is not supported
+  - Update expand icon so that it can show disabled status
+  - Update Turn into icon to show active status when dropdown is open
+
+- [#132259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132259)
+  [`f5e633e11af26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5e633e11af26) -
+  Expose options for the core plugin so that you can opt out of scrolling within the editor after
+  using the "focus" action.
+- [#132800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132800)
+  [`7868d12fa96a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7868d12fa96a1) -
+  EDM-9074 Remove platform.linking-platform.prevent-suspicious-linkification feature flag
+
+### Patch Changes
+
+- [#133191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133191)
+  [`78a1927084934`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78a1927084934) -
+  [ux] Remove icon migration feature gate and migrate new icons on primary toolbar
+
+## 88.0.0
+
+### Major Changes
+
+- [#131378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131378)
+  [`04848ee5982e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04848ee5982e0) -
+  Remove `reactContext` from `PMPluginFactoryParams` type. This was an unused property and so
+  shouldn't have any upgrade friction.
+
+### Patch Changes
+
+- [#131548](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/131548)
+  [`1b9034d028442`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b9034d028442) -
+  [ux] Fix extension label button text size and update VR tests
+- Updated dependencies
+
 ## 87.13.3
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B100,
 	B400,
@@ -255,7 +256,9 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 				backgroundColor = token('color.background.selected', N40);
 				color = token('color.text.selected', 'hsl(0, 0%, 20%)');
 			} else {
-				backgroundColor = token('color.background.neutral', N40);
+				backgroundColor = fg('platform-component-visual-refresh')
+					? token('color.background.neutral.subtle.hovered')
+					: token('color.background.neutral', N40);
 				color = token('color.text', 'hsl(0, 0%, 20%)');
 			}
 
@@ -274,6 +277,14 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 					border: isFocused ? '1px solid transparent' : 'none',
 				},
 				color,
+				...(fg('platform-component-visual-refresh') && {
+					borderRadius: token('border.radius.100'),
+					// Hardcode this color for visual refresh as there is no token color yet
+					borderColor: '#B7B9BE',
+					borderWidth: token('border.width'),
+					borderStyle: 'solid',
+					backgroundColor: token('color.background.input'),
+				}),
 			};
 		},
 		multiValueLabel: (css, { isDisabled }) => ({
@@ -282,6 +293,12 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 			padding: token('space.025', '2px'),
 			color: isDisabled ? token('color.text.disabled', N70) : 'inherit',
 			paddingRight: token('space.025', '2px'),
+			...(fg('platform-component-visual-refresh') && {
+				font: token('font.body'),
+				paddingTop: 0,
+				paddingBottom: 0,
+				paddingLeft: token('space.050'),
+			}),
 		}),
 		multiValueRemove: (css, { isFocused }) => ({
 			...css,
@@ -300,6 +317,30 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 				backgroundColor: token('color.background.danger.pressed', R75),
 				fill: token('color.text.danger', '#000'),
 			},
+			...(fg('platform-component-visual-refresh') && {
+				backgroundColor: token('color.background.neutral.subtle'),
+				border: 'none',
+				alignItems: 'center',
+				justifyContent: 'center',
+				alignSelf: 'center',
+				appearance: 'none',
+				borderRadius: token('border.radius'),
+				color: token('color.text'),
+				padding: token('space.025'),
+				marginRight: token('space.025'),
+
+				':focus-visible': {
+					outlineOffset: token('space.negative.025'),
+				},
+
+				':hover': {
+					backgroundColor: token('color.background.neutral.subtle.hovered'),
+				},
+
+				':active': {
+					backgroundColor: token('color.background.neutral.subtle.pressed'),
+				},
+			}),
 		}),
 		groupHeading: (css) => ({
 			...css,

@@ -3,9 +3,13 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx, css } from '@emotion/react';
-import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import { css, jsx } from '@emotion/react';
 import { components } from 'react-select';
+
+import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import CrossIcon from '@atlaskit/icon/utility/cross';
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type MultiValueRemoveProps } from '../types';
 
 export { ClearIndicator, DropdownIndicator, LoadingIndicator } from './indicators';
@@ -27,12 +31,17 @@ export const MultiValueRemove = (props: MultiValueRemoveProps<any>) => {
 				css={isDisabled ? disabledStyles : enabledStyles}
 				data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
 			>
-				<SelectClearIcon
-					label="Clear"
-					size="small"
-					primaryColor="transparent"
-					secondaryColor="inherit"
-				/>
+				{fg('platform-component-visual-refresh') ? (
+					// eslint-disable-next-line @atlaskit/design-system/ensure-icon-color
+					<CrossIcon label="Clear" />
+				) : (
+					<SelectClearIcon
+						label="Clear"
+						size="small"
+						primaryColor="transparent"
+						secondaryColor="inherit"
+					/>
+				)}
 			</div>
 		</components.MultiValueRemove>
 	);

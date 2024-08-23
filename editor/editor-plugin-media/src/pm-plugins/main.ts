@@ -817,7 +817,6 @@ export const getMediaPluginState = (state: EditorState) =>
 export const createPlugin = (
 	_schema: Schema,
 	options: MediaPluginOptions,
-	reactContext: () => {},
 	getIntl: () => IntlShape,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	dispatch?: Dispatch,

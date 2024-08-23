@@ -104,7 +104,7 @@ export const useFilePreview = ({
 	};
 
 	if (fg('platform.media-card-performance-observer_lgc7b')) {
-		imageURLParams = { ...imageURLParams, source, ssr };
+		imageURLParams = { ...imageURLParams, source };
 	}
 
 	const previewInitializer = (): MediaFilePreview | undefined => {

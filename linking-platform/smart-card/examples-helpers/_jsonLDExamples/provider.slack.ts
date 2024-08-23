@@ -30,7 +30,7 @@ export const SlackMessage = {
 		},
 		icon: {
 			'@type': 'Image',
-			url: 'https://a.slack-edge.com/80588/marketing/img/meta/favicon-32.png',
+			url: slackLogo,
 		},
 		url: 'https://atlassian.slack.com/archives/C05HTNQG62H/p1692925200195409',
 		name: 'Slack message from Nabin Thapa in #proj-smart-links-better-metadata',

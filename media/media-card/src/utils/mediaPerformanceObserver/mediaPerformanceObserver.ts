@@ -16,10 +16,10 @@ const urlRegex =
 	/https:\/\/(?:media\.(?:dev|staging|prod)\.atl-paas\.net|api\.media\.atlassian\.com)\/file\/([^/]+)\/image.*[?&]source=mediaCard/;
 
 const clientIdParamRegex = /[?&]clientId=([^&]+)/;
-const ssrParamRegex = /[?&]ssr=([^&]+)/;
+const ssrParamRegex = /[?&]token=([^&]+)/;
 
 /**
- * `ExperimentalPerfoamnceResourceTiming` type accounts for the experimental value `firstInterimResponseStart`
+ * `ExperimentalPerformanceResourceTiming` type accounts for the experimental value `firstInterimResponseStart`
  * which is present in Chrome, but not present in FireFox or Safari.
  * Read more: https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/firstInterimResponseStart
  */
@@ -38,7 +38,7 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 			if (matchFileId && window[MEDIA_CARD_PERF_STATE_KEY]?.mediaCardCreateAnalyticsEvent) {
 				const fileId = matchFileId[1];
 				const clientId = matchClientId?.[1];
-				const ssr = matchSSR?.[1];
+				const ssr = matchSSR ? 'server' : undefined;
 				const event = window[MEDIA_CARD_PERF_STATE_KEY].mediaCardCreateAnalyticsEvent({
 					eventType: 'operational',
 					action: 'succeeded',
@@ -47,7 +47,6 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						ssr,
 						fileId: fileId,
 						mediaClientId: clientId,
-						url: entry.name,
 
 						/**
 						 * Performance resource timing data regarding the loading of an
@@ -63,13 +62,21 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						tlsConnectNegotiationTime: entry.requestStart - entry.secureConnectionStart,
 						timeTakenToFetchWithoutRedirect: entry.responseEnd - entry.fetchStart,
 						browserCacheHit: entry.transferSize === 0,
+						nextHopProtocol: entry.nextHopProtocol,
 
 						/**
 						 * `interimRequestTime` represents the entire time the browser took to
 						 * request the resource from the server. This includes the interim response time
-						 * (for example, 100 Continue or 103 Early Hints). Please, note that this value
-						 * is distinctly different from the aforementioned document.
+						 * (for example, 100 Continue or 103 Early Hints).
 						 *
+						 * i.e. It is the time taken for the request to be sent
+						 * + the waiting time for the server to send a response
+						 *
+						 * Please, note that this value
+						 * is distinctly different from the aforementioned document.
+						 */
+						interimRequestTime: entry.responseStart - entry.requestStart,
+						/**
 						 * `requestInvocationTime` represents the actual time the browser took to request
 						 * the resource from the server (i.e. it does not include the interim reponse
 						 * time).
@@ -77,10 +84,20 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						 * available in Chrome, but not in FireFox or Safari. This value will be undefined
 						 * when `firstInterimResponseStart` is unavailable.
 						 */
-						interimRequestTime: entry.responseStart - entry.requestStart,
 						requestInvocationTime: entry.firstInterimResponseStart
 							? entry.firstInterimResponseStart - entry.requestStart
 							: undefined,
+						/**
+						 * `contentDownloadTime` represents the time taken for the browser to receive
+						 * the resource from the server. This may be cut short if the transport
+						 * connection is closed.
+						 */
+						contentDownloadTime: entry.responseEnd - entry.responseStart,
+						/**
+						 * The user agent string for the current browser
+						 * Read more: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/userAgent
+						 */
+						userAgent: window.navigator.userAgent,
 
 						/**
 						 * Performance resource timing data sent by the server. This includes:
@@ -121,7 +138,15 @@ export const setAnalyticsContext = (newAnalyticsContext: CreateUIAnalyticsEvent)
 };
 
 export const startResourceObserver = () => {
-	if (!window[MEDIA_CARD_PERF_STATE_KEY]?.mediaCardPerfObserver) {
-		createAndGetResourceObserver().observe({ type: 'resource', buffered: true });
+	if (window[MEDIA_CARD_PERF_STATE_KEY]?.mediaCardPerfObserver) {
+		return;
 	}
+	if (!window[MEDIA_CARD_PERF_STATE_KEY]) {
+		window[MEDIA_CARD_PERF_STATE_KEY] = {};
+	}
+	window[MEDIA_CARD_PERF_STATE_KEY].mediaCardPerfObserver = createAndGetResourceObserver();
+	window[MEDIA_CARD_PERF_STATE_KEY].mediaCardPerfObserver.observe({
+		type: 'resource',
+		buffered: true,
+	});
 };

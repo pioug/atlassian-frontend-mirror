@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 12.17.3
+
+### Patch Changes
+
+- [#133182](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133182)
+  [`063ecc7968c68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/063ecc7968c68) -
+  We are testing an internal change to use an ID generator compatible with both React 16 and
+  React 18. If these changes are successful, it will be rolled out in a later release.
+
 ## 12.17.2
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { type JsonLd } from 'json-ld-types';
 import JiraPreviewImage from '../../../../../examples/images/forbidden-jira.svg';
 import AvatarImage from '../../../../../examples/images/avatar-1.svg';
-import { iconGoogleDrive } from '../../../../../examples/images';
+import { iconGoogleDrive, iconBitbucket } from '../../../../../examples/images';
 
 export const mockBaseResponse = {
 	meta: {
@@ -281,7 +281,7 @@ export const mockSSRResponse = {
 		url: 'https://some.url',
 		icon: {
 			'@type': 'Image',
-			url: 'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
+			url: iconBitbucket,
 		},
 	},
 };

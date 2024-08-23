@@ -41,7 +41,7 @@ export function createWrapSelectionTransaction({
 
 	return tr;
 }
-function getWrappingOptions(
+export function getWrappingOptions(
 	state: EditorState,
 	type: NodeType,
 	nodeAttributes?: Record<string, any>,

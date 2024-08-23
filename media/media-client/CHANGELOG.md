@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 27.5.0
+
+### Minor Changes
+
+- [#132649](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132649)
+  [`ab55ae1b17d7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab55ae1b17d7d) -
+  add media cdn single host redirect
+
 ## 27.4.0
 
 ### Minor Changes

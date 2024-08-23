@@ -29,7 +29,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				return editorCommandToPMCommand(command)(state, dispatch);
 			},
 			// Code copied from `EditorActions.focus()`
-			focus: () => {
+			focus: (options?: { scrollIntoView: boolean }) => {
 				const editorView = config?.getEditorView();
 
 				if (!editorView || editorView.hasFocus()) {
@@ -37,7 +37,9 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				}
 
 				editorView.focus();
-				editorView.dispatch(editorView.state.tr.scrollIntoView());
+				if (options?.scrollIntoView ?? true) {
+					editorView.dispatch(editorView.state.tr.scrollIntoView());
+				}
 				return true;
 			},
 			// Code copied from `EditorActions.blur()`

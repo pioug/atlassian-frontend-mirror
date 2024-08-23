@@ -1,6 +1,5 @@
 import React from 'react';
 import { type JsonLd } from 'json-ld-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import ProjectIcon from '@atlaskit/icon/glyph/people-group';
 import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
@@ -115,22 +114,6 @@ const extractIconByType = (
 	type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
 	opts: IconOpts,
 ): React.ReactNode | undefined => {
-	if (getBooleanFF('platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour')) {
-		switch (type) {
-			case 'Document':
-			case 'schema:BlogPosting':
-			case 'schema:DigitalDocument':
-			case 'schema:TextDigitalDocument':
-			case 'schema:PresentationDigitalDocument':
-			case 'schema:SpreadsheetDigitalDocument':
-			case 'atlassian:Template':
-			case 'atlassian:UndefinedLink':
-				return extractIconFromDocument(type, opts);
-			default:
-				return standardisedExtractIcon(type, opts);
-		}
-	}
-
 	switch (type) {
 		case 'Document':
 		case 'schema:BlogPosting':
@@ -141,31 +124,7 @@ const extractIconByType = (
 		case 'atlassian:Template':
 		case 'atlassian:UndefinedLink':
 			return extractIconFromDocument(type, opts);
-		case 'atlassian:Goal':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
-			return opts.icon || <TaskIcon label={opts.title || 'goal'} testId="task-icon" />;
-		case 'atlassian:Project':
-			return (
-				opts.icon || (
-					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19498
-					<ProjectIcon label={opts.title || 'project'} size="small" testId="project-icon" />
-				)
-			);
-		case 'atlassian:SourceCodeCommit':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
-			return <CommitIcon label={opts.title || 'commit'} testId="commit-icon" />;
-		case 'atlassian:SourceCodePullRequest':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
-			return <PullRequestIcon label={opts.title || 'pullRequest'} testId="pull-request-icon" />;
-		case 'atlassian:SourceCodeReference':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
-			return <BranchIcon label={opts.title || 'reference'} testId="branch-icon" />;
-		case 'atlassian:SourceCodeRepository':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
-			return <RepoIcon label={opts.title || 'repository'} testId="repo-icon" />;
-		case 'atlassian:Task':
-			return extractIconFromTask(opts);
 		default:
-			return opts.provider && opts.provider.icon;
+			return standardisedExtractIcon(type, opts);
 	}
 };

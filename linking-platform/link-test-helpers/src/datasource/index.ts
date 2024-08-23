@@ -1,6 +1,10 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import { mockActionsDiscovery, ORS_ACTIONS_DISCOVERY_ENDPOINT } from './actions';
+import {
+	mockActionsDiscovery,
+	mockActionsExecution,
+	ORS_ACTIONS_DISCOVERY_ENDPOINT,
+} from './actions';
 import { mockAssetsClientFetchRequests } from './assets';
 import { assetsDefaultInitialVisibleColumnKeys } from './assets/data';
 import { successfulRecommendationAPIResponse } from './basic-filters/mocks';
@@ -239,6 +243,7 @@ export const mockDatasourceFetchRequests = ({
 	});
 
 	mockActionsDiscovery();
+	mockActionsExecution();
 };
 
 export const forceBaseUrl = (baseUrl: string) => {

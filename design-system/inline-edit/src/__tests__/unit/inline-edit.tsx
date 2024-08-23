@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import selectEvent from 'react-select-event';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import Select, { type ValueType } from '@atlaskit/select';
+import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
 import InlineEdit from '../../inline-edit';
@@ -162,7 +162,7 @@ describe('InlineEdit component', () => {
 				/>,
 			);
 
-			expect(screen.getByRole('button', { name: 'Edit' })).toBeInTheDocument();
+			expect(screen.getByRole('button', { name: 'Edit, Inline edit, edit' })).toBeInTheDocument();
 		});
 
 		it('should use the custom label', () => {
@@ -178,17 +178,12 @@ describe('InlineEdit component', () => {
 			);
 
 			expect(
-				screen.getByRole('button', { name: 'my custom edit button label' }),
+				screen.getByRole('button', { name: 'my custom edit button label, Inline edit, edit' }),
 			).toBeInTheDocument();
 		});
 	});
 
 	describe('generic types', () => {
-		interface OptionType {
-			label: string;
-			value: string;
-		}
-
 		const selectOptions = [
 			{ label: 'Apple', value: 'Apple' },
 			{ label: 'Banana', value: 'Banana' },

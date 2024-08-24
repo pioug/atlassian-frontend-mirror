@@ -4,8 +4,11 @@ import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-vi
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { buildSliPayload, SLI_EVENT_TYPE, SMART_EVENT_TYPE } from '@atlaskit/mention/resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { MentionNodeView } from '../nodeviews/mention';
 import type { MentionPluginOptions, MentionPluginState } from '../types';
@@ -158,6 +161,31 @@ export function createMentionPlugin(
 					}
 					if (mentionProvider) {
 						mentionProvider.unsubscribe('mentionPlugin');
+					}
+				},
+				update(view: EditorView, prevState: EditorState) {
+					const newState = view.state;
+					if (options?.handleMentionsChanged && fg('confluence_updated_mentions_livepages')) {
+						const mentionSchema = newState.schema.nodes.mention;
+						const mentionNodesBefore = findChildrenByType(prevState.doc, mentionSchema);
+						const mentionLocalIdsAfter = new Set(
+							findChildrenByType(newState.doc, mentionSchema).map(({ node }) => node.attrs.localId),
+						);
+
+						if (mentionNodesBefore.length > mentionLocalIdsAfter.size) {
+							const deletedMentions: { type: 'deleted'; localId: string; id: string }[] =
+								mentionNodesBefore
+									.filter(({ node }) => !mentionLocalIdsAfter.has(node.attrs.localId))
+									.map(({ node }) => ({
+										type: 'deleted',
+										id: node.attrs.id,
+										localId: node.attrs.localId,
+									}));
+
+							if (deletedMentions.length > 0) {
+								options.handleMentionsChanged(deletedMentions);
+							}
+						}
 					}
 				},
 			};

@@ -75,7 +75,9 @@ type UniversalPresetProps = DefaultPresetPluginOptions &
  */
 export type InitialPluginConfiguration = {
 	mentionsPlugin?: {
-		handleMentionsInserted?: (mentionIds: { localId: string; id: string }[]) => void;
+		handleMentionsChanged?: (
+			mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+		) => void;
 	};
 };
 

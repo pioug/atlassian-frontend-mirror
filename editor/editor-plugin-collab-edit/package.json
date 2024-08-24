@@ -54,7 +54,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/editor-plugin-mentions": "^2.4.0",
+		"@atlaskit/editor-plugin-mentions": "^2.5.0",
 		"@atlaskit/editor-plugin-text-formatting": "^1.14.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.8.0",
 		"@atlaskit/editor-plugin-unsupported-content": "^1.8.0",

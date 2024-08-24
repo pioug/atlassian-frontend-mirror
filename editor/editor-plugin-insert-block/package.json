@@ -49,7 +49,7 @@
 		"@atlaskit/editor-plugin-image-upload": "^1.2.0",
 		"@atlaskit/editor-plugin-layout": "^1.7.0",
 		"@atlaskit/editor-plugin-media": "^1.29.0",
-		"@atlaskit/editor-plugin-mentions": "^2.4.0",
+		"@atlaskit/editor-plugin-mentions": "^2.5.0",
 		"@atlaskit/editor-plugin-panel": "^2.3.0",
 		"@atlaskit/editor-plugin-placeholder-text": "^1.7.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",

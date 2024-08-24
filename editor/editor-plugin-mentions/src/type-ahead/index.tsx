@@ -223,7 +223,9 @@ type Props = {
 	HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
 	fireEvent: FireElementsChannelEvent;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
-	handleMentionsInserted?: (mentionIds: { localId: string; id: string }[]) => void;
+	handleMentionsChanged?: (
+		mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+	) => void;
 };
 export const createTypeAheadConfig = ({
 	sanitizePrivateContent,
@@ -231,7 +233,7 @@ export const createTypeAheadConfig = ({
 	fireEvent,
 	HighlightComponent,
 	api,
-	handleMentionsInserted,
+	handleMentionsChanged,
 }: Props) => {
 	let sessionId = uuid();
 	let firstQueryWithoutResults: string | null = null;
@@ -376,8 +378,8 @@ export const createTypeAheadConfig = ({
 			}
 
 			const mentionLocalId = uuid();
-			if (handleMentionsInserted) {
-				handleMentionsInserted([{ localId: mentionLocalId, id: id }]);
+			if (handleMentionsChanged) {
+				handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id: id }]);
 			}
 
 			fireEvent(

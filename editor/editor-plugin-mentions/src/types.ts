@@ -27,7 +27,9 @@ export interface MentionPluginConfig {
 export interface MentionPluginOptions extends MentionPluginConfig {
 	sanitizePrivateContent?: boolean;
 	allowZeroWidthSpaceAfter?: boolean;
-	handleMentionsInserted?: (mentionIds: { localId: string; id: string }[]) => void;
+	handleMentionsChanged?: (
+		mentionChanges: { type: 'added' | 'deleted'; localId: string; id: string }[],
+	) => void;
 }
 
 export type MentionPluginState = {
@@ -53,7 +55,9 @@ export type MentionsPlugin = NextEditorPlugin<
 		sharedState: MentionSharedState | undefined;
 		actions: {
 			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
-			announceMentionsInsertion: (mentionIds: { localId: string; id: string }[]) => void;
+			announceMentionsInsertion: (
+				mentionIds: { type: 'added' | 'deleted'; localId: string; id: string }[],
+			) => void;
 		};
 	}
 >;

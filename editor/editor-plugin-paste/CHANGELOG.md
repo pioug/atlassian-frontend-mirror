@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.11.0
+
+### Minor Changes
+
+- [#133315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133315)
+  [`5c94ca338de14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c94ca338de14) -
+  Updating mentions plugin config for handling deleted mentions and refactor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.1
 
 ### Patch Changes

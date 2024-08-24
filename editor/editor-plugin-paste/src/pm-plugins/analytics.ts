@@ -289,12 +289,12 @@ function createPasteAnalyticsPayloadBySelection(
 
 		const mentionIds: string[] = [];
 		const mentionLocalIds: string[] = [];
-		const mentionsInserted: { id: string; localId: string }[] = [];
+		const mentionsInserted: { type: 'added'; id: string; localId: string }[] = [];
 		slice.content.descendants((node) => {
 			if (node.type.name === 'mention') {
 				mentionIds.push(node.attrs.id);
 				mentionLocalIds.push(node.attrs.localId);
-				mentionsInserted.push({ id: node.attrs.id, localId: node.attrs.localId });
+				mentionsInserted.push({ type: 'added', id: node.attrs.id, localId: node.attrs.localId });
 			}
 		});
 		pluginInjectionApi?.mention?.actions?.announceMentionsInsertion(mentionsInserted);

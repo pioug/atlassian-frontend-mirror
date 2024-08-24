@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 195.8.0
+
+### Minor Changes
+
+- [#133315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133315)
+  [`5c94ca338de14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c94ca338de14) -
+  Updating mentions plugin config for handling deleted mentions and refactor
+
 ## 195.7.0
 
 ### Minor Changes

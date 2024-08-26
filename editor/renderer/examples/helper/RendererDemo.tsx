@@ -20,7 +20,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import Clock from 'react-live-clock';
 
 import { document as storyDataDocument } from './story-data';
-import type { Props as RendererProps } from '../../src/ui/Renderer';
+import type { RendererProps } from '../../src/ui/renderer-props';
 import { default as Renderer } from '../../src/ui/Renderer';
 
 import { renderDocument, TextSerializer } from '../../src';
@@ -115,7 +115,7 @@ const eventHandlers: EventHandlers = {
 	},
 };
 
-export interface DemoRendererProps {
+interface DemoRendererProps {
 	withPortal?: boolean;
 	withProviders?: boolean;
 	withExtension?: boolean;
@@ -154,7 +154,7 @@ export interface DemoRendererProps {
 	mediaOptions?: MediaOptions;
 }
 
-export interface DemoRendererState {
+interface DemoRendererState {
 	input: string;
 	portal?: HTMLElement;
 	truncated: boolean;

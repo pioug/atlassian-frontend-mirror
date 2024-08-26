@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 1.29.5
+
+### Patch Changes
+
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused exports
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused exports
+
+## 1.29.4
+
+### Patch Changes
+
+- [#133207](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133207)
+  [`1f50735af1144`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f50735af1144) -
+  Cleanup feature flag to stop using provider factory for media provider. This should be an under
+  the hood change to decouple editor from the media provider.
+
 ## 1.29.3
 
 ### Patch Changes

@@ -8,7 +8,6 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 	TABLE_ACTION,
-	TABLE_BREAKOUT,
 	TABLE_DISPLAY_MODE,
 } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -42,13 +41,7 @@ import {
 } from './commands/misc';
 import { sortByColumn } from './commands/sort';
 import { splitCell } from './commands/split-cell';
-import {
-	getNextLayout,
-	toggleHeaderColumn,
-	toggleHeaderRow,
-	toggleNumberColumn,
-	toggleTableLayout,
-} from './commands/toggle';
+import { toggleHeaderColumn, toggleHeaderRow, toggleNumberColumn } from './commands/toggle';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
 import type { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
@@ -62,12 +55,6 @@ import type {
 } from './types';
 import { checkIfNumberColumnEnabled, getSelectedCellInfo, getSelectedTableInfo } from './utils';
 import { withEditorAnalyticsAPI } from './utils/analytics';
-
-const TABLE_BREAKOUT_NAME_MAPPING = {
-	default: TABLE_BREAKOUT.NORMAL,
-	wide: TABLE_BREAKOUT.WIDE,
-	'full-width': TABLE_BREAKOUT.FULL_WIDTH,
-};
 
 // #region Analytics wrappers
 export const emptyMultipleCellsWithAnalytics =
@@ -288,6 +275,7 @@ export const insertColumnWithAnalytics =
 		isCellbackgroundDuplicated = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
+		isCommentEditor = false,
 	) =>
 	(
 		inputMethod:
@@ -319,6 +307,7 @@ export const insertColumnWithAnalytics =
 				isCellbackgroundDuplicated,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
+				isCommentEditor,
 			)(position),
 		);
 
@@ -364,6 +353,7 @@ export const deleteColumnsWithAnalytics =
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
+		isCommentEditor = false,
 	) =>
 	(
 		inputMethod:
@@ -397,6 +387,7 @@ export const deleteColumnsWithAnalytics =
 				isTableScalingEnabled,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
+				isCommentEditor,
 			),
 		);
 
@@ -531,32 +522,6 @@ export const toggleNumberColumnWithAnalytics = (
 			eventType: EVENT_TYPE.TRACK,
 		};
 	})(editorAnalyticsAPI)(toggleNumberColumn);
-
-export const toggleTableLayoutWithAnalytics = (
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) =>
-	withEditorAnalyticsAPI((state) => {
-		const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
-
-		if (table) {
-			const { layout } = table.node.attrs as {
-				layout: 'default' | 'wide' | 'full-width';
-			};
-			return {
-				action: TABLE_ACTION.CHANGED_BREAKOUT_MODE,
-				actionSubject: ACTION_SUBJECT.TABLE,
-				actionSubjectId: null,
-				attributes: {
-					newBreakoutMode: TABLE_BREAKOUT_NAME_MAPPING[getNextLayout(layout)],
-					previousBreakoutMode: TABLE_BREAKOUT_NAME_MAPPING[layout],
-					totalRowCount,
-					totalColumnCount,
-				},
-				eventType: EVENT_TYPE.TRACK,
-			};
-		}
-		return;
-	})(editorAnalyticsAPI)(toggleTableLayout);
 
 export const sortColumnWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>

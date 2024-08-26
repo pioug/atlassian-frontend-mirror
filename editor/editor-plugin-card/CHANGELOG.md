@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 2.13.3
+
+### Patch Changes
+
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused exports
+
 ## 2.13.2
 
 ### Patch Changes

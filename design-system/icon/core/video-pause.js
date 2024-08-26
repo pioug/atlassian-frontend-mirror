@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8b775f34500bf8d4f6c984c14f9748b1>>
+ * @codegen <<SignedSource::58066e91faf8f4aeeee8b5f2cdc90337>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoPauseIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M2.75 3c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H4c-.69 0-1.25-.56-1.25-1.25zm7 0c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25h-1c-.69 0-1.25-.56-1.25-1.25z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M2.75 3c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H4c-.69 0-1.25-.56-1.25-1.25zm7 0c0-.69.56-1.25 1.25-1.25h1c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25h-1c-.69 0-1.25-.56-1.25-1.25z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VideoPauseIcon.displayName = 'VideoPauseIcon';

@@ -66,17 +66,11 @@ import { nodeToReact } from '../../react/nodes';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
-export interface Extension<T> {
-	extensionKey: string;
-	parameters?: T;
-	content?: any; // This would be the original Atlassian Document Format
-}
+
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const defaultNodeComponents: NodeComponentsProps = nodeToReact;
-
-export type { RendererProps as Props };
 
 export class Renderer extends PureComponent<RendererProps> {
 	private providerFactory: ProviderFactory;

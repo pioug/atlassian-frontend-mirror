@@ -42,7 +42,7 @@ type InnerContainerProps = {
 	node: PMNode;
 };
 
-export const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
+const InnerContainer = forwardRef<HTMLDivElement, PropsWithChildren<InnerContainerProps>>(
 	({ className, style, node, children }, ref) => {
 		return (
 			<div

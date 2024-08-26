@@ -14,11 +14,11 @@ import { pluginKey } from './plugin-key';
 import type { TriggerType } from './types';
 
 // TODO: This command is a placeholder example. Please replace this if required.
-export const getDecorations = (state: EditorState): DecorationSet => {
+const getDecorations = (state: EditorState): DecorationSet => {
 	return pluginKey.getState(state)?.decorationSet || DecorationSet.empty;
 };
 
-export const updatePluginStateDecorations = (
+const updatePluginStateDecorations = (
 	state: EditorState,
 	decorations: Decoration[],
 	key: TableDecorations,

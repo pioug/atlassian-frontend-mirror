@@ -9,6 +9,7 @@ import {
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
+import useErrorLogger from '../../../hooks/useErrorLogger';
 import { useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
 import type { DatasourceTypeWithOnlyValues } from '../types';
@@ -20,6 +21,7 @@ const containerStyles = xcss({
 interface InlineEditProps {
 	ari: string;
 	columnKey: string;
+	integrationKey: string;
 	readView: React.ReactNode;
 	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
 	execute: (value: string | number) => Promise<AtomicActionExecuteResponse>;
@@ -57,6 +59,7 @@ export const InlineEdit = ({
 	execute,
 	readView,
 	columnKey,
+	integrationKey,
 	datasourceTypeWithValues,
 }: InlineEditProps) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -66,6 +69,7 @@ export const InlineEdit = ({
 	const { showErrorFlag } = useDatasourceTableFlag();
 
 	const { onUpdateItem } = useDatasourceActions();
+	const { captureError } = useErrorLogger({ integrationKey });
 
 	const onCommitUpdate = useCallback(
 		(value: string) => {
@@ -88,10 +92,20 @@ export const InlineEdit = ({
 				const status = error && typeof error === 'object' ? error.status : undefined;
 				showErrorFlag({ status });
 				onUpdateItem(ari, existingData);
+				captureError('actionExecution', error);
 			});
 			setIsEditing(false);
 		},
-		[ari, execute, datasourceTypeWithValues, item, columnKey, onUpdateItem, showErrorFlag],
+		[
+			item,
+			datasourceTypeWithValues.type,
+			columnKey,
+			onUpdateItem,
+			ari,
+			execute,
+			showErrorFlag,
+			captureError,
+		],
 	);
 
 	return (

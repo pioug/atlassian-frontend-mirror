@@ -4,7 +4,6 @@ import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import pixelWidthMedia from '../__fixtures__/media-pixel-size.adf.json';
 import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.json';
 
 import pixelWidthGreaterThenDefault from '../__fixtures__/media-pixel-greater-then-default.adf.json';
@@ -125,16 +124,6 @@ export const PixelWidthGreaterThenDefault = generateRendererComponent({
 
 export const PixelWidthGreaterThenDefaultFullWidth = generateRendererComponent({
 	document: pixelWidthGreaterThenDefault,
-	appearance: 'full-width',
-});
-
-export const MediaWithPixelWidth = generateRendererComponent({
-	document: pixelWidthMedia,
-	appearance: 'full-page',
-});
-
-export const MediaWithPixelWidthFullWidth = generateRendererComponent({
-	document: pixelWidthMedia,
 	appearance: 'full-width',
 });
 

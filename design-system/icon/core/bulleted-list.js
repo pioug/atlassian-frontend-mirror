@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6a536a71ecf99ccc184afdebdc725e6>>
+ * @codegen <<SignedSource::64807d611b5d4c78fc2dc4e6dcadb25a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BulletedListIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M2.75 2.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 5.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 5.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentColor" stroke-width="1.5" d="M5 2.75h10M5 8h10M5 13.25h10M2.75 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0 5.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0-10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M2.75 2.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 5.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 5.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentcolor" stroke-width="1.5" d="M5 2.75h10M5 8h10M5 13.25h10M2.75 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0 5.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0-10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BulletedListIcon.displayName = 'BulletedListIcon';

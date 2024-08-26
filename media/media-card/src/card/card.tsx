@@ -30,13 +30,13 @@ export const CardWithPerformanceObserver = (props: CardBaseProps & WrappedCompon
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	useEffect(() => {
-		if (fg('platform.media-card-performance-observer_lgc7b')) {
+		if (fg('platform.media-card-performance-observer_a803k')) {
 			startResourceObserver();
 		}
 	}, []);
 
 	useEffect(() => {
-		if (fg('platform.media-card-performance-observer_lgc7b')) {
+		if (fg('platform.media-card-performance-observer_a803k')) {
 			setAnalyticsContext(createAnalyticsEvent);
 		}
 	}, [createAnalyticsEvent]);

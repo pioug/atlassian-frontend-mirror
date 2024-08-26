@@ -47,7 +47,7 @@ exports[`@atlaskit/icon Glyph should match snapshot 1`] = `
   >
     <path
       d="M13 11V3.993A.997.997 0 0 0 12 3c-.556 0-1 .445-1 .993V11H3.993A.997.997 0 0 0 3 12c0 .557.445 1 .993 1H11v7.007c0 .548.448.993 1 .993.556 0 1-.445 1-.993V13h7.007A.997.997 0 0 0 21 12c0-.556-.445-1-.993-1z"
-      fill="currentColor"
+      fill="currentcolor"
       fill-rule="evenodd"
     />
   </svg>
@@ -149,7 +149,7 @@ exports[`Glyph should match snapshot 1`] = `
   >
     <path
       d="M8 8h7M8 8H1m7 0V1m0 7v7"
-      stroke="currentColor"
+      stroke="currentcolor"
       stroke-width="1.5"
     />
   </svg>

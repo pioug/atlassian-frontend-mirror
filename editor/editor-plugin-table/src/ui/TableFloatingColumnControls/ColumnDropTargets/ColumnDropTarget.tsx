@@ -9,7 +9,7 @@ import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element
 import { getDragBehaviour } from '../../../pm-plugins/drag-and-drop/utils/getDragBehaviour';
 import type { DraggableSourceData } from '../../../types';
 
-export interface Props {
+interface Props {
 	index: number;
 	localId?: string;
 	width?: number;

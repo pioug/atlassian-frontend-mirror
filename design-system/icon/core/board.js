@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fec36b95b79a4400274a4e12551691a8>>
+ * @codegen <<SignedSource::3bebcfb9a493501cc236ac6338f33f68>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BoardIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M5.583 2.75H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h3.583m0-10.5v10.5m0-10.5h4.834m-4.834 10.5h4.834m0-10.5H14c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25h-3.583m0-10.5v10.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M5.583 2.75H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h3.583m0-10.5v10.5m0-10.5h4.834m-4.834 10.5h4.834m0-10.5H14c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25h-3.583m0-10.5v10.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BoardIcon.displayName = 'BoardIcon';

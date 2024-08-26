@@ -1,10 +1,8 @@
-import React from 'react';
-import { PureComponent, type ReactNode } from 'react';
+import React, { PureComponent, type ReactNode } from 'react';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import TaskItemWithProviders from './task-item-with-providers';
-import { type RendererContext } from '../types';
+import { type RendererContext, type NodeProps } from '../types';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { type NodeProps } from '../types';
 import { TaskItemsFormatProvider, TaskItemsFormatConsumer } from '../../ui/TaskItemsFormatContext';
 
 export interface Props {

@@ -95,7 +95,7 @@ const fixedTableDivStaticStyles = (
 	});
 };
 
-export const FixedTableDiv = (props: FixedProps) => {
+const FixedTableDiv = (props: FixedProps) => {
 	const { top, wrapperWidth, mode, rendererAppearance } = props;
 	const fixedTableCss = [
 		fixedTableDivStaticStyles(top, wrapperWidth, rendererAppearance),
@@ -120,7 +120,7 @@ export const FixedTableDiv = (props: FixedProps) => {
 	);
 };
 
-export type StickyTableProps = {
+type StickyTableProps = {
 	left?: number; // TODO: would be good to abstract this away
 	top?: number;
 	mode: StickyMode;

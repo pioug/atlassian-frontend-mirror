@@ -229,7 +229,7 @@ exports[`BackButton Should match snapshot 1`] = `
           <path
             clip-rule="evenodd"
             d="M12.207 5.793a1 1 0 0 1 0 1.414L8.414 11H18a1 1 0 1 1 0 2H8.414l3.793 3.793a1 1 0 1 1-1.415 1.414l-5.499-5.5A1 1 0 0 1 5 12.028v-.057a1 1 0 0 1 .293-.678l5.499-5.5a1 1 0 0 1 1.415 0"
-            fill="currentColor"
+            fill="currentcolor"
             fill-rule="evenodd"
           />
         </svg>

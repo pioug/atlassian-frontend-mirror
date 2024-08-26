@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6f4781d7cb2b505762d4498fa0f8d95e>>
+ * @codegen <<SignedSource::30bf1477e0023e901625558e7605f9a8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AppsIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M12 9v6m-3-3h6M3 14.25h2c.69 0 1.25-.56 1.25-1.25v-2c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v2c0 .69.56 1.25 1.25 1.25Zm8-8h2c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25h-2c-.69 0-1.25.56-1.25 1.25v2c0 .69.56 1.25 1.25 1.25Zm-8 0h2c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v2c0 .69.56 1.25 1.25 1.25Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M12 9v6m-3-3h6M3 14.25h2c.69 0 1.25-.56 1.25-1.25v-2c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v2c0 .69.56 1.25 1.25 1.25Zm8-8h2c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25h-2c-.69 0-1.25.56-1.25 1.25v2c0 .69.56 1.25 1.25 1.25Zm-8 0h2c.69 0 1.25-.56 1.25-1.25V3c0-.69-.56-1.25-1.25-1.25H3c-.69 0-1.25.56-1.25 1.25v2c0 .69.56 1.25 1.25 1.25Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AppsIcon.displayName = 'AppsIcon';

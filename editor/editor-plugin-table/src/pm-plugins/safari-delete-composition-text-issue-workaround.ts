@@ -13,7 +13,7 @@ interface SafariDeleteCompositionTextIssueWorkaroundPluginState {
 	decorations: DecorationSet;
 }
 
-export const tableSafariDeleteCompositionTextIssueWorkaroundKey =
+const tableSafariDeleteCompositionTextIssueWorkaroundKey =
 	new PluginKey<SafariDeleteCompositionTextIssueWorkaroundPluginState>(
 		'tableSafariDeleteCompositionTextIssueWorkaround',
 	);

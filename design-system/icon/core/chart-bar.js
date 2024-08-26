@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3b3f07b734c82c4a70a773efccc43ba6>>
+ * @codegen <<SignedSource::8e9da87c12c497498357d6b68ee6d150>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChartBarIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M5.917 9.75H1.75V13c0 .69.56 1.25 1.25 1.25h2.917m0-4.5v4.5m0-4.5v-4h4.166m-4.166 8.5h4.166m0-8.5v-4h4.167V13c0 .69-.56 1.25-1.25 1.25h-2.917m0-8.5v8.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.917 9.75H1.75V13c0 .69.56 1.25 1.25 1.25h2.917m0-4.5v4.5m0-4.5v-4h4.166m-4.166 8.5h4.166m0-8.5v-4h4.167V13c0 .69-.56 1.25-1.25 1.25h-2.917m0-8.5v8.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChartBarIcon.displayName = 'ChartBarIcon';

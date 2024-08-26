@@ -12,8 +12,8 @@ import type {
 
 import type { CustomMediaPicker, MediaState, MobileUploadEndEventPayload } from './types';
 
-export type PickerType = 'clipboard' | 'dropzone' | 'customMediaPicker';
-export type ExtendedComponentConfigs = {
+type PickerType = 'clipboard' | 'dropzone' | 'customMediaPicker';
+type ExtendedComponentConfigs = {
 	customMediaPicker: CustomMediaPicker;
 	dropzone: null;
 	clipboard: null;
@@ -25,11 +25,11 @@ export type PickerFacadeConfig = {
 	featureFlags?: MediaFeatureFlags;
 };
 
-export type MediaStateEvent = MediaState;
+type MediaStateEvent = MediaState;
 export type MediaStateEventListener = (evt: MediaStateEvent) => void;
 
 export type MediaStateEventSubscriber = (listener: MediaStateEventListener) => void;
-export type NewMediaEvent = (
+type NewMediaEvent = (
 	state: MediaState,
 	onStateChanged: MediaStateEventSubscriber,
 	pickerType?: string,

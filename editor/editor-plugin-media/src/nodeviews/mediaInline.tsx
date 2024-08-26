@@ -27,7 +27,6 @@ import type { FileIdentifier } from '@atlaskit/media-client';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import type { MediaPluginState } from '../pm-plugins/types';
@@ -53,7 +52,7 @@ export interface MediaInlineProps {
 	editorViewMode?: boolean;
 }
 
-export const createMediaNodeUpdater = (props: MediaInlineProps): MediaNodeUpdater => {
+const createMediaNodeUpdater = (props: MediaInlineProps): MediaNodeUpdater => {
 	const node = props.node;
 	return new MediaNodeUpdater({
 		...props,
@@ -70,7 +69,7 @@ export const createMediaNodeUpdater = (props: MediaInlineProps): MediaNodeUpdate
  * using the contextid
  *
  */
-export const updateMediaNodeAttributes = async (
+const updateMediaNodeAttributes = async (
 	props: MediaInlineProps,
 	mediaNodeUpdater: MediaNodeUpdater,
 ) => {
@@ -192,13 +191,10 @@ export const MediaInline = (props: MediaInlineProps) => {
 
 type MediaInlineSharedStateProps = Omit<MediaInlineProps, 'mediaPluginState' | 'mediaProvider'> & {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
-	// Once we cleanup `platform_editor_media_provider_from_plugin_config` we can get rid of this
-	mediaProvider: Promise<MediaProvider> | undefined;
 };
 
 const MediaInlineSharedState = ({
 	identifier,
-	mediaProvider,
 	node,
 	isSelected,
 	getPos,
@@ -215,34 +211,14 @@ const MediaInlineSharedState = ({
 		[mediaState?.mediaProvider],
 	);
 
-	if (fg('platform_editor_media_provider_from_plugin_config')) {
-		if (!mediaState || !newMediaProvider) {
-			return null;
-		}
-
-		return (
-			<MediaInline
-				identifier={identifier}
-				mediaProvider={newMediaProvider}
-				mediaPluginState={mediaState}
-				node={node}
-				isSelected={isSelected}
-				view={view}
-				getPos={getPos}
-				contextIdentifierProvider={contextIdentifierProvider}
-				editorViewMode={editorViewModeState?.mode === 'view'}
-			/>
-		);
-	}
-
-	if (!mediaState || !mediaProvider) {
+	if (!mediaState || !newMediaProvider) {
 		return null;
 	}
 
 	return (
 		<MediaInline
 			identifier={identifier}
-			mediaProvider={mediaProvider}
+			mediaProvider={newMediaProvider}
 			mediaPluginState={mediaState}
 			node={node}
 			isSelected={isSelected}
@@ -254,7 +230,7 @@ const MediaInlineSharedState = ({
 	);
 };
 
-export interface MediaInlineNodeViewProps {
+interface MediaInlineNodeViewProps {
 	providerFactory: ProviderFactory;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
@@ -284,18 +260,12 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 		const getPos = this.getPos as getPosHandlerNode;
 		return (
 			<WithProviders
-				// Cleanup: `platform_editor_media_provider_from_plugin_config`
-				// Remove `mediaProvider`
-				providers={['mediaProvider', 'contextIdentifierProvider']}
+				providers={['contextIdentifierProvider']}
 				providerFactory={providerFactory}
 				renderNode={({ mediaProvider, contextIdentifierProvider }) => {
-					if (!mediaProvider && !fg('platform_editor_media_provider_from_plugin_config')) {
-						return null;
-					}
 					return (
 						<MediaInlineSharedState
 							identifier={this.node.attrs.id}
-							mediaProvider={mediaProvider}
 							node={this.node}
 							isSelected={this.nodeInsideSelection()}
 							view={view}

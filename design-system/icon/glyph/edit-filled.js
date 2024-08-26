@@ -9,7 +9,7 @@ var _base = require("@atlaskit/icon/base");
 var _edit = _interopRequireDefault(require("@atlaskit/icon/core/edit"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const EditFilledIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentColor" fill-rule="evenodd" d="M4.02 19.23a1 1 0 0 0 1.18 1.18l3.81-.78-4.21-4.21zM19.84 6.71l-2.12-2.12A2 2 0 0 0 16.31 4c-.51 0-1.02.2-1.41.59l-9.76 9.76 4.95 4.95 9.76-9.76a2 2 0 0 0 0-2.83"/></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentcolor" fill-rule="evenodd" d="M4.02 19.23a1 1 0 0 0 1.18 1.18l3.81-.78-4.21-4.21zM19.84 6.71l-2.12-2.12A2 2 0 0 0 16.31 4c-.51 0-1.02.2-1.41.59l-9.76 9.76 4.95 4.95 9.76-9.76a2 2 0 0 0 0-2.83"/></svg>`
 }, props, {
   newIcon: _edit.default
 }));

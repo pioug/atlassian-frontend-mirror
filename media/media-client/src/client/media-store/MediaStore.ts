@@ -368,7 +368,7 @@ export class MediaStore implements MediaApi {
 			params: extendImageParams(params, fetchMaxRes),
 			headers,
 			traceContext,
-			addMediaClientParam: fg('platform.media-card-performance-observer_lgc7b') && true,
+			addMediaClientParam: fg('platform.media-card-performance-observer_a803k') && true,
 		};
 
 		return this.request(`/file/${id}/${imageEndpoint}`, options, controller, true).then(

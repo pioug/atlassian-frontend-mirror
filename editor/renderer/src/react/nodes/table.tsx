@@ -132,7 +132,7 @@ const addSortableColumn = (
 	});
 };
 
-export type TableProps = SharedTableProps & {
+type TableProps = SharedTableProps & {
 	children: React.ReactElement<any> | Array<React.ReactElement<any>>;
 	tableNode?: PMNode;
 	rendererAppearance?: RendererAppearance;
@@ -540,7 +540,7 @@ export class TableContainer extends React.Component<
 	};
 }
 
-export type TableProcessorState = {
+type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 

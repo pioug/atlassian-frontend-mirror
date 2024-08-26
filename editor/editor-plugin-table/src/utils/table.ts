@@ -3,7 +3,6 @@ import type { IntlShape } from 'react-intl-next';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { Rect } from '@atlaskit/editor-tables/table-map';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
@@ -27,13 +26,6 @@ export const getMergedCellsPositions = (tr: Transaction): number[] => {
 
 	return mergedCells;
 };
-
-export const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
-	left: Math.min(...cols),
-	right: Math.max(...cols) + 1,
-	top: 0,
-	bottom: noOfRows,
-});
 
 export const getAssistiveMessage = (
 	prevTableNode: PmNode,

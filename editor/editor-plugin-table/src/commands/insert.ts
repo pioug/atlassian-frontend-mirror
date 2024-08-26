@@ -45,6 +45,7 @@ export function addColumnAt(
 	isCellBackgroundDuplicated?: boolean,
 	isTableFixedColumnWidthsOptionEnabled?: boolean,
 	shouldUseIncreasedScalingPercent?: boolean,
+	isCommentEditor?: boolean,
 ) {
 	return (
 		column: number,
@@ -66,6 +67,7 @@ export function addColumnAt(
 					isTableFixedColumnWidthsOptionEnabled,
 					shouldUseIncreasedScalingPercent,
 					api,
+					isCommentEditor,
 				)(
 					table,
 					view,
@@ -97,6 +99,7 @@ export const addColumnBefore =
 		isCellBackgroundDuplicated = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
+		isCommentEditor = false,
 	): Command =>
 	(state, dispatch, view) => {
 		const table = findTable(state.selection);
@@ -112,6 +115,7 @@ export const addColumnBefore =
 					isCellBackgroundDuplicated,
 					isTableFixedColumnWidthsOptionEnabled,
 					shouldUseIncreasedScalingPercent,
+					isCommentEditor,
 				)(
 					rect.left,
 					getAllowAddColumnCustomStep(state),
@@ -131,6 +135,7 @@ export const addColumnAfter =
 		isCellBackgroundDuplicated?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
+		isCommentEditor?: boolean,
 	): Command =>
 	(state, dispatch, view) => {
 		const table = findTable(state.selection);
@@ -147,6 +152,7 @@ export const addColumnAfter =
 					isCellBackgroundDuplicated,
 					isTableFixedColumnWidthsOptionEnabled,
 					shouldUseIncreasedScalingPercent,
+					isCommentEditor,
 				)(
 					rect.right,
 					getAllowAddColumnCustomStep(state),
@@ -164,6 +170,7 @@ export const insertColumn =
 		isCellBackgroundDuplicated?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
+		isCommentEditor?: boolean,
 	) =>
 	(column: number): Command =>
 	(state, dispatch, view) => {
@@ -173,6 +180,7 @@ export const insertColumn =
 			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
+			isCommentEditor,
 		)(
 			column,
 			getAllowAddColumnCustomStep(state),

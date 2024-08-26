@@ -44,9 +44,7 @@ export const altTextButton = (
 	};
 };
 
-export const altTextEditComponent = (
-	options?: AltTextToolbarOptions,
-): FloatingToolbarCustom<Command> => {
+const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarCustom<Command> => {
 	return {
 		type: 'custom',
 		fallback: [],
@@ -93,7 +91,7 @@ export const altTextEditComponent = (
 	};
 };
 
-export interface AltTextToolbarOptions {
+interface AltTextToolbarOptions {
 	altTextValidator?: (value: string) => string[];
 	forceFocusSelector?: ForceFocusSelector;
 }

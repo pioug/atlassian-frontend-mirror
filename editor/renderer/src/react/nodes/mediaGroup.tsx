@@ -1,6 +1,5 @@
-import React from 'react';
 import type { ReactElement } from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import type { CardEvent } from '@atlaskit/media-card';
 import { defaultImageCardDimensions } from '@atlaskit/media-card';
 import type { SizeEvent, ScrollEvent } from '@atlaskit/media-filmstrip';
@@ -21,7 +20,7 @@ export interface MediaGroupProps {
 	enableDownloadButton?: boolean;
 }
 
-export interface MediaGroupState {
+interface MediaGroupState {
 	animate: boolean;
 	offset: number;
 }

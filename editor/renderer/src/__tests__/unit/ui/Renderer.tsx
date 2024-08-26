@@ -35,7 +35,7 @@ import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import { Media } from '../../../react/nodes';
 import * as renderDocumentModule from '../../../render-document';
-import type { Props } from '../../../ui/Renderer';
+import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer, { Renderer as BaseRenderer } from '../../../ui/Renderer';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { initialDoc } from '../../__fixtures__/initial-doc';
@@ -58,7 +58,7 @@ const validDoc = doc(
 describe('@atlaskit/renderer/ui/Renderer', () => {
 	let renderer: ReactWrapper;
 
-	const initRenderer = (doc: any = initialDoc, props: Partial<Props> = {}) =>
+	const initRenderer = (doc: any = initialDoc, props: Partial<RendererProps> = {}) =>
 		mount(<Renderer document={doc} {...props} />);
 
 	afterEach(() => {
@@ -363,7 +363,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 	describe('Analytics', () => {
 		let client: AnalyticsWebClient;
 
-		const initRendererWithAnalytics = (props: Partial<Props> = {}) =>
+		const initRendererWithAnalytics = (props: Partial<RendererProps> = {}) =>
 			mount(
 				<FabricAnalyticsListeners client={client}>
 					<Renderer document={initialDoc} {...props} />
@@ -442,7 +442,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 					}),
 				};
 
-				const TestRenderer = (props: Partial<Props>) => (
+				const TestRenderer = (props: Partial<RendererProps>) => (
 					<Renderer document={initialDoc} featureFlags={renderTrackingEnabled} {...props} />
 				);
 

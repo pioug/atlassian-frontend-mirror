@@ -90,9 +90,6 @@ interface TableResizerProps {
 	isFullWidthModeEnabled?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 	isCommentEditor?: boolean;
-}
-
-export interface TableResizerImprovementProps extends TableResizerProps {
 	onResizeStop?: () => void;
 	onResizeStart?: () => void;
 }
@@ -206,7 +203,7 @@ export const TableResizer = ({
 	pluginInjectionApi,
 	isFullWidthModeEnabled,
 	isCommentEditor,
-}: PropsWithChildren<TableResizerImprovementProps>) => {
+}: PropsWithChildren<TableResizerProps>) => {
 	const currentGap = useRef(0);
 	// track resizing state - use ref over state to avoid re-render
 	const isResizing = useRef(false);
@@ -586,6 +583,7 @@ export const TableResizer = ({
 					pluginInjectionApi,
 					isTableScalingEnabled,
 					shouldUseIncreasedScalingPercent || false,
+					isCommentEditor,
 				)(tr);
 
 				const scaledNode = tr.doc.nodeAt(pos)!;

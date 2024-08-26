@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0acba6b85ca160388c26d5dbf51e47e1>>
+ * @codegen <<SignedSource::456c59f96c30d1d87efd2391e38628e8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FolderOpenIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M1.75 14.25a1 1 0 0 1-1-1V3c0-.69.56-1.25 1.25-1.25h3.25L7 3.5h5c.69 0 1.25.56 1.25 1.25v2m-11.5 7.5 2.116-7.055a.625.625 0 0 1 .599-.445h8.785m-11.5 7.5h10.57a1.25 1.25 0 0 0 1.197-.89l1.742-5.805a.625.625 0 0 0-.599-.805h-1.41"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1.75 14.25a1 1 0 0 1-1-1V3c0-.69.56-1.25 1.25-1.25h3.25L7 3.5h5c.69 0 1.25.56 1.25 1.25v2m-11.5 7.5 2.116-7.055a.625.625 0 0 1 .599-.445h8.785m-11.5 7.5h10.57a1.25 1.25 0 0 0 1.197-.89l1.742-5.805a.625.625 0 0 0-.599-.805h-1.41"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FolderOpenIcon.displayName = 'FolderOpenIcon';

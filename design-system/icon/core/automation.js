@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::425c514ba11223e8448769c8c7dae4ba>>
+ * @codegen <<SignedSource::c6928bfb7061cd2410570d1d5f83ea18>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AutomationIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="m6 15.25-.723-.2a.75.75 0 0 0 1.253.73zM13.25 8l.53.53a.75.75 0 0 0-.53-1.28zM10 .75l.723.2A.75.75 0 0 0 9.47.22zM2.75 8l-.53-.53a.75.75 0 0 0 .53 1.28zm3.78 7.78 7.25-7.25-1.06-1.06-7.25 7.25zm6.72-8.53H8v1.5h5.25zm-4.527.95 2-7.25-1.446-.4-2 7.25zM9.47.22 2.22 7.47l1.06 1.06 7.25-7.25zM2.75 8.75H8v-1.5H2.75zm4.527-.95-2 7.25 1.446.4 2-7.25z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="m6 15.25-.723-.2a.75.75 0 0 0 1.253.73zM13.25 8l.53.53a.75.75 0 0 0-.53-1.28zM10 .75l.723.2A.75.75 0 0 0 9.47.22zM2.75 8l-.53-.53a.75.75 0 0 0 .53 1.28zm3.78 7.78 7.25-7.25-1.06-1.06-7.25 7.25zm6.72-8.53H8v1.5h5.25zm-4.527.95 2-7.25-1.446-.4-2 7.25zM9.47.22 2.22 7.47l1.06 1.06 7.25-7.25zM2.75 8.75H8v-1.5H2.75zm4.527-.95-2 7.25 1.446.4 2-7.25z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AutomationIcon.displayName = 'AutomationIcon';

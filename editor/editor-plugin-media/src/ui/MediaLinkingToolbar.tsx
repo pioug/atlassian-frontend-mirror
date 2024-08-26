@@ -36,7 +36,7 @@ import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export type Props = {
+type Props = {
 	intl: IntlShape;
 	providerFactory: ProviderFactory;
 	editing: boolean;
@@ -69,7 +69,7 @@ const buttonWrapper = css({
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> {
+class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> {
 	state = {
 		validationErrors: [],
 	};

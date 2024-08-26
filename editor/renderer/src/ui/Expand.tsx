@@ -29,7 +29,7 @@ import { getPlatform } from '../utils';
 import { ActiveHeaderIdConsumer } from './active-header-id-provider';
 import type { RendererAppearance } from './Renderer/types';
 
-export type StyleProps = {
+type StyleProps = {
 	expanded?: boolean;
 	focused?: boolean;
 	'data-node-type'?: 'expand' | 'nestedExpand';

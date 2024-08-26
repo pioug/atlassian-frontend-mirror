@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::69f9dbc2383a9e29ce422e076c625c28>>
+ * @codegen <<SignedSource::f7c5ac8f9e136e477bff0fa9cd1f8f57>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DatabaseIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M1.75 7.25V3c0-.69.56-1.25 1.25-1.25h10c.69 0 1.25.56 1.25 1.25v4.25m-12.5 0H8m-6.25 0v3.5m12.5-3.5H8m6.25 0v3.5M8 7.25v3.5m0 3.5h5c.69 0 1.25-.56 1.25-1.25v-2.25M8 14.25H3c-.69 0-1.25-.56-1.25-1.25v-2.25M8 14.25v-3.5m0 0h6.25m-6.25 0H1.75"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1.75 7.25V3c0-.69.56-1.25 1.25-1.25h10c.69 0 1.25.56 1.25 1.25v4.25m-12.5 0H8m-6.25 0v3.5m12.5-3.5H8m6.25 0v3.5M8 7.25v3.5m0 3.5h5c.69 0 1.25-.56 1.25-1.25v-2.25M8 14.25H3c-.69 0-1.25-.56-1.25-1.25v-2.25M8 14.25v-3.5m0 0h6.25m-6.25 0H1.75"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DatabaseIcon.displayName = 'DatabaseIcon';

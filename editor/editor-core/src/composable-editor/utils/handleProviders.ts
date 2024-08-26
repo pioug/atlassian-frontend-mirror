@@ -4,7 +4,6 @@ import type {
 	Providers,
 	QuickInsertProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 /**
  *
@@ -40,9 +39,6 @@ export default function handleProviders(
 	providerFactory.setProvider('taskDecisionProvider', taskDecisionProvider);
 	providerFactory.setProvider('contextIdentifierProvider', contextIdentifierProvider);
 
-	if (!fg('platform_editor_media_provider_from_plugin_config')) {
-		providerFactory.setProvider('mediaProvider', mediaProvider);
-	}
 	providerFactory.setProvider('imageUploadProvider', imageUploadProvider);
 	providerFactory.setProvider('collabEditProvider', collabEditProvider);
 	providerFactory.setProvider('activityProvider', activityProvider);

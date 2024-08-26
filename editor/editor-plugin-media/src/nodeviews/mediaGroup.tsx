@@ -30,7 +30,6 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { FilmstripItem } from '@atlaskit/media-filmstrip';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useMediaProvider } from '../hooks/useMediaProvider';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -46,7 +45,7 @@ import type {
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 
-export type MediaGroupProps = {
+type MediaGroupProps = {
 	forwardRef?: (ref: HTMLElement) => void;
 	node: PMNode;
 	view: EditorView;
@@ -64,7 +63,7 @@ export type MediaGroupProps = {
 	mediaOptions: MediaOptions;
 } & WrappedComponentProps;
 
-export interface MediaGroupState {
+interface MediaGroupState {
 	viewMediaClientConfig?: MediaClientConfig;
 }
 
@@ -382,47 +381,22 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 
 		return (
 			<WithProviders
-				// Cleanup: `platform_editor_media_provider_from_plugin_config`
-				// Remove `mediaProvider`
-				providers={['mediaProvider', 'contextIdentifierProvider']}
+				providers={['contextIdentifierProvider']}
 				providerFactory={providerFactory}
-				renderNode={({ mediaProvider, contextIdentifierProvider }) => {
+				renderNode={({ contextIdentifierProvider }) => {
 					const renderFn = ({
 						editorDisabledPlugin,
 						editorViewModePlugin,
 						mediaProvider: mediaProviderFromState,
 					}: RenderFn) => {
-						if (fg('platform_editor_media_provider_from_plugin_config')) {
-							const newMediaProvider = mediaProviderFromState
-								? Promise.resolve(mediaProviderFromState)
-								: undefined;
-
-							if (!newMediaProvider) {
-								return null;
-							}
-
-							return (
-								<IntlMediaGroup
-									node={this.node}
-									getPos={getPos}
-									view={this.view}
-									forwardRef={forwardRef}
-									disabled={(editorDisabledPlugin || {}).editorDisabled}
-									allowLazyLoading={mediaOptions.allowLazyLoading}
-									mediaProvider={newMediaProvider}
-									contextIdentifierProvider={contextIdentifierProvider}
-									isCopyPasteEnabled={mediaOptions.isCopyPasteEnabled}
-									anchorPos={this.view.state.selection.$anchor.pos}
-									headPos={this.view.state.selection.$head.pos}
-									mediaOptions={mediaOptions}
-									editorViewMode={editorViewModePlugin?.mode === 'view'}
-								/>
-							);
-						}
+						const mediaProvider = mediaProviderFromState
+							? Promise.resolve(mediaProviderFromState)
+							: undefined;
 
 						if (!mediaProvider) {
 							return null;
 						}
+
 						return (
 							<IntlMediaGroup
 								node={this.node}

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5b4399fca9d7677e2a2a8158b8f53bdc>>
+ * @codegen <<SignedSource::804e9db68386df1205d7e0c1b5445e64>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MicrophoneIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 7c0 2.9-2.35 5.25-5.25 5.25m0 0A5.25 5.25 0 0 1 2.75 7M8 12.25v3m0 0h4m-4 0H4M10.25 7a2.25 2.25 0 0 1-4.5 0V3a2.25 2.25 0 0 1 4.5 0z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M13.25 7c0 2.9-2.35 5.25-5.25 5.25m0 0A5.25 5.25 0 0 1 2.75 7M8 12.25v3m0 0h4m-4 0H4M10.25 7a2.25 2.25 0 0 1-4.5 0V3a2.25 2.25 0 0 1 4.5 0z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MicrophoneIcon.displayName = 'MicrophoneIcon';

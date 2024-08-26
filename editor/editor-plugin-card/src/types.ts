@@ -182,11 +182,11 @@ export type SetCardLayoutAndDatasourceTableRef = {
 	datasourceTableRef?: HTMLElement;
 };
 
-export type ClearOverlayCandidate = {
+type ClearOverlayCandidate = {
 	type: 'CLEAR_OVERLAY_CANDIDATE';
 };
 
-export type RegisterRemoveOverlayOnInsertedLink = {
+type RegisterRemoveOverlayOnInsertedLink = {
 	type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK';
 	callback: () => void;
 };

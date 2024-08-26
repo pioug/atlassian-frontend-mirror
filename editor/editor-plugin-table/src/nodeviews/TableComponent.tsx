@@ -49,8 +49,15 @@ import {
 	updateColgroup,
 } from '../pm-plugins/table-resizing/utils';
 import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
-import { TABLE_EDITOR_MARGIN } from '../pm-plugins/table-resizing/utils/consts';
+import {
+	TABLE_EDITOR_MARGIN,
+	TABLE_OFFSET_IN_COMMENT_EDITOR,
+} from '../pm-plugins/table-resizing/utils/consts';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
+import {
+	getScalingPercentForTableWithoutWidth,
+	getTableScalingPercent,
+} from '../pm-plugins/table-resizing/utils/misc';
 import type { CellHoverMeta, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
 import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
@@ -82,7 +89,7 @@ const initialOverflowCaptureTimeroutDelay = 300;
 // PLEASE NOTE: that the current way this alaytics has been configured WILL cause reflows to occur. This is why the has been disabled.
 const isOverflowAnalyticsEnabled = false;
 
-export interface ComponentProps {
+interface ComponentProps {
 	view: EditorView;
 	getNode: () => PmNode;
 	allowColumnResizing?: boolean;
@@ -376,7 +383,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	}
 
 	handleColgroupUpdates(force = false) {
-		const { getNode, containerWidth, isResizing, view, getPos, getEditorFeatureFlags } = this.props;
+		const { getNode, containerWidth, isResizing, view, getPos, getEditorFeatureFlags, options } =
+			this.props;
 
 		if (!this.table) {
 			return;
@@ -384,8 +392,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		// Remove any widths styles after resizing preview is completed
 		this.table.style.width = '';
-
-		const tableRenderWidth = containerWidth.width - TABLE_EDITOR_MARGIN;
 		const tableNode = getNode();
 		const start = getPos() || 0;
 		const depth = view.state.doc.resolve(start).depth;
@@ -394,10 +400,19 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			return;
 		}
 
-		const tableNodeWidth = getTableContainerWidth(tableNode);
+		let tableNodeWidth = getTableContainerWidth(tableNode);
 		const isTableResizedFullWidth = tableNodeWidth === 1800 && this.wasResizing && !isResizing;
+
 		// Needed for undo / redo
 		const isTableWidthChanged = tableNodeWidth !== this.tableNodeWidth;
+
+		const tableRenderWidth = options?.isCommentEditor
+			? containerWidth.width - (TABLE_OFFSET_IN_COMMENT_EDITOR + 1) // should be the same as this.table.parentElement?.clientWidth - 1, subtract 1 to avoid overflow
+			: containerWidth.width - TABLE_EDITOR_MARGIN;
+
+		tableNodeWidth =
+			options?.isCommentEditor && !tableNode.attrs.width ? tableRenderWidth : tableNodeWidth;
+
 		const isTableSquashed = tableRenderWidth < tableNodeWidth;
 		const isNumberColumnChanged =
 			tableNode.attrs.isNumberColumnEnabled !== this.node.attrs.isNumberColumnEnabled;
@@ -406,7 +421,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const maybeScale =
 			isTableSquashed ||
 			isTableWidthChanged ||
-			isTableResizedFullWidth ||
+			(isTableResizedFullWidth && !options?.isCommentEditor) ||
 			isNumberColumnChanged ||
 			isNumberOfColumnsChanged;
 
@@ -448,6 +463,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					domAtPos: view.domAtPos.bind(view),
 					isTableScalingEnabled: true,
 					shouldUseIncreasedScalingPercent,
+					isCommentEditor: !!this.props.options?.isCommentEditor,
 				});
 
 				let shouldScaleOnColgroupUpdate = false;
@@ -462,6 +478,24 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					shouldScaleOnColgroupUpdate = true;
 				}
 
+				if (this.props.options?.isTableScalingEnabled && this.props.options?.isCommentEditor) {
+					shouldScaleOnColgroupUpdate = true;
+				}
+
+				let scalePercent = 1;
+				if (
+					!this.props.options?.isCommentEditor ||
+					(this.props.options?.isCommentEditor && tableNode.attrs.width)
+				) {
+					scalePercent = getTableScalingPercent(
+						tableNode,
+						this.table!,
+						shouldUseIncreasedScalingPercent,
+					);
+				} else {
+					scalePercent = getScalingPercentForTableWithoutWidth(tableNode, this.table!);
+				}
+
 				// Request animation frame required for Firefox
 				requestAnimationFrame(() => {
 					updateColgroup(
@@ -469,7 +503,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 						this.table!,
 						tableNode,
 						shouldScaleOnColgroupUpdate,
-						shouldUseIncreasedScalingPercent,
+						scalePercent,
 					);
 				});
 			}
@@ -590,13 +624,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					const start = getPos() || 0;
 					const depth = view.state.doc.resolve(start).depth;
 					shouldScale = depth === 0 && shouldScale;
-
 					insertColgroupFromNode(
 						this.table,
 						currentTable,
 						shouldScale,
 						undefined,
 						shouldUseIncreasedScalingPercent,
+						options?.isCommentEditor,
 					);
 				}
 

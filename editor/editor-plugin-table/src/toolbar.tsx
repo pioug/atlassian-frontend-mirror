@@ -221,6 +221,7 @@ export const getToolbarCellOptionsConfig = (
 						isCellBackgroundDuplicated,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
+						isCommentEditor,
 					)(INPUT_METHOD.FLOATING_TB, index)(state, dispatch, view);
 				}
 				return true;
@@ -263,6 +264,7 @@ export const getToolbarCellOptionsConfig = (
 						isTableScalingEnabled,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
+						isCommentEditor,
 					)(INPUT_METHOD.FLOATING_TB, selectionRect)(state, dispatch, view);
 				}
 				return true;
@@ -449,7 +451,7 @@ export const getClosestSelectionRect = (state: EditorState): Rect | undefined =>
 		: findCellRectClosestToPos(selection.$from);
 };
 
-export const getClosestSelectionOrTableRect = (state: EditorState): Rect | undefined => {
+const getClosestSelectionOrTableRect = (state: EditorState): Rect | undefined => {
 	const selection = state.selection;
 	const tableObject = findTable(state.selection);
 	if (!tableObject) {
@@ -696,7 +698,7 @@ const getCellItems = (
 	return [];
 };
 
-export const getDistributeConfig =
+const getDistributeConfig =
 	(
 		getEditorContainerWidth: GetEditorContainerWidth,
 		api: PluginInjectionAPI | undefined | null,
@@ -756,6 +758,7 @@ const getColumnSettingItems = (
 		getEditorContainerWidth,
 		isTableScalingEnabled,
 		isTableFixedColumnWidthsOptionEnabled,
+		isCommentEditor,
 	);
 
 	const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -875,7 +878,7 @@ type AlignmentIcon = {
 	icon: React.ComponentClass<any>;
 };
 
-export const getAlignmentOptionsConfig = (
+const getAlignmentOptionsConfig = (
 	editorState: EditorState,
 	{ formatMessage }: ToolbarMenuContext,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
@@ -964,13 +967,13 @@ export const getAlignmentOptionsConfig = (
 	return alignmentToolbarItem;
 };
 
-export const getSelectedAlignmentIcon = (alignmentIcons: AlignmentIcon[], selectedNode: PMNode) => {
+const getSelectedAlignmentIcon = (alignmentIcons: AlignmentIcon[], selectedNode: PMNode) => {
 	const selectedAlignment = selectedNode.attrs.layout;
 
 	return alignmentIcons.find((icon) => icon.value === normaliseAlignment(selectedAlignment));
 };
 
-export const isLayoutOptionDisabled = (
+const isLayoutOptionDisabled = (
 	selectedNode: PMNode,
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getDomRef: (editorView: EditorView) => HTMLElement | undefined,

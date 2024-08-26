@@ -3,10 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import CommentActionWithAnalytics, {
-	CommentActionWithoutAnalytics as CommentAction,
-	type CommentActionItemProps,
-} from '../../action-item';
+import CommentAction, { type CommentActionItemProps } from '../../action-item';
 
 describe('@atlaskit comments', () => {
 	describe('CommentAction', () => {
@@ -79,7 +76,7 @@ describe('@atlaskit comments', () => {
 	});
 });
 
-describe('CommentActionWithAnalytics', () => {
+describe('CommentAction with analytics', () => {
 	beforeEach(() => {
 		jest.spyOn(global.console, 'warn');
 		jest.spyOn(global.console, 'error');
@@ -92,7 +89,7 @@ describe('CommentActionWithAnalytics', () => {
 	});
 
 	it('should mount without errors', () => {
-		render(<CommentActionWithAnalytics>Reply</CommentActionWithAnalytics>);
+		render(<CommentAction>Reply</CommentAction>);
 		/* eslint-disable no-console */
 		expect(console.warn).not.toHaveBeenCalled();
 		expect(console.error).not.toHaveBeenCalled();

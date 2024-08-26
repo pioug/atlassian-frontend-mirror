@@ -100,7 +100,7 @@ export const setDragging = (
 		(originalTr) => (tr || originalTr).setMeta('is-resizer-resizing', true),
 	);
 
-export const setLastClick = (
+const setLastClick = (
 	lastClick: { x: number; y: number; time: number } | null,
 	transform?: (tr: Transaction) => Transaction,
 ) =>

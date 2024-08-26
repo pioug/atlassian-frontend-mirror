@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { token } from '@atlaskit/tokens';
 
-export interface TruncatedWrapperProps {
+interface TruncatedWrapperProps {
 	height?: number;
 	fadeHeight?: number;
 	backgroundColor?: string;

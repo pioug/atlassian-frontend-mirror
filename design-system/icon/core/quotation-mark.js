@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ea105c1f143b1727deba9c4d88e2ebd3>>
+ * @codegen <<SignedSource::23ccbfab64fbf95402b50dff5811b50b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const QuotationMarkIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M3 13.25A3.25 3.25 0 0 0 6.25 10V8.25m0 0V4c0-.69-.56-1.25-1.25-1.25H2C1.31 2.75.75 3.31.75 4v3c0 .69.56 1.25 1.25 1.25zm9 0V4c0-.69-.56-1.25-1.25-1.25h-3c-.69 0-1.25.56-1.25 1.25v3c0 .69.56 1.25 1.25 1.25zm0 0V10A3.25 3.25 0 0 1 12 13.25"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M3 13.25A3.25 3.25 0 0 0 6.25 10V8.25m0 0V4c0-.69-.56-1.25-1.25-1.25H2C1.31 2.75.75 3.31.75 4v3c0 .69.56 1.25 1.25 1.25zm9 0V4c0-.69-.56-1.25-1.25-1.25h-3c-.69 0-1.25.56-1.25 1.25v3c0 .69.56 1.25 1.25 1.25zm0 0V10A3.25 3.25 0 0 1 12 13.25"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 QuotationMarkIcon.displayName = 'QuotationMarkIcon';

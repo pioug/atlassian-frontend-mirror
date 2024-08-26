@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::53e621813ee848185c737ed7df4b1bbf>>
+ * @codegen <<SignedSource::7f43775e87d9563ad32bb604bf2f4ee6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HashtagIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="m6.75 1-2.5 14m7.5-14-2.5 14M14 10.25H1m14-4.5H2"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="m6.75 1-2.5 14m7.5-14-2.5 14M14 10.25H1m14-4.5H2"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 HashtagIcon.displayName = 'HashtagIcon';

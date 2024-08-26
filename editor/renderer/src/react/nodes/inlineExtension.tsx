@@ -6,7 +6,7 @@ import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-export interface Props {
+interface Props {
 	extensionHandlers?: ExtensionHandlers;
 	providers: ProviderFactory;
 	rendererContext: RendererContext;

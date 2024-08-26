@@ -12,7 +12,7 @@ import ExtensionRenderer from '../../ui/ExtensionRenderer';
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 
-export interface Props {
+interface Props {
 	serializer: Serializer<any>;
 	extensionHandlers?: ExtensionHandlers;
 	rendererContext: RendererContext;

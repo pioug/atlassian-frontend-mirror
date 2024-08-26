@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0872779d41197f840d9b08b4c4d65b19>>
+ * @codegen <<SignedSource::56b7493ca55a467b5dec2851225bc1d7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShareIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M10.434 11.717a1.75 1.75 0 1 0 3.131 1.566 1.75 1.75 0 0 0-3.13-1.566Zm0 0L5.316 8.783m0 0a1.74 1.74 0 0 0 0-1.566m0 1.566a1.75 1.75 0 1 1 0-1.566m0 0 5.118-2.934m0 0a1.75 1.75 0 1 0 3.13-1.566 1.75 1.75 0 0 0-3.13 1.566Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M10.434 11.717a1.75 1.75 0 1 0 3.131 1.566 1.75 1.75 0 0 0-3.13-1.566Zm0 0L5.316 8.783m0 0a1.74 1.74 0 0 0 0-1.566m0 1.566a1.75 1.75 0 1 1 0-1.566m0 0 5.118-2.934m0 0a1.75 1.75 0 1 0 3.13-1.566 1.75 1.75 0 0 0-3.13 1.566Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ShareIcon.displayName = 'ShareIcon';

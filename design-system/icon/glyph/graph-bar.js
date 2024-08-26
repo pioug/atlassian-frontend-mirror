@@ -9,7 +9,7 @@ var _base = require("@atlaskit/icon/base");
 var _chartBar = _interopRequireDefault(require("@atlaskit/icon/core/chart-bar"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const GraphBarIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentColor" fill-rule="evenodd"><rect width="4" height="11" x="17" y="5" rx="2"/><rect width="4" height="8" x="11" y="8" rx="2"/><rect width="4" height="5" x="5" y="11" rx="2"/><path fill-rule="nonzero" d="M21 17H4.995C4.448 17 4 16.548 4 15.991V6a1 1 0 1 0-2 0v9.991A3.004 3.004 0 0 0 4.995 19H21a1 1 0 0 0 0-2"/></g></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentcolor" fill-rule="evenodd"><rect width="4" height="11" x="17" y="5" rx="2"/><rect width="4" height="8" x="11" y="8" rx="2"/><rect width="4" height="5" x="5" y="11" rx="2"/><path fill-rule="nonzero" d="M21 17H4.995C4.448 17 4 16.548 4 15.991V6a1 1 0 1 0-2 0v9.991A3.004 3.004 0 0 0 4.995 19H21a1 1 0 0 0 0-2"/></g></svg>`
 }, props, {
   newIcon: _chartBar.default
 }));

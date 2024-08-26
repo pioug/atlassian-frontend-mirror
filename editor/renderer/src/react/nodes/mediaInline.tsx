@@ -27,7 +27,7 @@ import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 
-export type RenderMediaInlineProps = {
+type RenderMediaInlineProps = {
 	identifier: FileIdentifier;
 	clipboardAttrs: ClipboardAttrs;
 	intl?: IntlShape;
@@ -39,7 +39,7 @@ export type RenderMediaInlineProps = {
 	rendererContext?: RendererContext;
 };
 
-export type MediaInlineProps = {
+type MediaInlineProps = {
 	id: string;
 	providers: ProviderFactory;
 	collection?: string;
@@ -50,7 +50,7 @@ export type MediaInlineProps = {
 	ssr?: MediaSSR;
 };
 
-export const RenderMediaInline = ({
+const RenderMediaInline = ({
 	rendererAppearance,
 	clipboardAttrs,
 	collection: collectionName,

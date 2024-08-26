@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e4933ce9969ea2eef7788a111b58685e>>
+ * @codegen <<SignedSource::50ae2624087e449b06193b33f86d2c7f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VolumeMutedIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m11 6 2 2m0 0 2 2m-2-2 2-2m-2 2-2 2m-9.265-.038 4.99 3.94c.82.647 2.025.063 2.025-.981V3.079c0-1.044-1.205-1.628-2.025-.98l-4.99 3.939a2.5 2.5 0 0 0 0 3.924Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m11 6 2 2m0 0 2 2m-2-2 2-2m-2 2-2 2m-9.265-.038 4.99 3.94c.82.647 2.025.063 2.025-.981V3.079c0-1.044-1.205-1.628-2.025-.98l-4.99 3.939a2.5 2.5 0 0 0 0 3.924Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VolumeMutedIcon.displayName = 'VolumeMutedIcon';

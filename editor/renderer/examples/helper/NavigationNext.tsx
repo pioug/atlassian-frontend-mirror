@@ -119,7 +119,7 @@ export const getDefaultShowSidebarState = (defaultValue = false) => {
 	return defaultValue;
 };
 
-export function NavigationNext({ children }: { children: React.ReactNode }) {
+function NavigationNext({ children }: { children: React.ReactNode }) {
 	return (
 		<NavigationProvider>
 			<LayoutManager

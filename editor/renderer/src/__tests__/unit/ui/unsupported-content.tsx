@@ -1,6 +1,6 @@
 import React from 'react';
 import { initialDoc } from '../../__fixtures__/initial-doc';
-import type { Props } from '../../../ui/Renderer';
+import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer from '../../../ui/Renderer';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { IntlProvider } from 'react-intl-next';
@@ -37,7 +37,7 @@ describe('Unsupported Content', () => {
 
 		const initRendererWithIntl = (
 			doc: any = initialDoc,
-			props: Partial<Props> = {},
+			props: Partial<RendererProps> = {},
 			locale: string = 'en',
 			messages = {},
 		) =>
@@ -127,7 +127,7 @@ describe('Unsupported Content', () => {
 
 		const initRendererWithIntl = (
 			doc: any = initialDoc,
-			props: Partial<Props> = {},
+			props: Partial<RendererProps> = {},
 			locale: string = 'en',
 			messages = {},
 		) =>

@@ -224,6 +224,9 @@ const destroyFn = (
 								isTableScalingEnabledOnCurrentTable = tableNode.attrs.displayMode !== 'fixed';
 							}
 
+							if (isTableScalingEnabled && isCommentEditor) {
+								isTableScalingEnabledOnCurrentTable = true;
+							}
 							const shouldUseIncreasedScalingPercent =
 								(isTableScalingWithFixedColumnWidthsOptionEnabled &&
 									fg('platform.editor.table.use-increased-scaling-percent')) ||
@@ -236,6 +239,7 @@ const destroyFn = (
 								isTableScalingEnabledOnCurrentTable,
 								undefined,
 								shouldUseIncreasedScalingPercent,
+								isCommentEditor,
 							);
 						}
 					}

@@ -27,7 +27,7 @@ import { getRowsParams, getSelectedColumnIndexes } from '../../../utils';
 import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle } from '../../DragHandle';
 
-export interface ColumnControlsProps {
+interface ColumnControlsProps {
 	editorView: EditorView;
 	tableActive?: boolean;
 	isInDanger?: boolean;
@@ -339,5 +339,3 @@ export const ColumnControls = ({
 		</div>
 	);
 };
-
-export default ColumnControls;

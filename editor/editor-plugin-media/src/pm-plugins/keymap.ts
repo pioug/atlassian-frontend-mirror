@@ -43,7 +43,7 @@ import type { MediaPluginState } from './types';
 
 type WidthPlugin = ExtractInjectionAPI<MediaNextEditorPluginType>['width'];
 
-export function keymapPlugin(
+function keymapPlugin(
 	options: MediaOptions | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	editorSelectionAPI: EditorSelectionAPI | undefined,

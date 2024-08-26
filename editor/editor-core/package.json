@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "195.8.0",
+	"version": "195.8.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -80,7 +80,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@af/editor-examples-helpers": "0.3.1",
+		"@af/editor-examples-helpers": "0.3.2",
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.8.0",
@@ -101,14 +101,14 @@
 		"@atlaskit/modal-dialog": "^12.15.0",
 		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/renderer": "^109.50.0",
-		"@atlaskit/smart-card": "^27.16.0",
+		"@atlaskit/smart-card": "^27.17.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
 		"@atlaskit/toggle": "^13.3.0",
 		"@atlaskit/util-data-test": "^17.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.111",
+		"@atlassian/search-provider": "2.4.113",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^5.3.18",
 		"@testing-library/react": "^12.1.5",
@@ -260,9 +260,6 @@
 		"platform_editor_lazy-node-views": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_media_provider_from_plugin_config": {
-			"type": "boolean"
 		},
 		"platform_editor_elements_dnd_nested": {
 			"type": "boolean",

@@ -35,9 +35,6 @@
 	"references": [
 		{
 			"path": "../../design-system/logo/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	],
 	"files": []

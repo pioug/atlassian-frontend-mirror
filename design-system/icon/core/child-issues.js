@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::513b581ed0c2c8bf3f72e1c225a7d7f0>>
+ * @codegen <<SignedSource::3f513bcc5d881b230ac31da87c19cda2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChildIssuesIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 12.25v1.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-5.5a.5.5 0 0 0-.5.5zm0 0H3c-.69 0-1.25-.56-1.25-1.25V5.25m0-4.25v4.25m6 0v1.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-5.5a.5.5 0 0 0-.5.5zm0 0h-6"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 12.25v1.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-5.5a.5.5 0 0 0-.5.5zm0 0H3c-.69 0-1.25-.56-1.25-1.25V5.25m0-4.25v4.25m6 0v1.5a.5.5 0 0 0 .5.5h5.5a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-5.5a.5.5 0 0 0-.5.5zm0 0h-6"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChildIssuesIcon.displayName = 'ChildIssuesIcon';

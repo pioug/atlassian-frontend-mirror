@@ -37,7 +37,7 @@ import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import { findChangeFromLocation, getChangeMediaAnalytics } from './analytics';
 import { isImage } from './is-type';
 
-export interface MediaSingleState extends MediaState {
+interface MediaSingleState extends MediaState {
 	dimensions: { width: number; height: number };
 	scaleFactor?: number;
 	contextId?: string;
@@ -314,7 +314,7 @@ export const changeFromMediaInlineToMediaSingleNode = (
 	return true;
 };
 
-export const createMediaSingleNode =
+const createMediaSingleNode =
 	(
 		schema: Schema,
 		collection: string,
@@ -377,17 +377,6 @@ const replaceWithMediaSingleNode =
 			: {};
 		return mediaSingle.createChecked(extendedMediaSingleAttrs, copiedMediaNode);
 	};
-
-export function isCaptionNode(editorView: EditorView) {
-	const { $from } = editorView.state.selection;
-	const immediateWrapperParentNode = editorView.state.doc.nodeAt(
-		$from.before(Math.max($from.depth, 1)),
-	);
-	if (immediateWrapperParentNode && immediateWrapperParentNode.type.name === 'caption') {
-		return true;
-	}
-	return false;
-}
 
 export const isVideo = memoizeOne((fileType?: string) => {
 	return !!fileType && fileType.includes('video');

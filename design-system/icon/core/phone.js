@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::05bffff8bb2e9e3e661e3abb44c8356f>>
+ * @codegen <<SignedSource::84714ddff7a3965e8b5bab27f131965d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PhoneIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m3.319 7.693 2.43-2.026a1 1 0 0 0 .322-1.043L5.25 1.75h-3.5c0 2.13.573 4.16 1.569 5.943Zm0 0a13 13 0 0 0 4.988 4.988m0 0a12.17 12.17 0 0 0 5.943 1.569v-3.5l-2.874-.821a1 1 0 0 0-1.043.321z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m3.319 7.693 2.43-2.026a1 1 0 0 0 .322-1.043L5.25 1.75h-3.5c0 2.13.573 4.16 1.569 5.943Zm0 0a13 13 0 0 0 4.988 4.988m0 0a12.17 12.17 0 0 0 5.943 1.569v-3.5l-2.874-.821a1 1 0 0 0-1.043.321z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PhoneIcon.displayName = 'PhoneIcon';

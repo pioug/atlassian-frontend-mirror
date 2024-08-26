@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3cdb5699feb09a54718e94e54e285530>>
+ * @codegen <<SignedSource::97052e48b24e2900c63472a49a9185df>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const WarningIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" fill-rule="evenodd" d="M11.702 9.137A1.25 1.25 0 0 1 10.612 11H1.388a1.25 1.25 0 0 1-1.09-1.863l4.614-8.2a1.25 1.25 0 0 1 2.178 0zM6.75 2.75V6.5h-1.5V2.75zm-.75 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M11.702 9.137A1.25 1.25 0 0 1 10.612 11H1.388a1.25 1.25 0 0 1-1.09-1.863l4.614-8.2a1.25 1.25 0 0 1 2.178 0zM6.75 2.75V6.5h-1.5V2.75zm-.75 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

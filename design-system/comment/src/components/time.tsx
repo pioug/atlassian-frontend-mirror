@@ -1,19 +1,10 @@
 import React, { type FC, type ReactNode } from 'react';
 
-import {
-	createAndFireEvent,
-	type UIAnalyticsEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import Field from './field';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-export interface CommentTimeProps extends WithAnalyticsEventsProps {
+export interface CommentTimeProps {
 	/**
 	 * The time of the comment.
 	 */
@@ -39,13 +30,21 @@ export interface CommentTimeProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const CommentTimeComponent: FC<CommentTimeProps> = ({
+const CommentTime: FC<CommentTimeProps> = ({
 	children,
 	href,
-	onClick,
+	onClick: providedOnClick,
 	onFocus,
 	onMouseOver,
 }) => {
+	const onClick = usePlatformLeafEventHandler<React.MouseEvent<HTMLAnchorElement, MouseEvent>>({
+		fn: (event, analyticsEvent) => providedOnClick && providedOnClick(event, analyticsEvent),
+		action: 'clicked',
+		componentName: 'commentTime',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
+
 	return (
 		<Field href={href} onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
 			{children}
@@ -53,33 +52,7 @@ const CommentTimeComponent: FC<CommentTimeProps> = ({
 	);
 };
 
-CommentTimeComponent.displayName = 'CommentTime';
+CommentTime.displayName = 'CommentTime';
 
-export { CommentTimeComponent as CommentTimeWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-/**
- * __Comment time__
- *
- * The time the comment was made.
- */
-const CommentTime = withAnalyticsContext({
-	componentName: 'commentTime',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		onClick: createAndFireEventOnAtlaskit({
-			action: 'clicked',
-			actionSubject: 'commentTime',
-
-			attributes: {
-				componentName: 'commentTime',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(CommentTimeComponent),
-);
-
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default CommentTime;

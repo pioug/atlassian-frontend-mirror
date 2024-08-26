@@ -8,7 +8,7 @@ import uuid from 'uuid/v4';
 
 type Callback = (doc: JSONDocNode) => void;
 
-export const AnnotationSelectionComponentMock = (
+const AnnotationSelectionComponentMock = (
 	props: InlineCommentSelectionComponentProps & { setNewDocument: Callback },
 ) => {
 	const { isAnnotationAllowed, onClose, applyDraftMode, wrapperDOM } = props;

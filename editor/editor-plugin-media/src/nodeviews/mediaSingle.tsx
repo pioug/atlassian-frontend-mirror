@@ -68,7 +68,7 @@ import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 const figureWrapperStyles = css({
 	margin: 0,
 });
-export interface MediaSingleNodeState {
+interface MediaSingleNodeState {
 	width?: number;
 	height?: number;
 	viewMediaClientConfig?: MediaClientConfig;
@@ -558,7 +558,6 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 
 const MediaSingleNodeWrapper = ({
 	pluginInjectionApi,
-	mediaProvider,
 	contextIdentifierProvider,
 	node,
 	getPos,
@@ -588,7 +587,7 @@ const MediaSingleNodeWrapper = ({
 			'editorViewMode',
 		]);
 
-	const newMediaProvider = useMemo(
+	const mediaProvider = useMemo(
 		() => (mediaState?.mediaProvider ? Promise.resolve(mediaState?.mediaProvider) : undefined),
 		[mediaState?.mediaProvider],
 	);
@@ -599,9 +598,7 @@ const MediaSingleNodeWrapper = ({
 			lineLength={widthState!.lineLength}
 			node={node}
 			getPos={getPos}
-			mediaProvider={
-				fg('platform_editor_media_provider_from_plugin_config') ? newMediaProvider : mediaProvider
-			}
+			mediaProvider={mediaProvider}
 			contextIdentifierProvider={contextIdentifierProvider}
 			mediaOptions={mediaOptions}
 			view={view}
@@ -753,15 +750,12 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
 		return (
 			<WithProviders
-				// Cleanup: `platform_editor_media_provider_from_plugin_config`
-				// Remove `mediaProvider`
-				providers={['mediaProvider', 'contextIdentifierProvider']}
+				providers={['contextIdentifierProvider']}
 				providerFactory={providerFactory}
-				renderNode={({ mediaProvider, contextIdentifierProvider }) => {
+				renderNode={({ contextIdentifierProvider }) => {
 					return (
 						<MediaSingleNodeWrapper
 							pluginInjectionApi={pluginInjectionApi}
-							mediaProvider={mediaProvider}
 							contextIdentifierProvider={contextIdentifierProvider}
 							node={this.node}
 							getPos={getPos}

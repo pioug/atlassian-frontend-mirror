@@ -45,7 +45,7 @@ export interface Props {
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 }
 
-export interface State {
+interface State {
 	selectionType?: CellSelectionType;
 	left: number;
 	top: number;
@@ -54,7 +54,7 @@ export interface State {
 	scrollLeft: number;
 }
 
-export function getSelectionType(selection: Selection): TableDirection | undefined {
+function getSelectionType(selection: Selection): TableDirection | undefined {
 	if (!isTableSelected(selection) && selection instanceof CellSelection) {
 		if (selection.isRowSelection()) {
 			return 'row';

@@ -10,7 +10,7 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
-import type { Props as RendererProps } from '../../src/ui/Renderer';
+import type { RendererProps } from '../../src/ui/renderer-props';
 import { default as Renderer } from '../../src/ui/Renderer';
 import { document as defaultDoc } from '../helper/story-data';
 import Sidebar from '../helper/NavigationNext';
@@ -35,7 +35,7 @@ const mentionProvider = Promise.resolve({
 } as MentionProvider);
 const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
 
-export type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
+type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
 	showSidebar?: boolean;
 	withRendererActions?: boolean;
 	mockInlineComments?: boolean;
@@ -90,7 +90,6 @@ function renderRenderer({
 }
 
 const editorPlaceholderClassname = 'editor-vr-test-placeholder';
-export const editorPlaceholderSelector = `.${editorPlaceholderClassname}`;
 
 /**
  * Create a function on the window object that mounts the renderer when called.

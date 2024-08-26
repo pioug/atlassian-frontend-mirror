@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b2ad762b940ff9cbdf546b74a5cef06f>>
+ * @codegen <<SignedSource::3332501e48974042a2099f2354e5dcef>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AudioIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m6.25 6 8-1m-8 4.75V12A2.25 2.25 0 1 1 4 9.75zm0 0v-7l8-1v7m0 0V11A2.25 2.25 0 1 1 12 8.75z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m6.25 6 8-1m-8 4.75V12A2.25 2.25 0 1 1 4 9.75zm0 0v-7l8-1v7m0 0V11A2.25 2.25 0 1 1 12 8.75z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AudioIcon.displayName = 'AudioIcon';

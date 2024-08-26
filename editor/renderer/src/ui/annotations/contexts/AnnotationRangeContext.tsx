@@ -92,13 +92,13 @@ function reducer(state: State, action: Action): State {
 	}
 }
 
-export const AnnotationRangeStateContext = createContext<AnnotationRangeStateContext>({
+const AnnotationRangeStateContext = createContext<AnnotationRangeStateContext>({
 	range: null,
 	draftRange: null,
 	type: null,
 });
 
-export const AnnotationRangeDispatchContext = createContext<AnnotationRangeDispatchContext>({
+const AnnotationRangeDispatchContext = createContext<AnnotationRangeDispatchContext>({
 	clearRange: () => {},
 	clearSelectionRange: () => {},
 	clearDraftRange: () => {},

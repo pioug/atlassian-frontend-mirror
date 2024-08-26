@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2b854cf442818ccd2fb73d647771c3ca>>
+ * @codegen <<SignedSource::431838eb94cfb7b68eee2448917157a6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShieldIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M14.25 4.5S10.75 3.5 8 .75C5.25 3.5 1.75 4.5 1.75 4.5 1.75 12.75 8 15.125 8 15.125S14.25 12.75 14.25 4.5Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M14.25 4.5S10.75 3.5 8 .75C5.25 3.5 1.75 4.5 1.75 4.5 1.75 12.75 8 15.125 8 15.125S14.25 12.75 14.25 4.5Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ShieldIcon.displayName = 'ShieldIcon';

@@ -1,5 +1,21 @@
 # @atlaskit/comment
 
+## 11.0.1
+
+### Patch Changes
+
+- [#133099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133099)
+  [`e5394ab79e19e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5394ab79e19e) -
+  Removes internal exports which are not exported via the main entrypoint
+
+## 11.0.0
+
+### Major Changes
+
+- [#133528](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133528)
+  [`0358a3e6378d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0358a3e6378d2) -
+  Refactors analytics next API to remove usages of legacy react context.
+
 ## 10.13.1
 
 ### Patch Changes

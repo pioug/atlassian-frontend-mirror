@@ -8,7 +8,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getSelectedNearestMediaContainerNodeAttrs } from '../../toolbar/utils';
 import { type MediaPluginState } from '../../types';
@@ -28,7 +28,7 @@ type MediaViewerContainerProps = {
 	isInline?: boolean;
 	children?: React.ReactNode;
 };
-export const mediaViewerContainerTestID = 'media-viewer-container-test';
+const mediaViewerContainerTestID = 'media-viewer-container-test';
 export const MediaViewerContainer = ({
 	mediaNode,
 	mediaPluginState,
@@ -55,8 +55,7 @@ export const MediaViewerContainer = ({
 	};
 
 	const isVideoMedia = isVideo(mediaNode.firstChild?.attrs.__fileMimeType);
-	const enableMediaViewer =
-		getBooleanFF('platform.editor.media.preview-in-full-page') && isEditorViewMode;
+	const enableMediaViewer = fg('platform.editor.media.preview-in-full-page') && isEditorViewMode;
 
 	const shouldShowViewer =
 		enableMediaViewer && showViewer && selectedNodeAttrs && mediaClientConfig && !isVideoMedia;

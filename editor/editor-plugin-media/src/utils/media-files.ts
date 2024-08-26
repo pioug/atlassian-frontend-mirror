@@ -47,7 +47,7 @@ import {
 } from './media-common';
 import { isInSupportedInlineImageParent } from './media-inline';
 
-export interface Range {
+interface Range {
 	start: number;
 	end: number;
 }

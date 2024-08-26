@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::82efe8891afb257c5223bcfb60504feb>>
+ * @codegen <<SignedSource::65f50fe62695061a27aa439472200949>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const RoadmapIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M.75 4c0-.69.56-1.25 1.25-1.25h9c.69 0 1.25.56 1.25 1.25v1c0 .69-.56 1.25-1.25 1.25H2C1.31 6.25.75 5.69.75 5zm3 7c0-.69.56-1.25 1.25-1.25h9c.69 0 1.25.56 1.25 1.25v1c0 .69-.56 1.25-1.25 1.25H5c-.69 0-1.25-.56-1.25-1.25z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M.75 4c0-.69.56-1.25 1.25-1.25h9c.69 0 1.25.56 1.25 1.25v1c0 .69-.56 1.25-1.25 1.25H2C1.31 6.25.75 5.69.75 5zm3 7c0-.69.56-1.25 1.25-1.25h9c.69 0 1.25.56 1.25 1.25v1c0 .69-.56 1.25-1.25 1.25H5c-.69 0-1.25-.56-1.25-1.25z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 RoadmapIcon.displayName = 'RoadmapIcon';

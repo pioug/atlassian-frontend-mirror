@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8d1f1fde899f6ba446064ae722b8a439>>
+ * @codegen <<SignedSource::6c69007591345d5f50ff67a45e1e57f2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PinFilledIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M3.5 9.5c-.546.91-.75 1.5-.75 2.25h10.5c0-.75-.084-1.14-.75-2.25-.75-1.247-2-1.25-2-1.75V3.018c0-.268.353-.567.752-1.02.438-.498.25-1.248 0-1.248H4.75c-.25 0-.427.817 0 1.247l.01.011c.372.374.74.745.74 1.01V7.75c0 .5-1.25.5-2 1.75"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M8 11.75h5.25c0-.75-.084-1.14-.75-2.25-.75-1.247-2-1.25-2-1.75V3.018c0-.268.353-.567.752-1.02.438-.498.25-1.248 0-1.248H4.75c-.25 0-.427.817 0 1.247.375.378.75.753.75 1.021V7.75c0 .5-1.25.5-2 1.75-.546.91-.75 1.5-.75 2.25zm0 0V16"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M3.5 9.5c-.546.91-.75 1.5-.75 2.25h10.5c0-.75-.084-1.14-.75-2.25-.75-1.247-2-1.25-2-1.75V3.018c0-.268.353-.567.752-1.02.438-.498.25-1.248 0-1.248H4.75c-.25 0-.427.817 0 1.247l.01.011c.372.374.74.745.74 1.01V7.75c0 .5-1.25.5-2 1.75"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 11.75h5.25c0-.75-.084-1.14-.75-2.25-.75-1.247-2-1.25-2-1.75V3.018c0-.268.353-.567.752-1.02.438-.498.25-1.248 0-1.248H4.75c-.25 0-.427.817 0 1.247.375.378.75.753.75 1.021V7.75c0 .5-1.25.5-2 1.75-.546.91-.75 1.5-.75 2.25zm0 0V16"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PinFilledIcon.displayName = 'PinFilledIcon';

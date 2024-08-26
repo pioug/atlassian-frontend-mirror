@@ -115,6 +115,7 @@ export const rescaleColumns =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		api: PluginInjectionAPI | undefined | null,
+		isCommentEditor = false,
 	) =>
 	(table: ContentNodeWithPos, view: EditorView | undefined) =>
 	(tr: Transaction): Transaction => {
@@ -215,6 +216,7 @@ export const rescaleColumns =
 			maxSize: previousTableInfo.possibleMaxWidth,
 			isTableScalingEnabled: shouldScale,
 			shouldUseIncreasedScalingPercent,
+			isCommentEditor,
 		});
 		// Two scenarios that require scaling:
 		//   1. If the new table width will result in the table going into overflow

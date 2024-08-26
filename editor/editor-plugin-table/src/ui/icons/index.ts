@@ -1,5 +1,4 @@
 export { DragHandleIcon } from './DragHandleIcon';
-export { DragInMotionIcon } from './DragInMotionIcon';
 export { DragHandleDisabledIcon } from './DragHandleDisabledIcon';
 export { MinimisedHandleIcon } from './MinimisedHandle';
 export { MergeCellsIcon } from './MergeCellsIcon';

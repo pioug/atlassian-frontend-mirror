@@ -2,16 +2,9 @@ import { maphElem } from '@atlaskit/editor-common/utils';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-	findTable,
-	getSelectionRect,
-	isColumnSelected,
-	isTableSelected,
-} from '@atlaskit/editor-tables/utils';
+import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
-import { TableCssClassName as ClassName } from '../types';
 import { tableDeleteButtonSize } from '../ui/consts';
 
 interface CellWidthInfo {
@@ -44,18 +37,6 @@ export const getColumnsWidths = (view: EditorView): Array<number | undefined> =>
 	return widths;
 };
 
-export const isColumnDeleteButtonVisible = (selection: Selection): boolean => {
-	if (
-		!isTableSelected(selection) &&
-		selection instanceof CellSelection &&
-		selection.isColSelection()
-	) {
-		return true;
-	}
-
-	return false;
-};
-
 export const getColumnDeleteButtonParams = (
 	columnsWidths: Array<number | undefined>,
 	selection: Selection,
@@ -85,23 +66,6 @@ export const getColumnDeleteButtonParams = (
 
 	const left = offset + width / 2 - tableDeleteButtonSize / 2;
 	return { left, indexes };
-};
-
-export const getColumnClassNames = (
-	index: number,
-	selection: Selection,
-	hoveredColumns: number[] = [],
-	isInDanger?: boolean,
-	isResizing?: boolean,
-): string => {
-	const classNames: string[] = [];
-	if (isColumnSelected(index)(selection) || (hoveredColumns.indexOf(index) > -1 && !isResizing)) {
-		classNames.push(ClassName.HOVERED_CELL_ACTIVE);
-		if (isInDanger) {
-			classNames.push(ClassName.HOVERED_CELL_IN_DANGER);
-		}
-	}
-	return classNames.join(' ');
 };
 
 // give a row colspan and a colwidths

@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 195.8.1
+
+### Patch Changes
+
+- [#133207](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133207)
+  [`1f50735af1144`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f50735af1144) -
+  Cleanup feature flag to stop using provider factory for media provider. This should be an under
+  the hood change to decouple editor from the media provider.
+
 ## 195.8.0
 
 ### Minor Changes

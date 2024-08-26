@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5b0c4095e3b155a24c86ebda240a9973>>
+ * @codegen <<SignedSource::b66a5a6681078427881894db5d543e59>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EyeOpenIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/><path fill="currentColor" fill-rule="evenodd" d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" clip-rule="evenodd"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M.75 8A8.07 8.07 0 0 1 8 3.5 8.07 8.07 0 0 1 15.25 8 8.07 8.07 0 0 1 8 12.5 8.07 8.07 0 0 1 .75 8ZM9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/><path fill="currentcolor" fill-rule="evenodd" d="M9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" clip-rule="evenodd"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M.75 8A8.07 8.07 0 0 1 8 3.5 8.07 8.07 0 0 1 15.25 8 8.07 8.07 0 0 1 8 12.5 8.07 8.07 0 0 1 .75 8ZM9.5 8a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EyeOpenIcon.displayName = 'EyeOpenIcon';

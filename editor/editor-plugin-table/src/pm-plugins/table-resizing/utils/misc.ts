@@ -6,8 +6,7 @@ import {
 } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { getBreakpoint, mapBreakpointToLayoutMaxWidth } from '@atlaskit/editor-common/ui';
-import { calcTableColumnWidths, containsClassName } from '@atlaskit/editor-common/utils';
+import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import type { NodeSpec, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -19,7 +18,7 @@ import {
 
 import type { TableOptions } from '../../../nodeviews/types';
 
-import { hasTableBeenResized } from './colgroup';
+import { hasTableBeenResized, hasTableColumnBeenResized } from './colgroup';
 import {
 	MAX_SCALING_PERCENT,
 	MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION,
@@ -45,10 +44,6 @@ export function getLayoutSize(
 	}
 
 	return layoutToWidth[tableLayout] || containerWidth;
-}
-
-export function getDefaultLayoutMaxWidth(containerWidth?: number): number {
-	return mapBreakpointToLayoutMaxWidth(getBreakpoint(containerWidth));
 }
 
 // Does the current position point at a cell.
@@ -82,16 +77,6 @@ export function currentColWidth(
 	}
 
 	return domWidth / parts;
-}
-
-// Attempts to find a parent TD/TH depending on target element.
-export function domCellAround(target: HTMLElement | null): HTMLElement | null {
-	while (target && target.nodeName !== 'TD' && target.nodeName !== 'TH') {
-		target = containsClassName(target, 'ProseMirror')
-			? null
-			: (target.parentNode as HTMLElement | null);
-	}
-	return target;
 }
 
 interface getTableMaxWidthProps {
@@ -154,7 +139,30 @@ export const getTableScalingPercent = (
 	// minus 1 here to avoid any 1px scroll in Firefox
 	let scalePercent = (renderWidth - 1) / tableWidth;
 	scalePercent = Math.max(scalePercent, 1 - maxScalingPercent);
+
 	return Math.min(scalePercent, 1);
+};
+
+// This function is used to default and full-width tables in Comment/Chromeless editors
+// These tables don't have node.attrs.width set. Their pm-table-wrapper width depend on the editor container width.
+// actual table node width can be calculated as sum of colwidth values if table's columns were resized.
+// If colwidth are not set, table columns are not resized, they all are equal widths.
+export const getScalingPercentForTableWithoutWidth = (
+	table: PMNode,
+	tableRef: HTMLElement | null,
+) => {
+	// are table columns resized
+	if (hasTableColumnBeenResized(table)) {
+		const tableWidth = calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
+		let renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
+
+		// minus 1 here to avoid any 1px scroll in Firefox
+		return (renderWidth - 1) / tableWidth;
+	}
+
+	// When table cols are not resized and table width is not set,
+	// tableWidth is equal to renderWidth
+	return 1;
 };
 
 export const getStaticTableScalingPercent = (

@@ -20,7 +20,7 @@ type TableAnalyticsPluginState = {
 	lastTrigger: LastTrigger | undefined;
 };
 
-export const pluginKey = new PluginKey<TableAnalyticsPluginState>('tableOverflowAnalyticsPlugin');
+const pluginKey = new PluginKey<TableAnalyticsPluginState>('tableOverflowAnalyticsPlugin');
 
 export const META_KEYS = {
 	OVERFLOW_TRIGGER: 'tableOverflowTrigger',

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65facebe4fffb7d8d7ef44dee5e99f21>>
+ * @codegen <<SignedSource::c0951cd6e9a611eb8fd4b9e849bff47e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const IncidentIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M1 14.25h2m12 0h-2m0 0H3m10 0-1.4-3.5M3 14.25l1.4-3.5m0 0 .1-.25 1.3-3.25m-1.4 3.5h7.2m0 0-.1-.25-1.3-3.25m-4.4 0L5.9 7 8 1.75 10.1 7l.1.25m-4.4 0h4.4"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1 14.25h2m12 0h-2m0 0H3m10 0-1.4-3.5M3 14.25l1.4-3.5m0 0 .1-.25 1.3-3.25m-1.4 3.5h7.2m0 0-.1-.25-1.3-3.25m-4.4 0L5.9 7 8 1.75 10.1 7l.1.25m-4.4 0h4.4"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 IncidentIcon.displayName = 'IncidentIcon';

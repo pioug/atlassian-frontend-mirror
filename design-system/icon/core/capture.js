@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3a425e09bf229bc8c7c10cb7c2a40231>>
+ * @codegen <<SignedSource::431bad5772adf1f478b3f0f60ad3e9c4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CaptureIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M1.75 6V3c0-.69.56-1.25 1.25-1.25h3m4 0h3c.69 0 1.25.56 1.25 1.25v3m0 4v3c0 .69-.56 1.25-1.25 1.25h-3m-4 0H3c-.69 0-1.25-.56-1.25-1.25v-3m8.75-2a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M1.75 6V3c0-.69.56-1.25 1.25-1.25h3m4 0h3c.69 0 1.25.56 1.25 1.25v3m0 4v3c0 .69-.56 1.25-1.25 1.25h-3m-4 0H3c-.69 0-1.25-.56-1.25-1.25v-3m8.75-2a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CaptureIcon.displayName = 'CaptureIcon';

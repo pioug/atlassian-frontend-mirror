@@ -1,5 +1,12 @@
 # @atlaskit/link-extractors
 
+## 1.8.0
+
+### Minor Changes
+
+- [`25c7d3c7d5354`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25c7d3c7d5354) -
+  Remove the platform.linking-platform.extractor.improve-bitbucket-file-links feature flag
+
 ## 1.7.0
 
 ### Minor Changes

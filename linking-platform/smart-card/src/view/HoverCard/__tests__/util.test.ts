@@ -212,60 +212,28 @@ describe('getMetadata', () => {
 					});
 				});
 
-				ffTest.on(
-					'platform.linking-platform.extractor.improve-bitbucket-file-links',
-					'when',
-					() => {
-						it('should return metadata elements for top primary, including CollaboratorGroup & LatestCommit for BB files', () => {
-							const metadata = getMetadata(
-								'native-bitbucket-object-provider',
-								mockBBFile.data as JsonLd.Data.BaseData,
-							);
-							expect(metadata).toEqual({
-								primary: [
-									{
-										name: ElementName.LatestCommit,
-										testId: 'latestcommit-metadata-element',
-									},
-									{
-										name: ElementName.CollaboratorGroup,
-										testId: 'collaboratorgroup-metadata-element',
-									},
-									{
-										name: ElementName.ModifiedOn,
-										testId: 'modifiedon-metadata-element',
-									},
-								],
-							});
-						});
-					},
-				);
-
-				ffTest.off(
-					'platform.linking-platform.extractor.improve-bitbucket-file-links',
-					'when',
-					() => {
-						it('should return metadata elements for top primary for BB files', () => {
-							const metadata = getMetadata(
-								'native-bitbucket-object-provider',
-								mockBBFile.data as JsonLd.Data.BaseData,
-							);
-							expect(metadata).toEqual({
-								primary: [
-									{
-										name: ElementName.AuthorGroup,
-										showNamePrefix: true,
-										testId: 'authorgroup-metadata-element',
-									},
-									{
-										name: ElementName.ModifiedOn,
-										testId: 'modifiedon-metadata-element',
-									},
-								],
-							});
-						});
-					},
-				);
+				it('should return metadata elements for top primary, including CollaboratorGroup & LatestCommit for BB files', () => {
+					const metadata = getMetadata(
+						'native-bitbucket-object-provider',
+						mockBBFile.data as JsonLd.Data.BaseData,
+					);
+					expect(metadata).toEqual({
+						primary: [
+							{
+								name: ElementName.LatestCommit,
+								testId: 'latestcommit-metadata-element',
+							},
+							{
+								name: ElementName.CollaboratorGroup,
+								testId: 'collaboratorgroup-metadata-element',
+							},
+							{
+								name: ElementName.ModifiedOn,
+								testId: 'modifiedon-metadata-element',
+							},
+						],
+					});
+				});
 
 				it('should return metadata elements for top primary, without ModifiedOn for Objects that are not SourceCodePullRequest', () => {
 					const metadata = getMetadata(

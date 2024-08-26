@@ -16,7 +16,7 @@ export type FireAnalyticsCallback = <T = void>(
 type RenderActions = ACTION.RE_RENDERED;
 type RenderActionSubjects = ACTION_SUBJECT.RENDERER;
 
-export type RenderTrackingProps<ComponentProps> = {
+type RenderTrackingProps<ComponentProps> = {
 	componentProps: ComponentProps;
 	action: RenderActions;
 	actionSubject: RenderActionSubjects;

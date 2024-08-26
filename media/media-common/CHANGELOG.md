@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.4.1
+
+### Patch Changes
+
+- [#133513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133513)
+  [`be0d9eb2d3a01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be0d9eb2d3a01) -
+  [ux] ED-23401 remove media include page feature flag
+
 ## 11.4.0
 
 ### Minor Changes

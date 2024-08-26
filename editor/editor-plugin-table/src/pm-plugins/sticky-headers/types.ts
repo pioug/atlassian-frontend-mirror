@@ -7,12 +7,12 @@ export type RowStickyState = {
 
 export type StickyPluginState = RowStickyState[];
 
-export type UpdateSticky = {
+type UpdateSticky = {
 	name: 'UPDATE';
 	state: RowStickyState;
 };
 
-export type RemoveSticky = {
+type RemoveSticky = {
 	name: 'REMOVE';
 	pos: number;
 };

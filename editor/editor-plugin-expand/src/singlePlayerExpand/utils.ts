@@ -12,7 +12,7 @@ export const findParentExpandNode = (
 	state: EditorState,
 ): ReturnType<ReturnType<typeof findParentNodeOfType>> => {
 	return (
-		findParentNodeOfType(state.schema.nodes.expand)(state.selection) ||
-		findParentNodeOfType(state.schema.nodes.nestedExpand)(state.selection)
+		findParentNodeOfType(state.schema.nodes.nestedExpand)(state.selection) ||
+		findParentNodeOfType(state.schema.nodes.expand)(state.selection)
 	);
 };

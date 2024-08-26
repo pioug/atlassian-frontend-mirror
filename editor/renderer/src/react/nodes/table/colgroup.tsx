@@ -49,12 +49,12 @@ const fixColumnWidth = (
 	);
 };
 
-export interface ScaleOptions {
+interface ScaleOptions {
 	renderWidth: number;
 	tableWidth: number;
 	maxScale: number;
 }
-export const calcScalePercent = ({ renderWidth, tableWidth, maxScale }: ScaleOptions) => {
+const calcScalePercent = ({ renderWidth, tableWidth, maxScale }: ScaleOptions) => {
 	const diffPercent = 1 - renderWidth / tableWidth;
 	return diffPercent < maxScale ? diffPercent : maxScale;
 };

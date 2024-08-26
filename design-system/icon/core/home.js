@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b5e74c238884e4b21c384af0bc2af525>>
+ * @codegen <<SignedSource::e43b5e00cdefd152e1cb00a5fef42007>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const HomeIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M6.25 14.25H3c-.69 0-1.25-.56-1.25-1.25V6.799c0-.35.146-.684.404-.92l5-4.6a1.25 1.25 0 0 1 1.692 0l5 4.6c.258.236.404.57.404.92V13c0 .69-.56 1.25-1.25 1.25H9.75v-5.5h-3.5z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6.25 14.25H3c-.69 0-1.25-.56-1.25-1.25V6.799c0-.35.146-.684.404-.92l5-4.6a1.25 1.25 0 0 1 1.692 0l5 4.6c.258.236.404.57.404.92V13c0 .69-.56 1.25-1.25 1.25H9.75v-5.5h-3.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 HomeIcon.displayName = 'HomeIcon';

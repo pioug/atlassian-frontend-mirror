@@ -16,7 +16,7 @@ import { containsHeaderColumn, getColumnsWidths, getRowHeights } from '../../uti
 import { ColumnControls } from './ColumnControls';
 import { ColumnDropTargets } from './ColumnDropTargets';
 
-export interface Props {
+interface Props {
 	editorView: EditorView;
 	getEditorFeatureFlags: GetEditorFeatureFlags;
 	selection?: Selection;
@@ -40,7 +40,7 @@ export interface Props {
 	isChromelessEditor?: boolean;
 }
 
-export const TableFloatingColumnControls = ({
+const TableFloatingColumnControls = ({
 	editorView,
 	tableRef,
 	getNode,

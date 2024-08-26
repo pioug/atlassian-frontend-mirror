@@ -28,13 +28,11 @@ export const resizeColumn = (
 	tableNode: PmNode,
 	selectedColumns?: number[],
 	isTableScalingEnabled = false,
-	shouldUseIncreasedScalingPercent = false,
+	scalePercent = 1,
 ): ResizeState => {
-	let scalePercent = 1;
 	let resizeAmount = amount;
 
 	if (isTableScalingEnabled) {
-		scalePercent = getTableScalingPercent(tableNode, tableRef, shouldUseIncreasedScalingPercent);
 		resizeAmount = amount / scalePercent;
 	}
 
@@ -45,13 +43,7 @@ export const resizeColumn = (
 				? shrinkColumn(resizeState, colIndex, resizeAmount, selectedColumns)
 				: resizeState;
 
-	updateColgroup(
-		newState,
-		tableRef,
-		tableNode,
-		isTableScalingEnabled,
-		shouldUseIncreasedScalingPercent,
-	);
+	updateColgroup(newState, tableRef, tableNode, isTableScalingEnabled, scalePercent);
 
 	return newState;
 };
@@ -143,7 +135,7 @@ export const resizeColumnAndTable = ({
 	);
 
 	// do not apply scaling logic because resize state is already scaled
-	updateColgroup(newState, tableRef, tableNode, false, false);
+	updateColgroup(newState, tableRef, tableNode, false, 1);
 
 	updateTablePreview(
 		tableRef,
@@ -190,7 +182,12 @@ export const scaleResizeState = ({
 	tableRef,
 	tableNode,
 	editorWidth,
-}: TableReferences & { resizeState: ResizeState; editorWidth: number }): ResizeState => {
+	shouldUseIncreasedScalingPercent,
+}: TableReferences & {
+	resizeState: ResizeState;
+	editorWidth: number;
+	shouldUseIncreasedScalingPercent: boolean;
+}): ResizeState => {
 	const isNumberColumnEnabled = tableNode.attrs.isNumberColumnEnabled;
 	const isTableScaled =
 		isNumberColumnEnabled || resizeState.maxSize > getEditorContainerWidth(editorWidth);
@@ -205,7 +202,11 @@ export const scaleResizeState = ({
 		return resizeState;
 	}
 
-	const scalePercent = getTableScalingPercent(tableNode, tableRef);
+	const scalePercent = getTableScalingPercent(
+		tableNode,
+		tableRef,
+		shouldUseIncreasedScalingPercent,
+	);
 	const scaledTableWidth = Math.round(resizeState.tableWidth * scalePercent);
 	let cols = resizeState.cols.map((col) => {
 		return {

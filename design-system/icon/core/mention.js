@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e961168cd86b2b6af795c95e4c6d68ac>>
+ * @codegen <<SignedSource::d797b78ab0b8e9ef103e4c053959fc70>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MentionIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linecap="square" stroke-width="1.5" d="M11.625 14.28A7.25 7.25 0 1 1 15.25 8c0 1.381-.932 3.107-2.59 3.107-1.656 0-1.782-1.976-1.782-3.357l.005-.125m0 0c.022-1.019-.42-1.956-1.258-2.44-1.315-.759-3.11-.114-4.007 1.44s-.558 3.43.757 4.19c1.315.759 3.11.115 4.007-1.44a3.7 3.7 0 0 0 .5-1.75Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linecap="square" stroke-width="1.5" d="M11.625 14.28A7.25 7.25 0 1 1 15.25 8c0 1.381-.932 3.107-2.59 3.107-1.656 0-1.782-1.976-1.782-3.357l.005-.125m0 0c.022-1.019-.42-1.956-1.258-2.44-1.315-.759-3.11-.114-4.007 1.44s-.558 3.43.757 4.19c1.315.759 3.11.115 4.007-1.44a3.7 3.7 0 0 0 .5-1.75Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MentionIcon.displayName = 'MentionIcon';

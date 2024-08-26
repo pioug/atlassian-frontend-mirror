@@ -55,6 +55,7 @@ export interface Props {
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
 	isChromelessEditor?: boolean;
+	isCommentEditor?: boolean;
 }
 
 export class FloatingInsertButton extends React.Component<Props & WrappedComponentProps, any> {
@@ -267,6 +268,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 			editorAnalyticsAPI,
 			getEditorFeatureFlags,
 			isTableScalingEnabled,
+			isCommentEditor,
 		} = this.props;
 
 		if (typeof insertColumnButtonIndex !== 'undefined') {
@@ -288,6 +290,7 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				tableDuplicateCellColouring,
 				tableWithFixedColumnWidthsOption,
 				shouldUseIncreasedScalingPercent,
+				isCommentEditor,
 			)(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(state, dispatch, editorView);
 		}
 	}

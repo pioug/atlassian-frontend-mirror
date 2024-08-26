@@ -10,7 +10,7 @@ import { overflowShadow, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { RendererCssClassName } from '../../consts';
-export interface Props {
+interface Props {
 	extensionHandlers?: ExtensionHandlers;
 	providers: ProviderFactory;
 	rendererContext: RendererContext;

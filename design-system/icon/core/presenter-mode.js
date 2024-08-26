@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6636814206f569f13cfa2d139eb8606b>>
+ * @codegen <<SignedSource::fd2a1303d400cd6006187309c6e467f4>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PresenterModeIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 3.527A3.159 3.159 0 1 0 3.527 7.75m1.723-2.5 3.25 9 1.625-4.125L14.25 8.5z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 3.527A3.159 3.159 0 1 0 3.527 7.75m1.723-2.5 3.25 9 1.625-4.125L14.25 8.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PresenterModeIcon.displayName = 'PresenterModeIcon';

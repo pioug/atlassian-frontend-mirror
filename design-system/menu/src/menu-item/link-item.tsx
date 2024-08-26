@@ -10,7 +10,6 @@ import { jsx } from '@emotion/react';
 import { useRouterLink } from '@atlaskit/app-provider';
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { LinkItemProps } from '../types';
@@ -85,10 +84,7 @@ const LinkItem = memo(
 				!isNonHttpBased &&
 				!isEmptyHref;
 
-			const Component =
-				isRouterLink && fg('platform.wanjel.use-router-links-for-the-linkitem-component')
-					? RouterLink
-					: 'a';
+			const Component = isRouterLink ? RouterLink : 'a';
 
 			propDeprecationWarning(
 				process.env._PACKAGE_NAME_ || '',

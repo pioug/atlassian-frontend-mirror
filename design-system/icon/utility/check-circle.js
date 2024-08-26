@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::34ed46b57897ff4eda4849e97dd438ad>>
+ * @codegen <<SignedSource::f1e1e97043ee406638ba0763016982ef>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckCircleIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" fill-rule="evenodd" d="M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12m-.652-3.238 4.2-4.5-1.096-1.024L4.79 7.161 3.54 5.867 2.46 6.909l1.8 1.862a.75.75 0 0 0 1.088-.01" clip-rule="evenodd"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12m-.652-3.238 4.2-4.5-1.096-1.024L4.79 7.161 3.54 5.867 2.46 6.909l1.8 1.862a.75.75 0 0 0 1.088-.01" clip-rule="evenodd"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-file-preview",
-	"version": "0.8.2",
+	"version": "0.8.3",
 	"description": "A React Hook to fetch and render file previews. It's overloaded with fancy features like SSR, lazy loading, memory cache and local preview.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,7 +102,7 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.media-card-performance-observer_lgc7b": {
+		"platform.media-card-performance-observer_a803k": {
 			"type": "boolean"
 		}
 	}

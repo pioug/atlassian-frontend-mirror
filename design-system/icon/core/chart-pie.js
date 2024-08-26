@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c80cf4ca42a3efe339ce4874336da93e>>
+ * @codegen <<SignedSource::3940717c8de902f484f93f37f8914b74>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChartPieIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" fill-rule="evenodd" d="M15.25 8A7.25 7.25 0 0 0 8 .75V8z" clip-rule="evenodd"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 1 1 8 .75M15.25 8A7.25 7.25 0 0 0 8 .75M15.25 8H8V.75"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M15.25 8A7.25 7.25 0 0 0 8 .75V8z" clip-rule="evenodd"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 1 1 8 .75M15.25 8A7.25 7.25 0 0 0 8 .75M15.25 8H8V.75"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChartPieIcon.displayName = 'ChartPieIcon';

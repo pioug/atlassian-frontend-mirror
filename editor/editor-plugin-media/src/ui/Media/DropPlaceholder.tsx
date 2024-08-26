@@ -43,7 +43,7 @@ const dropLineStyles = css({
 });
 
 export type PlaceholderType = 'single' | 'group';
-export interface Props {
+interface Props {
 	type: PlaceholderType;
 }
 

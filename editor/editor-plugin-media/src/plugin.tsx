@@ -33,20 +33,15 @@ import keymapPlugin from './pm-plugins/keymap';
 import keymapMediaSinglePlugin from './pm-plugins/keymap-media-single';
 import linkingPlugin from './pm-plugins/linking';
 import keymapLinkingPlugin from './pm-plugins/linking/keymap';
-import type { MediaState } from './pm-plugins/main';
 import { createPlugin, stateKey } from './pm-plugins/main';
 import { mediaSpecWithFixedToDOM } from './toDOM-fixes/media';
 import { mediaGroupSpecWithFixedToDOM } from './toDOM-fixes/mediaGroup';
 import { mediaInlineSpecWithFixedToDOM } from './toDOM-fixes/mediaInline';
 import { mediaSingleSpecWithFixedToDOM } from './toDOM-fixes/mediaSingle';
 import { floatingToolbar } from './toolbar';
-import type { CustomMediaPicker } from './types';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import ToolbarMedia from './ui/ToolbarMedia';
 import { insertMediaAsMediaSingle } from './utils/media-single';
-
-export type { MediaState, MediaProvider, CustomMediaPicker };
-export { insertMediaSingleNode } from './utils/media-single';
 
 type MediaPickerFunctionalComponentProps = {
 	editorDomElement: Element;

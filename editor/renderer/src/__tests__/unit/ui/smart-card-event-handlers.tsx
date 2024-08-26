@@ -7,7 +7,7 @@ jest.mock('react-lazily-render', () => ({
 
 import React from 'react';
 import type { ReactWrapper } from 'enzyme';
-import type { Props } from '../../../ui/Renderer';
+import type { RendererProps } from '../../../ui/renderer-props';
 import Renderer from '../../../ui/Renderer';
 import { IntlProvider } from 'react-intl-next';
 import { render, waitFor, screen } from '@testing-library/react';
@@ -63,8 +63,8 @@ const mockIntersectionObserver = () => {
 describe('@atlaskit/renderer/event-handlers', () => {
 	let renderer: ReactWrapper;
 
-	const initRendererTestingLibrary = (doc: any, props: Partial<Props> = {}) => {
-		const finalProps: Props = {
+	const initRendererTestingLibrary = (doc: any, props: Partial<RendererProps> = {}) => {
+		const finalProps: RendererProps = {
 			document: doc,
 			...props,
 		};

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "2.11.6",
+	"version": "2.11.7",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -73,7 +73,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^12.0.0",
 		"@atlaskit/select": "^17.15.0",
-		"@atlaskit/smart-card": "^27.16.0",
+		"@atlaskit/smart-card": "^27.17.0",
 		"@atlaskit/smart-user-picker": "6.10.2",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tag": "^12.5.0",

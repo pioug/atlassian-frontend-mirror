@@ -53,5 +53,3 @@ export function tableSelectionKeymapPlugin(
 
 	return keymap(list) as SafePlugin;
 }
-
-export default tableSelectionKeymapPlugin;

@@ -8,7 +8,6 @@ const productKeys: ProductKeys = {
 		mediaInline: 'confluence.frontend.fabric.editor.media.inline',
 		folderUploads: 'confluence.frontend.media.picker.folder.uploads',
 		commentsOnMedia: 'confluence.frontend.renderer.comments-on-media',
-		commentsOnMediaIncludePage: 'confluence.frontend.comments-on-media.bug.include.page_tnawt',
 		commentsOnMediaInsertExcerpt: 'confluence.frontend.comments-on-media.bug.insert.excerpt',
 	},
 	jira: {
@@ -16,7 +15,6 @@ const productKeys: ProductKeys = {
 		mediaInline: '',
 		folderUploads: 'issue.details.media-picker-folder-upload',
 		commentsOnMedia: '',
-		commentsOnMediaIncludePage: '',
 		commentsOnMediaInsertExcerpt: '',
 	},
 };

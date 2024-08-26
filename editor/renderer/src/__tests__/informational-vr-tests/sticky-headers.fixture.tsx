@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-	stickyHeadersAllTables,
 	stickyHeadersBrokenOutTableNoResize,
 	stickyHeadersBrokenOutTableOverflowing,
 	stickyHeadersBrokenOutTableResized,
@@ -38,11 +37,6 @@ function StickyHeaderFixture({ adf }: { adf: unknown }) {
 		</div>
 	);
 }
-
-export function StickyHeaderRenderer() {
-	return <StickyHeaderFixture adf={stickyHeadersAllTables} />;
-}
-
 export function StickyHeaderUnResizedTableRenderer() {
 	return <StickyHeaderFixture adf={stickyHeadersUnresizedTable} />;
 }

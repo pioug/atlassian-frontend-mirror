@@ -9,7 +9,7 @@ var _base = require("@atlaskit/icon/base");
 var _questionCircle = _interopRequireDefault(require("@atlaskit/icon/core/question-circle"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const QuestionIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentColor" fill-rule="evenodd"><path d="M12 18a1 1 0 0 1 0-2 1 1 0 0 1 0 2m-2-9a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/><path d="M15.89 8.048a3.97 3.97 0 0 0-2.951-2.94A4.005 4.005 0 0 0 8 9.087l.009.008 1.878.022.112-.116A2 2 0 0 1 12 7c1.103 0 2 .897 2 2s-.897 2-2 2h.008a1 1 0 0 0-.998.987v2.014a1 1 0 1 0 2 0v-.782c0-.217.145-.399.349-.472a3.99 3.99 0 0 0 2.53-4.699"/></g></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentcolor" fill-rule="evenodd"><path d="M12 18a1 1 0 0 1 0-2 1 1 0 0 1 0 2m-2-9a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/><path d="M15.89 8.048a3.97 3.97 0 0 0-2.951-2.94A4.005 4.005 0 0 0 8 9.087l.009.008 1.878.022.112-.116A2 2 0 0 1 12 7c1.103 0 2 .897 2 2s-.897 2-2 2h.008a1 1 0 0 0-.998.987v2.014a1 1 0 1 0 2 0v-.782c0-.217.145-.399.349-.472a3.99 3.99 0 0 0 2.53-4.699"/></g></svg>`
 }, props, {
   newIcon: _questionCircle.default
 }));

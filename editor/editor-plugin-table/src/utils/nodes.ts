@@ -136,7 +136,7 @@ export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
 	);
 };
 
-export const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
+const anyChildCellMergedAcrossRow = (node: PmNode): boolean =>
 	mapChildren(node, (child) => child.attrs.rowspan || 0).some((rowspan) => rowspan > 1);
 
 /**

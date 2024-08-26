@@ -52,6 +52,7 @@ describe('DatasourceModal', () => {
 				<FlagsProvider>
 					<InlineEdit
 						ari="fake-ari"
+						integrationKey="jira"
 						columnKey="fake-column"
 						execute={executeFn}
 						datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
@@ -79,6 +80,7 @@ describe('DatasourceModal', () => {
 				<FlagsProvider>
 					<InlineEdit
 						ari="fake-ari"
+						integrationKey="jira"
 						columnKey="fake-column"
 						execute={executeFn}
 						datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}

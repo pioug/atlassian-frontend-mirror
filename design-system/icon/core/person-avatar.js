@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4b44a1f3f626dc22cd3bc59dcacc24c7>>
+ * @codegen <<SignedSource::cc8b3575c3bb0f38194a941b986986f6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PersonAvatarIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M8 .75a7.25 7.25 0 1 0 0 14.5A7.25 7.25 0 0 0 8 .75Z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M4.5 14.35v-.6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v.6m-.75-7.85a2.75 2.75 0 1 1-5.5 0 2.75 2.75 0 0 1 5.5 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 .75a7.25 7.25 0 1 0 0 14.5A7.25 7.25 0 0 0 8 .75Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.5 14.35v-.6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v.6m-.75-7.85a2.75 2.75 0 1 1-5.5 0 2.75 2.75 0 0 1 5.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PersonAvatarIcon.displayName = 'PersonAvatarIcon';

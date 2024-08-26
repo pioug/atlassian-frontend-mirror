@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::daa903ff7ca741319034990e8fa2ed37>>
+ * @codegen <<SignedSource::7a8a196ba35a1e44ea89ac2740db6231>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ErrorIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" fill-rule="evenodd" d="M.384 5.116 5.116.384a1.25 1.25 0 0 1 1.768 0l4.732 4.732a1.25 1.25 0 0 1 0 1.768l-4.732 4.732a1.25 1.25 0 0 1-1.768 0L.384 6.884a1.25 1.25 0 0 1 0-1.768M6.75 2.5v4h-1.5v-4zM6 9.75a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M.384 5.116 5.116.384a1.25 1.25 0 0 1 1.768 0l4.732 4.732a1.25 1.25 0 0 1 0 1.768l-4.732 4.732a1.25 1.25 0 0 1-1.768 0L.384 6.884a1.25 1.25 0 0 1 0-1.768M6.75 2.5v4h-1.5v-4zM6 9.75a1 1 0 1 0 0-2 1 1 0 0 0 0 2" clip-rule="evenodd"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

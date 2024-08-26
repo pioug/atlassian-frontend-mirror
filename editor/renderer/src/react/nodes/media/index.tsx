@@ -79,8 +79,8 @@ type Providers = {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 };
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-export const linkStyle = css`
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+const linkStyle = css`
 	position: absolute;
 	background: transparent;
 	top: 0;
@@ -93,7 +93,7 @@ export const linkStyle = css`
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
-export const borderStyle = (color: string, width: number) => css`
+const borderStyle = (color: string, width: number) => css`
 	position: absolute;
 	width: 100% !important;
 	height: 100% !important;
@@ -406,7 +406,7 @@ class Media extends PureComponent<MediaProps, {}> {
 		const showCommentBadge =
 			!!annotationMarks &&
 			featureFlags?.commentsOnMedia &&
-			(!featureFlags?.commentsOnMediaIncludePage || !isInPageInclude) &&
+			!isInPageInclude &&
 			(!featureFlags?.commentsOnMediaInsertExcerpt || !isIncludeExcerpt);
 
 		const insertMediaPluginPhaseOneFlag = fg('platform_editor_insert_media_plugin_phase_one');

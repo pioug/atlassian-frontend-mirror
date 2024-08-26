@@ -13,7 +13,6 @@ import type { ElementItem } from '../../../../FlexibleCard/components/blocks/typ
 import { extractOwnedBy } from '../../../../../extractors/flexible/utils';
 import { getExtensionKey } from '../../../../../state/helpers';
 import { footerBlockCss, titleBlockCss } from '../styled';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const baseTopMetadata: ElementItem[] = [
 	{ name: ElementName.ModifiedOn },
@@ -49,16 +48,16 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 		case 'bitbucket-object-provider':
 		case 'native-bitbucket-object-provider':
 			const isFile = data['@type'].includes('schema:DigitalDocument');
+
 			return {
 				titleMetadata: defaultTitleMetadata,
-				topMetadata:
-					getBooleanFF('platform.linking-platform.extractor.improve-bitbucket-file-links') && isFile
-						? [
-								{ name: ElementName.LatestCommit },
-								{ name: ElementName.CollaboratorGroup },
-								{ name: ElementName.ModifiedOn },
-							]
-						: defaultTopMetadata,
+				topMetadata: isFile
+					? [
+							{ name: ElementName.LatestCommit },
+							{ name: ElementName.CollaboratorGroup },
+							{ name: ElementName.ModifiedOn },
+						]
+					: defaultTopMetadata,
 				bottomMetadata: defaultBottomMetadata,
 			};
 		case 'confluence-object-provider':

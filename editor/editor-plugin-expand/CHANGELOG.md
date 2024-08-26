@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.5.3
+
+### Patch Changes
+
+- [#133153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133153)
+  [`8b4916b8bcdd1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b4916b8bcdd1) -
+  [ux] [ED-24442] Fix logic on what expand node floating toolbar anchors on by checking for nested
+  expand before expand in findParentExpandNode function
+
 ## 2.5.2
 
 ### Patch Changes

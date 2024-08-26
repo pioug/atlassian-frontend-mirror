@@ -19,21 +19,9 @@ export const CustomPanelEmojiAndColoredBackground = generateRendererComponent({
 	appearance: 'full-width',
 });
 
-export const CustomPanelEmojiAndColoredBackgroundFinal = generateRendererComponent({
-	document: customPanelEmojiAndColoredBackground,
-	appearance: 'full-width',
-	allowCustomPanels: true,
-});
-
 export const CustomPanelEmojiAndColoredBackgroundAndColoredText = generateRendererComponent({
 	document: customPanelEmojiAndColoredBackgroundAndColoredText,
 	appearance: 'full-width',
-});
-
-export const CustomPanelEmojiAndColoredBackgroundAndColoredTextFinal = generateRendererComponent({
-	document: customPanelEmojiAndColoredBackgroundAndColoredText,
-	appearance: 'full-width',
-	allowCustomPanels: true,
 });
 
 export const CustomPanelMissingDefaults = generateRendererComponent({
@@ -61,12 +49,6 @@ export const CustomPanelOnlyBackgroundFinal = generateRendererComponent({
 export const CustomPanelOnlyEmoji = generateRendererComponent({
 	document: customPanelOnlyEmoji,
 	appearance: 'full-width',
-});
-
-export const CustomPanelOnlyEmojiFinal = generateRendererComponent({
-	document: customPanelOnlyEmoji,
-	appearance: 'full-width',
-	allowCustomPanels: true,
 });
 
 export const ErrorPanel = generateRendererComponent({

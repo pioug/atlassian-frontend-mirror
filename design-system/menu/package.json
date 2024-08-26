@@ -136,9 +136,6 @@
 	"platform-feature-flags": {
 		"platform.design-system-team.section-1px-seperator-borders": {
 			"type": "boolean"
-		},
-		"platform.wanjel.use-router-links-for-the-linkitem-component": {
-			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/menu/"

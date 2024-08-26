@@ -1,16 +1,11 @@
 import React, { type FC, forwardRef, type ReactNode } from 'react';
 
 import {
-	createAndFireEvent,
 	type UIAnalyticsEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
+	usePlatformLeafEventHandler,
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
-
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	/**
@@ -38,8 +33,16 @@ export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const ActionItemComponent: FC<CommentActionItemProps> = forwardRef(
-	({ children, onClick, onFocus, onMouseOver, isDisabled }, ref) => {
+const ActionItem: FC<CommentActionItemProps> = forwardRef(
+	({ children, onClick: providedOnClick, onFocus, onMouseOver, isDisabled }, ref) => {
+		const onClick = usePlatformLeafEventHandler<React.MouseEvent<HTMLAnchorElement, MouseEvent>>({
+			fn: (event, analyticsEvent) => providedOnClick && providedOnClick(event, analyticsEvent),
+			action: 'clicked',
+			componentName: 'commentAction',
+			packageName: process.env._PACKAGE_NAME_ as string,
+			packageVersion: process.env._PACKAGE_VERSION_ as string,
+		});
+
 		return (
 			/**
 			 * It is not normally acceptable to add click and key handlers to non-interactive
@@ -63,30 +66,5 @@ const ActionItemComponent: FC<CommentActionItemProps> = forwardRef(
 	},
 );
 
-export { ActionItemComponent as CommentActionWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-/**
- * __Action item__
- *
- * An action item button for a comment. For example Reply or Like.
- */
-const ActionItem = withAnalyticsContext({
-	componentName: 'commentAction',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		onClick: createAndFireEventOnAtlaskit({
-			action: 'clicked',
-			actionSubject: 'commentAction',
-			attributes: {
-				componentName: 'commentAction',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(ActionItemComponent),
-);
-
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default ActionItem;

@@ -71,45 +71,62 @@ interface Client {
 
 export const actions = {
 	discoverActions:
-		(api: Client, request: ActionsDiscoveryRequest): Action<ActionsStoreState> =>
+		(
+			captureError: (
+				errorLocation: string,
+				error: unknown,
+				extraInfo?: Record<string, any>,
+			) => void,
+			api: Client,
+			request: ActionsDiscoveryRequest,
+		): Action<ActionsStoreState> =>
 		async ({ setState, getState }) => {
-			const response = await api.getDatasourceActionsAndPermissions(request);
+			try {
+				const response = await api.getDatasourceActionsAndPermissions(request);
 
-			if ('permissions' in response) {
-				const { actionsByIntegration: currentActions, permissions: currentPermissions } =
-					getState();
+				if ('permissions' in response) {
+					const { actionsByIntegration: currentActions, permissions: currentPermissions } =
+						getState();
 
-				const actionsByIntegration = response.actions.reduce<IntegrationActions>(
-					(acc, action) => ({
-						...acc,
-						[action.integrationKey]: {
-							...acc[action.integrationKey],
-							[action.fieldKey]: {
-								actionKey: action.actionKey,
-								type: action.type,
+					const actionsByIntegration = response.actions.reduce<IntegrationActions>(
+						(acc, action) => ({
+							...acc,
+							[action.integrationKey]: {
+								...acc[action.integrationKey],
+								[action.fieldKey]: {
+									actionKey: action.actionKey,
+									type: action.type,
+								},
 							},
-						},
-					}),
-					currentActions,
-				);
+						}),
+						currentActions,
+					);
 
-				const permissions = response.permissions.data.reduce<Permissions>(
-					(acc, permission) => ({
-						...acc,
-						[permission.ari]: {
-							...acc[permission.ari],
-							[permission.fieldKey]: {
-								isEditable: permission.isEditable,
+					const permissions = response.permissions.data.reduce<Permissions>(
+						(acc, permission) => ({
+							...acc,
+							[permission.ari]: {
+								...acc[permission.ari],
+								[permission.fieldKey]: {
+									isEditable: permission.isEditable,
+								},
 							},
-						},
-					}),
-					currentPermissions,
-				);
+						}),
+						currentPermissions,
+					);
 
-				setState({
-					actionsByIntegration,
-					permissions,
-				});
+					setState({
+						actionsByIntegration,
+						permissions,
+					});
+				}
+			} catch (error) {
+				/**
+				 * Requests can be made with datasourceId or integrationKey
+				 * We only want one of them with entityType, leave the rest out.
+				 */
+				const { aris, fieldKeys, ...rest } = request;
+				captureError('actionDiscovery', error, rest);
 			}
 		},
 };
@@ -124,14 +141,18 @@ export const ActionsStore = createStore<ActionsStoreState, Actions>({
 
 const useActionStoreActions = createActionsHook(ActionsStore);
 
-export const useDiscoverActions = () => {
+export const useDiscoverActions = ({
+	captureError,
+}: {
+	captureError: (errorLocation: string, error: unknown, extraInfo?: Record<string, any>) => void;
+}) => {
 	const { getDatasourceActionsAndPermissions } = useDatasourceClientExtension();
 	const { discoverActions } = useActionStoreActions();
 
 	return {
 		discoverActions: useMemo(
-			() => discoverActions.bind(null, { getDatasourceActionsAndPermissions }),
-			[discoverActions, getDatasourceActionsAndPermissions],
+			() => discoverActions.bind(null, captureError, { getDatasourceActionsAndPermissions }),
+			[captureError, discoverActions, getDatasourceActionsAndPermissions],
 		),
 	};
 };
@@ -200,7 +221,7 @@ export const useExecuteAtomicAction = ({
 				parameters: { inputs: { [fieldKey]: value }, target: { ari } },
 			});
 		},
-		[executeAction, integrationKey, schema, fieldKey, ari],
+		[schema, executeAction, integrationKey, fieldKey, ari],
 	);
 
 	if (!schema) {

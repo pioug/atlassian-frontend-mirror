@@ -6,7 +6,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import reducer from './reducer';
 
-export const pluginKey = new PluginKey('mediaAltTextPlugin');
+const pluginKey = new PluginKey('mediaAltTextPlugin');
 
 const { createPluginState, createCommand, getPluginState } = pluginFactory(pluginKey, reducer, {
 	onSelectionChanged: (tr, newState) => {

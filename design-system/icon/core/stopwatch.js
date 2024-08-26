@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::000e7b6b1127a38ecd964d10fa2a6e25>>
+ * @codegen <<SignedSource::e2cdbe93290cc7cd7a12ff4ce0efedba>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const StopwatchIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M8 3.75v-3m0 3a5.73 5.73 0 0 1 3.885 1.511M8 3.75a5.73 5.73 0 0 0-3.885 1.511M8 .75h3m-3 0H5m8.5 2.75-1.615 1.761M2.5 3.5l1.615 1.761m7.77 0a5.75 5.75 0 1 1-7.77 0M7.75 9.75 10.292 7"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 3.75v-3m0 3a5.73 5.73 0 0 1 3.885 1.511M8 3.75a5.73 5.73 0 0 0-3.885 1.511M8 .75h3m-3 0H5m8.5 2.75-1.615 1.761M2.5 3.5l1.615 1.761m7.77 0a5.75 5.75 0 1 1-7.77 0M7.75 9.75 10.292 7"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StopwatchIcon.displayName = 'StopwatchIcon';

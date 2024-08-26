@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 109.50.5
+
+### Patch Changes
+
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused exports
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unsused code
+
+## 109.50.4
+
+### Patch Changes
+
+- [#129514](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/129514)
+  [`c6b7ba441248a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6b7ba441248a) -
+  Fixed an issue where changing translations to Icelandic or Romanian doesn't work
+
+## 109.50.3
+
+### Patch Changes
+
+- [#133513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133513)
+  [`be0d9eb2d3a01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be0d9eb2d3a01) -
+  [ux] ED-23401 remove media include page feature flag
+
 ## 109.50.2
 
 ### Patch Changes

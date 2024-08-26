@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::088d193950a0b3726640b0d326a1f372>>
+ * @codegen <<SignedSource::74bf6dd2ea02ae74942476e8cb28e29f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EpicIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M6 15.25h-.75a.75.75 0 0 0 1.304.505zm7.75-8.5.554.505a.75.75 0 0 0-.407-1.24zM10 6h-.75v.615l.603.12zm0-5.25h.75A.75.75 0 0 0 9.446.245zm-7.75 8.5-.554-.505a.75.75 0 0 0 .407 1.24zM6 10h.75v-.615l-.603-.12zm.554 5.755 7.75-8.5-1.108-1.01-7.75 8.5zm7.343-9.74-3.75-.75-.294 1.47 3.75.75zM10.75 6V.75h-1.5V6zM9.446.245l-7.75 8.5 1.108 1.01 7.75-8.5zm-7.343 9.74 3.75.75.294-1.47-3.75-.75zM5.25 10v5.25h1.5V10z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M6 15.25h-.75a.75.75 0 0 0 1.304.505zm7.75-8.5.554.505a.75.75 0 0 0-.407-1.24zM10 6h-.75v.615l.603.12zm0-5.25h.75A.75.75 0 0 0 9.446.245zm-7.75 8.5-.554-.505a.75.75 0 0 0 .407 1.24zM6 10h.75v-.615l-.603-.12zm.554 5.755 7.75-8.5-1.108-1.01-7.75 8.5zm7.343-9.74-3.75-.75-.294 1.47 3.75.75zM10.75 6V.75h-1.5V6zM9.446.245l-7.75 8.5 1.108 1.01 7.75-8.5zm-7.343 9.74 3.75.75.294-1.47-3.75-.75zM5.25 10v5.25h1.5V10z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EpicIcon.displayName = 'EpicIcon';

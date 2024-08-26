@@ -83,7 +83,7 @@ export const updateStickyMargins = (table: HTMLElement) => {
 	table.style.marginTop = `${tableMarginTop + firstRowHeight}px`;
 };
 
-export const applyColWidthsToStickyRow = (
+const applyColWidthsToStickyRow = (
 	// @ts-ignore - CCFE error TS6133: 'colGroup' is declared but its value is never read.
 	colGroup: HTMLTableColElement | null,
 	headerRow: HTMLTableRowElement,
@@ -111,10 +111,7 @@ export const syncStickyRowToTable = (tableRef?: HTMLElement | null) => {
 	applyTableWidthToStickyRow(tableRef, headerRow);
 };
 
-export const applyTableWidthToStickyRow = (
-	tableRef: HTMLElement,
-	headerRow: HTMLTableRowElement,
-) => {
+const applyTableWidthToStickyRow = (tableRef: HTMLElement, headerRow: HTMLTableRowElement) => {
 	const tbody = tableRef.querySelector('tbody')!;
 	const wrapper = tableRef.parentElement;
 

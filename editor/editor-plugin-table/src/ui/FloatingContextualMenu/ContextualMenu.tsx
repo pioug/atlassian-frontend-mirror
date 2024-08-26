@@ -87,7 +87,7 @@ import { AddColRightIcon, AddRowBelowIcon, MergeCellsIcon, SplitCellIcon } from 
 
 import { cellColourPreviewStyles, elementBeforeIconStyles } from './styles';
 
-export interface Props {
+interface Props {
 	editorView: EditorView;
 	isOpen: boolean;
 	selectionRect: Rect;
@@ -106,7 +106,7 @@ export interface Props {
 	isCommentEditor?: boolean;
 }
 
-export interface State {
+interface State {
 	isSubmenuOpen: boolean;
 	isOpenAllowed: boolean;
 }
@@ -721,6 +721,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					getEditorContainerWidth,
 					isTableScalingEnabled,
 					tableWithFixedColumnWidthsOption,
+					isCommentEditor,
 				);
 
 				if (newResizeStateWithAnalytics) {
@@ -746,6 +747,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					tableDuplicateCellColouring,
 					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,
+					isCommentEditor,
 				)(INPUT_METHOD.CONTEXT_MENU, selectionRect.right)(state, dispatch, editorView);
 				this.toggleOpen();
 				break;
@@ -766,6 +768,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					isTableScalingEnabled,
 					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,
+					isCommentEditor,
 				)(INPUT_METHOD.CONTEXT_MENU, selectionRect)(state, dispatch, editorView);
 				this.toggleOpen();
 				break;

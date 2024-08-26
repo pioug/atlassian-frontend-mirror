@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Popup } from '@atlaskit/editor-common/ui';
 
-export interface Props {
+interface Props {
 	target: HTMLElement;
 	content: React.ReactNode;
 	alignX?: 'left' | 'center' | 'right';

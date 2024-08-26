@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import React, { createContext, useState, useContext, useMemo, useRef, useCallback } from 'react';
 
-export interface AnnotationHoverStateContext {
+interface AnnotationHoverStateContext {
 	isWithinRange: boolean;
 }
 
-export interface AnnotationHoverDispatchContext {
+interface AnnotationHoverDispatchContext {
 	cancelTimeout: () => void;
 	initiateTimeout: () => void;
 	setIsWithinRange: (isWithinRange: boolean) => void;

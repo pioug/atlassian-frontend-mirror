@@ -28,7 +28,7 @@ import type tablePlugin from '../plugin';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getClosestSelectionRect } from '../toolbar';
 
-export enum TableSelectionDirection {
+enum TableSelectionDirection {
 	TopToBottom = 'TopToBottom',
 	BottomToTop = 'BottomToTop',
 }

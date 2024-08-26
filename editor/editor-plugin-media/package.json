@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "1.29.3",
+	"version": "1.29.5",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -143,9 +143,6 @@
 			"type": "boolean"
 		},
 		"platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
-			"type": "boolean"
-		},
-		"platform_editor_media_provider_from_plugin_config": {
 			"type": "boolean"
 		},
 		"platform-editor-a11y-image-border-options-dropdown": {

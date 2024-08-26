@@ -3,19 +3,15 @@ import Loadable from 'react-loadable';
 import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
 
 import Blockquote from './blockquote';
-import type { Props as BodiedExtensionProps } from './bodiedExtension';
 import BodiedExtension from './bodiedExtension';
-import type { Props as MultiBodiedExtensionProps } from './multiBodiedExtension';
 import MultiBodiedExtension from './multiBodiedExtension';
 import ExtensionFrame from './extensionFrame';
 import BulletList from './bulletList';
 
 import Doc, { DocWithSelectAllTrap } from './doc';
-import type { Props as ExtensionProps } from './extension';
 import Extension from './extension';
 import HardBreak from './hardBreak';
 import Heading from './heading';
-import type { Props as InlineExtensionProps } from './inlineExtension';
 import InlineExtension from './inlineExtension';
 import LayoutSection from './layoutSection';
 import LayoutColumn from './layoutColumn';
@@ -272,7 +268,7 @@ export const nodeToReact: {
 	embedCard: EmbedCard,
 };
 
-export interface ToReactFlags {
+interface ToReactFlags {
 	allowSelectAllTrap?: boolean;
 	allowWindowedCodeBlock?: boolean;
 }
@@ -310,7 +306,7 @@ export interface TextWrapper {
 	nodeSize: number;
 }
 
-export interface NodeSimple {
+interface NodeSimple {
 	type: {
 		name: string;
 	};
@@ -487,10 +483,4 @@ export {
 	TableRow,
 	UnknownBlock,
 	EmbedCard,
-};
-export type {
-	BodiedExtensionProps,
-	ExtensionProps,
-	InlineExtensionProps,
-	MultiBodiedExtensionProps,
 };

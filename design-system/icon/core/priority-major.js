@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b751e96a8abbf93c40d6852d205de0f2>>
+ * @codegen <<SignedSource::625e25409693985e87996dba316fed56>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityMajorIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M2.5 5.375 8 1.75l5.5 3.625m-11 4.5L8 6.25l5.5 3.625m-11 4.5L8 10.75l5.5 3.625"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M2.5 5.375 8 1.75l5.5 3.625m-11 4.5L8 6.25l5.5 3.625m-11 4.5L8 10.75l5.5 3.625"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityMajorIcon.displayName = 'PriorityMajorIcon';

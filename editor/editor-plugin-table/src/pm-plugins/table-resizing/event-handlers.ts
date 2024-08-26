@@ -39,6 +39,8 @@ import {
 	resizeColumnAndTable,
 	updateControls,
 } from './utils';
+import { TABLE_OFFSET_IN_COMMENT_EDITOR } from './utils/consts';
+import { getScalingPercentForTableWithoutWidth, getTableScalingPercent } from './utils/misc';
 import { scaleResizeState } from './utils/resize-column';
 
 export const handleMouseDown = (
@@ -88,13 +90,18 @@ export const handleMouseDown = (
 		dom = dom.closest('table') as HTMLTableElement;
 	}
 
-	const maxSize = getTableMaxWidth({
-		table: originalTable,
-		tableStart: start,
-		state,
-		layout: originalTable.attrs.layout,
-		getEditorContainerWidth,
-	});
+	let maxSize = 0;
+	if (isTableScalingEnabled && isCommentEditor && !originalTable.attrs?.width) {
+		maxSize = editorWidth - TABLE_OFFSET_IN_COMMENT_EDITOR;
+	} else {
+		maxSize = getTableMaxWidth({
+			table: originalTable,
+			tableStart: start,
+			state,
+			layout: originalTable.attrs.layout,
+			getEditorContainerWidth,
+		});
+	}
 
 	let shouldScale = tableDepth === 0 && isTableScalingEnabled;
 	const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
@@ -106,6 +113,15 @@ export const handleMouseDown = (
 		shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
 	}
 
+	let shouldUseIncreasedScalingPercent =
+		isTableScalingWithFixedColumnWidthsOptionEnabled &&
+		fg('platform.editor.table.use-increased-scaling-percent');
+
+	if (isTableScalingEnabled && isCommentEditor) {
+		shouldScale = tableDepth === 0;
+		shouldUseIncreasedScalingPercent = true;
+	}
+
 	let resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
 		maxSize,
@@ -114,11 +130,8 @@ export const handleMouseDown = (
 		start,
 		domAtPos,
 		isTableScalingEnabled: shouldScale,
-		shouldUseIncreasedScalingPercent:
-			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
-			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
-			(isTableScalingEnabled && !!isCommentEditor),
+		shouldUseIncreasedScalingPercent,
+		isCommentEditor: isCommentEditor || false,
 	});
 
 	if (
@@ -150,6 +163,7 @@ export const handleMouseDown = (
 			tableRef: dom,
 			tableNode: originalTable,
 			editorWidth,
+			shouldUseIncreasedScalingPercent,
 		});
 	}
 
@@ -269,6 +283,11 @@ export const handleMouseDown = (
 						tr.setNodeAttribute(start - 1, 'width', newResizeState.maxSize);
 					}
 				} else {
+					const scalePercent =
+						isTableScalingEnabled && isCommentEditor && !table.attrs?.width
+							? getScalingPercentForTableWithoutWidth(originalTable, dom)
+							: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
+
 					const newResizeState = resizeColumn(
 						resizeState,
 						colIndex,
@@ -277,7 +296,7 @@ export const handleMouseDown = (
 						originalTable,
 						resizingSelectedColumns ? selectedColumns : undefined,
 						shouldScale,
-						shouldUseIncreasedScalingPercent,
+						scalePercent,
 					);
 					tr = updateColumnWidths(newResizeState, table, start, api)(tr);
 				}
@@ -362,7 +381,7 @@ export const handleMouseDown = (
 
 		const resizedDelta = clientX - dragging.startX;
 
-		if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
+		if (isNewColumnResizingEnabled && !isTableNested(state, tablePos) && !isCommentEditor) {
 			resizeColumnAndTable({
 				resizeState,
 				colIndex,
@@ -374,6 +393,11 @@ export const handleMouseDown = (
 				isTableAlignmentEnabled,
 			});
 		} else {
+			const scalePercent =
+				isTableScalingEnabled && isCommentEditor && !table.attrs?.width
+					? getScalingPercentForTableWithoutWidth(table, dom)
+					: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
+			// This function is called for Full-page/Fixed-page tables and table that have width attr value in Comment editor
 			resizeColumn(
 				resizeState,
 				colIndex,
@@ -382,7 +406,7 @@ export const handleMouseDown = (
 				table,
 				undefined,
 				shouldScale,
-				shouldUseIncreasedScalingPercent,
+				scalePercent,
 			);
 		}
 

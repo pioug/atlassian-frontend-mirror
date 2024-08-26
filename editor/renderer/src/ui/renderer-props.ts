@@ -23,7 +23,7 @@ import type { TextHighlighter } from '../react/types';
 
 export type { NodeComponentsProps } from './Renderer/types';
 
-export interface RawObjectFeatureFlags {
+interface RawObjectFeatureFlags {
 	['renderer-render-tracking']: string;
 }
 

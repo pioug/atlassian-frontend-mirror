@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::78d1840125b76966e54a44c8698a749b>>
+ * @codegen <<SignedSource::fcf0f619ebfb23fe1396067161fae7e7>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VideoNextIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M12.25 15V1m-9.5 10.323V4.677a1 1 0 0 1 1.476-.88l6.147 3.323a1 1 0 0 1 0 1.76l-6.147 3.322a1 1 0 0 1-1.476-.88Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M12.25 15V1m-9.5 10.323V4.677a1 1 0 0 1 1.476-.88l6.147 3.323a1 1 0 0 1 0 1.76l-6.147 3.322a1 1 0 0 1-1.476-.88Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VideoNextIcon.displayName = 'VideoNextIcon';

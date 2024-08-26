@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f62b47421fff854aa30712ab8c3446b4>>
+ * @codegen <<SignedSource::a4ed0f6b0607d67b6da0c8ea61acdd1f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LinkBrokenIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m3.5 8-.75.75a3.182 3.182 0 0 0 4.5 4.5L8 12.5m0-9 .75-.75a3.182 3.182 0 0 1 4.5 4.5L12.5 8M5.25 2v3.25H2m12 5.5h-3.25V14"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m3.5 8-.75.75a3.182 3.182 0 0 0 4.5 4.5L8 12.5m0-9 .75-.75a3.182 3.182 0 0 1 4.5 4.5L12.5 8M5.25 2v3.25H2m12 5.5h-3.25V14"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LinkBrokenIcon.displayName = 'LinkBrokenIcon';

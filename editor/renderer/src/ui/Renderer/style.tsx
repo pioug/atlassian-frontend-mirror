@@ -65,7 +65,7 @@ export const FullPagePadding = 32;
 
 const tableShadowWidth = 32;
 
-export type RendererWrapperProps = {
+type RendererWrapperProps = {
 	allowAnnotations?: boolean;
 	appearance?: RendererAppearance;
 	allowNestedHeaderLinks: boolean;
@@ -121,7 +121,7 @@ type HeadingSizes = keyof typeof headingSizesImport;
 const getLineHeight = <T extends HeadingSizes>(fontCode: T): number =>
 	headingSizesImport[fontCode].lineHeight / headingSizesImport[fontCode].size;
 
-export const headingSizes: { [key: string]: { [key: string]: number } } = {
+const headingSizes: { [key: string]: { [key: string]: number } } = {
 	h1: {
 		lineHeight: getLineHeight('h700'),
 	},

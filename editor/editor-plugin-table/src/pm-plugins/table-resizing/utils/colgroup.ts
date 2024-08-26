@@ -4,7 +4,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
-import { getTableScalingPercent } from './misc';
+import { getScalingPercentForTableWithoutWidth, getTableScalingPercent } from './misc';
 
 type Col = Array<string | { [name: string]: string }>;
 
@@ -21,20 +21,26 @@ export const generateColgroup = (
 	table: PmNode,
 	tableRef?: HTMLElement,
 	shouldUseIncreasedScalingPercent?: boolean,
+	isCommentEditor?: boolean,
 ) => {
 	const cols: Col[] = [];
 	const map = TableMap.get(table);
+
 	table.content.firstChild!.content.forEach((cell) => {
 		const colspan = cell.attrs.colspan || 1;
 		if (Array.isArray(cell.attrs.colwidth)) {
 			// We slice here to guard against our colwidth array having more entries
 			// Than the we actually span. We'll patch the document at a later point.
 			if (tableRef) {
-				const scalePercent = getTableScalingPercent(
-					table,
-					tableRef,
-					shouldUseIncreasedScalingPercent,
-				);
+				// if we have tableRef here, isTableScalingEnabled is true
+				let scalePercent = 1;
+
+				if (isCommentEditor && !table.attrs?.width) {
+					scalePercent = getScalingPercentForTableWithoutWidth(table, tableRef);
+				} else {
+					scalePercent = getTableScalingPercent(table, tableRef, shouldUseIncreasedScalingPercent);
+				}
+
 				cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
 					const fixedColWidth = getColWidthFix(width, map.width);
 					const scaledWidth = fixedColWidth * scalePercent;
@@ -81,6 +87,7 @@ export const insertColgroupFromNode = (
 	isTableScalingEnabled = false,
 	shouldRemove = true,
 	shouldUseIncreasedScalingPercent = false,
+	isCommentEditor = false,
 ): HTMLCollection => {
 	let colgroup = tableRef?.querySelector('colgroup') as HTMLElement;
 	if (colgroup && shouldRemove) {
@@ -91,6 +98,7 @@ export const insertColgroupFromNode = (
 		table,
 		isTableScalingEnabled ? tableRef ?? undefined : undefined,
 		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
 	);
 	if (shouldRemove) {
 		tableRef?.insertBefore(colgroup, tableRef?.firstChild);
@@ -104,6 +112,8 @@ export const hasTableBeenResized = (table: PmNode) => {
 		(cell) => cell.attrs.colwidth,
 	);
 };
+
+export const hasTableColumnBeenResized = hasTableBeenResized;
 
 /**
  * Check if a table has all the column width set to tableCellMinWidth(48px) or null
@@ -127,11 +137,12 @@ function renderColgroupFromNode(
 	table: PmNode,
 	maybeTableRef: HTMLElement | undefined,
 	shouldUseIncreasedScalingPercent: boolean,
+	isCommentEditor: boolean,
 ): HTMLElement {
 	const rendered = DOMSerializer.renderSpec(document, [
 		'colgroup',
 		{},
-		...generateColgroup(table, maybeTableRef, shouldUseIncreasedScalingPercent),
+		...generateColgroup(table, maybeTableRef, shouldUseIncreasedScalingPercent, isCommentEditor),
 	]);
 
 	return rendered.dom as HTMLElement;

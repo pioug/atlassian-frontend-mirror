@@ -6,7 +6,7 @@ import {
 	ResourcedTaskItem,
 } from '@atlaskit/task-decision';
 
-export interface Props {
+interface Props {
 	taskId: string;
 	objectAri: string;
 	isDone: boolean;
@@ -19,10 +19,6 @@ export interface Props {
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	disabled?: boolean;
 	dataAttributes?: { [key: string]: string | number };
-}
-
-export interface State {
-	resolvedContextProvider?: ContextIdentifierProvider;
 }
 
 export default function TaskItemWithProviders(props: Props) {

@@ -26,20 +26,22 @@ const mockMounted = new MockConcurrentExperienceInstance('user-picker-rendered')
 const mockOptionsShown = new MockConcurrentExperienceInstance('user-picker-options-shown');
 jest.mock('@atlaskit/ufo', () => ({
 	__esModule: true,
-	...jest.requireActual<Object>('@atlaskit/ufo'),
-	ConcurrentExperience: (experienceId: string): ConcurrentExperience => ({
-		// @ts-expect-error partial getInstance mock
-		getInstance: (instanceId: string): Partial<UFOExperience> => {
-			if (experienceId === 'user-picker-rendered') {
-				return mockMounted;
-			} else if (experienceId === 'user-picker-options-shown') {
-				return mockOptionsShown;
-			}
-			throw new Error(
-				`ConcurrentExperience used without id mocked in UserPickerSpec: ${experienceId}`,
-			);
-		},
-	}),
+	...jest.requireActual<object>('@atlaskit/ufo'),
+	ConcurrentExperience: jest.fn().mockImplementation(
+		(experienceId: string): ConcurrentExperience => ({
+			// @ts-expect-error partial getInstance mock
+			getInstance: (_: string): Partial<UFOExperience> => {
+				if (experienceId === 'user-picker-rendered') {
+					return mockMounted;
+				} else if (experienceId === 'user-picker-options-shown') {
+					return mockOptionsShown;
+				}
+				throw new Error(
+					`ConcurrentExperience used without id mocked in UserPickerSpec: ${experienceId}`,
+				);
+			},
+		}),
+	),
 }));
 
 jest.mock('@atlaskit/select', () => ({

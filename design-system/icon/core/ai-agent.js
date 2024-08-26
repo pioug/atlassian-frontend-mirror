@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e8939b2fd165ae7badb6ce29f69067fa>>
+ * @codegen <<SignedSource::d8b857f9b4398aa6f0e007435062462d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AiAgentIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m13.643 4.136-5-3a1.25 1.25 0 0 0-1.286 0l-5 3a1.25 1.25 0 0 0-.607 1.072v5.584c0 .44.23.846.607 1.072l5 3c.396.238.89.238 1.286 0l5-3a1.25 1.25 0 0 0 .607-1.072V5.208c0-.44-.23-.846-.607-1.072Z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 11a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m13.643 4.136-5-3a1.25 1.25 0 0 0-1.286 0l-5 3a1.25 1.25 0 0 0-.607 1.072v5.584c0 .44.23.846.607 1.072l5 3c.396.238.89.238 1.286 0l5-3a1.25 1.25 0 0 0 .607-1.072V5.208c0-.44-.23-.846-.607-1.072Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 11a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AiAgentIcon.displayName = 'AiAgentIcon';

@@ -61,7 +61,7 @@ export interface MediaCardProps {
 	dataAttributes?: Record<string, any>;
 }
 
-export interface State {
+interface State {
 	contextIdentifierProvider?: ContextIdentifierProvider;
 	fileState?: FileState;
 }

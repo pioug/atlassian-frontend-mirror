@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c61e1f2ca6ccbeeb435a20a7f6b21e60>>
+ * @codegen <<SignedSource::bbfb150fa52095cdc726bcc6ce8e9082>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const MaximizeIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m7 9-5.25 5.25M9 7l5.25-5.25M1.75 9.5v4.75H6.5m7.75-7.75V1.75H9.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m7 9-5.25 5.25M9 7l5.25-5.25M1.75 9.5v4.75H6.5m7.75-7.75V1.75H9.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 MaximizeIcon.displayName = 'MaximizeIcon';

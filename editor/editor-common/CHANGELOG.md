@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 88.1.1
+
+### Patch Changes
+
+- [#132820](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132820)
+  [`9c64da1767f78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c64da1767f78) -
+  [ux] ED-24661 Fix code wrapping gutter size in table
+
 ## 88.1.0
 
 ### Minor Changes

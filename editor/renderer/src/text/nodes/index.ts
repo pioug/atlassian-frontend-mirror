@@ -25,7 +25,7 @@ export const reduce: NodeReducer = (node: PMNode, schema: Schema) => {
 	return reducer(node, schema);
 };
 
-export const nodeToReducerMapping: { [key: string]: NodeReducer } = {
+const nodeToReducerMapping: { [key: string]: NodeReducer } = {
 	blockquote,
 	bulletList,
 	date,

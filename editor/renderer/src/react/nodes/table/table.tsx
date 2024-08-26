@@ -6,7 +6,7 @@ import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { isTableResizingEnabled } from '../table';
 
-export type TableProps = SharedTableProps & {
+type TableProps = SharedTableProps & {
 	innerRef?: React.RefObject<HTMLTableElement>;
 	children: React.ReactNode[];
 };

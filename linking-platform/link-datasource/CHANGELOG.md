@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.11.7
+
+### Patch Changes
+
+- [#132813](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/132813)
+  [`62c34ffa30fd8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62c34ffa30fd8) -
+  Fires events analytics for action discovery and execution errors
+- Updated dependencies
+
 ## 2.11.6
 
 ### Patch Changes

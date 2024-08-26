@@ -1,23 +1,14 @@
-export {
-	getSelectedColumnIndexes,
-	getSelectedRowIndexes,
-	normalizeSelection,
-	isSelectionUpdated,
-} from './selection';
+export { getSelectedColumnIndexes, getSelectedRowIndexes } from './selection';
 export {
 	findControlsHoverDecoration,
 	createControlsHoverDecoration,
-	createColumnControlsDecoration,
-	createColumnSelectedDecoration,
 	createCellHoverDecoration,
 	updateDecorations,
-	createResizeHandleDecoration,
 	createColumnInsertLine,
 	createColumnLineResize,
 	createRowInsertLine,
 } from './decoration';
 export {
-	isIsolating,
 	containsHeaderColumn,
 	containsHeaderRow,
 	checkIfHeaderColumnEnabled,
@@ -28,13 +19,8 @@ export {
 	tablesHaveDifferentNoOfColumns,
 	tablesHaveDifferentNoOfRows,
 	isTableNested,
-	anyChildCellMergedAcrossRow,
-	supportedHeaderRow,
 } from './nodes';
 export {
-	unwrapContentFromTable,
-	removeTableFromFirstChild,
-	removeTableFromLastChild,
 	transformSliceToRemoveOpenTable,
 	transformSliceToCorrectEmptyTableCells,
 	transformSliceToFixHardBreakProblemOnCopyFromCell,
@@ -47,7 +33,6 @@ export {
 	isTableControlsButton,
 	isTableContainerOrWrapper,
 	isRowControlsButton,
-	isDragRowControlsButton,
 	isDragColumnFloatingInsertDot,
 	isDragRowFloatingInsertDot,
 	isDragCornerButton,
@@ -61,14 +46,11 @@ export {
 export {
 	convertHTMLCellIndexToColumnIndex,
 	getColumnsWidths,
-	isColumnDeleteButtonVisible,
 	getColumnDeleteButtonParams,
-	getColumnClassNames,
 	getColumnIndexMappedToColumnIndexInFirstRow,
 } from './column-controls';
 export {
 	getRowHeights,
-	isRowDeleteButtonVisible,
 	getRowDeleteButtonParams,
 	getRowsParams,
 	getRowClassNames,
@@ -79,11 +61,8 @@ export { getSelectedTableInfo, getSelectedCellInfo } from './analytics';
 export { getMergedCellsPositions, getAssistiveMessage } from './table';
 export { updatePluginStateDecorations } from './update-plugin-state-decorations';
 export {
-	hasMergedCellsInColumn,
-	hasMergedCellsInRow,
 	hasMergedCellsInBetween,
 	hasMergedCellsInSelection,
 	findDuplicatePosition,
-	checkEdgeHasMergedCells,
 } from './merged-cells';
 export { createTableWithWidth } from './create';

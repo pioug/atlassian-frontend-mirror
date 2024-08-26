@@ -4,7 +4,7 @@ import { TableCssClassName as ClassName } from '../../../types';
 
 import { ColumnDropTarget } from './ColumnDropTarget';
 
-export interface Props {
+interface Props {
 	tableRef: HTMLTableElement;
 	tableHeight?: number;
 	localId?: string;

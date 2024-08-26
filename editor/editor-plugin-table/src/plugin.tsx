@@ -601,6 +601,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											}
 											isChromelessEditor={options?.isChromelessEditor}
 											api={api}
+											isCommentEditor={options?.isCommentEditor}
 										/>
 									)}
 									{options?.allowContextualMenu && (
@@ -642,6 +643,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 											}
 											ariaNotifyPlugin={ariaNotifyPlugin}
 											api={api}
+											isCommentEditor={options?.isCommentEditor}
 										/>
 									)}
 									{allowControls && !isDragAndDropEnabled && !isResizing && (

@@ -2,7 +2,7 @@ import type { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
 import { extractType } from '@atlaskit/link-extractors';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { ElementItem } from '../FlexibleCard/components/blocks/types';
 
 const getSimulatedBetterMetadata = (
@@ -28,10 +28,7 @@ const getSimulatedBetterMetadata = (
 					subtitle: [ElementName.SourceBranch, ElementName.TargetBranch],
 				};
 			}
-			if (
-				getBooleanFF('platform.linking-platform.extractor.improve-bitbucket-file-links') &&
-				types?.includes('schema:DigitalDocument')
-			) {
+			if (types?.includes('schema:DigitalDocument')) {
 				return {
 					primary: [
 						ElementName.LatestCommit,
@@ -126,13 +123,13 @@ const toElementItems = (elementNames: ElementName[]): ElementItem[] | undefined 
 export const getMetadata = (extensionKey?: string, data?: JsonLd.Data.BaseData) => {
 	const metadata = getSimulatedBetterMetadata(extensionKey, data);
 
-	const primary = getBooleanFF('platform.linking-platform.smart-card.hover-card-action-redesign')
+	const primary = fg('platform.linking-platform.smart-card.hover-card-action-redesign')
 		? [].concat(metadata.primary, metadata.tertiary)
 		: metadata.primary;
 
 	// `tertiary` should be removed completely during cleanup:
 	// https://product-fabric.atlassian.net/browse/EDM-9556
-	const tertiary = getBooleanFF('platform.linking-platform.smart-card.hover-card-action-redesign')
+	const tertiary = fg('platform.linking-platform.smart-card.hover-card-action-redesign')
 		? undefined
 		: metadata.tertiary;
 

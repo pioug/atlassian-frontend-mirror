@@ -9,7 +9,7 @@ var _base = require("@atlaskit/icon/base");
 var _decision = _interopRequireDefault(require("@atlaskit/icon/core/decision"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const DecisionIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentColor"><path d="m19.29 3.29-5 5A1 1 0 1 0 15.7 9.7l5-5a1 1 0 1 0-1.41-1.41M8.04 4.93a.96.96 0 1 0 .01-1.91L4.06 3A1.05 1.05 0 0 0 3 4.04l.02 4a.96.96 0 0 0 1.92-.01l-.02-3.11z"/><path d="M11 19.998A1 1 0 0 0 12 21c.552 0 1-.454 1-1.007v-7.4c0-.556-.315-1.322-.705-1.713L5.207 3.793 3.793 5.207 11 12.414z"/></g></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill="currentcolor"><path d="m19.29 3.29-5 5A1 1 0 1 0 15.7 9.7l5-5a1 1 0 1 0-1.41-1.41M8.04 4.93a.96.96 0 1 0 .01-1.91L4.06 3A1.05 1.05 0 0 0 3 4.04l.02 4a.96.96 0 0 0 1.92-.01l-.02-3.11z"/><path d="M11 19.998A1 1 0 0 0 12 21c.552 0 1-.454 1-1.007v-7.4c0-.556-.315-1.322-.705-1.713L5.207 3.793 3.793 5.207 11 12.414z"/></g></svg>`
 }, props, {
   newIcon: _decision.default
 }));

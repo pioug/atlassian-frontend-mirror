@@ -44,10 +44,6 @@ export const isTableContainerOrWrapper = (node: HTMLElement | null): boolean =>
 	containsClassName(node, ClassName.TABLE_NODE_WRAPPER);
 
 /** drag-and-drop classes */
-export const isDragRowControlsButton = (node: HTMLElement | null) =>
-	containsClassName(node, ClassName.DRAG_ROW_CONTROLS) ||
-	closestElement(node, `.${ClassName.DRAG_ROW_CONTROLS}`);
-
 export const isDragRowFloatingInsertDot = (node: HTMLElement | null) =>
 	containsClassName(node, ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER);
 

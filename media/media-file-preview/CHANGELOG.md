@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.8.3
+
+### Patch Changes
+
+- [`eaacfc7b03414`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaacfc7b03414) -
+  Changed the feature flag used for analytics publishing to prevent spamming due to cached clients
+  using bugged versions of Card
+
 ## 0.8.2
 
 ### Patch Changes

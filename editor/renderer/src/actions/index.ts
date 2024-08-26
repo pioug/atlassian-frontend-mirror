@@ -31,7 +31,7 @@ type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
 type Annotation = { annotationId: string; annotationType: AnnotationTypes };
 
-export interface RendererActionsOptions {
+interface RendererActionsOptions {
 	annotate: (range: Range, annotationId: string, annotationType: 'inlineComment') => ActionResult;
 	deleteAnnotation: (annotationId: string, annotationType: 'inlineComment') => ActionResult;
 	isValidAnnotationRange: (range: Range) => boolean;
@@ -43,13 +43,13 @@ export type ApplyAnnotation = (
 	isCommentsOnMediaBugFixEnabled?: boolean,
 ) => AnnotationActionResult;
 
-export interface AnnotationsRendererActionsOptions {
+interface AnnotationsRendererActionsOptions {
 	isValidAnnotationPosition: (pos: Position) => boolean;
 	applyAnnotation: ApplyAnnotation;
 	getAnnotationMarks: () => Mark[];
 }
 
-export interface PositionRendererActionsOptions {
+interface PositionRendererActionsOptions {
 	getPositionFromRange: (range: Range) => Position | false;
 }
 

@@ -22,7 +22,6 @@ jest.mock('@atlaskit/editor-common/media-single', () => ({
 
 type Props = {
 	commentsOnMedia: boolean;
-	commentsOnMediaIncludePage: boolean;
 	commentsOnMediaInsertExcerpt: boolean;
 	includeNodeType: boolean;
 	excerptIncludeClass: boolean;
@@ -32,7 +31,6 @@ type Props = {
 const createMockProps = (props: Props) => {
 	const {
 		commentsOnMedia,
-		commentsOnMediaIncludePage,
 		commentsOnMediaInsertExcerpt,
 		includeNodeType,
 		excerptIncludeClass,
@@ -42,7 +40,7 @@ const createMockProps = (props: Props) => {
 	const mockProps = {
 		type: type ?? ('file' as MediaType),
 		marks: [mockAnnotationMark, mockLinkDefinition, mockBorderMark],
-		featureFlags: { commentsOnMedia, commentsOnMediaIncludePage, commentsOnMediaInsertExcerpt },
+		featureFlags: { commentsOnMedia, commentsOnMediaInsertExcerpt },
 		mediaSingleElement: document.createElement('div'),
 		isBorderMark: () => true,
 		isLinkMark: () => true,
@@ -95,7 +93,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaIncludePage: false,
 							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: false,
 							excerptIncludeClass: false,
@@ -117,7 +114,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: false,
-							commentsOnMediaIncludePage: false,
 							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: false,
 							excerptIncludeClass: false,
@@ -132,36 +128,13 @@ describe('MediaWithDraftAnnotation', () => {
 		expect(commentBadge).toBeNull();
 	});
 
-	it('should show CommentBadge when commentsOnMediaIncludePage is false and closest nodeType is include', () => {
+	it('should not show CommentBadge when closest nodeType is include', () => {
 		const { queryByTestId } = render(
 			<IntlProvider locale="en">
 				<InlineCommentsStateContext.Provider value={nextState}>
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaIncludePage: false,
-							commentsOnMediaInsertExcerpt: false,
-							includeNodeType: true,
-							excerptIncludeClass: false,
-						})}
-					/>
-				</InlineCommentsStateContext.Provider>
-				,
-			</IntlProvider>,
-		);
-
-		const commentBadge = queryByTestId('comment-badge');
-		expect(commentBadge).not.toBeNull();
-	});
-
-	it('should not show CommentBadge when commentsOnMediaIncludePage is true and closest nodeType is include', () => {
-		const { queryByTestId } = render(
-			<IntlProvider locale="en">
-				<InlineCommentsStateContext.Provider value={nextState}>
-					<MediaWithDraftAnnotation
-						{...createMockProps({
-							commentsOnMedia: true,
-							commentsOnMediaIncludePage: true,
 							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: true,
 							excerptIncludeClass: false,
@@ -183,7 +156,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaIncludePage: false,
 							commentsOnMediaInsertExcerpt: false,
 							includeNodeType: false,
 							excerptIncludeClass: true,
@@ -205,7 +177,6 @@ describe('MediaWithDraftAnnotation', () => {
 					<MediaWithDraftAnnotation
 						{...createMockProps({
 							commentsOnMedia: true,
-							commentsOnMediaIncludePage: false,
 							commentsOnMediaInsertExcerpt: true,
 							includeNodeType: false,
 							excerptIncludeClass: true,
@@ -232,7 +203,6 @@ describe('MediaWithDraftAnnotation', () => {
 								<MediaWithDraftAnnotation
 									{...createMockProps({
 										commentsOnMedia: false,
-										commentsOnMediaIncludePage: false,
 										commentsOnMediaInsertExcerpt: false,
 										includeNodeType: false,
 										excerptIncludeClass: false,
@@ -260,7 +230,6 @@ describe('MediaWithDraftAnnotation', () => {
 								<MediaWithDraftAnnotation
 									{...createMockProps({
 										commentsOnMedia: false,
-										commentsOnMediaIncludePage: false,
 										commentsOnMediaInsertExcerpt: false,
 										includeNodeType: false,
 										excerptIncludeClass: false,
@@ -283,7 +252,6 @@ describe('MediaWithDraftAnnotation', () => {
 								<MediaWithDraftAnnotation
 									{...createMockProps({
 										commentsOnMedia: false,
-										commentsOnMediaIncludePage: false,
 										commentsOnMediaInsertExcerpt: false,
 										includeNodeType: false,
 										excerptIncludeClass: false,

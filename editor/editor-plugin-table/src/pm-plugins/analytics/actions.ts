@@ -8,12 +8,12 @@ export enum AnalyticPluginTypes {
 	UpdateRowOrColumnMovedAndOverflowTrigger,
 }
 
-export type UpdateRowOrColumnMovedAction = {
+type UpdateRowOrColumnMovedAction = {
 	type: AnalyticPluginTypes.UpdateRowOrColumnMovedAction;
 	data: RowOrColumnMovedState;
 };
 
-export type RemoveRowOrColumnMovedAction = {
+type RemoveRowOrColumnMovedAction = {
 	type: AnalyticPluginTypes.RemoveRowOrColumnMovedAction;
 	data: undefined;
 };

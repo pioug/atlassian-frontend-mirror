@@ -11,7 +11,7 @@ import { TableCssClassName as ClassName } from '../../../types';
 import { getRowHeights } from '../../../utils';
 import { tableBorderColor } from '../../consts';
 
-export interface Props {
+interface Props {
 	editorView: EditorView;
 	tableRef: HTMLTableElement;
 	tableActive?: boolean;

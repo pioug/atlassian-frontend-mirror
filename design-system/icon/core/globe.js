@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d73ce84e5894ab729a099d313f98b201>>
+ * @codegen <<SignedSource::bf2536d14ef10a5e6a58503658de000e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const GlobeIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 0 1 8 15.25M15.25 8A7.25 7.25 0 0 0 8 .75M15.25 8H.75M8 15.25A7.25 7.25 0 0 1 .75 8M8 15.25c1.657 0 3-3.246 3-7.25S9.657.75 8 .75m0 14.5c-1.657 0-3-3.246-3-7.25S6.343.75 8 .75M.75 8A7.25 7.25 0 0 1 8 .75"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M15.25 8A7.25 7.25 0 0 1 8 15.25M15.25 8A7.25 7.25 0 0 0 8 .75M15.25 8H.75M8 15.25A7.25 7.25 0 0 1 .75 8M8 15.25c1.657 0 3-3.246 3-7.25S9.657.75 8 .75m0 14.5c-1.657 0-3-3.246-3-7.25S6.343.75 8 .75M.75 8A7.25 7.25 0 0 1 8 .75"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 GlobeIcon.displayName = 'GlobeIcon';

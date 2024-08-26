@@ -31,7 +31,7 @@ import type {
 	SupportedMediaAttributes,
 } from '../types';
 
-export type RemoteDimensions = { id: string; height: number; width: number };
+type RemoteDimensions = { id: string; height: number; width: number };
 
 export interface MediaNodeUpdaterProps {
 	view: EditorView;

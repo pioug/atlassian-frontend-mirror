@@ -32,7 +32,7 @@ import {
 import ContextualMenu from './ContextualMenu';
 import { tablePopupStyles } from './styles';
 
-export interface Props {
+interface Props {
 	editorView: EditorView;
 	isOpen: boolean;
 	getEditorContainerWidth: GetEditorContainerWidth;

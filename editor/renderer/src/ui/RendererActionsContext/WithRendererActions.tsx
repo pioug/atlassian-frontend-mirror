@@ -2,7 +2,7 @@ import React, { type ReactNode } from 'react';
 import { RendererActionsContextConsumer } from './index';
 import type RendererActions from '../../actions/index';
 
-export interface WithRendererActionsProps {
+interface WithRendererActionsProps {
 	render(actions: RendererActions): ReactNode | null;
 }
 

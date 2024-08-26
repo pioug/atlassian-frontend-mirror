@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70ba919f2fd526bb3c4c260cd85cf7e6>>
+ * @codegen <<SignedSource::12488ed6825256878276b84eac0b23d8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VolumeHighIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 6a2.83 2.83 0 0 1 0 4m2-6a5.657 5.657 0 0 1 0 8M2.235 9.962l4.99 3.94c.82.647 2.025.063 2.025-.981V3.079c0-1.044-1.205-1.628-2.025-.98l-4.99 3.939a2.5 2.5 0 0 0 0 3.924Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 6a2.83 2.83 0 0 1 0 4m2-6a5.657 5.657 0 0 1 0 8M2.235 9.962l4.99 3.94c.82.647 2.025.063 2.025-.981V3.079c0-1.044-1.205-1.628-2.025-.98l-4.99 3.939a2.5 2.5 0 0 0 0 3.924Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VolumeHighIcon.displayName = 'VolumeHighIcon';

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::14b32a78dcf0f9a50f0c4c655837e8b2>>
+ * @codegen <<SignedSource::d20b96af41398a2001599c35ba809457>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LocationIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M3.677 8.982 8 15.25l4.323-6.268C14.725 5.5 12.232.75 8 .75c-4.231 0-6.725 4.749-4.323 8.232Z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M9.75 6a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M3.677 8.982 8 15.25l4.323-6.268C14.725 5.5 12.232.75 8 .75c-4.231 0-6.725 4.749-4.323 8.232Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M9.75 6a1.75 1.75 0 1 1-3.5 0 1.75 1.75 0 0 1 3.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LocationIcon.displayName = 'LocationIcon';

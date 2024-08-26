@@ -163,7 +163,7 @@ export const generateMediaInlineFloatingToolbar = (
 	return items;
 };
 
-export const getMediaInlineImageToolbar = (
+const getMediaInlineImageToolbar = (
 	state: EditorState,
 	intl: IntlShape,
 	mediaPluginState: MediaPluginState,

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 27.5.1
+
+### Patch Changes
+
+- [`eaacfc7b03414`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaacfc7b03414) -
+  Changed the feature flag used for analytics publishing to prevent spamming due to cached clients
+  using bugged versions of Card
+
 ## 27.5.0
 
 ### Minor Changes

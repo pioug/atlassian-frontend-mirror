@@ -1,12 +1,8 @@
-// #region Imports
 import type { Command } from '@atlaskit/editor-common/types';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { emptyCell, findCellClosestToPos, isSelectionType } from '@atlaskit/editor-tables/utils';
 
-// #endregion
-
-// #region Commands
 export const clearMultipleCells =
 	(targetCellPosition?: number): Command =>
 	(state, dispatch) => {
@@ -39,13 +35,3 @@ export const clearMultipleCells =
 		}
 		return false;
 	};
-
-export const clearSelection: Command = (state, dispatch) => {
-	if (dispatch) {
-		dispatch(
-			state.tr.setSelection(Selection.near(state.selection.$from)).setMeta('addToHistory', false),
-		);
-	}
-	return true;
-};
-// #endregion

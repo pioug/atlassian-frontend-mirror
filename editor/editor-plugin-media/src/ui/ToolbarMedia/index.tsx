@@ -12,7 +12,7 @@ import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
 import type { MediaNextEditorPluginType } from '../../next-plugin-type';
 import type { MediaPluginState } from '../../pm-plugins/types';
 
-export interface Props {
+interface Props {
 	isDisabled?: boolean;
 	isReducedSpacing?: boolean;
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;

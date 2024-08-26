@@ -41,7 +41,6 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import * as helpers from '../commands/helpers';
 import { updateMediaNodeAttrs } from '../commands/helpers';
@@ -56,7 +55,6 @@ import PickerFacade from '../picker-facade';
 import type {
 	MediaOptions,
 	MediaState,
-	MediaStateStatus,
 	getPosHandlerNode as ProsemirrorGetPosHandler,
 } from '../types';
 import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
@@ -70,7 +68,7 @@ import { MediaTaskManager } from './mediaTaskManager';
 import { stateKey } from './plugin-key';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 
-export type { MediaState, MediaProvider, MediaStateStatus };
+export type { MediaState };
 export { stateKey } from './plugin-key';
 
 export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
@@ -171,15 +169,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			'Editor: unable to init media plugin - media or mediaGroup/mediaSingle node absent in schema',
 		);
 
-		if (fg('platform_editor_media_provider_from_plugin_config')) {
-			if (mediaOptions?.provider) {
-				this.setMediaProvider(mediaOptions?.provider);
-			}
-		} else {
-			options.providerFactory.subscribe(
-				'mediaProvider',
-				(_name: string, provider?: Promise<MediaProvider>) => this.setMediaProvider(provider),
-			);
+		if (mediaOptions?.provider) {
+			this.setMediaProvider(mediaOptions?.provider);
 		}
 
 		if (
@@ -857,7 +848,7 @@ export const createPlugin = (
 					nextPluginState = nextPluginState.clone();
 				}
 
-				if (mediaProvider && fg('platform_editor_media_provider_from_plugin_config')) {
+				if (mediaProvider) {
 					pluginState.setMediaProvider(mediaProvider);
 				}
 

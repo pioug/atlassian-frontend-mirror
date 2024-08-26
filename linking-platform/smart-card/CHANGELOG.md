@@ -1,5 +1,16 @@
 # @atlaskit/smart-card
 
+## 27.17.0
+
+### Minor Changes
+
+- [`25c7d3c7d5354`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25c7d3c7d5354) -
+  Remove the platform.linking-platform.extractor.improve-bitbucket-file-links feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.16.3
 
 ### Patch Changes

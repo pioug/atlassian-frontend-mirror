@@ -305,49 +305,6 @@ export const headingNodeAdf: DocNode = {
 	],
 };
 
-export const codeBlockNodeAdf: DocNode = {
-	version: 1,
-	type: 'doc',
-	content: [
-		{
-			type: 'codeBlock',
-			attrs: {
-				language: 'javascript',
-			},
-			content: [
-				{
-					type: 'text',
-					text: '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
-				},
-				{
-					type: 'text',
-					text: '\nint count = map.forEach(new IntIntProcedure()\n{\n   int count;\n   public void apply(int key, int value)\n   {\n       if (value >= 5) count++;\n   }\n}).count;\nSystem.out.println("There are " + count + " values >= 5");',
-				},
-			],
-		},
-		{
-			type: 'codeBlock',
-			attrs: {
-				language: 'javascript',
-			},
-			content: [
-				{
-					type: 'text',
-					text: '// Create a map.\nfinal IntIntOpenHashMap map = new IntIntOpenHashMap();\nmap.put(1, 2);\nmap.put(2, 5);\nmap.put(3, 10);',
-				},
-			],
-			marks: [
-				{
-					type: 'breakout',
-					attrs: {
-						mode: 'wide',
-					},
-				},
-			],
-		},
-	],
-};
-
 export const listNodeAdf: DocNode = {
 	version: 1,
 	type: 'doc',

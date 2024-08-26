@@ -48,7 +48,7 @@ export const isSelectionMediaSingleNode = (state: EditorState): boolean => {
 	return node && node.type === state.schema.nodes.mediaSingle;
 };
 
-export const isSelectionMediaInlineNode = (state: EditorState): boolean => {
+const isSelectionMediaInlineNode = (state: EditorState): boolean => {
 	const { node } = state.selection as NodeSelection;
 
 	return node && node.type === state.schema.nodes.mediaInline;
@@ -265,7 +265,7 @@ export const getMediaNodeFromSelection = (state: EditorState): PMNode | null => 
 	return null;
 };
 
-export const getMediaInlineNodeFromSelection = (state: EditorState): PMNode | null => {
+const getMediaInlineNodeFromSelection = (state: EditorState): PMNode | null => {
 	if (!isSelectionMediaInlineNode(state)) {
 		return null;
 	}

@@ -26,7 +26,7 @@ import { FloatingControlsWithSelection } from './FloatingControlsWithSelection';
 import NumberColumn from './NumberColumn';
 import { DragControls, RowControls } from './RowControls';
 
-export interface TableFloatingControlsProps {
+interface TableFloatingControlsProps {
 	editorView: EditorView;
 	selection?: Selection;
 	tableRef?: HTMLTableElement;

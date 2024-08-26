@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5d02e268a80126529a0b44201f27e4f1>>
+ * @codegen <<SignedSource::44a33a3cb08a4949c0de12e7f5505cfe>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShowMoreVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M8.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/><path stroke="currentColor" stroke-width="1.5" d="M8.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M8.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/><path stroke="currentcolor" stroke-width="1.5" d="M8.75 1.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm0 6.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ShowMoreVerticalIcon.displayName = 'ShowMoreVerticalIcon';

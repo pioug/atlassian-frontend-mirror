@@ -249,6 +249,7 @@ export const deleteColumns =
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
+		isCommentEditor = false,
 	) =>
 	(tr: Transaction) => {
 		let updatedTr = tr;
@@ -268,6 +269,7 @@ export const deleteColumns =
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 				api,
+				isCommentEditor,
 			)(
 				table,
 				view,

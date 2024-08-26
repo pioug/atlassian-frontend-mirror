@@ -9,7 +9,7 @@ import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element
 import { getDragBehaviour } from '../../../pm-plugins/drag-and-drop/utils/getDragBehaviour';
 import type { DraggableSourceData } from '../../../types';
 
-export type RowDropTargetProps = {
+type RowDropTargetProps = {
 	index: number;
 	localId?: string;
 	style?: React.CSSProperties;

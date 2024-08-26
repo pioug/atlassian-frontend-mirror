@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7ba6cfb7bebe3e3e259555048be87bb>>
+ * @codegen <<SignedSource::8ab1925f355ba7fc18dfb3823182c8f3>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LinkExternalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M10.25 6.25v-4.5h-4.5m-2.25 0h-.81a.94.94 0 0 0-.94.94v6.62c0 .52.42.94.94.94h6.62c.52 0 .94-.42.94-.94V8.5M5 7l5.25-5.25"/>`,
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M10.25 6.25v-4.5h-4.5m-2.25 0h-.81a.94.94 0 0 0-.94.94v6.62c0 .52.42.94.94.94h6.62c.52 0 .94-.42.94-.94V8.5M5 7l5.25-5.25"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

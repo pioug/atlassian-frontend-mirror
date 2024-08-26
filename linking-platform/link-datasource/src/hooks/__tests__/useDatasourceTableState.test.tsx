@@ -1213,35 +1213,33 @@ describe('useDatasourceTableState', () => {
 				);
 			});
 
-			describe('when getDatasourceData fails with a `Response`, it should log to Splunk and log to Sentry conditionally based on FF', () => {
-				ffTest('platform.linking-platform.datasources.enable-sentry-client', async () => {
-					asMock(getDatasourceData).mockRejectedValueOnce(
-						new Response('', {
-							status: 500,
-							headers: { 'x-trace-id': 'mocktraceid' },
-						}),
-					);
+			it('when getDatasourceData fails with a `Response`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
+				asMock(getDatasourceData).mockRejectedValueOnce(
+					new Response('', {
+						status: 500,
+						headers: { 'x-trace-id': 'mocktraceid' },
+					}),
+				);
 
-					const { waitForNextUpdate } = setup();
-					await waitForNextUpdate();
+				const { waitForNextUpdate } = setup();
+				await waitForNextUpdate();
 
-					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-						{
-							payload: {
-								action: 'operationFailed',
-								actionSubject: 'datasource',
-								eventType: 'operational',
-								attributes: {
-									errorLocation: 'onNextPage',
-									status: 500,
-									traceId: 'mocktraceid',
-								},
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							action: 'operationFailed',
+							actionSubject: 'datasource',
+							eventType: 'operational',
+							attributes: {
+								errorLocation: 'onNextPage',
+								status: 500,
+								traceId: 'mocktraceid',
 							},
 						},
-						EVENT_CHANNEL,
-					);
-					expect(captureException).toHaveBeenCalledTimes(0);
-				});
+					},
+					EVENT_CHANNEL,
+				);
+				expect(captureException).toHaveBeenCalledTimes(0);
 			});
 
 			describe('when `getDatasourceDetails` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', () => {
@@ -1314,42 +1312,40 @@ describe('useDatasourceTableState', () => {
 				);
 			});
 
-			describe('when `getDatasourceDetails` fails with a `Response`, it should log to Splunk only', () => {
-				ffTest('platform.linking-platform.datasources.enable-sentry-client', async () => {
-					asMock(getDatasourceData).mockResolvedValueOnce({
-						...mockDatasourceDataResponseWithSchema,
-					});
-					asMock(getDatasourceDetails).mockRejectedValueOnce(
-						new Response('', {
-							status: 500,
-							headers: { 'x-trace-id': 'mocktraceid' },
-						}),
-					);
+			it('when `getDatasourceDetails` fails with a `Response`, it should log to Splunk only', async () => {
+				asMock(getDatasourceData).mockResolvedValueOnce({
+					...mockDatasourceDataResponseWithSchema,
+				});
+				asMock(getDatasourceDetails).mockRejectedValueOnce(
+					new Response('', {
+						status: 500,
+						headers: { 'x-trace-id': 'mocktraceid' },
+					}),
+				);
 
-					const { result, waitForNextUpdate } = setup();
-					await waitForNextUpdate();
-					act(() => {
-						result.current.loadDatasourceDetails();
-					});
-					await waitForNextUpdate();
+				const { result, waitForNextUpdate } = setup();
+				await waitForNextUpdate();
+				act(() => {
+					result.current.loadDatasourceDetails();
+				});
+				await waitForNextUpdate();
 
-					expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-						{
-							payload: {
-								action: 'operationFailed',
-								actionSubject: 'datasource',
-								eventType: 'operational',
-								attributes: {
-									errorLocation: 'loadDatasourceDetails',
-									status: 500,
-									traceId: 'mocktraceid',
-								},
+				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+					{
+						payload: {
+							action: 'operationFailed',
+							actionSubject: 'datasource',
+							eventType: 'operational',
+							attributes: {
+								errorLocation: 'loadDatasourceDetails',
+								status: 500,
+								traceId: 'mocktraceid',
 							},
 						},
-						EVENT_CHANNEL,
-					);
-					expect(captureException).toHaveBeenCalledTimes(0);
-				});
+					},
+					EVENT_CHANNEL,
+				);
+				expect(captureException).toHaveBeenCalledTimes(0);
 			});
 
 			it('should not log an operational even or a sentry event when getDatasourceData succeeds', async () => {

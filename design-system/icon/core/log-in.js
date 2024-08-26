@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b054e1a2821333f12ce35a8e3a854c31>>
+ * @codegen <<SignedSource::31e1c544d709994f623bc035d84ae542>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LogInIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M8 1.75h5c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H8M5.75 4.5 9.25 8m0 0-3.5 3.5M9.25 8H1"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M5.75 4.5 9.25 8l-3.5 3.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 1.75h5c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H8M5.75 4.5 9.25 8m0 0-3.5 3.5M9.25 8H1"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.75 4.5 9.25 8l-3.5 3.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LogInIcon.displayName = 'LogInIcon';

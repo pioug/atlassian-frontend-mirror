@@ -19,7 +19,7 @@ import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
 
 import DragMenu from './DragMenu';
 
-export interface Props {
+interface Props {
 	editorView: EditorView;
 	isOpen: boolean;
 	tableRef?: HTMLTableElement;
@@ -41,6 +41,7 @@ export interface Props {
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void;
+	isCommentEditor?: boolean;
 }
 
 const FloatingDragMenu = ({
@@ -61,6 +62,7 @@ const FloatingDragMenu = ({
 	getEditorFeatureFlags,
 	ariaNotifyPlugin,
 	api,
+	isCommentEditor,
 }: Props) => {
 	if (!isOpen || !targetCellPosition || editorView.state.doc.nodeSize <= targetCellPosition) {
 		return null;
@@ -130,6 +132,7 @@ const FloatingDragMenu = ({
 				tableSortColumnReorder={tableSortColumnReorder}
 				ariaNotifyPlugin={ariaNotifyPlugin}
 				api={api}
+				isCommentEditor={isCommentEditor || false}
 			/>
 		</Popup>
 	);

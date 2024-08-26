@@ -35,6 +35,10 @@ import {
 	resizeColumn,
 	updateControls,
 } from '../pm-plugins/table-resizing/utils';
+import {
+	getScalingPercentForTableWithoutWidth,
+	getTableScalingPercent,
+} from '../pm-plugins/table-resizing/utils/misc';
 import { updateColumnWidths } from '../transforms';
 import { TableDecorations } from '../types';
 import type { PluginInjectionAPI, TablePluginAction } from '../types';
@@ -323,11 +327,14 @@ export const changeColumnWidthByStep =
 			isTableScalingEnabledOnCurrentTable = originalTable.attrs.displayMode !== 'fixed';
 		}
 
-		const shouldUseIncreasedScalingPercent =
-			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
-			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
-			(isTableScalingEnabled && isCommentEditor);
+		let shouldUseIncreasedScalingPercent =
+			isTableScalingWithFixedColumnWidthsOptionEnabled &&
+			fg('platform.editor.table.use-increased-scaling-percent');
+
+		if (isTableScalingEnabled && isCommentEditor) {
+			isTableScalingEnabledOnCurrentTable = true;
+			shouldUseIncreasedScalingPercent = true;
+		}
 
 		const initialResizeState = getResizeState({
 			minWidth: tableCellMinWidth,
@@ -338,6 +345,7 @@ export const changeColumnWidthByStep =
 			domAtPos,
 			isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
 			shouldUseIncreasedScalingPercent,
+			isCommentEditor,
 		});
 
 		updateControls()(state);
@@ -347,6 +355,11 @@ export const changeColumnWidthByStep =
 		// only selected (or selected - 1) columns should be distributed
 		const resizingSelectedColumns =
 			selectedColumns.indexOf(colIndex) > -1 || selectedColumns.indexOf(colIndex + 1) > -1;
+
+		const scalePercent =
+			isTableScalingEnabled && isCommentEditor && !originalTable.attrs?.width
+				? getScalingPercentForTableWithoutWidth(originalTable, dom)
+				: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
 		let newResizeState = resizeColumn(
 			initialResizeState,
 			colIndex,
@@ -355,7 +368,7 @@ export const changeColumnWidthByStep =
 			originalTable,
 			resizingSelectedColumns ? selectedColumns : undefined,
 			isTableScalingEnabled,
-			shouldUseIncreasedScalingPercent,
+			scalePercent,
 		);
 
 		customTr = updateColumnWidths(newResizeState, originalTable, tableStartPosition, api)(customTr);

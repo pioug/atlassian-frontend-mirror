@@ -8,7 +8,7 @@ export type AnnotationsDraftContextWrapperChildrenProps = {
 	clearAnnotationDraft: () => void;
 };
 
-export type RenderCallbackType = (
+type RenderCallbackType = (
 	props: React.PropsWithChildren<AnnotationsDraftContextWrapperChildrenProps>,
 ) => React.ReactNode;
 

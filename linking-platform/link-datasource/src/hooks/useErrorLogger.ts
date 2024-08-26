@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 
 import { captureException } from '@atlaskit/linking-common/sentry';
 import { getTraceId } from '@atlaskit/linking-common/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 
@@ -26,19 +26,22 @@ export const logToSentry = (
 	error: unknown,
 	...captureExceptionParams: Tail<Parameters<typeof captureException>>
 ) => {
-	if (
-		getBooleanFF('platform.linking-platform.datasources.enable-sentry-client') &&
-		error instanceof Error
-	) {
+	if (error instanceof Error && fg('platform.linking-platform.datasources.enable-sentry-client')) {
 		captureException(error, ...captureExceptionParams);
 	}
 };
 
-interface UseErrorLoggerProps {
+interface UseErrorLoggerPropsDatasource {
 	datasourceId: string;
 }
 
-const useErrorLogger = ({ datasourceId }: UseErrorLoggerProps) => {
+interface UseErrorLoggerPropsActions {
+	integrationKey: string;
+}
+
+export type UseErrorLoggerProps = UseErrorLoggerPropsDatasource | UseErrorLoggerPropsActions;
+
+const useErrorLogger = (loggerProps: UseErrorLoggerProps) => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 
 	/**
@@ -56,9 +59,9 @@ const useErrorLogger = ({ datasourceId }: UseErrorLoggerProps) => {
 				traceId,
 				status,
 			});
-			logToSentry(error, 'link-datasource', { datasourceId });
+			logToSentry(error, 'link-datasource', { ...loggerProps });
 		},
-		[fireEvent, datasourceId],
+		[fireEvent, loggerProps],
 	);
 
 	return { captureError };

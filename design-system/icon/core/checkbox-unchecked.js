@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6df33421982f2028c22b59dee46600e5>>
+ * @codegen <<SignedSource::65f890cd2a365eea42628f0310d70553>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CheckboxUncheckedIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<rect width="12.5" height="12.5" x="1.75" y="1.75" stroke="currentColor" stroke-width="1.5" rx="1.25"/>`
+  dangerouslySetGlyph: `<rect width="12.5" height="12.5" x="1.75" y="1.75" stroke="currentcolor" stroke-width="1.5" rx="1.25"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CheckboxUncheckedIcon.displayName = 'CheckboxUncheckedIcon';

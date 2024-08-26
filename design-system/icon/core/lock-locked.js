@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::df7eb7f5ab6a4e32c9cc8f6d439d46cf>>
+ * @codegen <<SignedSource::230df6f7d9610c0a877cce1d5f49fdbd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const LockLockedIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 7.25H4c-.69 0-1.25.56-1.25 1.25V14c0 .69.56 1.25 1.25 1.25h8c.69 0 1.25-.56 1.25-1.25V8.5c0-.69-.56-1.25-1.25-1.25h-.75m-6.5 0V4a3.25 3.25 0 1 1 6.5 0v3.25m-6.5 0h6.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 7.25H4c-.69 0-1.25.56-1.25 1.25V14c0 .69.56 1.25 1.25 1.25h8c.69 0 1.25-.56 1.25-1.25V8.5c0-.69-.56-1.25-1.25-1.25h-.75m-6.5 0V4a3.25 3.25 0 1 1 6.5 0v3.25m-6.5 0h6.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 LockLockedIcon.displayName = 'LockLockedIcon';

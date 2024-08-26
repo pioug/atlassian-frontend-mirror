@@ -6,7 +6,7 @@ import { injectIntl } from 'react-intl-next';
 
 import { TableCssClassName as ClassName } from '../../types';
 
-export interface ButtonProps {
+interface ButtonProps {
 	removeLabel: MessageDescriptor;
 	style?: object;
 	onClick?: (event: SyntheticEvent) => void;

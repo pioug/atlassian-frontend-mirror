@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a40780aeed1cc6aba70c9eaaa256526c>>
+ * @codegen <<SignedSource::5e2ad6520728788d011e27ce078c1996>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AlertIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M11.75 14.25h-7.5m7.5 0H14m-2.25 0-.693-8.312a.75.75 0 0 0-.747-.688H5.69a.75.75 0 0 0-.747.688L4.25 14.25m0 0H2M8 3V0M3.641 3.641 1.593 1.593M12.36 3.641l2.048-2.048"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M11.75 14.25h-7.5m7.5 0H14m-2.25 0-.693-8.312a.75.75 0 0 0-.747-.688H5.69a.75.75 0 0 0-.747.688L4.25 14.25m0 0H2M8 3V0M3.641 3.641 1.593 1.593M12.36 3.641l2.048-2.048"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AlertIcon.displayName = 'AlertIcon';

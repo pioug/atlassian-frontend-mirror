@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bb284730e68023f7a1759c846c1ebaf1>>
+ * @codegen <<SignedSource::2c2a30ad15cf0eba85058db1e1818604>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const FullscreenEnterIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 6V3c0-.69.56-1.25 1.25-1.25h3M14.25 10v3c0 .69-.56 1.25-1.25 1.25h-3m0-12.5h3c.69 0 1.25.56 1.25 1.25v3M6 14.25H3c-.69 0-1.25-.56-1.25-1.25v-3"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 6V3c0-.69.56-1.25 1.25-1.25h3M14.25 10v3c0 .69-.56 1.25-1.25 1.25h-3m0-12.5h3c.69 0 1.25.56 1.25 1.25v3M6 14.25H3c-.69 0-1.25-.56-1.25-1.25v-3"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 FullscreenEnterIcon.displayName = 'FullscreenEnterIcon';

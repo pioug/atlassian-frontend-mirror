@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e8cda492e1a2145214081373ba78e5ac>>
+ * @codegen <<SignedSource::5637d1e6d3fe8d5bd6322507bafbd0ce>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AppSwitcherLegacyIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M11.75 11.75h2.5v2.5h-2.5zm-10-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M11.75 11.75h2.5v2.5h-2.5zm-10-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M11.75 11.75h2.5v2.5h-2.5zm-10-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.75 11.75h2.5v2.5h-2.5zm-10-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AppSwitcherLegacyIcon.displayName = 'AppSwitcherLegacyIcon';

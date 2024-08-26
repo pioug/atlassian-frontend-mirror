@@ -102,6 +102,7 @@ type DragMenuProps = {
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void;
+	isCommentEditor?: boolean;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -261,7 +262,7 @@ const convertToDropdownItems = (
 
 const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
 
-export const DragMenu = React.memo(
+const DragMenu = React.memo(
 	({
 		direction = 'row',
 		index,
@@ -286,6 +287,7 @@ export const DragMenu = React.memo(
 		isTableFixedColumnWidthsOptionEnabled,
 		tableSortColumnReorder,
 		ariaNotifyPlugin,
+		isCommentEditor,
 	}: DragMenuProps & WrappedComponentProps) => {
 		const { state, dispatch } = editorView;
 		const { selection } = state;
@@ -318,6 +320,7 @@ export const DragMenu = React.memo(
 			shouldUseIncreasedScalingPercent,
 			tableSortColumnReorder,
 			ariaNotifyPlugin,
+			isCommentEditor,
 		);
 
 		const { menuItems, menuCallback } = convertToDropdownItems(

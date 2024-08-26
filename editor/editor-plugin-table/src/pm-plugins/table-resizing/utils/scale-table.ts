@@ -22,7 +22,7 @@ import type { ResizeState } from '../utils/types';
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import { syncStickyRowToTable } from './dom';
 
-export interface ScaleOptions {
+interface ScaleOptions {
 	node: PMNode;
 	prevNode: PMNode;
 	start: number;
@@ -36,12 +36,13 @@ export interface ScaleOptions {
 
 // Base function to trigger the actual scale on a table node.
 // Will only resize/scale if a table has been previously resized.
-export const scale = (
+const scale = (
 	tableRef: HTMLTableElement,
 	options: ScaleOptions,
 	domAtPos: DomAtPos,
 	isTableScalingEnabledOnCurrentTable = false,
 	shouldUseIncreasedScalingPercent = false,
+	isCommentEditor = false,
 ): ResizeState | undefined => {
 	const {
 		node,
@@ -92,12 +93,13 @@ export const scale = (
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
 		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
 	});
 
 	return scaleTableTo(resizeState, newWidth);
 };
 
-export const scaleWithParent = (
+const scaleWithParent = (
 	tableRef: HTMLTableElement,
 	parentWidth: number,
 	table: PMNode,
@@ -105,6 +107,7 @@ export const scaleWithParent = (
 	domAtPos: DomAtPos,
 	isTableScalingEnabledOnCurrentTable = false,
 	shouldUseIncreasedScalingPercent = false,
+	isCommentEditor = false,
 ) => {
 	const resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
@@ -115,6 +118,7 @@ export const scaleWithParent = (
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
 		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
 	});
 
 	if (table.attrs.isNumberColumnEnabled) {
@@ -205,7 +209,7 @@ export const previewScaleTable = (
 		: scale(tableRef, options, domAtPos, false, shouldUseIncreasedScalingPercent);
 
 	if (resizeState) {
-		updateColgroup(resizeState, tableRef, node, false, shouldUseIncreasedScalingPercent);
+		updateColgroup(resizeState, tableRef, node, false, 1);
 	}
 };
 
@@ -218,19 +222,27 @@ export const scaleTable =
 		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabledOnCurrentTable = false,
 		shouldUseIncreasedScalingPercent = false,
+		isCommentEditor = false,
 	) =>
 	(tr: Transaction) => {
 		if (!tableRef) {
 			return tr;
 		}
-
 		const { node, start, parentWidth, layoutChanged } = options;
 		// If a table has not been resized yet, columns should be auto.
 		if (hasTableBeenResized(node) === false) {
 			// If its not a re-sized table, we still want to re-create cols
 			// To force reflow of columns upon delete.
 			if (!isTableScalingEnabledOnCurrentTable) {
-				insertColgroupFromNode(tableRef, node, false, undefined, shouldUseIncreasedScalingPercent);
+				const isTableScalingEnabled = false;
+				insertColgroupFromNode(
+					tableRef,
+					node,
+					isTableScalingEnabled,
+					undefined,
+					shouldUseIncreasedScalingPercent,
+					isCommentEditor,
+				);
 			}
 			tr.setMeta('scrollIntoView', false);
 			return tr;

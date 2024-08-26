@@ -23,11 +23,7 @@ export const unsort = (oldOrder: { index: number; value: number }[], tableElemen
 	});
 };
 
-export const getSortOrderFromTable = (
-	tableNode: PMNode,
-	sortIndex: number,
-	direction: SortOrder,
-) => {
+const getSortOrderFromTable = (tableNode: PMNode, sortIndex: number, direction: SortOrder) => {
 	const tableArray = convertProsemirrorTableNodeToArrayOfRows(tableNode);
 	tableArray.shift(); // remove header row
 

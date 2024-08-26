@@ -19,7 +19,7 @@ import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaPluginState } from '../pm-plugins/types';
 import { isVideo } from '../utils/media-single';
 
-export const getSelectedMediaContainerNodeAttrs = (
+const getSelectedMediaContainerNodeAttrs = (
 	mediaPluginState: MediaPluginState,
 ): MediaBaseAttributes | null => {
 	const selectedNode = mediaPluginState.selectedMediaContainerNode?.();

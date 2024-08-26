@@ -5,7 +5,6 @@ export interface MediaFeatureFlags {
 	// https://product-fabric.atlassian.net/browse/MEX-104
 	folderUploads?: boolean;
 	commentsOnMedia?: boolean;
-	commentsOnMediaIncludePage?: boolean;
 	commentsOnMediaInsertExcerpt?: boolean;
 }
 

@@ -158,6 +158,7 @@ export const codeBlockSharedStyles = () => css`
 			padding: 0px ${token('space.100', '8px')};
 			flex-shrink: 0;
 			font-size: ${relativeFontSizeToBase16(fontSize())};
+			box-sizing: content-box;
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
@@ -200,6 +201,7 @@ export const codeBlockSharedStyles = () => css`
 			line-height: 1.5rem;
 			text-align: right;
 			color: ${token('color.text.subtlest', '#505F79')};
+			box-sizing: content-box;
 		}
 	}
 `;

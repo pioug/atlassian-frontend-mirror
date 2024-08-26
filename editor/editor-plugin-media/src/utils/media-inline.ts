@@ -11,7 +11,7 @@ import { isMediaSingle } from '../utils/media-single';
 import { isVideo } from './is-type';
 import { isInsidePotentialEmptyParagraph } from './media-common';
 
-export type MediaNodeType = 'inline' | 'block' | 'group';
+type MediaNodeType = 'inline' | 'block' | 'group';
 
 export const isInSupportedInlineImageParent = (state: EditorState): boolean => {
 	return hasParentNodeOfType([state.schema.nodes.listItem])(state.selection);

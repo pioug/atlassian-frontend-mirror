@@ -2,7 +2,6 @@ import {
 	extensionAwesomeList,
 	extensionBlockEh,
 	extensionsWithLayout,
-	extensionsWithinExpand,
 	extensionsWithinTable,
 } from '../__fixtures__/extension-layouts';
 import * as nestedIframe from '../__fixtures__/extension-iframe-nested.adf.json';
@@ -23,12 +22,6 @@ export const ExtensionBlockEh = generateRendererComponent({
 
 export const ExtensionsWithLayout = generateRendererComponent({
 	document: extensionsWithLayout,
-	appearance: 'full-page',
-	extensionHandlers,
-});
-
-export const ExtensionsWithinExpand = generateRendererComponent({
-	document: extensionsWithinExpand,
 	appearance: 'full-page',
 	extensionHandlers,
 });

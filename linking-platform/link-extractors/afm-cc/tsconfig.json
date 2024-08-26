@@ -20,9 +20,6 @@
     "references": [
         {
             "path": "../../../design-system/logo/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         }
     ]
 }

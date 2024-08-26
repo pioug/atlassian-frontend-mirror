@@ -19,13 +19,7 @@ const toEmojiAttrs = (emoji: EmojiAttrs): EmojiAttrs => {
 	};
 };
 
-const toEmojiId = (emoji: EmojiAttrs): EmojiAttrs => {
-	const { shortName, id, fallback } = emoji;
-	return { shortName, id, fallback };
-};
-
-export const grinEmojiAttrs = toEmojiAttrs(grinEmoji());
-export const grinEmojiId = toEmojiId(grinEmoji());
+const grinEmojiAttrs = toEmojiAttrs(grinEmoji());
 
 const createMockFragment = (fragment: any) => {
 	const mock = sinon.createStubInstance(Fragment);

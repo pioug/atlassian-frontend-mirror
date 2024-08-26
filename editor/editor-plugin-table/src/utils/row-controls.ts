@@ -2,14 +2,8 @@ import { parsePx } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import {
-	findTable,
-	getSelectionRect,
-	isRowSelected,
-	isTableSelected,
-} from '@atlaskit/editor-tables/utils';
+import { findTable, getSelectionRect, isRowSelected } from '@atlaskit/editor-tables/utils';
 
 import { TableCssClassName as ClassName } from '../types';
 import { tableDeleteButtonSize } from '../ui/consts';
@@ -39,18 +33,6 @@ export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
 	}
 
 	return heights;
-};
-
-export const isRowDeleteButtonVisible = (selection: Selection): boolean => {
-	if (
-		!isTableSelected(selection) &&
-		selection instanceof CellSelection &&
-		selection.isRowSelection()
-	) {
-		return true;
-	}
-
-	return false;
 };
 
 export const getRowDeleteButtonParams = (

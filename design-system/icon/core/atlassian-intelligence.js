@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a514c1b59ccaaadb3ce6969a06041007>>
+ * @codegen <<SignedSource::301de59356b2e8e4d7f3ab8482ece1be>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const AtlassianIntelligenceIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="m2 2 4 4m8 8-4-4m4-8-4 4m-8 8 4-4m2-9v3m0 8v3m7-7h-3M4 8H1"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="m2 2 4 4m8 8-4-4m4-8-4 4m-8 8 4-4m2-9v3m0 8v3m7-7h-3M4 8H1"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 AtlassianIntelligenceIcon.displayName = 'AtlassianIntelligenceIcon';

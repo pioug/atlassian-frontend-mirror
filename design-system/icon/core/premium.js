@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f6c30870eb3b46b083c9dacfed9f4843>>
+ * @codegen <<SignedSource::200d4b8f9f159a4edabbee99463b1b5c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PremiumIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 13.75h2.25m0 0H16m-2.25 0V11.5m0 2.25V16M0 2.25h2.25m0 0H4.5m-2.25 0V0m0 2.25V4.5M8 1.75l1.75 4.5L14.25 8l-4.5 1.75L8 14.25l-1.75-4.5L1.75 8l4.5-1.75z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 13.75h2.25m0 0H16m-2.25 0V11.5m0 2.25V16M0 2.25h2.25m0 0H4.5m-2.25 0V0m0 2.25V4.5M8 1.75l1.75 4.5L14.25 8l-4.5 1.75L8 14.25l-1.75-4.5L1.75 8l4.5-1.75z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PremiumIcon.displayName = 'PremiumIcon';

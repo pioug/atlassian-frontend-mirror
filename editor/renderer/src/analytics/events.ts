@@ -229,7 +229,7 @@ type ExpandAEP = AEP<
 	EVENT_TYPE.TRACK
 >;
 
-export type AnnotationActionType =
+type AnnotationActionType =
 	| ACTION.INSERTED
 	| ACTION.CLOSED
 	| ACTION.EDITED
@@ -239,16 +239,14 @@ export type AnnotationActionType =
 	| ACTION.VIEWED
 	| ACTION.CREATE_NOT_ALLOWED;
 
-export type AnnotationAEPAttributes =
-	| AnnotationDraftAEPAttributes
-	| AnnotationResolvedAEPAttributes;
+type AnnotationAEPAttributes = AnnotationDraftAEPAttributes | AnnotationResolvedAEPAttributes;
 
-export type AnnotationDraftAEPAttributes = {
+type AnnotationDraftAEPAttributes = {
 	//overlap is how many other annotations are within or overlapping with the new selection
 	overlap?: number;
 };
 
-export type AnnotationResolvedAEPAttributes = {
+type AnnotationResolvedAEPAttributes = {
 	method?: RESOLVE_METHOD;
 };
 
@@ -260,13 +258,13 @@ export type AnnotationDeleteAEP = AEP<
 	EVENT_TYPE.TRACK
 >;
 
-export enum RESOLVE_METHOD {
+enum RESOLVE_METHOD {
 	COMPONENT = 'component',
 	CONSUMER = 'consumer',
 	ORPHANED = 'orphaned',
 }
 
-export type AnnotationAEP = AEP<
+type AnnotationAEP = AEP<
 	AnnotationActionType,
 	ACTION_SUBJECT.ANNOTATION,
 	ACTION_SUBJECT_ID.INLINE_COMMENT,

@@ -1,14 +1,14 @@
 import React, { type ReactNode } from 'react';
 
-export type TaskItemsDone = boolean | undefined;
+type TaskItemsDone = boolean | undefined;
 
-export type TaskItemsStateContext = [TaskItemsDone, React.Dispatch<TaskItemsFormatReducerAction>];
+type TaskItemsStateContext = [TaskItemsDone, React.Dispatch<TaskItemsFormatReducerAction>];
 
 const defaultValue = [undefined, () => {}] as TaskItemsStateContext;
 
-export const TaskItemsFormatContext = React.createContext<TaskItemsStateContext>(defaultValue);
+const TaskItemsFormatContext = React.createContext<TaskItemsStateContext>(defaultValue);
 
-export type TaskItemsFormatReducerAction = boolean | undefined;
+type TaskItemsFormatReducerAction = boolean | undefined;
 
 const reducer = (_state: TaskItemsDone, action: TaskItemsFormatReducerAction) => {
 	return action;

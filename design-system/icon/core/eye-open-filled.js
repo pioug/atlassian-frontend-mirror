@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::18b5f56981e63513dc54a1395ffc2768>>
+ * @codegen <<SignedSource::7b3fb8ef821fc83acb973eef6bec7e3c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EyeOpenFilledIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" fill-rule="evenodd" d="M8 3.5A8.07 8.07 0 0 0 .75 8 8.07 8.07 0 0 0 8 12.5 8.07 8.07 0 0 0 15.25 8 8.07 8.07 0 0 0 8 3.5m0 8.75a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5" clip-rule="evenodd"/><path fill="currentColor" d="M9.25 8a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M8 3.5A8.07 8.07 0 0 0 .75 8 8.07 8.07 0 0 0 8 12.5 8.07 8.07 0 0 0 15.25 8 8.07 8.07 0 0 0 8 3.5Zm0 8.75a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Z" clip-rule="evenodd"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M9.25 8a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M8 3.5A8.07 8.07 0 0 0 .75 8 8.07 8.07 0 0 0 8 12.5 8.07 8.07 0 0 0 15.25 8 8.07 8.07 0 0 0 8 3.5m0 8.75a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5" clip-rule="evenodd"/><path fill="currentcolor" d="M9.25 8a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 3.5A8.07 8.07 0 0 0 .75 8 8.07 8.07 0 0 0 8 12.5 8.07 8.07 0 0 0 15.25 8 8.07 8.07 0 0 0 8 3.5Zm0 8.75a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Z" clip-rule="evenodd"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M9.25 8a1.25 1.25 0 1 1-2.5 0 1.25 1.25 0 0 1 2.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EyeOpenFilledIcon.displayName = 'EyeOpenFilledIcon';

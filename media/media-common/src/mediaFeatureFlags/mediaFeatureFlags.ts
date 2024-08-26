@@ -41,7 +41,6 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
 	// TODO https://product-fabric.atlassian.net/browse/MEX-104
 	folderUploads: false,
 	commentsOnMedia: false,
-	commentsOnMediaIncludePage: false,
 	commentsOnMediaInsertExcerpt: false,
 };
 

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 7.25.11
+
+### Patch Changes
+
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused exports
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused code and imports
+- [`638f18de80136`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/638f18de80136) -
+  Remove unused imports and code
+- [#133717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/133717)
+  [`a51c7a76fc031`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a51c7a76fc031) -
+  [ux] When isTableScaling is enabled in commment editor and table doesn't have width, use editor
+  width and apply infinite scaling instead of standard PTW40.
+
 ## 7.25.10
 
 ### Patch Changes

@@ -103,7 +103,7 @@ export const useFilePreview = ({
 		'max-age': maxAge,
 	};
 
-	if (fg('platform.media-card-performance-observer_lgc7b')) {
+	if (fg('platform.media-card-performance-observer_a803k')) {
 		imageURLParams = { ...imageURLParams, source };
 	}
 

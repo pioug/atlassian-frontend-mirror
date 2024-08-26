@@ -22,7 +22,7 @@ import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-export interface Props {
+interface Props {
 	type: 'extension' | 'inlineExtension' | 'bodiedExtension' | 'multiBodiedExtension';
 	extensionHandlers?: ExtensionHandlers;
 	providers?: ProviderFactory;
@@ -39,7 +39,7 @@ export interface Props {
 	children: ({ result }: { result?: JSX.Element | null }) => JSX.Element;
 }
 
-export interface State {
+interface State {
 	extensionProvider?: ExtensionProvider | null;
 }
 

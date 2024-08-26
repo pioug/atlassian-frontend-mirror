@@ -39,6 +39,9 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 				const fileId = matchFileId[1];
 				const clientId = matchClientId?.[1];
 				const ssr = matchSSR ? 'server' : undefined;
+				const navigationTime = performance.getEntriesByType('navigation')[0] as
+					| PerformanceNavigationTiming
+					| undefined;
 				const event = window[MEDIA_CARD_PERF_STATE_KEY].mediaCardCreateAnalyticsEvent({
 					eventType: 'operational',
 					action: 'succeeded',
@@ -47,6 +50,7 @@ const createAndGetResourceObserver = (): PerformanceObserver => {
 						ssr,
 						fileId: fileId,
 						mediaClientId: clientId,
+						startedAt: entry.startTime - (navigationTime?.domContentLoadedEventEnd || 0),
 
 						/**
 						 * Performance resource timing data regarding the loading of an

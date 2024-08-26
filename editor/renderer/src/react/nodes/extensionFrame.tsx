@@ -17,7 +17,7 @@ const containerCSS = css({
 	minHeight: '100px',
 });
 
-export type Props = React.PropsWithChildren<{
+type Props = React.PropsWithChildren<{
 	serializer: Serializer<any>;
 	extensionHandlers?: ExtensionHandlers;
 	rendererContext: RendererContext;

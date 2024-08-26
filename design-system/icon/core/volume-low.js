@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::955ee1cda52807f460afb889595eb769>>
+ * @codegen <<SignedSource::b1f0784396fea28a33c491ddeb285479>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const VolumeLowIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 6a2.83 2.83 0 0 1 0 4m-9.265-.038 4.99 3.94c.82.647 2.025.063 2.025-.981V3.079c0-1.044-1.205-1.628-2.025-.98l-4.99 3.939a2.5 2.5 0 0 0 0 3.924Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.5 6a2.83 2.83 0 0 1 0 4m-9.265-.038 4.99 3.94c.82.647 2.025.063 2.025-.981V3.079c0-1.044-1.205-1.628-2.025-.98l-4.99 3.939a2.5 2.5 0 0 0 0 3.924Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 VolumeLowIcon.displayName = 'VolumeLowIcon';

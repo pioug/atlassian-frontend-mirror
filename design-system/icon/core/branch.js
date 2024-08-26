@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4fe11d1f05684438041b6f4e7a177e7e>>
+ * @codegen <<SignedSource::b049d68835b9c0861923a23f98eaa5e8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BranchIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M3.25 8.25h7.688a1.813 1.813 0 0 0 1.812-1.812V4.75m-9.5 3.5v3m0-3v-3.5m0 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9.5-6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M3.25 8.25h7.688a1.813 1.813 0 0 0 1.812-1.812V4.75m-9.5 3.5v3m0-3v-3.5m0 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 6.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9.5-6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BranchIcon.displayName = 'BranchIcon';

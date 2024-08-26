@@ -146,41 +146,23 @@ describe('Renderer - Fallback analytics', () => {
 			},
 		);
 	});
+
 	describe('fires datasource renderFailed event when non error type is caught by boundary and do not log to Sentry', () => {
-		ffTest(
-			'platform.linking-platform.datasources.enable-sentry-client',
-			async () => {
-				const NonErrorChild = () => {
-					// eslint-disable-next-line no-throw-literal
-					throw { error: 'fake error message' };
-				};
-				const onAnalyticFireEvent = await setup(<NonErrorChild />, {
-					url,
-					datasourceId,
-				});
-				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-				expect(onAnalyticFireEvent).toBeCalledWith(
-					expect.objectContaining(renderFailedPayload),
-					EVENT_CHANNEL,
-				);
-				expect(captureException).not.toHaveBeenCalled();
-			},
-			async () => {
-				const NonErrorChild = () => {
-					// eslint-disable-next-line no-throw-literal
-					throw { error: 'fake error message' };
-				};
-				const onAnalyticFireEvent = await setup(<NonErrorChild />, {
-					url,
-					datasourceId,
-				});
-				expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-				expect(onAnalyticFireEvent).toBeCalledWith(
-					expect.objectContaining(renderFailedPayload),
-					EVENT_CHANNEL,
-				);
-				expect(captureException).not.toHaveBeenCalled();
-			},
-		);
+		it('regardless of sentry-client ff', async () => {
+			const NonErrorChild = () => {
+				// eslint-disable-next-line no-throw-literal
+				throw { error: 'fake error message' };
+			};
+			const onAnalyticFireEvent = await setup(<NonErrorChild />, {
+				url,
+				datasourceId,
+			});
+			expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+			expect(onAnalyticFireEvent).toBeCalledWith(
+				expect.objectContaining(renderFailedPayload),
+				EVENT_CHANNEL,
+			);
+			expect(captureException).not.toHaveBeenCalled();
+		});
 	});
 });

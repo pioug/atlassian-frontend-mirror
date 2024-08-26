@@ -18,7 +18,7 @@ import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { tableToolbarSize } from '../consts';
 
-export interface ButtonProps {
+interface ButtonProps {
 	type: TableDirection;
 	tableRef: HTMLElement;
 	onMouseDown: (event: SyntheticEvent<HTMLButtonElement>) => void;
@@ -96,7 +96,7 @@ const tooltipMessageByType = (type: TableDirection) => {
 	return type === 'row' ? messages.insertRow : messages.insertColumn;
 };
 
-export const InsertButtonForDragAndDrop = ({
+const InsertButtonForDragAndDrop = ({
 	onMouseDown,
 	tableRef,
 	type,

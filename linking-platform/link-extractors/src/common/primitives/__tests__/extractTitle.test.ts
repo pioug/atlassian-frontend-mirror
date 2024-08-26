@@ -1,7 +1,5 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { TEST_BASE_DATA, TEST_NAME } from '../../__mocks__/linkingPlatformJsonldMocks';
 import { extractTitle } from '../extractTitle';
 
@@ -60,7 +58,7 @@ describe('extractors.primitives.title', () => {
 		).toBe(`my-repo: ${TEST_NAME}`);
 	});
 
-	describe('returns correctly formatted title for file', () => {
+	it('returns correctly formatted title for file', () => {
 		const fileMockData = {
 			...(TEST_BASE_DATA as any),
 			'@type': ['schema:DigitalDocument', 'Document'],
@@ -71,14 +69,6 @@ describe('extractors.primitives.title', () => {
 			},
 		} as JsonLd.Data.SourceCodeReference;
 
-		ffTest(
-			'platform.linking-platform.extractor.improve-bitbucket-file-links',
-			() => {
-				expect(extractTitle(fileMockData)).toBe(`my-repo: ${TEST_NAME}`);
-			},
-			() => {
-				expect(extractTitle(fileMockData)).toBe(`${TEST_NAME}`);
-			},
-		);
+		expect(extractTitle(fileMockData)).toBe(`my-repo: ${TEST_NAME}`);
 	});
 });

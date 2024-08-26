@@ -10,9 +10,9 @@ import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import { insertColumnButtonOffset } from '../common-styles';
 
-export const BUTTON_WIDTH = 20;
+const BUTTON_WIDTH = 20;
 
-export interface Props {
+interface Props {
 	children: React.ReactNode;
 	mountTo: HTMLElement;
 	offset: number;

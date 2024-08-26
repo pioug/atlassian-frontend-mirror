@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::abdc189c11be5959088553dd8d208003>>
+ * @codegen <<SignedSource::1a46a26a3cfcf9ec229addc60e22a152>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PriorityTrivialIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<circle cx="8" cy="8" r="7.25" stroke="currentColor" stroke-width="1.5"/>`
+  dangerouslySetGlyph: `<circle cx="8" cy="8" r="7.25" stroke="currentcolor" stroke-width="1.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PriorityTrivialIcon.displayName = 'PriorityTrivialIcon';

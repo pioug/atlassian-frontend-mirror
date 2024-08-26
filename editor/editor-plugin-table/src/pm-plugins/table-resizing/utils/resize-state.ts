@@ -25,6 +25,7 @@ export const getResizeState = ({
 	domAtPos,
 	isTableScalingEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
+	isCommentEditor = false,
 }: {
 	minWidth: number;
 	maxSize: number;
@@ -34,13 +35,18 @@ export const getResizeState = ({
 	domAtPos: (pos: number) => { node: Node; offset: number };
 	isTableScalingEnabled: boolean;
 	shouldUseIncreasedScalingPercent: boolean;
+	isCommentEditor: boolean;
 }): ResizeState => {
-	if (isTableScalingEnabled) {
+	if (
+		(isTableScalingEnabled && !isCommentEditor) ||
+		(isTableScalingEnabled && isCommentEditor && table.attrs?.width)
+	) {
 		const scalePercent = getTableScalingPercent(table, tableRef, shouldUseIncreasedScalingPercent);
 		minWidth = Math.ceil(minWidth / scalePercent);
 	}
-	// If the table has been resized, we can use the column widths from the table node
+
 	if (hasTableBeenResized(table)) {
+		// If the table has been resized, we can use the column widths from the table node
 		const cols = calcTableColumnWidths(table).map((width, index) => ({
 			width: width === 0 ? tableNewColumnMinWidth : width,
 			minWidth: width === 0 ? tableNewColumnMinWidth : minWidth,
@@ -70,12 +76,16 @@ export const getResizeState = ({
 		isTableScalingEnabled,
 		shouldReinsertColgroup, // don't reinsert colgroup when preserving table width - this causes widths to jump
 		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
 	);
 	const cols = Array.from(colgroupChildren).map((_, index) => {
 		// If the table hasn't been resized and we have a table width attribute, we can use it
 		// to calculate the widths of the columns
 		if (isTableScalingEnabled) {
-			const tableNodeWidth = getTableContainerWidth(table);
+			// isCommentEditor when table cols were not resized,
+			// we want to use tableRef.parentElement.clientWidth, which is the same as maxSize
+			const tableNodeWidth =
+				isCommentEditor && !table.attrs?.width ? maxSize : getTableContainerWidth(table);
 			return {
 				index,
 				width: tableNodeWidth / colgroupChildren.length,
@@ -107,7 +117,7 @@ export const updateColgroup = (
 	tableRef: HTMLElement | null,
 	tableNode?: PMNode,
 	isTableScalingEnabled?: boolean,
-	shouldUseIncreasedScalingPercent?: boolean,
+	scalePercent?: number,
 ): void => {
 	const cols = tableRef?.querySelectorAll('col');
 	const columnsCount = cols?.length;
@@ -117,16 +127,11 @@ export const updateColgroup = (
      We need to remove !isColumnResizing if we handled auto scale table when mouseUp event.
      * */
 	if (isTableScalingEnabled && tableNode) {
-		const scalePercent = getTableScalingPercent(
-			tableNode,
-			tableRef,
-			shouldUseIncreasedScalingPercent,
-		);
 		state.cols
 			.filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
 			.forEach((column, i) => {
 				const fixedColWidth = getColWidthFix(column.width, columnsCount ?? 0);
-				const scaledWidth = fixedColWidth * scalePercent;
+				const scaledWidth = fixedColWidth * (scalePercent || 1);
 				const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
 				// we aren't handling the remaining pixels here when the 48px min width is reached
 				if (cols?.[i]) {
@@ -187,7 +192,7 @@ const getSpace = (columns: ColumnState[], start: number, end: number) =>
 		.map((col) => col.width)
 		.reduce((sum, width) => sum + width, 0);
 
-export const evenSelectedColumnsWidths = (resizeState: ResizeState, rect: Rect): ResizeState => {
+const evenSelectedColumnsWidths = (resizeState: ResizeState, rect: Rect): ResizeState => {
 	const cols = resizeState.cols;
 	const selectedSpace = getSpace(cols, rect.left, rect.right);
 	const allSpace = getSpace(cols, 0, cols.length);
@@ -302,13 +307,8 @@ export const bulkColumnsResize = (
 	return adjustColumnsWidths(newState, resizeState.maxSize);
 };
 
-export const areColumnsEven = (resizeState: ResizeState): boolean => {
-	const newResizeState = evenAllColumnsWidths(resizeState);
-	return newResizeState.cols.every((col, i) => col.width === resizeState.cols[i].width);
-};
-
 // Get the layout
-export const normaliseTableLayout = (input: string | undefined | null) => {
+const normaliseTableLayout = (input: string | undefined | null) => {
 	switch (input) {
 		case 'wide':
 			return input;
@@ -373,6 +373,15 @@ export const getNewResizeStateFromSelectedColumns = (
 		isTableScalingEnabledOnCurrentTable = table.node.attrs.displayMode !== 'fixed';
 	}
 
+	let shouldUseIncreasedScalingPercent =
+		isTableScalingWithFixedColumnWidthsOptionEnabled &&
+		fg('platform.editor.table.use-increased-scaling-percent');
+
+	if (isTableScalingEnabled && isCommentEditor) {
+		isTableScalingEnabledOnCurrentTable = true;
+		shouldUseIncreasedScalingPercent = true;
+	}
+
 	resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
 		maxSize,
@@ -381,10 +390,8 @@ export const getNewResizeStateFromSelectedColumns = (
 		start: table.start,
 		domAtPos,
 		isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
-		shouldUseIncreasedScalingPercent:
-			(isTableScalingWithFixedColumnWidthsOptionEnabled &&
-				fg('platform.editor.table.use-increased-scaling-percent')) ||
-			(isTableScalingEnabled && isCommentEditor),
+		shouldUseIncreasedScalingPercent,
+		isCommentEditor,
 	});
 
 	const newResizeState = evenSelectedColumnsWidths(resizeState, rect);

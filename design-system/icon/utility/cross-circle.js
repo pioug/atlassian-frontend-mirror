@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0566dfbf9feaf0e47472ce071b55af7d>>
+ * @codegen <<SignedSource::e96175d8a517ba5c9c43627285ce1cee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CrossCircleIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" fill-rule="evenodd" d="M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12m3.28-8.22L7.06 6l2.22 2.22-1.06 1.06L6 7.06 3.78 9.28 2.72 8.22 4.94 6 2.72 3.78l1.06-1.06L6 4.94l2.22-2.22z" clip-rule="evenodd"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M6 12A6 6 0 1 0 6 0a6 6 0 0 0 0 12m3.28-8.22L7.06 6l2.22 2.22-1.06 1.06L6 7.06 3.78 9.28 2.72 8.22 4.94 6 2.72 3.78l1.06-1.06L6 4.94l2.22-2.22z" clip-rule="evenodd"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

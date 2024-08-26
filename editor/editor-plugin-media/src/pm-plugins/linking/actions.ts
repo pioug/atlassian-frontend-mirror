@@ -5,20 +5,20 @@ export enum MediaLinkingActionsTypes {
 	unlink = 'MEDIA_LINKING_UNLINK',
 }
 
-export interface VisibleAction {
+interface VisibleAction {
 	type: MediaLinkingActionsTypes.showToolbar;
 }
 
-export interface HideAction {
+interface HideAction {
 	type: MediaLinkingActionsTypes.hideToolbar;
 }
 
-export interface SetLinkToMedia {
+interface SetLinkToMedia {
 	type: MediaLinkingActionsTypes.setUrl;
 	payload: string;
 }
 
-export interface Unlink {
+interface Unlink {
 	type: MediaLinkingActionsTypes.unlink;
 }
 

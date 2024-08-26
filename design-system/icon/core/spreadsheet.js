@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f3736b7405e253a64b6c4cc54391e690>>
+ * @codegen <<SignedSource::f230174f2d57b1c2ab3537d3cd5d2691>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SpreadsheetIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M5.75 2.75H2C1.31 2.75.75 3.31.75 4v4m5-5.25H14c.69 0 1.25.56 1.25 1.25v4m-9.5-5.25v10.5m0 0H14c.69 0 1.25-.56 1.25-1.25V8m-9.5 5.25H2c-.69 0-1.25-.56-1.25-1.25V8m0 0h14.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M5.75 2.75H2C1.31 2.75.75 3.31.75 4v4m5-5.25H14c.69 0 1.25.56 1.25 1.25v4m-9.5-5.25v10.5m0 0H14c.69 0 1.25-.56 1.25-1.25V8m-9.5 5.25H2c-.69 0-1.25-.56-1.25-1.25V8m0 0h14.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SpreadsheetIcon.displayName = 'SpreadsheetIcon';

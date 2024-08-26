@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d7cdf2eed9d5cd4df673fc3e32e34c13>>
+ * @codegen <<SignedSource::8561a595006070be3b70bf744d25336b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const EmojiIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M6.25 6.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m4.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentColor" stroke-width="1.5" d="M11.25 9.75S10 11.5 8 11.5 4.75 9.75 4.75 9.75M15.25 8A7.25 7.25 0 1 1 .75 8a7.25 7.25 0 0 1 14.5 0Zm-9-1.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm4.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.25 6.25a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m4.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentcolor" stroke-width="1.5" d="M11.25 9.75S10 11.5 8 11.5 4.75 9.75 4.75 9.75M15.25 8A7.25 7.25 0 1 1 .75 8a7.25 7.25 0 0 1 14.5 0Zm-9-1.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm4.5 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 EmojiIcon.displayName = 'EmojiIcon';

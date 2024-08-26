@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a45497668b9a3f4343950fad5d31cba4>>
+ * @codegen <<SignedSource::f1341f1d03d3f65cfaadfd910fa78624>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ChartMatrixIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M8 4.25a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M13.25 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-5.5 2.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/><path stroke="currentColor" stroke-width="1.5" d="M1.75 1v12c0 .69.56 1.25 1.25 1.25h12m-7-10a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM13.25 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-5.5 2.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M8 4.25a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M13.25 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-5.5 2.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0"/><path stroke="currentcolor" stroke-width="1.5" d="M1.75 1v12c0 .69.56 1.25 1.25 1.25h12m-7-10a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0ZM13.25 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm-5.5 2.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ChartMatrixIcon.displayName = 'ChartMatrixIcon';

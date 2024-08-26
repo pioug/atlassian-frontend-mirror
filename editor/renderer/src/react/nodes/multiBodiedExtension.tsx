@@ -27,7 +27,7 @@ import { RendererCssClassName } from '../../consts';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { token } from '@atlaskit/tokens';
 
-export type Props = React.PropsWithChildren<{
+type Props = React.PropsWithChildren<{
 	serializer: Serializer<any>;
 	extensionHandlers?: ExtensionHandlers;
 	rendererContext: RendererContext;

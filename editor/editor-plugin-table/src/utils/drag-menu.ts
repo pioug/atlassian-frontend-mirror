@@ -155,6 +155,7 @@ export const getDragMenuConfig = (
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void,
+	isCommentEditor = false,
 ): DragMenuConfig[] => {
 	const { selection } = editorView.state;
 	const { getIntl } = getTablePluginState(editorView.state);
@@ -303,6 +304,7 @@ export const getDragMenuConfig = (
 								getEditorContainerWidth,
 								isTableScalingEnabled,
 								isTableFixedColumnWidthsOptionEnabled,
+								isCommentEditor,
 							);
 
 							if (newResizeState) {
@@ -349,6 +351,7 @@ export const getDragMenuConfig = (
 						isTableScalingEnabled,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
+						isCommentEditor,
 					)(INPUT_METHOD.TABLE_CONTEXT_MENU, selectionRect ?? defaultSelectionRect)(
 						state,
 						dispatch,

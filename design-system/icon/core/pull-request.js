@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::808d7b52d3ba64441a892068a873cfd4>>
+ * @codegen <<SignedSource::36d14feea10ca497175d0c77ccc335d2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const PullRequestIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 3.25h3.188c1 0 1.812.811 1.812 1.813v6.187m-9.5-6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 0v6.5m0 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9.5 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m10.25.75-2.5 2.5 2.5 2.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M7.75 3.25h3.188c1 0 1.812.811 1.812 1.813v6.187m-9.5-6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Zm0 0v6.5m0 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9.5 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m10.25.75-2.5 2.5 2.5 2.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 PullRequestIcon.displayName = 'PullRequestIcon';

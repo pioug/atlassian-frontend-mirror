@@ -280,6 +280,9 @@
 		},
 		{
 			"path": "../editor-plugin-width/tsconfig.app.json"
+		},
+		{
+			"path": "../../monorepo-tooling/ts-loader/tsconfig.app.json"
 		}
 	],
 	"files": []

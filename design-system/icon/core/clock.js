@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::73b929fc5d2ee74da37961142be21b43>>
+ * @codegen <<SignedSource::4b3e4a0af463b13d4a394f86c05dae0d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ClockIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-width="1.5" d="M8 3.25V8l2.5 2m4.75-2A7.25 7.25 0 1 1 .75 8a7.25 7.25 0 0 1 14.5 0Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M8 3.25V8l2.5 2m4.75-2A7.25 7.25 0 1 1 .75 8a7.25 7.25 0 0 1 14.5 0Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ClockIcon.displayName = 'ClockIcon';

@@ -3,7 +3,7 @@ import { InlineCard } from './';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
 
-export type CardErrorBoundaryProps = {
+type CardErrorBoundaryProps = {
 	unsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>;
 };
 

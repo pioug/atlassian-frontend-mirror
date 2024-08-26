@@ -1,19 +1,10 @@
 import React, { type FC, type ReactNode } from 'react';
 
-import {
-	createAndFireEvent,
-	type UIAnalyticsEvent,
-	withAnalyticsContext,
-	withAnalyticsEvents,
-	type WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 
 import Field from './field';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-export interface AuthorProps extends WithAnalyticsEventsProps {
+export interface AuthorProps {
 	/**
 	 * The name of the author.
 	 */
@@ -39,7 +30,21 @@ export interface AuthorProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const Author: FC<AuthorProps> = ({ children, href, onClick, onFocus, onMouseOver }) => {
+const Author: FC<AuthorProps> = ({
+	children,
+	href,
+	onClick: providedOnClick,
+	onFocus,
+	onMouseOver,
+}) => {
+	const onClick = usePlatformLeafEventHandler<React.MouseEvent<HTMLAnchorElement, MouseEvent>>({
+		fn: (event, analyticsEvent) => providedOnClick && providedOnClick(event, analyticsEvent),
+		action: 'clicked',
+		componentName: 'commentAuthor',
+		packageName: process.env._PACKAGE_NAME_ as string,
+		packageVersion: process.env._PACKAGE_VERSION_ as string,
+	});
+
 	return (
 		<Field hasAuthor href={href} onClick={onClick} onFocus={onFocus} onMouseOver={onMouseOver}>
 			{children}
@@ -49,30 +54,5 @@ const Author: FC<AuthorProps> = ({ children, href, onClick, onFocus, onMouseOver
 
 Author.displayName = 'CommentAuthor';
 
-export { Author as CommentAuthorWithoutAnalytics };
-const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
-
-/**
- * __Comment author__
- *
- * The author of the comment.
- */
-const CommentAuthor = withAnalyticsContext({
-	componentName: 'commentAuthor',
-	packageName,
-	packageVersion,
-})(
-	withAnalyticsEvents({
-		onClick: createAndFireEventOnAtlaskit({
-			action: 'clicked',
-			actionSubject: 'commentAuthor',
-			attributes: {
-				componentName: 'commentAuthor',
-				packageName,
-				packageVersion,
-			},
-		}),
-	})(Author),
-);
-
-export default CommentAuthor;
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
+export default Author;

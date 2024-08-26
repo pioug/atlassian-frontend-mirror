@@ -9,7 +9,7 @@ var _base = require("@atlaskit/icon/base");
 var _clock = _interopRequireDefault(require("@atlaskit/icon/core/clock"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const EditorRecentIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
-  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentColor" fill-rule="evenodd" d="M11.305 12.282q.055.137.165.248l2 2a.75.75 0 0 0 1.06-1.06l-1.78-1.78V9a.75.75 0 1 0-1.5 0v3q.001.156.059.292ZM12 6a6 6 0 1 1 0 12 6 6 0 0 1 0-12"/></svg>`
+  dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="currentcolor" fill-rule="evenodd" d="M11.305 12.282q.055.137.165.248l2 2a.75.75 0 0 0 1.06-1.06l-1.78-1.78V9a.75.75 0 1 0-1.5 0v3q.001.156.059.292ZM12 6a6 6 0 1 1 0 12 6 6 0 0 1 0-12"/></svg>`
 }, props, {
   newIcon: _clock.default
 }));

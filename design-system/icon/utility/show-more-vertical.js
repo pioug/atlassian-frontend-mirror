@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d5b77055aef3bbcb39edb2adda3a72cd>>
+ * @codegen <<SignedSource::087e707812bac4ccfb521d92debdc063>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ShowMoreVerticalIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentColor" d="M6.5 6a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 4.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0-9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentColor" stroke-width="1.5" d="M6.5 6a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0 4.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0-9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`,
+  dangerouslySetGlyph: `<path fill="currentcolor" d="M6.5 6a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 4.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0-9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/><path stroke="currentcolor" stroke-width="1.5" d="M6.5 6a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0 4.75a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm0-9.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>`,
   type: 'utility'
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

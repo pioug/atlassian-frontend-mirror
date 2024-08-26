@@ -12,6 +12,7 @@ export const deleteColumnsCommand =
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
+		isCommentEditor = false,
 	): Command =>
 	(state, dispatch, view) => {
 		const tr = deleteColumns(
@@ -22,6 +23,7 @@ export const deleteColumnsCommand =
 			isTableScalingEnabled,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
+			isCommentEditor,
 		)(state.tr);
 		if (dispatch) {
 			dispatch(tr);

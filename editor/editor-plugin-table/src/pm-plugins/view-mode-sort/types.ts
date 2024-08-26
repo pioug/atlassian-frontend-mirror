@@ -20,4 +20,4 @@ export interface ViewModeSortPluginState {
 	allTables: HoverTableMeta[];
 }
 
-export type HoverTableMeta = [string, PMNode, number];
+type HoverTableMeta = [string, PMNode, number];

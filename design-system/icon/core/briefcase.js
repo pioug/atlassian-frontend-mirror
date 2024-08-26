@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4bcb2d8fcc82eed76abf5115bb378d2f>>
+ * @codegen <<SignedSource::d250cb5a68ebcd0478cbd11ac9d7724b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const BriefcaseIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 8.75V13c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25V8.75m-12.5 0V6c0-.69.56-1.25 1.25-1.25h1.75m-3 4H8m6.25 0V6c0-.69-.56-1.25-1.25-1.25h-1.75m3 4H8m0 0V11M4.75 4.75V3c0-.69.56-1.25 1.25-1.25h4c.69 0 1.25.56 1.25 1.25v1.75m-6.5 0h6.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M1.75 8.75V13c0 .69.56 1.25 1.25 1.25h10c.69 0 1.25-.56 1.25-1.25V8.75m-12.5 0V6c0-.69.56-1.25 1.25-1.25h1.75m-3 4H8m6.25 0V6c0-.69-.56-1.25-1.25-1.25h-1.75m3 4H8m0 0V11M4.75 4.75V3c0-.69.56-1.25 1.25-1.25h4c.69 0 1.25.56 1.25 1.25v1.75m-6.5 0h6.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 BriefcaseIcon.displayName = 'BriefcaseIcon';

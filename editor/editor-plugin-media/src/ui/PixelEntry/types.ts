@@ -56,7 +56,7 @@ export type PixelEntryFormValues = {
 
 export type PixelEntryValidation = 'valid' | 'greater-than-max' | 'less-than-min';
 
-export type PixelEntryFormData = {
+type PixelEntryFormData = {
 	width: number;
 	validation: PixelEntryValidation;
 };

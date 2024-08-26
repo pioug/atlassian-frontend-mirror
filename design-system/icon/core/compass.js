@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::91bd205c333d74ed6bf7499fe957cf89>>
+ * @codegen <<SignedSource::8ae203134e86f30b63195ecb869247cd>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const CompassIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M8 15.25A7.25 7.25 0 1 0 8 .75a7.25 7.25 0 0 0 0 14.5Z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m4.75 11.25 4.5-2-2.5-2.5z"/><path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75-4.5 2 2.5 2.5z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 15.25A7.25 7.25 0 1 0 8 .75a7.25 7.25 0 0 0 0 14.5Z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m4.75 11.25 4.5-2-2.5-2.5z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75-4.5 2 2.5 2.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 CompassIcon.displayName = 'CompassIcon';
